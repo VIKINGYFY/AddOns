@@ -1,5 +1,9 @@
 local myname, ns = ...
 
+--[[
+Notes:
+]]
+
 -- Treasures
 
 ns.RegisterPoints(ns.AZJKAHET, {
@@ -81,15 +85,32 @@ ns.RegisterPoints(ns.CITYOFTHREADS, {
     parent=true,
 })
 
+-- Itsy Bitsy Spider
+ns.RegisterPoints(ns.AZJKAHET, {
+    -- [] = {criteria=68972, quest=nil}, -- Webster
+    -- [] = {criteria=68973, quest=nil}, -- Spindle
+    -- [] = {criteria=68974, quest=nil}, -- Swift
+    -- [] = {criteria=68976, quest=nil}, -- Ru'murh
+    -- [] = {criteria=68977, quest=nil}, -- Thimble
+    -- [] = {criteria=68978, quest=nil}, -- Scampering Weave-Rat
+    -- [] = {criteria=68979, quest=nil}, -- General's Scouting Shadecaster
+}, {
+    achievement=40624,
+    atlas="WildBattlePet", color={r=0.75, g=1, b=0},
+    minimap=true,
+})
+
 -- Rares
 
 ns.RegisterPoints(ns.AZJKAHET, {
-    [62492877] = { -- Kaheti Silk Hauler
+    [65201896] = { -- Kaheti Silk Hauler
         -- [62404140, 68205360]
         criteria=69659,
         quest=81702,
         npc=221327,
         vignette=6134,
+        route={65201896, 65142033, 63122532, 62492877, 61882919},
+        note="Slowly wanders back and forth",
     },
     [76585780] = { -- XT-Minecrusher 8700
         criteria=69660,
@@ -181,30 +202,25 @@ ns.RegisterPoints(ns.AZJKAHET, {
         npc=214151,
         vignette=5973,
     },
-    -- UNKNOWN LOCATION
-    [85008500] = { -- Umbraclaw Matra
+    [64600352] = { -- Umbraclaw Matra
         criteria=69668,
         quest=82037,
         npc=216051,
         vignette=6186,
-        note="UNKNOWN LOCATION",
     },
-    [87008500] = { -- Deepcrawler Tx'kesh
+    [62940509] = { -- Kaheti Bladeguard
+        criteria=69670,
+        quest=82078,
+        npc=216052, -- Skirmisher Sa'ztyk
+        vignette=6204,
+        note="Patrols the area",
+    },
+    [64590667] = { -- Deepcrawler Tx'kesh
         criteria=69669,
         quest=82077,
         npc=222624,
         vignette=6203,
-        note="UNKNOWN LOCATION",
     },
-    --[[
-    [89008500] = { -- Kaheti Bladeguard
-        criteria=69670,
-        quest=82078,
-        npc=,
-        vignette=6204,
-        note="UNKNOWN LOCATION",
-    },
-    --]]
 }, {
     achievement=40840, -- Adventurer
 })

@@ -6,8 +6,8 @@ ns.defaults = {
 
     --FogOfWar
       colorR = 1,
-      colorG = 1,
-      colorB = 1,
+      colorG = 0,
+      colorB = 0,
       colorA = 1,
       colorR_Reduce = 0.65,
       colorG_Reduce = 0.65,

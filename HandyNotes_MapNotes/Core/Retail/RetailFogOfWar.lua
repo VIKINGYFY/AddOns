@@ -20,7 +20,7 @@ function ns.FogOfWar:OnEnable()
 	end
 end
 
-function FogOfWar:OnDisable()
+function ns.FogOfWar:OnDisable()
 	self:UnhookAll()
 end
 
@@ -73,7 +73,7 @@ function ns.FogOfWar:MapExplorationPin_RefreshOverlays(pin, fullUpdate)
 
 	local TILE_SIZE_WIDTH = layerInfo.tileWidth
 	local TILE_SIZE_HEIGHT = layerInfo.tileHeight
-	local r, g, b, a, r_Reduce, g_Reduce, b_Reduce, a_Reduce = self:GetOverlayColor()
+	local r, g, b, a, r_Reduce, g_Reduce, b_Reduce, a_Reduce, MistR, MistG, MistB, MistA = self:GetOverlayColor()
 	local drawLayer, subLevel = pin.dataProvider:GetDrawLayer()
 	for key, files in pairs(data) do
 		if not exploredTilesKeyed[key] then
@@ -122,12 +122,13 @@ function ns.FogOfWar:MapExplorationPin_RefreshOverlays(pin, fullUpdate)
 					texture:SetDrawLayer(drawLayer, subLevel - 1)
 
 					if ns.Addon.db.profile.activate.FogOfWar then
-						texture:SetVertexColor(r, g, b)
-						texture:SetAlpha(a)
+						texture:SetVertexColor(1, 1, 1)
+						texture:SetAlpha(1)
 					end
 
-					if not ns.Addon.db.profile.activate.MistOfTheUnexplored then
-						texture:SetVertexColor(1, 1, 1)
+					if ns.Addon.db.profile.activate.MistOfTheUnexplored then
+						texture:SetVertexColor(r, g, b)
+						texture:SetAlpha(a)
 					end
 
 					if ns.Addon.db.profile.activate.FogOfWarAlphaReduce then
@@ -156,11 +157,12 @@ end
 
 
 function ns.FogOfWar:GetOverlayColor()
-	return db.colorR, db.colorG, db.colorB, db.colorA, db.colorR_Reduce, db.colorG_Reduce, db.colorB_Reduce, db.colorA_Reduce
+	return db.colorR, db.colorG, db.colorB, db.colorA, db.colorR_Reduce, db.colorG_Reduce, db.colorB_Reduce, db.colorA_Reduce, db.MistR, db.MistG, db.MistB, db.MistA
 end
 
-function ns.FogOfWar:SetOverlayColor(info, r, g, b, a, r_Reduce, g_Reduce, b_Reduce, a_Reduce)
+function ns.FogOfWar:SetOverlayColor(info, r, g, b, a, r_Reduce, g_Reduce, b_Reduce, a_Reduce, MistR, MistG, MistB, MistA)
 	db.colorR_Reduce, db.colorG_Reduce, db.colorB_Reduce, db.colorA_Reduce = r_Reduce, g_Reduce, b_Reduce, a_Reduce
 	db.colorR, db.colorG, db.colorB, db.colorA = r, g, b, a
+	db.colorMistR, db.colorMistG, db.colorMistB, db.colorMistA = MistR, MistG, MistB, MistA
 	if self:IsEnabled() then self:Refresh() end
 end

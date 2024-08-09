@@ -857,7 +857,7 @@ function Addon:OnProfileChanged(event, database, newProfileKey)
   print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been changed"])
 end
 
-function Addon:OnProfileReset(event, database, newProfileKey)
+function Addon:OnProfileReset(event, database, newProfileKey, texture)
 	db = database.profile
   ns.Addon:FullUpdate()
   HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")

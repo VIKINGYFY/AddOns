@@ -2,7 +2,7 @@
 ## Title: HandyNotes: The War Within Treasures and Rares
 ## Notes: Where are the hidden treasures in the War Within?
 ## Author: Kemayo
-## Version: v8
+## Version: v10
 ## DefaultState: enabled
 ## X-Category: Map
 ## X-eMail: kemayo @ gmail DOT com
@@ -28,6 +28,9 @@ zones\RingingDeeps.lua
 achievements\GlyphHunter.lua
 #achievements\EchoesOfDanger.lua
 achievements\KhazAlgarLoreHunter.lua
+achievements\Races.lua
+
+shared\Delves.lua
 
 #profession_knowledge\Masters.lua
 profession_knowledge\Alchemy.lua

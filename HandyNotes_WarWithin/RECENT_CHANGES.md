@@ -1,6 +1,7 @@
-## Changed in v8
+## Changed in v10
 
-* Added Rocked to Sleep achievement
-* Found more rares in Ringing Deeps
-* General data improvements in Ringing Deeps
+* Ringing Deeps: added Notable Machines achievement
+* Started gathering data on sturdy chests in delves, only Earthcrawl Mines included so far
+* Minor data improvements in Isle of Dorn, Azj-Kahet
+* More background work on gathering data for the races
 

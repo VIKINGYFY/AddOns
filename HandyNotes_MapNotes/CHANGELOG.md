@@ -1,8 +1,11 @@
 # MapNote
-## [2.1.8](https://github.com/Ssesmar/MapNote) (2024-08-06)
+## [2.1.9](https://github.com/Ssesmar/MapNote) (2024-08-07)
 - Note:
 
 -- MapNotes now works on every version of World of Warcraft. Classic Era / Cataclysm / Retail / PTR
+
+• reworked zhTW translation file - thx to richygod
+• added a default color (red) to the Mist of the Unexplored function
 
 Version 2.1.8
 
@@ -11,19 +14,6 @@ Version 2.1.8
 Version 2.1.7
 
 • lib updates
-
-Version 2.1.6
-
-• add on every version the option to save / change / reset and delete profiles
-• It is now possible to create profiles and extract, delete, etc. 
-• It is now possible to apply a set profile to each character without having to adjust everything again for each character
-• But don't forget, you have to adapt the professions category in the capitals tab for each character to your professions later
-
-Version 2.1.5
-
-Retail:
-• added TWW Pre Event Portals in Orgrimma, Stormwind, Dustwallow, Searing Gorge and Dragonblight
-• added Portal names to Continent, Azeroth and Worldmap infos
 
 - Description:
 

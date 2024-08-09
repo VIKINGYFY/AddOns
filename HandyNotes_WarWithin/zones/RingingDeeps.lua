@@ -1,5 +1,25 @@
 local myname, ns = ...
 
+--[[
+Notes:
+
+https://www.wowhead.com/beta/achievement=40585/super-size-snuffling
+https://www.wowhead.com/beta/object=422531/disturbed-earth
+Disturbed Earth, (Odd Glob of Wax 212493)
+64816894, quest 84543, spawned enemy
+58148698, spawned slime to bounce on
+60488818, rockfall to dodge
+60969336, just spawned waxy lump
+62259498, spawned enemy (2229812)
+57907229, spawned enemy (216250)
+55773373, spawned enemy (229808)
+53493438, just spawned waxy lump
+45042805, fired into the air to catch waxy sprockets
+
+Worldsoul memories (vignette 6358)
+59516981
+]]
+
 -- Treasures
 
 ns.RegisterPoints(ns.RINGINGDEEPS, {
@@ -126,6 +146,20 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
 }, {
     achievement=40504,
     atlas="reagents", color={r=0.5, g=1, b=1},
+    minimap=true,
+})
+
+-- Notable Machines
+ns.RegisterPoints(ns.RINGINGDEEPS, {
+    [45892880] = {criteria=68991}, -- Notes On The Machine Speakers: Fragment I
+    [48932593] = {criteria=68992}, -- Notes On The Machine Speakers: Fragment II
+    [51071448] = {criteria=68993}, -- Notes On The Machine Speakers: Fragment III
+    [39892099] = {criteria=68994, note="Up on the scaffolding"}, -- Notes On The Machine Speakers: Fragment IV
+    [63705878] = {criteria=68995}, -- Notes On The Machine Speakers: Fragment V
+    [65107955] = {criteria=68996}, -- Notes On The Machine Speakers: Fragment VI
+}, {
+    achievement=40628,
+    texture=ns.atlas_texture("profession", {r=0, g=1, b=1}),
     minimap=true,
 })
 
@@ -268,13 +302,16 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
         npc=218393,
         vignette=6031,
     },
-    -- UNKNOWN LOCATION
-    [10009000] = { -- Deathbound Husk
+    [66716881] = { -- Deathbound Husk
         criteria=69627,
         quest=81566,
         npc=220272,
+        loot={
+            223368, -- Twisted Earthen Signet
+        },
         vignette=6106,
-        note="UNKNOWN LOCATION",
+        note="In cave",
+        path=67056796,
     },
     [12009000] = { -- Lurker of the Deeps
         criteria=69637,
