@@ -349,6 +349,6 @@ info.onMouseUp = function()
 
 	if not IsInGuild() then return end
 	infoFrame:Hide()
-	if not CommunitiesFrame then LoadAddOn("Blizzard_Communities") end
+	if not CommunitiesFrame then C_AddOns.LoadAddOn("Blizzard_Communities") end
 	if CommunitiesFrame then ToggleFrame(CommunitiesFrame) end
 end

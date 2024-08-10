@@ -802,7 +802,7 @@ function lib:CreateAddon(name, addon)
 	end
 
 	_G[name] = addon
-	addon.version = GetAddOnMetadata(name, "Version") or "1.0"
+	addon.version = C_AddOns.GetAddOnMetadata(name, "Version") or "1.0"
 	addon.numericVersion = tonumber(addon.version) or 1.0
 	addon.name = name
 	addon.title = name -- This may be changed by developers into other locales, but just use name for now

@@ -312,6 +312,30 @@ ns.conditions.CalendarEventStartTexture = Class{
     end
 }
 
+ns.conditions.DayOfWeek = Class{
+    __parent = Condition,
+    type = "weekday",
+    Label = function(self)
+        if self.DAYS[self.id] then
+            return _G["WEEKDAY_" .. self.DAYS[self.id]]
+        end
+        return "day " .. self.id
+    end,
+    Matched = function(self)
+        return tonumber(date('%w')) == self.id
+    end,
+
+    DAYS = {
+        [0] = "SUNDAY",
+        [1] = "MONDAY",
+        [2] = "TUESDAY",
+        [3] = "WEDNESDAY",
+        [4] = "THURSDAY",
+        [5] = "FRIDAY",
+        [6] = "SATURDAY",
+    },
+}
+
 -- Helpers:
 
 do

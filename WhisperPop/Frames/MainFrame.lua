@@ -8,7 +8,7 @@
 local addon = WhisperPop
 local L = addon.L
 
-local frame = addon.templates.CreateFrame("WhisperPopFrame", UIParent, true)
+local frame = addon.templates.CreateFrame("WhisperPopFrame", UIParent)
 addon.frame = frame
 
 function addon:ToggleFrame()
@@ -22,7 +22,7 @@ end
 addon.OnClashCmd = addon.ToggleFrame
 
 frame.text:SetText(L["title"])
-frame:SetPoint("BOTTOMLEFT", QuickJoinToastButton, "TOPLEFT", 0, 40)
+frame.defaultPos = {"BOTTOMLEFT", QuickJoinToastButton, "TOPLEFT", 0, 40}
 frame:SetSize(200, 324)
 
 local list = UICreateVirtualScrollList(frame:GetName().."List", frame, 1, nil, nil, "icon")
@@ -184,5 +184,6 @@ end)
 
 addon:RegisterEventCallback("OnResetFrames", function()
 	frame:ClearAllPoints()
-	frame:SetPoint("BOTTOMLEFT", QuickJoinToastButton, "TOPLEFT", 0, 40)
+	frame:SetPoint(unpack(frame.defaultPos))
+	addon:SavePosition(frame)
 end)

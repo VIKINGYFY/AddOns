@@ -1,0 +1,21 @@
+## Interface: 110000
+## Title: Angry Keystones
+## Notes: Displays additional information for Mythic Keystone dungeons
+## Author: Ermad
+## SavedVariables: AngryKeystones_Config, AngryKeystones_Data
+## SavedVariablesPerCharacter: AngryKeystones_CharacterConfig
+## OptionalDeps: !KalielsTracker
+## X-Packaged-Version: v0.31.1
+
+embeds.xml
+
+Core.lua
+Locale.lua
+Config.lua
+
+ObjectiveTracker.lua
+ProgressTracker.lua
+Keystone.lua
+Gossip.lua
+Splits.lua
+Schedule.lua

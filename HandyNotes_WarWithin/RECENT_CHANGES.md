@@ -1,7 +1,4 @@
-## Changed in v10
+## Changed in v11
 
-* Ringing Deeps: added Notable Machines achievement
-* Started gathering data on sturdy chests in delves, only Earthcrawl Mines included so far
-* Minor data improvements in Isle of Dorn, Azj-Kahet
-* More background work on gathering data for the races
+* Azj-Kahet: always show points on all layers of the map (e.g. a lower City of Threads point will still be visible if you're viewing upper Azj-Kahet)
 

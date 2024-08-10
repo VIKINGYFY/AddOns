@@ -497,7 +497,7 @@ end
 
 function module:ShowMinimapClock()
 	if C.db["Map"]["Clock"] then
-		if not TimeManagerClockButton then LoadAddOn("Blizzard_TimeManager") end
+		if not TimeManagerClockButton then C_AddOns.LoadAddOn("Blizzard_TimeManager") end
 		if not TimeManagerClockButton.styled then
 			TimeManagerClockButton:DisableDrawLayer("BORDER")
 			TimeManagerClockButton:ClearAllPoints()

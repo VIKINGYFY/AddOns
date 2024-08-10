@@ -395,7 +395,7 @@ function M:RaidTool_CountDown(parent)
 					end
 					reset = not reset
 				elseif C_AddOns.IsAddOnLoaded("BigWigs") then
-					if not SlashCmdList["BIGWIGSPULL"] then LoadAddOn("BigWigs_Plugins") end
+					if not SlashCmdList["BIGWIGSPULL"] then C_AddOns.LoadAddOn("BigWigs_Plugins") end
 					if reset then
 						SlashCmdList["BIGWIGSPULL"](C.db["Misc"]["DBMCount"])
 					else
