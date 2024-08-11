@@ -1,5 +1,5 @@
 <Bindings>
-    <Binding name="InspectRaidFrame" header="TinyInspect" category="ADDONS">
-        ToggleFrame(TinyInspectRaidFrame)
-    </Binding>
+	<Binding name="InspectRaidFrame" header="TinyInspect" category="ADDONS">
+		ToggleFrame(TinyInspectRaidFrame)
+	</Binding>
 </Bindings>

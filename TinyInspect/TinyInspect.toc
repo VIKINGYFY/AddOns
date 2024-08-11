@@ -5,24 +5,13 @@
 ## Notes-zhCN: 装等观察,装等显示
 ## Notes-zhTW: 裝等觀察,裝等顯示
 ## Author: M
+## RequiredDeps: NDui
 ## SavedVariables: TinyInspectDB
 
 libs\lib.xml
 
-locales\locales.xml
-Options.lua
-
-##ItemBorder.lua
-ItemLevel.lua
-
 InspectCore.lua
-
+InspectGroupMember.lua
 InspectUnit.lua
-InspectUnitStats.lua
 InspectUnitGemAndEnchant.lua
-InspectUnitSpecialization.lua
-InspectMouse.lua
-##InspectGroupMember.lua
-InspectParty.lua
-InspectRaid.lua
-PluginGreenState.lua
+InspectUnitGreenState.lua

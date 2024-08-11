@@ -280,7 +280,6 @@ local list = {
 		{AuraID = 186265, UnitID = "target"}, -- 灵龟守护
 		{AuraID = 187827, UnitID = "target"}, -- 恶魔变形
 		{AuraID = 188499, UnitID = "target"}, -- 刃舞
-		{AuraID = 197690, UnitID = "target"}, -- 防御姿态
 		{AuraID = 199754, UnitID = "target"}, -- 还击
 		{AuraID = 204018, UnitID = "target", Flash = true}, -- 破咒祝福
 		{AuraID = 205191, UnitID = "target"}, -- 以眼还眼 惩戒
