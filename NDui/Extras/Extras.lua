@@ -18,7 +18,6 @@ function EX:OnLogin()
 	end
 
 	self:ActionBarGlow()
-	self:AutoCollapse()
 	self:AutoHideName()
 	self:CastAlert()
 	self:InstanceAutoMarke()
@@ -30,20 +29,6 @@ end
 -- 频道选择
 function EX:GetMSGChannel()
 	return (IsPartyLFG() and "INSTANCE_CHAT") or (IsInRaid() and "RAID") or "PARTY"
-end
-
--- BOSS战斗自动收起任务追踪
-function EX.UpdateAutoCollapse(event)
-	if event == "ENCOUNTER_START" then
-		ObjectiveTracker_Collapse()
-	elseif event == "ENCOUNTER_END" then
-		ObjectiveTracker_Expand()
-	end
-end
-
-function EX:AutoCollapse()
-	B:RegisterEvent("ENCOUNTER_START", self.UpdateAutoCollapse)
-	B:RegisterEvent("ENCOUNTER_END", self.UpdateAutoCollapse)
 end
 
 -- 副本重置自动喊话
@@ -82,7 +67,6 @@ end
 
 function EX:InstanceDifficulty()
 	B:RegisterEvent("PLAYER_ENTERING_WORLD", EX.UpdateInstanceDifficulty)
-	B:RegisterEvent("PLAYER_DIFFICULTY_CHANGED", EX.UpdateInstanceDifficulty)
 end
 
 -- 进本自动标记坦克和治疗

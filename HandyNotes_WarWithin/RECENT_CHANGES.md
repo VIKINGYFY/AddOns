@@ -1,4 +1,7 @@
-## Changed in v11
+## Changed in v12
 
-* Azj-Kahet: always show points on all layers of the map (e.g. a lower City of Threads point will still be visible if you're viewing upper Azj-Kahet)
+* Isle of Dorn: improve the Turtle's Thanks treasure
+* Hallowfall: found the Pride of Beledar
+* Delves: added Mycomancer Cavern
+* Assorted minor improvements
 
