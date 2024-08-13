@@ -74,13 +74,13 @@ function EX:MDEnhance_UpdateScoreInfo(parent)
 	local affixScores, bestScore = C_MythicPlus.GetSeasonBestAffixScoreInfoForMap(parent.mapID)
 	if not affixScores or not bestScore then return end
 
-	parent.BScore:SetText(bestScore)
+	parent.BScore:SetText(bestScore or "")
 	parent.BScore:SetTextColor(0, 1, 0)
 
-	parent.FScore:SetText(affixScores[1].score)
+	parent.FScore:SetText(affixScores[1].score or "")
 	parent.FScore:SetTextColor(1, 1, 0)
 
-	parent.TScore:SetText(affixScores[2].score)
+	parent.TScore:SetText(affixScores[2].score or "")
 	parent.TScore:SetTextColor(0, 1, 1)
 end
 

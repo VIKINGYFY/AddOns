@@ -35,20 +35,26 @@ ns.RegisterPoints(ns.AZJKAHET, {
         loot={}, -- grays and commendations
         vignette=6283,
     },
+    [54525081] = { -- Niffen Stash
+        -- didn't appear until after I hit 73? Could just be a despawn-when-looted though...
+        criteria=69649,
+        quest=82721,
+        loot={
+            204730, -- Grub Grub
+            204790, -- Strong Sniffin' Soup for Niffen
+            204838, -- Discarded Toy
+            204842, -- Red Sparklepretty
+            213261, -- Niffen Smell Pouch
+        },
+        vignette=6282,
+        note="Hanging under the bridge",
+    },
     -- UNKNOWN LOCATION
     [85008900] = { -- Silk-spun Supplies
         criteria=69647,
         quest=82719,
         loot={},
         note="UNKNOWN LOCATION",
-    },
-    [89008900] = { -- Niffen Stash
-        -- check "Stashed Loot" 6382 @ 76405806
-        criteria=69649,
-        quest=82721,
-        loot={},
-        note="UNKNOWN LOCATION",
-        vignette=6282,
     },
 }, {
     achievement=40828,
@@ -101,6 +107,43 @@ ns.RegisterPoints(ns.AZJKAHET, {
     atlas="WildBattlePet", color={r=0.75, g=1, b=0},
     minimap=true,
     levels=true,
+})
+
+-- Smelling History
+ns.RegisterPoints(ns.AZJKAHET, {
+    -- [] = {criteria=68818,}, -- Strands of Memory
+    -- [] = {criteria=68971,}, -- Ethos of War, Part 1
+    [66693128] = {criteria=68980,}, -- Ethos of War, Part 2
+    -- [] = {criteria=68981,}, -- Ethos of War, Part 3
+    -- [] = {criteria=68982,}, -- Ethos of War, Part 4
+    -- [] = {criteria=68984,}, -- Queen Xekatha
+    -- [] = {criteria=68985,}, -- Queen Anub'izek
+    -- [] = {criteria=68986,}, -- Queen Zaltra
+    -- [] = {criteria=68987,}, -- Treatise on Forms: Sages
+    -- [] = {criteria=68988,}, -- Treatise on Forms: Skitterlings
+    -- [] = {criteria=69446,}, -- Treatise on Forms: Lords
+    -- [] = {criteria=69447,}, -- Treatise on Forms: Ascended
+}, {
+    achievement=40542,
+    texture=ns.atlas_texture("profession", {r=0, g=1, b=1}),
+    minimap=true,
+    levels=true,
+    active=ns.conditions.AuraActive(456122), -- Polymorphic Translation: Nerubian
+    note="Drink {item:225784:Potion of Polymorphic Translation Nerubian} first",
+})
+
+-- Bookworm
+ns.RegisterPoints(ns.AZJKAHET, {
+    -- [] = {criteria=68983,}, -- Entomological Essay on Grubs, Volume 1
+    -- [] = {criteria=68989,}, -- Entomological Essay on Grubs, Volume 2
+    -- [] = {criteria=68990,}, -- Entomological Essay on Grubs, Volume 3
+}, {
+    achievement=40629,
+    texture=ns.atlas_texture("profession", {r=1, g=0, b=1}),
+    minimap=true,
+    levels=true,
+    active=ns.conditions.AuraActive(456122), -- Polymorphic Translation: Nerubian
+    note="Drink {item:225784:Potion of Polymorphic Translation Nerubian} first",
 })
 
 -- Rares
@@ -161,6 +204,7 @@ ns.RegisterPoints(ns.AZJKAHET, {
         criteria=69655,
         quest=81699,
         npc=216041,
+        loot={223369}, -- Webspeaker's Spiritual Cloak
         vignette=6135,
     },
     [70732146] = { -- Cha'tak
