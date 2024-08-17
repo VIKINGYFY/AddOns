@@ -62,6 +62,7 @@ local list = {
 		{AuraID = 214342, UnitID = "player"}, -- 梦魇蛋壳
 		{AuraID = 265954, UnitID = "player"}, -- 点金护符
 		{AuraID = 271105, UnitID = "player"}, -- 血渍屠夫隔板
+		{AuraID = 403382, UnitID = "player"}, -- 奈萨里奥的混沌之召
 		{AuraID = 417139, UnitID = "player"}, -- 先知石鳞
 		{AuraID = 417452, UnitID = "player"}, -- 增速沙漏
 		{AuraID = 418527, UnitID = "player"}, -- 破碎翌日之镜

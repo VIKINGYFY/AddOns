@@ -58,7 +58,7 @@ function module:HyperlinkShowHook(link, _, button)
 				C_PartyInfo.InviteUnit(unit)
 				hide = true
 			elseif IsControlKeyDown() then
-				GuildInvite(unit)
+				C_GuildInfo.Invite(unit)
 				hide = true
 			end
 		elseif type == "BNplayer" then
@@ -75,7 +75,7 @@ function module:HyperlinkShowHook(link, _, button)
 				elseif IsControlKeyDown() then
 					local charName = gameAccountInfo.characterName
 					local realmName = gameAccountInfo.realmName
-					GuildInvite(charName.."-"..realmName)
+					C_GuildInfo.Invite(charName.."-"..realmName)
 					hide = true
 				end
 			end

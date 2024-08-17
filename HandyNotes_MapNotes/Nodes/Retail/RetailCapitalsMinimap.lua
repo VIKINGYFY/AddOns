@@ -122,7 +122,7 @@ if not db.activate.HideMapNote then
                         minimap[85][57179070] = { mnID = 17, name = "", TransportName = L["Blasted Lands"] .. "\n" .. "( " .. L["talk to"] .. ": " .. L["Thrallmar Mage"] .. " )" .. "\n" ..L["in the basement"], type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Blasted Lands
                         minimap[85][56399252] = { mnID = 74, name = DUNGEON_FLOOR_TANARIS18, TransportName = L["in the basement"], type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Caverns of Time 
                         minimap[85][55209201] = { mnID = 624, name = L["Warspear"], TransportName = L["in the basement"], type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Warspear - Ashran 
-                        minimap[85][57878985] = { mnID = 2339, name = L["Dornogal"] .. " " .. "(only PTR - Beta TWW)", TransportName = L["in the basement"], type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dornogal
+                        minimap[85][57878985] = { mnID = 2339, name = L["Dornogal"], TransportName = L["in the basement"], type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dornogal
                         minimap[85][47393928] = { mnID = 245, name = "", type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_TOLBARADWARLOCKSCENARIO0 } --  Portal to Tol Barad
                         minimap[85][48863851] = { mnID = 1527, name = "", type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. L["Uldum"] } -- Portal to Uldum
                         minimap[85][50243944] = { mnID = 241, name = "", type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. L["Twilight Highlands"] } -- Portal to Twilight Highlands
@@ -138,6 +138,10 @@ if not db.activate.HideMapNote then
                         minimap[85][44496228] = { mnID = 114, name = "", type = "HZeppelin", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Zeppelin"] .. " ==> " .. POSTMASTER_LETTER_WARSONGHOLD } -- Zeppelin from OG to Borean Tundra - Northrend
                         minimap[85][42796534] = { mnID = 88, name = "", type = "HZeppelin", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Zeppelin"] .. " ==> " ..  L["Thunder Bluff"]} -- Zeppelin from OG to Thunder Bluff
                         minimap[85][52275315] = { mnID = 50, name = "", type = "HZeppelin", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Zeppelin"] .. " ==> " .. L["Grom'gol, Stranglethorn Vale"] } -- Zeppelin from OG to Stranglethorn
+                    end
+
+                    if self.db.profile.showMinimapCapitalsFP then
+                        minimap[85][49705919] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelH", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     end
     
                 end
@@ -324,6 +328,10 @@ if not db.activate.HideMapNote then
                         minimap[88][14292570] = { mnID = 85, name = "", type = "HZeppelin", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Zeppelin"] .. " ==> " .. ORGRIMMAR } -- Zeppelin from Thunder Bluff to OG
                     end
 
+                    if self.db.profile.showMinimapCapitalsFP then
+                        minimap[88][46654989] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelH", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                    end
+
                 end
 
             --General Thunder Bluff
@@ -442,6 +450,10 @@ if not db.activate.HideMapNote then
                     if self.db.profile.showMinimapCapitalsPortals then
                         minimap[110][58511859] = { mnID = 85, name = "", type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ORGRIMMAR } -- Portal to Orgrimmar from Silvermoon 
                         minimap[110][49491509] = { mnID = 18, name = "", type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. L["Ruins of Lordaeron"] } -- Portal to Undercity from Silvermoon 
+                    end
+
+                    if self.db.profile.showMinimapCapitalsFP then
+                        minimap[110][63159649] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelH", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     end
 
                 end
@@ -568,6 +580,10 @@ if not db.activate.HideMapNote then
 
                     if self.db.profile.showMinimapCapitalsPortals then
                         minimap[90][85181711] = { mnID = 100, name = "", type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Old Undercity to Hellfire
+                    end
+
+                    if self.db.profile.showMinimapCapitalsFP then
+                        minimap[90][63084832] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelH", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     end
 
                 end
@@ -718,7 +734,11 @@ if not db.activate.HideMapNote then
                         minimap[624][53184384] = { mnID = 534, name = L["Vol'mar"], type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Ashran to Vol'mar Captive
                         minimap[624][60825159] = { mnID = 85, name = "", type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ORGRIMMAR } -- Portal from Garrison to Ashran
                         minimap[590][75184879] = { mnID = 624, name = L["Ashran"], type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Garrison to Ashran
+                    end
 
+                    if self.db.profile.showMinimapCapitalsFP then
+                        minimap[590][45665027] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelH", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                        minimap[624][44133387] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelH", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     end
 
                 end
@@ -859,6 +879,12 @@ if not db.activate.HideMapNote then
 
                     if self.db.profile.showMinimapCapitalsTransport then
                         minimap[1165][41838761] = { mnID = 1462, name = L["Captain Krooz"] .. " " .. L["Travel"], type = "GoblinF", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Transport from Dazar'alor to Mechagon
+                    end
+
+                    if self.db.profile.showMinimapCapitalsFP then
+                        minimap[1165][52098994] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelH", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                        minimap[1165][51654120] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelH", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                        minimap[1165][53121928] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelH", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     end
 
                 end
@@ -1108,7 +1134,7 @@ if not db.activate.HideMapNote then
                         minimap[84][23865611] = { mnID = 89, name = "", type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. L["Darnassus"] } -- Portal to Darnassus 
                         minimap[84][63197339] = { mnID = 407, name = L["Transport"] .. " ==> " .. CALENDAR_FILTER_DARKMOON, TransportName = "\n" .. REQUIRES_LABEL .. " " .. CALENDAR_FILTER_DARKMOON .. "\n" .. L["Starting on the first Sunday of each month for one week"], type = "DarkMoon", showInZone = false, showOnContinent = false, showOnMinimap = true }
                         minimap[84][62043235] = { mnID = 407, name = L["Transport"] .. " ==> " .. CALENDAR_FILTER_DARKMOON, TransportName = "\n" .. REQUIRES_LABEL .. " " .. CALENDAR_FILTER_DARKMOON .. "\n" .. L["Starting on the first Sunday of each month for one week"], type = "DarkMoon", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                        minimap[84][40819280] = { mnID = 2339, name = L["Dornogal"] .. " " .. "(only PTR - Beta TWW)", TransportName = L["in the basement"], type = "APortalS", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dornogal
+                        minimap[84][40819280] = { mnID = 2339, name = L["Dornogal"], type = "APortalS", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dornogal
                     end
    
                     if self.db.profile.showMinimapCapitalsShips then
@@ -1119,6 +1145,10 @@ if not db.activate.HideMapNote then
 
                     if self.db.profile.showMinimapCapitalsTransport then
                         minimap[84][66783455] = { mnID = 499, name = "", type = "Carriage", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = DUNGEON_FLOOR_DEEPRUNTRAM1 .. " ==> " .. L["Ironforge"] } -- Transport to Ironforge Carriage
+                    end
+
+                    if self.db.profile.showMinimapCapitalsFP then
+                        minimap[84][71977195] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelA", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     end
 
                 end
@@ -1278,6 +1308,10 @@ if not db.activate.HideMapNote then
 
                     if self.db.profile.showMinimapCapitalsTransport then
                         minimap[87][72545022] = { mnID = 84, name = "", type = "Carriage", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = DUNGEON_FLOOR_DEEPRUNTRAM1 .. " ==> " .. STORMWIND } -- Transport to Stormwind Carriage
+                    end
+
+                    if self.db.profile.showMinimapCapitalsFP then
+                        minimap[87][55884786] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelA", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     end
 
                 end
@@ -1454,6 +1488,10 @@ if not db.activate.HideMapNote then
                         minimap[89][44127840] = { name = "", type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portals"] .. "\n" .. " ==> " .. L["Exodar"] .. "\n" .. " ==> " .. L["Hellfire Peninsula"] } -- Portal To Darnassus from Teldrassil
                     end
 
+                    if self.db.profile.showMinimapCapitalsFP then
+                        minimap[89][36724827] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelA", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                    end
+
                 end
 
             --Professions Darnassus
@@ -1568,6 +1606,10 @@ if not db.activate.HideMapNote then
 
                     if self.db.profile.showMinimapCapitalsPortals then
                         minimap[103][48326264] = { mnID = 84, name = "", type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. STORMWIND } -- Portal Exodar to Stormwind
+                    end
+
+                    if self.db.profile.showMinimapCapitalsFP then
+                        minimap[103][54383659] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelA", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     end
 
                 end
@@ -1708,6 +1750,11 @@ if not db.activate.HideMapNote then
                         minimap[582][69692706] = { mnID = 622, name = L["Ashran"], type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Garison to Ashran
                         minimap[622][36234113] = { mnID = 534, name = "", type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. SPLASH_NEW_6_2_FEATURE1_TITLE } -- Portal from Ashran to Lion's Watch
                         minimap[622][60813785] = { mnID = 84,  name = "" , type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. STORMWIND } -- Portal from Ashran to Stormwind
+                    end
+
+                    if self.db.profile.showMinimapCapitalsFP then
+                        minimap[662][30554842] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelA", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                        minimap[582][47764933] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelA", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     end
 
                 end
@@ -1864,6 +1911,10 @@ if not db.activate.HideMapNote then
 
                     if self.db.profile.showMinimapCapitalsTransport then
                         minimap[1161][67952670] = { mnID = 862, mnID2 = 864, mnID3 = 863, name = L["(Grand Admiral Jes-Tereth) will take you to Vol'Dun, Nazmir or Zuldazar"], dnID = " " .. ITEM_REQ_ALLIANCE, type = "GilneanF", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Dazar'alor to Mechagon
+                    end
+
+                    if self.db.profile.showMinimapCapitalsFP then
+                        minimap[1161][47916532] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelA", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     end
 
                 end
@@ -2100,6 +2151,10 @@ if not db.activate.HideMapNote then
                     end
                 end
 
+                if self.db.profile.showMinimapCapitalsFP then
+                    minimap[111][63794171] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelL", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                end
+
             end
 
         --Professions Shattrath
@@ -2316,6 +2371,10 @@ if not db.activate.HideMapNote then
                     end
                 end
 
+                if self.db.profile.showMinimapCapitalsFP then
+                    minimap[125][72164583] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelL", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                end
+
             end
 
         --Professions Dalaran Northrend
@@ -2506,6 +2565,10 @@ if not db.activate.HideMapNote then
                     end
                 end
 
+                if self.db.profile.showMinimapCapitalsFP then
+                    minimap[627][69825114] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelL", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                end
+
             end
 
         --Professions Dalaran Legion
@@ -2675,6 +2738,10 @@ if not db.activate.HideMapNote then
                     minimap[1671][49554241] = { mnID = 1670, name = "", type = "Tport2", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Transport"] .. " ==> " .. DUNGEON_FLOOR_GILNEAS2  } -- Oribos to The Maw
                 end
 
+                if self.db.profile.showMinimapCapitalsFP then
+                    minimap[1671][60196756] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelL", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                end
+
             end
 
         --Professions Oribos
@@ -2806,6 +2873,10 @@ if not db.activate.HideMapNote then
                     if self.faction == "Alliance" or db.activate.MinimapCapitalsEnemyFaction then
                         minimap[2112][59804169] = { mnID = 84,  name = L["(inside building)"], type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. STORMWIND } -- Valdrakken to Stormwind City Portal
                     end
+                end
+
+                if self.db.profile.showMinimapCapitalsFP then
+                    minimap[2112][44476790] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelL", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 end
 
             end
@@ -3081,7 +3152,7 @@ if not db.activate.HideMapNote then
                 end
 
                 if self.db.profile.showMinimapCapitalsFP then
-                    minimap[2339][44695114] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelL", showInZone = false, showOnContinent = false, showOnMinimap = true } -- test
+                    minimap[2339][44695114] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelL", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 end
 
             end

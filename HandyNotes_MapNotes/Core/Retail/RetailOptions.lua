@@ -705,7 +705,7 @@ ns.options = {
                   disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.Capitals end,
                   type = "toggle",
                   name = TextIconDornogal:GetIconString() .. " " .. L["Dornogal"],
-                  desc = "The War Within Beta",
+                  desc = EXPANSION_NAME10,
                   width = 0.80,
                   order = 14.6,
                   set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
@@ -1681,7 +1681,7 @@ ns.options = {
                   disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MinimapCapitals or ns.Addon.db.profile.activate.SyncCapitalsAndMinimap end,
                   type = "toggle",
                   name = TextIconDornogal:GetIconString() .. " " .. L["Dornogal"],
-                  desc = "The War Within Beta",
+                  desc = EXPANSION_NAME10,
                   width = 0.80,
                   order = 83.6,
                   set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 

@@ -130,6 +130,9 @@ ns.conditions.Faction = Class{
         elseif GetFactionInfoByID then
             name, _, standingid = GetFactionInfoByID(self.id)
         end
+        if name and standingid then
+            return self.rank <= standingid
+        end
     end,
 }
 
@@ -140,7 +143,7 @@ ns.conditions.MajorFaction = Class{
         local info = C_MajorFactions.GetMajorFactionData(self.id)
         if info then
             if self.rank then
-                return self.rank <= info.renownLevel 
+                return self.rank <= info.renownLevel
             end
             return info.isUnlocked
         end

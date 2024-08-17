@@ -215,6 +215,14 @@ oUF.Tags.Methods["npctitle"] = function(unit)
 			return "<"..guildName..">"
 		end
 	elseif not isPlayer and C.db["Nameplate"]["NameOnlyTitle"] then
+		scanTip:SetOwner(UIParent, "ANCHOR_NONE")
+		scanTip:SetUnit(unit)
+
+		local title = _G[format("NDui_ScanTooltipTextLeft%d", GetCVarBool("colorblindmode") and 3 or 2)]:GetText()
+		if title and not string.find(title, "^"..LEVEL) then
+			return title
+		end
+--[[
 		local data = not DB.isWW and C_TooltipInfo.GetUnit(unit) -- FIXME: ColorMixin error
 		if not data then return "" end
 
@@ -225,6 +233,7 @@ oUF.Tags.Methods["npctitle"] = function(unit)
 				return title
 			end
 		end
+]]
 	end
 end
 oUF.Tags.Events["npctitle"] = "UNIT_NAME_UPDATE"

@@ -1,19 +1,13 @@
 # MapNote
-## [2.1.9](https://github.com/Ssesmar/MapNote) (2024-08-07)
+## [2.2.0](https://github.com/Ssesmar/MapNote) (2024-08-13)
 - Note:
 
 -- MapNotes now works on every version of World of Warcraft. Classic Era / Cataclysm / Retail / PTR
 
-• reworked zhTW translation file - thx to richygod
-• added a default color (red) to the Mist of the Unexplored function
-
-Version 2.1.8
-
-• update PTR
-
-Version 2.1.7
-
-• lib updates
+Version 2.2.0
+Retail & TWW:
+• add flight master icons for capitals
+• update for TWW
 
 - Description:
 

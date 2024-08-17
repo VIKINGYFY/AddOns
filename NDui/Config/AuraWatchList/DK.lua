@@ -47,6 +47,7 @@ local list = {
 		{AuraID =  81256, UnitID = "player"}, -- 符文刃舞
 		{AuraID = 116888, UnitID = "player", Value = true, Flash = true}, -- 炼狱蔽体
 		{AuraID = 152279, UnitID = "player", Flash = true}, -- 冰龙吐息
+		{AuraID = 194844, UnitID = "player"}, -- 白骨风暴
 		{AuraID = 195181, UnitID = "player"}, -- 白骨之盾
 		{AuraID = 196770, UnitID = "player"}, -- 冷酷严冬
 		{AuraID = 211805, UnitID = "player"}, -- 风暴汇聚
@@ -60,6 +61,7 @@ local list = {
 		{AuraID = 391481, UnitID = "player"}, -- 凝血
 		{AuraID = 391527, UnitID = "player", Value = true}, -- 永恒脐带
 		{AuraID = 454871, UnitID = "player", Flash = true}, -- 抽血
+		{AuraID = 458745, UnitID = "player"}, -- 骨化锋刺
 	},
 }
 

@@ -30,7 +30,7 @@ local function GetMembers(num, unitprefix)
 		if (guid) then temp[guid] = unit end
 	end
 	for guid, v in pairs(members) do
-		if (not temp[guid] and v.unit ~= "player") then
+		if (not temp[guid]) then
 			members[guid] = nil
 		end
 	end
@@ -68,7 +68,7 @@ local function SendInspect(unit)
 		return
 	end
 	for guid, v in pairs(members) do
-		if ((not v.done or v.ilevel <= 0) and UnitIsConnected(v.unit) and CanInspect(v.unit)) then
+		if ((not v.done or v.ilevel <= 0) and UnitIsVisible(v.unit) and CanInspect(v.unit)) then
 			ClearInspectPlayer()
 			NotifyInspect(v.unit)
 			LibEvent:trigger("GROUP_MEMBER_INSPECT_STARTED", v)
@@ -98,7 +98,7 @@ LibEvent:attachEvent("CHAT_MSG_ADDON", function(self, prefix, text, channel, sen
 			if (v.name == name and v.realm == realm) then
 				v.ilevel = tonumber(ilvl) or -1
 				v.done = true
-				if (class) then v.class = class end
+				if (class and class ~= "") then v.class = class end
 				if (spec and spec ~= "") then v.spec = spec end
 				LibEvent:trigger("GROUP_MEMBER_INSPECT_READY", v)
 			end
@@ -124,7 +124,7 @@ end)
 --人員增加時觸發 @trigger GROUP_MEMBER_INSPECT_TIMEOUT @trigger GROUP_MEMBER_INSPECT_DONE
 LibEvent:attachEvent("GROUP_ROSTER_UPDATE", function(self)
 	local unitprefix = (IsInRaid() and "raid") or "party"
-	local numCurrent = (unitprefix == "party" and GetNumSubgroupMembers()) or GetNumGroupMembers()
+	local numCurrent = (IsInRaid() and GetNumGroupMembers()) or GetNumSubgroupMembers()
 
 	if (numCurrent ~= numMembers) then
 		GetMembers(numCurrent, unitprefix)
@@ -144,9 +144,7 @@ LibEvent:attachEvent("GROUP_ROSTER_UPDATE", function(self)
 			elasped   = 1,
 			begined   = GetTime() + 2,
 			expired   = GetTime() + (unitprefix == "party" and 30 or 900),
-			onTimeout = function(self)
-				LibEvent:trigger("GROUP_MEMBER_INSPECT_TIMEOUT", members)
-			end,
+			onTimeout = function(self) LibEvent:trigger("GROUP_MEMBER_INSPECT_TIMEOUT", members) end,
 			onExecute = function(self)
 				if (not IsInGroup()) then return true end
 				if (InspectDone()) then
@@ -302,7 +300,7 @@ local function ShowMembersList()
 		role = v.role or UnitGroupRolesAssigned(v.unit)
 		r, g, b = GetClassColor(v.class)
 		if (role == "TANK" or role == "HEALER" or role == "DAMAGER") then
-			button.role:SetTexCoord(GetTexCoordsForRoleSmallCircle(role))
+			button.role:SetAtlas(GetMicroIconForRole(role))
 			button.role:Show()
 		else
 			button.role:Hide()
@@ -339,27 +337,6 @@ local function SortAndShowMembersList()
 	end
 	ShowMembersList()
 end
-
---團友變更或觀察到數據時更新顯示
-LibEvent:attachTrigger("GROUP_MEMBER_CHANGED, GROUP_MEMBER_INSPECT_TIMEOUT, GROUP_MEMBER_INSPECT_READY, GROUP_MEMBER_INSPECT_DONE", function(self)
-	MakeMembersList()
-	SortAndShowMembersList()
-end)
-
---高亮正在讀取的人員
-LibEvent:attachTrigger("GROUP_MEMBER_INSPECT_STARTED", function(self, data)
-	if (not frame.panel:IsShown()) then return end
-	local i = 1
-	local button
-	while (frame.panel["button"..i]) do
-		button = frame.panel["button"..i]
-		if (button.guid == data.guid) then
-			button.ilevel:SetText("|cff22ff22...|r")
-			break
-		end
-		i = i + 1
-	end
-end)
 
 --團友列表
 frame.panel = CreateFrame("Frame", nil, frame)
@@ -405,6 +382,27 @@ local function rescanOnClick(self)
 		end,
 	})
 end
+
+--團友變更或觀察到數據時更新顯示
+LibEvent:attachTrigger("GROUP_MEMBER_CHANGED, GROUP_MEMBER_INSPECT_TIMEOUT, GROUP_MEMBER_INSPECT_READY, GROUP_MEMBER_INSPECT_DONE", function(self)
+	MakeMembersList()
+	SortAndShowMembersList()
+end)
+
+--高亮正在讀取的人員
+LibEvent:attachTrigger("GROUP_MEMBER_INSPECT_STARTED", function(self, data)
+	if (not frame.panel:IsShown()) then return end
+	local i = 1
+	local button
+	while (frame.panel["button"..i]) do
+		button = frame.panel["button"..i]
+		if (button.guid == data.guid) then
+			button.ilevel:SetText("|cff22ff22...|r")
+			break
+		end
+		i = i + 1
+	end
+end)
 
 --初始化美化API
 LibEvent:attachEvent("PLAYER_LOGIN", function()

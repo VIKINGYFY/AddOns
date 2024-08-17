@@ -458,7 +458,6 @@ G.DefaultSettings = {
 		ToggleDirection = 1,
 		BlizzardSkins = true,
 		SkinAlpha = .5,
-		DefaultBags = true,
 		FlatMode = true,
 		AlertFrames = true,
 		FontOutline = true,
@@ -467,6 +466,7 @@ G.DefaultSettings = {
 		BgTex = true,
 		GreyBD = false,
 		FontScale = 1,
+		QuestTracker = true,
 	},
 	Tooltip = {
 		HideInCombat = 1,
@@ -1108,7 +1108,7 @@ local function AddNewTag(parent, anchor)
 end
 
 G.TabList = {
-	IsNew..L["Actionbar"],
+	L["Actionbar"],
 	L["Bags"],
 	L["Unitframes"],
 	IsNew..L["RaidFrame"],
@@ -1118,7 +1118,7 @@ G.TabList = {
 	IsNew..L["Raid Tools"],
 	IsNew..L["ChatFrame"],
 	L["Maps"],
-	L["Skins"],
+	IsNew..L["Skins"],
 	IsNew..L["Tooltip"],
 	L["Misc"],
 	L["UI Settings"],
@@ -1129,7 +1129,7 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 	[1] = {
 		{1, "Actionbar", "Enable", HeaderTag..L["Enable Actionbar"], nil, setupActionBar},
 		{},--blank
-		{1, "Actionbar", "MicroMenu", IsNew..L["Micromenu"], nil, setupMicroMenu, nil, L["MicroMenuTip"]},
+		{1, "Actionbar", "MicroMenu", L["Micromenu"], nil, setupMicroMenu, nil, L["MicroMenuTip"]},
 		{1, "Actionbar", "ShowStance", L["ShowStanceBar"], true, setupStanceBar},
 		{},--blank
 		{1, "Actionbar", "Cooldown", HeaderTag..L["Show Cooldown"]},
@@ -1190,7 +1190,6 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 	[4] = {
 		{1, "UFs", "RaidFrame", HeaderTag..L["UFs RaidFrame"], nil, setupRaidFrame, nil, L["RaidFrameTip"]},
 		{1, "UFs", "SimpleMode", L["SimpleRaidFrame"], true, setupSimpleRaidFrame, nil, L["SimpleRaidFrameTip"]},
-		{},--blank
 		{1, "UFs", "PartyFrame", HeaderTag..L["PartyFrame"], nil, setupPartyFrame, nil, L["PartyFrameTip"]},
 		{1, "UFs", "PartyPetFrame", HeaderTag..L["PartyPetFrame"], true, setupPartyPetFrame, nil, L["PartyPetTip"]},
 		{},--blank
@@ -1385,7 +1384,7 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 	[11] = {
 		{1, "Skins", "BlizzardSkins", HeaderTag..L["BlizzardSkins"], nil, nil, nil, L["BlizzardSkinsTips"]},
 		{1, "Skins", "AlertFrames", L["ReskinAlertFrames"], true},
-		{1, "Skins", "DefaultBags", L["DefaultBags"], nil, nil, nil, L["DefaultBagsTips"]},
+		{1, "Skins", "QuestTracker", IsNew..L["QuestTracker"]},
 		{1, "Skins", "Loot", L["Loot"], true},
 		{1, "Skins", "PetBattle", L["PetBattle Skin"]},
 		{1, "Skins", "FlatMode", L["FlatMode"], true},

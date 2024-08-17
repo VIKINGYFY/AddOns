@@ -49,12 +49,14 @@ ns.RegisterPoints(ns.AZJKAHET, {
         vignette=6282,
         note="Hanging under the bridge",
     },
-    -- UNKNOWN LOCATION
-    [85008900] = { -- Silk-spun Supplies
+    [67492754] = { -- Silk-spun Supplies
+        -- Wasn't around for ages; despawn-when-looted?
         criteria=69647,
         quest=82719,
-        loot={},
-        note="UNKNOWN LOCATION",
+        loot={
+            224828, -- Weavercloth
+            224441, -- Weavercloth Bandage
+        },
     },
 }, {
     achievement=40828,
@@ -93,20 +95,31 @@ ns.RegisterPoints(ns.CITYOFTHREADS, {
     parent=true, levels=true, translate={[2256]=true},
 })
 
+ns.RegisterPoints(ns.AZJKAHET, {
+    [34076105] = {
+        label="Concealed Contraband",
+        quest=82525,
+        loot={},
+        level=74,
+        path={33846068, 33796026, 34015980, 34365949, 35555918},
+    },
+})
+
 -- Itsy Bitsy Spider
 ns.RegisterPoints(ns.AZJKAHET, {
-    -- [] = {criteria=68972, quest=nil}, -- Webster
-    -- [] = {criteria=68973, quest=nil}, -- Spindle
-    -- [] = {criteria=68974, quest=nil}, -- Swift
-    -- [] = {criteria=68976, quest=nil}, -- Ru'murh
-    -- [] = {criteria=68977, quest=nil}, -- Thimble
-    -- [] = {criteria=68978, quest=nil}, -- Scampering Weave-Rat
-    -- [] = {criteria=68979, quest=nil}, -- General's Scouting Shadecaster
+    -- [] = {criteria=68972,}, -- Webster (227217)
+    [55654395] = {criteria=68973,}, -- Spindle (216213) (this coord isn't giving me completion...)
+    -- [] = {criteria=68974,}, -- Swift (226133 or 220666)
+    -- [] = {criteria=68976,}, -- Ru'murh (...14 different npc ids)
+    -- [] = {criteria=68977,}, -- Thimble (220568)
+    -- [] = {criteria=68978,}, -- Scampering Weave-Rat (217468)
+    -- [] = {criteria=68979,}, -- General's Scouting Shadecaster (220665)
 }, {
     achievement=40624,
     atlas="WildBattlePet", color={r=0.75, g=1, b=0},
     minimap=true,
     levels=true,
+    note=EMOTE102_CMD1,
 })
 
 -- Smelling History

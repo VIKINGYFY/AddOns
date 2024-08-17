@@ -453,6 +453,9 @@ local function render_string(s, context)
             elseif GetFactionInfoByID then
                 name = GetFactionInfoByID(id)
             end
+            if name then
+                return name
+            end
         elseif variant == "garrisontalent" then
             local info = C_Garrison.GetTalentInfo(id)
             if info then

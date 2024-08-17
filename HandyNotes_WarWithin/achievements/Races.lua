@@ -94,8 +94,8 @@ ns.RegisterPoints(ns.AZJKAHET, {
     -- quest, {achievements}, {currencies}
     -- [71343636] = Race(, {}, {}), -- Rak-Ahat Rush
     -- [23814835] = Race(, {}, {}), -- Pit Plunge
-    -- [] = Race(, {}, {}), --
-    -- [] = Race(, {}, {}), --
+    -- [52943618] = Race(, {}, {}), -- The Weaver's Wing
+    -- [40183220] = Race(, {}, {}), -- Siegehold Scuttle
     -- [] = Race(, {}, {}), --
 })
 ns.RegisterPoints(ns.CITYOFTHREADS, {
