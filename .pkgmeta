@@ -1,6 +1,7 @@
 package-as: 71_Porn
 
 ignore:
-  - .github/*
-  - .gitattributes
   - *.md
+  - .git/*
+  - .github/*
+  - .git*
