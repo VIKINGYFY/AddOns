@@ -11,8 +11,24 @@ env:
 permissions: write-all
 
 jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete Old Releases
+        uses: dev-drprasad/delete-older-releases@master
+        with:
+          keep_latest: 1
+          delete_tags: true
+
+      - name: Delete Old Workflows
+        uses: Mattraks/delete-workflow-runs@main
+        with:
+          retain_days: 0
+          keep_minimum_runs: 1
+
   release:
     runs-on: ubuntu-latest
+    needs: cleanup
     steps:
       - name: Clone Project
         uses: actions/checkout@main
@@ -22,16 +38,11 @@ jobs:
           mkdir ./upload/
 
           export TAG_NAME=${GITHUB_REF#refs/tags/}
-
           echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
-
-          echo "$TAG_NAME"
-          echo "${GITHUB_REF#refs/tags/}"
-          echo "${{env.TAG_NAME}}"
 
           zip -r ./upload/"71_Porn-$TAG_NAME.zip" . -x "*.git*"
 
-          echo "{\"releases\":[{\"name\":\"71_Porn 整合包\",\"version\":\"$TAG_NAME\",\"filename\":\"71_Porn-$TAG_NAME.zip\",\"nolib\":false,\"metadata\":[{\"flavor\":\"mainline\",\"interface\":110002}]}]}" >> 71.txt
+          echo "{\"releases\":[{\"name\":\"71_Porn 整合包\",\"version\":\"$TAG_NAME\",\"filename\":\"71_Porn-$TAG_NAME.zip\",\"nolib\":false,\"metadata\":[{\"flavor\":\"mainline\",\"interface\":110002}]}]}" >> ./upload/release.json
 
       - name: Release AddOns
         uses: softprops/action-gh-release@master
