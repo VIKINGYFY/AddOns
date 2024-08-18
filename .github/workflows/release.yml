@@ -37,12 +37,9 @@ jobs:
         run: |
           mkdir ./upload/
 
-          export TAG_NAME=${GITHUB_REF#refs/tags/}
-          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+          echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
-          zip -r ./upload/"71_Porn-$TAG_NAME.zip" . -x "*.git*"
-
-          echo "{\"releases\":[{\"name\":\"71_Porn 整合包\",\"version\":\"$TAG_NAME\",\"filename\":\"71_Porn-$TAG_NAME.zip\",\"nolib\":false,\"metadata\":[{\"flavor\":\"mainline\",\"interface\":110002}]}]}" >> ./upload/release.json
+          zip -r ./upload/"71_AddOns-${GITHUB_REF#refs/tags/}.zip" . -x "*.git*"
 
       - name: Release AddOns
         uses: softprops/action-gh-release@master
