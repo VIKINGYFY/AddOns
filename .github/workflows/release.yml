@@ -35,16 +35,14 @@ jobs:
 
       - name: Package AddOns
         run: |
-          mkdir ./upload/
-
           echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
-          zip -r ./upload/"71_AddOns-${GITHUB_REF#refs/tags/}.zip" . -x "*.git*"
+          zip -r "71_AddOns-${GITHUB_REF#refs/tags/}.zip" . -x "*.git*"
 
       - name: Release AddOns
         uses: softprops/action-gh-release@master
         with:
           tag_name: ${{env.TAG_NAME}}
-          files: ./upload/*
+          files: ./*.zip
           body: |
             不要问，更就完事了！
