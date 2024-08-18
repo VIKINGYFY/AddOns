@@ -235,10 +235,10 @@ ns.options = {
           desc = L["Leaves the unexplored areas revealed but adds a slight fog so you can still see which ones you haven't explored yet"],
           width = 0.80,
           order = 3.3,
-					get = "GetOverlayColor",
-					set = "SetOverlayColor",
+					get = "GetFogOfWarColor",
+					set = "SetFogOfWarColor",
           handler = ns.FogOfWar,
-					hasAlpha = true,          
+					hasAlpha = true,
           }, 
         GeneralHeader = {
           type = "header",

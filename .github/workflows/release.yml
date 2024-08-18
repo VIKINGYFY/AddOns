@@ -14,10 +14,19 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Clone project
+      - name: Clone Project
         uses: actions/checkout@main
-        with:
-          fetch-depth: 0
 
-      - name: Package and release
-        uses: BigWigsMods/packager@master
+      - name: Package AddOns
+        run: |
+          echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+          zip -r "71_Porn-${{env.TAG_NAME}}.zip" . -x "*.git*"
+
+      - name: Release AddOns
+        uses: softprops/action-gh-release@master
+        with:
+          tag_name: ${{env.TAG_NAME}}
+          files: ./*.zip
+          body: |
+            不要问，更就完事了！

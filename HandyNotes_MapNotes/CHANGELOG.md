@@ -1,13 +1,13 @@
 # MapNote
-## [2.2.0](https://github.com/Ssesmar/MapNote) (2024-08-13)
+## [2.2.1](https://github.com/Ssesmar/MapNote) (2024-08-17)
 - Note:
 
 -- MapNotes now works on every version of World of Warcraft. Classic Era / Cataclysm / Retail / PTR
 
-Version 2.2.0
-Retail & TWW:
-• add flight master icons for capitals
-• update for TWW
+Version 2.2.1
+Retail:
+
+• some updates for TWW
 
 - Description:
 

@@ -22,193 +22,6 @@ if not db.activate.HideMapNote then
         --##### Azeroth Kalimdor ####
         --###########################
 
-
-        if ns.tocversion == 110000 then -- Retail Version replace this with the PTR Version if TWW is online
-
-        if self.db.profile.showAzerothKalimdor then
-          
-    
-          -- Azeroth Kalimdor Dungeons
-            if self.db.profile.showAzerothDungeons then
-              nodes[947][22724585] = { id = 227, mnID = 63, type = "Dungeon", showInZone = true } -- Blackfathom Deeps
-              nodes[947][27126301] = { id = 233, mnID = 199, type = "Dungeon", showInZone = true } -- Razorfen Downs
-              nodes[947][27416697] = { id = 241, mnID = 71, type = "Dungeon", showInZone = true } -- Zul'Farrak
-              nodes[947][20055663] = { id = 232, mnID = 66, type = "Dungeon", showInZone = true } -- Maraudon
-              nodes[947][22126200] = { id = 230, lfgid = 36, mnID = 69, type = "Dungeon", showInZone = true } -- Dire Maul - Capital Gardens
-              nodes[947][25766218] = { id = 234, mnID = 199, type = "Dungeon", showInZone = true } -- Razorfen Kraul
-              nodes[947][26777580] = { id = 68, mnID = 1527, type = "Dungeon", showInZone = true } -- The Vortex Pinnacle
-              nodes[947][25237426] = { id = 69, mnID = 1527, type = "Dungeon", showInZone = true } -- Lost City of Tol'Vir
-              nodes[947][26337316] = { id = 70, mnID = 1527, type = "Dungeon", showInZone = true } -- Halls of Origination
-              nodes[947][46234797] = { id = 67, mnID = 207, type = "Dungeon", showInZone = true } -- The Stonecore
-            end
-      
-      
-          -- Azeroth Kalimdor Raids
-            if self.db.profile.showAzerothRaids then
-              nodes[947][27684669] = { id = 78, mnID = 198, type = "Raid", showInZone = true } -- Firelands
-              nodes[947][28906346] = { id = 760, mnID = 70, type = "Raid", showInZone = true } -- Onyxia's Lair
-              nodes[947][23887588] = { id = 74, mnID = 249, type = "Raid", showInZone = true } -- Throne of the Four Winds
-              nodes[947][25067206] = { id = 1180, mnID = 249, type = "Raid", showInZone = true, dnID = L["Instance Entrance"] .. " " .. L["switches weekly between"] .. " " .. L["Uldum"] .. " (" .. L["Kalimdor"] ..")" .. " & " .. L["Vale of Eternal Blossoms"] .. " (" .. L["Pandaria"] .. ")" } -- Ny'Alotha, The Waking City
-            end
-      
-  
-          -- Azeroth Kalimdor Passage
-            if self.db.profile.showAzerothPassage and not db.activate.ClassicIcons then
-              nodes[947][22724585] = { id = 227, mnID = 63, type = "PassageDungeon", showInZone = true } -- Blackfathom Deeps
-              nodes[947][20055663] = { id = 232, mnID = 66, type = "PassageDungeon", showInZone = true } -- Maraudon
-              --nodes[947][29145086] = { id = 226, type = "PassageDungeon", showInZone = true } -- Ragefire
-              nodes[947][26635536] = { id = 240, mnID = 10, type = "PassageDungeon", showInZone = true } -- Wailing Caverns
-              nodes[947][30006911] = { id = { 187, 279, 255, 251, 750, 184, 185, 186 }, mnID = 75, type = "PassageDungeonRaidMulti", showInZone = true } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
-              nodes[947][23716144] = { id = 230, lfgid = 34, mnID = 69, type = "PassageDungeon", showInZone = true } -- Dire Maul - Warpwood Quarter
-            end
-  
-  
-          --Kalimdor Passage without ClassicIcons and without RemoveBlizzPOIs
-            if self.db.profile.showAzerothPassage and not db.activate.ClassicIcons and not db.activate.RemoveBlizzPOIs then
-              nodes[947][29145086] = { id = 226, mnID = 85, type = "PassageDungeon", showInZone = true } -- Ragefire
-            end
-  
-          --Kalimdor Passage without EnemyFaction and RemoveBlizzPOIs
-            if not db.activate.EnemyFaction and db.activate.RemoveBlizzPOIs and not db.activate.ClassicIcons then
-  
-              if self.faction == "Alliance" or db.activate.EnemyFaction then
-                nodes[947][29145086] = { id = 226, mnID = 85, type = "PassageDungeon", showInZone = true } -- Ragefire
-              end
-            end
-  
-          --Kalimdor Passage without EnemyFaction and RemoveBlizzPOIs
-            if not db.activate.EnemyFaction and db.activate.RemoveBlizzPOIs and db.activate.ClassicIcons then
-  
-              if self.faction == "Alliance" or db.activate.EnemyFaction then
-                nodes[947][29145086] = { id = 226, mnID = 85, type = "Dungeon", showInZone = true } -- Ragefire
-              end
-            end
-  
-  
-          -- Azeroth Kalimdor ClassicIcons 
-            if db.activate.ClassicIcons then
-  
-              if self.db.profile.showAzerothMultiple then
-                nodes[947][30006911] = { id = { 187, 279, 255, 251, 750, 184, 185, 186 }, mnID = 75, type = "MultipleM", showInZone = true } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
-              end
-  
-              if self.db.profile.showAzerothDungeons then
-                nodes[947][22724585] = { id = 227, mnID = 63, type = "Dungeon", showInZone = true } -- Blackfathom Deeps
-                --nodes[947][29145086] = { id = 226, mnID = 85, type = "Dungeon", showInZone = true } -- Ragefire
-                nodes[947][26635536] = { id = 240, mnID = 10, type = "Dungeon", showInZone = true } -- Wailing Caverns
-                --nodes[947][23716144] = { id = 230, lfgid = 34, mnID = 69, type = "Dungeon", showInZone = true } -- Dire Maul - Warpwood Quarter
-              end            
-            end
-  
-  
-          --Kalimdor ClassicIcons without RemoveBlizzPOIs
-            if db.activate.ClassicIcons and not db.activate.RemoveBlizzPOIs then
-  
-              if self.db.profile.showAzerothDungeons then
-                nodes[947][29145086] = { id = 226, mnID = 85, type = "Dungeon", showInZone = true } -- Ragefire
-              end
-            end
-  
-  
-          -- Azeroth Kalimdor Multiple
-            if self.db.profile.showAzerothMultiple then
-              nodes[947][21116955] = { mnID = 81, id = { 744, 743 }, type = "MultipleR",showInZone = true } -- Temple of Ahn'Qiraj, Ruins of Ahn'Qiraj
-            end
-  
-  
-          -- Azeroth Kalimdor Portals
-            if self.db.profile.showAzerothPortals then
-              nodes[947][20603449] = { mnID = 89, name = "", type = "Portal", showInZone = true, TransportName = L["Darnassus"] .. " " .. L["Portal"] .. "\n" .. " ==> " .. L["Rut'theran"] } -- Portal To Teldrassil from Darnassus
-              nodes[947][22066626] = { mnID = 81, name = "", type = "Portal", showInZone = true, TransportName = L["Silithus"] .. " " .. L["Portals"] .. "\n" ..  "\n" .. " ==> " .. L["Zandalar"] .. "\n" .. " ==> " .. L["Boralus, Tiragarde Sound"] } -- Portal from Silithus to Zandalar and Boralus
-              nodes[947][30457087] = { mnID = 74, name = "", type = "Portal", showInZone = true, TransportName = DUNGEON_FLOOR_TANARIS18 .. " " .. L["Portals"] .. "\n" ..  "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. STORMWIND } -- Portal from Tanaris to Orgrimmar and Stormwind
-              nodes[947][28534307] = { mnID = 198, name = "", type = "Portal", showInZone = true, TransportName = POSTMASTER_LETTER_HYJAL .. " " .. L["Portals"] .. "\n" ..  "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. STORMWIND } -- Portal from Hyjal to Orgrimmar and Stormwind
-              nodes[947][23824100] = { mnID = 62, name = "", type = "Portal", showInZone = true, TransportName = L["Darkshore"] .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. L["Zandalar"] .. "\n" .. " ==> " .. L["Boralus, Tiragarde Sound"] .. "\n" .. "\n" .. L["(its only shown up ingame if your faction\n is currently occupying Bashal'Aran)"] } -- Portal from New Darkshore to Zandalar and Boralus
-              nodes[947][25516539] = { mnID = 78, name = "", type = "Portal", showInZone = true, TransportName = L["Un'Goro Crater"] .. " " .. L["Portal"] .. "\n" .. " ==> " .. L["Sholazar Basin"] } -- Portal from Unguro to Sholazar
-  
-              if self.faction == "Alliance" or db.activate.EnemyFaction then
-                nodes[947][22633782] = { mnID = 57, name = "", type = "APortal", showInZone = true, TransportName = L["Rut'theran"] .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. STORMWIND .. "\n" .. " ==> " .. L["Azuremyst Isle"] .. "\n" .. " ==> " .. L["Darnassus"] .. "\n" .. " ==> " .. L["Hellfire Peninsula"] } -- Portal from Teldrassil  
-                nodes[947][15054347] = { mnID = 97, name = "", type = "APortal", showInZone = true, TransportName = L["Azuremyst Isle"] .. " " .. L["Portal"] .. "\n" .. " ==> " .. L["Rut'theran"] } -- Portal To Teldrassil from Darnassus
-              end
-  
-              if self.faction == "Horde" or db.activate.EnemyFaction then
-                nodes[947][23485739] = { mnID = 7, name = FACTION_HORDE .. " " .. L["Portal"] .. " ==> " .. CALENDAR_FILTER_DARKMOON, TransportName = "\n" .. REQUIRES_LABEL .. " " .. CALENDAR_FILTER_DARKMOON .. "\n" .. L["Starting on the first Sunday of each month for one week"], type = "DarkMoon", showInZone = true } -- Mulgore Portal to the Darkmoon
-              end
-  
-              if self.faction == "Horde" and not db.activate.EnemyFaction then
-                nodes[947][22633782] = { mnID = 57, name = "", type = "Portal", showInZone = true, TransportName = L["Rut'theran"] .. " " .. L["Portal"] .. "\n" .. " ==> " .. L["Darnassus"] } -- Portal To Teldrassil from Darnassus
-              end
-            end
-  
-  
-          -- Azeroth Kalimdor Portals without RemoveBlizzPOIs
-            if self.db.profile.showAzerothPortals and not db.activate.RemoveBlizzPOIs then
-              nodes[947][20603449] = { mnID = 89, name = "", type = "Portal", showInZone = true, TransportName = L["Darnassus"] .. " " .. L["Portal"] .. "\n" .. " ==> " .. L["Rut'theran"] } -- Portal To Teldrassil from Darnassus
-  
-              if self.faction == "Alliance" or db.activate.EnemyFaction then
-                nodes[947][16614245] = { mnID = 57, name = "", type = "APortal", showInZone = true, TransportName = L["Portal"] .. " ==> " .. STORMWIND } -- Portal Exodar to Teldrassil
-              end
-            end
-  
-  
-          -- Azeroth Kalimdor RemoveBlizzPOIs
-            if db.activate.RemoveBlizzPOIs then
-  
-              if self.faction == "Horde" or db.activate.EnemyFaction then
-                nodes[947][29555144] = { mnID = 85, name = "", type = "HIcon", showInZone = true, TransportName = ORGRIMMAR .. " - " .. FACTION_HORDE .. "\n" .. "\n" .. L["Portalroom"] .. "\n" .. " ==> " .. L["Silvermoon City"] .. "\n" .. " ==> " .. L["Valdrakken"] .. "\n" .. " ==> " .. L["Oribos"] .. "\n" .. " ==> " .. L["Azsuna"] .. "\n" .. " ==> " .. L["Zuldazar"] .. "\n" .. " ==> " .. L["Shattrath City"] .. "\n" .. " ==> " .. DUNGEON_FLOOR_DALARANCITY1 .. "\n" .. " ==> " .. DUNGEON_FLOOR_TANARIS18 .. "\n" .. " ==> " .. L["Blasted Lands"] .. "\n" .. " ==> " .. L["Dornogal"] .. "\n" .. "\n" ..  L["Portals"] .. "\n" .. " ==> " .. POSTMASTER_LETTER_HYJAL .. "\n" .. " ==> " .. L["Twilight Highlands"] .. "\n" .. " ==> " .. ARTIFACT_SHAMAN_TITLECARD_DEEPHOLM .. "\n" .. " ==> " .. L["Vashj'ir"] .. "\n" .. " ==> " .. L["Uldum"] .. "\n" .. " ==> " .. DUNGEON_FLOOR_TOLBARADWARLOCKSCENARIO0 .. "\n" .. " ==> " .. DUNGEON_FLOOR_SURAMARRAID3 .. "\n" .. " ==> " .. POSTMASTER_LETTER_THUNDERTOTEM .. "\n" .. "\n" .. L["Zeppelins"] .. "\n" .. " ==> " .. L["Thunder Bluff"] .. "\n" .. " ==> " .. L["Grom'gol, Stranglethorn Vale"] .. "\n" .. " ==> " .. POSTMASTER_LETTER_WARSONGHOLD .. "\n" .. "\n" .. CALENDAR_TYPE_DUNGEON .. "\n" .. " ==> " .. DUNGEON_FLOOR_RAGEFIRE1 } -- Portalroom from Dazar'alor
-                nodes[947][23905635] = { mnID = 88, name = "", type = "HIcon", showInZone = true, TransportName = L["Thunder Bluff"] .. " - " .. FACTION_HORDE .. "\n" .. "\n" .. L["Zeppelin"] .. "\n" .. " ==> " .. ORGRIMMAR } -- Zeppelin from Thunder Bluff to Orgrimmar
-              end
-  
-              if self.faction == "Alliance" or db.activate.EnemyFaction then
-                nodes[947][20603449] = { mnID = 89, name = "", type = "AIcon", showInZone = true, TransportName = L["Darnassus"] .. " - " .. FACTION_ALLIANCE .. "\n" .. "\n" .. L["Portals"] .. "\n" .. " ==> " .. L["Rut'theran"] .. "\n" .. " ==> " .. L["Exodar"]  .. "\n" .. " ==> " .. L["Hellfire Peninsula"] } -- Portal To Teldrassil from Darnassus
-                nodes[947][16614245] = { mnID = 103, name = "", type = "AIcon", showInZone = true, TransportName = L["Exodar"] .. " - " .. FACTION_ALLIANCE .. "\n" .. "\n" .. L["Portal"] .. "\n" .. " ==> " .. STORMWIND } -- Portal Exodar to Teldrassil
-              end 
-            end
-  
-  
-          -- Azeroth Kalimdor Zeppelins
-            if self.db.profile.showAzerothZeppelins then
-      
-              if self.faction == "Horde" or db.activate.EnemyFaction then
-              --nodes[947][23385540] = { mnID = 7, name = "", type = "HZeppelin", showInZone = true, TransportName = L["Thunder Bluff"] .. " " .. L["Zeppelin"] .. "\n" .. " ==> " .. ORGRIMMAR } -- Zeppelin from Thunder Bluff to Orgrimmar
-              --nodes[947][30485132] = { mnID = 1, name = "", type = "HZeppelin", showInZone = true, TransportName = L["Durotar"] .. " " .. L["Zeppelin"] .. "\n" .. " ==> " .. L["The Waking Shores, Dragon Isles"] } -- Zeppelin from Durotar to The Waking Shores - Dragonflight
-              end
-            end
-  
-  
-          -- Azeroth Kalimdor Zeppelins
-            if self.db.profile.showAzerothZeppelins and not db.activate.RemoveBlizzPOIs then
-      
-              if self.faction == "Horde" or db.activate.EnemyFaction then
-                nodes[947][23365540] = { mnID = 88, name = "", type = "HZeppelin", showInZone = true, TransportName = L["Thunder Bluff"] .. "\n" .. "\n" ..  L["Zeppelin"] .. "\n" .. " ==> " .. ORGRIMMAR } -- Zeppelin from Thunder Bluff to Orgrimmar
-                nodes[947][30485132] = { mnID = 1, name = "", type = "HZeppelin", showInZone = true, TransportName = L["Durotar"] .. " " .. L["Zeppelin"] .. "\n" .. " ==> " .. L["The Waking Shores, Dragon Isles"] } -- Zeppelin from Durotar to The Waking Shores - Dragonflight
-              end
-            end
-      
-      
-          -- Azeroth Kalimdor Ships
-            if self.db.profile.showAzerothShips then
-              nodes[947][29125574] = { mnID = 10, name = "", type = "Ship", showInZone = true, TransportName = L["Ratchet"] .. " " .. L["Ship"] .. "\n" .. " ==> " .. POSTMASTER_LETTER_STRANGLETHORNVALE } -- Ship from Ratchet to Booty Bay
-      
-              if self.faction == "Horde" or db.activate.EnemyFaction then
-              nodes[947][31315572] = { mnID = 463, name = "", type = "HShip", showInZone = true, TransportName = L["Echo Isles, Durotar"] .. " " .. L["Ship"] .. "\n" .. " ==> " .. L["Zandalar"] } -- Ship from Echo Isles to Dazar'alor - Zandalar
-              end
-  
-              if self.faction == "Alliance" or db.activate.EnemyFaction then
-                nodes[947][29986142] = { mnID = 70, name = "", type = "AShip", showInZone = true, TransportName = L["Theramore Isle"] .. " " .. L["Ship"] .. "\n" .. " ==> " .. POSTMASTER_LETTER_WETLANDS } -- Ship from Dustwallow Marsh to Menethil Harbor
-              end
-            end
-  
-           -- Azeroth Kalimdor LFR
-            if self.db.profile.showAzerothLFR then
-              nodes[947][31206933] = { mnID = 75, name = L["Auridormi"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", id = { 187 }, type = "LFR", showInZone = true }
-            end
-          
-        end
-
-        end
-
-        if ns.tocversion == 110002 then -- PTR Version just delete this command if TWW is online
-
         if self.db.profile.showAzerothKalimdor then
           
     
@@ -389,7 +202,6 @@ if not db.activate.HideMapNote then
         
         end
 
-        end
     
     
         --####################################
@@ -962,7 +774,7 @@ if not db.activate.HideMapNote then
           end
         end
 
-        if ns.tocversion == 110002 then -- remove this if TWW is online
+
         --###############################
         --##### Azeroth Khaz Algar ######
         --###############################
@@ -987,7 +799,7 @@ if not db.activate.HideMapNote then
 
           -- Khaz Algar RemoveBlizzPOIs
             if db.activate.RemoveBlizzPOIs then
-              nodes[947][29238221] = { mnID = 2339, name = "", type = "MNL", showInZone = false, TransportName = L["Dornogal"] .. " - " .. FACTION_NEUTRAL .. "\n" .. "\n" .. L["Portals"] .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. STORMWIND .. "\n" .. "\n" .. CALENDAR_TYPE_DUNGEON .. "\n" .. " ==> " .. "The Rookery" } -- Dornogal
+              nodes[947][29238221] = { mnID = 2339, name = "", type = "MNL", showInZone = false, TransportName = L["Dornogal"] .. " - " .. FACTION_NEUTRAL .. "\n" .. "\n" .. L["Portals"] .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. STORMWIND .. "\n" .. "\n" .. CALENDAR_TYPE_DUNGEON .. "\n" .. " ==> " .. DUNGEON_FLOOR_UPPERBLACKROCKSPIRE2 } -- Dornogal
             end
 
           -- Khaz Algar not RemoveBlizzPOIs
@@ -1000,7 +812,6 @@ if not db.activate.HideMapNote then
 
         end
 
-      end -- remove this if TWW is online
 
 
       end

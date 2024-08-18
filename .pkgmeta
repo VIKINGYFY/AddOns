@@ -1,7 +1,0 @@
-package-as: 71_Porn
-
-ignore:
-  - *.md
-  - .git/*
-  - .github/*
-  - .git*

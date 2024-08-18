@@ -4,11 +4,15 @@ ns.defaults = {
 
   profile = {
 
-    --FogOfWar
+    --FogOfWarr
       colorR = 1,
-      colorG = 0,
-      colorB = 0,
+      colorG = 1,
+      colorB = 1,
       colorA = 1,
+      FogOfWarColorR = 1,
+      FogOfWarColorG = 0,
+      FogOfWarColorB = 0,
+      FogOfWarColorA = 1,
       colorR_Reduce = 0.65,
       colorG_Reduce = 0.65,
       colorB_Reduce = 0.65,
@@ -113,8 +117,8 @@ ns.defaults = {
       showZoneOldVanilla = true,
       showZoneLFR = true,
     -- Zone Transport
-      zoneTransportScale = 1.5,
-      zoneTransportAlpha = 1,
+      ZoneTransportScale = 1.5,
+      ZoneTransportAlpha = 1,
       showZonePortals = true,
       showZoneZeppelins = true,
       showZoneShips = true,

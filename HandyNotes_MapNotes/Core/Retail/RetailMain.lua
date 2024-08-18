@@ -45,6 +45,7 @@ end
 
 local pluginHandler = { }
 function pluginHandler:OnEnter(uiMapId, coord)
+ns.nodes[uiMapId][coord] = nodes[uiMapId][coord]
   local nodeData = nil
 
   if (minimap[uiMapId] and minimap[uiMapId][coord]) then
@@ -252,7 +253,9 @@ do
                         or value.type == "PathU" or value.type == "PathLU" or value.type == "PathRU" or value.type == "PathL" or value.type == "PathR" or value.type == "BlackMarket" or value.type == "Mailbox"
                         or value.type == "StablemasterN" or value.type == "StablemasterH" or value.type == "StablemasterA" or value.type == "HIcon" or value.type == "AIcon" or value.type == "InnkeeperN" 
                         or value.type == "InnkeeperH" or value.type == "InnkeeperA" or value.type == "MailboxN" or value.type == "MailboxH" or value.type == "MailboxA" or value.type == "PvPVendorH" or value.type == "PvPVendorA" 
-                        or value.type == "PvEVendorH" or value.type == "PvEVendorA"
+                        or value.type == "PvEVendorH" or value.type == "PvEVendorA" or value.type == "MMInnkeeperH" or value.type == "MMInnkeeperA" or value.type == "MMStablemasterH" or value.type == "MMStablemasterA"
+                        or value.type == "MMMailboxH" or value.type == "MMMailboxA" or value.type == "MMPvPVendorH" or value.type == "MMPvPVendorA" or value.type == "MMPvEVendorH" or value.type == "MMPvEVendorA" 
+                        or value.type == "ZonePvEVendorH" or value.type == "ZonePvPVendorH" or value.type == "ZonePvEVendorA" or value.type == "ZonePvPVendorA"
 
       ns.AllZoneIDs = ns.KalimdorIDs 
                       or ns.EasternKingdomIDs 
@@ -628,6 +631,7 @@ local mnID = nodes[uiMapId][coord].mnID
 local mnID2 = nodes[uiMapId][coord].mnID2
 local mnID3 = nodes[uiMapId][coord].mnID3
 local www = nodes[uiMapId][coord].www
+
 local mapInfo = C_Map.GetMapInfo(uiMapId)
 local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() == 87  or WorldMapFrame:GetMapID() == 89 or WorldMapFrame:GetMapID() == 103 or WorldMapFrame:GetMapID() == 85
                 or WorldMapFrame:GetMapID() == 90 or WorldMapFrame:GetMapID() == 86 or WorldMapFrame:GetMapID() == 88 or WorldMapFrame:GetMapID() == 110  or WorldMapFrame:GetMapID() == 111
@@ -853,13 +857,16 @@ end
 function Addon:OnProfileChanged(event, database, newProfileKey)
 	db = database.profile
   ns.Addon:FullUpdate()
+  ReloadUI();
+  HandyNotes:GetModule("FogOfWarButton"):Refresh()
   HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
   print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been changed"])
 end
 
-function Addon:OnProfileReset(event, database, newProfileKey, texture)
+function Addon:OnProfileReset(event, database, newProfileKey)
 	db = database.profile
   ns.Addon:FullUpdate()
+  HandyNotes:GetModule("FogOfWarButton"):Refresh()
   HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
   print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been reset to default"])
 end
@@ -867,6 +874,7 @@ end
 function Addon:OnProfileCopied(event, database, newProfileKey)
 	db = database.profile
   ns.Addon:FullUpdate()
+  HandyNotes:GetModule("FogOfWarButton"):Refresh()
   HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
   print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been adopted"])
 end
@@ -874,6 +882,7 @@ end
 function Addon:OnProfileDeleted (event, database, newProfileKey)
 	db = database.profile
   ns.Addon:FullUpdate()
+  HandyNotes:GetModule("FogOfWarButton"):Refresh()
   HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
   print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been deleted"])
 end
@@ -899,6 +908,7 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
 	self.db.RegisterCallback(self, "OnProfileCopied", "OnProfileCopied")
 	self.db.RegisterCallback(self, "OnProfileReset", "OnProfileReset")
   self.db.RegisterCallback(self, "OnProfileDeleted", "OnProfileDeleted")
+
   db = self.db.profile
   ns.dbChar = self.db.char
 

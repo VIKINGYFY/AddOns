@@ -1,15 +1,14 @@
 local ADDON_NAME, ns = ...
 
 local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes")
-local FogOfWar = HandyNotes:NewModule("FogOfWarButton", "AceHook-3.0", "AceEvent-3.0")
-ns.FogOfWar = FogOfWar
+ns.FogOfWar = HandyNotes:NewModule("FogOfWarButton", "AceHook-3.0", "AceEvent-3.0")
 
 local mod, floor, ceil, tonumber = math.fmod, math.floor, math.ceil, tonumber
 local ipairs, pairs = ipairs, pairs
 local db
 
 function ns.FogOfWar:OnInitialize()
-	self.db = HandyNotes.db:RegisterNamespace("FogOfWarButton", ns.defaults)
+	self.db = LibStub("AceDB-3.0"):New("HandyNotes_MapNotesRetailDB", ns.defaults)
 	db = self.db.profile
 	self.db.global.errata = nil
 end
@@ -67,13 +66,14 @@ function ns.FogOfWar:MapExplorationPin_RefreshOverlays(pin, fullUpdate)
 	pin.layerIndex = mapCanvas:GetCanvasContainer():GetCurrentLayerIndex()
 	local layers = C_Map.GetMapArtLayers(mapID)
 	local layerInfo = layers and layers[pin.layerIndex]
-	if not layerInfo then 
-		return 
+	if not layerInfo then
+		return
 	end
 
 	local TILE_SIZE_WIDTH = layerInfo.tileWidth
 	local TILE_SIZE_HEIGHT = layerInfo.tileHeight
-	local r, g, b, a, r_Reduce, g_Reduce, b_Reduce, a_Reduce, MistR, MistG, MistB, MistA = self:GetOverlayColor()
+	local r, g, b, a = self:GetOverlayColor()
+	local FoWr, FoWg, FoWb, FoWa = self:GetFogOfWarColor()
 	local drawLayer, subLevel = pin.dataProvider:GetDrawLayer()
 	for key, files in pairs(data) do
 		if not exploredTilesKeyed[key] then
@@ -114,37 +114,23 @@ function ns.FogOfWar:MapExplorationPin_RefreshOverlays(pin, fullUpdate)
 						end
 					end
 
-					texture:SetWidth(texturePixelWidth)
-					texture:SetHeight(texturePixelHeight)
-					texture:SetTexCoord(0, texturePixelWidth / textureFileWidth, 0, texturePixelHeight / textureFileHeight)
-					texture:SetPoint("TOPLEFT", offsetX + (TILE_SIZE_WIDTH * (k - 1)), -(offsetY + (TILE_SIZE_HEIGHT * (j - 1))))
-					texture:SetTexture(tonumber(fileDataIDs[((j - 1) * numTexturesWide) + k]), nil, nil, "TRILINEAR")
-					texture:SetDrawLayer(drawLayer, subLevel - 1)
-
-					if ns.Addon.db.profile.activate.FogOfWar then
-						texture:SetVertexColor(1, 1, 1)
-						texture:SetAlpha(1)
+                    if ns.Addon.db.profile.activate.FogOfWar then
+                        texture:Show()
+						texture:SetVertexColor(r, g, b)
+						texture:SetAlpha(a)
+						texture:SetWidth(texturePixelWidth)
+						texture:SetHeight(texturePixelHeight)
+						texture:SetTexCoord(0, texturePixelWidth / textureFileWidth, 0, texturePixelHeight / textureFileHeight)
+						texture:SetPoint("TOPLEFT", offsetX + (TILE_SIZE_WIDTH * (k - 1)), -(offsetY + (TILE_SIZE_HEIGHT * (j - 1))))
+						texture:SetTexture(tonumber(fileDataIDs[((j - 1) * numTexturesWide) + k]), nil, nil, "TRILINEAR")
+						texture:SetDrawLayer(drawLayer, subLevel - 1)
 					end
 
 					if ns.Addon.db.profile.activate.MistOfTheUnexplored then
-						texture:SetVertexColor(r, g, b)
-						texture:SetAlpha(a)
+						texture:SetVertexColor(FoWr, FoWg, FoWb)
+						texture:SetAlpha(FoWa)
 					end
-
-					if ns.Addon.db.profile.activate.FogOfWarAlphaReduce then
-						texture:SetVertexColor(a_Reduce, r_Reduce, g_Reduce, b_Reduce)
-					end
-
-					if ns.Addon.db.profile.activate.FogOfWarAlphaReduce then
-						texture:SetAlpha(a_Reduce)
-					end
-
-                    if ns.Addon.db.profile.activate.FogOfWar then
-                        texture:Show()
-                    else
-                        texture:Hide()
-                    end
-
+					
 					if fullUpdate then
 						pin.textureLoadGroup:AddTexture(texture)
 					end
@@ -155,14 +141,20 @@ function ns.FogOfWar:MapExplorationPin_RefreshOverlays(pin, fullUpdate)
 	end
 end
 
-
 function ns.FogOfWar:GetOverlayColor()
-	return db.colorR, db.colorG, db.colorB, db.colorA, db.colorR_Reduce, db.colorG_Reduce, db.colorB_Reduce, db.colorA_Reduce, db.MistR, db.MistG, db.MistB, db.MistA
+	return db.colorR, db.colorG, db.colorB, db.colorA
 end
 
-function ns.FogOfWar:SetOverlayColor(info, r, g, b, a, r_Reduce, g_Reduce, b_Reduce, a_Reduce, MistR, MistG, MistB, MistA)
-	db.colorR_Reduce, db.colorG_Reduce, db.colorB_Reduce, db.colorA_Reduce = r_Reduce, g_Reduce, b_Reduce, a_Reduce
+function ns.FogOfWar:SetOverlayColor(info, r, g, b, a)
 	db.colorR, db.colorG, db.colorB, db.colorA = r, g, b, a
-	db.colorMistR, db.colorMistG, db.colorMistB, db.colorMistA = MistR, MistG, MistB, MistA
+	if self:IsEnabled() then self:Refresh() end
+end
+
+function ns.FogOfWar:GetFogOfWarColor()
+	return db.FogOfWarColorR, db.FogOfWarColorG, db.FogOfWarColorB, db.FogOfWarColorA
+end
+
+function ns.FogOfWar:SetFogOfWarColor(info, FoWr, FoWg, FoWb, FoWa)
+	db.FogOfWarColorR, db.FogOfWarColorG, db.FogOfWarColorB, db.FogOfWarColorA = FoWr, FoWg, FoWb, FoWa
 	if self:IsEnabled() then self:Refresh() end
 end

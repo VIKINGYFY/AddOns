@@ -85,6 +85,66 @@ function ns.ChangeToClassicImagesRetail()
         ns.icons["Cooking"] = ns.icons["CookingNew"]
     end
 
+    -- Zonemap Icons Horde
+    if UnitFactionGroup("Horde") and not (ns.Addon.db.profile.activate.ZoneEnemyFaction) then
+        ns.icons["InnkeeperH"] = ns.icons["InnkeeperN"]
+        ns.icons["MailboxH"] = ns.icons["MailboxN"]
+        ns.icons["StablemasterH"] = ns.icons["StablemasterN"]
+        ns.icons["ZonePvPVendorH"] = ns.icons["PvPVendor"]
+        ns.icons["ZonePvEVendorH"] = ns.icons["PvEVendor"]
+    elseif UnitFactionGroup("Horde") and (ns.Addon.db.profile.activate.ZoneEnemyFaction) then
+        ns.icons["InnkeeperH"] = ns.icons["OriginalInnkeeperH"]
+        ns.icons["MailboxH"] = ns.icons["OriginalMailboxH"]
+        ns.icons["StablemasterH"] = ns.icons["OriginalStablemasterH"]
+        ns.icons["ZonePvPVendorH"] = ns.icons["OriginalPvPVendorH"]
+        ns.icons["ZonePvEVendorH"] = ns.icons["OriginalPvEVendorH"]
+    end
+
+    -- Zonemap Icons Alliance
+    if UnitFactionGroup("Alliance") and not ns.Addon.db.profile.activate.ZoneEnemyFaction then
+        ns.icons["InnkeeperA"] = ns.icons["InnkeeperN"]
+        ns.icons["MailboxA"] = ns.icons["MailboxN"]
+        ns.icons["StablemasterA"] = ns.icons["StablemasterN"]
+        ns.icons["ZonePvPVendorA"] = ns.icons["PvPVendor"]
+        ns.icons["ZonePvEVendorA"] = ns.icons["PvEVendor"]
+    elseif UnitFactionGroup("Alliance") and ns.Addon.db.profile.activate.ZoneEnemyFaction then
+        ns.icons["InnkeeperA"] = ns.icons["OriginalInnkeeperA"]
+        ns.icons["MailboxA"] = ns.icons["OriginalMailboxA"]
+        ns.icons["StablemasterA"] = ns.icons["OriginalStablemasterA"]
+        ns.icons["ZonePvPVendorA"] = ns.icons["OriginalPvPVendorA"]
+        ns.icons["ZonePvEVendorA"] = ns.icons["OriginalPvEVendorA"]
+    end
+
+    -- MinMap Icons Horde
+    if UnitFactionGroup("Horde") and not ns.Addon.db.profile.activate.MiniMapEnemyFaction then
+        ns.icons["MMInnkeeperH"] = ns.icons["InnkeeperN"]
+        ns.icons["MMMailboxH"] = ns.icons["MailboxN"]
+        ns.icons["MMStablemasterH"] = ns.icons["StablemasterN"]
+        ns.icons["MMPvPVendorH"] = ns.icons["PvPVendor"]
+        ns.icons["MMPvEVendorH"] = ns.icons["PvEVendor"]
+    elseif UnitFactionGroup("Horde") and ns.Addon.db.profile.activate.MiniMapEnemyFaction then
+        ns.icons["MMInnkeeperH"] = ns.icons["OriginalInnkeeperH"]
+        ns.icons["MMMailboxH"] = ns.icons["OriginalMailboxH"]
+        ns.icons["MMStablemasterH"] = ns.icons["OriginalStablemasterH"]
+        ns.icons["MMPvPVendorH"] = ns.icons["OriginalPvPVendorH"]
+        ns.icons["MMPvEVendorH"] = ns.icons["OriginalPvEVendorH"]
+    end
+
+    -- MinMap Icons Alliance
+    if UnitFactionGroup("Alliance") and not ns.Addon.db.profile.activate.MiniMapEnemyFaction then
+        ns.icons["MMInnkeeperA"] = ns.icons["InnkeeperN"]
+        ns.icons["MMMailboxA"] = ns.icons["MailboxN"]
+        ns.icons["MMStablemasterA"] = ns.icons["StablemasterN"]
+        ns.icons["MMPvPVendorA"] = ns.icons["PvPVendor"]
+        ns.icons["MMPvEVendorA"] = ns.icons["PvEVendor"]
+    elseif UnitFactionGroup("Alliance") and ns.Addon.db.profile.activate.MiniMapEnemyFaction then
+        ns.icons["MMInnkeeperA"] = ns.icons["OriginalInnkeeperA"]
+        ns.icons["MMMailboxA"] = ns.icons["OriginalMailboxA"]
+        ns.icons["MMStablemasterA"] = ns.icons["OriginalStablemasterA"]
+        ns.icons["MMPvPVendorA"] = ns.icons["OriginalPvPVendorA"]
+        ns.icons["MMPvEVendorA"] = ns.icons["OriginalPvEVendorA"]
+    end
+
 end
 
 function ns.ChangeToClassicImages()
