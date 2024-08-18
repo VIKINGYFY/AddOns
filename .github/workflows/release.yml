@@ -19,14 +19,24 @@ jobs:
 
       - name: Package AddOns
         run: |
-          echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+          mkdir ./upload/
 
-          zip -r "71_Porn-${{env.TAG_NAME}}.zip" . -x "*.git*"
+          export TAG_NAME=${GITHUB_REF#refs/tags/}
+
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+
+          echo "$TAG_NAME"
+          echo "${GITHUB_REF#refs/tags/}"
+          echo "${{env.TAG_NAME}}"
+
+          zip -r ./upload/"71_Porn-$TAG_NAME.zip" . -x "*.git*"
+
+          echo "{\"releases\":[{\"name\":\"71_Porn 整合包\",\"version\":\"$TAG_NAME\",\"filename\":\"71_Porn-$TAG_NAME.zip\",\"nolib\":false,\"metadata\":[{\"flavor\":\"mainline\",\"interface\":110002}]}]}" >> 71.txt
 
       - name: Release AddOns
         uses: softprops/action-gh-release@master
         with:
           tag_name: ${{env.TAG_NAME}}
-          files: ./*.zip
+          files: ./upload/*
           body: |
             不要问，更就完事了！
