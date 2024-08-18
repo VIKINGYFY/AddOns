@@ -1,0 +1,4 @@
+## Interface: 110002
+## Title: 71_Porn 整合包
+## Version: @project-version@
+## Author: 七曜
