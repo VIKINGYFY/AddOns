@@ -222,12 +222,6 @@ function UF:UpdateColor(_, unit)
 		element:SetStatusBarColor(r, g, b)
 	end
 
-	if executeRatio > 0 and healthPerc <= executeRatio then
-		self.nameText:SetTextColor(1, 0, 0)
-	else
-		self.nameText:SetTextColor(1, 1, 1)
-	end
-
 	self.ThreatIndicator:Hide()
 	if isCustomUnit and status then
 		if status == 3 then
@@ -248,6 +242,12 @@ function UF:UpdateColor(_, unit)
 			end
 			self.ThreatIndicator:Show()
 		end
+	end
+
+	if executeRatio > 0 and healthPerc <= executeRatio then
+		self.nameText:SetTextColor(1, 0, 0)
+	else
+		self.nameText:SetTextColor(1, 1, 1)
 	end
 end
 
@@ -507,7 +507,7 @@ local NPClassifies = {
 }
 
 function UF:AddCreatureIcon(self)
-	local icon = self:CreateTexture(nil, "ARTWORK")
+	local icon = self.Health:CreateTexture(nil, "ARTWORK")
 	icon:SetTexture(DB.starTex)
 	icon:SetPoint("RIGHT", self.nameText, "LEFT", 10, 0)
 	icon:SetSize(18, 18)

@@ -21,6 +21,8 @@ do
 				itemSolt = SECONDARYHANDSLOT
 			elseif itemEquipLoc == "INVTYPE_SHIELD" then
 				itemSolt = SHIELDSLOT
+			elseif itemEquipLoc == "INVTYPE_PROFESSION_TOOL" then
+				itemSolt = TRADE_SKILLS
 			end
 		end
 

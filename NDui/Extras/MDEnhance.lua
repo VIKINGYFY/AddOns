@@ -45,7 +45,9 @@ function EX:MDEnhance_TButtonOnEnter(parent, spellID)
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine(name)
 
-		local start, duration = GetSpellCooldown(spellID)
+		local CDInfo = C_Spell.GetSpellCooldown(spellID)
+		local start, duration = CDInfo.startTime, CDInfo.duration
+
 		if not start or not duration then
 			GameTooltip:AddLine(SPELL_FAILED_NOT_KNOWN, 1, 0, 0)
 		elseif duration == 0 then

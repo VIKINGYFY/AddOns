@@ -152,7 +152,7 @@ function TT:GetUnitItemLevel(unit)
 								local relics = {select(4, string.split(":", itemLink))}
 								for i = 1, 3 do
 									local relicID = relics[i] ~= "" and relics[i]
-									local relicLink = select(2, GetItemGem(itemLink, i))
+									local relicLink = select(2, C_Item.GetItemGem(itemLink, i))
 									if relicID and not relicLink then
 										delay = true
 										break
