@@ -1,5 +1,5 @@
-## Changed in v14
+## Changed in v15
 
-* Azj-Kahet: found Silk-Spun Supplies, Concealed Contraband
-* Delves: Kriegval's Rest, Fungal Folly
+* Delves: The Waterworks, The Dread Pit
+* Show delve chests on the minimap as well
 

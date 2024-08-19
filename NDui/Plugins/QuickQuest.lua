@@ -48,13 +48,8 @@ local function GetNPCID()
 	return B.GetNPCID(UnitGUID("npc"))
 end
 
-local function IsTrackingHidden()
-	for index = 1, C_Minimap.GetNumTrackingTypes() do
-		local name, _, active = C_Minimap.GetTrackingInfo(index)
-		if name == MINIMAP_TRACKING_TRIVIAL_QUESTS then
-			return active
-		end
-	end
+local function IsAccountCompleted(questID)
+	return C_Minimap.IsFilteredOut(Enum.MinimapTrackingFilter.AccountCompletedQuests) and C_QuestLog.IsQuestFlaggedCompletedOnAccount(questID)
 end
 
 local ignoreQuestNPC = {
@@ -110,8 +105,8 @@ QuickQuest:Register("QUEST_GREETING", function()
 	local available = GetNumAvailableQuests()
 	if available > 0 then
 		for index = 1, available do
-			local isTrivial = GetAvailableQuestInfo(index)
-			if not isTrivial or IsTrackingHidden() then
+			local isTrivial, _, _, _, questID = GetAvailableQuestInfo(index)
+			if not IsAccountCompleted(questID) and (not isTrivial or C_Minimap.IsTrackingHiddenQuests()) then
 				SelectAvailableQuest(index)
 			end
 		end
@@ -200,7 +195,8 @@ QuickQuest:Register("GOSSIP_SHOW", function()
 	if available > 0 then
 		for index, questInfo in ipairs(C_GossipInfo.GetAvailableQuests()) do
 			local trivial = questInfo.isTrivial
-			if not trivial or IsTrackingHidden() or (trivial and npcID == 64337) then
+			local questID = questInfo.questID
+			if not IsAccountCompleted(questID) and (not trivial or C_Minimap.IsTrackingHiddenQuests() or (trivial and npcID == 64337)) then
 				C_GossipInfo.SelectAvailableQuest(questInfo.questID)
 			end
 		end
@@ -258,7 +254,7 @@ QuickQuest:Register("QUEST_DETAIL", function()
 		AcceptQuest()
 	elseif QuestGetAutoAccept() then
 		AcknowledgeAutoAcceptQuest()
-	elseif not C_QuestLog.IsQuestTrivial(GetQuestID()) or IsTrackingHidden() then
+	elseif not C_QuestLog.IsQuestTrivial(GetQuestID()) or C_Minimap.IsTrackingHiddenQuests() then
 		if not C.IgnoreQuestNPC[GetNPCID()] then
 			AcceptQuest()
 		end

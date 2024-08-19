@@ -3,6 +3,7 @@ local myname, ns = ...
 local STURDY = ns.nodeMaker{
     lable="Sturdy Chest",
     group="delves",
+    minimap=true,
 }
 
 ns.RegisterPoints(2269, { -- Earthcrawl Mines
@@ -76,11 +77,14 @@ ns.RegisterPoints(2250, { -- Kriegval's Rest
 --     achievement=40811, -- Discoveries
 -- })
 
--- ns.RegisterPoints(, { -- The Dread Pit
---     -- [] = {quest=, loot={}}, --
--- }, STURDY{
---     achievement=40812, -- Discoveries
--- })
+ns.RegisterPoints(2302, { -- The Dread Pit
+    [41124548] = {quest=83677, loot={226001}, note="Behind rocks"}, -- Pure Gold Stein
+    [57465613] = {quest=83658, currency=2815}, -- Resonance Crystals
+    [57852763] = {quest=83678, loot={226005}}, -- Ancient Tool
+    [36291664] = {quest=83659, currency=2815}, -- Resonance Crystals
+}, STURDY{
+    achievement=40812, -- Discoveries
+})
 
 -- ns.RegisterPoints(, { -- The Sinkhole
 --     -- [] = {quest=, loot={}}, --
@@ -100,8 +104,11 @@ ns.RegisterPoints(2250, { -- Kriegval's Rest
 --     achievement=40815, -- Discoveries
 -- })
 
--- ns.RegisterPoints(, { -- The Waterworks
---     -- [] = {quest=, loot={}}, --
--- }, STURDY{
---     achievement=40816, -- Discoveries
--- })
+ns.RegisterPoints(2251, { -- The Waterworks
+    [49902459] = {quest=83684, loot={226002}}, -- Expensive-Looking Find
+    [44383823] = {quest=83650, loot={226131}}, -- Deployable Wind-Wrangling Spire
+    [47925350] = {quest=83667, currency=2815}, -- Resonance Crystals
+    [49577916] = {quest=83456, loot={221754}}, -- Ringing Deeps Ingot
+}, STURDY{
+    achievement=40816, -- Discoveries
+})
