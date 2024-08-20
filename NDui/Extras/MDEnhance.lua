@@ -79,10 +79,10 @@ function EX:MDEnhance_UpdateScoreInfo(parent)
 	parent.BScore:SetText(bestScore or "")
 	parent.BScore:SetTextColor(0, 1, 0)
 
-	parent.FScore:SetText(affixScores[1].score or "")
+	parent.FScore:SetText(affixScores[1] and affixScores[1].score or "")
 	parent.FScore:SetTextColor(1, 1, 0)
 
-	parent.TScore:SetText(affixScores[2].score or "")
+	parent.TScore:SetText(affixScores[2] and affixScores[2].score or "")
 	parent.TScore:SetTextColor(0, 1, 1)
 end
 
