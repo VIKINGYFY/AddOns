@@ -5,7 +5,7 @@ function Private.argcheck(value, num, ...)
 	assert(type(num) == 'number', "Bad argument #2 to 'argcheck' (number expected, got " .. type(num) .. ')')
 
 	for i = 1, select('#', ...) do
-		if(type(value) == select(i, ...)) then return end
+		if (type(value) == select(i, ...)) then return end
 	end
 
 	local types = string.join(', ', ...)
@@ -33,7 +33,7 @@ local validator = CreateFrame('Frame')
 
 function Private.validateUnit(unit)
 	local isOK, _ = pcall(validator.RegisterUnitEvent, validator, 'UNIT_HEALTH', unit)
-	if(isOK) then
+	if (isOK) then
 		_, unit = validator:IsEventRegistered('UNIT_HEALTH')
 		validator:UnregisterEvent('UNIT_HEALTH')
 
@@ -59,7 +59,7 @@ local selectionTypes = {
 }
 
 function Private.unitSelectionType(unit, considerHostile)
-	if(considerHostile and UnitThreatSituation('player', unit)) then
+	if (considerHostile and UnitThreatSituation('player', unit)) then
 		return 0
 	else
 		return selectionTypes[UnitSelectionType(unit, true)]
@@ -72,7 +72,7 @@ end
 
 function Private.validateEvent(event)
 	local isOK = xpcall(validator.RegisterEvent, Private.nierror, validator, event)
-	if(isOK) then
+	if (isOK) then
 		validator:UnregisterEvent(event)
 	end
 
@@ -81,7 +81,7 @@ end
 
 function Private.isUnitEvent(event, unit)
 	local isOK = pcall(validator.RegisterUnitEvent, validator, event, unit)
-	if(isOK) then
+	if (isOK) then
 		validator:UnregisterEvent(event)
 	end
 

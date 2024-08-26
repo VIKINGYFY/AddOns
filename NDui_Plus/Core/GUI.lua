@@ -1,6 +1,5 @@
 local addonName, ns = ...
 local B, C, L, DB, P = unpack(ns)
-local _, _, NL = unpack(_G.NDui)
 local G = P:RegisterModule("GUI")
 
 local cr, cg, cb = DB.r, DB.g, DB.b
@@ -171,8 +170,7 @@ G.OptionList = { -- type, key, value, name, horizon, data, callback, tooltip, sc
 		{L["Addon Skin"]},
 		{1, "Skins", "Ace3", "AceGUI-3.0"},
 		{1, "Skins", "InboxMailBag", "Inbox MailBag", true},
-		--{1, "Skins", "TinyInspect", "TinyInspect"},
-		{},
+		{1, "Skins", "TinyInspect", "TinyInspect"},
 		{1, "Skins", "ButtonForge", "Button Forge", true},
 		{1, "Skins", "ls_Toasts", "ls_Toasts"},
 		{1, "Skins", "WhisperPop", "WhisperPop", true},
@@ -181,10 +179,9 @@ G.OptionList = { -- type, key, value, name, horizon, data, callback, tooltip, sc
 		{1, "Skins", "tdBattlePetScript", "tdBattlePetScript"},
 		{1, "Skins", "RareScanner", "RareScanner", true},
 		{1, "Skins", "WorldQuestTab", "WorldQuestTab"},
-		{1, "Skins", "ExtVendor", "Extended Vendor UI", true},
-		{1, "Skins", "AdiBags", "AdiBags"},
-		{1, "Skins", "BetterBags", "BetterBags", true},
-		{1, "Skins", "ShadowDancer", "ShadowDancer"},
+		{1, "Skins", "AdiBags", "AdiBags", true},
+		{1, "Skins", "BetterBags", "BetterBags"},
+		{1, "Skins", "ShadowDancer", "ShadowDancer", true},
 		{},
 		{1, "Skins", "HideToggle", L["HideToggle"].."*", nil, nil, updateToggleVisible},
 	},
@@ -547,7 +544,7 @@ function P:OpenGUI()
 	B.AddTooltip(toggle, "ANCHOR_RIGHT", "NDui", "info")
 	toggle:SetScript("OnClick", function()
 		for button in _G.GameMenuFrame.buttonPool:EnumerateActive() do
-			if button:GetText() == NL["NDui Console"] then
+			if strfind(button:GetText(), "NDui") then
 				button:Click()
 				gui:Hide()
 				break
@@ -606,7 +603,7 @@ end
 function G:OnLogin()
 	hooksecurefunc(_G.GameMenuFrame, "InitButtons", function(self)
 		for button in self.buttonPool:EnumerateActive() do
-			if button:GetText() == NL["NDui Console"] then
+			if strfind(button:GetText(), "NDui") then
 				button:HookScript("PostClick", G.SetupToggle)
 				break
 			end

@@ -96,9 +96,93 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         level=73,
         vignette=5989,
     },
-    -- [] = {criteria=69700, quest=82005}, -- Sky-Captains' Sunken Cache
+    [45904510] = { -- Sky-Captains' Sunken Cache
+         -- I believe the four captains are random, but the quest ids I got from the four I talked to were 82012, 82026, 82024, and 82025. ~Marthammor
+        criteria=69700,
+        quest=82005,
+        loot={
+            {224554, toy=true}, -- Silver Linin' Scepter
+        },
+        active={ns.conditions.QuestComplete(82012), ns.conditions.QuestComplete(82026), ns.conditions.QuestComplete(82024), ns.conditions.QuestComplete(82025)},
+        note="Talk to four skyship captains flying around the zone to make this appear",
+        routes={
+            {45904510, 62754689, highlightOnly=true},
+            {45904510, 49535554, highlightOnly=true},
+            {45904510, 54821161, highlightOnly=true},
+            {45904510, 27633461, highlightOnly=true},
+        },
+        atlas="VignetteLootElite", scale=1.2,
+        vignette=6181, -- Sunken Cache
+    },
 }, {
     achievement=40848,
+})
+
+ns.RegisterPoints(ns.HALLOWFALL, {
+    [62754689] = {
+        label="{npc:222333:Sky-Captain Dornald}, The Mighty Lynx",
+        quest=82012,
+        route={
+            58174030, 55013755, 53543627, 53343609, 52253524, 52033507, 48913292, 48503264, 48273252, 48043235,
+            47813233, 47573235, 47313239, 47083247, 46873259, 46663276, 46433299, 46253319, 46053337, 45393392,
+            45193414, 45023438, 44863464, 44563522, 44293587, 44103648, 43584116, 43594153, 43664222, 43724256,
+            46154846, 46324869, 46894935, 47524996, 48185051, 49525136, 49995156, 50225164, 50465171, 51415189,
+            52145196, 54155173, 55395149, 56085131, 56745109, 59335028, 59555018, 61004968, 61234958, 61464941,
+            61684921, 61884898, 62064873, 62224848, 62364821, 62484791, 62594759, 62694725, 62754689, 62784650,
+            62774615, 62724584, 62634552, 62524519, 62394488, 62074425, 61744370, 61564345, 61164299, 59894181,
+            59674159, 59274123,
+            loop=true,
+            r=1, g=0.6, b=0.6,
+        },
+    },
+    [49535554] = {
+        label="{npc:222311:Sky-Captain Clairmonte}, The Embers",
+        quest=82024,
+        route={
+            40034513, 35694513, 34024547, 33354577, 32914604, 32454639, 32064674, 30944759, 30554798, 30394824,
+            30254852, 30134883, 29944950, 29874986, 29755094, 29745129, 29805244, 30135458, 30235496, 30365530,
+            30515558, 30675582, 31025625, 31195653, 31375675, 31565693, 31975725, 32185738, 32415750, 34565838,
+            34785844, 35275853, 37185924, 37875947, 39476029, 42336237, 42566253, 43036280, 43956320, 44406341,
+            44656348, 44886350, 45396346, 45886337, 46136330, 46376321, 46596307, 46806290, 47586208, 47946157,
+            48226097, 49155797, 49275725, 49535554, 49705372, 49765297, 49745262, 49635196, 49425130, 49285097,
+            48684983, 46614717, 45784650, 44184565, 43934557, 43694551, 43454547, 42094520,
+            loop=true,
+            r=0.6, g=1, b=0.6,
+        },
+    },
+    [54821161] = {
+        label="{npc:222337:Sky-Captain Onaro}, The Resolute Flame",
+        quest=82026,
+        route={
+            52392748, 55451614, 55501578, 55521541, 55511504, 55481467, 55431432, 54821161, 54581100, 54301042,
+            53780961, 53260901, 52870863, 52640844, 52380826, 50330731, 49320705, 47610718, 46640748, 46420758,
+            46200770, 45990784, 45790800, 45590820, 45230868, 45060896, 43801212, 43361643, 43361747, 43772211,
+            44142385, 46012782, 46692883, 47032919, 47783007, 47973026, 48193044, 48403058, 48633070, 49133090,
+            49833111, 50093114, 50343111, 50583102, 50803088, 51353033, 51503014, 51622987,
+            loop=true,
+            r=0.6, g=0.6, b=1,
+        },
+    },
+    [27633461] = {
+        label="{npc:222323:Sky-Captain Aerthin}, The Righteous Hammer",
+        quest=82025,
+        route={
+            35122517, 37532340, 38032309, 38232293, 38592260, 38802244, 39042234, 39262227, 39752216, 40762205,
+            40992205, 41222207, 41462214, 41682225, 41882242, 42072262, 42252287, 44342661, 44672758, 45072932,
+            45313072, 45363110, 45413211, 45373392, 45353430, 45223538, 45153573, 45103646, 44883747, 44793784,
+            44693816, 44563845, 44403871, 44223896, 43024079, 42844105, 41444245, 41234259, 40534295, 39834322,
+            38184362, 37704364, 34284336, 33814327, 33594321, 32444276, 30744216, 30314186, 29874149, 28704021,
+            28523996, 28043912, 27793851, 27703819, 27563751, 27503683, 27493611, 27533536, 27633461, 27783395,
+            28113304, 28553216, 29583053, 32802690,
+            loop=true,
+            r=0.6, g=1, b=0.1,
+        },
+    },
+}, {
+    achievement=40848,
+    criteria=69700,
+    atlas="Vehicle-Air-Occupied", scale=1.5,
+    note="Find the ship on the route and talk to the captain",
 })
 
 -- Illusive Kobyss Lure (Treasures)
@@ -163,6 +247,10 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         criteria=69710,
         quest=81756,
         npc=221534,
+        loot={
+            221246, -- Fierce Beast Staff
+            221265, -- Charm of the Underground Beast
+        },
         vignette=6145,
     },
     [63402880] = { -- Moth'ethk
@@ -171,6 +259,8 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         npc=206203,
         loot={
             211973, -- Spider-Touched Bag
+            221252, -- Nerubian Slayer's Claymore
+            223924, -- Chitin-Inscribed Vest
         },
         vignette=5958,
     },
@@ -187,6 +277,10 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         criteria=69708,
         quest=80009,
         npc=218444,
+        loot={
+            221215, -- Taskmaster's Mining Cap
+            221240, -- Nerubian Stagshell Gouger
+        },
         vignette=6033,
     },
     [31205464] = { -- Grimslice
@@ -195,7 +289,6 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         npc=221551,
         loot={
             223397, -- Abyssal Hunter's Girdle
-            -- assumed:
             223398, -- Abyssal Hunter's Sash
             223399, -- Abyssal Hunter's Chain
             223400, -- Abyssal Hunter's Cinch
@@ -213,6 +306,12 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         criteria=69713,
         quest=81849,
         npc=221690, -- Rage of Beledar
+        loot={
+            221216, -- Bruin Strength Legplates
+            221251, -- Bestial Underground Cleaver
+            221265, -- Charm of the Underground Beast
+            221508, -- Pelt of Beledar's Strength
+        },
         vignette=6153,
     },
     [57046436] = { -- Ixlorb the Spinner
@@ -224,6 +323,7 @@ ns.RegisterPoints(ns.HALLOWFALL, {
             223379, -- Nerubian Weaver's Chestplate
             223380, -- Nerubian Weaver's Chainmail
             223381, -- Nerubian Weaver's Vest
+            223100, -- Pattern: Vambraces of Deepening Darkness
         },
         vignette=6032, -- Ixlorb the Weaver
     },
@@ -239,6 +339,7 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         npc=206184,
         loot={
             211967, -- Large Sealed Crate
+            223927, -- Vinewrapped Leather Tunic
         },
         vignette=6078,
     },
@@ -258,6 +359,9 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         criteria=69724,
         quest=82562,
         npc=221179,
+        loot={
+            223936, -- Shadow Bog Trousers
+        },
         vignette=6122,
     },
     [36687172] = { -- Funglour
@@ -273,6 +377,10 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         criteria=69714,
         quest=81853,
         npc=221708,
+        loot={
+            221241, -- Priestly Agent's Knife
+            221245, -- Righteous Path Treads
+        },
         vignette=6154,
     },
     [43410990] = { -- Horror of the Shallows
@@ -281,11 +389,17 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         npc=221668,
         loot={
             221211, -- Grasp of the Shallows
+            221234, -- Tidal Pendant
+            221255, -- Sharpened Scalepiercer
         },
         vignette=6152,
         note="Very long patrol",
         route={
-            43410990,43870879,44520774,45250767,45970726,45540662,44870677,44270749,43710858,43230977,42781094,42351213,41981324,41631452,41391580,41051714,40501821,39731909,38871990,38132054,37392117,36652173,35992256,35292353,34632446,33992545,33422650,32912763,32492891,32153010,31783130,30933154,29993162,29123191,28213204,27343238,26553287,26513416,26813550,27393654,27983757,28633853,29403934,30173998,30764092,30984221,30594339,29814381,28934419,28064452,27194486,26364534,25664611,24954700,24144768,23314830,23274858,22464885,21604925,20774968,19904976,19565105,20285138,20865040,21614971,22474926,
+            43410990, 43870879, 44520774, 45250767, 45970726, 45540662, 44870677, 44270749, 43710858, 41631452,
+            41391580, 41051714, 40501821, 39731909, 36652173, 33992545, 33422650, 32912763, 31783130, 30933154,
+            29993162, 29123191, 28213204, 27343238, 26553287, 26513416, 26813550, 27983757, 28633853, 29403934,
+            30173998, 30764092, 30984221, 30594339, 29814381, 27194486, 26364534, 25664611, 24954700, 23314830,
+            23274858, 22464885, 20774968, 19904976, 19565105, 20285138, 20865040, 21614971, 22474926,
             r=0,g=0,b=1,
         },
     },
@@ -293,6 +407,12 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         criteria=69709,
         quest=79271,
         npc=215805,
+        loot={
+            221223, -- Bog Beast Mantle
+            221253, -- Cultivator's Plant Puncher
+            221264, -- Fungarian Mystic's Cluster
+            223005, -- String of Fungal Fruits
+        },
         vignette=5988,
     },
     [52132682] = { -- Murkshade
@@ -312,6 +432,10 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         criteria=69722,
         quest=82560,
         npc=214757,
+        loot={
+            221247, -- Cavernous Critter Shooter
+            223938, -- Marsh Hopper's Spaulders
+        },
         vignette=6125,
         --tameable=true, -- hopper
     },
@@ -319,39 +443,59 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         criteria=69715,
         quest=81882,
         npc=221786,
+        loot={
+            221225, -- Benevolent Hornstag Cinch
+            221246, -- Fierce Beast Staff
+            221247, -- Cavernous Critter Shooter
+            221251, -- Bestial Underground Cleaver
+            223007, -- Lance of Beledar's Pride
+        },
         vignette=6159,
         -- tameable=true, -- stag
     },
-    -- UNKNOWN LOCATION
-    [70001500] = { -- Crazed Cabbage Smacker
-        criteria=69720,
-        quest=82558,
-        npc=206514,
-        vignette=6120,
-        note="UNKNOWN LOCATION. Objective of {questname:76588}, so presumably in the NE near the keyflames",
-    },
-    [71501500] = { -- Toadstomper
+    [66202340] = { -- Toadstomper
         criteria=69723,
         quest=82561,
         npc=207803,
+        loot={
+            223933, -- Slime Goliath's Cap
+        },
         vignette=6084,
-        note="UNKNOWN LOCATION. Objective of {questname:76588}, so presumably in the NE near the keyflames",
+        note="Objective of {questname:76588}",
     },
-    [73001500] = { -- Finclaw Bloodtide
+    [64802920] = { -- Crazed Cabbage Smacker
+        criteria=69720,
+        quest=82558,
+        npc=206514,
+        loot={
+            211968, -- Blueprint Bundle
+            221238, -- Pillar of Constructs
+            223928, -- Crop Cutter's Gauntlets
+        },
+        vignette=6120,
+        note="Objective of {questname:76588}",
+    },
+    [60201860] = { -- Finclaw Bloodtide
         criteria=69727,
         quest=82564,
         npc=207780, -- also 220492?
         loot={},
         vignette=6085,
-        note="UNKNOWN LOCATION. Objective of {questname:76588}, so presumably in the NE near the keyflames",
+        note="Objective of {questname:76588}",
     },
-    [74501500] = { -- Ravageant
+    [61603360] = { -- Ravageant
         criteria=69726,
         quest=82566,
         npc=207826,
+        loot={
+            221240, -- Nerubian Stagshell Gouger
+            221252, -- Nerubian Slayer's Claymore
+            223932, -- Scarab's Carapace Cap
+        },
         vignette=6124,
-        note="UNKNOWN LOCATION. Objective of {questname:76588}, so presumably in the NE near the keyflames",
+        note="Objective of {questname:76588}",
     },
+    -- UNKNOWN LOCATION
     --[[
     [] = { -- Brineslash
         criteria=69718,

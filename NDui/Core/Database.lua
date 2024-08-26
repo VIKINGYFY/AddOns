@@ -21,7 +21,7 @@ if DB.isWW then -- FIXME
 			end
 		end
 	end
-	
+
 	function EasyMenu(menuList, menuFrame, anchor, x, y, displayMode, autoHideDelay )
 		if ( displayMode == "MENU" ) then
 			menuFrame.displayMode = displayMode
@@ -58,13 +58,13 @@ DB.MyColor = format("|cff%02x%02x%02x", DB.r*255, DB.g*255, DB.b*255)
 DB.InfoColor = "|cff99CCFF" --.6,.8,1
 DB.GreyColor = "|cff7B8489"
 DB.QualityColors = {}
-local qualityColors = BAG_ITEM_QUALITY_COLORS
+local qualityColors = ITEM_QUALITY_COLORS or BAG_ITEM_QUALITY_COLORS
 for index, value in pairs(qualityColors) do
 	DB.QualityColors[index] = {r = value.r, g = value.g, b = value.b}
 end
 DB.QualityColors[-1] = {r = 0, g = 0, b = 0}
-DB.QualityColors[Enum.ItemQuality.Poor] = {r = COMMON_GRAY_COLOR.r, g = COMMON_GRAY_COLOR.g, b = COMMON_GRAY_COLOR.b}
-DB.QualityColors[Enum.ItemQuality.Common] = {r = 0, g = 0, b = 0}
+--DB.QualityColors[Enum.ItemQuality.Poor] = {r = 0, g = 0, b = 0}
+--DB.QualityColors[Enum.ItemQuality.Common] = {r = .7, g = .7, b = .7}
 DB.QualityColors[99] = {r = 1, g = 0, b = 0}
 
 -- Fonts
@@ -329,3 +329,195 @@ DB.ReminderBuffs = {
 	},
 ]]
 }
+
+-- Item Stats
+DB.ItemStats = {
+	--["ITEM_MOD_CRIT_RATING_SHORT"] = true,    -- 爆击
+	--["ITEM_MOD_HASTE_RATING_SHORT"] = true,   -- 急速
+	--["ITEM_MOD_MASTERY_RATING_SHORT"] = true, -- 精通
+	--["ITEM_MOD_VERSATILITY"] = true,          -- 全能
+
+	["ITEM_MOD_CR_AVOIDANCE_SHORT"] = true,     -- 闪避
+	["ITEM_MOD_CR_LIFESTEAL_SHORT"] = true,     -- 吸血
+	["ITEM_MOD_CR_SPEED_SHORT"] = true,         -- 加速
+	["ITEM_MOD_CR_STURDINESS_SHORT"] = true,    -- 永不磨损
+}
+
+-- Item IDs
+DB.MiscIDs = {
+	[Enum.ItemClass.Miscellaneous] = true,
+}
+
+DB.CollectionIDs = {
+	[Enum.ItemMiscellaneousSubclass.CompanionPet] = true,
+	[Enum.ItemMiscellaneousSubclass.Mount] = true,
+}
+
+DB.EquipIDs = {
+	[Enum.ItemClass.Weapon] = true,
+	[Enum.ItemClass.Armor] = true,
+}
+
+DB.ExcludeIDs = {
+	[Enum.ItemClass.Tradegoods] = true,
+}
+
+-- Item Types
+DB.ConduitTypes = {
+	[CONDUIT_TYPE_ENDURANCE] = CONDUIT_ENDURANCE,
+	[CONDUIT_TYPE_FINESSE] = CONDUIT_FINESSE,
+	[CONDUIT_TYPE_POTENCY] = CONDUIT_POTENCY,
+}
+
+DB.BindTypes = {
+	[ITEM_ACCOUNTBOUND] = "BoA",
+	[ITEM_BIND_TO_ACCOUNT] = "BoA",
+	[ITEM_BIND_TO_BNETACCOUNT] = "BoA",
+	[ITEM_BNETACCOUNTBOUND] = "BoA",
+	[ITEM_BIND_ON_EQUIP] = "BoE",
+	[ITEM_BIND_ON_USE] = "BoU",
+}
+
+DB.EquipTypes = {
+	["INVTYPE_HOLDABLE"] = SECONDARYHANDSLOT,
+	["INVTYPE_SHIELD"] = SHIELDSLOT,
+}
+
+DB.ContainerTypes = {
+	[0] = "背包",
+	[1] = "灵魂",
+	[2] = "草药",
+	[3] = "附魔",
+	[4] = "工程",
+	[5] = "珠宝",
+	[6] = "采矿",
+	[7] = "制皮",
+	[8] = "铭文",
+	[9] = "工具",
+	[10] = "烹饪",
+	[11] = "材料",
+}
+
+DB.EnchantTypes = {
+	[0] = INVTYPE_HEAD,
+	[1] = INVTYPE_NECK,
+	[2] = INVTYPE_SHOULDER,
+	[3] = INVTYPE_CLOAK,
+	[4] = INVTYPE_CHEST,
+	[5] = INVTYPE_WRIST,
+	[6] = INVTYPE_HAND,
+	[7] = INVTYPE_WAIST,
+	[8] = INVTYPE_LEGS,
+	[9] = INVTYPE_FEET,
+	[10] = INVTYPE_FINGER,
+	[11] = INVTYPE_WEAPON,
+	[12] = INVTYPE_2HWEAPON,
+	[13] = INVTYPE_WEAPONOFFHAND,
+	[14] = AUCTION_SUBCATEGORY_OTHER,
+}
+
+DB.RecipeTypes = {
+	[0] = "书籍",
+	[1] = "制皮",
+	[2] = "裁缝",
+	[3] = "工程",
+	[4] = "锻造",
+	[5] = "烹饪",
+	[6] = "炼金",
+	[7] = "急救",
+	[8] = "附魔",
+	[9] = "钓鱼",
+	[10] = "珠宝",
+	[11] = "铭文",
+}
+
+DB.KeyTypes = {
+	[0] = "钥匙",
+	[1] = "开锁",
+}
+
+DB.ProfessionTypes = {
+	[0] = "锻造",
+	[1] = "制皮",
+	[2] = "炼金",
+	[3] = "草药",
+	[4] = "烹饪",
+	[5] = "采矿",
+	[6] = "裁缝",
+	[7] = "工程",
+	[8] = "附魔",
+	[9] = "钓鱼",
+	[10] = "剥皮",
+	[11] = "珠宝",
+	[12] = "铭文",
+	[13] = "考古",
+}
+
+DB.MiscTypes = {
+	[2] = PETS,
+	[5] = MOUNTS,
+	[6] = EQUIPSET_EQUIP,
+}
+
+DB.DeliverRelic = {
+	[356931] = true,
+	[356933] = true,
+	[356934] = true,
+	[356935] = true,
+	[356936] = true,
+	[356937] = true,
+	[356938] = true,
+	[356939] = true,
+	[356940] = true,
+}
+
+DB.AncientMana = {
+	[192922] = true,
+	[193080] = true,
+	[193081] = true,
+	[211161] = true,
+	[211171] = true,
+	[222333] = true,
+	[222334] = true,
+	[222335] = true,
+	[222336] = true,
+	[222929] = true,
+	[222942] = true,
+	[222945] = true,
+	[222947] = true,
+	[222950] = true,
+	[223677] = true,
+	[227729] = true,
+	[233126] = true,
+	[233232] = true,
+}
+
+DB.Experience = {
+	[347495] = true,
+	[347496] = true,
+	[347497] = true,
+	[347498] = true,
+	[347499] = true,
+	[353852] = true,
+	[357445] = true,
+	[357447] = true,
+	[357448] = true,
+	[362986] = true,
+}
+
+DB.PetTrashCurrenies = {
+	[3300] = true,
+	[3670] = true,
+	[6150] = true,
+	[11406] = true,
+	[11944] = true,
+	[25402] = true,
+	[36812] = true,
+	[62072] = true,
+	[67410] = true,
+}
+
+DB.PrimordialStone = {}
+for id = 204000, 204030 do
+	DB.PrimordialStone[id] = true
+end

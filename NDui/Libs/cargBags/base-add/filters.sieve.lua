@@ -67,7 +67,7 @@ end
 	@param flag <bool> whether the filter is enabled (-1: inverted) [optional]
 ]]
 function FilterSet:SetExtended(filter, param, flag)
-	if(not flag and param) then
+	if (not flag and param) then
 		flag = true
 	end
 
@@ -107,14 +107,14 @@ function FilterSet:Check(item)
 	-- check own filters
 	for filter, flag in pairs(funcs) do
 		local result = filter(item, params[filter])
-		if((flag == true and not result) or (flag == -1 and result)) then
+		if ((flag == true and not result) or (flag == -1 and result)) then
 			return nil
 		end
 	end
 
 	-- check filters of chained sets
 	for tbl in pairs(self.chained) do
-		if(not tbl:Check(item)) then
+		if (not tbl:Check(item)) then
 			return nil
 		end
 	end
@@ -129,7 +129,7 @@ end
 ]]
 function Implementation:GetContainerForItem(item)
 	for _, container in ipairs(self.contByID) do
-		if(not container.filters or container.filters:Check(item)) then
+		if (not container.filters or container.filters:Check(item)) then
 			return container
 		end
 	end

@@ -69,7 +69,7 @@ local function updateTooltip(self)
 end
 
 local function onEnter(self)
-	if(not self:IsVisible()) then return end
+	if (not self:IsVisible()) then return end
 
 	GameTooltip_SetDefaultAnchor(GameTooltip, self)
 	self:UpdateTooltip()
@@ -80,36 +80,36 @@ local function onLeave()
 end
 
 local function UpdateColor(self, event, unit, powerType)
-	if(self.unit ~= unit or powerType ~= ALTERNATE_POWER_NAME) then return end
+	if (self.unit ~= unit or powerType ~= ALTERNATE_POWER_NAME) then return end
 	local element = self.AlternativePower
 
 	local r, g, b, color
-	if(element.colorThreat and not UnitPlayerControlled(unit) and UnitThreatSituation('player', unit)) then
+	if (element.colorThreat and not UnitPlayerControlled(unit) and UnitThreatSituation('player', unit)) then
 		color =  self.colors.threat[UnitThreatSituation('player', unit)]
-	elseif(element.colorPower) then
+	elseif (element.colorPower) then
 		color = self.colors.power[ALTERNATE_POWER_INDEX]
-	elseif(element.colorClass and (UnitIsPlayer(unit) or UnitInPartyIsAI(unit)))
+	elseif (element.colorClass and (UnitIsPlayer(unit) or UnitInPartyIsAI(unit)))
 		or (element.colorClassNPC and not (UnitIsPlayer(unit) or UnitInPartyIsAI(unit))) then
 		local _, class = UnitClass(unit)
 		color = self.colors.class[class]
-	elseif(element.colorSelection and unitSelectionType(unit, element.considerSelectionInCombatHostile)) then
+	elseif (element.colorSelection and unitSelectionType(unit, element.considerSelectionInCombatHostile)) then
 		color = self.colors.selection[unitSelectionType(unit, element.considerSelectionInCombatHostile)]
-	elseif(element.colorReaction and UnitReaction(unit, 'player')) then
+	elseif (element.colorReaction and UnitReaction(unit, 'player')) then
 		color = self.colors.reaction[UnitReaction(unit, 'player')]
-	elseif(element.colorSmooth) then
+	elseif (element.colorSmooth) then
 		local adjust = 0 - (element.min or 0)
 		r, g, b = self:ColorGradient((element.cur or 1) + adjust, (element.max or 1) + adjust, unpack(element.smoothGradient or self.colors.smooth))
 	end
 
-	if(color) then
+	if (color) then
 		r, g, b = color[1], color[2], color[3]
 	end
 
-	if(b) then
+	if (b) then
 		element:SetStatusBarColor(r, g, b)
 
 		local bg = element.bg
-		if(bg) then
+		if (bg) then
 			local mu = bg.multiplier or 1
 			bg:SetVertexColor(r * mu, g * mu, b * mu)
 		end
@@ -124,13 +124,13 @@ local function UpdateColor(self, event, unit, powerType)
 	* g    - the green component of the used color (number)[0-1]
 	* b    - the blue component of the used color (number)[0-1]
 	--]]
-	if(element.PostUpdateColor) then
+	if (element.PostUpdateColor) then
 		element:PostUpdateColor(unit, r, g, b)
 	end
 end
 
 local function Update(self, event, unit, powerType)
-	if(self.unit ~= unit or powerType ~= ALTERNATE_POWER_NAME) then return end
+	if (self.unit ~= unit or powerType ~= ALTERNATE_POWER_NAME) then return end
 	local element = self.AlternativePower
 
 	--[[ Callback: AlternativePower:PreUpdate()
@@ -138,13 +138,13 @@ local function Update(self, event, unit, powerType)
 
 	* self - the AlternativePower element
 	--]]
-	if(element.PreUpdate) then
+	if (element.PreUpdate) then
 		element:PreUpdate()
 	end
 
 	local cur, max, min
 	local barInfo = element.__barInfo
-	if(barInfo) then
+	if (barInfo) then
 		cur = UnitPower(unit, ALTERNATE_POWER_INDEX)
 		max = UnitPowerMax(unit, ALTERNATE_POWER_INDEX)
 		min = barInfo.minPower
@@ -165,7 +165,7 @@ local function Update(self, event, unit, powerType)
 	* min  - the minimum value of the unit's alternative power (number?)
 	* max  - the maximum value of the unit's alternative power (number?)
 	--]]
-	if(element.PostUpdate) then
+	if (element.PostUpdate) then
 		return element:PostUpdate(unit, cur, min, max)
 	end
 end
@@ -193,14 +193,14 @@ local function Path(self, ...)
 end
 
 local function Visibility(self, event, unit)
-	if(unit ~= self.unit) then return end
+	if (unit ~= self.unit) then return end
 	local element = self.AlternativePower
 
 	local barID = UnitPowerBarID(unit)
 	local barInfo = GetUnitPowerBarInfoByID(barID)
 	element.__barID = barID
 	element.__barInfo = barInfo
-	if(barInfo and (barInfo.showOnRaid and (UnitInParty(unit) or UnitInRaid(unit))
+	if (barInfo and (barInfo.showOnRaid and (UnitInParty(unit) or UnitInRaid(unit))
 		or not barInfo.hideFromOthers
 		or UnitIsUnit(unit, 'player')))
 	then
@@ -235,23 +235,23 @@ end
 
 local function Enable(self, unit)
 	local element = self.AlternativePower
-	if(element) then
+	if (element) then
 		element.__owner = self
 		element.ForceUpdate = ForceUpdate
 
 		self:RegisterEvent('UNIT_POWER_BAR_SHOW', VisibilityPath)
 		self:RegisterEvent('UNIT_POWER_BAR_HIDE', VisibilityPath)
 
-		if(element:IsObjectType('StatusBar') and not element:GetStatusBarTexture()) then
+		if (element:IsObjectType('StatusBar') and not element:GetStatusBarTexture()) then
 			element:SetStatusBarTexture([[Interface\TargetingFrame\UI-StatusBar]])
 		end
 
-		if(element:IsMouseEnabled()) then
-			if(not element:GetScript('OnEnter')) then
+		if (element:IsMouseEnabled()) then
+			if (not element:GetScript('OnEnter')) then
 				element:SetScript('OnEnter', onEnter)
 			end
 
-			if(not element:GetScript('OnLeave')) then
+			if (not element:GetScript('OnLeave')) then
 				element:SetScript('OnLeave', onLeave)
 			end
 
@@ -260,12 +260,12 @@ local function Enable(self, unit)
 
 			* self - the AlternativePower element
 			--]]
-			if(not element.UpdateTooltip) then
+			if (not element.UpdateTooltip) then
 				element.UpdateTooltip = updateTooltip
 			end
 		end
 
-		if(unit == 'player') then
+		if (unit == 'player') then
 			PlayerPowerBarAlt:UnregisterEvent('UNIT_POWER_BAR_SHOW')
 			PlayerPowerBarAlt:UnregisterEvent('UNIT_POWER_BAR_HIDE')
 			PlayerPowerBarAlt:UnregisterEvent('PLAYER_ENTERING_WORLD')
@@ -277,13 +277,13 @@ end
 
 local function Disable(self, unit)
 	local element = self.AlternativePower
-	if(element) then
+	if (element) then
 		element:Hide()
 
 		self:UnregisterEvent('UNIT_POWER_BAR_SHOW', VisibilityPath)
 		self:UnregisterEvent('UNIT_POWER_BAR_HIDE', VisibilityPath)
 
-		if(unit == 'player') then
+		if (unit == 'player') then
 			PlayerPowerBarAlt:RegisterEvent('UNIT_POWER_BAR_SHOW')
 			PlayerPowerBarAlt:RegisterEvent('UNIT_POWER_BAR_HIDE')
 			PlayerPowerBarAlt:RegisterEvent('PLAYER_ENTERING_WORLD')

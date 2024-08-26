@@ -501,7 +501,7 @@ function M:NVision_Update(index, reset)
 	local bar = frame.bars[index]
 	if reset then bar.count = 0 end
 	bar:SetValue(bar.count)
-	bar.text:SetText(bar.count.."/"..bar.__max)
+	bar.text:SetText(bar.count.." / "..bar.__max)
 end
 
 local castSpellIndex = {[143394] = 1, [306608] = 2}

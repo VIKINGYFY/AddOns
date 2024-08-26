@@ -14,7 +14,7 @@ factory:RegisterEvent('PLAYER_LOGIN')
 factory.active = true
 
 function factory:PLAYER_LOGIN()
-	if(not self.active) then return end
+	if (not self.active) then return end
 
 	for _, func in next, queue do
 		func(oUF)
@@ -35,7 +35,7 @@ function oUF:Factory(func)
 	argcheck(func, 2, 'function')
 
 	-- Call the function directly if we're active and logged in.
-	if(IsLoggedIn() and factory.active) then
+	if (IsLoggedIn() and factory.active) then
 		return func(self)
 	else
 		table.insert(queue, func)

@@ -96,36 +96,30 @@ G.DefaultSettings = {
 		FontSize = 12,
 		BagsWidth = 12,
 		BankWidth = 14,
-		BagsiLvl = true,
+		BagsiSlot = true,
 		BagSortMode = 1,
 		ItemFilter = true,
 		CustomItems = {},
 		CustomNames = {},
 		GatherEmpty = true,
-		ShowNewItem = true,
 		SplitCount = 1,
-		SpecialBagsColor = true,
 		iLvlToShow = 1,
 		AutoDeposit = false,
 		PetTrash = true,
-		BagsPerRow = 6,
-		BankPerRow = 10,
+		BagsPerRow = 7,
+		BankPerRow = 5,
 		HideWidgets = true,
 
 		FilterJunk = true,
 		FilterConsumable = true,
-		FilterAzerite = false,
 		FilterEquipment = true,
 		FilterLegendary = true,
 		FilterCollection = true,
 		FilterFavourite = true,
-		FilterGoods = false,
-		FilterQuest = false,
 		FilterEquipSet = true,
-		FilterAnima = false,
-		FilterRelic = false,
-		FilterStone = true,
-		FilterAOE = true,
+		FilterFeature = true,
+		FilterAoE = true,
+		FilterBoN = true,
 	},
 	Auras = {
 		Reminder = false,
@@ -1148,11 +1142,9 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{},--blank
 		{1, "Bags", "ItemFilter", L["Bags ItemFilter"].."*", nil, setupBagFilter, updateBagStatus},
 		{1, "Bags", "GatherEmpty", L["Bags GatherEmpty"].."*", true, nil, updateBagStatus},
-		{1, "Bags", "SpecialBagsColor", L["SpecialBagsColor"].."*", nil, nil, updateBagStatus, L["SpecialBagsColorTip"]},
-		{1, "Bags", "ShowNewItem", L["Bags ShowNewItem"], true},
-		{1, "Bags", "BagsiLvl", L["Bags Itemlevel"].."*", nil, nil, updateBagStatus},
+		{1, "Bags", "BagsiSlot", L["Bags ItemSlot"].."*", nil, nil, updateBagStatus},
 		{1, "Bags", "PetTrash", L["PetTrash"], true, nil, nil, L["PetTrashTip"]},
-		{3, "Bags", "iLvlToShow", L["iLvlToShow"].."*", nil, {1, 500, 1}, nil, L["iLvlToShowTip"]},
+		{3, "Bags", "iLvlToShow", L["iLvlToShow"].."*", nil, {1, 1000, 1}, nil, L["iLvlToShowTip"]},
 		{4, "Bags", "BagSortMode", L["BagSortMode"].."*", true, {L["Forward"], L["Backward"], DISABLE}, updateBagSortOrder, L["BagSortTip"]},
 		{},--blank
 		{3, "Bags", "BagsPerRow", L["BagsPerRow"].."*", nil, {1, 20, 1}, updateBagAnchor, L["BagsPerRowTip"]},
@@ -1932,6 +1924,17 @@ function G:OnLogin()
 	end
 
 	hooksecurefunc(GameMenuFrame, "InitButtons", function(self)
-		self:AddButton(L["NDui Console"], toggleGUI)
+		self:AddButton("|T"..DB.chatLogo..":12:24|t |cff0080ffNDui|r", toggleGUI)
+
+		for button in self.buttonPool:EnumerateActive() do
+			if not button.resized then
+				button:SetNormalFontObject("GameFontHighlight")
+				button:SetHighlightFontObject("GameFontHighlight")
+				button:SetDisabledFontObject("GameFontDisable")
+				button:SetSize(160, 27)
+
+				button.resized = true
+			end
+		end
 	end)
 end

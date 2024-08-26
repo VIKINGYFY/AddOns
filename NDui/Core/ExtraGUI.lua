@@ -1466,18 +1466,14 @@ function G:SetupBagFilter(parent)
 	local filterOptions = {
 		[1] = "FilterJunk",
 		[2] = "FilterConsumable",
-		[3] = "FilterAzerite",
-		[4] = "FilterEquipment",
-		[5] = "FilterEquipSet",
-		[6] = "FilterLegendary",
-		[7] = "FilterCollection",
-		[8] = "FilterFavourite",
-		[9] = "FilterGoods",
-		[10] = "FilterQuest",
-		[11] = "FilterAnima",
-		[12] = "FilterRelic",
-		[13] = "FilterStone",
-		[14] = "FilterAOE",
+		[3] = "FilterEquipment",
+		[4] = "FilterLegendary",
+		[5] = "FilterCollection",
+		[6] = "FilterFavourite",
+		[7] = "FilterEquipSet",
+		[8] = "FilterFeature",
+		[9] = "FilterAoE",
+		[10] = "FilterBoN",
 	}
 
 	local BAG = B:GetModule("Bags")

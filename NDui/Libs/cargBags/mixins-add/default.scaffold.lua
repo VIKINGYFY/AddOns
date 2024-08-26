@@ -57,7 +57,7 @@ end
 local function ItemButton_Update(self, item)
 	self.Icon:SetTexture(item.texture or self.bgTex)
 
-	if(item.count and item.count > 1) then
+	if (item.count and item.count > 1) then
 		self.Count:SetText(item.count > 1e4 and "*" or item.count)
 		self.Count:Show()
 	else
@@ -69,7 +69,7 @@ local function ItemButton_Update(self, item)
 	self:ButtonUpdateLock(item)
 	self:ButtonUpdateQuest(item)
 
-	if(self.OnUpdateButton) then self:OnUpdateButton(item) end
+	if (self.OnUpdateButton) then self:OnUpdateButton(item) end
 end
 
 --[[!
@@ -78,14 +78,14 @@ end
 	@callback OnUpdateCooldown(item)
 ]]
 local function ItemButton_UpdateCooldown(self, item)
-	if(item.cdEnable == 1 and item.cdStart and item.cdStart > 0) then
+	if (item.cdEnable == 1 and item.cdStart and item.cdStart > 0) then
 		self.Cooldown:SetCooldown(item.cdStart, item.cdFinish)
 		self.Cooldown:Show()
 	else
 		self.Cooldown:Hide()
 	end
 
-	if(self.OnUpdateCooldown) then self:OnUpdateCooldown(item) end
+	if (self.OnUpdateCooldown) then self:OnUpdateCooldown(item) end
 end
 
 --[[!
@@ -96,7 +96,7 @@ end
 local function ItemButton_UpdateLock(self, item)
 	self.Icon:SetDesaturated(item.locked)
 
-	if(self.OnUpdateLock) then self:OnUpdateLock(item) end
+	if (self.OnUpdateLock) then self:OnUpdateLock(item) end
 end
 
 --[[!
@@ -105,15 +105,15 @@ end
 	@callback OnUpdateQuest(item)
 ]]
 local function ItemButton_UpdateQuest(self, item)
-	if(self.OnUpdateQuest) then self:OnUpdateQuest(item) end
+	if (self.OnUpdateQuest) then self:OnUpdateQuest(item) end
 end
 
 local function ItemButton_OnEnter(self)
-	if(self.ItemOnEnter) then self:ItemOnEnter() end
+	if (self.ItemOnEnter) then self:ItemOnEnter() end
 end
 
 local function ItemButton_OnLeave(self)
-	if(self.ItemOnLeave) then self:ItemOnLeave() end
+	if (self.ItemOnLeave) then self:ItemOnLeave() end
 end
 
 cargBags:RegisterScaffold("Default", function(self)

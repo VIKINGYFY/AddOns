@@ -53,13 +53,13 @@ local function updater(self, event)
 	object = self
 	self:SetText(self.tagString:gsub("%[([^%]:]+):?(.-)%]", tagger))
 
-	if(self.OnTagUpdate) then self:OnTagUpdate(event) end
+	if (self.OnTagUpdate) then self:OnTagUpdate(event) end
 end
 
 local function setTagString(self, tagString)
 	self.tagString = tagString
 	for tag in tagString:gmatch("%[([^%]:]+):?.-]") do
-		if(self.tagEvents[tag]) then
+		if (self.tagEvents[tag]) then
 			for _, event in pairs(self.tagEvents[tag]) do
 				self.implementation:RegisterEvent(event, self, updater)
 			end
@@ -86,7 +86,7 @@ cargBags:RegisterPlugin("TagDisplay", function(self, tagString, parent)
 end)
 
 local function createIcon(icon, iconValues)
-	if(type(iconValues) == "table") then
+	if (type(iconValues) == "table") then
 		iconValues = table.concat(iconValues, ":")
 	end
 	return ("|T%s:%s|t"):format(icon, iconValues)
@@ -128,7 +128,7 @@ tagPool["item"] = function(self, item)
 	local total = C_Item.GetItemCount(item, true)
 	local bank = total-bags
 
-	if(total > 0) then
+	if (total > 0) then
 		return bags .. (bank and " ("..bank..")") .. createIcon(C_Item.GetItemIconByID(item), self.iconValues)
 	end
 end
@@ -145,7 +145,7 @@ tagPool["currencies"] = function(self)
 	local str
 	for i=1, GetNumWatchedTokens() do
 		local curr = self.tags["currency"](self, i)
-		if(curr) then
+		if (curr) then
 			str = (str and str.." " or "")..curr
 		end
 	end

@@ -1,5 +1,53 @@
 # Changelog
 
+## Changed in v25
+
+* Isle of Dorn: more loot for rares, thank Preheat!
+* Hallowfall: added the Sky-Captain's Sunken Cache, thanks Marthammor!
+* Azj-Kahet: added the Smelling History and Bookworm achievements
+
+## Changed in v24
+
+* Azj-Kahet: lots of new loot
+
+## Changed in v23
+
+* Ringing Deeps: added the Gobblin' with Glublurb achievement
+* Isle of Dorn: improve the final display of the Mosswool Flower
+
+## Changed in v22
+
+* Hallowfall: lots of new loot
+* Fixed the locations for some profession knowledge treasures that had moved since the beta (mostly in Dornogal)
+* Fixed the position of one chest in Kriegval's Rest
+
+## Changed in v21
+
+* Ringing Deeps: lots of new loot
+* Delves add some loot variation
+* Isle of Dorn: fix typo that was making the Pearlescent Shellcrabs show up when they shouldn't
+
+## Changed in v20
+
+* Ringing Deeps: Lurker of the Deeps has been found by the secret-finding discord
+
+## Changed in v19
+
+* Isle of Dorn: lots of new loot
+
+## Changed in v18
+
+* Hide the Turtle's Thanks treasure in Dornogal before it's actually present
+
+## Changed in v17
+
+* Support Map Pin Enhanced for waypoints
+
+## Changed in v16
+
+* Locations and timing-display for all the races
+* Add Regurgitated Mole Reins to Lurker of the Deeps based on the mount journal
+
 ## Changed in v15
 
 * Delves: The Waterworks, The Dread Pit

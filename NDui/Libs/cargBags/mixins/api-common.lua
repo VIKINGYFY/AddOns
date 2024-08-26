@@ -49,9 +49,9 @@ end
 cargBags.plugins = {}
 
 function Implementation:SpawnPlugin(name, ...)
-	if(cargBags.plugins[name]) then
+	if (cargBags.plugins[name]) then
 		local plugin = cargBags.plugins[name](self, ...)
-		if(plugin) then
+		if (plugin) then
 			plugin.parent = self
 		end
 		return plugin

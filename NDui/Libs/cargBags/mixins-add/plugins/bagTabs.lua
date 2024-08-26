@@ -67,7 +67,7 @@ function BagTab:Create(bagID)
 
 	cargBags.SetScriptHandlers(button, "OnClick", "OnEnter", "OnLeave")
 
-	if(button.OnCreate) then button:OnCreate(bagID) end
+	if (button.OnCreate) then button:OnCreate(bagID) end
 
 	return button
 end
@@ -79,8 +79,8 @@ end
 function BagTab:OnEnter()
 	local hlFunction = self.bar.highlightFunction
 
-	if(hlFunction) then
-		if(self.bar.isGlobal) then
+	if (hlFunction) then
+		if (self.bar.isGlobal) then
 			for _, container in pairs(self.implementation.contByID) do
 				container:ApplyToButtons(highlight, hlFunction, self.bagId)
 			end
@@ -95,8 +95,8 @@ end
 function BagTab:OnLeave()
 	local hlFunction = self.bar.highlightFunction
 
-	if(hlFunction) then
-		if(self.bar.isGlobal) then
+	if (hlFunction) then
+		if (self.bar.isGlobal) then
 			for _, container in pairs(self.implementation.contByID) do
 				container:ApplyToButtons(highlight, hlFunction)
 			end
@@ -110,13 +110,13 @@ end
 
 function BagTab:UpdateButton()
 	local container = self.bar.container
-	if(container and container.SetFilter) then
-		if(not self.filter) then
+	if (container and container.SetFilter) then
+		if (not self.filter) then
 			local bagID = self.bagId
 			self.filter = function(i) return i.bagId ~= bagID end
 		end
 
-		if(self.bar.isGlobal) then
+		if (self.bar.isGlobal) then
 			for _, container in pairs(container.implementation.contByID) do
 				container:SetFilter(self.filter, self.hidden)
 				container.implementation:OnEvent("BAG_UPDATE", self.bagId)
@@ -170,7 +170,7 @@ end
 
 -- Register the plugin
 cargBags:RegisterPlugin("BagTab", function(self, bags)
-	if(cargBags.ParseBags) then
+	if (cargBags.ParseBags) then
 		bags = cargBags:ParseBags(bags)
 	end
 

@@ -1,3 +1,19 @@
+## v0.43.3
+
+* Override the SetPassThroughButtons on the data provider, to hopefully stop lua errors.
+
+## v0.43.2
+
+* Optimize filter button position to allow for more filter buttons before clipping into text.
+
+## v0.43.1
+
+* Bugfixes for various issues, provided by Shauren on github.
+
+## v0.43.0
+
+* Support for The War Within implemented, provided by Shauren on github.
+
 ## v0.42.11
 
 * Fixes needed so the addon doesn't crash. (Still not compatible with TWW, but it is being worked on)

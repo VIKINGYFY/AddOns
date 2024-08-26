@@ -463,11 +463,15 @@ local function HasAppearance(itemLinkOrID)
     return false
 end
 
-local function PlayerHasMount(mountid)
+local function PlayerHasMount(itemid, mountid)
     if not _G.C_MountJournal then return false end
+    if mountid == true then
+        mountid = C_MountJournal.GetMountFromItem and C_MountJournal.GetMountFromItem(itemid)
+        if not mountid then return false end
+    end
     return (select(11, C_MountJournal.GetMountInfoByID(mountid)))
 end
-local function PlayerHasPet(petid)
+local function PlayerHasPet(itemid, petid)
     return (C_PetJournal.GetNumCollectedInfo(petid) > 0)
 end
 ns.itemRestricted = function(item)
@@ -508,8 +512,8 @@ ns.itemIsKnown = function(item)
         -- considering soulbound things, the restrictions on seeing appearances
         -- known cross-armor-type wouldn't really matter...
         if item.toy then return PlayerHasToy(item[1]) end
-        if item.mount then return PlayerHasMount(item.mount) end
-        if item.pet then return PlayerHasPet(item.pet) end
+        if item.mount then return PlayerHasMount(item[1], item.mount) end
+        if item.pet then return PlayerHasPet(item[1], item.pet) end
         if item.quest then return C_QuestLog.IsQuestFlaggedCompleted(item.quest) or C_QuestLog.IsOnQuest(item.quest) end
         if item.questComplete then return C_QuestLog.IsQuestFlaggedCompleted(item.questComplete) end
         if item.set then

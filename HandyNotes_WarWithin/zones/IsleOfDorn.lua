@@ -2,12 +2,17 @@ local myname, ns = ...
 
 --[[
 notes:
+Arrival post-intro is 83622
+
+Magni and Merrix chat after restoration: 84815
+Alleria and Anduin chat after restoration: 84335
 
 Earthern coffer 6230
 38523951 - in cave from 36354156
 
 Worldsoul Memory
 55627771
+51212917
 ]]
 
 -- Treasures
@@ -28,14 +33,14 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
             --
             label="{npc:222941:Pearlescent Shellcrab}",
             color={r=1, g=0.5, b=0.5}, minimap=true,
-            required=ns.conditions.Item(224185), -- Crab-Guiding Branch
+            requires=ns.conditions.Item(224185), -- Crab-Guiding Branch
             note="Chase away all six crabs then return to {npc:222940:Freysworn Letitia}",
         },
         vignette=6210,
     },
     [40655988] = { -- Magical Treasure Chest
         criteria=68199,
-        quest=83243,
+        quest=83243, -- 82212 for giving Lionel crabs
         loot={{224579, pet=3362}}, -- Sapphire Crab
         note="Push {npc:223104:Lionel} into the water, talk to it, then go gather 5x {item:223159:Plump Snapcrab} nearby",
         vignette=6224,
@@ -66,7 +71,7 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
     },
     [59622459] = { -- Mosswool Flower
         criteria=68204,
-        quest=83246, -- 82145 when flower spawns, 82251 also when looted
+        quest=82145, -- when flower spawns
         loot={{224450, pet=4527}}, -- Lil' Moss Rosy
         nearby={
             -- In this order: (but no helpful quests)
@@ -78,6 +83,15 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
         route={59622459, 59102706, 59752870},
         minimap=true,
         note="Chase {npc:222956:Lost Mosswool} to the flower",
+        vignette=6212,
+    },
+    [59722869] = { -- Mosswool Flower
+        criteria=68204,
+        quest=83246, -- 82251 also when looted
+        loot={{224450, pet=4527}}, -- Lil' Moss Rosy
+        hide_before=ns.conditions.QuestComplete(82145),
+        note="Chase {npc:222956:Lost Mosswool} to the flower; if another player has recently looted if you may have to wait for it to appear",
+        vignette=6238,
     },
     [62574327] = { -- Kobold Pickaxe
         criteria=68205,
@@ -145,6 +159,7 @@ ns.RegisterPoints(ns.DORNOGAL, {
         criteria=68198,
         quest=82716, -- final!, also 82255 when treasure spawns
         loot={{224549,pet=4594}}, -- Sewer Turtle Whistle
+        requires=ns.conditions.QuestComplete(79586), -- moves here
         note="Talk to the turtle to spawn the treasure",
         vignette=6246, -- Dalaran Sewer Turtle, then 6579 Turtle's Thanks
         parent=true,
@@ -168,6 +183,10 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
         criteria=68229,
         quest=81923,
         npc=221126,
+            loot={
+            223922, -- Cinder Pollen Cloak
+            223937, -- Honey Deliverer's Leggings
+        },
         -- tameable=true, -- wasp
         vignette=6112,
     },
@@ -188,12 +207,24 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
         criteria=68220,
         quest=81902,
         npc=219270,
+        loot={
+            221210, -- Grips of the Earth
+            221254, -- Earthshatter Lance
+            221507, -- Earth Golem's Wrap
+        },
         vignette=6051,
     },
     [74082756] = { -- Shallowshell the Clacker
         criteria=68221,
-        quest=81903,
+        quest=81903, -- 84032
         npc=219278,
+        loot={
+            221224, -- Bouldershell Waistguard
+            221233, -- Deephunter's Bloody Hook
+            221255, -- Sharpened Scalepiercer
+            221234, -- Tidal Pendant
+            221248, -- Deep Terror Carver
+        },
         vignette=6052,
     },
     [41137679] = { -- Bloodmaw
@@ -215,7 +246,7 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
         loot={
             223356, -- Shoulderpads of the Steamsurger
             223357, -- Spaulders of the Steamsurger
-            -- 223358, -- Mantle of the Steamsurger (name matches, but not listed?)
+            223358, -- Mantle of the Steamsurger (name matches, but not listed?)
             223359, -- Epaulets of the Steamsurger
         },
         vignette=6043,
@@ -232,8 +263,11 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
     [76403620] = { -- Clawbreaker K'zithix
         -- [80003500]
         criteria=68224,
-        quest=81920,
+        quest=81920, -- 84036
         npc=221128,
+        loot={
+            223140, -- Formula: Enchant Cloak - Chant of Burrowing Rapidity
+        },
         vignette=6115,
     },
     [47946014] = { -- Emperor Pitfang
@@ -254,29 +288,56 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
         quest=81907,
         npc=219266,
         vignette=6049,
+        loot={
+            221208, -- Unseen Cutthroat's Tunic
+            221235, -- Dark Agent's Cloak
+        },
     },
     [73004010] = { -- Matriarch Charfuria
         criteria=68231,
         quest=81921,
         npc=220890,
+        loot={
+            223948, -- Stubborn Wolf's Greathelm
+            221247, -- Cavernous Critter Shooter
+            221251, -- Bestial Underground Cleaver
+            221265, -- Charm of the Underground Beast
+            221246, -- Fierce Beast Staff
+        },
         vignette=6114,
     },
     [57461625] = { -- Tempest Lord Incarnus
         criteria=68219,
         quest=81901,
         npc=219269,
+        loot={
+            221230, -- Storm Bindings
+            221236, -- Stormbreaker's Shield
+        },
         vignette=6050,
     },
     [53348006] = { -- Gar'loc
         criteria=68217,
         quest=81899,
         npc=219268,
+        loot={
+            221222, -- Water-Imbued Spaulders
+            221234, -- Tidal Pendant
+            221248, -- Deep Terror Carver
+            221255, -- Sharpened Scalepiercer
+            221233, -- Deephunter's Bloody Hook
+        },
         vignette=6048,
     },
     [57072279] = { -- Twice-Stinger the Wretched
         criteria=68222,
-        quest=81904,
+        quest=81904, -- 84033
         npc=219271,
+        loot={
+            221219, -- Silkwing Trousers
+            221239, -- Spider Blasting Blunderbuss
+            221506, -- Arachnid's Web-Sown Guise
+        },
         -- tameable=true, -- blood beast
         vignette=6053,
     },
@@ -299,15 +360,19 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
         npc=219279,
         loot={
             221244, -- Flamekeeper's Footpads
+            221249, -- Kobold Rodent Squasher
         },
         vignette=6054,
     },
     [50876984] = { -- Plaguehart
         criteria=68216,
-        quest=81897,
+        quest=81897, -- also 84026?
         npc=219267,
         loot={
             221213, -- Shawl of the Plagued
+            221265, -- Charm of the Underground Beast
+            221246, -- Fierce Beast Staff
+            221251, -- Bestial Underground Cleaver
             221247, -- Cavernous Critter Shooter
         },
         --tameable=true, -- stag
@@ -317,6 +382,11 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
         criteria=68230,
         quest=81922,
         npc=220883,
+        loot={
+            223929, -- Honey Sweetener's Squeezers
+            223921, -- Ever-Oozing Signet
+            223920, -- Slime Deflecting Stopper
+        },
         vignette=6113,
     },
     -- Violet Hold prisoners:
@@ -328,6 +398,7 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
         loot={
             226111, -- Arakkoan Ritual Staff
             226113, -- Kereke's Flourishing Sabre
+            226114, -- Windslicer's Lance
         },
         vignette=6215,
         note="Violet Hold Prisoner",
@@ -349,8 +420,9 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
         quest=82205,
         npc=222380,
         loot={
-            -- Going by the name, but not currently in the drops on wowhead...
             226112, -- Rotfist Flesh Carver
+            226115, -- Contaminating Cleaver
+            226116, -- Coagulating Phlegm Churner
         },
         vignette=6216,
         note="Violet Hold Prisoner",

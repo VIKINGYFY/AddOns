@@ -122,14 +122,14 @@ local function UpdateLMFrame(self, event, ...)
 		local itemEx = B.GetItemExtra(itemLink)
 		local itemLvl = B.GetItemLevel(itemLink)
 		local itemSolt = B.GetItemSlot(itemLink)
-		local itemID = C_Item.GetItemInfoInstant(itemLink)
-		local _, _, itemQuality, _, _, _, _, _, itemEquipLoc, _, _, itemClassID, itemSubClassID = C_Item.GetItemInfo(itemLink)
+		local itemQuality = C_Item.GetItemQualityByID(itemLink)
+		local itemID, _, _, _, _, itemClassID, itemSubClassID = C_Item.GetItemInfoInstant(itemLink)
 
-		if LMFrame_CFG["inGroup"] and not IsInGroup() then
-			lootInfo = false
-		elseif (itemClassID == 15 and (itemSubClassID == 2 or itemSubClassID == 5)) or C_ToyBox.GetToyInfo(itemID) then
+		if LMFrame_CFG["inGroup"] and IsInGroup() then
 			lootInfo = true
-		elseif (itemQuality >= LMFrame_CFG["minQuality"] and itemQuality < 7) and (itemEquipLoc ~= "INVTYPE_NON_EQUIP_IGNORE" or IsArtifactRelicItem(itemID)) then
+		elseif DB.EquipIDs[itemClassID] and itemQuality >= LMFrame_CFG["minQuality"] then
+			lootInfo = true
+		elseif (DB.MiscIDs[itemClassID] and DB.CollectionIDs[itemSubClassID]) or C_ToyBox.GetToyInfo(itemID) then
 			lootInfo = true
 		end
 

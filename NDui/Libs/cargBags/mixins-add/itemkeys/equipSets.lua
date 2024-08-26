@@ -26,8 +26,6 @@ DEPENDENCIES
 local _, ns = ...
 local cargBags = ns.cargBags
 
-local ItemKeys = cargBags.itemKeys
-
 local setItems, isUpdating
 
 local function initUpdater()
@@ -62,7 +60,7 @@ local function initUpdater()
 	updateSets()
 end
 
-ItemKeys["isItemSet"] = function(item)
+cargBags.itemKeys["isItemSet"] = function(i)
 	if not setItems then initUpdater() end
-	return setItems[item.bagId..":"..item.slotId]
+	return setItems[i.bagId..":"..i.slotId]
 end

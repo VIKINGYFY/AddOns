@@ -1,5 +1,6 @@
-## Changed in v15
+## Changed in v25
 
-* Delves: The Waterworks, The Dread Pit
-* Show delve chests on the minimap as well
+* Isle of Dorn: more loot for rares, thank Preheat!
+* Hallowfall: added the Sky-Captain's Sunken Cache, thanks Marthammor!
+* Azj-Kahet: added the Smelling History and Bookworm achievements
 

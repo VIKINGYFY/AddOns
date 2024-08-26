@@ -6,86 +6,83 @@ local cr, cg, cb = DB.r, DB.g, DB.b
 do
 	-- Item Slot
 	local iSlotDB = {}
-	function B.GetItemSlot(item)
-		local itemID = C_Item.GetItemInfoInstant(item)
+	function B.GetItemSlot(itemLink, bagID, slotID)
+		local itemID, itemType, itemSubType, itemEquipLoc, itemIcon, itemClassID, itemSubClassID = C_Item.GetItemInfoInstant(itemLink)
 		if not itemID then return end
 		if iSlotDB[itemID] then return iSlotDB[itemID] end
 
 		local itemSolt
-		local _, _, _, _, _, _, _, _, itemEquipLoc, _, _, itemClassID, itemSubClassID, bindType = C_Item.GetItemInfo(itemID)
-
-		if itemEquipLoc and itemEquipLoc ~= "INVTYPE_NON_EQUIP_IGNORE" then
-			itemSolt = _G[itemEquipLoc]
-
-			if itemEquipLoc == "INVTYPE_HOLDABLE" then
-				itemSolt = SECONDARYHANDSLOT
-			elseif itemEquipLoc == "INVTYPE_SHIELD" then
-				itemSolt = SHIELDSLOT
-			elseif itemEquipLoc == "INVTYPE_PROFESSION_TOOL" then
-				itemSolt = TRADE_SKILLS
-			end
+		if DB.EquipIDs[itemClassID] then
+			itemSolt = DB.EquipTypes[itemEquipLoc] or _G[itemEquipLoc]
 		end
 
-		if itemClassID and itemClassID == Enum.ItemClass.Miscellaneous then
-			if itemSubClassID and itemSubClassID == Enum.ItemMiscellaneousSubclass.CompanionPet then
-				itemSolt = PETS
-			elseif itemSubClassID and itemSubClassID == Enum.ItemMiscellaneousSubclass.Mount then
-				itemSolt = MOUNTS
-			end
+		local itemDate
+		if bagID and slotID then
+			itemDate = C_TooltipInfo.GetBagItem(bagID, slotID)
+		else
+			itemDate = C_TooltipInfo.GetHyperlink(itemLink, nil, nil, true)
 		end
-
-		if C_ToyBox.GetToyInfo(itemID) then
-			itemSolt = TOY
-		elseif IsArtifactRelicItem(itemID) then
-			itemSolt = RELICSLOT
-		end
-
-		if bindType and itemEquipLoc ~= "INVTYPE_BAG" then
-			if bindType == 2 then
-				itemSolt = "BoE"
-			elseif bindType == 3 then
-				itemSolt = "BoU"
-			end
-		end
-
-		local data = C_TooltipInfo.GetHyperlink(item, nil, nil, true)
-		if data then
-			for i = 2, 5 do
-				local lineData = data.lines[i]
+		if itemDate then
+			for i = 2, 8 do
+				local lineData = itemDate.lines[i]
 				if not lineData then break end
 
-				local text = lineData.leftText
-				if text and string.find(text, ITEM_BIND_TO_BNETACCOUNT) then
-					itemSolt = "BoA"
-
+				local lineText = lineData.leftText
+				if DB.ConduitTypes[lineText] then
+					itemSolt = DB.ConduitTypes[lineText]
+					break
+				elseif DB.BindTypes[lineText] then
+					itemSolt = DB.BindTypes[lineText]
 					break
 				end
 			end
 		end
+
+		local _, spellID = C_Item.GetItemSpell(itemID)
+		if DB.AncientMana[spellID] then
+			itemSolt = "魔力"
+		elseif DB.DeliverRelic[spellID] then
+			itemSolt = "研究"
+		elseif DB.Experience[spellID] then
+			itemSolt = "经验"
+		end
+
+		if itemClassID == Enum.ItemClass.Container then
+			itemSolt = DB.ContainerTypes[itemSubClassID]
+		elseif itemClassID == Enum.ItemClass.ItemEnhancement then
+			itemSolt = DB.EnchantTypes[itemSubClassID]
+		elseif itemClassID == Enum.ItemClass.Recipe then
+			itemSolt = DB.RecipeTypes[itemSubClassID]
+		elseif itemClassID == Enum.ItemClass.Key then
+			itemSolt = DB.KeyTypes[itemSubClassID]
+		elseif itemClassID == Enum.ItemClass.Miscellaneous then
+			itemSolt = DB.MiscTypes[itemSubClassID]
+		elseif itemClassID == Enum.ItemClass.Profession then
+			itemSolt = DB.ProfessionTypes[itemSubClassID]
+		end
+
+		if C_ArtifactUI.GetRelicInfoByItemID(itemID) then
+			itemSolt = RELICSLOT
+		elseif C_Item.IsAnimaItemByID(itemID) then
+			itemSolt = POWER_TYPE_ANIMA
+		elseif C_ToyBox.GetToyInfo(itemID) then
+			itemSolt = TOY
+		end
+
+		--itemSolt = itemClassID.." "..itemSubClassID
 
 		iSlotDB[itemID] = itemSolt
 		return iSlotDB[itemID]
 	end
 
 	-- Item Extra
-	local statWatchList = {
-		--["ITEM_MOD_CRIT_RATING_SHORT"] = true,    -- 爆击
-		--["ITEM_MOD_HASTE_RATING_SHORT"] = true,   -- 急速
-		--["ITEM_MOD_MASTERY_RATING_SHORT"] = true, -- 精通
-		--["ITEM_MOD_VERSATILITY"] = true,          -- 全能
-
-		["ITEM_MOD_CR_AVOIDANCE_SHORT"] = true,     -- 闪避
-		["ITEM_MOD_CR_LIFESTEAL_SHORT"] = true,     -- 吸血
-		["ITEM_MOD_CR_SPEED_SHORT"] = true,         -- 加速
-		["ITEM_MOD_CR_STURDINESS_SHORT"] = true,    -- 永不磨损
-	}
 	function B.GetItemExtra(item)
 		local itemEx = ""
 		local stats = C_Item.GetItemStats(item)
 
 		if stats then
 			for stat, count in pairs(stats) do
-				if statWatchList[stat] then
+				if DB.ItemStats[stat] then
 					itemEx = itemEx.."-".._G[stat]
 				end
 				if string.find(stat, "EMPTY_SOCKET_") then
@@ -814,11 +811,7 @@ do
 		border.__owner.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 	end
 
-	local greyRGB = DB.QualityColors[0].r
 	local function updateIconBorderColor(border, r, g, b)
-		if not r or r == greyRGB or (r>.99 and g>.99 and b>.99) then
-			r, g, b = 0, 0, 0
-		end
 		border.__owner.bg:SetBackdropBorderColor(r, g, b)
 		border:Hide(true) -- fix icon border
 	end

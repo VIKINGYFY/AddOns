@@ -45,7 +45,7 @@ local ICONS = {
 }
 
 local function Update(self, event, unit)
-	if(unit ~= self.unit) then return end
+	if (unit ~= self.unit) then return end
 
 	local element = self.PvPClassificationIndicator
 
@@ -55,13 +55,13 @@ local function Update(self, event, unit)
 	* self - the PvPClassificationIndicator element
 	* unit - the unit for which the update has been triggered (string)
 	--]]
-	if(element.PreUpdate) then
+	if (element.PreUpdate) then
 		element:PreUpdate(unit)
 	end
 
 	local class = UnitPvpClassification(unit)
 	local icon = ICONS[class]
-	if(icon) then
+	if (icon) then
 		element:SetAtlas(icon, element.useAtlasSize)
 		element:Show()
 	else
@@ -75,7 +75,7 @@ local function Update(self, event, unit)
 	* unit  - the unit for which the update has been triggered (string)
 	* class - the pvp classification of the unit (number?)
 	--]]
-	if(element.PostUpdate) then
+	if (element.PostUpdate) then
 		return element:PostUpdate(unit, class)
 	end
 end
@@ -97,7 +97,7 @@ end
 
 local function Enable(self)
 	local element = self.PvPClassificationIndicator
-	if(element) then
+	if (element) then
 		element.__owner = self
 		element.ForceUpdate = ForceUpdate
 
@@ -109,7 +109,7 @@ end
 
 local function Disable(self)
 	local element = self.PvPClassificationIndicator
-	if(element) then
+	if (element) then
 		element:Hide()
 
 		self:UnregisterEvent('UNIT_CLASSIFICATION_CHANGED', Path)
