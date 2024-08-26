@@ -1,4 +1,6 @@
-## Changed in v24
+## Changed in v25
 
-* Azj-Kahet: lots of new loot
+* Isle of Dorn: more loot for rares, thank Preheat!
+* Hallowfall: added the Sky-Captain's Sunken Cache, thanks Marthammor!
+* Azj-Kahet: added the Smelling History and Bookworm achievements
 
