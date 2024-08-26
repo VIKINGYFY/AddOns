@@ -55,7 +55,7 @@ local function OnFinished(self)
 
 	* self - the ReadyCheckIndicator element
 	--]]
-	if(element.PostUpdateFadeOut) then
+	if (element.PostUpdateFadeOut) then
 		element:PostUpdateFadeOut()
 	end
 end
@@ -69,15 +69,15 @@ local function Update(self, event)
 
 	* self - the ReadyCheckIndicator element
 	--]]
-	if(element.PreUpdate) then
+	if (element.PreUpdate) then
 		element:PreUpdate()
 	end
 
 	local status = GetReadyCheckStatus(unit)
-	if(unitExists(unit) and status) then
-		if(status == 'ready') then
+	if (unitExists(unit) and status) then
+		if (status == 'ready') then
 			element:SetAtlas(element.readyTexture)
-		elseif(status == 'notready') then
+		elseif (status == 'notready') then
 			element:SetAtlas(element.notReadyTexture)
 		else
 			element:SetAtlas(element.waitingTexture)
@@ -85,13 +85,13 @@ local function Update(self, event)
 
 		element.status = status
 		element:Show()
-	elseif(event ~= 'READY_CHECK_FINISHED') then
+	elseif (event ~= 'READY_CHECK_FINISHED') then
 		element.status = nil
 		element:Hide()
 	end
 
-	if(event == 'READY_CHECK_FINISHED') then
-		if(element.status == 'waiting') then
+	if (event == 'READY_CHECK_FINISHED') then
+		if (element.status == 'waiting') then
 			element:SetTexture(element.notReadyTexture)
 		end
 
@@ -104,7 +104,7 @@ local function Update(self, event)
 	* self   - the ReadyCheckIndicator element
 	* status - the unit's ready check status (string?)['ready', 'notready', 'waiting']
 	--]]
-	if(element.PostUpdate) then
+	if (element.PostUpdate) then
 		return element:PostUpdate(status)
 	end
 end
@@ -127,7 +127,7 @@ end
 local function Enable(self, unit)
 	local element = self.ReadyCheckIndicator
 	unit = unit and unit:match('(%a+)%d*$')
-	if(element and (unit == 'party' or unit == 'raid')) then
+	if (element and (unit == 'party' or unit == 'raid')) then
 		element.__owner = self
 		element.ForceUpdate = ForceUpdate
 
@@ -155,7 +155,7 @@ end
 
 local function Disable(self)
 	local element = self.ReadyCheckIndicator
-	if(element) then
+	if (element) then
 		element:Hide()
 
 		self:UnregisterEvent('READY_CHECK', Path)

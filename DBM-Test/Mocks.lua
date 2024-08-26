@@ -100,6 +100,7 @@ end
 -- Boss target reconstruction
 local bosses = {}
 local unitTargets = {}
+local unitTargetsAge = {}
 local guids = {}
 local namesToGuids = {}
 
@@ -119,8 +120,19 @@ end
 
 -- Triggered by UNIT_TARGET events that give us a unit ID and names
 function mocks:UpdateTarget(uId, name, target)
-	unitTargets["fakeunitid-name-" .. name] = target
+	local fakeGuid = "fakeunitid-name-" .. name
+	unitTargets[fakeGuid] = target
 	unitTargets[uId] = target
+	unitTargetsAge[fakeGuid] = self:GetTime()
+	unitTargetsAge[uId] = self:GetTime()
+end
+
+local function getRecentUnitTarget(id)
+	local lastUpdate = unitTargetsAge[id]
+	if lastUpdate and mocks.GetTime() - lastUpdate > 5 then -- 5 seconds as arbitrary cut-off time after which we consider target info stale
+		unitTargets[id] = nil
+	end
+	return unitTargets[id]
 end
 
 -- Triggered by SPELL_CAST_START events to learn names of creatures by GUID.
@@ -142,13 +154,13 @@ function mocks.DBMGetUnitFullName(_, uId)
 	local base = uId:match("(.-)target$")
 	if base then -- target scanner use
 		-- In retail this is likely to be a boss unit id from DBMGetUnitIdFromGUID above, very convenient because we get UNIT_TARGET events for these
-		if unitTargets[base] then
-			return unitTargets[base]
+		if getRecentUnitTarget(base) then
+			return getRecentUnitTarget(base)
 		end
 		-- However, in classic this will be a fakeunitid-guid-*
 		local guid = base:match("^fakeunitid%-guid%-(.*)")
 		if guid and guids[guid] then
-			return unitTargets["fakeunitid-name-" .. guids[guid]]
+			return getRecentUnitTarget("fakeunitid-name-" .. guids[guid])
 		end
 	end
 	-- Generic use case
@@ -388,9 +400,9 @@ function mocks:HookModGlobal(key, val)
 end
 
 -- Must be called before mods are loaded because they may cache pre-existing globals otherwise
-function mocks:InitializeModEnvironment()
+function mocks:GetMockEnvironment()
 	if self.modEnv then
-		return
+		return self.modEnv
 	end
 	self.modEnv = setmetatable({}, {__index = _G})
 	self:HookModGlobal("UnitPower", mocks.UnitPower)
@@ -399,12 +411,18 @@ function mocks:InitializeModEnvironment()
 	self:HookModGlobal("UnitHealthMax", mocks.UnitHealthMax)
 	self:HookModGlobal("UnitExists", mocks.UnitExists)
 	self:HookModGlobal("UnitGUID", mocks.UnitGUID)
+	self:HookModGlobal("UnitDetailedThreatSituation", mocks.UnitDetailedThreatSituation)
+	self:HookModGlobal("UnitAffectingCombat", mocks.UnitAffectingCombat)
 	self:HookModGlobal("GetTime", mocks.GetTime)
+	self:HookModGlobal("CombatLogGetCurrentEventInfo", mocks.CombatLogGetCurrentEventInfo)
+	self:HookModGlobal("GetInstanceInfo", mocks.GetInstanceInfo)
+	self:HookModGlobal("IsEncounterInProgress", mocks.IsEncounterInProgress)
+	return self.modEnv
 end
 
 -- Called by DBM:NewMod() if tests are active, tests activate prior to loading the mod under test anyways to trace loading events
 function mocks:SetModEnvironment(stackDepth)
-	self:InitializeModEnvironment()
+	self:GetMockEnvironment()
 	setfenv(stackDepth + 1, self.modEnv)
 end
 

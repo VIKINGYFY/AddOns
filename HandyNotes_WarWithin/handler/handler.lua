@@ -153,7 +153,7 @@ function ns.RegisterPoints(zone, points, defaults)
                 atlas=point.related.atlas or "playerpartyblip", color=point.related.color,
                 texture=point.related.atlas or false, minimap=point.related.minimap,
                 note=point.related.note or false,
-                active=point.related.active, required=point.related.required,
+                active=point.related.active, requires=point.related.requires, hide_before=point.related.hide_before,
                 route=coord,
                 _uiMapID=zone,
             }, proxy_meta))
@@ -1162,7 +1162,15 @@ end
 
 local function createWaypoint(button, uiMapID, coord)
     local x, y = HandyNotes:getXY(coord)
-    if TomTom then
+    if MapPinEnhanced and MapPinEnhanced.AddPin then
+        MapPinEnhanced:AddPin{
+            mapID = uiMapID,
+            x = x,
+            y = y,
+            setTracked = true,
+            title = get_point_info_by_coord(uiMapID, coord),
+        }
+    elseif TomTom then
         TomTom:AddWaypoint(uiMapID, x, y, {
             title = get_point_info_by_coord(uiMapID, coord),
             persistent = nil,

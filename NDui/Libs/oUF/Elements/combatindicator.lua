@@ -33,12 +33,12 @@ local function Update(self, event)
 
 	* self - the CombatIndicator element
 	--]]
-	if(element.PreUpdate) then
+	if (element.PreUpdate) then
 		element:PreUpdate()
 	end
 
 	local inCombat = UnitAffectingCombat('player')
-	if(inCombat) then
+	if (inCombat) then
 		element:Show()
 	else
 		element:Hide()
@@ -50,7 +50,7 @@ local function Update(self, event)
 	* self     - the CombatIndicator element
 	* inCombat - indicates if the player is affecting combat (boolean)
 	--]]
-	if(element.PostUpdate) then
+	if (element.PostUpdate) then
 		return element:PostUpdate(inCombat)
 	end
 end
@@ -71,14 +71,14 @@ end
 
 local function Enable(self, unit)
 	local element = self.CombatIndicator
-	if(element and UnitIsUnit(unit, 'player')) then
+	if (element and UnitIsUnit(unit, 'player')) then
 		element.__owner = self
 		element.ForceUpdate = ForceUpdate
 
 		self:RegisterEvent('PLAYER_REGEN_DISABLED', Path, true)
 		self:RegisterEvent('PLAYER_REGEN_ENABLED', Path, true)
 
-		if(element:IsObjectType('Texture') and not element:GetTexture()) then
+		if (element:IsObjectType('Texture') and not element:GetTexture()) then
 			element:SetTexture([[Interface\CharacterFrame\UI-StateIcon]])
 			element:SetTexCoord(.5, 1, 0, .49)
 		end
@@ -89,7 +89,7 @@ end
 
 local function Disable(self)
 	local element = self.CombatIndicator
-	if(element) then
+	if (element) then
 		element:Hide()
 
 		self:UnregisterEvent('PLAYER_REGEN_DISABLED', Path)

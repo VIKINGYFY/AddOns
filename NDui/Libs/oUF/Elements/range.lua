@@ -37,15 +37,15 @@ local function Update(self, event)
 
 	* self - the Range element
 	--]]
-	if(element.PreUpdate) then
+	if (element.PreUpdate) then
 		element:PreUpdate()
 	end
 
 	local inRange, checkedRange
 	local connected = UnitIsConnected(unit)
-	if(connected) then
+	if (connected) then
 		inRange, checkedRange = UnitInRange(unit)
-		if(checkedRange and not inRange) then
+		if (checkedRange and not inRange) then
 			self:SetAlpha(element.outsideAlpha)
 		else
 			self:SetAlpha(element.insideAlpha)
@@ -63,7 +63,7 @@ local function Update(self, event)
 	* checkedRange - indicates if the range check was actually performed (boolean)
 	* isConnected  - indicates if the unit is online (boolean)
 	--]]
-	if(element.PostUpdate) then
+	if (element.PostUpdate) then
 		return element:PostUpdate(self, inRange, checkedRange, connected)
 	end
 end
@@ -80,7 +80,7 @@ end
 
 local function Enable(self)
 	local element = self.Range
-	if(element) then
+	if (element) then
 		element.__owner = self
 		element.insideAlpha = element.insideAlpha or 1
 		element.outsideAlpha = element.outsideAlpha or 0.55
@@ -93,7 +93,7 @@ end
 
 local function Disable(self)
 	local element = self.Range
-	if(element) then
+	if (element) then
 		self:SetAlpha(element.insideAlpha)
 
 		self:UnregisterEvent('UNIT_IN_RANGE_UPDATE', Path)

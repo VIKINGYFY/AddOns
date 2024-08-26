@@ -455,7 +455,7 @@ function M:ItemLevel_UpdateBags()
 	if quality and quality > 1 then
 		local level = B.GetItemLevel(link, bagID, slotID)
 		local color = DB.QualityColors[quality]
-		local slot = B.GetItemSlot(link)
+		local slot = B.GetItemSlot(link, bagID, slotID)
 		button.iLvl:SetText(level)
 		button.iLvl:SetTextColor(color.r, color.g, color.b)
 		button.iSlot:SetText(slot)

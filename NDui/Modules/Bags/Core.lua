@@ -928,19 +928,15 @@ function module:OnLogin()
 		for i = 1, 5 do
 			AddNewContainer("Bag", i, "BagCustom"..i, filters["bagCustom"..i])
 		end
+		AddNewContainer("Bag", 14, "BagJunk", filters.bagJunk)
+		AddNewContainer("Bag", 13, "BagVersion", filters.bagVersion)
+		AddNewContainer("Bag", 12, "BagQuest", filters.bagQuest)
+		AddNewContainer("Bag", 11, "BagConsumable", filters.bagConsumable)
+		AddNewContainer("Bag", 10, "BagCollection", filters.bagCollection)
+		AddNewContainer("Bag", 9, "BagAOE", filters.bagAOE)
+		AddNewContainer("Bag", 8, "BagEquipSet", filters.bagEquipSet)
+		AddNewContainer("Bag", 7, "BagEquipment", filters.bagEquipment)
 		AddNewContainer("Bag", 6, "BagReagent", filters.onlyBagReagent)
-		AddNewContainer("Bag", 18, "Junk", filters.bagsJunk)
-		AddNewContainer("Bag", 9, "EquipSet", filters.bagEquipSet)
-		AddNewContainer("Bag", 10, "BagAOE", filters.bagAOE)
-		AddNewContainer("Bag", 7, "AzeriteItem", filters.bagAzeriteItem)
-		AddNewContainer("Bag", 8, "Equipment", filters.bagEquipment)
-		AddNewContainer("Bag", 11, "BagCollection", filters.bagCollection)
-		AddNewContainer("Bag", 16, "Consumable", filters.bagConsumable)
-		AddNewContainer("Bag", 12, "BagGoods", filters.bagGoods)
-		AddNewContainer("Bag", 17, "BagQuest", filters.bagQuest)
-		AddNewContainer("Bag", 13, "BagAnima", filters.bagAnima)
-		AddNewContainer("Bag", 14, "BagRelic", filters.bagRelic)
-		AddNewContainer("Bag", 15, "BagStone", filters.bagStone)
 
 		f.main = MyContainer:New("Bag", {Bags = "bags", BagType = "Bag"})
 		f.main.__anchor = {"BOTTOMRIGHT", -50, 100}
@@ -950,16 +946,14 @@ function module:OnLogin()
 		for i = 1, 5 do
 			AddNewContainer("Bank", i, "BankCustom"..i, filters["bankCustom"..i])
 		end
-		AddNewContainer("Bank", 8, "BankEquipSet", filters.bankEquipSet)
-		AddNewContainer("Bank", 9, "BankAOE", filters.bankAOE)
-		AddNewContainer("Bank", 6, "BankAzeriteItem", filters.bankAzeriteItem)
-		AddNewContainer("Bank", 10, "BankLegendary", filters.bankLegendary)
-		AddNewContainer("Bank", 7, "BankEquipment", filters.bankEquipment)
-		AddNewContainer("Bank", 11, "BankCollection", filters.bankCollection)
-		AddNewContainer("Bank", 14, "BankConsumable", filters.bankConsumable)
-		AddNewContainer("Bank", 12, "BankGoods", filters.bankGoods)
-		AddNewContainer("Bank", 15, "BankQuest", filters.bankQuest)
-		AddNewContainer("Bank", 13, "BankAnima", filters.bankAnima)
+		AddNewContainer("Bank", 13, "BankVersion", filters.bankVersion)
+		AddNewContainer("Bank", 12, "BankQuest", filters.bankQuest)
+		AddNewContainer("Bank", 11, "BankConsumable", filters.bankConsumable)
+		AddNewContainer("Bank", 10, "BankCollection", filters.bankCollection)
+		AddNewContainer("Bank", 9, "BankLegendary", filters.bankLegendary)
+		AddNewContainer("Bank", 8, "BankAOE", filters.bankAOE)
+		AddNewContainer("Bank", 7, "BankEquipSet", filters.bankEquipSet)
+		AddNewContainer("Bank", 6, "BankEquipment", filters.bankEquipment)
 
 		f.bank = MyContainer:New("Bank", {Bags = "bank", BagType = "Bank"})
 		f.bank.__anchor = {"BOTTOMLEFT", 25, 50}
@@ -1082,16 +1076,6 @@ function module:OnLogin()
 		[11] = {.2, .8, .2, .25},	-- 材料包
 	}
 
-	local classIDs = {
-		[Enum.ItemClass.Armor] = true,
-		[Enum.ItemClass.Consumable] = true,
-		[Enum.ItemClass.Miscellaneous] = true,
-	}
-
-	local function isItemNeedsLevel(item)
-		return item.link and item.quality > 1 and (module:IsItemHasLevel(item) or item.classID == Enum.ItemClass.Gem)
-	end
-
 	local function GetIconOverlayAtlas(item)
 		if not item.link then return end
 
@@ -1164,20 +1148,16 @@ function module:OnLogin()
 		self.iSlot:SetText("")
 		if C.db["Bags"]["BagsiLvl"] then
 			if item.link and (item.quality and item.quality > 0) then
-				local slot = B.GetItemSlot(item.link)
+				local slot = B.GetItemSlot(item.link, item.bagId ~= -1 and item.bagId, item.slotId)
 				local level = item.level or B.GetItemLevel(item.link, item.bagId ~= -1 and item.bagId, item.slotId)
 
 				if (not level) or (level and level < C.db["Bags"]["iLvlToShow"]) then level = "" end
-				if (item.equipLoc and item.equipLoc ~= "") or IsArtifactRelicItem(item.link) then
-					self.iSlot:SetText(slot)
-					self.iLvl:SetText(level)
-				elseif (item.classID and classIDs[item.classID]) or C_ToyBox.GetToyInfo(item.id) then
-					self.iSlot:SetText(slot)
-				end
+				self.iSlot:SetText(slot)
+				self.iLvl:SetText(level)
 
 				local color = DB.QualityColors[item.quality]
 				self.iLvl:SetTextColor(color.r, color.g, color.b)
-				self.iSlot:SetTextColor(color.r, color.g, color.b)
+				--self.iSlot:SetTextColor(color.r, color.g, color.b)
 			end
 		end
 
@@ -1291,34 +1271,26 @@ function module:OnLogin()
 		module.CreateFreeSlots(self)
 
 		local label
-		if string.match(name, "AzeriteItem$") then
-			label = L["Azerite Armor"]
-		elseif string.match(name, "Equipment$") then
+		if string.match(name, "Equipment") then
 			label = BAG_FILTER_EQUIPMENT
-		elseif string.match(name, "EquipSet$") then
-			label = L["Equipement Set"]
-		elseif name == "BankLegendary" then
+		elseif string.match(name, "EquipSet") then
+			label = EQUIPMENT_MANAGER
+		elseif string.match(name, "Legendary") then
 			label = LOOT_JOURNAL_LEGENDARIES
-		elseif string.match(name, "Consumable$") then
+		elseif string.match(name, "Consumable") then
 			label = BAG_FILTER_CONSUMABLES
-		elseif name == "Junk" then
+		elseif string.match(name, "Junk") then
 			label = BAG_FILTER_JUNK
 		elseif string.match(name, "Collection") then
 			label = COLLECTIONS
-		elseif string.match(name, "Goods") then
-			label = AUCTION_CATEGORY_TRADE_GOODS
 		elseif string.match(name, "Quest") then
-			label = QUESTS_LABEL
-		elseif string.match(name, "Anima") then
-			label = POWER_TYPE_ANIMA
-		elseif name == "BagRelic" then
-			label = L["KorthiaRelic"]
+			label = BAG_FILTER_QUEST_ITEMS
 		elseif string.match(name, "Custom%d") then
 			label = GetCustomGroupTitle(settings.Index)
-		elseif name == "BagReagent" then
-			label = L["ReagentBag"]
-		elseif name == "BagStone" then
-			label = C_Spell.GetSpellName(404861)
+		elseif string.match(name, "BagReagent") then
+			label = BAG_FILTER_REAGENTS..BAGSLOT
+		elseif string.match(name, "Version") then
+			label = FEATURES_LABEL
 		elseif string.match(name, "AOE") then
 			label = ITEM_ACCOUNTBOUND_UNTIL_EQUIP
 		end

@@ -53,7 +53,7 @@ function Container:New(name, ...)
 
 	container:SetParent(self.implementation)
 
-	if(container.OnCreate) then container:OnCreate(name, ...) end
+	if (container.OnCreate) then container:OnCreate(name, ...) end
 
 	return container
 end
@@ -69,8 +69,8 @@ function Container:AddButton(button)
 	button:SetParent(self.bags[button.bagId])
 	self:ScheduleContentCallback()
 	table.insert(self.buttons, button)
-	if(button.OnAdd) then button:OnAdd(self) end
-	if(self.OnButtonAdd) then self:OnButtonAdd(button) end
+	if (button.OnAdd) then button:OnAdd(self) end
+	if (self.OnButtonAdd) then self:OnButtonAdd(button) end
 end
 
 --[[!
@@ -81,11 +81,11 @@ end
 ]]
 function Container:RemoveButton(button)
 	for i, single in ipairs(self.buttons) do
-		if(button == single) then
+		if (button == single) then
 			self:ScheduleContentCallback()
 			button.container = nil
-			if(button.OnRemove) then button:OnRemove(self) end
-			if(self.OnButtonRemove) then self:OnButtonRemove(button) end
+			if (button.OnRemove) then button:OnRemove(self) end
+			if (self.OnButtonRemove) then self:OnButtonRemove(button) end
 			return table.remove(self.buttons, i)
 		end
 	end
@@ -99,7 +99,7 @@ updater:Hide()
 updater:SetScript("OnUpdate", function(self)
 	self:Hide()
 	for container in pairs(scheduled) do
-		if(container.OnContentsChanged) then container:OnContentsChanged() end
+		if (container.OnContentsChanged) then container:OnContentsChanged() end
 		scheduled[container] = nil
 	end
 end)

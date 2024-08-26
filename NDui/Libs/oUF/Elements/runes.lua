@@ -42,7 +42,7 @@ A default texture will be applied if the sub-widgets are StatusBars and don't ha
     self.Runes = Runes
 --]]
 
-if(select(2, UnitClass('player')) ~= 'DEATHKNIGHT') then return end
+if (select(2, UnitClass('player')) ~= 'DEATHKNIGHT') then return end
 
 local _, ns = ...
 local oUF = ns.oUF
@@ -59,9 +59,9 @@ end
 local function ascSort(runeAID, runeBID)
 	local runeAStart, _, runeARuneReady = GetRuneCooldown(runeAID)
 	local runeBStart, _, runeBRuneReady = GetRuneCooldown(runeBID)
-	if(runeARuneReady ~= runeBRuneReady) then
+	if (runeARuneReady ~= runeBRuneReady) then
 		return runeARuneReady
-	elseif(runeAStart ~= runeBStart) then
+	elseif (runeAStart ~= runeBStart) then
 		return runeAStart < runeBStart
 	else
 		return runeAID < runeBID
@@ -71,9 +71,9 @@ end
 local function descSort(runeAID, runeBID)
 	local runeAStart, _, runeARuneReady = GetRuneCooldown(runeAID)
 	local runeBStart, _, runeBRuneReady = GetRuneCooldown(runeBID)
-	if(runeARuneReady ~= runeBRuneReady) then
+	if (runeARuneReady ~= runeBRuneReady) then
 		return runeBRuneReady
-	elseif(runeAStart ~= runeBStart) then
+	elseif (runeAStart ~= runeBStart) then
 		return runeAStart > runeBStart
 	else
 		return runeAID > runeBID
@@ -86,7 +86,7 @@ local function UpdateColor(self, event)
 	local spec = GetSpecialization() or 0
 
 	local color
-	if(spec > 0 and spec < 4 and element.colorSpec) then
+	if (spec > 0 and spec < 4 and element.colorSpec) then
 		color = self.colors.runes[spec]
 	else
 		color = self.colors.power.RUNES
@@ -98,7 +98,7 @@ local function UpdateColor(self, event)
 		element[index]:SetStatusBarColor(r, g, b)
 
 		local bg = element[index].bg
-		if(bg) then
+		if (bg) then
 			local mu = bg.multiplier or 1
 			bg:SetVertexColor(r * mu, g * mu, b * mu)
 		end
@@ -112,7 +112,7 @@ local function UpdateColor(self, event)
 	* g    - the green component of the used color (number)[0-1]
 	* b    - the blue component of the used color (number)[0-1]
 	--]]
-	if(element.PostUpdateColor) then
+	if (element.PostUpdateColor) then
 		element:PostUpdateColor(r, g, b)
 	end
 end
@@ -131,13 +131,13 @@ end
 local function Update(self, event)
 	local element = self.Runes
 
-	if(element.sortOrder == 'asc') then
+	if (element.sortOrder == 'asc') then
 		table.sort(runemap, ascSort)
 		hasSortOrder = true
-	elseif(element.sortOrder == 'desc') then
+	elseif (element.sortOrder == 'desc') then
 		table.sort(runemap, descSort)
 		hasSortOrder = true
-	elseif(hasSortOrder) then
+	elseif (hasSortOrder) then
 		table.sort(runemap)
 		hasSortOrder = false
 	end
@@ -145,17 +145,17 @@ local function Update(self, event)
 	local rune, start, duration, runeReady
 	for index, runeID in next, runemap do
 		rune = element[index]
-		if(not rune) then break end
+		if (not rune) then break end
 
-		if(UnitHasVehicleUI('player')) then
+		if (UnitHasVehicleUI('player')) then
 			rune:Hide()
 		else
 			start, duration, runeReady = GetRuneCooldown(runeID)
-			if(runeReady) then
+			if (runeReady) then
 				rune:SetMinMaxValues(0, 1)
 				rune:SetValue(1)
 				rune:SetScript('OnUpdate', nil)
-			elseif(start) then
+			elseif (start) then
 				rune.duration = GetTime() - start
 				rune:SetMinMaxValues(0, duration)
 				rune:SetValue(0)
@@ -172,7 +172,7 @@ local function Update(self, event)
 	* self    - the Runes element
 	* runemap - the ordered list of runes' indices (table)
 	--]]
-	if(element.PostUpdate) then
+	if (element.PostUpdate) then
 		return element:PostUpdate(runemap)
 	end
 end
@@ -200,13 +200,13 @@ end
 
 local function Enable(self, unit)
 	local element = self.Runes
-	if(element and UnitIsUnit(unit, 'player')) then
+	if (element and UnitIsUnit(unit, 'player')) then
 		element.__owner = self
 		element.ForceUpdate = ForceUpdate
 
 		for i = 1, #element do
 			local rune = element[i]
-			if(rune:IsObjectType('StatusBar') and not rune:GetStatusBarTexture()) then
+			if (rune:IsObjectType('StatusBar') and not rune:GetStatusBarTexture()) then
 				rune:SetStatusBarTexture([[Interface\TargetingFrame\UI-StatusBar]])
 			end
 		end
@@ -220,7 +220,7 @@ end
 
 local function Disable(self)
 	local element = self.Runes
-	if(element) then
+	if (element) then
 		for i = 1, #element do
 			element[i]:Hide()
 		end

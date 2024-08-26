@@ -56,7 +56,8 @@ function M:ExtVendor_UpdateBuybackPositions()
 end
 
 function M:ExtVendorUI()
-	if C_AddOns.IsAddOnLoaded("ExtVendor") then return end
+	if C_AddOns.IsAddOnLoaded("Krowi_ExtendedVendorUI") then return end
+	if C_AddOns.IsAddOnLoaded("CompactVendor") then return end
 	if not M.db["ExtVendorUI"] then return end
 
 	_G.MERCHANT_ITEMS_PER_PAGE = 20

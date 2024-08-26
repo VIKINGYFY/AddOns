@@ -65,11 +65,11 @@ local function CreateIconFrame(frame, index)
 	icon.bg = icon:CreateTexture(nil, "BACKGROUND")
 	icon.bg:SetSize(16, 16)
 	icon.bg:SetPoint("CENTER")
-	icon.bg:SetTexture("Interface\\AddOns\\"..addon.."\\texture\\GemBg")
+	icon.bg:SetTexture("Interface\\Masks\\CircleMaskScalable")
 	icon.texture = icon:CreateTexture(nil, "BORDER")
 	icon.texture:SetSize(12, 12)
 	icon.texture:SetPoint("CENTER")
-	icon.texture:SetMask("Interface\\FriendsFrame\\Battlenet-Portrait")
+	icon.texture:SetMask("Interface\\Masks\\CircleMaskScalable")
 	frame["xicon"..index] = icon
 	return frame["xicon"..index]
 end
@@ -147,7 +147,7 @@ local function ShowGemAndEnchant(frame, ItemLink, anchorFrame, itemframe)
 		icon.title = v.name
 		icon.itemLink = v.link
 		icon:ClearAllPoints()
-		icon:SetPoint("LEFT", anchorFrame, "RIGHT", i == 1 and 2 or 1, 0)
+		icon:SetPoint("LEFT", anchorFrame, "RIGHT", 1, i == 1 and 1 or 0)
 		icon:Show()
 		anchorFrame = icon
 	end
@@ -158,7 +158,7 @@ local function ShowGemAndEnchant(frame, ItemLink, anchorFrame, itemframe)
 		icon = GetIconFrame(frame)
 		UpdateIconTexture("itemId", icon, enchantItemID)
 		icon:ClearAllPoints()
-		icon:SetPoint("LEFT", anchorFrame, "RIGHT", num == 1 and 2 or 1, 0)
+		icon:SetPoint("LEFT", anchorFrame, "RIGHT", 1, num == 1 and 1 or 0)
 		icon:Show()
 		anchorFrame = icon
 	elseif (enchantSpellID) then
@@ -167,7 +167,7 @@ local function ShowGemAndEnchant(frame, ItemLink, anchorFrame, itemframe)
 		icon.bg:SetVertexColor(1,0.8,0)
 		UpdateIconTexture("spellId", icon, enchantSpellID)
 		icon:ClearAllPoints()
-		icon:SetPoint("LEFT", anchorFrame, "RIGHT", num == 1 and 2 or 1, 0)
+		icon:SetPoint("LEFT", anchorFrame, "RIGHT", 1, num == 1 and 1 or 0)
 		icon:Show()
 		anchorFrame = icon
 	elseif (enchantID) then
@@ -177,7 +177,7 @@ local function ShowGemAndEnchant(frame, ItemLink, anchorFrame, itemframe)
 		icon.bg:SetVertexColor(0.1, 0.1, 0.1)
 		icon.texture:SetTexture("Interface\\FriendsFrame\\InformationIcon")
 		icon:ClearAllPoints()
-		icon:SetPoint("LEFT", anchorFrame, "RIGHT", num == 1 and 2 or 1, 0)
+		icon:SetPoint("LEFT", anchorFrame, "RIGHT", 1, num == 1 and 1 or 0)
 		icon:Show()
 		anchorFrame = icon
 	elseif (not enchantID and EnchantParts[itemframe.index] and EnchantParts[itemframe.index][1]) then
@@ -189,7 +189,7 @@ local function ShowGemAndEnchant(frame, ItemLink, anchorFrame, itemframe)
 			icon.bg:SetVertexColor(0, 1, 1)
 			icon.texture:SetTexture("Interface\\Cursor\\Quest") --QuestRepeatable
 			icon:ClearAllPoints()
-			icon:SetPoint("LEFT", anchorFrame, "RIGHT", num == 1 and 2 or 1, 0)
+			icon:SetPoint("LEFT", anchorFrame, "RIGHT", 1, num == 1 and 1 or 0)
 			icon:Show()
 			anchorFrame = icon
 		end

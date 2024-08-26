@@ -11,13 +11,17 @@ This includes:
 * [The Missing Lynx](https://www.wowhead.com/achievement=40625/the-missing-lynx)
 * [Not So Quick Fix](https://www.wowhead.com/achievement=40473/not-so-quick-fix)
 * [Rocked to Sleep](https://www.wowhead.com/achievement=40504/rocked-to-sleep)
+* [Notable Machines](https://www.wowhead.com/achievement=40628/notable-machines)
+* [Gobblin' with Glublurb](https://www.wowhead.com/achievement=40614/gobblin-with-glublurp)
 * Profession knowledge items
+* Chests inside Delves
+* Races for [Khaz Algar Completionist](https://www.wowhead.com/achievement=40354/khaz-algar-completionist-gold)
 
 Items that you've already collected and mobs you've already killed won't be displayed. This uses the "flag" quests that the game relies on to keep track of the items. Sometimes these glitch; generally if they do so, you also won't have gotten achievement-credit / the item, so you'll likely still be interested in the item.
 
 You can right-click on any treasure node and hide it, if you just don't want to see that one. If you have [TomTom](https://www.curseforge.com/wow/addons/tomtom) installed, you can also add a waypoint for that node.
 
-To edit the settings, visit the HandyNotes config panel, expand the "Plugins" section, and click on "Dragonflight". You can then choose which treasures to show, and whether to show ones you've already found.
+To edit the settings, visit the HandyNotes config panel, expand the "Plugins" section, and click on "War Within". You can then choose which treasures to show, and whether to show ones you've already found.
 
 ## Want to help?
 

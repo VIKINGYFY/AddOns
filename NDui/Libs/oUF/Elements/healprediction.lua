@@ -24,10 +24,10 @@ local function UpdateFillBar(totalWidth, totalHeight, previousTexture, bar, amou
 end
 
 local function Update(self, event, unit)
-	if(self.unit ~= unit) then return end
+	if (self.unit ~= unit) then return end
 
 	local hp = self.HealPredictionAndAbsorb
-	if(hp.PreUpdate) then hp:PreUpdate(unit) end
+	if (hp.PreUpdate) then hp:PreUpdate(unit) end
 
 	local myIncomingHeal = UnitGetIncomingHeals(unit, 'player') or 0
 	local allIncomingHeal = UnitGetIncomingHeals(unit) or 0
@@ -37,16 +37,16 @@ local function Update(self, event, unit)
 	local totalWidth, totalHeight = self.Health:GetSize()
 
 	local overHealAbsorb = false
-	if(health < healAbsorb) then
+	if (health < healAbsorb) then
 		healAbsorb = health
 		overHealAbsorb = true
 	end
 
-	if(health - healAbsorb + allIncomingHeal > maxHealth * hp.maxOverflow) then
+	if (health - healAbsorb + allIncomingHeal > maxHealth * hp.maxOverflow) then
 		allIncomingHeal = maxHealth * hp.maxOverflow - health + healAbsorb
 	end
 
-	if(allIncomingHeal < myIncomingHeal) then
+	if (allIncomingHeal < myIncomingHeal) then
 		myIncomingHeal = allIncomingHeal
 		allIncomingHeal = 0
 	else
@@ -54,12 +54,12 @@ local function Update(self, event, unit)
 	end
 
 	local overAbsorb = false
-	if(health - healAbsorb + allIncomingHeal + absorb >= maxHealth or health + absorb >= maxHealth) then
+	if (health - healAbsorb + allIncomingHeal + absorb >= maxHealth or health + absorb >= maxHealth) then
 		if absorb > 0 then
 			overAbsorb = true
 		end
 
-		if(allIncomingHeal > healAbsorb) then
+		if (allIncomingHeal > healAbsorb) then
 			absorb = math.max(0, maxHealth - (health - healAbsorb + allIncomingHeal))
 		else
 			absorb = math.max(0, maxHealth - health)
@@ -98,7 +98,7 @@ local function Update(self, event, unit)
 		end
 	end
 
-	if(hp.PostUpdate) then
+	if (hp.PostUpdate) then
 		return hp:PostUpdate(unit)
 	end
 end
@@ -113,7 +113,7 @@ end
 
 local function Enable(self)
 	local hp = self.HealPredictionAndAbsorb
-	if(hp) then
+	if (hp) then
 		hp.__owner = self
 		hp.ForceUpdate = ForceUpdate
 
@@ -123,23 +123,23 @@ local function Enable(self)
 		self:RegisterEvent('UNIT_ABSORB_AMOUNT_CHANGED', Path)
 		self:RegisterEvent('UNIT_HEAL_ABSORB_AMOUNT_CHANGED', Path)
 
-		if(not hp.maxOverflow) then
+		if (not hp.maxOverflow) then
 			hp.maxOverflow = 1.05
 		end
 
-		if(hp.myBar and hp.myBar:IsObjectType'Texture' and not hp.myBar:GetTexture()) then
+		if (hp.myBar and hp.myBar:IsObjectType'Texture' and not hp.myBar:GetTexture()) then
 			hp.myBar:SetTexture([[Interface\TargetingFrame\UI-StatusBar]])
 		end
-		if(hp.otherBar and hp.otherBar:IsObjectType'Texture' and not hp.otherBar:GetTexture()) then
+		if (hp.otherBar and hp.otherBar:IsObjectType'Texture' and not hp.otherBar:GetTexture()) then
 			hp.otherBar:SetTexture([[Interface\TargetingFrame\UI-StatusBar]])
 		end
-		if(hp.absorbBar and hp.absorbBar:IsObjectType'Texture' and not hp.absorbBar:GetTexture()) then
+		if (hp.absorbBar and hp.absorbBar:IsObjectType'Texture' and not hp.absorbBar:GetTexture()) then
 			hp.absorbBar:SetTexture([[Interface\TargetingFrame\UI-Texture]])
 		end
-		if(hp.overAbsorbGlow and hp.overAbsorbGlow:IsObjectType'Texture' and not hp.overAbsorbGlow:GetTexture()) then
+		if (hp.overAbsorbGlow and hp.overAbsorbGlow:IsObjectType'Texture' and not hp.overAbsorbGlow:GetTexture()) then
 			hp.overAbsorbGlow:SetTexture([[Interface\RaidFrame\Shield-Overshield]])
 		end
-		if(hp.absorbBar) then
+		if (hp.absorbBar) then
 			hp.absorbBar.overlay = hp.absorbBarOverlay
 		end
 
@@ -149,7 +149,7 @@ end
 
 local function Disable(self)
 	local hp = self.HealPredictionAndAbsorb
-	if(hp) then
+	if (hp) then
 		hp.myBar:Hide()
 		hp.otherBar:Hide()
 		hp.absorbBar:Hide()

@@ -22,28 +22,28 @@ DESCRIPTION:
 	Item keys which require tooltip parsing to work
 ]]
 local _, ns = ...
-local B, C, L, DB = unpack(ns)
 local cargBags = ns.cargBags
 
 local bindTypeToString = {
-	[ITEM_BIND_ON_USE] = "equip",
+	[ITEM_ACCOUNTBOUND] = "account",
+	[ITEM_ACCOUNTBOUND_UNTIL_EQUIP] = "accountequip",
 	[ITEM_BIND_ON_EQUIP] = "equip",
 	[ITEM_BIND_ON_PICKUP] = "pickup",
-	[ITEM_SOULBOUND] = "soul",
+	[ITEM_BIND_ON_USE] = "use",
 	[ITEM_BIND_QUEST] = "quest",
-	[ITEM_ACCOUNTBOUND] = "account",
 	[ITEM_BIND_TO_ACCOUNT] = "account",
+	[ITEM_BIND_TO_ACCOUNT_UNTIL_EQUIP] = "accountequip",
+	[ITEM_BIND_TO_BNETACCOUNT] = "account",
 	[ITEM_BNETACCOUNTBOUND] = "account",
-	[ITEM_ACCOUNTBOUND_UNTIL_EQUIP] = "accountequip",
+	[ITEM_SOULBOUND] = "soul",
 }
-
 cargBags.itemKeys["bindOn"] = function(i)
 	if not i.link then return end
 
 	local data = C_TooltipInfo.GetBagItem(i.bagId, i.slotId)
 	if not data then return end
 
-	for j = 2, 5 do
+	for j = 2, 8 do
 		local lineData = data.lines[j]
 		if not lineData then break end
 		local lineText = lineData.leftText

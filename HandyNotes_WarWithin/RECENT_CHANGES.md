@@ -1,5 +1,4 @@
-## Changed in v15
+## Changed in v24
 
-* Delves: The Waterworks, The Dread Pit
-* Show delve chests on the minimap as well
+* Azj-Kahet: lots of new loot
 

@@ -115,8 +115,8 @@ function ItemButton:Create(tpl, parent)
 
 	local button = setmetatable(CreateFrame("ItemButton", name, parent, tpl..", BackdropTemplate"), self.__index)
 
-	if(button.Scaffold) then button:Scaffold(tpl) end
-	if(button.OnCreate) then button:OnCreate(tpl) end
+	if (button.Scaffold) then button:Scaffold(tpl) end
+	if (button.OnCreate) then button:OnCreate(tpl) end
 
 	local btnNT = _G[button:GetName().."NormalTexture"]
 	local btnNIT = button.NewItemTexture
