@@ -36,7 +36,7 @@ function TT:AddLineForID(id, linkType, noadd)
 		local bankCount = C_Item.GetItemCount(id, true, nil, true, true) - bagCount
 		local itemStackCount = select(8, C_Item.GetItemInfo(id))
 		if bankCount > 0 then
-			self:AddDoubleLine(BAGSLOT.."/"..BANK..":", DB.InfoColor..bagCount.."/"..bankCount)
+			self:AddDoubleLine(BAGSLOT.." / "..BANK..":", DB.InfoColor..bagCount.." / "..bankCount)
 		elseif bagCount > 0 then
 			self:AddDoubleLine(BAGSLOT..":", DB.InfoColor..bagCount)
 		end

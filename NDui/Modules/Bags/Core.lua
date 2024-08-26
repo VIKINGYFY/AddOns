@@ -251,7 +251,7 @@ function module:CreateCloseButton(f)
 	bu:RegisterForClicks("AnyUp")
 	bu.__owner = f
 	bu:SetScript("OnClick", CloseOrRestoreBags)
-	bu.title = CLOSE.."/"..RESET
+	bu.title = CLOSE.." / "..RESET
 	B.AddTooltip(bu, "ANCHOR_TOP")
 
 	return bu
@@ -647,7 +647,7 @@ end
 local favouriteEnable
 
 local function GetCustomGroupTitle(index)
-	return C.db["Bags"]["CustomNames"][index] or (PREFERENCES.." "..index)
+	return C.db["Bags"]["CustomNames"][index] or (FAVORITES.." "..index)
 end
 
 StaticPopupDialogs["NDUI_RENAMECUSTOMGROUP"] = {
@@ -894,7 +894,6 @@ function module:OnLogin()
 
 	-- Settings
 	local iconSize = C.db["Bags"]["IconSize"]
-	local showNewItem = C.db["Bags"]["ShowNewItem"]
 	local hasCanIMogIt = C_AddOns.IsAddOnLoaded("CanIMogIt")
 	local hasPawn = C_AddOns.IsAddOnLoaded("Pawn")
 
@@ -928,35 +927,37 @@ function module:OnLogin()
 		for i = 1, 5 do
 			AddNewContainer("Bag", i, "BagCustom"..i, filters["bagCustom"..i])
 		end
-		AddNewContainer("Bag", 14, "BagJunk", filters.bagJunk)
-		AddNewContainer("Bag", 13, "BagVersion", filters.bagVersion)
-		AddNewContainer("Bag", 12, "BagQuest", filters.bagQuest)
+		AddNewContainer("Bag", 15, "BagJunk", filters.bagJunk)
+		AddNewContainer("Bag", 14, "BagVersion", filters.bagFeature)
+		AddNewContainer("Bag", 13, "BagCollection", filters.bagCollection)
+		AddNewContainer("Bag", 12, "BagBoN", filters.bagBoN)
 		AddNewContainer("Bag", 11, "BagConsumable", filters.bagConsumable)
-		AddNewContainer("Bag", 10, "BagCollection", filters.bagCollection)
-		AddNewContainer("Bag", 9, "BagAOE", filters.bagAOE)
+		AddNewContainer("Bag", 10, "BagAoE", filters.bagAoE)
+		AddNewContainer("Bag", 9, "BagLegendary", filters.bagLegendary)
 		AddNewContainer("Bag", 8, "BagEquipSet", filters.bagEquipSet)
 		AddNewContainer("Bag", 7, "BagEquipment", filters.bagEquipment)
 		AddNewContainer("Bag", 6, "BagReagent", filters.onlyBagReagent)
 
 		f.main = MyContainer:New("Bag", {Bags = "bags", BagType = "Bag"})
-		f.main.__anchor = {"BOTTOMRIGHT", -50, 100}
+		f.main.__anchor = {"BOTTOMRIGHT", -100, 150}
 		f.main:SetPoint(unpack(f.main.__anchor))
 		f.main:SetFilter(filters.onlyBags, true)
 
 		for i = 1, 5 do
 			AddNewContainer("Bank", i, "BankCustom"..i, filters["bankCustom"..i])
 		end
-		AddNewContainer("Bank", 13, "BankVersion", filters.bankVersion)
-		AddNewContainer("Bank", 12, "BankQuest", filters.bankQuest)
-		AddNewContainer("Bank", 11, "BankConsumable", filters.bankConsumable)
-		AddNewContainer("Bank", 10, "BankCollection", filters.bankCollection)
-		AddNewContainer("Bank", 9, "BankLegendary", filters.bankLegendary)
-		AddNewContainer("Bank", 8, "BankAOE", filters.bankAOE)
+		AddNewContainer("Bank", 14, "BankJunk", filters.bankJunk)
+		AddNewContainer("Bank", 13, "BankVersion", filters.bankFeature)
+		AddNewContainer("Bank", 12, "BankCollection", filters.bankCollection)
+		AddNewContainer("Bank", 11, "BankBoN", filters.bankBoN)
+		AddNewContainer("Bank", 10, "BankConsumable", filters.bankConsumable)
+		AddNewContainer("Bank", 9, "BankAoE", filters.bankAoE)
+		AddNewContainer("Bank", 8, "BankLegendary", filters.bankLegendary)
 		AddNewContainer("Bank", 7, "BankEquipSet", filters.bankEquipSet)
 		AddNewContainer("Bank", 6, "BankEquipment", filters.bankEquipment)
 
 		f.bank = MyContainer:New("Bank", {Bags = "bank", BagType = "Bank"})
-		f.bank.__anchor = {"BOTTOMLEFT", 25, 50}
+		f.bank.__anchor = {"BOTTOMLEFT", 50, 100}
 		f.bank:SetPoint(unpack(f.bank.__anchor))
 		f.bank:SetFilter(filters.onlyBank, true)
 		f.bank:Hide()
@@ -1035,22 +1036,19 @@ function module:OnLogin()
 		self.QuestTag = B.CreateFS(self, 30, "!", "system", "LEFT", 3, 0)
 		self.iLvl = B.CreateFS(self, C.db["Bags"]["FontSize"], "", false, "BOTTOMLEFT", 1, 0)
 		self.iSlot = B.CreateFS(self, C.db["Bags"]["FontSize"], "", false, "TOPRIGHT", 0, -2)
-
-		if showNewItem then
-			self.glowFrame = B.CreateGlowFrame(self, iconSize)
-		end
+		self.glowFrame = B.CreateGlowFrame(self, iconSize)
 
 		self:HookScript("OnClick", module.ButtonOnClick)
+
+		if not self.ProfessionQualityOverlay then
+			self.ProfessionQualityOverlay = self:CreateTexture(nil, "OVERLAY")
+			self.ProfessionQualityOverlay:SetPoint("TOPLEFT", -3, 2)
+		end
 
 		if hasCanIMogIt then
 			self.canIMogIt = parentFrame:CreateTexture(nil, "OVERLAY")
 			self.canIMogIt:SetSize(13, 13)
 			self.canIMogIt:SetPoint(unpack(CanIMogIt.ICON_LOCATIONS[CanIMogItOptions["iconLocation"]]))
-		end
-
-		if not self.ProfessionQualityOverlay then
-			self.ProfessionQualityOverlay = self:CreateTexture(nil, "OVERLAY")
-			self.ProfessionQualityOverlay:SetPoint("TOPLEFT", -3, 2)
 		end
 	end
 
@@ -1060,21 +1058,6 @@ function module:OnLogin()
 			C_NewItems.RemoveNewItem(self.bagId, self.slotId)
 		end
 	end
-
-	local bagTypeColor = {
-		[0] = {.3, .3, .3, .25},		-- 容器
-		[1] = false,				-- 灵魂袋
-		[2] = {0, .5, 0, .25},		-- 草药袋
-		[3] = {.8, 0, .8, .25},		-- 附魔袋
-		[4] = {1, .8, 0, .25},		-- 工程袋
-		[5] = {0, .8, .8, .25},		-- 宝石袋
-		[6] = {.5, .4, 0, .25},		-- 矿石袋
-		[7] = {.8, .5, .5, .25},	-- 制皮包
-		[8] = {.8, .8, .8, .25},	-- 铭文包
-		[9] = {.4, .6, 1, .25},		-- 工具箱
-		[10] = {.8, 0, 0, .25},		-- 烹饪包
-		[11] = {.2, .8, .2, .25},	-- 材料包
-	}
 
 	local function GetIconOverlayAtlas(item)
 		if not item.link then return end
@@ -1104,6 +1087,7 @@ function module:OnLogin()
 	local function UpdatePawnArrow(self, item)
 		if not hasPawn then return end
 		if not PawnIsContainerItemAnUpgrade then return end
+
 		if self.UpgradeIcon then
 			self.UpgradeIcon:SetShown(PawnIsContainerItemAnUpgrade(item.bagId, item.slotId))
 		end
@@ -1146,17 +1130,17 @@ function module:OnLogin()
 
 		self.iLvl:SetText("")
 		self.iSlot:SetText("")
-		if C.db["Bags"]["BagsiLvl"] then
-			if item.link and (item.quality and item.quality > 0) then
+		if item.link and (item.quality and item.quality > 0) then
+			local color = DB.QualityColors[item.quality]
+			local level = item.level or B.GetItemLevel(item.link, item.bagId ~= -1 and item.bagId, item.slotId)
+			if (not level) or (level and level < C.db["Bags"]["iLvlToShow"]) then level = "" end
+
+			self.iLvl:SetText(level)
+			self.iLvl:SetTextColor(color.r, color.g, color.b)
+
+			if C.db["Bags"]["BagsiSlot"] then
 				local slot = B.GetItemSlot(item.link, item.bagId ~= -1 and item.bagId, item.slotId)
-				local level = item.level or B.GetItemLevel(item.link, item.bagId ~= -1 and item.bagId, item.slotId)
-
-				if (not level) or (level and level < C.db["Bags"]["iLvlToShow"]) then level = "" end
 				self.iSlot:SetText(slot)
-				self.iLvl:SetText(level)
-
-				local color = DB.QualityColors[item.quality]
-				self.iLvl:SetTextColor(color.r, color.g, color.b)
 				--self.iSlot:SetTextColor(color.r, color.g, color.b)
 			end
 		end
@@ -1167,14 +1151,6 @@ function module:OnLogin()
 			else
 				B.HideOverlayGlow(self.glowFrame)
 			end
-		end
-
-		if C.db["Bags"]["SpecialBagsColor"] then
-			local bagType = module.BagsType[item.bagId]
-			local color = bagTypeColor[bagType] or bagTypeColor[0]
-			self:SetBackdropColor(unpack(color))
-		else
-			self:SetBackdropColor(.3, .3, .3, .25)
 		end
 
 		-- Hide empty tooltip
@@ -1283,16 +1259,16 @@ function module:OnLogin()
 			label = BAG_FILTER_JUNK
 		elseif string.match(name, "Collection") then
 			label = COLLECTIONS
-		elseif string.match(name, "Quest") then
-			label = BAG_FILTER_QUEST_ITEMS
 		elseif string.match(name, "Custom%d") then
 			label = GetCustomGroupTitle(settings.Index)
-		elseif string.match(name, "BagReagent") then
-			label = BAG_FILTER_REAGENTS..BAGSLOT
-		elseif string.match(name, "Version") then
+		elseif string.match(name, "Feature") then
 			label = FEATURES_LABEL
-		elseif string.match(name, "AOE") then
+		elseif string.match(name, "AoE") then
 			label = ITEM_ACCOUNTBOUND_UNTIL_EQUIP
+		elseif string.match(name, "BoN") then
+			label = L["BoN Item"]
+		elseif string.match(name, "BagReagent") then
+			label = L["Special Container"]
 		end
 		if label then
 			self.label = B.CreateFS(self, 14, label, true, "TOPLEFT", 5, -8)

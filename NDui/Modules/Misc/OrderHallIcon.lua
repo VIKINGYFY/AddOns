@@ -82,7 +82,7 @@ function M:OrderHall_OnEnter()
 		end
 		local category = self.Category[i]
 		if category then
-			GameTooltip:AddDoubleLine(getIconString(category.icon)..category.name, category.count.."/"..category.limit, 1,1,1, 1,1,1)
+			GameTooltip:AddDoubleLine(getIconString(category.icon)..category.name, category.count.." / "..category.limit, 1,1,1, 1,1,1)
 			if IsShiftKeyDown() then
 				GameTooltip:AddLine(category.description, .6,.8,1, 1)
 			end

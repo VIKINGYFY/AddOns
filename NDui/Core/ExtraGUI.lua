@@ -1470,10 +1470,10 @@ function G:SetupBagFilter(parent)
 		[4] = "FilterLegendary",
 		[5] = "FilterCollection",
 		[6] = "FilterFavourite",
-		[7] = "FilterQuest",
-		[8] = "FilterEquipSet",
-		[9] = "FilterVersion",
-		[10] = "FilterAOE",
+		[7] = "FilterEquipSet",
+		[8] = "FilterFeature",
+		[9] = "FilterAoE",
+		[10] = "FilterBoN",
 	}
 
 	local BAG = B:GetModule("Bags")

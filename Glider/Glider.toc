@@ -1,0 +1,13 @@
+## Interface: 110002
+## Title: |cff58C6FAGlider|r
+## Author: Yuyuli
+## Version: 0.2.17
+## IconTexture: 4640476
+## SavedVariables: GliderAddOnDB
+
+Libs\LibStub\LibStub.lua
+Libs\LibEditMode\embed.xml
+
+AtlasInfo.lua
+Glider.xml
+Glider.lua

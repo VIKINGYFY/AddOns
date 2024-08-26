@@ -60,7 +60,7 @@ local function initUpdater()
 	updateSets()
 end
 
-cargBags.itemKeys["isItemSet"] = function(item)
+cargBags.itemKeys["isItemSet"] = function(i)
 	if not setItems then initUpdater() end
-	return setItems[item.bagId..":"..item.slotId]
+	return setItems[i.bagId..":"..i.slotId]
 end

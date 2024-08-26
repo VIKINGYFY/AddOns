@@ -24,7 +24,7 @@ DESCRIPTION:
 local _, ns = ...
 local cargBags = ns.cargBags
 
-local bindTypeToString = {
+local bindOnList = {
 	[ITEM_ACCOUNTBOUND] = "account",
 	[ITEM_ACCOUNTBOUND_UNTIL_EQUIP] = "accountequip",
 	[ITEM_BIND_ON_EQUIP] = "equip",
@@ -37,20 +37,35 @@ local bindTypeToString = {
 	[ITEM_BNETACCOUNTBOUND] = "account",
 	[ITEM_SOULBOUND] = "soul",
 }
-cargBags.itemKeys["bindOn"] = function(i)
-	if not i.link then return end
 
-	local data = C_TooltipInfo.GetBagItem(i.bagId, i.slotId)
+local itemOnList = {
+	[CONDUIT_TYPE_ENDURANCE] = "conduit",
+	[CONDUIT_TYPE_FINESSE] = "conduit",
+	[CONDUIT_TYPE_POTENCY] = "conduit",
+}
+
+local function CreateItemKeys(item, keyName, keyList)
+	if not item.link then return end
+
+	local data = C_TooltipInfo.GetBagItem(item.bagId, item.slotId)
 	if not data then return end
 
 	for j = 2, 8 do
 		local lineData = data.lines[j]
 		if not lineData then break end
+
 		local lineText = lineData.leftText
-		local bindOn = lineText and bindTypeToString[lineText]
-		if bindOn then
-			i.bindOn = bindOn
-			return bindOn
+		local keyName = lineText and keyList[lineText]
+		if keyName then
+			item.keyName = keyName
+			return keyName
 		end
 	end
+end
+
+cargBags.itemKeys["bindOn"] = function(i)
+	return CreateItemKeys(i, bindOn, bindOnList)
+end
+cargBags.itemKeys["itemOn"] = function(i)
+	return CreateItemKeys(i, itemOn, itemOnList)
 end

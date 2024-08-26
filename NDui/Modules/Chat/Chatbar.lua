@@ -47,7 +47,7 @@ function module:Chatbar()
 
 	-- Create Chatbars
 	local buttonInfo = {
-		{1, 1, 1, SAY.."/"..YELL, function(_, btn)
+		{1, 1, 1, SAY.." / "..YELL, function(_, btn)
 			if btn == "RightButton" then
 				ChatFrame_OpenChat("/y ", chatFrame)
 			else
@@ -70,14 +70,14 @@ function module:Chatbar()
 			end
 		end},
 		{.65, .65, 1, PARTY, function() ChatFrame_OpenChat("/p ", chatFrame) end},
-		{1, .5, 0, INSTANCE.."/"..RAID, function()
+		{1, .5, 0, INSTANCE.." / "..RAID, function()
 			if IsPartyLFG() then
 				ChatFrame_OpenChat("/i ", chatFrame)
 			else
 				ChatFrame_OpenChat("/raid ", chatFrame)
 			end
 		end},
-		{.25, 1, .25, GUILD.."/"..OFFICER, function(_, btn)
+		{.25, 1, .25, GUILD.." / "..OFFICER, function(_, btn)
 			if btn == "RightButton" and C_GuildInfo.IsGuildOfficer() then
 				ChatFrame_OpenChat("/o ", chatFrame)
 			else

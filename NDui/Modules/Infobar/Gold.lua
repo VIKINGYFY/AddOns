@@ -202,7 +202,7 @@ info.onEnter = function(self)
 			title = true
 		end
 		local iconTexture = " |T"..chargeInfo.iconFileID..":13:15:0:0:50:50:4:46:4:46|t"
-		GameTooltip:AddDoubleLine(chargeInfo.name, chargeInfo.quantity.."/"..chargeInfo.maxQuantity..iconTexture, 1,1,1, 1,1,1)
+		GameTooltip:AddDoubleLine(chargeInfo.name, chargeInfo.quantity.." / "..chargeInfo.maxQuantity..iconTexture, 1,1,1, 1,1,1)
 	end
 
 	for i = 1, 10 do -- seems unlimit, but use 10 for now, needs review
@@ -218,7 +218,7 @@ info.onEnter = function(self)
 			local total = C_CurrencyInfo.GetCurrencyInfo(currencyID).maxQuantity
 			local iconTexture = " |T"..icon..":13:15:0:0:50:50:4:46:4:46|t"
 			if total > 0 then
-				GameTooltip:AddDoubleLine(name, count.."/"..total..iconTexture, 1,1,1, 1,1,1)
+				GameTooltip:AddDoubleLine(name, count.." / "..total..iconTexture, 1,1,1, 1,1,1)
 			else
 				GameTooltip:AddDoubleLine(name, count..iconTexture, 1,1,1, 1,1,1)
 			end
