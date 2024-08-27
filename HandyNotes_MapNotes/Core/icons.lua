@@ -37,6 +37,7 @@ ns.icons = {
 ["StablemasterN"] = iconLink .. "StablemasterN",
 ["StablemasterH"] = iconLink .. "StablemasterH",
 ["StablemasterA"] = iconLink .. "StablemasterA",
+["TradingPost"] = iconLink .. "TradingPost",
 -- Icons if enemy faction is disabled for General zone icons
 ["OriginalInnkeeperA"] = iconLink .. "InnkeeperA",
 ["OriginalInnkeeperH"] = iconLink .. "InnkeeperH",
@@ -279,6 +280,7 @@ TextIconMailboxA = TextIcon(iconLink .. "MailboxA", 50, 50, 1 ,50, 1, 50)
 TextIconStablemasterN = TextIcon(iconLink .. "StablemasterN", 50, 50, 1 ,50, 1, 50)
 TextIconStablemasterH = TextIcon(iconLink .. "StablemasterH", 50, 50, 1 ,50, 1, 50)
 TextIconStablemasterA = TextIcon(iconLink .. "StablemasterA", 50, 50, 1 ,50, 1, 50)
+TextIconTradingPost = TextIcon(iconLink .. "TradingPost", 50, 50, 1 ,50, 1, 50)
 --Cities
 TextIconOrgrimmar = TextIcon("interface/icons/spell_arcane_teleportorgrimmar.blp", 50, 50, 1, 50, 1, 50)
 TextIconThunderBluff = TextIcon("interface/icons/spell_arcane_teleportthunderbluff.blp", 50, 50, 1, 50, 1, 50)

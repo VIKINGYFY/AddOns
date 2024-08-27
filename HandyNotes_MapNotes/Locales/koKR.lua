@@ -36,6 +36,9 @@ L["This will delete all Minimap settings and replace them with those from Zones 
 L["Synchronizes the Capitals tab with the Capitals - Minimap tab"] = "자본탭을수도 미니 카드탭과 동기화합니다"
 L["Which deactivates the functions from the Capitals - Minimap tab and is now controlled together by the Capitals tab"] = "이것은 수도 미니 카드탭의 기능을 비활성화하며 이제 수도 도시탭을 통해 함께 통제되고 있습니다"
 L["This will delete all Capitals - Minimap settings and replace them with those from Capitals tab"] = "이것은 수도 -미니 카드의 모든 설정을 삭제하고 수도 도시탭의 설정으로 대체되었습니다"
+--0.6 MapNotes icons and hide blizzard POIs
+L["Displays special MapNotes summary icons containing several different pieces of information (dungeons/raids/portals, etc.)"] = "여러 가지 정보 (던전/공습/포털 등)가 포함 된 특수 Mapnotes 요약 아이콘을 표시합니다."
+L["Points of interests"] = "관심 지점"
 --1 Capitals
 L["Leather Armor"] = "가죽 갑옷"
 L["Heavy Armor"] = "중갑옷"

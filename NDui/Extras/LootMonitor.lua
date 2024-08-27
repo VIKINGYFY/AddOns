@@ -8,7 +8,7 @@ local LMFrame_Report = {}
 local LMFrame_CFG = {
 	maxLines = 20,
 	minQuality = 3,
-	inGroup = true,
+	inGroup = false,
 }
 
 local LM_Message_Info = {
@@ -21,6 +21,14 @@ local LM_Message_Info = {
 local function UnitClassColor(unit)
 	local r, g, b = B.UnitColor(unit)
 	return B.HexRGB(r, g, b, unit)
+end
+
+local function isCollection(itemID, itemClassID, itemSubClassID)
+	return (itemID and C_ToyBox.GetToyInfo(itemID)) or (DB.MiscIDs[itemClassID] and DB.CollectionIDs[itemSubClassID])
+end
+
+local function isEquipment(itemQuality, itemClassID)
+	return DB.EquipIDs[itemClassID] and (itemQuality and itemQuality >= LMFrame_CFG["minQuality"])
 end
 
 local LMFrame = CreateFrame("Frame", "LootMonitor", UIParent)
@@ -44,9 +52,9 @@ local function CreateLMFrame()
 	B.SetBD(LMFrame)
 	B.CreateMF(LMFrame)
 
-	local LMFrame_CloseBtn = B.CreateButton(LMFrame, 18, 18, true, DB.closeTex)
-	LMFrame_CloseBtn:SetPoint("TOPRIGHT", -10, -7)
-	LMFrame_CloseBtn:SetScript("OnClick", function(self) CloseLMFrame() end)
+	local LMFrame_Close = B.CreateButton(LMFrame, 18, 18, true, DB.closeTex)
+	LMFrame_Close:SetPoint("TOPRIGHT", -10, -7)
+	LMFrame_Close:SetScript("OnClick", function(self) CloseLMFrame() end)
 end
 
 local function Button_OnClick(self, button)
@@ -109,15 +117,12 @@ local function UpdateLMFrame(self, event, ...)
 		CloseLMFrame()
 		LMFrame:UnregisterEvent(event)
 	elseif event == "CHAT_MSG_LOOT" then
-		local lootText, lootName = ...
+		if LMFrame_CFG["inGroup"] and not IsInGroup() then return end
+
+		local lootText, lootPlayer = ...
 		local itemLink = string.match(lootText, "|%x+|Hitem:.-|h.-|h|r")
 
-		if not itemLink then return end
-
-		local totalText = ""
-		local textWidth, maxWidth = 0, 0
-		local lootInfo, lootTime = false, DB.InfoColor..GameTime_GetGameTime(true).."|r"
-		local playerName = UnitClassColor(string.split("-", lootName))
+		if not itemLink or string.len(lootPlayer) < 1 then return end
 
 		local itemEx = B.GetItemExtra(itemLink)
 		local itemLvl = B.GetItemLevel(itemLink)
@@ -125,30 +130,27 @@ local function UpdateLMFrame(self, event, ...)
 		local itemQuality = C_Item.GetItemQualityByID(itemLink)
 		local itemID, _, _, _, _, itemClassID, itemSubClassID = C_Item.GetItemInfoInstant(itemLink)
 
-		if LMFrame_CFG["inGroup"] and IsInGroup() then
-			lootInfo = true
-		elseif DB.EquipIDs[itemClassID] and itemQuality >= LMFrame_CFG["minQuality"] then
-			lootInfo = true
-		elseif (DB.MiscIDs[itemClassID] and DB.CollectionIDs[itemSubClassID]) or C_ToyBox.GetToyInfo(itemID) then
-			lootInfo = true
-		end
+		if isEquipment(itemQuality, itemClassID) or isCollection(itemID, itemClassID, itemSubClassID) then
+			local lootInfo = ""
+			local textWidth, maxWidth = 0, 0
+			local lootTime = DB.InfoColor..GameTime_GetGameTime(true).."|r"
+			local playerName = UnitClassColor(string.split("-", lootPlayer))
 
-		if itemLvl and itemSolt then
-			totalText = "<"..itemLvl.."-"..itemSolt..itemEx..">"
-		elseif itemLvl then
-			totalText = "<"..itemLvl..itemEx..">"
-		elseif itemSolt then
-			totalText = "<"..itemSolt..itemEx..">"
-		end
+			if itemLvl and itemSolt then
+				lootInfo = "<"..itemLvl.."-"..itemSolt..itemEx..">"
+			elseif itemLvl then
+				lootInfo = "<"..itemLvl..itemEx..">"
+			elseif itemSolt then
+				lootInfo = "<"..itemSolt..itemEx..">"
+			end
 
-		if itemEx ~= "" then
-			totalText = "|cff00FF00"..totalText.."|r"
-		end
+			if itemEx ~= "" then
+				lootInfo = "|cff00FF00"..lootInfo.."|r"
+			end
 
-		if lootName and string.len(lootName) > 1 and lootInfo then
 			if #LMFrame_Report >= LMFrame_CFG["maxLines"] then table.remove(LMFrame_Report, 1) end
 
-			table.insert(LMFrame_Report, {time = lootTime, player = playerName, link = itemLink, info = totalText, name = lootName})
+			table.insert(LMFrame_Report, {time = lootTime, player = playerName, link = itemLink, info = lootInfo, name = lootPlayer})
 
 			local numButtons = #LMFrame_Report
 			for index = 1, numButtons do

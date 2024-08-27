@@ -255,7 +255,7 @@ do
                         or value.type == "InnkeeperH" or value.type == "InnkeeperA" or value.type == "MailboxN" or value.type == "MailboxH" or value.type == "MailboxA" or value.type == "PvPVendorH" or value.type == "PvPVendorA" 
                         or value.type == "PvEVendorH" or value.type == "PvEVendorA" or value.type == "MMInnkeeperH" or value.type == "MMInnkeeperA" or value.type == "MMStablemasterH" or value.type == "MMStablemasterA"
                         or value.type == "MMMailboxH" or value.type == "MMMailboxA" or value.type == "MMPvPVendorH" or value.type == "MMPvPVendorA" or value.type == "MMPvEVendorH" or value.type == "MMPvEVendorA" 
-                        or value.type == "ZonePvEVendorH" or value.type == "ZonePvPVendorH" or value.type == "ZonePvEVendorA" or value.type == "ZonePvPVendorA"
+                        or value.type == "ZonePvEVendorH" or value.type == "ZonePvPVendorH" or value.type == "ZonePvEVendorA" or value.type == "ZonePvPVendorA" or value.type == "TradingPost"
 
       ns.AllZoneIDs = ns.KalimdorIDs 
                       or ns.EasternKingdomIDs 
@@ -389,12 +389,6 @@ do
         alpha = db.MiniMapPathsAlpha
       end
 
-      -- Profession icons in Capitals
-      if ns.professionIcons and ns.CapitalMiniMapIDs and (value.showOnMinimap == false) then
-        scale = db.CapitalsProfessionsScale
-        alpha = db.CapitalsProfessionsAlpha
-      end
-
       -- inside Dungeon
       if (mapInfo.mapType == 4 or mapInfo.mapType == 6) and not ns.CapitalIDs and not ns.ZoneIDs then 
           scale = db.dungeonScale
@@ -449,6 +443,12 @@ do
         alpha = db.ZonesPathsAlpha
       end
 
+      -- Capitals Profession icons 
+      if ns.CapitalIDs and ns.professionIcons and (value.showOnMinimap == false) then
+        scale = db.CapitalsProfessionsScale
+        alpha = db.CapitalsProfessionsAlpha
+      end
+
       -- Capitals General (Innkeeper/Exit/Passage) icons
       if ns.CapitalIDs and ns.generalIcons and (value.showOnMinimap == false) then
         scale = db.CapitalsGeneralScale
@@ -467,11 +467,6 @@ do
         alpha = db.CapitalsInstanceAlpha
       end
       
-      if WorldMapFrame:GetMapID() == 2274 then -- PTR: Khaz Algar - The War Within. Continent Scale atm on Beta a Zone not a Continent!!
-        scale = db.continentScale
-        alpha = db.continentAlpha
-      end
-
       if t.uiMapId == 947 then-- Azeroth World Map
         scale = db.azerothScale
         alpha = db.azerothAlpha
@@ -866,9 +861,18 @@ end
 function Addon:OnProfileReset(event, database, newProfileKey)
 	db = database.profile
   ns.Addon:FullUpdate()
+  wipe(ns.dbChar.CapitalsDeletedIcons)
+  wipe(ns.dbChar.MinimapCapitalsDeletedIcons)
+  wipe(ns.dbChar.CapitalsDeletedIcons)
+  wipe(ns.dbChar.MinimapCapitalsDeletedIcons)
+  wipe(ns.dbChar.AzerothDeletedIcons)
+  wipe(ns.dbChar.ContinentDeletedIcons)
+  wipe(ns.dbChar.ZoneDeletedIcons)
+  wipe(ns.dbChar.MinimapZoneDeletedIcons)
+  wipe(ns.dbChar.DungeonDeletedIcons)
+  print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been reset to default"])
   HandyNotes:GetModule("FogOfWarButton"):Refresh()
   HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-  print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been reset to default"])
 end
 
 function Addon:OnProfileCopied(event, database, newProfileKey)
@@ -904,13 +908,14 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
 
   -- Register Database Profile
   self.db = LibStub("AceDB-3.0"):New("HandyNotes_MapNotesRetailDB", ns.defaults)
+  self.db = LibStub("AceDB-3.0"):New("FogOfWarColorDB", ns.defaults)
   self.db.RegisterCallback(self, "OnProfileChanged", "OnProfileChanged")
 	self.db.RegisterCallback(self, "OnProfileCopied", "OnProfileCopied")
 	self.db.RegisterCallback(self, "OnProfileReset", "OnProfileReset")
   self.db.RegisterCallback(self, "OnProfileDeleted", "OnProfileDeleted")
 
   db = self.db.profile
-  ns.dbChar = self.db.char
+  ns.dbChar = self.db.profile
 
   -- Register options 
   HandyNotes:RegisterPluginDB("MapNotes", pluginHandler, ns.options)
@@ -928,9 +933,9 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
   Addon:RegisterEvent("ZONE_CHANGED_INDOORS")
 
   -- Check if MapNotes vs Blizzard is true then remove Blizzard Pins
-  if ns.Addon.db.profile.activate.RemoveBlizzPOIs then
+  if ns.Addon.db.profile.activate.RemoveBlizzInstances then
     SetCVar("showDungeonEntrancesOnMap", 0)
-  elseif not ns.Addon.db.profile.activate.RemoveBlizzPOIs then
+  elseif not ns.Addon.db.profile.activate.RemoveBlizzInstances then
       SetCVar("showDungeonEntrancesOnMap", 1)
   end
 
@@ -950,12 +955,15 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
     if (not ns.Addon.db.profile.activate.RemoveBlizzPOIs or ns.Addon.db.profile.activate.HideMapNote) then return end
 
     for pin in WorldMapFrame:EnumeratePinsByTemplate("AreaPOIPinTemplate") do
+
       for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
+
         local poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
         if (poi ~= nil and poi.areaPoiID == poiID) then
             WorldMapFrame:RemovePin(pin)
         end
       end
+
     end
   end
 

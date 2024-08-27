@@ -36,6 +36,9 @@ L["This will delete all Minimap settings and replace them with those from Zones 
 L["Synchronizes the Capitals tab with the Capitals - Minimap tab"] = "Синхронизирует вкладку «Капитал» с вкладкой «Столицы - Миникарте»"
 L["Which deactivates the functions from the Capitals - Minimap tab and is now controlled together by the Capitals tab"] = "Это деактивирует функции вкладки «Столицы - Миникарте» и теперь контролируется вместе с помощью вкладки «Столицы»"
 L["This will delete all Capitals - Minimap settings and replace them with those from Capitals tab"] = "Это удалило все настройки для «Капиталов - мини -карта» и заменено настройками на вкладке «Столичные города»"
+--0.6 MapNotes icons and hide blizzard POIs
+L["Displays special MapNotes summary icons containing several different pieces of information (dungeons/raids/portals, etc.)"] = "Отображает специальные значки MapNotes, содержащие несколько различных деталей информации (Dungeons/Raids/Portals и т. Д.)"
+L["Points of interests"] = "Точки интересов"
 --1 Capitals
 L["Leather Armor"] = "Кожаная броня"
 L["Heavy Armor"] = "Тяжелая броня"

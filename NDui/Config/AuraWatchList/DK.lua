@@ -25,6 +25,9 @@ local list = {
 		{AuraID = 326918, UnitID = "player"}, -- 癔狂符文
 		{AuraID = 326984, UnitID = "player"}, -- 无尽渴求符文
 		{AuraID = 383269, UnitID = "player"}, -- 憎恶附肢
+
+		{AuraID = 444347, UnitID = "player"}, -- 死亡冲锋
+
 	},
 	["Target Aura"] = {		-- 目标光环组
 		{AuraID =  45524, UnitID = "target", Caster = "player"}, -- 寒冰锁链

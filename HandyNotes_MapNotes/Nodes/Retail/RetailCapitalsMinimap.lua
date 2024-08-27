@@ -245,6 +245,10 @@ if not db.activate.HideMapNote then
                         minimap[85][62403560] = { dnID = MINIMAP_TRACKING_STABLEMASTER, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     end
 
+                    if self.db.profile.showMinimapCapitalsTradingPost then
+                        minimap[85][48717601] = { dnID = BATTLE_PET_SOURCE_12, name = "",  type = "TradingPost", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                    end
+
                 end
             end
         end
@@ -1285,6 +1289,10 @@ if not db.activate.HideMapNote then
                     if self.db.profile.showMinimapCapitalsStablemaster then
                         minimap[84][77806720] = { dnID = MINIMAP_TRACKING_STABLEMASTER, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                         minimap[84][67003760] = { dnID = MINIMAP_TRACKING_STABLEMASTER, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                    end
+
+                    if self.db.profile.showMinimapCapitalsTradingPost then
+                        minimap[84][51487192] = { dnID = BATTLE_PET_SOURCE_12, name = "",  type = "TradingPost", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     end
 
                 end
@@ -2855,6 +2863,10 @@ if not db.activate.HideMapNote then
 
                 if self.db.profile.showMinimapCapitalsStablemaster then
                     minimap[2112][46807880] = { dnID = MINIMAP_TRACKING_STABLEMASTER, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                end
+
+                if self.db.profile.showMinimapCapitalsTradingPost then
+                    minimap[2339][44645607] = { dnID = BATTLE_PET_SOURCE_12, name = "",  type = "TradingPost", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 end
 
             end

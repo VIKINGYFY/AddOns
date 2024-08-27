@@ -36,6 +36,9 @@ L["This will delete all Minimap settings and replace them with those from Zones 
 L["Synchronizes the Capitals tab with the Capitals - Minimap tab"] = "Synchronisiert die Registerkarte „Hauptstädte“ mit der Registerkarte „Hauptstädte – Minikarte“"
 L["Which deactivates the functions from the Capitals - Minimap tab and is now controlled together by the Capitals tab"] = "Dadurch werden die Funktionen der Registerkarte „Hauptstädte – Minikarte“ deaktiviert und werden nun gemeinsam über die Registerkarte „Hauptstädte“ gesteuert"
 L["This will delete all Capitals - Minimap settings and replace them with those from Capitals tab"] = "Dadurch werden alle Einstellungen für „Hauptstädte – Minikarte“ gelöscht und durch die Einstellungen auf der Registerkarte „Hauptstädte“ ersetzt"
+--0.6 MapNotes icons and hide blizzard POIs
+L["Displays special MapNotes summary icons containing several different pieces of information (dungeons/raids/portals, etc.)"] = "Zeigt spezielle zusammengefasste MapNotes Symbole an, die verschiedene Informationen enthalten (Dungeons/Raids/Portale usw.)"
+L["Points of interests"] = "Punkt von Interesse"
 --1 Capitals
 L["Leather Armor"] = "Lederrüstung"
 L["Heavy Armor"] = "Kettenrüstung"
@@ -409,7 +412,7 @@ L["Reforge"] = "Umschmieden"
 L["Khaz Algar"] = "Khaz Algar"
 L["Dornogal"] = "Dornogal"
 L["Catalyst"] = "Katalysator"
-L["Merchant for Renown items"] = "Händler für Ruhm Gegenstände"
+L["Merchant for Renown items"] = "Ruhmreicher Rüstmeister"
 L["Council of Dornogal"] = "Rat von Dornogal"
 L["The Assembly of the Deeps"] = "Der Konvent der Tiefen"
 L["Hallowfall Arathi"] = "Arathi von Heilsturz"

@@ -235,6 +235,10 @@ if not db.activate.HideMapNote then
                         nodes[85][62403560] = { dnID = MINIMAP_TRACKING_STABLEMASTER, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     end
 
+                    if self.db.profile.showCapitalsTradingPost then
+                        nodes[85][48717601] = { dnID = BATTLE_PET_SOURCE_12, name = "",  type = "TradingPost", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
                 end
 
             end
@@ -1254,6 +1258,10 @@ if not db.activate.HideMapNote then
                     if self.db.profile.showCapitalsStablemaster then
                         nodes[84][77806720] = { dnID = MINIMAP_TRACKING_STABLEMASTER, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                         nodes[84][67003760] = { dnID = MINIMAP_TRACKING_STABLEMASTER, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsTradingPost then
+                        nodes[84][51487192] = { dnID = BATTLE_PET_SOURCE_12, name = "",  type = "TradingPost", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     end
 
                 end
@@ -3086,6 +3094,10 @@ if not db.activate.HideMapNote then
 
                 if self.db.profile.showCapitalsCatalyst then
                     nodes[2339][50005430] = { dnID = L["Catalyst"], name = "",  type = "Catalyst", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                end
+
+                if self.db.profile.showCapitalsTradingPost then
+                    nodes[2339][44645607] = { dnID = BATTLE_PET_SOURCE_12, name = "",  type = "TradingPost", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
 
             end

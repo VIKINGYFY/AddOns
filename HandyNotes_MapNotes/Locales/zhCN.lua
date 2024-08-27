@@ -36,6 +36,9 @@ L["This will delete all Minimap settings and replace them with those from Zones 
 L["Synchronizes the Capitals tab with the Capitals - Minimap tab"] = "使“主城”选项卡与“主城-小地图”选项卡同步"
 L["Which deactivates the functions from the Capitals - Minimap tab and is now controlled together by the Capitals tab"] = "禁用系统“主城-小地图”选项卡中的功能，现在由“主城”选项卡来控制"
 L["This will delete all Capitals - Minimap settings and replace them with those from Capitals tab"] = "屏蔽所有系统设置，“主城-小地图”取代系统“主城”选项卡中的设置。"
+--0.6 MapNotes icons and hide blizzard POIs
+L["Displays special MapNotes summary icons containing several different pieces of information (dungeons/raids/portals, etc.)"] = "显示特殊的MAPNOTES摘要图标，其中包含几个不同的信息（地牢/RAIDS/Portals等）"
+L["Points of interests"] = "兴趣点"
 --1 Capitals
 L["Leather Armor"] = "皮甲"
 L["Heavy Armor"] = "锁甲"

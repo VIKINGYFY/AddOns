@@ -23,8 +23,8 @@ if not db.activate.HideMapNote then
     
       if self.db.profile.showZoneKalimdor then
 
-        -- Kalimdor RemoveBlizzPOIs
-          if db.activate.RemoveBlizzPOIs then
+        -- Kalimdor MapNotesIcons
+          if db.activate.MapNotesIcons then
 
             if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
               nodes[1][45780744] = { mnID = 85, name = "", type = "HIcon", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = ORGRIMMAR .. " - " .. FACTION_HORDE .. "\n" .. "\n" .. L["Portalroom"] .. "\n" .. " ==> " .. L["Silvermoon City"] .. "\n" .. " ==> " .. L["Valdrakken"] .. "\n" .. " ==> " .. L["Oribos"] .. "\n" .. " ==> " .. L["Azsuna"] .. "\n" .. " ==> " .. L["Zuldazar"] .. "\n" .. " ==> " .. L["Shattrath City"] .. "\n" .. " ==> " .. DUNGEON_FLOOR_DALARANCITY1 .. "\n" .. " ==> " .. DUNGEON_FLOOR_TANARIS18 .. "\n" .. " ==> " .. L["Blasted Lands"] .. "\n" .. " ==> " .. L["Dornogal"] .. "\n" .. "\n" .. L["Portal"] .. "\n" .. " ==> " .. POSTMASTER_LETTER_HYJAL .. "\n" .. " ==> " .. L["Twilight Highlands"] .. "\n" .. " ==> " .. ARTIFACT_SHAMAN_TITLECARD_DEEPHOLM .. "\n" .. " ==> " .. L["Vashj'ir"] .. "\n" .. " ==> " .. L["Uldum"] .. "\n" .. " ==> " .. DUNGEON_FLOOR_TOLBARADWARLOCKSCENARIO0 .. "\n" .. "\n" .. L["Zeppelins"] .. "\n" .. " ==> " .. L["Thunder Bluff"] .. "\n" .. " ==> " .. L["Grom'gol, Stranglethorn Vale"] .. "\n" .. " ==> " .. POSTMASTER_LETTER_WARSONGHOLD .. "\n" .. "\n" .. CALENDAR_TYPE_DUNGEON .. "\n" .. " ==> " .. DUNGEON_FLOOR_RAGEFIRE1 } -- Portalroom from Dazar'alor
@@ -116,8 +116,8 @@ if not db.activate.HideMapNote then
     
       if self.db.profile.showZoneEasternKingdom then
 
-        -- Azeroth Eastern Kingdom RemoveBlizzPOIs
-          if db.activate.RemoveBlizzPOIs then
+        -- Azeroth Eastern Kingdom MapNotesIcons
+          if db.activate.MapNotesIcons then
 
             if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
               nodes[224][42073378] = { mnID = 50, name = "", type = "HIcon", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Grom'gol, Stranglethorn Vale"] .. " " .. "\n" .. "\n" .. L["Zeppelin"] .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. "\n" .. L["Portal"] .. "\n" .. " ==> " .. L["Ruins of Lordaeron"] } -- Transport from Stranglethorn Valley to Ogrimmar and Ruins of Lordaeron
@@ -182,8 +182,8 @@ if not db.activate.HideMapNote then
           end
 
 
-        --Eastern Kingdom Portals without RemoveBlizzPOIs
-          if self.db.profile.showZonePortals and not db.activate.RemoveBlizzPOIs then
+        --Eastern Kingdom Portals without MapNotesIcons
+          if self.db.profile.showZonePortals and not db.activate.MapNotesIcons then
             nodes[224][42233253] = { mnID = 18, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. L["Ruins of Lordaeron"] } -- Portal to Undercity from Grom'gol
           end
 
@@ -199,8 +199,8 @@ if not db.activate.HideMapNote then
           end
 
 
-          --Eastern Kingdom Zeppelins without RemoveBlizzPOIs
-          if self.db.profile.showZonePortals and not db.activate.RemoveBlizzPOIs then
+          --Eastern Kingdom Zeppelins without MapNotesIcons
+          if self.db.profile.showZonePortals and not db.activate.MapNotesIcons then
             nodes[224][41993471] = { mnID = 85, name = "", type = "HZeppelin", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Zeppelin"] .. " ==> " .. ORGRIMMAR } -- Ship from Booty Bay to Ratchet
           end
 
@@ -230,8 +230,8 @@ if not db.activate.HideMapNote then
     
       if self.db.profile.showZoneOutland then
 
-        -- Outland RemoveBlizzPOIs 
-          if db.activate.RemoveBlizzPOIs then
+        -- Outland MapNotesIcons 
+          if db.activate.MapNotesIcons then
             nodes[108][28652247] = { mnID = 111, name = "", type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Shattrath City"] .. "\n" .. "\n" .. L["Portals"] .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. STORMWIND .. "\n" .. " ==> " .. L["Isle of Quel'Danas"] } -- Portal from Shattrath to Orgrimmar
           end
 
@@ -528,8 +528,8 @@ if not db.activate.HideMapNote then
     
       if self.db.profile.showZoneKulTiras then 
 
-        -- Kul Tiras RemoveBlizzPOIs
-        if db.activate.RemoveBlizzPOIs then
+        -- Kul Tiras MapNotesIcons
+        if db.activate.MapNotesIcons then
 
           if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
             nodes[895][71533261] = { mnID = 1161, id = { 1176, 1031, 1179, 1036 }, type = "AIcon", showInZone = true, showOnContinent = false, showOnMinimap = false, name = L["Boralus"] .. " " .. "\n" .. " " .. "\n" .. L["Portalroom"] .. "\n" .. " ==> " .. STORMWIND .. "\n" .. " ==> " .. L["Silithus"] .. "\n" .. " ==> " .. L["Exodar"] .. "\n" .. " ==> " .. L["Ironforge"] .. "\n" .. " " .. "\n" .. L["Grand Admiral Jes-Tereth"] .. L["Travel"] .. "\n" .. " ==> " .. L["Nazmir"] .. "\n" .. " ==> " .. L["Zuldazar"] .. "\n" .. " ==> " .. L["Vol'dun"] .. "\n" .. " " .. "\n" .. L["Portals"] .. "\n" .. " " .. "\n" .. " ==> " .. L["Arathi Highlands"] .. "\n" .. " ==> " .. L["Darkshore"] .. "\n" .. " " .. "\n" .. L["Ship"] .. "\n" .. " ==> " .. STORMWIND .. "\n" .. " "  .."\n" .. L["Kiku"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " "} -- Boralus Transports
@@ -656,8 +656,8 @@ if not db.activate.HideMapNote then
     
       if self.db.profile.showZoneKhazAlgar then
 
-        -- Khaz Algar RemoveBlizzPOIs
-          if db.activate.RemoveBlizzPOIs then
+        -- Khaz Algar MapNotesIcons
+          if db.activate.MapNotesIcons then
             nodes[2248][50004218] = { mnID = 2339, name = "", type = "MNL", showInZone = true, TransportName = L["Dornogal"] .. " - " .. FACTION_NEUTRAL .. "\n" .. "\n" .. L["Portals"] .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. STORMWIND .. "\n" .. "\n" .. CALENDAR_TYPE_DUNGEON .. "\n" .. " ==> " .. "The Rookery" } -- Dornogal
           end
 

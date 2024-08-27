@@ -16,6 +16,7 @@ ns.defaults = {
         collectablefound = true,
         achievedfound = true,
         questfound = true,
+        transmog_specific = true, -- consider whether you know the appearance from *this* item specifically
         icon_scale = 1.0,
         icon_alpha = 1.0,
         icon_item = false,
@@ -47,279 +48,324 @@ ns.options = {
     hidden = function(info)
         return ns.hiddenConfig[info[#info]]
     end,
+    childGroups = "tab",
     args = {
-        icon = {
+        common = {
             type = "group",
-            name = "Icon settings",
-            inline = true,
-            order = 10,
+            name = "Common",
             args = {
-                desc = {
-                    name = "These settings control the look and feel of the icon.",
-                    type = "description",
-                    order = 0,
-                },
-                icon_scale = {
-                    type = "range",
-                    name = "Icon Scale",
-                    desc = "The scale of the icons",
-                    min = 0.25, max = 2, step = 0.01,
-                    order = 20,
-                },
-                icon_alpha = {
-                    type = "range",
-                    name = "Icon Alpha",
-                    desc = "The alpha transparency of the icons",
-                    min = 0, max = 1, step = 0.01,
-                    order = 30,
-                },
-                show_on_world = {
-                    type = "toggle",
-                    name = "World Map",
-                    desc = "Show icons on world map",
-                    order = 40,
-                },
-                show_on_minimap = {
-                    type = "toggle",
-                    name = "Minimap",
-                    desc = "Show all icons on the minimap",
-                    order = 50,
-                },
-                default_icon = {
-                    type = "select",
-                    name = "Default Icon",
-                    values = {
-                        VignetteLoot = CreateAtlasMarkup("VignetteLoot", 20, 20) .. " Chest",
-                        VignetteLootElite = CreateAtlasMarkup("VignetteLootElite", 20, 20) .. " Chest with star",
-                        Garr_TreasureIcon = CreateAtlasMarkup("Garr_TreasureIcon", 20, 20) .. " Shiny chest",
-                    },
-                    order = 60,
-                },
-                worldmapoverlay = {
-                    type = "toggle",
-                    name = "Add button to world map",
-                    desc = "Put a button on the world map for quick access to these options",
-                    set = function(info, v)
-                        ns.db[info[#info]] = v
-                        if WorldMapFrame.RefreshOverlayFrames then
-                            WorldMapFrame:RefreshOverlayFrames()
-                        end
-                    end,
-                    hidden = function(info)
-                        if not ns.SetupMapOverlay then
-                            return true
-                        end
-                        return ns.options.hidden(info)
-                    end,
-                    order = 70,
-                },
-            },
-        },
-        display = {
-            type = "group",
-            name = "What to display",
-            inline = true,
-            order = 20,
-            args = {
-                icon_item = {
-                    type = "toggle",
-                    name = "Use item icons",
-                    desc = "Show the icons for items, if known; otherwise, the achievement icon will be used",
-                    order = 0,
-                },
-                tooltip_item = {
-                    type = "toggle",
-                    name = "Use item tooltips",
-                    desc = "Show the full tooltips for items",
+                icon = {
+                    type = "group",
+                    name = "Icons",
+                    inline = true,
                     order = 10,
+                    args = {
+                        desc = {
+                            name = "These settings control the look and feel of the icon.",
+                            type = "description",
+                            order = 0,
+                        },
+                        icon_scale = {
+                            type = "range",
+                            name = "Icon Scale",
+                            desc = "The scale of the icons",
+                            min = 0.25, max = 2, step = 0.01,
+                            order = 20,
+                        },
+                        icon_alpha = {
+                            type = "range",
+                            name = "Icon Alpha",
+                            desc = "The alpha transparency of the icons",
+                            min = 0, max = 1, step = 0.01,
+                            order = 30,
+                        },
+                        show_on_world = {
+                            type = "toggle",
+                            name = "World Map",
+                            desc = "Show icons on world map",
+                            order = 40,
+                        },
+                        show_on_minimap = {
+                            type = "toggle",
+                            name = "Minimap",
+                            desc = "Show all icons on the minimap",
+                            order = 50,
+                        },
+                        default_icon = {
+                            type = "select",
+                            name = "Default Icon",
+                            values = {
+                                VignetteLoot = CreateAtlasMarkup("VignetteLoot", 20, 20) .. " Chest",
+                                VignetteLootElite = CreateAtlasMarkup("VignetteLootElite", 20, 20) .. " Chest with star",
+                                Garr_TreasureIcon = CreateAtlasMarkup("Garr_TreasureIcon", 20, 20) .. " Shiny chest",
+                            },
+                            order = 60,
+                        },
+                        worldmapoverlay = {
+                            type = "toggle",
+                            name = "Add button to world map",
+                            desc = "Put a button on the world map for quick access to these options",
+                            set = function(info, v)
+                                ns.db[info[#info]] = v
+                                if WorldMapFrame.RefreshOverlayFrames then
+                                    WorldMapFrame:RefreshOverlayFrames()
+                                end
+                            end,
+                            hidden = function(info)
+                                if not ns.SetupMapOverlay then
+                                    return true
+                                end
+                                return ns.options.hidden(info)
+                            end,
+                            order = 70,
+                        },
+                    },
                 },
-                tooltip_charloot = {
-                    type = "toggle",
-                    name = "Loot for this character only",
-                    desc = "Only show loot that should drop for the current character",
-                    order = 12,
-                },
-                tooltip_pointanchor = {
-                    type = "toggle",
-                    name = "Anchor tooltips to points",
-                    desc = "Whether to anchor the tooltips to the individual points or to the map",
-                    order = 15,
+                display = {
+                    type = "group",
+                    name = "What to display",
+                    inline = true,
+                    order = 20,
+                    args = {
+                        show_npcs = {
+                            type = "toggle",
+                            name = "Show NPCs",
+                            desc = "Show rare NPCs to be killed, generally for items or achievements",
+                            order = 10,
+                        },
+                        show_npcs_onlynotable = {
+                            type = "toggle",
+                            name = "...but only notable ones",
+                            desc = "Only show the NPCs that you can still get something from: achievements, transmogs, mounts, pets ,toys",
+                            order = 11,
+                        },
+                        show_treasure = {
+                            type = "toggle",
+                            name = "Show treasure",
+                            desc = "Show treasure that can be looted",
+                            order = 20,
+                        },
+                        unhide = {
+                            type = "execute",
+                            name = "Reset hidden nodes",
+                            desc = "Show all nodes that you manually hid by right-clicking on them and choosing \"hide\".",
+                            func = function()
+                                for _, coords in pairs(ns.hidden) do
+                                    wipe(coords)
+                                end
+                                ns.HL:Refresh()
+                            end,
+                            order = 50,
+                        },
+                    },
                 },
                 -- the "found" cluster
                 found = {
-                    type = "toggle",
-                    name = "Show found",
-                    desc = "Show waypoints for items you've already found?",
-                    order = 20,
+                    type = "group",
+                    name = "Found...",
+                    inline = true,
+                    order = 30,
+                    args = {
+                        found = {
+                            type = "toggle",
+                            name = "Show found",
+                            desc = "Show waypoints for items you've already found?",
+                            order = 20,
+                        },
+                        achievedfound = {
+                            type = "toggle",
+                            name = "Count achievement-complete as found",
+                            desc = "For nodes which are repeatable on a daily quest *and* tied to an achievement, only consider the achievement",
+                            order = 21,
+                        },
+                        collectablefound = {
+                            type = "toggle",
+                            name = "Count collectables as found",
+                            desc = "For account-level items like mounts, pets, and toys, count them being known as this being found",
+                            order = 22,
+                        },
+                        questfound = {
+                            type = "toggle",
+                            name = "Count tracking quest as found",
+                            desc = "Lots of things have a hidden quest that tracks whether you've looted them this day / week /ever and thus whether you can loot them again",
+                            order = 23,
+                        },
+                    },
                 },
-                achievedfound = {
-                    type = "toggle",
-                    name = "Count achievement-complete as found",
-                    desc = "For nodes which are repeatable on a daily quest *and* tied to an achievement, only consider the achievement",
-                    order = 21,
-                },
-                collectablefound = {
-                    type = "toggle",
-                    name = "Count collectables as found",
-                    desc = "For account-level items like mounts, pets, and toys, count them being known as this being found",
-                    order = 22,
-                },
-                questfound = {
-                    type = "toggle",
-                    name = "Count tracking quest as found",
-                    desc = "Lots of things have a hidden quest that tracks whether you've looted them this day / week /ever and thus whether you can loot them again",
-                    order = 23,
-                },
-                upcoming = {
-                    type = "toggle",
-                    name = "Show inaccessible",
-                    desc = "Show waypoints for items you can't get yet (max level, gated quests, etc); they'll be tinted red to indicate this",
+                tooltips = {
+                    type = "group",
+                    name = "Tooltips",
+                    desc = "Settings about how tooltips are displayed",
+                    inline = true,
+                    args = {
+                        tooltip_item = {
+                            type = "toggle",
+                            name = "Use item tooltips",
+                            desc = "Show the full tooltips for items",
+                            order = 10,
+                        },
+                        tooltip_charloot = {
+                            type = "toggle",
+                            name = "Loot for this character only",
+                            desc = "Only show loot that should drop for the current character",
+                            order = 12,
+                        },
+                        tooltip_pointanchor = {
+                            type = "toggle",
+                            name = "Anchor tooltips to points",
+                            desc = "Whether to anchor the tooltips to the individual points or to the map",
+                            order = 15,
+                        },
+                        tooltip_questid = {
+                            type = "toggle",
+                            name = "Show quest ids",
+                            desc = "Show the internal id of the quest associated with this node. Handy if you want to report a problem with it.",
+                            order = 40,
+                        },
+                    },
                     order = 25,
                 },
-                show_npcs = {
-                    type = "toggle",
-                    name = "Show NPCs",
-                    desc = "Show rare NPCs to be killed, generally for items or achievements",
-                    order = 30,
-                },
-                show_npcs_onlynotable = {
-                    type = "toggle",
-                    name = "...but only notable ones",
-                    desc = "Only show the NPCs that you can still get something from: achievements, transmogs for the current character",
-                    order = 31,
-                },
-                show_treasure = {
-                    type = "toggle",
-                    name = "Show treasure",
-                    desc = "Show treasure that can be looted",
-                    order = 35,
-                },
-                show_routes = {
-                    type = "toggle",
-                    name = "Show routes",
-                    desc = "Show relevant routes between points ",
-                    disabled = function() return not ns.RouteWorldMapDataProvider end,
-                    order = 37,
-                },
-                tooltip_questid = {
-                    type = "toggle",
-                    name = "Show quest ids",
-                    desc = "Show the internal id of the quest associated with this node. Handy if you want to report a problem with it.",
-                    order = 40,
-                },
-                unhide = {
-                    type = "execute",
-                    name = "Reset hidden nodes",
-                    desc = "Show all nodes that you manually hid by right-clicking on them and choosing \"hide\".",
-                    func = function()
-                        for _, coords in pairs(ns.hidden) do
-                            wipe(coords)
-                        end
-                        ns.HL:Refresh()
-                    end,
+                fiddly = {
+                    type = "group",
+                    name = "Fiddly details",
+                    desc = "Quirky small tweaks",
+                    inline = true,
+                    args = {
+                        icon_item = {
+                            type = "toggle",
+                            name = "Use item icons",
+                            desc = "Show the icons for items, if known; otherwise, the achievement icon will be used",
+                            order = 10,
+                        },
+                        upcoming = {
+                            type = "toggle",
+                            name = "Show inaccessible",
+                            desc = "Show waypoints for items you can't get yet (max level, gated quests, etc); they'll be tinted red to indicate this",
+                            order = 25,
+                        },
+                        show_routes = {
+                            type = "toggle",
+                            name = "Show routes",
+                            desc = "Show relevant routes between points ",
+                            disabled = function() return not ns.RouteWorldMapDataProvider end,
+                            order = 37,
+                        },
+                        transmog_specific = {
+                            type = "toggle",
+                            name = "Transmog exact items",
+                            desc = "For transmog appearances, only count them as known if you know them from that exact item, rather than from another sharing the same appearance",
+                            order = 45,
+                        },
+                    },
                     order = 50,
                 },
             },
         },
-        achievementsHidden = {
-            type = "multiselect",
-            name = "Show achievements",
-            desc = "Toggle whether you want to show points for a given achievement",
-            get = function(info, key) return not ns.db[info[#info]][key] end,
-            set = function(info, key, value)
-                ns.db[info[#info]][key] = not value
-                ns.HL:Refresh()
-            end,
-            values = function(info)
-                local values = {}
-                for uiMapID, points in pairs(ns.points) do
-                    for coord, point in pairs(points) do
-                        if point.achievement and not values[point.achievement] then
-                            local _, achievement = GetAchievementInfo(point.achievement)
-                            values[point.achievement] = achievement or 'achievement:'..point.achievement
+        data = {
+            name = "Data",
+            type = "group",
+            args = {
+                achievementsHidden = {
+                    type = "multiselect",
+                    name = "Show achievements",
+                    desc = "Toggle whether you want to show points for a given achievement",
+                    get = function(info, key) return not ns.db[info[#info]][key] end,
+                    set = function(info, key, value)
+                        ns.db[info[#info]][key] = not value
+                        ns.HL:Refresh()
+                    end,
+                    values = function(info)
+                        local values = {}
+                        for uiMapID, points in pairs(ns.points) do
+                            for coord, point in pairs(points) do
+                                if point.achievement and not values[point.achievement] then
+                                    local _, achievement = GetAchievementInfo(point.achievement)
+                                    values[point.achievement] = achievement or 'achievement:'..point.achievement
+                                end
+                            end
                         end
-                    end
-                end
-                -- replace ourself with the built values table
-                info.option.values = values
-                return values
-            end,
-            hidden = function(info)
-                for uiMapID, points in pairs(ns.points) do
-                    for coord, point in pairs(points) do
-                        if point.achievement then
-                            info.option.hidden = nil
-                            return ns.options.hidden(info)
+                        -- replace ourself with the built values table
+                        info.option.values = values
+                        return values
+                    end,
+                    hidden = function(info)
+                        for uiMapID, points in pairs(ns.points) do
+                            for coord, point in pairs(points) do
+                                if point.achievement then
+                                    info.option.hidden = nil
+                                    return ns.options.hidden(info)
+                                end
+                            end
                         end
-                    end
-                end
-                info.option.hidden = true
-                return true
-            end,
-            order = 30,
+                        info.option.hidden = true
+                        return true
+                    end,
+                    order = 30,
+                },
+                zonesHidden = {
+                    type = "multiselect",
+                    name = "Show in zones",
+                    desc = "Toggle whether you want to show points in a given zone",
+                    get = function(info, key) return not ns.db[info[#info]][key] end,
+                    set = function(info, key, value)
+                        ns.db[info[#info]][key] = not value
+                        ns.HL:Refresh()
+                    end,
+                    values = function(info)
+                        local values = {}
+                        for uiMapID in pairs(ns.points) do
+                            if not values[uiMapID] then
+                                local info = C_Map.GetMapInfo(uiMapID)
+                                if info and info.mapType == 3 then
+                                    -- zones only
+                                    values[uiMapID] = info.name
+                                end
+                            end
+                        end
+                        -- replace ourself with the built values table
+                        info.option.values = values
+                        return values
+                    end,
+                    order = 35,
+                },
+                groupsHidden = {
+                    type = "multiselect",
+                    name = "Show groups",
+                    desc = "Toggle whether to show certain groups of points",
+                    get = function(info, key) return not ns.db[info[#info]][key] end,
+                    set = function(info, key, value)
+                        ns.db[info[#info]][key] = not value
+                        ns.HL:Refresh()
+                    end,
+                    values = function(info)
+                        local values = {}
+                        for uiMapID, points in pairs(ns.points) do
+                            for coord, point in pairs(points) do
+                                if point.group and not values[point.group] then
+                                    values[point.group] = ns.render_string(ns.groups[point.group] or point.group)
+                                end
+                            end
+                        end
+                        -- replace ourself with the built values table
+                        info.option.values = values
+                        return values
+                    end,
+                    hidden = function(info)
+                        for uiMapID, points in pairs(ns.points) do
+                            for coord, point in pairs(points) do
+                                if point.group then
+                                    info.option.hidden = nil
+                                    return ns.options.hidden(info)
+                                end
+                            end
+                        end
+                        info.option.hidden = true
+                        return true
+                    end,
+                    order = 40,
+                },
+            },
         },
-        zonesHidden = {
-            type = "multiselect",
-            name = "Show in zones",
-            desc = "Toggle whether you want to show points in a given zone",
-            get = function(info, key) return not ns.db[info[#info]][key] end,
-            set = function(info, key, value)
-                ns.db[info[#info]][key] = not value
-                ns.HL:Refresh()
-            end,
-            values = function(info)
-                local values = {}
-                for uiMapID in pairs(ns.points) do
-                    if not values[uiMapID] then
-                        local info = C_Map.GetMapInfo(uiMapID)
-                        if info and info.mapType == 3 then
-                            -- zones only
-                            values[uiMapID] = info.name
-                        end
-                    end
-                end
-                -- replace ourself with the built values table
-                info.option.values = values
-                return values
-            end,
-            order = 35,
-        },
-        groupsHidden = {
-            type = "multiselect",
-            name = "Show groups",
-            desc = "Toggle whether to show certain groups of points",
-            get = function(info, key) return not ns.db[info[#info]][key] end,
-            set = function(info, key, value)
-                ns.db[info[#info]][key] = not value
-                ns.HL:Refresh()
-            end,
-            values = function(info)
-                local values = {}
-                for uiMapID, points in pairs(ns.points) do
-                    for coord, point in pairs(points) do
-                        if point.group and not values[point.group] then
-                            values[point.group] = ns.groups[point.group] or point.group
-                        end
-                    end
-                end
-                -- replace ourself with the built values table
-                info.option.values = values
-                return values
-            end,
-            hidden = function(info)
-                for uiMapID, points in pairs(ns.points) do
-                    for coord, point in pairs(points) do
-                        if point.group then
-                            info.option.hidden = nil
-                            return ns.options.hidden(info)
-                        end
-                    end
-                end
-                info.option.hidden = true
-                return true
-            end,
-            order = 40,
-        }
     },
 }
 
@@ -435,10 +481,17 @@ local function CanLearnAppearance(itemLinkOrID)
     return canLearnCache[itemID]
 end
 local hasAppearanceCache = {}
-local function HasAppearance(itemLinkOrID)
+ns.run_caches.appearances = {}
+local function HasAppearance(itemLinkOrID, specific)
     local itemID = C_Item.GetItemInfoInstant(itemLinkOrID)
     if not itemID then return end
+    if ns.run_caches.appearances[itemID] ~= nil then
+        return ns.run_caches.appearances[itemID]
+    end
     if hasAppearanceCache[itemID] ~= nil then
+        -- We cache unchanging things: true or false-because-not-knowable
+        -- *Technically* this could persist a false-positive if you obtain something and then trade/refund it
+        ns.run_caches.appearances[itemID] = hasAppearanceCache[itemID]
         return hasAppearanceCache[itemID]
     end
     if C_TransmogCollection.PlayerHasTransmogByItemInfo(itemLinkOrID) then
@@ -446,11 +499,22 @@ local function HasAppearance(itemLinkOrID)
         hasAppearanceCache[itemID] = true
         return true
     end
-    -- Although this isn't known, its appearance might be known from another item
-    local appearanceID = GetAppearanceAndSource(itemLinkOrID)
+    local appearanceID, sourceID = GetAppearanceAndSource(itemLinkOrID)
     if not appearanceID then
+        -- This just isn't knowable according to the API
         hasAppearanceCache[itemID] = false
         return
+    end
+    local fromCurrentItem = C_TransmogCollection.PlayerHasTransmogItemModifiedAppearance(sourceID)
+    if fromCurrentItem then
+        -- It might *also* be from another item, but we don't care or need to find out
+        hasAppearanceCache[itemID] = true
+        return true
+    end
+    -- Although this isn't known, its appearance might be known from another item
+    if specific then
+        ns.run_caches.appearances[itemID] = false
+        return false
     end
     local sources = C_TransmogCollection.GetAllAppearanceSources(appearanceID)
     if not sources then return end
@@ -460,6 +524,7 @@ local function HasAppearance(itemLinkOrID)
             return true
         end
     end
+    ns.run_caches.appearances[itemID] = false
     return false
 end
 
@@ -537,9 +602,9 @@ ns.itemIsKnown = function(item)
             end
             return false
         end
-        if CanLearnAppearance(item[1]) then return HasAppearance(item[1]) end
+        if CanLearnAppearance(item[1]) then return HasAppearance(item[1], ns.db.transmog_specific) end
     elseif CanLearnAppearance(item) then
-        return HasAppearance(item)
+        return HasAppearance(item, ns.db.transmog_specific)
     end
 end
 local hasKnowableLoot = testMaker(ns.itemIsKnowable, doTestAny)

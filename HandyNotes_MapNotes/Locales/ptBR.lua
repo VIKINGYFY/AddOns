@@ -36,6 +36,9 @@ L["This will delete all Minimap settings and replace them with those from Zones 
 L["Synchronizes the Capitals tab with the Capitals - Minimap tab"] = "Sincroniza a guia Capital com a guia Capital Cities - Mini Card"
 L["Which deactivates the functions from the Capitals - Minimap tab and is now controlled together by the Capitals tab"] = "Isso desativa as funções da guia Capitais - Mini Card e agora estão sendo controladas juntas através da guia Capitais"
 L["This will delete all Capitals - Minimap settings and replace them with those from Capitals tab"] = "Isso excluiu todas as configurações para Capitals - Mini Card e substituído pelas configurações na guia Capitais"
+--0.6 MapNotes icons and hide blizzard POIs
+L["Displays special MapNotes summary icons containing several different pieces of information (dungeons/raids/portals, etc.)"] = "Exibe os ícones de resumo de mapas especiais que contêm várias informações diferentes (masmorras/ataques/portais, etc.)"
+L["Points of interests"] = "Pontos de interesse"
 --1 Capitals
 L["Leather Armor"] = "Armadura de couro"
 L["Heavy Armor"] = "Armadura pesada"

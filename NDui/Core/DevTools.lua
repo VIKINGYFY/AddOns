@@ -14,17 +14,14 @@ local B, C, L, DB = unpack(ns)
 ]]
 
 DB.Devs = {
-	["寧德-加尔"] = true,
-	["图咿-万色星辰"] = true,
-	["打蛋獵手-地獄吼"] = true,
-	["Huniverster-Koranos"] = true,
-	["Therefire-TheseGoToEleven"] = true,
+	["罗宁-青玉的烟火"] = true,
+	["格瑞姆巴托-青玉的烟火"] = true,
 }
 local function isDeveloper()
 	local rawName = string.gsub(DB.MyFullName, "%s", "")
 	return DB.Devs[rawName]
 end
-DB.isDeveloper = true
+DB.isDeveloper = isDeveloper()
 
 -- Commands
 SlashCmdList["RELOADUI"] = ReloadUI

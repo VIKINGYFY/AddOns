@@ -120,6 +120,7 @@ local db = ns.Addon.db.profile
         self.db.profile.showMinimapCapitalsDragonFlyTransmog = self.db.profile.showCapitalsDragonFlyTransmog
         self.db.profile.showMinimapCapitalsCatalyst = self.db.profile.showCapitalsCatalyst
         self.db.profile.showMinimapCapitalsStablemaster = self.db.profile.showCapitalsStablemaster
+        self.db.profile.showMinimapCapitalsTradingPost = self.db.profile.showCapitalsTradingPost
     end
 
     if db.activate.SyncZoneAndMinimap then

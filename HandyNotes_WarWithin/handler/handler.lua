@@ -12,6 +12,7 @@ local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0")
 ns.DEBUG = C_AddOns.GetAddOnMetadata(myname, "Version") == '@'..'project-version@'
 
 ns.CLASSIC = WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE
+ns.WARBANDS_AVAILABLE = LE_EXPANSION_LEVEL_CURRENT >= (LE_EXPANSION_WAR_WITHIN or math.huge)
 
 local ATLAS_CHECK, ATLAS_CROSS = "common-icon-checkmark", "common-icon-redx"
 if ns.CLASSIC then
@@ -19,6 +20,8 @@ if ns.CLASSIC then
 end
 
 local COSMETIC_COLOR = CreateColor(1, 0.5, 1)
+
+ns.run_caches = {}
 
 ---------------------------------------------------------
 -- Data model stuff:
@@ -1429,6 +1432,9 @@ do
     end
     function HLHandler:GetNodes2(uiMapID, minimap)
         -- Debug("GetNodes2", uiMapID, minimap)
+        for _, cache in ipairs(ns.run_caches) do
+            table.wipe(cache)
+        end
         currentZone = uiMapID
         isMinimap = minimap
         return iter, ns.points[uiMapID], nil
