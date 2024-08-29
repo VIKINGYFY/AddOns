@@ -1,5 +1,36 @@
 # Changelog
 
+## Changed in v32
+
+* Show my tooltips for races on the Blizzard race POIs when enabled (in the Blizzard filters menu)
+* Dornogal: Tome of Polymorph: Mosswool
+* Fix non-npc non-treasure points without completion from being considered "found" always
+* Mostly for myself, but just in case... you can now alt-click the map button to quickly toggle showing found points
+
+## Changed in v31
+
+* Change how the "show npcs" setting works: it now has a submenu that lets you choose a filter, where you can choose to see *all* npcs, only npcs that you can currently get loot from (the default), or only npcs that you can get "notable" loot from
+* New setting to control whether unlearned transmog appearances count as notable
+* New setting to add some emphasis to the icons for NPCs that are notable
+* Fix the "show treasure" setting so that it *only* affects treasures -- it was also controlling other non-npc points
+
+## Changed in v30
+
+* Ringing Deeps: added locations for To All The Slimes I Love (hidden by default)
+* Ringing Deeps: give the Spore-Infused Shalewing a route
+* Ringing Deeps: add more locations for the rough shards for the Dusty Prospector's Chest
+* Hallowfall: consolidate some of the close-together Missing Lynx
+
+## Changed in v29
+
+* Delves: added Skittering Breach, The Sinkhole, and Nightfall Sanctum
+* Fix display of skyriding glyphs in Hallowfall and Azj-Kahet
+
+## Changed in v28
+
+* Added the Flat Earthen achievment
+* More loot added to rares
+
 ## Changed in v27
 
 * Behavior change: count *exact* items for transmog-collection, rather than just appearance-from-any-item; previous behavior is available as a toggle in the settings

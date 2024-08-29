@@ -99,10 +99,21 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
         note="At the back of the inn; gather the five shards first",
         related={
             [57272196] = {label="{item:223880:Rough Deepamethyst Shard}", loot={223880}, inbag=223880, color={r=1,g=0,b=1}, minimap=true,},
+            [44702280] = {label="{item:223880:Rough Deepamethyst Shard}", loot={223880}, inbag=223880, color={r=1,g=0,b=1}, minimap=true,},
+            [39801990] = {label="{item:223880:Rough Deepamethyst Shard}", loot={223880}, inbag=223880, color={r=1,g=0,b=1}, minimap=true,},
+            --
             [59043804] = {label="{item:223881:Rough Deepemerald Shard}", loot={223881}, inbag=223881, color={r=0,g=1,b=0}, minimap=true,},
+            [59704080] = {label="{item:223881:Rough Deepemerald Shard}", loot={223881}, inbag=223881, color={r=0,g=1,b=0}, minimap=true,},
+            --
             [68205316] = {label="{item:223882:Rough Deepdiamond Shard}", loot={223882}, inbag=223882, color={r=0,g=0,b=1}, minimap=true,},
+            [67304770] = {label="{item:223882:Rough Deepdiamond Shard}", loot={223882}, inbag=223882, color={r=0,g=0,b=1}, minimap=true,},
+            --
             [57434943] = {label="{item:223878:Rough Deepruby Shard}", loot={223878}, inbag=223878, color={r=1,g=0,b=0}, minimap=true,},
-            [62546313] = {label="{item:223879:Rough Deeptopaz Shard}", loot={223879}, inbag=223879, color={r=0,g=1,b=1}, minimap=true,},
+            [59905300] = {label="{item:223878:Rough Deepruby Shard}", loot={223878}, inbag=223878, color={r=1,g=0,b=0}, minimap=true,},
+            --
+            [62546313] = {label="{item:223879:Rough Deeptopaz Shard}", loot={223879}, inbag=223879, color={r=1,g=1,b=0}, minimap=true,},
+            [67106310] = {label="{item:223879:Rough Deeptopaz Shard}", loot={223879}, inbag=223879, color={r=1,g=1,b=0}, minimap=true,},
+            [59279417] = {label="{item:223879:Rough Deeptopaz Shard}", loot={223879}, inbag=223879, color={r=1,g=1,b=0}, minimap=true,},
         },
         vignette=6286,
     },
@@ -195,6 +206,44 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
     minimap=true,
 })
 
+-- To All the Slimes I Love
+ns.RegisterPoints(ns.RINGINGDEEPS, {
+    [58606920] = {criteria=68670, --[[npc=226626--]]}, -- Spring Mole
+    [51601660] = {criteria=68673, --[[npc=217756--]]}, -- Snake
+    [63805010] = {criteria=68673, --[[npc=217756--]]}, -- Snake
+    [64603380] = {criteria=68674, --[[npc=220173--]]}, -- Lightdarter
+    [45003100] = {criteria=68674, --[[npc=220173--]]}, -- Lightdarter
+    [54405080] = {criteria=68674, --[[npc=220173--]]}, -- Lightdarter
+    [61407520] = {criteria=68674, --[[npc=220173--]]}, -- Lightdarter
+    [52605340] = {criteria=68676, --[[npc=221146--]]}, -- Tiny Sporbit
+    [42601500] = {criteria=68677, --[[npc=220369--]]}, -- Dustcrawler Beetle
+    [48601740] = {criteria=68677, --[[npc=220369--]]}, -- Dustcrawler Beetle
+    [44002880] = {criteria=68677, --[[npc=220369--]]}, -- Dustcrawler Beetle
+    [62604140] = {criteria=68677, --[[npc=220369--]]}, -- Dustcrawler Beetle
+    [61607300] = {criteria=68677, --[[npc=220369--]]}, -- Dustcrawler Beetle
+    [55403560] = {criteria=68677, --[[npc=220369--]]}, -- Dustcrawler Beetle
+    [61208580] = {criteria=68675, --[[npc=219585--]]}, -- Mass of Worms
+    [55006960] = {criteria=68731, --[[npc=217461--]]}, -- Grottoscale Hatchling
+    [57802440] = {criteria=68729, --[[npc=220177--]]}, -- Crackcreeper
+    [48801560] = {criteria=68730, --[[npc=214726--]]}, -- Lava Slug
+    [48601760] = {criteria=68732, --[[npc=220370--]]}, -- Earthenwork Stoneskitterer
+    [71604200] = {criteria=68733, --[[npc=223663--]]}, -- Cavern Skiplet
+    [56006940] = {criteria=68734, --[[npc=217316--]]}, -- Moss Sludglet
+    [60806960] = {criteria=68747, --[[npc=219366--]]}, -- Cavern Mote
+    [61803960] = {criteria=68747, --[[npc=219366--]]}, -- Cavern Mote
+    [43601220] = {criteria=68747, --[[npc=219366--]]}, -- Cavern Mote
+    [64803300] = {criteria=68748, --[[npc=220168--]]}, -- Stumblegrub
+    [53603220] = {criteria=69805, --[[npc=219842--]]}, -- Darkgrotto Hopper
+    [65803920] = {criteria=68749, --[[npc=220413--]]}, -- Oozeling
+    [57405080] = {criteria=68750, --[[npc=217559--]]}, -- Pebble Scarab
+    [51801120] = {criteria=68751, --[[npc=216058--]]}, -- Rock Snail
+    [63205120] = {criteria=68751, --[[npc=216058--]]}, -- Rock Snail
+}, {
+    achievement=40475,
+    texture=ns.atlas_texture("delves-scenario-heart-icon", nil, 0, 0.9, 0, 0.9),
+    note=EMOTE152_CMD1 .. "\nCoords are approximate, these are critters that spawn in this general area", -- /love
+})
+
 -- Rares
 
 ns.RegisterPoints(ns.RINGINGDEEPS, {
@@ -257,7 +306,7 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
     },
     [55060843] = { -- Deepflayer Broodmother
         criteria=69636,
-        quest=80536,
+        quest=80536, -- 85162
         npc=220286,
         loot={
             221254, -- Earthshatter Lance
@@ -360,7 +409,7 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
         path={72534569, 72844444},
         vignette=6126,
     },
-    [68224378] = { -- Spore-infused Shalewing
+    [68404754] = { -- Spore-infused Shalewing
         criteria=69638,
         quest=81652,
         npc=221217,
@@ -370,11 +419,17 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
             223942, -- Spore-Encrusted Ribbon
         },
         vignette=6121,
-        note="Flies around",
+        note="Flies around clockwise",
+        route={
+            68604852, 68735012, 68675047, 68215137, 68055156, 67745171, 67535176, 67225176, 67075174, 66585120, 66244896,
+            66264870, 66404840, 66234817, 65724779, 65564760, 65474737, 65534711, 65724669, 65834655, 66044644, 66944640,
+            67624608, 67774620, 68094659, 68214680, 68404754,
+            loop=true,
+        },
     },
     [65364949] = { -- Hungerer of the Deeps
         criteria=69639,
-        quest=81648,
+        quest=81648, -- 84048
         npc=221199,
         loot={
             221233, -- Deephunter's Bloody Hook
@@ -407,9 +462,9 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
         note="In cave",
         path=67056796,
     },
-    [60717630] = { -- Lurker of the Deeps
+    [60887682] = { -- Lurker of the Deeps
         criteria=69637,
-        quest=81633,
+        quest=81633, -- 85163
         npc=220285,
         loot={
             {223501, mount=2205}, -- Regurgitated Mole Reins

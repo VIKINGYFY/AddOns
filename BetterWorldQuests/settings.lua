@@ -44,7 +44,7 @@ addon:RegisterSettings('BetterWorldQuestsDB', {
 		type = 'menu',
 		title = L['Hold key to hide'],
 		tooltip = L['Hold this key to temporarily hide all world quests'],
-		default = 'NEVER',
+		default = 'ALT',
 		options = {
 			NEVER = NEVER,
 			ALT = ALT_KEY,

@@ -1,4 +1,5 @@
-### Changes in 110000.32-Release:
+### Changes in 110000.33-Release:
 
-- Fixed: Pins not showing after re-opening map
+- Added: deDE translations (thanks @DlargeX)
+- Changed: World quests in City of Threads now show on Azj-Kahet map
 

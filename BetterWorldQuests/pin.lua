@@ -108,7 +108,9 @@ function BetterWorldQuestPinMixin:RefreshVisuals()
 	-- set reward icon
 	local questID = self.questID
 	local currencyRewards = C_QuestLog.GetQuestRewardCurrencies(questID)
-	if GetNumQuestLogRewards(questID) > 0 then
+	local rewardsNumber = GetNumQuestLogRewards(questID)
+	local rewardsCopper = GetQuestLogRewardMoney(questID)
+	if rewardsNumber > 0 then
 		local _, itemTexture, itemAmount, itemQuality, _, itemID, itemLevel = GetQuestLogRewardInfo(1, questID)
 		if C_Item.IsAnimaItemByID(itemID) then
 			itemTexture = 3528288
@@ -139,17 +141,16 @@ function BetterWorldQuestPinMixin:RefreshVisuals()
 		self.Text:SetFormattedText("%d", itemAmount)
 		self.Text:SetTextColor(r, g, b)
 		self.Text:Show()
-	elseif GetQuestLogRewardMoney(questID) > 0 then
+	elseif rewardsCopper > 0 then
 		self.Reward:SetTexture([[Interface\Icons\INV_MISC_COIN_01]])
 		self.Reward:Show()
 
-		local copper = GetQuestLogRewardMoney(questID)
 		if warMode then
-			copper = copper * warModeBonus
+			rewardsCopper = rewardsCopper * warModeBonus
 			r, g, b = 0, 1, 0
 		end
 
-		self.Text:SetFormattedText("%d", copper / 1e4)
+		self.Text:SetFormattedText("%d", rewardsCopper / 1e4)
 		self.Text:SetTextColor(r, g, b)
 		self.Text:Show()
 	else

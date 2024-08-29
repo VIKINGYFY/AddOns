@@ -59,17 +59,23 @@ ns.RegisterPoints(2250, { -- Kriegval's Rest
     achievement=40807, -- Discoveries
 })
 
--- ns.RegisterPoints(, { -- Nightfall Sanctum
---     -- [] = {quest=, loot={}}, --
--- }, STURDY{
---     achievement=40809, -- Discoveries
--- })
+ns.RegisterPoints(2277, { -- Nightfall Sanctum
+    [77783613] = {quest=83688, loot={226005}}, -- Ancient Tool
+    [70914449] = {quest=83670, currency=2815, note="Jump down to this (or use the double-jump power)", path=70834054}, -- Resonance Crystals
+    [39147434] = {quest=83454, loot={221758}}, -- Profaned Tinderbox
+    [40043669] = {quest=83701, loot={219354}, note="Jump down from the ship", path={38654083, 38424814},}, -- Mountain Shaper's Greataxe
+}, STURDY{
+    achievement=40809, -- Discoveries
+})
 
--- ns.RegisterPoints(, { -- Skittering Breach
---     -- [] = {quest=, loot={}}, --
--- }, STURDY{
---     achievement=40810, -- Discoveries
--- })
+ns.RegisterPoints(2310, { -- Skittering Breach
+    [50796572] = {quest=83679, loot={226001}}, -- Pure Gold Stein
+    [27362648] = {quest=83660, currency=2815}, -- Resonance Crystals
+    [56112421] = {quest=83696, loot={211031}}, -- Secret-Dredger's Sabatons
+    [66761466] = {quest=83680, loot={226004}}, -- Olden Text
+}, STURDY{
+    achievement=40810, -- Discoveries
+})
 
 -- ns.RegisterPoints(, { -- Tak-Rethan Abyss
 --     -- [] = {quest=, loot={}}, --
@@ -78,7 +84,7 @@ ns.RegisterPoints(2250, { -- Kriegval's Rest
 -- })
 
 ns.RegisterPoints(2302, { -- The Dread Pit
-    [41124548] = {quest=83677, loot={226001}, note="Behind rocks"}, -- Pure Gold Stein
+    [41124548] = {quest=83677, loot={226001, 226003}, note="Behind rocks"}, -- Pure Gold Stein, Snake Oil
     [57465613] = {quest=83658, currency=2815}, -- Resonance Crystals
     [57852763] = {quest=83678, loot={226005}}, -- Ancient Tool
     [36291664] = {quest=83659, currency=2815}, -- Resonance Crystals
@@ -86,11 +92,14 @@ ns.RegisterPoints(2302, { -- The Dread Pit
     achievement=40812, -- Discoveries
 })
 
--- ns.RegisterPoints(, { -- The Sinkhole
---     -- [] = {quest=, loot={}}, --
--- }, STURDY{
---     achievement=40813, -- Discoveries
--- })
+ns.RegisterPoints(2301, { -- The Sinkhole
+    [52291335] = {quest=83453, loot={221757}, note="At the bottom of the pool"}, -- Gloomfathom Hide
+    [43446070] = {quest=83668, currency=2815}, -- Resonance Crystals
+    [72566119] = {quest=83700, loot={211063}}, -- Long-Lost Choker
+    [48436926] = {quest=83685, loot={226001}}, -- Pure Gold Stein
+}, STURDY{
+    achievement=40813, -- Discoveries
+})
 
 -- ns.RegisterPoints(, { -- The Spiral Weave
 --     -- [] = {quest=, loot={}}, --
@@ -105,8 +114,8 @@ ns.RegisterPoints(2302, { -- The Dread Pit
 -- })
 
 ns.RegisterPoints(2251, { -- The Waterworks
-    [49902459] = {quest=83684, loot={226002}}, -- Expensive-Looking Find
-    [44383823] = {quest=83650, loot={226131}}, -- Deployable Wind-Wrangling Spire
+    [49902459] = {quest=83684, loot={226002, 226005}}, -- Expensive-Looking Find, Ancient Tool
+    [44383823] = {quest=83650, loot={226131, 223287}}, -- Deployable Wind-Wrangling Spire, Atomized Salien Slime
     [47925350] = {quest=83667, currency=2815}, -- Resonance Crystals
     [49577916] = {quest=83456, loot={221754}}, -- Ringing Deeps Ingot
 }, STURDY{
