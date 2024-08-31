@@ -39,6 +39,7 @@ L["This will delete all Capitals - Minimap settings and replace them with those 
 --0.6 MapNotes icons and hide blizzard POIs
 L["Displays special MapNotes summary icons containing several different pieces of information (dungeons/raids/portals, etc.)"] = "Muestra íconos de resumen de mapnotes especiales que contienen varias piezas de información diferentes (mazmorras/redadas/portales, etc.)"
 L["Points of interests"] = "Puntos de interés"
+L["Disables the display of all Blizzard Dungeon and Raid icons on the zone map"] = "Desactive la visualización de todos los iconos de Dungeon y Raid en la tarjeta de zona"
 --1 Capitals
 L["Leather Armor"] = "Armadura de cuero"
 L["Heavy Armor"] = "Armadura pesada"
@@ -145,6 +146,7 @@ L["gray all"] = "Todo gris"
 L["Colors EVERYONE! Assigned dungeons and raids also have multiple points in gray (if you have an ID)"] = "¡Colorea a todos! Dungeons y Raids Gray asignados también múltiples puntos (si tiene una ID)"
 L["enemy faction"] = "facción enemiga"
 L["Shows enemy faction (horde/alliance) icons"] = "Muestra iconos de facciones enemigas (horda/alianza)"
+L["However, this only applies to the Azeroth & continent map. Not for Zones + & Capital + category. These have their own activation option for opposing players"] = "Sin embargo, esto solo se aplica al mapa de Azeroth & Continent. No para la categoría Zones + & Capital +. Estos tienen su propia opción de activación para los jugadores opuestos."
 L["chat message"] = "Mensajes de chat" 
 L["Disables MapNotes status chat messages excluding core information"] = "Noticias de chat de estado de Mapnotes desactivadas excepto información central"
 L["Shows special transport icons like"] = "Muestra íconos especiales de transporte como"

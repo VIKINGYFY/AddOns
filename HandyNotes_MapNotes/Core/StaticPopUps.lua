@@ -12,7 +12,7 @@ function ns.RestoreStaticPopUps()
     whileDead = true,
     hideOnEscape = true,
     OnAccept = function()
-      if ns.Addon.db.profile.RestoreCapitalsDeletedIcons then
+      if ns.Addon.db.profile.RestoreAllIcons then
         wipe(ns.dbChar.CapitalsDeletedIcons)
         wipe(ns.dbChar.MinimapCapitalsDeletedIcons)
         wipe(ns.dbChar.CapitalsDeletedIcons)

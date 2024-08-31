@@ -1,5 +1,33 @@
 # Changelog
 
+## Changed in v36
+
+* Hallowfall: improve Beledar's Spawn -- show the time until the shadow phase via entertaining abuse of the
+conditions system, add it to a group so it can be easily individually
+toggled because there's a lot of spawn points... also, add the weekly reputation reward
+* Hallowfall: add a bunch of weekly reputation rewards and make some minor tweaks
+* Azj-Kahet: start on weekly reputation rewards
+
+## Changed in v35
+
+* Provide settings for what counts as "notable" -- you can turn off things you don't care about now
+* Gather more of the weekly reputation quests, mostly from Ringing Deeps
+* Fix one last glyph in Azj-Kahet that wasn't clearing properly, thanks Christof Bruyland!
+
+## Changed in v34
+
+* Starting on tracking the weekly reputation from rares
+* Only count loot for notable mobs if it's likely to drop
+* Highlight notable loot in the tooltips if you're emphasizing notable mobs
+* Fix an issue where learning a new appearance from killing a mob wouldn't immediately flag that item as learned
+* Fairly massive backend rewrite of the loot system to support reputation being included; hopefully there aren't any terrible new bugs...
+
+## Changed in v33
+
+* More loot added to rares
+* Added some of the Elusive rares, and gated them behind you knowing Skinning
+* Isle of Dorn: fix the coords for Clawbreaker K'zithix, remove the Rowdy Rubble which doesn't seem to be appearing
+
 ## Changed in v32
 
 * Show my tooltips for races on the Blizzard race POIs when enabled (in the Blizzard filters menu)

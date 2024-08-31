@@ -6,6 +6,7 @@
 <Script file="class.lua"/>
 <Script file="handler.lua"/>
 <Script file="conditions.lua"/>
+<Script file="rewards.lua"/>
 <Script file="config.lua"/>
 <Script file="overlay.lua"/>
 

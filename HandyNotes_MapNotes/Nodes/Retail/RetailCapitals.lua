@@ -3100,6 +3100,10 @@ if not db.activate.HideMapNote then
                     nodes[2339][44645607] = { dnID = BATTLE_PET_SOURCE_12, name = "",  type = "TradingPost", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
 
+                if self.db.profile.showCapitalsStablemaster then
+                    nodes[2339][55356711] = { dnID = MINIMAP_TRACKING_STABLEMASTER, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                end
+
             end
 
         --Transports Dornogal

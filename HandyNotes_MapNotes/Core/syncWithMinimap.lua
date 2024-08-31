@@ -160,6 +160,7 @@ local db = ns.Addon.db.profile
         self.db.profile.showMiniMapPvEVendor = self.db.profile.showZonePvEVendor
         self.db.profile.showMiniMapTransmogger = self.db.profile.showZoneTransmogger
         self.db.profile.showMiniMapItemUpgrade = self.db.profile.showZoneItemUpgrade
+        self.db.profile.showMiniMapCatalyst = self.db.profile.showZoneCatalyst
 
         -- Zones
         self.db.profile.showMiniMapKalimdor = self.db.profile.showZoneKalimdor

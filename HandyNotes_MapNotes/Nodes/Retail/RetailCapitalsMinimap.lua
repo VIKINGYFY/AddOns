@@ -3136,6 +3136,10 @@ if not db.activate.HideMapNote then
                     minimap[2339][50005430] = { dnID = L["Catalyst"], name = "",  type = "Catalyst", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 end
 
+                if self.db.profile.showMinimapCapitalsStablemaster then
+                    minimap[2339][55356711] = { dnID = MINIMAP_TRACKING_STABLEMASTER, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                end
+
             end
 
         --Transports Dornogal

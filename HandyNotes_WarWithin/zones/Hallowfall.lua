@@ -14,6 +14,11 @@ Disturbed Earth
 50776694, squashable grubs
 23695880, spawned enemy (216288)
 60133139, spawned enemy (216537)
+53836700
+66503847
+64443404
+66252501
+55555175
 
 Worldsoul memories (vignette 6358)
 60686749
@@ -25,7 +30,11 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     [41775829] = { -- Caesper
         criteria=69692,
         quest=83263,
-        loot={225639}, -- Recipe: Exquisitely Eviscerated Muscle
+        loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
+            225639, -- Recipe: Exquisitely Eviscerated Muscle
+            225592, -- Exquisitely Eviscerated Muscle
+        },
         active=ns.conditions.Item(225238), -- Meaty Haunch
         related={
             [69254397]={label="{npc:217645:Torran Dellain}", note="Buy {item:225238:Meaty Haunch}", inbag=225238, minimap=true,},
@@ -37,8 +46,12 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     [55135193] = { -- Smuggler's Treasure
         criteria=69693,
         quest=83273,
-        loot={226021}, -- Jar of Pickles
-        note="Get the key from the dead NPC",
+        loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
+            226021, -- Jar of Pickles
+        },
+        note="Get the key from the {npc:226025:Dead Arathi} below",
+        nearby={55425164},
         level=73,
         vignette=6370,
     },
@@ -61,7 +74,10 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     [55796954] = { -- Jewel of the Cliffs
         criteria=69697,
         quest=81971,
-        loot={224580}, -- Massive Sapphire Chunk
+        loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
+            224580, -- Massive Sapphire Chunk
+        },
         note="High up on the rocks",
         level=75,
         vignette=6174,
@@ -69,7 +85,10 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     [30223877] = { -- Priory Satchel
         criteria=69698,
         quest=81972,
-        loot={224578}, -- Arathor Courier's Satchel
+        loot={
+            224578, -- Arathor Courier's Satchel
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
+        },
         level=75,
         note="Hanging from the cathedral",
     },
@@ -116,6 +135,19 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     },
 }, {
     achievement=40848,
+})
+
+ns.RegisterPoints(ns.HALLOWFALL, {
+    [62551633] = {
+        label="Crabber Supplies",
+        quest=84342,
+        loot={
+            ns.rewards.Currency(ns.CURRENCY_RESONANCE, 5),
+            206350, -- Radiant Remnant
+            212242, -- Cavedweller's Delight
+            225814, -- Feather-on-a-Stick
+        },
+    },
 })
 
 ns.RegisterPoints(ns.HALLOWFALL, {
@@ -211,7 +243,7 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     [64182812] = {criteria=68963, loot={225204}, note="Needed for {achievement:40848.69695:Arathi Loremaster}"}, -- Shadow Curfew Guidelines
     [59802203] = {criteria=68965, loot={225205}}, -- Shadow Curfew Journal
     [70225684] = {criteria=68967, loot={225215}, note="Needed for {achievement:40848.69695:Arathi Loremaster}"}, -- The Song of Renilash
-    [56586518] = {criteria=68968, loot={225203}, note="Needed for {achievement:40848.69695:Arathi Loremaster}"}, -- Beledar- The Emperor's Vision
+    [56586518] = {criteria=68968, loot={225203}, note="In the ship. Needed for {achievement:40848.69695:Arathi Loremaster}"}, -- Beledar- The Emperor's Vision
     -- [] = {criteria=69729, loot={228457}}, -- Lightspark Grade Book
 }, {
     achievement=40622,
@@ -243,9 +275,10 @@ ns.RegisterPoints(ns.HALLOWFALL, {
 ns.RegisterPoints(ns.HALLOWFALL, {
     [23005922] = { -- Lytfang the Lost
         criteria=69710,
-        quest=81756,
+        quest=81756, -- 84063
         npc=221534,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=84063}),
             221207, -- Den Mother's Chestpiece
             221246, -- Fierce Beast Staff
             221251, -- Bestial Underground Cleaver
@@ -253,12 +286,12 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         },
         vignette=6145,
     },
-    [63402880] = { -- Moth'ethk
+    [63452859] = { -- Moth'ethk
         criteria=69719,
-        quest=82557,
+        quest=82557, -- 84051
         npc=206203,
         loot={
-            211973, -- Spider-Touched Bag
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=84051}),
             221240, -- Nerubian Stagshell Gouger
             221252, -- Nerubian Slayer's Claymore
             221263, -- Nerubian Venom-Tipped Dart
@@ -269,9 +302,10 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     },
     [44011639] = { -- The Perchfather
         criteria=69711,
-        quest=81791,
+        quest=81791, -- 84064
         npc=221648,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=84064}),
             221229, -- Perchfather's Cuffs
             221246, -- Fierce Beast Staff
             221247, -- Cavernous Critter Shooter
@@ -282,9 +316,10 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     },
     [56466897] = { -- The Taskmaker
         criteria=69708,
-        quest=80009,
+        quest=80009, -- 84061
         npc=218444,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=84061}),
             221215, -- Taskmaster's Mining Cap
             221240, -- Nerubian Stagshell Gouger
             221252, -- Nerubian Slayer's Claymore
@@ -313,9 +348,10 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     },
     [43622993] = { -- Strength of Beledar
         criteria=69713,
-        quest=81849,
-        npc=221690, -- Rage of Beledar
+        quest=81849, -- 84066
+        npc=221690,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=84066}),
             221216, -- Bruin Strength Legplates
             221246, -- Fierce Beast Staff
             221247, -- Cavernous Critter Shooter
@@ -330,6 +366,7 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         quest=80006,
         npc=218426,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
             223374, -- Nerubian Weaver's Gown
             223379, -- Nerubian Weaver's Chestplate
             223380, -- Nerubian Weaver's Chainmail
@@ -352,11 +389,12 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         vignette=6123,
         note="Objective of {questname:76588}",
     },
-    [63643204] = { -- Deathpetal
+    [64663172] = { -- Deathpetal
         criteria=69721,
-        quest=82559,
+        quest=82559, -- 84053
         npc=206184,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=84053}),
             221250, -- Creeping Lasher Machete
             221253, -- Cultivator's Plant Puncher
             221264, -- Fungarian Mystic's Cluster
@@ -371,6 +409,7 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         quest=80011,
         npc=218458,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
             223393, -- Deepfiend Spaulders
             223394, -- Deepfiend Pauldrons
             223395, -- Deepfiend Shoulderpads
@@ -390,20 +429,22 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         vignette=6122,
         note="Objective of {questname:76588}",
     },
-    [36687172] = { -- Funglour
+    [36807210] = { -- Funglour
         criteria=69707,
         quest=81881,
         npc=221767,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
             223377, -- Ancient Fungarian's Fingerwrap
         },
         vignette=6157,
     },
     [35953546] = { -- Sir Alastair Purefire
         criteria=69714,
-        quest=81853,
+        quest=81853, -- 84067
         npc=221708,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=84067}),
             221241, -- Priestly Agent's Knife
             221245, -- Righteous Path Treads
         },
@@ -411,9 +452,10 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     },
     [43410990] = { -- Horror of the Shallows
         criteria=69712,
-        quest=81836,
+        quest=81836, -- 85165
         npc=221668,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=85165}),
             221211, -- Grasp of the Shallows
             221233, -- Deephunter's Bloody Hook
             221234, -- Tidal Pendant
@@ -487,11 +529,12 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         vignette=6159,
         -- tameable=true, -- stag
     },
-    [66202340] = { -- Toadstomper
+    [67182424] = { -- Toadstomper
         criteria=69723,
-        quest=82561,
+        quest=82561, -- 84055
         npc=207803,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=84055}),
             223920, -- Slime Deflecting Stopper
             223921, -- Ever-Oozing Signet
             223933, -- Slime Goliath's Cap
@@ -519,16 +562,18 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         loot={
             221233, -- Deephunter's Bloody Hook
             221234, -- Tidal Pendant
+            221248, -- Deep Terror Carver
             223925, -- Blood Hungerer's Chestplate
         },
         vignette=6085,
         note="Objective of {questname:76588}",
     },
-    [61603360] = { -- Ravageant
+    [62033212] = { -- Ravageant
         criteria=69726,
-        quest=82566,
+        quest=82566, -- 84058
         npc=207826,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=84058}),
             221240, -- Nerubian Stagshell Gouger
             221252, -- Nerubian Slayer's Claymore
             221263, -- Nerubian Venom-Tipped Dart
@@ -543,6 +588,8 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         npc=206977,
         loot={
             221250, -- Creeping Lasher Machete
+            221264, -- Fungarian Mystic's Cluster
+            223005, -- String of Fungal Fruits
             223940, -- Deranged Fungarian's Epaulets
         },
         vignette=6361,
@@ -585,16 +632,45 @@ ns.RegisterPoints(ns.HALLOWFALL, {
 }, {
     achievement=40851,
     criteria=69716,
-    quest=81763,
+    quest=81763, -- 85164
     npc=207802,
     loot={
+        ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=85164}),
         {223315, mount=2192,}, -- Beledar's Spawn
         223006, -- Signet of Dark Horizons
     },
-    requires=ns.conditions.MajorFaction(ns.FACTION_ARATHI, 23),
-    active=ns.conditions.QuestComplete(82998), -- attunement
-    note="Buy and use {item:224553:Beledar's Attunement} from {majorfaction:2570:Hallowfall Arathi} to access",
-    vignette=6359, -- also 6118?
+    active={ns.Class{
+        __classname="SpawnTime",
+        __parent=ns.conditions.Condition,
+        Label = function(self)
+            local shadowed = "{spell:131233:Shadowed}"
+            if self:Matched() then
+                return shadowed
+            else
+                -- "%s in %s"
+                return WARDROBE_TOOLTIP_ENCOUNTER_SOURCE:format(shadowed, self:Duration(self:NextSpawn()))
+            end
+        end,
+        Matched = function(self)
+            -- if it's more than 2.5 hours away, we must be during the current event
+            return self:NextSpawn() > (3600 * 2.5)
+        end,
+        NextSpawn = function(self)
+            -- Shadow event is one hour after the daily reset, then repeating
+            -- every three hours; each time it lasts for 30 minutes.
+            return (GetQuestResetTime() + 3600) % 10800
+        end,
+        Duration = function(self, seconds)
+            if seconds > 3600 then
+                return COOLDOWN_DURATION_HOURS:format(floor(seconds / 3600)) .. " " .. COOLDOWN_DURATION_MIN:format(floor((seconds % 3600) / 60))
+            end
+            return COOLDOWN_DURATION_MIN:format(floor(seconds / 60))
+        end
+    }()},
+    note="Spawns during the shadow event, which happens every 3 hours.\nBuy and use {item:224553:Beledar's Attunement} from {majorfaction:2570:Hallowfall Arathi} to see which spawn is active.",
+    atlas="worldquest-icon-boss-zhCN",
+    group="beledarspawn",
+    vignette=6359, -- also 6118? That was the close-up one...
 })
 
 -- Deathtide
@@ -614,7 +690,7 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         },
         vignette=6156,
         active=ns.conditions.Item(220123), -- Ominous Offering
-        note="Create an {item:220123:Ominous Offering} to summon",
+        note="Create an {item:220123:Ominous Offering} from {item:220124:Jar of Mucus} (|A:playerpartyblip:::::0:255:127|a) + {item:220122} (|A:playerpartyblip:::::0:0:255|a) to summon",
     },
 }, deathtide{})
 ns.RegisterPoints(ns.HALLOWFALL, {
@@ -623,7 +699,7 @@ ns.RegisterPoints(ns.HALLOWFALL, {
 }, deathtide{
     label="{item:220124}",
     loot={220124},
-    texture=ns.atlas_texture("playerpartyblip",{r=0,g=1,b=1,}),
+    texture=ns.atlas_texture("playerpartyblip",{r=0,g=1,b=0.5,}),
     minimap=true,
     note="Take to {npc:221753} @ 44.7,42.4",
 })

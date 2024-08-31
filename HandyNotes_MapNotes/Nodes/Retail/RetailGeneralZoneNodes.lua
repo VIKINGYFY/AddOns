@@ -1418,6 +1418,10 @@ if not db.activate.HideMapNote then
         --Dragon Isles
         if self.db.profile.showZoneDragonIsles then
 
+            if self.db.profile.showZoneCatalyst then
+                nodes[2025][60715371] = { dnID = L["Catalyst"], name = "",  type = "Catalyst", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            end
+
             if self.db.profile.showZoneItemUpgrade then
                 nodes[2133][56605600] = { dnID = ITEM_UPGRADE, name = "",  type = "ItemUpgrade", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2151][35605940] = { dnID = ITEM_UPGRADE, name = "",  type = "ItemUpgrade", showInZone = true, showOnContinent = false, showOnMinimap = false }
@@ -1607,6 +1611,11 @@ if not db.activate.HideMapNote then
                 nodes[2214][47993217] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2214][61764617] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2214][59106395] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2214][63357887] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            end
+
+            if self.db.profile.showZonePvEVendor then
+                nodes[2214][47303293] = { dnID = L["Merchant for Renown items"], name = "", type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
         end

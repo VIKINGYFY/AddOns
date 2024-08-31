@@ -416,6 +416,11 @@ function ns.SetupMapOverlay()
             wipe(info)
             info.notCheckable = true
 
+            info.text = "What's notable?"
+            info.value = "notability"
+            info.hasArrow = true
+            LibDD:UIDropDownMenu_AddButton(info, level)
+
             info.text = "More settings"
             info.value = "settings"
             info.hasArrow = true
@@ -466,6 +471,9 @@ function ns.SetupMapOverlay()
 
             LibDD:UIDropDownMenu_AddSeparator(level)
             OptionsDropdown.FillFromArgs(ns.options.args.common.args.display.args.npcs.args, info, level)
+        elseif level == 2 and L_UIDROPDOWNMENU_MENU_VALUE == "notability" then
+            wipe(info)
+            OptionsDropdown.FillFromArgs(ns.options.args.common.args.notable.args, info, level)
         elseif level == 2 and L_UIDROPDOWNMENU_MENU_VALUE == "settings" then
             wipe(info)
             info.isTitle = true

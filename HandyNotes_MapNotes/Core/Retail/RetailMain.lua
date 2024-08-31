@@ -849,18 +849,20 @@ function Addon:ZONE_CHANGED()
   end
 end
 
-function Addon:OnProfileChanged(event, database, newProfileKey)
-	db = database.profile
-  ns.Addon:FullUpdate()
-  ReloadUI();
+function Addon:OnProfileChanged(event, database, profileKeys)
+  db = database.profile
+  ns.dbChar = database.profile.deletedIcons
+  ns.FogOfWar = database.profile.FogOfWarColor
   HandyNotes:GetModule("FogOfWarButton"):Refresh()
-  HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
   print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been changed"])
+  ns.Addon:FullUpdate()
+  HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
 end
 
-function Addon:OnProfileReset(event, database, newProfileKey)
+function Addon:OnProfileReset(event, database, profileKeys)
 	db = database.profile
-  ns.Addon:FullUpdate()
+  ns.dbChar = database.profile.deletedIcons
+  ns.FogOfWar = database.profile.FogOfWarColor
   wipe(ns.dbChar.CapitalsDeletedIcons)
   wipe(ns.dbChar.MinimapCapitalsDeletedIcons)
   wipe(ns.dbChar.CapitalsDeletedIcons)
@@ -872,23 +874,28 @@ function Addon:OnProfileReset(event, database, newProfileKey)
   wipe(ns.dbChar.DungeonDeletedIcons)
   print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been reset to default"])
   HandyNotes:GetModule("FogOfWarButton"):Refresh()
+  ns.Addon:FullUpdate()
   HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
 end
 
-function Addon:OnProfileCopied(event, database, newProfileKey)
+function Addon:OnProfileCopied(event, database, profileKeys)
 	db = database.profile
-  ns.Addon:FullUpdate()
+  ns.dbChar = database.profile.deletedIcons
+  ns.FogOfWar = database.profile.FogOfWarColor
   HandyNotes:GetModule("FogOfWarButton"):Refresh()
-  HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
   print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been adopted"])
+  ns.Addon:FullUpdate()
+  HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
 end
 
-function Addon:OnProfileDeleted (event, database, newProfileKey)
+function Addon:OnProfileDeleted(event, database, profileKeys)
 	db = database.profile
-  ns.Addon:FullUpdate()
+  ns.dbChar = database.profile.deletedIcons
+  ns.FogOfWar = database.profile.FogOfWarColor
   HandyNotes:GetModule("FogOfWarButton"):Refresh()
-  HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
   print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been deleted"])
+  ns.Addon:FullUpdate()
+  HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
 end
 
 function Addon:PLAYER_ENTERING_WORLD()
@@ -908,14 +915,17 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
 
   -- Register Database Profile
   self.db = LibStub("AceDB-3.0"):New("HandyNotes_MapNotesRetailDB", ns.defaults)
-  self.db = LibStub("AceDB-3.0"):New("FogOfWarColorDB", ns.defaults)
   self.db.RegisterCallback(self, "OnProfileChanged", "OnProfileChanged")
 	self.db.RegisterCallback(self, "OnProfileCopied", "OnProfileCopied")
 	self.db.RegisterCallback(self, "OnProfileReset", "OnProfileReset")
   self.db.RegisterCallback(self, "OnProfileDeleted", "OnProfileDeleted")
 
+  -- default profile database
   db = self.db.profile
-  ns.dbChar = self.db.profile
+  -- deleted icons database
+  ns.dbChar = self.db.profile.deletedIcons
+  -- FogOfWar color database
+  ns.FogOfWar = self.db.profile.FogOfWarColor
 
   -- Register options 
   HandyNotes:RegisterPluginDB("MapNotes", pluginHandler, ns.options)
@@ -936,7 +946,7 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
   if ns.Addon.db.profile.activate.RemoveBlizzInstances then
     SetCVar("showDungeonEntrancesOnMap", 0)
   elseif not ns.Addon.db.profile.activate.RemoveBlizzInstances then
-      SetCVar("showDungeonEntrancesOnMap", 1)
+    SetCVar("showDungeonEntrancesOnMap", 1)
   end
 
   if ns.Addon.db.profile.activate.HideMMB then -- minimap button

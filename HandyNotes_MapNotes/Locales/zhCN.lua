@@ -39,6 +39,7 @@ L["This will delete all Capitals - Minimap settings and replace them with those 
 --0.6 MapNotes icons and hide blizzard POIs
 L["Displays special MapNotes summary icons containing several different pieces of information (dungeons/raids/portals, etc.)"] = "显示特殊的MAPNOTES摘要图标，其中包含几个不同的信息（地牢/RAIDS/Portals等）"
 L["Points of interests"] = "兴趣点"
+L["Disables the display of all Blizzard Dungeon and Raid icons on the zone map"] = "停用在区域卡上的所有暴雪地牢和突袭图标的显示"
 --1 Capitals
 L["Leather Armor"] = "皮甲"
 L["Heavy Armor"] = "锁甲"
@@ -145,6 +146,7 @@ L["gray all"] = "全是灰色"
 L["Colors EVERYONE! Assigned dungeons and raids also have multiple points in gray (if you have an ID)"] = "所有人的颜色！分配的地下城和团队副本也有多个灰色点（如果您有ID）"
 L["enemy faction"] = "敌对阵营"
 L["Shows enemy faction (horde/alliance) icons"] = "显示敌方阵营（部落/联盟）图标"
+L["However, this only applies to the Azeroth & continent map. Not for Zones + & Capital + category. These have their own activation option for opposing players"] = "但是，这仅适用于Azeroth＆Ocontent地图。 不适合区域 +和资本 +类别。 这些有自己的激活选项"
 L["chat message"] = "聊天消息" 
 L["Disables MapNotes status chat messages excluding core information"] = "停用MAPNOTES状态聊天新闻除了核心信息"
 L["Shows special transport icons like"] = "显示特殊的运输图标"

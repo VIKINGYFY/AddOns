@@ -5,15 +5,10 @@ ns.FogOfWar = HandyNotes:NewModule("FogOfWarButton", "AceHook-3.0", "AceEvent-3.
 
 local mod, floor, ceil, tonumber = math.fmod, math.floor, math.ceil, tonumber
 local ipairs, pairs = ipairs, pairs
-local db
 
 function ns.FogOfWar:OnInitialize()
 	self.db = LibStub("AceDB-3.0"):New("FogOfWarColorDB", ns.defaults)
-	db = self.db.profile
-	self.db.global.errata = nil
-
 	self:SetEnabledState(HandyNotes:GetModule("FogOfWarButton"))
-	--HandyNotes:RegisterModuleOptions("FogOfWarButton", ns.options)
 end
 
 function ns.FogOfWar:OnEnable()
@@ -27,7 +22,6 @@ function ns.FogOfWar:OnDisable()
 end
 
 function ns.FogOfWar:Refresh()
-	db = self.db.profile
 	if not self:IsEnabled() then return end
 
 	for pin in WorldMapFrame:EnumeratePinsByTemplate("MapExplorationPinTemplate") do
@@ -145,20 +139,20 @@ function ns.FogOfWar:MapExplorationPin_RefreshOverlays(pin, fullUpdate)
 end
 
 function ns.FogOfWar:GetOverlayColor()
-	return db.colorR, db.colorG, db.colorB, db.colorA
+	return ns.FogOfWar.colorR, ns.FogOfWar.colorG, ns.FogOfWar.colorB, ns.FogOfWar.colorA
 end
 
 function ns.FogOfWar:SetOverlayColor(info, r, g, b, a)
-	db.colorR, db.colorG, db.colorB, db.colorA = r, g, b, a
+	ns.FogOfWar.colorR, ns.FogOfWar.colorG, ns.FogOfWar.colorB, ns.FogOfWar.colorA = r, g, b, a
 	if self:IsEnabled() then self:Refresh() end
 end
 
 function ns.FogOfWar:GetFogOfWarColor()
-	return db.FogOfWarColorR, db.FogOfWarColorG, db.FogOfWarColorB, db.FogOfWarColorA
+	return ns.FogOfWar.FogOfWarColorR, ns.FogOfWar.FogOfWarColorG, ns.FogOfWar.FogOfWarColorB, ns.FogOfWar.FogOfWarColorA
 end
 
 function ns.FogOfWar:SetFogOfWarColor(info, FoWr, FoWg, FoWb, FoWa)
-	db.FogOfWarColorR, db.FogOfWarColorG, db.FogOfWarColorB, db.FogOfWarColorA = FoWr, FoWg, FoWb, FoWa
+	ns.FogOfWar.FogOfWarColorR, ns.FogOfWar.FogOfWarColorG, ns.FogOfWar.FogOfWarColorB, ns.FogOfWar.FogOfWarColorA = FoWr, FoWg, FoWb, FoWa
 	if self:IsEnabled() then self:Refresh() end
 end
 

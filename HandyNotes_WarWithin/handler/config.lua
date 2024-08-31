@@ -14,8 +14,15 @@ ns.defaults = {
         show_routes = true,
         upcoming = true,
         found = false,
+        -- notability!
+        achievement_notable = true,
+        mount_notable = true,
+        toy_notable = true,
+        pet_notable = true,
         transmog_notable = true,
+        quest_notable = true,
         transmog_specific = true, -- consider whether you know the appearance from *this* item specifically
+        -- icon stuff
         icon_scale = 1.0,
         icon_alpha = 1.0,
         icon_item = false,
@@ -228,6 +235,51 @@ ns.options = {
                     },
                     order = 25,
                 },
+                notable = {
+                    type = "group",
+                    name = "What's notable?",
+                    desc = "Define exactly what counts as being \"notable\"",
+                    inline = true,
+                    args = {
+                        achievement_notable = {
+                            type = "toggle",
+                            name = TRANSMOG_SOURCE_5,
+                            desc = "Count unlearned achievement-progress as notable",
+                            order = 10,
+                        },
+                        mount_notable = {
+                            type = "toggle",
+                            name = MOUNT,
+                            desc = "Count unlearned mounts as notable loot",
+                            order = 10,
+                        },
+                        toy_notable = {
+                            type = "toggle",
+                            name = TOY,
+                            desc = "Count unlearned toys as notable loot",
+                            order = 20,
+                        },
+                        pet_notable = {
+                            type = "toggle",
+                            name = TOOLTIP_BATTLE_PET,
+                            desc = "Count uncaught pets as notable loot",
+                            order = 30,
+                        },
+                        transmog_notable = {
+                            type = "toggle",
+                            name = "Transmog",
+                            desc = "Count unlearned transmogrification appearances as notable loot",
+                            order = 40,
+                        },
+                        quest_notable = {
+                            type = "toggle",
+                            name = "Quest-attached",
+                            desc = "Count items with attached uncompleted quests as notable loot (this includes a lot of \"learnable\" items, weekly reputation drops, etc)",
+                            order = 50,
+                        },
+                    },
+                    order = 40,
+                },
                 fiddly = {
                     type = "group",
                     name = "Fiddly details",
@@ -258,12 +310,6 @@ ns.options = {
                             name = "Transmog exact items",
                             desc = "For transmog appearances, only count them as known if you know them from that exact item, rather than from another sharing the same appearance",
                             order = 45,
-                        },
-                        transmog_notable = {
-                            type = "toggle",
-                            name = "Notable transmog?",
-                            desc = "Count unlearned transmogrification appearances as notable loot",
-                            order = 50,
                         },
                     },
                     order = 50,
@@ -489,6 +535,7 @@ local function CanLearnAppearance(itemLinkOrID)
     end
     return canLearnCache[itemID]
 end
+ns.CanLearnAppearance = CanLearnAppearance
 local hasAppearanceCache = {}
 ns.run_caches.appearances = {}
 local function HasAppearance(itemLinkOrID, specific)
@@ -536,6 +583,7 @@ local function HasAppearance(itemLinkOrID, specific)
     ns.run_caches.appearances[itemID] = false
     return false
 end
+ns.HasAppearance = HasAppearance
 
 local function PlayerHasMount(itemid, mountid)
     if not _G.C_MountJournal then return false end
@@ -548,80 +596,24 @@ end
 local function PlayerHasPet(itemid, petid)
     return (C_PetJournal.GetNumCollectedInfo(petid) > 0)
 end
-ns.itemRestricted = function(item)
-    if type(item) ~= "table" then return false end
-    if item.covenant and item.covenant ~= C_Covenants.GetActiveCovenantID() then
-        return true
-    end
-    if item.class and ns.playerClass ~= item.class then
-        return true
-    end
-    if item.requires and not ns.conditions.check(item.requires) then
-        return true
-    end
-    -- TODO: profession recipes
-    return false
-end
-ns.itemIsKnowable = function(item, notransmog)
+local hasNotableLoot = testMaker(function(item)
+    return item:Notable()
+end, doTestAny)
+local hasKnowableLoot = testMaker(function(item, notransmog, droppable)
     if ns.CLASSIC then return false end
-    if type(item) == "table" then
-        if ns.itemRestricted(item) then
-            return false
-        end
-        if item.set and ns.playerClassMask then
-            local info = C_TransmogSets.GetSetInfo(item.set)
-            if info and info.classMask then
-                return bit.band(info.classMask, ns.playerClassMask) == ns.playerClassMask
-            end
-        end
-        return (item.toy or item.mount or item.pet or item.quest or item.questComplete or item.set or item.spell or (not notransmog and CanLearnAppearance(item[1])))
+    if droppable and not item:MightDrop() then
+        return false
     end
-    return not notransmog and CanLearnAppearance(item)
-end
-ns.itemIsKnown = function(item, notransmog)
-    -- returns true/false/nil for yes/no/not-knowable
-    if ns.CLASSIC then return GetItemCount(ns.lootitem(item), true) > 0 end
-    if type(item) == "table" then
-        if item.toy then return PlayerHasToy(item[1]) end
-        if item.mount then return PlayerHasMount(item[1], item.mount) end
-        if item.pet then return PlayerHasPet(item[1], item.pet) end
-        if item.quest then return C_QuestLog.IsQuestFlaggedCompleted(item.quest) or C_QuestLog.IsOnQuest(item.quest) end
-        if item.questComplete then return C_QuestLog.IsQuestFlaggedCompleted(item.questComplete) end
-        if item.set then
-            local info = C_TransmogSets.GetSetInfo(item.set)
-            if info then
-                if info.collected then return true end
-                -- we want to return nil for sets the current class can't learn:
-                if info.classMask and bit.band(info.classMask, ns.playerClassMask) == ns.playerClassMask then return false end
-            end
-            return false
-        end
-        if item.spell then
-            -- can't use the tradeskill functions + the recipe-spell because that data's only available after the tradeskill window has been opened...
-            local info = C_TooltipInfo.GetItemByID(item[1])
-            if info then
-                for _, line in ipairs(info.lines) do
-                    if line.leftText and string.match(line.leftText, _G.ITEM_SPELL_KNOWN) then
-                        return true
-                    end
-                end
-            end
-            return false
-        end
-        if not notransmog and CanLearnAppearance(item[1]) then return HasAppearance(item[1], ns.db.transmog_specific) end
-    elseif not notransmog and CanLearnAppearance(item) then
-        return HasAppearance(item, ns.db.transmog_specific)
-    end
-end
-local hasKnowableLoot = testMaker(ns.itemIsKnowable, doTestAny)
-local allLootKnown = testMaker(function(item, notransmog)
+    return item:Obtained(nil, not notransmog) ~= nil
+end, doTestAny)
+local allLootKnown = testMaker(function(item, notransmog, droppable)
     -- This returns true if all loot is known-or-unknowable
     -- If the "no knowable loot" case matters this should be gated behind hasKnowableLoot
-    local known = ns.itemIsKnown(item, notransmog)
-    if known == nil then
-        return true
+    if droppable and not item:MightDrop() then
+        return false
     end
-    return known
+    -- true-or-nil means known or not-knowable
+    return item:Obtained(nil, not notransmog) ~= false
 end)
 
 local function isAchieved(point)
@@ -641,13 +633,14 @@ local function isNotable(point, lootable)
     -- A point is notable if it has loot you can use, or is tied to an
     -- achievement you can still earn
     if lootable and point.quest and allQuestsComplete(point.quest) then
-        -- asked for only notable points that are currently lootable, which means questless or quest-incomplete
+        -- asked for only notable points that are currently lootable, which
+        -- means questless or quest-incomplete
         return false
     end
-    if point.achievement and not isAchieved(point) then
+    if ns.db.achievement_notable and point.achievement and not isAchieved(point) then
         return true
     end
-    if point.loot and hasKnowableLoot(point.loot, not ns.db.transmog_notable) and not allLootKnown(point.loot, not ns.db.transmog_notable) then
+    if point.loot and hasNotableLoot(point.loot) then
         return true
     end
     if point.follower and not C_Garrison.IsFollowerCollected(point.follower) then
@@ -723,7 +716,8 @@ end
 local function PointIsFound(point)
     if ns.db.found or point.always then return false end
     local found
-    if point.loot and hasKnowableLoot(point.loot, not ns.db.transmog_notable) then
+    if point.loot and hasKnowableLoot(point.loot, not ns.db.transmog_notable, true) then
+        -- has knowable loot that might drop
         if not allLootKnown(point.loot, not ns.db.transmog_notable) then
             return false
         end

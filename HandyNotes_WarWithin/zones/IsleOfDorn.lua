@@ -207,9 +207,10 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
     },
     [48202703] = { -- Kronolith, Might of the Mountain
         criteria=68220,
-        quest=81902,
+        quest=81902, -- 84031
         npc=219270,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_DORNOGAL, 150, {quest=84031}),
             221210, -- Grips of the Earth
             221254, -- Earthshatter Lance
             221507, -- Earth Golem's Wrap
@@ -221,6 +222,7 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
         quest=81903, -- 84032
         npc=219278,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_DORNOGAL, 150, {quest=84032}),
             221224, -- Bouldershell Waistguard
             221233, -- Deephunter's Bloody Hook
             221255, -- Sharpened Scalepiercer
@@ -262,12 +264,12 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
         },
         vignette=6026,
     },
-    [76403620] = { -- Clawbreaker K'zithix
-        -- [80003500]
+    [55712727] = { -- Clawbreaker K'zithix
         criteria=68224,
         quest=81920, -- 84036
         npc=221128,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_DORNOGAL, 150, {quest=84036}),
             223140, -- Formula: Enchant Cloak - Chant of Burrowing Rapidity
         },
         vignette=6115,
@@ -320,9 +322,10 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
     },
     [53348006] = { -- Gar'loc
         criteria=68217,
-        quest=81899,
+        quest=81899, -- 84028
         npc=219268,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_DORNOGAL, 150, {quest=84028}),
             221222, -- Water-Imbued Spaulders
             221234, -- Tidal Pendant
             221248, -- Deep Terror Carver
@@ -336,6 +339,7 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
         quest=81904, -- 84033
         npc=219271,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_DORNOGAL, 150, {quest=84033}),
             221219, -- Silkwing Trousers
             221239, -- Spider Blasting Blunderbuss
             221506, -- Arachnid's Web-Sown Guise
@@ -358,9 +362,10 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
     },
     [63994055] = { -- Flamekeeper Graz
         criteria=68223,
-        quest=81905,
+        quest=81905, -- 84034
         npc=219279,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_DORNOGAL, 150, {quest=84034}),
             221244, -- Flamekeeper's Footpads
             221249, -- Kobold Rodent Squasher
         },
@@ -368,9 +373,10 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
     },
     [50876984] = { -- Plaguehart
         criteria=68216,
-        quest=81897, -- also 84026?
+        quest=81897, -- 84026
         npc=219267,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_DORNOGAL, 150, {quest=84026}),
             221213, -- Shawl of the Plagued
             221265, -- Charm of the Underground Beast
             221246, -- Fierce Beast Staff
@@ -445,13 +451,15 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
         },
         vignette=6073,
     },
-    [46003180] = { -- Rowdy Rubble
-        quest=81515,
-        npc=220846,
-        vignette=6102,
-    },
+    -- [46003180] = { -- Rowdy Rubble
+    --     quest=81515,
+    --     npc=220846,
+    --     vignette=6102,
+    -- },
     [69204960] = { -- Elusive Ironhide Maelstrom Wolf
         quest=nil,
         npc=224515,
+        requires=ns.conditions.Profession(ns.PROF_WW_SKINNING),
+        active=ns.conditions.Item(219007), -- Elusive Creature Lure
     },
 })

@@ -16,6 +16,13 @@ Disturbed Earth, (Odd Glob of Wax 212493)
 53493438, just spawned waxy lump
 45042805, fired into the air to catch waxy sprockets
 43551959, waxy lump
+43141756, quest 84543, spawned enemy
+64015855
+53662379
+52131940
+52071557
+52991721
+56573634
 
 Worldsoul memories (vignette 6358)
 59516981
@@ -28,6 +35,7 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
         criteria=69280,
         quest=79308,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ASSEMBLY, 150),
             213254, -- Big Gold Nugget
             213251, -- Cinderbee Wax Jar
             213250, -- Cracked Gem
@@ -35,6 +43,7 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
             213255, -- Wax Canary
             213252, -- Stolen Earthen Contraption
             213257, -- Wax Shovel
+            213256, -- Wax Spoon
         },
         level=71,
         vignette=5994,
@@ -51,7 +60,13 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
     [55401385] = { -- Munderut's Forgotten Stash
         criteria=69282,
         quest=82235,
-        loot={212498}, -- Ambivalent Amber + commendations
+        loot={
+            ns.rewards.Currency(ns.CURRENCY_ASSEMBLY, 150),
+            212508, -- Stunning Sapphire
+            212505, -- Extravagant Emerald
+            212495, -- Radiant Ruby
+            212498, -- Ambivalent Amber
+        },
         level=71,
         vignette=6233,
     },
@@ -167,7 +182,7 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
     [48932593] = {criteria=68992}, -- Notes On The Machine Speakers: Fragment II
     [51071448] = {criteria=68993}, -- Notes On The Machine Speakers: Fragment III
     [39892099] = {criteria=68994, note="Up on the scaffolding"}, -- Notes On The Machine Speakers: Fragment IV
-    [63705878] = {criteria=68995}, -- Notes On The Machine Speakers: Fragment V
+    [63705878] = {criteria=68995, note="Up on the arch"}, -- Notes On The Machine Speakers: Fragment V
     [65107955] = {criteria=68996}, -- Notes On The Machine Speakers: Fragment VI
 }, {
     achievement=40628,
@@ -259,9 +274,10 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
     },
     [41361692] = { -- Charmonger
         criteria=69632,
-        quest=81562,
+        quest=81562, -- 84044
         npc=220267,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ASSEMBLY, 150, {quest=84044}),
             221209, -- Flame Trader's Gloves
             221249, -- Kobold Rodent Squasher
         },
@@ -295,9 +311,10 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
     },
     [50864651] = { -- Cragmund
         criteria=69630,
-        quest=80560, -- 84042?
+        quest=80560, -- 84042
         npc=220269,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ASSEMBLY, 150, {quest=84042}),
             221205, -- Vest of the River
             221254, -- Earthshatter Lance
             221507, -- Earth Golem's Wrap
@@ -309,6 +326,7 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
         quest=80536, -- 85162
         npc=220286,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ASSEMBLY, 150, {quest=85162}),
             221254, -- Earthshatter Lance
             221507, -- Earth Golem's Wrap
             225999, -- Earthen Adventurer's Tabard
@@ -335,9 +353,10 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
     },
     [52022657] = { -- Zilthara
         criteria=69629,
-        quest=80506,
+        quest=80506, -- 84041
         npc=220270,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ASSEMBLY, 150, {quest=84041}),
             221220, -- Basilisk Scale Pauldrons
             221246, -- Fierce Beast Staff
             221247, -- Cavernous Critter Shooter
@@ -358,9 +377,10 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
     },
     [46701209] = { -- Terror of the Forge
         criteria=69628,
-        quest=80507,
+        quest=80507, -- 84040
         npc=220271,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ASSEMBLY, 150, {quest=84040}),
             221233, -- Deephunter's Bloody Hook
             221234, -- Tidal Pendant
             221242, -- Forgeborn Helm
@@ -375,6 +395,7 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
         quest=81485, -- 84047
         npc=220287,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ASSEMBLY, 150, {quest=84047}),
             221204, -- Spore Giant's Stompers
             221250, -- Creeping Lasher Machete
             221253, -- Cultivator's Plant Puncher
@@ -397,10 +418,12 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
     },
     [71654629] = { -- Trungal
         criteria=69631,
-        quest=80574,
+        quest=80574, -- 84043
         npc=220268,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ASSEMBLY, 150, {quest=84043}),
             221228, -- Infested Fungal Wristwraps
+            221250, -- Creeping Lasher Machete
             221253, -- Cultivator's Plant Puncher
             221264, -- Fungarian Mystic's Cluster
             223005, -- String of Fungal Fruits
@@ -411,9 +434,10 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
     },
     [68404754] = { -- Spore-infused Shalewing
         criteria=69638,
-        quest=81652,
+        quest=81652, -- 84049
         npc=221217,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ASSEMBLY, 150, {quest=84049}),
             223918, -- Specter Stalker's Shotgun
             223919, -- Abducted Lawman's Gavel
             223942, -- Spore-Encrusted Ribbon
@@ -432,6 +456,7 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
         quest=81648, -- 84048
         npc=221199,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ASSEMBLY, 150, {quest=84048}),
             221233, -- Deephunter's Bloody Hook
             221234, -- Tidal Pendant
             221248, -- Deep Terror Carver
@@ -449,6 +474,7 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
             223926, -- Earthgorger's Chain Bib
             223943, -- Cord of the Earthbreaker
         },
+        note="Stand in the dust cloud and use {spell:437003:Stomp} several times",
         vignette=6031,
     },
     [66716881] = { -- Deathbound Husk
@@ -467,6 +493,7 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
         quest=81633, -- 85163
         npc=220285,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ASSEMBLY, 150, {quest=85163}),
             {223501, mount=2205}, -- Regurgitated Mole Reins
             221233, -- Deephunter's Bloody Hook
             221234, -- Tidal Pendant
@@ -485,4 +512,13 @@ ns.RegisterPoints(ns.RINGINGDEEPS, {
     },
 }, {
     achievement=40837, -- Adventurer
+})
+
+ns.RegisterPoints(ns.RINGINGDEEPS, {
+    [62805000] = { -- Slatefang
+        quest=nil,
+        npc=228439,
+        requires=ns.conditions.Profession(ns.PROF_WW_SKINNING),
+        active=ns.conditions.Item(219008), -- Supreme Beast Lure
+    },
 })

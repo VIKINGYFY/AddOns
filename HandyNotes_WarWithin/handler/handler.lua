@@ -86,6 +86,51 @@ local function intotable(dest, value_or_table, point)
     end
     dest[value_or_table] = point
 end
+local upgradeloot
+do
+    local available = {}
+    local function upgradelootitem(item)
+        if ns.IsObject(item) then
+            return item
+        end
+        if type(item) == "number" then
+            return ns.rewards.Item(item)
+        end
+        local upgrade
+        if item.toy then
+            upgrade = ns.rewards.Toy(item[1])
+        elseif item.mount then
+            upgrade = ns.rewards.Mount(item[1], item[2])
+        elseif item.pet then
+            upgrade = ns.rewards.Pet(item[1], item[2])
+        elseif item.set then
+            upgrade = ns.rewards.Set(item[1], item[2])
+        else
+            upgrade = ns.rewards.Item(item[1])
+        end
+        upgrade.quest = item.quest
+        upgrade.questComplete = item.questComplete
+        upgrade.spell = item.spell
+        if item.class then
+            table.insert(available, ns.conditions.Class(item.class))
+        end
+        if item.covenant then
+            table.insert(available, ns.conditions.Covenant(item.covenant))
+        end
+        if #available > 0 then
+            upgrade.requires = available
+            available = {}
+        end
+        return upgrade
+    end
+    function upgradeloot(loot)
+        if not loot then return loot end
+        for i, item in ipairs(loot) do
+            loot[i] = upgradelootitem(item)
+        end
+        return loot
+    end
+end
 function ns.RegisterPoints(zone, points, defaults)
     if not ns.points[zone] then
         ns.points[zone] = {}
@@ -97,6 +142,7 @@ function ns.RegisterPoints(zone, points, defaults)
         end
     end
     for coord, point in pairs(points) do
+        upgradeloot(point.loot)
         if ns.DEBUG and ns.points[zone][coord] then
             print(myname, "point collision", zone, coord)
         end
@@ -125,7 +171,7 @@ function ns.RegisterPoints(zone, points, defaults)
                 label=route.label or (point.npc and ("Path to {npc:%s}"):format(point.npc) or "Path to treasure"),
                 atlas=route.atlas or "poi-door", scale=route.scale or 0.95, minimap=true, texture=false,
                 note=route.note or false,
-                loot=route.loot,
+                loot=upgradeloot(route.loot),
                 routes={route},
                 _coord=route[#route], _uiMapID=zone,
             }, proxy_meta)
@@ -141,7 +187,7 @@ function ns.RegisterPoints(zone, points, defaults)
                     texture=nearby.texture or false,
                     minimap=true, worldmap=false, scale=0.95,
                     note=nearby.note or false,
-                    loot=nearby.loot, active=nearby.active,
+                    loot=upgradeloot(nearby.loot), active=nearby.active,
                     _coord=ncoord, _uiMapID=zone,
                 }, proxy_meta)
                 if nearby.color then
@@ -156,6 +202,7 @@ function ns.RegisterPoints(zone, points, defaults)
                 atlas=point.related.atlas or "playerpartyblip", color=point.related.color, scale=point.related.scale,
                 texture=point.related.texture or false, minimap=point.related.minimap,
                 note=point.related.note or false,
+                loot=upgradeloot(point.related.loot),
                 active=point.related.active, requires=point.related.requires, hide_before=point.related.hide_before,
                 route=coord,
                 _uiMapID=zone,
@@ -163,6 +210,7 @@ function ns.RegisterPoints(zone, points, defaults)
             for rcoord, related in pairs(point.related) do
                 if type(rcoord) == "number" then
                     local rpoint = relatedNode(related)
+                    upgradeloot(rpoint.loot)
                     rpoint._coord = rcoord
                     if related.color then
                         rpoint.texture = ns.atlas_texture(rpoint.atlas, related.color)
@@ -285,7 +333,7 @@ ns.path = ns.nodeMaker{
 }
 
 ns.lootitem = function(item)
-    return type(item) == "table" and item[1] or item
+    return ns.IsObject(item) and item.id
 end
 
 local playerClassLocal, playerClass = UnitClass("player")
@@ -370,6 +418,7 @@ local function quick_texture_markup(icon)
     -- needs less than CreateTextureMarkup
     return icon and ('|T' .. icon .. ':0:0:1:-1|t') or ''
 end
+ns.quick_texture_markup = quick_texture_markup
 local completeColor = CreateColor(0, 1, 0, 1)
 local incompleteColor = CreateColor(1, 0, 0, 1)
 local function render_string(s, context)
@@ -504,7 +553,7 @@ end
 local function cache_loot(loot)
     if not loot then return end
     for _, item in ipairs(loot) do
-        C_Item.RequestLoadItemDataByID(ns.lootitem(item))
+        item:Cache()
     end
 end
 local render_string_list
@@ -615,11 +664,11 @@ local function work_out_label(point)
     end
     if point.loot and #point.loot > 0 then
         -- handle multiples?
-        local _, link = C_Item.GetItemInfo(ns.lootitem(point.loot[1]))
-        if link then
-            return link:gsub("[%[%]]", "")
+        local name = point.loot[1]:Name(true)
+        if name then
+            return name
         end
-        fallback = 'item:'..ns.lootitem(point.loot[1])
+        fallback = 'item:'..point.loot[1].id
     end
     if point.achievement and not point.criteria or point.criteria == true then
         local _, achievement = GetAchievementInfo(point.achievement)
@@ -654,7 +703,7 @@ local function work_out_texture(point)
             return trimmed_icon(point.icon)
         end
         if point.loot and #point.loot > 0 then
-            local texture = select(10, C_Item.GetItemInfo(ns.lootitem(point.loot[1])))
+            local texture = point.loot[1]:Icon()
             if texture then
                 return trimmed_icon(texture)
             end
@@ -821,88 +870,10 @@ local function tooltip_criteria(tooltip, achievement, criteriaid, ignore_quantit
     end
 end
 local function tooltip_loot(tooltip, item)
-    local knownText
-    local r, g, b = NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b
-    local id = ns.lootitem(item)
-    local _, itemType, itemSubtype, equipLoc, icon, classID, subclassID = C_Item.GetItemInfoInstant(id)
-    if ns.db.tooltip_charloot and not IsShiftKeyDown() then
-        -- show loot for the current character only
-        -- can't pass in a reusable table for the second argument because it changes the no-data case
-        local specTable = C_Item.GetItemSpecInfo(id)
-        -- Some cosmetic items seem to be flagged as not dropping for any spec. I
-        -- could only confirm this for some cosmetic back items but let's play it
-        -- safe and say that any cosmetic item can drop regardless of what the
-        -- spec info says...
-        if specTable and #specTable == 0 and not ns.IsCosmeticItem(id) then
-            return true
-        end
-        -- then catch covenants / classes / etc
-        if ns.itemRestricted(item) then return true end
+    if ns.db.tooltip_charloot and not IsShiftKeyDown() and not item:MightDrop() then
+        return true
     end
-    local _, link = C_Item.GetItemInfo(ns.lootitem(item))
-    local label = ENCOUNTER_JOURNAL_ITEM
-    if classID == Enum.ItemClass.Armor and subclassID ~= Enum.ItemArmorSubclass.Shield then
-        label = _G[equipLoc] or label
-    else
-        label = itemSubtype
-    end
-    if link then
-        link = link:gsub("[%[%]]", "")
-    else
-        r, g, b = 0, 1, 1
-        link = SEARCH_LOADING_TEXT
-    end
-    if type(item) == "table" then
-        if item.mount then label = MOUNT
-        elseif item.toy then label = TOY
-        elseif item.pet then label = TOOLTIP_BATTLE_PET
-        elseif item.set then
-            label = WARDROBE_SETS
-            local info = C_TransmogSets.GetSetInfo(item.set)
-            if info then
-                link = info.name
-                if not info.collected then
-                    local sources = C_TransmogSets.GetSetPrimaryAppearances(item.set)
-                    if sources and #sources > 0 then
-                        local numKnown = 0
-                        for _, source in pairs(sources) do
-                            if source.collected then
-                                numKnown = numKnown + 1
-                            end
-                        end
-                        knownText = RED_FONT_COLOR:WrapTextInColorCode(GENERIC_FRACTION_STRING:format(numKnown, #sources))
-                    end
-                end
-            end
-        end
-        -- todo: faction?
-        if item.covenant then
-            local data = C_Covenants.GetCovenantData(item.covenant)
-            -- local active = item.covenant == C_Covenants.GetActiveCovenantID()
-            link = TEXT_MODE_A_STRING_VALUE_TYPE:format(link, COVENANT_COLORS[item.covenant]:WrapTextInColorCode(data and data.name or ns.covenants[item.covenant]))
-        end
-        if item.class then
-            link = TEXT_MODE_A_STRING_VALUE_TYPE:format(link, RAID_CLASS_COLORS[item.class]:WrapTextInColorCode(LOCALIZED_CLASS_NAMES_FEMALE[item.class]))
-        end
-        if item.note then
-            link = TEXT_MODE_A_STRING_VALUE_TYPE:format(link, render_string(item.note))
-        end
-    end
-    local known = ns.itemIsKnown(item)
-    if known ~= nil and (known == true or not ns.itemRestricted(item)) then
-        if knownText then
-            link = link .. " " .. knownText
-        else
-            link = link .. " " .. CreateAtlasMarkup(known and ATLAS_CHECK or ATLAS_CROSS)
-        end
-    end
-    if label and ns.IsCosmeticItem(id) then
-        label = TEXT_MODE_A_STRING_VALUE_TYPE:format(label, COSMETIC_COLOR:WrapTextInColorCode(ITEM_COSMETIC))
-    end
-    tooltip:AddDoubleLine(label, quick_texture_markup(icon) .. " " .. link,
-        NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b,
-        r, g, b
-    )
+    item:AddToTooltip(tooltip)
 end
 local function handle_tooltip(tooltip, point, skip_label)
     if not point then
@@ -1087,7 +1058,7 @@ local function handle_tooltip(tooltip, point, skip_label)
         end
 
         if point.loot and #point.loot > 0 then
-            comparison:SetItemByID(ns.lootitem(point.loot[1]))
+            point.loot[1]:SetTooltip(comparison)
         elseif point.npc then
             comparison:SetHyperlink(("unit:Creature-0-0-0-0-%d"):format(point.npc))
         elseif point.spell then
@@ -1449,7 +1420,7 @@ do
     end
     function HLHandler:GetNodes2(uiMapID, minimap)
         -- Debug("GetNodes2", uiMapID, minimap)
-        for _, cache in ipairs(ns.run_caches) do
+        for _, cache in pairs(ns.run_caches) do
             table.wipe(cache)
         end
         currentZone = uiMapID
