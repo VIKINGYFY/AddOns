@@ -481,7 +481,7 @@ local doTest, doTestDefaultAny
 do
     local function doTestMaker(default)
         return function(test, input, ...)
-            if type(input) == "table" and not input.__parent then
+            if ns.xtype(input) == "table" then
                 if input.any then return doTestAny(test, input, ...) end
                 if input.all then return doTestAll(test, input, ...) end
                 return default(test, input, ...)
@@ -521,116 +521,6 @@ end, function(test, input, achievement, ...)
     return doTest(test, input, achievement, ...)
 end)
 
-local brokenItems = {
-    -- itemid : {appearanceid, sourceid}
-    [153268] = {25124, 90807}, -- Enclave Aspirant's Axe
-    [153316] = {25123, 90885}, -- Praetor's Ornamental Edge
-}
-local function GetAppearanceAndSource(itemLinkOrID)
-    local itemID = C_Item.GetItemInfoInstant(itemLinkOrID)
-    if not itemID then return end
-    local appearanceID, sourceID = C_TransmogCollection.GetItemInfo(itemLinkOrID)
-    if not appearanceID then
-        -- sometimes the link won't actually give us an appearance, but itemID will
-        -- e.g. mythic Drape of Iron Sutures from Shadowmoon Burial Grounds
-        appearanceID, sourceID = C_TransmogCollection.GetItemInfo(itemID)
-    end
-    if not appearanceID and brokenItems[itemID] then
-        -- ...and there's a few that just need to be hardcoded
-        appearanceID, sourceID = unpack(brokenItems[itemID])
-    end
-    return appearanceID, sourceID
-end
-local canLearnCache = {}
-local function CanLearnAppearance(itemLinkOrID)
-    if not _G.C_Transmog then return false end
-    local itemID = C_Item.GetItemInfoInstant(itemLinkOrID)
-    if not itemID then return end
-    if canLearnCache[itemID] ~= nil then
-        return canLearnCache[itemID]
-    end
-    -- First, is this a valid source at all?
-    local canBeChanged, noChangeReason, canBeSource, noSourceReason = C_Transmog.CanTransmogItem(itemID)
-    if canBeSource == nil or noSourceReason == 'NO_ITEM' then
-        -- data loading, don't cache this
-        return
-    end
-    if not canBeSource then
-        canLearnCache[itemID] = false
-        return false
-    end
-    local appearanceID, sourceID = GetAppearanceAndSource(itemLinkOrID)
-    if not appearanceID then
-        canLearnCache[itemID] = false
-        return false
-    end
-    local hasData, canCollect = C_TransmogCollection.PlayerCanCollectSource(sourceID)
-    if hasData then
-        canLearnCache[itemID] = canCollect
-    end
-    return canLearnCache[itemID]
-end
-ns.CanLearnAppearance = CanLearnAppearance
-local hasAppearanceCache = {}
-ns.run_caches.appearances = {}
-local function HasAppearance(itemLinkOrID, specific)
-    local itemID = C_Item.GetItemInfoInstant(itemLinkOrID)
-    if not itemID then return end
-    if ns.run_caches.appearances[itemID] ~= nil then
-        return ns.run_caches.appearances[itemID]
-    end
-    if hasAppearanceCache[itemID] ~= nil then
-        -- We cache unchanging things: true or false-because-not-knowable
-        -- *Technically* this could persist a false-positive if you obtain something and then trade/refund it
-        ns.run_caches.appearances[itemID] = hasAppearanceCache[itemID]
-        return hasAppearanceCache[itemID]
-    end
-    if C_TransmogCollection.PlayerHasTransmogByItemInfo(itemLinkOrID) then
-        -- short-circuit further checks because this specific item is known
-        hasAppearanceCache[itemID] = true
-        return true
-    end
-    local appearanceID, sourceID = GetAppearanceAndSource(itemLinkOrID)
-    if not appearanceID then
-        -- This just isn't knowable according to the API
-        hasAppearanceCache[itemID] = false
-        return
-    end
-    local fromCurrentItem = C_TransmogCollection.PlayerHasTransmogItemModifiedAppearance(sourceID)
-    if fromCurrentItem then
-        -- It might *also* be from another item, but we don't care or need to find out
-        hasAppearanceCache[itemID] = true
-        return true
-    end
-    -- Although this isn't known, its appearance might be known from another item
-    if specific then
-        ns.run_caches.appearances[itemID] = false
-        return false
-    end
-    local sources = C_TransmogCollection.GetAllAppearanceSources(appearanceID)
-    if not sources then return end
-    for _, sourceID in ipairs(sources) do
-        if C_TransmogCollection.PlayerHasTransmogItemModifiedAppearance(sourceID) then
-            hasAppearanceCache[itemID] = true
-            return true
-        end
-    end
-    ns.run_caches.appearances[itemID] = false
-    return false
-end
-ns.HasAppearance = HasAppearance
-
-local function PlayerHasMount(itemid, mountid)
-    if not _G.C_MountJournal then return false end
-    if mountid == true then
-        mountid = C_MountJournal.GetMountFromItem and C_MountJournal.GetMountFromItem(itemid)
-        if not mountid then return false end
-    end
-    return (select(11, C_MountJournal.GetMountInfoByID(mountid)))
-end
-local function PlayerHasPet(itemid, petid)
-    return (C_PetJournal.GetNumCollectedInfo(petid) > 0)
-end
 local hasNotableLoot = testMaker(function(item)
     return item:Notable()
 end, doTestAny)

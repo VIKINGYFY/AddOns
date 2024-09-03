@@ -359,6 +359,14 @@ ns.playerClassMask = ({
 ---------------------------------------------------------
 -- All the utility code
 
+ns.Getterize = function(tbl)
+    return setmetatable(tbl, {
+        __index=function(self, key)
+            if self.__get[key] then return self.__get[key](self) end
+        end,
+    })
+end
+
 function ns.IsCosmeticItem(itemInfo)
     if _G.C_Item and C_Item.IsCosmeticItem then
         return C_Item.IsCosmeticItem(itemInfo)

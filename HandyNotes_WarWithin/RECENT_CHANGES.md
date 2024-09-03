@@ -1,7 +1,6 @@
-## Changed in v41
+## Changed in v42
 
-* Add snuffling-related Disturbed Earth points and vendor, hidden by default
-* Add reputation rewards to the one-time treasures/rares
-* Hide Khaz Algar Lore Hunter by default, since it's disabled by Blizzard
-* Hallowfall: a few more weekly reputation rewards
+* Hallowfall: explain how to summon Parasidious
+* Snuffling: give Disturbed Earth a localized name
+* A bunch of backend changes that shouldn't have any visible effect on anything
 
