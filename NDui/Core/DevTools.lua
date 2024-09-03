@@ -124,7 +124,7 @@ do
 
 	SlashCmdList["NDUI_VER_CHECK"] = function(msg)
 		local channel
-		if IsPartyLFG() then
+		if IsPartyLFG() or C_PartyInfo.IsPartyWalkIn() then
 			channel = "INSTANCE_CHAT"
 		elseif IsInRaid() then
 			channel = "RAID"

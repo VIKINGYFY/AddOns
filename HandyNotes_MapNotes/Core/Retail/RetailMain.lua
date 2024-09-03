@@ -704,7 +704,6 @@ local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() ==
       WorldMapFrame:SetMapID(mnID3)
   end
 
-
   if not ns.Addon.db.profile.activate.ShiftWorld then
 
     if (not pressed) then return end

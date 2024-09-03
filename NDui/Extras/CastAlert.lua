@@ -89,7 +89,7 @@ end
 
 function EX:CastAlert_Update(unit, castID, spellID)
 	if castUnit[unit] and castList[spellID] then
-		SendChatMessage(format(L["CastAlertInfo"], UnitName(unit), C_Spell.GetSpellLink(spellID) or C_Spell.GetSpellName(spellID), castList[spellID]), EX:GetMSGChannel())
+		SendChatMessage(format(L["CastAlertInfo"], UnitName(unit), C_Spell.GetSpellLink(spellID) or C_Spell.GetSpellName(spellID), castList[spellID]), B.GetMSGChannel())
 	end
 end
 

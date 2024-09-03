@@ -1,5 +1,42 @@
 # Changelog
 
+## Changed in v41
+
+* Add snuffling-related Disturbed Earth points and vendor, hidden by default
+* Add reputation rewards to the one-time treasures/rares
+* Hide Khaz Algar Lore Hunter by default, since it's disabled by Blizzard
+* Hallowfall: a few more weekly reputation rewards
+
+## Changed in v40
+
+* Hallowfall: add a giant Beledar phase-change indicator to the map
+* Show the status for Delve achievements on their world map entrances
+* Add a few more weekly reputation rewards
+* Fix for the account-level checking of weekly reputation rewards
+
+## Changed in v39
+
+* Delves: add The Spiral Weave, Tak-Rethan Abyss, and The Underkeep
+* Ringing Deeps: add the weekly reputation for Disturbed Earthgorger
+
+## Changed in v38
+
+* Isle of Dorn:
+    * Added the hiding place for obtaining Dog as a pet, if you've brought him with you from Pandaria to Dalaran.
+    * More weekly reputation rewards.
+* Ringing Deeps: more weekly reputation rewards.
+* New filter option for treasures, so they can be turned down to only show "notable" ones just like the rares. You can use this to not be shown treasures you found on other characters, mostly.
+* New setting to allow achievement-progress from other characters to count for completion. This won't make a huge difference in this expansion, because with warbands *most* achievements have shared criteria-progress between characters already.
+
+## Changed in v37
+
+* Azj-Kahet:
+    * The treasure quests apparently got shuffled around a bit somewhere between the beta and now, so fixed various questids
+    * Added most of the remaining reputation rewards
+    * Flag Tka'ktath's mount item as only dropping at level 80
+* Hallowfall: added some more reputation rewards, fixed a typo in the quest ID for the Horror of the Shallows' reputation reward, and explained how to access Croakit
+* Fixed some weird interactions around the notability settings for mobs that have quest-items and transmog
+
 ## Changed in v36
 
 * Hallowfall: improve Beledar's Spawn -- show the time until the shadow phase via entertaining abuse of the

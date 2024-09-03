@@ -64,7 +64,9 @@ ns.Class = function(def)
         end,
         -- inheritance, this is it:
         __index = def.__parent,
-        __tostring = function(cls) return cls.__classname end,
+        __tostring = function(cls)
+            return cls.__parent and (tostring(cls.__parent) .. "." .. cls.__classname) or cls.__classname
+        end,
     })
     -- avoid needing to care about rawget later:
     class.__class = class

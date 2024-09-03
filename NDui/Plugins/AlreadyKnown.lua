@@ -1,6 +1,5 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local TT = B:GetModule("Tooltip")
 
 local COLOR = {r = .1, g = 1, b = .1}
 local knowables = {

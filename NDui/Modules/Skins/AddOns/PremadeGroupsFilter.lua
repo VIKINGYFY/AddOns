@@ -1,7 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local S = B:GetModule("Skins")
-local TT = B:GetModule("Tooltip")
 
 function S:PGFSkin()
 	if not C.db["Skins"]["BlizzardSkins"] then return end
@@ -111,7 +110,7 @@ function S:PGFSkin()
 		for i = 1, PGFDialog:GetNumChildren() do
 			local child = select(i, PGFDialog:GetChildren())
 			if child and child.Shadow then
-				TT.ReskinTooltip(child)
+				B.ReskinTooltip(child)
 				tipStyled = true
 				break
 			end

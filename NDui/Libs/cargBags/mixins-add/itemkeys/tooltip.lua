@@ -42,6 +42,7 @@ local itemOnList = {
 	[CONDUIT_TYPE_ENDURANCE] = "conduit",
 	[CONDUIT_TYPE_FINESSE] = "conduit",
 	[CONDUIT_TYPE_POTENCY] = "conduit",
+	[ITEM_OPENABLE] = "openable",
 }
 
 local function CreateItemKeys(item, keyName, keyList)

@@ -11,10 +11,6 @@ local function GetRemainTime(second)
 	end
 end
 
-function GetMsgChannel()
-	return (IsPartyLFG() and "INSTANCE_CHAT") or (IsInRaid() and "RAID") or "PARTY"
-end
-
 local lastCDSend = 0
 function Bar:SendCurrentSpell(thisTime, spellID)
 	local spellLink = C_Spell.GetSpellLink(spellID)
@@ -27,9 +23,9 @@ function Bar:SendCurrentSpell(thisTime, spellID)
 	if charges and maxCharges then
 		if charges ~= maxCharges then
 			local remain = chargeStart + chargeDuration - thisTime
-			SendChatMessage(format(L["ChargesRemaining"], spellLink, charges, maxCharges, GetRemainTime(remain)), GetMsgChannel())
+			SendChatMessage(format(L["ChargesRemaining"], spellLink, charges, maxCharges, GetRemainTime(remain)), B.GetMSGChannel())
 		else
-			SendChatMessage(format(L["ChargesCompleted"], spellLink, charges, maxCharges), GetMsgChannel())
+			SendChatMessage(format(L["ChargesCompleted"], spellLink, charges, maxCharges), B.GetMSGChannel())
 		end
 	else
 		local cooldownInfo = C_Spell.GetSpellCooldown(spellID)
@@ -38,9 +34,9 @@ function Bar:SendCurrentSpell(thisTime, spellID)
 
 		if start and duration > 0 then
 			local remain = start + duration - thisTime
-			SendChatMessage(format(L["CooldownRemaining"], spellLink, GetRemainTime(remain)), GetMsgChannel())
+			SendChatMessage(format(L["CooldownRemaining"], spellLink, GetRemainTime(remain)), B.GetMSGChannel())
 		else
-			SendChatMessage(format(L["CooldownCompleted"], spellLink), GetMsgChannel())
+			SendChatMessage(format(L["CooldownCompleted"], spellLink), B.GetMSGChannel())
 		end
 	end
 end
@@ -49,9 +45,9 @@ function Bar:SendCurrentItem(thisTime, itemID, itemLink, itemCount)
 	local start, duration = C_Item.GetItemCooldown(itemID)
 	if start and duration > 0 then
 		local remain = start + duration - thisTime
-		SendChatMessage(format(L["CooldownRemaining"], itemLink.." x"..itemCount, GetRemainTime(remain)), GetMsgChannel())
+		SendChatMessage(format(L["CooldownRemaining"], itemLink.." x"..itemCount, GetRemainTime(remain)), B.GetMSGChannel())
 	else
-		SendChatMessage(format(L["CooldownCompleted"], itemLink.." x"..itemCount), GetMsgChannel())
+		SendChatMessage(format(L["CooldownCompleted"], itemLink.." x"..itemCount), B.GetMSGChannel())
 	end
 end
 

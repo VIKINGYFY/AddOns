@@ -49,12 +49,8 @@ local list = {
 		{AuraID = 448229, UnitID = "target", Caster = "player"}, -- 灵魂收割
 	},
 	["Special Aura"] = {	-- 玩家重要光环组
-		{AuraID = 440289, UnitID = "player"}, -- 符刻坚甲：物理
-		{AuraID = 440290, UnitID = "player"}, -- 符刻坚甲：魔法
-
 		{AuraID =  55233, UnitID = "player"}, -- 吸血鬼之血
 		{AuraID =  77535, UnitID = "player", Value = true}, -- 鲜血护盾
-		{AuraID =  81141, UnitID = "player"}, -- 赤色天灾
 		{AuraID =  81256, UnitID = "player"}, -- 符文刃舞
 		{AuraID = 116888, UnitID = "player", Value = true, Flash = true}, -- 炼狱蔽体
 		{AuraID = 194844, UnitID = "player"}, -- 白骨风暴
@@ -62,14 +58,12 @@ local list = {
 		{AuraID = 219809, UnitID = "player", Value = true}, -- 墓石
 		{AuraID = 273947, UnitID = "player"}, -- 鲜血禁闭
 		{AuraID = 274156, UnitID = "player"}, -- 吞噬
-		{AuraID = 377656, UnitID = "player"}, -- 裂心
 		{AuraID = 391481, UnitID = "player"}, -- 凝血
 		{AuraID = 391527, UnitID = "player", Value = true}, -- 永恒脐带
 		{AuraID = 433925, UnitID = "player"}, -- 鲜血女王的精华
 		{AuraID = 454871, UnitID = "player", Flash = true}, -- 抽血
 		{AuraID = 458745, UnitID = "player"}, -- 骨化锋刺
 		{AuraID = 460049, UnitID = "player"}, -- 苦痛凌虐
-		{AuraID = 463730, UnitID = "player"}, -- 凝固之血
 
 		{AuraID =  51124, UnitID = "player"}, -- 杀戮机器
 		{AuraID =  51271, UnitID = "player"}, -- 冰霜之柱

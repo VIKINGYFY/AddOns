@@ -82,18 +82,19 @@ function mocks:SetEncounterInProgress(value)
 	fakeIsEncounterInProgress = value
 end
 
-function mocks.AntiSpam(mod, time, id)
+function mocks.AntiSpam(mod, time, ...)
 	-- Mods often define AntiSpam timeouts in whole seconds and some periodic damage effects trigger exactly every second
 	-- This can lead to flaky tests as they sometimes trigger and sometimes don't because even with fake time there is unfortunately still some dependency on actual frame timings
 	-- Just subtracting 0.1 seconds fixes this problem; an example affected by this is SoD/ST/FesteringRotslime
 	if time and time > 0 and math.floor(time) == time then
 		time = time - 0.1
 	end
-	return DBM.AntiSpam(mod, time, id)
+	return DBM.AntiSpam(mod, time, ...)
 end
 
 -- TODO: mocking the whole "raid" local in DBM would increase coverage a bit
 function mocks.DBMGetRaidUnitId(_, name)
+	if not name then return end
 	return "fakeunitid-name-" .. name
 end
 
@@ -424,6 +425,18 @@ end
 function mocks:SetModEnvironment(stackDepth)
 	self:GetMockEnvironment()
 	setfenv(stackDepth + 1, self.modEnv)
+end
+
+function mocks:IsModLoadedWithMocks(mod)
+	local mockEnv = self:GetMockEnvironment()
+	for _, v in pairs(mod) do
+		if type(v) == "function" then
+			if getfenv(v) == mockEnv then -- any function having that environment is good enough, this is just for showing a warning in the UI
+				return true
+			end
+		end
+	end
+	return false
 end
 
 function test:TeardownHooks()

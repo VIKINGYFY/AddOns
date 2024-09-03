@@ -120,6 +120,7 @@ ns.defaults = {
       ZonesGeneralAlpha = 1,
       showZoneFP = true, -- Classic+
       showZoneGhost = true, -- Classic+
+      ZoneMapNotesIcons = false,
       showZoneInnkeeper = true,
       showZoneAuctioneer = true,
       showZoneBank = true,

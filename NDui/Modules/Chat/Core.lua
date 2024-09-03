@@ -170,7 +170,7 @@ local cycles = {
 	{ chatType = "SAY", IsActive = function() return true end },
 	{ chatType = "PARTY", IsActive = function() return IsInGroup() end },
 	{ chatType = "RAID", IsActive = function() return IsInRaid() end },
-	{ chatType = "INSTANCE_CHAT", IsActive = function() return IsPartyLFG() end },
+	{ chatType = "INSTANCE_CHAT", IsActive = function() return IsPartyLFG() or C_PartyInfo.IsPartyWalkIn() end },
 	{ chatType = "GUILD", IsActive = function() return IsInGuild() end },
 	{ chatType = "OFFICER", IsActive = function() return C_GuildInfo.IsGuildOfficer() end },
 	{ chatType = "CHANNEL", IsActive = function(_, editbox)

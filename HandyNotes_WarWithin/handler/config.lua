@@ -11,9 +11,12 @@ ns.defaults = {
         show_npcs_filter = "lootable", -- [lootable, notable]
         show_npcs_emphasizeNotable = true,
         show_treasure = true,
+        show_treasure_filter = "lootable", -- [lootable, notable]
+        -- show_treasure_emphasizeNotable = true,
         show_routes = true,
         upcoming = true,
         found = false,
+        alts_achievements_count = false,
         -- notability!
         achievement_notable = true,
         mount_notable = true,
@@ -167,10 +170,38 @@ ns.options = {
                             },
                             order = 10,
                         },
-                        show_treasure = {
-                            type = "toggle",
+                        treasure = {
+                            type = "group",
+                            inline = true,
                             name = "Treasure",
-                            desc = "Show treasure that can be looted",
+                            args = {
+                                show_treasure = {
+                                    type = "toggle",
+                                    name = "Show Treasure",
+                                    desc = "Show treasures that can be found in the world",
+                                    order = 10,
+                                    dropdownHidden = true,
+                                },
+                                show_treasure_filter = {
+                                    type = "select",
+                                    name = "Filter",
+                                    desc = "Show treasures that can be found in the world",
+                                    values = {
+                                        all = ALL,
+                                        lootable = "Will drop loot",
+                                        notable = "Will drop notable loot",
+                                    },
+                                    sorting = {"all", "lootable", "notable"},
+                                    order = 20,
+                                },
+                                -- show_treasure_emphasizeNotable = {
+                                --     type = "toggle",
+                                --     name = "Emphasize notable NPCs",
+                                --     desc = "Put more emphasis on NPCs that you can still get something from: achievements, transmogs, mounts, pets, toys",
+                                --     order = 30,
+                                -- },
+
+                            },
                             order = 20,
                         },
                         unhide = {
@@ -310,6 +341,12 @@ ns.options = {
                             name = "Transmog exact items",
                             desc = "For transmog appearances, only count them as known if you know them from that exact item, rather than from another sharing the same appearance",
                             order = 45,
+                        },
+                        alts_achievements_count = {
+                            type = "toggle",
+                            name = "Alts achievements count",
+                            desc = "Consider achievement-related things done if you have it completed on another character already. Lots of achievement criteria are warband-shared, in which case this setting won't make a difference.",
+                            order = 55,
                         },
                     },
                     order = 50,
@@ -471,10 +508,8 @@ ns.allQuestsComplete = allQuestsComplete
 local temp_criteria = {}
 local allCriteriaComplete = testMaker(function(criteria, achievement)
     local _, _, completed, _, _, completedBy = ns.GetCriteria(achievement, criteria)
-    if not (completed and (not completedBy or completedBy == ns.playerName)) then
-        return false
-    end
-    return true
+    -- by this current character, or by any character if the setting says it's okay
+    return completed and (not completedBy or completedBy == ns.playerName or ns.db.alts_achievements_count)
 end, function(test, input, achievement, ...)
     if input == true then
         wipe(temp_criteria)
@@ -618,16 +653,10 @@ end)
 
 local function isAchieved(point)
     if point.criteria and point.criteria ~= true then
-        if not allCriteriaComplete(point.criteria, point.achievement) then
-            return false
-        end
-    else
-        local completedByMe = select(13, GetAchievementInfo(point.achievement))
-        if not completedByMe then
-            return false
-        end
+        return allCriteriaComplete(point.criteria, point.achievement)
     end
-    return true
+    local _, _, _, complete, _, _, _, _, _, _, _, _, completedByMe = GetAchievementInfo(point.achievement)
+    return completedByMe or (ns.db.alts_achievements_count and complete)
 end
 local function isNotable(point, lootable)
     -- A point is notable if it has loot you can use, or is tied to an
@@ -799,7 +828,6 @@ ns.should_show_point = function(coord, point, currentZone, isMinimap)
         return false
     end
 
-    local isFound, isFindable = PointIsFound(point)
     if point.follower then
         if not ns.db.found and isFound then
             return false
@@ -815,19 +843,32 @@ ns.should_show_point = function(coord, point, currentZone, isMinimap)
         end
         if
             (ns.db.show_npcs_filter == "lootable" or ns.db.show_npcs_filter == "notable")
-            and point.quest and allQuestsComplete(point.quest)
-        then
             -- rewarding npcs either have no affiliated quest, or their quest is incomplete
-            if not ns.db.found then
-                return false
-            end
-        end
-    else
-        -- Not an NPC, not a follower, must be treasure if it has some sort of loot
-        if not ns.db.show_treasure and (point.loot or point.currency) then
+            and point.quest and allQuestsComplete(point.quest) and not ns.db.found
+        then
             return false
         end
-        if not ns.db.found and isFindable and isFound then
+    elseif point.loot or point.currency then
+        -- Not an NPC, not a follower, must be treasure if it has some sort of loot
+        if not ns.db.show_treasure then
+            return false
+        end
+        if ns.db.show_treasure_filter == "notable" and not isNotable(point) then
+            -- notable npcs have loot you can use or have an incomplete achievement
+            return false
+        end
+        if
+            (ns.db.show_treasure_filter == "lootable" or ns.db.show_treasure_filter == "notable")
+            -- rewarding treasure either has no affiliated quest, or their quest is incomplete
+            and point.quest and allQuestsComplete(point.quest) and not ns.db.found
+        then
+            return false
+        end
+    end
+    if not ns.db.found then
+        local isFound = PointIsFound(point)
+        local isFindable = isFound ~= nil
+        if isFindable and isFound then
             return false
         end
     end

@@ -1,7 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local S = B:GetModule("Skins")
-local TT = B:GetModule("Tooltip")
 
 local buttonsize = 24
 
@@ -116,12 +115,12 @@ function S:DBMSkin()
 
 	hooksecurefunc(DBM.RangeCheck, "Show", function()
 		if DBMRangeCheckRadar and not DBMRangeCheckRadar.styled then
-			TT.ReskinTooltip(DBMRangeCheckRadar)
+			B.ReskinTooltip(DBMRangeCheckRadar)
 			DBMRangeCheckRadar.styled = true
 		end
 
 		if DBMRangeCheck and not DBMRangeCheck.styled then
-			TT.ReskinTooltip(DBMRangeCheck)
+			B.ReskinTooltip(DBMRangeCheck)
 			DBMRangeCheck.styled = true
 		end
 	end)
@@ -129,17 +128,13 @@ function S:DBMSkin()
 	if DBM.InfoFrame then
 		DBM.InfoFrame:Show(5, "test")
 		DBM.InfoFrame:Hide()
-		DBMInfoFrame:HookScript("OnShow", TT.ReskinTooltip)
+		DBMInfoFrame:HookScript("OnShow", B.ReskinTooltip)
 	end
 
 	-- Force Settings
 	if not DBM_AllSavedOptions["Default"] then DBM_AllSavedOptions["Default"] = {} end
 	DBM_AllSavedOptions["Default"]["BlockVersionUpdateNotice"] = true
 	DBM_AllSavedOptions["Default"]["EventSoundVictory"] = "None"
-	if C_AddOns.IsAddOnLoaded("DBM-VPYike") then
-		DBM_AllSavedOptions["Default"]["CountdownVoice"] = "VP:Yike"
-		DBM_AllSavedOptions["Default"]["ChosenVoicePack"] = "Yike"
-	end
 	if not DBT_AllPersistentOptions["Default"] then DBT_AllPersistentOptions["Default"] = {} end
 	DBT_AllPersistentOptions["Default"]["DBM"].BarYOffset = 8
 	DBT_AllPersistentOptions["Default"]["DBM"].HugeBarYOffset = 8

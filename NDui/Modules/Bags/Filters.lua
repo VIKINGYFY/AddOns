@@ -15,6 +15,14 @@ local function isItemInBank(item)
 	return item.bagId == -1 or (item.bagId > 5 and item.bagId < 13)
 end
 
+local function isItemInReagentBank(item)
+	return item.bagId == -3
+end
+
+local function isItemInAccountBank(item)
+	return item.bagId > 12 and item.bagId < 18
+end
+
 local emptyBags = {[0] = true, [11] = true}
 local function isEmptySlot(item)
 	if not C.db["Bags"]["GatherEmpty"] then return end
@@ -53,7 +61,7 @@ end
 local function isItemConsumable(item)
 	if not C.db["Bags"]["ItemFilter"] then return end
 	if not C.db["Bags"]["FilterConsumable"] then return end
-	return item.stackCount and item.stackCount > 1 and not DB.ExcludeIDs[item.classID]
+	return ((item.stackCount and item.stackCount > 1) or (item.itemOn and item.itemOn == "openable")) and not DB.ExcludeIDs[item.classID]
 end
 
 local function isItemLegendary(item)
@@ -86,53 +94,49 @@ local function isItemBoN(item)
 	return item.bindType and item.bindType == 0
 end
 
-local accountBankIDs = {
-	[Enum.BagIndex.AccountBankTab_1 or 13] = true,
-	[Enum.BagIndex.AccountBankTab_2 or 14] = true,
-	[Enum.BagIndex.AccountBankTab_3 or 15] = true,
-	[Enum.BagIndex.AccountBankTab_4 or 16] = true,
-	[Enum.BagIndex.AccountBankTab_5 or 17] = true
-}
-
 function module:GetFilters()
 	local filters = {}
 
 	filters.onlyBags = function(item) return isItemInBag(item) and not isEmptySlot(item) end
 	filters.onlyBank = function(item) return isItemInBank(item) and not isEmptySlot(item) end
 	filters.onlyBagReagent = function(item) return isItemInBagReagent(item) and not isEmptySlot(item) end
-	filters.onlyReagent = function(item) return item.bagId == -3 and not isEmptySlot(item) end
-	filters.accountbank = function(item) return accountBankIDs[item.bagId] and not isEmptySlot(item) end
-
-	filters.bagEquipment = function(item) return isItemInBag(item) and isItemEquipment(item) end
-	filters.bankEquipment = function(item) return isItemInBank(item) and isItemEquipment(item) end
-
-	filters.bagEquipSet = function(item) return isItemInBag(item) and isItemEquipSet(item) end
-	filters.bankEquipSet = function(item) return isItemInBank(item) and isItemEquipSet(item) end
+	filters.onlyReagent = function(item) return isItemInReagentBank(item) and not isEmptySlot(item) end
+	filters.accountbank = function(item) return isItemInAccountBank(item) and not isEmptySlot(item) end
 
 	filters.bagAoE = function(item) return isItemInBag(item) and isItemAoE(item) end
-	filters.bankAoE = function(item) return isItemInBank(item) and isItemAoE(item) end
-
-	filters.bagCollection = function(item) return isItemInBag(item) and isItemCollection(item) end
-	filters.bankCollection = function(item) return isItemInBank(item) and isItemCollection(item) end
-
-	filters.bagConsumable = function(item) return isItemInBag(item) and isItemConsumable(item) end
-	filters.bankConsumable = function(item) return isItemInBank(item) and isItemConsumable(item) end
-
-	filters.bagFeature = function(item) return isItemInBag(item) and isItemFeature(item) end
-	filters.bankFeature = function(item) return isItemInBank(item) and isItemFeature(item) end
-
 	filters.bagBoN = function(item) return isItemInBag(item) and isItemBoN(item) end
-	filters.bankBoN = function(item) return isItemInBank(item) and isItemBoN(item) end
-
+	filters.bagCollection = function(item) return isItemInBag(item) and isItemCollection(item) end
+	filters.bagConsumable = function(item) return isItemInBag(item) and isItemConsumable(item) end
+	filters.bagEquipSet = function(item) return isItemInBag(item) and isItemEquipSet(item) end
+	filters.bagEquipment = function(item) return isItemInBag(item) and isItemEquipment(item) end
+	filters.bagFeature = function(item) return isItemInBag(item) and isItemFeature(item) end
 	filters.bagJunk = function(item) return isItemInBag(item) and isItemJunk(item) end
-	filters.bankJunk = function(item) return isItemInBank(item) and isItemJunk(item) end
-
 	filters.bagLegendary = function(item) return isItemInBag(item) and isItemLegendary(item) end
+
+	filters.bankAoE = function(item) return isItemInBank(item) and isItemAoE(item) end
+	filters.bankBoN = function(item) return isItemInBank(item) and isItemBoN(item) end
+	filters.bankCollection = function(item) return isItemInBank(item) and isItemCollection(item) end
+	filters.bankConsumable = function(item) return isItemInBank(item) and isItemConsumable(item) end
+	filters.bankEquipSet = function(item) return isItemInBank(item) and isItemEquipSet(item) end
+	filters.bankEquipment = function(item) return isItemInBank(item) and isItemEquipment(item) end
+	filters.bankFeature = function(item) return isItemInBank(item) and isItemFeature(item) end
+	filters.bankJunk = function(item) return isItemInBank(item) and isItemJunk(item) end
 	filters.bankLegendary = function(item) return isItemInBank(item) and isItemLegendary(item) end
 
+	filters.accountAoE = function(item) return isItemInAccountBank(item) and isItemAoE(item) end
+	filters.accountBoN = function(item) return isItemInAccountBank(item) and isItemBoN(item) end
+	filters.accountCollection = function(item) return isItemInAccountBank(item) and isItemCollection(item) end
+	filters.accountConsumable = function(item) return isItemInAccountBank(item) and isItemConsumable(item) end
+	filters.accountEquipSet = function(item) return isItemInAccountBank(item) and isItemEquipSet(item) end
+	filters.accountEquipment = function(item) return isItemInAccountBank(item) and isItemEquipment(item) end
+	filters.accountFeature = function(item) return isItemInAccountBank(item) and isItemFeature(item) end
+	filters.accountJunk = function(item) return isItemInAccountBank(item) and isItemJunk(item) end
+	filters.accountLegendary = function(item) return isItemInAccountBank(item) and isItemLegendary(item) end
+
 	for i = 1, 5 do
-		filters["bagCustom"..i] = function(item) return isItemInBag(item) and isItemCustom(item, i) end
+		filters["bagCustom"..i] = function(item) return (isItemInBag(item) or isItemInBagReagent(item)) and isItemCustom(item, i) end
 		filters["bankCustom"..i] = function(item) return isItemInBank(item) and isItemCustom(item, i) end
+		filters["accountCustom"..i] = function(item) return isItemInAccountBank(item) and isItemCustom(item, i) end
 	end
 
 	return filters

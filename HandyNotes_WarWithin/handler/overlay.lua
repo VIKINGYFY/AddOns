@@ -286,7 +286,6 @@ function ns.SetupMapOverlay()
             LibDD:UIDropDownMenu_AddButton(info, level)
 
             wipe(info)
-            info.text = "NPCs"
             info.hasArrow = true
             info.isNotRadio = true
             info.notCheckable = nil
@@ -302,11 +301,15 @@ function ns.SetupMapOverlay()
                 ns.db[value] = checked
                 ns.HL:Refresh()
             end
+
+            info.text = "NPCs"
             info.checked = ns.db.show_npcs
             info.value = "show_npcs"
-            -- info.isNotRadio = true
-            -- info.keepShownOnClick = true
-            -- info.tooltipOnButton = true
+            LibDD:UIDropDownMenu_AddButton(info, level)
+
+            info.text = "Treasure"
+            info.checked = ns.db.show_treasure
+            info.value = "show_treasure"
             LibDD:UIDropDownMenu_AddButton(info, level)
 
             -- OptionsDropdown.FillFromArgs(ns.options.args.common.args.display.args.npcs.args, info, level)
@@ -440,7 +443,7 @@ function ns.SetupMapOverlay()
             end
             LibDD:UIDropDownMenu_AddButton(info, level)
 
-        elseif level == 2 and L_UIDROPDOWNMENU_MENU_VALUE == "show_npcs" then
+        elseif level == 2 and (L_UIDROPDOWNMENU_MENU_VALUE == "show_npcs" or L_UIDROPDOWNMENU_MENU_VALUE == "show_treasure") then
             wipe(info)
             info.func = function(button, arg1)
                 local checked = button.checked
@@ -453,7 +456,7 @@ function ns.SetupMapOverlay()
                 ns.db[value] = arg1
                 ns.HL:Refresh()
             end
-            info.value = "show_npcs_filter"
+            info.value = L_UIDROPDOWNMENU_MENU_VALUE .. "_filter"
             info.keepShownOnClick = false
 
             info.text = ALL
@@ -469,8 +472,10 @@ function ns.SetupMapOverlay()
             info.checked = ns.db[info.value] == "notable"
             LibDD:UIDropDownMenu_AddButton(info, level)
 
-            LibDD:UIDropDownMenu_AddSeparator(level)
-            OptionsDropdown.FillFromArgs(ns.options.args.common.args.display.args.npcs.args, info, level)
+            if L_UIDROPDOWNMENU_MENU_VALUE == "show_npcs" then
+                LibDD:UIDropDownMenu_AddSeparator(level)
+                OptionsDropdown.FillFromArgs(ns.options.args.common.args.display.args.npcs.args, info, level)
+            end
         elseif level == 2 and L_UIDROPDOWNMENU_MENU_VALUE == "notability" then
             wipe(info)
             OptionsDropdown.FillFromArgs(ns.options.args.common.args.notable.args, info, level)

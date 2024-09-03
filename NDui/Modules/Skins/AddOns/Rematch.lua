@@ -1,7 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local S = B:GetModule("Skins")
-local TT = B:GetModule("Tooltip")
 
 local cr, cg, cb = DB.r, DB.g, DB.b
 
@@ -205,8 +204,8 @@ local styled
 function S:ReskinRematchElements()
 	if styled then return end
 
-	TT.ReskinTooltip(RematchTooltip)
-	--TT.ReskinTooltip(RematchTableTooltip)
+	B.ReskinTooltip(RematchTooltip)
+	--B.ReskinTooltip(RematchTableTooltip)
 	--[=[for i = 1, 3 do
 		local menu = Rematch:GetMenuFrame(i, UIParent)
 		B.StripTextures(menu.Title)

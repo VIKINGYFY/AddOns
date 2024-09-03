@@ -299,15 +299,6 @@ function TT:RefreshStatusBar(value)
 	end
 end
 
-function TT:ReskinStatusBar()
-	self.StatusBar:ClearAllPoints()
-	self.StatusBar:SetPoint("BOTTOMLEFT", self.bg, "TOPLEFT", C.mult, 3)
-	self.StatusBar:SetPoint("BOTTOMRIGHT", self.bg, "TOPRIGHT", -C.mult, 3)
-	self.StatusBar:SetStatusBarTexture(DB.normTex)
-	self.StatusBar:SetHeight(5)
-	B.SetBD(self.StatusBar)
-end
-
 function TT:GameTooltip_ShowStatusBar()
 	if not self or self:IsForbidden() then return end
 	if not self.statusBarPool then return end
@@ -362,47 +353,6 @@ function TT:GameTooltip_SetDefaultAnchor(parent)
 		end
 		self:ClearAllPoints()
 		self:SetPoint(anchorIndex[C.db["Tooltip"]["TipAnchor"]], mover)
-	end
-end
-
--- Tooltip skin
-function TT:ReskinTooltip()
-	if not self then
-		if DB.isDeveloper then print("Unknown tooltip spotted.") end
-		return
-	end
-	if self:IsForbidden() then return end
-	self:SetScale(C.db["Tooltip"]["Scale"])
-
-	if not self.tipStyled then
-		self:HideBackdrop()
-		self:DisableDrawLayer("BACKGROUND")
-		self.bg = B.SetBD(self, .7)
-		self.bg:SetInside(self)
-		self.bg:SetFrameLevel(self:GetFrameLevel())
-		B.SetBorderColor(self.bg)
-
-		if self.StatusBar then
-			TT.ReskinStatusBar(self)
-		end
-
-		self.tipStyled = true
-	end
-
-	B.SetBorderColor(self.bg)
-
-	if not C.db["Tooltip"]["ItemQuality"] then return end
-
-	local data = self.GetTooltipData and self:GetTooltipData()
-	if data then
-		local link = data.guid and C_Item.GetItemLinkByGUID(data.guid) or data.hyperlink
-		if link then
-			local quality = select(3, C_Item.GetItemInfo(link))
-			local color = DB.QualityColors[quality or 1]
-			if color then
-				self.bg:SetBackdropBorderColor(color.r, color.g, color.b)
-			end
-		end
 	end
 end
 
@@ -541,11 +491,11 @@ TT:RegisterTooltips("NDui", function()
 		GameSmallHeaderTooltip,
 	}
 	for _, f in pairs(tooltips) do
-		f:HookScript("OnShow", TT.ReskinTooltip)
+		f:HookScript("OnShow", B.ReskinTooltip)
 	end
 
 	if SettingsTooltip then
-		TT.ReskinTooltip(SettingsTooltip)
+		B.ReskinTooltip(SettingsTooltip)
 		SettingsTooltip:SetScale(UIParent:GetScale())
 	end
 
@@ -556,7 +506,7 @@ TT:RegisterTooltips("NDui", function()
 			for i = 1, UIDROPDOWNMENU_MAXLEVELS do
 				local menu = _G[name..i.."MenuBackdrop"]
 				if menu and not menu.styled then
-					menu:HookScript("OnShow", TT.ReskinTooltip)
+					menu:HookScript("OnShow", B.ReskinTooltip)
 					menu.styled = true
 				end
 			end
@@ -603,42 +553,42 @@ TT:RegisterTooltips("NDui", function()
 	C_Timer.After(5, function()
 		-- BagSync
 		if BSYC_EventAlertTooltip then
-			TT.ReskinTooltip(BSYC_EventAlertTooltip)
+			B.ReskinTooltip(BSYC_EventAlertTooltip)
 		end
 		-- Libs
 		if LibDBIconTooltip then
-			TT.ReskinTooltip(LibDBIconTooltip)
+			B.ReskinTooltip(LibDBIconTooltip)
 		end
 		if AceConfigDialogTooltip then
-			TT.ReskinTooltip(AceConfigDialogTooltip)
+			B.ReskinTooltip(AceConfigDialogTooltip)
 		end
 		-- TomTom
 		if TomTomTooltip then
-			TT.ReskinTooltip(TomTomTooltip)
+			B.ReskinTooltip(TomTomTooltip)
 		end
 		-- RareScanner
 		if RSMapItemToolTip then
-			TT.ReskinTooltip(RSMapItemToolTip)
+			B.ReskinTooltip(RSMapItemToolTip)
 		end
 		if LootBarToolTip then
-			TT.ReskinTooltip(LootBarToolTip)
+			B.ReskinTooltip(LootBarToolTip)
 		end
 		-- Narcissus
 		if NarciGameTooltip then
-			TT.ReskinTooltip(NarciGameTooltip)
+			B.ReskinTooltip(NarciGameTooltip)
 		end
 		-- Altoholic
 		if AltoTooltip then
-			TT.ReskinTooltip(AltoTooltip)
+			B.ReskinTooltip(AltoTooltip)
 		end
 	end)
 
 	if C_AddOns.IsAddOnLoaded("BattlePetBreedID") then
 		hooksecurefunc("BPBID_SetBreedTooltip", function(parent)
 			if parent == FloatingBattlePetTooltip then
-				TT.ReskinTooltip(BPBID_BreedTooltip2)
+				B.ReskinTooltip(BPBID_BreedTooltip2)
 			else
-				TT.ReskinTooltip(BPBID_BreedTooltip)
+				B.ReskinTooltip(BPBID_BreedTooltip)
 			end
 		end)
 	end
@@ -648,8 +598,8 @@ TT:RegisterTooltips("NDui", function()
 		local styledMDT
 		hooksecurefunc(MDT, "ShowInterface", function()
 			if not styledMDT then
-				TT.ReskinTooltip(MDT.tooltip)
-				TT.ReskinTooltip(MDT.pullTooltip)
+				B.ReskinTooltip(MDT.tooltip)
+				B.ReskinTooltip(MDT.pullTooltip)
 				styledMDT = true
 			end
 		end)
@@ -657,17 +607,17 @@ TT:RegisterTooltips("NDui", function()
 end)
 
 TT:RegisterTooltips("Blizzard_DebugTools", function()
-	TT.ReskinTooltip(FrameStackTooltip)
+	B.ReskinTooltip(FrameStackTooltip)
 	FrameStackTooltip:SetScale(UIParent:GetScale())
 end)
 
 TT:RegisterTooltips("Blizzard_EventTrace", function()
-	TT.ReskinTooltip(EventTraceTooltip)
+	B.ReskinTooltip(EventTraceTooltip)
 end)
 
 TT:RegisterTooltips("Blizzard_Collections", function()
-	PetJournalPrimaryAbilityTooltip:HookScript("OnShow", TT.ReskinTooltip)
-	PetJournalSecondaryAbilityTooltip:HookScript("OnShow", TT.ReskinTooltip)
+	PetJournalPrimaryAbilityTooltip:HookScript("OnShow", B.ReskinTooltip)
+	PetJournalSecondaryAbilityTooltip:HookScript("OnShow", B.ReskinTooltip)
 	PetJournalPrimaryAbilityTooltip.Delimiter1:SetHeight(1)
 	PetJournalPrimaryAbilityTooltip.Delimiter1:SetColorTexture(0, 0, 0)
 	PetJournalPrimaryAbilityTooltip.Delimiter2:SetHeight(1)
@@ -685,22 +635,22 @@ TT:RegisterTooltips("Blizzard_GarrisonUI", function()
 		GarrisonFollowerMissionAbilityWithoutCountersTooltip
 	}
 	for _, f in pairs(gt) do
-		f:HookScript("OnShow", TT.ReskinTooltip)
+		f:HookScript("OnShow", B.ReskinTooltip)
 	end
 end)
 
 TT:RegisterTooltips("Blizzard_PVPUI", function()
-	ConquestTooltip:HookScript("OnShow", TT.ReskinTooltip)
+	ConquestTooltip:HookScript("OnShow", B.ReskinTooltip)
 end)
 
 TT:RegisterTooltips("Blizzard_Contribution", function()
-	ContributionBuffTooltip:HookScript("OnShow", TT.ReskinTooltip)
+	ContributionBuffTooltip:HookScript("OnShow", B.ReskinTooltip)
 	ContributionBuffTooltip.Icon:SetTexCoord(unpack(DB.TexCoord))
 	ContributionBuffTooltip.Border:SetAlpha(0)
 end)
 
 TT:RegisterTooltips("Blizzard_EncounterJournal", function()
-	EncounterJournalTooltip:HookScript("OnShow", TT.ReskinTooltip)
+	EncounterJournalTooltip:HookScript("OnShow", B.ReskinTooltip)
 	EncounterJournalTooltip.Item1.icon:SetTexCoord(unpack(DB.TexCoord))
 	EncounterJournalTooltip.Item1.IconBorder:SetAlpha(0)
 	EncounterJournalTooltip.Item2.icon:SetTexCoord(unpack(DB.TexCoord))
@@ -709,7 +659,7 @@ end)
 
 TT:RegisterTooltips("Blizzard_PerksProgram", function()
 	if PerksProgramTooltip then
-		TT.ReskinTooltip(PerksProgramTooltip)
+		B.ReskinTooltip(PerksProgramTooltip)
 		PerksProgramTooltip:SetScale(UIParent:GetScale())
 	end
 end)

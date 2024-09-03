@@ -2,9 +2,6 @@ local myname, ns = ...
 
 local COSMETIC_COLOR = CreateColor(1, 0.5, 1)
 local ATLAS_CHECK, ATLAS_CROSS = "common-icon-checkmark", "common-icon-redx"
-if ns.CLASSIC then
-    ATLAS_CHECK, ATLAS_CROSS = "Tracker-Check", "Objective-Fail"
-end
 
 local formatif = function(value, format, fallback)
     if not value then return fallback or "" end
@@ -22,6 +19,7 @@ ns.rewards.Reward = ns.Class{
     -- todo: consolidate these somehow?
     quest = false,
     questComplete = false,
+    warband = false,
     Initialize = function(self, id, extra)
         self.id = id
         if extra then
@@ -40,19 +38,26 @@ ns.rewards.Reward = ns.Class{
             if C_QuestLog.IsQuestFlaggedCompleted(self.quest) or C_QuestLog.IsOnQuest(self.quest) then
                 return true
             end
-            result = false
+            if self.warband and C_QuestLog.IsQuestFlaggedCompletedOnAccount(self.quest) then
+                return true
+            end
+            if for_tooltip or ns.db.quest_notable then
+                result = false
+            end
         end
         if self.questComplete then
             if C_QuestLog.IsQuestFlaggedCompleted(self.questComplete) then
                 return true
             end
-            result = false
+            if for_tooltip or ns.db.quest_notable then
+                result = false
+            end
         end
         return result
     end,
     Notable = function(self)
         -- Is it knowable and not obtained?
-        return ns.db.quest_notable and self:MightDrop() and self:Obtained() == false
+        return self:MightDrop() and (self:Obtained() == false)
     end,
     Available = function(self)
         if self.requires and not ns.conditions.check(self.requires) then
@@ -98,7 +103,12 @@ ns.rewards.Reward = ns.Class{
         return NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b
     end,
     TooltipLabel = function(self) return UNKNOWN end,
-    TooltipLabelColor = function(self) return NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b end,
+    TooltipLabelColor = function(self)
+        if ns.db.show_npcs_emphasizeNotable and self:Notable() then
+            return 1, 0, 1
+        end
+        return NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b
+    end,
     ObtainedTag = function(self)
         local known = self:Obtained(true) -- for_tooltip
         if known == nil then return end
@@ -131,12 +141,6 @@ ns.rewards.Item = ns.Class{
         end
         return label
     end,
-    TooltipLabelColor = function(self)
-        if ns.db.show_npcs_emphasizeNotable and self:Notable() then
-            return 1, 0, 1
-        end
-        return self:super("TooltipLabelColor")
-    end,
     Icon = function(self) return (select(5, C_Item.GetItemInfoInstant(self.id))) end,
     Obtained = function(self, for_tooltip)
         local result = self:super("Obtained", for_tooltip)
@@ -158,13 +162,12 @@ ns.rewards.Item = ns.Class{
         end
         return result
     end,
-    Notable = function(self)
-        -- notable if: it might drop, its obtainability is knowable, and it hasn't been obtained
-        -- (close override of the parent, to add the transmog preference)
-        return ns.db.transmog_notable and
-            self:MightDrop() and
-            self:Obtained() == false
-    end,
+    -- Notable = function(self)
+    --     -- notable if: it might drop, its obtainability is knowable, and it hasn't been obtained
+    --     -- (close override of the parent, to add the transmog preference)
+    --     return self:super("Notable") or
+    --         (self:MightDrop() and self:Obtained() == false)
+    -- end,
     MightDrop = function(self)
         -- We think an item might drop if it either has no spec information, or
         -- returns any spec information at all (because the game will only give
@@ -285,6 +288,11 @@ ns.rewards.Currency = ns.Class{
     Initialize = function(self, id, amount, ...)
         self:super("Initialize", id, ...)
         self.amount = amount
+        self.faction = C_CurrencyInfo.GetFactionGrantedByCurrency(id)
+        -- This effect is a little specialized around the rep drops from rares
+        -- in War Within; will need to revisit it if there's future warband
+        -- currency rewards that are character-gated not account-gated...
+        self.warband = self.faction and C_Reputation.IsAccountWideReputation(self.faction)
     end,
     Name = function(self, color)
         local info = C_CurrencyInfo.GetBasicCurrencyInfo(self.id, self.amount)
@@ -303,9 +311,6 @@ ns.rewards.Currency = ns.Class{
         end
     end,
     TooltipLabel = function(self)
-        if C_CurrencyInfo.GetFactionGrantedByCurrency(self.id) then
-            return REPUTATION
-        end
-        return CURRENCY
+        return self.faction and REPUTATION or CURRENCY
     end,
 }

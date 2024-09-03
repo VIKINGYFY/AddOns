@@ -32,7 +32,7 @@ local function sendQuestMsg(msg)
 
 	if debugMode and DB.isDeveloper then
 		print(msg)
-	elseif IsPartyLFG() then
+	elseif (IsPartyLFG() or C_PartyInfo.IsPartyWalkIn()) then
 		SendChatMessage(msg, "INSTANCE_CHAT")
 	elseif IsInRaid() then
 		SendChatMessage(msg, "RAID")

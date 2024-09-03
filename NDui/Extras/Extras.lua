@@ -26,18 +26,13 @@ function EX:OnLogin()
 	self:MDEnhance()
 end
 
--- 频道选择
-function EX:GetMSGChannel()
-	return (IsPartyLFG() and "INSTANCE_CHAT") or (IsInRaid() and "RAID") or "PARTY"
-end
-
 -- 副本重置自动喊话
 function EX.UpdateInstanceReset(_, msg)
 	if string.find(msg, "难度") or string.find(msg, "重置") then
 		if not IsInGroup() then
 			UIErrorsFrame:AddMessage(DB.InfoColor..msg)
 		else
-			SendChatMessage(msg, EX:GetMSGChannel())
+			SendChatMessage(msg, B.GetMSGChannel())
 		end
 	end
 end
@@ -58,7 +53,7 @@ function EX.UpdateInstanceDifficulty()
 				if not IsInGroup() then
 					UIErrorsFrame:AddMessage(format(DB.InfoColor..L["Instance Difficulty"], difficultyName))
 				else
-					SendChatMessage(format(L["Instance Difficulty"], difficultyName), EX:GetMSGChannel())
+					SendChatMessage(format(L["Instance Difficulty"], difficultyName), B.GetMSGChannel())
 				end
 			end
 		end

@@ -65,6 +65,5 @@ C.themes["Blizzard_RuneforgeUI"] = function()
 	B.ReskinArrow(pageControl.BackwardButton, "left")
 	B.ReskinArrow(pageControl.ForwardButton, "right")
 
-	local TT = B:GetModule("Tooltip")
-	TT.ReskinTooltip(frame.ResultTooltip)
+	B.ReskinTooltip(frame.ResultTooltip)
 end

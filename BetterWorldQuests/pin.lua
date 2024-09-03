@@ -25,7 +25,7 @@ function BetterWorldQuestPinMixin:OnLoad()
 
 	-- recreate WorldQuestPinTemplate regions
 	local TrackedCheck = self:CreateTexture(nil, 'OVERLAY', nil, 7)
-	TrackedCheck:SetPoint('BOTTOM', self, 'BOTTOMRIGHT', 0, -2)
+	TrackedCheck:SetPoint('CENTER', self, 'RIGHT')
 	TrackedCheck:SetAtlas('worldquest-emissary-tracker-checkmark', true)
 	TrackedCheck:Hide()
 	self.TrackedCheck = TrackedCheck
@@ -54,11 +54,12 @@ function BetterWorldQuestPinMixin:OnLoad()
 	Reward:AddMaskTexture(RewardMask)
 
 	local Indicator = self:CreateTexture(nil, 'OVERLAY', nil, 2)
-	Indicator:SetPoint('CENTER', self, 'TOPLEFT', 4, -4)
+	Indicator:SetScale(1.2)
+	Indicator:SetPoint('CENTER', self, 'TOPLEFT', 2, -2)
 	self.Indicator = Indicator
 
 	local Reputation = self:CreateTexture(nil, 'OVERLAY', nil, 2)
-	Reputation:SetPoint('CENTER', self, 'BOTTOM', 0, 2)
+	Reputation:SetPoint('CENTER', self, 'TOP')
 	Reputation:SetSize(10, 10)
 	Reputation:SetAtlas('socialqueuing-icon-eye')
 	Reputation:Hide()
@@ -66,13 +67,13 @@ function BetterWorldQuestPinMixin:OnLoad()
 
 	local Bounty = self:CreateTexture(nil, 'OVERLAY', nil, 3)
 	Bounty:SetAtlas('QuestNormal', true)
-	Bounty:SetScale(0.65)
-	Bounty:SetPoint('LEFT', self, 'RIGHT', -(Bounty:GetWidth() / 2), 0)
+	Bounty:SetScale(0.6)
+	Bounty:SetPoint('CENTER', self, 'LEFT')
 	self.Bounty = Bounty
 
-	local Text = self:CreateFontString(nil, "OVERLAY")
-	Text:SetFont(STANDARD_TEXT_FONT, 12, "OUTLINE")
-	Text:SetPoint("CENTER", self, "BOTTOM")
+	local Text = self:CreateFontString(nil, 'OVERLAY')
+	Text:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
+	Text:SetPoint('CENTER', self, 'BOTTOM')
 	self.Text = Text
 end
 

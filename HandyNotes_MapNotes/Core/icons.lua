@@ -65,7 +65,7 @@ ns.icons = {
 ["ZonePvEVendorA"] = iconLink .. "PvEVendorA",
 ["ZonePvPVendorA"] = iconLink .. "PvPVendorA",
 --Professions MN New
-["ProfessionOrders"] = "interface/minimap/tracking/profession.blp",
+["ProfessionOrders"] = iconLink .. "CraftingOrders",
 ["Engineer"] = iconLink .. "Engineering",
 ["Alchemy"] = iconLink .. "Alchemy",
 ["Blacksmith"] = iconLink .. "Blacksmithing",
@@ -112,7 +112,7 @@ ns.icons = {
 ["ClassicOriginalFishing"] = "interface/icons/trade_fishing.blp",
 ["ClassicOriginalCooking"] = "interface/icons/inv_misc_food_15.blp",
 --Professions New
-["ProfessionOrdersNew"] = "interface/minimap/tracking/profession.blp",
+["ProfessionOrdersNew"] = iconLink .. "CraftingOrders",
 ["EngineerNew"] = iconLink .. "Engineering",
 ["AlchemyNew"] = iconLink .. "Alchemy",
 ["BlacksmithNew"] = iconLink .. "Blacksmithing",
@@ -137,7 +137,7 @@ ns.icons = {
 ["LLG"] = "Interface/Icons/artifactability_HavocDemonHunter_AnguishoftheDeceiver",
 ["LMOP"] = "Interface/CharacterFrame/TEMPORARYPORTRAIT-FEMALE-PANDAREN",
 ["LWotlk"] = "interface/lfgframe/ui-lfr-portrait",
-["TWW"] = "interface/icons/inv_achievement_raid_progenitorraid_anduin.blp",
+["TWW"] = "interface/characterframe/temporaryportrait-female-voidelf.blp",
 --paths
 ["PathO"] = iconLink .. "PathO",
 ["PathRO"] = iconLink .. "PathRO",
@@ -304,7 +304,7 @@ TextIconValdrakken = TextIcon("interface/icons/spell_arcane_teleportvaldrakken.b
 TextIconDornogal = TextIcon("interface/icons/inv_spell_arcane_telepotdornogal.blp", 50, 50, 1, 50, 1, 50)
 TextIconDarkMoon = TextIcon(iconLink .. "DarkMoon", 50, 50, 1, 50, 1, 50)
 --profession
-TextIconProfessionOrders = TextIcon("interface/minimap/tracking/profession.blp", 50, 50, 1, 50, 1, 50)
+TextIconProfessionOrders = TextIcon(iconLink .. "CraftingOrders", 50, 50, 1, 50, 1, 50)
 TextIconEngineer = TextIcon(iconLink .. "Engineering", 50, 50, 1, 50, 1, 50)
 TextIconAlchemy = TextIcon(iconLink .. "Alchemy", 50, 50, 1, 50, 1, 50)
 TextIconBlacksmith = TextIcon(iconLink .. "Blacksmithing", 50, 50, 1, 50, 1, 50)

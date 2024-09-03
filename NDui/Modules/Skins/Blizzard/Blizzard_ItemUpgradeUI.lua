@@ -42,6 +42,5 @@ C.themes["Blizzard_ItemUpgradeUI"] = function()
 	hooksecurefunc(ItemUpgradeFrame.UpgradeCostFrame, "GetIconFrame", reskinCurrencyIcon)
 	hooksecurefunc(ItemUpgradeFrame.PlayerCurrencies, "GetIconFrame", reskinCurrencyIcon)
 
-	local TT = B:GetModule("Tooltip")
-	TT.ReskinTooltip(ItemUpgradeFrame.ItemHoverPreviewFrame)
+	B.ReskinTooltip(ItemUpgradeFrame.ItemHoverPreviewFrame)
 end

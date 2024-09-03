@@ -15,9 +15,6 @@ ns.CLASSIC = WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE
 ns.WARBANDS_AVAILABLE = LE_EXPANSION_LEVEL_CURRENT >= (LE_EXPANSION_WAR_WITHIN or math.huge)
 
 local ATLAS_CHECK, ATLAS_CROSS = "common-icon-checkmark", "common-icon-redx"
-if ns.CLASSIC then
-    ATLAS_CHECK, ATLAS_CROSS = "Tracker-Check", "Objective-Fail"
-end
 
 local COSMETIC_COLOR = CreateColor(1, 0.5, 1)
 
@@ -853,20 +850,64 @@ local get_point_progress = function(point)
 end
 
 local function tooltip_criteria(tooltip, achievement, criteriaid, ignore_quantityString)
-    local criteria, _, complete, _, _, _, flags, _, quantityString = ns.GetCriteria(achievement, criteriaid) -- include hidden
+    local criteria, _, complete, _, _, completedBy, flags, _, quantityString = ns.GetCriteria(achievement, criteriaid) -- include hidden
+    -- by this current character, or by any character if the setting says it's okay
+    if completedBy and not complete then
+        name = TEXT_MODE_A_STRING_VALUE_TYPE:format(name, GREEN_FONT_COLOR:WrapTextInColorCode(completedBy))
+    end
+    local r, g, b = (complete and GREEN_FONT_COLOR or RED_FONT_COLOR):GetRGB()
     if quantityString and not ignore_quantityString then
         local is_progressbar = bit.band(flags, EVALUATION_TREE_FLAG_PROGRESS_BAR) == EVALUATION_TREE_FLAG_PROGRESS_BAR
         local label = (criteria and #criteria > 0 and not is_progressbar) and criteria or PVP_PROGRESS_REWARDS_HEADER
         tooltip:AddDoubleLine(
             label, quantityString,
-            complete and 0 or 1, complete and 1 or 0, 0,
-            complete and 0 or 1, complete and 1 or 0, 0
+            r, g, b, r, g, b
         )
     else
         tooltip:AddDoubleLine(" ", criteria,
             nil, nil, nil,
-            complete and 0 or 1, complete and 1 or 0, 0
+            r, g, b, r, g, b
         )
+    end
+end
+local function tooltip_achievement(tooltip, achievement, criteria)
+    local _, name, _, anyComplete, _, _, _, _, _, _, _, _, completedByMe, earnedBy = GetAchievementInfo(achievement)
+    local complete = completedByMe or (ns.db.alts_achievements_count and anyComplete)
+    if anyComplete and not complete then
+        name = TEXT_MODE_A_STRING_VALUE_TYPE:format(name, GREEN_FONT_COLOR:WrapTextInColorCode(earnedBy or ALT_KEY_TEXT))
+    end
+    tooltip:AddDoubleLine(BATTLE_PET_SOURCE_6, name or achievement,
+        nil, nil, nil,
+        (complete and GREEN_FONT_COLOR or RED_FONT_COLOR):GetRGB()
+    )
+    if criteria then
+        if criteria == true then
+            local numCriteria = GetAchievementNumCriteria(achievement, true) -- include hidden
+            if numCriteria > 10 then
+                local numComplete = 0
+                for criteria=1, numCriteria do
+                    if select(3, GetAchievementCriteriaInfo(achievement, criteria, true)) then
+                        numComplete = numComplete + 1
+                    end
+                end
+                tooltip:AddDoubleLine(" ", GENERIC_FRACTION_STRING:format(numComplete, numCriteria),
+                    nil, nil, nil,
+                    (complete and GREEN_FONT_COLOR or RED_FONT_COLOR):GetRGB()
+                )
+            else
+                for criteria=1, numCriteria do
+                    tooltip_criteria(tooltip, achievement, criteria, true)
+                end
+            end
+        elseif type(criteria) == "table" then
+            for _, criteria in ipairs(criteria) do
+                tooltip_criteria(tooltip, achievement, criteria, true)
+            end
+        elseif type(criteria) == "number" then
+            tooltip_criteria(tooltip, achievement, criteria, true)
+        end
+    elseif GetAchievementNumCriteria(achievement) == 1 then
+        tooltip_criteria(tooltip, achievement, 1)
     end
 end
 local function tooltip_loot(tooltip, item)
@@ -875,6 +916,13 @@ local function tooltip_loot(tooltip, item)
     end
     item:AddToTooltip(tooltip)
 end
+
+ns.tooltipHelpers = {
+    loot = tooltip_loot,
+    achievement = tooltip_achievement,
+    criteria = tooltip_criteria,
+}
+
 local function handle_tooltip(tooltip, point, skip_label)
     if not point then
         tooltip:SetText(UNKNOWN)
@@ -910,40 +958,7 @@ local function handle_tooltip(tooltip, point, skip_label)
         tooltip:AddDoubleLine(CURRENCY, name or point.currency)
     end
     if point.achievement then
-        local _, name, _, complete = GetAchievementInfo(point.achievement)
-        tooltip:AddDoubleLine(BATTLE_PET_SOURCE_6, name or point.achievement,
-            nil, nil, nil,
-            complete and 0 or 1, complete and 1 or 0, 0
-        )
-        if point.criteria then
-            if point.criteria == true then
-                local numCriteria = GetAchievementNumCriteria(point.achievement, true) -- include hidden
-                if numCriteria > 10 then
-                    local numComplete = 0
-                    for criteria=1, numCriteria do
-                        if select(3, GetAchievementCriteriaInfo(point.achievement, criteria, true)) then
-                            numComplete = numComplete + 1
-                        end
-                    end
-                    tooltip:AddDoubleLine(" ", GENERIC_FRACTION_STRING:format(numComplete, numCriteria),
-                        nil, nil, nil,
-                        complete and 0 or 1, complete and 1 or 0, 0
-                    )
-                else
-                    for criteria=1, numCriteria do
-                        tooltip_criteria(tooltip, point.achievement, criteria, true)
-                    end
-                end
-            elseif type(point.criteria) == "table" then
-                for _, criteria in ipairs(point.criteria) do
-                    tooltip_criteria(tooltip, point.achievement, criteria, true)
-                end
-            elseif type(point.criteria) == "number" then
-                tooltip_criteria(tooltip, point.achievement, point.criteria, true)
-            end
-        elseif GetAchievementNumCriteria(point.achievement) == 1 then
-            tooltip_criteria(tooltip, point.achievement, 1)
-        end
+        tooltip_achievement(tooltip, point.achievement, point.criteria)
     end
     if point.progress then
         local fulfilled, required = get_point_progress(point)
@@ -967,36 +982,39 @@ local function handle_tooltip(tooltip, point, skip_label)
         local data = C_Covenants.GetCovenantData(point.covenant)
         local active = point.covenant == C_Covenants.GetActiveCovenantID()
         local cname = COVENANT_COLORS[point.covenant]:WrapTextInColorCode(data and data.name or ns.covenants[point.covenant])
-        tooltip:AddLine(ITEM_REQ_SKILL:format(cname), active and 0 or 1, active and 1 or 0, 0)
+        tooltip:AddLine(ITEM_REQ_SKILL:format(cname), (active and GREEN_FONT_COLOR or RED_FONT_COLOR):GetRGB())
     end
     if point.level and point.level > UnitLevel("player") then
-        tooltip:AddLine(ITEM_MIN_LEVEL:format(point.level), 1, 0, 0)
+        tooltip:AddLine(ITEM_MIN_LEVEL:format(point.level), RED_FONT_COLOR:GetRGB())
     end
     if point.hide_before then
         local isHidden = not ns.conditions.check(point.hide_before)
         if isHidden then
-            tooltip:AddLine(COMMUNITY_TYPE_UNAVAILABLE, 1, 0, 0)
+            tooltip:AddLine(COMMUNITY_TYPE_UNAVAILABLE, RED_FONT_COLOR:GetRGB())
         end
+        local r, g, b = (isHidden and GREEN_FONT_COLOR or RED_FONT_COLOR):GetRGB()
         tooltip:AddLine(
             ns.render_string(ns.conditions.summarize(point.hide_before), point),
-            isHidden and 1 or 0, isHidden and 0 or 1, 0, true
+            r, g, b, true
         )
     end
     if point.requires then
         local isHidden = not ns.conditions.check(point.requires)
         if isHidden then
-            tooltip:AddLine(COMMUNITY_TYPE_UNAVAILABLE, 1, 0, 0)
+            tooltip:AddLine(COMMUNITY_TYPE_UNAVAILABLE, RED_FONT_COLOR:GetRGB())
         end
+        local r, g, b = (isHidden and GREEN_FONT_COLOR or RED_FONT_COLOR):GetRGB()
         tooltip:AddLine(
             ns.render_string(ns.conditions.summarize(point.requires), point),
-            isHidden and 1 or 0, isHidden and 0 or 1, 0, true
+            r, g, b, true
         )
     end
     if point.active then
         local isActive = ns.point_active(point)
+        local r, g, b = (isActive and GREEN_FONT_COLOR or RED_FONT_COLOR):GetRGB()
         tooltip:AddLine(
             ns.render_string(point.active.note or ns.conditions.summarize(point.active), point),
-            isActive and 0 or 1, isActive and 1 or 0, 0, true
+            r, g, b, true
         )
     end
 

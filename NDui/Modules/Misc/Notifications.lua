@@ -153,10 +153,6 @@ end
 	闭上你的嘴！
 	打断、偷取及驱散法术时的警报
 ]]
-function M:GetMsgChannel()
-	return IsPartyLFG() and "INSTANCE_CHAT" or IsInRaid() and "RAID" or "PARTY"
-end
-
 local infoType = {}
 
 function M:InterruptAlert_Toggle()
@@ -229,14 +225,14 @@ function M:InterruptAlert_Update(...)
 			end
 
 			if sourceSpellID and destSpellID then
-				SendChatMessage(format(infoText, sourceName..C_Spell.GetSpellLink(sourceSpellID), destName..C_Spell.GetSpellLink(destSpellID)), M:GetMsgChannel())
+				SendChatMessage(format(infoText, sourceName..C_Spell.GetSpellLink(sourceSpellID), destName..C_Spell.GetSpellLink(destSpellID)), B.GetMSGChannel())
 			end
 		end
 	end
 end
 
 function M:InterruptAlert_CheckGroup()
-	if IsInGroup() and (not C.db["Misc"]["InstAlertOnly"] or (IsInInstance() and not IsPartyLFG())) then
+	if IsInGroup() and (not C.db["Misc"]["InstAlertOnly"] or not IsPartyLFG() or not C_PartyInfo.IsPartyWalkIn()) then
 		B:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", M.InterruptAlert_Update)
 	else
 		B:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED", M.InterruptAlert_Update)
@@ -336,7 +332,7 @@ end
 
 function M:VersionCheck_UpdateGroup()
 	if not IsInGroup() then return end
-	M:VersionCheck_Send(M:GetMsgChannel())
+	M:VersionCheck_Send(B.GetMSGChannel())
 end
 
 function M:VersionCheck()
@@ -402,11 +398,23 @@ local spellList = {
 	[390386] = true,	-- 守护巨龙之怒
 	[309658] = true,	-- 死亡凶蛮战鼓
 	[444257] = true,	-- 掣雷之鼓
+
+	[384893] = true,	-- 足以乱真的救急电缆11.0工程战复
+	[453949] = true,	-- 不可抗拒的红色按钮11.0工程战复工具
+	[453942] = true,	-- 阿加修理机器人11O   
+	[432877] = true,	-- 阿加合剂大锅
+	[433292] = true,	-- 阿加药水大锅
+	[455960] = true,	-- 全味炖煮
+	[457285] = true,	-- 午夜舞会盛宴
+	[457302] = true,	-- 特色寿司
+	[457487] = true,	-- 丰盛的全味炖煮(战团)
+	[462211] = true,	-- 丰盛的特色寿司(战团)
+	[462213] = true,	-- 丰盛的午夜舞会盛宴(战团)
 }
 
 function M:ItemAlert_Update(unit, castID, spellID)
 	if groupUnits[unit] and spellList[spellID] and (spellList[spellID] ~= castID) then
-		SendChatMessage(format(L["SpellItemAlertStr"], UnitName(unit), C_Spell.GetSpellLink(spellID) or C_Spell.GetSpellName(spellID)), M:GetMsgChannel())
+		SendChatMessage(format(L["SpellItemAlertStr"], UnitName(unit), C_Spell.GetSpellLink(spellID) or C_Spell.GetSpellName(spellID)), B.GetMSGChannel())
 		spellList[spellID] = castID
 	end
 end
@@ -422,7 +430,7 @@ local bloodLustDebuffs = {
 function M:CheckBloodlustStatus(...)
 	local _, eventType, _, sourceGUID, _, _, _, _, _, _, _, spellID = ...
 	if eventType == "SPELL_AURA_REMOVED" and bloodLustDebuffs[spellID] and sourceGUID == myGUID then
-		SendChatMessage(format(L["BloodlustStr"], C_Spell.GetSpellLink(spellID), M.factionSpell), M:GetMsgChannel())
+		SendChatMessage(format(L["BloodlustStr"], C_Spell.GetSpellLink(spellID), M.factionSpell), B.GetMSGChannel())
 	end
 end
 

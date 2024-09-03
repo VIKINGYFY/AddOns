@@ -3,22 +3,6 @@ local B, C, L, DB = unpack(ns)
 local oUF = ns.oUF
 local M = B:RegisterModule("Misc")
 
--- 自定义API
-do
-	local rtgColor = {1, 0, 0, 1, 1, 0, 0, 1, 0}
-	local gtrColor = {0, 1, 0, 1, 1, 0, 1, 0, 0}
-	function B.Color(cur, max, fullRed)
-		local r, g, b = oUF:RGBColorGradient(cur, max, unpack(fullRed and gtrColor or rtgColor))
-		return r, g, b
-	end
-
-	function B.Perc(value, fullRed)
-		local per = format("%.1f%%", value)
-		local r, g, b = B.Color(value, 100, fullRed)
-		return B.HexRGB(r, g, b, per)
-	end
-end
-
 local MISC_LIST = {}
 
 function M:RegisterMisc(name, func)

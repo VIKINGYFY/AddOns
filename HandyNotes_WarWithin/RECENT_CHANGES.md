@@ -1,8 +1,7 @@
-## Changed in v36
+## Changed in v41
 
-* Hallowfall: improve Beledar's Spawn -- show the time until the shadow phase via entertaining abuse of the
-conditions system, add it to a group so it can be easily individually
-toggled because there's a lot of spawn points... also, add the weekly reputation reward
-* Hallowfall: add a bunch of weekly reputation rewards and make some minor tweaks
-* Azj-Kahet: start on weekly reputation rewards
+* Add snuffling-related Disturbed Earth points and vendor, hidden by default
+* Add reputation rewards to the one-time treasures/rares
+* Hide Khaz Algar Lore Hunter by default, since it's disabled by Blizzard
+* Hallowfall: a few more weekly reputation rewards
 

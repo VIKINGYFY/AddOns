@@ -1,14 +1,14 @@
 # MapNote
-## [2.2.4](https://github.com/Ssesmar/MapNote) (2024-08-30)
+## [2.2.7](https://github.com/Ssesmar/MapNote) (2024-09-02)
 - Note:
 
 -- MapNotes now works on every version of World of Warcraft. Classic Era / Cataclysm / Retail / PTR
 
 Retail:
 
-• some updates for TWW
-• some bugfixes
-• add Catalyst icons for Zone+ tab
+• add MapNotes special icons function on Zones for Khaz Algar 
+• add some MapNotes special icons inside Capitals Zones
+• add icons to the tooltip for MapNote special icons for Khaz Algar and Capitals
 
 - Description:
 

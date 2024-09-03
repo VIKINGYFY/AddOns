@@ -44,10 +44,13 @@ ns.PROF_WW_TAILORING = 2883 -- spell:
 
 ns.hiddenConfig = {}
 
-ns.defaults.profile.groupsHidden = {}
+ns.defaults.profile.groupsHidden = {
+    snuffling = true,
+}
 
 ns.defaults.profile.achievementsHidden = {
-    [40475] = true,
+    [40475] = true, -- To All the Slimes I Love
+    [40762] = true, -- Khaz Algar Lore Hunter (is disabled by Blizzard currently)
 }
 
 ns.groups["junk"] = BAG_FILTER_JUNK
@@ -55,7 +58,9 @@ ns.groups["professionknowledge"] = "Profession Knowledge"
 ns.groups["glyphs"] = GLYPHS
 ns.groups["delves"] = DELVES_LABEL
 ns.groups["races"] = "{spell:369968:Racing}"
+ns.groups["beledar"] = "{spell:452526:Beledar's Influence}"
 ns.groups["beledarspawn"] = "{npc:207802:Beledar's Spawn}"
+ns.groups["snuffling"] = "{spell:431909:Snuffling}"
 
 --[[
 notes:

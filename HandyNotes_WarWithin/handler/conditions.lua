@@ -15,11 +15,13 @@ condition:Label() -> string
 ]]
 
 local Condition = Class{
+    __classname = "Condition",
     Initialize = function(self, id) self.id = id end,
     Label = function(self) return ('{%s:%d}'):format(self.type, self.id) end,
     Matched = function() return false end,
 }
 local RankedCondition = Class{
+    __classname = "RankedCondition",
     __parent = Condition,
     Initialize = function(self, id, rank)
         self.id = id
@@ -35,6 +37,7 @@ local RankedCondition = Class{
     end
 }
 local Negated = function(parent) return {
+    __classname = "Negated"..parent.__classname,
     __parent = parent,
     Matched = function(self) return not parent.Matched(self) end,
 } end
@@ -44,6 +47,7 @@ ns.conditions._RankedCondition = RankedCondition
 ns.conditions._Negated = Negated
 
 ns.conditions.Achievement = Class{
+    __classname = "Achievement",
     __parent = Condition,
     type = 'achievement',
     Matched = function(self) return (select(4, GetAchievementInfo(self.id))) end,
@@ -51,6 +55,7 @@ ns.conditions.Achievement = Class{
 ns.conditions.AchievementIncomplete = Class(Negated(ns.conditions.Achievement))
 
 ns.conditions.AuraActive = Class{
+    __classname = "AuraActive",
     __parent = Condition,
     type = 'spell',
     Matched = function(self) return GetPlayerAuraBySpellID(self.id) end,
@@ -58,6 +63,7 @@ ns.conditions.AuraActive = Class{
 ns.conditions.AuraInactive = Class(Negated(ns.conditions.AuraActive))
 
 ns.conditions.SpellKnown = Class{
+    __classname = "SpellKnown",
     __parent = Condition,
     type = 'spell',
     Matched = function(self) return IsSpellKnown(self.id) end,
@@ -66,6 +72,7 @@ ns.conditions.SpellKnown = Class{
 ns.conditions.Profession = Class{
     -- See https://wowpedia.fandom.com/wiki/TradeSkillLineID for IDs
     -- TODO: make work in Classic? Whole different API.
+    __classname = "Profession",
     __parent = RankedCondition,
     type = "profession",
     Matched = function(self)
@@ -108,6 +115,7 @@ ns.conditions.Profession = Class{
 }
 
 ns.conditions.Covenant = Class{
+    __classname = "Covenant",
     __parent = RankedCondition,
     type = 'covenant',
     Matched = function(self)
@@ -122,6 +130,7 @@ ns.conditions.Covenant = Class{
 }
 
 ns.conditions.Faction = Class{
+    __classname = "Faction",
     __parent = RankedCondition,
     type = 'faction',
     Matched = function(self)
@@ -142,6 +151,7 @@ ns.conditions.Faction = Class{
 }
 
 ns.conditions.MajorFaction = Class{
+    __classname = "MajorFaction",
     __parent = RankedCondition,
     type = 'majorfaction',
     Matched = function(self)
@@ -156,6 +166,7 @@ ns.conditions.MajorFaction = Class{
 }
 
 ns.conditions.GarrisonTalent = Class{
+    __classname = "GarrisonTalent",
     __parent = Condition,
     type = 'garrisontalent',
     Initialize = function(self, id, rank)
@@ -177,6 +188,7 @@ ns.conditions.GarrisonTalent = Class{
 }
 
 ns.conditions.Item = Class{
+    __classname = "Item",
     __parent = Condition,
     type = 'item',
     Initialize = function(self, id, count)
@@ -193,11 +205,13 @@ ns.conditions.Item = Class{
 }
 
 ns.conditions.Toy = Class{
+    __classname = "Toy",
     __parent = ns.conditions.Item,
     Matched = function(self) return PlayerHasToy(self.id) end,
 }
 
 ns.conditions.QuestComplete = Class{
+    __classname = "QuestComplete",
     __parent = Condition,
     type = 'quest',
     Matched = function(self) return C_QuestLog.IsQuestFlaggedCompleted(self.id) end,
@@ -205,18 +219,21 @@ ns.conditions.QuestComplete = Class{
 ns.conditions.QuestIncomplete = Class(Negated(ns.conditions.QuestComplete))
 
 ns.conditions.WorldQuestActive = Class{
+    __classname = "WorldQuestActive",
     __parent = Condition,
     type = 'worldquest',
     Matched = function(self) return C_TaskQuest.IsActive(self.id) or C_QuestLog.IsQuestFlaggedCompleted(self.id) end,
 }
 
 ns.conditions.OnQuest = Class{
+    __classname = "OnQuest",
     __parent = Condition,
     type = 'quest',
     Matched = function(self) return C_QuestLog.IsOnQuest(self.id) end,
 }
 
 ns.conditions.Vignette = Class{
+    __classname = "Vignette",
     __parent = Condition,
     type = 'vignette',
     FindVignette = function(self)
@@ -240,6 +257,7 @@ ns.conditions.Vignette = Class{
 }
 
 ns.conditions.Level = Class{
+    __classname = "Level",
     __parent = Condition,
     type = 'level',
     Label = function(self) return UNIT_LEVEL_TEMPLATE:format(self.id) end,
@@ -247,6 +265,7 @@ ns.conditions.Level = Class{
 }
 
 ns.conditions.Class = Class{
+    __classname = "Class",
     __parent = Condition,
     type = 'class',
     Label = function(self)
@@ -260,6 +279,7 @@ ns.conditions.Class = Class{
 }
 
 ns.conditions.CalendarEvent = Class{
+    __classname = "CalendarEvent",
     __parent = Condition,
     type = 'calendarevent',
     Label = function(self)
@@ -301,6 +321,7 @@ ns.conditions.CalendarEvent = Class{
     end,
 }
 ns.conditions.CalendarEventStartTexture = Class{
+    __classname = "CalendarEventStartTexture",
     __parent = ns.conditions.CalendarEvent,
     type = 'calendareventtexture',
     getEvent = function(self)
@@ -321,6 +342,7 @@ ns.conditions.CalendarEventStartTexture = Class{
 }
 
 ns.conditions.DayOfWeek = Class{
+    __classname = "DayOfWeek",
     __parent = Condition,
     type = "weekday",
     Label = function(self)
@@ -349,7 +371,7 @@ ns.conditions.DayOfWeek = Class{
 do
     local function check(cond) return cond:Matched() end
     ns.conditions.check = function(conditions)
-        return ns.doTest(check, conditions)
+        return conditions and ns.doTest(check, conditions)
     end
 
     local t = {}

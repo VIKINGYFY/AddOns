@@ -3,26 +3,54 @@ local myname, ns = ...
 --[[
 Notes:
 
-Disturbed Earth
-37273620, quest 82026, waxy lump
-41466045, catching wax fired into the air
-40776026, spawned enemy (229809)
-47616347, spawned enemy (216537)
-47156330, spawned waxy lump
-46676510, spawned waxy lump
-51006859, ambush
-50776694, squashable grubs
-23695880, spawned enemy (216288)
-60133139, spawned enemy (216537)
-53836700
-66503847
-64443404
-66252501
-55555175
-
 Worldsoul memories (vignette 6358)
 60686749
 ]]
+
+local SHADOWPHASE = ns.Class{
+    __classname="ShadowPhase",
+    __parent=ns.conditions.Condition,
+    Label = function(self)
+        local shadowed = "{spell:131233:Shadowed}"
+        if self:Matched() then
+            return shadowed
+        else
+            -- "%s in %s"
+            return WARDROBE_TOOLTIP_ENCOUNTER_SOURCE:format(shadowed, self:Duration(self:NextSpawn()))
+        end
+    end,
+    Matched = function(self)
+        -- if it's more than 2.5 hours away, we must be during the current event
+        return self:NextSpawn() > (3600 * 2.5)
+    end,
+    NextSpawn = function(self)
+        -- Shadow event is one hour after the daily reset, then repeating
+        -- every three hours; each time it lasts for 30 minutes.
+        return (GetQuestResetTime() + 3600) % 10800
+    end,
+    Duration = function(self, seconds)
+        if seconds > 3600 then
+            return COOLDOWN_DURATION_HOURS:format(floor(seconds / 3600)) .. " " .. COOLDOWN_DURATION_MIN:format(floor((seconds % 3600) / 60))
+        end
+        return COOLDOWN_DURATION_MIN:format(floor(seconds / 60))
+    end
+}()
+
+ns.RegisterPoints(ns.HALLOWFALL, {
+    [11091678] = ns.Class{
+        label="{spell:452526:Beledar's Influence}",
+        texture_light = ns.atlas_texture("Mobile-Jewelcrafting", {r=1, g=1, b=0.5}),
+        texture_dark = ns.atlas_texture("Mobile-Jewelcrafting", {r=0.75, g=0, b=1}),
+        scale=5,
+        __get={
+            note=function(self) return SHADOWPHASE:Label() .. "\nBeledar switches from light to dark for 30 minutes every 3 hours." end,
+            texture=function(self)
+                return SHADOWPHASE:Matched() and self.texture_dark or self.texture_light
+            end,
+        },
+        group="beledar",
+    }(),
+})
 
 -- Treasures
 
@@ -31,9 +59,9 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         criteria=69692,
         quest=83263,
         loot={
-            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
             225639, -- Recipe: Exquisitely Eviscerated Muscle
             225592, -- Exquisitely Eviscerated Muscle
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
         },
         active=ns.conditions.Item(225238), -- Meaty Haunch
         related={
@@ -47,8 +75,8 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         criteria=69693,
         quest=83273,
         loot={
-            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
             226021, -- Jar of Pickles
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
         },
         note="Get the key from the {npc:226025:Dead Arathi} below",
         nearby={55425164},
@@ -58,7 +86,10 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     [59525966] = { -- Dark Ritual
         criteria=69694,
         quest=83284,
-        loot={225693}, -- Shadowed Essence
+        loot={
+            225693, -- Shadowed Essence
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
+        },
         note="In cave; use the book, defeat the summoned monsters",
         level=73,
         vignette=6372,
@@ -66,7 +97,10 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     [40015112] = { -- Arathi Loremaster
         criteria=69695,
         quest=83298,
-        loot={{225659, toy=true}},
+        loot={
+                {225659, toy=true}, -- Arathi Book Collection
+                ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
+        },
         note="Answer riddles from {npc:221630:Ryfus Sacredpyr}; you need to find the books for {achievement:40622:Biblo Archivist} for the correct answers to appear",
         level=73, -- not to talk to him, but to get any of the books for answers...
         vignette=6373,
@@ -75,8 +109,8 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         criteria=69697,
         quest=81971,
         loot={
-            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
             224580, -- Massive Sapphire Chunk
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
         },
         note="High up on the rocks",
         level=75,
@@ -95,14 +129,20 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     [50061382] = { -- Lost Necklace
         criteria=69699,
         quest=81978,
-        loot={224575}, -- Lightbearer's Pendant
+        loot={
+            224575, -- Lightbearer's Pendant
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
+        },
         level=75,
         vignette=6177, -- Lost Memento
     },
     [58392716] = { -- Illuminated Footlocker
         criteria=69701,
         quest=81468,
-        loot={{224552, toy=true}},
+        loot={
+            {224552, toy=true}, -- Cave Spelunker's Torch
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
+        },
         note="In cave. Catch falling glimmers from {npc:220703:Starblessed Glimmerfly} until you get {spell:442529:Glimmering Illumination}",
         level=73,
         vignette=6098,
@@ -110,7 +150,10 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     [76775383] = { -- Spore-covered Coffer
         criteria=69702,
         quest=79275,
-        loot={}, -- alchemy mats
+        loot={
+            -- alchemy mats
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
+        },
         note="In cave",
         level=73,
         vignette=5989,
@@ -121,6 +164,7 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         quest=82005,
         loot={
             {224554, toy=true}, -- Silver Linin' Scepter
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
         },
         active={ns.conditions.QuestComplete(82012), ns.conditions.QuestComplete(82026), ns.conditions.QuestComplete(82024), ns.conditions.QuestComplete(82025)},
         note="Talk to four skyship captains flying around the zone to make this appear",
@@ -336,6 +380,7 @@ ns.RegisterPoints(ns.HALLOWFALL, {
             223398, -- Abyssal Hunter's Sash
             223399, -- Abyssal Hunter's Chain
             223400, -- Abyssal Hunter's Cinch
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
         },
         route={
             31205464, 33235598, 32725814, 34135728, 34525751, 35085894, 35655746, 36495657, 36945464,
@@ -377,9 +422,10 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     },
     [62401320] = { -- Murkspike
         criteria=69728,
-        quest=82565,
+        quest=82565, -- 84060
         npc=220771,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=84060}),
             221233, -- Deephunter's Bloody Hook
             221234, -- Tidal Pendant
             221248, -- Deep Terror Carver
@@ -409,19 +455,20 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         quest=80011,
         npc=218458,
         loot={
-            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
             223393, -- Deepfiend Spaulders
             223394, -- Deepfiend Pauldrons
             223395, -- Deepfiend Shoulderpads
             223396, -- Deepfiend Shoulder Shells
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
         },
         vignette=6035,
     },
-    [64401880] = { -- Duskshadow
+    [64051911] = { -- Duskshadow
         criteria=69724,
-        quest=82562,
+        quest=82562, -- 84056
         npc=221179,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=84056}),
             223918, -- Specter Stalker's Shotgun
             223919, -- Abducted Lawman's Gavel
             223936, -- Shadow Bog Trousers
@@ -434,8 +481,8 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         quest=81881,
         npc=221767,
         loot={
-            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
             223377, -- Ancient Fungarian's Fingerwrap
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
         },
         vignette=6157,
     },
@@ -452,10 +499,10 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     },
     [43410990] = { -- Horror of the Shallows
         criteria=69712,
-        quest=81836, -- 85165
+        quest=81836, -- 84065
         npc=221668,
         loot={
-            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=85165}),
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=84065}),
             221211, -- Grasp of the Shallows
             221233, -- Deephunter's Bloody Hook
             221234, -- Tidal Pendant
@@ -475,9 +522,10 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     },
     [73405259] = { -- Sloshmuck
         criteria=69709,
-        quest=79271,
+        quest=79271, -- 84062
         npc=215805,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=84062}),
             221223, -- Bog Beast Mantle
             221250, -- Creeping Lasher Machete
             221253, -- Cultivator's Plant Puncher
@@ -495,15 +543,17 @@ ns.RegisterPoints(ns.HALLOWFALL, {
             223383, -- Murkshade Handguards
             223384, -- Murkshade Gloves
             223385, -- Murkshade Gauntlets
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150),
         },
         vignette=6034,
         note="Underwater",
     },
     [67562316] = { -- Croakit
         criteria=69722,
-        quest=82560,
+        quest=82560, -- 84054
         npc=214757,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=84054}),
             221246, -- Fierce Beast Staff
             221247, -- Cavernous Critter Shooter
             221251, -- Bestial Underground Cleaver
@@ -512,13 +562,14 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         },
         vignette=6125,
         --tameable=true, -- hopper
-        note="Objective of {questname:76588}",
+        note="Fish up 10x{item:211474:Shadowblind Grouper} and throw them to fill the {spell:437124:Craving} bar. Objective of {questname:76588}.",
     },
     [57304858] = { -- Pride of Beledar
         criteria=69715,
-        quest=81882,
+        quest=81882, -- 84068
         npc=221786,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=84068}),
             221225, -- Benevolent Hornstag Cinch
             221246, -- Fierce Beast Staff
             221247, -- Cavernous Critter Shooter
@@ -544,9 +595,10 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     },
     [64802920] = { -- Crazed Cabbage Smacker
         criteria=69720,
-        quest=82558,
+        quest=82558, -- 84052
         npc=206514,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=84052}),
             211968, -- Blueprint Bundle
             221238, -- Pillar of Constructs
             223928, -- Crop Cutter's Gauntlets
@@ -557,9 +609,10 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     },
     [60201860] = { -- Finclaw Bloodtide
         criteria=69727,
-        quest=82564,
-        npc=207780, -- also 220492?
+        quest=82564, -- 84059
+        npc=207780, -- also 220492, the mount
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=84059}),
             221233, -- Deephunter's Bloody Hook
             221234, -- Tidal Pendant
             221248, -- Deep Terror Carver
@@ -639,34 +692,7 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         {223315, mount=2192,}, -- Beledar's Spawn
         223006, -- Signet of Dark Horizons
     },
-    active={ns.Class{
-        __classname="SpawnTime",
-        __parent=ns.conditions.Condition,
-        Label = function(self)
-            local shadowed = "{spell:131233:Shadowed}"
-            if self:Matched() then
-                return shadowed
-            else
-                -- "%s in %s"
-                return WARDROBE_TOOLTIP_ENCOUNTER_SOURCE:format(shadowed, self:Duration(self:NextSpawn()))
-            end
-        end,
-        Matched = function(self)
-            -- if it's more than 2.5 hours away, we must be during the current event
-            return self:NextSpawn() > (3600 * 2.5)
-        end,
-        NextSpawn = function(self)
-            -- Shadow event is one hour after the daily reset, then repeating
-            -- every three hours; each time it lasts for 30 minutes.
-            return (GetQuestResetTime() + 3600) % 10800
-        end,
-        Duration = function(self, seconds)
-            if seconds > 3600 then
-                return COOLDOWN_DURATION_HOURS:format(floor(seconds / 3600)) .. " " .. COOLDOWN_DURATION_MIN:format(floor((seconds % 3600) / 60))
-            end
-            return COOLDOWN_DURATION_MIN:format(floor(seconds / 60))
-        end
-    }()},
+    active={SHADOWPHASE},
     note="Spawns during the shadow event, which happens every 3 hours.\nBuy and use {item:224553:Beledar's Attunement} from {majorfaction:2570:Hallowfall Arathi} to see which spawn is active.",
     atlas="worldquest-icon-boss-zhCN",
     group="beledarspawn",
@@ -721,11 +747,12 @@ ns.RegisterPoints(ns.HALLOWFALL, {
 })
 
 
-ns.RegisterPoints(ns.HALLOWFALL, {
-    [62650611] = { -- Radiant-Twisted Mycelium
-        quest=nil, -- 76588 defender of the flame
-        npc=214905,
-        vignette=5984,
-        note="Objective of {questname:76588}",
-    },
-})
+-- ns.RegisterPoints(ns.HALLOWFALL, {
+--     [62650611] = { -- Radiant-Twisted Mycelium
+--         quest=nil, -- confirmed, this has a vignette and is rare-flagged, but no quest or rep rewards
+--         npc=214905,
+--         vignette=5984,
+--         note="Objective of {questname:76588}",
+--         additional={61953305},
+--     },
+-- })

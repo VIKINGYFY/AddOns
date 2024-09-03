@@ -414,7 +414,7 @@ function module:RecycleBin()
 
 		local numShown = #shownButtons
 		local row = numShown == 0 and 1 or B:Round((numShown + rowMult) / iconsPerRow)
-		local newHeight = row*37 + 3
+		local newHeight = row*37
 		bin:SetHeight(newHeight)
 		tex:SetHeight(newHeight)
 		rightLine:SetHeight(newHeight + 2*C.mult)
@@ -423,10 +423,8 @@ function module:RecycleBin()
 			button:ClearAllPoints()
 			if index == 1 then
 				button:SetPoint("BOTTOMRIGHT", bin, -3, 3)
-			elseif row > 1 and mod(index, row) == 1 or row == 1 then
-				button:SetPoint("RIGHT", shownButtons[index - row], "LEFT", -3, 0)
 			else
-				button:SetPoint("BOTTOM", shownButtons[index - 1], "TOP", 0, 3)
+				button:SetPoint("RIGHT", shownButtons[index - 1], "LEFT", -3, 0)
 			end
 		end
 	end

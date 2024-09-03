@@ -1617,7 +1617,8 @@ if not db.activate.HideMapNote then
             end
 
             if self.db.profile.showMiniMapPvEVendor then
-                minimap[2214][47303293] = { dnID = L["Merchant for Renown items"], name = "", type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2214][47303293] = { L["The Assembly of the Deeps"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2215][41275304] = { L["Hallowfall Arathi"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
             end
 
         end
