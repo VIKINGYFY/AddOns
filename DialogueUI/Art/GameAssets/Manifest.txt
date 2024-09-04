@@ -1,3 +1,0 @@
-This folder contains only Blizzard Assets.
-
-- Added ui_majorfactions_ to fix TWW Major Faction icon missing problem due to wrong file destinations.

@@ -108,6 +108,7 @@ end
 
 function module:WorldMapScale()
 	B.CreateMF(WorldMapFrame, nil, true)
+	WorldMapFrame:HookScript("OnShow", self.UpdateMapAnchor)
 	hooksecurefunc(WorldMapFrame, "SynchronizeDisplayState", self.UpdateMapAnchor)
 end
 

@@ -1,6 +1,5 @@
-## Changed in v42
+## Changed in v43
 
-* Hallowfall: explain how to summon Parasidious
-* Snuffling: give Disturbed Earth a localized name
-* A bunch of backend changes that shouldn't have any visible effect on anything
+* Add a point for Osidion in Dornogal, so you know where to turn those gems in
+* Minor data updates across zones
 
