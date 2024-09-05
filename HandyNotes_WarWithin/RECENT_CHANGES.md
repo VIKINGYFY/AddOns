@@ -1,5 +1,5 @@
-## Changed in v43
+## Changed in v45
 
-* Add a point for Osidion in Dornogal, so you know where to turn those gems in
-* Minor data updates across zones
+* Mounts and pets get better tooltips
+* Fix something that was making queries about mount and pet status more expensive than it should be
 

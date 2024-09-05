@@ -1,5 +1,17 @@
 # Changelog
 
+## Changed in v45
+
+* Mounts and pets get better tooltips
+* Fix something that was making queries about mount and pet status more expensive than it should be
+
+## Changed in v44
+
+* Show armor-types in tooltip labels
+* Azj-Kahet: add remaining weekly reputations (thanks Twelve for some!)
+* Hallowfall: add some Darkened Arathi cosmetic treasures
+* Minor update to snuffling points
+
 ## Changed in v43
 
 * Add a point for Osidion in Dornogal, so you know where to turn those gems in

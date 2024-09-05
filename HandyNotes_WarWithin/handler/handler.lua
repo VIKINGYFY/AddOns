@@ -97,11 +97,11 @@ do
         if item.toy then
             upgrade = ns.rewards.Toy(item[1])
         elseif item.mount then
-            upgrade = ns.rewards.Mount(item[1], item[2])
+            upgrade = ns.rewards.Mount(item[1], type(item.mount) == "number" and item.mount)
         elseif item.pet then
-            upgrade = ns.rewards.Pet(item[1], item[2])
+            upgrade = ns.rewards.Pet(item[1], type(item.pet) == "number" and item.pet)
         elseif item.set then
-            upgrade = ns.rewards.Set(item[1], item[2])
+            upgrade = ns.rewards.Set(item[1], item.set)
         else
             upgrade = ns.rewards.Item(item[1])
         end

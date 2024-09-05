@@ -18,14 +18,14 @@ ns.RegisterPoints(ns.AZJKAHET, {
     [34076105] = { -- Concealed Contraband
         criteria=70381,
         quest=82525,
-        loot=addThreadsRep(50, false, {}),
+        loot=addThreadsRep(50, false, {}, true),
         level=74,
         path={33846068, 33796026, 34015980, 34365949, 35555918},
     },
     [78623320] = { -- "Weaving Supplies"
         criteria=69643,
         quest=82527,
-        loot=addThreadsRep(50, false, {{225347, toy=true}}), -- Web-Vandal's Spinning Wheel
+        loot=addThreadsRep(50, false, {{225347, toy=true}}, true), -- Web-Vandal's Spinning Wheel
         level=74,
         vignette=6289,
         note="Collect {item:223901:Violet Silk Scrap}, {item:223902:Crimson Silk Scrap}, {item:223903:Gold Silk Scrap} from the edges of the nearby platform to unlock",
@@ -46,7 +46,7 @@ ns.RegisterPoints(ns.AZJKAHET, {
     [67449072] = { -- Disturbed Soil
         criteria=69646,
         quest=82718,
-        loot=addThreadsRep(50, false, {224816}), -- Nerubian Almanac
+        loot=addThreadsRep(50, false, {224816}, true), -- Nerubian Almanac
         vignette=6280,
     },
     [38783722] = { -- Missing Scout's Pack
@@ -80,6 +80,7 @@ ns.RegisterPoints(ns.AZJKAHET, {
             224828, -- Weavercloth
             224441, -- Weavercloth Bandage
         }, true),
+        path={67462755, 66882761, 66692773, 66342805, 66142810, 65582772},
     },
 }, {
     achievement=40828,
@@ -182,29 +183,28 @@ ns.RegisterPoints(ns.AZJKAHET, {
 -- Rares
 
 ns.RegisterPoints(ns.AZJKAHET, {
-    [65201896] = { -- Kaheti Silk Hauler
-        -- [62404140, 68205360]
+    [61712962] = { -- Kaheti Silk Hauler
         criteria=69659,
         quest=81702,
         npc=221327,
-        loot={
+        loot=addThreadsRep(50, 84071, {
             221206, -- Reinforced Chitin Chestpiece
             221240, -- Nerubian Stagshell Gouger
             221252, -- Nerubian Slayer's Claymore
             221263, -- Nerubian Venom-Tipped Dart
-        },
+        }),
         vignette=6134,
-        route={65201896, 65142033, 63122532, 62492877, 61882919},
+        route={65201896, 65142033, 63122532, 62492877, 61712962},
         note="Slowly wanders back and forth",
     },
     [76585780] = { -- XT-Minecrusher 8700
         criteria=69660,
         quest=81703,
         npc=216034,
-        loot={
+        loot=addThreadsRep(50, 84072, {
             221231, -- Steam-Powered Wristwatch
             221232, -- Polished Goblin Bling
-        },
+        }),
         vignette=6131,
     },
     [45863916] = { -- Abyssal Devourer
@@ -332,24 +332,24 @@ ns.RegisterPoints(ns.AZJKAHET, {
         criteria=69668,
         quest=82037,
         npc=216051,
-        loot={
+        loot=addThreadsRep(50, 84080, {
             221240, -- Nerubian Stagshell Gouger
             221252, -- Nerubian Slayer's Claymore
             221263, -- Nerubian Venom-Tipped Dart
             223930, -- Monstrous Chain Pincers
-        },
+        }),
         vignette=6186,
     },
     [62940509] = { -- Kaheti Bladeguard
         criteria=69670,
         quest=82078,
         npc=216052, -- Skirmisher Sa'ztyk
-        loot={
+        loot=addThreadsRep(50, 84082, {
             223915, -- Nerubian Orator's Stiletto
             223916, -- Nerubian Cutthroat's Reach
             223917, -- Nerubian Covert's Cloak
             223939, -- Esteemed Nerubian's Mantle
-        },
+        }),
         vignette=6204,
         note="Patrols the area",
     },
@@ -357,12 +357,12 @@ ns.RegisterPoints(ns.AZJKAHET, {
         criteria=69669,
         quest=82077,
         npc=222624,
-        loot={
+        loot=addThreadsRep(50, 84081, {
             223915, -- Nerubian Orator's Stiletto
             223916, -- Nerubian Cutthroat's Reach
             223917, -- Nerubian Covert's Cloak
             223923, -- Gilded Cryptlord's Sabatons
-        },
+        }),
         vignette=6203,
     },
 }, {
@@ -393,22 +393,22 @@ ns.RegisterPoints(2256, { -- Azj-Kahet Lower
         criteria=69666,
         quest=82035,
         npc=216049,
-        loot={
+        loot=addThreadsRep(50, 84078, {
             223006, -- Signet of Dark Horizons
             223931, -- Black Blood Cowl
-        },
+        }),
         vignette=6184,
     },
     [67458318] = { -- Jix'ak the Crazed
         criteria=69665,
         quest=82034,
         npc=216048,
-        loot={
+        loot=addThreadsRep(50, 84077, {
             223915, -- Nerubian Orator's Stiletto
             223916, -- Nerubian Cutthroat's Reach
             223917, -- Nerubian Covert's Cloak
             223950, -- Corruption Sifter's Treads
-        },
+        }),
         vignette=6183,
     },
 }, {
@@ -420,14 +420,14 @@ ns.RegisterPoints(ns.AZJKAHET, {
     [63409500] = { -- The One Left
         quest=nil,
         npc=216047,
-        loot={
+        loot=addThreadsRep(50, 85167, {
             221246, -- Fierce Beast Staff
             221247, -- Cavernous Critter Shooter
             221251, -- Bestial Underground Cleaver
             221265, -- Charm of the Underground Beast
             225998, -- Earthen Adventurer's Cloak
-        },
-        path=65269328,
+        }),
+        path={63489512, 63959536, 64129539, 65349489, 65429466, 65279345},
     },
 }, {levels=true})
 
