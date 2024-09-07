@@ -167,7 +167,7 @@ function ns.conditions.Item:Label()
 end
 function ns.conditions.Item:Matched() return C_Item.GetItemCount(self.id, true) >= (self.count or 1) end
 
-ns.conditions.Toy = Condition:extends{classname = "Toy"}
+ns.conditions.Toy = ns.conditions.Item:extends{classname = "Toy"}
 function ns.conditions.Toy:Matched() return PlayerHasToy(self.id) end
 
 ns.conditions.QuestComplete = Condition:extends{classname = "QuestComplete", type = 'quest'}

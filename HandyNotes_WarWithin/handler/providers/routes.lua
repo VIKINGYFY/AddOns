@@ -4,20 +4,25 @@ local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes")
 
 -- This is very much based on AnimaDiversionDataProvider
 
+local TEMPLATE = myname .. "WorldMapRoutePinTemplate"
+
 local RouteWorldMapDataProvider = CreateFromMixins(MapCanvasDataProviderMixin)
 ns.RouteWorldMapDataProvider = RouteWorldMapDataProvider
+
+_G.RRRR = RouteWorldMapDataProvider
 
 local RoutePinMixin = CreateFromMixins(MapCanvasPinMixin)
 local RoutePinConnectionMixin = {}
 
+local highlights = {}
+
 function RouteWorldMapDataProvider:RemoveAllData()
     if not self:GetMap() then return end
 
-    if self.pinPool then
-        self.pinPool:ReleaseAll()
+    if self.connectionPool then
         self.connectionPool:ReleaseAll()
     end
-    self:GetMap().ScrollContainer:MarkCanvasDirty()
+    self:GetMap():RemoveAllPinsByTemplate(TEMPLATE)
 end
 
 function RouteWorldMapDataProvider:RefreshAllData(fromOnShow)
@@ -29,9 +34,7 @@ function RouteWorldMapDataProvider:RefreshAllData(fromOnShow)
     if not uiMapID then return end
     if not ns.points[uiMapID] then return end
 
-    if not self.pinPool then
-        self:CreatePools()
-    end
+    self:EnsurePools()
 
     for coord, point in pairs(ns.points[uiMapID]) do
         if point.routes and ns.should_show_point(coord, point, uiMapID, false) then
@@ -42,8 +45,10 @@ function RouteWorldMapDataProvider:RefreshAllData(fromOnShow)
     end
 end
 
-function RouteWorldMapDataProvider:CreatePools()
-    self.pinPool = CreateFramePool("FRAME", self:GetMap():GetCanvas(), nil, function(pool, pin)
+-- This is an end-run around needing to distribute custom XML with every user of this handler
+function RouteWorldMapDataProvider:EnsurePools()
+    if self:GetMap().pinPools[TEMPLATE] then return end
+    self:GetMap().pinPools[TEMPLATE] = CreateFramePool("FRAME", self:GetMap():GetCanvas(), nil, function(pool, pin)
         if not pin.OnReleased then
             Mixin(pin, RoutePinMixin)
         end
@@ -74,7 +79,7 @@ function RouteWorldMapDataProvider:DrawRoute(route, point, uiMapID)
     end
     for _, node in ipairs(route) do
         local x, y = HandyNotes:getXY(node)
-        local pin = self:AcquirePin()
+        local pin = self:GetMap():AcquirePin(TEMPLATE)
         pin:SetPosition(x, y)
         pin:Show()
         if pins[#pins] then
@@ -94,7 +99,7 @@ function RouteWorldMapDataProvider:ConnectPins(pin1, pin2, route, point)
     connection.route = route
     connection:Connect(pin1, pin2)
     connection.Line:SetVertexColor(route.r or 1, route.g or 1, route.b or 1, route.a or 0.6)
-    if not route.highlightOnly then
+    if highlights[point] or not route.highlightOnly then
         connection:Show()
     end
 end
@@ -113,6 +118,7 @@ end
 
 function RouteWorldMapDataProvider:UnhighlightRoute(point, uiMapID, coord)
     if not self.connectionPool then return end
+    if highlights[point] then return end
     for connection in self.connectionPool:EnumerateActive() do
         if connection.point == point then
             connection.Line:SetThickness(20)
@@ -121,6 +127,11 @@ function RouteWorldMapDataProvider:UnhighlightRoute(point, uiMapID, coord)
             end
         end
     end
+end
+
+function RouteWorldMapDataProvider:OnMouseClick(point, uiMapID, coord)
+    highlights[point] = not highlights[point]
+    self:RefreshAllData()
 end
 
 function RoutePinMixin:OnLoad()
@@ -162,48 +173,3 @@ function RoutePinConnectionMixin:Connect(pin1, pin2)
 
     self.Line:SetThickness(20)
 end
-
-do
-    -- This is MapCanvasMixin.AcquirePin lightly rewritten to not require an
-    -- XML template, so this can be bundled in with addons without requiring
-    -- a custom bit of XML for each one.
-    local function OnPinMouseUp(pin, button, upInside)
-        pin:OnMouseUp(button)
-        if upInside then
-            pin:OnClick(button)
-        end
-    end
-    function RouteWorldMapDataProvider:AcquirePin(...)
-        local pin, newPin = self.pinPool:Acquire()
-        if newPin then
-            local isMouseClickEnabled = pin:IsMouseClickEnabled()
-            local isMouseMotionEnabled = pin:IsMouseMotionEnabled()
-
-            if isMouseClickEnabled then
-                pin:SetScript("OnMouseUp", OnPinMouseUp)
-                pin:SetScript("OnMouseDown", pin.OnMouseDown)
-            end
-
-            if isMouseMotionEnabled then
-                pin:SetScript("OnEnter", pin.OnMouseEnter)
-                pin:SetScript("OnLeave", pin.OnMouseLeave)
-            end
-
-            pin:SetMouseClickEnabled(isMouseClickEnabled)
-            pin:SetMouseMotionEnabled(isMouseMotionEnabled)
-        end
-
-        pin.owningMap = self:GetMap()
-
-        if newPin then
-            pin:OnLoad()
-        end
-
-        self:GetMap().ScrollContainer:MarkCanvasDirty()
-        pin:Show()
-        pin:OnAcquired(...)
-
-        return pin
-    end
-end
-

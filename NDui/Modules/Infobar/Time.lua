@@ -79,6 +79,7 @@ local questlist = {
 	{name = "", id = 70906, itemID = 200468},	-- Grand hunt
 	{name = "", id = 78319, itemID = 211389},	-- The superbloom
 	{name = "", id = 79226, questName = true},	-- The big dig
+	{name = "", id = 83240, questName = true},	-- The superbloom
 }
 
 local lesserVisions = {58151, 58155, 58156, 58167, 58168}

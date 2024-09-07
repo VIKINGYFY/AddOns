@@ -1,5 +1,5 @@
-## Changed in v45
+## Changed in v49
 
-* Mounts and pets get better tooltips
-* Fix something that was making queries about mount and pet status more expensive than it should be
+* Hallowfall: removed a doubled-up Beledar's Spawn point
+* Map icons now have some interaction -- click on something you're interested in to highlight it, making it easier to see and causing any related points / routes to also be highlighted and stay visible
 

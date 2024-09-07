@@ -483,9 +483,10 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
     },
     [30915238] = { -- Zovex
         criteria=68226,
-        quest=82203,
+        quest=82203, -- 85159
         npc=219284,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_DORNOGAL, 150, {quest=85159}),
             226117, -- Dalaran Guardian's Arcanotool
             226118, -- Arcane Prisoner's Puncher
             226119, -- Arcane Sharpshooter's Crossbow
@@ -495,9 +496,10 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
     },
     [31915238] = { -- Rotfist
         criteria=68228,
-        quest=82205,
+        quest=82205, -- 85161
         npc=222380,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_DORNOGAL, 150, {quest=85161}),
             226112, -- Rotfist Flesh Carver
             226115, -- Contaminating Cleaver
             226116, -- Coagulating Phlegm Churner

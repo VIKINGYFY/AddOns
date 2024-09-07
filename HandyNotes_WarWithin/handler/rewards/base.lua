@@ -16,6 +16,9 @@ ns.rewards.Reward = ns.Class({
 })
 local Reward = ns.rewards.Reward
 
+Reward.NOTABLE_COLOR = CreateColor(0, 0.8, 1)
+Reward.SEARCHING_COLOR = CreateColor(0, 1, 1)
+
 function Reward:init(id, extra)
     self.id = id
     if extra then
@@ -65,8 +68,8 @@ end
 function Reward:MightDrop() return self:Available() end
 function Reward:SetTooltip(tooltip) return false end
 function Reward:AddToTooltip(tooltip)
-    local r, g, b = self:TooltipNameColor()
-    local lr, lg, lb = self:TooltipLabelColor()
+    local r, g, b = self:TooltipNameColor():GetRGB()
+    local lr, lg, lb = self:TooltipLabelColor():GetRGB()
     tooltip:AddDoubleLine(
         self:TooltipLabel(),
         self:TooltipName(),
@@ -97,16 +100,16 @@ function Reward:TooltipName()
 end
 function Reward:TooltipNameColor()
     if not self:Name() then
-        return 0, 1, 1
+        return self.SEARCHING_COLOR
     end
-    return NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b
+    return NORMAL_FONT_COLOR
 end
 function Reward:TooltipLabel() return UNKNOWN end
 function Reward:TooltipLabelColor()
     if ns.db.show_npcs_emphasizeNotable and self:Notable() then
-        return 1, 0, 1
+        return self.NOTABLE_COLOR
     end
-    return NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b
+    return NORMAL_FONT_COLOR
 end
 function Reward:ObtainedTag()
     local known = self:Obtained(true) -- for_tooltip
@@ -150,4 +153,13 @@ function ns.rewards.Currency:SetTooltip(tooltip)
     else
         tooltip:SetHyperlink(C_CurrencyInfo.GetCurrencyLink(self.id, self.amount))
     end
+end
+function ns.rewards.Currency:AddToItemButton(button, ...)
+    self:super("AddToItemButton", button, ...)
+    local info = C_CurrencyInfo.GetBasicCurrencyInfo(self.id, self.amount)
+    if info then
+        SetItemButtonQuality(button, info.quality)
+    end
+    -- could use info.displayAmount here, but I think this makes more sense:
+    SetItemButtonCount(button, self.amount)
 end

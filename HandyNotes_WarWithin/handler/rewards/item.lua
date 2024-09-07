@@ -1,6 +1,5 @@
 local myname, ns = ...
 
-local COSMETIC_COLOR = CreateColor(1, 0.5, 1)
 local materials = {
     [Enum.ItemArmorSubclass.Cloth] = true,
     [Enum.ItemArmorSubclass.Leather] = true,
@@ -8,7 +7,10 @@ local materials = {
     [Enum.ItemArmorSubclass.Plate] = true,
 }
 
-ns.rewards.Item = ns.rewards.Reward:extends({classname="Item", spell=false})
+ns.rewards.Item = ns.rewards.Reward:extends({classname="Item"})
+
+ns.rewards.Item.COSMETIC_COLOR = CreateColor(1, 0.5, 1)
+ns.rewards.Item.NOTABLE_TRANSMOG_COLOR = CreateColor(1, 0, 1)
 
 function ns.rewards.Item:Name(color)
     local name, link = C_Item.GetItemInfo(self.id)
@@ -28,30 +30,27 @@ function ns.rewards.Item:TooltipLabel()
         label = itemSubtype
     end
     if label and ns.IsCosmeticItem(self.id) then
-        label = TEXT_MODE_A_STRING_VALUE_TYPE:format(label, COSMETIC_COLOR:WrapTextInColorCode(ITEM_COSMETIC))
+        label = TEXT_MODE_A_STRING_VALUE_TYPE:format(label, self.COSMETIC_COLOR:WrapTextInColorCode(ITEM_COSMETIC))
     end
     return label
 end
-function ns.rewards.Item:Icon() return (select(5, C_Item.GetItemInfoInstant(self.id))) end
-function ns.rewards.Item:Obtained(for_tooltip)
-    local result = self:super("Obtained", for_tooltip)
-    if self.spell then
-        -- can't use the tradeskill functions + the recipe-spell because that data's only available after the tradeskill window has been opened...
-        local info = C_TooltipInfo.GetItemByID(self.id)
-        if info then
-            for _, line in ipairs(info.lines) do
-                if line.leftText and string.match(line.leftText, _G.ITEM_SPELL_KNOWN) then
-                    return true
-                end
-            end
-        end
-        result = false
+function ns.rewards.Item:TooltipLabelColor()
+    if ns.db.show_npcs_emphasizeNotable and self:Notable() and self.CanLearnAppearance(self.id) then
+        return self.NOTABLE_TRANSMOG_COLOR
     end
+    return self:super('TooltipLabelColor')
+end
+function ns.rewards.Item:Icon() return (select(5, C_Item.GetItemInfoInstant(self.id))) end
+function ns.rewards.Item:Obtained(for_tooltip, ...)
+    local result = self:super("Obtained", for_tooltip, ...)
     if ns.CLASSICERA then return result and GetItemCount(self.id, true) > 0 end
-    if (for_tooltip or ns.db.transmog_notable) and self.CanLearnAppearance(self.id) then
+    if not result and (for_tooltip or ns.db.transmog_notable) and self.CanLearnAppearance(self.id) then
         return self.HasAppearance(self.id, ns.db.transmog_specific)
     end
     return result
+end
+function ns.rewards.Item:IsTransmog()
+    return self.CanLearnAppearance(self.id)
 end
 function ns.rewards.Item:MightDrop()
     -- We think an item might drop if it either has no spec information, or
@@ -319,4 +318,26 @@ function ns.rewards.Set:ObtainedTag()
         end
     end
     return self:super("ObtainedTag")
+end
+
+ns.rewards.Recipe = ns.rewards.Item:extends{classname="Recipe"}
+function ns.rewards.Recipe:init(id, spellid, ...)
+    self:super("init", id, ...)
+    self.spellid = spellid
+end
+function ns.rewards.Recipe:Obtained(...)
+    if self:super("Obtained", ...) then
+        -- covers quests etc
+        return true
+    end
+    -- can't use the tradeskill functions + the recipe-spell because that data's only available after the tradeskill window has been opened...
+    local info = C_TooltipInfo.GetItemByID(self.id)
+    if info then
+        for _, line in ipairs(info.lines) do
+            if line.leftText and string.match(line.leftText, _G.ITEM_SPELL_KNOWN) then
+                return true
+            end
+        end
+    end
+    return false
 end

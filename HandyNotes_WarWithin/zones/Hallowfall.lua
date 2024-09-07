@@ -11,9 +11,9 @@ Worldsoul memories (vignette 6358)
 
 local ShadowPhase = ns.conditions._Condition:extends{classname="ShadowPhase"}
 function ShadowPhase:Label()
-    local shadowed = "{spell:131233:Shadowed}"
+    local shadowed = ITEM_QUALITY_COLORS[4].color:WrapTextInColorCode("{spell:131233:Shadowed}")
     if self:Matched() then
-        return shadowed
+        return shadowed .. " " .. GARRISON_MISSION_TIMELEFT:format(self:Duration(self:NextSpawn() - (3600 * 2.5)))
     else
         -- "%s in %s"
         return WARDROBE_TOOLTIP_ENCOUNTER_SOURCE:format(shadowed, self:Duration(self:NextSpawn()))
@@ -24,9 +24,11 @@ function ShadowPhase:Matched()
     return self:NextSpawn() > (3600 * 2.5)
 end
 function ShadowPhase:NextSpawn()
-    -- Shadow event is one hour after the daily reset, then repeating
-    -- every three hours; each time it lasts for 30 minutes.
-    return (GetQuestResetTime() + 3600) % 10800
+    -- Shadow phase starts one hour and one minute after the daily reset, then
+    -- repeating every three hours; each time it lasts for 30 minutes.
+    -- (Well, the shift starts about 45 seconds after, and takes about 15
+    -- seconds to play.)
+    return (GetQuestResetTime() + 3600 + 60) % 10800
 end
 function ShadowPhase:Duration(seconds)
     if seconds > 3600 then
@@ -45,11 +47,25 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         scale=5,
         group="beledar",
         __get={
-            note=function(self) return SHADOWPHASE:Label() .. "\nBeledar switches from light to dark for 30 minutes every 3 hours." end,
+            note=function(self)
+                return SHADOWPHASE:Label() ..
+                    "\nBeledar switches from light to dark for 30 minutes every 3 hours." ..
+                    "\n|cff00ffffClick|r this to force {npc:207802:Beledar's Spawn} to show regardless of your normal settings"
+            end,
             texture=function(self)
                 return SHADOWPHASE:Matched() and self.texture_dark or self.texture_light
             end,
         },
+        OnClick=function(point, button, uiMapID, coord)
+            ns.db.groupsHidden["beledarspawn"] = false
+            for coord, opoint in pairs(ns.points[ns.HALLOWFALL]) do
+                if opoint.npc == 207802 then
+                    opoint.always = not opoint.always
+                end
+            end
+
+            C_Timer.NewTimer(0, function() ns.HL:Refresh() end)
+        end,
     },
 })
 
@@ -719,7 +735,6 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     [62823857] = {},
     [68123014] = {},
     [71976558] = {},
-    [72066566] = {},
     [72804152] = {},
 }, {
     achievement=40851,

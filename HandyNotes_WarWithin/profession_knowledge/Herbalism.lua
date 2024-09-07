@@ -3,6 +3,7 @@ local myname, ns = ...
 -- 79929 for random herbing of Khaz Algar Herbalism Knowledge (currency 2789)
 -- 81417 for herbing a Deepgrove Petal (224264)
 -- 81418 for herbing a Deepgrove Petal from Mycobloom (224264)
+-- 81419 for herbing a Deepgrove Petal from Mycobloom (224264)
 
 local KNOWLEDGE = {
     note = "This can only be looted once per character.",
@@ -70,12 +71,6 @@ ns.RegisterPoints(ns.CITYOFTHREADS, {
         quest=83880,
         loot={226306}, -- Web-Entangled Lotus
         vignette=6463,
-        parent=true, levels=true, translate={[2256]=true},
-    },
-    [47001620] = {
-        quest=82630,
-        loot={224023}, -- Herbal Embalming Techniques
-        note="Buy from {npc:218169:Llyot}",
         parent=true, levels=true, translate={[2256]=true},
     },
 }, KNOWLEDGE)

@@ -1,5 +1,26 @@
 # Changelog
 
+## Changed in v49
+
+* Hallowfall: removed a doubled-up Beledar's Spawn point
+* Map icons now have some interaction -- click on something you're interested in to highlight it, making it easier to see and causing any related points / routes to also be highlighted and stay visible
+
+## Changed in v48
+
+* Isle of Dorn: weekly reputation quests for Zovex and Rotfist (I finally gave up and just camped a character on their spawn point for an hour and a half)
+* Profession Knowledge: fill out the vendors in the City of Threads
+* Better notoriety-without-transmog calculation
+
+## Changed in v47
+
+* Hallowfall: clicking on Beledar will force the Beledar's Spawn locations to show regardless of your other settings, so you can help out even if you already have the mount
+* Show notable mobs that *only* have transmog in a different color, so you can still hunt for unknown transmog while prioritizing weekly reputation
+
+## Changed in v46
+
+* Hallowfall: shift the start of the shadow phase back 60 seconds, because nothing spawns until all the animations have finished playing out; also, show in the tooltip how long is remaining in the phase
+* Azj-Kahet: tweaks to mob positioning and paths, show the actual names for the Bladeguard and Hulk rather than their achievement-criteria names, and put in the daily quest ID for The One Left rather than just its weekly reputation quest, all thanks to sebid!
+
 ## Changed in v45
 
 * Mounts and pets get better tooltips

@@ -219,7 +219,7 @@ ns.RegisterPoints(ns.AZJKAHET, {
         }, true),
         vignette=6129,
     },
-    [68876480] = { -- Maddened Siegebomber
+    [66536946] = { -- Maddened Siegebomber
         criteria=69663,
         quest=81706, -- 84075
         npc=216044,
@@ -231,8 +231,10 @@ ns.RegisterPoints(ns.AZJKAHET, {
         }),
         vignette=6138,
         route={
-            68876480, 69006715, 67206730, 65596605, 63576530, 61636444, 61006640,
-            62106844, 64256750, 65356414, 66936243,
+            66536946, 66056803, 65616706, 65096620, 64446559, 63706526, 62926513, 62146530,
+            61486584, 61396696, 61826791, 62536809, 63166813, 63746786, 64146720, 65386409,
+            65706345, 66026301, 66606247, 67206246, 67696278, 68086319, 68356370, 68806483,
+            69006550, 69096626, 69076707, 68876785, 68436846, 67866891,
             loop=true,
         },
         note="Patrols around the area, fighting other mobs",
@@ -340,10 +342,11 @@ ns.RegisterPoints(ns.AZJKAHET, {
         }),
         vignette=6186,
     },
-    [62940509] = { -- Kaheti Bladeguard
+    [61210771] = { -- Kaheti Bladeguard
+        label="{npc:216052:Skirmisher Sa'zryk}",
         criteria=69670,
         quest=82078,
-        npc=216052, -- Skirmisher Sa'ztyk
+        npc=216052, -- Skirmisher Sa'zryk
         loot=addThreadsRep(50, 84082, {
             223915, -- Nerubian Orator's Stiletto
             223916, -- Nerubian Cutthroat's Reach
@@ -351,7 +354,8 @@ ns.RegisterPoints(ns.AZJKAHET, {
             223939, -- Esteemed Nerubian's Mantle
         }),
         vignette=6204,
-        note="Patrols the area",
+        note="Spawns at the top, teleports to the bottom of the path, walks back to the top, then repeats",
+        route={62940509, 62430707, 62270757, 61930840, 61740856, 61520848, 61330831, 61210803, 61210771},
     },
     [64590667] = { -- Deepcrawler Tx'kesh
         criteria=69669,
@@ -418,7 +422,7 @@ ns.RegisterPoints(2256, { -- Azj-Kahet Lower
 
 ns.RegisterPoints(ns.AZJKAHET, {
     [63409500] = { -- The One Left
-        quest=nil,
+        quest=82290,
         npc=216047,
         loot=addThreadsRep(50, 85167, {
             221246, -- Fierce Beast Staff
@@ -428,11 +432,13 @@ ns.RegisterPoints(ns.AZJKAHET, {
             225998, -- Earthen Adventurer's Cloak
         }),
         path={63489512, 63959536, 64129539, 65349489, 65429466, 65279345},
+        vignette=6266,
     },
 }, {levels=true})
 
 ns.RegisterPoints(ns.CITYOFTHREADS, {
     [30975607] = { -- Chitin Hulk
+        label="{npc:216038:The Groundskeeper}",
         criteria=69657,
         quest=81634, -- 84069
         npc=216038, -- The Groundskeeper

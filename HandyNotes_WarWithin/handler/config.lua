@@ -521,9 +521,17 @@ end, function(test, input, achievement, ...)
     return doTest(test, input, achievement, ...)
 end)
 
-local hasNotableLoot = testMaker(function(item)
-    return item:Notable()
+local hasNotableLoot = testMaker(function(item, notransmog)
+    if item:Notable() then
+        if notransmog and ns.IsA(item, ns.rewards.Item) then
+            -- still notable without transmog involved?
+            return item:IsTransmog() == false
+        end
+        return true
+    end
+    return false
 end, doTestAny)
+ns.hasNotableLoot = hasNotableLoot
 local hasKnowableLoot = testMaker(function(item, notransmog, droppable)
     if ns.CLASSIC then return false end
     if droppable and not item:MightDrop() then
@@ -729,14 +737,14 @@ ns.should_show_point = function(coord, point, currentZone, isMinimap)
         end
         if ns.db.show_npcs_filter == "notable" and not isNotable(point) then
             -- notable npcs have loot you can use or have an incomplete achievement
-            return false
+            return point.always
         end
         if
             (ns.db.show_npcs_filter == "lootable" or ns.db.show_npcs_filter == "notable")
             -- rewarding npcs either have no affiliated quest, or their quest is incomplete
             and point.quest and allQuestsComplete(point.quest) and not ns.db.found
         then
-            return false
+            return point.always
         end
     elseif point.loot or point.currency then
         -- Not an NPC, not a follower, must be treasure if it has some sort of loot
@@ -745,14 +753,14 @@ ns.should_show_point = function(coord, point, currentZone, isMinimap)
         end
         if ns.db.show_treasure_filter == "notable" and not isNotable(point) then
             -- notable npcs have loot you can use or have an incomplete achievement
-            return false
+            return point.always
         end
         if
             (ns.db.show_treasure_filter == "lootable" or ns.db.show_treasure_filter == "notable")
             -- rewarding treasure either has no affiliated quest, or their quest is incomplete
             and point.quest and allQuestsComplete(point.quest) and not ns.db.found
         then
-            return false
+            return point.always
         end
     end
     if not ns.db.found then

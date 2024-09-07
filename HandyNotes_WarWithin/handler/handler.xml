@@ -12,6 +12,7 @@
 <Script file="rewards\base.lua"/>
 <Script file="rewards\item.lua"/>
 
+<Script file="providers\decorations.lua"/>
 <Script file="providers\routes.lua"/>
 <Script file="providers\routes_minimap.lua"/>
 

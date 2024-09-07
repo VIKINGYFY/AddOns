@@ -8,7 +8,7 @@ local function isItemInBag(item)
 end
 
 local function isItemInBagReagent(item)
-	return item.bagId == 5
+	return ContainerFrame_GetContainerNumSlots(5) > 0 and item.bagId == 5
 end
 
 local function isItemInBank(item)
