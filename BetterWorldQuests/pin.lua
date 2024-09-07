@@ -31,8 +31,8 @@ function BetterWorldQuestPinMixin:OnLoad()
 	self.TrackedCheck = TrackedCheck
 
 	local TimeLowFrame = CreateFrame('Frame', nil, self)
-	TimeLowFrame:SetPoint('CENTER', 9, -9)
-	TimeLowFrame:SetSize(22, 22)
+	TimeLowFrame:SetPoint('CENTER', self, 'TOPRIGHT', -2, -2)
+	TimeLowFrame:SetSize(18, 18)
 	TimeLowFrame:Hide()
 	self.TimeLowFrame = TimeLowFrame
 

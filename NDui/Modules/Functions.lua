@@ -17,28 +17,6 @@ do
 			itemSolt = DB.EquipTypes[itemEquipLoc] or _G[itemEquipLoc]
 		end
 
-		local itemDate
-		if bagID and slotID then
-			itemDate = C_TooltipInfo.GetBagItem(bagID, slotID)
-		else
-			itemDate = C_TooltipInfo.GetHyperlink(itemLink, nil, nil, true)
-		end
-		if itemDate then
-			for i = 2, 8 do
-				local lineData = itemDate.lines[i]
-				if not lineData then break end
-
-				local lineText = lineData.leftText
-				if DB.ConduitTypes[lineText] then
-					itemSolt = DB.ConduitTypes[lineText]
-					break
-				elseif DB.BindTypes[lineText] then
-					itemSolt = DB.BindTypes[lineText]
-					break
-				end
-			end
-		end
-
 		local _, spellID = C_Item.GetItemSpell(itemID)
 		if DB.AncientMana[spellID] then
 			itemSolt = "魔力"
@@ -68,6 +46,28 @@ do
 			itemSolt = POWER_TYPE_ANIMA
 		elseif C_ToyBox.GetToyInfo(itemID) then
 			itemSolt = TOY
+		end
+
+		local itemDate
+		if bagID and slotID then
+			itemDate = C_TooltipInfo.GetBagItem(bagID, slotID)
+		else
+			itemDate = C_TooltipInfo.GetHyperlink(itemLink, nil, nil, true)
+		end
+		if itemDate then
+			for i = 2, 8 do
+				local lineData = itemDate.lines[i]
+				if not lineData then break end
+
+				local lineText = lineData.leftText
+				if DB.ConduitTypes[lineText] then
+					itemSolt = DB.ConduitTypes[lineText]
+					break
+				elseif DB.BindTypes[lineText] then
+					itemSolt = DB.BindTypes[lineText]
+					break
+				end
+			end
 		end
 
 		--itemSolt = itemClassID.." "..itemSubClassID
