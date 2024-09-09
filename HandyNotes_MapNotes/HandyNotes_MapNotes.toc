@@ -1,5 +1,5 @@
 ## Interface: 110002
-## Version: 2.2.7
+## Version: 2.2.9
 ## Title: HandyNotes: |cffff0000Map|r|cff00ccffNotes|r
 ## Notes: Shows instance entrances/exits and passageways, portals, ships and zeppelin symbols and many other things
 ## Notes-esES: Muestra entradas/salidas y pasillos de instancias, portales, símbolos de barcos y zepelines y muchas otras cosas

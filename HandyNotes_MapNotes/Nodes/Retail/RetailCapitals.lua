@@ -155,11 +155,14 @@ if not db.activate.HideMapNote then
                 if self.db.profile.activate.CapitalsInstances then
     
                     if self.db.profile.showCapitalsDungeons then
-                        --nodes[85][51685850] = { id = 226, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Ragefire
                         nodes[86][66715154] = { id = 226, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Ragefire - Chasm of shadows
                     end
 
-                    if self.db.profile.showCapitalsInstancePassage then
+                    if self.db.profile.showCapitalsDungeons and db.activate.ClassicIcons then
+                        nodes[85][51685850] = { id = 226, TransportName = L["in the basement"], type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Ragefire
+                    end
+
+                    if self.db.profile.showCapitalsInstancePassage and not db.activate.ClassicIcons then
                        nodes[85][55895097] = { mnID = 86, id = 226, TransportName = L["Way to the Instance Entrance"], name = "", type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Ragefire   
                        nodes[85][46116716] = { mnID = 86, id = 226, TransportName = L["Way to the Instance Entrance"], name = "", type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Ragefire  
                        nodes[85][42396160] = { mnID = 86, id = 226, TransportName = L["Way to the Instance Entrance"], name = "", type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Ragefire    

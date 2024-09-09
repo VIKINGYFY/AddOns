@@ -24,8 +24,10 @@ end
 function ns.FogOfWar:Refresh()
 	if not self:IsEnabled() then return end
 
-	for pin in WorldMapFrame:EnumeratePinsByTemplate("MapExplorationPinTemplate") do
-		pin:RefreshOverlays(true)
+	if WorldMapFrame:IsShown() then
+		for pin in WorldMapFrame:EnumeratePinsByTemplate("MapExplorationPinTemplate") do
+			pin:RefreshOverlays(true)
+		end
 	end
 end
 
@@ -153,7 +155,9 @@ end
 
 function ns.FogOfWar:SetFogOfWarColor(info, FoWr, FoWg, FoWb, FoWa)
 	ns.FogOfWar.FogOfWarColorR, ns.FogOfWar.FogOfWarColorG, ns.FogOfWar.FogOfWarColorB, ns.FogOfWar.FogOfWarColorA = FoWr, FoWg, FoWb, FoWa
-	if self:IsEnabled() then self:Refresh() end
+	if WorldMapFrame:IsShown() then 
+		if self:IsEnabled() then self:Refresh() end
+	end
 end
 
 -- remove data from global scope

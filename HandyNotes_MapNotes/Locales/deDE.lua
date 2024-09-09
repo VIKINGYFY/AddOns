@@ -2,6 +2,14 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "deDE")
 if not L then return end
 
+--0.01
+L["Profiles"] = "Profile"
+L["This applies to the following tabs"] = "Dies bezieht sich auf folgende Registerkarten"
+L["An exception is the feedback in the chat from the function for deleting or restoring icons. These are always displayed!"] = "Eine Ausnahme ist die Rückmeldung im Chat von der Funktion zum Löschen oder Wiederherstellen von Symbolen. Diese werden immer angezeigt!"
+L["Here you can enable or disable all chat messages sent by MapNotes Minimap and Worldmap buttons when you hide or show icons over them"] = "Hier können Sie alle Chat-Nachrichten aktivieren oder deaktivieren, die von MapNotes Minikartenknopf und Weltkartenknopf gesendet werden, wenn Sie Symbole ausblenden oder anzeigen"
+L["Here you can enable or disable all chat messages sent from one of these MapNotes tabs when you change the settings"] = "Hier können Sie alle Chat-Nachrichten aktivieren oder deaktivieren, die von einer dieser Registerkarten von MapNotes gesendet werden, wenn Sie die Einstellungen ändern"
+L["Only affects passage icons to instances and not path icons to zones"] = "Betrifft nur Durchgangssymbole zu Instanzen und keine Wegesymbole zu Zonen"
+L["By deactivating it, the border of the zone icons of your own factions is also removed, as the displayed icons are automatically only for your own faction"] = "Durch das deaktivieren, wird zusätzlich die Umrandung der Zonen Symbolen der eigenen Fraktionen entfernt, da die jetzt angezeigten Symbole nur für die eigene Fraktion verfügbar sind"
 --0.1 profiles
 L["Profile has been changed"] = "Profil wurde gewechselt"
 L["Profile has been reset to default"] = "Profil wurde auf die Standardeinstellungen zurückgesetzt"
@@ -227,8 +235,8 @@ L["Shadowlands"] = "Schattenlande"
 L["Dragon Isles"] = "Dracheninseln"
 --8 Core spec
 L["Shift function"] = "Shift-Funktion"
-L["-> MiniMapButton <-"] = "-> MiniMapknopf <-"
-L["-> WorldMapButton <-"] = "-> Weltkartenknopf <-"
+L["-> MiniMapButton <-"] = "-> MiniMapKnopf <-"
+L["-> WorldMapButton <-"] = "-> WeltKartenKnopf <-"
 L["MapNotes menu window"] = "MapNotes-Menüfenster"
 L["All set icons have been restored"] = "Alle eingestellten Symbole wurden wiederhergestellt"
 L["All MapNotes icons have been hidden"] = "Alle MapNotes-Symbole wurden ausgeblendet"

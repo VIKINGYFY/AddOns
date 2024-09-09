@@ -2,6 +2,14 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "frFR")
 if not L then return end
 
+--0.01
+L["Profiles"] = "Profils"
+L["This applies to the following tabs"] = "Cela s'applique aux onglets suivants"
+L["An exception is the feedback in the chat from the function for deleting or restoring icons. These are always displayed!"] = "Une exception est la rétroaction dans le chat de la fonction de suppression ou de restauration des icônes. Ceux-ci sont toujours affichés!"
+L["Here you can enable or disable all chat messages sent by MapNotes Minimap and Worldmap buttons when you hide or show icons over them"] = "Ici, vous pouvez activer ou désactiver tous les messages de discussion envoyés par les boutons MapNotes Minimap et Worldmap lorsque vous masquez ou affichez des icônes dessus"
+L["Here you can enable or disable all chat messages sent from one of these MapNotes tabs when you change the settings"] = "Ici, vous pouvez activer ou désactiver tous les messages de discussion envoyés depuis l'un de ces onglets MapNotes lorsque vous modifiez les paramètres"
+L["Only affects passage icons to instances and not path icons to zones"] = "Affecte uniquement les icônes de passage aux instances et non aux icônes de chemin vers les zones"
+L["By deactivating it, the border of the zone icons of your own factions is also removed, as the displayed icons are automatically only for your own faction"] = "En le désactivant, la frontière des icônes de zone de vos propres factions est également supprimée, car les icônes affichées ne sont automatiquement que pour votre propre faction"
 --0.1 profiles
 L["Profile has been changed"] = "Le profil a été modifié"
 L["Profile has been reset to default"] = "Le profil a été réinitialisé avec les paramètres par défaut"

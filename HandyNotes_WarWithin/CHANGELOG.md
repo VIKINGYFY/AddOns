@@ -1,5 +1,23 @@
 # Changelog
 
+## Changed in v52
+
+* Azj-Kahet: added the No Harm Ever Came From Reading A Book achievement
+
+## Changed in v51
+
+* Clicking to keep routes visible should now work more reliably
+* Hallowfall:
+    * Clicking Beledar to force the Spawn's points to show will now force them even if you have Adventurer of Hallowfall hidden
+    * Added the weekly reputation to Deathtide, hide its summoning items when you're carrying them
+    * Hide the Illusive Kobyss Lure points when you're carrying them
+    * Light's Blooming: fix the locations for the Farmhand Stash and Old Rotting Crate, and add the Surveyor's Box
+
+## Changed in v50
+
+* Hallowfall: add a missing Biblo Archivist book, and the random non-achievement Fisherman's Pouch
+* Stop some occasional taint caused by routes
+
 ## Changed in v49
 
 * Hallowfall: removed a doubled-up Beledar's Spawn point

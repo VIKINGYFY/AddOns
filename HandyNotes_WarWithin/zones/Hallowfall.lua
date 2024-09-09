@@ -5,6 +5,8 @@ Notes:
 
 tripped together while I was running around the keyflame area at 80: 81416+83208
 
+faction unlocks with light of the dawntower 78671, also trips hidden 79654...
+
 Worldsoul memories (vignette 6358)
 60686749
 ]]
@@ -50,17 +52,21 @@ ns.RegisterPoints(ns.HALLOWFALL, {
             note=function(self)
                 return SHADOWPHASE:Label() ..
                     "\nBeledar switches from light to dark for 30 minutes every 3 hours." ..
-                    "\n|cff00ffffClick|r this to force {npc:207802:Beledar's Spawn} to show regardless of your normal settings"
+                    "\n|cff00ffffClick|r this to force {npc:207802:Beledar's Spawn} to " ..
+                    (self.FORCED and "hide" or "show") .. " regardless of your normal settings"
             end,
             texture=function(self)
                 return SHADOWPHASE:Matched() and self.texture_dark or self.texture_light
             end,
         },
-        OnClick=function(point, button, uiMapID, coord)
-            ns.db.groupsHidden["beledarspawn"] = false
+        OnClick=function(self, button, uiMapID, coord)
+            -- TODO: it'd be nice to work out the current state of the Spawn
+            -- points so I can toggle from the start, rather than the first
+            -- click apparently doing nothing if they're currently shown
+            self.FORCED = not self.FORCED
             for coord, opoint in pairs(ns.points[ns.HALLOWFALL]) do
                 if opoint.npc == 207802 then
-                    opoint.always = not opoint.always
+                    opoint.force = self.FORCED
                 end
             end
 
@@ -217,6 +223,22 @@ ns.RegisterPoints(ns.HALLOWFALL, {
             ns.rewards.Currency(ns.CURRENCY_RESONANCE, 5),
         },
     },
+    [56091455] = {
+        label="Fisherman's Pouch",
+        quest=81518,
+        loot={},
+        vignette=6103,
+    },
+    [65432715] = {
+        label="Surveyor's Box",
+        quest=34341,
+        loot={
+            226019, -- Darkened Arathi Shoulderguards (cosmetic)
+            206350, -- Radiant Remnant
+            ns.rewards.Currency(ns.CURRENCY_RESONANCE, 3),
+        },
+        vignette=6536,
+    },
 })
 
 ns.RegisterPoints(ns.HALLOWFALL, {
@@ -225,11 +247,11 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         quest=nil, -- 80337 popped near here?
         path=66011863,
     },
-    [61703270] = {
+    [63073074] = {
         label="Farmhand Stash",
         quest=nil,
     },
-    [64503160] = {
+    [64903330] = {
         label="Old Rotting Crate",
         quest=nil,
     },
@@ -310,10 +332,10 @@ ns.RegisterPoints(ns.HALLOWFALL, {
 
 -- Illusive Kobyss Lure (Treasures)
 ns.RegisterPoints(ns.HALLOWFALL, {
-    [55362720] = {label="{npc:215653:Kobyss Shadeshaper}: {item:225554:Sunless Lure}",},
-    [47611854] = {label="{npc:213622:Murkfin Depthstalker}: {item:225558:Murkfin Lure}",},
-    [50655037] = {label="{npc:215243:Hungering Shimmerfin}: {item:225559:Hungering Shimmerfin}",},
-    [34965465] = {label="{npc:213406:Ragefin Necromancer}: {item:225560:Ragefin Necrostaff}",},
+    [55362720] = {label="{npc:215653:Kobyss Shadeshaper}: {item:225554:Sunless Lure}", inbag=225554},
+    [47611854] = {label="{npc:213622:Murkfin Depthstalker}: {item:225558:Murkfin Lure}", inbag=225558},
+    [50655037] = {label="{npc:215243:Hungering Shimmerfin}: {item:225559:Hungering Shimmerfin}", inbag=225559},
+    [34965465] = {label="{npc:213406:Ragefin Necromancer}: {item:225560:Ragefin Necrostaff}", inbag=225560},
 }, {
     achievement=40848, -- Treasures
     criteria=69696,
@@ -325,7 +347,7 @@ ns.RegisterPoints(ns.HALLOWFALL, {
 
 -- Biblo Archivist
 ns.RegisterPoints(ns.HALLOWFALL, {
-    [48153959] = {criteria=68954, loot={225212}, note="Needed for {achievement:40848.69695:Arathi Loremaster}"}, -- The Big Book of Arathi Idioms
+    [48153959] = {criteria=68954, quest=83314, loot={225212}, note="Needed for {achievement:40848.69695:Arathi Loremaster}"}, -- The Big Book of Arathi Idioms
     [43904997] = {criteria=68955, loot={225217}}, -- 500 Dishes Using Cave Fish and Mushrooms
     [69344394] = {criteria=68957, loot={225207}, note="Needed for {achievement:40848.69695:Arathi Loremaster}"}, -- Care and Feeding of the Imperial Lynx
     [68684159] = {criteria=68958, loot={225206}}, -- Light's Gambit Playbook
@@ -335,7 +357,7 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     [59802203] = {criteria=68965, loot={225205}}, -- Shadow Curfew Journal
     [70225684] = {criteria=68967, loot={225215}, note="Needed for {achievement:40848.69695:Arathi Loremaster}"}, -- The Song of Renilash
     [56586518] = {criteria=68968, loot={225203}, note="In the ship. Needed for {achievement:40848.69695:Arathi Loremaster}"}, -- Beledar- The Emperor's Vision
-    -- [] = {criteria=69729, loot={228457}}, -- Lightspark Grade Book
+    [52645999] = {criteria=69729, quest=84497, loot={228457}}, -- Lightspark Grade Book
 }, {
     achievement=40622,
     texture=ns.atlas_texture("profession", {r=0, g=1, b=1}),
@@ -764,6 +786,7 @@ ns.RegisterPoints(ns.HALLOWFALL, {
     [44744241] = { -- Deathtide
         npc=221753,
         loot={
+            ns.rewards.Currency(ns.CURRENCY_ARATHI, 150, {quest=85165}),
             223920, -- Slime Deflecting Stopper
             223921, -- Ever-Oozing Signet
             225997, -- Earthen Adventurer's Spaulders
@@ -771,30 +794,42 @@ ns.RegisterPoints(ns.HALLOWFALL, {
         vignette=6156,
         active=ns.conditions.Item(220123), -- Ominous Offering
         note="Create an {item:220123:Ominous Offering} from {item:220124:Jar of Mucus} (|A:playerpartyblip:::::0:255:127|a) + {item:220122} (|A:playerpartyblip:::::0:0:255|a) to summon",
+        routes={
+            -- water
+            {28925120, 44744241, highlightOnly=true},
+            {34185782, 44744241, highlightOnly=true},
+            {34365357, 44744241, highlightOnly=true},
+            {43451413, 44744241, highlightOnly=true},
+            {50094966, 44744241, highlightOnly=true},
+            {53771913, 44744241, highlightOnly=true},
+            {55142344, 44744241, highlightOnly=true},
+            -- mucus
+            {48001668, 44744241, highlightOnly=true},
+        },
     },
 }, deathtide{})
 ns.RegisterPoints(ns.HALLOWFALL, {
     -- Jar of Mucus
-    [48001668] = {route={48001668, 44744241, highlightOnly=true}},
+    [48001668] = {route=44744241},
 }, deathtide{
     label="{item:220124}",
-    loot={220124},
+    loot={220124}, inbag={220124, 220123, any=true},
     texture=ns.atlas_texture("playerpartyblip",{r=0,g=1,b=0.5,}),
     minimap=true,
     note="Take to {npc:221753} @ 44.7,42.4",
 })
 ns.RegisterPoints(ns.HALLOWFALL, {
      -- Offering of Pure Water
-    [28925120] = {route={28925120, 44744241, highlightOnly=true}},
-    [34185782] = {route={34185782, 44744241, highlightOnly=true}},
-    [34365357] = {route={34365357, 44744241, highlightOnly=true}},
-    [43451413] = {route={43451413, 44744241, highlightOnly=true}},
-    [50094966] = {route={50094966, 44744241, highlightOnly=true}},
-    [53771913] = {route={53771913, 44744241, highlightOnly=true}},
-    [55142344] = {route={55142344, 44744241, highlightOnly=true}},
+    [28925120] = {route=44744241},
+    [34185782] = {route=44744241},
+    [34365357] = {route=44744241},
+    [43451413] = {route=44744241},
+    [50094966] = {route=44744241},
+    [53771913] = {route=44744241},
+    [55142344] = {route=44744241},
 }, deathtide{
     label="{item:220122}",
-    loot={220122},
+    loot={220122}, inbag={220122, 220123, any=true},
     texture=ns.atlas_texture("playerpartyblip",{r=0,g=0,b=1,}),
     minimap=true,
     note="Take to {npc:221753} @ 44.7,42.4",

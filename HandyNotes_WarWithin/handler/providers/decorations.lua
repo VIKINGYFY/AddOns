@@ -75,6 +75,9 @@ end
 
 function DecorationWorldMapDataProvider:OnMouseClick(point, uiMapID, coord)
     highlights[point._main] = not highlights[point._main]
+    if point.route and ns.points[uiMapID] and ns.points[uiMapID][point.route] then
+        highlights[ns.points[uiMapID][point.route]] = highlights[point]
+    end
     self:RefreshAllData()
 end
 

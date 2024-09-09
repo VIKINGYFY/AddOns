@@ -454,7 +454,6 @@ TextIconB11M = TextIcon"interface/characterframe/temporaryportrait-male-bloodelf
 TextIconOrcF = TextIcon("Interface/CharacterFrame/TemporaryPortrait-Female-Orc")
 TextIconUndeadF = TextIcon("interface/characterframe/temporaryportrait-female-scourge")
 
-
 -- 1 number --self.IconFileX = IconFileX or 0    -- the total X (horizontal) pixels in the image file - not just the icon we want
 -- 2 number --self.IconFileY = IconFileY or 0    -- the total Y (vertical) pixels in the image file
 -- 3 number --self.StartX = StartX or 0        -- The starting point in the file where the icon begins, counted from the left border, in pixels

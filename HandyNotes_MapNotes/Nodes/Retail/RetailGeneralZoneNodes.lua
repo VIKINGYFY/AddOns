@@ -1580,7 +1580,7 @@ if not db.activate.HideMapNote then
 
             if self.db.profile.showZonePvEVendor and not self.db.profile.ZoneMapNotesIcons then
                 nodes[2214][47303293] = { dnID = L["The Assembly of the Deeps"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2215][41275304] = { dnID = L["Hallowfall Arathi"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2215][42355500] = { dnID = L["Hallowfall Arathi"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneMailbox and not self.db.profile.ZoneMapNotesIcons then
