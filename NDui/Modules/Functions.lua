@@ -6,53 +6,22 @@ local cr, cg, cb = DB.r, DB.g, DB.b
 -- 自定义
 do
 	-- Item Slot
-	local iSlotDB = {}
-	function B.GetItemSlot(itemLink, bagID, slotID)
-		local itemID, itemType, itemSubType, itemEquipLoc, itemIcon, itemClassID, itemSubClassID = C_Item.GetItemInfoInstant(itemLink)
+	local typeCache = {}
+	function B.GetItemType(itemInfo, bagID, slotID)
+		local itemID, _, _, itemEquipLoc, _, itemClassID, itemSubClassID = C_Item.GetItemInfoInstant(itemInfo)
 		if not itemID then return end
-		if iSlotDB[itemID] then return iSlotDB[itemID] end
+		if typeCache[itemInfo] then return typeCache[itemInfo] end
 
-		local itemSolt
+		local itemType
 		if DB.EquipIDs[itemClassID] then
-			itemSolt = DB.EquipTypes[itemEquipLoc] or _G[itemEquipLoc]
-		end
-
-		local _, spellID = C_Item.GetItemSpell(itemID)
-		if DB.AncientMana[spellID] then
-			itemSolt = "魔力"
-		elseif DB.DeliverRelic[spellID] then
-			itemSolt = "研究"
-		elseif DB.Experience[spellID] then
-			itemSolt = "经验"
-		end
-
-		if itemClassID == Enum.ItemClass.Container then
-			itemSolt = DB.ContainerTypes[itemSubClassID]
-		elseif itemClassID == Enum.ItemClass.ItemEnhancement then
-			itemSolt = DB.EnchantTypes[itemSubClassID]
-		elseif itemClassID == Enum.ItemClass.Recipe then
-			itemSolt = DB.RecipeTypes[itemSubClassID]
-		elseif itemClassID == Enum.ItemClass.Key then
-			itemSolt = DB.KeyTypes[itemSubClassID]
-		elseif itemClassID == Enum.ItemClass.Miscellaneous then
-			itemSolt = DB.MiscTypes[itemSubClassID]
-		elseif itemClassID == Enum.ItemClass.Profession then
-			itemSolt = DB.ProfessionTypes[itemSubClassID]
-		end
-
-		if C_ArtifactUI.GetRelicInfoByItemID(itemID) then
-			itemSolt = RELICSLOT
-		elseif C_Item.IsAnimaItemByID(itemID) then
-			itemSolt = POWER_TYPE_ANIMA
-		elseif C_ToyBox.GetToyInfo(itemID) then
-			itemSolt = TOY
+			itemType = DB.EquipTypes[itemEquipLoc] or _G[itemEquipLoc]
 		end
 
 		local itemDate
 		if bagID and slotID then
 			itemDate = C_TooltipInfo.GetBagItem(bagID, slotID)
 		else
-			itemDate = C_TooltipInfo.GetHyperlink(itemLink, nil, nil, true)
+			itemDate = C_TooltipInfo.GetHyperlink(itemInfo, nil, nil, true)
 		end
 		if itemDate then
 			for i = 2, 8 do
@@ -61,38 +30,98 @@ do
 
 				local lineText = lineData.leftText
 				if DB.ConduitTypes[lineText] then
-					itemSolt = DB.ConduitTypes[lineText]
+					itemType = DB.ConduitTypes[lineText]
 					break
 				elseif DB.BindTypes[lineText] then
-					itemSolt = DB.BindTypes[lineText]
+					itemType = DB.BindTypes[lineText]
 					break
 				end
 			end
 		end
 
-		--itemSolt = itemClassID.." "..itemSubClassID
+		local _, spellID = C_Item.GetItemSpell(itemID)
+		if DB.AncientMana[spellID] then
+			itemType = "魔力"
+		elseif DB.DeliverRelic[spellID] then
+			itemType = "研究"
+		elseif DB.Experience[spellID] then
+			itemType = "经验"
+		end
 
-		iSlotDB[itemID] = itemSolt
-		return iSlotDB[itemID]
+		if C_ArtifactUI.GetRelicInfoByItemID(itemID) then
+			itemType = RELICSLOT
+		elseif C_Item.IsAnimaItemByID(itemID) then
+			itemType = POWER_TYPE_ANIMA
+		elseif C_ToyBox.GetToyInfo(itemID) then
+			itemType = TOY
+		end
+
+		if itemClassID == Enum.ItemClass.Container then
+			itemType = DB.ContainerTypes[itemSubClassID]
+		elseif itemClassID == Enum.ItemClass.ItemEnhancement then
+			itemType = DB.EnchantTypes[itemSubClassID]
+		elseif itemClassID == Enum.ItemClass.Recipe then
+			itemType = DB.RecipeTypes[itemSubClassID]
+		elseif itemClassID == Enum.ItemClass.Key then
+			itemType = DB.KeyTypes[itemSubClassID]
+		elseif itemClassID == Enum.ItemClass.Miscellaneous then
+			itemType = DB.MiscTypes[itemSubClassID]
+		elseif itemClassID == Enum.ItemClass.Profession then
+			itemType = DB.ProfessionTypes[itemSubClassID]
+		end
+
+		--itemType = itemClassID.." "..itemSubClassID
+
+		typeCache[itemInfo] = itemType
+		return itemType
 	end
 
-	-- Item Extra
-	function B.GetItemExtra(item)
-		local itemEx = ""
-		local stats = C_Item.GetItemStats(item)
+	-- Item Stat
+	local statCache = {}
+	function B.GetItemStat(itemInfo)
+		if statCache[itemInfo] then return statCache[itemInfo] end
 
+		local itemStat = ""
+		local stats = C_Item.GetItemStats(itemInfo)
 		if stats then
 			for stat, count in pairs(stats) do
 				if DB.ItemStats[stat] then
-					itemEx = itemEx.."-".._G[stat]
+					itemStat = itemStat.."-".._G[stat]
 				end
 				if string.find(stat, "EMPTY_SOCKET_") then
-					itemEx = itemEx.."-"..L["Socket"]
+					itemStat = itemStat.."-"..L["Socket"]
 				end
 			end
 		end
 
-		return itemEx
+		statCache[itemInfo] = itemStat
+		return itemStat
+	end
+
+	-- Item Extra
+	local extraCache = {}
+	function B.GetItemExtra(itemInfo)
+		if extraCache[itemInfo] then return extraCache[itemInfo] end
+
+		local itemExtra, hasStat
+		local itemType = B.GetItemType(itemInfo)
+		local itemStat = B.GetItemStat(itemInfo)
+		local itemLevel = B.GetItemLevel(itemInfo)
+
+		if itemLevel and itemType then
+			itemExtra = "<"..itemLevel.."-"..itemType..itemStat..">"
+		elseif itemLevel then
+			itemExtra = "<"..itemLevel..itemStat..">"
+		elseif itemType then
+			itemExtra = "<"..itemType..itemStat..">"
+		end
+
+		if itemStat ~= "" then
+			hasStat = true
+		end
+
+		extraCache[itemInfo] = itemExtra
+		return itemExtra, hasStat
 	end
 
 	local rtgColor = {1, 0, 0, 1, 1, 0, 0, 1, 0}

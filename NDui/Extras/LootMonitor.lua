@@ -124,33 +124,22 @@ local function UpdateLMFrame(self, event, ...)
 
 		if not itemLink or string.len(lootPlayer) < 1 then return end
 
-		local itemEx = B.GetItemExtra(itemLink)
-		local itemLvl = B.GetItemLevel(itemLink)
-		local itemSolt = B.GetItemSlot(itemLink)
+		local itemExtra, hasStat = B.GetItemExtra(itemLink)
 		local itemQuality = C_Item.GetItemQualityByID(itemLink)
 		local itemID, _, _, _, _, itemClassID, itemSubClassID = C_Item.GetItemInfoInstant(itemLink)
 
 		if isEquipment(itemQuality, itemClassID) or isCollection(itemID, itemClassID, itemSubClassID) then
-			local lootInfo = ""
 			local textWidth, maxWidth = 0, 0
 			local lootTime = DB.InfoColor..GameTime_GetGameTime(true).."|r"
 			local playerName = UnitClassColor(string.split("-", lootPlayer))
 
-			if itemLvl and itemSolt then
-				lootInfo = "<"..itemLvl.."-"..itemSolt..itemEx..">"
-			elseif itemLvl then
-				lootInfo = "<"..itemLvl..itemEx..">"
-			elseif itemSolt then
-				lootInfo = "<"..itemSolt..itemEx..">"
-			end
-
-			if itemEx ~= "" then
-				lootInfo = "|cff00FF00"..lootInfo.."|r"
+			if hasStat then
+				itemExtra = "|cff00FF00"..itemExtra.."|r"
 			end
 
 			if #LMFrame_Report >= LMFrame_CFG["maxLines"] then table.remove(LMFrame_Report, 1) end
 
-			table.insert(LMFrame_Report, {time = lootTime, player = playerName, link = itemLink, info = lootInfo, name = lootPlayer})
+			table.insert(LMFrame_Report, {time = lootTime, player = playerName, link = itemLink, info = itemExtra, name = lootPlayer})
 
 			local numButtons = #LMFrame_Report
 			for index = 1, numButtons do

@@ -1153,7 +1153,7 @@ function module:OnLogin()
 			self.iLvl:SetTextColor(color.r, color.g, color.b)
 
 			if C.db["Bags"]["BagsiSlot"] then
-				local slot = B.GetItemSlot(item.link, item.bagId ~= -1 and item.bagId, item.slotId)
+				local slot = B.GetItemType(item.link, item.bagId ~= -1 and item.bagId, item.slotId)
 				self.iSlot:SetText(slot)
 				--self.iSlot:SetTextColor(color.r, color.g, color.b)
 			end

@@ -7,6 +7,7 @@ if DB.MyClass ~= "DEMONHUNTER" then return end
 -- DH的法术监控
 local list = {
 	["Player Aura"] = {		-- 玩家光环组
+		{AuraID = 389847, UnitID = "player"}, -- 邪火疾速
 	},
 	["Target Aura"] = {		-- 目标光环组
 		{AuraID = 179057, UnitID = "target", Caster = "player"}, -- 混乱新星

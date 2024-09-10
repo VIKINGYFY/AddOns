@@ -341,7 +341,7 @@ function M:ItemLevel_UpdateMerchant(link)
 	if quality and quality > 1 then
 		local level = B.GetItemLevel(link)
 		local color = DB.QualityColors[quality]
-		local slot = B.GetItemSlot(link)
+		local slot = B.GetItemType(link)
 		self.iLvl:SetText(level)
 		self.iLvl:SetTextColor(color.r, color.g, color.b)
 		self.iSlot:SetText(slot)
@@ -365,16 +365,15 @@ function M.ItemLevel_UpdateTradeTarget(index)
 end
 
 local itemCache = {}
-local CHAT = B:GetModule("Chat")
 
 function M.ItemLevel_ReplaceItemLink(link, name)
 	if not link then return end
 
 	local modLink = itemCache[link]
 	if not modLink then
-		local itemLevel = B.GetItemLevel(link)
-		if itemLevel then
-			modLink = string.gsub(link, "|h%[(.-)%]|h", "|h("..itemLevel..CHAT.IsItemHasGem(link)..")"..name.."|h")
+		local itemExtra = B.GetItemExtra(link)
+		if itemExtra then
+			modLink = string.gsub(link, "|h%[(.-)%]|h", "|h"..itemExtra..name.."|h")
 			itemCache[link] = modLink
 		end
 	end
@@ -427,7 +426,7 @@ function M:ItemLevel_UpdateLoot()
 			if quality and quality > 1 then
 				local level = B.GetItemLevel(slotLink)
 				local color = DB.QualityColors[quality]
-				local slot = B.GetItemSlot(slotLink)
+				local slot = B.GetItemType(slotLink)
 				button.iLvl:SetText(level)
 				button.iLvl:SetTextColor(color.r, color.g, color.b)
 				button.iSlot:SetText(slot)
@@ -455,7 +454,7 @@ function M:ItemLevel_UpdateBag()
 	if quality and quality > 1 then
 		local level = B.GetItemLevel(link, bagID, slotID)
 		local color = DB.QualityColors[quality]
-		local slot = B.GetItemSlot(link, bagID, slotID)
+		local slot = B.GetItemType(link, bagID, slotID)
 		button.iLvl:SetText(level)
 		button.iLvl:SetTextColor(color.r, color.g, color.b)
 		button.iSlot:SetText(slot)

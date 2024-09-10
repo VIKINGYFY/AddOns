@@ -177,49 +177,6 @@ function module:BlockTrashClub()
 	end
 end
 
--- Show itemlevel on chat hyperlinks
-local function isItemHasLevel(link)
-	local name, _, rarity, level, _, _, _, _, _, _, _, classID = C_Item.GetItemInfo(link)
-	if name and level and rarity > 1 and (classID == Enum.ItemClass.Weapon or classID == Enum.ItemClass.Armor) then
-		local itemLevel = B.GetItemLevel(link)
-		return name, itemLevel
-	end
-end
-
-local socketWatchList = {
-	["BLUE"] = true,
-	["RED"] = true,
-	["YELLOW"] = true,
-	["COGWHEEL"] = true,
-	["HYDRAULIC"] = true,
-	["META"] = true,
-	["PRISMATIC"] = true,
-	["PUNCHCARDBLUE"] = true,
-	["PUNCHCARDRED"] = true,
-	["PUNCHCARDYELLOW"] = true,
-	["DOMINATION"] = true,
-	["PRIMORDIAL"] = true,
-}
-
-local function GetSocketTexture(socket, count)
-	return string.rep("|TInterface\\ItemSocketingFrame\\UI-EmptySocket-"..socket..":0|t", count)
-end
-
-function module.IsItemHasGem(link)
-	local text = ""
-	local stats = C_Item.GetItemStats(link)
-	if stats then
-		for stat, count in pairs(stats) do
-			local socket = string.match(stat, "EMPTY_SOCKET_(%S+)")
-			if socket and socketWatchList[socket] then
-				if socket == "PRIMORDIAL" then socket = "META" end -- primordial texture is missing, use meta instead, needs review
-				text = text..GetSocketTexture(socket, count)
-			end
-		end
-	end
-	return text
-end
-
 local itemCache, GetDungeonScoreInColor = {}
 
 function module.ReplaceChatHyperlink(link, linkType, value)
@@ -227,9 +184,10 @@ function module.ReplaceChatHyperlink(link, linkType, value)
 
 	if linkType == "item" then
 		if itemCache[link] then return itemCache[link] end
-		local name, itemLevel = isItemHasLevel(link)
-		if name and itemLevel then
-			link = string.gsub(link, "|h%[(.-)%]|h", "|h["..name.."("..itemLevel..")]|h"..module.IsItemHasGem(link))
+		local itemName = C_Item.GetItemNameByID(link)
+		local itemExtra = B.GetItemExtra(link)
+		if itemName and itemExtra then
+			link = string.gsub(link, "|h%[(.-)%]|h", "|h["..itemName..itemExtra.."]|h")
 			itemCache[link] = link
 		end
 		return link
