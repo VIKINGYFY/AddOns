@@ -248,6 +248,7 @@ DB.ReminderBuffs = {
 		{	spells = {
 				[192106] = true,	-- 闪电之盾
 				[974] = true,		-- 大地之盾
+				[383648] = true,	-- 大地之盾
 				[52127] = true,		-- 水之护盾
 			},
 			depend = 192106,
@@ -353,7 +354,7 @@ DB.CollectionIDs = {
 	[Enum.ItemMiscellaneousSubclass.Mount] = true,
 }
 
-DB.EquipIDs = {
+DB.EquipmentIDs = {
 	[Enum.ItemClass.Weapon] = true,
 	[Enum.ItemClass.Armor] = true,
 }
@@ -378,9 +379,14 @@ DB.BindTypes = {
 	[ITEM_BIND_ON_USE] = "BoU",
 }
 
-DB.EquipTypes = {
+DB.EquipmentTypes = {
 	["INVTYPE_HOLDABLE"] = SECONDARYHANDSLOT,
 	["INVTYPE_SHIELD"] = SHIELDSLOT,
+}
+
+DB.ConsumableTypes = {
+	[10] = "效能",
+	[11] = "战斗",
 }
 
 DB.ContainerTypes = {
@@ -398,7 +404,7 @@ DB.ContainerTypes = {
 	[11] = "材料",
 }
 
-DB.EnchantTypes = {
+DB.ItemEnhancementTypes = {
 	[0] = INVTYPE_HEAD,
 	[1] = INVTYPE_NECK,
 	[2] = INVTYPE_SHOULDER,
@@ -453,7 +459,7 @@ DB.ProfessionTypes = {
 	[13] = "考古",
 }
 
-DB.MiscTypes = {
+DB.MiscellaneousTypes = {
 	[2] = PETS,
 	[5] = MOUNTS,
 	[6] = EQUIPSET_EQUIP,
@@ -477,6 +483,7 @@ DB.AncientMana = {
 	[193081] = true,
 	[211161] = true,
 	[211171] = true,
+	[216918] = true,
 	[222333] = true,
 	[222334] = true,
 	[222335] = true,
@@ -487,12 +494,19 @@ DB.AncientMana = {
 	[222947] = true,
 	[222950] = true,
 	[223677] = true,
+	[224379] = true,
+	[224380] = true,
+	[224381] = true,
+	[224382] = true,
 	[227729] = true,
 	[233126] = true,
 	[233232] = true,
 }
 
 DB.Experience = {
+	[180419] = true,
+	[225517] = true,
+	[255249] = true,
 	[347495] = true,
 	[347496] = true,
 	[347497] = true,

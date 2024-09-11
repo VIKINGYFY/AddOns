@@ -825,6 +825,9 @@ local function updateHotkeys()
 	B:GetModule("Actionbar"):UpdateBarConfig()
 end
 
+local function updateOverlays()
+	B:GetModule("Actionbar"):UpdateOverlays()
+end
 local function updateReminder()
 	B:GetModule("Auras"):InitReminder()
 end
@@ -1136,7 +1139,7 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{1, "Actionbar", "SendActionCD", HeaderTag..L["SendActionCD"].."*", true, nil, nil, L["SendActionCDTip"]},
 		{1, "Actionbar", "Macro", L["Actionbar Macro"].."*", nil, nil, updateHotkeys},
 		{1, "Actionbar", "Grid", L["Actionbar Grid"].."*", nil, nil, updateHotkeys},
-		{4, "ACCOUNT", "GlowMode", IsNew..L["GlowMode"], true, {"Pixel", "Autocast", "Action Button", "Proc Glow"}},
+		{4, "ACCOUNT", "GlowMode", L["GlowMode"].."*", true, {"Pixel", "Autocast", "Action Button", "Proc Glow"}},
 	},
 	[2] = {
 		{1, "Bags", "Enable", HeaderTag..L["Enable Bags"]},

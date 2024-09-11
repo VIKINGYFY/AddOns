@@ -27,6 +27,11 @@ end
 function RouteWorldMapDataProvider:RefreshAllData(fromOnShow)
     if not (self:GetMap() and self:GetMap():IsShown()) then return end
     self:RemoveAllData()
+
+    if HandyNotes.db.profile.enabledPlugins[myname:gsub("HandyNotes_", "")] == false or not HandyNotes.db.profile.enabled then
+        return
+    end
+
     if not ns.db.show_routes then return end
 
     local uiMapID = self:GetMap():GetMapID()

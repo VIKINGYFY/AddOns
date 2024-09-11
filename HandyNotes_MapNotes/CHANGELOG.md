@@ -1,19 +1,12 @@
 # MapNote
-## [2.2.9](https://github.com/Ssesmar/MapNote) (2024-09-09)
+## [2.3.0](https://github.com/Ssesmar/MapNote) (2024-09-10)
 - Note:
 
 -- MapNotes now works on every version of World of Warcraft. Classic Era / Cataclysm / Retail / PTR
 
 Retail:
 
-    the delete function has been changed. Now you need to press “ALT” and right click to delete a specific symbol instead of “Alt” and Leftclick
-    a new selection option has been added into the chat area to hide or show all possible chat message send from MapNotes
-    Core Abilities: Here you can activate or deactivate the chat messages for the general and profile tab functions
-    Classic: Here you can activate or deactivate the chat messages for the "Capitals +","Zones +", "Continets", "Azeroth", "Worldmap" and "Dungeons" tab by showing or hiding icons and categories   
-    MMB/WMB: Here you can show or hide chat messages sent by MapNotes' minimap and world map buttons
-    Location: Here the display can be activated in the chat when a player enters a new zone for the first time
-    Location Details: Here the display in the chat can be activated when a player enters a sub-located zone within a zone
-    If the "Location" function is deactivated, "Location Details" is automatically deactivated and is grayed out because it depends on the main "Locations" function
+changed incorrect translation of the chat function "legacy" changed to "classic".
 
 - Description:
 

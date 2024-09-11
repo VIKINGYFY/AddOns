@@ -260,13 +260,13 @@ ns.options = {
         ChatMassage = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
           type = "toggle",
-          name = LFG_LIST_LEGACY,
+          name = LAYOUT_STYLE_CLASSIC,
           desc = L["Here you can enable or disable all chat messages sent from one of these MapNotes tabs when you change the settings"] .. "\n" .."\n" .. L["This applies to the following tabs"] .. "\n" .. "\n" .. "• " .. L["Capitals"] .. " + " .. "\n" .. "• " .. L["Zones"] .. " + " .. "\n" .. "• " .. L["Continents"] .. "\n" .. "• " .. AZEROTH .. "\n" .. "• " .. WORLDMAP_BUTTON .. "\n" .. "• " .. L["Dungeons"],
           order = 3.2,
           width = 0.60,
           set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
-            if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.ChatMassage then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. LFG_LIST_LEGACY, L["chat message"], "|cff00ff00" .. L["is activated"]) else 
-            if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.ChatMassage then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. LFG_LIST_LEGACY, L["chat message"], "|cffff0000" .. L["is deactivated"] ) end end end,
+            if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.ChatMassage then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. LAYOUT_STYLE_CLASSIC, L["chat message"], "|cff00ff00" .. L["is activated"]) else 
+            if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.ChatMassage then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. LAYOUT_STYLE_CLASSIC, L["chat message"], "|cffff0000" .. L["is deactivated"] ) end end end,
           }, 
         MmbWmbChatMessage = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,

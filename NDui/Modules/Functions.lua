@@ -13,8 +13,22 @@ do
 		if typeCache[itemInfo] then return typeCache[itemInfo] end
 
 		local itemType
-		if DB.EquipIDs[itemClassID] then
-			itemType = DB.EquipTypes[itemEquipLoc] or _G[itemEquipLoc]
+		if DB.EquipmentIDs[itemClassID] then
+			itemType = DB.EquipmentTypes[itemEquipLoc] or _G[itemEquipLoc]
+		elseif itemClassID == Enum.ItemClass.Consumable then
+			itemType = DB.ConsumableTypes[itemSubClassID]
+		elseif itemClassID == Enum.ItemClass.Container then
+			itemType = DB.ContainerTypes[itemSubClassID]
+		elseif itemClassID == Enum.ItemClass.ItemEnhancement then
+			itemType = DB.ItemEnhancementTypes[itemSubClassID]
+		elseif itemClassID == Enum.ItemClass.Recipe then
+			itemType = DB.RecipeTypes[itemSubClassID]
+		elseif itemClassID == Enum.ItemClass.Key then
+			itemType = DB.KeyTypes[itemSubClassID]
+		elseif itemClassID == Enum.ItemClass.Miscellaneous then
+			itemType = DB.MiscellaneousTypes[itemSubClassID]
+		elseif itemClassID == Enum.ItemClass.Profession then
+			itemType = DB.ProfessionTypes[itemSubClassID]
 		end
 
 		local itemDate
@@ -39,15 +53,6 @@ do
 			end
 		end
 
-		local _, spellID = C_Item.GetItemSpell(itemID)
-		if DB.AncientMana[spellID] then
-			itemType = "魔力"
-		elseif DB.DeliverRelic[spellID] then
-			itemType = "研究"
-		elseif DB.Experience[spellID] then
-			itemType = "经验"
-		end
-
 		if C_ArtifactUI.GetRelicInfoByItemID(itemID) then
 			itemType = RELICSLOT
 		elseif C_Item.IsAnimaItemByID(itemID) then
@@ -56,18 +61,13 @@ do
 			itemType = TOY
 		end
 
-		if itemClassID == Enum.ItemClass.Container then
-			itemType = DB.ContainerTypes[itemSubClassID]
-		elseif itemClassID == Enum.ItemClass.ItemEnhancement then
-			itemType = DB.EnchantTypes[itemSubClassID]
-		elseif itemClassID == Enum.ItemClass.Recipe then
-			itemType = DB.RecipeTypes[itemSubClassID]
-		elseif itemClassID == Enum.ItemClass.Key then
-			itemType = DB.KeyTypes[itemSubClassID]
-		elseif itemClassID == Enum.ItemClass.Miscellaneous then
-			itemType = DB.MiscTypes[itemSubClassID]
-		elseif itemClassID == Enum.ItemClass.Profession then
-			itemType = DB.ProfessionTypes[itemSubClassID]
+		local _, spellID = C_Item.GetItemSpell(itemID)
+		if DB.AncientMana[spellID] then
+			itemType = "魔力"
+		elseif DB.DeliverRelic[spellID] then
+			itemType = "研究"
+		elseif DB.Experience[spellID] then
+			itemType = "经验"
 		end
 
 		--itemType = itemClassID.." "..itemSubClassID

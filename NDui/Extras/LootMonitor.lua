@@ -28,7 +28,7 @@ local function isCollection(itemID, itemClassID, itemSubClassID)
 end
 
 local function isEquipment(itemQuality, itemClassID)
-	return DB.EquipIDs[itemClassID] and (itemQuality and itemQuality >= LMFrame_CFG["minQuality"])
+	return DB.EquipmentIDs[itemClassID] and (itemQuality and itemQuality >= LMFrame_CFG["minQuality"])
 end
 
 local LMFrame = CreateFrame("Frame", "LootMonitor", UIParent)

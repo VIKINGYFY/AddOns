@@ -3624,7 +3624,7 @@ local CompactVendorFrameMerchantButtonCostButtonTemplate do
                 return
             end
             local canAfford = GetMoney() - merchantItem.price >= 0
-            local text = GetMoneyString(merchantItem.price, true, false, true, true)
+            local text = GetMoneyString(merchantItem.price, true, true, true, true)
             cost:Update(costType, canAfford, text, nil, merchantItem.price)
             return true
         end

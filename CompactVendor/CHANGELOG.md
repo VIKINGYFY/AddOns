@@ -1,8 +1,10 @@
 # CompactVendor
 
-## [v11.0.0.240805](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.0.0.240805) (2024-08-05)
-[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.0.0.240805) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
+## [v11.0.2.240908](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.0.2.240908) (2024-09-08)
+[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.0.2.240908) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
 
+- TOC bump.  
+- Use Yes/No instead of the collected texts.  
 - Adjusted item appearance collection status logic. Will display `Appearance` with Yes/No, and `Appearance: Collected` if we have collected the appearance or not, given that the first filter is properly set to show collectable items.  
 - TOC bump  
 - Fixed minor issue with `Learnable: Collected` detection and classification.  
@@ -74,7 +76,3 @@
 - Enforcing shadow on the font if a size is used that doesn't have one as part of it.  
 - Adding merchant scanning as that contains more information.  
 - Removed module CF isn't aware of existing yet.  
-- Merge pull request #11 from Vladinator/feature/df  
-    Dragonflight and v2 rewrite  
-- Adjusted visibility handling, to hide button or list when the tab is not the correct one.  
-- Updated for 10.0.0  

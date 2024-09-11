@@ -1473,6 +1473,7 @@ do
         for _, cache in pairs(ns.run_caches) do
             table.wipe(cache)
         end
+        HL:RefreshProviders()
         currentZone = uiMapID
         isMinimap = minimap
         return iter, ns.points[uiMapID], nil
@@ -1537,18 +1538,20 @@ do
     end)
     function HL:Refresh()
         HL:SendMessage("HandyNotes_NotifyUpdate", myname:gsub("HandyNotes_", ""))
+    end
+    function HL:RefreshOnEvent(event)
+        bucket:Show()
+    end
+    function HL:RefreshProviders()
         if ns.RouteWorldMapDataProvider then
             ns.RouteWorldMapDataProvider:RefreshAllData()
         end
         if ns.RouteMiniMapDataProvider then
             ns.RouteMiniMapDataProvider:UpdateMinimapRoutes()
         end
-        if ns.BackdropWorldMapDataProvider then
-            ns.BackdropWorldMapDataProvider:RefreshAllData()
+        if ns.DecorationWorldMapDataProvider then
+            ns.DecorationWorldMapDataProvider:RefreshAllData()
         end
-    end
-    function HL:RefreshOnEvent(event)
-        bucket:Show()
     end
 end
 

@@ -19,11 +19,15 @@ function dataProvider:RefreshAllData()
     HBDPins:RemoveAllMinimapIcons(self)
     self:ReleaseAllPins()
 
+    if HandyNotes.db.profile.enabledPlugins[myname:gsub("HandyNotes_", "")] == false or not HandyNotes.db.profile.enabled then
+        return
+    end
+
     if not ns.db.show_routes then return end
 
     -- if we either can't display anything meaningful, or are disabled
     if GetCVar('rotateMinimap') == '1' and self.facing == nil then return end
-    
+
     local uiMapID = HBD:GetPlayerZone()
     if not uiMapID then return end
     if not ns.points[uiMapID] then return end

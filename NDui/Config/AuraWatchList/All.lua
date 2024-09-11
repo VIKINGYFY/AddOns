@@ -52,44 +52,8 @@ local list = {
 		{AuraID =  26297, UnitID = "player"}, -- 狂暴 巨魔
 		{AuraID =  33697, UnitID = "player"}, -- 血性狂怒 兽人
 		{AuraID = 292463, UnitID = "player"}, -- 帕库之拥 赞达拉
-		-- 10.0 药水
-		{AuraID = 371024, UnitID = "player"}, -- 元素强能药水
-		{AuraID = 371028, UnitID = "player"}, -- 元素究极强能药水
-		{AuraID = 371124, UnitID = "player"}, -- 沉静西风药水
-		-- 10.0 饰品
-		{AuraID =  91340, UnitID = "player"}, -- 海洋之力
-		{AuraID =  92174, UnitID = "player"}, -- 瓷蟹
-		{AuraID = 214342, UnitID = "player"}, -- 梦魇蛋壳
-		{AuraID = 265954, UnitID = "player"}, -- 点金护符
-		{AuraID = 271105, UnitID = "player"}, -- 血渍屠夫隔板
-		{AuraID = 403382, UnitID = "player"}, -- 奈萨里奥的混沌之召
-		{AuraID = 417139, UnitID = "player"}, -- 先知石鳞
-		{AuraID = 417452, UnitID = "player"}, -- 增速沙漏
-		{AuraID = 418527, UnitID = "player"}, -- 破碎翌日之镜
-		{AuraID = 418999, UnitID = "player", Value = true}, -- 破碎翌日之镜
-		{AuraID = 422441, UnitID = "player"}, -- 苦痛古树残根
-		{AuraID = 423611, UnitID = "player"}, -- 烬魄之灰
-		{AuraID = 425571, UnitID = "player", Value = true}, -- 菲莱克的秽怒之心
-		{AuraID = 426553, UnitID = "player"}, -- 洪荒火焰预兆
-		{AuraID = 426898, UnitID = "player"}, -- 烬魄之灰
-		{AuraID = 429221, UnitID = "player"}, -- 碧海之星
-		{AuraID = 429246, UnitID = "player"}, -- 凝固的原祖荆兽血
-		{AuraID = 429262, UnitID = "player"}, -- 枯木的树枝
-		{AuraID = 429268, UnitID = "player", Value = true}, -- 艾里塔克未孵化的卵囊
-		{AuraID = 429271, UnitID = "player", Value = true}, -- 古树卫士叶片
-		--10.0 附魔
-		{AuraID = 375335, UnitID = "player"}, -- 元素套索 - 火焰强化
-		{AuraID = 375342, UnitID = "player"}, -- 元素套索 - 空气强化
-		{AuraID = 375343, UnitID = "player"}, -- 元素套索 - 冰霜强化
-		{AuraID = 375345, UnitID = "player"}, -- 元素套索 - 大地强化
-		{AuraID = 390165, UnitID = "player"}, -- 燃烧之令
-		{AuraID = 390170, UnitID = "player"}, -- 大地之令
-		{AuraID = 390216, UnitID = "player"}, -- 睿智之令
-		{AuraID = 390224, UnitID = "player"}, -- 睿智之祈
-		{AuraID = 390242, UnitID = "player"}, -- 凝冰之令
-		{AuraID = 390247, UnitID = "player"}, -- 吹拂之令
-		{AuraID = 390345, UnitID = "player"}, -- 大地之祈
-		{AuraID = 390357, UnitID = "player"}, -- 吹拂之祈
+		-- 11.0 饰品
+		{AuraID = 443531, UnitID = "player"},	-- 振奋之光
 	},
 	["Raid Buff"] = {		-- 团队增益组
 		{AuraID =  54861, UnitID = "player"}, -- 火箭靴，工程

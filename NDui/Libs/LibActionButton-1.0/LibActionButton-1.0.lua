@@ -1243,6 +1243,7 @@ function InitializeEventHandler()
 	lib.eventFrame:RegisterEvent("SPELL_UPDATE_ICON")
 	if not WoWClassic and not WoWBCC then
 		if not WoWWrath then
+			lib.eventFrame.showGlow = true
 			lib.eventFrame:RegisterEvent("ARCHAEOLOGY_CLOSED")
 			lib.eventFrame:RegisterEvent("UPDATE_SUMMONPETS_ACTION")
 			lib.eventFrame:RegisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_SHOW")
@@ -2027,7 +2028,7 @@ function UpdateHotkeys(self)
 end
 
 function ShowOverlayGlow(self)
-	if LCG then
+	if LCG and lib.eventFrame.showGlow then
 		LCG.ShowOverlayGlow(self)
 	end
 end
@@ -2039,7 +2040,7 @@ function HideOverlayGlow(self)
 end
 
 function UpdateOverlayGlow(self)
-	local spellId = self:GetSpellId()
+	local spellId = lib.eventFrame.showGlow and self:GetSpellId()
 	if spellId and IsSpellOverlayed(spellId) then
 		ShowOverlayGlow(self)
 	else
@@ -2402,7 +2403,7 @@ Item.GetActionText           = function(self) return "" end
 Item.GetTexture              = function(self) return C_Item.GetItemIconByID(self._state_action) end
 Item.GetCharges              = function(self) return nil end
 Item.GetCount                = function(self) return C_Item.GetItemCount(self._state_action, nil, true) end
-Item.GetCooldown             = function(self) return C_Item.GetItemCooldown(getItemId(self._state_action)) end
+Item.GetCooldown             = function(self) return C_Container.GetItemCooldown(getItemId(self._state_action)) end
 Item.IsAttack                = function(self) return nil end
 Item.IsEquipped              = function(self) return C_Item.IsEquippedItem(self._state_action) end
 Item.IsCurrentlyActive       = function(self) return C_Item.IsCurrentItem(self._state_action) end
