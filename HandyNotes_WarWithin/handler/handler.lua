@@ -1012,7 +1012,7 @@ local function handle_tooltip(tooltip, point, skip_label)
         if isHidden then
             tooltip:AddLine(COMMUNITY_TYPE_UNAVAILABLE, RED_FONT_COLOR:GetRGB())
         end
-        local r, g, b = (isHidden and GREEN_FONT_COLOR or RED_FONT_COLOR):GetRGB()
+        local r, g, b = (isHidden and RED_FONT_COLOR or GREEN_FONT_COLOR):GetRGB()
         tooltip:AddLine(
             ns.render_string(ns.conditions.summarize(point.hide_before), point),
             r, g, b, true
@@ -1023,7 +1023,7 @@ local function handle_tooltip(tooltip, point, skip_label)
         if isHidden then
             tooltip:AddLine(COMMUNITY_TYPE_UNAVAILABLE, RED_FONT_COLOR:GetRGB())
         end
-        local r, g, b = (isHidden and GREEN_FONT_COLOR or RED_FONT_COLOR):GetRGB()
+        local r, g, b = (isHidden and RED_FONT_COLOR or GREEN_FONT_COLOR):GetRGB()
         tooltip:AddLine(
             ns.render_string(ns.conditions.summarize(point.requires), point),
             r, g, b, true

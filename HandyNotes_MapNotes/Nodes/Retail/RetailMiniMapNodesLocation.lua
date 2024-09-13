@@ -637,7 +637,7 @@ if not db.activate.HideMapNote then
 
         -- Khaz Algar MapNotesIcons
           if db.activate.MapNotesIcons then
-            minimap[2248][50004218] = { mnID = 2339, name = "", type = "MNL", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Dornogal"] .. " - " .. FACTION_NEUTRAL .. "\n" .. "\n" .. L["Portals"] .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. STORMWIND .. "\n" .. "\n" .. CALENDAR_TYPE_DUNGEON .. "\n" .. " ==> " .. "The Rookery" } -- Dornogal
+            minimap[2248][49764405] = { mnID = 2339, name = "", type = "MNL", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Dornogal"] .. " - " .. FACTION_NEUTRAL .. "\n" .. "\n" .. L["Portals"] .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. STORMWIND .. "\n" .. "\n" .. L["The Timeways"] .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. L["Ardenweald"] .. "\n" .. " ==> " .. L["Bastion"] .. "\n" .. " ==> " .. L["Tiragarde Sound"] .. "\n" .. " ==> " .. L["Twilight Highlands"] .."\n" .. "\n" .. CALENDAR_TYPE_DUNGEON .. "\n" .. " ==> " .. "The Rookery" } -- Dornogal
           end
 
           -- Khaz Algar Transporting 

@@ -28,81 +28,11 @@ ns.options = {
         --  name = CORE_ABILITIES,
         --  order = 0.1,
         --  },
-        DescriptionHeaderRestore = {
-          type = "header",
-          name = L["Restore all deleted icons for different types of maps"],
-          order = 0,
-          },
-        RestoreAllIcons = {
-          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
-          type = "execute",
-          name = ACHIEVEMENTFRAME_FILTER_ALL,
-          desc = "|cffffff00" .. "•" .. L["Capitals"] .. " +" .. "\n" .. "•" .. MINIMAP_LABEL .. " +" .. "\n" .. "•" .. L["Continents"] .. "\n" .. "•" .. AZEROTH .. "\n" .. "•" .. CALENDAR_TYPE_DUNGEON .. "|r" .. "\n" .. "\n" .. L["Restore all deleted icons"] .. " " .. L["which you removed with the function"] .. " " .. ALT_KEY .. " + " .. KEY_BUTTON1,
-          width = 0.40,
-          order = 0.1,
-          func = function(info, v) ns.Addon.db.profile.RestoreAllIcons = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-            StaticPopup_Show("Restore_ALL?") end,
-          }, 
-        RestoreCapitalsDeletedIcons = {
-          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
-          type = "execute",
-          name = L["Capitals"] .. " +",
-          desc = "|cffffff00" .. L["Capitals"]  .. " - " .. MINIMAP_LABEL .."|r" .. "\n" .. "\n" .. L["Restore all deleted icons"] .. " " .. L["which you removed with the function"] .. " " .. ALT_KEY .. " + " .. KEY_BUTTON1,
-          width = 0.70,
-          order = 0.2,
-          func = function(info, v) ns.Addon.db.profile.RestoreCapitalsDeletedIcons = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-            StaticPopup_Show("Restore_Capitals?") end,
-          }, 
-        RestoreZoneDeletedIcons = {
-          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
-          type = "execute",
-          name = L["Zones"] .. " +",
-          desc = "|cffffff00" .. MINIMAP_LABEL .. "|r" .. "\n" .. "\n" .. L["Restore all deleted icons"] .. " " .. L["which you removed with the function"] .. " " .. ALT_KEY .. " + " .. KEY_BUTTON1,
-          width = 0.60,
-          order = 0.3,
-          func = function(info, v) ns.Addon.db.profile.RestoreZoneDeletedIcons = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-            StaticPopup_Show("Restore_Zone?") end,
-          }, 
-        RestoreContinentDeletedIcons = {
-          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
-          type = "execute",
-          name = L["Continents"],
-          desc = "\n" .. L["Restore all deleted icons"] .. " " .. L["which you removed with the function"] .. " " .. ALT_KEY .. " + " .. KEY_BUTTON1,
-          width = 0.60,
-          order = 0.4,
-          func = function(info, v) ns.Addon.db.profile.RestoreContinentDeletedIcons = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-            StaticPopup_Show("Restore_Continent?") end,
-          }, 
-        RestoreAzerothDeletedIcons = {
-          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
-          type = "execute",
-          name = AZEROTH,
-          desc = "\n" .. L["Restore all deleted icons"] .. " " .. L["which you removed with the function"] .. " " .. ALT_KEY .. " + " .. KEY_BUTTON1,
-          width = 0.60,
-          order = 0.5,
-          func = function(info, v) ns.Addon.db.profile.RestoreAzerothDeletedIcons = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-            StaticPopup_Show("Restore_Azeroth?") end,
-          }, 
-        RestoreDungeonDeletedIcons = {
-          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
-          type = "execute",
-          name = CALENDAR_TYPE_DUNGEON,
-          desc = "\n" .. L["Restore all deleted icons"] .. " " .. L["which you removed with the function"] .. " " .. ALT_KEY .. " + " .. KEY_BUTTON1,
-          width = 0.60,
-          order = 0.6,
-          func = function(info, v) ns.Addon.db.profile.RestoreDungeonDeletedIcons = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-            StaticPopup_Show("Restore_Dungeon?") end,
-          }, 
-        DescriptionHeader3 = {
-          type = "header",
-          name = COMPACT_UNIT_FRAME_PROFILE_SUBTYPE_ALL .. " / " .. ADVANCED_OPTIONS,
-          order = 1.5,
-          },
         hideAddon = {
           type = "toggle",
           name = L["hide MapNotes!"],
           desc = L["Disable MapNotes, all icons will be hidden on each map and all categories will be disabled"],
-          order = 1.8,
+          order = 0.1,
           width = 1.05,
           confirm = true,
           get = function() return ns.Addon.db.profile.activate.HideMapNote end,
@@ -114,7 +44,7 @@ ns.options = {
           type = "toggle",
           name = L["hide minimap button"],
           desc = L["Hide the MapNotes button on the minimap"],
-          order = 1.9,
+          order = 0.2,
           width = 1.20,
           confirm = true,
           get = function() return ns.Addon.db.profile.activate.HideMMB end,
@@ -128,7 +58,7 @@ ns.options = {
           type = "toggle",
           name = L["hide worldmap button"],
           desc = L["Hide the MapNotes button on the worldmap"],
-          order = 2,
+          order = 0.3,
           width = 1.20,
           confirm = true,
           get = function() return ns.Addon.db.profile.activate.HideWMB end,
@@ -137,6 +67,76 @@ ns.options = {
             if not ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.HideWMB then ns.WorldMapButton:Hide() OpenWorldMap(uiMapID) LibStub("Krowi_WorldMapButtons-1.4").SetPoints(); else
             if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.HideWMB then ns.WorldMapButton:Show() OpenWorldMap(uiMapID) LibStub("Krowi_WorldMapButtons-1.4").SetPoints(); print(ns.COLORED_ADDON_NAME .. "|cffffff00", L["-> WorldMapButton <-"], "|cff00ff00" .. L["is activated"]) else
             if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.HideWMB then ns.WorldMapButton:Hide() OpenWorldMap(uiMapID) LibStub("Krowi_WorldMapButtons-1.4").SetPoints(); print(ns.COLORED_ADDON_NAME .. "|cffffff00", L["-> WorldMapButton <-"], "|cffff0000" .. L["is deactivated"]) end end end end end,
+          },
+        DescriptionHeaderRestore = {
+          type = "header",
+          name = L["Restore all deleted icons for different types of maps"],
+          order = 1,
+          },
+        RestoreAllIcons = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+          type = "execute",
+          name = ACHIEVEMENTFRAME_FILTER_ALL,
+          desc = "|cffffff00" .. "•" .. L["Capitals"] .. " +" .. "\n" .. "•" .. MINIMAP_LABEL .. " +" .. "\n" .. "•" .. L["Continents"] .. "\n" .. "•" .. AZEROTH .. "\n" .. "•" .. CALENDAR_TYPE_DUNGEON .. "|r" .. "\n" .. "\n" .. L["Restore all deleted icons"] .. " " .. L["which you removed with the function"] .. " " .. ALT_KEY .. " + " .. KEY_BUTTON1,
+          width = 0.40,
+          order = 1.1,
+          func = function(info, v) ns.Addon.db.profile.RestoreAllIcons = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+            StaticPopup_Show("Restore_ALL?") end,
+          }, 
+        RestoreCapitalsDeletedIcons = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+          type = "execute",
+          name = L["Capitals"] .. " +",
+          desc = "|cffffff00" .. L["Capitals"]  .. " - " .. MINIMAP_LABEL .."|r" .. "\n" .. "\n" .. L["Restore all deleted icons"] .. " " .. L["which you removed with the function"] .. " " .. ALT_KEY .. " + " .. KEY_BUTTON1,
+          width = 0.70,
+          order = 1.2,
+          func = function(info, v) ns.Addon.db.profile.RestoreCapitalsDeletedIcons = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+            StaticPopup_Show("Restore_Capitals?") end,
+          }, 
+        RestoreZoneDeletedIcons = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+          type = "execute",
+          name = L["Zones"] .. " +",
+          desc = "|cffffff00" .. MINIMAP_LABEL .. "|r" .. "\n" .. "\n" .. L["Restore all deleted icons"] .. " " .. L["which you removed with the function"] .. " " .. ALT_KEY .. " + " .. KEY_BUTTON1,
+          width = 0.60,
+          order = 1.3,
+          func = function(info, v) ns.Addon.db.profile.RestoreZoneDeletedIcons = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+            StaticPopup_Show("Restore_Zone?") end,
+          }, 
+        RestoreContinentDeletedIcons = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+          type = "execute",
+          name = L["Continents"],
+          desc = "\n" .. L["Restore all deleted icons"] .. " " .. L["which you removed with the function"] .. " " .. ALT_KEY .. " + " .. KEY_BUTTON1,
+          width = 0.60,
+          order = 1.4,
+          func = function(info, v) ns.Addon.db.profile.RestoreContinentDeletedIcons = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+            StaticPopup_Show("Restore_Continent?") end,
+          }, 
+        RestoreAzerothDeletedIcons = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+          type = "execute",
+          name = AZEROTH,
+          desc = "\n" .. L["Restore all deleted icons"] .. " " .. L["which you removed with the function"] .. " " .. ALT_KEY .. " + " .. KEY_BUTTON1,
+          width = 0.60,
+          order = 1.5,
+          func = function(info, v) ns.Addon.db.profile.RestoreAzerothDeletedIcons = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+            StaticPopup_Show("Restore_Azeroth?") end,
+          }, 
+        RestoreDungeonDeletedIcons = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+          type = "execute",
+          name = CALENDAR_TYPE_DUNGEON,
+          desc = "\n" .. L["Restore all deleted icons"] .. " " .. L["which you removed with the function"] .. " " .. ALT_KEY .. " + " .. KEY_BUTTON1,
+          width = 0.60,
+          order = 1.6,
+          func = function(info, v) ns.Addon.db.profile.RestoreDungeonDeletedIcons = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+            StaticPopup_Show("Restore_Dungeon?") end,
+          }, 
+        DescriptionHeader3 = {
+          type = "header",
+          name = COMPACT_UNIT_FRAME_PROFILE_SUBTYPE_ALL,
+          order = 2.0,
           },
         MapNotesIcons = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
@@ -177,7 +177,7 @@ ns.options = {
         ClassicIcons = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
           type = "toggle",
-          name = TextIconPassageDungeonM:GetIconString() .. " " .. TextIconPassageRaidMultiM:GetIconString() .. " " .. AUCTION_HOUSE_FILTER_DROPDOWN_NONE .. " " .. L["Passages"],
+          name = AUCTION_HOUSE_FILTER_DROPDOWN_NONE .. " " .. TextIconPassageDungeonM:GetIconString() .. " " .. TextIconPassageRaidMultiM:GetIconString() .. " " .. L["Passages"],
           desc = INSTANCE .. " " .. L["Passage"] .. " " .. L["icons"] .. "\n" .. TextIconPassageRaidM:GetIconString() .. " " .. TextIconPassageDungeonM:GetIconString() .. " " .. TextIconPassageRaidMultiM:GetIconString() .. " " .. TextIconPassageDungeonMultiM:GetIconString() .. "\n" .. "\n" .. L["Only affects passage icons to instances and not path icons to zones"] .. "\n" .. "\n" .. L["Changes all passage symbols on all maps to dungeon, raid or multiple symbols. In addition, the passage option will be disabled everywhere and the symbols will be added to the respective raids, dungeons or multiple options (The dungeon map remains unchanged from all this)"] .. "\n" .. "\n" .. L["At the same time, all icons representing additional instance inputs are removed"],
           order = 2.4,
           width = 1.05,
@@ -190,7 +190,7 @@ ns.options = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
           type = "toggle",
           name = TextIconJournal:GetIconString() .. " " .. L["Adventure guide"],
-          desc = L["Left-clicking on a MapNotes raid (green), dungeon (blue) or multiple icon (green&blue) on the map opens the corresponding dungeon or raid map in the Adventure Guide (the map must not be open in full screen)"] .. " " .. L["Left-clicking on a multiple icon will open the map where the dungeons are located"],
+          desc = L["Left-clicking on a MapNotes raid (green), dungeon (blue) or multiple icon (green&blue) on the map opens the corresponding dungeon or raid map in the Adventure Guide (the map must not be open in full screen)"] .. " " .. L["Left-clicking on a multiple icon will open the map where the dungeons are located"] .. "\n" .. "\n" .. L["If 'Tooltip' is activated, an additional tooltip will be added to the icons showing how to interact with this feature"],
           order = 2.5,
           width = 1.05,
           set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
@@ -201,7 +201,7 @@ ns.options = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
           type = "toggle",
           name = TextIconTomTom:GetIconString() .. " " .. L["TomTom waypoints"],
-          desc = L["Shift+right click on a raid, dungeon, multiple symbol, portal, ship, zeppelin, passage or exit from MapNotes on the continent or dungeon map creates a TomTom waypoint to this point (but the TomTom add-on must be installed for this)"],
+          desc = L["Shift+right click on a raid, dungeon, multiple symbol, portal, ship, zeppelin, passage or exit from MapNotes on the continent or dungeon map creates a TomTom waypoint to this point (but the TomTom add-on must be installed for this)"] .. "\n" .. "\n" .. L["If 'Tooltip' is activated, an additional tooltip will be added to the icons showing how to interact with this feature"],
           order = 2.6,
           width = 1.05,
           set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
@@ -212,12 +212,12 @@ ns.options = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
           type = "toggle",
           name = TextIconKilledBosses:GetIconString() .. " " .. L["extra information"],
-          desc = L["Displays additional information for dungeons or raids. E.g. the number of bosses already killed"],
+          desc = L["Displays additional information for dungeons or raid icons. E.g. the number of bosses already killed"],
           order = 2.7,
           width = 1.05,
           set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
-            if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.assignedID then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["extra information"], "|cff00ff00" .. L["is activated"]) else 
-            if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.assignedID then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["extra information"], "|cffff0000" ..  L["is deactivated"]) end end end,
+            if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.extraInformation then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["extra information"], "|cff00ff00" .. L["is activated"]) else 
+            if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.extraInformation then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["extra information"], "|cffff0000" ..  L["is deactivated"]) end end end,
           },
         graymultipleID = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
@@ -241,17 +241,84 @@ ns.options = {
             if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.assignedgray then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["gray single"], "|cff00ff00" .. L["is activated"]) else 
             if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.assignedgray then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["gray single"], "|cffff0000" ..  L["is deactivated"]) end end end,
           },
+        DescriptionHeader4 = {
+          type = "header",
+          name = ADVANCED_OPTIONS .. " & " .. BINDING_HEADER_MISC .. " (" .. SLASH_TEXTTOSPEECH_BLIZZARD .. ")",
+          order = 3.0,
+          },
+        RemoveBlizzPOIs = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+          type = "toggle",
+          name = "POIs",
+          desc = L["Points of interests"] .. "\n" .. "\n" .. L["Removes the Blizzard symbols only where MapNotes symbols and Blizzard symbols overlap, thereby making the tooltip and the function of the MapNote symbols usable again on the overlapping points"],
+          order = 3.1,
+          width = 0.50,
+          get = function() return ns.Addon.db.profile.activate.RemoveBlizzPOIs end,
+          set = function(info, v) ns.Addon.db.profile.activate.RemoveBlizzPOIs = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+            if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.RemoveBlizzPOIs then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. L["Points of interests"] .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
+            if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.RemoveBlizzPOIs then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. L["Points of interests"] .. " " .. L["icons"], "|cff00ccff" .. L["are shown"] )end end end,
+          },
+        RemoveBlizzDelves = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+          type = "toggle",
+          name = DELVES_LABEL .. " " .. L["Entrance"],
+          desc = "(" .. EXPANSION_NAME10 .. ")" .. "\n" .. "\n" .. TextIconDelves:GetIconString() .. " " .. L["Disables the display of all Blizzard Delves entrances on the zone map"],
+          order = 3.2,
+          width = 0.85,
+          get = function() return ns.Addon.db.profile.activate.RemoveBlizzDelves end,
+          set = function(info, v) ns.Addon.db.profile.activate.RemoveBlizzDelves = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+            if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.RemoveBlizzDelves then SetCVar("showDelveEntrancesOnMap", 0) print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. DELVES_LABEL .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
+            if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.RemoveBlizzDelves then SetCVar("showDelveEntrancesOnMap", 1) print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. DELVES_LABEL .. " " .. L["icons"], "|cff00ccff" .. L["are shown"] ) else
+            if not ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.RemoveBlizzDelves then SetCVar("showDelveEntrancesOnMap", 0) else
+            if not ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.RemoveBlizzDelves then SetCVar("showDelveEntrancesOnMap", 1) end end end end end,
+          },
+        RemoveBlizzInstances = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+          type = "toggle",
+          name = TRACKER_HEADER_DUNGEON .. " " .. L["Entrance"],
+          desc = TextIconRaid:GetIconString() .. " " .. TextIconDungeon:GetIconString() .. " " ..  L["Disables the display of all Blizzard Dungeon and Raid icons on the zone map"],
+          order = 3.3,
+          width = 1.0,
+          get = function() return ns.Addon.db.profile.activate.RemoveBlizzInstances end,
+          set = function(info, v) ns.Addon.db.profile.activate.RemoveBlizzInstances = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+            if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.RemoveBlizzInstances then SetCVar("showDungeonEntrancesOnMap", 0) print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. DUNGEONS .. " / " .. RAIDS .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
+            if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.RemoveBlizzInstances then SetCVar("showDungeonEntrancesOnMap", 1) print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. DUNGEONS .. " / " .. RAIDS .. " " .. L["icons"], "|cff00ccff" .. L["are shown"] ) else
+            if not ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.RemoveBlizzInstances then SetCVar("showDungeonEntrancesOnMap", 0) else
+            if not ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.RemoveBlizzInstances then SetCVar("showDungeonEntrancesOnMap", 1) end end end end end,
+          },
+        TooltipInformations = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+          type = "toggle",
+          name = L["Tooltip"],
+          desc = L["Adds an additional tooltip to icons, which lists the functions of the icons"] .. "\n" .. "\n" .. L["If the world map is open, these are also displayed on the minimap icons, but if the world map is closed, these are no longer displayed on the minimap"],
+          order = 3.4,
+          width = 0.65,
+          set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+            if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.TooltipInformations then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Tooltip"], "|cff00ff00" .. L["is activated"]) else 
+            if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.TooltipInformations then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Tooltip"], "|cffff0000" ..  L["is deactivated"]) end end end,
+          },
+        DeleteIcons = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+          type = "toggle",
+          name = CALENDAR_DELETE_EVENT,
+          desc = L["With Alt + right click it is now possible to remove any MapNotes icon"] .. "\n" .. "\n" .. L["If 'Tooltip' is activated, an additional tooltip will be added to the icons, indicating how icons can be deleted"],
+          order = 3.5,
+          width = 0.65,
+          set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+            if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.DeleteIcons then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. CALENDAR_DELETE_EVENT, "|cff00ff00" .. L["is activated"]) else 
+            if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.DeleteIcons then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. CALENDAR_DELETE_EVENT, "|cffff0000" ..  L["is deactivated"]) end end end,
+          },
         DescriptionHeader2 = {
           type = "header",
           name = L["chat message"],
-          order = 3,
+          order = 4,
           },
         CoreChatMassage = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
           type = "toggle",
           name = CORE_ABILITIES,
           desc = L["Here you can enable or disable all chat messages sent from one of these MapNotes tabs when you change the settings"] .. "\n" .."\n" .. L["This applies to the following tabs"] .. "\n" .. "\n" .. "• " .. GENERAL .. "\n" .. "• " .. L["Profiles"] .. "\n" .. "\n" .. "|cffff0000" .. L["An exception is the feedback in the chat from the function for deleting or restoring icons. These are always displayed!"],
-          order = 3.1,
+          order = 4.1,
           width = 0.80,
           set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
             if ns.Addon.db.profile.CoreChatMassage then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. CORE_ABILITIES, L["chat message"], "|cff00ff00" .. L["is activated"]) else 
@@ -262,7 +329,7 @@ ns.options = {
           type = "toggle",
           name = LAYOUT_STYLE_CLASSIC,
           desc = L["Here you can enable or disable all chat messages sent from one of these MapNotes tabs when you change the settings"] .. "\n" .."\n" .. L["This applies to the following tabs"] .. "\n" .. "\n" .. "• " .. L["Capitals"] .. " + " .. "\n" .. "• " .. L["Zones"] .. " + " .. "\n" .. "• " .. L["Continents"] .. "\n" .. "• " .. AZEROTH .. "\n" .. "• " .. WORLDMAP_BUTTON .. "\n" .. "• " .. L["Dungeons"],
-          order = 3.2,
+          order = 4.2,
           width = 0.60,
           set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
             if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.ChatMassage then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. LAYOUT_STYLE_CLASSIC, L["chat message"], "|cff00ff00" .. L["is activated"]) else 
@@ -273,7 +340,7 @@ ns.options = {
           type = "toggle",
           name = "MMB/WMB",
           desc = "• " .. L["-> MiniMapButton <-"] .. "\n" .. "• " .. L["-> WorldMapButton <-"] .. "\n" .. "\n" .. L["Here you can enable or disable all chat messages sent by MapNotes Minimap and Worldmap buttons when you hide or show icons over them"],
-          order = 3.3,
+          order = 4.3,
           width = 0.85,
           set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
             if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.MmbWmbChatMessage then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["-> MiniMapButton <-"] .. " / " .. L["-> WorldMapButton <-"], L["chat message"], "|cff00ff00" .. L["is activated"]) else 
@@ -283,7 +350,7 @@ ns.options = {
           type = "toggle",
           name = L["Location"],
           desc = L["When entering a new zone, the name of the new zone will be displayed in the chat"],
-          order = 3.4,
+          order = 4.4,
           width = 0.55,
           get = function() return ns.Addon.db.profile.ZoneChanged end,
           set = function(info, v) ns.Addon.db.profile.ZoneChanged = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
@@ -295,43 +362,12 @@ ns.options = {
           type = "toggle",
           name = L["Location"] .. "|cff00ccff " .. LFG_LIST_DETAILS,
           desc = L["In addition to the zone names, it also displays the names of specific locations within a zone. Disabling the Show Zone Names feature will also disable this feature"] .. "\n" .. "\n" .. L["Capital cities are excluded from this because there would be too much chat spam"],
-          order = 3.5,
+          order = 4.5,
           width = 0.85,
           get = function() return ns.Addon.db.profile.ZoneChangedDetail end,
           set = function(info, v) ns.Addon.db.profile.ZoneChangedDetail = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
             if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.ZoneChangedDetail then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00", L["Show Zone Names"], L["Location"], LFG_LIST_DETAILS, "|cffff0000" .. L["is deactivated"]) else
             if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.ZoneChangedDetail then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00", L["Show Zone Names"], L["Location"], LFG_LIST_DETAILS, "|cff00ff00" .. L["is activated"]) end end end,
-          },
-        DescriptionHeader4 = {
-          type = "header",
-          name = SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. BINDING_NAME_MOVIE_RECORDING_GUI,
-          order = 4.0,
-          },
-        RemoveBlizzInstances = {
-          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
-          type = "toggle",
-          name = DUNGEONS .. "/" .. RAIDS,
-          desc = TextIconRaid:GetIconString() .. " " .. TextIconDungeon:GetIconString() .. " " ..  L["Disables the display of all Blizzard Dungeon and Raid icons on the zone map"],
-          order = 4.1,
-          width = 1.05,
-          get = function() return ns.Addon.db.profile.activate.RemoveBlizzInstances end,
-          set = function(info, v) ns.Addon.db.profile.activate.RemoveBlizzInstances = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
-            if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.RemoveBlizzInstances then SetCVar("showDungeonEntrancesOnMap", 0) print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. DUNGEONS .. " / " .. RAIDS .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
-            if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.RemoveBlizzInstances then SetCVar("showDungeonEntrancesOnMap", 1) print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. DUNGEONS .. " / " .. RAIDS .. " " .. L["icons"], "|cff00ccff" .. L["are shown"] ) else
-            if not ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.RemoveBlizzInstances then SetCVar("showDungeonEntrancesOnMap", 0) else
-            if not ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.RemoveBlizzInstances then SetCVar("showDungeonEntrancesOnMap", 1) end end end end end,
-          },
-        RemoveBlizzPOIs = {
-          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
-          type = "toggle",
-          name = "POIs",
-          desc = L["Points of interests"] .. "\n" .. "\n" .. L["Removes the Blizzard symbols only where MapNotes symbols and Blizzard symbols overlap, thereby making the tooltip and the function of the MapNote symbols usable again on the overlapping points"],
-          order = 4.2,
-          width = 1.05,
-          get = function() return ns.Addon.db.profile.activate.RemoveBlizzPOIs end,
-          set = function(info, v) ns.Addon.db.profile.activate.RemoveBlizzPOIs = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
-            if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.RemoveBlizzPOIs then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. L["Points of interests"] .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
-            if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.RemoveBlizzPOIs then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. L["Points of interests"] .. " " .. L["icons"], "|cff00ccff" .. L["are shown"] )end end end,
           },
         GeneralHeaderFogofWar = {
           type = "header",
@@ -2781,11 +2817,6 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.ZoneInstances then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Zones"], INSTANCE, L["icons"], "|cff00ff00" .. L["is activated"]) else 
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.ZoneInstances then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Zones"], INSTANCE, L["icons"], "|cffff0000" .. L["is deactivated"]) end end end,
                   },
-                zoneinstanceheader4 = {
-                  type = "description",
-                  name = "\n",
-                  order = 10.1,
-                  },
                 zoneinstanceheader5 = {
                   type = "description",
                   name = "",
@@ -2880,6 +2911,16 @@ ns.options = {
                   set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
                         if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showZoneLFR then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 "..  L["Zone map"], PLAYER_DIFFICULTY3, "|cff00ff00" .. L["is activated"]) else 
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneLFR then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 "..  L["Zone map"], PLAYER_DIFFICULTY3, "|cffff0000" ..  L["is deactivated"]) end end end,
+                  },
+                showZoneDelves = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances end,
+                  type = "toggle",
+                  name = TextIconDelves:GetIconString() .. " " .. DELVES_LABEL,
+                  desc = EXPANSION_NAME10,
+                  order = 11.7,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showZoneDelves then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 "..  L["Zone map"], DELVES_LABEL, "|cff00ff00" .. L["is activated"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneDelves then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 "..  L["Zone map"], DELVES_LABEL, "|cffff0000" ..  L["is deactivated"]) end end end,
                   },
                 },
               },
@@ -3519,11 +3560,6 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.MiniMapInstances then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. MINIMAP_LABEL, INSTANCE, L["icons"], "|cff00ff00" .. L["is activated"]) else 
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.MiniMapInstances then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. MINIMAP_LABEL, INSTANCE, L["icons"], "|cffff0000" .. L["is deactivated"]) end end end,
                   },
-                minimapinstanceheader4 = {
-                  type = "description",
-                  name = "\n",
-                  order = 10.1,
-                  },
                 minimapinstanceheader5 = {
                   type = "description",
                   name = "",
@@ -3618,6 +3654,16 @@ ns.options = {
                   set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
                         if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showMiniMapLFR then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. MINIMAP_LABEL, PLAYER_DIFFICULTY3, "|cff00ff00" .. L["is activated"]) else 
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapLFR then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. MINIMAP_LABEL, PLAYER_DIFFICULTY3, "|cffff0000" ..  L["is deactivated"]) end end end,
+                  },
+                showMiniMapDelves = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances end,
+                  type = "toggle",
+                  name = TextIconDelves:GetIconString() .. " " .. DELVES_LABEL,
+                  desc = EXPANSION_NAME10,
+                  order = 11.7,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showMiniMapDelves then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 "..  MINIMAP_LABEL, DELVES_LABEL, "|cff00ff00" .. L["is activated"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapDelves then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 "..  MINIMAP_LABEL, DELVES_LABEL, "|cffff0000" ..  L["is deactivated"]) end end end,
                   },
                 },
               },
@@ -4222,8 +4268,18 @@ ns.options = {
           desc = L["Shows the locations of Raidbrowser applicants for old Raids"] .. "\n" .. "\n" .. EXPANSION_NAME3 .. " - " .. DUNGEON_FLOOR_TANARIS18 .. "\n" ..  "\n" .. EXPANSION_NAME4 .. " - " .. L["Vale of Eternal Blossoms"] .. "\n" .. "\n" .. EXPANSION_NAME5 .. " - " .. GARRISON_LOCATION_TOOLTIP .. "\n" .. "\n" .. EXPANSION_NAME2 .. " - " .. DUNGEON_FLOOR_DALARAN1 .. "\n" .. "\n" .. EXPANSION_NAME6 .. " - " .. DUNGEON_FLOOR_DALARAN1 .. "\n" .. "\n" .. EXPANSION_NAME7 .. " - " .. L["Dazar'alor"] .. " / " .. L["Boralus"] .. "\n" .. "\n" .. EXPANSION_NAME8 .. " - " .. L["Oribos"],
           order = 33.0,
           set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
-                if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showContinentLFR then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. MINIMAP_LABEL, PLAYER_DIFFICULTY3, "|cff00ff00" .. L["is activated"]) else 
-                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showContinentLFR then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. MINIMAP_LABEL, PLAYER_DIFFICULTY3, "|cffff0000" ..  L["is deactivated"]) end end end,
+                if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showContinentLFR then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], PLAYER_DIFFICULTY3, "|cff00ff00" .. L["is activated"]) else 
+                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showContinentLFR then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], PLAYER_DIFFICULTY3, "|cffff0000" ..  L["is deactivated"]) end end end,
+          },
+        showContinentDelves = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.Continent end,
+          type = "toggle",
+          name = TextIconDelves:GetIconString() .. " " .. DELVES_LABEL,
+          desc = EXPANSION_NAME10,
+          order = 33.1,
+          set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showContinentDelves then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], DELVES_LABEL, "|cff00ff00" .. L["is activated"]) else 
+                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showContinentDelves then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], DELVES_LABEL, "|cffff0000" ..  L["is deactivated"]) end end end,
           },
         showContinentPvPandPvEVendor = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.Continent end,
@@ -4231,7 +4287,7 @@ ns.options = {
           name = TextIconPvPVendor:GetIconString() .. " " .. TextIconPvEVendor:GetIconString() .. " " .. TRANSMOG_SET_PVP .. " & " .. TRANSMOG_SET_PVE,
           desc = TRANSMOG_SET_PVP .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. " / " .. AUCTION_CREATOR .. " / " .. MERCHANT .."\n" .. "\n" .. FACTION_NEUTRAL .. "\n" .. " " .. POSTMASTER_LETTER_TANARIS .. "\n" .. " " ..  POSTMASTER_LETTER_AREA52 .. "\n" .. " " ..  DUNGEON_FLOOR_DALARAN1 .. "\n" .. " " ..  L["Oribos"] .. "\n" .. "\n" .. FACTION_HORDE .. "\n" .. " " .. L["Kun-Lai Summit"] .. "\n" .. " " .. ORGRIMMAR .. "\n" .. " " .. L["Warspear"] .. "\n" .. " " .. L["Zuldazar"] .. "\n" .. "\n" .. FACTION_ALLIANCE .. "\n" .. " " .. L["Stormwind"] .. "\n" .. " " .. L["Valley of the Four Winds"] .. "\n" .. " " .. L["Stormshield"] .. "\n" .. " " .. L["Boralus, Tiragarde Sound"] .."\n" .. "\n" .. TRANSMOG_SET_PVE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. " / " .. AUCTION_CREATOR .. " / " .. MERCHANT .. "\n" .. "\n" ..FACTION_HORDE .. "\n" .. " " .. ORGRIMMAR .. "\n" .. " " .. L["Undercity"] .. "\n" .. " " .. L["Shrine2Moons"] .. "\n" .. "\n" .. FACTION_NEUTRAL .. "\n" .. " " .. DUNGEON_FLOOR_DALARAN1 .. "\n" .. " " .. L["Icecrown"] .. "\n" .. " " .. L["Townlong Steppes"] .. "\n" .. " " .. L["Oribos"] .. "\n" .. "\n" .. FACTION_ALLIANCE .. "\n" .. " " .. STORMWIND .. "\n" .. " " .. L["Ironforge"] .. "\n" .. " " .. L["Shrine7Stars"],
           width = 0.80,
-          order = 33.1,
+          order = 33.2,
           set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
                 if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showContinentPvPandPvEVendor then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Continent map"], TRANSMOG_SET_PVP .. " & " .. TRANSMOG_SET_PVE .. " " .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT, L["icons"], "|cff00ff00" .. L["are shown"]) else 
                 if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showContinentPvPandPvEVendor then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Continent map"], TRANSMOG_SET_PVP .. " & " .. TRANSMOG_SET_PVE .. " " .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
@@ -4522,8 +4578,18 @@ ns.options = {
           desc = L["Shows the locations of Raidbrowser applicants for old Raids"] .. "\n" .. "\n" .. EXPANSION_NAME3 .. " - " .. DUNGEON_FLOOR_TANARIS18 .. "\n" ..  "\n" .. EXPANSION_NAME4 .. " - " .. L["Vale of Eternal Blossoms"] .. "\n" .. "\n" .. EXPANSION_NAME5 .. " - " .. GARRISON_LOCATION_TOOLTIP .. "\n" .. "\n" .. EXPANSION_NAME2 .. " - " .. DUNGEON_FLOOR_DALARAN1 .. "\n" .. "\n" .. EXPANSION_NAME6 .. " - " .. DUNGEON_FLOOR_DALARAN1 .. "\n" .. "\n" .. EXPANSION_NAME7 .. " - " .. L["Dazar'alor"] .. " / " .. L["Boralus"] .. "\n" .. "\n" .. EXPANSION_NAME8 .. " - " .. L["Oribos"],
           order = 43.0,
           set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
-                if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showAzerothLFR then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. MINIMAP_LABEL, PLAYER_DIFFICULTY3, "|cff00ff00" .. L["is activated"]) else 
-                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showAzerothLFR then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. MINIMAP_LABEL, PLAYER_DIFFICULTY3, "|cffff0000" ..  L["is deactivated"]) end end end,
+                if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showAzerothLFR then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Azeroth map"], PLAYER_DIFFICULTY3, "|cff00ff00" .. L["is activated"]) else 
+                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showAzerothLFR then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Azeroth map"], PLAYER_DIFFICULTY3, "|cffff0000" ..  L["is deactivated"]) end end end,
+          },
+        showAzerothDelves = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.Azeroth end,
+          type = "toggle",
+          name = TextIconDelves:GetIconString() .. " " .. DELVES_LABEL,
+          desc = EXPANSION_NAME10,
+          order = 43.1,
+          set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showAzerothDelves then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Azeroth map"], DELVES_LABEL, "|cff00ff00" .. L["is activated"]) else 
+                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showAzerothDelves then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Azeroth map"], DELVES_LABEL, "|cffff0000" ..  L["is deactivated"]) end end end,
           },
         Azerothheader3 = {
           type = "header",

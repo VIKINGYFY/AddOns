@@ -1,14 +1,30 @@
 local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "enUS", true)
 
+
 --0.01
 L["Profiles"] = true
+L["Tooltip"] = true
+L["< Left Click to show map >"] = true
+L["< Left Click to show delve map >"] = true
+L["< Shift Left Click to show map >"] = true
+L["< Left Click to open Adventure Guide >"] = true
+L["< Shift + Right Click add TomTom waypoint >"] = true
+L["< Alt + Right click to delete this icon >"] = true
 L["This applies to the following tabs"] = true
+L["This will immediately abort and end the current instance run!"] = true
+L["With Alt + right click it is now possible to remove any MapNotes icon"] = true
+L["If 'Tooltip' is activated, an additional tooltip will be added to the icons showing how to interact with this feature"] = true
+L["If 'Tooltip' is activated, an additional tooltip will be added to the icons, indicating how icons can be deleted"] = true
+L["Adds an additional tooltip to icons, which lists the functions of the icons"] = true
+L["Disables the display of all Blizzard Delves entrances on the zone map"] = true
+L["If you press 'YES', the current run is over and you will be placed outside the entrance"] = true
 L["An exception is the feedback in the chat from the function for deleting or restoring icons. These are always displayed!"] = true
 L["Here you can enable or disable all chat messages sent by MapNotes Minimap and Worldmap buttons when you hide or show icons over them"] = true
 L["Here you can enable or disable all chat messages sent from one of these MapNotes tabs when you change the settings"] = true
 L["Only affects passage icons to instances and not path icons to zones"] = true
 L["By deactivating it, the border of the zone icons of your own factions is also removed, as the displayed icons are automatically only for your own faction"] = true
+L["If the world map is open, these are also displayed on the minimap icons, but if the world map is closed, these are no longer displayed on the minimap"] = true
 --0.1 profiles
 L["Profile has been changed"] = true
 L["Profile has been reset to default"] = true
@@ -146,7 +162,7 @@ L["Left-clicking on a MapNotes raid (green), dungeon (blue) or multiple icon (gr
 L["TomTom waypoints"] = true
 L["Shift+right click on a raid, dungeon, multiple symbol, portal, ship, zeppelin, passage or exit from MapNotes on the continent or dungeon map creates a TomTom waypoint to this point (but the TomTom add-on must be installed for this)"] = true
 L["extra information"] = true
-L["Displays additional information for dungeons or raids. E.g. the number of bosses already killed"] = true
+L["Displays additional information for dungeons or raid icons. E.g. the number of bosses already killed"] = true
 L["gray single"] = true
 L["Colors only individual points of assigned dungeons and raids in gray (if you have an ID)"] = true
 L["gray all"] = true
@@ -276,6 +292,8 @@ L["(inside portal chamber)"] = true
 L["(inside building)"] = true
 L["talk to"] = true
 --10 places
+L["Bastion"] = true
+L["Ardenweald"] = true
 L["Telogrus Rift"] = true
 L["Sholazar Basin"] = true
 L["Un'Goro Crater"] = true
@@ -426,6 +444,7 @@ L["Merchant for Renown items"] = true
 L["Council of Dornogal"] = true
 L["The Assembly of the Deeps"] = true
 L["Hallowfall Arathi"] = true
+L["The Severed Threads"] = true
 -- 14
 L["Displays zone icons on a specific continent"] = true
 L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"] = true

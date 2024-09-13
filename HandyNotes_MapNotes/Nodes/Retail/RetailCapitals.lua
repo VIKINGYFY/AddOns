@@ -3157,13 +3157,13 @@ if not db.activate.HideMapNote then
             if self.db.profile.activate.CapitalsTransporting then
     
                 if self.db.profile.showCapitalsPortals then
-                    nodes[2266][43564994] = { mnID = 2339, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. L["Dornogal"] } --  Timeways Portal to Vashj'ir
-                    nodes[2266][64534340] = { name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. UNKNOWN } --  Timeways Portal to Vashj'ir
-                    nodes[2266][74524703] = { name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. UNKNOWN } --  Timeways Portal to Gorgrond
-                    nodes[2266][77536180] = { name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. UNKNOWN } --  Timeways Portal to Val'sharah
-                    nodes[2266][70537306] = { name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. UNKNOWN } --  Timeways Portal to Zuldazar
-                    nodes[2266][60506950] = { name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. UNKNOWN } --  Timeways Portal to Drustvar
-                    --nodes[2339][51194334] = { mnID = 2266, name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["The Timeways"] .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. UNKNOWN .. "\n" .. " ==> " .. UNKNOWN .. "\n" .. " ==> " .. UNKNOWN .. "\n" .. " ==> " .. UNKNOWN .. "\n" .. " ==> " .. UNKNOWN } --  Portal from Valdrakken to the Timeways
+                    nodes[2266][43564994] = { mnID = 2339, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. L["Dornogal"] } --  Timeways Portal to ornogal
+                    nodes[2266][64534340] = { mnID = 1565, name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. L["Ardenweald"] } --  Timeways Portal to Ardenweald
+                    nodes[2266][74524703] = { mnID = 1533, name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. L["Bastion"] } --  Timeways Portal to Bastion
+                    --nodes[2266][77536180] = { name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. UNKNOWN } --  Timeways Portal to Val'sharah
+                    nodes[2266][70537306] = { mnID = 895, name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. L["Tiragarde Sound"] } --  Timeways Portal to Tiragarde Sound
+                    nodes[2266][60506950] = { mnID = 241, name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. L["Twilight Highlands"] } --  Timeways Portal to Twilight Highlands
+                    nodes[2339][53563873] = { mnID = 2266, name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["The Timeways"] .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. L["Ardenweald"] .. "\n" .. " ==> " .. L["Bastion"] .. "\n" .. " ==> " .. L["Tiragarde Sound"] .. "\n" .. " ==> " .. L["Twilight Highlands"] } --  Portal from Dornogal to the Timeways
 
                     if self.faction == "Horde" or db.activate.CapitalsEnemyFaction then
                         nodes[2339][38192724] = { mnID = 85, name = L["Portal"], type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dornogal to Orgrimmar
@@ -3175,7 +3175,7 @@ if not db.activate.HideMapNote then
                 end
 
                 if self.db.profile.showCapitalsTransport then
-                    nodes[2339][40722239] = { mnID = 2339, name = "", type = "Tport2", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Transport"] .. " ==> " .. L["(on the tower)"]  } -- Oribos to The Maw
+                    nodes[2339][40722239] = { name = "", type = "Tport2", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Transport"] .. " ==> " .. L["(on the tower)"]  } -- Oribos to The Maw
                 end
 
                 if self.db.profile.showCapitalsFP then

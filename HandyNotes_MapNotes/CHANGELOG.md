@@ -1,12 +1,23 @@
 # MapNote
-## [2.3.0](https://github.com/Ssesmar/MapNote) (2024-09-10)
+## [2.3.1](https://github.com/Ssesmar/MapNote) (2024-09-13)
 - Note:
 
 -- MapNotes now works on every version of World of Warcraft. Classic Era / Cataclysm / Retail / PTR
 
 Retail:
 
-changed incorrect translation of the chat function "legacy" changed to "classic".
+add timeways portal in Dornogal
+add informations to 'mapnotes icons' for timeways portal targets
+add 'Tooltip' that function add an additional tooltip to icons that indicates what additional function that icon has
+    If the world map is open, these are also displayed on the minimap icons, but if the world map is closed, these are no longer displayed on the minimap
+add devle entrances to the Zone, Continent and Azeroth map
+    Within a 'Delve', the exit icons have an additional function. 
+    Middle mouse click on a MapNotes exit icon (X) will ask the player whether he wants to end the 'Delve' run. 
+    If this is confirmed, the current run will be ended and the player will teleported outside the dungeon
+    In addition, if "Tooltip" is activated, an additional tooltip is added to the icons that explains how that works
+In addition to the option to hide Blizzard's Instance entrance via mapnotes, this is now also possible for the Delve entrance
+add the option to deactivate the 'delete icons" function called 'delete' now 
+In addition, if 'delete' is activated and "Tooltip" is also activated, an additional tooltip is added to the icons that explains how deletion works
 
 - Description:
 

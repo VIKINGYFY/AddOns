@@ -54,7 +54,7 @@ if not db.activate.HideMapNote then
     
         --Kalimdor Passage
           if self.db.profile.showContinentPassage and not db.activate.ClassicIcons then
-            nodes[12][59228331] = { mnID = 75, id = { 187, 750, 279, 255, 251, 184, 185, 186 }, type = "PassageDungeonRaidMulti", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
+            nodes[12][59228331] = { mnID = 75, hideInfo = true, id = { 187, 750, 279, 255, 251, 184, 185, 186 }, type = "PassageDungeonRaidMulti", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
             nodes[12][46106657] = { id = 230, lfgid = 34, type = "PassageDungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Dire Maul - Warpwood Quarter - East above Camp Mojache   
             nodes[12][43906613] = { id = 230, lfgid = 34, type = "PassageDungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Dire Maul - Warpwood Quarter - East above Camp Mojache 
             nodes[12][43913301] = { id = 227, type = "PassageDungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Blackfathom Deeps 
@@ -104,7 +104,7 @@ if not db.activate.HideMapNote then
           
          --Kalimdor Multiple 
           if self.db.profile.showContinentMultiple then
-            nodes[12][59228331] = { mnID = 75, id = { 187, 750, 279, 255, 251, 184, 185, 186 }, type = "MultipleM", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
+            nodes[12][59228331] = { mnID = 75, hideInfo = true, id = { 187, 750, 279, 255, 251, 184, 185, 186 }, type = "MultipleM", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
           end
          end 
     
@@ -193,7 +193,7 @@ if not db.activate.HideMapNote then
 
         -- Continent Kalimdor LFR
           if self.db.profile.showContinentLFR then
-            nodes[12][60448275] = { mnID = 75, id = { 187 }, name = L["Auridormi"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", showOnContinent = true, showInZone = false, showOnMinimap = false, type = "LFR"}
+            nodes[12][60448275] = { mnID = 75, hideInfo = true, id = { 187 }, name = L["Auridormi"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", showOnContinent = true, showInZone = false, showOnMinimap = false, type = "LFR"}
           end
 
         -- Kalimdor PvpandPveVendor
@@ -254,7 +254,7 @@ if not db.activate.HideMapNote then
             nodes[13][42915972] = { id = 231, type = "PassageDungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Gnomeregan             
             nodes[13][53646537] = { id = 239, name = "", type = "PassageDungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Uldaman (Secondary Entrance) 
             nodes[13][54412915] = { id = 236, lfgid = 274, type = "PassageDungeon", showOnContinent = true, showInZone = false, showOnMinimap = false }-- Stratholme Service Entrance 
-            nodes[13][46886972] = { mnID = 33, id = { 741, 742, 66, 228, 229, 559 }, type = "PassageDungeonRaidMulti", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
+            nodes[13][46886972] = { mnID = 33, hideInfo = true, id = { 741, 742, 66, 228, 229, 559 }, type = "PassageDungeonRaidMulti", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
           end
     
         --Kalimdor Passage without ClassicIcons and without MapNotesIcons
@@ -283,16 +283,16 @@ if not db.activate.HideMapNote then
           end
 
           if self.db.profile.showContinentMultiple then
-            nodes[13][46886972] = { mnID = 33, id = { 741, 742, 66, 228, 229, 559 }, type = "MultipleM", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
+            nodes[13][46886972] = { mnID = 33, hideInfo = true, id = { 741, 742, 66, 228, 229, 559 }, type = "MultipleM", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
           end
 
         end
 
         --Eastern Kingdom Multiple
           if self.db.profile.showContinentMultiple then
-            nodes[13][49428163] = { mnID = 42, id = { 745, 860 }, type = "MultipleM", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Karazhan, Return to Karazhan
-            nodes[13][46583029] = { mnID = 19, id = { 311, 316 }, type = "MultipleD", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Scarlet Halls, Monastery 
-            nodes[13][52176317] = { mnID = 15, id = { 1197, 239 }, type = "MultipleD", showOnContinent = true, showInZone = false, showOnMinimap = false } --  Legacy of Tyr Dragonflight Dungeon & Vanilla Uldaman 
+            nodes[13][49428163] = { mnID = 42, hideInfo = true, id = { 745, 860 }, type = "MultipleM", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Karazhan, Return to Karazhan
+            nodes[13][46583029] = { mnID = 19, hideInfo = true, id = { 311, 316 }, type = "MultipleD", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Scarlet Halls, Monastery 
+            nodes[13][52176317] = { mnID = 15, hideInfo = true, id = { 1197, 239 }, type = "MultipleD", showOnContinent = true, showInZone = false, showOnMinimap = false } --  Legacy of Tyr Dragonflight Dungeon & Vanilla Uldaman 
           end
     
     
@@ -447,8 +447,8 @@ if not db.activate.HideMapNote then
     
         -- Outland Multiple
           if self.db.profile.showContinentMultiple then
-            nodes[101][56695240] = { mnID = 100, id = { 747, 248, 256, 259 }, type = "MultipleM", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Hellfire Ramparts, The Blood Furnace, The Shattered Halls, Magtheridon's Lair 
-            nodes[101][34624490] = { mnID = 102, id = { 748, 260, 261, 262 }, type = "MultipleM", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Slave Pens, The Steamvault, The Underbog, Serpentshrine Cavern
+            nodes[101][56695240] = { mnID = 100, hideInfo = true, id = { 747, 248, 256, 259 }, type = "MultipleM", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Hellfire Ramparts, The Blood Furnace, The Shattered Halls, Magtheridon's Lair 
+            nodes[101][34624490] = { mnID = 102, hideInfo = true, id = { 748, 260, 261, 262 }, type = "MultipleM", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Slave Pens, The Steamvault, The Underbog, Serpentshrine Cavern
           end
     
     
@@ -513,11 +513,11 @@ if not db.activate.HideMapNote then
     
         -- Northrend Multiple
           if self.db.profile.showContinentMultiple then
-            nodes[113][40595892] = { mnID = 115, id = { 271, 272 }, type = "MultipleD", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Ahn'kahet The Old Kingdom, Azjol-Nerub        
-            nodes[113][41154408] = { mnID = 118, id = { 276, 278, 280 }, type = "MultipleD", showOnContinent = true, showInZone = false, showOnMinimap = false } -- The Forge of Souls, Halls of Reflection, Pit of Saron         
-            nodes[113][47652029] = { mnID = 118, id = { 757, 284 }, type = "MultipleM", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Trial of the Crusader, Trial of the Champion 
-            nodes[113][14725757] = { mnID = 114, id = { 756, 282, 281 }, type = "MultipleM", showOnContinent = true, showInZone = false, showOnMinimap = false } -- The Eye of Eternity, The Nexus, The Oculus
-            nodes[113][50346038] = { mnID = 115, id = { 755, 761 }, type = "MultipleR", showOnContinent = true, showInZone = false, showOnMinimap = false } -- The Ruby Sanctum, The Obsidian Sanctum 
+            nodes[113][40595892] = { mnID = 115, hideInfo = true, id = { 271, 272 }, type = "MultipleD", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Ahn'kahet The Old Kingdom, Azjol-Nerub        
+            nodes[113][41154408] = { mnID = 118, hideInfo = true, id = { 276, 278, 280 }, type = "MultipleD", showOnContinent = true, showInZone = false, showOnMinimap = false } -- The Forge of Souls, Halls of Reflection, Pit of Saron         
+            nodes[113][47652029] = { mnID = 118, hideInfo = true, id = { 757, 284 }, type = "MultipleM", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Trial of the Crusader, Trial of the Champion 
+            nodes[113][14725757] = { mnID = 114, hideInfo = true, id = { 756, 282, 281 }, type = "MultipleM", showOnContinent = true, showInZone = false, showOnMinimap = false } -- The Eye of Eternity, The Nexus, The Oculus
+            nodes[113][50346038] = { mnID = 115, hideInfo = true, id = { 755, 761 }, type = "MultipleR", showOnContinent = true, showInZone = false, showOnMinimap = false } -- The Ruby Sanctum, The Obsidian Sanctum 
           end
     
     
@@ -611,7 +611,7 @@ if not db.activate.HideMapNote then
 
         -- Pandaria LFR
           if self.db.profile.showContinentLFR then
-            nodes[424][53805057] = { mnID = 390, id = { 317, 330, 362, 320 }, name = L["Lorewalker Han"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", showOnContinent = true, showInZone = false, showOnMinimap = false , type = "LFR"}
+            nodes[424][53805057] = { mnID = 390, hideInfo = true, id = { 317, 330, 362, 320 }, name = L["Lorewalker Han"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", showOnContinent = true, showInZone = false, showOnMinimap = false , type = "LFR"}
           end
 
         -- Pandaria PvpandPveVendor
@@ -700,11 +700,11 @@ if not db.activate.HideMapNote then
           if self.db.profile.showContinentLFR then
             
             if self.faction == "Horde" or db.activate.EnemyFaction then
-              nodes[572][33793621] = { mnID = 590, id = { 477, 457, 669 }, type = "LFR", showOnContinent = true, showInZone = false, showOnMinimap = false, name = L["Seer Kazal"] .. " - " .. REQUIRES_LABEL .. " " .. GARRISON_LOCATION_TOOLTIP .. " " .. LEVEL .. " " .. ACTION_SPELL_CAST_START_MASTER .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " " }
+              nodes[572][33793621] = { mnID = 590, hideInfo = true, id = { 477, 457, 669 }, type = "LFR", showOnContinent = true, showInZone = false, showOnMinimap = false, name = L["Seer Kazal"] .. " - " .. REQUIRES_LABEL .. " " .. GARRISON_LOCATION_TOOLTIP .. " " .. LEVEL .. " " .. ACTION_SPELL_CAST_START_MASTER .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " " }
             end
             
             if self.faction == "Alliance" or db.activate.EnemyFaction then
-              nodes[572][51886044] = { mnID = 582, id = { 477, 457, 669 }, type = "LFR", showOnContinent = true, showInZone = false, showOnMinimap = false, name = L["Seer Kazal"] .. " - " .. REQUIRES_LABEL .. " " .. GARRISON_LOCATION_TOOLTIP .. " " .. LEVEL .. " " .. ACTION_SPELL_CAST_START_MASTER .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " " }
+              nodes[572][51886044] = { mnID = 582, hideInfo = true, id = { 477, 457, 669 }, type = "LFR", showOnContinent = true, showInZone = false, showOnMinimap = false, name = L["Seer Kazal"] .. " - " .. REQUIRES_LABEL .. " " .. GARRISON_LOCATION_TOOLTIP .. " " .. LEVEL .. " " .. ACTION_SPELL_CAST_START_MASTER .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " " }
             end
           end
 
@@ -777,7 +777,7 @@ if not db.activate.HideMapNote then
 
         -- Broken Isles LFR
           if self.db.profile.showContinentLFR then
-            nodes[619][46806495] = { mnID = 627, id = { 875, 786, 768, 861, 946 }, name = L["Archmage Timear"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", type = "LFR", showOnContinent = true, showInZone = false, showOnMinimap = false }
+            nodes[619][46806495] = { mnID = 627, hideInfo = true, id = { 875, 786, 768, 861, 946 }, name = L["Archmage Timear"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", type = "LFR", showOnContinent = true, showInZone = false, showOnMinimap = false }
           end
         end
     
@@ -829,7 +829,7 @@ if not db.activate.HideMapNote then
           if db.activate.MapNotesIcons then
     
             if self.faction == "Horde" or db.activate.EnemyFaction then
-              nodes[875][58486162] = { mnID = 1163, id = { 1176, 1031, 1179, 1036 }, type = "HIcon", showOnContinent = true, showInZone = false, showOnMinimap = false, name = L["Dazar'alor"] .. "\n" .. "\n" .. L["Portalroom"] .. "\n" .. " ==> " .. L["Silvermoon City"] .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. L["Thunder Bluff"] .. "\n" .. " ==> " .. L["Silithus"] .. "\n" .. " ==> " .. L["Nazjatar"] .. "\n" .. " " .. "\n" .. L["Eppu"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ",} -- Portalroom from Dazar'alor
+              nodes[875][58486162] = { mnID = 1163, hideInfo = true, id = { 1176, 1031, 1179, 1036 }, type = "HIcon", showOnContinent = true, showInZone = false, showOnMinimap = false, name = L["Dazar'alor"] .. "\n" .. "\n" .. L["Portalroom"] .. "\n" .. " ==> " .. L["Silvermoon City"] .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. L["Thunder Bluff"] .. "\n" .. " ==> " .. L["Silithus"] .. "\n" .. " ==> " .. L["Nazjatar"] .. "\n" .. " " .. "\n" .. L["Eppu"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ",} -- Portalroom from Dazar'alor
             end
           end 
 
@@ -867,7 +867,7 @@ if not db.activate.HideMapNote then
           if self.db.profile.showContinentLFR then
 
             if self.faction == "Horde" or db.activate.EnemyFaction then 
-              nodes[875][56886153] = { mnID = 1164, id = { 1176, 1031, 1179, 1036 }, type = "LFR", showOnContinent = true, showInZone = false, showOnMinimap = false, name = L["Eppu"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " " }
+              nodes[875][56886153] = { mnID = 1164, hideInfo = true, id = { 1176, 1031, 1179, 1036 }, type = "LFR", showOnContinent = true, showInZone = false, showOnMinimap = false, name = L["Eppu"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " " }
             end
           end
 
@@ -931,7 +931,7 @@ if not db.activate.HideMapNote then
           if db.activate.MapNotesIcons then
     
             if self.faction == "Alliance" or db.activate.EnemyFaction then
-              nodes[876][58395547] = { mnID = 1161, id = { 1176, 1031, 1179, 1036 }, type = "AIcon", showOnContinent = true, showInZone = false, showOnMinimap = false, name = L["Boralus"] .. " " .. "\n" .. " " .. "\n" .. L["Portalroom"] .. "\n" .. " ==> " .. STORMWIND .. "\n" .. " ==> " .. L["Silithus"] .. "\n" .. " ==> " .. L["Exodar"] .. "\n" .. " ==> " .. L["Ironforge"] .. "\n" .. " " .. "\n" .. L["Grand Admiral Jes-Tereth"] .. L["Travel"] .. "\n" .. " ==> " .. L["Nazmir"] .. "\n" .. " ==> " .. L["Zuldazar"] .. "\n" .. " ==> " .. L["Vol'dun"] .. "\n" .. " " .. "\n" .. L["Portals"] .. "\n" .. " " .. "\n" .. " ==> " .. L["Arathi Highlands"] .. "\n" .. " ==> " .. L["Darkshore"] .. "\n" .. " " .. "\n" .. L["Ship"] .. "\n" .. " ==> " .. STORMWIND .. "\n" .. " "  .."\n" .. L["Kiku"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " "} -- Boralus Transports
+              nodes[876][58395547] = { mnID = 1161, hideInfo = true, id = { 1176, 1031, 1179, 1036 }, type = "AIcon", showOnContinent = true, showInZone = false, showOnMinimap = false, name = L["Boralus"] .. " " .. "\n" .. " " .. "\n" .. L["Portalroom"] .. "\n" .. " ==> " .. STORMWIND .. "\n" .. " ==> " .. L["Silithus"] .. "\n" .. " ==> " .. L["Exodar"] .. "\n" .. " ==> " .. L["Ironforge"] .. "\n" .. " " .. "\n" .. L["Grand Admiral Jes-Tereth"] .. L["Travel"] .. "\n" .. " ==> " .. L["Nazmir"] .. "\n" .. " ==> " .. L["Zuldazar"] .. "\n" .. " ==> " .. L["Vol'dun"] .. "\n" .. " " .. "\n" .. L["Portals"] .. "\n" .. " " .. "\n" .. " ==> " .. L["Arathi Highlands"] .. "\n" .. " ==> " .. L["Darkshore"] .. "\n" .. " " .. "\n" .. L["Ship"] .. "\n" .. " ==> " .. STORMWIND .. "\n" .. " "  .."\n" .. L["Kiku"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " "} -- Boralus Transports
             end
           end
     
@@ -965,7 +965,7 @@ if not db.activate.HideMapNote then
           if self.db.profile.showContinentLFR then
 
             if self.faction == "Alliance" or db.activate.EnemyFaction then
-              nodes[876][60244960] = { mnID = 895, id = { 1176, 1031, 1179, 1036 }, type = "LFR", showOnContinent = true, showInZone = false, showOnMinimap = false, name = L["Kiku"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " " }
+              nodes[876][60244960] = { mnID = 895, hideInfo = true, id = { 1176, 1031, 1179, 1036 }, type = "LFR", showOnContinent = true, showInZone = false, showOnMinimap = false, name = L["Kiku"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " " }
             end
           end
 
@@ -1020,7 +1020,7 @@ if not db.activate.HideMapNote then
 
         -- Shadowlands LFR
           if self.db.profile.showContinentLFR then
-            nodes[1550][46704896] = { mnID = 1670, id = { 1190, 1193, 1195 }, type = "LFR", showOnContinent = true, showInZone = false, showOnMinimap = false, name = L["Ta'elfar"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " " }
+            nodes[1550][46704896] = { mnID = 1670, hideInfo = true, id = { 1190, 1193, 1195 }, type = "LFR", showOnContinent = true, showInZone = false, showOnMinimap = false, name = L["Ta'elfar"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " " }
           end
 
         -- Shadowlands PvpandPveVendor
@@ -1126,17 +1126,36 @@ if not db.activate.HideMapNote then
               nodes[2274][44338372] = { id = 1271, type = "Dungeon", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Ara-Kara, City of Echoes
             end
       
-      
           -- Khaz Algar Raids
             if self.db.profile.showContinentRaids then
               nodes[2274][42188673] = { id = 1273, type = "Raid"}  -- Nerub-ar Palace
               nodes[2274][41469096] = { id = 1273, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Nerub-ar Palace     
             end
 
+          -- Khaz Algar Delves
+            if self.db.profile.showContinentDelves then
+              -- Azj-Kathet
+              nodes[2274][46088109] = { name = "", TransportName = DELVE_LABEL, delveID = 2259, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Tak-Rethan-Abyss
+              nodes[2274][45458627] = { name = "", TransportName = DELVE_LABEL, delveID = 2299, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Underkeep
+              nodes[2274][38868203] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Zekvir's Lair
+              nodes[2274][42946320] = { name = "", TransportName = DELVE_LABEL, delveID = 2347, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Spiral Weave
+              -- Hallowfall
+              nodes[2274][47174554] = { name = "", TransportName = DELVE_LABEL, delveID = 2312, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Mycomancer Cavern
+              nodes[2274][44825825] = { name = "", TransportName = DELVE_LABEL, delveID = 2310, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Skittering Breach
+              nodes[2274][39015449] = { name = "", TransportName = DELVE_LABEL, delveID = 2301, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Sinkhole
+              nodes[2274][32425213] = { name = "", TransportName = DELVE_LABEL, delveID = 2277, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Nightfall Sanctum
+              -- The Ringing Deeps
+              nodes[2274][52355778] = { name = "", TransportName = DELVE_LABEL, delveID = 2251, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Waterworks
+              nodes[2274][61935331] = { name = "", TransportName = DELVE_LABEL, delveID = 2302, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Dread Pit
+              -- Isle of Dorn
+              nodes[2274][67273401] = { name = "", TransportName = DELVE_LABEL, delveID = 2269, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Earthcrawl Mines
+              nodes[2274][73383036] = { name = "", TransportName = DELVE_LABEL, delveID = 2249, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Fungal Folly
+              nodes[2274][77712035] = { name = "", TransportName = DELVE_LABEL, delveID = 2250, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Kriegval's Rest
+            end
 
           -- Khaz Algar MapNotesIcons
             if db.activate.MapNotesIcons then
-              nodes[2274][72311951] = { mnID = 2339, name = "", type = "MNL", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Dornogal"] .. " - " .. FACTION_NEUTRAL .. "\n" .. "\n" .. L["Portals"] .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. STORMWIND .. "\n" .. "\n" .. CALENDAR_TYPE_DUNGEON .. "\n" .. " ==> " .. "The Rookery" } -- Dornogal
+              nodes[2274][72311951] = { mnID = 2339, name = "", type = "MNL", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Dornogal"] .. " - " .. FACTION_NEUTRAL .. "\n" .. "\n" .. L["Portals"] .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. STORMWIND .. "\n" .. "\n" .. L["The Timeways"] .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. L["Ardenweald"] .. "\n" .. " ==> " .. L["Bastion"] .. "\n" .. " ==> " .. L["Tiragarde Sound"] .. "\n" .. " ==> " .. L["Twilight Highlands"] .."\n" .. "\n" .. CALENDAR_TYPE_DUNGEON .. "\n" .. " ==> " .. "The Rookery" } -- Dornogal
 
               if self.faction == "Horde" or db.activate.EnemyFaction then
 

@@ -124,7 +124,6 @@ local function UpdateLMFrame(self, event, ...)
 
 		if not itemLink or string.len(lootPlayer) < 1 then return end
 
-		local itemExtra, hasStat = B.GetItemExtra(itemLink)
 		local itemQuality = C_Item.GetItemQualityByID(itemLink)
 		local itemID, _, _, _, _, itemClassID, itemSubClassID = C_Item.GetItemInfoInstant(itemLink)
 
@@ -133,9 +132,8 @@ local function UpdateLMFrame(self, event, ...)
 			local lootTime = DB.InfoColor..GameTime_GetGameTime(true).."|r"
 			local playerName = UnitClassColor(string.split("-", lootPlayer))
 
-			if hasStat then
-				itemExtra = "|cff00FF00"..itemExtra.."|r"
-			end
+			local itemExtra, hasStat = B.GetItemExtra(itemLink)
+			if hasStat then itemExtra = "|cff00FF00"..itemExtra.."|r" end
 
 			if #LMFrame_Report >= LMFrame_CFG["maxLines"] then table.remove(LMFrame_Report, 1) end
 

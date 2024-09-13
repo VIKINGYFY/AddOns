@@ -1,4 +1,5 @@
-## Changed in v54
+## Changed in v56
 
-* Add data for the world bosses now that season one has begun (questids for the first one are all that's available for completion, but don't worry, I have more than just the concept of a plan for not just having them sit there annoyingly on your map...)
+* Fix the position of some dornogal profession knowledge items that moved a bit since beta, thanks ElGabbaGhoul for pointing out the blacksmithing one being incorrect
+* Tooltip text colors for a point having unmet requirements were inverted
 

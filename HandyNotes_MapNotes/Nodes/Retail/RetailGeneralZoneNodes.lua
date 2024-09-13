@@ -1581,6 +1581,8 @@ if not db.activate.HideMapNote then
             if self.db.profile.showZonePvEVendor and not self.db.profile.ZoneMapNotesIcons then
                 nodes[2214][47303293] = { dnID = L["The Assembly of the Deeps"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2215][42355500] = { dnID = L["Hallowfall Arathi"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2255][55334121] = { dnID = L["The Severed Threads"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2256][55334121] = { dnID = L["The Severed Threads"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneMailbox and not self.db.profile.ZoneMapNotesIcons then
@@ -1634,6 +1636,8 @@ if not db.activate.HideMapNote then
                 --Innkeeper Mailbox Stabelmaster Merchant
                 nodes[2215][42395647] = { name = L["Hallowfall Arathi"], dnID = TextIconPvEVendor:GetIconString() .. " " .. L["Merchant for Renown items"] .. "\n" .. TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. MINIMAP_TRACKING_STABLEMASTER, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2214][47163209] = { name = L["The Assembly of the Deeps"], dnID = TextIconPvEVendor:GetIconString() .. " " .. L["Merchant for Renown items"] .. "\n" .. TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }                     
+                nodes[2255][56773954] = { name = L["The Severed Threads"], dnID = TextIconPvEVendor:GetIconString() .. " " .. L["Merchant for Renown items"] .. "\n" .. TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2256][56773954] = { name = L["The Severed Threads"], dnID = TextIconPvEVendor:GetIconString() .. " " .. L["Merchant for Renown items"] .. "\n" .. TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 --Innkeeper Mailbox Stabelmaster
                 nodes[2248][58742792] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. MINIMAP_TRACKING_STABLEMASTER, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2214][61924618] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. MINIMAP_TRACKING_STABLEMASTER, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
@@ -1646,8 +1650,6 @@ if not db.activate.HideMapNote then
                 --Innkeeper Mailbox
                 nodes[2248][41817377] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2215][49073964] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2255][56773954] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2256][56773954] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
         end

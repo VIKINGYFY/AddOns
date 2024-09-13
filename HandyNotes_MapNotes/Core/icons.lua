@@ -150,7 +150,8 @@ ns.icons = {
 --instance
 ["LFR"] = iconLink .. "LFR",
 ["Dungeon"] = iconLink .. "Dungeon", 
-["Raid"] = iconLink .. "Raid", 
+["Raid"] = iconLink .. "Raid",
+["Delves"] = iconLink .. "Delves", 
 ["VInstance"] = iconLink .. "vanillaInstance",
 ["MultiVInstance"] = iconLink .. "multivanillaInstance",
 ["VKey1"] = iconLink .. "vkey1",
@@ -375,6 +376,7 @@ TextIconPathL = TextIcon(iconLink .. "PathL", 50, 50, 1, 50, 1, 50)
 TextIconLFR = TextIcon(iconLink .. "LFR", 50, 50, 1, 50, 1, 50)
 TextIconDungeon = TextIcon(iconLink .. "Dungeon", 50, 50, 1, 50, 1, 50)
 TextIconRaid = TextIcon(iconLink .. "Raid", 50, 50, 1, 50, 1, 50)
+TextIconDelves = TextIcon(iconLink .. "Delves", 50, 50, 1, 50, 1, 50)
 TextIconVInstance = TextIcon(iconLink .. "vanillaInstance", 50, 50, 1, 50, 1, 50)
 TextIconMultiVInstance = TextIcon(iconLink .. "multivanillaInstance", 50, 50, 1, 50, 1, 50)
 TextIconVKey1 = TextIcon(iconLink .. "vkey1", 50, 50, 1, 50, 1, 50)

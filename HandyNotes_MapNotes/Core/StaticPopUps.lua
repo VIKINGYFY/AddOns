@@ -138,4 +138,23 @@ function ns.RestoreStaticPopUps()
     end,
     timeout = 5,
   }
+
+  StaticPopupDialogs["Leave_Delve?"] = {
+    text = TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " • " .. INSTANCE_LEAVE .. " (" .. DELVES_LABEL .. ") ?" .. " " .. TextIconMNL4:GetIconString() .."\n" .. "\n" .. L["If you press 'YES', the current run is over and you will be placed outside the entrance"] .. " (" .. DELVE_LABEL .. ")" .. "\n" .. "\n" .. L["This will immediately abort and end the current instance run!"],
+    button1 = YES,
+    button2 = NO,
+    showAlert = true,
+    exclusive  = true,
+    whileDead = true,
+    hideOnEscape = true,
+    OnAccept = function()
+        C_PartyInfo.DelveTeleportOut()
+        print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 " .. INSTANCE_LEAVE .. " (" .. DELVES_LABEL .. ")" .. " - " .. "|cff00ff00" .. CALENDAR_STATUS_CONFIRMED)
+      HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+    end,
+    OnCancel = function()
+      print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. INSTANCE_LEAVE .. " (" .. DELVES_LABEL .. ")" .. " - " .. "|cffff0000" .. CLUB_FINDER_CANCELED)
+    end,
+    timeout = 15,
+  }
 end

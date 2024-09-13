@@ -54,6 +54,8 @@ local list = {
 		{AuraID = 292463, UnitID = "player"}, -- 帕库之拥 赞达拉
 		-- 11.0 饰品
 		{AuraID = 443531, UnitID = "player"},	-- 振奋之光
+		{AuraID = 455420, UnitID = "player"},	-- 探洞者的蜡烛残端
+
 	},
 	["Raid Buff"] = {		-- 团队增益组
 		{AuraID =  54861, UnitID = "player"}, -- 火箭靴，工程

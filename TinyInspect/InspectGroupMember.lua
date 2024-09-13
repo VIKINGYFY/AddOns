@@ -182,7 +182,7 @@ end)
 -- 界面處理
 ----------------
 
-local memberslist = {}
+local membersList = {}
 
 local frame = CreateFrame("Frame", "TinyInspectiLvlFrame", UIParent)
 frame:SetPoint("TOP", 0, -100)
@@ -270,27 +270,22 @@ end
 --導表並顯示進度
 local function MakeMembersList()
 	local numCurrent, numTotal = 0, 0
-	for k, _ in pairs(memberslist) do
-		memberslist[k] = nil
+	for k, _ in pairs(membersList) do
+		membersList[k] = nil
 	end
 	for _, v in pairs(members) do
-		table.insert(memberslist, v)
+		table.insert(membersList, v)
 		if (v.done) then numCurrent = numCurrent + 1 end
 		numTotal = numTotal + 1
 	end
 	UpdateProgress(numCurrent, numTotal)
 end
 
-local roles = {
-	["TANK"] = true,
-	["HEALER"] = true,
-	["DAMAGER"] = true,
-}
 --顯示
 local function ShowMembersList()
 	local i = 1
 	local button, role, r, g, b
-	for _, v in pairs(memberslist) do
+	for _, v in pairs(membersList) do
 		r, g, b = GetClassColor(v.class)
 
 		button = GetButton(frame.panel, i)
@@ -299,9 +294,7 @@ local function ShowMembersList()
 		button.name:SetTextColor(r, g, b)
 		button.spec:SetText(v.spec and v.spec or " - ")
 		button.ilvl:SetText(v.ilvl > 0 and format("%.1f", v.ilvl) or " - ")
-		if roles[v.role] then
-			button.role:SetAtlas(GetMicroIconForRole(v.role))
-		end
+		button.role:SetAtlas(GetMicroIconForRole(v.role and v.role or ""))
 		button:Show()
 		i = i + 1
 	end
@@ -316,7 +309,7 @@ end
 --排序並顯示
 local function SortAndShowMembersList()
 	if (not frame.panel:IsShown()) then return end
-	table.sort(memberslist, function(a, b)
+	table.sort(membersList, function(a, b)
 		return a.ilvl > b.ilvl
 	end)
 	ShowMembersList()

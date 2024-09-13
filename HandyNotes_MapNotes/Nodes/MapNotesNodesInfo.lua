@@ -762,4 +762,18 @@ nodes[2303] = { } -- Darkflame Cleft - Inside Dungeon Map
 nodes[2357] = { } -- Ara-Kara, City of Echoes - Inside Dungeon Map
 nodes[2343] = { } -- City of Threads - Inside Dungeon Map
 nodes[2292] = { } -- Nerub-ar Palace - Inside Dungeon Map
+-- Delves map nodes
+nodes[2259] = { } -- Tak-Rethan-Abyss - Inside Dungeon Map
+nodes[2299] = { } -- The Underkeep - Inside Dungeon Map
+nodes[2348] = { } -- Zekvir's Lair - Inside Dungeon Map
+nodes[2347] = { } -- The Spiral Weave - Inside Dungeon Map
+nodes[2312] = { } -- Mycomancer Cavern - Inside Dungeon Map
+nodes[2310] = { } -- Skittering Breach - Inside Dungeon Map
+nodes[2301] = { } -- The Sinkhole - Inside Dungeon Map
+nodes[2277] = { } -- Nightfall Sanctum - Inside Dungeon Map
+nodes[2251] = { } -- The Waterworks - Inside Dungeon Map
+nodes[2302] = { } -- The Waterworks - Inside Dungeon Map
+nodes[2269] = { } -- Earthcrawl Mines - Inside Dungeon Map
+nodes[2249] = { } -- Fungal Folly - Inside Dungeon Map
+nodes[2250] = { } -- Kriegval's Rest - Inside Dungeon Map
 end

@@ -43,9 +43,22 @@ local function updateextraInformation()
     end
 end
 
+local function ExtraToolTip()
+  if ns.Addon.db.profile.TooltipInformations == false then
+    ns.Addon.db.profile.ExtraTooltip = false
+    elseif ns.Addon.db.profile.TooltipInformations == true then
+      if not WorldMapFrame:IsShown() then
+        ns.Addon.db.profile.ExtraTooltip = false
+      elseif WorldMapFrame:IsShown() then
+        ns.Addon.db.profile.ExtraTooltip = true
+      end
+  end
+end
+
 local pluginHandler = { }
 function pluginHandler:OnEnter(uiMapId, coord)
 ns.nodes[uiMapId][coord] = nodes[uiMapId][coord]
+ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
   local nodeData = nil
 
   if (minimap[uiMapId] and minimap[uiMapId][coord]) then
@@ -59,6 +72,7 @@ ns.nodes[uiMapId][coord] = nodes[uiMapId][coord]
 	if (not nodeData) then return end
 	
 	local tooltip = self:GetParent() == WorldMapButton and WorldMapTooltip or GameTooltip
+
 	if ( self:GetCenter() > UIParent:GetCenter() ) then -- compare X coordinate
 	  tooltip:SetOwner(self, "ANCHOR_LEFT")
 	else
@@ -69,7 +83,7 @@ ns.nodes[uiMapId][coord] = nodes[uiMapId][coord]
 
 	local instances = { strsplit("\n", nodeData.name) }
 
-
+  ExtraToolTip()
 	updateextraInformation()
 	
 	for i, v in pairs(instances) do
@@ -115,7 +129,15 @@ ns.nodes[uiMapId][coord] = nodes[uiMapId][coord]
       end
 	  end
 
-    if nodeData.TransportName then -- outputs transport name for TomTom to the tooltip
+    if nodeData.delveID and ns.icons["Delves"] then -- Delves
+      local delveIDname = C_Map.GetMapInfo(nodeData.delveID).name
+      if delveIDname then
+        tooltip:AddDoubleLine("|cffffffff" .. delveIDname, nil, nil, false)
+        tooltip:AddDoubleLine(nodeData.TransportName, nil, nil, false)
+      end
+    end
+
+    if nodeData.TransportName and not nodeData.delveID then -- outputs transport name for TomTom to the tooltip
       tooltip:AddDoubleLine(nodeData.TransportName, nil, nil, false)
     end
 
@@ -151,7 +173,7 @@ ns.nodes[uiMapId][coord] = nodes[uiMapId][coord]
       end
     end
 
-    if not nodeData.dnID and nodeData.mnID and not nodeData.id and not nodeData.TransportName and not nodeData.wwwName then -- outputs the Zone or Dungeonmap name and displays it in the tooltip
+    if not nodeData.dnID and nodeData.mnID and not nodeData.id and not nodeData.TransportName and not nodeData.wwwName and not ns.icons["Delves"] then -- outputs the Zone or Dungeonmap name and displays it in the tooltip
       local mnIDname = C_Map.GetMapInfo(nodeData.mnID).name
       if mnIDname then
         tooltip:AddDoubleLine(" ==> " .. mnIDname, nil, nil, false)
@@ -165,8 +187,69 @@ ns.nodes[uiMapId][coord] = nodes[uiMapId][coord]
     if nodeData.www and nodeData.showWWW == true then
       tooltip:AddDoubleLine(nodeData.www, nil, nil, false)
     end
-  
-     	tooltip:Show()
+
+    if ns.Addon.db.profile.ExtraTooltip then
+
+      if nodeData.id and not nodeData.mnID then  -- instance entrances
+        if ns.Addon.db.profile.journal then
+          tooltip:AddDoubleLine("|cff00ff00" .. L["< Left Click to open Adventure Guide >"], nil, nil, false) -- instance entrances into adventure guide
+        end
+        if ns.Addon.db.profile.tomtom then
+          tooltip:AddDoubleLine("|cff00ff00" .. L["< Shift + Right Click add TomTom waypoint >"], nil, nil, false) -- instance entrances tomtom
+        end
+      end
+
+      if nodeData.mnID or nodeData.delveID then
+        if not ns.Addon.db.profile.activate.ShiftWorld then 
+          if not nodeData.hideInfo == true and not ns.MapType0 then
+            if nodeData.mnID then
+              tooltip:AddDoubleLine("|cff00ff00" .. L["< Left Click to show map >"], nil, nil, false)
+            end
+            if nodeData.delveID then
+              tooltip:AddDoubleLine("|cff00ff00" .. L["< Left Click to show delve map >"], nil, nil, false)
+            end
+          end
+        elseif ns.Addon.db.profile.activate.ShiftWorld then
+          if not nodeData.hideInfo == true and not ns.MapType0 then
+            tooltip:AddDoubleLine("|cff00ff00" .. L["< Shift Left Click to show map >"], nil, nil, false)
+          end
+        end
+
+        if not (ns.MapType1 or ns.MapType0 or ns.icons["Delves"]) then
+          if ns.Addon.db.profile.tomtom and not ns.CapitalIDs then
+            tooltip:AddDoubleLine("|cff00ff00" .. L["< Shift + Right Click add TomTom waypoint >"], nil, nil, false)
+          end
+        end
+      end
+
+      if (not nodeData.id and not nodeData.mnID) and ns.AllZoneIDs and (not ns.CapitalIDs and not ns.ContinentIDs) then
+        if ns.Addon.db.profile.tomtom then
+          tooltip:AddDoubleLine("|cff00ff00" .. L["< Shift + Right Click add TomTom waypoint >"], nil, nil, false)
+        end
+      end
+
+      if nodeData.mnID and nodeData.leaveDelve and ns.icons["Delves"] then
+        if not ns.Addon.db.profile.activate.ShiftWorld then 
+          tooltip:AddDoubleLine("|cff00ff00" .. "< " .. MIDDLE_BUTTON_STRING .. " " .. INSTANCE_LEAVE .. " (" .. DELVES_LABEL .. ") >", nil, nil, false)
+          if ns.Addon.db.profile.tomtom then
+            tooltip:AddDoubleLine("|cff00ff00" .. L["< Shift + Right Click add TomTom waypoint >"], nil, nil, false)
+          end
+        elseif ns.Addon.db.profile.activate.ShiftWorld then
+          tooltip:AddDoubleLine("|cff00ff00" .. "< " .. SHIFT_KEY .. " + " .. MIDDLE_BUTTON_STRING .. " " .. INSTANCE_LEAVE .. " (" .. DELVES_LABEL .. ") >", nil, nil, false)
+          if ns.Addon.db.profile.tomtom then
+            tooltip:AddDoubleLine("|cff00ff00" .. L["< Shift + Right Click add TomTom waypoint >"], nil, nil, false)
+          end
+        end
+      end
+    end
+
+    if ns.Addon.db.profile.ExtraTooltip and ns.Addon.db.profile.DeleteIcons then
+      if not nodeData.hideInfo == true and not ns.MapType0 then
+        tooltip:AddDoubleLine("|cffff0000" .. L["< Alt + Right click to delete this icon >"], nil, nil, false)
+      end
+    end
+
+    tooltip:Show()
   end
 end
 
@@ -240,7 +323,7 @@ do
                             or value.type == "Enchanting" or value.type == "FishingClassic" or value.type == "ProfessionOrders"
 
       ns.instanceIcons = value.type == "Dungeon" or value.type == "Raid" or value.type == "PassageDungeon" or value.type == "PassageDungeonRaidMulti" or value.type == "PassageRaid" or value.type == "VInstance"  or value.type == "MultiVInstance" 
-                          or value.type == "PassageDungeon" or value.type == "Multiple" or value.type == "LFR" or value.type == "Gray" or value.type == "VKey1"
+                          or value.type == "PassageDungeon" or value.type == "Multiple" or value.type == "LFR" or value.type == "Gray" or value.type == "VKey1" or value.type == "Delves"
 
       ns.transportIcons = value.type == "Portal" or value.type == "PortalS" or value.type == "HPortal" or value.type == "APortal" or value.type == "HPortalS" or value.type == "APortalS" or value.type == "PassageHPortal" 
                           or value.type == "PassageAPortal" or value.type == "PassagePortal" or value.type == "Zeppelin" or value.type == "HZeppelin" or value.type == "AZeppelin" or value.type == "Ship" 
@@ -512,7 +595,7 @@ do
       -- X = 6 =	Orphan 	
 
       if t.uiMapId == 948 -- Mahlstrom Continent 
-        or WorldMapFrame:GetMapID() == 2274 -- PTR: Khaz Algar - The War Within. Continent Scale atm on Beta a Zone not a Continent!!
+        --or WorldMapFrame:GetMapID() == 2274 -- PTR: Khaz Algar - The War Within. Continent Scale atm on Beta a Zone not a Continent!!
         or (mapInfo.mapType == 0 and (ns.dbChar.AzerothDeletedIcons[t.uiMapId] and not ns.dbChar.AzerothDeletedIcons[t.uiMapId][state])) -- Cosmos
         or (mapInfo.mapType == 1 and (ns.dbChar.AzerothDeletedIcons[t.uiMapId] and not ns.dbChar.AzerothDeletedIcons[t.uiMapId][state])) -- Azeroth
         or (not ns.CapitalIDs and (mapInfo.mapType == 4 or mapInfo.mapType == 6) and (ns.dbChar.DungeonDeletedIcons[t.uiMapId] and not ns.dbChar.DungeonDeletedIcons[t.uiMapId][state])) -- Dungeon
@@ -647,6 +730,8 @@ end
 
 function pluginHandler:OnClick(button, pressed, uiMapId, coord, value)
 
+local delveID = nodes[uiMapId][coord].delveID
+local leaveDelve = nodes[uiMapId][coord].leaveDelve
 local mnID = nodes[uiMapId][coord].mnID
 local mnID2 = nodes[uiMapId][coord].mnID2
 local mnID3 = nodes[uiMapId][coord].mnID3
@@ -714,7 +799,9 @@ local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() ==
   end
 
   if (button == "RightButton") and IsAltKeyDown() then
-    StaticPopup_Show ("Delete_Icon?")
+    if ns.Addon.db.profile.DeleteIcons then
+      StaticPopup_Show("Delete_Icon?")
+    end
   end
 
   if (button == "LeftButton" and mnID and mnID2 or mnID3 and not IsShiftKeyDown() and not IsAltKeyDown()) then
@@ -733,14 +820,17 @@ local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() ==
 
     if (not pressed) then return end
 
+    if (button == "MiddleButton") and leaveDelve and ns.icons["Delves"] then
+      StaticPopup_Show("Leave_Delve?")
+    end
+
     if (button == "MiddleButton") then
       if www then
         print(www)
       end
     end
 
-    if (button == "LeftButton" and db.journal and not IsAltKeyDown()) then
-
+    if (button == "LeftButton" and not IsAltKeyDown()) then
       if mnID then
         WorldMapFrame:SetMapID(mnID)
       if (not EncounterJournal_OpenJournal) then 
@@ -749,6 +839,18 @@ local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() ==
         _G.EncounterJournal:SetScript("OnShow", nil)
         return
       end
+
+      if delveID then
+        WorldMapFrame:SetMapID(delveID)
+        if (not EncounterJournal_OpenJournal) then 
+          UIParentLoadAddOn('Blizzard_EncounterJournal')
+        end
+        _G.EncounterJournal:SetScript("OnShow", nil)
+        return
+      end
+    end
+
+    if (button == "LeftButton" and db.journal and not IsAltKeyDown()) then
 
       if nodes[uiMapId][coord].mnID and nodes[uiMapId][coord].id then
         mnID = nodes[uiMapId][coord].mnID[1] --change id function to mnID function
@@ -786,6 +888,10 @@ local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() ==
 
     if (not pressed) then return end
 
+    if IsShiftKeyDown() and (button == "MiddleButton") and leaveDelve and ns.icons["Delves"] then
+      StaticPopup_Show("Leave_Delve?")
+    end
+
     if IsShiftKeyDown() and (button == "MiddleButton") then
       local www = nodes[uiMapId][coord].www
       if www then
@@ -793,8 +899,7 @@ local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() ==
       end
     end
 
-    if IsShiftKeyDown() and (button == "LeftButton" and db.journal) then
-
+    if IsShiftKeyDown() and (button == "LeftButton" ) then
       if mnID then
          WorldMapFrame:SetMapID(mnID)
       if (not EncounterJournal_OpenJournal) then 
@@ -803,6 +908,18 @@ local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() ==
         _G.EncounterJournal:SetScript("OnShow", nil)
         return
       end
+
+      if delveID then
+        WorldMapFrame:SetMapID(delveID)
+        if (not EncounterJournal_OpenJournal) then 
+          UIParentLoadAddOn('Blizzard_EncounterJournal')
+        end
+        _G.EncounterJournal:SetScript("OnShow", nil)
+        return
+      end
+    end
+
+    if IsShiftKeyDown() and (button == "LeftButton" and db.journal) then
       
       if nodes[uiMapId][coord].mnID and nodes[uiMapId][coord].id then
         mnID = nodes[uiMapId][coord].mnID[1] --change id function to mnID function
@@ -971,11 +1088,18 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
   Addon:RegisterEvent("ZONE_CHANGED")
   Addon:RegisterEvent("ZONE_CHANGED_INDOORS")
 
-  -- Check if MapNotes vs Blizzard is true then remove Blizzard Pins
+  -- Check if Blizz Instance entrances is true then remove Blizzard Pins
   if ns.Addon.db.profile.activate.RemoveBlizzInstances then
     SetCVar("showDungeonEntrancesOnMap", 0)
   elseif not ns.Addon.db.profile.activate.RemoveBlizzInstances then
     SetCVar("showDungeonEntrancesOnMap", 1)
+  end
+
+  -- Check if Blizz Delves entrances is true then remove Blizzard Pins
+  if ns.Addon.db.profile.activate.RemoveBlizzDelves then
+    SetCVar("showDelveEntrancesOnMap", 0)
+  elseif not ns.Addon.db.profile.activate.RemoveBlizzDelves then
+    SetCVar("showDelveEntrancesOnMap", 1)
   end
 
   if ns.Addon.db.profile.activate.HideMMB then -- minimap button
@@ -994,7 +1118,7 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
     if (not ns.Addon.db.profile.activate.RemoveBlizzPOIs or ns.Addon.db.profile.activate.HideMapNote) then return end
 
     for pin in WorldMapFrame:EnumeratePinsByTemplate("AreaPOIPinTemplate") do
-
+      
       for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
 
         local poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
@@ -1002,7 +1126,6 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
             WorldMapFrame:RemovePin(pin)
         end
       end
-
     end
   end
 
@@ -1068,21 +1191,26 @@ end
 function Addon:UpdateInstanceNames(node)
   local dungeonInfo = EJ_GetInstanceInfo
     local id = node.id
-
       if (node.lfgid) then
         dungeonInfo = GetLFGDungeonInfo
-        id = node.lfgid 
+        id = node.lfgid
       end
 
       if (type(id) == "table") then
         for i,v in pairs(node.id) do
           local name = dungeonInfo(v)
             self:UpdateAlter(v, name)
-          if (node.name) then
-            node.name = node.name .. "\n" .. name
-          else
-            node.name = name
-          end
+            if (node.name) then
+              node.name = node.name .. "\n" .. name
+            else
+              if not ns.Addon.db.profile.ExtraTooltip then
+                node.name = name
+              elseif ns.Addon.db.profile.ExtraTooltip and not ns.Addon.db.profile.DeleteIcons then
+                node.name = "|cff00ff00" .. L["< Left Click to show map >"] .. "|r" .."\n" .. name
+              elseif ns.Addon.db.profile.ExtraTooltip and ns.Addon.db.profile.DeleteIcons then
+                node.name = "|cff00ff00" .. L["< Left Click to show map >"] .. "\n" .."|cffff0000" .. L["< Alt + Right click to delete this icon >"] .."|r" .."\n" .. name
+              end
+            end
         end
       elseif (id) then
         node.name = dungeonInfo(id)

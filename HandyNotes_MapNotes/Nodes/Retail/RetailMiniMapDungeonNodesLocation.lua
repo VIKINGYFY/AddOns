@@ -129,22 +129,22 @@ if not db.activate.HideMapNote then
             end
 
             if self.db.profile.showMiniMapMultiple then
-              minimap[71][64864997] = { mnID = 75, id = { 187, 750, 279, 255, 251, 184, 185, 186, }, type = "MultipleM", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
-              minimap[74][30857356] = { mnID = 75, id = { 187, 750, 279, 255, 251, 184, 185, 186, }, type = "MultipleM", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
+              minimap[71][64864997] = { mnID = 75, hideInfo = true, id = { 187, 750, 279, 255, 251, 184, 185, 186, }, type = "MultipleM", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
+              minimap[74][30857356] = { mnID = 75, hideInfo = true, id = { 187, 750, 279, 255, 251, 184, 185, 186, }, type = "MultipleM", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
             end
 
           end
 
         --Kalimdor Multiple
           if self.db.profile.showMiniMapMultiple and not db.activate.ClassicIcons then  
-            minimap[71][64864997] = { mnID = 75, id = { 187, 750, 279, 255, 251, 184, 185, 186, }, type = "PassageDungeonRaidMulti", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
-            minimap[74][30857356] = { mnID = 75, id = { 187, 750, 279, 255, 251, 184, 185, 186, }, type = "PassageDungeonRaidMulti", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
+            minimap[71][64864997] = { mnID = 75, hideInfo = true, id = { 187, 750, 279, 255, 251, 184, 185, 186, }, type = "PassageDungeonRaidMulti", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
+            minimap[74][30857356] = { mnID = 75, hideInfo = true, id = { 187, 750, 279, 255, 251, 184, 185, 186, }, type = "PassageDungeonRaidMulti", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
           end
 
 
         -- Kalimdor LFR
           if self.db.profile.showMiniMapLFR then
-            minimap[75][63122722] = { id = { 187 }, name = L["Auridormi"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", type = "LFR", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Garrison to Ashran
+            minimap[75][63122722] = { hideInfo = true, id = { 187 }, name = L["Auridormi"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", type = "LFR", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Garrison to Ashran
           end
 
         end
@@ -225,13 +225,13 @@ if not db.activate.HideMapNote then
             minimap[469][32793702] = { mnID = 30, dnID = L["Way to the Instance Entrance"], id = 231, type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Gnomeregan
             minimap[27][31393804] = { mnID = 30, dnID = L["Way to the Instance Entrance"], id = 231, type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Gnomeregan     
             minimap[51][69675353] = { dnID = L["Way to the Instance Entrance"], id = 237, type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Temple of Atal'hakkar 
-            minimap[36][20643322] = { mnID = 33, id = { 741, 742, 66, 228, 229, 559 }, name = L["Way to the Instance Entrance"], type = "PassageDungeonRaidMulti", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
+            minimap[36][20643322] = { mnID = 33, hideInfo = true, id = { 741, 742, 66, 228, 229, 559 }, name = L["Way to the Instance Entrance"], type = "PassageDungeonRaidMulti", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
             minimap[32][35268404] = { mnID = 33, name = "", type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
             minimap[15][58543698] = { dnID = L["Way to the Instance Entrance"], id = 239, name = "", type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Uldaman (Secondary Entrance) 
             minimap[23][43251854] = { dnID = L["Way to the Instance Entrance"], id = 236, lfgid = 274, type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true }-- Stratholme Service Entrance 
-            minimap[33][68635371] = { mnID = 34, id = { 66 }, name = L["Way to the Instance Entrance"], type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Blackrock Caverns
-            minimap[33][65896169] = { mnID = 34, id = { 66 }, name = L["Way to the Instance Entrance"], type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Blackrock Caverns
-            minimap[33][45004700] = { mnID = 35, id = { 741, 228 }, name = L["Way to the Instance Entrance"], type = "PassageRaid", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Blackrock Depths
+            minimap[33][68635371] = { mnID = 34, hideInfo = true, id = { 66 }, name = L["Way to the Instance Entrance"], type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Blackrock Caverns
+            minimap[33][65896169] = { mnID = 34, hideInfo = true, id = { 66 }, name = L["Way to the Instance Entrance"], type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Blackrock Caverns
+            minimap[33][45004700] = { mnID = 35, hideInfo = true, id = { 741, 228 }, name = L["Way to the Instance Entrance"], type = "PassageRaid", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Blackrock Depths
             minimap[34][58792725] = { mnID = 33, dnID = DUNGEON_FLOOR_BURNINGSTEPPES14, name = "", type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Blackrock Depths
             minimap[35][58168728] = { mnID = 33, dnID = DUNGEON_FLOOR_BURNINGSTEPPES14, name = "", type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Blackrock Depths
 
@@ -244,7 +244,7 @@ if not db.activate.HideMapNote then
           if db.activate.ClassicIcons then
 
             if self.db.profile.showMiniMapMultiple then
-              minimap[36][20643322] = { mnID = 33, id = { 741, 742, 66, 228, 229, 559 }, name = L["Way to the Instance Entrance"], type = "MultipleM", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
+              minimap[36][20643322] = { mnID = 33, hideInfo = true, id = { 741, 742, 66, 228, 229, 559 }, name = L["Way to the Instance Entrance"], type = "MultipleM", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
               --minimap[36][20643322] = { mnID = 33, name = "", type = "MultipleM", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
             end
 
@@ -262,7 +262,7 @@ if not db.activate.HideMapNote then
             end
 
             if self.db.profile.showMiniMapRaids then
-              minimap[33][45004700] = { mnID = 35, id = { 741, 228 }, name = L["Way to the Instance Entrance"], type = "Raid", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Blackrock Depths
+              minimap[33][45004700] = { mnID = 35, hideInfo = true, id = { 741, 228 }, name = L["Way to the Instance Entrance"], type = "Raid", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Blackrock Depths
             end
 
           end
@@ -435,8 +435,8 @@ if not db.activate.HideMapNote then
 
         -- Pandaria LFR
           if self.db.profile.showMiniMapLFR then
-            minimap[390][83153063] = { id = { 317, 330, 362, 320 }, name = L["Lorewalker Han"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", type = "LFR", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Garrison to Ashran
-            minimap[1530][83712804] = { id = { 317, 330, 362, 320 }, name = L["Lorewalker Han"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", type = "LFR", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Garrison to Ashran
+            minimap[390][83153063] = { hideInfo = true, id = { 317, 330, 362, 320 }, name = L["Lorewalker Han"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", type = "LFR", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Garrison to Ashran
+            minimap[1530][83712804] = { hideInfo = true, id = { 317, 330, 362, 320 }, name = L["Lorewalker Han"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", type = "LFR", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Garrison to Ashran
           end
         end
 
@@ -516,7 +516,7 @@ if not db.activate.HideMapNote then
 
         --Broken Isles Raids without ClassicIcons
           if self.db.profile.showMiniMapPassage and not db.activate.ClassicIcons then
-            minimap[680][43346230] = { name = L["Way to the Instance Entrance"], id = { 726, 786 }, type = "PassageDungeonRaidMulti", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Arcway
+            minimap[680][43346230] = { name = L["Way to the Instance Entrance"], hideInfo = true, id = { 726, 786 }, type = "PassageDungeonRaidMulti", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Arcway
           end
 
 
@@ -524,7 +524,7 @@ if not db.activate.HideMapNote then
           if db.activate.ClassicIcons then
 
             if self.db.profile.showMiniMapMultiple then
-              minimap[680][43346230] = { name = L["Way to the Instance Entrance"], id = { 726, 786 }, type = "MultipleM", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Arcway
+              minimap[680][43346230] = { name = L["Way to the Instance Entrance"], hideInfo = true, id = { 726, 786 }, type = "MultipleM", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Arcway
             end
           end
 
@@ -620,7 +620,7 @@ if not db.activate.HideMapNote then
           if self.db.profile.showMiniMapLFR then
 
             if self.faction == "Horde" or db.activate.MiniMapEnemyFaction then
-              minimap[895][75112192] = { mnID = 1161, name = L["Kiku"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", id = { 1176, 1031, 1179, 1036 }, type = "LFR", showInZone = false, showOnContinent = false, showOnMinimap = true }
+              minimap[895][75112192] = { mnID = 1161, name = L["Kiku"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", hideInfo = true, id = { 1176, 1031, 1179, 1036 }, type = "LFR", showInZone = false, showOnContinent = false, showOnMinimap = true }
             end
           end
 
@@ -746,6 +746,43 @@ if not db.activate.HideMapNote then
               minimap[2216][35047242] = { id = 1273, type = "Raid", dnID = DUNGEON_FLOOR_GILNEAS3, showInZone = false, showOnContinent = false, showOnMinimap = true } -- Nerub-ar Palace              
             end
   
+          -- Khaz Algar Delves
+            if self.db.profile.showMiniMapDelves then
+              -- Azj-Kathet
+              minimap[2255][54937364] = { name = "", TransportName = DELVE_LABEL, delveID = 2259, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tak-Rethan-Abyss
+              minimap[2255][51858822] = { name = "", TransportName = DELVE_LABEL, delveID = 2299, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Underkeep
+              minimap[2255][32757683] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Zekvir's Lair
+              minimap[2255][45071878] = { name = "", TransportName = DELVE_LABEL, delveID = 2347, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Spiral Weave
+              minimap[2256][54937364] = { name = "", TransportName = DELVE_LABEL, delveID = 2259, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tak-Rethan-Abyss
+              minimap[2256][51858822] = { name = "", TransportName = DELVE_LABEL, delveID = 2299, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Underkeep
+              minimap[2256][32757683] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Zekvir's Lair
+              minimap[2256][45071878] = { name = "", TransportName = DELVE_LABEL, delveID = 2347, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Spiral Weave
+              minimap[2213][67672470] = { name = "", TransportName = DELVE_LABEL, delveID = 2259, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tak-Rethan-Abyss
+              minimap[2213][58756648] = { name = "", TransportName = DELVE_LABEL, delveID = 2299, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Underkeep
+              minimap[2213][04073384] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Zekvir's Lair
+              minimap[2216][67672470] = { name = "", TransportName = DELVE_LABEL, delveID = 2259, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tak-Rethan-Abyss
+              minimap[2216][58756648] = { name = "", TransportName = DELVE_LABEL, delveID = 2299, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Underkeep
+              minimap[2216][04073384] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Zekvir's Lair
+              -- Hallowfall
+              minimap[2215][60567682] = { name = "", TransportName = DELVE_LABEL, delveID = 2347, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Spiral Weave
+              minimap[2215][85426232] = { name = "", TransportName = DELVE_LABEL, delveID = 2251, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Waterworks
+              minimap[2215][71283115] = { name = "", TransportName = DELVE_LABEL, delveID = 2312, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Mycomancer Cavern
+              minimap[2215][65446161] = { name = "", TransportName = DELVE_LABEL, delveID = 2310, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Skittering Breach
+              minimap[2215][50655330] = { name = "", TransportName = DELVE_LABEL, delveID = 2301, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Sinkhole
+              minimap[2215][34314728] = { name = "", TransportName = DELVE_LABEL, delveID = 2277, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Nightfall Sanctum
+              -- The Ringing Deeps
+              minimap[2214][06333827] = { name = "", TransportName = DELVE_LABEL, delveID = 2301, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Sinkhole
+              minimap[2214][46324865] = { name = "", TransportName = DELVE_LABEL, delveID = 2251, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Waterworks
+              minimap[2214][30001279] = { name = "", TransportName = DELVE_LABEL, delveID = 2312, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Mycomancer Cavern
+              minimap[2214][23344783] = { name = "", TransportName = DELVE_LABEL, delveID = 2310, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Skittering Breach
+              minimap[2214][06333827] = { name = "", TransportName = DELVE_LABEL, delveID = 2301, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Sinkhole
+              minimap[2214][74353719] = { name = "", TransportName = DELVE_LABEL, delveID = 2302, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Dread Pit
+              minimap[2214][17726533] = { name = "", TransportName = DELVE_LABEL, delveID = 2347, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Spiral Weave
+              -- Isle of Dorn
+              minimap[2248][38597387] = { name = "", TransportName = DELVE_LABEL, delveID = 2269, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Earthcrawl Mines
+              minimap[2248][52036568] = { name = "", TransportName = DELVE_LABEL, delveID = 2249, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Fungal Folly
+              minimap[2248][62144272] = { name = "", TransportName = DELVE_LABEL, delveID = 2250, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Kriegval's Rest
+            end
   
           -- Khaz Algar Passage
             if self.db.profile.showMiniMapPassage and not db.activate.ClassicIcons then

@@ -23,6 +23,8 @@ ns.BlizzAreaPoisInfo = {
     7960, -- Portal to Dalaran from Dragonblight - TWW Pre Event
     7961, -- Portal to Dalaran from Searing Gorge - TWW Pre Event
 
+    8171, -- Timeways Portal in Dornogal
+
     -- City Alliance
     8, -- Ironforge Icon
     11, -- Menethil Harbor
@@ -64,8 +66,4 @@ ns.BlizzAreaPoisInfo = {
     6138, -- Mechagon Zuldazar Travel
     7341, -- Zeppelin Durotar
     7339, -- Ship Icon The Waking Shores to OG
-}
-
-ns.BlizzLinkedUiMapID = {
-    2214, -- Deep Entrance Dornogal
 }

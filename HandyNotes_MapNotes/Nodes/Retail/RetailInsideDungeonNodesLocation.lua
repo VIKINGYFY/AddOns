@@ -266,6 +266,24 @@ if not db.activate.HideMapNote then
             nodes[2357][86577850] = { mnID = 2216, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Ara-Kara, City of Echoes
             nodes[2343][46460933] = { mnID = 2256, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- City of Threads
             nodes[2292][72131053] = { mnID = 2256, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Nerub-ar Palace
+          -- delves
+          -- Azj-Kathet
+            nodes[2259][52821359] = { mnID = 2255, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Tak-Rethan-Abyss
+            nodes[2299][32112247] = { mnID = 2213, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- The Underkeep
+            nodes[2348][86575260] = { mnID = 2213, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Zekvir's Lair
+            nodes[2347][56289404] = { mnID = 2255, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- The Spiral Weave
+            -- Hallowfall
+            nodes[2312][12643377] = { mnID = 2215, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Mycomancer Cavern
+            nodes[2310][86105637] = { mnID = 2215, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Skittering Breach
+            nodes[2301][52351423] = { mnID = 2215, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- The Sinkhole
+            nodes[2277][75902317] = { mnID = 2215, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Nightfall Sanctum
+            -- The Ringing Deeps
+            nodes[2251][45450999] = { mnID = 2214, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- The Waterworks
+            nodes[2302][25046296] = { mnID = 2214, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- The Waterworks
+            -- Isle of Dorn
+            nodes[2269][45441087] = { mnID = 2248, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Earthcrawl Mines
+            nodes[2249][68888884] = { mnID = 2248, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Fungal Folly
+            nodes[2250][31962673] = { mnID = 2248, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Kriegval's Rest
           end
     
     
