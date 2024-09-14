@@ -1,7 +1,6 @@
 
 -------------------------------------
--- 小队或团队 装备等级
--- Author: M
+-- 小队或团队 装备等级 Author: M
 -------------------------------------
 local B, C, L, DB = unpack(NDui)
 
@@ -27,7 +26,7 @@ local function GetMembers(numCurrent, unitPrefix)
 	for i = 1, numCurrent do
 		unit = unitPrefix .. i
 		guid = UnitGUID(unit)
-		if (guid) then temp[guid] = unit end
+		if (guid) and not UnitInPartyIsAI(unit) then temp[guid] = unit end
 	end
 	for guid, v in pairs(members) do
 		if (not temp[guid] and v.unit ~= "player") then
@@ -82,12 +81,12 @@ end
 
 --发送自己的信息
 local function SendPlayerInfo(channel)
+	local class = select(2,UnitClass("player")) or ""
 	local ilvl = select(2, GetAverageItemLevel()) or -1
 	local spec = select(2, GetSpecializationInfo(GetSpecialization())) or ""
-	local class = select(2,UnitClass("player")) or ""
-	local role = UnitGroupRolesAssigned("player") or ""
+	local role = select(5, GetSpecializationInfo(GetSpecialization())) or ""
 
-	C_ChatInfo.SendAddonMessage("TinyInspect", format("%s|%s|%s|%s|%s", "LV", ilvl, spec, class, role), channel)
+	C_ChatInfo.SendAddonMessage("TinyInspect", format("%s|%s|%s|%s|%s", "LV", class, ilvl, spec, role), channel)
 end
 
 --解析发送的信息 @trigger GROUP_MEMBER_INSPECT_READY
@@ -98,9 +97,9 @@ LibEvent:attachEvent("CHAT_MSG_ADDON", function(self, prefix, text, channel, sen
 		local name, realm = string.split("-", sender)
 		for guid, v in pairs(members) do
 			if (v.name == name and v.realm == realm) then
-				v.ilvl = tonumber(ilvl) or -1
-				v.spec = spec
 				v.class = class
+				v.ilvl = ilvl
+				v.spec = spec
 				v.role = role
 				v.done = true
 				LibEvent:trigger("GROUP_MEMBER_INSPECT_READY", v)
@@ -113,8 +112,8 @@ end)
 LibEvent:attachTrigger("UNIT_INSPECT_READY", function(self, data)
 	local member = members[data.guid]
 	if (member) then
-		member.role = data.role
-		member.ilvl = data.ilvl
+		member.role = UnitGroupRolesAssigned(data.unit)
+		member.ilvl = data.ilevel
 		member.spec = data.spec
 		member.name = data.name
 		member.class = data.class
@@ -134,10 +133,10 @@ LibEvent:attachEvent("GROUP_ROSTER_UPDATE", function(self)
 			done = true,
 			unit = "player",
 			name = UnitName("player"),
-			role = UnitGroupRolesAssigned("player"),
 			class = select(2, UnitClass("player")),
 			ilvl = select(2, GetAverageItemLevel()),
 			spec = select(2, GetSpecializationInfo(GetSpecialization())),
+			role = select(5, GetSpecializationInfo(GetSpecialization())),
 		}
 		GetMembers(numCurrent, unitPrefix)
 		SendPlayerInfo(unitPrefix)
@@ -281,10 +280,17 @@ local function MakeMembersList()
 	UpdateProgress(numCurrent, numTotal)
 end
 
+local roles = {
+	["TANK"] = true,
+	["HEALER"] = true,
+	["DAMAGER"] = true,
+}
+
 --顯示
 local function ShowMembersList()
 	local i = 1
-	local button, role, r, g, b
+	local button, r, g, b
+	local role = select(5, GetSpecializationInfo(GetSpecialization()))
 	for _, v in pairs(membersList) do
 		r, g, b = GetClassColor(v.class)
 
@@ -294,7 +300,7 @@ local function ShowMembersList()
 		button.name:SetTextColor(r, g, b)
 		button.spec:SetText(v.spec and v.spec or " - ")
 		button.ilvl:SetText(v.ilvl > 0 and format("%.1f", v.ilvl) or " - ")
-		button.role:SetAtlas(GetMicroIconForRole(v.role and v.role or ""))
+		button.role:SetAtlas(GetMicroIconForRole(roles[v.role] and v.role or role))
 		button:Show()
 		i = i + 1
 	end
@@ -355,9 +361,9 @@ LibEvent:attachEvent("PLAYER_LOGIN", function()
 		done = true,
 		unit = "player",
 		name = UnitName("player"),
-		role = UnitGroupRolesAssigned("player"),
 		class = select(2, UnitClass("player")),
 		ilvl = select(2, GetAverageItemLevel()),
 		spec = select(2, GetSpecializationInfo(GetSpecialization())),
+		role = select(5, GetSpecializationInfo(GetSpecialization())),
 	}
 end)

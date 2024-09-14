@@ -127,7 +127,7 @@ local function GetInspectItemListFrame(parent)
 end
 
 --顯示面板
-function ShowInspectItemListFrame(unit, parent, ilvl, maxLevel)
+function ShowInspectItemListFrame(unit, parent, ilevel, maxLevel)
 	if (not parent:IsShown()) then return end
 	local frame = GetInspectItemListFrame(parent)
 	local class = select(2, UnitClass(unit))
@@ -155,7 +155,7 @@ function ShowInspectItemListFrame(unit, parent, ilvl, maxLevel)
 
 	frame.title:SetFormattedText("%s（%d）", UnitName(unit), UnitLevel(unit))
 	frame.title:SetTextColor(color.r, color.g, color.b)
-	frame.level:SetFormattedText("%s：%.1f", STAT_AVERAGE_ITEM_LEVEL, ilvl)
+	frame.level:SetFormattedText("%s：%.1f", STAT_AVERAGE_ITEM_LEVEL, ilevel)
 	frame.level:SetTextColor(1, 0.8, 0)
 
 	local _, name, level, link, quality
@@ -216,7 +216,7 @@ function ShowInspectItemListFrame(unit, parent, ilvl, maxLevel)
 	frame:SetWidth(width + 34)
 	frame:Show()
 
-	LibEvent:trigger("INSPECT_FRAME_SHOWN", frame, parent, ilvl)
+	LibEvent:trigger("INSPECT_FRAME_SHOWN", frame, parent, ilevel)
 	frame.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 
 	return frame
@@ -233,13 +233,13 @@ end)
 --@see InspectCore.lua
 LibEvent:attachTrigger("UNIT_INSPECT_READY, UNIT_REINSPECT_READY", function(self, data)
 	if (InspectFrame and InspectFrame.unit and UnitGUID(InspectFrame.unit) == data.guid) then
-		local frame = ShowInspectItemListFrame(InspectFrame.unit, InspectFrame, data.ilvl, data.maxLevel)
+		local frame = ShowInspectItemListFrame(InspectFrame.unit, InspectFrame, data.ilevel, data.maxLevel)
 		LibEvent:trigger("INSPECT_FRAME_COMPARE", frame)
 	end
 end)
 
 --設置邊框
-LibEvent:attachTrigger("INSPECT_FRAME_SHOWN", function(self, frame, parent, ilvl)
+LibEvent:attachTrigger("INSPECT_FRAME_SHOWN", function(self, frame, parent, ilevel)
 	frame:SetPoint("TOPLEFT", parent, "TOPRIGHT", 3, 0)
 	frame:SetPoint("BOTTOMLEFT", parent, "BOTTOMRIGHT", 3, 0)
 end)
@@ -262,8 +262,8 @@ end)
 --自己裝備列表
 LibEvent:attachTrigger("INSPECT_FRAME_COMPARE", function(self, frame)
 	if (not frame) then return end
-	local _, ilvl, _, _, _, maxLevel = LibItemInfo:GetUnitItemLevel("player")
-	local playerFrame = ShowInspectItemListFrame("player", frame, ilvl, maxLevel)
+	local _, ilevel, _, _, _, maxLevel = LibItemInfo:GetUnitItemLevel("player")
+	local playerFrame = ShowInspectItemListFrame("player", frame, ilevel, maxLevel)
 	if (frame.statsFrame) then
 		frame.statsFrame:SetParent(playerFrame)
 	end
@@ -275,13 +275,13 @@ end)
 ----------------
 
 PaperDollFrame:HookScript("OnShow", function(self)
-	local _, ilvl, _, _, _, maxLevel = LibItemInfo:GetUnitItemLevel("player")
-	ShowInspectItemListFrame("player", self, ilvl, maxLevel)
+	local _, ilevel, _, _, _, maxLevel = LibItemInfo:GetUnitItemLevel("player")
+	ShowInspectItemListFrame("player", self, ilevel, maxLevel)
 end)
 
 LibEvent:attachEvent("PLAYER_EQUIPMENT_CHANGED", function(self)
 	if CharacterFrame:IsShown() then
-		local _, ilvl, _, _, _, maxLevel = LibItemInfo:GetUnitItemLevel("player")
-		ShowInspectItemListFrame("player", PaperDollFrame, ilvl, maxLevel)
+		local _, ilevel, _, _, _, maxLevel = LibItemInfo:GetUnitItemLevel("player")
+		ShowInspectItemListFrame("player", PaperDollFrame, ilevel, maxLevel)
 	end
 end)

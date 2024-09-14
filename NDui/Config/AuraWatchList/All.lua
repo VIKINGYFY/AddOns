@@ -53,8 +53,11 @@ local list = {
 		{AuraID =  33697, UnitID = "player"}, -- 血性狂怒 兽人
 		{AuraID = 292463, UnitID = "player"}, -- 帕库之拥 赞达拉
 		-- 11.0 饰品
+		{AuraID = 435493, UnitID = "player"},	-- 制剂：死亡之吻
 		{AuraID = 443531, UnitID = "player"},	-- 振奋之光
+		{AuraID = 449275, UnitID = "player"},	-- 阿努布伊卡基强能水晶
 		{AuraID = 455420, UnitID = "player"},	-- 探洞者的蜡烛残端
+		{AuraID = 455451, UnitID = "player"},	-- 迅芯烛台
 
 	},
 	["Raid Buff"] = {		-- 团队增益组

@@ -25,6 +25,8 @@ L["Here you can enable or disable all chat messages sent from one of these MapNo
 L["Only affects passage icons to instances and not path icons to zones"] = "仅影响实例的段落图标，而不影响到区域的图标"
 L["By deactivating it, the border of the zone icons of your own factions is also removed, as the displayed icons are automatically only for your own faction"] = "通过停用它，您自己派系的区域图标的边界也被删除，因为显示的图标仅适用于您自己的派系"
 L["If the world map is open, these are also displayed on the minimap icons, but if the world map is closed, these are no longer displayed on the minimap"] = "如果世界地图打开，这些也会显示在小地图图标上，但如果世界地图关闭，这些将不再显示在小地图上"
+L["If you disable these Blizzard icons, the zone map will no longer indicate whether a Delve is a Bountiful Delves"] = "如果禁用这些暴雪图标，区域地图将不再指示探索是否是丰富的探索"
+L["Displays icons for delves entrances, these icons look different on the zone map so you can see which delve is bountiful when using the Blizzard icons"] = "显示洞穴入口的图标，这些图标在区域地图上看起来不同，因此您可以在使用暴雪图标时看到哪个洞穴丰富"
 --0.1 profiles
 L["Profile has been changed"] = "个人资料已更改"
 L["Profile has been reset to default"] = "配置文件已重置为默认设置"

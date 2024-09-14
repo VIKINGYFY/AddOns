@@ -1,0 +1,15 @@
+## Interface: 110002
+## Title: |cff00FFFFLight|r AO
+## Notes: 超轻量级的小插件！
+## Version: 2.0
+## X-Credits: NDui, ElvUI
+## X-Vendor: 七曜·星の痕
+
+Init.lua
+Database.lua
+Locales.lua
+Functions.lua
+
+Modules\LightCT.lua
+Modules\LightLoot.lua
+Modules\LootMonitor.lua

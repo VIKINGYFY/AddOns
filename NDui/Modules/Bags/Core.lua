@@ -1315,7 +1315,7 @@ function module:OnLogin()
 			buttons[5] = module.CreateAccountBankButton(self, f)
 		elseif name == "Account" then
 			module.CreateBagTab(self, settings, 5)
-			buttons[3] = module.CreateBagToggle(self, true)
+			buttons[3] = module.CreateBagToggle(self)
 			buttons[4] = module.CreateAccountBankDeposit(self)
 			buttons[5] = module.CreateBankButton(self, f)
 			buttons[6] = module.CreateReagentButton(self, f)

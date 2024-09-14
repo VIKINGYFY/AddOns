@@ -749,39 +749,39 @@ if not db.activate.HideMapNote then
           -- Khaz Algar Delves
             if self.db.profile.showMiniMapDelves then
               -- Azj-Kathet
-              minimap[2255][54937364] = { name = "", TransportName = DELVE_LABEL, delveID = 2259, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tak-Rethan-Abyss
-              minimap[2255][51858822] = { name = "", TransportName = DELVE_LABEL, delveID = 2299, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Underkeep
-              minimap[2255][32757683] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Zekvir's Lair
-              minimap[2255][45071878] = { name = "", TransportName = DELVE_LABEL, delveID = 2347, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Spiral Weave
-              minimap[2256][54937364] = { name = "", TransportName = DELVE_LABEL, delveID = 2259, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tak-Rethan-Abyss
-              minimap[2256][51858822] = { name = "", TransportName = DELVE_LABEL, delveID = 2299, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Underkeep
-              minimap[2256][32757683] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Zekvir's Lair
-              minimap[2256][45071878] = { name = "", TransportName = DELVE_LABEL, delveID = 2347, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Spiral Weave
-              minimap[2213][67672470] = { name = "", TransportName = DELVE_LABEL, delveID = 2259, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tak-Rethan-Abyss
-              minimap[2213][58756648] = { name = "", TransportName = DELVE_LABEL, delveID = 2299, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Underkeep
-              minimap[2213][04073384] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Zekvir's Lair
-              minimap[2216][67672470] = { name = "", TransportName = DELVE_LABEL, delveID = 2259, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tak-Rethan-Abyss
-              minimap[2216][58756648] = { name = "", TransportName = DELVE_LABEL, delveID = 2299, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Underkeep
-              minimap[2216][04073384] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Zekvir's Lair
+              minimap[2255][54937364] = { name = "", TransportName = DELVE_LABEL, delveID = 2259, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tak-Rethan-Abyss
+              minimap[2255][51858822] = { name = "", TransportName = DELVE_LABEL, delveID = 2299, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Underkeep
+              minimap[2255][32757683] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Zekvir's Lair
+              minimap[2255][45071878] = { name = "", TransportName = DELVE_LABEL, delveID = 2347, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Spiral Weave
+              minimap[2256][54937364] = { name = "", TransportName = DELVE_LABEL, delveID = 2259, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tak-Rethan-Abyss
+              minimap[2256][51858822] = { name = "", TransportName = DELVE_LABEL, delveID = 2299, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Underkeep
+              minimap[2256][32757683] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Zekvir's Lair
+              minimap[2256][45071878] = { name = "", TransportName = DELVE_LABEL, delveID = 2347, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Spiral Weave
+              minimap[2213][67672470] = { name = "", TransportName = DELVE_LABEL, delveID = 2259, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tak-Rethan-Abyss
+              minimap[2213][58756648] = { name = "", TransportName = DELVE_LABEL, delveID = 2299, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Underkeep
+              minimap[2213][04073384] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Zekvir's Lair
+              minimap[2216][67672470] = { name = "", TransportName = DELVE_LABEL, delveID = 2259, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tak-Rethan-Abyss
+              minimap[2216][58756648] = { name = "", TransportName = DELVE_LABEL, delveID = 2299, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Underkeep
+              minimap[2216][04073384] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Zekvir's Lair
               -- Hallowfall
-              minimap[2215][60567682] = { name = "", TransportName = DELVE_LABEL, delveID = 2347, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Spiral Weave
-              minimap[2215][85426232] = { name = "", TransportName = DELVE_LABEL, delveID = 2251, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Waterworks
-              minimap[2215][71283115] = { name = "", TransportName = DELVE_LABEL, delveID = 2312, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Mycomancer Cavern
-              minimap[2215][65446161] = { name = "", TransportName = DELVE_LABEL, delveID = 2310, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Skittering Breach
-              minimap[2215][50655330] = { name = "", TransportName = DELVE_LABEL, delveID = 2301, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Sinkhole
-              minimap[2215][34314728] = { name = "", TransportName = DELVE_LABEL, delveID = 2277, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Nightfall Sanctum
+              minimap[2215][60567682] = { name = "", TransportName = DELVE_LABEL, delveID = 2347, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Spiral Weave
+              minimap[2215][85426232] = { name = "", TransportName = DELVE_LABEL, delveID = 2251, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Waterworks
+              minimap[2215][71283115] = { name = "", TransportName = DELVE_LABEL, delveID = 2312, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Mycomancer Cavern
+              minimap[2215][65446161] = { name = "", TransportName = DELVE_LABEL, delveID = 2310, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Skittering Breach
+              minimap[2215][50655330] = { name = "", TransportName = DELVE_LABEL, delveID = 2301, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Sinkhole
+              minimap[2215][34314728] = { name = "", TransportName = DELVE_LABEL, delveID = 2277, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Nightfall Sanctum
               -- The Ringing Deeps
-              minimap[2214][06333827] = { name = "", TransportName = DELVE_LABEL, delveID = 2301, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Sinkhole
-              minimap[2214][46324865] = { name = "", TransportName = DELVE_LABEL, delveID = 2251, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Waterworks
-              minimap[2214][30001279] = { name = "", TransportName = DELVE_LABEL, delveID = 2312, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Mycomancer Cavern
-              minimap[2214][23344783] = { name = "", TransportName = DELVE_LABEL, delveID = 2310, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Skittering Breach
-              minimap[2214][06333827] = { name = "", TransportName = DELVE_LABEL, delveID = 2301, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Sinkhole
-              minimap[2214][74353719] = { name = "", TransportName = DELVE_LABEL, delveID = 2302, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Dread Pit
-              minimap[2214][17726533] = { name = "", TransportName = DELVE_LABEL, delveID = 2347, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Spiral Weave
+              minimap[2214][06333827] = { name = "", TransportName = DELVE_LABEL, delveID = 2301, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Sinkhole
+              minimap[2214][46324865] = { name = "", TransportName = DELVE_LABEL, delveID = 2251, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Waterworks
+              minimap[2214][30001279] = { name = "", TransportName = DELVE_LABEL, delveID = 2312, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Mycomancer Cavern
+              minimap[2214][23344783] = { name = "", TransportName = DELVE_LABEL, delveID = 2310, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Skittering Breach
+              minimap[2214][06333827] = { name = "", TransportName = DELVE_LABEL, delveID = 2301, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Sinkhole
+              minimap[2214][74353719] = { name = "", TransportName = DELVE_LABEL, delveID = 2302, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Dread Pit
+              minimap[2214][17726533] = { name = "", TransportName = DELVE_LABEL, delveID = 2347, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Spiral Weave
               -- Isle of Dorn
-              minimap[2248][38597387] = { name = "", TransportName = DELVE_LABEL, delveID = 2269, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Earthcrawl Mines
-              minimap[2248][52036568] = { name = "", TransportName = DELVE_LABEL, delveID = 2249, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Fungal Folly
-              minimap[2248][62144272] = { name = "", TransportName = DELVE_LABEL, delveID = 2250, type = "Delves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Kriegval's Rest
+              minimap[2248][38597387] = { name = "", TransportName = DELVE_LABEL, delveID = 2269, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Earthcrawl Mines
+              minimap[2248][52036568] = { name = "", TransportName = DELVE_LABEL, delveID = 2249, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Fungal Folly
+              minimap[2248][62144272] = { name = "", TransportName = DELVE_LABEL, delveID = 2250, type = "ZoneDelves", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Kriegval's Rest
             end
   
           -- Khaz Algar Passage

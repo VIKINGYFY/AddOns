@@ -32,7 +32,7 @@ function BetterWorldQuestPinMixin:OnLoad()
 
 	local TimeLowFrame = CreateFrame('Frame', nil, self)
 	TimeLowFrame:SetPoint('CENTER', self, 'TOPRIGHT', -2, -2)
-	TimeLowFrame:SetSize(18, 18)
+	TimeLowFrame:SetSize(16, 16)
 	TimeLowFrame:Hide()
 	self.TimeLowFrame = TimeLowFrame
 

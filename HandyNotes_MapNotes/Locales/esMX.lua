@@ -25,6 +25,8 @@ L["Here you can enable or disable all chat messages sent from one of these MapNo
 L["Only affects passage icons to instances and not path icons to zones"] = "Solo afecta los íconos del pasaje a instancias y no a los íconos de ruta a las zonas"
 L["By deactivating it, the border of the zone icons of your own factions is also removed, as the displayed icons are automatically only for your own faction"] = "Al desactivarlo, también se elimina el borde de los iconos de zona de sus propias facciones, ya que los iconos mostrados son automáticamente solo para su propia facción"
 L["If the world map is open, these are also displayed on the minimap icons, but if the world map is closed, these are no longer displayed on the minimap"] = "Si el mapa mundial está abierto, estos también se muestran en los íconos del minimapa, pero si el mapa mundial está cerrado, ya no se muestran en el minimapa"
+L["If you disable these Blizzard icons, the zone map will no longer indicate whether a Delve is a Bountiful Delves"] = "Si desactivas estos íconos de Blizzard, el mapa de zona ya no indicará si una excavación es una excavación abundante"
+L["Displays icons for delves entrances, these icons look different on the zone map so you can see which delve is bountiful when using the Blizzard icons"] = "Muestra íconos para las entradas de las excavaciones, estos íconos se ven diferentes en el mapa de zona para que puedas ver qué excavación es abundante cuando usas los íconos de Blizzard"
 --0.1 profiles
 L["Profile has been changed"] = "El perfil fue cambiado"
 L["Profile has been reset to default"] = "El perfil se restableció a la configuración predeterminada"
