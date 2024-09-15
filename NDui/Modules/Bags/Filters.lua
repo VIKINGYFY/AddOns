@@ -23,14 +23,14 @@ local function isItemInAccountBank(item)
 	return item.bagId > 12 and item.bagId < 18
 end
 
+function module:IsPetTrashCurrency(itemID)
+	return C.db["Bags"]["PetTrash"] and DB.PetTrashCurrenies[itemID]
+end
+
 local emptyBags = {[0] = true, [11] = true}
 local function isEmptySlot(item)
 	if not C.db["Bags"]["GatherEmpty"] then return end
 	return module.initComplete and not item.texture and emptyBags[module.BagsType[item.bagId]]
-end
-
-function module:IsPetTrashCurrency(itemID)
-	return C.db["Bags"]["PetTrash"] and DB.PetTrashCurrenies[itemID]
 end
 
 local function isItemCustom(item, index)
@@ -73,7 +73,7 @@ end
 local function isItemCollection(item)
 	if not C.db["Bags"]["ItemFilter"] then return end
 	if not C.db["Bags"]["FilterCollection"] then return end
-	return (DB.MiscIDs[item.classID] and DB.CollectionIDs[item.subClassID]) or (item.id and C_ToyBox.GetToyInfo(item.id))
+	return (DB.MiscellaneousIDs[item.classID] and DB.CollectionIDs[item.subClassID]) or (item.id and C_ToyBox.GetToyInfo(item.id))
 end
 
 local function isItemFeature(item)

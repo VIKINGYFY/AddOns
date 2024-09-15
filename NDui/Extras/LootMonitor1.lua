@@ -24,7 +24,7 @@ local function UnitClassColor(unit)
 end
 
 local function isCollection(itemID, itemClassID, itemSubClassID)
-	return (itemID and C_ToyBox.GetToyInfo(itemID)) or (DB.MiscIDs[itemClassID] and DB.CollectionIDs[itemSubClassID])
+	return (itemID and C_ToyBox.GetToyInfo(itemID)) or (DB.MiscellaneousIDs[itemClassID] and DB.CollectionIDs[itemSubClassID])
 end
 
 local function isEquipment(itemQuality, itemClassID)

@@ -397,9 +397,9 @@ if not db.activate.HideMapNote then
     
         --Eastern Kingdom ContinentOldVanilla
           if self.db.profile.showContinentOldVanilla then
-            nodes[13][54113049] = { mnID = 166, name = L["Secret Entrance"] .. " " .. L["(Wards of the Dread Citadel - Achievement)"] .. " - " .. L["Old Version"], type = "VInstance", showOnContinent = true, showInZone = false, showOnMinimap = false }-- Old Naxxramas version - Secret Entrance - Wards of the Dread Citadel 
-            nodes[13][46703243] = { mnID = 19, name = L["Use the Old Keyring"], dnID = L["Graveyard"] .. " - " .. L["Old Version"] .. "\n" .. L["Cathedral"] .. " - " .. L["Old Version"] .. "\n" .. L["Library"] .. " - " .. L["Old Version"] .. "\n" .. L["Armory"] .. " - " .. L["Old Version"], type = "MultiVInstance", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Scarlet Monastery Key for Old dungeons
-            nodes[13][51383556] = { mnID = 306, name = L["Secret Entrance"] .. " " .. L["(Memory of Scholomance - Achievement)"] .. " - " .. L["Old Version"], type = "VInstance", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Old Scholomance version - Memory of Scholomance - Secret Entrance Old Scholomance version 
+            nodes[13][54113049] = { mnID = 166, name = L["Secret Entrance"] .. " " .. L["(Wards of the Dread Citadel - Achievement)"] .. " - " .. L["Old Version"], type = "VInstanceR", showOnContinent = true, showInZone = false, showOnMinimap = false }-- Old Naxxramas version - Secret Entrance - Wards of the Dread Citadel 
+            nodes[13][46703243] = { mnID = 19, name = L["Use the Old Keyring"], dnID = L["Graveyard"] .. " - " .. L["Old Version"] .. "\n" .. L["Cathedral"] .. " - " .. L["Old Version"] .. "\n" .. L["Library"] .. " - " .. L["Old Version"] .. "\n" .. L["Armory"] .. " - " .. L["Old Version"], type = "MultiVInstanceD", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Scarlet Monastery Key for Old dungeons
+            nodes[13][51383556] = { mnID = 306, name = L["Secret Entrance"] .. " " .. L["(Memory of Scholomance - Achievement)"] .. " - " .. L["Old Version"], type = "VInstanceD", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Old Scholomance version - Memory of Scholomance - Secret Entrance Old Scholomance version 
           end
 
         -- Eastern Kingdom PvpandPveVendor

@@ -356,9 +356,9 @@ if not db.activate.HideMapNote then
 
         -- Azeroth Eastern Kingdom OldVanilla
           if self.db.profile.showAzerothOldVanilla then
-            nodes[947][90194066] = { mnID = 23, name = L["Secret Entrance"] .. " " .. L["(Wards of the Dread Citadel - Achievement)"] .. " - " .. L["Old Version"], type = "VInstance", showInZone = true, showOnContinent = true } -- Old Naxxramas version - Secret Entrance - Wards of the Dread Citadel
-            nodes[947][89714326] = { mnID = 22, name = L["Secret Entrance"] .. " " .. L["(Memory of Scholomance - Achievement)"] .. " - " .. L["Old Version"], type = "VInstance", showInZone = true, showOnContinent = true } -- Old version of Scholomance - Secret Entrance
-            nodes[947][86344322] = { mnID = 18, name = L["Use the Old Keyring"], dnID = L["Graveyard"] .. " - " .. L["Old Version"] .. "\n" .. L["Cathedral"] .. " - " .. L["Old Version"] .. "\n" .. L["Library"] .. " - " .. L["Old Version"] .. "\n" .. L["Armory"] .. " - " .. L["Old Version"], type = "MultiVInstance", showInZone = true } -- Scarlet Monastery Key for Old dungeons
+            nodes[947][90194066] = { mnID = 23, name = L["Secret Entrance"] .. " " .. L["(Wards of the Dread Citadel - Achievement)"] .. " - " .. L["Old Version"], type = "VInstanceR", showInZone = true, showOnContinent = true } -- Old Naxxramas version - Secret Entrance - Wards of the Dread Citadel
+            nodes[947][89714326] = { mnID = 22, name = L["Secret Entrance"] .. " " .. L["(Memory of Scholomance - Achievement)"] .. " - " .. L["Old Version"], type = "VInstanceD", showInZone = true, showOnContinent = true } -- Old version of Scholomance - Secret Entrance
+            nodes[947][86344322] = { mnID = 18, name = L["Use the Old Keyring"], dnID = L["Graveyard"] .. " - " .. L["Old Version"] .. "\n" .. L["Cathedral"] .. " - " .. L["Old Version"] .. "\n" .. L["Library"] .. " - " .. L["Old Version"] .. "\n" .. L["Armory"] .. " - " .. L["Old Version"], type = "MultiVInstanceD", showInZone = true } -- Scarlet Monastery Key for Old dungeons
           end
         end
     

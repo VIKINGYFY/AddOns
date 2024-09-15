@@ -345,7 +345,7 @@ DB.ItemStats = {
 }
 
 -- Item IDs
-DB.MiscIDs = {
+DB.MiscellaneousIDs = {
 	[Enum.ItemClass.Miscellaneous] = true,
 }
 
@@ -365,28 +365,30 @@ DB.ExcludeIDs = {
 
 -- Item Types
 DB.ConduitTypes = {
-	[CONDUIT_TYPE_ENDURANCE] = CONDUIT_ENDURANCE,
-	[CONDUIT_TYPE_FINESSE] = CONDUIT_FINESSE,
-	[CONDUIT_TYPE_POTENCY] = CONDUIT_POTENCY,
+	[CONDUIT_TYPE_ENDURANCE] = "耐久",
+	[CONDUIT_TYPE_FINESSE] = "灵巧",
+	[CONDUIT_TYPE_POTENCY] = "效能",
+}
+
+DB.CurioTypes = {
+	[DELVES_CONFIG_SLOT_COMBAT_CURIO] = "战斗",
+	[DELVES_CONFIG_SLOT_UTILITY_CURIO] = "效能",
 }
 
 DB.BindTypes = {
 	[ITEM_ACCOUNTBOUND] = "BoA",
-	[ITEM_BIND_TO_ACCOUNT] = "BoA",
-	[ITEM_BIND_TO_BNETACCOUNT] = "BoA",
 	[ITEM_BNETACCOUNTBOUND] = "BoA",
 	[ITEM_BIND_ON_EQUIP] = "BoE",
 	[ITEM_BIND_ON_USE] = "BoU",
+	[ITEM_BIND_TO_ACCOUNT] = "BoA",
+	[ITEM_BIND_TO_BNETACCOUNT] = "BoA",
+	--[ITEM_ACCOUNTBOUND_UNTIL_EQUIP] = "EoA",
+	--[ITEM_BIND_TO_ACCOUNT_UNTIL_EQUIP] = "EoA",
 }
 
 DB.EquipmentTypes = {
 	["INVTYPE_HOLDABLE"] = SECONDARYHANDSLOT,
 	["INVTYPE_SHIELD"] = SHIELDSLOT,
-}
-
-DB.ConsumableTypes = {
-	[10] = "效能",
-	[11] = "战斗",
 }
 
 DB.ContainerTypes = {

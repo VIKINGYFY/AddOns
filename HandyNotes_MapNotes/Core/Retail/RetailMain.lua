@@ -137,7 +137,7 @@ ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
       end
     end
 
-    if nodeData.TransportName and not nodeData.delveID then -- outputs transport name for TomTom to the tooltip
+    if nodeData.TransportName and not nodeData.delveID then
       tooltip:AddDoubleLine(nodeData.TransportName, nil, nil, false)
     end
 
@@ -188,6 +188,59 @@ ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
       tooltip:AddDoubleLine(nodeData.www, nil, nil, false)
     end
 
+    -- Dungeons ,Raids and Multi
+    if nodeData.type then
+
+      -- Dungeons
+      if nodeData.id and nodeData.type == "Dungeon" and not ns.MapType0 then -- Delves
+        tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_DUNGEON, nil, nil, false)
+      end
+
+      if nodeData.mnID and nodeData.type == "PassageDungeon" then -- Delves
+        tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_DUNGEON, nil, nil, false)
+      end
+
+      if nodeData.mnID and nodeData.type == "PassageDungeonMulti" then -- Delves
+        tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_DUNGEON, nil, nil, false)
+      end
+
+      if nodeData.mnID and nodeData.type == "VInstanceD" then -- Delves
+        tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_DUNGEON, nil, nil, false)
+      end
+
+      if nodeData.mnID and nodeData.type == "MultiVInstanceD" then -- Delves
+        tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_DUNGEON, nil, nil, false)
+      end
+
+      -- Raids
+      if nodeData.type == "Raid" and not ns.MapType0 then -- Delves
+        tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_RAID, nil, nil, false)
+      end
+
+      if nodeData.mnID and nodeData.type == "PassageRaid" then -- Delves
+        tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_RAID, nil, nil, false)
+      end
+
+      if nodeData.mnID and nodeData.type == "PassageRaidMulti" then -- Delves
+        tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_RAID, nil, nil, false)
+      end
+
+      if nodeData.mnID and nodeData.type == "MultiVInstanceR" then -- Delves
+        tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_RAID .. " & " .. CALENDAR_TYPE_DUNGEON, nil, nil, false)
+      end
+
+      if nodeData.mnID and nodeData.type == "VInstanceR" then -- Delves
+        tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_RAID, nil, nil, false)
+      end
+
+      -- Mixed Raid & Dungeon
+      if nodeData.mnID and nodeData.type == "MultiVInstance" then -- Delves
+        tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_RAID .. " & " .. CALENDAR_TYPE_DUNGEON, nil, nil, false)
+      end
+
+    end
+
+    -- Extra Tooltip
     if ns.Addon.db.profile.ExtraTooltip then
 
       if nodeData.id and not nodeData.mnID then  -- instance entrances
@@ -195,24 +248,49 @@ ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
           tooltip:AddDoubleLine("|cff00ff00" .. L["< Left Click to open Adventure Guide >"], nil, nil, false) -- instance entrances into adventure guide
         end
         if ns.Addon.db.profile.tomtom then
-          tooltip:AddDoubleLine("|cff00ff00" .. L["< Shift + Right Click add TomTom waypoint >"], nil, nil, false) -- instance entrances tomtom
+          tooltip:AddDoubleLine("|cff00ff00" ..  L["< Shift + Right Click add TomTom waypoint >"], nil, nil, false) -- instance entrances tomtom
         end
       end
 
-      if nodeData.mnID or nodeData.delveID then
+      if nodeData.mnID or nodeData.delveID or nodeData.dnID then
+
         if not ns.Addon.db.profile.activate.ShiftWorld then 
           if not nodeData.hideInfo == true and not ns.MapType0 then
             if nodeData.mnID then
               tooltip:AddDoubleLine("|cff00ff00" .. L["< Left Click to show map >"], nil, nil, false)
             end
+
             if nodeData.delveID then
               tooltip:AddDoubleLine("|cff00ff00" .. L["< Left Click to show delve map >"], nil, nil, false)
             end
+
+            if not (ns.MapType1 or ns.MapType0 or ns.icons["Delves"]) then
+              if ns.Addon.db.profile.tomtom and not ns.CapitalIDs then
+                tooltip:AddDoubleLine("|cff00ff00" .. L["< Shift + Right Click add TomTom waypoint >"], nil, nil, false)
+              end
+            end
+            
           end
         elseif ns.Addon.db.profile.activate.ShiftWorld then
+
           if not nodeData.hideInfo == true and not ns.MapType0 then
-            tooltip:AddDoubleLine("|cff00ff00" .. L["< Shift Left Click to show map >"], nil, nil, false)
+
+            if nodeData.mnID then
+              tooltip:AddDoubleLine("|cff00ff00" .. L["< Shift Left Click to show map >"], nil, nil, false)
+            end
+
+            if nodeData.delveID then
+              tooltip:AddDoubleLine("|cff00ff00" .. L["< Shift Left Click to show map >"], nil, nil, false)
+            end
+
+            if not (ns.MapType1 or ns.MapType0 or ns.icons["Delves"]) then
+              if ns.Addon.db.profile.tomtom and not ns.CapitalIDs then
+                tooltip:AddDoubleLine("|cff00ff00" .. L["< Shift + Right Click add TomTom waypoint >"], nil, nil, false)
+              end
+            end
+    
           end
+
         end
 
         if not (ns.MapType1 or ns.MapType0 or ns.icons["Delves"]) then
@@ -220,25 +298,29 @@ ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
             tooltip:AddDoubleLine("|cff00ff00" .. L["< Shift + Right Click add TomTom waypoint >"], nil, nil, false)
           end
         end
-      end
 
-      if (not nodeData.id and not nodeData.mnID) and ns.AllZoneIDs and (not ns.CapitalIDs and not ns.ContinentIDs) then
         if ns.Addon.db.profile.tomtom then
-          tooltip:AddDoubleLine("|cff00ff00" .. L["< Shift + Right Click add TomTom waypoint >"], nil, nil, false)
+          if ns.AllZoneIDs or WorldMapFrame:GetMapID() == 12 or WorldMapFrame:GetMapID() == 13 or WorldMapFrame:GetMapID() == 101 or WorldMapFrame:GetMapID() == 113 or WorldMapFrame:GetMapID() == 424 or WorldMapFrame:GetMapID() == 619
+          or WorldMapFrame:GetMapID() == 875 or WorldMapFrame:GetMapID() == 876 or WorldMapFrame:GetMapID() == 905 or WorldMapFrame:GetMapID() == 1978 or WorldMapFrame:GetMapID() == 1550 or WorldMapFrame:GetMapID() == 572
+          or WorldMapFrame:GetMapID() == 2274 or WorldMapFrame:GetMapID() == 948 then
+            if (not nodeData.hideInfo == true) then
+              tooltip:AddDoubleLine("|cff00ff00" .. L["< Shift + Right Click add TomTom waypoint >"], nil, nil, false)
+            end
+          end
         end
+
       end
 
       if nodeData.mnID and nodeData.leaveDelve and ns.icons["Delves"] then
+
+        if ns.Addon.db.profile.tomtom then
+          tooltip:AddDoubleLine("|cff00ff00" .. L["< Shift + Right Click add TomTom waypoint >"], nil, nil, false)
+        end
+        
         if not ns.Addon.db.profile.activate.ShiftWorld then 
           tooltip:AddDoubleLine("|cff00ff00" .. "< " .. MIDDLE_BUTTON_STRING .. " " .. INSTANCE_LEAVE .. " (" .. DELVES_LABEL .. ") >", nil, nil, false)
-          if ns.Addon.db.profile.tomtom then
-            tooltip:AddDoubleLine("|cff00ff00" .. L["< Shift + Right Click add TomTom waypoint >"], nil, nil, false)
-          end
         elseif ns.Addon.db.profile.activate.ShiftWorld then
           tooltip:AddDoubleLine("|cff00ff00" .. "< " .. SHIFT_KEY .. " + " .. MIDDLE_BUTTON_STRING .. " " .. INSTANCE_LEAVE .. " (" .. DELVES_LABEL .. ") >", nil, nil, false)
-          if ns.Addon.db.profile.tomtom then
-            tooltip:AddDoubleLine("|cff00ff00" .. L["< Shift + Right Click add TomTom waypoint >"], nil, nil, false)
-          end
         end
       end
     end
@@ -323,7 +405,8 @@ do
                             or value.type == "Enchanting" or value.type == "FishingClassic" or value.type == "ProfessionOrders"
 
       ns.instanceIcons = value.type == "Dungeon" or value.type == "Raid" or value.type == "PassageDungeon" or value.type == "PassageDungeonRaidMulti" or value.type == "PassageRaid" or value.type == "VInstance"  or value.type == "MultiVInstance" 
-                          or value.type == "PassageDungeon" or value.type == "Multiple" or value.type == "LFR" or value.type == "Gray" or value.type == "VKey1" or value.type == "Delves" or value.type == "ZoneDelves"
+                          or value.type == "PassageDungeon" or value.type == "Multiple" or value.type == "LFR" or value.type == "Gray" or value.type == "VKey1" or value.type == "Delves" or value.type == "ZoneDelves" or value.type == "VInstanceD"
+                          or value.type == "VInstanceR" or value.type == "MultiVInstanceD" or value.type == "MultiVInstanceR"
 
       ns.transportIcons = value.type == "Portal" or value.type == "PortalS" or value.type == "HPortal" or value.type == "APortal" or value.type == "HPortalS" or value.type == "APortalS" or value.type == "PassageHPortal" 
                           or value.type == "PassageAPortal" or value.type == "PassagePortal" or value.type == "Zeppelin" or value.type == "HZeppelin" or value.type == "AZeppelin" or value.type == "Ship" 
@@ -721,7 +804,7 @@ local function setWaypoint(uiMapID, coord)
     local title = dungeon.name
     local x, y = HandyNotes:getXY(coord)
     waypoints[dungeon] = TomTom:AddWaypoint(uiMapID , x, y, {
-        title = dungeon.TransportName or dungeon.name,
+        title = dungeon.dnID or dungeon.TransportName or dungeon.name,
         persistent = nil,
         minimap = true,
         world = true
@@ -1133,9 +1216,9 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
     ns.RemoveBlizzPOIs()
   end)
 
+
   WorldMapFrame:HookScript("OnShow", function()
     ns.RemoveBlizzPOIs()
-    HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
   end)
 
 end
@@ -1203,13 +1286,49 @@ function Addon:UpdateInstanceNames(node)
             if (node.name) then
               node.name = node.name .. "\n" .. name
             else
-              if not ns.Addon.db.profile.ExtraTooltip then
                 node.name = name
-              elseif ns.Addon.db.profile.ExtraTooltip and not ns.Addon.db.profile.DeleteIcons then
-                node.name = "|cff00ff00" .. L["< Left Click to show map >"] .. "|r" .."\n" .. name
-              elseif ns.Addon.db.profile.ExtraTooltip and ns.Addon.db.profile.DeleteIcons then
-                node.name = "|cff00ff00" .. L["< Left Click to show map >"] .. "\n" .."|cffff0000" .. L["< Alt + Right click to delete this icon >"] .."|r" .."\n" .. name
+              if ns.Addon.db.profile.TooltipInformations then
+
+                if not ns.Addon.db.profile.activate.ShiftWorld then 
+
+                  if not ns.Addon.db.profile.DeleteIcons and not ns.Addon.db.profile.tomtom then
+                    node.name = "|cff00ff00" .. L["< Left Click to show map >"] .. "|r" .."\n" .. name
+                  end
+
+                  if ns.Addon.db.profile.DeleteIcons and ns.Addon.db.profile.tomtom then
+                    node.name = "|cff00ff00" .. L["< Left Click to show map >"] .. "\n" .."|cffff0000" .. L["< Alt + Right click to delete this icon >"] .. "|r" .. "\n" .. name
+                  end
+
+                  if ns.Addon.db.profile.DeleteIcons and not ns.Addon.db.profile.tomtom then
+                    node.name = "|cff00ff00" .. L["< Left Click to show map >"] .. "\n" .."|cffff0000" .. L["< Alt + Right click to delete this icon >"] .."|r" .."\n" .. name
+                  end
+
+                  if ns.Addon.db.profile.tomtom and not ns.Addon.db.profile.DeleteIcons then
+                      node.name = "|cff00ff00" .. L["< Left Click to show map >"] .."\n" .. name
+                  end
+
+                elseif ns.Addon.db.profile.activate.ShiftWorld then 
+
+                  if not ns.Addon.db.profile.DeleteIcons and not ns.Addon.db.profile.tomtom then
+                    node.name = "|cff00ff00" .. L["< Shift Left Click to show map >"] .. "|r" .."\n" .. name
+                  end
+
+                  if ns.Addon.db.profile.DeleteIcons and ns.Addon.db.profile.tomtom then
+                    node.name = "|cff00ff00" .. L["< Shift Left Click to show map >"] .. "\n" .."|cffff0000" .. L["< Alt + Right click to delete this icon >"] .. "|r" .. "\n" .. name
+                  end
+
+                  if ns.Addon.db.profile.DeleteIcons and not ns.Addon.db.profile.tomtom then
+                    node.name = "|cff00ff00" .. L["< Shift Left Click to show map >"] .. "\n" .."|cffff0000" .. L["< Alt + Right click to delete this icon >"] .."|r" .."\n" .. name
+                  end
+
+                  if ns.Addon.db.profile.tomtom and not ns.Addon.db.profile.DeleteIcons then
+                      node.name = "|cff00ff00" .. L["< Shift Left Click to show map >"] .."\n" .. name
+                  end
+
+                end
+
               end
+
             end
         end
       elseif (id) then

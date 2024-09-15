@@ -12,12 +12,16 @@ do
 		if not itemID then return end
 		if typeCache[itemInfo] then return typeCache[itemInfo] end
 
-		local itemType
-		if DB.EquipmentIDs[itemClassID] then
+		local itemType, itemDate
+		if DB.EquipmentIDs[itemClassID] or C_ArtifactUI.GetRelicInfoByItemID(itemID) then
 			itemType = DB.EquipmentTypes[itemEquipLoc] or _G[itemEquipLoc]
-		elseif itemClassID == Enum.ItemClass.Consumable then
-			itemType = DB.ConsumableTypes[itemSubClassID]
-		elseif itemClassID == Enum.ItemClass.Container then
+
+			if C_ArtifactUI.GetRelicInfoByItemID(itemID) then
+				itemType = RELICSLOT
+			end
+		end
+
+		if itemClassID == Enum.ItemClass.Container then
 			itemType = DB.ContainerTypes[itemSubClassID]
 		elseif itemClassID == Enum.ItemClass.ItemEnhancement then
 			itemType = DB.ItemEnhancementTypes[itemSubClassID]
@@ -46,6 +50,9 @@ do
 				if DB.ConduitTypes[lineText] then
 					itemType = DB.ConduitTypes[lineText]
 					break
+				elseif DB.CurioTypes[lineText] then
+					itemType = DB.CurioTypes[lineText]
+					break
 				elseif DB.BindTypes[lineText] then
 					itemType = DB.BindTypes[lineText]
 					break
@@ -53,9 +60,7 @@ do
 			end
 		end
 
-		if C_ArtifactUI.GetRelicInfoByItemID(itemID) then
-			itemType = RELICSLOT
-		elseif C_Item.IsAnimaItemByID(itemID) then
+		if C_Item.IsAnimaItemByID(itemID) then
 			itemType = POWER_TYPE_ANIMA
 		elseif C_ToyBox.GetToyInfo(itemID) then
 			itemType = TOY
