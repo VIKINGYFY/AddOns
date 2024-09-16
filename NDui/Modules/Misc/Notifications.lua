@@ -197,6 +197,7 @@ local blackList = {
 	[354051] = true,	-- 轻盈步
 	[355689] = true,	-- 山崩
 	[386770] = true,	-- 极寒
+	[378760] = true,	-- 冰霜撕咬
 }
 
 function M:IsAllyPet(sourceFlags)
@@ -232,7 +233,7 @@ function M:InterruptAlert_Update(...)
 end
 
 function M:InterruptAlert_CheckGroup()
-	if IsInGroup() and (not C.db["Misc"]["InstAlertOnly"] or not IsPartyLFG() or not C_PartyInfo.IsPartyWalkIn()) then
+	if IsInGroup() and (not C.db["Misc"]["InstAlertOnly"] or (IsInInstance() and (not IsPartyLFG() or not C_PartyInfo.IsPartyWalkIn()))) then
 		B:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", M.InterruptAlert_Update)
 	else
 		B:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED", M.InterruptAlert_Update)

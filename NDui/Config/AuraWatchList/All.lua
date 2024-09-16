@@ -114,108 +114,130 @@ local list = {
 	},
 	["Raid Debuff"] = {		-- 团队减益组
 		-- 大幻象
-		{AuraID = 306583, UnitID = "player"}, -- 灌铅脚步
-		{AuraID = 311390, UnitID = "player"}, -- 疯狂：昆虫恐惧症，幻象
-		{AuraID = 313698, UnitID = "player", Flash = true}, -- 泰坦之赐
-		-- 大秘境词缀
-		{AuraID = 209858, UnitID = "player"}, -- 死疽溃烂
-		{AuraID = 226512, UnitID = "player", Flash = true}, -- 血池
-		{AuraID = 240443, UnitID = "player", Flash = true}, -- 爆裂
-		{AuraID = 240447, UnitID = "player", Flash = true}, -- 践踏
-		{AuraID = 240559, UnitID = "player"}, -- 重伤
-		{AuraID = 396364, UnitID = "player", Flash = true}, -- 狂风标记，DF S1
-		{AuraID = 396369, UnitID = "player", Flash = true}, -- 闪电标记，DF S1
-		{AuraID = 408556, UnitID = "player", Flash = true}, -- 缠绕
-		{AuraID = 408805, UnitID = "player", Flash = true}, -- 失衡
-		{AuraID = 409492, UnitID = "player", Flash = true}, -- 痛苦呼号
-		-- 大秘境
-		{AuraID =  88286, UnitID = "player", Flash = true}, -- 减速风，旋云之巅
-		{AuraID = 153692, UnitID = "player", Flash = true}, -- 死疽沥青，影月墓地
-		{AuraID = 162652, UnitID = "player", Flash = true}, -- 纯净之月，影月墓地
-		{AuraID = 197996, UnitID = "player"}, -- 烙印，英灵殿
-		{AuraID = 203963, UnitID = "player"}, -- 风暴之眼，英灵殿
-		{AuraID = 215898, UnitID = "player", Flash = true}, -- 晶化大地，巢穴
-		{AuraID = 250585, UnitID = "player", Flash = true}, -- 剧毒之池，阿塔达萨
-		{AuraID = 257407, UnitID = "player"}, -- 追踪，阿塔达萨
-		{AuraID = 258723, UnitID = "player", Flash = true}, -- 怪诞之池，阿塔达萨
-		{AuraID = 259718, UnitID = "player"}, -- 颠覆，孢林
-		{AuraID = 268086, UnitID = "player", Text = L["Move"]}, -- 恐怖光环，庄园
-		{AuraID = 269838, UnitID = "player", Flash = true}, -- 邪恶污染，孢林
-		{AuraID = 273226, UnitID = "player"}, -- 腐烂孢子，孢林
-		{AuraID = 274507, UnitID = "player"}, -- 湿滑肥皂，自由镇
-		{AuraID = 278789, UnitID = "player", Flash = true}, -- 腐烂波，孢林
-		{AuraID = 369337, UnitID = "player", Flash = true}, -- 困难地形，奥达曼
-		{AuraID = 376760, UnitID = "player"}, -- 狂风之力，学院
-		{AuraID = 377018, UnitID = "player", Flash = true}, -- 熔火真金，奈萨鲁斯
-		{AuraID = 381862, UnitID = "player", Flash = true}, -- 地狱火之核，红玉
-		{AuraID = 386181, UnitID = "player"}, -- 法力炸弹，学院
-		{AuraID = 386881, UnitID = "player"}, -- 冰霜炸弹，碧蓝魔馆
-		{AuraID = 388777, UnitID = "player"}, -- 压制瘴气，碧蓝魔馆
-		{AuraID = 389059, UnitID = "player", Flash = true}, -- 炉渣喷发，奈萨鲁斯
-		{AuraID = 389179, UnitID = "player", Flash = true}, -- 能量过载，注能大厅
-		{AuraID = 391977, UnitID = "player"}, -- 涌动超载，学院
-		{AuraID = 395035, UnitID = "player", Flash = true}, -- 粉碎灵魂，阻击战
-		{AuraID = 397797, UnitID = "player"}, -- 腐蚀漩涡，青龙寺
-		{AuraID = 397799, UnitID = "player", Flash = true}, -- 腐蚀漩涡，青龙寺
-		{AuraID = 397911, UnitID = "player"}, -- 毁灭之触，青龙寺
-		{AuraID = 400474, UnitID = "player"}, -- 能量湍流，阻击战
-		{AuraID = 401420, UnitID = "player", Flash = true}, -- 黄沙重踏，永恒黎明
-		{AuraID = 404141, UnitID = "player", Flash = true}, -- 时光凋零，永恒黎明
-		{AuraID = 405340, UnitID = "player", Flash = true}, -- 虚无之拥，萨卡雷斯
-		{AuraID = 406543, UnitID = "player", Flash = true}, -- 窃取时间，永恒黎明
-		{AuraID = 407406, UnitID = "player", Flash = true}, -- 腐蚀，萨卡雷斯
-		{AuraID = 407496, UnitID = "player", Flash = true}, -- 无限压迫，萨卡雷斯
-		{AuraID = 407576, UnitID = "player"}, -- 星界耀斑，萨卡雷斯
-		{AuraID = 410642, UnitID = "player", Flash = true}, -- 虚空碎裂，萨卡雷斯
-		{AuraID = 410908, UnitID = "player", Flash = true}, -- 永恒新星，永恒黎明
-		{AuraID = 413142, UnitID = "player", Flash = true}, -- 万古裂片，永恒黎明
-		{AuraID = 414496, UnitID = "player", Flash = true}, -- 时间线加速，永恒黎明
-		{AuraID = 426249, UnitID = "player", Flash = true}, -- 炽焰融合，拉罗达尔
+		{AuraID = 311390, UnitID = "player"},	-- 疯狂：昆虫恐惧症，幻象
+		{AuraID = 306583, UnitID = "player"},	-- 灌铅脚步
+		{AuraID = 313698, UnitID = "player", Flash = true},	-- 泰坦之赐
+		-- 常驻词缀
+		{AuraID = 396364, UnitID = "player", Flash = true},	-- 狂风标记，DF S1
+		{AuraID = 396369, UnitID = "player", Flash = true},	-- 闪电标记，DF S1
+		{AuraID = 209858, UnitID = "player"},	-- 死疽溃烂
+		{AuraID = 240559, UnitID = "player"},	-- 重伤
+		{AuraID = 226512, UnitID = "player", Flash = true},	-- 血池
+		{AuraID = 240447, UnitID = "player", Flash = true},	-- 践踏
+		{AuraID = 240443, UnitID = "player", Flash = true},	-- 爆裂
+		{AuraID = 408556, UnitID = "player", Flash = true},	-- 缠绕
+		{AuraID = 408805, UnitID = "player", Flash = true},	-- 失衡
+		{AuraID = 409492, UnitID = "player", Flash = true},	-- 痛苦呼号
+		-- 5人
+		{AuraID = 395035, UnitID = "player", Flash = true},	-- 粉碎灵魂，阻击战
+		{AuraID = 386881, UnitID = "player"},	-- 冰霜炸弹，碧蓝魔馆
+		{AuraID = 388777, UnitID = "player"},	-- 压制瘴气，碧蓝魔馆
+		{AuraID = 162652, UnitID = "player", Flash = true},	-- 纯净之月，影月墓地
+		{AuraID = 153692, UnitID = "player", Flash = true},	-- 死疽沥青，影月墓地
+		{AuraID = 400474, UnitID = "player"},	-- 能量湍流，阻击战
+		{AuraID = 397911, UnitID = "player"},	-- 毁灭之触，青龙寺
+		{AuraID = 397797, UnitID = "player"},	-- 腐蚀漩涡，青龙寺
+		{AuraID = 397799, UnitID = "player", Flash = true},	-- 腐蚀漩涡，青龙寺
+		{AuraID = 381862, UnitID = "player", Flash = true},	-- 地狱火之核，红玉
+		{AuraID = 376760, UnitID = "player"},	-- 狂风之力，学院
+		{AuraID = 391977, UnitID = "player"},	-- 涌动超载，学院
+		{AuraID = 386181, UnitID = "player"},	-- 法力炸弹，学院
+		{AuraID = 197996, UnitID = "player"},	-- 烙印，英灵殿
+		{AuraID = 203963, UnitID = "player"},	-- 风暴之眼，英灵殿
+		-- S2
+		{AuraID = 369337, UnitID = "player", Flash = true},	-- 困难地形，奥达曼
+		{AuraID = 269838, UnitID = "player", Flash = true},	-- 邪恶污染，孢林
+		{AuraID = 273226, UnitID = "player"},	-- 腐烂孢子，孢林
+		{AuraID = 259718, UnitID = "player"},	-- 颠覆，孢林
+		{AuraID = 278789, UnitID = "player", Flash = true},	-- 腐烂波，孢林
+		{AuraID = 274507, UnitID = "player"},	-- 湿滑肥皂，自由镇
+		{AuraID =  88286, UnitID = "player", Flash = true},	-- 减速风，旋云之巅
+		{AuraID = 389179, UnitID = "player", Flash = true},	-- 能量过载，注能大厅
+		{AuraID = 215898, UnitID = "player", Flash = true},	-- 晶化大地，巢穴
+		{AuraID = 389059, UnitID = "player", Flash = true},	-- 炉渣喷发，奈萨鲁斯
+		{AuraID = 377018, UnitID = "player", Flash = true},	-- 熔火真金，奈萨鲁斯
+		{AuraID = 413142, UnitID = "player", Flash = true},	-- 万古裂片，永恒黎明
+		{AuraID = 414496, UnitID = "player", Flash = true},	-- 时间线加速，永恒黎明
+		{AuraID = 406543, UnitID = "player", Flash = true},	-- 窃取时间，永恒黎明
+		{AuraID = 410908, UnitID = "player", Flash = true},	-- 永恒新星，永恒黎明
+		{AuraID = 401420, UnitID = "player", Flash = true},	-- 黄沙重踏，永恒黎明
+		{AuraID = 404141, UnitID = "player", Flash = true},	-- 时光凋零，永恒黎明
+
+		{AuraID = 407406, UnitID = "player", Flash = true},	-- 腐蚀，萨卡雷斯
+		{AuraID = 405340, UnitID = "player", Flash = true},	-- 虚无之拥，萨卡雷斯
+		{AuraID = 407576, UnitID = "player"},	-- 星界耀斑，萨卡雷斯
+		{AuraID = 410642, UnitID = "player", Flash = true},	-- 虚空碎裂，萨卡雷斯
+		{AuraID = 407496, UnitID = "player", Flash = true},	-- 无限压迫，萨卡雷斯
+		-- S3
+		{AuraID = 257407, UnitID = "player"},	-- 追踪，阿塔达萨
+		{AuraID = 250585, UnitID = "player", Flash = true},	-- 剧毒之池，阿塔达萨
+		{AuraID = 258723, UnitID = "player", Flash = true},	-- 怪诞之池，阿塔达萨
+		{AuraID = 268086, UnitID = "player", Text = L["Move"]},	-- 恐怖光环，庄园
+		{AuraID = 427513, UnitID = "player", Flash = true},	-- 剧毒释放，永茂林地
+
+		{AuraID = 426249, UnitID = "player", Flash = true},	-- 炽焰融合，拉罗达尔
+		-- 11.0
+		-- S1
+		{AuraID = 433740, UnitID = "player"},	-- 感染，艾拉卡拉
+		-- Raids
+		{AuraID = 464748, UnitID = "player", Flash = true},	-- 束缚之网，流丝
 	},
 	["Warning Aura"] = { -- 目标重要光环组
+		{AuraID = 355596, UnitID = "target", Flash = true},	-- 橙弓，哀痛箭
 		-- 大幻象
-		{AuraID = 304975, UnitID = "target", Value = true}, -- 虚空哀嚎，吸收盾
-		{AuraID = 319643, UnitID = "target", Value = true}, -- 虚空哀嚎，吸收盾
-		-- 大秘境词缀
-		{AuraID = 226510, UnitID = "target"}, -- 血池回血
-		{AuraID = 343502, UnitID = "target"}, -- 鼓舞光环
-		-- 大秘境
-		{AuraID = 113309, UnitID = "target", Flash = true}, -- 至高能量，青龙寺
-		{AuraID = 113315, UnitID = "target", Stack = 7, Flash = true}, -- 强烈，青龙寺
-		{AuraID = 117665, UnitID = "target", Flash = true}, -- 凡尘之羁，青龙寺
-		{AuraID = 200672, UnitID = "target", Value = true}, -- 水晶迸裂，巢穴
-		{AuraID = 257458, UnitID = "target"}, -- 自由镇尾王易伤
-		{AuraID = 369725, UnitID = "target"}, -- 震颤，奥达曼
-		{AuraID = 372600, UnitID = "target"}, -- 严酷，奥达曼
-		{AuraID = 372988, UnitID = "target", Value = true}, -- 寒冰壁垒，红玉
-		{AuraID = 376780, UnitID = "target", Value = true}, -- 岩浆护盾，奈萨鲁斯
-		{AuraID = 376781, UnitID = "target", Flash = true}, -- 火焰风暴，学院
-		{AuraID = 377014, UnitID = "target", Flash = true}, -- 爆冲，奈萨鲁斯
-		{AuraID = 377402, UnitID = "target", Value = true}, -- 液态屏障，注能大厅
-		{AuraID = 378022, UnitID = "target", Value = true}, -- 吞噬中，蕨皮
-		{AuraID = 382791, UnitID = "target", Value = true}, -- 熔火屏障，奈萨鲁斯
-		{AuraID = 384686, UnitID = "target", Flash = true}, -- 能量涌动，狙击战
-		{AuraID = 388084, UnitID = "target", Flash = true}, -- 冰川护盾，碧蓝
-		{AuraID = 388523, UnitID = "target", Flash = true}, -- 拘禁，奈萨鲁斯
-		{AuraID = 391050, UnitID = "target", Value = true}, -- 暴风骤雨之盾，红玉
-		{AuraID = 410249, UnitID = "target", Value = true}, -- 辐光屏障，永恒黎明
-		{AuraID = 410719, UnitID = "target", Value = true}, -- 大地奔涌，永恒黎明
-		{AuraID = 413027, UnitID = "target", Flash = true}, -- 泰坦之壁，永恒黎明
-		{AuraID = 419511, UnitID = "target", Value = true}, -- 时光联结，永恒黎明
+		{AuraID = 304975, UnitID = "target", Value = true},	-- 虚空哀嚎，吸收盾
+		{AuraID = 319643, UnitID = "target", Value = true},	-- 虚空哀嚎，吸收盾
+		-- 大米
+		{AuraID = 226510, UnitID = "target"},	-- 血池回血
+		{AuraID = 343502, UnitID = "target"},	-- 鼓舞光环
+		-- 5人
+		{AuraID = 372988, UnitID = "target", Value = true},	-- 寒冰壁垒，红玉
+		{AuraID = 391050, UnitID = "target", Value = true},	-- 暴风骤雨之盾，红玉
+		{AuraID = 384686, UnitID = "target", Flash = true},	-- 能量涌动，狙击战
+		{AuraID = 376781, UnitID = "target", Flash = true},	-- 火焰风暴，学院
+		{AuraID = 388084, UnitID = "target", Flash = true},	-- 冰川护盾，碧蓝
+		{AuraID = 396361, UnitID = "target", Value = true},	-- 晶化，碧蓝
+		{AuraID = 113315, UnitID = "target", Stack = 7, Flash = true},	-- 强烈，青龙寺
+		{AuraID = 113309, UnitID = "target", Flash = true},	-- 至高能量，青龙寺
+		{AuraID = 117665, UnitID = "target", Flash = true},	-- 凡尘之羁，青龙寺
+		-- S2
+		{AuraID = 257458, UnitID = "target"},	-- 自由镇尾王易伤
+		{AuraID = 372600, UnitID = "target"},	-- 严酷，奥达曼
+		{AuraID = 369725, UnitID = "target"},	-- 震颤，奥达曼
+		{AuraID = 377402, UnitID = "target", Value = true},	-- 液态屏障，注能大厅
+		{AuraID = 378022, UnitID = "target", Value = true},	-- 吞噬中，蕨皮
+		{AuraID = 388523, UnitID = "target", Flash = true},	-- 拘禁，奈萨鲁斯
+		{AuraID = 377014, UnitID = "target", Flash = true},	-- 爆冲，奈萨鲁斯
+		{AuraID = 376780, UnitID = "target", Value = true},	-- 岩浆护盾，奈萨鲁斯
+		{AuraID = 382791, UnitID = "target", Value = true},	-- 熔火屏障，奈萨鲁斯
+		{AuraID = 200672, UnitID = "target", Value = true},	-- 水晶迸裂，巢穴
+		{AuraID = 413027, UnitID = "target", Flash = true},	-- 泰坦之壁，永恒黎明
+		{AuraID = 410249, UnitID = "target", Value = true},	-- 辐光屏障，永恒黎明
+		{AuraID = 419511, UnitID = "target", Value = true},	-- 时光联结，永恒黎明
 		-- 团本
-		{AuraID = 374779, UnitID = "target", Flash = true}, -- 原始屏障，恐怖图腾
-		{AuraID = 382530, UnitID = "target", Value = true}, -- 涌动，莱萨杰斯
-		{AuraID = 388431, UnitID = "target", Flash = true}, -- 毁灭帷幕，莱萨杰斯
-		{AuraID = 388691, UnitID = "target", Value = true}, -- 风暴喷涌，莱萨杰斯
-		{AuraID = 396734, UnitID = "target", Flash = true}, -- 风暴遮罩，莱萨杰斯
-		{AuraID = 397383, UnitID = "target", Value = true}, -- 熔火屏障，
-		{AuraID = 403284, UnitID = "target", Flash = true}, -- 虚空增效，萨卡雷斯
-		{AuraID = 407036, UnitID = "target", Value = true}, -- 隐匿虚空，耐萨里奥的回响
-		{AuraID = 407617, UnitID = "target", Value = true}, -- 时空畸体，里翁苏斯
-		{AuraID = 410654, UnitID = "target", Flash = true}, -- 虚空增效，萨卡雷斯
-		{AuraID = 421013, UnitID = "target", Flash = true}, -- 培植毁灭，瘤根
-		{AuraID = 421922, UnitID = "target", Value = true}, -- 腐蚀，菲莱克
-		{AuraID = 424140, UnitID = "target", Value = true}, -- 超级新星，丁达尔
+		{AuraID = 374779, UnitID = "target", Flash = true},	-- 原始屏障，恐怖图腾
+		{AuraID = 382530, UnitID = "target", Value = true},	-- 涌动，莱萨杰斯
+		{AuraID = 388691, UnitID = "target", Value = true},	-- 风暴喷涌，莱萨杰斯
+		{AuraID = 396734, UnitID = "target", Flash = true},	-- 风暴遮罩，莱萨杰斯
+		{AuraID = 388431, UnitID = "target", Flash = true},	-- 毁灭帷幕，莱萨杰斯
+
+		{AuraID = 403284, UnitID = "target", Flash = true},	-- 虚空增效，萨卡雷斯
+		{AuraID = 410654, UnitID = "target", Flash = true},	-- 虚空增效，萨卡雷斯
+		{AuraID = 407617, UnitID = "target", Value = true},	-- 时空畸体，里翁苏斯
+		{AuraID = 397383, UnitID = "target", Value = true},	-- 熔火屏障，
+		{AuraID = 407036, UnitID = "target", Value = true},	-- 隐匿虚空，耐萨里奥的回响
+
+		{AuraID = 421013, UnitID = "target", Flash = true},	-- 培植毁灭，瘤根
+		{AuraID = 424140, UnitID = "target", Value = true},	-- 超级新星，丁达尔
+		{AuraID = 421922, UnitID = "target", Value = true},	-- 腐蚀，菲莱克
+		-- 11.0
+		-- S1
+		{AuraID = 445409, UnitID = "target", Value = true},	-- 加固壳壁，斯卡莫拉克
+		-- Raids
+		{AuraID = 440177, UnitID = "target", Flash = true},	-- 准备饕餮，噬灭者乌格拉克斯
+		{AuraID = 450980, UnitID = "target", Value = true},	-- 存在瓦解，阿努巴拉什
+		{AuraID = 451277, UnitID = "target", Value = true},	-- 尖刺风暴，阿努巴拉什
+		{AuraID = 448488, UnitID = "target", Value = true},	-- 崇拜者的保护，尾王
 		-- PVP
 		{AuraID =    498, UnitID = "target"}, -- 圣佑术
 		{AuraID =    642, UnitID = "target"}, -- 圣盾术

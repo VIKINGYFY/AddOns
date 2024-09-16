@@ -5,6 +5,7 @@ if not L then return end
 --0.01
 L["Profiles"] = "프로필"
 L["Tooltip"] = "툴팁"
+L["to show delve map"] = "탐색 지도를 표시하려면"
 L["< Left Click to show map >"] = "< 왼쪽에 카드를 표시합니다 >"
 L["< Left Click to show delve map >"] = "< 탐색 지도를 표시하려면 왼쪽 클릭하세요 >"
 L["< Shift Left Click to show map >"] = "< 카드 전환 버튼 + 왼쪽 클릭을 표시합니다 >"
@@ -25,8 +26,6 @@ L["Here you can enable or disable all chat messages sent from one of these MapNo
 L["Only affects passage icons to instances and not path icons to zones"] = "구역에 대한 경로 아이콘이 아닌 인스턴스에 대한 구절 아이콘에만 영향을 미칩니다"
 L["By deactivating it, the border of the zone icons of your own factions is also removed, as the displayed icons are automatically only for your own faction"] = "이를 비활성화함으로써, 자신의 파벌의 구역 아이콘의 경계도 제거됩니다"
 L["If the world map is open, these are also displayed on the minimap icons, but if the world map is closed, these are no longer displayed on the minimap"] = "월드맵이 열려 있으면 미니맵 아이콘에도 표시되지만, 월드맵을 닫으면 더 이상 미니맵에 표시되지 않습니다"
-L["If you disable these Blizzard icons, the zone map will no longer indicate whether a Delve is a Bountiful Delves"] = "이러한 블리자드 아이콘을 비활성화하면 지역 지도에 더 이상 Delve가 Bountiful Delve인지 여부가 표시되지 않습니다"
-L["Displays icons for delves entrances, these icons look different on the zone map so you can see which delve is bountiful when using the Blizzard icons"] = "탐험 입구에 대한 아이콘을 표시합니다. 이 아이콘은 구역 지도에서 다르게 표시되므로 블리자드 아이콘을 사용할 때 어떤 탐험이 풍부한지 확인할 수 있습니다"
 --0.1 profiles
 L["Profile has been changed"] = "프로필이 변경되었습니다"
 L["Profile has been reset to default"] = "프로필이 기본 설정으로 재설정되었습니다"

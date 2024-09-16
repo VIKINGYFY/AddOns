@@ -405,8 +405,8 @@ do
                             or value.type == "Enchanting" or value.type == "FishingClassic" or value.type == "ProfessionOrders"
 
       ns.instanceIcons = value.type == "Dungeon" or value.type == "Raid" or value.type == "PassageDungeon" or value.type == "PassageDungeonRaidMulti" or value.type == "PassageRaid" or value.type == "VInstance"  or value.type == "MultiVInstance" 
-                          or value.type == "PassageDungeon" or value.type == "Multiple" or value.type == "LFR" or value.type == "Gray" or value.type == "VKey1" or value.type == "Delves" or value.type == "ZoneDelves" or value.type == "VInstanceD"
-                          or value.type == "VInstanceR" or value.type == "MultiVInstanceD" or value.type == "MultiVInstanceR"
+                          or value.type == "PassageDungeon" or value.type == "Multiple" or value.type == "LFR" or value.type == "Gray" or value.type == "VKey1" or value.type == "Delves" or value.type == "VInstanceD"
+                          or value.type == "VInstanceR" or value.type == "MultiVInstanceD" or value.type == "MultiVInstanceR" or value.type == "DelvesPassage"
 
       ns.transportIcons = value.type == "Portal" or value.type == "PortalS" or value.type == "HPortal" or value.type == "APortal" or value.type == "HPortalS" or value.type == "APortalS" or value.type == "PassageHPortal" 
                           or value.type == "PassageAPortal" or value.type == "PassagePortal" or value.type == "Zeppelin" or value.type == "HZeppelin" or value.type == "AZeppelin" or value.type == "Ship" 
@@ -914,13 +914,9 @@ local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() ==
     end
 
     if (button == "LeftButton" and not IsAltKeyDown()) then
+
       if mnID then
         WorldMapFrame:SetMapID(mnID)
-      if (not EncounterJournal_OpenJournal) then 
-        UIParentLoadAddOn('Blizzard_EncounterJournal')
-      end
-        _G.EncounterJournal:SetScript("OnShow", nil)
-        return
       end
 
       if delveID then
@@ -983,13 +979,9 @@ local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() ==
     end
 
     if IsShiftKeyDown() and (button == "LeftButton" ) then
+
       if mnID then
          WorldMapFrame:SetMapID(mnID)
-      if (not EncounterJournal_OpenJournal) then 
-        UIParentLoadAddOn('Blizzard_EncounterJournal')
-      end
-        _G.EncounterJournal:SetScript("OnShow", nil)
-        return
       end
 
       if delveID then
@@ -1216,9 +1208,39 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
     ns.RemoveBlizzPOIs()
   end)
 
-
   WorldMapFrame:HookScript("OnShow", function()
     ns.RemoveBlizzPOIs()
+  end)
+
+  hooksecurefunc(DelveEntrancePinMixin, 'OnMouseEnter', function(self)
+    if (self.description == _G['DELVE_LABEL']) then
+      if not ns.Addon.db.profile.activate.ShiftWorld then 
+        GameTooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. " " .. "|cff00ff00" .. "< " .. KEY_BUTTON3 .. " " .. L["to show delve map"] .. " >" .. TextIconMNL4:GetIconString(), nil, nil, false)
+      end
+      if ns.Addon.db.profile.activate.ShiftWorld then 
+        GameTooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. " " .. "|cff00ff00" .. "< " .. SHIFT_KEY_TEXT .. " + " .. KEY_BUTTON3 .. " " .. L["to show delve map"] .. " >" .. TextIconMNL4:GetIconString(), nil, nil, false)
+      end
+    end
+    GameTooltip:Show()
+  end)
+
+  hooksecurefunc(DelveEntrancePinMixin, 'OnClick', function(self, button)
+    local delveIDs = ns.BlizzDelveAreaPoisInfoIDs[self.areaPoiID]
+    if button == "MiddleButton" and not ns.Addon.db.profile.activate.ShiftWorld then
+      if delveIDs then
+        if (self.description == _G['DELVE_LABEL']) then
+          WorldMapFrame:SetMapID(delveIDs)
+        end
+      end
+    end
+
+    if button == "MiddleButton" and IsShiftKeyDown() and ns.Addon.db.profile.activate.ShiftWorld then
+      if delveIDs then
+        if (self.description == _G['DELVE_LABEL']) then
+          WorldMapFrame:SetMapID(delveIDs)
+        end
+      end
+    end
   end)
 
 end

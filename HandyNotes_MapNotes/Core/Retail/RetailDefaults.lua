@@ -110,7 +110,6 @@ ns.defaults = {
       showZonePassage = true,
       showZoneOldVanilla = true,
       showZoneLFR = true,
-      showZoneDelves = true,
     -- Zone Transport
       ZoneTransportScale = 1.5,
       ZoneTransportAlpha = 1,

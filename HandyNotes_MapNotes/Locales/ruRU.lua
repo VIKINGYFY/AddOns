@@ -5,6 +5,7 @@ if not L then return end
 --0.01
 L["Profiles"] = "Профили"
 L["Tooltip"] = "подсказка"
+L["to show delve map"] = "показать карту углубления"
 L["< Left Click to show map >"] = "< Чтобы отобразить карту слева >"
 L["< Left Click to show delve map >"] = "< Щелкните левой кнопкой мыши, чтобы показать карту погружений >"
 L["< Shift Left Click to show map >"] = "< Для отображения кнопки переключения карты + левый -клик >"
@@ -25,8 +26,6 @@ L["Here you can enable or disable all chat messages sent from one of these MapNo
 L["Only affects passage icons to instances and not path icons to zones"] = "Только влияет на значки прохода на экземпляры, а не значки пути к зонам"
 L["By deactivating it, the border of the zone icons of your own factions is also removed, as the displayed icons are automatically only for your own faction"] = "Деактивируя его, граница значков зон ваших собственных фракций также удаляется, так как отображаемые значки автоматически только для вашей собственной фракции"
 L["If the world map is open, these are also displayed on the minimap icons, but if the world map is closed, these are no longer displayed on the minimap"] = "Если карта мира открыта, они также отображаются на значках мини-карты, но если карта мира закрыта, они больше не отображаются на мини-карте"
-L["If you disable these Blizzard icons, the zone map will no longer indicate whether a Delve is a Bountiful Delves"] = "Если вы отключите эти значки Blizzard, на карте зоны больше не будет отображаться, является ли вылазка щедрой вылазкой"
-L["Displays icons for delves entrances, these icons look different on the zone map so you can see which delve is bountiful when using the Blizzard icons"] = "Отображает значки входа в подземелья. На карте зоны эти значки выглядят по-разному, поэтому вы можете увидеть, какие подземелья богаты, используя значки Blizzard"
 --0.1 profiles
 L["Profile has been changed"] = "Профиль был изменен"
 L["Profile has been reset to default"] = "Профиль был сброшен в настройки по умолчанию"

@@ -22,7 +22,7 @@ do
 		self.Shadow:SetPoint("TOPLEFT", self, -offset, offset)
 		self.Shadow:SetPoint("BOTTOMRIGHT", self, offset, -offset)
 		self.Shadow:SetBackdrop({edgeFile = DB.glowTex, edgeSize = size})
-		self.Shadow:SetBackdropBorderColor(0, 0, 0, 1)
+		self.Shadow:SetBackdropBorderColor(0, 0, 0, .5)
 		self.Shadow:SetFrameLevel(lvl == 0 and 1 or lvl - 1)
 
 		return self.Shadow

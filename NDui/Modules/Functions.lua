@@ -12,13 +12,13 @@ do
 		if not itemID then return end
 		if typeCache[itemInfo] then return typeCache[itemInfo] end
 
-		local itemType, itemDate
-		if DB.EquipmentIDs[itemClassID] or C_ArtifactUI.GetRelicInfoByItemID(itemID) then
+		local itemType
+		if DB.EquipmentIDs[itemClassID] then
 			itemType = DB.EquipmentTypes[itemEquipLoc] or _G[itemEquipLoc]
+		end
 
-			if C_ArtifactUI.GetRelicInfoByItemID(itemID) then
-				itemType = RELICSLOT
-			end
+		if C_ArtifactUI.GetRelicInfoByItemID(itemID) then
+			itemType = RELICSLOT
 		end
 
 		if itemClassID == Enum.ItemClass.Container then

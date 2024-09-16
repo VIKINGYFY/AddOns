@@ -1,12 +1,15 @@
 # MapNote
-## [2.3.3](https://github.com/Ssesmar/MapNote) (2024-09-14)
+## [2.3.4](https://github.com/Ssesmar/MapNote) (2024-09-15)
 - Note:
 
 -- MapNotes now works on every version of World of Warcraft. Classic Era / Cataclysm / Retail / PTR
 
 Retail:
 
-zone delve icons slimmed down
+removed zone delve icons and added on blizzards own delve icons the option to open the delve maps via Mapnotes
+middle mouse button on a blizzard delve icon open the associated map
+if the Shift function is activated, Shift + middle mouse button must be pressed on a blizzard delve icon open the associated map
+the minimap icons were moved to the location of the entrance to the Delve and the icon was changed to a Delve passage icons
 
 - Description:
 

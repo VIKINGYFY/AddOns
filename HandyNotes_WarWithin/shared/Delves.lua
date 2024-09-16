@@ -1,6 +1,9 @@
 local myname, ns = ...
 local _, myfullname = C_AddOns.GetAddOnInfo(myname)
 
+local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes")
+local HBD = LibStub("HereBeDragons-2.0")
+
 local STURDY = ns.nodeMaker{
     lable="Sturdy Chest",
     group="delves",
@@ -151,20 +154,75 @@ EventUtil.ContinueOnAddOnLoaded("Blizzard_WorldMap", function()
         [7872] = {40534, 40815, 40453}, -- The Underkeep (Nerubian)
         [7873] = {40535, 40811, 40452}, -- Tak-Rethan Abyss (Kobyss)
         [7874] = {40536, 40814, 40453}, -- The Spiral Weave (Nerubian)
+        [7875] = {}, -- Zekvir's Lair (Nerubian)
     }
     EventRegistry:RegisterCallback("AreaPOIPin.MouseOver", function(_, pin, tooltipShown, areaPoiID, name)
         -- print("AreaPOIPin.MouseOver", pin, tooltipShown, areaPoiID, name)
-        if ns.db.groupsHidden.delves then
-            return
-        end
-        if tooltipShown and delves[areaPoiID] then
-            local tooltip = GetAppropriateTooltip()
-            for i, achievement in ipairs(delves[areaPoiID]) do
-                -- we want to show the full criteria list for the first one (stories), and just the summary for the second
-                ns.tooltipHelpers.achievement(tooltip, achievement, i == 1)
+        if not ns.db.groupsHidden.delves then
+            if tooltipShown and delves[areaPoiID] and #delves[areaPoiID] > 0 then
+                local tooltip = GetAppropriateTooltip()
+                for i, achievement in ipairs(delves[areaPoiID]) do
+                    -- we want to show the full criteria list for the first one (stories), and just the summary for the second
+                    ns.tooltipHelpers.achievement(tooltip, achievement, i == 1)
+                end
+                tooltip:AddDoubleLine(" ", myfullname:gsub("HandyNotes: ", ""), 0, 1, 1, 0, 1, 1)
+                tooltip:Show()
             end
-            tooltip:AddDoubleLine(" ", myfullname:gsub("HandyNotes: ", ""), 0, 1, 1, 0, 1, 1)
+        end
+        if ns.DEBUG then
+            local tooltip = GetAppropriateTooltip()
+            if not tooltipShown then
+                tooltip:SetOwner(pin, "ANCHOR_CURSOR")
+                -- tooltip:AddLine(name)
+                tooltip:AddDoubleLine(name, "DEBUG", 1, 1, 1, 1, 0, 0)
+            end
+            tooltip:AddDoubleLine("areaPoiID", areaPoiID)
             tooltip:Show()
         end
     end)
+
+    if C_AddOns.IsAddOnLoaded("DelverView") then
+        return
+    end
+    local OnTooltipShow = function(point, tooltip)
+        if point._tooltipWidgetSet then
+            GameTooltip_AddWidgetSet(tooltip, point._tooltipWidgetSet, 10)
+        end
+    end
+    local already = {}
+    EventRegistry:RegisterCallback("WorldMapOnShow", function()
+        local points = {}
+        for _, mapInfo in ipairs(C_Map.GetMapChildrenInfo(ns.KHAZALGAR)) do
+            if mapInfo.mapType == Enum.UIMapType.Zone then
+                for _, delveID in ipairs(C_AreaPoiInfo.GetDelvesForMap(mapInfo.mapID)) do
+                    if not already[delveID] then
+                        already[delveID] = true
+                        local info = C_AreaPoiInfo.GetAreaPOIInfo(mapInfo.mapID, delveID)
+                        local x, y = info.position:GetXY()
+                        local tx, ty
+                        if mapInfo.mapID == ns.ISLEOFDORN then
+                            -- special-case, as HereBeDragons can't translate these due to the weird stacked-maps structure of Khaz Algar
+                            local minX, maxX, minY, maxY = C_Map.GetMapRectOnMap(mapInfo.mapID, ns.KHAZALGAR)
+                            tx = Lerp(minX, maxX, x)
+                            ty = Lerp(minY, maxY, y)
+                        else
+                            tx, ty = HBD:TranslateZoneCoordinates(x, y, mapInfo.mapID, ns.KHAZALGAR)
+                        end
+                        if tx and ty then
+                            points[HandyNotes:getCoord(tx, ty)] = {
+                                label=info.name,
+                                atlas=info.atlasName, scale=1.5,
+                                note=info.description,
+                                group="delves",
+                                OnTooltipShow=OnTooltipShow,
+                                _tooltipWidgetSet = info.tooltipWidgetSet,
+                            }
+                        end
+                    end
+                end
+            end
+        end
+        ns.RegisterPoints(ns.KHAZALGAR, points)
+        EventRegistry:UnregisterCallback("WorldMapOnShow", myname)
+    end, myname)
 end)

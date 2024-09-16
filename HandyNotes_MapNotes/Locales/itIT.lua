@@ -5,6 +5,7 @@ if not L then return end
 --0.01
 L["Profiles"] = "Profili"
 L["Tooltip"] = "descrizione comando"
+L["to show delve map"] = "per mostrare la mappa di esplorazione"
 L["< Left Click to show map >"] = "< Per visualizzare la scheda a sinistra >"
 L["< Left Click to show delve map >"] = "< Fare clic con il tasto sinistro per visualizzare la mappa di esplorazione >"
 L["< Shift Left Click to show map >"] = "< Per la visualizzazione del pulsante di spostamento della scheda + sinistra -clic >"
@@ -25,8 +26,6 @@ L["Here you can enable or disable all chat messages sent from one of these MapNo
 L["Only affects passage icons to instances and not path icons to zones"] = "Colpisce solo le icone di passaggio alle istanze e non alle icone del percorso nelle zone"
 L["By deactivating it, the border of the zone icons of your own factions is also removed, as the displayed icons are automatically only for your own faction"] = "Disattivandolo, viene rimosso anche il bordo delle icone della zona delle proprie fazioni, poiché le icone visualizzate sono automaticamente solo per la propria fazione"
 L["If the world map is open, these are also displayed on the minimap icons, but if the world map is closed, these are no longer displayed on the minimap"] = "Se la mappa del mondo è aperta, queste vengono visualizzate anche sulle icone della minimappa, ma se la mappa del mondo è chiusa, queste non vengono più visualizzate sulla minimappa"
-L["If you disable these Blizzard icons, the zone map will no longer indicate whether a Delve is a Bountiful Delves"] = "Se disabiliti queste icone Blizzard, la mappa della zona non indicherà più se un'esplorazione è un'esplorazione abbondante"
-L["Displays icons for delves entrances, these icons look different on the zone map so you can see which delve is bountiful when using the Blizzard icons"] = "Visualizza le icone per gli ingressi dell'esplorazione, queste icone appaiono diverse sulla mappa della zona in modo da poter vedere quale esplorazione è abbondante quando si utilizzano le icone Blizzard"
 --0.1 profiles
 L["Profile has been changed"] = "Il profilo è stato modificato"
 L["Profile has been reset to default"] = "Il profilo è stato ripristinato alle impostazioni predefinite"

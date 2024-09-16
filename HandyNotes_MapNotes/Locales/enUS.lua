@@ -5,6 +5,7 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "enUS", true)
 --0.01
 L["Profiles"] = true
 L["Tooltip"] = true
+L["to show delve map"] = true
 L["< Left Click to show map >"] = true
 L["< Left Click to show delve map >"] = true
 L["< Shift Left Click to show map >"] = true
@@ -25,8 +26,6 @@ L["Here you can enable or disable all chat messages sent from one of these MapNo
 L["Only affects passage icons to instances and not path icons to zones"] = true
 L["By deactivating it, the border of the zone icons of your own factions is also removed, as the displayed icons are automatically only for your own faction"] = true
 L["If the world map is open, these are also displayed on the minimap icons, but if the world map is closed, these are no longer displayed on the minimap"] = true
-L["If you disable these Blizzard icons, the zone map will no longer indicate whether a Delve is a Bountiful Delves"] = true
-L["Displays icons for delves entrances, these icons look different on the zone map so you can see which delve is bountiful when using the Blizzard icons"] = true
 --0.1 profiles
 L["Profile has been changed"] = true
 L["Profile has been reset to default"] = true
