@@ -10,6 +10,8 @@ ns.AZJKAHETLOWER = 2256
 ns.CITYOFTHREADS = 2213
 ns.CITYOFTHREADSLOWER = 2216
 
+ns.WORLDQUESTS = ns.conditions.QuestComplete(79573)
+
 -- ns.MAXLEVEL = {ns.conditions.QuestComplete(67030), ns.conditions.Level(70)}
 -- ns.DRAGONRIDING = ns.conditions.SpellKnown(376777)
 
@@ -60,6 +62,7 @@ ns.groups["junk"] = BAG_FILTER_JUNK
 ns.groups["professionknowledge"] = "Profession Knowledge"
 ns.groups["glyphs"] = GLYPHS
 ns.groups["delves"] = DELVES_LABEL
+ns.groups["delveentrances"] = DELVES_SHOW_ENTRACES_ON_MAP_TEXT
 ns.groups["races"] = "{spell:369968:Racing}"
 ns.groups["beledar"] = "{spell:452526:Beledar's Influence}"
 ns.groups["beledarspawn"] = "{npc:207802:Beledar's Spawn}"
