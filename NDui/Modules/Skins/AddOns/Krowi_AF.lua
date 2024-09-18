@@ -25,7 +25,7 @@ local function updateAchievementLabel(frame)
 	local button = frame.__owner
 	if button.DateCompleted:IsShown() then
 		if button.Achievement.IsAccountWide then
-			button.Header:SetTextColor(0, .6, 1)
+			button.Header:SetTextColor(0, .8, 1)
 		else
 			button.Header:SetTextColor(.9, .9, .9)
 		end

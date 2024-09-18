@@ -95,13 +95,13 @@ info.onEnter = function(self)
 	local _, anchor, offset = module:GetTooltipAnchor(info)
 	GameTooltip:SetOwner(self, "ANCHOR_"..anchor, 0, offset)
 	GameTooltip:ClearLines()
-	GameTooltip:AddLine(ZONE, 0,.6,1)
+	GameTooltip:AddLine(ZONE, 0,.8,1)
 	GameTooltip:AddLine(" ")
 
 	GameTooltip:AddDoubleLine(zone, zoneType, r,g,b, r,g,b)
 	GameTooltip:AddDoubleLine(" ", DB.LineString)
-	GameTooltip:AddDoubleLine(" ", DB.LeftButton..L["WorldMap"].." ", 1,1,1, .6,.8,1)
-	GameTooltip:AddDoubleLine(" ", DB.RightButton..L["Send My Pos"].." ", 1,1,1, .6,.8,1)
+	GameTooltip:AddDoubleLine(" ", DB.LeftButton..L["WorldMap"].." ", 1,1,1, 0,.8,1)
+	GameTooltip:AddDoubleLine(" ", DB.RightButton..L["Send My Pos"].." ", 1,1,1, 0,.8,1)
 	GameTooltip:Show()
 end
 

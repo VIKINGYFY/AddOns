@@ -159,10 +159,10 @@ info.onEnter = function(self)
 	local _, anchor, offset = module:GetTooltipAnchor(info)
 	GameTooltip:SetOwner(self, "ANCHOR_"..anchor, 0, offset)
 	GameTooltip:ClearLines()
-	GameTooltip:AddLine(CURRENCY, 0,.6,1)
+	GameTooltip:AddLine(CURRENCY, 0,.8,1)
 	GameTooltip:AddLine(" ")
 
-	GameTooltip:AddLine(L["Session"], .6,.8,1)
+	GameTooltip:AddLine(L["Session"], 0,.8,1)
 	GameTooltip:AddDoubleLine(L["Earned"], module:GetMoneyString(profit), 1,1,1, 1,1,1)
 	GameTooltip:AddDoubleLine(L["Spent"], module:GetMoneyString(spent), 1,1,1, 1,1,1)
 	if profit < spent then
@@ -173,7 +173,7 @@ info.onEnter = function(self)
 	GameTooltip:AddLine(" ")
 
 	local totalGold = 0
-	GameTooltip:AddLine(L["RealmCharacter"], .6,.8,1)
+	GameTooltip:AddLine(L["RealmCharacter"], 0,.8,1)
 	for _, realm in pairs(crossRealms) do
 		local thisRealmList = NDuiADB["totalGold"][realm]
 		if thisRealmList then
@@ -189,16 +189,16 @@ info.onEnter = function(self)
 	GameTooltip:AddLine(" ")
 	local accountmoney = C_Bank.FetchDepositedMoney(Enum.BankType.Account)
 	if accountmoney > 0 then
-		GameTooltip:AddDoubleLine(ACCOUNT_BANK_PANEL_TITLE..":", module:GetMoneyString(accountmoney, true), .6,.8,1, 1,1,1)
+		GameTooltip:AddDoubleLine(ACCOUNT_BANK_PANEL_TITLE..":", module:GetMoneyString(accountmoney, true), 0,.8,1, 1,1,1)
 	end
-	GameTooltip:AddDoubleLine(TOTAL..":", module:GetMoneyString(totalGold + accountmoney, true), .6,.8,1, 1,1,1)
+	GameTooltip:AddDoubleLine(TOTAL..":", module:GetMoneyString(totalGold + accountmoney, true), 0,.8,1, 1,1,1)
 
 	title = false
 	local chargeInfo = C_CurrencyInfo.GetCurrencyInfo(2813) -- Tier charges
 	if chargeInfo then
 		if not title then
 			GameTooltip:AddLine(" ")
-			GameTooltip:AddLine(CURRENCY..":", .6,.8,1)
+			GameTooltip:AddLine(CURRENCY..":", 0,.8,1)
 			title = true
 		end
 		local iconTexture = " |T"..chargeInfo.iconFileID..":13:15:0:0:50:50:4:46:4:46|t"
@@ -212,7 +212,7 @@ info.onEnter = function(self)
 		if name and count then
 			if not title then
 				GameTooltip:AddLine(" ")
-				GameTooltip:AddLine(CURRENCY..":", .6,.8,1)
+				GameTooltip:AddLine(CURRENCY..":", 0,.8,1)
 				title = true
 			end
 			local total = C_CurrencyInfo.GetCurrencyInfo(currencyID).maxQuantity
@@ -226,9 +226,9 @@ info.onEnter = function(self)
 	end
 	
 	GameTooltip:AddDoubleLine(" ", DB.LineString)
-	GameTooltip:AddDoubleLine(" ", DB.RightButton..L["Switch Mode"].." ", 1,1,1, .6,.8,1)
-	GameTooltip:AddDoubleLine(" ", DB.ScrollButton..L["AutoSell Junk"]..": "..(NDuiADB["AutoSell"] and "|cff55FF55"..VIDEO_OPTIONS_ENABLED or "|cffFF5555"..VIDEO_OPTIONS_DISABLED).." ", 1,1,1, .6,.8,1)
-	GameTooltip:AddDoubleLine(" ", "CTRL +"..DB.RightButton..L["Reset Gold"].." ", 1,1,1, .6,.8,1)
+	GameTooltip:AddDoubleLine(" ", DB.RightButton..L["Switch Mode"].." ", 1,1,1, 0,.8,1)
+	GameTooltip:AddDoubleLine(" ", DB.ScrollButton..L["AutoSell Junk"]..": "..(NDuiADB["AutoSell"] and "|cff55FF55"..VIDEO_OPTIONS_ENABLED or "|cffFF5555"..VIDEO_OPTIONS_DISABLED).." ", 1,1,1, 0,.8,1)
+	GameTooltip:AddDoubleLine(" ", "CTRL +"..DB.RightButton..L["Reset Gold"].." ", 1,1,1, 0,.8,1)
 	GameTooltip:Show()
 end
 

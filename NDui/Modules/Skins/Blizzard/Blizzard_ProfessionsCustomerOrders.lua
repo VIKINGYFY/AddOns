@@ -3,7 +3,7 @@ local B, C, L, DB = unpack(ns)
 
 local function hideCategoryButton(button)
 	button.NormalTexture:Hide()
-	button.SelectedTexture:SetColorTexture(0, .6, 1, .3)
+	button.SelectedTexture:SetColorTexture(0, .8, 1, .3)
 	button.HighlightTexture:SetColorTexture(1, 1, 1, .1)
 end
 

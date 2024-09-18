@@ -405,7 +405,7 @@ function UF:AddTargetIndicator(self)
 	frame.nameGlow = frame:CreateTexture(nil, "BACKGROUND", nil, -5)
 	frame.nameGlow:SetSize(150, 80)
 	frame.nameGlow:SetTexture("Interface\\GLUES\\Models\\UI_Draenei\\GenericGlow64")
-	frame.nameGlow:SetVertexColor(0, .6, 1)
+	frame.nameGlow:SetVertexColor(0, .8, 1)
 	frame.nameGlow:SetBlendMode("ADD")
 	frame.nameGlow:SetPoint("CENTER", self, "BOTTOM")
 

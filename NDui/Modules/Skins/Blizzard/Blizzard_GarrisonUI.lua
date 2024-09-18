@@ -1143,7 +1143,7 @@ C.themes["Blizzard_GarrisonUI"] = function()
 					reskinWidgetFont(peek("Description"), .8, .8, .8)
 					reskinWidgetFont(peek("enemyHP"), 1, 1, 1)
 					reskinWidgetFont(peek("enemyATK"), 1, 1, 1)
-					reskinWidgetFont(peek("animaCost"), .6, .8, 1)
+					reskinWidgetFont(peek("animaCost"), 0, .8, 1)
 					reskinWidgetFont(peek("duration"), 1, .8, 0)
 					reskinWidgetFont(widget.CDTDisplay:GetFontString(), 1, .8, 0)
 				elseif otype == "CopyBoxUI" then

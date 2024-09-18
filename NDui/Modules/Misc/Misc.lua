@@ -351,7 +351,7 @@ do
 
 	B:RegisterEvent("ADDON_LOADED", setupMisc)
 
-	local newTitleString = ARCHAEOLOGY_DIGSITE_PROGRESS_BAR_TITLE.." %s/%s"
+	local newTitleString = ARCHAEOLOGY_DIGSITE_PROGRESS_BAR_TITLE.." %s / %s"
 	local function updateArcTitle(_, ...)
 		local numFindsCompleted, totalFinds = ...
 		if ArcheologyDigsiteProgressBar then

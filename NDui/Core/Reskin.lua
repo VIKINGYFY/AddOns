@@ -61,11 +61,12 @@ do
 		if self:IsObjectType("Texture") then frame = self:GetParent() end
 
 		local sdSize = size or 4
+		local lvl = frame:GetFrameLevel()
 		self.__shadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
 		self.__shadow:SetOutside(self, sdSize, sdSize)
 		self.__shadow:SetBackdrop({edgeFile = DB.glowTex, edgeSize = sdSize})
 		self.__shadow:SetBackdropBorderColor(0, 0, 0, size and 1 or .5)
-		self.__shadow:SetFrameLevel(1)
+		self.__shadow:SetFrameLevel(lvl)
 
 		return self.__shadow
 	end
@@ -635,7 +636,7 @@ do
 			if self.bg then
 				self.bg:SetBackdropColor(cr, cg, cb, .25)
 			else
-				self.__texture:SetVertexColor(0, .6, 1)
+				self.__texture:SetVertexColor(0, .8, 1)
 			end
 		end
 	end

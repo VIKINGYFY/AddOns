@@ -10,7 +10,7 @@ local classification = {
 }
 local npcIDstring = "%s "..DB.InfoColor.."%s"
 local ignoreString = "|cffFF0000"..IGNORED..":|r %s"
-local specPrefix = "|cffFFCC00"..SPECIALIZATION..": "..DB.InfoColor
+local specPrefix = "|cffFFCC00"..REFORGE_CURRENT..SPECIALIZATION..":|r "
 
 function TT:GetUnit()
 	local data = self:GetTooltipData()

@@ -1923,7 +1923,7 @@ function G:SetupActionbarStyle(parent)
 		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT")
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(self.title)
-		GameTooltip:AddLine(self.tip, .6,.8,1,1)
+		GameTooltip:AddLine(self.tip, 0,.8,1,1)
 		GameTooltip:Show()
 	end
 

@@ -176,9 +176,9 @@ function info:FriendsPanel_Init()
 		self:SetScript("OnUpdate", isPanelCanHide)
 	end)
 
-	B.CreateFS(infoFrame, 16, "|cff0099FF"..FRIENDS_LIST, nil, "TOPLEFT", 15, -10)
+	B.CreateFS(infoFrame, 16, DB.InfoColor..FRIENDS_LIST, nil, "TOPLEFT", 15, -10)
 	infoFrame.friendCountText = B.CreateFS(infoFrame, 14, "-/-", nil, "TOPRIGHT", -15, -12)
-	infoFrame.friendCountText:SetTextColor(0, .6, 1)
+	infoFrame.friendCountText:SetTextColor(0, .8, 1)
 
 	local scrollFrame = CreateFrame("ScrollFrame", "NDuiFriendsInfobarScrollFrame", infoFrame, "HybridScrollFrameTemplate")
 	scrollFrame:SetSize(370, 400)
@@ -311,7 +311,7 @@ local function buttonOnEnter(self)
 	GameTooltip:SetPoint("TOPLEFT", infoFrame, "TOPRIGHT", 5, 0)
 	GameTooltip:ClearLines()
 	if self.isBNet then
-		GameTooltip:AddLine(L["BN"], 0,.6,1)
+		GameTooltip:AddLine(L["BN"], 0,.8,1)
 		GameTooltip:AddLine(" ")
 
 		local index, accountName, _, _, _, _, _, _, _, note, broadcastText, broadcastTime = unpack(self.data)
@@ -560,7 +560,7 @@ info.onEnter = function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_NONE")
 		GameTooltip:SetPoint("TOPLEFT", UIParent, 15, -30)
 		GameTooltip:ClearLines()
-		GameTooltip:AddDoubleLine(FRIENDS_LIST, format("%s: %s/%s", GUILD_ONLINE_LABEL, totalOnline, totalFriends), 0,.6,1, 0,.6,1)
+		GameTooltip:AddDoubleLine(FRIENDS_LIST, format("%s: %s / %s", GUILD_ONLINE_LABEL, totalOnline, totalFriends), 0,.8,1, 0,.8,1)
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine(L["No Online"], 1,1,1)
 		GameTooltip:Show()
@@ -579,7 +579,7 @@ info.onEnter = function(self)
 
 	info:FriendsPanel_Init()
 	info:FriendsPanel_Update()
-	infoFrame.friendCountText:SetText(format("%s: %s/%s", GUILD_ONLINE_LABEL, totalOnline, totalFriends))
+	infoFrame.friendCountText:SetText(format("%s: %s / %s", GUILD_ONLINE_LABEL, totalOnline, totalFriends))
 end
 
 local function delayLeave()

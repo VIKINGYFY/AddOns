@@ -43,7 +43,7 @@ info.onEnter = function(self)
 	local _, anchor, offset = module:GetTooltipAnchor(info)
 	GameTooltip:SetOwner(self, "ANCHOR_"..anchor, 0, offset)
 	GameTooltip:ClearLines()
-	GameTooltip:AddLine(TALENTS_BUTTON, 0,.6,1)
+	GameTooltip:AddLine(TALENTS_BUTTON, 0,.8,1)
 	GameTooltip:AddLine(" ")
 
 	local specID, specName, _, specIcon = GetSpecializationInfo(currentSpecIndex)
@@ -54,14 +54,14 @@ info.onEnter = function(self)
 		lootIcon = specIcon
 	end
 
-	GameTooltip:AddDoubleLine(SPECIALIZATION, SELECT_LOOT_SPECIALIZATION, .6,.8,1, .6,.8,1)
+	GameTooltip:AddDoubleLine(SPECIALIZATION, SELECT_LOOT_SPECIALIZATION, 0,.8,1, 0,.8,1)
 	GameTooltip:AddDoubleLine(addIcon(specIcon).." "..specName, addIcon(lootIcon).." "..lootName, 1,1,1, 1,1,1)
 
 	local configID = C_ClassTalents.GetLastSelectedSavedConfigID(specID)
 	local info = configID and C_Traits.GetConfigInfo(configID)
 	if info and info.name then
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddDoubleLine(TALENT_FRAME_DROP_DOWN_TOOLTIP_EDIT, info.name, .6,.8,1, 1,1,1)
+		GameTooltip:AddDoubleLine(TALENT_FRAME_DROP_DOWN_TOOLTIP_EDIT, info.name, 0,.8,1, 1,1,1)
 	end
 
 	if C_SpecializationInfo.CanPlayerUsePVPTalentUI() then
@@ -69,7 +69,7 @@ info.onEnter = function(self)
 
 		if #pvpTalents > 0 then
 			GameTooltip:AddLine(" ")
-			GameTooltip:AddLine(PVP_TALENTS, .6,.8,1)
+			GameTooltip:AddLine(PVP_TALENTS, 0,.8,1)
 			for _, talentID in next, pvpTalents do
 				local _, name, icon, _, _, _, unlocked = GetPvpTalentInfoByID(talentID)
 				if name and unlocked then
@@ -82,8 +82,8 @@ info.onEnter = function(self)
 	end
 
 	GameTooltip:AddDoubleLine(" ", DB.LineString)
-	GameTooltip:AddDoubleLine(" ", DB.LeftButton..L["SpecPanel"].." ", 1,1,1, .6,.8,1)
-	GameTooltip:AddDoubleLine(" ", DB.RightButton..L["Change Spec"].." ", 1,1,1, .6,.8,1)
+	GameTooltip:AddDoubleLine(" ", DB.LeftButton..L["SpecPanel"].." ", 1,1,1, 0,.8,1)
+	GameTooltip:AddDoubleLine(" ", DB.RightButton..L["Change Spec"].." ", 1,1,1, 0,.8,1)
 	GameTooltip:Show()
 end
 

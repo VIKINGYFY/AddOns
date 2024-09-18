@@ -55,8 +55,8 @@ for class, value in pairs(colors) do
 end
 DB.r, DB.g, DB.b = DB.ClassColors[DB.MyClass].r, DB.ClassColors[DB.MyClass].g, DB.ClassColors[DB.MyClass].b
 DB.MyColor = format("|cff%02x%02x%02x", DB.r*255, DB.g*255, DB.b*255)
-DB.InfoColor = "|cff99CCFF" --.6,.8,1
-DB.GreyColor = "|cff7B8489"
+DB.InfoColor = "|cff00CCFF" --0,.8,1
+DB.GreyColor = "|cff808080"
 DB.QualityColors = {}
 local qualityColors = ITEM_QUALITY_COLORS or BAG_ITEM_QUALITY_COLORS
 for index, value in pairs(qualityColors) do

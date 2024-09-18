@@ -14,6 +14,58 @@ local function SetupStatusbar(bar)
 	bar:SetStatusBarTexture(DB.bdTex)
 	bar:GetStatusBarTexture():SetGradient("VERTICAL", CreateColor(0, .4, 0, 1), CreateColor(0, .6, 0, 1))
 	B.CreateBDFrame(bar, .25)
+
+	local title = bar.Label or bar.Title or _G[bar:GetName().."Title"]
+	if title then
+		title:SetTextColor(1, 1, 1)
+		title:SetPoint("LEFT", bar, "LEFT", 6, -1)
+	end
+
+	local text = bar.Text or _G[bar:GetName().."Text"]
+	if text then
+		text:SetTextColor(1, 1, 1)
+		text:SetPoint("RIGHT", bar, "RIGHT", -5, -1)
+	end
+end
+
+local function UpdateStringColors(button)
+	if button.DateCompleted:IsShown() then
+		if button.accountWide then
+			button.Label:SetTextColor(0, .8, 1)
+		else
+			button.Label:SetTextColor(1, .8, 0)
+		end
+		if button.Description then
+			button.Description:SetTextColor(1, 1, 1)
+		end
+		if button.Reward then
+			button.Reward:SetTextColor(1, .8, 0)
+		end
+	else
+		if button.accountWide then
+			button.Label:SetTextColor(0, .4, .5)
+		else
+			button.Label:SetTextColor(.5, .4, 0)
+		end
+		if button.Description then
+			button.Description:SetTextColor(.5, .5, .5)
+		end
+		if button.Reward then
+			button.Reward:SetTextColor(.5, .4, 0)
+		end
+	end
+end
+
+local function UpdateProgressBars(frame)
+	local objectives = frame:GetObjectiveFrame()
+	if objectives and objectives.progressBars then
+		for _, bar in next, objectives.progressBars do
+			if not bar.styled then
+				SetupStatusbar(bar)
+				bar.styled = true
+			end
+		end
+	end
 end
 
 C.themes["Blizzard_AchievementUI"] = function()
@@ -107,44 +159,15 @@ C.themes["Blizzard_AchievementUI"] = function()
 	B.ReskinTrimScroll(AchievementFrameAchievements.ScrollBar)
 	select(3, AchievementFrameAchievements:GetChildren()):Hide()
 
-	local function updateAccountString(button)
-		if button.DateCompleted:IsShown() then
-			if button.accountWide then
-				button.Label:SetTextColor(0, .6, 1)
-			else
-				button.Label:SetTextColor(.9, .9, .9)
-			end
-		else
-			if button.accountWide then
-				button.Label:SetTextColor(0, .3, .5)
-			else
-				button.Label:SetTextColor(.65, .65, .65)
-			end
-		end
-	end
-
-	local function updateProgressBars(frame)
-		local objectives = frame:GetObjectiveFrame()
-		if objectives and objectives.progressBars then
-			for _, bar in next, objectives.progressBars do
-				if not bar.styled then
-					SetupStatusbar(bar)
-					bar.styled = true
-				end
-			end
-		end
-	end
-
 	hooksecurefunc(AchievementFrameAchievements.ScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
 			local child = select(i, self.ScrollTarget:GetChildren())
 			if child and not child.styled then
 				B.StripTextures(child, true)
+				UpdateStringColors(child)
 				child.Background:SetAlpha(0)
 				child.Highlight:SetAlpha(0)
 				child.Icon.frame:Hide()
-				child.Description:SetTextColor(.9, .9, .9)
-				child.Description.SetTextColor = B.Dummy
 
 				local bg = B.CreateBDFrame(child, .25)
 				bg:SetPoint("TOPLEFT", 1, -1)
@@ -155,8 +178,8 @@ C.themes["Blizzard_AchievementUI"] = function()
 				child.Tracked:SetSize(20, 20)
 				child.Check:SetAlpha(0)
 
-				hooksecurefunc(child, "UpdatePlusMinusTexture", updateAccountString)
-				hooksecurefunc(child, "DisplayObjectives", updateProgressBars)
+				hooksecurefunc(child, "UpdatePlusMinusTexture", UpdateStringColors)
+				hooksecurefunc(child, "DisplayObjectives", UpdateProgressBars)
 
 				child.styled = true
 			end
@@ -171,11 +194,7 @@ C.themes["Blizzard_AchievementUI"] = function()
 	hooksecurefunc("AchievementFrameSummary_UpdateAchievements", function()
 		for i = 1, ACHIEVEMENTUI_MAX_SUMMARY_ACHIEVEMENTS do
 			local bu = _G["AchievementFrameSummaryAchievement"..i]
-			if bu.accountWide then
-				bu.Label:SetTextColor(0, .6, 1)
-			else
-				bu.Label:SetTextColor(.9, .9, .9)
-			end
+			UpdateStringColors(bu)
 
 			if not bu.styled then
 				bu:DisableDrawLayer("BORDER")
@@ -197,25 +216,18 @@ C.themes["Blizzard_AchievementUI"] = function()
 
 				bu.styled = true
 			end
-
-			bu.Description:SetTextColor(.9, .9, .9)
 		end
 	end)
 
 	for i = 1, 12 do
 		local bu = _G["AchievementFrameSummaryCategoriesCategory"..i]
 		SetupStatusbar(bu)
-		bu.Label:SetTextColor(1, 1, 1)
-		bu.Label:SetPoint("LEFT", bu, "LEFT", 6, 0)
-		bu.Text:SetPoint("RIGHT", bu, "RIGHT", -5, 0)
 		_G[bu:GetName().."ButtonHighlight"]:SetAlpha(0)
 	end
 
 	local bar = AchievementFrameSummaryCategoriesStatusBar
 	if bar then
 		SetupStatusbar(bar)
-		_G[bar:GetName().."Title"]:SetPoint("LEFT", bar, "LEFT", 6, 0)
-		_G[bar:GetName().."Text"]:SetPoint("RIGHT", bar, "RIGHT", -5, 0)
 	end
 
 	AchievementFrameSummaryAchievementsEmptyText:SetText("")
@@ -275,11 +287,7 @@ C.themes["Blizzard_AchievementUI"] = function()
 
 	local function handleCompareSummary(frame)
 		B.StripTextures(frame)
-		local bar = frame.StatusBar
-		SetupStatusbar(bar)
-		bar.Title:SetTextColor(1, 1, 1)
-		bar.Title:SetPoint("LEFT", bar, "LEFT", 6, 0)
-		bar.Text:SetPoint("RIGHT", bar, "RIGHT", -5, 0)
+		SetupStatusbar(frame.StatusBar)
 	end
 	handleCompareSummary(AchievementFrameComparison.Summary.Player)
 	handleCompareSummary(AchievementFrameComparison.Summary.Friend)
@@ -302,8 +310,6 @@ C.themes["Blizzard_AchievementUI"] = function()
 			local child = select(i, self.ScrollTarget:GetChildren())
 			if not child.styled then
 				handleCompareCategory(child.Player)
-				child.Player.Description:SetTextColor(.9, .9, .9)
-				child.Player.Description.SetTextColor = B.Dummy
 				handleCompareCategory(child.Friend)
 
 				child.styled = true

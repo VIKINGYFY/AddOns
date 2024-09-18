@@ -40,25 +40,25 @@ info.onEnter = function(self)
 	local _, anchor, offset = module:GetTooltipAnchor(info)
 	GameTooltip:SetOwner(self, "ANCHOR_"..anchor, 0, offset)
 	GameTooltip:ClearLines()
-	GameTooltip:AddLine(L["Latency"], 0,.6,1)
+	GameTooltip:AddLine(L["Latency"], 0,.8,1)
 	GameTooltip:AddLine(" ")
 
 	local _, _, latencyHome, latencyWorld = GetNetStats()
-	GameTooltip:AddDoubleLine(L["Home Latency"], colorLatency(latencyHome).."|r ms", .6,.8,1, 1,1,1)
-	GameTooltip:AddDoubleLine(L["World Latency"], colorLatency(latencyWorld).."|r ms", .6,.8,1, 1,1,1)
+	GameTooltip:AddDoubleLine(L["Home Latency"], colorLatency(latencyHome).."|r ms", 0,.8,1, 1,1,1)
+	GameTooltip:AddDoubleLine(L["World Latency"], colorLatency(latencyWorld).."|r ms", 0,.8,1, 1,1,1)
 
 	if GetCVarBool("useIPv6") then
 		local ipTypeHome, ipTypeWorld = GetNetIpTypes()
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddDoubleLine(L["Home Protocol"], ipTypes[ipTypeHome or 0] or UNKNOWN, .6,.8,1, 1,1,1)
-		GameTooltip:AddDoubleLine(L["World Protocol"], ipTypes[ipTypeWorld or 0] or UNKNOWN, .6,.8,1, 1,1,1)
+		GameTooltip:AddDoubleLine(L["Home Protocol"], ipTypes[ipTypeHome or 0] or UNKNOWN, 0,.8,1, 1,1,1)
+		GameTooltip:AddDoubleLine(L["World Protocol"], ipTypes[ipTypeWorld or 0] or UNKNOWN, 0,.8,1, 1,1,1)
 	end
 
 	local downloading = GetFileStreamingStatus() ~= 0 or GetBackgroundLoadingStatus() ~= 0
 	if downloading then
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddDoubleLine(L["Bandwidth"], format("%.2f Mbps", GetAvailableBandwidth()), .6,.8,1, 1,1,1)
-		GameTooltip:AddDoubleLine(L["Download"], format("%.2f%%", GetDownloadedPercentage()*100), .6,.8,1, 1,1,1)
+		GameTooltip:AddDoubleLine(L["Bandwidth"], format("%.2f Mbps", GetAvailableBandwidth()), 0,.8,1, 1,1,1)
+		GameTooltip:AddDoubleLine(L["Download"], format("%.2f%%", GetDownloadedPercentage()*100), 0,.8,1, 1,1,1)
 	end
 
 	GameTooltip:Show()

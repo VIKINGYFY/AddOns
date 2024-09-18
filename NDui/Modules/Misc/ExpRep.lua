@@ -98,15 +98,15 @@ end
 function M:ExpBar_UpdateTooltip()
 	GameTooltip:SetOwner(self, "ANCHOR_LEFT")
 	GameTooltip:ClearLines()
-	GameTooltip:AddLine(LEVEL.." "..UnitLevel("player"), 0,.6,1)
+	GameTooltip:AddLine(LEVEL.." "..UnitLevel("player"), 0,.8,1)
 
 	if not IsPlayerAtEffectiveMaxLevel() then
 		GameTooltip:AddLine(" ")
 		local xp, mxp, rxp = UnitXP("player"), UnitXPMax("player"), GetXPExhaustion()
-			GameTooltip:AddDoubleLine(EXPERIENCE_COLON, format("%s / %s (%.1f%%)", B.Numb(xp), B.Numb(mxp), xp/mxp*100), .6,.8,1, 1,1,1)
-			GameTooltip:AddDoubleLine(NEXT_RANK_COLON, format("%s (%.1f%%)", B.Numb(mxp-xp), (1-xp/mxp)*100), .6,.8,1, 1,1,1)
+			GameTooltip:AddDoubleLine(EXPERIENCE_COLON, format("%s / %s (%.1f%%)", B.Numb(xp), B.Numb(mxp), xp/mxp*100), 0,.8,1, 1,1,1)
+			GameTooltip:AddDoubleLine(NEXT_RANK_COLON, format("%s (%.1f%%)", B.Numb(mxp-xp), (1-xp/mxp)*100), 0,.8,1, 1,1,1)
 		if rxp then
-			GameTooltip:AddDoubleLine(TUTORIAL_TITLE26..":", format("+%s (%.1f%%)", B.Numb(rxp), rxp/mxp*100), .6,.8,1, 1,1,1)
+			GameTooltip:AddDoubleLine(TUTORIAL_TITLE26..":", format("+%s (%.1f%%)", B.Numb(rxp), rxp/mxp*100), 0,.8,1, 1,1,1)
 		end
 		if IsXPUserDisabled() then GameTooltip:AddLine("|cffFF0000"..XP..LOCKED) end
 	end
@@ -157,14 +157,14 @@ function M:ExpBar_UpdateTooltip()
 			end
 		end
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddLine(name, 0,.6,1)
-		GameTooltip:AddDoubleLine(standingtext, value - barMin.." / "..barMax - barMin.." ("..math.floor((value - barMin)/(barMax - barMin)*100).."%)", .6,.8,1, 1,1,1)
+		GameTooltip:AddLine(name, 0,.8,1)
+		GameTooltip:AddDoubleLine(standingtext, value - barMin.." / "..barMax - barMin.." ("..math.floor((value - barMin)/(barMax - barMin)*100).."%)", 0,.8,1, 1,1,1)
 
 		if C_Reputation.IsFactionParagon(factionID) then
 			local currentValue, threshold = C_Reputation.GetFactionParagonInfo(factionID)
 			local paraCount = math.floor(currentValue/threshold)
 			currentValue = mod(currentValue, threshold)
-			GameTooltip:AddDoubleLine(L["Paragon"]..paraCount, currentValue.." / "..threshold.." ("..math.floor(currentValue/threshold*100).."%)", .6,.8,1, 1,1,1)
+			GameTooltip:AddDoubleLine(L["Paragon"]..paraCount, currentValue.." / "..threshold.." ("..math.floor(currentValue/threshold*100).."%)", 0,.8,1, 1,1,1)
 		end
 
 		if factionID == 2465 then -- 荒猎团
@@ -174,8 +174,8 @@ function M:ExpBar_UpdateTooltip()
 				local current = rep - threshold
 				local currentMax = nextThreshold - threshold
 				GameTooltip:AddLine(" ")
-				GameTooltip:AddLine(name, 0,.6,1)
-				GameTooltip:AddDoubleLine(reaction, current.." / "..currentMax.." ("..math.floor(current/currentMax*100).."%)", .6,.8,1, 1,1,1)
+				GameTooltip:AddLine(name, 0,.8,1)
+				GameTooltip:AddDoubleLine(reaction, current.." / "..currentMax.." ("..math.floor(current/currentMax*100).."%)", 0,.8,1, 1,1,1)
 			end
 		end
 	end
@@ -183,8 +183,8 @@ function M:ExpBar_UpdateTooltip()
 	if IsWatchingHonorAsXP() then
 		local current, barMax, level = UnitHonor("player"), UnitHonorMax("player"), UnitHonorLevel("player")
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddLine(HONOR, 0,.6,1)
-		GameTooltip:AddDoubleLine(LEVEL.." "..level, current.." / "..barMax, .6,.8,1, 1,1,1)
+		GameTooltip:AddLine(HONOR, 0,.8,1)
+		GameTooltip:AddDoubleLine(LEVEL.." "..level, current.." / "..barMax, 0,.8,1, 1,1,1)
 	end
 
 	if IsAzeriteAvailable() then
@@ -194,8 +194,8 @@ function M:ExpBar_UpdateTooltip()
 		local currentLevel = C_AzeriteItem.GetPowerLevel(azeriteItemLocation)
 		azeriteItem:ContinueWithCancelOnItemLoad(function()
 			GameTooltip:AddLine(" ")
-			GameTooltip:AddLine(azeriteItem:GetItemName().." ("..format(SPELLBOOK_AVAILABLE_AT, currentLevel)..")", 0,.6,1)
-			GameTooltip:AddDoubleLine(ARTIFACT_POWER, BreakUpLargeNumbers(xp).." / "..BreakUpLargeNumbers(totalLevelXP).." ("..math.floor(xp/totalLevelXP*100).."%)", .6,.8,1, 1,1,1)
+			GameTooltip:AddLine(azeriteItem:GetItemName().." ("..format(SPELLBOOK_AVAILABLE_AT, currentLevel)..")", 0,.8,1)
+			GameTooltip:AddDoubleLine(ARTIFACT_POWER, BreakUpLargeNumbers(xp).." / "..BreakUpLargeNumbers(totalLevelXP).." ("..math.floor(xp/totalLevelXP*100).."%)", 0,.8,1, 1,1,1)
 		end)
 	end
 
@@ -204,15 +204,15 @@ function M:ExpBar_UpdateTooltip()
 		local num, xp, xpForNextPoint = ArtifactBarGetNumArtifactTraitsPurchasableFromXP(pointsSpent, totalXP, artifactTier)
 		GameTooltip:AddLine(" ")
 		if C_ArtifactUI.IsEquippedArtifactDisabled() then
-			GameTooltip:AddLine(name, 0,.6,1)
-			GameTooltip:AddLine(ARTIFACT_RETIRED, .6,.8,1, 1)
+			GameTooltip:AddLine(name, 0,.8,1)
+			GameTooltip:AddLine(ARTIFACT_RETIRED, 0,.8,1, 1)
 		else
-			GameTooltip:AddLine(name.." ("..format(SPELLBOOK_AVAILABLE_AT, pointsSpent)..")", 0,.6,1)
+			GameTooltip:AddLine(name.." ("..format(SPELLBOOK_AVAILABLE_AT, pointsSpent)..")", 0,.8,1)
 			local numText = num > 0 and " ("..num..")" or ""
-			GameTooltip:AddDoubleLine(ARTIFACT_POWER, BreakUpLargeNumbers(totalXP)..numText, .6,.8,1, 1,1,1)
+			GameTooltip:AddDoubleLine(ARTIFACT_POWER, BreakUpLargeNumbers(totalXP)..numText, 0,.8,1, 1,1,1)
 			if xpForNextPoint ~= 0 then
 				local perc = " ("..math.floor(xp/xpForNextPoint*100).."%)"
-				GameTooltip:AddDoubleLine(L["Next Trait"], BreakUpLargeNumbers(xp).." / "..BreakUpLargeNumbers(xpForNextPoint)..perc, .6,.8,1, 1,1,1)
+				GameTooltip:AddDoubleLine(L["Next Trait"], BreakUpLargeNumbers(xp).." / "..BreakUpLargeNumbers(xpForNextPoint)..perc, 0,.8,1, 1,1,1)
 			end
 		end
 	end

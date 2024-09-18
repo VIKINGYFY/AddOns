@@ -397,7 +397,7 @@ function S:PSFJ()
 	handlePSFJScroll(frame.Settings.ScrollFrame.ScrollBar)
 
 	local function onEnter(button)
-		button.bg:SetBackdropBorderColor(0, .6, 1)
+		button.bg:SetBackdropBorderColor(0, .8, 1)
 	end
 
 	local function onLeave(button)

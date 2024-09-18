@@ -2,7 +2,7 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local TT = B:GetModule("Tooltip")
 
-local levelPrefix = STAT_AVERAGE_ITEM_LEVEL..": "..DB.InfoColor
+local levelPrefix = STAT_AVERAGE_ITEM_LEVEL..":|r |cffFFFFFF"
 local isPending = LFG_LIST_LOADING
 local resetTime, frequency = 900, .5
 local cache, weapon, currentUNIT, currentGUID = {}, {}
@@ -208,7 +208,7 @@ function TT:GetUnitItemLevel(unit)
 		end
 
 		if ilvl > 0 then ilvl = format("%.1f", ilvl) end
-		if boa > 0 then ilvl = ilvl.." |cff00CCFF("..boa..HEIRLOOMS..")" end
+		if boa > 0 then ilvl = ilvl..DB.InfoColor.." ("..HEIRLOOMS.." x "..boa..")" end
 		if sets > 0 then ilvl = ilvl..formatSets[sets] end
 	else
 		ilvl = nil
