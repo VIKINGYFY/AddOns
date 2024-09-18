@@ -335,7 +335,7 @@ function module:RecycleBin()
 				end
 			end
 			child:SetSize(34, 34)
-			B.CreateSD(child, 3, 3)
+			B.CreateSD(child, 4, true)
 		end
 
 		table.insert(buttons, child)

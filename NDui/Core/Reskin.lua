@@ -60,11 +60,11 @@ do
 		local frame = self
 		if self:IsObjectType("Texture") then frame = self:GetParent() end
 
-		shadowBackdrop.edgeSize = size or 5
+		local sdSize = size or 4
 		self.__shadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
-		self.__shadow:SetOutside(self, size or 4, size or 4)
-		self.__shadow:SetBackdrop(shadowBackdrop)
-		self.__shadow:SetBackdropBorderColor(0, 0, 0, size and 1 or .4)
+		self.__shadow:SetOutside(self, sdSize, sdSize)
+		self.__shadow:SetBackdrop({edgeFile = DB.glowTex, edgeSize = sdSize})
+		self.__shadow:SetBackdropBorderColor(0, 0, 0, size and 1 or .5)
 		self.__shadow:SetFrameLevel(1)
 
 		return self.__shadow
@@ -114,7 +114,6 @@ end
 do
 	-- Setup backdrop
 	C.frames = {}
-	local defaultBackdrop = {bgFile = DB.bdTex, edgeFile = DB.bdTex}
 
 	function B:SetBorderColor()
 		if C.db["Skins"]["GreyBD"] then
@@ -125,14 +124,13 @@ do
 	end
 
 	function B:CreateBD(a)
-		defaultBackdrop.edgeSize = C.mult
-		self:SetBackdrop(defaultBackdrop)
+		self:SetBackdrop({bgFile = DB.bdTex, edgeFile = DB.bdTex, edgeSize = C.mult})
 		self:SetBackdropColor(0, 0, 0, a or C.db["Skins"]["SkinAlpha"])
 		B.SetBorderColor(self)
 		if not a then table.insert(C.frames, self) end
 	end
 
-	local gradientFrom, gradientTo = CreateColor(0, 0, 0, .5), CreateColor(.3, .3, .3, .3)
+	local gradientFrom, gradientTo = CreateColor(.6, .6, .6, .6), CreateColor(.3, .3, .3, .3)
 	function B:CreateGradient()
 		local tex = self:CreateTexture(nil, "BORDER")
 		tex:SetInside()

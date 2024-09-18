@@ -7,6 +7,7 @@ local info = module:RegisterInfobar("Time", C.Infobar.TimePos)
 
 local HORRIFIC_VISION = SPLASH_BATTLEFORAZEROTH_8_3_0_FEATURE1_TITLE
 local COMMUNITY_FEAST = C_Spell.GetSpellName(388961)
+local PROGRESS_FORMAT = " |cff%s(%s / %s)|r"
 
 local function updateTimerFormat(color, hour, minute)
 	if GetCVarBool("timeMgrUseMilitaryTime") then
@@ -75,23 +76,14 @@ local questlist = {
 	{name = L["Timewarped"], id = 55499, texture = 1129683},	-- WoD
 	{name = L["Timewarped"], id = 64710, texture = 1467047},	-- Legion
 	{name = C_Spell.GetSpellName(388945), id = 70866},	-- SoDK
-	{name = "", id = 70893, itemID = 200095},	-- Community feast
 	{name = "", id = 70906, itemID = 200468},	-- Grand hunt
-	{name = "", id = 78319, itemID = 211389},	-- The superbloom
+	{name = "", id = 70893, questName = true},	-- Community feast
 	{name = "", id = 79226, questName = true},	-- The big dig
-	{name = "", id = 83240, questName = true},	-- The superbloom
-}
-
-local lesserVisions = {58151, 58155, 58156, 58167, 58168}
-local horrificVisions = {
-	[1] = {id = 57848, desc = "470 (5+5)"},
-	[2] = {id = 57844, desc = "465 (5+4)"},
-	[3] = {id = 57847, desc = "460 (5+3)"},
-	[4] = {id = 57843, desc = "455 (5+2)"},
-	[5] = {id = 57846, desc = "450 (5+1)"},
-	[6] = {id = 57842, desc = "445 (5+0)"},
-	[7] = {id = 57845, desc = "430 (3+0)"},
-	[8] = {id = 57841, desc = "420 (1+0)"},
+	{name = "", id = 78319, questName = true},	-- The superbloom
+	{name = "", id = 76586, questName = true},	-- 散步圣光
+	{name = "", id = 82946, questName = true},	-- 蜡团
+	{name = "", id = 83240, questName = true},	-- 剧场
+	{name = C_Map.GetAreaInfo(15141), id = 83333},	-- 觉醒主机
 }
 
 -- Check Invasion Status
@@ -157,16 +149,6 @@ local function GetNextLocation(nextTime, index)
 	local round = mod(math.floor(elapsed / inv.duration) + 1, count)
 	if round == 0 then round = count end
 	return C_Map.GetMapInfo(inv.maps[inv.timeTable[round]]).name
-end
-
-local cache, nzothAssaults = {}
-local function GetNzothThreatName(questID)
-	local name = cache[questID]
-	if not name then
-		name = C_TaskQuest.GetQuestInfoByQuestID(questID)
-		cache[questID] = name
-	end
-	return name
 end
 
 -- Grant hunts
@@ -252,12 +234,27 @@ local communityFeastTime = {
 	["US"] = 1679751000, -- 21:30
 }
 
+local delveList = {
+	{uiMapID = 2248, delveID = 7787}, -- Earthcrawl Mines
+	{uiMapID = 2248, delveID = 7781}, -- Kriegval's Rest
+	{uiMapID = 2248, delveID = 7779}, -- Fungal Folly
+	{uiMapID = 2215, delveID = 7789}, -- Skittering Breach
+	{uiMapID = 2215, delveID = 7785}, -- Nightfall Sanctum
+	{uiMapID = 2215, delveID = 7783}, -- The Sinkhole
+	{uiMapID = 2215, delveID = 7780}, -- Mycomancer Cavern
+	{uiMapID = 2214, delveID = 7782}, -- The Waterworks
+	{uiMapID = 2214, delveID = 7788}, -- The Dread Pit
+	{uiMapID = 2255, delveID = 7790}, -- The Spiral Weave
+	{uiMapID = 2255, delveID = 7784}, -- Tak-Rethan Abyss
+	{uiMapID = 2255, delveID = 7786}, -- TThe Underkeep
+}
+
 info.onEnter = function(self)
 	self.entered = true
 
 	RequestRaidInfo()
 
-	local r,g,b
+	local r,g,b = 1,1,1
 	local _, anchor, offset = module:GetTooltipAnchor(info)
 	GameTooltip:SetOwner(self, "ANCHOR_"..anchor, 0, offset)
 	GameTooltip:ClearLines()
@@ -284,13 +281,7 @@ info.onEnter = function(self)
 		local name, _, reset, diff, locked, extended = GetSavedInstanceInfo(i)
 		if diff == 23 and (locked or extended) then
 			addTitle(DUNGEON_DIFFICULTY3..DUNGEONS)
-			if extended then
-				r,g,b = 1,0,0
-			elseif locked then
-				r,g,b = 0,1,0
-			else
-				r,g,b = 1,1,1
-			end
+			if extended then r,g,b = 1,0,0 elseif locked then r,g,b = 0,1,0 end
 			GameTooltip:AddDoubleLine(name, SecondsToTime(reset, true, nil, 3), 1,1,1, r,g,b)
 		end
 	end
@@ -298,17 +289,13 @@ info.onEnter = function(self)
 	-- Raids
 	title = false
 	for i = 1, GetNumSavedInstances() do
-		local name, _, reset, _, locked, extended, _, isRaid, _, diffName = GetSavedInstanceInfo(i)
+		local name, _, reset, _, locked, extended, _, isRaid, _, diffName, numBosses, progress = GetSavedInstanceInfo(i)
 		if isRaid and (locked or extended) then
 			addTitle(RAID_INFO)
-			if extended then
-				r,g,b = 1,0,0
-			elseif locked then
-				r,g,b = 0,1,0
-			else
-				r,g,b = 1,1,1
-			end
-			GameTooltip:AddDoubleLine(name.." - "..diffName, SecondsToTime(reset, true, nil, 3), 1,1,1, r,g,b)
+			if extended then r,g,b = 1,0,0 elseif locked then r,g,b = 0,1,0 end
+			local progressColor = (numBosses == progress) and "ff0000" or "00ff00"
+			local progressStr = format(PROGRESS_FORMAT, progressColor, progress, numBosses)
+			GameTooltip:AddDoubleLine(name.." - "..diffName..progressStr, SecondsToTime(reset, true, nil, 3), 1,1,1, r,g,b)
 		end
 	end
 
@@ -320,6 +307,17 @@ info.onEnter = function(self)
 				addTitle(QUESTS_LABEL)
 				GameTooltip:AddDoubleLine((v.itemID and GetItemLink(v.itemID)) or (v.questName and QuestUtils_GetQuestName(v.id)) or v.name, QUEST_COMPLETE, 1,1,1, 1,0,0)
 			end
+		end
+	end
+
+	-- Delves
+	title = false
+	for _, v in pairs(delveList) do
+		local delveInfo = C_AreaPoiInfo.GetAreaPOIInfo(v.uiMapID, v.delveID)
+		if delveInfo then
+			addTitle(delveInfo.description)
+			local mapInfo = C_Map.GetMapInfo(v.uiMapID)
+			GameTooltip:AddDoubleLine(mapInfo.name.." - "..delveInfo.name, SecondsToTime(GetQuestResetTime(), true, nil, 3), 1,1,1, 1,1,1)
 		end
 	end
 
@@ -343,7 +341,7 @@ info.onEnter = function(self)
 				end
 			end
 		end
-
+	
 		-- Grand hunts
 		title = false
 		for areaPoiID, mapID in pairs(huntAreaToMapID) do
@@ -358,7 +356,7 @@ info.onEnter = function(self)
 				break
 			end
 		end
-
+	
 		-- Community feast
 		title = false
 		local feastTime = communityFeastTime[region]
@@ -367,38 +365,11 @@ info.onEnter = function(self)
 			local duration = 5400 -- 1.5hrs
 			local elapsed = mod(currentTime - feastTime, duration)
 			local nextTime = duration - elapsed + currentTime
-
+	
 			addTitle(COMMUNITY_FEAST)
 			if currentTime - (nextTime-duration) < 900 then r,g,b = 0,1,0 else r,g,b = .6,.6,.6 end -- green text if progressing
 			GameTooltip:AddDoubleLine(date("%m/%d %H:%M", nextTime-duration*2), date("%m/%d %H:%M", nextTime-duration), .6,.6,.6, r,g,b)
 			GameTooltip:AddDoubleLine(date("%m/%d %H:%M", nextTime), date("%m/%d %H:%M", nextTime+duration), 1,1,1, 1,1,1)
-		end
-
-		-- Nzoth relavants
-		for _, v in ipairs(horrificVisions) do
-			if C_QuestLog.IsQuestFlaggedCompleted(v.id) then
-				addTitle(QUESTS_LABEL)
-				GameTooltip:AddDoubleLine(HORRIFIC_VISION, v.desc, 1,1,1, 0,1,0)
-				break
-			end
-		end
-
-		for _, id in pairs(lesserVisions) do
-			if C_QuestLog.IsQuestFlaggedCompleted(id) then
-				addTitle(QUESTS_LABEL)
-				GameTooltip:AddDoubleLine(L["LesserVision"], QUEST_COMPLETE, 1,1,1, 1,0,0)
-				break
-			end
-		end
-
-		if not nzothAssaults then
-			nzothAssaults = C_TaskQuest.GetThreatQuests() or {}
-		end
-		for _, v in pairs(nzothAssaults) do
-			if C_QuestLog.IsQuestFlaggedCompleted(v) then
-				addTitle(QUESTS_LABEL)
-				GameTooltip:AddDoubleLine(GetNzothThreatName(v), QUEST_COMPLETE, 1,1,1, 1,0,0)
-			end
 		end
 
 		-- Invasions

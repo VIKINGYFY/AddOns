@@ -97,10 +97,10 @@ LibEvent:attachEvent("CHAT_MSG_ADDON", function(self, prefix, text, channel, sen
 		local name, realm = string.split("-", sender)
 		for guid, v in pairs(members) do
 			if (v.name == name and v.realm == realm) then
-				v.class = class
-				v.ilvl = ilvl
-				v.spec = spec
-				v.role = role
+				v.class = class and class or ""
+				v.ilvl = ilvl and tonumber(ilvl) or -1
+				v.spec = spec and spec or ""
+				v.role = role and role or ""
 				v.done = true
 				LibEvent:trigger("GROUP_MEMBER_INSPECT_READY", v)
 			end

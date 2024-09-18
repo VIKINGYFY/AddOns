@@ -12,7 +12,6 @@ table.insert(C.defaultThemes, function()
 	B.ReskinIcon(GhostFrameContentsFrameIcon)
 
 	local bg = B.SetBD(GhostFrame, 0)
-	B.CreateGradient(bg)
 	GhostFrame:SetHighlightTexture(DB.bdTex)
 	GhostFrame:GetHighlightTexture():SetVertexColor(r, g, b, .25)
 end)

@@ -120,7 +120,7 @@ B:RegisterEvent("PLAYER_LOGIN", function()
 	B:SetupUIScale()
 	B:RegisterEvent("UI_SCALE_CHANGED", UpdatePixelScale)
 	B:SetSmoothingAmount(NDuiADB["SmoothAmount"])
-	C.margin = 3 * C.mult
+	C.margin = 3
 
 	local LCG = LibStub("LibCustomGlow-1.0-NDui")
 	if LCG then

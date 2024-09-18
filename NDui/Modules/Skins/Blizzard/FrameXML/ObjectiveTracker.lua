@@ -129,7 +129,6 @@ local function ReskinMawBuffsContainer(container)
 	container:GetPushedTexture():SetAlpha(0)
 	container:GetHighlightTexture():SetAlpha(0)
 	local bg = B.SetBD(container, 0, 13, -11, -3, 11)
-	B.CreateGradient(bg)
 	container:HookScript("OnClick", container_OnClick)
 
 	local blockList = container.List
