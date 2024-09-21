@@ -102,7 +102,7 @@ function module:Chatbar()
 	-- WORLD CHANNEL
 	if GetCVar("portal") == "CN" then
 		local channelName = "大脚世界频道"
-		local wcButton = AddButton(0, .8, 1, L["World Channel"])
+		local wcButton = AddButton(0, 1, 1, L["World Channel"])
 
 		local function updateChannelInfo()
 			local id = GetChannelName(channelName)
@@ -113,7 +113,7 @@ function module:Chatbar()
 			else
 				module.InWorldChannel = true
 				module.WorldChannelID = id
-				wcButton.Icon:SetVertexColor(0, .8, 1)
+				wcButton.Icon:SetVertexColor(0, 1, 1)
 			end
 		end
 

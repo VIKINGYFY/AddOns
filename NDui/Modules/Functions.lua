@@ -15,9 +15,7 @@ do
 		local itemType
 		if DB.EquipmentIDs[itemClassID] then
 			itemType = DB.EquipmentTypes[itemEquipLoc] or _G[itemEquipLoc]
-		end
-
-		if C_ArtifactUI.GetRelicInfoByItemID(itemID) then
+		elseif C_ArtifactUI.GetRelicInfoByItemID(itemID) then
 			itemType = RELICSLOT
 		end
 
@@ -73,6 +71,8 @@ do
 			itemType = "研究"
 		elseif DB.Experience[spellID] then
 			itemType = "经验"
+		elseif DB.Studying[spellID] then
+			itemType = "知识"
 		end
 
 		--itemType = itemClassID.." "..itemSubClassID

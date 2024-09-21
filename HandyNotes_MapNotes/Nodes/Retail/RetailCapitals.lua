@@ -3075,7 +3075,7 @@ if not db.activate.HideMapNote then
     
                 if self.db.profile.showCapitalsAuctioneer then
                     nodes[2339][56864704] = { dnID = BUTTON_LAG_AUCTIONHOUSE, name = "", type = "Auctioneer", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[2339][64445211] = { dnID = BLACK_MARKET_AUCTION_HOUSE, name = "", type = "BlackMarket", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[2339][64975294] = { dnID = BLACK_MARKET_AUCTION_HOUSE, name = "", type = "BlackMarket", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
 
                 if self.db.profile.showCapitalsBank then
@@ -3164,6 +3164,8 @@ if not db.activate.HideMapNote then
                     nodes[2266][70537306] = { mnID = 895, name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. L["Tiragarde Sound"] } --  Timeways Portal to Tiragarde Sound
                     nodes[2266][60506950] = { mnID = 241, name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. L["Twilight Highlands"] } --  Timeways Portal to Twilight Highlands
                     nodes[2339][53563873] = { mnID = 2266, name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["The Timeways"] .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. L["Ardenweald"] .. "\n" .. " ==> " .. L["Bastion"] .. "\n" .. " ==> " .. L["Tiragarde Sound"] .. "\n" .. " ==> " .. L["Twilight Highlands"] } --  Portal from Dornogal to the Timeways
+
+                    nodes[2339][63615205] = { mnID = 2255, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://www.wowhead.com/achievement=19559/azj-kahet#news", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Dornogal to Azj-Kahet if u finished the achievement=19559
 
                     if self.faction == "Horde" or db.activate.CapitalsEnemyFaction then
                         nodes[2339][38192724] = { mnID = 85, name = L["Portal"], type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dornogal to Orgrimmar

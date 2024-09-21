@@ -23,6 +23,8 @@ ns.BlizzAreaPoisInfo = {
     7960, -- Portal to Dalaran from Dragonblight - TWW Pre Event
     7961, -- Portal to Dalaran from Searing Gorge - TWW Pre Event
 
+    8001, -- Portal from Dornogal to Azj-Kahet
+    8002, -- Portal from Azj-Kahet to Dornogal
     8171, -- Timeways Portal in Dornogal
 
     -- City Alliance

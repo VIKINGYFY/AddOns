@@ -60,23 +60,13 @@ function M:IsFrameOnTop(frame)
 end
 
 function M:GetRaidMaxGroup()
-	local _, instType, difficulty = GetInstanceInfo()
-	if (instType == "party" or instType == "scenario") and not IsInRaid() then
-		return 1
-	elseif instType ~= "raid" then
+	local instanceName, instanceType, difficultyID, difficultyName, maxPlayers = GetInstanceInfo()
+	if instanceType == "none" and IsInRaid() then
 		return 8
-	elseif difficulty == 8 or difficulty == 1 or difficulty == 2 or difficulty == 24 then
+	elseif instanceType == "none" then
 		return 1
-	elseif difficulty == 14 or difficulty == 15 then
-		return 6
-	elseif difficulty == 16 then
-		return 4
-	elseif difficulty == 3 or difficulty == 5 then
-		return 2
-	elseif difficulty == 9 then
-		return 8
 	else
-		return 5
+		return maxPlayers / 5
 	end
 end
 
@@ -331,7 +321,7 @@ function M:RaidTool_BuffChecker(parent)
 	frame:HookScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT")
 		GameTooltip:ClearLines()
-		GameTooltip:AddLine(L["Raid Tool"], 0,.8,1)
+		GameTooltip:AddLine(L["Raid Tool"], 0,1,1)
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddDoubleLine(DB.LeftButton..DB.InfoColor..L["Check Status"])
 		if potionCheck then
@@ -366,7 +356,7 @@ function M:RaidTool_CountDown(parent)
 	frame:HookScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT")
 		GameTooltip:ClearLines()
-		GameTooltip:AddLine(L["Raid Tool"], 0,.8,1)
+		GameTooltip:AddLine(L["Raid Tool"], 0,1,1)
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddDoubleLine(DB.LeftButton..DB.InfoColor..READY_CHECK)
 		GameTooltip:AddDoubleLine(DB.RightButton..DB.InfoColor..L["Count Down"])

@@ -638,7 +638,7 @@ function UF:OnLogin()
 				local parent = _G[header:GetName().."UnitButton1"]
 				if parent and not parent.teamIndex then
 					local teamIndex = B.CreateFS(parent, 14, header.index)
-					teamIndex:SetTextColor(.6, .8, 1)
+					teamIndex:SetTextColor(0, 1, 1)
 					teamIndex.__owner = parent
 					UpdateTeamIndex(teamIndex, showIndex, direc)
 					teamIndexes[header.index] = teamIndex

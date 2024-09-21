@@ -84,13 +84,13 @@ function M:OrderHall_OnEnter()
 		if category then
 			GameTooltip:AddDoubleLine(getIconString(category.icon)..category.name, category.count.." / "..category.limit, 1,1,1, 1,1,1)
 			if IsShiftKeyDown() then
-				GameTooltip:AddLine(category.description, 0,.8,1, 1)
+				GameTooltip:AddLine(category.description, 0,1,1, 1)
 			end
 		end
 	end
 
 	GameTooltip:AddDoubleLine(" ", DB.LineString)
-	GameTooltip:AddDoubleLine(" ", L["Details by Shift"], 1,1,1, 0,.8,1)
+	GameTooltip:AddDoubleLine(" ", L["Details by Shift"], 1,1,1, 0,1,1)
 	GameTooltip:Show()
 
 	B:RegisterEvent("MODIFIER_STATE_CHANGED", M.OrderHall_OnShiftDown)

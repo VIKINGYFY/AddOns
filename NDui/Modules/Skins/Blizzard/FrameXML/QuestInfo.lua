@@ -251,7 +251,7 @@ table.insert(C.defaultThemes, function()
 		if text and text ~= "" then
 			local colorStr, rawText = string.match(text, "|c[fF][fF](%x%x%x%x%x%x)(.-)|r")
 			if colorStr and rawText then
-				colorStr = replacedSealColor[colorStr] or "99ccff"
+				colorStr = replacedSealColor[colorStr] or "00FFFF"
 				self:SetFormattedText("|cff%s%s|r", colorStr, rawText)
 			end
 		end

@@ -393,7 +393,7 @@ function G:SetupClickCast(parent)
 		end)
 
 		local key1 = B.CreateFS(bar, 14, keyToLocale[key], false, "LEFT", 30, 0)
-		key1:SetTextColor(.6, .8, 1)
+		key1:SetTextColor(0, 1, 1)
 		if modKey then
 			local key2 = B.CreateFS(bar, 14, modKey, false, "RIGHT", -25, 0)
 			key2:SetTextColor(0, 1, 0)
@@ -1151,7 +1151,7 @@ function G:SetupRaidFrame(parent)
 	local scroll = G:CreateScroll(panel, 260, 540)
 	local UF = B:GetModule("UnitFrames")
 
-	local defaultValue = {80, 32, 2, 6, 1}
+	local defaultValue = {80, 32, 2, 8, 1}
 	local options = {}
 	for i = 1, 8 do
 		options[i] = UF.RaidDirections[i].name
@@ -1923,7 +1923,7 @@ function G:SetupActionbarStyle(parent)
 		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT")
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(self.title)
-		GameTooltip:AddLine(self.tip, 0,.8,1,1)
+		GameTooltip:AddLine(self.tip, 0,1,1,1)
 		GameTooltip:Show()
 	end
 

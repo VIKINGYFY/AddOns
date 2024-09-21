@@ -636,7 +636,7 @@ do
 			if self.bg then
 				self.bg:SetBackdropColor(cr, cg, cb, .25)
 			else
-				self.__texture:SetVertexColor(0, .8, 1)
+				self.__texture:SetVertexColor(0, 1, 1)
 			end
 		end
 	end

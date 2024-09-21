@@ -552,7 +552,7 @@ function UF:CreateRestingIndicator(self)
 		textFrame:SetAllPoints()
 		textFrame:SetFrameLevel(i+5)
 		local text = B.CreateFS(textFrame, (7+i*3), "z", nil, "CENTER", offsets[i][1], offsets[i][2])
-		text:SetTextColor(.6, .8, 1)
+		text:SetTextColor(0, 1, 1)
 		frame.str[i] = text
 	end
 

@@ -21,8 +21,8 @@ function EX:OnLogin()
 	self:AutoHideName()
 	self:CastAlert()
 	self:InstanceAutoMarke()
-	self:InstanceDifficulty()
-	self:InstanceReset()
+	--self:InstanceDifficulty()
+	--self:InstanceReset()
 	self:MDEnhance()
 end
 

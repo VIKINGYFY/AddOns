@@ -439,7 +439,7 @@ do
 			elseif self.color == "system" then
 				r, g, b = 1, .8, 0
 			elseif self.color == "info" then
-				r, g, b = 0, .8, 1
+				r, g, b = 0, 1, 1
 			end
 			GameTooltip:AddLine(self.text, r, g, b, 1)
 		end

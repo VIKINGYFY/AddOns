@@ -324,7 +324,7 @@ table.insert(C.defaultThemes, function()
 				frame.bg:SetInside(frame, 12, 12)
 
 				B.ReskinIcon(frame.Icon)
-				frame.Title:SetTextColor(0, .8, 1)
+				frame.Title:SetTextColor(0, 1, 1)
 				frame.Background:Hide()
 			end
 		end,

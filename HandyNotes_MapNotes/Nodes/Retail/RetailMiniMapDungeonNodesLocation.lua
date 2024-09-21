@@ -757,7 +757,7 @@ if not db.activate.HideMapNote then
               minimap[2213][56576350] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2299, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Underkeep
               minimap[2216][67272122] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2259, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tak-Rethan-Abyss
               -- Hallowfall
-              minimap[2215][71283115] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2312, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Mycomancer Cavern
+              minimap[2215][70643095] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2312, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Mycomancer Cavern
               minimap[2215][66716170] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2310, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Skittering Breach
               minimap[2215][50715050] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2301, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Sinkhole
               minimap[2215][35324593] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2277, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Nightfall Sanctum

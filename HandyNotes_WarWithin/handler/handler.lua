@@ -1363,7 +1363,7 @@ do
 
             if point.achievement then
                 -- Waypoint menu item
-                info.text = render_string("Hide all {achievement:" .. point.achievement .. "} in all zones")
+                info.text = render_string("Hide {achievement:" .. point.achievement .. "}", point)
                 info.notCheckable = 1
                 info.func = hideAchievement
                 info.arg1 = point.achievement
@@ -1373,8 +1373,7 @@ do
 
             if point.group then
                 if not ns.hiddenConfig.groupsHiddenByZone then
-                    local map = C_Map.GetMapInfo(currentZone)
-                    info.text = "Hide all " .. render_string(ns.groups[point.group] or point.group, point) .. " in " .. (map and map.name or "this zone")
+                    info.text = render_string(("Hide %s only in {zone:%s}"):format(ns.groups[point.group] or point.group, currentZone), point)
                     info.notCheckable = 1
                     info.func = hideGroupZone
                     info.arg1 = currentZone
@@ -1383,7 +1382,7 @@ do
                     wipe(info)
                 end
                 if not ns.hiddenConfig.groupsHidden then
-                    info.text = "Hide all " .. render_string(ns.groups[point.group] or point.group, point) .. " in all zones"
+                    info.text = render_string(("Hide %s in all zones"):format(ns.groups[point.group] or point.group), point)
                     info.notCheckable = 1
                     info.func = hideGroup
                     info.arg1 = currentZone
@@ -1394,7 +1393,7 @@ do
             end
 
             -- Close menu item
-            info.text         = "Close"
+            info.text         = CLOSE
             info.func         = closeAllDropdowns
             info.notCheckable = 1
             LibDD:UIDropDownMenu_AddButton(info, level)
@@ -1523,6 +1522,8 @@ function HL:OnInitialize()
     if ns.DecorationWorldMapDataProvider then
         WorldMapFrame:AddDataProvider(ns.DecorationWorldMapDataProvider)
     end
+
+    self:FillCaches()
 end
 
 do
@@ -1553,6 +1554,35 @@ do
             ns.DecorationWorldMapDataProvider:RefreshAllData()
         end
     end
+end
+
+function HL:FillCaches()
+    local CacheWalker = coroutine.wrap(function()
+        local count = 0
+        for uiMapID, coords in pairs(ns.points) do
+            for coord, point in pairs(coords) do
+                if point.loot then
+                    for _, item in pairs(point.loot) do
+                        item:Cache()
+                    end
+                    count = count + 1
+                end
+                if count % 10 == 0 then
+                    coroutine.yield(count, false)
+                end
+            end
+        end
+        coroutine.yield(count, true)
+    end)
+    if ns.DEBUG then print(("%s: starting caching"):format(myname)) end
+    local ticker
+    ticker = C_Timer.NewTicker(0.1, function()
+        local count, finished = CacheWalker()
+        if finished then
+            ticker:Cancel()
+            if ns.DEBUG then print(("%s: done caching %d points"):format(myname, count)) end
+        end
+    end)
 end
 
 hooksecurefunc(AreaPOIPinMixin, "TryShowTooltip", function(self)

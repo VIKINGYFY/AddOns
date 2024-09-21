@@ -156,7 +156,7 @@ function M:KeystoneInfo_WeeklyRuns()
 		local isShiftKeyDown = IsShiftKeyDown()
 
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddDoubleLine(isShiftKeyDown and CHALLENGE_MODE_THIS_WEEK or format(WEEKLY_REWARDS_MYTHIC_TOP_RUNS, WeeklyRunsThreshold), "("..numRuns..")", 0,.8,1)
+		GameTooltip:AddDoubleLine(isShiftKeyDown and CHALLENGE_MODE_THIS_WEEK or format(WEEKLY_REWARDS_MYTHIC_TOP_RUNS, WeeklyRunsThreshold), "("..numRuns..")", 0,1,1)
 		table.sort(runHistory, sortHistory)
 
 		for i = 1, isShiftKeyDown and numRuns or WeeklyRunsThreshold do
@@ -169,7 +169,7 @@ function M:KeystoneInfo_WeeklyRuns()
 			GameTooltip:AddDoubleLine(name, "Lv."..runInfo.level, 1,1,1, r,g,b)
 		end
 		if not isShiftKeyDown then
-			GameTooltip:AddLine(L["Hold Shift"], 0,.8,1)
+			GameTooltip:AddLine(L["Hold Shift"], 0,1,1)
 		end
 		GameTooltip:Show()
 	end
@@ -196,7 +196,7 @@ function M:KeystoneInfo_Create()
 			GameTooltip:AddDoubleLine(format(color.."%s:|r", name), format("%s%s(%s)|r", factionColor, dungeon, level))
 		end
 		GameTooltip:AddDoubleLine(" ", DB.LineString)
-		GameTooltip:AddDoubleLine(" ", DB.ScrollButton..L["Reset Gold"].." ", 1,1,1, 0,.8,1)
+		GameTooltip:AddDoubleLine(" ", DB.ScrollButton..L["Reset Gold"].." ", 1,1,1, 0,1,1)
 		GameTooltip:Show()
 	end)
 	button:SetScript("OnLeave", B.HideTooltip)

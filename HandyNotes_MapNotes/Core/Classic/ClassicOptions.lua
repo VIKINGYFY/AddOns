@@ -234,7 +234,7 @@ ns.options = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
           type = "toggle",
           name = TextIconKilledBosses:GetIconString() .. " " .. L["extra information"],
-          desc = L["Displays additional information for dungeons or raids. E.g. the number of bosses already killed"],
+          desc = L["Displays additional information for dungeons or raid icons. E.g. the number of bosses already killed"],
           order = 3.3,
           set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
             if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.assignedID then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["extra information"], "|cff00ff00" .. L["is activated"]) else 

@@ -164,7 +164,7 @@ C.themes["Blizzard_AuctionHouseUI"] = function()
 
 	hooksecurefunc("AuctionHouseFilterButton_SetUp", function(button)
 		button.NormalTexture:SetAlpha(0)
-		button.SelectedTexture:SetColorTexture(0, .8, 1, .3)
+		button.SelectedTexture:SetColorTexture(0, 1, 1, .3)
 		button.HighlightTexture:SetColorTexture(1, 1, 1, .1)
 	end)
 

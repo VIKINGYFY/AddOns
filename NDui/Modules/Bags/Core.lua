@@ -557,7 +557,7 @@ function module:CreateFreeSlots()
 
 	local tag = self:SpawnPlugin("TagDisplay", "[space]", slot)
 	B.SetFontSize(tag, C.db["Bags"]["FontSize"] + 2)
-	tag:SetTextColor(.6, .8, 1)
+	tag:SetTextColor(0, 1, 1)
 	tag:SetPoint("CENTER", 1, 0)
 	tag.__name = name
 	slot.tag = tag

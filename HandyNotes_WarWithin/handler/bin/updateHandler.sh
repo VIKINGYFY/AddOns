@@ -44,7 +44,7 @@ then
 	TARGET="$1"
 	TARGETDESC="$1"
 else
-	TARGET=origin/main
+	TARGET=main
 	TARGETDESC="main ($(git rev-parse --short origin/main))"
 fi
 

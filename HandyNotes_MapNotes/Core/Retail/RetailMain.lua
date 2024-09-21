@@ -22,7 +22,7 @@ local minimap = { }
 local lfgIDs = { }
 local extraInformations = { }
 
-ns.RestoreStaticPopUps()
+ns.RestoreStaticPopUpsRetail()
 
 function MapNotesMiniButton:OnInitialize() --mmb.lua
   self.db = LibStub("AceDB-3.0"):New("MNMiniMapButtonRetailDB", { profile = { minimap = { hide = false, }, }, }) 
@@ -185,7 +185,10 @@ ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
     end
 
     if nodeData.www and nodeData.showWWW == true then
-      tooltip:AddDoubleLine(nodeData.www, nil, nil, false)
+      tooltip:AddDoubleLine("|cffffffff" .. nodeData.www, nil, nil, false)
+      if ns.Addon.db.profile.ExtraTooltip then
+        tooltip:AddDoubleLine("|cff00ff00".. "< " .. L["Middle mouse button to post the link in the chat"] .. " >" .. "\n" .. "< " .. L["Use the addon 'Prat', 'Chat Copy Paste' for example to then copy this link from the chat"] .. " >", nil, nil, false)
+      end
     end
 
     -- Dungeons ,Raids and Multi
@@ -1195,14 +1198,29 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
     for pin in WorldMapFrame:EnumeratePinsByTemplate("AreaPOIPinTemplate") do
       
       for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
-
-        local poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
-        if (poi ~= nil and poi.areaPoiID == poiID) then
+        
+        ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)        
+        if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
             WorldMapFrame:RemovePin(pin)
         end
       end
     end
   end
+
+  hooksecurefunc(AreaPOIPinMixin, 'OnMouseEnter', function()
+    if (not ns.Addon.db.profile.activate.RemoveBlizzPOIs or ns.Addon.db.profile.activate.HideMapNote) then return end
+
+    for pin in WorldMapFrame:EnumeratePinsByTemplate("AreaPOIPinTemplate") do
+      
+      for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
+        
+        ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)        
+        if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
+          ns.RemoveBlizzPOIs()
+        end
+      end
+    end
+  end)
 
   hooksecurefunc(WorldMapFrame,"OnMapChanged", function()
     ns.RemoveBlizzPOIs()
@@ -1211,7 +1229,7 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
   WorldMapFrame:HookScript("OnShow", function()
     ns.RemoveBlizzPOIs()
   end)
-
+  
   hooksecurefunc(DelveEntrancePinMixin, 'OnMouseEnter', function(self)
     if (self.description == _G['DELVE_LABEL']) then
       if not ns.Addon.db.profile.activate.ShiftWorld then 

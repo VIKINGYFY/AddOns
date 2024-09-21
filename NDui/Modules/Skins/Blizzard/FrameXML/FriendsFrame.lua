@@ -103,7 +103,7 @@ table.insert(C.defaultThemes, function()
 	local bg = B.CreateBDFrame(FriendsFrameBattlenetFrame, .25)
 	bg:SetPoint("TOPLEFT", 0, -2)
 	bg:SetPoint("BOTTOMRIGHT", -2, 2)
-	bg:SetBackdropColor(0, .8, 1, .25)
+	bg:SetBackdropColor(0, 1, 1, .25)
 
 	local broadcastButton = FriendsFrameBattlenetFrame.BroadcastButton
 	broadcastButton:SetSize(20, 20)

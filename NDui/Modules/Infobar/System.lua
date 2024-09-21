@@ -7,8 +7,6 @@ local info = module:RegisterInfobar("Fps", C.Infobar.SystemPos)
 
 local showMoreString = "%d %s (%s)"
 local usageString = "%.3f ms"
-local enableString = "|cff55FF55"..VIDEO_OPTIONS_ENABLED
-local disableString = "|cffFF5555"..VIDEO_OPTIONS_DISABLED
 local scriptProfileStatus = GetCVarBool("scriptProfile")
 local entered
 
@@ -117,7 +115,7 @@ info.onEnter = function(self)
 
 	if self.showMemory or not scriptProfileStatus then
 		local totalMemory = UpdateMemory()
-		GameTooltip:AddDoubleLine(L["System"], formatMemory(totalMemory), 0,.8,1, 0,.8,1)
+		GameTooltip:AddDoubleLine(L["System"], formatMemory(totalMemory), 0,1,1, 0,1,1)
 		GameTooltip:AddLine(" ")
 
 		local numEnabled = 0
@@ -136,12 +134,12 @@ info.onEnter = function(self)
 			for i = (maxAddOns + 1), numEnabled do
 				hiddenMemory = hiddenMemory + infoTable[i][3]
 			end
-			GameTooltip:AddDoubleLine(format(showMoreString, numEnabled - maxAddOns, L["Hidden"], L["Hold Shift"]), formatMemory(hiddenMemory), 0,.8,1, 0,.8,1)
+			GameTooltip:AddDoubleLine(format(showMoreString, numEnabled - maxAddOns, L["Hidden"], L["Hold Shift"]), formatMemory(hiddenMemory), 0,1,1, 0,1,1)
 		end
 	else
 		local totalCPU = UpdateCPU()
 		local passedTime = math.max(1, GetTime() - module.loginTime)
-		GameTooltip:AddDoubleLine(L["System"], format(usageString, totalCPU / passedTime, 0,.8,1, 0,.8,1))
+		GameTooltip:AddDoubleLine(L["System"], format(usageString, totalCPU / passedTime, 0,1,1, 0,1,1))
 		GameTooltip:AddLine(" ")
 
 		local numEnabled = 0
@@ -160,16 +158,16 @@ info.onEnter = function(self)
 			for i = (maxAddOns + 1), numEnabled do
 				hiddenUsage = hiddenUsage + infoTable[i][4]
 			end
-			GameTooltip:AddDoubleLine(format(showMoreString, numEnabled - maxAddOns, L["Hidden"], L["Hold Shift"]), format(usageString, hiddenUsage / passedTime), 0,.8,1, 0,.8,1)
+			GameTooltip:AddDoubleLine(format(showMoreString, numEnabled - maxAddOns, L["Hidden"], L["Hold Shift"]), format(usageString, hiddenUsage / passedTime), 0,1,1, 0,1,1)
 		end
 	end
 
 	GameTooltip:AddDoubleLine(" ", DB.LineString)
-	GameTooltip:AddDoubleLine(" ", DB.LeftButton..L["Collect Memory"].." ", 1,1,1, 0,.8,1)
+	GameTooltip:AddDoubleLine(" ", DB.LeftButton..L["Collect Memory"].." ", 1,1,1, 0,1,1)
 	if scriptProfileStatus then
-		GameTooltip:AddDoubleLine(" ", DB.RightButton..L["SwitchSystemInfo"].." ", 1,1,1, 0,.8,1)
+		GameTooltip:AddDoubleLine(" ", DB.RightButton..L["SwitchSystemInfo"].." ", 1,1,1, 0,1,1)
 	end
-	GameTooltip:AddDoubleLine(" ", DB.ScrollButton..L["CPU Usage"]..": "..(GetCVarBool("scriptProfile") and enableString or disableString).." ", 1,1,1, 0,.8,1)
+	GameTooltip:AddDoubleLine(" ", DB.ScrollButton..L["CPU Usage"]..": "..(GetCVarBool("scriptProfile") and DB.EnableString or DB.DisableString).." ", 1,1,1, 0,1,1)
 	GameTooltip:Show()
 end
 

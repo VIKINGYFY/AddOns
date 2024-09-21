@@ -752,8 +752,8 @@ function G:CreateDataFrame()
 		GameTooltip:ClearLines()
 		if dataFrame.version then
 			GameTooltip:AddLine(L["Data Info"])
-			GameTooltip:AddDoubleLine(L["Version"], dataFrame.version, 0,.8,1, 1,1,1)
-			GameTooltip:AddDoubleLine(L["Character"], dataFrame.name, 0,.8,1, B.ClassColor(dataFrame.class))
+			GameTooltip:AddDoubleLine(L["Version"], dataFrame.version, 0,1,1, 1,1,1)
+			GameTooltip:AddDoubleLine(L["Character"], dataFrame.name, 0,1,1, B.ClassColor(dataFrame.class))
 		else
 			GameTooltip:AddLine(L["Data Exception"], 1,0,0)
 		end

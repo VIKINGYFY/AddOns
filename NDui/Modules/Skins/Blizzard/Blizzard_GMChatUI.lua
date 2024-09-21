@@ -36,7 +36,7 @@ C.themes["Blizzard_GMChatUI"] = function()
 	local tab = _G["GMChatTab"]
 	B.StripTextures(tab)
 	local bg = B.SetBD(tab)
-	bg:SetBackdropColor(0, .8, 1, .3)
+	bg:SetBackdropColor(0, 1, 1, .3)
 	tab:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, 3)
 	tab:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, 28)
 	GMChatTabIcon:SetTexture("Interface\\ChatFrame\\UI-ChatIcon-Blizz")

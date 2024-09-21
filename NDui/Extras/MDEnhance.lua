@@ -15,6 +15,9 @@ local TeleportList = {
 	[245] = 410071, -- 自由镇
 	[248] = 424167, -- 维克雷斯庄园
 	[251] = 410074, -- 地渊孢林
+	[353] = 445418, -- 围攻伯拉勒斯
+	[375] = 354464, -- 塞兹仙林的迷雾
+	[376] = 354462, -- 通灵战潮
 	[399] = 393256, -- 红玉新生法池
 	[400] = 393262, -- 诺库德阻击战
 	[401] = 393279, -- 碧蓝魔馆
@@ -27,6 +30,11 @@ local TeleportList = {
 	[456] = 424142, -- 潮汐王座
 	[463] = 424197, -- 永恒黎明：迦拉克隆的陨落
 	[464] = 424197, -- 永恒黎明：姆诺兹多的崛起
+	[501] = 445269, -- 矶石宝库
+	[502] = 445416, -- 千丝之城
+	[503] = 445417, -- 艾拉-卡拉，回响之城
+	[505] = 445414, -- 破晨号
+	[507] = 445424, -- 格瑞姆巴托
 }
 
 function EX:MDEnhance_TButtonOnEnter(parent, spellID)
@@ -76,7 +84,7 @@ function EX:MDEnhance_UpdateScoreInfo(parent)
 	local affixScores, bestScore = C_MythicPlus.GetSeasonBestAffixScoreInfoForMap(parent.mapID)
 	if not affixScores or not bestScore then return end
 
-	parent.BScore:SetText(bestScore or "")
+	parent.BScore:SetText(bestScore and bestScore or "")
 	parent.BScore:SetTextColor(0, 1, 0)
 
 	parent.FScore:SetText(affixScores[1] and affixScores[1].score or "")

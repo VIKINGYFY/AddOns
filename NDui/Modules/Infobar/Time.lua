@@ -215,7 +215,7 @@ local title
 local function addTitle(text)
 	if not title then
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddLine(text..":", 0,.8,1)
+		GameTooltip:AddLine(text..":", 0,1,1)
 		title = true
 	end
 end
@@ -260,10 +260,10 @@ info.onEnter = function(self)
 	GameTooltip:ClearLines()
 	local today = C_DateAndTime.GetCurrentCalendarTime()
 	local w, m, d, y = today.weekday, today.month, today.monthDay, today.year
-	GameTooltip:AddLine(format(FULLDATE, CALENDAR_WEEKDAY_NAMES[w], CALENDAR_FULLDATE_MONTH_NAMES[m], d, y), 0,.8,1)
+	GameTooltip:AddLine(format(FULLDATE, CALENDAR_WEEKDAY_NAMES[w], CALENDAR_FULLDATE_MONTH_NAMES[m], d, y), 0,1,1)
 	GameTooltip:AddLine(" ")
-	GameTooltip:AddDoubleLine(L["Local Time"], GameTime_GetLocalTime(true), 0,.8,1 ,1,1,1)
-	GameTooltip:AddDoubleLine(L["Realm Time"], GameTime_GetGameTime(true), 0,.8,1 ,1,1,1)
+	GameTooltip:AddDoubleLine(L["Local Time"], GameTime_GetLocalTime(true), 0,1,1 ,1,1,1)
+	GameTooltip:AddDoubleLine(L["Realm Time"], GameTime_GetGameTime(true), 0,1,1 ,1,1,1)
 
 	-- World bosses
 	title = false
@@ -388,14 +388,14 @@ info.onEnter = function(self)
 		end
 	else
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddLine(L["Hold Shift"], 0,.8,1)
+		GameTooltip:AddLine(L["Hold Shift"], 0,1,1)
 	end
 
 	-- Help Info
 	GameTooltip:AddDoubleLine(" ", DB.LineString)
-	GameTooltip:AddDoubleLine(" ", DB.LeftButton..L["Toggle Calendar"].." ", 1,1,1, 0,.8,1)
-	GameTooltip:AddDoubleLine(" ", DB.ScrollButton..RATED_PVP_WEEKLY_VAULT.." ", 1,1,1, 0,.8,1)
-	GameTooltip:AddDoubleLine(" ", DB.RightButton..L["Toggle Clock"].." ", 1,1,1, 0,.8,1)
+	GameTooltip:AddDoubleLine(" ", DB.LeftButton..L["Toggle Calendar"].." ", 1,1,1, 0,1,1)
+	GameTooltip:AddDoubleLine(" ", DB.ScrollButton..RATED_PVP_WEEKLY_VAULT.." ", 1,1,1, 0,1,1)
+	GameTooltip:AddDoubleLine(" ", DB.RightButton..L["Toggle Clock"].." ", 1,1,1, 0,1,1)
 	GameTooltip:Show()
 
 	B:RegisterEvent("MODIFIER_STATE_CHANGED", info.onShiftDown)

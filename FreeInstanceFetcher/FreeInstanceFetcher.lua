@@ -544,13 +544,14 @@ do
         for index, data in ipairs(skinList) do
             rootDescription:CreateRadio(data.name, isSkinSelected, setSkinSelected, index)
         end
-
+--[[
         rootDescription:CreateDivider()
         rootDescription:CreateTitle("设置")
 
         rootDescription:CreateCheckButton("启用提示语音", isOptionEnabled, toggleOption, 'EnableSound')
         rootDescription:CreateCheckButton("显示小地图图标", isOptionEnabled, toggleOption, 'ShowMinimap')
         rootDescription:CreateCheckButton("快速申请", isOptionEnabled, toggleOption, 'QuickAccess')
+]]
     end
 
     function F:ShowConfigMenu(parent)

@@ -248,7 +248,7 @@ function module:RecycleBin()
 	}
 
 	local function updateRecycleTip(bu)
-		bu.text = DB.RightButton..L["AutoHide"]..": "..(NDuiADB["AutoRecycle"] and "|cff55FF55"..VIDEO_OPTIONS_ENABLED or "|cffFF5555"..VIDEO_OPTIONS_DISABLED)
+		bu.text = DB.RightButton..L["AutoHide"]..": "..(NDuiADB["AutoRecycle"] and DB.EnableString or DB.DisableString)
 	end
 
 	local bu = CreateFrame("Button", "RecycleBinToggleButton", Minimap)

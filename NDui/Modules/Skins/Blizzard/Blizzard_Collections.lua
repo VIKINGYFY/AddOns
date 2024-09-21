@@ -437,7 +437,7 @@ C.themes["Blizzard_Collections"] = function()
 
 		if button.iconTexture:IsShown() then
 			button.name:SetTextColor(1, 1, 1)
-			button.bg:SetBackdropBorderColor(0, .8, 1)
+			button.bg:SetBackdropBorderColor(0, 1, 1)
 			button.newLevelBg:Show()
 		else
 			button.name:SetTextColor(.5, .5, .5)
@@ -461,12 +461,12 @@ C.themes["Blizzard_Collections"] = function()
 			local button = HeirloomsJournal.heirloomEntryFrames[i]
 
 			if button.iconTexture:IsShown() then
-				button.name:SetTextColor(1, 1, 1)
+				button.name:SetTextColor(0, .8, 1)
 				if button.bg then button.bg:SetBackdropBorderColor(0, .8, 1) end
 				if button.newLevelBg then button.newLevelBg:Show() end
 			else
-				button.name:SetTextColor(.5, .5, .5)
-				if button.bg then button.bg:SetBackdropBorderColor(0, 0, 0) end
+				button.name:SetTextColor(0, .4, .5)
+				if button.bg then button.bg:SetBackdropBorderColor(0, .4, .5) end
 				if button.newLevelBg then button.newLevelBg:Hide() end
 			end
 		end

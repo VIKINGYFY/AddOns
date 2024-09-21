@@ -112,9 +112,9 @@ info.onMouseUp = function(self, btn)
 end
 
 local repairlist = {
-	[0] = "|cffFF5555"..VIDEO_OPTIONS_DISABLED,
-	[1] = "|cff55FF55"..VIDEO_OPTIONS_ENABLED,
-	[2] = "|cffFFFF55"..L["NFG"]
+	[0] = DB.DisableString,
+	[1] = DB.EnableString,
+	[2] = "|cffFFFF00"..L["NFG"].."|r"
 }
 
 info.onEnter = function(self)
@@ -122,7 +122,7 @@ info.onEnter = function(self)
 	local _, anchor, offset = module:GetTooltipAnchor(info)
 	GameTooltip:SetOwner(self, "ANCHOR_"..anchor, 0, offset)
 	GameTooltip:ClearLines()
-	GameTooltip:AddDoubleLine(DURABILITY, format("%s: %.1f / %.1f", STAT_AVERAGE_ITEM_LEVEL, equipped, total), 0,.8,1, 0,.8,1)
+	GameTooltip:AddDoubleLine(DURABILITY, format("%s: %.1f / %.1f", STAT_AVERAGE_ITEM_LEVEL, equipped, total), 0,1,1, 0,1,1)
 	GameTooltip:AddLine(" ")
 
 	local totalCost = 0
@@ -141,12 +141,12 @@ info.onEnter = function(self)
 
 	if totalCost > 0 then
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddDoubleLine(repairCostString, module:GetMoneyString(totalCost), 0,.8,1, 1,1,1)
+		GameTooltip:AddDoubleLine(repairCostString, module:GetMoneyString(totalCost), 0,1,1, 1,1,1)
 	end
 
 	GameTooltip:AddDoubleLine(" ", DB.LineString)
-	GameTooltip:AddDoubleLine(" ", DB.LeftButton..L["Player Panel"].." ", 1,1,1, 0,.8,1)
-	GameTooltip:AddDoubleLine(" ", DB.ScrollButton..L["Auto Repair"]..": "..repairlist[NDuiADB["RepairType"]].." ", 1,1,1, 0,.8,1)
+	GameTooltip:AddDoubleLine(" ", DB.LeftButton..L["Player Panel"].." ", 1,1,1, 0,1,1)
+	GameTooltip:AddDoubleLine(" ", DB.ScrollButton..L["Auto Repair"]..": "..repairlist[NDuiADB["RepairType"]].." ", 1,1,1, 0,1,1)
 	GameTooltip:Show()
 end
 
