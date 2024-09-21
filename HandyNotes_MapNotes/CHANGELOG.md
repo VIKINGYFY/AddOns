@@ -1,13 +1,13 @@
 # MapNote
-## [2.3.7](https://github.com/Ssesmar/MapNote) (2024-09-19)
+## [2.3.8](https://github.com/Ssesmar/MapNote) (2024-09-20)
 - Note:
 
 -- MapNotes now works on every version of World of Warcraft. Classic Era / Cataclysm / Retail / PTR
 
 Retail:
 
-update POIS function
-add Dornogal to Azj-Kahet and Azj-Kahet to Dornogal portal icon with description
+add path icons (CaveDown and CaveUp) on Khaz Algor continent map
+add Chamber of memory portal icon within Dornogal
 
 - Description:
 

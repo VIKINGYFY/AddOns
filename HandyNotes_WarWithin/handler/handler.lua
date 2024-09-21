@@ -291,6 +291,7 @@ function ns.RegisterVignettes(zone, vignettes, defaults)
         point.vignette = vignetteID
         point.always = true
         point.label = false
+        point.loot = upgradeloot(point.loot)
 
         point = defaults and defaults(point) or point
 
@@ -752,7 +753,7 @@ local function work_out_texture(point)
             npc_texture = atlas_texture("DungeonSkull", 1)
         end
         if ns.db.show_npcs_emphasizeNotable and ns.PointIsNotable(point, true) then
-            if point.loot and ns.hasNotableLoot(point.loot, true) then
+            if (not point.loot) or ns.hasNotableLoot(point.loot, true) then
                 -- still notable without transmog
                 return notable_npc_texture
             end

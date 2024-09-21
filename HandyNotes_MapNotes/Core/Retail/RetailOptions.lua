@@ -4261,26 +4261,37 @@ ns.options = {
                 if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showContinentLFR then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], PLAYER_DIFFICULTY3, "|cff00ff00" .. L["is activated"]) else 
                 if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showContinentLFR then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], PLAYER_DIFFICULTY3, "|cffff0000" ..  L["is deactivated"]) end end end,
           },
-        showContinentDelves = {
-          disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.Continent end,
-          type = "toggle",
-          name = TextIconDelves:GetIconString() .. " " .. DELVES_LABEL,
-          desc = EXPANSION_NAME10,
-          order = 33.1,
-          set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
-                if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showContinentDelves then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], DELVES_LABEL, "|cff00ff00" .. L["is activated"]) else 
-                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showContinentDelves then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], DELVES_LABEL, "|cffff0000" ..  L["is deactivated"]) end end end,
-          },
         showContinentPvPandPvEVendor = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.Continent end,
           type = "toggle",
           name = TextIconPvPVendor:GetIconString() .. " " .. TextIconPvEVendor:GetIconString() .. " " .. TRANSMOG_SET_PVP .. " & " .. TRANSMOG_SET_PVE,
           desc = TRANSMOG_SET_PVP .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. " / " .. AUCTION_CREATOR .. " / " .. MERCHANT .."\n" .. "\n" .. FACTION_NEUTRAL .. "\n" .. " " .. POSTMASTER_LETTER_TANARIS .. "\n" .. " " ..  POSTMASTER_LETTER_AREA52 .. "\n" .. " " ..  DUNGEON_FLOOR_DALARAN1 .. "\n" .. " " ..  L["Oribos"] .. "\n" .. "\n" .. FACTION_HORDE .. "\n" .. " " .. L["Kun-Lai Summit"] .. "\n" .. " " .. ORGRIMMAR .. "\n" .. " " .. L["Warspear"] .. "\n" .. " " .. L["Zuldazar"] .. "\n" .. "\n" .. FACTION_ALLIANCE .. "\n" .. " " .. L["Stormwind"] .. "\n" .. " " .. L["Valley of the Four Winds"] .. "\n" .. " " .. L["Stormshield"] .. "\n" .. " " .. L["Boralus, Tiragarde Sound"] .."\n" .. "\n" .. TRANSMOG_SET_PVE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. " / " .. AUCTION_CREATOR .. " / " .. MERCHANT .. "\n" .. "\n" ..FACTION_HORDE .. "\n" .. " " .. ORGRIMMAR .. "\n" .. " " .. L["Undercity"] .. "\n" .. " " .. L["Shrine2Moons"] .. "\n" .. "\n" .. FACTION_NEUTRAL .. "\n" .. " " .. DUNGEON_FLOOR_DALARAN1 .. "\n" .. " " .. L["Icecrown"] .. "\n" .. " " .. L["Townlong Steppes"] .. "\n" .. " " .. L["Oribos"] .. "\n" .. "\n" .. FACTION_ALLIANCE .. "\n" .. " " .. STORMWIND .. "\n" .. " " .. L["Ironforge"] .. "\n" .. " " .. L["Shrine7Stars"],
-          width = 0.80,
-          order = 33.2,
+          order = 33.1,
           set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
                 if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showContinentPvPandPvEVendor then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Continent map"], TRANSMOG_SET_PVP .. " & " .. TRANSMOG_SET_PVE .. " " .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT, L["icons"], "|cff00ff00" .. L["are shown"]) else 
                 if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showContinentPvPandPvEVendor then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Continent map"], TRANSMOG_SET_PVP .. " & " .. TRANSMOG_SET_PVE .. " " .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+          },
+        showContinentDelves = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.Continent end,
+          type = "toggle",
+          name = TextIconDelves:GetIconString() .. " " .. DELVES_LABEL,
+          desc = EXPANSION_NAME10 .. "\n" .. L["Entrance"],
+          width = 0.60,
+          order = 33.2,
+          set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showContinentDelves then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], DELVES_LABEL, "|cff00ff00" .. L["is activated"]) else 
+                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showContinentDelves then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], DELVES_LABEL, "|cffff0000" ..  L["is deactivated"]) end end end,
+          },
+        showContinentPaths = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.Continent end,
+          type = "toggle",
+          name = TextIconPassageCaveUp:GetIconString() .. " " .. TextIconPassageCaveDown:GetIconString() .. " " .. L["Path"],
+          desc = EXPANSION_NAME10 .. "\n" .. L["Passages"],
+          width = 0.60,
+          order = 33.3,
+          set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showContinentPaths then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], L["Path"], "|cff00ff00" .. L["is activated"]) else 
+                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showContinentPaths then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], L["Path"], "|cffff0000" ..  L["is deactivated"]) end end end,
           },
         continentheader4 = {
           type = "header",

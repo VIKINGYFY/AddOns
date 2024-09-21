@@ -794,12 +794,12 @@ if not db.activate.HideMapNote then
 
           -- Azeroth Khaz Algar Delves
             if self.db.profile.showAzerothDelves then
-              nodes[947][23478352] = { name = DELVES_LABEL .. " " .. L["Entrance"], mnID = 2274, type = "Delves", showInZone = true } -- Cinderbrew Meadery 
+              nodes[947][23478352] = { name = DELVES_LABEL .. " " .. L["Entrance"], mnID = 2274, delveIDs = { 2259, 2299, 2348, 2347, 2312, 2310, 2301, 2277, 2251, 2302, 2269, 2249, 2250 }, type = "Delves", showInZone = true } -- Cinderbrew Meadery 
             end
 
           --Azeroth Khaz ALgar Multiple
             if self.db.profile.showAzerothMultiple then
-              nodes[947][25708352] = { hideInfo = true, id = {1273, 1210, 1267, 1269, 1270, 1271, 1274 }, mnID = 2274, type = "MultipleM", showInZone = true } -- Darkflame Cleft, Priory of the Sacred Flame, The Stonevault, The Dawnbreaker, Ara-Kara, City of Echeos, City of Threads
+              nodes[947][25708352] = { hideInfo = true, id = { 1273, 1210, 1267, 1269, 1270, 1271, 1274 }, mnID = 2274, type = "MultipleM", showInZone = true } -- Darkflame Cleft, Priory of the Sacred Flame, The Stonevault, The Dawnbreaker, Ara-Kara, City of Echeos, City of Threads
             end
 
           -- Khaz Algar MapNotesIcons

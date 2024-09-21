@@ -1,7 +1,7 @@
 local ADDON_NAME, ns = ...
 
 ns.BlizzDelveAreaPoisInfoIDs = {
-    -- NORMAL DELVES ----------------------------------------------------------
+    -- DELVES 
     [7863] = 2269, -- Earthcrawl Mines
     [7864] = 2249, -- Fungal Folly
     [7865] = 2250, -- Kriegval's Rest
@@ -15,7 +15,10 @@ ns.BlizzDelveAreaPoisInfoIDs = {
     [7873] = 2259, -- Tak-Rethan Abyss
     [7874] = 2347, -- The Spiral Weave
     [7875] = 2348, -- Zekvir's Lair
-    -- BOUNTIFUL DELVES -------------------------------------------------------
+  }
+
+  ns.BlizzBountifulDelveAreaPoisInfoIDs = {
+    -- BOUNTIFUL DELVES 
     [7779] = 2249, -- Fungal Folly
     [7780] = 2312, -- Mycomancer Cavern
     [7781] = 2250, -- Kriegval's Rest

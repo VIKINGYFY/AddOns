@@ -455,7 +455,7 @@ function module:CreateSortButton(name)
 		elseif name == "Reagent" then
 			C_Container.SortReagentBankBags()
 		elseif name == "Account" then
-			StaticPopup_Show("BANK_CONFIRM_CLEANUP", nil, nil, { bankType = ACCOUNT_BANK_TYPE })
+			C_Container.SortAccountBankBags()
 		else
 			if C.db["Bags"]["BagSortMode"] == 1 then
 				C_Container.SortBags()

@@ -360,7 +360,7 @@ end
 
 
 do
-	local tablepool = setmetatable({}, {__mode = 'uiMapId'})
+	local tablepool = setmetatable({}, {__mode = "uiMapId"})
 
 	local function deepCopy(object)
 		local lookup_table = {}
@@ -425,7 +425,8 @@ do
                         or value.type == "InnkeeperH" or value.type == "InnkeeperA" or value.type == "MailboxN" or value.type == "MailboxH" or value.type == "MailboxA" or value.type == "PvPVendorH" or value.type == "PvPVendorA" 
                         or value.type == "PvEVendorH" or value.type == "PvEVendorA" or value.type == "MMInnkeeperH" or value.type == "MMInnkeeperA" or value.type == "MMStablemasterH" or value.type == "MMStablemasterA"
                         or value.type == "MMMailboxH" or value.type == "MMMailboxA" or value.type == "MMPvPVendorH" or value.type == "MMPvPVendorA" or value.type == "MMPvEVendorH" or value.type == "MMPvEVendorA" 
-                        or value.type == "ZonePvEVendorH" or value.type == "ZonePvPVendorH" or value.type == "ZonePvEVendorA" or value.type == "ZonePvPVendorA" or value.type == "TradingPost"
+                        or value.type == "ZonePvEVendorH" or value.type == "ZonePvPVendorH" or value.type == "ZonePvEVendorA" or value.type == "ZonePvPVendorA" or value.type == "TradingPost" or value.type == "PassageCaveUp"
+                        or value.type == "PassageCaveDown"
 
       ns.AllZoneIDs = ns.KalimdorIDs
                       or ns.EasternKingdomIDs
@@ -811,7 +812,7 @@ local function setWaypoint(uiMapID, coord)
         persistent = nil,
         minimap = true,
         world = true
-    })  
+    })
 end
 
 function pluginHandler:OnClick(button, pressed, uiMapId, coord, value)
@@ -920,14 +921,11 @@ local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() ==
 
       if mnID then
         WorldMapFrame:SetMapID(mnID)
+        return
       end
 
       if delveID then
         WorldMapFrame:SetMapID(delveID)
-        if (not EncounterJournal_OpenJournal) then 
-          UIParentLoadAddOn('Blizzard_EncounterJournal')
-        end
-        _G.EncounterJournal:SetScript("OnShow", nil)
         return
       end
     end
@@ -938,6 +936,12 @@ local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() ==
         mnID = nodes[uiMapId][coord].mnID[1] --change id function to mnID function
       else
         mnID = nodes[uiMapId][coord].mnID --single coords function
+      end
+
+      if nodes[uiMapId][coord].delveIDs then
+        mnID = nodes[uiMapId][coord].delveIDs[1] --change id function to mnID function
+      else
+        mnID = nodes[uiMapId][coord].delveIDs --single coords function
       end
 
       local dungeonID
@@ -951,14 +955,14 @@ local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() ==
 
       local name, _, _, _, _, _, _, link = EJ_GetInstanceInfo(dungeonID)
       if not link then return end
-      local difficulty = string.match(link, 'journal:.-:.-:(.-)|h') 
+      local difficulty = string.match(link, "journal:.-:.-:(.-)|h") 
       if (not dungeonID or not difficulty) then return end
 
-      if (not EncounterJournal_OpenJournal) then 
-        UIParentLoadAddOn('Blizzard_EncounterJournal')
+      if (not EncounterJournal_OpenJournal) then
+        UIParentLoadAddOn("Blizzard_EncounterJournal")
       end
-      if WorldMapFrame:IsMaximized() then 
-        WorldMapFrame:Minimize() 
+      if WorldMapFrame:IsMaximized() then
+        WorldMapFrame:Minimize()
       end
       EncounterJournal_OpenJournal(difficulty, dungeonID)
       _G.EncounterJournal:SetScript("OnShow", nil)
@@ -984,15 +988,12 @@ local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() ==
     if IsShiftKeyDown() and (button == "LeftButton" ) then
 
       if mnID then
-         WorldMapFrame:SetMapID(mnID)
+        WorldMapFrame:SetMapID(mnID)
+        return
       end
 
       if delveID then
         WorldMapFrame:SetMapID(delveID)
-        if (not EncounterJournal_OpenJournal) then 
-          UIParentLoadAddOn('Blizzard_EncounterJournal')
-        end
-        _G.EncounterJournal:SetScript("OnShow", nil)
         return
       end
     end
@@ -1016,10 +1017,10 @@ local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() ==
 
       local name, _, _, _, _, _, _, link = EJ_GetInstanceInfo(dungeonID)
       if not link then return end
-      local difficulty = string.match(link, 'journal:.-:.-:(.-)|h') 
+      local difficulty = string.match(link, "journal:.-:.-:(.-)|h") 
       if (not dungeonID or not difficulty) then return end
       if (not EncounterJournal_OpenJournal) then 
-        UIParentLoadAddOn('Blizzard_EncounterJournal')
+        UIParentLoadAddOn("Blizzard_EncounterJournal")
       end
       if WorldMapFrame:IsMaximized() then 
         WorldMapFrame:Minimize() 
@@ -1185,7 +1186,7 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
   end
 
   -- Register Worldmapbutton
-  ns.WorldMapButton = LibStub('Krowi_WorldMapButtons-1.4'):Add(ADDON_NAME .. "WorldMapOptionsButtonTemplate","BUTTON")
+  ns.WorldMapButton = LibStub("Krowi_WorldMapButtons-1.4"):Add(ADDON_NAME .. "WorldMapOptionsButtonTemplate","BUTTON")
   if ns.Addon.db.profile.activate.HideWMB
     then ns.WorldMapButton:Hide()
     else ns.WorldMapButton:Show()
@@ -1199,7 +1200,7 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
       
       for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
         
-        ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)        
+        ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
         if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
             WorldMapFrame:RemovePin(pin)
         end
@@ -1207,14 +1208,14 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
     end
   end
 
-  hooksecurefunc(AreaPOIPinMixin, 'OnMouseEnter', function()
+  hooksecurefunc(AreaPOIPinMixin, "OnMouseEnter", function()
     if (not ns.Addon.db.profile.activate.RemoveBlizzPOIs or ns.Addon.db.profile.activate.HideMapNote) then return end
 
     for pin in WorldMapFrame:EnumeratePinsByTemplate("AreaPOIPinTemplate") do
       
       for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
         
-        ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)        
+        ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
         if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
           ns.RemoveBlizzPOIs()
         end
@@ -1230,33 +1231,33 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
     ns.RemoveBlizzPOIs()
   end)
   
-  hooksecurefunc(DelveEntrancePinMixin, 'OnMouseEnter', function(self)
-    if (self.description == _G['DELVE_LABEL']) then
+  hooksecurefunc(DelveEntrancePinMixin, "OnMouseEnter", function(self)
+    --if (self.description == _G["DELVE_LABEL"]) then
       if not ns.Addon.db.profile.activate.ShiftWorld then 
-        GameTooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. " " .. "|cff00ff00" .. "< " .. KEY_BUTTON3 .. " " .. L["to show delve map"] .. " >" .. TextIconMNL4:GetIconString(), nil, nil, false)
+        GameTooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. " " .. "|cff00ff00" .. "< " .. KEY_BUTTON3 .. " " .. L["to show delve map"] .. " > " .. TextIconMNL4:GetIconString(), nil, nil, false)
       end
       if ns.Addon.db.profile.activate.ShiftWorld then 
-        GameTooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. " " .. "|cff00ff00" .. "< " .. SHIFT_KEY_TEXT .. " + " .. KEY_BUTTON3 .. " " .. L["to show delve map"] .. " >" .. TextIconMNL4:GetIconString(), nil, nil, false)
+        GameTooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. " " .. "|cff00ff00" .. "< " .. SHIFT_KEY_TEXT .. " + " .. KEY_BUTTON3 .. " " .. L["to show delve map"] .. " > " .. TextIconMNL4:GetIconString(), nil, nil, false)
       end
-    end
+    --end
     GameTooltip:Show()
   end)
 
-  hooksecurefunc(DelveEntrancePinMixin, 'OnClick', function(self, button)
-    local delveIDs = ns.BlizzDelveAreaPoisInfoIDs[self.areaPoiID]
+  hooksecurefunc(DelveEntrancePinMixin, "OnClick", function(self, button)
+    ns.BlizzDelveIDs = ns.BlizzDelveAreaPoisInfoIDs[self.areaPoiID] or ns.BlizzBountifulDelveAreaPoisInfoIDs[self.areaPoiID]
     if button == "MiddleButton" and not ns.Addon.db.profile.activate.ShiftWorld then
-      if delveIDs then
-        if (self.description == _G['DELVE_LABEL']) then
-          WorldMapFrame:SetMapID(delveIDs)
-        end
+      if ns.BlizzDelveIDs then
+        --if (self.description == _G["DELVE_LABEL"]) then
+          WorldMapFrame:SetMapID(ns.BlizzDelveIDs)
+        --end
       end
     end
 
     if button == "MiddleButton" and IsShiftKeyDown() and ns.Addon.db.profile.activate.ShiftWorld then
-      if delveIDs then
-        if (self.description == _G['DELVE_LABEL']) then
-          WorldMapFrame:SetMapID(delveIDs)
-        end
+      if ns.BlizzDelveIDs or ns.BlizzBountifulDelveIDs then
+        --if (self.description == _G["DELVE_LABEL"]) then
+          WorldMapFrame:SetMapID(ns.BlizzDelveIDs)
+        --end
       end
     end
   end)

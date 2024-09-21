@@ -915,3 +915,7 @@ L["IgnoredRaresTip"] = "|n输入你不想接受的稀有提醒的ID，每个ID�
 L["QuestTracker"] = "美化任务追踪框体"
 L["PurchaseTabTip"] = "你需要关闭插件通过系统的背包去解锁额外栏位。"
 L["AccountBank Width"] = "战团银行每行格数"
+L["KeyDown"] = "按下快捷键施法"
+L["ButtonLock"] = "锁定动作条"
+L["KeyDownTip"] = OPTION_TOOLTIP_ACTION_BUTTON_USE_KEY_DOWN
+L["ButtonLockTip"] = OPTION_TOOLTIP_LOCK_ACTIONBAR

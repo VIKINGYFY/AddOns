@@ -222,6 +222,8 @@ ns.icons = {
 ["PassageDungeonRaidMulti"] = iconLink .. "PassageDungeonRaidMulti", 
 ["PassageRaidMulti"] = iconLink .. "passageRaidMulti",
 ["PassageDungeonMulti"] = iconLink .. "PassageDungeonMulti",
+["PassageCaveUp"] = iconLink .. "passageCaveUp", 
+["PassageCaveDown"] = iconLink .. "passageCaveDown", 
 --inside dungeon icons
 ["Exit"] = "interface/glues/login/glues-checkbox-check.blp",
 ["PassageUpL"] = iconLink .. "passageupL",
@@ -413,6 +415,9 @@ TextIconAShip = TextIcon(iconLink .. "aportal", 70, 70, 1, 50, 1, 50)
 TextIconShipOld = TextIcon(iconLink .. "shipOld", 70, 70, 1, 50, 1, 50)
 TextIconHShipOld = TextIcon(iconLink .. "shipHOld", 70, 70, 1, 50, 1, 50)
 TextIconAShipOld = TextIcon(iconLink .. "shipAOld", 70, 70, 1, 50, 1, 50)
+--passage World
+TextIconPassageCaveUp = TextIcon(iconLink .. "PassageCaveUp", 50, 50, 1, 50, 1, 50)
+TextIconPassageCaveDown = TextIcon(iconLink .. "PassageCaveDown", 50, 50, 1, 50, 1, 50)
 --inside dungeon icons
 TextIconExit = TextIcon("interface/glues/login/glues-checkbox-check.blp", 50, 50, 1, 50, 1, 50)
 TextIconPassageup = TextIcon(iconLink .. "PassageUpL", 50, 50, 1, 50, 1, 50)

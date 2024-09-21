@@ -41,7 +41,7 @@ function M:RaidTool_Header()
 		end
 	end)
 	frame:SetScript("OnDoubleClick", function(_, btn)
-		if btn == "RightButton" and ((IsPartyLFG() or C_PartyInfo.IsPartyWalkIn()) and IsLFGComplete() or not IsInInstance()) then
+		if btn == "RightButton" and (IsPartyLFG() and IsLFGComplete() or not IsInInstance()) then
 			C_PartyInfo.LeaveParty()
 		end
 	end)

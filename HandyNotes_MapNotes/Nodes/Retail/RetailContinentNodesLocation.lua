@@ -1170,7 +1170,7 @@ if not db.activate.HideMapNote then
           -- Khaz Algar Portals
             if self.db.profile.showContinentPortals then
               nodes[2274][70881758] = { mnID = 2339, name = "", type = "Portal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Portals"] .. "\n" ..  "\n" .. " ==> " .. STORMWIND .. "\n" .. " ==> " .. ORGRIMMAR } --  Isle of Dorn Portals
-      
+              
               if self.faction == "Horde" or db.activate.EnemyFaction then
   
               end
@@ -1178,6 +1178,14 @@ if not db.activate.HideMapNote then
               if self.faction == "Alliance" or db.activate.EnemyFaction then
                 --nodes[1978][25006083] = { mnID = "2239",  name = "", type = "APortal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Portals"] .. "\n" .. " ==> " .. STORMWIND .. "\n" .. " ==> " .. L["Darkshore"] .. "\n" .. " ==> " .. POSTMASTER_LETTER_HYJAL  .. "\n" .. " ==> " .. POSTMASTER_LETTER_LORLATHIL } -- Valdrakken to Stormwind City Portal
               end
+            end
+
+            if self.db.profile.showContinentPaths then
+              nodes[2274][46397339] = { mnID = 2339, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=19559", type = "PassageCaveUp", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Azj-Kahet to Dornogal if u finished the achievement=19559
+              nodes[2274][60306969] = { mnID = 2248, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=19560", type = "PassageCaveUp", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Ringing Deeps to Isle of Dornogal
+              nodes[2274][55475781] = { mnID = 2248, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=19560", type = "PassageCaveUp", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Ringing Deeps to Isle of Dornogal
+              nodes[2274][65383353] = { mnID = 2214, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=19560", type = "PassageCaveDown", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Isle of Dornogal to Ringing Deeps
+              nodes[2274][79661540] = { mnID = 2214, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=19560", type = "PassageCaveDown", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Isle of Dornogal to Ringing Deeps
             end
 
         end 

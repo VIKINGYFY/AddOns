@@ -104,7 +104,7 @@ function Bar:UpdateButtonConfig(i)
 			}
 		}
 	end
-	self.buttonConfig.clickOnDown = true
+	self.buttonConfig.clickOnDown = GetCVarBool("ActionButtonUseKeyDown")
 	self.buttonConfig.showGrid = C.db["Actionbar"]["Grid"]
 	self.buttonConfig.flyoutDirection = directions[C.db["Actionbar"]["Bar"..i.."Flyout"]]
 
@@ -142,13 +142,12 @@ function Bar:UpdateButtonConfig(i)
 	hideElements.hotkey = not C.db["Actionbar"]["Hotkeys"]
 	hideElements.macro = not C.db["Actionbar"]["Macro"]
 
-	local lockBars = GetCVarBool("lockActionBars")
+	local lockBars = C.db["Actionbar"]["ButtonLock"]
 	for _, button in next, self.buttons do
 		self.buttonConfig.keyBoundTarget = button.bindName
 		button.keyBoundTarget = self.buttonConfig.keyBoundTarget
 
 		button:SetAttribute("buttonlock", lockBars)
-		button:SetAttribute("unlockedpreventdrag", not lockBars) -- make sure button can drag without being click
 		button:SetAttribute("checkmouseovercast", true)
 		button:SetAttribute("checkfocuscast", true)
 		button:SetAttribute("checkselfcast", true)
@@ -178,6 +177,8 @@ function Bar:UpdateVisibility()
 end
 
 function Bar:UpdateBarConfig()
+	SetCVar("ActionButtonUseKeyDown", C.db["Actionbar"]["KeyDown"] and 1 or 0)
+
 	for i = 1, 8 do
 		local frame = _G["NDui_ActionBar"..i]
 		if frame then

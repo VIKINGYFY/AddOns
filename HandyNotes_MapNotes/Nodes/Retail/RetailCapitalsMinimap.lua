@@ -3161,6 +3161,7 @@ if not db.activate.HideMapNote then
                     minimap[2339][53563873] = { mnID = 2266, name = "", type = "WayGateGolden", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["The Timeways"] .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. L["Ardenweald"] .. "\n" .. " ==> " .. L["Bastion"] .. "\n" .. " ==> " .. L["Tiragarde Sound"] .. "\n" .. " ==> " .. L["Twilight Highlands"] } --  Portal from Dornogal to the Timeways
 
                     minimap[2339][63615205] = { mnID = 2255, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://www.wowhead.com/achievement=19559/azj-kahet#news", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Dornogal to Azj-Kahet if u finished the achievement=19559
+                    minimap[2339][29775967] = { mnID = 2367, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=40725", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Chamber of Memory
 
                     if self.faction == "Horde" or db.activate.MinimapCapitalsEnemyFaction then
                         minimap[2339][38192724] = { mnID = 85, name = L["Portal"], type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dornogal to Orgrimmar

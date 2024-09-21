@@ -157,6 +157,7 @@ ns.defaults = {
       showContinentOldVanilla = true,
       showContinentLFR = true,
       showContinentDelves = true,
+      showContinentPaths = true,
       showContinentFP = true, -- only Classic and Cataclym
       showContinentPvPandPvEVendor = true,
       showContinentKalimdor = true,

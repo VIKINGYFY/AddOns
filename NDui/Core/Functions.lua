@@ -393,8 +393,8 @@ do
 	local lockedCVars = {}
 
 	function B:LockCVar(name, value)
-		SetCVar(name, value)
 		lockedCVars[name] = value
+		SetCVar(name, value)
 	end
 
 	function B:UpdateCVars(var, state)
