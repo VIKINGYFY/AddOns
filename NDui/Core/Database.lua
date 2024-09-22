@@ -652,6 +652,7 @@ DB.PetTrashCurrenies = {
 	[36812] = true,
 	[62072] = true,
 	[67410] = true,
+	[221550] = true,
 }
 
 DB.PrimordialStone = {}

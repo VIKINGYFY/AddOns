@@ -60,7 +60,7 @@ local function UpdateProgressBars(frame)
 	local objectives = frame:GetObjectiveFrame()
 	if objectives and objectives.progressBars then
 		for _, bar in next, objectives.progressBars do
-			if not bar.styled then
+			if bar and not bar.styled then
 				SetupStatusbar(bar)
 				bar.styled = true
 			end

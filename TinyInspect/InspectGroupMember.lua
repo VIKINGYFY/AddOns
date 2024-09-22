@@ -324,7 +324,7 @@ end
 --團友列表
 frame.panel = CreateFrame("Frame", nil, frame)
 frame.panel:SetScript("OnShow", function(self) SortAndShowMembersList() end)
-frame.panel:SetPoint("TOP", frame, "BOTTOM", 0, 0)
+frame.panel:SetPoint("TOP", frame, "BOTTOM", 0, -1)
 frame.panel:SetSize(240, 110)
 frame.panel:Hide()
 

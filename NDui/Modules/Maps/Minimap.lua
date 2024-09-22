@@ -335,7 +335,8 @@ function module:RecycleBin()
 				end
 			end
 			child:SetSize(34, 34)
-			B.CreateSD(child, 4, true)
+			B.PixelIcon(child)
+			B.CreateSD(child)
 		end
 
 		table.insert(buttons, child)
@@ -422,7 +423,7 @@ function module:RecycleBin()
 		for index, button in pairs(shownButtons) do
 			button:ClearAllPoints()
 			if index == 1 then
-				button:SetPoint("BOTTOMRIGHT", bin, -3, 3)
+				button:SetPoint("RIGHT", bin, -3, 0)
 			else
 				button:SetPoint("RIGHT", shownButtons[index - 1], "LEFT", -3, 0)
 			end

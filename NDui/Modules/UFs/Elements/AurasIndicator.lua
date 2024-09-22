@@ -131,7 +131,7 @@ function UF:CreateAurasIndicator(self)
 		button:SetSize(auraSize, auraSize)
 		button:SetFrameLevel(self:GetFrameLevel() + 3)
 		B.PixelIcon(button)
-		B.CreateSD(button, 3, true)
+		B.CreateSD(button, 4, true)
 		button.__shadow:SetFrameLevel(self:GetFrameLevel() + 2)
 		button:Hide()
 
