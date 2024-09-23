@@ -358,8 +358,17 @@ DB.EquipmentIDs = {
 	[Enum.ItemClass.Armor] = true,
 }
 
-DB.ExcludeIDs = {
+DB.OutmodedIDs = {
+	[Enum.ItemClass.Consumable] = true,
+	[Enum.ItemClass.Gem] = true,
+	[Enum.ItemClass.Reagent] = true,
 	[Enum.ItemClass.Tradegoods] = true,
+	[Enum.ItemClass.ItemEnhancement] = true,
+}
+
+DB.ExcludeIDs = {
+	[Enum.ItemConsumableSubclass.Generic] = Enum.ItemClass.Consumable,
+	[Enum.ItemConsumableSubclass.Other] = Enum.ItemClass.Consumable,
 }
 
 -- Item Types
@@ -642,17 +651,17 @@ DB.Studying = {
 	[463205] = true,
 }
 
-DB.PetTrashCurrenies = {
-	[3300] = true,
-	[3670] = true,
-	[6150] = true,
-	[11406] = true,
-	[11944] = true,
-	[25402] = true,
-	[36812] = true,
-	[62072] = true,
-	[67410] = true,
-	[221550] = true,
+DB.SpecialJunk = {
+	[3300] = true, -- 幸运兔脚
+	[3670] = true, -- 带粘液的骨头
+	[6150] = true, -- 绳结
+	[11406] = true, -- 腐烂的熊肉
+	[11944] = true, -- 黑铁幼婴鞋
+	[25402] = true, -- 有坚不摧之力
+	[36812] = true, -- 基础零件
+	[62072] = true, -- 罗波的摇头杖
+	[67410] = true, -- 极其不祥的石头
+	[221550] = true, -- 薮根伞菇
 }
 
 DB.PrimordialStone = {}

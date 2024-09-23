@@ -48,11 +48,11 @@ function EX:MDEnhance_TButtonOnEnter(parent, spellID)
 	GameTooltip:AddLine(L["+2timeLimit"]..SecondsToClock(timeLimit*.8), 1, 1, 1)
 	GameTooltip:AddLine(L["+3timeLimit"]..SecondsToClock(timeLimit*.6), 1, 1, 1)
 
-	if IsSpellKnown(spellID) then
-		local name = C_Spell.GetSpellName(spellID)
-		GameTooltip:AddLine(" ")
-		GameTooltip:AddLine(name)
+	local name = C_Spell.GetSpellName(spellID)
+	GameTooltip:AddLine(" ")
+	GameTooltip:AddLine(name)
 
+	if IsSpellKnown(spellID) then
 		local CDInfo = C_Spell.GetSpellCooldown(spellID)
 		local start, duration = CDInfo.startTime, CDInfo.duration
 
@@ -61,10 +61,9 @@ function EX:MDEnhance_TButtonOnEnter(parent, spellID)
 		elseif duration == 0 then
 			GameTooltip:AddLine(READY, 0, 1, 0)
 		else
-			GameTooltip:AddLine(SecondsToTime(ceil(start + duration - GetTime())), 1, 1, 0)
+			GameTooltip:AddLine(SecondsToTime(math.ceil(start + duration - GetTime())), 1, 1, 0)
 		end
 	else
-		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine(SPELL_FAILED_NOT_KNOWN, 1, 0, 0)
 	end
 

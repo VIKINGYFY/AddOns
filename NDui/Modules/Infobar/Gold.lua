@@ -246,10 +246,8 @@ local function startSelling()
 			if stop then return end
 			local info = C_Container.GetContainerItemInfo(bag, slot)
 			if info then
-				if not cache["b"..bag.."s"..slot] and info.hyperlink and not info.hasNoValue
-				and (info.quality == 0 or NDuiADB["CustomJunkList"][info.itemID])
-				and (not BAG:IsPetTrashCurrency(info.itemID))
-				and (not C_TransmogCollection.GetItemInfo(info.hyperlink) or not B.IsUnknownTransmog(bag, slot)) then
+				if info.hyperlink and (not cache["b"..bag.."s"..slot]) and (not info.hasNoValue) and (not BAG:IsSpecialJunk(info.itemID))
+				and (info.quality == 0 or NDuiADB["CustomJunkList"][info.itemID]) then
 					cache["b"..bag.."s"..slot] = true
 					C_Container.UseContainerItem(bag, slot)
 					C_Timer.After(.15, startSelling)

@@ -108,7 +108,7 @@ G.DefaultSettings = {
 		SplitCount = 1,
 		iLvlToShow = 1,
 		AutoDeposit = false,
-		PetTrash = true,
+		SpecialJunk = true,
 		BagsPerRow = 7,
 		BankPerRow = 5,
 		HideWidgets = true,
@@ -1151,7 +1151,7 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{1, "Bags", "ItemFilter", L["Bags ItemFilter"].."*", nil, setupBagFilter, updateBagStatus},
 		{1, "Bags", "GatherEmpty", L["Bags GatherEmpty"].."*", true, nil, updateBagStatus},
 		{1, "Bags", "BagsiSlot", L["Bags ItemSlot"].."*", nil, nil, updateBagStatus},
-		{1, "Bags", "PetTrash", L["PetTrash"], true, nil, nil, L["PetTrashTip"]},
+		{1, "Bags", "SpecialJunk", L["SpecialJunk"], true, nil, nil, L["SpecialJunkTip"]},
 		{3, "Bags", "iLvlToShow", L["iLvlToShow"].."*", nil, {1, 1000, 1}, nil, L["iLvlToShowTip"]},
 		{4, "Bags", "BagSortMode", L["BagSortMode"].."*", true, {L["Forward"], L["Backward"], DISABLE}, updateBagSortOrder, L["BagSortTip"]},
 		{},--blank

@@ -23,14 +23,18 @@ local function isItemInAccountBank(item)
 	return item.bagId > 12 and item.bagId < 18
 end
 
-function module:IsPetTrashCurrency(itemID)
-	return C.db["Bags"]["PetTrash"] and DB.PetTrashCurrenies[itemID]
-end
-
 local emptyBags = {[0] = true, [11] = true}
 local function isEmptySlot(item)
 	if not C.db["Bags"]["GatherEmpty"] then return end
 	return module.initComplete and not item.texture and emptyBags[module.BagsType[item.bagId]]
+end
+
+function module:IsSpecialJunk(itemID)
+	return C.db["Bags"]["SpecialJunk"] and DB.SpecialJunk[itemID]
+end
+
+local function isItemOld(item)
+	return (item.expansionID and item.expansionID < 8) and (DB.OutmodedIDs[item.classID] and DB.ExcludeIDs[item.subClassID] ~= item.classID)
 end
 
 local function isItemCustom(item, index)
@@ -43,7 +47,7 @@ end
 local function isItemJunk(item)
 	if not C.db["Bags"]["ItemFilter"] then return end
 	if not C.db["Bags"]["FilterJunk"] then return end
-	return ((item.quality and item.quality == Enum.ItemQuality.Poor) or NDuiADB["CustomJunkList"][item.id]) and item.hasPrice and not module:IsPetTrashCurrency(item.id)
+	return (not module:IsSpecialJunk(item.id)) and item.hasPrice and ((item.quality and item.quality <= Enum.ItemQuality.Poor) or isItemOld(item) or NDuiADB["CustomJunkList"][item.id])
 end
 
 local function isItemEquipSet(item)
@@ -61,7 +65,7 @@ end
 local function isItemConsumable(item)
 	if not C.db["Bags"]["ItemFilter"] then return end
 	if not C.db["Bags"]["FilterConsumable"] then return end
-	return ((item.stackCount and item.stackCount > 1) or (item.itemOn and item.itemOn == "openable")) and not DB.ExcludeIDs[item.classID]
+	return item.classID ~= Enum.ItemClass.Tradegoods and ((item.stackCount and item.stackCount > 1) or (item.itemOn and item.itemOn == "openable"))
 end
 
 local function isItemLegendary(item)
@@ -110,7 +114,7 @@ function module:GetFilters()
 	filters.bagEquipSet = function(item) return isItemInBag(item) and isItemEquipSet(item) end
 	filters.bagEquipment = function(item) return isItemInBag(item) and isItemEquipment(item) end
 	filters.bagFeature = function(item) return isItemInBag(item) and isItemFeature(item) end
-	filters.bagJunk = function(item) return isItemInBag(item) and isItemJunk(item) end
+	filters.bagJunk = function(item) return (isItemInBag(item) or isItemInBagReagent(item)) and isItemJunk(item) end
 	filters.bagLegendary = function(item) return isItemInBag(item) and isItemLegendary(item) end
 
 	filters.bankAoE = function(item) return isItemInBank(item) and isItemAoE(item) end
@@ -120,7 +124,7 @@ function module:GetFilters()
 	filters.bankEquipSet = function(item) return isItemInBank(item) and isItemEquipSet(item) end
 	filters.bankEquipment = function(item) return isItemInBank(item) and isItemEquipment(item) end
 	filters.bankFeature = function(item) return isItemInBank(item) and isItemFeature(item) end
-	filters.bankJunk = function(item) return isItemInBank(item) and isItemJunk(item) end
+	filters.bankJunk = function(item) return (isItemInBag(item) or isItemInBagReagent(item)) and isItemJunk(item) end
 	filters.bankLegendary = function(item) return isItemInBank(item) and isItemLegendary(item) end
 
 	filters.accountAoE = function(item) return isItemInAccountBank(item) and isItemAoE(item) end

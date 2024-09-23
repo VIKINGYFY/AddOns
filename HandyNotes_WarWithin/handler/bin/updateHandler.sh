@@ -30,14 +30,6 @@ BRANCH=$(git branch --show-current)
 
 git fetch origin
 
-if [ $(git rev-parse $BRANCH) != $(git rev-parse origin/$BRANCH) ]; then
-	echo >&2 "Local and remote $BRANCH need to be in sync"
-	echo >&2 "$(git rev-parse $BRANCH) != $(git rev-parse origin/$BRANCH)"
-	exit 1
-fi
-
-# git submodule update
-
 # Current commit for the submodule
 SUBMODULE=$(git rev-parse @:$HANDLER)
 

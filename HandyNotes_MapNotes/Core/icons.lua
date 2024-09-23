@@ -65,6 +65,7 @@ ns.icons = {
 ["ZonePvEVendorA"] = iconLink .. "PvEVendorA",
 ["ZonePvPVendorA"] = iconLink .. "PvPVendorA",
 --Professions MN New
+["ProfessionsMixed"] = "interface/minimap/tracking/profession.blp",
 ["ProfessionOrders"] = iconLink .. "CraftingOrders",
 ["Engineer"] = iconLink .. "Engineering",
 ["Alchemy"] = iconLink .. "Alchemy",
@@ -312,6 +313,7 @@ TextIconValdrakken = TextIcon("interface/icons/spell_arcane_teleportvaldrakken.b
 TextIconDornogal = TextIcon("interface/icons/inv_spell_arcane_telepotdornogal.blp", 50, 50, 1, 50, 1, 50)
 TextIconDarkMoon = TextIcon(iconLink .. "DarkMoon", 50, 50, 1, 50, 1, 50)
 --profession
+TextIconProfessionsMixed = TextIcon("interface/minimap/tracking/profession.blp", 50, 50, 1, 50, 1, 50)
 TextIconProfessionOrders = TextIcon(iconLink .. "CraftingOrders", 50, 50, 1, 50, 1, 50)
 TextIconEngineer = TextIcon(iconLink .. "Engineering", 50, 50, 1, 50, 1, 50)
 TextIconAlchemy = TextIcon(iconLink .. "Alchemy", 50, 50, 1, 50, 1, 50)

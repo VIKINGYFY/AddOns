@@ -31,6 +31,9 @@ local db = ns.Addon.db.profile
         -- Transport Scale/Alpha
         db.MiniMapTransportScale = db.ZoneTransportScale
         db.MiniMapTransportAlpha = db.ZoneTransportAlpha
+        -- Professions Scale/Alpha
+        db.MiniMapProfessionsScale = db.ZoneProfessionsScale
+        db.MiniMapProfessionsAlpha = db.ZoneProfessionsAlpha
         -- General Scale/Alpha
         db.MiniMapGeneralScale = db.ZonesGeneralScale
         db.MiniMapGeneralAlpha = db.ZonesGeneralAlpha
@@ -99,7 +102,7 @@ local db = ns.Addon.db.profile
         self.db.profile.showMinimapCapitalsCooking = self.db.profile.showCapitalsCooking
         self.db.profile.showMinimapCapitalsFishing = self.db.profile.showCapitalsFishing
         self.db.profile.showMinimapCapitalsArchaeology = self.db.profile.showCapitalsArchaeology
-        self.db.profile.showMinimapCapitalsMining =self.db.profile.showCapitalsMining
+        self.db.profile.showMinimapCapitalsMining = self.db.profile.showCapitalsMining
         self.db.profile.showMinimapCapitalsJewelcrafting = self.db.profile.showCapitalsJewelcrafting
         self.db.profile.showMinimapCapitalsBlacksmith = self.db.profile.showCapitalsBlacksmith
         self.db.profile.showMinimapCapitalsLeatherworking = self.db.profile.showCapitalsLeatherworking
@@ -130,6 +133,7 @@ local db = ns.Addon.db.profile
         db.activate.MiniMap = db.activate.ZoneMap
         db.activate.MiniMapInstances = db.activate.ZoneInstances
         db.activate.MiniMapTransporting = db.activate.ZoneTransporting
+        db.activate.MiniMapProfessions = db.activate.ZoneProfessions
         db.activate.MiniMapGeneral = db.activate.ZoneGeneral
         db.activate.MiniMapPaths = db.activate.ZonePaths
         -- Icons
@@ -161,6 +165,24 @@ local db = ns.Addon.db.profile
         self.db.profile.showMiniMapTransmogger = self.db.profile.showZoneTransmogger
         self.db.profile.showMiniMapItemUpgrade = self.db.profile.showZoneItemUpgrade
         self.db.profile.showMiniMapCatalyst = self.db.profile.showZoneCatalyst
+        -- Zone Professions    
+        self.db.profile.activate.MiniMapProfessions = self.db.profile.activate.ZoneProfessions
+        self.db.profile.showMiniMapProfessionOrders = self.db.profile.showZoneProfessionOrders
+        self.db.profile.showMiniMapAlchemy = self.db.profile.showZoneAlchemy
+        self.db.profile.showMiniMapLeatherworking = self.db.profile.showZoneLeatherworking
+        self.db.profile.showMiniMapEngineer = self.db.profile.showZoneEngineer
+        self.db.profile.showMiniMapSkinning = self.db.profile.showZoneSkinning
+        self.db.profile.showMiniMapTailoring = self.db.profile.showZoneTailoring
+        self.db.profile.showMiniMapCooking = self.db.profile.showZoneCooking
+        self.db.profile.showMiniMapFishing = self.db.profile.showZoneFishing
+        self.db.profile.showMiniMapArchaeology = self.db.profile.showZoneArchaeology
+        self.db.profile.showMiniMapMining = self.db.profile.showZoneMining
+        self.db.profile.showMiniMapJewelcrafting = self.db.profile.showZoneJewelcrafting
+        self.db.profile.showMiniMapBlacksmith = self.db.profile.showZoneBlacksmith
+        self.db.profile.showMiniMapLeatherworking = self.db.profile.showZoneLeatherworking
+        self.db.profile.showMiniMapHerbalism = self.db.profile.showZoneHerbalism
+        self.db.profile.showMiniMapInscription = self.db.profile.showZoneInscription
+        self.db.profile.showMiniMapEnchanting = self.db.profile.showZoneEnchanting
 
         -- Zones
         self.db.profile.showMiniMapKalimdor = self.db.profile.showZoneKalimdor

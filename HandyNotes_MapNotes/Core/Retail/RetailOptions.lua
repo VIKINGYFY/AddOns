@@ -3074,12 +3074,256 @@ ns.options = {
                   },
                 },
               },
+            ZoneProfessionTab = {
+              disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap end,
+              type = "group",
+              name = "• " .. GUILD_ROSTER_DROPDOWN_PROFESSION .. " " .. L["icons"],
+              desc = " • " .. EXPANSION_NAME4,
+              order = 4,
+              args = {       
+                Zoneprofessionsheader1 = {
+                  type = "description",
+                  name = "",
+                  order = 40,
+                  width = 0.85,
+                  },  
+                ZoneProfessions = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap end,
+                  type = "toggle",
+                  name = L["Activate icons"],
+                  desc = L["Enables the display of all possible icons on this map"],
+                  width = 0.90,
+                  order = 40.1,
+                  get = function() return ns.Addon.db.profile.activate.ZoneProfessions end,
+                  set = function(info, v) ns.Addon.db.profile.activate.ZoneProfessions = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.ZoneProfessions then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Zones"] .. " " .. GUILD_ROSTER_DROPDOWN_PROFESSION .. " " .. L["icons"], "|cff00ff00" .. L["is activated"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.ZoneProfessions then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Zones"] .. " " .. GUILD_ROSTER_DROPDOWN_PROFESSION .. " " .. L["icons"], "|cffff0000" .. L["is deactivated"]) end end end,
+                  },
+                Zoneprofessionsheader2 = {
+                  type = "description",
+                  name = "",
+                  order = 40.3,
+                  },  
+                Zoneprofessionsheader3 = {
+                  type = "description",
+                  name = "",
+                  order = 40.4,
+                  width = 0.20,
+                  },  
+                ZoneProfessionsScale = {
+                  disabled = function() return not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneProfessions end,
+                  type = "range",
+                  name = L["symbol size"],
+                  desc = L["Changes the size of the icons"],
+                  min = 0.5, max = 6, step = 0.1,
+                  width = 1, 
+                  order = 40.5,
+                  },
+                Zonegeneralheader2 = {
+                  type = "description",
+                  name = "",
+                  order = 40.6,
+                  width = 0.20,
+                  },
+                ZoneProfessionsAlpha = {
+                  disabled = function() return not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneProfessions end,
+                  type = "range",
+                  name = L["symbol visibility"],
+                  desc = L["Changes the visibility of the icons"],
+                  min = 0, max = 1, step = 0.1,
+                  width = 1, 
+                  order = 40.7,
+                  },
+                Zonegeneralheader3 = {
+                  type = "header",
+                  name = "",
+                  order = 40.8,
+                  },
+                --showZoneProfessionOrders = {
+                --  disabled = function() return not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneProfessions end,
+                --  type = "toggle",
+                --  name = TextIconProfessionOrders:GetIconString() .. " " .. PROFESSIONS_CRAFTING_ORDERS_TAB_NAME,
+                --  desc = PLACE_CRAFTING_ORDERS,
+                --  width = 1.2,
+                --  order = 41.9,
+                --  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                --        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showZoneProfessionOrders then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], PROFESSIONS_CRAFTING_ORDERS_TAB_NAME, L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                --        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneProfessionOrders then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], PROFESSIONS_CRAFTING_ORDERS_TAB_NAME, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                --  },
+                ZoneProfessionsMixed = {
+                  disabled = function() return not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneProfessions end,
+                  type = "toggle",
+                  name = TextIconProfessionsMixed:GetIconString() .. " " .. PROFESSIONS_BUTTON .. " +",
+                  desc = L["This MapNotes icons shows various icons that are too close to each other together"],
+                  width = 1.2,
+                  order = 41.9,
+                  get = function() return ns.Addon.db.profile.ZoneProfessionsMixed end,
+                  set = function(info, v) ns.Addon.db.profile.ZoneProfessionsMixed = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.ZoneProfessionsMixed then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Zones"] .. " " .. PROFESSIONS_BUTTON .. " +" .. " " .. L["icons"], "|cff00ff00" .. L["is activated"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.ZoneProfessionsMixed then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Zones"] .. " " .. PROFESSIONS_BUTTON .. " +" .. " " .. L["icons"], "|cffff0000" .. L["is deactivated"]) end end end,
+                  },
+                showZoneAlchemy = {
+                  disabled = function() return not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneProfessions end,
+                  type = "toggle",
+                  name = TextIconAlchemy:GetIconString() .. " " .. L["Alchemy"],
+                  desc = "",
+                  width = 1.2,
+                  order = 42,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showZoneAlchemy then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], L["Alchemy"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneAlchemy then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], L["Alchemy"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showZoneEngineer = {
+                  disabled = function() return not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneProfessions end,
+                  type = "toggle",
+                  name = TextIconEngineer:GetIconString() .. " " .. L["Engineer"],
+                  desc = "",
+                  width = 1.2,
+                  order = 42.1,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showZoneEngineer then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], L["Engineer"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneEngineer then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], L["Engineer"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showZoneJewelcrafting = {
+                  disabled = function() return not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneProfessions end,
+                  type = "toggle",
+                  name = TextIconJewelcrafting:GetIconString() .. " " .. L["Jewelcrafting"],
+                  desc = "",
+                  width = 1.2,
+                  order = 42.2,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showZoneJewelcrafting then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], L["Jewelcrafting"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneJewelcrafting then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], L["Jewelcrafting"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showZoneBlacksmith = {
+                  disabled = function() return not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneProfessions end,
+                  type = "toggle",
+                  name = TextIconBlacksmith:GetIconString() .. " " .. L["Blacksmithing"],
+                  desc = "",
+                  width = 1.2,
+                  order = 42.4,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showZoneBlacksmith then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], L["Blacksmithing"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneBlacksmith then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], L["Blacksmithing"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showZoneTailoring = {
+                  disabled = function() return not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneProfessions end,
+                  type = "toggle",
+                  name = TextIconTailoring:GetIconString() .. " " .. L["Tailoring"],
+                  desc = "",
+                  width = 1.2,
+                  order = 42.5,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showZoneTailoring then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], L["Tailoring"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneTailoring then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], L["Tailoring"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showZoneSkinning = {
+                  disabled = function() return not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneProfessions end,
+                  type = "toggle",
+                  name = TextIconSkinning:GetIconString() .. " " .. L["Skinning"],
+                  desc = "",
+                  width = 1.2,
+                  order = 42.6,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showZoneSkinning then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], L["Skinning"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneSkinning then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], L["Skinning"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showZoneMining = {
+                  disabled = function() return not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneProfessions end,
+                  type = "toggle",
+                  name = TextIconMining:GetIconString() .. " " .. L["Mining"],
+                  desc = "",
+                  width = 1.2,
+                  order = 42.7,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showZoneMining then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], L["Mining"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneMining then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], L["Mining"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showZoneHerbalism = {
+                  disabled = function() return not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneProfessions end,
+                  type = "toggle",
+                  name = TextIconHerbalism:GetIconString() .. " " .. L["Herbalism"],
+                  desc = "",
+                  width = 1.2,
+                  order = 42.8,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showZoneHerbalism then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], L["Herbalism"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneHerbalism then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], L["Herbalism"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showZoneInscription = {
+                  disabled = function() return not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneProfessions end,
+                  type = "toggle",
+                  name = TextIconInscription:GetIconString() .. " " .. INSCRIPTION,
+                  desc = "",
+                  width = 1.2,
+                  order = 42.9,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showZoneInscription then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], INSCRIPTION, L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneInscription then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], INSCRIPTION, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showZoneFishing = {
+                  disabled = function() return not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneProfessions end,
+                  type = "toggle",
+                  name = TextIconFishing:GetIconString() .. " " .. PROFESSIONS_FISHING,
+                  desc = "",
+                  width = 1.2,
+                  order = 43,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showZoneFishing then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], PROFESSIONS_FISHING, L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneFishing then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"],PROFESSIONS_FISHING, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showZoneCooking = {
+                  disabled = function() return not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneProfessions end,
+                  type = "toggle",
+                  name = TextIconCooking:GetIconString() .. " " .. PROFESSIONS_COOKING,
+                  desc = "",
+                  width = 1.2,
+                  order = 43.1,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showZoneCooking then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], PROFESSIONS_COOKING, L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneCooking then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], PROFESSIONS_COOKING, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showZoneArchaeology = {
+                  disabled = function() return not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneProfessions end,
+                  type = "toggle",
+                  name = TextIconArchaeology:GetIconString() .. " " .. PROFESSIONS_ARCHAEOLOGY,
+                  desc = "",
+                  width = 1.2,
+                  order = 43.2,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showZoneArchaeology then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], PROFESSIONS_ARCHAEOLOGY, L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneArchaeology then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], PROFESSIONS_ARCHAEOLOGY, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showZoneEnchanting = {
+                  disabled = function() return not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneProfessions end,
+                  type = "toggle",
+                  name = TextIconEnchanting:GetIconString() .. " " .. L["Enchanting"],
+                  desc = "",
+                  width = 1.2,
+                  order = 43.3,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showZoneEnchanting then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], L["Enchanting"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneEnchanting then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], L["Enchanting"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showZoneLeatherworking = {
+                  disabled = function() return not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneProfessions end,
+                  type = "toggle",
+                  name = TextIconLeatherworking:GetIconString() .. " " .. L["Leatherworking"],
+                  desc = "",
+                  width = 1.2,
+                  order = 43.4,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showZoneLeatherworking then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], L["Leatherworking"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneLeatherworking then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zones"], L["Leatherworking"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                },
+              },
             ZoneGeneralTab = {
               disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap end,
               type = "group",
               name = "• " .. L["General"] .. " " .. L["icons"],
               desc = "",
-              order = 4,
+              order = 5,
               args = {
                 zonegeneralheader1 = {
                   type = "header",
@@ -3148,7 +3392,7 @@ ns.options = {
                   disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral end,
                   type = "toggle",
                   name = ns.COLORED_ADDON_NAME .. " " .. L["icons"],
-                  desc = TextIconMNL4:GetIconString() ..  " " .. TextIconHIcon:GetIconString() ..  " " .. TextIconAIcon:GetIconString() .. " " .. L["This MapNotes icons shows various icons that are too close to each other together"] .. "\n" .. "\n" .. "Currently only possible on The War Within zones. Other areas will follow soon",
+                  desc = TextIconMNL4:GetIconString() ..  " " .. TextIconHIcon:GetIconString() ..  " " .. TextIconAIcon:GetIconString() .. " " .. L["This MapNotes icons shows various icons that are too close to each other together"] .. "\n" .. "\n" .. "Currently only possible on Khaz Algar and Pandaria Zones. More areas will follow later",
                   order = 31,
                   width = 0.80,
                   get = function() return ns.Addon.db.profile.ZoneMapNotesIcons end,
@@ -3284,7 +3528,7 @@ ns.options = {
               type = "group",
               name = "• " .. L["Orientation"] .. " " .. L["icons"],
               desc = "",
-              order = 5,
+              order = 6,
               args = {
                 zonepathsheader1 = {
                   type = "header",
@@ -3817,12 +4061,244 @@ ns.options = {
                   },
                 },
               },
+            MiniMapProfessionTab = {
+              disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or ns.Addon.db.profile.activate.SyncZoneAndMinimap end,
+              type = "group",
+              name = "• " .. GUILD_ROSTER_DROPDOWN_PROFESSION .. " " .. L["icons"],
+              desc = "",
+              order = 4,
+              args = {       
+                MiniMapprofessionsheader1 = {
+                  type = "description",
+                  name = "",
+                  order = 40,
+                  width = 0.85,
+                  },  
+                MiniMapProfessions = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or ns.Addon.db.profile.activate.SyncZoneAndMinimap end,
+                  type = "toggle",
+                  name = L["Activate icons"],
+                  desc = L["Enables the display of all possible icons on this map"],
+                  width = 0.90,
+                  order = 40.2,
+                  get = function() return ns.Addon.db.profile.activate.MiniMapProfessions end,
+                  set = function(info, v) ns.Addon.db.profile.activate.MiniMapProfessions = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.MiniMapProfessions then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. MINIMAP_LABEL .. " " .. GUILD_ROSTER_DROPDOWN_PROFESSION .. " " .. L["icons"], "|cff00ff00" .. L["is activated"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.MiniMapProfessions then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. MINIMAP_LABEL .. " " .. GUILD_ROSTER_DROPDOWN_PROFESSION .. " " .. L["icons"], "|cffff0000" .. L["is deactivated"]) end end end,
+                  },
+                MiniMapprofessionsheader2 = {
+                  type = "description",
+                  name = "",
+                  order = 40.3,
+                  },  
+                MiniMapprofessionsheader3 = {
+                  type = "description",
+                  name = "",
+                  order = 40.4,
+                  width = 0.20,
+                  },  
+                MiniMapProfessionsScale = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapProfessions end,
+                  type = "range",
+                  name = L["symbol size"],
+                  desc = L["Changes the size of the icons"],
+                  min = 0.5, max = 6, step = 0.1,
+                  width = 1, 
+                  order = 40.5,
+                  },
+                MiniMapgeneralheader2 = {
+                  type = "description",
+                  name = "",
+                  order = 40.6,
+                  width = 0.20,
+                  },
+                MiniMapProfessionsAlpha = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapProfessions end,
+                  type = "range",
+                  name = L["symbol visibility"],
+                  desc = L["Changes the visibility of the icons"],
+                  min = 0, max = 1, step = 0.1,
+                  width = 1, 
+                  order = 40.7,
+                  },
+                MiniMapgeneralheader3 = {
+                  type = "header",
+                  name = "",
+                  order = 40.8,
+                  },
+                --showMiniMapProfessionOrders = {
+                --  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapProfessions end,
+                --  type = "toggle",
+                --  name = TextIconProfessionOrders:GetIconString() .. " " .. PROFESSIONS_CRAFTING_ORDERS_TAB_NAME,
+                --  desc = PLACE_CRAFTING_ORDERS,
+                --  width = 1.2,
+                --  order = 41.9,
+                --  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                --        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showMiniMapProfessionOrders then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, PROFESSIONS_CRAFTING_ORDERS_TAB_NAME, L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                --        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapProfessionOrders then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, PROFESSIONS_CRAFTING_ORDERS_TAB_NAME, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                --  },
+                showMiniMapAlchemy = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapProfessions end,
+                  type = "toggle",
+                  name = TextIconAlchemy:GetIconString() .. " " .. L["Alchemy"],
+                  desc = "",
+                  width = 1.2,
+                  order = 42,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showMiniMapAlchemy then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Alchemy"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapAlchemy then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Alchemy"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showMiniMapEngineer = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapProfessions end,
+                  type = "toggle",
+                  name = TextIconEngineer:GetIconString() .. " " .. L["Engineer"],
+                  desc = "",
+                  width = 1.2,
+                  order = 42.1,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showMiniMapEngineer then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Engineer"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapEngineer then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Engineer"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showMiniMapJewelcrafting = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapProfessions end,
+                  type = "toggle",
+                  name = TextIconJewelcrafting:GetIconString() .. " " .. L["Jewelcrafting"],
+                  desc = "",
+                  width = 1.2,
+                  order = 42.2,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showMiniMapJewelcrafting then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Jewelcrafting"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapJewelcrafting then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Jewelcrafting"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showMiniMapBlacksmith = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapProfessions end,
+                  type = "toggle",
+                  name = TextIconBlacksmith:GetIconString() .. " " .. L["Blacksmithing"],
+                  desc = "",
+                  width = 1.2,
+                  order = 42.4,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showMiniMapBlacksmith then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Blacksmithing"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapBlacksmith then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Blacksmithing"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showMiniMapTailoring = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapProfessions end,
+                  type = "toggle",
+                  name = TextIconTailoring:GetIconString() .. " " .. L["Tailoring"],
+                  desc = "",
+                  width = 1.2,
+                  order = 42.5,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showMiniMapTailoring then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Tailoring"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapTailoring then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Tailoring"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showMiniMapSkinning = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapProfessions end,
+                  type = "toggle",
+                  name = TextIconSkinning:GetIconString() .. " " .. L["Skinning"],
+                  desc = "",
+                  width = 1.2,
+                  order = 42.6,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showMiniMapSkinning then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Skinning"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapSkinning then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Skinning"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showMiniMapMining = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapProfessions end,
+                  type = "toggle",
+                  name = TextIconMining:GetIconString() .. " " .. L["Mining"],
+                  desc = "",
+                  width = 1.2,
+                  order = 42.7,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showMiniMapMining then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Mining"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapMining then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Mining"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showMiniMapHerbalism = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapProfessions end,
+                  type = "toggle",
+                  name = TextIconHerbalism:GetIconString() .. " " .. L["Herbalism"],
+                  desc = "",
+                  width = 1.2,
+                  order = 42.8,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showMiniMapHerbalism then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Herbalism"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapHerbalism then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Herbalism"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showMiniMapInscription = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapProfessions end,
+                  type = "toggle",
+                  name = TextIconInscription:GetIconString() .. " " .. INSCRIPTION,
+                  desc = "",
+                  width = 1.2,
+                  order = 42.9,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showMiniMapInscription then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, INSCRIPTION, L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapInscription then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, INSCRIPTION, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showMiniMapFishing = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapProfessions end,
+                  type = "toggle",
+                  name = TextIconFishing:GetIconString() .. " " .. PROFESSIONS_FISHING,
+                  desc = "",
+                  width = 1.2,
+                  order = 43,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showMiniMapFishing then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, PROFESSIONS_FISHING, L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapFishing then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL,PROFESSIONS_FISHING, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showMiniMapCooking = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapProfessions end,
+                  type = "toggle",
+                  name = TextIconCooking:GetIconString() .. " " .. PROFESSIONS_COOKING,
+                  desc = "",
+                  width = 1.2,
+                  order = 43.1,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showMiniMapCooking then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, PROFESSIONS_COOKING, L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapCooking then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, PROFESSIONS_COOKING, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showMiniMapArchaeology = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapProfessions end,
+                  type = "toggle",
+                  name = TextIconArchaeology:GetIconString() .. " " .. PROFESSIONS_ARCHAEOLOGY,
+                  desc = "",
+                  width = 1.2,
+                  order = 43.2,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showMiniMapArchaeology then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, PROFESSIONS_ARCHAEOLOGY, L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapArchaeology then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, PROFESSIONS_ARCHAEOLOGY, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showMiniMapEnchanting = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapProfessions end,
+                  type = "toggle",
+                  name = TextIconEnchanting:GetIconString() .. " " .. L["Enchanting"],
+                  desc = "",
+                  width = 1.2,
+                  order = 43.3,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showMiniMapEnchanting then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Enchanting"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapEnchanting then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Enchanting"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                showMiniMapLeatherworking = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapProfessions end,
+                  type = "toggle",
+                  name = TextIconLeatherworking:GetIconString() .. " " .. L["Leatherworking"],
+                  desc = "",
+                  width = 1.2,
+                  order = 43.4,
+                  set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showMiniMapLeatherworking then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Leatherworking"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapLeatherworking then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Leatherworking"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+                  },
+                },
+              },
             MiniMapGeneralTab = {
               disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or ns.Addon.db.profile.activate.SyncZoneAndMinimap end,
               type = "group",
               name = "• " .. L["General"] .. " " .. L["icons"],
               desc = "",
-              order = 4,
+              order = 5,
               args = {
                 minimapgeneralheader1 = {
                   type = "header",
@@ -4015,7 +4491,7 @@ ns.options = {
               type = "group",
               name = "• " .. L["Orientation"] .. " " .. L["icons"],
               desc = "",
-              order = 5,
+              order = 6,
               args = {
                 minimappathsheader1 = {
                   type = "header",
@@ -4106,14 +4582,14 @@ ns.options = {
       args = {
         continentheader = {
           type = "header",
-          name = CONTINENT .. "-" .. BRAWL_TOOLTIP_MAPS .. " " .. L["Informations"],
+          name = CONTINENT .. "-" .. BRAWL_TOOLTIP_MAPS,
           order = 30,
           },
-        ContinentDescriptionText = {
-          name = "|cffff0000" .. "======> " .. "|cffffff00" .. L["Left-clicking on a icon on this map opens the corresponding instance in the adventure guide or the map in which the portal, ship, zeppelin or special transport icon is located"],
-          type = "description",
-          order = 30.1,
-          },   
+        --ContinentDescriptionText = {
+        --  name = "|cffff0000" .. "======> " .. "|cffffff00" .. L["Left-clicking on a icon on this map opens the corresponding instance in the adventure guide or the map in which the portal, ship, zeppelin or special transport icon is located"],
+        --  type = "description",
+        --  order = 30.1,
+        --  },   
         --Continenthdesc = {
         --  type = "description",
         --  name = "|cffff0000" .. "======> " .. "|cffffff00" .. L["Individual icons that are too close to other icons on this map are not 100% accurately placed on this map! For more precise coordinates, please use the points on the zone map"],
@@ -4271,14 +4747,25 @@ ns.options = {
                 if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showContinentPvPandPvEVendor then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Continent map"], TRANSMOG_SET_PVP .. " & " .. TRANSMOG_SET_PVE .. " " .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT, L["icons"], "|cff00ff00" .. L["are shown"]) else 
                 if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showContinentPvPandPvEVendor then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Continent map"], TRANSMOG_SET_PVP .. " & " .. TRANSMOG_SET_PVE .. " " .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
           },
+        showContinentProfessions = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.Continent end,
+          type = "toggle",
+          name = TextIconProfessionsMixed:GetIconString() .. " " .. PROFESSIONS_BUTTON,
+          desc = EXPANSION_NAME4,
+          order = 33.2,
+          get = function() return ns.Addon.db.profile.showContinentProfessions end,
+          set = function(info, v) ns.Addon.db.profile.showContinentProfessions = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+                if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showContinentProfessions then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Continent map"] .. " " .. PROFESSIONS_BUTTON .. " +" .. " " .. L["icons"], "|cff00ff00" .. L["is activated"]) else 
+                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showContinentProfessions then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Continent map"] .. " " .. PROFESSIONS_BUTTON .. " +" .. " " .. L["icons"], "|cffff0000" .. L["is deactivated"]) end end end,
+          },
         showContinentDelves = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.Continent end,
           type = "toggle",
           name = TextIconDelves:GetIconString() .. " " .. DELVES_LABEL,
           desc = EXPANSION_NAME10 .. "\n" .. L["Entrance"],
-          width = 0.60,
-          order = 33.2,
-          set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+          order = 33.3,
+          set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+                if WorldMapFrame:IsShown() and WorldMapFrame:GetMapID() == 2274 then WorldMapFrame:Hide() OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(2274) end
                 if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showContinentDelves then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], DELVES_LABEL, "|cff00ff00" .. L["is activated"]) else 
                 if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showContinentDelves then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], DELVES_LABEL, "|cffff0000" ..  L["is deactivated"]) end end end,
           },
@@ -4287,8 +4774,7 @@ ns.options = {
           type = "toggle",
           name = TextIconPassageCaveUp:GetIconString() .. " " .. TextIconPassageCaveDown:GetIconString() .. " " .. L["Path"],
           desc = EXPANSION_NAME10 .. "\n" .. L["Passages"],
-          width = 0.60,
-          order = 33.3,
+          order = 33.4,
           set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
                 if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showContinentPaths then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], L["Path"], "|cff00ff00" .. L["is activated"]) else 
                 if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showContinentPaths then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], L["Path"], "|cffff0000" ..  L["is deactivated"]) end end end,

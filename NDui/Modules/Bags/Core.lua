@@ -2,6 +2,7 @@
 local B, C, L, DB = unpack(ns)
 local module = B:RegisterModule("Bags")
 local cargBags = ns.cargBags
+local cr, cg, cb = DB.r, DB.g, DB.b
 
 local ACCOUNT_BANK_TYPE = Enum.BankType.Account or 2
 
@@ -1144,7 +1145,7 @@ function module:OnLogin()
 
 		self.iLvl:SetText("")
 		self.iSlot:SetText("")
-		if item.link and (item.quality and item.quality > 0) then
+		if item.link and (item.quality and item.quality > 0) or (item.id and DB.SpecialJunk[item.id]) then
 			local color = DB.QualityColors[item.quality]
 			local level = item.level or B.GetItemLevel(item.link, item.bagId ~= -1 and item.bagId, item.slotId)
 			if (not level) or (level and level < C.db["Bags"]["iLvlToShow"]) then level = "" end
@@ -1155,6 +1156,9 @@ function module:OnLogin()
 			if C.db["Bags"]["BagsiSlot"] then
 				local slot = B.GetItemType(item.link, item.bagId ~= -1 and item.bagId, item.slotId)
 				self.iSlot:SetText(slot)
+				if DB.SpecialJunk[item.id] then
+					self.iSlot:SetTextColor(cr, cg, cb)
+				end
 				--self.iSlot:SetTextColor(color.r, color.g, color.b)
 			end
 		end

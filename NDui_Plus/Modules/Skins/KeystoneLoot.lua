@@ -31,7 +31,9 @@ local function HandleDungeon(self)
 
 	for _, button in ipairs(self.itemFrames) do
 		HandleItemButton(button)
-		button.bg.__shadow:SetFrameLevel(2)
+		if button.bg.__shadow then
+			button.bg.__shadow:SetFrameLevel(2)
+		end
 	end
 
 	local button = self.TeleportButton

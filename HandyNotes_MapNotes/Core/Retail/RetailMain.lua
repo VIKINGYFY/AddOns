@@ -251,7 +251,7 @@ ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
           tooltip:AddDoubleLine("|cff00ff00" .. L["< Left Click to open Adventure Guide >"], nil, nil, false) -- instance entrances into adventure guide
         end
         if ns.Addon.db.profile.tomtom then
-          tooltip:AddDoubleLine("|cff00ff00" ..  L["< Shift + Right Click add TomTom waypoint >"], nil, nil, false) -- instance entrances tomtom
+          tooltip:AddDoubleLine("|cff00ff00" .. L["< Shift + Right Click add TomTom waypoint >"], nil, nil, false) -- instance entrances tomtom
         end
       end
 
@@ -405,7 +405,7 @@ do
       
       ns.professionIcons = value.type == "Alchemy" or value.type == "Engineer" or value.type == "Cooking" or value.type == "Fishing" or value.type == "Archaeology" or value.type == "Mining" or value.type == "Jewelcrafting" 
                             or value.type == "Blacksmith" or value.type == "Leatherworking" or value.type == "Skinning" or value.type == "Tailoring" or value.type == "Herbalism" or value.type == "Inscription"
-                            or value.type == "Enchanting" or value.type == "FishingClassic" or value.type == "ProfessionOrders"
+                            or value.type == "Enchanting" or value.type == "FishingClassic" or value.type == "ProfessionOrders" or value.type == "ProfessionsMixed"
 
       ns.instanceIcons = value.type == "Dungeon" or value.type == "Raid" or value.type == "PassageDungeon" or value.type == "PassageDungeonRaidMulti" or value.type == "PassageRaid" or value.type == "VInstance"  or value.type == "MultiVInstance" 
                           or value.type == "PassageDungeon" or value.type == "Multiple" or value.type == "LFR" or value.type == "Gray" or value.type == "VKey1" or value.type == "Delves" or value.type == "VInstanceD"
@@ -572,6 +572,12 @@ do
         alpha = db.MiniMapTransportAlpha
       end
 
+      -- Profession Minimap icons in Zone
+      if not ns.CapitalMiniMapIDs and ns.professionIcons and (value.showOnMinimap == true) then
+        scale = db.MiniMapProfessionsScale
+        alpha = db.MiniMapProfessionsAlpha
+      end
+
       -- MiniMap General (Innkeeper/Exit/Passage) icons
       if not ns.CapitalMiniMapIDs and ns.generalIcons and (value.showOnMinimap == true) or ns.ZoneIDs and not value.showInZone then
         scale = db.MiniMapGeneralScale
@@ -624,6 +630,12 @@ do
       if not ns.CapitalIDs and ns.transportIcons and (value.showOnMinimap == false) then
         scale = db.ZoneTransportScale
         alpha = db.ZoneTransportAlpha
+      end
+
+      -- Zone Profession icons 
+      if not ns.CapitalIDs and ns.professionIcons and (value.showOnMinimap == false) then
+        scale = db.ZoneProfessionsScale
+        alpha = db.ZoneProfessionsAlpha
       end
 
       -- Zones General (Innkeeper/Exit/Passage) icons
@@ -1136,6 +1148,8 @@ end
 
 function Addon:PLAYER_LOGIN() -- OnInitialize()
   ns.LoadOptions(self)
+  ns.BlizzardDelvesAddTT()
+  ns.BlizzardDelvesAddFunction()
   ns.Addon = Addon
 
   -- Register Database Profile
@@ -1229,37 +1243,6 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
 
   WorldMapFrame:HookScript("OnShow", function()
     ns.RemoveBlizzPOIs()
-  end)
-  
-  hooksecurefunc(DelveEntrancePinMixin, "OnMouseEnter", function(self)
-    --if (self.description == _G["DELVE_LABEL"]) then
-      if not ns.Addon.db.profile.activate.ShiftWorld then 
-        GameTooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. " " .. "|cff00ff00" .. "< " .. KEY_BUTTON3 .. " " .. L["to show delve map"] .. " > " .. TextIconMNL4:GetIconString(), nil, nil, false)
-      end
-      if ns.Addon.db.profile.activate.ShiftWorld then 
-        GameTooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. " " .. "|cff00ff00" .. "< " .. SHIFT_KEY_TEXT .. " + " .. KEY_BUTTON3 .. " " .. L["to show delve map"] .. " > " .. TextIconMNL4:GetIconString(), nil, nil, false)
-      end
-    --end
-    GameTooltip:Show()
-  end)
-
-  hooksecurefunc(DelveEntrancePinMixin, "OnClick", function(self, button)
-    ns.BlizzDelveIDs = ns.BlizzDelveAreaPoisInfoIDs[self.areaPoiID] or ns.BlizzBountifulDelveAreaPoisInfoIDs[self.areaPoiID]
-    if button == "MiddleButton" and not ns.Addon.db.profile.activate.ShiftWorld then
-      if ns.BlizzDelveIDs then
-        --if (self.description == _G["DELVE_LABEL"]) then
-          WorldMapFrame:SetMapID(ns.BlizzDelveIDs)
-        --end
-      end
-    end
-
-    if button == "MiddleButton" and IsShiftKeyDown() and ns.Addon.db.profile.activate.ShiftWorld then
-      if ns.BlizzDelveIDs or ns.BlizzBountifulDelveIDs then
-        --if (self.description == _G["DELVE_LABEL"]) then
-          WorldMapFrame:SetMapID(ns.BlizzDelveIDs)
-        --end
-      end
-    end
   end)
 
 end

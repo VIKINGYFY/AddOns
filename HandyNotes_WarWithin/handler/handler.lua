@@ -167,7 +167,8 @@ function ns.RegisterPoints(zone, points, defaults)
             table.insert(route, 1, coord)
             ns.points[zone][route[#route]] = setmetatable({
                 label=route.label or (point.npc and ("Path to {npc:%s}"):format(point.npc) or "Path to treasure"),
-                atlas=route.atlas or "poi-door", scale=route.scale or 0.95, minimap=true, texture=false,
+                atlas=route.atlas or "poi-door", scale=route.scale or 0.95, texture=false,
+                minimap=true, worldmap=route.worldmap,
                 note=route.note or false,
                 loot=upgradeloot(route.loot),
                 routes={route},
@@ -183,7 +184,7 @@ function ns.RegisterPoints(zone, points, defaults)
                     label=nearby.label or (point.npc and "Related to nearby NPC" or "Related to nearby treasure"),
                     atlas=nearby.atlas or "playerpartyblip",
                     texture=nearby.texture or false,
-                    minimap=true, worldmap=false, scale=0.95,
+                    minimap=true, worldmap=nearby.worldmap, scale=0.95,
                     note=nearby.note or false,
                     loot=upgradeloot(nearby.loot), active=nearby.active,
                     _coord=ncoord, _uiMapID=zone,
@@ -1043,8 +1044,17 @@ local function handle_tooltip(tooltip, point, skip_label)
         tooltip:AddDoubleLine(GROUP, (render_string(ns.groups[point.group] or point.group, point)))
     end
 
-    if point.quest and ns.db.tooltip_questid then
-        tooltip:AddDoubleLine("QuestID", render_string_list(point, "questid", point.quest), NORMAL_FONT_COLOR:GetRGB())
+    if point.quest then
+        local isAvailable = not C_QuestLog.IsQuestFlaggedCompleted(point.quest)
+        local r, g, b = (isAvailable and GREEN_FONT_COLOR or RED_FONT_COLOR):GetRGB()
+        tooltip:AddDoubleLine(
+            " ",
+            isAvailable and AVAILABLE or GOAL_COMPLETED,
+            1, 1, 1, r, g, b, true
+        )
+        if ns.db.tooltip_questid then
+            tooltip:AddDoubleLine("QuestID", render_string_list(point, "questid", point.quest), NORMAL_FONT_COLOR:GetRGB())
+        end
     end
 
     if ns.DEBUG then

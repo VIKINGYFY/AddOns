@@ -74,6 +74,10 @@ do
 		elseif DB.Studying[spellID] then
 			itemType = "知识"
 		end
+		
+		if DB.SpecialJunk[itemID] then
+			itemType = SPECIAL
+		end
 
 		--itemType = itemClassID.." "..itemSubClassID
 

@@ -627,6 +627,38 @@ if not db.activate.HideMapNote then
             end
           end
 
+          -- Pandaria Professions
+          if self.db.profile.showContinentProfessions then
+
+            nodes[424][71664914] = { name = INSCRIPTION, type = "Inscription", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[424][58007834] = { name = PROFESSIONS_FISHING, type = "Fishing", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[424][43257450] = { name = L["Engineer"], type = "Engineer", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[424][54086932] = { name = L["Tailoring"], type = "Tailoring", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[424][45135809] = { name = L["Blacksmithing"], type = "Blacksmith", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[424][51263464] = { name = L["Leatherworking"], type = "Leatherworking", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[424][35726249] = { name = L["Alchemy"], type = "Alchemy", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[424][43066713] = { name = L["Skinning"], type = "Skinning", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[424][67784226] = { name = L["Mining"], type = "Mining", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[424][52294943] = { dnID = FACTION_NEUTRAL .. " " .. MINIMAP_TRACKING_TRAINER_PROFESSION .. "\n" .. "\n" .. TextIconArchaeology:GetIconString() .. " " .. PROFESSIONS_ARCHAEOLOGY .. "\n" .. TextIconInscription:GetIconString() .. " " .. INSCRIPTION, name = "", type = "ProfessionsMixed", showOnContinent = true, showInZone = false, showOnMinimap = false }
+            nodes[424][68524460] = { dnID = FACTION_NEUTRAL .. " " .. MINIMAP_TRACKING_TRAINER_PROFESSION .. "\n" .. "\n" .. TextIconInscription:GetIconString() .. " " .. INSCRIPTION .. "\n" .. TextIconJewelcrafting:GetIconString() .. " " .. L["Jewelcrafting"] .. "\n" .. TextIconBlacksmith:GetIconString() .. " " .. L["Blacksmithing"], name = "", type = "ProfessionsMixed", showOnContinent = true, showInZone = false, showOnMinimap = false }
+            --nodes[424][45602694] = { dnID = FACTION_NEUTRAL .. " " .. MINIMAP_TRACKING_TRAINER_PROFESSION .. "\n" .. "\n" .. TextIconInscription:GetIconString() .. " " .. INSCRIPTION .. "\n" .. TextIconHerbalism:GetIconString() .. " " .. L["Herbalism"] .. "\n" .. TextIconLeatherworking:GetIconString() .. " " .. L["Leatherworking"] .. "\n" .. TextIconCooking:GetIconString() .. " " .. PROFESSIONS_COOKING .. "\n" .. TextIconFishing:GetIconString() .. " " .. PROFESSIONS_FISHING .. "\n" .. TextIconMining:GetIconString() .. " " .. L["Mining"] .. "\n" .. TextIconBlacksmith:GetIconString() .. " " .. L["Blacksmithing"], name = "", type = "ProfessionsMixed", showOnContinent = true, showInZone = false, showOnMinimap = false }
+            nodes[424][52496674] = { dnID = FACTION_NEUTRAL .. " " .. MINIMAP_TRACKING_TRAINER_PROFESSION .. "\n" .. "\n" .. TextIconHerbalism:GetIconString() .. " " .. L["Herbalism"] .. "\n" .. TextIconCooking:GetIconString() .. " " .. PROFESSIONS_COOKING .. "\n" .. TextIconFishing:GetIconString() .. " " .. PROFESSIONS_FISHING, name = "", type = "ProfessionsMixed", showOnContinent = true, showInZone = false, showOnMinimap = false }
+            nodes[424][67524880] = { dnID = FACTION_NEUTRAL .. " " .. MINIMAP_TRACKING_TRAINER_PROFESSION .. "\n" .. "\n" .. TextIconEnchanting:GetIconString() .. " " .. L["Enchanting"] .. "\n" .. TextIconCooking:GetIconString() .. " " .. PROFESSIONS_COOKING, name = "", type = "ProfessionsMixed", showOnContinent = true, showInZone = false, showOnMinimap = false }
+            
+            if self.faction == "Horde" then
+              nodes[424][59123739] = { dnID = ITEM_REQ_HORDE .. "\n" .. "\n" .. TextIconHerbalism:GetIconString() .. " " .. L["Herbalism"] .. "\n" .. TextIconMining:GetIconString() .. " " .. L["Mining"] .. "\n" .. TextIconSkinning:GetIconString() .. " " .. L["Skinning"], name = "", type = "ProfessionsMixed", showOnContinent = true, showInZone = false, showOnMinimap = false }
+              nodes[424][67895590] = { name = L["Herbalism"], type = "Herbalism", wwwName = LFG_LIST_REQUIRE .. " " .. STORY_PROGRESS, showWWW = true, www = "wowhead.com/quest=29824", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+              nodes[424][43874801] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+              nodes[424][48314179] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+              nodes[504][33503380] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            end
+
+            if self.faction == "Alliance" then
+              nodes[424][66766846] = { dnID = ITEM_REQ_ALLIANCE .. "\n" .. "\n" .. TextIconHerbalism:GetIconString() .. " " .. L["Herbalism"] .. "\n" .. TextIconMining:GetIconString() .. " " .. L["Mining"] .. "\n" .. TextIconSkinning:GetIconString() .. " " .. L["Skinning"], name = "", type = "ProfessionsMixed", showOnContinent = true, showInZone = false, showOnMinimap = false }
+            end
+
+          end
+
         end
     
     
@@ -1133,25 +1165,25 @@ if not db.activate.HideMapNote then
             end
 
           -- Khaz Algar Delves
-            if self.db.profile.showContinentDelves then
-              -- Azj-Kathet
-              nodes[2274][46088109] = { name = "", TransportName = DELVE_LABEL, delveID = 2259, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Tak-Rethan-Abyss
-              nodes[2274][45458627] = { name = "", TransportName = DELVE_LABEL, delveID = 2299, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Underkeep
-              nodes[2274][38868203] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Zekvir's Lair
-              nodes[2274][42946320] = { name = "", TransportName = DELVE_LABEL, delveID = 2347, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Spiral Weave
-              -- Hallowfall
-              nodes[2274][47174554] = { name = "", TransportName = DELVE_LABEL, delveID = 2312, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Mycomancer Cavern
-              nodes[2274][44825825] = { name = "", TransportName = DELVE_LABEL, delveID = 2310, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Skittering Breach
-              nodes[2274][39015449] = { name = "", TransportName = DELVE_LABEL, delveID = 2301, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Sinkhole
-              nodes[2274][32425213] = { name = "", TransportName = DELVE_LABEL, delveID = 2277, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Nightfall Sanctum
-              -- The Ringing Deeps
-              nodes[2274][52355778] = { name = "", TransportName = DELVE_LABEL, delveID = 2251, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Waterworks
-              nodes[2274][61935331] = { name = "", TransportName = DELVE_LABEL, delveID = 2302, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Dread Pit
-              -- Isle of Dorn
-              nodes[2274][67273401] = { name = "", TransportName = DELVE_LABEL, delveID = 2269, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Earthcrawl Mines
-              nodes[2274][73383036] = { name = "", TransportName = DELVE_LABEL, delveID = 2249, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Fungal Folly
-              nodes[2274][77712035] = { name = "", TransportName = DELVE_LABEL, delveID = 2250, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Kriegval's Rest
-            end
+            --if self.db.profile.showContinentDelves then
+            --  -- Azj-Kathet
+            --  nodes[2274][46088109] = { name = "", TransportName = DELVE_LABEL, delveID = 2259, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Tak-Rethan-Abyss
+            --  nodes[2274][45458627] = { name = "", TransportName = DELVE_LABEL, delveID = 2299, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Underkeep
+            --  nodes[2274][38868203] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Zekvir's Lair
+            --  nodes[2274][42946320] = { name = "", TransportName = DELVE_LABEL, delveID = 2347, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Spiral Weave
+            --  -- Hallowfall
+            --  nodes[2274][47174554] = { name = "", TransportName = DELVE_LABEL, delveID = 2312, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Mycomancer Cavern
+            --  nodes[2274][44825825] = { name = "", TransportName = DELVE_LABEL, delveID = 2310, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Skittering Breach
+            --  nodes[2274][39015449] = { name = "", TransportName = DELVE_LABEL, delveID = 2301, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Sinkhole
+            --  nodes[2274][32425213] = { name = "", TransportName = DELVE_LABEL, delveID = 2277, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Nightfall Sanctum
+            --  -- The Ringing Deeps
+            --  nodes[2274][52355778] = { name = "", TransportName = DELVE_LABEL, delveID = 2251, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Waterworks
+            --  nodes[2274][61935331] = { name = "", TransportName = DELVE_LABEL, delveID = 2302, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Dread Pit
+            --  -- Isle of Dorn
+            --  nodes[2274][67273401] = { name = "", TransportName = DELVE_LABEL, delveID = 2269, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Earthcrawl Mines
+            --  nodes[2274][73383036] = { name = "", TransportName = DELVE_LABEL, delveID = 2249, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Fungal Folly
+            --  nodes[2274][77712035] = { name = "", TransportName = DELVE_LABEL, delveID = 2250, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Kriegval's Rest
+            --end
 
           -- Khaz Algar MapNotesIcons
             if db.activate.MapNotesIcons then

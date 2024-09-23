@@ -1,13 +1,14 @@
 # MapNote
-## [2.3.8](https://github.com/Ssesmar/MapNote) (2024-09-20)
+## [2.3.9](https://github.com/Ssesmar/MapNote) (2024-09-22)
 - Note:
 
 -- MapNotes now works on every version of World of Warcraft. Classic Era / Cataclysm / Retail / PTR
 
 Retail:
 
-add path icons (CaveDown and CaveUp) on Khaz Algor continent map
-add Chamber of memory portal icon within Dornogal
+removed the MapNotes Continent Delve Icons and replaced it with Blizzard ones and added the MapNotes function to them to open the Instance map on middle mouse click on it
+add Profession icons for Pandaria on Zone, Minimap and Continentmap
+since almost all professional trainers are not located in the capital of the respective faction in pandaria
 
 - Description:
 
