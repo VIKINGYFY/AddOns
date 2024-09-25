@@ -159,43 +159,50 @@ end
 function UF:UpdateColor(_, unit)
 	if not unit or self.unit ~= unit then return end
 
-	local element = self.Health
 	local name = self.unitName
 	local npcID = self.npcID
-	local isCustomUnit = UF.CustomUnits[name] or UF.CustomUnits[npcID]
 	local isPlayer = self.isPlayer
 	local isFriendly = self.isFriendly
+	local isHasTheDot = self.Auras.hasTheDot
+	local isCustomUnit = UF.CustomUnits[name] or UF.CustomUnits[npcID]
+
 	local isOffTank, status = UF:CheckThreatStatus(unit)
+	local healthPerc = UnitHealth(unit) / (UnitHealthMax(unit) + .0001) * 100
+
+	local coloredFocus = C.db["Nameplate"]["ColoredFocus"]
+	local coloredTarget = C.db["Nameplate"]["ColoredTarget"]
 	local customColor = C.db["Nameplate"]["CustomColor"]
-	local secureColor = C.db["Nameplate"]["SecureColor"]
-	local transColor = C.db["Nameplate"]["TransColor"]
+	local dotColor = C.db["Nameplate"]["DotColor"]
+	local executeRatio = C.db["Nameplate"]["ExecuteRatio"]
+	local focusColor = C.db["Nameplate"]["FocusColor"]
+	local friendlyCC = C.db["Nameplate"]["FriendlyCC"]
+	local hostileCC = C.db["Nameplate"]["HostileCC"]
 	local insecureColor = C.db["Nameplate"]["InsecureColor"]
 	local offTankColor = C.db["Nameplate"]["OffTankColor"]
-	local executeRatio = C.db["Nameplate"]["ExecuteRatio"]
-	local healthPerc = UnitHealth(unit) / (UnitHealthMax(unit) + .0001) * 100
+	local secureColor = C.db["Nameplate"]["SecureColor"]
 	local targetColor = C.db["Nameplate"]["TargetColor"]
-	local focusColor = C.db["Nameplate"]["FocusColor"]
-	local dotColor = C.db["Nameplate"]["DotColor"]
+	local transColor = C.db["Nameplate"]["TransColor"]
+
 	local r, g, b
 
 	if not UnitIsConnected(unit) or (not UnitPlayerControlled(unit) and UnitIsTapDenied(unit)) or C.TrashUnits[npcID] then
 		r, g, b = .5, .5, .5
 	else
-		if C.db["Nameplate"]["ColoredTarget"] and UnitIsUnit(unit, "target") then
+		if coloredTarget and UnitIsUnit(unit, "target") then
 			r, g, b = targetColor.r, targetColor.g, targetColor.b
-		elseif C.db["Nameplate"]["ColoredFocus"] and UnitIsUnit(unit, "focus") then
+		elseif coloredFocus and UnitIsUnit(unit, "focus") then
 			r, g, b = focusColor.r, focusColor.g, focusColor.b
 		elseif isCustomUnit then
 			r, g, b = customColor.r, customColor.g, customColor.b
-		elseif self.Auras.hasTheDot then
+		elseif isHasTheDot then
 			r, g, b = dotColor.r, dotColor.g, dotColor.b
 		elseif isPlayer and isFriendly then
-			if C.db["Nameplate"]["FriendlyCC"] then
+			if friendlyCC then
 				r, g, b = B.UnitColor(unit)
 			else
 				r, g, b = .1, .1, 1
 			end
-		elseif isPlayer and (not isFriendly) and C.db["Nameplate"]["HostileCC"] then
+		elseif isPlayer and (not isFriendly) and hostileCC then
 			r, g, b = B.UnitColor(unit)
 		else
 			r, g, b = UnitSelectionColor(unit, true)
@@ -222,7 +229,7 @@ function UF:UpdateColor(_, unit)
 	end
 
 	if r or g or b then
-		element:SetStatusBarColor(r, g, b)
+		self.Health:SetStatusBarColor(r, g, b)
 	end
 
 	self.ThreatIndicator:Hide()
@@ -399,7 +406,7 @@ function UF:AddTargetIndicator(self)
 
 	frame.Glow = B.CreateSD(frame, 8, true)
 	frame.Glow:SetOutside(self.backdrop, 8, 8)
-	frame.Glow:SetBackdropBorderColor(1, 1, 1)
+	frame.Glow:SetBackdropBorderColor(1, 0, 1)
 	frame.Glow:SetFrameLevel(0)
 
 	frame.nameGlow = frame:CreateTexture(nil, "BACKGROUND", nil, -5)
@@ -582,7 +589,7 @@ function UF:MouseoverIndicator(self)
 	texture:SetColorTexture(1, 1, 1, .35)
 	local glow = B.CreateSD(highlight, 8, true)
 	glow:SetOutside(self.backdrop, 8, 8)
-	glow:SetBackdropBorderColor(0, 1, 1)
+	glow:SetBackdropBorderColor(1, 1, 1)
 	glow:SetFrameLevel(1)
 
 	self:RegisterEvent("UPDATE_MOUSEOVER_UNIT", UF.UpdateMouseoverShown, true)

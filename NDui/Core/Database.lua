@@ -368,6 +368,7 @@ DB.OutmodedIDs = {
 
 DB.ExcludeIDs = {
 	[Enum.ItemConsumableSubclass.Generic] = Enum.ItemClass.Consumable,
+	[Enum.ItemConsumableSubclass.Elixir] = Enum.ItemClass.Consumable,
 	[Enum.ItemConsumableSubclass.Other] = Enum.ItemClass.Consumable,
 }
 

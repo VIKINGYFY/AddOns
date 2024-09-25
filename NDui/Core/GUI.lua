@@ -110,7 +110,7 @@ G.DefaultSettings = {
 		AutoDeposit = false,
 		SpecialJunk = true,
 		BagsPerRow = 7,
-		BankPerRow = 5,
+		BankPerRow = 7,
 		HideWidgets = true,
 
 		FilterJunk = true,

@@ -11,6 +11,7 @@ local database = {
         ['羔羊公益之使-瓦里安'] = {true, '9', '0'},
         ['羔羊公益之命-末日行者'] = {true, '9', '0'},
         ['羔羊公益之心-冰霜之刃'] = {true, '9', '0'},
+        ['怜姐姐的术氏-罗宁'] = {true, '9', '0'},
     },
     Horde = {
         ['羔羊公益之不-瓦拉纳'] = {true, '9', '0'},
@@ -163,7 +164,7 @@ F.addonPrefix = "\124cFF70B8FF" .. addonName .. "\124r: "
 F.addonLocaleName = "\124cFF70B8FF便利CD获取\124r: "
 F.addonVersion = C_AddOns.GetAddOnMetadata(addonName, 'Version')
 --[==[@debug@
-if F.addonVersion == 'v11.0.1' then
+if F.addonVersion == 'v11.0.2' then
     F.addonVersion = 'Dev'
 end
 --@end-debug@]==]
@@ -544,14 +545,13 @@ do
         for index, data in ipairs(skinList) do
             rootDescription:CreateRadio(data.name, isSkinSelected, setSkinSelected, index)
         end
---[[
+
         rootDescription:CreateDivider()
         rootDescription:CreateTitle("设置")
 
-        rootDescription:CreateCheckButton("启用提示语音", isOptionEnabled, toggleOption, 'EnableSound')
-        rootDescription:CreateCheckButton("显示小地图图标", isOptionEnabled, toggleOption, 'ShowMinimap')
-        rootDescription:CreateCheckButton("快速申请", isOptionEnabled, toggleOption, 'QuickAccess')
-]]
+        rootDescription:CreateCheckbox("启用提示语音", isOptionEnabled, toggleOption, 'EnableSound')
+        rootDescription:CreateCheckbox("显示小地图图标", isOptionEnabled, toggleOption, 'ShowMinimap')
+        rootDescription:CreateCheckbox("快速申请", isOptionEnabled, toggleOption, 'QuickAccess')
     end
 
     function F:ShowConfigMenu(parent)
