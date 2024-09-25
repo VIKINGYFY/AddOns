@@ -76,24 +76,24 @@ if (E.isWOTLKC or E.isCata) then
 end
 
 function P:UnregisterZoneEvents()
-	local registeredZoneEvents = self.currentZoneEvents
-	if registeredZoneEvents then
-		for _, event in ipairs(registeredZoneEvents) do
+	if self.currentZoneEvents then
+		for _, event in ipairs(self.currentZoneEvents) do
 			self:UnregisterEvent(event)
 		end
+		self.currentZoneEvents = nil
 	end
-	self.currentZoneEvents = nil
 end
 
-function P:RegisterZoneEvents(currentZoneEvents)
+function P:RegisterZoneEvents()
 	self:UnregisterZoneEvents()
-	currentZoneEvents = currentZoneEvents or INSTANCETYPE_EVENTS[self.zone]
+
+	local currentZoneEvents = INSTANCETYPE_EVENTS[self.zone]
 	if currentZoneEvents then
 		for _, event in ipairs(currentZoneEvents) do
 			self:RegisterEvent(event)
 		end
+		self.currentZoneEvents = currentZoneEvents
 	end
-	self.currentZoneEvents = currentZoneEvents
 end
 
 local function IsInShadowlands()
@@ -274,9 +274,17 @@ local function UpdateRosterInfo(force, clearSession)
 			local level = UnitLevel(unit)
 			level = level > 0 and level or 200
 			info = {
-				guid = guid, class = class, raceID = race, name = name, level = level,
-				index = index, unit = unit, petGUID = pet,
-				isDead = isDead, isDeadOrOffline = isDeadOrOffline, isAdminObsForMDI = isAdminObsForMDI,
+				guid = guid,
+				class = class,
+				raceID = race,
+				name = name,
+				level = level,
+				index = index,
+				unit = unit,
+				petGUID = pet,
+				isDead = isDead,
+				isDeadOrOffline = isDeadOrOffline,
+				isAdminObsForMDI = isAdminObsForMDI,
 				preactiveIcons = {},
 				spellIcons = {},
 				glowIcons = {},
@@ -403,7 +411,6 @@ function P:PLAYER_ENTERING_WORLD(isInitialLogin, isReloadingUi, isRefresh)
 
 	CD:UpdateCombatLogVar()
 	wipe(CD.diedHostileGUIDS)
-	wipe(CD.dispelledHostileGUIDS)
 
 	E:SetActiveUnitFrameData()
 	self:UpdateEnabledSpells()
@@ -438,6 +445,8 @@ function P:PLAYER_ENTERING_WORLD(isInitialLogin, isReloadingUi, isRefresh)
 
 	self:GROUP_ROSTER_UPDATE(true, isRefresh)
 end
+
+P.ZONE_CHANGED_NEW_AREA = P.PLAYER_ENTERING_WORLD
 
 function P:CHAT_MSG_BG_SYSTEM_NEUTRAL(arg1)
 	if self.disabled then return end

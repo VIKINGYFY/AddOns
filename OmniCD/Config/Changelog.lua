@@ -1,8 +1,8 @@
 local E, L, C = select(2, ...):unpack()
 
 if E.isClassic then E.changelog = [=[
-v1.15.3.2803
-	minor bug fix
+v1.15.4.2806
+	bump toc
 ]=]
 elseif E.isBCC then E.changelog = [=[
 v2.5.4.2722
@@ -19,6 +19,22 @@ v4.4.0.2803
 	minor bug fix
 ]=]
 else E.changelog = [=[
+v11.0.2.2806
+	GW2UI anchor updates
+	Healbot anchor fix
+	Zone profile copy fix
+	Breath of Eons w/ Terror of the Skies texture fix
+	Addon will corectly update on zone change w/o a loading screen (e.g. Delves)
+	Sync list updated for Brewmaster Monk
+
+	HOTFIXES
+		September 5, 2024:
+			Face Palm's CDR fixed
+			Peaceweaver CDR updated to 33% (was 50%)
+		September 17, 2024:
+			Witch Doctor’s Ancestry CDR updated to 1 sec (was 2 sec)
+			Peaceweaver CDR updated to 16% (was 33%)
+
 v11.0.2.2804
 	minor bug fixes
 	zhCN localization update

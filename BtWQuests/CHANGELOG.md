@@ -1,3 +1,11 @@
+# v2.48.2
+
+- Fixed error opening quest chain The Flame Within in Hallowfall
+
+# v2.48.1
+
+- Added raid questline To Kill a Queen
+
 # v2.48.0
 
 - Added Honor Your Efforts questlines in Hallowfall
