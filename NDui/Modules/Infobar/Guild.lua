@@ -53,7 +53,7 @@ function info:GuildPanel_CreateButton(parent, index)
 	button.zone:SetPoint("LEFT", button, "RIGHT", -120, 0)
 	button.zone:SetJustifyH("RIGHT")
 
-	button:RegisterForClicks("AnyUp")
+	button:RegisterForClicks("AnyUp", "AnyDown")
 	button:SetScript("OnClick", rosterButtonOnClick)
 
 	return button

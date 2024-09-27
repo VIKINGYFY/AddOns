@@ -416,7 +416,7 @@ function info:FriendsPanel_CreateButton(parent, index)
 	--button.gameIcon:SetTexCoord(.17, .83, .17, .83)
 	--B.CreateBDFrame(button.gameIcon)
 
-	button:RegisterForClicks("AnyUp")
+	button:RegisterForClicks("AnyUp", "AnyDown")
 	button:SetScript("OnClick", buttonOnClick)
 	button:SetScript("OnEnter", buttonOnEnter)
 	button:SetScript("OnLeave", B.HideTooltip)

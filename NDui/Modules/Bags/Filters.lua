@@ -33,8 +33,20 @@ function module:IsSpecialJunk(itemID)
 	return C.db["Bags"]["SpecialJunk"] and DB.SpecialJunk[itemID]
 end
 
-local function isItemOld(item)
-	return (item.expansionID and item.expansionID < 8) and (DB.OutmodedIDs[item.classID] and DB.ExcludeIDs[item.subClassID] ~= item.classID)
+local function IsEquipmentItem(item)
+	return item.link and (DB.EquipmentIDs[item.classID] or (item.id and (C_ArtifactUI.GetRelicInfoByItemID(item.id) or C_Soulbinds.IsItemConduitByItemInfo(item.id))))
+end
+
+local function IsOtherItem(item)
+	return item.link and (DB.OutmodedIDs[item.classID] and DB.ExcludeIDs[item.subClassID] ~= item.classID)
+end
+
+local function isItemOutmoded(item)
+	return item.link and IsOtherItem(item) and (item.expansionID and item.expansionID < C.db["Bags"]["iExpToShow"])
+end
+
+local function isItemLowerLevel(item)
+	return item.link and IsEquipmentItem(item) and (item.ilvl and item.ilvl < C.db["Bags"]["iLvlToShow"])
 end
 
 local function isItemCustom(item, index)
@@ -47,55 +59,55 @@ end
 local function isItemJunk(item)
 	if not C.db["Bags"]["ItemFilter"] then return end
 	if not C.db["Bags"]["FilterJunk"] then return end
-	return (not module:IsSpecialJunk(item.id)) and item.hasPrice and ((item.quality and item.quality <= Enum.ItemQuality.Poor) or isItemOld(item) or NDuiADB["CustomJunkList"][item.id])
+	return (not module:IsSpecialJunk(item.id)) and item.hasPrice and ((item.quality and item.quality <= Enum.ItemQuality.Poor) or isItemOutmoded(item) or isItemLowerLevel(item) or NDuiADB["CustomJunkList"][item.id])
 end
 
 local function isItemEquipSet(item)
 	if not C.db["Bags"]["ItemFilter"] then return end
 	if not C.db["Bags"]["FilterEquipSet"] then return end
-	return item.isItemSet
+	return item.link and item.isItemSet
 end
 
 local function isItemEquipment(item)
 	if not C.db["Bags"]["ItemFilter"] then return end
 	if not C.db["Bags"]["FilterEquipment"] then return end
-	return DB.EquipmentIDs[item.classID] or (item.id and (C_ArtifactUI.GetRelicInfoByItemID(item.id) or C_Soulbinds.IsItemConduitByItemInfo(item.id)))
+	return item.link and DB.EquipmentIDs[item.classID] or (item.id and (C_ArtifactUI.GetRelicInfoByItemID(item.id) or C_Soulbinds.IsItemConduitByItemInfo(item.id)))
 end
 
 local function isItemConsumable(item)
 	if not C.db["Bags"]["ItemFilter"] then return end
 	if not C.db["Bags"]["FilterConsumable"] then return end
-	return item.classID ~= Enum.ItemClass.Tradegoods and ((item.stackCount and item.stackCount > 1) or (item.itemOn and item.itemOn == "openable"))
+	return item.link and (item.classID ~= Enum.ItemClass.Tradegoods) and ((item.stackCount and item.stackCount > 1) or (item.itemOn and item.itemOn == "openable"))
 end
 
 local function isItemLegendary(item)
 	if not C.db["Bags"]["ItemFilter"] then return end
 	if not C.db["Bags"]["FilterLegendary"] then return end
-	return item.quality and item.quality >= Enum.ItemQuality.Legendary
+	return item.link and (item.quality and item.quality >= Enum.ItemQuality.Legendary)
 end
 
 local function isItemCollection(item)
 	if not C.db["Bags"]["ItemFilter"] then return end
 	if not C.db["Bags"]["FilterCollection"] then return end
-	return (DB.MiscellaneousIDs[item.classID] and DB.CollectionIDs[item.subClassID]) or (item.id and C_ToyBox.GetToyInfo(item.id))
+	return item.link and (DB.MiscellaneousIDs[item.classID] and DB.CollectionIDs[item.subClassID]) or (item.id and C_ToyBox.GetToyInfo(item.id))
 end
 
 local function isItemFeature(item)
 	if not C.db["Bags"]["ItemFilter"] then return end
 	if not C.db["Bags"]["FilterFeature"] then return end
-	return item.id and DB.PrimordialStone[item.id]
+	return item.link and (item.id and DB.PrimordialStone[item.id])
 end
 
 local function isItemAoE(item)
 	if not C.db["Bags"]["ItemFilter"] then return end
 	if not C.db["Bags"]["FilterAoE"] then return end
-	return item.bindOn and item.bindOn == "accountequip"
+	return item.link and (item.bindOn and item.bindOn == "accountequip")
 end
 
 local function isItemBoN(item)
 	if not C.db["Bags"]["ItemFilter"] then return end
 	if not C.db["Bags"]["FilterBoN"] then return end
-	return item.bindType and item.bindType == 0
+	return item.link and (item.bindType and item.bindType == 0)
 end
 
 function module:GetFilters()
@@ -124,7 +136,7 @@ function module:GetFilters()
 	filters.bankEquipSet = function(item) return isItemInBank(item) and isItemEquipSet(item) end
 	filters.bankEquipment = function(item) return isItemInBank(item) and isItemEquipment(item) end
 	filters.bankFeature = function(item) return isItemInBank(item) and isItemFeature(item) end
-	filters.bankJunk = function(item) return (isItemInBag(item) or isItemInBagReagent(item)) and isItemJunk(item) end
+	filters.bankJunk = function(item) return (isItemInBank(item) or isItemInReagentBank(item)) and isItemJunk(item) end
 	filters.bankLegendary = function(item) return isItemInBank(item) and isItemLegendary(item) end
 
 	filters.accountAoE = function(item) return isItemInAccountBank(item) and isItemAoE(item) end

@@ -205,9 +205,9 @@ function lib:CreateButton(id, name, header, config)
 	local button = setmetatable(CreateFrame("CheckButton", name, header, "SecureActionButtonTemplate, ActionButtonTemplate"), Generic_MT)
 	button:RegisterForDrag("LeftButton", "RightButton")
 	if WoWRetail then
-		button:RegisterForClicks("AnyDown", "AnyUp")
+		button:RegisterForClicks("AnyUp", "AnyDown")
 	else
-		button:RegisterForClicks("AnyUp")
+		button:RegisterForClicks("AnyUp", "AnyDown")
 	end
 
 	-- Frame Scripts

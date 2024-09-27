@@ -501,6 +501,7 @@ E.spell_merged = {
 	[198149]	= 84714,
 	[30449]	= 198100,
 	[108853]	= 319836,
+	[458513]	= 157980,
 
 	[388010]	= 388007,
 	[388013]	= 388007,
@@ -1384,3 +1385,9 @@ E.sync_in_raid = {
 }
 
 E:ProcessSpellDB()
+
+
+if E.TocVersion >= 110005 then
+	E.spellcast_cdr[204066] = nil
+	E.spell_cdmod_talents_mult[387174][2] = 0.67
+end

@@ -798,7 +798,3 @@ E.summonedBuffDuration = {
 
 	[265206] = 2,
 }
-
-E.iconTextureFix = {
-	[371032] = {403631,5199622, 4622450},
-}

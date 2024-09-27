@@ -2,9 +2,19 @@ local _, ns = ...
 local _, _, L = unpack(ns)
 if GetLocale() ~= "zhCN" then return end
 
+local function convertExpansionID()
+	local text = ""
+	for i = 0, 10 do
+		text = text..format("|n%s - %s", i, _G["EXPANSION_NAME"..i])
+	end
+	return text
+end
+
 L["Expansion Version"] = "资料片"
 L["Special Container"] = "特殊背包"
 L["BoN Item"] = "未绑定物品"
+L["iExpToShow"] = "资料片版本阈值"
+L["iExpToShowTip"] = "|n低于设置阈值的 部分非装备 将自动归类在 垃圾 分类里，不会自动出售。|n"..convertExpansionID()
 
 L["From"] = "来自"
 L["Tell"] = "告诉"
@@ -511,7 +521,6 @@ L["PlayerCastingColor"] = "玩家自身颜色"
 L["Interruptible Color"] = "可打断的颜色"
 L["NotInterruptible Color"] = "不可打断的颜色"
 L["Castbar Height"] = "施法条高度"
-L["StupidShiftKey"] = "你的Shift键可能卡住了。"
 L["Reset Details check"] = "你想要重置Details的皮肤美化吗？"
 L["ChatFilterWhiteList"] = "白名单模式"
 L["ChatFilterWhiteListTip"] = "|n只保留列表中出现的聊天内容，留空则关闭。存在多个关键词时，以空格隔开。"
@@ -536,7 +545,7 @@ L["SplitMode Enabled"] = "|n点击拆分背包的堆叠物品。|n可在左侧�
 L["SpecialBagsColor"] = "添加特殊背包的背景色"
 L["SpecialBagsColorTip"] = "|n为草药袋、矿石袋、附魔材料袋等特殊背包添加背景颜色。"
 L["iLvlToShow"] = "物品等级阈值"
-L["iLvlToShowTip"] = "|n只在大于所设阈值时显示装备等级。"
+L["iLvlToShowTip"] = "|n低于设置阈值的 装备 将自动归类在 垃圾 分类里，不会自动出售。"
 L["RaidDebuffScale"] = "副本减益图标缩放"
 L["FlatMode"] = "扁平风格按键"
 L["Shadow"] = "显示背景阴影边框"
@@ -613,10 +622,6 @@ L["ShowMarkerBarTip"] = "|n左键点击放置光柱，右键点击取消光柱�
 L["Horizontal"] = "水平"
 L["Vertical"] = "纵向"
 L["IncorrectExpansion"] = "当前使用NDui只能运行在9.0新资料片中，请回滚至5.10.0版本。"
-L["BagSortMode"] = "背包整理模式"
-L["BagSortDisabled"] = "背包整理已被禁用。"
-L["Forward"] = "正向"
-L["Backward"] = "反向"
 L["SwitchGarrisonType"] = "右键点击切换显示"
 L["ExecuteRatio"] = "斩杀指示器阈值"
 L["ExecuteRatioTip"] = "|n当姓名板单位的血量低于所设阈值时，将其名字颜色调整为红色。|n当阈值设置为0时，即关闭这项功能。"

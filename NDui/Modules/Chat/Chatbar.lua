@@ -34,7 +34,7 @@ function module:Chatbar()
 		B.CreateSD(bu)
 		bu.Icon:SetVertexColor(r, g, b)
 		bu:SetHitRectInsets(0, 0, -8, -8)
-		bu:RegisterForClicks("AnyUp")
+		bu:RegisterForClicks("AnyUp", "AnyDown")
 		if text then B.AddTooltip(bu, "ANCHOR_TOP", B.HexRGB(r, g, b)..text) end
 		if func then
 			bu:SetScript("OnClick", func)
@@ -91,13 +91,13 @@ function module:Chatbar()
 	local roll = AddButton(.8, 1, .6, LOOT_ROLL)
 	roll:SetAttribute("type", "macro")
 	roll:SetAttribute("macrotext", "/roll")
-	roll:RegisterForClicks("AnyDown")
+	roll:RegisterForClicks("AnyUp", "AnyDown")
 
 	-- COMBATLOG
 	local combat = AddButton(1, 1, 0, BINDING_NAME_TOGGLECOMBATLOG)
 	combat:SetAttribute("type", "macro")
 	combat:SetAttribute("macrotext", "/combatlog")
-	combat:RegisterForClicks("AnyDown")
+	combat:RegisterForClicks("AnyUp", "AnyDown")
 
 	-- WORLD CHANNEL
 	if GetCVar("portal") == "CN" then

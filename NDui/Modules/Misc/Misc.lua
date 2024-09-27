@@ -472,7 +472,7 @@ function M:EnhanceDressup()
 
 	local parent = _G.DressUpFrameResetButton
 	local button = M:MailBox_CreatButton(parent, 80, 22, L["Undress"], {"RIGHT", parent, "LEFT", -1, 0})
-	button:RegisterForClicks("AnyUp")
+	button:RegisterForClicks("AnyUp", "AnyDown")
 	button:SetScript("OnClick", function(_, btn)
 		local actor = DressUpFrame.ModelScene:GetPlayerActor()
 		if not actor then return end

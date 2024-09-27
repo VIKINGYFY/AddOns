@@ -41,38 +41,30 @@ local PARTY_UNIT = {
 	"party1", "party2", "party3", "party4", "player"
 }
 
-local INSTANCETYPE_EVENTS = E.preMoP and {
-	arena = {
-
-		'UPDATE_UI_WIDGET',
-	},
-	pvp = {
-		'CHAT_MSG_BG_SYSTEM_NEUTRAL',
-
-		'UPDATE_UI_WIDGET',
-	}
-} or {
+local INSTANCETYPE_EVENTS = {
 	party = {
-		'CHALLENGE_MODE_START',
+		'CHALLENGE_MODE_START'
 	},
 	raid  = {
-		'ENCOUNTER_END',
+		'ENCOUNTER_END'
 	},
 	none = {
-		'PLAYER_FLAGS_CHANGED',
+		'PLAYER_FLAGS_CHANGED'
 	},
 	arena = {
-
-		'UPDATE_UI_WIDGET',
+		'UPDATE_UI_WIDGET'
 	},
 	pvp = {
 		'CHAT_MSG_BG_SYSTEM_NEUTRAL',
-		'UPDATE_UI_WIDGET',
-
+		'UPDATE_UI_WIDGET'
 	}
 }
-if (E.isWOTLKC or E.isCata) then
-	INSTANCETYPE_EVENTS.raid = { 'ENCOUNTER_END' }
+if E.preMoP then
+	if E.preWOTLKC then
+		INSTANCETYPE_EVENTS.raid = nil
+	end
+	INSTANCETYPE_EVENTS.party = nil
+	INSTANCETYPE_EVENTS.none = nil
 end
 
 function P:UnregisterZoneEvents()
@@ -93,6 +85,16 @@ function P:RegisterZoneEvents()
 			self:RegisterEvent(event)
 		end
 		self.currentZoneEvents = currentZoneEvents
+	end
+
+	if E.isTWW then
+		if self.zone == "scenario" then
+			self:UnregisterEvent('GROUP_ROSTER_UPDATE')
+			self:RegisterEvent('INSTANCE_GROUP_SIZE_CHANGED')
+		else
+			self:UnregisterEvent('INSTANCE_GROUP_SIZE_CHANGED')
+			self:RegisterEvent('GROUP_ROSTER_UPDATE')
+		end
 	end
 end
 
@@ -446,7 +448,9 @@ function P:PLAYER_ENTERING_WORLD(isInitialLogin, isReloadingUi, isRefresh)
 	self:GROUP_ROSTER_UPDATE(true, isRefresh)
 end
 
+
 P.ZONE_CHANGED_NEW_AREA = P.PLAYER_ENTERING_WORLD
+P.INSTANCE_GROUP_SIZE_CHANGED = P.GROUP_ROSTER_UPDATE
 
 function P:CHAT_MSG_BG_SYSTEM_NEUTRAL(arg1)
 	if self.disabled then return end

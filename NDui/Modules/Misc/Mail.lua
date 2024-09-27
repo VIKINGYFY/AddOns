@@ -80,7 +80,7 @@ function M:ContactButton_Create(parent, index)
 	button.name:SetPoint("RIGHT", button, "LEFT", 155, 0)
 	button.name:SetJustifyH("LEFT")
 
-	button:RegisterForClicks("AnyUp")
+	button:RegisterForClicks("AnyUp", "AnyDown")
 	button:SetScript("OnClick", M.ContactButton_OnClick)
 
 	button.delete = B.CreateButton(button, 20, 20, true, "Interface\\RAIDFRAME\\ReadyCheck-NotReady")

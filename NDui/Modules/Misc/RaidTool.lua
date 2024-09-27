@@ -22,7 +22,7 @@ function M:RaidTool_Header()
 		M:RaidTool_Visibility(frame)
 	end)
 
-	frame:RegisterForClicks("AnyUp")
+	frame:RegisterForClicks("AnyUp", "AnyDown")
 	frame:SetScript("OnClick", function(self, btn)
 		if btn == "LeftButton" then
 			local menu = self.menu
@@ -585,7 +585,7 @@ function M:RaidTool_WorldMarker()
 		button.Icon:SetTexture(iconTexture[i])
 
 		if i ~= 9 then
-			button:RegisterForClicks("AnyDown")
+			button:RegisterForClicks("AnyUp", "AnyDown")
 			button:SetAttribute("type", "macro")
 			button:SetAttribute("macrotext1", format("/wm %d", i))
 			button:SetAttribute("macrotext2", format("/cwm %d", i))

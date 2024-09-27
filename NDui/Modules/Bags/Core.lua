@@ -6,28 +6,6 @@ local cr, cg, cb = DB.r, DB.g, DB.b
 
 local ACCOUNT_BANK_TYPE = Enum.BankType.Account or 2
 
-local sortCache = {}
-function module:ReverseSort()
-	for bag = 0, 4 do
-		local numSlots = C_Container.GetContainerNumSlots(bag)
-		for slot = 1, numSlots do
-			local info = C_Container.GetContainerItemInfo(bag, slot)
-			local texture = info and info.iconFileID
-			local locked = info and info.isLocked
-			if (slot <= numSlots/2) and texture and not locked and not sortCache["b"..bag.."s"..slot] then
-				C_Container.PickupContainerItem(bag, slot)
-				C_Container.PickupContainerItem(bag, numSlots+1 - slot)
-				sortCache["b"..bag.."s"..slot] = true
-			end
-		end
-	end
-
-	module.Bags.isSorting = false
-	module:UpdateAllBags()
-end
-
-local anchorCache = {}
-
 local function CheckForBagReagent(name)
 	local pass = true
 	if name == "BagReagent" and C_Container.GetContainerNumSlots(5) == 0 then
@@ -36,6 +14,7 @@ local function CheckForBagReagent(name)
 	return pass
 end
 
+local anchorCache = {}
 function module:UpdateBagsAnchor(parent, bags)
 	table.wipe(anchorCache)
 
@@ -249,7 +228,7 @@ end
 
 function module:CreateCloseButton(f)
 	local bu = B.CreateButton(self, 22, 22, true, "Interface\\RAIDFRAME\\ReadyCheck-NotReady")
-	bu:RegisterForClicks("AnyUp")
+	bu:RegisterForClicks("AnyUp", "AnyDown")
 	bu.__owner = f
 	bu:SetScript("OnClick", CloseOrRestoreBags)
 	bu.title = CLOSE.." / "..RESET
@@ -261,7 +240,7 @@ end
 function module:CreateReagentButton(f)
 	local bu = B.CreateButton(self, 22, 22, true, "Atlas:Reagents")
 	bu.Icon:SetPoint("BOTTOMRIGHT", -C.mult, -C.mult)
-	bu:RegisterForClicks("AnyUp")
+	bu:RegisterForClicks("AnyUp", "AnyDown")
 	bu:SetScript("OnClick", function(_, btn)
 		if not IsReagentBankUnlocked() then
 			StaticPopup_Show("CONFIRM_BUY_REAGENTBANK_TAB")
@@ -286,7 +265,7 @@ function module:CreateAccountBankButton(f)
 	local bu = B.CreateButton(self, 22, 22, true, 235423)
 	bu.Icon:SetTexCoord(.6, .9, .1, .4)
 	bu.Icon:SetPoint("BOTTOMRIGHT", -C.mult, -C.mult)
-	bu:RegisterForClicks("AnyUp")
+	bu:RegisterForClicks("AnyUp", "AnyDown")
 	bu:SetScript("OnClick", function(_, btn)
 		if AccountBankPanel:ShouldShowLockPrompt() then
 			UIErrorsFrame:AddMessage(DB.InfoColor..ACCOUNT_BANK_LOCKED_PROMPT)
@@ -374,7 +353,7 @@ end
 function module:CreateDepositButton()
 	local bu = B.CreateButton(self, 22, 22, true, "Atlas:GreenCross")
 	bu.Icon:SetOutside()
-	bu:RegisterForClicks("AnyUp")
+	bu:RegisterForClicks("AnyUp", "AnyDown")
 	bu:SetScript("OnClick", function(_, btn)
 		if btn == "RightButton" then
 			C.db["Bags"]["AutoDeposit"] = not C.db["Bags"]["AutoDeposit"]
@@ -401,7 +380,7 @@ end
 function module:CreateAccountBankDeposit()
 	local bu = B.CreateButton(self, 22, 22, true, "Atlas:GreenCross")
 	bu.Icon:SetOutside()
-	bu:RegisterForClicks("AnyUp")
+	bu:RegisterForClicks("AnyUp", "AnyDown")
 	bu:SetScript("OnClick", function(_, btn)
 		if btn == "RightButton" then
 			local isOn = GetCVarBool("bankAutoDepositReagents")
@@ -446,11 +425,6 @@ end
 function module:CreateSortButton(name)
 	local bu = B.CreateButton(self, 22, 22, true, "Interface\\Icons\\INV_Pet_Broom")
 	bu:SetScript("OnClick", function()
-		if C.db["Bags"]["BagSortMode"] == 3 then
-			UIErrorsFrame:AddMessage(DB.InfoColor..L["BagSortDisabled"])
-			return
-		end
-
 		if name == "Bank" then
 			C_Container.SortBankBags()
 		elseif name == "Reagent" then
@@ -458,18 +432,7 @@ function module:CreateSortButton(name)
 		elseif name == "Account" then
 			C_Container.SortAccountBankBags()
 		else
-			if C.db["Bags"]["BagSortMode"] == 1 then
-				C_Container.SortBags()
-			elseif C.db["Bags"]["BagSortMode"] == 2 then
-				if InCombatLockdown() then
-					UIErrorsFrame:AddMessage(DB.InfoColor..ERR_NOT_IN_COMBAT)
-				else
-					C_Container.SortBags()
-					table.wipe(sortCache)
-					module.Bags.isSorting = true
-					C_Timer.After(.5, module.ReverseSort)
-				end
-			end
+			C_Container.SortBags()
 		end
 	end)
 	bu.title = L["Sort"]
@@ -1147,8 +1110,8 @@ function module:OnLogin()
 		self.iSlot:SetText("")
 		if item.link and (item.quality and item.quality > 0) or (item.id and DB.SpecialJunk[item.id]) then
 			local color = DB.QualityColors[item.quality]
-			local level = item.level or B.GetItemLevel(item.link, item.bagId ~= -1 and item.bagId, item.slotId)
-			if (not level) or (level and level < C.db["Bags"]["iLvlToShow"]) then level = "" end
+			local level = item.level or item.ilvl
+			if not level then level = "" end
 
 			self.iLvl:SetText(level)
 			self.iLvl:SetTextColor(color.r, color.g, color.b)
@@ -1403,7 +1366,7 @@ function module:OnLogin()
 	end
 
 	-- Sort order
-	C_Container.SetSortBagsRightToLeft(C.db["Bags"]["BagSortMode"] == 1)
+	C_Container.SetSortBagsRightToLeft(true)
 	C_Container.SetInsertItemsLeftToRight(false)
 
 	-- Init

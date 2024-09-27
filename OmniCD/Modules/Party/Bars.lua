@@ -486,8 +486,13 @@ function P:SetBarBackdrop(barFrame)
 	end
 end
 
-local function GetOverrideTexture(info, id)
-	return info.talentData[ id[1] ] and id[2] or id[3]
+--[[ temp fix ]]
+local iconTextureFix = {
+	[371032] = {403631,5199622,4622450},
+}
+
+local function GetOverrideTexture(info, iconFix)
+	return info.talentData[ iconFix[1] ] and iconFix[2] or iconFix[3]
 end
 
 local twwHeroTalents = {
@@ -837,7 +842,7 @@ function P:UpdateUnitBar(guid, isUpdateBarsOrGRU)
 					icon.baseCooldown = baseCooldown
 					icon.maxcharges = ch
 					icon.count:SetText(ch or (spellID == 323436 and info.auras.purifySoulStacks) or (spellID == 6262 and info.auras.healthStoneStacks) or "")
-					local iconFix = E.iconTextureFix[spellID]
+					local iconFix = iconTextureFix[spellID]
 					if iconFix then
 						iconTexture = GetOverrideTexture(info, iconFix)
 					end

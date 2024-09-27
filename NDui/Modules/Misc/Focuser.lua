@@ -51,7 +51,7 @@ function M:Focuser()
 	f:SetAttribute("type1", "macro")
 	f:SetAttribute("macrotext", "/focus mouseover")
 	SetOverrideBindingClick(FocuserButton, true, modifier.."-BUTTON"..mouseButton, "FocuserButton")
-	f:RegisterForClicks("LeftButtonDown")
+	f:RegisterForClicks("LeftButtonUp", "LeftButtonDown")
 
 	hooksecurefunc("CreateFrame", M.Focuser_CreateFrameHook)
 	M:Focuser_OnEvent()

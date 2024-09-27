@@ -92,7 +92,7 @@ local function CreateLMButton(index)
 	text:SetPoint("LEFT", 0, 0)
 	button.text = text
 
-	button:RegisterForClicks("AnyDown")
+	button:RegisterForClicks("AnyUp", "AnyDown")
 	button:SetScript("OnClick", Button_OnClick)
 	button:SetScript("OnEnter", Button_OnEnter)
 	button:SetScript("OnLeave", Button_OnLeave)
