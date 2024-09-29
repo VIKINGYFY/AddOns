@@ -94,7 +94,7 @@ end
 function UF:UpdateHealthBarColor(self, force)
 	local health = self.Health
 	local mystyle = self.mystyle
-	if mystyle == "PlayerPlate" then
+	if mystyle == "playerplate" then
 		health.colorHealth = true
 	elseif mystyle == "raid" then
 		UpdateHealthColorByIndex(health, C.db["UFs"]["RaidHealthColor"])
@@ -112,7 +112,7 @@ function UF.HealthPostUpdate(element, unit, cur, max)
 	local self = element.__owner
 	local mystyle = self.mystyle
 	local useGradient, useGradientClass
-	if mystyle == "PlayerPlate" then
+	if mystyle == "playerplate" then
 		-- do nothing
 	elseif mystyle == "raid" then
 		useGradient = C.db["UFs"]["RaidHealthColor"] > 3
@@ -144,7 +144,7 @@ function UF:CreateHealthBar(self)
 	health:SetPoint("TOPLEFT", self)
 	health:SetPoint("TOPRIGHT", self)
 	local healthHeight
-	if mystyle == "PlayerPlate" then
+	if mystyle == "playerplate" then
 		healthHeight = C.db["Nameplate"]["PPHealthHeight"]
 	elseif mystyle == "raid" then
 		if self.raidType == "party" then
@@ -343,7 +343,7 @@ end
 function UF:UpdatePowerBarColor(self, force)
 	local power = self.Power
 	local mystyle = self.mystyle
-	if mystyle == "PlayerPlate" then
+	if mystyle == "playerplate" then
 		power.colorPower = true
 	elseif mystyle == "raid" then
 		UpdatePowerColorByIndex(power, C.db["UFs"]["RaidHealthColor"])
@@ -369,7 +369,7 @@ function UF:CreatePowerBar(self)
 	power:SetPoint("BOTTOMLEFT", self)
 	power:SetPoint("BOTTOMRIGHT", self)
 	local powerHeight
-	if mystyle == "PlayerPlate" then
+	if mystyle == "playerplate" then
 		powerHeight = C.db["Nameplate"]["PPPowerHeight"]
 	elseif mystyle == "raid" then
 		if self.raidType == "party" then
@@ -1289,11 +1289,10 @@ function UF:OnUpdateRunes(elapsed)
 	self.duration = duration
 	self:SetValue(duration)
 	self.timer:SetText("")
-	if C.db["UFs"]["RuneTimer"] then
-		local remain = self.runeDuration - duration
-		if remain > 0 then
-			self.timer:SetText(B.FormatTime(remain))
-		end
+
+	local remain = self.runeDuration - duration
+	if remain > 0 then
+		self.timer:SetText(B.FormatTime(remain))
 	end
 end
 
@@ -1316,9 +1315,9 @@ function UF.PostUpdateRunes(element, runemap)
 end
 
 function UF:CreateClassPower(self)
-	local barWidth, barHeight = C.db["UFs"]["CPWidth"], C.db["UFs"]["CPHeight"]
-	local barPoint = {"BOTTOMLEFT", self, "TOPLEFT", C.db["UFs"]["CPxOffset"], C.db["UFs"]["CPyOffset"]}
-	if self.mystyle == "PlayerPlate" then
+	local barWidth, barHeight = C.db["UFs"]["PlayerWidth"], C.db["UFs"]["PlayerPowerHeight"]
+	local barPoint = {"BOTTOMLEFT", self, "TOPLEFT", 0, C.margin}
+	if self.mystyle == "playerplate" then
 		barWidth, barHeight = C.db["Nameplate"]["PPWidth"], C.db["Nameplate"]["PPBarHeight"]
 		barPoint = {"BOTTOMLEFT", self, "TOPLEFT", 0, C.margin}
 	elseif self.mystyle == "targetplate" then
@@ -1393,9 +1392,9 @@ end
 function UF:StaggerBar(self)
 	if DB.MyClass ~= "MONK" then return end
 
-	local barWidth, barHeight = C.db["UFs"]["CPWidth"], C.db["UFs"]["CPHeight"]
-	local barPoint = {"BOTTOMLEFT", self, "TOPLEFT", C.db["UFs"]["CPxOffset"], C.db["UFs"]["CPyOffset"]}
-	if self.mystyle == "PlayerPlate" then
+	local barWidth, barHeight = C.db["UFs"]["PlayerWidth"], C.db["UFs"]["PlayerPowerHeight"]
+	local barPoint = {"BOTTOMLEFT", self, "TOPLEFT", 0, C.margin}
+	if self.mystyle == "playerplate" then
 		barWidth, barHeight = C.db["Nameplate"]["PPWidth"], C.db["Nameplate"]["PPBarHeight"]
 		barPoint = {"BOTTOMLEFT", self, "TOPLEFT", 0, C.margin}
 	end
@@ -1466,8 +1465,8 @@ function UF:UpdateUFClassPower()
 	local playerFrame = _G.oUF_Player
 	if not playerFrame then return end
 
-	local barWidth, barHeight = C.db["UFs"]["CPWidth"], C.db["UFs"]["CPHeight"]
-	local xOffset, yOffset = C.db["UFs"]["CPxOffset"], C.db["UFs"]["CPyOffset"]
+	local barWidth, barHeight = C.db["UFs"]["PlayerWidth"], C.db["UFs"]["PlayerPowerHeight"]
+	local xOffset, yOffset = 0, C.margin
 	local bars = playerFrame.ClassPower or playerFrame.Runes
 	if bars then
 		local bar = playerFrame.ClassPowerBar

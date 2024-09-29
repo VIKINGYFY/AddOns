@@ -14,9 +14,9 @@ C.Auras = {
 
 	-- 技能监控各组初始位置
 	RaidBuffPos    = {"BOTTOMRIGHT", UIParent, "CENTER", -200, 200},	-- 团队增益分组
-	EnchantAuraPos = {"TOPRIGHT", UIParent, "CENTER", -200, -58},		-- 附魔及饰品分组
-	SpecialAuraPos = {"TOPRIGHT", UIParent, "CENTER", -200, -103},		-- 玩家重要光环分组
-	PlayerAuraPos  = {"TOPRIGHT", UIParent, "CENTER", -200, -140},		-- 玩家光环分组
+	EnchantAuraPos = {"TOPRIGHT", UIParent, "CENTER", -200, -55},		-- 附魔及饰品分组
+	SpecialAuraPos = {"TOPRIGHT", UIParent, "CENTER", -200, -100},		-- 玩家重要光环分组
+	PlayerAuraPos  = {"TOPRIGHT", UIParent, "CENTER", -200, -137},		-- 玩家光环分组
 
 	RaidDebuffPos  = {"BOTTOMLEFT", UIParent, "CENTER", 200, 200},		-- 团队减益分组
 	WarningAuraPos = {"TOPLEFT", UIParent, "CENTER", 200, -87},			-- 目标重要光环分组

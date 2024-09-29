@@ -19,7 +19,7 @@ local function SetupInstance(instance)
 	instance:MenuAnchor(16, 3)
 	instance:ToolbarMenuButtonsSize(1)
 	instance:AttributeMenu(true, 0, 3, needReset and DB.Font[1], needReset and 13, {1, 1, 1}, 1, true)
-	instance:SetBarSettings(needReset and 18, needReset and "normTex")
+	instance:SetBarSettings(needReset and 18, needReset and "normTex", nil, nil, nil, nil, nil, nil, nil, false)
 	instance:SetBarTextSettings(needReset and 14, needReset and DB.Font[1], nil, nil, nil, true, true, true)
 	instance:SetBarRightTextSettings(true, true, true)
 

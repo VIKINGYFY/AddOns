@@ -1089,7 +1089,7 @@ function UF:ResizePlayerPlate()
 end
 
 function UF:CreatePlayerPlate()
-	self.mystyle = "PlayerPlate"
+	self.mystyle = "playerplate"
 	self:EnableMouse(false)
 	local healthHeight, powerHeight = C.db["Nameplate"]["PPHealthHeight"], C.db["Nameplate"]["PPPowerHeight"]
 	self:SetSize(C.db["Nameplate"]["PPWidth"], healthHeight + powerHeight + C.mult)

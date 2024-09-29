@@ -8,20 +8,15 @@ if not faction then return end
 
 local database = {
     Alliance = {
-        ['羔羊公益之使-瓦里安'] = {true, '9', '0'},
-        ['羔羊公益之命-末日行者'] = {true, '9', '0'},
         ['羔羊公益之心-冰霜之刃'] = {true, '9', '0'},
         ['怜姐姐的术氏-罗宁'] = {true, '9', '0'},
+        ['蚊飙-奥蕾莉亚'] = {true, '9', '0'},
+        ['第三仙-轻风之语'] = {true, '9', '0'},
     },
     Horde = {
-        ['羔羊公益之不-瓦拉纳'] = {true, '9', '0'},
-        ['羔羊公益之忘-金色平原'] = {true, '9', '0'},
-        ['羔羊公益之初-瓦里安'] = {true, '9', '0'},
-        ['羔羊公益之牢-金色平原'] = {true, '9', '0'},
+        ['羔羊公益初恋-瓦里安'] = {true, '9', '0'},
         ['咩咩的圣骑-冰霜之刃'] = {true, '9', '0'},
-        ['赛文喜欢长跑-暮色森林'] = {true, '9', '0'},
-        ['怜姐姐的术士-塞拉摩'] = {true, '9', '0'},
-        ['怜姐姐的萨满-塞拉摩'] = {true, '9', '0'},
+        ['羔羊公益赛文-暮色森林'] = {true, '9', '0'},
     },
 }
 
@@ -36,6 +31,7 @@ local select, strmatch, strupper, tinsert, type, wipe = select, strmatch, strupp
 
 -- WoW API / Variables
 local AcceptGroup = AcceptGroup
+local C_PartyInfo_ConfirmInviteUnit = C_PartyInfo.ConfirmInviteUnit
 local CreateFrame = CreateFrame
 local GetDifficultyInfo = GetDifficultyInfo
 local GetGameTime = GetGameTime
@@ -46,6 +42,7 @@ local GetRaidDifficultyID = GetRaidDifficultyID
 local GetSavedInstanceChatLink = GetSavedInstanceChatLink
 local GetTime = GetTime
 local IsInGroup = IsInGroup
+local IsInInstance = IsInInstance
 local PlaySoundFile = PlaySoundFile
 local SendChatMessage = SendChatMessage
 local UnitClass = UnitClass
@@ -72,16 +69,16 @@ addon[1] = F
 local buttons = {
     {
         name = "进",
-        desc = "发送进组密语",
+        desc = "发送进组申请",
         func = function(self)
             if F:IsSendingInv() then
-                F:Print("进组密语正在发送中")
+                F:Print("进组申请正在发送中")
                 return
             end
 
             local now = GetTime()
             if F.prevInv and F.prevInv > now - 30 then
-                F:Print("你每30秒只能发送一次进组密语")
+                F:Print("你每30秒只能发送一次进组申请")
                 return
             end
             F.prevInv = now
@@ -164,7 +161,7 @@ F.addonPrefix = "\124cFF70B8FF" .. addonName .. "\124r: "
 F.addonLocaleName = "\124cFF70B8FF便利CD获取\124r: "
 F.addonVersion = C_AddOns.GetAddOnMetadata(addonName, 'Version')
 --[==[@debug@
-if F.addonVersion == 'v11.0.2' then
+if F.addonVersion == 'v11.0.4' then
     F.addonVersion = 'Dev'
 end
 --@end-debug@]==]
@@ -316,10 +313,14 @@ do
             return
         end
 
-        if self.dynamic and self.dynamicIndex and data[self.dynamicIndex] then
-            SendChatMessage(self.dynamic, 'WHISPER', nil, characterName)
+        if self.useInvite then
+            C_PartyInfo_ConfirmInviteUnit(characterName)
         else
-            SendChatMessage(self.index and data[self.index] or data, 'WHISPER', nil, characterName)
+            if self.dynamic and self.dynamicIndex and data[self.dynamicIndex] then
+                SendChatMessage(self.dynamic, 'WHISPER', nil, characterName)
+            else
+                SendChatMessage(self.index and data[self.index] or data, 'WHISPER', nil, characterName)
+            end
         end
 
         if self.storeQueue then
@@ -331,7 +332,7 @@ do
         self.elapsed = interval -- make it work at the very beginning
     end)
 
-    local function StartTimer(queue, index, dynamic, dynamicIndex, storeQueue, storeIndex)
+    local function StartTimer(queue, index, dynamic, dynamicIndex, storeQueue, storeIndex, useInvite)
         timeFrame:Hide()
 
         timeFrame.queue = queue
@@ -340,6 +341,7 @@ do
         timeFrame.dynamicIndex = dynamicIndex
         timeFrame.storeQueue = storeQueue
         timeFrame.storeIndex = storeIndex
+        timeFrame.useInvite = useInvite
         timeFrame:Show()
     end
 
@@ -372,7 +374,7 @@ do
 
         local dynamic = prefix .. format('%.4X', iv) .. self:ToHex32(final) .. postfix
 
-        StartTimer(factionData, 2, dynamic, 1, pendingClear, 3)
+        StartTimer(factionData, 2, dynamic, 1, pendingClear, 3, true)
     end
 
     function F:StopSendInv()
@@ -394,6 +396,8 @@ do
     local serverSuffix = '-' .. GetRealmName()
 
     function F:PARTY_INVITE_REQUEST(_, name)
+        if IsInInstance() then return end
+
         if factionData[name .. serverSuffix] then
             name = name .. serverSuffix
         elseif not factionData[name] then

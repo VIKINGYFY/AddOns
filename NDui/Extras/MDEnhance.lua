@@ -86,11 +86,11 @@ function EX:MDEnhance_UpdateScoreInfo(parent)
 	parent.BScore:SetText(bestScore and bestScore or "")
 	parent.BScore:SetTextColor(0, 1, 0)
 
-	parent.FScore:SetText(affixScores[1] and affixScores[1].score or "")
-	parent.FScore:SetTextColor(1, 1, 0)
+	--parent.FScore:SetText(affixScores[1] and affixScores[1].score or "")
+	--parent.FScore:SetTextColor(1, 1, 0)
 
-	parent.TScore:SetText(affixScores[2] and affixScores[2].score or "")
-	parent.TScore:SetTextColor(0, 1, 1)
+	--parent.TScore:SetText(affixScores[2] and affixScores[2].score or "")
+	--parent.TScore:SetTextColor(0, 1, 1)
 end
 
 function EX:MDEnhance_CreateEnhance(parent, spellID)
@@ -105,9 +105,9 @@ function EX:MDEnhance_CreateEnhance(parent, spellID)
 	TButton:SetScript("OnLeave", function(parent) EX:MDEnhance_TButtonOnLeave(parent) end)
 
 	parent.TButton = TButton
-	parent.BScore = B.CreateFS(parent, 16, "", false, "CENTER", 0, 0)
-	parent.FScore = B.CreateFS(parent, 16, "", false, "BOTTOMLEFT", 0, 0)
-	parent.TScore = B.CreateFS(parent, 16, "", false, "BOTTOMRIGHT", 0, 0)
+	parent.BScore = B.CreateFS(parent, 18, "", false, "BOTTOM", 0, 0)
+	--parent.FScore = B.CreateFS(parent, 16, "", false, "BOTTOMLEFT", 0, 0)
+	--parent.TScore = B.CreateFS(parent, 16, "", false, "BOTTOMRIGHT", 0, 0)
 end
 
 function EX.MDEnhance_OnCreate()

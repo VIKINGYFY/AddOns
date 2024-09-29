@@ -1,7 +1,7 @@
 local ADDON_NAME, ns = ...
 local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 local dataProvider
-ns.DelveContinent = CreateFromMixins(CVarMapCanvasDataProviderMixin, AreaPOIDataProviderMixin)
+ns.DelveContinent = CreateFromMixins(AreaPOIDataProviderMixin)
 
 function ns.BlizzardDelvesAddTT()
     hooksecurefunc(DelveEntrancePinMixin, "OnMouseEnter", function(self)
@@ -68,9 +68,6 @@ end
 function ns.DelveContinent:RemoveAllData()
 	self:GetMap():RemoveAllPinsByTemplate("ContinentDelvePinTemplate")
 end
-
-local ContinentDelvePinMixin = DelveEntrancePinMixin:CreateSubPin("PIN_FRAME_LEVEL_DELVE_ENTRANCE")
-_G.DelveEntrancePinMixin = ContinentDelvePinMixin
 
 -- https://wowpedia.fandom.com/wiki/FrameXML_functions
 EventUtil.ContinueOnAddOnLoaded("Blizzard_WorldMap", function()

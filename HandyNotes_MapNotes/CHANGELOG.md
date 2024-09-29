@@ -1,9 +1,8 @@
 # MapNote
-## [2.4.0](https://github.com/Ssesmar/MapNote) (2024-09-25)
+## [2.4.1](https://github.com/Ssesmar/MapNote) (2024-09-27)
 - Note:
 
-toc update for PTR
-toc update Classic & Hardcore
+pre toc update for Cataclysmn
 
 
 

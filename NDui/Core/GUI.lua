@@ -193,12 +193,7 @@ G.DefaultSettings = {
 		RaidClickSets = false,
 		TeamIndex = false,
 		ClassPower = true,
-		CPWidth = 150,
-		CPHeight = 5,
-		CPxOffset = 12,
-		CPyOffset = 0,
 		LagString = false,
-		RuneTimer = true,
 		RaidBuffIndicator = true,
 		PartyFrame = true,
 		PartyDirec = 2,
@@ -710,10 +705,6 @@ local function setupCastbar()
 	G:SetupCastbar(guiPage[3])
 end
 
-local function setupClassPower()
-	G:SetupUFClassPower(guiPage[3])
-end
-
 local function setupUFAuras()
 	G:SetupUFAuras(guiPage[3])
 end
@@ -1163,7 +1154,7 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{1, "UFs", "Enable", HeaderTag..L["Enable UFs"], nil, setupUnitFrame, nil, L["HideUFWarning"]},
 		{1, "UFs", "Arena", L["Arena Frame"], true},
 		{1, "UFs", "ShowAuras", L["ShowAuras"].."*", nil, setupUFAuras, toggleAllAuras},
-		{1, "UFs", "ClassPower", L["UFs ClassPower"].."*", true, setupClassPower, toggleUFClassPower},
+		{1, "UFs", "ClassPower", L["UFs ClassPower"].."*", true, nil, toggleUFClassPower},
 		{1, "UFs", "Portrait", L["UFs Portrait"].."*", nil, nil, togglePortraits},
 		{1, "UFs", "CCName", L["ClassColor Name"].."*", true, nil, updateUFTextScale},
 		{1, "UFs", "PlayerAbsorb", L["PlayerAbsorb"].."*", nil, nil, togglePlayerAbsorb, L["PlayerAbsorbTip"]},

@@ -67,23 +67,40 @@ local function checkTexture(texture)
 end
 
 local questlist = {
-	{name = L["Mean One"], id = 6983},
-	{name = L["Blingtron"], id = 34774},
-	{name = L["Timewarped"], id = 40168, texture = 1129674},	-- TBC
-	{name = L["Timewarped"], id = 40173, texture = 1129686},	-- WotLK
-	{name = L["Timewarped"], id = 40786, texture = 1304688},	-- Cata
-	{name = L["Timewarped"], id = 45563, texture = 1530590},	-- MoP
-	{name = L["Timewarped"], id = 55499, texture = 1129683},	-- WoD
-	{name = L["Timewarped"], id = 64710, texture = 1467047},	-- Legion
-	{name = C_Spell.GetSpellName(388945), id = 70866},	-- SoDK
-	{name = "", id = 70906, itemID = 200468},	-- Grand hunt
-	{name = "", id = 70893, questName = true},	-- Community feast
-	{name = "", id = 79226, questName = true},	-- The big dig
-	{name = "", id = 78319, questName = true},	-- The superbloom
-	{name = "", id = 76586, questName = true},	-- 散步圣光
-	{name = "", id = 82946, questName = true},	-- 蜡团
-	{name = "", id = 83240, questName = true},	-- 剧场
-	{name = C_Map.GetAreaInfo(15141), id = 83333},	-- 觉醒主机
+	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 40168, texture = 1129674},	-- TBC
+	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 40173, texture = 1129686},	-- WotLK
+	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 40786, texture = 1304688},	-- Cata
+	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 45563, texture = 1530590},	-- MoP
+	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 55499, texture = 1129683},	-- WoD
+	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 64710, texture = 1467047},	-- Legion
+	{name = "", id = 70893, questName = true},	-- 社区盛宴
+	{name = "", id = 79226, questName = true},	-- 盛大发掘：叛徒之眠
+	{name = "", id = 78319, questName = true},	-- 超然盛放
+--[[
+	{name = "", id = 76586, questName = true},	-- 散布圣光
+	{name = "", id = 82946, questName = true},	-- 滚滚深邃都是蜡
+	{name = "", id = 83240, questName = true},	-- 剧场巡演
+	{name = "", id = 83333, questName = true},	-- 谨防麻烦
+]]
+	{name = "", id = 80670, questName = true},	-- 纺丝者之眼
+	{name = "", id = 80671, questName = true},	-- 将军之锋
+	{name = "", id = 80672, questName = true},	-- 宰相之手
+
+	{name = "", id = 82482, questName = true},	-- 世界之魂：嗅探
+	{name = "", id = 82483, questName = true},	-- 世界之魂：散布圣光
+	{name = "", id = 82511, questName = true},	-- 世界之魂：觉醒主机
+	{name = "", id = 82516, questName = true},	-- 世界之魂：缔结契约
+	{name = "", id = 82679, questName = true},	-- 档案馆：追寻历史
+
+	{name = "", id = 81649, questName = true},	-- 特别任务：泰坦再兴
+	{name = "", id = 81691, questName = true},	-- 特别任务：阴影重重
+	{name = "", id = 82355, questName = true},	-- 特别任务：燧烬蜂狂
+	{name = "", id = 82414, questName = true},	-- 特别任务：些许治愈
+	{name = "", id = 82531, questName = true},	-- 特别任务：背后来弹
+	{name = "", id = 82787, questName = true},	-- 特别任务：巨兽崛起
+	{name = "", id = 82852, questName = true},	-- 特别任务：山猫救援
+	{name = "", id = 83229, questName = true},	-- 特别任务：无宁邃渊
+
 }
 
 -- Check Invasion Status
@@ -303,7 +320,7 @@ info.onEnter = function(self)
 	title = false
 	for _, v in pairs(questlist) do
 		if v.name and C_QuestLog.IsQuestFlaggedCompleted(v.id) then
-			if v.name == L["Timewarped"] and isTimeWalker and checkTexture(v.texture) or v.name ~= L["Timewarped"] then
+			if v.name == PLAYER_DIFFICULTY_TIMEWALKER and isTimeWalker and checkTexture(v.texture) or v.name ~= PLAYER_DIFFICULTY_TIMEWALKER then
 				addTitle(QUESTS_LABEL)
 				GameTooltip:AddDoubleLine((v.itemID and GetItemLink(v.itemID)) or (v.questName and QuestUtils_GetQuestName(v.id)) or v.name, QUEST_COMPLETE, 1,1,1, 1,0,0)
 			end
@@ -341,7 +358,7 @@ info.onEnter = function(self)
 				end
 			end
 		end
-	
+
 		-- Grand hunts
 		title = false
 		for areaPoiID, mapID in pairs(huntAreaToMapID) do
@@ -356,7 +373,7 @@ info.onEnter = function(self)
 				break
 			end
 		end
-	
+
 		-- Community feast
 		title = false
 		local feastTime = communityFeastTime[region]
@@ -365,7 +382,7 @@ info.onEnter = function(self)
 			local duration = 5400 -- 1.5hrs
 			local elapsed = mod(currentTime - feastTime, duration)
 			local nextTime = duration - elapsed + currentTime
-	
+
 			addTitle(COMMUNITY_FEAST)
 			if currentTime - (nextTime-duration) < 900 then r,g,b = 0,1,0 else r,g,b = .6,.6,.6 end -- green text if progressing
 			GameTooltip:AddDoubleLine(date("%m/%d %H:%M", nextTime-duration*2), date("%m/%d %H:%M", nextTime-duration), .6,.6,.6, r,g,b)
