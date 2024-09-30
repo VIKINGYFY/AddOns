@@ -23,6 +23,7 @@ local list = {
 		{AuraID = 320338, UnitID = "target", Caster = "player"}, -- 精华破碎
 		{AuraID = 370969, UnitID = "target", Caster = "player"}, -- 恶魔追击
 		{AuraID = 462030, UnitID = "target", Caster = "player"}, -- 末日咒符
+		{AuraID = 442624, UnitID = "target", Caster = "player"}, -- 收割者印记
 
 	},
 	["Special Aura"] = {	-- 玩家重要光环组
@@ -48,6 +49,10 @@ local list = {
 		{AuraID = 444661, UnitID = "player"}, -- 战刃绝技
 		{AuraID = 452416, UnitID = "player"}, -- 魔涌
 		{AuraID = 453239, UnitID = "player"}, -- 苦难修行
+		{AuraID = 442788, UnitID = "player", Value = true}, -- 不朽灵魂
+		{AuraID = 442695, UnitID = "player", Flash = true}, -- 酣战热血
+		{AuraID = 442688, UnitID = "player", Flash = true}, -- 酣战热血
+
 	},
 }
 
