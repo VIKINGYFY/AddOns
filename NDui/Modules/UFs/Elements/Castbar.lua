@@ -149,12 +149,10 @@ function UF:PostCastStart(unit)
 	self.Spark:Show()
 
 	local safeZone = self.SafeZone
-	local lagString = self.LagString
 
 	if unit == "vehicle" or UnitInVehicle("player") then
 		if safeZone then
 			safeZone:Hide()
-			lagString:Hide()
 		end
 	elseif unit == "player" then
 		if safeZone then
@@ -163,11 +161,8 @@ function UF:PostCastStart(unit)
 			if timeDiff and timeDiff ~= 0 then
 				safeZone:SetWidth(self:GetWidth() * timeDiff / self.max)
 				safeZone:Show()
-				lagString:SetFormattedText("%d ms", timeDiff * 1000)
-				lagString:Show()
 			else
 				safeZone:Hide()
-				lagString:Hide()
 			end
 			self.__sendTime = nil
 		end

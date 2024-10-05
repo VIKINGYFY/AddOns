@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(2596, "DBM-Party-WarWithin", 8, 1274)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240908235324")
+mod:SetRevision("20241005082938")
 mod:SetCreatureID(216658)
 mod:SetEncounterID(2909)
 mod:SetHotfixNoticeRev(20240818000000)
@@ -12,10 +12,11 @@ mod.sendMainBossGUID = true
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 439401 439341 437700 438860 439646"
+	"SPELL_CAST_START 439401 439341 437700 438860 439646",
 --	"SPELL_AURA_APPLIED",
 --	"SPELL_PERIODIC_DAMAGE",
 --	"SPELL_PERIODIC_MISSED"
+	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
 --TODO, timer for the 9 second shift loop (maybe a clean event in transcriptor, maybe scheduling, will wait for transcriptor first
@@ -55,6 +56,7 @@ mod.vb.firstSpell = 0--1 = Tremor, 2 = Umbral
 --5. Umbral Weave or Tremor Slam (whichever wasn't cast first)
 function mod:OnCombatStart(delay)
 	self.vb.shiftCount = 0
+	self.vb.shiftMoveCount = 0
 	self.vb.spliceCount = 0
 	self.vb.tremorCount = 0
 	self.vb.weaveCount = 0
@@ -74,14 +76,16 @@ end
 function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
 	if spellId == 439401 then
-		self.vb.shiftCount = self.vb.shiftCount + 1
 		self.vb.firstSpell = 0--1 = Tremor, 2 = Umbral
-		specWarnShiftingAnomalies:Show(self.vb.shiftCount)
+		self.vb.shiftCount = self.vb.shiftCount + 1
+		self.vb.shiftMoveCount = 1
+		---@diagnostic disable-next-line: param-type-mismatch
+		specWarnShiftingAnomalies:Show(self.vb.shiftCount.. "-" .. self.vb.shiftMoveCount)
 		specWarnShiftingAnomalies:Play("watchorb")
 		--Sequence resets, including umbral and tremor being randomly selected as first spell
 		timerUmbralWeaveCD:Start(12, self.vb.weaveCount+1)
 		timerTremorSlamCD:Start(12, self.vb.tremorCount+1)
-		timerShiftingAnomaliesCD:Start(55, self.vb.shiftCount+1)
+		timerShiftingAnomaliesCD:Start(55, self.vb.shiftCount+1)--TEMP, transcribe this fight and finish implementing move count timer
 	elseif spellId == 439341 then
 		self.vb.spliceCount = self.vb.spliceCount + 1
 		specWarnSplice:Show(self.vb.spliceCount)
@@ -142,3 +146,14 @@ function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId, spell
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 --]]
+
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, spellId)
+	if spellId == 439501 then--Shifting Anomalies
+		--More data needed to implement this
+		--"Shifting Anomalies-439501-npc:216658-00007BE864 = pull:13.0, 13.0, 10.0",
+		self.vb.shiftMoveCount = self.vb.shiftMoveCount + 1
+		---@diagnostic disable-next-line: param-type-mismatch
+		specWarnShiftingAnomalies:Show(self.vb.shiftCount.. "-" .. self.vb.shiftMoveCount)
+		specWarnShiftingAnomalies:Play("watchorb")
+	end
+end

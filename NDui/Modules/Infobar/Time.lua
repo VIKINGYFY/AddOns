@@ -76,21 +76,13 @@ local questlist = {
 	{name = "", id = 70893, questName = true},	-- 社区盛宴
 	{name = "", id = 79226, questName = true},	-- 盛大发掘：叛徒之眠
 	{name = "", id = 78319, questName = true},	-- 超然盛放
---[[
 	{name = "", id = 76586, questName = true},	-- 散布圣光
 	{name = "", id = 82946, questName = true},	-- 滚滚深邃都是蜡
 	{name = "", id = 83240, questName = true},	-- 剧场巡演
 	{name = "", id = 83333, questName = true},	-- 谨防麻烦
-]]
 	{name = "", id = 80670, questName = true},	-- 纺丝者之眼
 	{name = "", id = 80671, questName = true},	-- 将军之锋
 	{name = "", id = 80672, questName = true},	-- 宰相之手
-
-	{name = "", id = 82482, questName = true},	-- 世界之魂：嗅探
-	{name = "", id = 82483, questName = true},	-- 世界之魂：散布圣光
-	{name = "", id = 82511, questName = true},	-- 世界之魂：觉醒主机
-	{name = "", id = 82516, questName = true},	-- 世界之魂：缔结契约
-	{name = "", id = 82679, questName = true},	-- 档案馆：追寻历史
 
 	{name = "", id = 81649, questName = true},	-- 特别任务：泰坦再兴
 	{name = "", id = 81691, questName = true},	-- 特别任务：阴影重重

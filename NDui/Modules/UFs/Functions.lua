@@ -655,16 +655,10 @@ function UF:ToggleCastBarLatency(frame)
 	frame = frame or _G.oUF_Player
 	if not frame then return end
 
-	if C.db["UFs"]["LagString"] then
-		frame:RegisterEvent("GLOBAL_MOUSE_UP", UF.OnCastSent, true) -- Fix quests with WorldFrame interaction
-		frame:RegisterEvent("GLOBAL_MOUSE_DOWN", UF.OnCastSent, true)
-		frame:RegisterEvent("CURRENT_SPELL_CAST_CHANGED", UF.OnCastSent, true)
-	else
-		frame:UnregisterEvent("GLOBAL_MOUSE_UP", UF.OnCastSent)
-		frame:UnregisterEvent("GLOBAL_MOUSE_DOWN", UF.OnCastSent)
-		frame:UnregisterEvent("CURRENT_SPELL_CAST_CHANGED", UF.OnCastSent)
-		if frame.Castbar then frame.Castbar.__sendTime = nil end
-	end
+	frame:UnregisterEvent("GLOBAL_MOUSE_UP", UF.OnCastSent)
+	frame:UnregisterEvent("GLOBAL_MOUSE_DOWN", UF.OnCastSent)
+	frame:UnregisterEvent("CURRENT_SPELL_CAST_CHANGED", UF.OnCastSent)
+	if frame.Castbar then frame.Castbar.__sendTime = nil end
 end
 
 function UF:CreateCastBar(self)
@@ -721,11 +715,6 @@ function UF:CreateCastBar(self)
 		cb:SetFrameLevel(10)
 		cb.SafeZone = safeZone
 
-		local lagStr = B.CreateFS(cb, 10)
-		lagStr:ClearAllPoints()
-		lagStr:SetPoint("BOTTOM", cb, "TOP", 0, 2)
-		cb.LagString = lagStr
-
 		UF:ToggleCastBarLatency(self)
 
 	elseif mystyle == "nameplate" then
@@ -781,12 +770,10 @@ function UF:CreateCastBar(self)
 end
 
 function UF:CreateSparkleCastBar(self)
-	if not C.db["UFs"]["PetCB"] then return end
-
 	local bar = CreateFrame("StatusBar", "oUF_SparkleCastbar"..self.mystyle, self)
 	bar:SetAllPoints(self.Power)
 	bar:SetStatusBarTexture(DB.normTex)
-	bar:SetStatusBarColor(1, 1, 1, .25)
+	bar:SetStatusBarColor(1, 1, 1, .75)
 
 	local spark = bar:CreateTexture(nil, "OVERLAY")
 	spark:SetTexture(DB.sparkTex)
@@ -1518,7 +1505,7 @@ function UF:CreateExpRepBar(self)
 	local rest = CreateFrame("StatusBar", nil, bar)
 	rest:SetAllPoints(bar)
 	rest:SetStatusBarTexture(DB.normTex)
-	rest:SetStatusBarColor(0, .4, 1, .6)
+	rest:SetStatusBarColor(0, .5, 1, .75)
 	rest:SetFrameLevel(bar:GetFrameLevel() - 1)
 	rest:SetOrientation("VERTICAL")
 	bar.restBar = rest
@@ -1554,7 +1541,7 @@ function UF:CreatePrediction(self)
 	myBar:SetPoint("BOTTOM")
 	myBar:SetPoint("LEFT", self.Health:GetStatusBarTexture(), "RIGHT")
 	myBar:SetStatusBarTexture(DB.normTex)
-	myBar:SetStatusBarColor(0, 1, .5, .5)
+	myBar:SetStatusBarColor(0, 1, .5, .75)
 	myBar:Hide()
 
 	local otherBar = CreateFrame("StatusBar", nil, frame)
@@ -1562,7 +1549,7 @@ function UF:CreatePrediction(self)
 	otherBar:SetPoint("BOTTOM")
 	otherBar:SetPoint("LEFT", myBar:GetStatusBarTexture(), "RIGHT")
 	otherBar:SetStatusBarTexture(DB.normTex)
-	otherBar:SetStatusBarColor(0, 1, 0, .5)
+	otherBar:SetStatusBarColor(.5, 1, 0, .75)
 	otherBar:Hide()
 
 	local absorbBar = CreateFrame("StatusBar", nil, frame)
@@ -1570,14 +1557,14 @@ function UF:CreatePrediction(self)
 	absorbBar:SetPoint("BOTTOM")
 	absorbBar:SetPoint("LEFT", otherBar:GetStatusBarTexture(), "RIGHT")
 	absorbBar:SetStatusBarTexture(DB.normTex)
-	absorbBar:SetStatusBarColor(.66, 1, 1, .7)
+	absorbBar:SetStatusBarColor(0, 1, 1, .75)
 	absorbBar:SetFrameLevel(frameLevel)
 	absorbBar:Hide()
 
 	local overAbsorbBar = CreateFrame("StatusBar", nil, frame)
 	overAbsorbBar:SetAllPoints()
 	overAbsorbBar:SetStatusBarTexture(DB.normTex)
-	overAbsorbBar:SetStatusBarColor(.66, 1, 1, .7)
+	overAbsorbBar:SetStatusBarColor(0, 1, 1, .75)
 	overAbsorbBar:SetFrameLevel(frameLevel)
 	overAbsorbBar:Hide()
 

@@ -162,14 +162,14 @@ G.DefaultSettings = {
 		OffOnTop = false,
 		RaidFrame = true,
 		AutoRes = true,
-		NumGroups = 6,
+		NumGroups = 8,
 		RaidDirec = 1,
 		RaidRows = 1,
 		SimpleMode = false,
 		SMRScale = 10,
 		SMRPerCol = 20,
 		SMRGroupBy = 1,
-		SMRGroups = 6,
+		SMRGroups = 8,
 		SMRDirec = 1,
 		InstanceAuras = true,
 		DispellType = 1,
@@ -192,7 +192,6 @@ G.DefaultSettings = {
 		RaidClickSets = false,
 		TeamIndex = false,
 		ClassPower = true,
-		LagString = false,
 		RaidBuffIndicator = true,
 		PartyFrame = true,
 		PartyDirec = 2,
@@ -268,7 +267,6 @@ G.DefaultSettings = {
 		FocusCB = true,
 		FocusCBWidth = 320,
 		FocusCBHeight = 20,
-		PetCB = true,
 
 		PlayerNumBuff = 40,
 		PlayerNumDebuff = 40,
@@ -1087,7 +1085,7 @@ local function AddTextureToOption(parent, index)
 end
 
 -- Config
-local HeaderTag = "|cff00CC4C"
+local HeaderTag = "|cff00FF00"
 local IsNew = "ISNEW"
 G.HealthValues = {DISABLE, L["ShowHealthDefault"], L["ShowHealthCurMax"], L["ShowHealthCurrent"], L["ShowHealthPercent"], L["ShowHealthLoss"], L["ShowHealthLossPercent"]}
 
@@ -1166,9 +1164,7 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{4, "UFs", "HealthColor", L["HealthColor"].."*", true, {L["Default Dark"], L["ClassColorHP"], L["GradientHP"], L["ClearHealth"], L["ClearClass"]}, updateUFTextScale},
 		{},--blank
 		{1, "UFs", "Castbars", HeaderTag..L["UFs Castbar"], nil, setupCastbar},
-		{1, "UFs", "LagString", L["Castbar LagString"].."*", true, nil, toggleCastBarLatency},
-		{1, "UFs", "SwingBar", L["UFs SwingBar"].."*", nil, setupSwingBars, toggleSwingBars},
-		{1, "UFs", "PetCB", L["PetCastbar"], true},
+		{1, "UFs", "SwingBar", L["UFs SwingBar"].."*", true, setupSwingBars, toggleSwingBars},
 		{},--blank
 		{1, "UFs", "CombatText", HeaderTag..L["UFs CombatText"]},
 		{1, "UFs", "ScrollingCT", L["ScrollingCT"].."*", true},

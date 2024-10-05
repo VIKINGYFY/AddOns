@@ -15,7 +15,7 @@ StaticPopupDialogs["RESETGOLD"] = {
 	button1 = YES,
 	button2 = NO,
 	OnAccept = function()
-		wipe(NDuiADB["totalGold"])
+		table.wipe(NDuiADB["totalGold"])
 		if not NDuiADB["totalGold"][myRealm] then NDuiADB["totalGold"][myRealm] = {} end
 		NDuiADB["totalGold"][myRealm][myName] = {GetMoney(), DB.MyClass}
 	end,
@@ -170,34 +170,28 @@ info.onEnter = function(self)
 			local name = Ambiguate(k.."-"..myRealm, "none")
 			local gold, class = unpack(v)
 			local r, g, b = B.ClassColor(class)
-			GameTooltip:AddDoubleLine(getClassIcon(class)..name, module:GetMoneyString(gold), r,g,b, 1,1,1)
+			GameTooltip:AddDoubleLine(getClassIcon(class)..name, module:GetMoneyString(gold, true), r,g,b, 1,1,1)
 			totalGold = totalGold + gold
 		end
 	end
 
-	local isShiftKeyDown = IsShiftKeyDown()
 	for realm, data in pairs(NDuiADB["totalGold"]) do
 		if realm ~= myRealm then
 			for k, v in pairs(data) do
 				local gold, class = unpack(v)
-				if isShiftKeyDown then -- show other realms while holding shift
-					local name = Ambiguate(k.."-"..realm, "none")
-					local r, g, b = B.ClassColor(class)
-					GameTooltip:AddDoubleLine(getClassIcon(class)..name, module:GetMoneyString(gold), r,g,b, 1,1,1)
-				end
+				local name = Ambiguate(k.."-"..realm, "none")
+				local r, g, b = B.ClassColor(class)
+				GameTooltip:AddDoubleLine(getClassIcon(class)..name, module:GetMoneyString(gold, true), r,g,b, 1,1,1)
 				totalGold = totalGold + gold
 			end
 		end
 	end
-	if not isShiftKeyDown then
-		GameTooltip:AddLine(L["Hold Shift"], 0,1,1)
-	end
 
 	local accountmoney = C_Bank.FetchDepositedMoney(Enum.BankType.Account)
 	GameTooltip:AddLine(" ")
-	GameTooltip:AddDoubleLine(CHARACTER..":", module:GetMoneyString(totalGold), 0,1,1, 1,1,1)
-	GameTooltip:AddDoubleLine(ACCOUNT_BANK_PANEL_TITLE..":", module:GetMoneyString(accountmoney), 0,1,1, 1,1,1)
-	GameTooltip:AddDoubleLine(TOTAL..":", module:GetMoneyString(totalGold + accountmoney), 0,1,1, 1,1,1)
+	GameTooltip:AddDoubleLine(CHARACTER..":", module:GetMoneyString(totalGold, true), 0,1,1, 1,1,1)
+	GameTooltip:AddDoubleLine(ACCOUNT_BANK_PANEL_TITLE..":", module:GetMoneyString(accountmoney, true), 0,1,1, 1,1,1)
+	GameTooltip:AddDoubleLine(TOTAL..":", module:GetMoneyString(totalGold + accountmoney, true), 0,1,1, 1,1,1)
 
 	title = false
 	local chargeInfo = C_CurrencyInfo.GetCurrencyInfo(2813) -- Tier charges

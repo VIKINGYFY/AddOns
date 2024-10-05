@@ -1080,29 +1080,29 @@ function G:SetupUnitFrame(parent)
 		["Boss"] = {100, 500},
 	}
 
-	local defaultValue = { -- healthWidth, healthHeight, powerHeight, healthTag, powerTag, powerOffset, nameOffset
-		["Player"] = {245, 24, 4, 2, 4, 2, 0},
-		["Focus"] = {200, 22, 3, 2, 4, 2, 0},
-		["Pet"] = {120, 18, 2, 5, 0}, -- nameOffset on 5th
-		["Boss"] = {150, 22, 2, 5, 5, 2, 0},
+	local defaultData = { -- healthWidth, healthHeight, powerHeight, healthTag, powerTag, powerOffset, nameOffset
+		["Player"] = {250, 30, 6, 2, 4, 0, 0},
+		["Focus"] = {200, 24, 4, 2, 4, 0, 0},
+		["Pet"] = {160, 20, 2, 4, 0}, -- nameOffset on 5th
+		["Boss"] = {160, 24, 4, 5, 5, 0, 0},
 	}
 
 	local function createOptionGroup(parent, offset, value, func)
 		createOptionTitle(parent, "", offset)
-		createOptionDropdown(parent, L["HealthValueType"], offset-50, G.HealthValues, L["100PercentTip"], "UFs", value.."HPTag", defaultValue[value][4], func)
+		createOptionDropdown(parent, L["HealthValueType"], offset-50, G.HealthValues, L["100PercentTip"], "UFs", value.."HPTag", defaultData[value][4], func)
 		local mult = 0
 		if value ~= "Pet" then
 			mult = 60
-			createOptionDropdown(parent, L["PowerValueType"], offset-50-mult, G.HealthValues, L["100PercentTip"], "UFs", value.."MPTag", defaultValue[value][5], func)
+			createOptionDropdown(parent, L["PowerValueType"], offset-50-mult, G.HealthValues, L["100PercentTip"], "UFs", value.."MPTag", defaultData[value][5], func)
 		end
-		createOptionSlider(parent, L["Width"], sliderRange[value][1], sliderRange[value][2], defaultValue[value][1], offset-110-mult, value.."Width", func)
-		createOptionSlider(parent, L["Height"], 15, 100, defaultValue[value][2], offset-180-mult, value.."Height", func)
-		createOptionSlider(parent, L["Power Height"], 0, 50, defaultValue[value][3], offset-250-mult, value.."PowerHeight", func)
+		createOptionSlider(parent, L["Width"], sliderRange[value][1], sliderRange[value][2], defaultData[value][1], offset-110-mult, value.."Width", func)
+		createOptionSlider(parent, L["Height"], 15, 100, defaultData[value][2], offset-180-mult, value.."Height", func)
+		createOptionSlider(parent, L["Power Height"], 0, 50, defaultData[value][3], offset-250-mult, value.."PowerHeight", func)
 		if value ~= "Pet" then
-			createOptionSlider(parent, L["Power Offset"], -20, 20, defaultValue[value][6], offset-320-mult, value.."PowerOffset", func)
-			createOptionSlider(parent, L["Name Offset"], -50, 50, defaultValue[value][7], offset-390-mult, value.."NameOffset", func)
+			createOptionSlider(parent, L["Power Offset"], -20, 20, defaultData[value][6], offset-320-mult, value.."PowerOffset", func)
+			createOptionSlider(parent, L["Name Offset"], -50, 50, defaultData[value][7], offset-390-mult, value.."NameOffset", func)
 		else
-			createOptionSlider(parent, L["Name Offset"], -20, 20, defaultValue[value][5], offset-320-mult, value.."NameOffset", func)
+			createOptionSlider(parent, L["Name Offset"], -20, 20, defaultData[value][5], offset-320-mult, value.."NameOffset", func)
 		end
 	end
 
@@ -1185,7 +1185,7 @@ function G:SetupRaidFrame(parent)
 	local scroll = G:CreateScroll(panel, 260, 540)
 	local UF = B:GetModule("UnitFrames")
 
-	local defaultValue = {80, 32, 2, 8, 1}
+	local defaultData = {80, 32, 2, 8, 1}
 	local options = {}
 	for i = 1, 8 do
 		options[i] = UF.RaidDirections[i].name
@@ -1219,11 +1219,11 @@ function G:SetupRaidFrame(parent)
 	end
 
 	createOptionDropdown(scroll.child, L["GrowthDirection"], -30, options, L["RaidDirectionTip"], "UFs", "RaidDirec", 1, updateRaidDirection)
-	createOptionSlider(scroll.child, L["Width"], 60, 200, defaultValue[1], -100, "RaidWidth", resizeRaidFrame)
-	createOptionSlider(scroll.child, L["Height"], 25, 60, defaultValue[2], -180, "RaidHeight", resizeRaidFrame)
-	createOptionSlider(scroll.child, L["Power Height"], 0, 30, defaultValue[3], -260, "RaidPowerHeight", resizeRaidFrame)
-	createOptionSlider(scroll.child, L["Num Groups"], 2, 8, defaultValue[4], -340, "NumGroups", updateNumGroups)
-	createOptionSlider(scroll.child, L["RaidRows"], 1, 8, defaultValue[5], -420, "RaidRows", updateNumGroups)
+	createOptionSlider(scroll.child, L["Width"], 60, 200, defaultData[1], -100, "RaidWidth", resizeRaidFrame)
+	createOptionSlider(scroll.child, L["Height"], 25, 60, defaultData[2], -180, "RaidHeight", resizeRaidFrame)
+	createOptionSlider(scroll.child, L["Power Height"], 0, 30, defaultData[3], -260, "RaidPowerHeight", resizeRaidFrame)
+	createOptionSlider(scroll.child, L["Num Groups"], 2, 8, defaultData[4], -340, "NumGroups", updateNumGroups)
+	createOptionSlider(scroll.child, L["RaidRows"], 1, 8, defaultData[5], -420, "RaidRows", updateNumGroups)
 end
 
 function G:SetupSimpleRaidFrame(parent)
@@ -1291,7 +1291,7 @@ function G:SetupPartyFrame(parent)
 		UF:UpdatePartyElements()
 	end
 
-	local defaultValue = {100, 32, 2}
+	local defaultData = {100, 32, 2}
 	local options = {}
 	for i = 1, 4 do
 		options[i] = UF.PartyDirections[i].name
@@ -1299,9 +1299,9 @@ function G:SetupPartyFrame(parent)
 	createOptionCheck(scroll.child, -10, L["UFs PartyAltPower"], "UFs", "PartyAltPower", resizePartyFrame, L["PartyAltPowerTip"])
 	createOptionCheck(scroll.child, -40, L["DescRole"], "UFs", "DescRole", resizePartyFrame, L["DescRoleTip"])
 	createOptionDropdown(scroll.child, L["GrowthDirection"], -100, options, nil, "UFs", "PartyDirec", 1, resizePartyFrame)
-	createOptionSlider(scroll.child, L["Width"], 80, 200, defaultValue[1], -180, "PartyWidth", resizePartyFrame)
-	createOptionSlider(scroll.child, L["Height"], 25, 60, defaultValue[2], -260, "PartyHeight", resizePartyFrame)
-	createOptionSlider(scroll.child, L["Power Height"], 0, 30, defaultValue[3], -340, "PartyPowerHeight", resizePartyFrame)
+	createOptionSlider(scroll.child, L["Width"], 80, 200, defaultData[1], -180, "PartyWidth", resizePartyFrame)
+	createOptionSlider(scroll.child, L["Height"], 25, 60, defaultData[2], -260, "PartyHeight", resizePartyFrame)
+	createOptionSlider(scroll.child, L["Power Height"], 0, 30, defaultData[3], -340, "PartyPowerHeight", resizePartyFrame)
 end
 
 function G:SetupPartyPetFrame(parent)
@@ -1363,7 +1363,7 @@ function G:SetupCastbar(parent)
 	createOptionSwatch(scroll.child, L["Interruptible Color"], "UFs", "CastingColor", 40, -70)
 	createOptionSwatch(scroll.child, L["NotInterruptible Color"], "UFs", "NotInterruptColor", 40, -100)
 
-	local defaultValue = {
+	local defaultData = {
 		["Player"] = {280, 20},
 		["Target"] = {300, 20},
 		["Focus"] = {320, 20},
@@ -1387,8 +1387,8 @@ function G:SetupCastbar(parent)
 		B.AddTooltip(box, "ANCHOR_RIGHT", L["ToggleCastbarTip"], "info", true)
 
 		createOptionTitle(parent, title, offset)
-		createOptionSlider(parent, L["Width"], 100, 800, defaultValue[value][1], offset-60, value.."CBWidth", func)
-		createOptionSlider(parent, L["Height"], 10, 50, defaultValue[value][2], offset-130, value.."CBHeight", func)
+		createOptionSlider(parent, L["Width"], 100, 800, defaultData[value][1], offset-60, value.."CBWidth", func)
+		createOptionSlider(parent, L["Height"], 10, 50, defaultData[value][2], offset-130, value.."CBHeight", func)
 	end
 
 	local function updatePlayerCastbar()
@@ -1694,7 +1694,7 @@ function G:SetupActionBar(parent)
 	local scroll = G:CreateScroll(panel, 260, 540)
 
 	local Bar = B:GetModule("Actionbar")
-	local defaultValues = {
+	local defaultData = {
 		-- defaultSize, minButtons, maxButtons, defaultButtons, defaultPerRow, flyoutDirec
 		["Bar1"] = {34, 6, 12, 12, 12, "UP"},
 		["Bar2"] = {34, 1, 12, 12, 12, "UP"},
@@ -1723,7 +1723,7 @@ function G:SetupActionBar(parent)
 		end
 
 		color = color or ""
-		local data = defaultValues[value]
+		local data = defaultData[value]
 		local function updateBarScale()
 			Bar:UpdateActionSize(value)
 		end
@@ -1814,12 +1814,12 @@ function G:SetupUFAuras(parent)
 	local parent, offset = scroll.child, -10
 
 	local defaultData = {
-		["Player"] = {1, 1, 9, 20, 20},
-		["Target"] = {2, 2, 9, 20, 20},
-		["Focus"] = {3, 2, 9, 20, 20},
-		["ToT"] = {1, 1, 5, 6, 6},
-		["Pet"] = {1, 1, 5, 6, 6},
-		["Boss"] = {2, 3, 6, 6, 6},
+		["Player"] = {1, 2, 8, 40, 40},
+		["Target"] = {2, 2, 8, 40, 40},
+		["Focus"] = {3, 3, 8, 40, 40},
+		["ToT"] = {1, 2, 6, 6, 30},
+		["Pet"] = {1, 2, 6, 6, 30},
+		["Boss"] = {2, 3, 6, 6, 12},
 	}
 	local buffOptions = {DISABLE, L["ShowAll"], L["ShowDispell"]}
 	local debuffOptions = {DISABLE, L["ShowAll"], L["BlockOthers"]}
@@ -1834,7 +1834,7 @@ function G:SetupUFAuras(parent)
 		if isBoss then
 			offset = offset + 130
 		else
-			createOptionDropdown(parent, L["GrowthDirection"], offset-50, growthOptions, "", "UFs", value.."AuraDirec", 1, func)
+			createOptionDropdown(parent, L["GrowthDirection"], offset-50, growthOptions, nil, "UFs", value.."AuraDirec", 1, func)
 			createOptionSlider(parent, L["yOffset"], 0, 200, 10, offset-110, value.."AuraOffset", func)
 		end
 		createOptionDropdown(parent, L["BuffType"], offset-180, buffOptions, nil, "UFs", value.."BuffType", default[1], func)

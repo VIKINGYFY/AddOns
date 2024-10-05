@@ -1,53 +1,7 @@
-# v5.2
+# BtWQuests: The War Within
 
-- Fixed the completion check for The Priory questline in Hallowfall
+## [v5.2](https://github.com/Breeni/BtWQuestsTheWarWithin/tree/v5.2) (2024-10-01)
+[Full Changelog](https://github.com/Breeni/BtWQuestsTheWarWithin/compare/v5.1...v5.2) [Previous Releases](https://github.com/Breeni/BtWQuestsTheWarWithin/releases)
 
-# v5.1
-
-- Fixed error opening quest chain The Flame Within in Hallowfall
-
-# v5.0
-
-- Added raid questline To Kill a Queen
-
-# v4.0
-
-- Added Honor Your Efforts questlines in Hallowfall
-- Added The Flame Within questlines in Hallowfall
-- Added Socialized Medicine questline in Azj-Kahet
-- Updated some prerequisites for Azj-Kahet questlines
-
-# v3.0
-
-- Added A Light in the Dark campaign questline
-- Added Fractured Legacy of Anub'azal questline in Azj-Kahet
-- Fixed renown requirements for A Star of Dorn
-- Fixed missing uqest from A Star of Dorn
-
-# v2.0
-
-- Added A Star of Dorn questline to the Isle of Dorn
-- Added Dogged Pursuit questline to Azj-Kahet
-- Added The Beginning of Something Beautiful questline to Azj-Kahet
-- Fixed wait time for Striking Steel questline
-
-# v1.1
-
-- Fixed active and completion checks for Saving private Spindle questline in Azj-Kahet
-- Fixed active check for Against the Current questline
-- Fixed active check for Gems are Forever questline in Isle of Dorn
-- Fixed active check for The Opalcreg questline in Isle of Dorn
-- Fixed completion check for Melody of Madness questline in Azj-Kahet
-- Fixed layout for The Weight of Duty questline in Hallowfall
-- Fixed showing incorrect quest in Introduction questline after unlocking adventure mode
-
-# v1.0
-
-- Updated Introduction questline
-- Added search index
-
-# v0.1-beta
-
-- Added leveling campaign for each zone
-- Added sojourner questliens for each zone
-- Added max level campaign
+- Updated changelog and version number  
+- Updated the completion check for The Priory in Hallowfall  
