@@ -1,8 +1,9 @@
 # DBM - Dungeons, Delves, & Events
 
-## [r159](https://github.com/DeadlyBossMods/DBM-Dungeons/tree/r159) (2024-10-05)
-[Full Changelog](https://github.com/DeadlyBossMods/DBM-Dungeons/compare/r158...r159) [Previous Releases](https://github.com/DeadlyBossMods/DBM-Dungeons/releases)
+## [r160](https://github.com/DeadlyBossMods/DBM-Dungeons/tree/r160) (2024-10-05)
+[Full Changelog](https://github.com/DeadlyBossMods/DBM-Dungeons/compare/r158...r160) [Previous Releases](https://github.com/DeadlyBossMods/DBM-Dungeons/releases)
 
+- Finish izo orb jump timers  
 - add note  
 - Fix soulspirit nameplate timer not being cleared on death for secondary drust soulcleaver mob id  
     Izo will now special announce when orbs are moving as well. will finish timer work for it soon  

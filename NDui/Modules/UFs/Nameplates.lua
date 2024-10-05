@@ -807,7 +807,7 @@ function UF:RefreshAllPlates()
 end
 
 local DisabledElements = {
-	"Health", "Castbar", "HealPredictionAndAbsorb", "PvPClassificationIndicator", "ThreatIndicator"
+	"Health", "Castbar", "HealthPrediction", "PvPClassificationIndicator", "ThreatIndicator"
 }
 
 local SoftTargetBlockElements = {
