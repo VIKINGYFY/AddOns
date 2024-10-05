@@ -1,9 +1,10 @@
 # MapNote
-## [2.4.1](https://github.com/Ssesmar/MapNote) (2024-09-27)
+## [2.4.2](https://github.com/Ssesmar/MapNote) (2024-10-03)
 - Note:
 
-pre toc update for Cataclysmn
-
+Retail
+• add Profession icons for City of Threads
+• add PvP / PvP Vendor for Set items
 
 
 - Description:

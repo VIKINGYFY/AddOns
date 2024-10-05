@@ -60,7 +60,7 @@ function BagTab:Create(bagID)
 
 	B.PixelIcon(button, BagTab.bgTex, true)
 	button:RegisterForDrag("LeftButton", "RightButton")
-	button:RegisterForClicks("AnyUp", "AnyDown")
+	button:RegisterForClicks("AnyDown")
 	button:SetSize(37, 37)
 
 	cargBags.SetScriptHandlers(button, "OnClick", "OnEnter", "OnLeave")

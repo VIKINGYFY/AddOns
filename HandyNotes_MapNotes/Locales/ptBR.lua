@@ -439,6 +439,7 @@ L["Sethekk Halls"] = "Salões dos Sethekk"
 L["The Arcatraz"] = "Arcatraz"
 L["Reforge"] = "Reforjar"
 --13 The War Within
+L["City of Threads"] = "Cidade das Tramas"
 L["Khaz Algar"] = "Khaz Algar"
 L["Dornogal"] = "Dornogal"
 L["Catalyst"] = "Catalyst"

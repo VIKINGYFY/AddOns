@@ -129,7 +129,7 @@ cargBags:RegisterPlugin("SearchBar", function(self, target)
 		search:Hide()
 
 		target.search, search.target = search, target
-		target:RegisterForClicks("AnyUp", "AnyDown")
+		target:RegisterForClicks("AnyDown")
 		target:SetScript("OnClick", target_openSearch)
 		search:SetScript("OnEditFocusLost", target_closeSearch)
 	end

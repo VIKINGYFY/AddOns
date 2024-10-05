@@ -134,6 +134,7 @@
 ---@field KeybindMixin df_keybindmixin
 ---@field ScriptHookMixin df_scripthookmixin
 ---@field EditorMixin df_editormixin
+---@field PoolMixin df_pool
 ---@field ScrollBoxFunctions df_scrollboxmixin
 ---@field ClassCache {ID:number, Name:string, FileString:string, Texture:string, TexCoord:number[]}[] only available after calling GetClassList()
 ---@field Math df_math
@@ -342,6 +343,8 @@
 ---@field GetRoleTCoordsAndTexture fun(self:table, roleID:number) : number, number, number, number, string
 ---@field AddColorToText fun(self:table, text:string, color:any) : string wrap text with a color
 ---@field AddClassColorToText fun(self:table, text:string, className:string) : string wrap text with a class color
+---@field CreateSimplePanel fun(self:table, parent:frame, width:number?, height:number?, title:string?, frameName:string?, panelOptions:table?, savedVariableTable:table?) : simplepanel
+---@field MakeDraggable fun(self:table, frame:frame) : nil
 
 
 --[=[

@@ -440,6 +440,7 @@ L["Sethekk Halls"] = true
 L["The Arcatraz"] = true
 L["Reforge"] = true
 --13 The War Within
+L["City of Threads"] = true
 L["Khaz Algar"] = true
 L["Dornogal"] = true
 L["Catalyst"] = true

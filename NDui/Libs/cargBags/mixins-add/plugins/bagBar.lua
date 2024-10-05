@@ -73,7 +73,7 @@ function BagButton:Create(bagID)
 	end
 
 	button:RegisterForDrag("LeftButton", "RightButton")
-	button:RegisterForClicks("AnyUp", "AnyDown")
+	button:RegisterForClicks("AnyDown")
 	button:SetSize(37, 37)
 	button.Icon = _G[name.."IconTexture"]
 

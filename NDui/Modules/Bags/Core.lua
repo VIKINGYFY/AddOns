@@ -228,7 +228,7 @@ end
 
 function module:CreateCloseButton(f)
 	local bu = B.CreateButton(self, 22, 22, true, "Interface\\RAIDFRAME\\ReadyCheck-NotReady")
-	bu:RegisterForClicks("AnyUp", "AnyDown")
+	bu:RegisterForClicks("AnyDown")
 	bu.__owner = f
 	bu:SetScript("OnClick", CloseOrRestoreBags)
 	bu.title = CLOSE.." / "..RESET
@@ -240,7 +240,7 @@ end
 function module:CreateReagentButton(f)
 	local bu = B.CreateButton(self, 22, 22, true, "Atlas:Reagents")
 	bu.Icon:SetPoint("BOTTOMRIGHT", -C.mult, -C.mult)
-	bu:RegisterForClicks("AnyUp", "AnyDown")
+	bu:RegisterForClicks("AnyDown")
 	bu:SetScript("OnClick", function(_, btn)
 		if not IsReagentBankUnlocked() then
 			StaticPopup_Show("CONFIRM_BUY_REAGENTBANK_TAB")
@@ -265,7 +265,7 @@ function module:CreateAccountBankButton(f)
 	local bu = B.CreateButton(self, 22, 22, true, 235423)
 	bu.Icon:SetTexCoord(.6, .9, .1, .4)
 	bu.Icon:SetPoint("BOTTOMRIGHT", -C.mult, -C.mult)
-	bu:RegisterForClicks("AnyUp", "AnyDown")
+	bu:RegisterForClicks("AnyDown")
 	bu:SetScript("OnClick", function(_, btn)
 		if AccountBankPanel:ShouldShowLockPrompt() then
 			UIErrorsFrame:AddMessage(DB.InfoColor..ACCOUNT_BANK_LOCKED_PROMPT)
@@ -353,7 +353,7 @@ end
 function module:CreateDepositButton()
 	local bu = B.CreateButton(self, 22, 22, true, "Atlas:GreenCross")
 	bu.Icon:SetOutside()
-	bu:RegisterForClicks("AnyUp", "AnyDown")
+	bu:RegisterForClicks("AnyDown")
 	bu:SetScript("OnClick", function(_, btn)
 		if btn == "RightButton" then
 			C.db["Bags"]["AutoDeposit"] = not C.db["Bags"]["AutoDeposit"]
@@ -380,7 +380,7 @@ end
 function module:CreateAccountBankDeposit()
 	local bu = B.CreateButton(self, 22, 22, true, "Atlas:GreenCross")
 	bu.Icon:SetOutside()
-	bu:RegisterForClicks("AnyUp", "AnyDown")
+	bu:RegisterForClicks("AnyDown")
 	bu:SetScript("OnClick", function(_, btn)
 		if btn == "RightButton" then
 			local isOn = GetCVarBool("bankAutoDepositReagents")
@@ -1121,8 +1121,9 @@ function module:OnLogin()
 				self.iSlot:SetText(slot)
 				if DB.SpecialJunk[item.id] then
 					self.iSlot:SetTextColor(cr, cg, cb)
+				else
+					self.iSlot:SetTextColor(1, 1, 1)
 				end
-				--self.iSlot:SetTextColor(color.r, color.g, color.b)
 			end
 		end
 

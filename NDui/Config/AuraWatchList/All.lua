@@ -58,7 +58,8 @@ local list = {
 		{AuraID = 449275, UnitID = "player"},	-- 阿努布伊卡基强能水晶
 		{AuraID = 455420, UnitID = "player"},	-- 探洞者的蜡烛残端
 		{AuraID = 455451, UnitID = "player"},	-- 迅芯烛台
-
+		{AuraID = 449954, UnitID = "player"},	-- 奸邪发射机
+		{AuraID = 449947, UnitID = "player", Text = NPE_JUMP},	-- 奸邪发射机，跳3下
 	},
 	["Raid Buff"] = {		-- 团队增益组
 		{AuraID =  54861, UnitID = "player"}, -- 火箭靴，工程
@@ -198,6 +199,7 @@ local list = {
 		-- 大米
 		{AuraID = 226510, UnitID = "target"},	-- 血池回血
 		{AuraID = 343502, UnitID = "target"},	-- 鼓舞光环
+		{AuraID = 462704, UnitID = "target"},	-- 碎裂精华，TWW S1
 		-- 5人
 		{AuraID = 372988, UnitID = "target", Value = true},	-- 寒冰壁垒，红玉
 		{AuraID = 391050, UnitID = "target", Value = true},	-- 暴风骤雨之盾，红玉

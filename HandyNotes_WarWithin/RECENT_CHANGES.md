@@ -1,5 +1,5 @@
-## Changed in v66
+## Changed in v67
 
-* Show information on the tooltips for the bountiful versions of delves as well (oops, thanks Numy for pointing this out)
-* Hide weave-rat caches before you choose the Weaver
+* Added quests for this week's world boss Kordac
+* Hallowfall: fixed typo on Surveyor's Box questid
 

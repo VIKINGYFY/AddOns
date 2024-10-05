@@ -98,7 +98,7 @@ function EX:MDEnhance_CreateEnhance(parent, spellID)
 
 	local TButton = CreateFrame("Button", nil, parent, "InsecureActionButtonTemplate")
 	TButton:SetAllPoints(parent)
-	TButton:RegisterForClicks("AnyUp", "AnyDown")
+	TButton:RegisterForClicks("AnyDown")
 	TButton:SetAttribute("type", "spell")
 	TButton:SetAttribute("spell", spellID)
 	TButton:SetScript("OnEnter", function(parent) EX:MDEnhance_TButtonOnEnter(parent, spellID) end)

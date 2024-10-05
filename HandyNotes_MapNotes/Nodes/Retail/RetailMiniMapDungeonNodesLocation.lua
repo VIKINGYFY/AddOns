@@ -755,6 +755,7 @@ if not db.activate.HideMapNote then
               minimap[2255][45732253] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2347, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Spiral Weave
               minimap[2213][10023383] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2348, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Zekvir's Lair
               minimap[2213][56576350] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2299, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Underkeep
+              minimap[2213][67272122] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2259, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tak-Rethan-Abyss
               minimap[2216][67272122] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2259, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tak-Rethan-Abyss
               -- Hallowfall
               minimap[2215][70643095] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2312, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Mycomancer Cavern

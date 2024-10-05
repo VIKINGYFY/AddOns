@@ -7,7 +7,7 @@ DB.Version = C_AddOns.GetAddOnMetadata("NDui", "Version")
 DB.Support = C_AddOns.GetAddOnMetadata("NDui", "X-Support")
 DB.Client = GetLocale()
 DB.ScreenWidth, DB.ScreenHeight = GetPhysicalScreenSize()
-DB.isNewPatch = select(4, GetBuildInfo()) >= 110002 -- 11.0.2
+DB.isNewPatch = select(4, GetBuildInfo()) >= 110005 -- 11.0.5
 DB.isWW = select(4, GetBuildInfo()) >= 110000 -- 11.0.0
 
 -- Deprecated
@@ -669,3 +669,7 @@ DB.PrimordialStone = {}
 for id = 204000, 204030 do
 	DB.PrimordialStone[id] = true
 end
+for id = 204573, 204579 do
+	DB.PrimordialStone[id] = true
+end
+DB.PrimordialStone[203703] = true -- 棱光碎片

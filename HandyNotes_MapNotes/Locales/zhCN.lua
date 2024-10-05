@@ -439,6 +439,7 @@ L["Sethekk Halls"] = "塞泰克大厅"
 L["The Arcatraz"] = "禁魔监狱"
 L["Reforge"] = "重铸"
 --13 The War Within
+L["City of Threads"] = "千丝之城"
 L["Khaz Algar"] = "卡兹阿加"
 L["Dornogal"] = "多恩诺嘉尔"
 L["Catalyst"] = "化生台"
