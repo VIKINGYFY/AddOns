@@ -17,6 +17,7 @@ table.insert(C.defaultThemes, function()
 	-- Battlenet toast frame
 	BNToastFrame:SetBackdrop(nil)
 	B.SetBD(BNToastFrame)
+	B.ReskinClose(BNToastFrame.CloseButton)
 	BNToastFrame.TooltipFrame:HideBackdrop()
 	B.SetBD(BNToastFrame.TooltipFrame)
 
