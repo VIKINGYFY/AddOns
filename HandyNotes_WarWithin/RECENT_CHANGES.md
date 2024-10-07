@@ -1,5 +1,4 @@
-## Changed in v67
+## Changed in v68
 
-* Added quests for this week's world boss Kordac
-* Hallowfall: fixed typo on Surveyor's Box questid
+* Hallowfall: show the locations for the Lost and Found quest turn-ins
 

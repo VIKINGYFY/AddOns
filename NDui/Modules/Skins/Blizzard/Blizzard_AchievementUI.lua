@@ -15,13 +15,14 @@ local function SetupStatusbar(bar)
 	bar:GetStatusBarTexture():SetGradient("VERTICAL", CreateColor(0, .4, 0, 1), CreateColor(0, .6, 0, 1))
 	B.CreateBDFrame(bar, .25)
 
-	local title = bar.Label or bar.Title or _G[bar:GetName().."Title"]
+	local name = bar:GetName()
+	local title = bar.Title or bar.Label or (name and _G[name.."Title"])
 	if title then
 		title:SetTextColor(1, 1, 1)
 		title:SetPoint("LEFT", bar, "LEFT", 6, -1)
 	end
 
-	local text = bar.Text or _G[bar:GetName().."Text"]
+	local text = bar.Text or (name and _G[name.."Text"])
 	if text then
 		text:SetTextColor(1, 1, 1)
 		text:SetPoint("RIGHT", bar, "RIGHT", -5, -1)
@@ -287,7 +288,9 @@ C.themes["Blizzard_AchievementUI"] = function()
 
 	local function handleCompareSummary(frame)
 		B.StripTextures(frame)
-		SetupStatusbar(frame.StatusBar)
+		if frame.StatusBar then
+			SetupStatusbar(frame.StatusBar)
+		end
 	end
 	handleCompareSummary(AchievementFrameComparison.Summary.Player)
 	handleCompareSummary(AchievementFrameComparison.Summary.Friend)

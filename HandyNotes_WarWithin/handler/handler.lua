@@ -287,14 +287,14 @@ function ns.RegisterVignettes(zone, vignettes, defaults)
         defaults = ns.nodeMaker(defaults)
     end
     for vignetteID, point in pairs(vignettes) do
+        point = defaults and defaults(point) or point
+
         point._coord = point._coord or 0
         point._uiMapID = zone
         point.vignette = vignetteID
         point.always = true
         point.label = false
         point.loot = upgradeloot(point.loot)
-
-        point = defaults and defaults(point) or point
 
         intotable(ns.POIsToPoints, point.areaPoi, point)
         intotable(ns.VignetteIDsToPoints, point.vignette, point)
@@ -431,13 +431,19 @@ local completeColor = CreateColor(0, 1, 0, 1)
 local incompleteColor = CreateColor(1, 0, 0, 1)
 local function render_string(s, context)
     if type(s) == "function" then s = s(context) end
-    return s:gsub("{(%l+):([^:}]+):?([^}]*)}", function(variant, id, fallback)
+    return s:gsub("{([^:}]+):([^:}]+):?([^}]*)}", function(variant, id, fallback)
         local mainid, subid = id:match("(%d+)%.(%d+)")
         mainid, subid = mainid and tonumber(mainid), subid and tonumber(subid)
         id = tonumber(id)
+        -- TODO: multiple variants?
+        local mainvariant, subvariant = variant:match("(%l+)%.(%l+)")
+        if subvariant then
+            variant = mainvariant
+        end
         if variant == "item" then
             local name, link, _, _, _, _, _, _, _, icon = C_Item.GetItemInfo(id)
             if link and icon then
+                if subvariant == "plain" then return name end
                 return quick_texture_markup(icon) .. " " .. link:gsub("[%[%]]", "")
             end
         elseif variant == "spell" then
@@ -451,6 +457,7 @@ local function render_string(s, context)
                 name, _, icon = GetSpellInfo(id)
             end
             if name and icon then
+                if subvariant == "plain" then return name end
                 return quick_texture_markup(icon) .. " " .. name
             end
         elseif variant == "quest" or variant == "worldquest" or variant == "questname" then
@@ -459,24 +466,31 @@ local function render_string(s, context)
                 -- we bypass the normal fallback mechanism because we want the quest completion status
                 name = fallback ~= "" and fallback or (variant .. ':' .. id)
             end
-            if variant == "questname" then return name end
+            if variant == "questname" or subvariant == "plain" then return name end
             local completed = C_QuestLog.IsQuestFlaggedCompleted(id)
             return CreateAtlasMarkup(variant == "worldquest" and "worldquest-tracker-questmarker" or "questnormal") ..
                 (completed and completeColor or incompleteColor):WrapTextInColorCode(name)
         elseif variant == "questid" then
+            if subvariant == "plain" then return id end
             return CreateAtlasMarkup("questnormal") .. (C_QuestLog.IsQuestFlaggedCompleted(id) and completeColor or incompleteColor):WrapTextInColorCode(id)
         elseif variant == "achievement" or variant == "achievementname" then
             if mainid and subid then
-                local criteria, _, completed = ns.GetCriteria(mainid, subid)
+                local criteria, _, completed, _, _, completedBy = ns.GetCriteria(mainid, subid)
                 if criteria then
-                    if variant == "achievementname" then return criteria end
+                    if variant == "achievementname" or subvariant == "plain" then return criteria end
+                    if subvariant == "character" then
+                        completed = completedBy == ns.playerName
+                    end
                     return (completed and completeColor or incompleteColor):WrapTextInColorCode(criteria)
                 end
                 id = 'achievement:'..mainid..'.'..subid
             else
-                local _, name, _, completed = GetAchievementInfo(id)
+                local _, name, _, completed, _, _, _, _, _, _, _, _, wasEarnedByMe = GetAchievementInfo(id)
                 if name and name ~= "" then
-                    if variant == "achievementname" then return name end
+                    if variant == "achievementname" or subvariant == "plain" then return name end
+                    if subvariant == "character" then
+                        completed = wasEarnedByMe
+                    end
                     return CreateAtlasMarkup("storyheader-cheevoicon") .. " " .. (completed and completeColor or incompleteColor):WrapTextInColorCode(name)
                 end
             end
@@ -488,6 +502,7 @@ local function render_string(s, context)
         elseif variant == "currency" then
             local info = C_CurrencyInfo.GetCurrencyInfo(id)
             if info then
+                if subvariant == "plain" then return info.name end
                 return quick_texture_markup(info.iconFileID) .. " " .. info.name
             end
         elseif variant == "currencyicon" then
@@ -497,10 +512,13 @@ local function render_string(s, context)
             end
         elseif variant == "covenant" then
             local data = C_Covenants.GetCovenantData(id)
-            return COVENANT_COLORS[id]:WrapTextInColorCode(data and data.name or ns.covenants[id])
+            local name = data and data.name or ns.covenants[id]
+            if subvariant == "plain" then return name end
+            return COVENANT_COLORS[id]:WrapTextInColorCode(name)
         elseif variant == "majorfaction" then
             local info = C_MajorFactions.GetMajorFactionData(id)
             if info and info.name then
+                if subvariant == "plain" then return info.name end
                 return CreateAtlasMarkup(("majorFactions_icons_%s512"):format(info.textureKit)) .. " " .. info.name
             end
         elseif variant == "faction" then
@@ -519,6 +537,7 @@ local function render_string(s, context)
         elseif variant == "garrisontalent" then
             local info = C_Garrison.GetTalentInfo(id)
             if info then
+                if subvariant == "plain" then return info.name end
                 return quick_texture_markup(info.icon) .. " " .. (info.researched and completeColor or incompleteColor):WrapTextInColorCode(info.name)
             end
         elseif variant == "profession" then
@@ -1045,7 +1064,7 @@ local function handle_tooltip(tooltip, point, skip_label)
     end
 
     if point.quest then
-        local isAvailable = not C_QuestLog.IsQuestFlaggedCompleted(point.quest)
+        local isAvailable = not ns.allQuestsComplete(point.quest)
         local r, g, b = (isAvailable and GREEN_FONT_COLOR or RED_FONT_COLOR):GetRGB()
         tooltip:AddDoubleLine(
             " ",

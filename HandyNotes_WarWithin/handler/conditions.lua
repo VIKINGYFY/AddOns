@@ -44,7 +44,28 @@ ns.conditions._RankedCondition = RankedCondition
 ns.conditions._Negated = Negated
 
 ns.conditions.Achievement = Condition:extends{classname = "Achievement", type="achievement"}
-function ns.conditions.Achievement:Matched() return (select(4, GetAchievementInfo(self.id))) end
+function ns.conditions.Achievement:init(id, criteria, currentCharacter)
+    self:super("init", id)
+    self.criteria = criteria
+    self.currentCharacter = currentCharacter
+    if currentCharacter then
+        self.type = "achievement.character"
+    end
+end
+function ns.conditions.Achievement:Label()
+    if self.criteria then
+        return ('{%s:%d.%d}'):format(self.type, self.id, self.criteria)
+    end
+    return self:super("Label")
+end
+function ns.conditions.Achievement:Matched()
+    if self.criteria then
+        local _, _, completed, _, _, completedBy = ns.GetCriteria(self.id, self.criteria)
+        if self.currentCharacter then return completedBy == ns.playerName end
+        return completed
+    end
+    return (select(self.currentCharacter and 13 or 4, GetAchievementInfo(self.id)))
+end
 
 ns.conditions.AchievementIncomplete = Negated(ns.conditions.Achievement)
 

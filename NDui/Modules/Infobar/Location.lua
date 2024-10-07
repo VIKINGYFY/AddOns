@@ -120,8 +120,9 @@ info.onMouseUp = function(_, btn)
 		local hasUnit = UnitExists("target") and not UnitIsPlayer("target")
 		local unitName = hasUnit and "<"..UnitName("target")..">" or ""
 		local pointLink = format(zoneString, mapID, coordX*10000, coordY*10000, L["My Position"], totalZone, zoneCoord, unitName)
+		local pointInfo = format("%s: %s <%s>%s", L["My Position"], totalZone, zoneCoord, unitName)
 
 		print(pointLink)
-		ChatFrame_OpenChat(pointLink, SELECTED_DOCK_FRAME)
+		ChatFrame_OpenChat(pointInfo, SELECTED_DOCK_FRAME)
 	end
 end

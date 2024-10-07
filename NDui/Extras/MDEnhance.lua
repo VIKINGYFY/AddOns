@@ -83,14 +83,20 @@ function EX:MDEnhance_UpdateScoreInfo(parent)
 	local affixScores, bestScore = C_MythicPlus.GetSeasonBestAffixScoreInfoForMap(parent.mapID)
 	if not affixScores or not bestScore then return end
 
+	local color = C_ChallengeMode.GetSpecificDungeonOverallScoreRarityColor(bestScore) or HIGHLIGHT_FONT_COLOR
+	parent.BScore:SetText(bestScore and bestScore or "")
+	parent.BScore:SetTextColor(color.r, color.g, color.b)
+
+--[[
 	parent.BScore:SetText(bestScore and bestScore or "")
 	parent.BScore:SetTextColor(0, 1, 0)
 
-	--parent.FScore:SetText(affixScores[1] and affixScores[1].score or "")
-	--parent.FScore:SetTextColor(1, 1, 0)
+	parent.FScore:SetText(affixScores[1] and affixScores[1].score or "")
+	parent.FScore:SetTextColor(1, 1, 0)
 
-	--parent.TScore:SetText(affixScores[2] and affixScores[2].score or "")
-	--parent.TScore:SetTextColor(0, 1, 1)
+	parent.TScore:SetText(affixScores[2] and affixScores[2].score or "")
+	parent.TScore:SetTextColor(0, 1, 1)
+]]
 end
 
 function EX:MDEnhance_CreateEnhance(parent, spellID)
