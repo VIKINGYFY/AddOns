@@ -918,3 +918,6 @@ L["KeyDown"] = "按下快捷键施法"
 L["ButtonLock"] = "锁定动作条"
 L["KeyDownTip"] = OPTION_TOOLTIP_ACTION_BUTTON_USE_KEY_DOWN
 L["ButtonLockTip"] = OPTION_TOOLTIP_LOCK_ACTIONBAR
+L["OverAbsorb"] = "过量吸收盾指示器"
+L["OverAbsorbTip"] = "|n启用后，当吸收盾大于当前最大血量时，显示吸收盾状态条。|n|n此选项影响所有单位框体。"
+L["ShowHealthAbsorb"] = "当期数值+吸收"
