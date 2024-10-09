@@ -243,8 +243,16 @@ ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
 
     end
 
+    -- ProfessionInfo neu test
+    --local prof1, prof2, archaeology, fishing, cooking = GetProfessions()
+    --if nodeData.prof1 then
+    --  tooltip:AddDoubleLine("|cffffffff" .. GetProfessionInfo(prof1) .. "\n" .. GetProfessionInfo(prof2), nil, nil, false)
+    --end
+
     -- Extra Tooltip
     if ns.Addon.db.profile.ExtraTooltip then
+
+
 
       if nodeData.id and not nodeData.mnID then  -- instance entrances
         if ns.Addon.db.profile.journal then
@@ -1189,10 +1197,10 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
   end
 
   -- Check if Blizz Delves entrances is true then remove Blizzard Pins
-  if ns.Addon.db.profile.activate.RemoveBlizzDelves then
-    SetCVar("showDelveEntrancesOnMap", 0)
-  elseif not ns.Addon.db.profile.activate.RemoveBlizzDelves then
+  if ns.Addon.db.profile.activate.ShowBlizzDelves then
     SetCVar("showDelveEntrancesOnMap", 1)
+  elseif not ns.Addon.db.profile.activate.ShowBlizzDelves then
+    SetCVar("showDelveEntrancesOnMap", 0)
   end
 
   if ns.Addon.db.profile.activate.HideMMB then -- minimap button

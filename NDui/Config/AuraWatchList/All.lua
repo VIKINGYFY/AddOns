@@ -60,6 +60,9 @@ local list = {
 		{AuraID = 455451, UnitID = "player"},	-- 迅芯烛台
 		{AuraID = 449954, UnitID = "player"},	-- 奸邪发射机
 		{AuraID = 449947, UnitID = "player", Text = NPE_JUMP},	-- 奸邪发射机，跳3下
+		{AuraID = 451011, UnitID = "player"},	-- 暴虐演说者的喉头
+		{AuraID = 443407, UnitID = "player"},	-- 斯卡莫拉克碎片
+
 	},
 	["Raid Buff"] = {		-- 团队增益组
 		{AuraID =  54861, UnitID = "player"}, -- 火箭靴，工程

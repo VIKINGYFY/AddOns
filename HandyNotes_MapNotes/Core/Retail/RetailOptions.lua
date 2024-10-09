@@ -5,6 +5,7 @@ if not HandyNotes then return end
 
 local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 local MNMMBIcon = LibStub("LibDBIcon-1.0", true)
+local prof1, prof2, archaeology, fishing, cooking = GetProfessions()
 
 
 function ns.LoadOptions(self)
@@ -258,20 +259,6 @@ ns.options = {
             ns.RemoveBlizzPOIs()
             if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.RemoveBlizzPOIs then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. L["Points of interests"] .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
             if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.RemoveBlizzPOIs then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. L["Points of interests"] .. " " .. L["icons"], "|cff00ccff" .. L["are shown"] )end end end,
-          },
-        RemoveBlizzDelves = {
-          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
-          type = "toggle",
-          name = DELVES_LABEL .. " " .. L["Entrance"],
-          desc = "(" .. EXPANSION_NAME10 .. ")" .. "\n" .. "\n" .. TextIconDelves:GetIconString() .. " " .. L["Disables the display of all Blizzard Delves entrances on the zone map"],
-          order = 3.2,
-          width = 0.85,
-          get = function() return ns.Addon.db.profile.activate.RemoveBlizzDelves end,
-          set = function(info, v) ns.Addon.db.profile.activate.RemoveBlizzDelves = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
-            if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.RemoveBlizzDelves then SetCVar("showDelveEntrancesOnMap", 0) print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. DELVES_LABEL .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
-            if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.RemoveBlizzDelves then SetCVar("showDelveEntrancesOnMap", 1) print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. DELVES_LABEL .. " " .. L["icons"], "|cff00ccff" .. L["are shown"] ) else
-            if not ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.RemoveBlizzDelves then SetCVar("showDelveEntrancesOnMap", 0) else
-            if not ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.RemoveBlizzDelves then SetCVar("showDelveEntrancesOnMap", 1) end end end end end,
           },
         RemoveBlizzInstances = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
@@ -2912,7 +2899,20 @@ ns.options = {
                   set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
                         if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showZoneLFR then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 "..  L["Zone map"], PLAYER_DIFFICULTY3, "|cff00ff00" .. L["is activated"]) else 
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneLFR then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 "..  L["Zone map"], PLAYER_DIFFICULTY3, "|cffff0000" ..  L["is deactivated"]) end end end,
-                  }
+                  },
+                ShowBlizzDelves = {
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+                  type = "toggle",
+                  name = TextIconDelves:GetIconString() .. " " .. DELVES_LABEL .. " " .. L["Entrance"],
+                  desc = "(" .. EXPANSION_NAME10 .. ")" .. "\n" .. "\n" .. TextIconDelves:GetIconString() .. " " .. L["Activate the display of all Blizzard Delves entrances on the zone map"],
+                  order = 11.7,
+                  get = function() return ns.Addon.db.profile.activate.ShowBlizzDelves end,
+                  set = function(info, v) ns.Addon.db.profile.activate.ShowBlizzDelves = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                    if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.ShowBlizzDelves then SetCVar("showDelveEntrancesOnMap", 1) print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. DELVES_LABEL .. " " .. L["icons"], "|cff00ccff" .. L["are shown"] ) else
+                    if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.ShowBlizzDelves then SetCVar("showDelveEntrancesOnMap", 0) print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. DELVES_LABEL .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
+                    if not ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.ShowBlizzDelves then SetCVar("showDelveEntrancesOnMap", 1) else
+                    if not ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.ShowBlizzDelves then SetCVar("showDelveEntrancesOnMap", 0) end end end end end,
+                  },
                 },
               },
             ZoneTransportTab = {

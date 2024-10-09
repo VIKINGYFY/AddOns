@@ -1,10 +1,9 @@
 # MapNote
-## [2.4.2](https://github.com/Ssesmar/MapNote) (2024-10-03)
+## [2.4.3](https://github.com/Ssesmar/MapNote) (2024-10-07)
 - Note:
 
 Retail
-• add Profession icons for City of Threads
-• add PvP / PvP Vendor for Set items
+• The ability to hide or show Blizzard Delve icons on the zone map has been moved to the zone tap to • Instance icons
 
 
 - Description:

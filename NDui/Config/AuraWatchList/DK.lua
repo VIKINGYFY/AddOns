@@ -49,6 +49,9 @@ local list = {
 		{AuraID = 448229, UnitID = "target", Caster = "player"}, -- 灵魂收割
 	},
 	["Special Aura"] = {	-- 玩家重要光环组
+		{AuraID = 441416, UnitID = "player"}, -- 破灭
+		{AuraID = 447954, UnitID = "player"}, -- 破灭
+
 		{AuraID =  55233, UnitID = "player"}, -- 吸血鬼之血
 		{AuraID =  77535, UnitID = "player", Value = true}, -- 鲜血护盾
 		{AuraID =  81256, UnitID = "player"}, -- 符文刃舞
