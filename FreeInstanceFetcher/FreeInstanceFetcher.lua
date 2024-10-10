@@ -8,7 +8,7 @@ if not faction then return end
 
 local database = {
     Alliance = {
-        ['羔羊公益之心-冰霜之刃'] = {true, '9', '0'},
+        ['羔羊公益小花-冰霜之刃'] = {true, '9', '0'},
         ['怜姐姐的术氏-罗宁'] = {true, '9', '0'},
         ['蚊飙-奥蕾莉亚'] = {true, '9', '0'},
         ['第三仙-轻风之语'] = {true, '9', '0'},
@@ -161,7 +161,7 @@ F.addonPrefix = "\124cFF70B8FF" .. addonName .. "\124r: "
 F.addonLocaleName = "\124cFF70B8FF便利CD获取\124r: "
 F.addonVersion = C_AddOns.GetAddOnMetadata(addonName, 'Version')
 --[==[@debug@
-if F.addonVersion == 'v11.0.4' then
+if F.addonVersion == 'v11.0.5' then
     F.addonVersion = 'Dev'
 end
 --@end-debug@]==]
