@@ -30,55 +30,53 @@ local list = {
 	},
 	["Target Aura"] = {		-- 目标光环组
 		{AuraID =  45524, UnitID = "target", Caster = "player"}, -- 寒冰锁链
+		{AuraID =  51714, UnitID = "target", Caster = "player"}, -- 锋锐之霜
+		{AuraID =  55078, UnitID = "target", Caster = "player"}, -- 血之疫病
+		{AuraID =  55095, UnitID = "target", Caster = "player"}, -- 冰霜疫病
+		{AuraID =  56222, UnitID = "target", Caster = "player"}, -- 黑暗命令
 		{AuraID = 207167, UnitID = "target", Caster = "player"}, -- 致盲冰雨
 		{AuraID = 374557, UnitID = "target", Caster = "player"}, -- 羸弱
 		{AuraID = 392490, UnitID = "target", Caster = "player"}, -- 衰弱
-
+		{AuraID = 434765, UnitID = "target", Caster = "player"}, -- 死神印记
 		{AuraID = 440772, UnitID = "target", Caster = "player"}, -- 灵魂迸裂
 		{AuraID = 443404, UnitID = "target", Caster = "player"}, -- 灵魂浪潮
-
-		{AuraID =  55078, UnitID = "target", Caster = "player"}, -- 血之疫病
-		{AuraID =  56222, UnitID = "target", Caster = "player"}, -- 黑暗命令
-		{AuraID = 458687, UnitID = "target", Caster = "player"}, -- 饮血者
-		{AuraID = 458478, UnitID = "target", Caster = "player"}, -- 煽动惊恐
-
-		{AuraID =  55095, UnitID = "target", Caster = "player"}, -- 冰霜疫病
-		{AuraID = 434765, UnitID = "target", Caster = "player"}, -- 死神印记
 		{AuraID = 444633, UnitID = "target", Caster = "player"}, -- 死灵
 		{AuraID = 444828, UnitID = "target", Caster = "player"}, -- 寒冰锁链
 		{AuraID = 448229, UnitID = "target", Caster = "player"}, -- 灵魂收割
+		{AuraID = 454824, UnitID = "target", Caster = "player"}, -- 镇压攫握
+		{AuraID = 458478, UnitID = "target", Caster = "player"}, -- 煽动惊恐
+		{AuraID = 458687, UnitID = "target", Caster = "player"}, -- 饮血者
+
 	},
 	["Special Aura"] = {	-- 玩家重要光环组
-		{AuraID = 441416, UnitID = "player"}, -- 破灭
-		{AuraID = 447954, UnitID = "player"}, -- 破灭
-
+		{AuraID =  51124, UnitID = "player"}, -- 杀戮机器
+		{AuraID =  51271, UnitID = "player"}, -- 冰霜之柱
 		{AuraID =  55233, UnitID = "player"}, -- 吸血鬼之血
+		{AuraID =  59052, UnitID = "player"}, -- 白霜
 		{AuraID =  77535, UnitID = "player", Value = true}, -- 鲜血护盾
 		{AuraID =  81256, UnitID = "player"}, -- 符文刃舞
 		{AuraID = 116888, UnitID = "player", Value = true, Flash = true}, -- 炼狱蔽体
+		{AuraID = 152279, UnitID = "player", Flash = true}, -- 冰龙吐息
 		{AuraID = 194844, UnitID = "player"}, -- 白骨风暴
 		{AuraID = 195181, UnitID = "player"}, -- 白骨之盾
+		{AuraID = 196770, UnitID = "player"}, -- 冷酷严冬
+		{AuraID = 211805, UnitID = "player"}, -- 风暴汇聚
 		{AuraID = 219809, UnitID = "player", Value = true}, -- 墓石
 		{AuraID = 273947, UnitID = "player"}, -- 鲜血禁闭
 		{AuraID = 274156, UnitID = "player"}, -- 吞噬
-		{AuraID = 391481, UnitID = "player"}, -- 凝血
-		{AuraID = 391527, UnitID = "player", Value = true}, -- 永恒脐带
-		{AuraID = 433925, UnitID = "player"}, -- 鲜血女王的精华
-		{AuraID = 454871, UnitID = "player", Flash = true}, -- 抽血
-		{AuraID = 458745, UnitID = "player"}, -- 骨化锋刺
-		{AuraID = 460049, UnitID = "player"}, -- 苦痛凌虐
-
-		{AuraID =  51124, UnitID = "player"}, -- 杀戮机器
-		{AuraID =  51271, UnitID = "player"}, -- 冰霜之柱
-		{AuraID =  59052, UnitID = "player"}, -- 白霜
-		{AuraID = 152279, UnitID = "player", Flash = true}, -- 冰龙吐息
-		{AuraID = 196770, UnitID = "player"}, -- 冷酷严冬
-		{AuraID = 211805, UnitID = "player"}, -- 风暴汇聚
 		{AuraID = 376907, UnitID = "player"}, -- 狂乱释放
 		{AuraID = 377103, UnitID = "player"}, -- 断裂之痕
 		{AuraID = 377195, UnitID = "player"}, -- 历久弥坚
 		{AuraID = 377253, UnitID = "player"}, -- 冰霜雏龙之援
+		{AuraID = 391481, UnitID = "player"}, -- 凝血
+		{AuraID = 391527, UnitID = "player", Value = true}, -- 永恒脐带
+		{AuraID = 433925, UnitID = "player"}, -- 鲜血女王的精华
+		{AuraID = 441416, UnitID = "player"}, -- 破灭
+		{AuraID = 447954, UnitID = "player"}, -- 破灭
+		{AuraID = 454871, UnitID = "player", Flash = true}, -- 抽血
 		{AuraID = 456370, UnitID = "player"}, -- 低温冰冻
+		{AuraID = 458745, UnitID = "player"}, -- 骨化锋刺
+		{AuraID = 460049, UnitID = "player"}, -- 苦痛凌虐
 	},
 }
 
