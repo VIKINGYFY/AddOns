@@ -4608,10 +4608,18 @@ ns.options = {
           order = 30.6,
           get = function() return ns.Addon.db.profile.activate.Continent end,
           set = function(info, v) ns.Addon.db.profile.activate.Continent = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-                if ns.Addon.db.profile.activate.Continent and (not ns.MapType2 and not ns.ContinentIDs or not WorldMapFrame:IsShown()) and self.faction == "Horde" then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(12) else 
-                if not ns.Addon.db.profile.activate.Continent and (not ns.MapType2 and not ns.ContinentIDs or not WorldMapFrame:IsShown()) and self.faction == "Horde" then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(12) else
-                if ns.Addon.db.profile.activate.Continent and (not ns.MapType2 and not ns.ContinentIDs or not WorldMapFrame:IsShown()) and self.faction == "Alliance" then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(13) else 
-                if not ns.Addon.db.profile.activate.Continent and (not ns.MapType2 and not ns.ContinentIDs or not WorldMapFrame:IsShown()) and self.faction == "Alliance" then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(13) else
+                if (ns.Addon.db.profile.activate.Continent and self.faction == "Horde") and not WorldMapFrame:IsShown() or not (WorldMapFrame:GetMapID() == 12 or WorldMapFrame:GetMapID() == 13 or WorldMapFrame:GetMapID() == 101 or WorldMapFrame:GetMapID() == 113 or WorldMapFrame:GetMapID() == 424 or WorldMapFrame:GetMapID() == 619
+                or WorldMapFrame:GetMapID() == 875 or WorldMapFrame:GetMapID() == 876 or WorldMapFrame:GetMapID() == 905 or WorldMapFrame:GetMapID() == 1978 or WorldMapFrame:GetMapID() == 1550 or WorldMapFrame:GetMapID() == 572
+                or WorldMapFrame:GetMapID() == 2274 or WorldMapFrame:GetMapID() == 948) then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(12) else 
+                if (not ns.Addon.db.profile.activate.Continent and self.faction == "Horde") and not WorldMapFrame:IsShown() or not (WorldMapFrame:GetMapID() == 12 or WorldMapFrame:GetMapID() == 13 or WorldMapFrame:GetMapID() == 101 or WorldMapFrame:GetMapID() == 113 or WorldMapFrame:GetMapID() == 424 or WorldMapFrame:GetMapID() == 619
+                or WorldMapFrame:GetMapID() == 875 or WorldMapFrame:GetMapID() == 876 or WorldMapFrame:GetMapID() == 905 or WorldMapFrame:GetMapID() == 1978 or WorldMapFrame:GetMapID() == 1550 or WorldMapFrame:GetMapID() == 572
+                or WorldMapFrame:GetMapID() == 2274 or WorldMapFrame:GetMapID() == 948) then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(12) else
+                if (ns.Addon.db.profile.activate.Continent and self.faction == "Alliance") and not WorldMapFrame:IsShown() or not (WorldMapFrame:GetMapID() == 12 or WorldMapFrame:GetMapID() == 13 or WorldMapFrame:GetMapID() == 101 or WorldMapFrame:GetMapID() == 113 or WorldMapFrame:GetMapID() == 424 or WorldMapFrame:GetMapID() == 619
+                or WorldMapFrame:GetMapID() == 875 or WorldMapFrame:GetMapID() == 876 or WorldMapFrame:GetMapID() == 905 or WorldMapFrame:GetMapID() == 1978 or WorldMapFrame:GetMapID() == 1550 or WorldMapFrame:GetMapID() == 572
+                or WorldMapFrame:GetMapID() == 2274 or WorldMapFrame:GetMapID() == 948) then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(12) else 
+                if (not ns.Addon.db.profile.activate.Continent and self.faction == "Alliance") and not WorldMapFrame:IsShown() or not (WorldMapFrame:GetMapID() == 12 or WorldMapFrame:GetMapID() == 13 or WorldMapFrame:GetMapID() == 101 or WorldMapFrame:GetMapID() == 113 or WorldMapFrame:GetMapID() == 424 or WorldMapFrame:GetMapID() == 619
+                or WorldMapFrame:GetMapID() == 875 or WorldMapFrame:GetMapID() == 876 or WorldMapFrame:GetMapID() == 905 or WorldMapFrame:GetMapID() == 1978 or WorldMapFrame:GetMapID() == 1550 or WorldMapFrame:GetMapID() == 572
+                or WorldMapFrame:GetMapID() == 2274 or WorldMapFrame:GetMapID() == 948) then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(12) else
                 if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.Continent then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], L["icons"], "|cff00ff00" .. L["is activated"]) else 
                 if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.Continent then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], L["icons"], "|cffff0000" .. L["is deactivated"]) end end end end end end end,
               },
@@ -5385,10 +5393,10 @@ ns.options = {
           order = 60.5,
           get = function() return ns.Addon.db.profile.activate.DungeonMap end,
           set = function(info, v) ns.Addon.db.profile.activate.DungeonMap = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-                if not ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.DungeonMap then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(190) else 
-                if not ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.DungeonMap then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(190) else
-                if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.DungeonMap then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(190) print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Dungeon map"], L["icons"], "|cff00ff00" .. L["is activated"]) else 
-                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.DungeonMap then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(190) print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Dungeon map"], L["icons"], "|cffff0000" .. L["is deactivated"]) end end end end end,
+                if not ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.DungeonMap and not WorldMapFrame:IsShown() then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(190) else 
+                if not ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.DungeonMap and not WorldMapFrame:IsShown() then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(190) else
+                if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.DungeonMap and not WorldMapFrame:IsShown()then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(190) print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Dungeon map"], L["icons"], "|cff00ff00" .. L["is activated"]) else 
+                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.DungeonMap and not WorldMapFrame:IsShown() then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(190) print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Dungeon map"], L["icons"], "|cffff0000" .. L["is deactivated"]) end end end end end,
           },
         dungeonScale = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap end,

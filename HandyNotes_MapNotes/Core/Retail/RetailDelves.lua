@@ -55,7 +55,7 @@ function ns.DelveContinent:RefreshAllData()
 					local mY = Lerp(minY, maxY, y)
 					info.position:SetXY(mX, mY)
 					info.dataProvider = self
-                    if ns.Addon.db.profile.showContinentDelves then 
+                    if ns.Addon.db.profile.showContinentDelves and ns.Addon.db.profile.showContinentKhazAlgar then
 					    self:GetMap():AcquirePin("ContinentDelvePinTemplate", info)
                     end
 				end

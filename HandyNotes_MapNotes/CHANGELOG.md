@@ -1,10 +1,11 @@
 # MapNote
-## [2.4.3](https://github.com/Ssesmar/MapNote) (2024-10-07)
+## [2.4.4](https://github.com/Ssesmar/MapNote) (2024-10-15)
 - Note:
 
 Retail
-• The ability to hide or show Blizzard Delve icons on the zone map has been moved to the zone tap to • Instance icons
-
+• update Khaz Algar Worldmap Button function for delves
+• add some path nodes in Khaz Algar
+• add some mailboxes and innkeeper icons in Khaz Algar
 
 - Description:
 

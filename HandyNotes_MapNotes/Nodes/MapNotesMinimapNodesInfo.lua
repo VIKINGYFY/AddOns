@@ -707,6 +707,7 @@ minimap[1735] = { } -- Castle Nathria
 minimap[1989] = { } -- Tazavesh, the Veiled Market
 minimap[1998] = { } -- Sanctum of Domination  
 minimap[2047] = { } -- Sepulcher of the First Ones
+minimap[2051] = { } -- Sepulcher of the First Ones
 
 --############################
 --####### Dragonflight #######

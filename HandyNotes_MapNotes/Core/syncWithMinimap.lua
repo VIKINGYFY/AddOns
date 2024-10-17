@@ -117,6 +117,7 @@ local db = ns.Addon.db.profile
         self.db.profile.showMinimapCapitalsBank = self.db.profile.showCapitalsBank
         self.db.profile.showMinimapCapitalsBarber = self.db.profile.showCapitalsBarber
         self.db.profile.showMinimapCapitalsTransmogger = self.db.profile.showCapitalsTransmogger
+        self.db.profile.showMinimapCapitalsMailbox = self.db.profile.showCapitalsMailbox
         self.db.profile.showMinimapCapitalsPvPVendor = self.db.profile.showCapitalsPvPVendor
         self.db.profile.showMinimapCapitalsPvEVendor = self.db.profile.showCapitalsPvEVendor
         self.db.profile.showMinimapCapitalsItemUpgrade = self.db.profile.showCapitalsItemUpgrade

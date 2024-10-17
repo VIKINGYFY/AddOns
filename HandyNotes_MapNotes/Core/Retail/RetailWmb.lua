@@ -209,11 +209,17 @@ local info = C_Map.GetMapInfo(WorldMapFrame:GetMapID())
             elseif WorldMapFrame:GetMapID() == 2274 then
                 if ns.Addon.db.profile.showContinentKhazAlgar then
                     ns.Addon.db.profile.showContinentKhazAlgar = false
+                        WorldMapFrame:Hide()
+                        OpenWorldMap(uiMapID)
+                        WorldMapFrame:SetMapID(2274)
                     if ns.Addon.db.profile.MmbWmbChatMessage then
                         print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], L["Khaz Algar"], L["icons"], "|cffff0000" .. L["are hidden"])
                     end
                 else
                     ns.Addon.db.profile.showContinentKhazAlgar = true
+                    WorldMapFrame:Hide()
+                    OpenWorldMap(uiMapID)
+                    WorldMapFrame:SetMapID(2274)
                     if ns.Addon.db.profile.MmbWmbChatMessage then
                         print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], L["Khaz Algar"], L["icons"], "|cff00ff00" .. L["are shown"])
                     end

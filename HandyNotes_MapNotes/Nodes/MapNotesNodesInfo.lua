@@ -706,6 +706,7 @@ nodes[1735] = { } -- Castle Nathria
 nodes[1989] = { } -- Tazavesh, the Veiled Market
 nodes[1998] = { } -- Sanctum of Domination  
 nodes[2047] = { } -- Sepulcher of the First Ones
+nodes[2051] = { } -- Sepulcher of the First Ones
 
 --############################
 --####### Dragonflight #######

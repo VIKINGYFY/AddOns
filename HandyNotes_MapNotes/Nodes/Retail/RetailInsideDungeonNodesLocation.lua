@@ -240,6 +240,8 @@ if not db.activate.HideMapNote then
             nodes[1998][29478607] = { mnID = 1543, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Sanctum of Domination
             nodes[1989][90914372] = { mnID = 2016, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Tazavesh, the Veiled Market
             nodes[2047][07465150] = { mnID = 1970, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Sepulcher of the First Ones
+            nodes[2051][61467473] = { mnID = 1970, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Sepulcher of the First Ones
+
         --#################################
         --#### Dragon Isles Exit Notes ####
         --#################################
