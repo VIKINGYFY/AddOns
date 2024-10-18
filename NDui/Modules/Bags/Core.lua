@@ -1371,7 +1371,9 @@ function module:OnLogin()
 	C_Container.SetInsertItemsLeftToRight(false)
 
 	-- Init
+	C.db["Bags"]["GatherEmpty"] = not C.db["Bags"]["GatherEmpty"]
 	ToggleAllBags()
+	C.db["Bags"]["GatherEmpty"] = not C.db["Bags"]["GatherEmpty"]
 	ToggleAllBags()
 	module.initComplete = true
 
@@ -1410,16 +1412,19 @@ function module:OnLogin()
 	SetCVar("professionToolSlotsExampleShown", 1)
 	SetCVar("professionAccessorySlotsExampleShown", 1)
 
-	-- Shift key alert
-	local function onUpdate(self, elapsed)
-		if IsShiftKeyDown() then
-			self.elapsed = (self.elapsed or 0) + elapsed
-			if self.elapsed > 5 then
-				UIErrorsFrame:AddMessage(DB.InfoColor..L["StupidShiftKey"])
-				self.elapsed = 0
-			end
+	-- Delay updates for data jam
+	local updater = CreateFrame("Frame", nil, f.main)
+	updater:Hide()
+	updater:SetScript("OnUpdate", function(self, elapsed)
+		self.delay = self.delay - elapsed
+		if self.delay < 0 then
+			module:UpdateAllBags()
+			self:Hide()
 		end
-	end
-	local shiftUpdater = CreateFrame("Frame", nil, f.main)
-	shiftUpdater:SetScript("OnUpdate", onUpdate)
+	end)
+
+	B:RegisterEvent("GET_ITEM_INFO_RECEIVED", function()
+		updater.delay = 1.5
+		updater:Show()
+	end)
 end

@@ -149,8 +149,10 @@ local function setupClickSets(self)
 				--self:SetAttribute(format(keyIndex, "type"), "spell")
 				--self:SetAttribute(format(keyIndex, "spell"), value)
 				local spellName = C_Spell.GetSpellName(value)
-				self:SetAttribute(format(keyIndex, "type"), "macro")
-				self:SetAttribute(format(keyIndex, "macrotext"), "/cast [@mouseover]"..spellName)
+				if spellName then
+					self:SetAttribute(format(keyIndex, "type"), "macro")
+					self:SetAttribute(format(keyIndex, "macrotext"), "/cast [@mouseover]"..spellName)
+				end
 			elseif value == "target" then
 				self:SetAttribute(format(keyIndex, "type"), "target")
 			elseif value == "focus" then
