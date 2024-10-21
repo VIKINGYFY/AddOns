@@ -1,17 +1,15 @@
 # MapNote
-## [2.4.4](https://github.com/Ssesmar/MapNote) (2024-10-15)
+## [2.4.5](https://github.com/Ssesmar/MapNote) (2024-10-19)
 - Note:
 
 Retail
-• update Khaz Algar Worldmap Button function for delves
-• add some path nodes in Khaz Algar
-• add some mailboxes and innkeeper icons in Khaz Algar
+• Minimap symbols for the shortcut routes from Isle of Dorn to Ringing Deeps and back would be changed. These now have the same style as on the zone map itself
 
 - Description:
 
 REQUIRES --> HandyNotes <-- to be installed                                                                                    
 
-    A collection of various icons on various maps from previous expansions up to Dragonflight. Displays raid and dungeon entrances, portals, ships, zeppelins, exits and passage icons
+    A collection of various icons on various maps from previous expansions up to The War Within. Displays raid and dungeon entrances, portals, ships, zeppelins, exits and passage icons
     Displays Horde and Alliance icons that can also be activated by the other faction
     All symbols are clickable (except on the minimap) and have a function
 

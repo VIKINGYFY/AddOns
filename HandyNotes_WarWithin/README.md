@@ -17,6 +17,8 @@ This includes:
 * [Gobblin' with Glublurb](https://www.wowhead.com/achievement=40614/gobblin-with-glublurp)
 * [Smelling History](https://www.wowhead.com/achievement=40542/smelling-history)
 * [Bookworm](https://www.wowhead.com/achievement=40629/bookworm)
+* [Flamegard's Hope](https://www.wowhead.com/achievement=20594/flamegards-hope)
+* [Back to the Wall](https://www.wowhead.com/achievement=40620/back-to-the-wall)
 * Profession knowledge items
 * Chests inside Delves
 * Races for [Khaz Algar Completionist](https://www.wowhead.com/achievement=40354/khaz-algar-completionist-gold)

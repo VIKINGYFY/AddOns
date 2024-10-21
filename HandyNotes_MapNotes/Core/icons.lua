@@ -238,6 +238,7 @@ ns.icons = {
 ["WayGateGolden"] = iconLink .. "WayGateGolden",
 ["WayGateGreen"] = iconLink .. "WayGateGreen",
 ["Carriage"] = iconLink .. "Carriage",
+["TorghastUp"] = iconLink .. "TorghastUp",
 --travel
 ["TravelL"] = iconLink .. "travelL",
 ["TravelM"] = iconLink .. "travelm",

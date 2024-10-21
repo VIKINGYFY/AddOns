@@ -1,4 +1,4 @@
-## Changed in v68
+## Changed in v69
 
-* Hallowfall: show the locations for the Lost and Found quest turn-ins
+* Add the Flamegard's Hope and Back to the Wall achievements
 
