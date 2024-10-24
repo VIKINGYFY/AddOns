@@ -1,9 +1,9 @@
 # MapNote
-## [2.4.5](https://github.com/Ssesmar/MapNote) (2024-10-19)
+## [2.4.6](https://github.com/Ssesmar/MapNote) (2024-10-22)
 - Note:
 
 Retail
-• Minimap symbols for the shortcut routes from Isle of Dorn to Ringing Deeps and back would be changed. These now have the same style as on the zone map itself
+• instance icons customizations
 
 - Description:
 

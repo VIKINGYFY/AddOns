@@ -3080,7 +3080,7 @@ if not db.activate.HideMapNote then
                 if self.db.profile.showMinimapCapitalsPaths then
                     minimap[2339][81782819] = { dnID = L["Exit"], name = "", mnID = 2248, type = "PathR", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Passage/Exit 
                     minimap[2339][68588953] = { dnID = L["Exit"], name = "", mnID = 2248, type = "PathRU", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Passage/Exit 
-                    minimap[2339][35875875] = { dnID = L["Passage"], name = "", mnID = 2214, type = "PathU", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Passage/Exit
+                    minimap[2339][35875875] = { dnID = L["Passage"], name = "", mnID = 2214, type = "PassageCaveDown", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Passage/Exit
                 end
     
                 if self.db.profile.showMinimapCapitalsInnkeeper then

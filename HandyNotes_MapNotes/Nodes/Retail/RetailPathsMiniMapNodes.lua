@@ -480,8 +480,8 @@ if not db.activate.HideMapNote then
             if self.db.profile.showMiniMapKhazAlgar then
 
                 if self.db.profile.showMiniMapPaths then
-                    minimap[2214][42272836] = { name = "", dnID = L["Path"], mnID = 2339, type = "PathL", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only MiniMap
-                    minimap[2214][40752398] = { name = "", dnID = L["Path"], mnID = 2215, type = "PathLU", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only MiniMap
+                    minimap[2214][42272836] = { name = "", dnID = L["Path"], mnID = 2339, type = "PassageCaveUp", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only MiniMap
+                    minimap[2214][40752398] = { name = "", dnID = L["Path"], mnID = 2215, type = "PassageCaveDown", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only MiniMap
                     minimap[2215][73835929] = { name = "", dnID = L["Path"], mnID = 2255, type = "PathRO", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only MiniMap
                     minimap[2255][40236266] = { name = "", dnID = L["Path"], mnID = 2213, type = "PathLU", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only MiniMap
                     minimap[2255][62760031] = { name = "", dnID = L["Path"], mnID = 2215, type = "PathR", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only MiniMap

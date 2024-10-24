@@ -3070,7 +3070,7 @@ if not db.activate.HideMapNote then
                 if self.db.profile.showCapitalsPaths then
                     nodes[2339][81782819] = { dnID = L["Exit"], name = "", mnID = 2248, type = "PathR", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Passage/Exit 
                     nodes[2339][68588953] = { dnID = L["Exit"], name = "", mnID = 2248, type = "PathRU", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Passage/Exit
-                    nodes[2339][35875875] = { dnID = L["Passage"], name = "", mnID = 2214, type = "PathU", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Passage/Exit
+                    --nodes[2339][35875875] = { dnID = L["Passage"], name = "", mnID = 2214, type = "PathU", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Passage/Exit
                 end
     
                 if self.db.profile.showCapitalsAuctioneer then

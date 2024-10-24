@@ -252,13 +252,12 @@ ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
     -- Extra Tooltip
     if ns.Addon.db.profile.ExtraTooltip then
 
-
-
       if nodeData.id and not nodeData.mnID then  -- instance entrances
-        if ns.Addon.db.profile.journal then
+        if ns.Addon.db.profile.journal and not ns.CapitalIDs then
           tooltip:AddDoubleLine("|cff00ff00" .. L["< Left Click to open Adventure Guide >"], nil, nil, false) -- instance entrances into adventure guide
         end
-        if ns.Addon.db.profile.tomtom then
+
+        if ns.Addon.db.profile.tomtom and not ns.CapitalIDs then
           tooltip:AddDoubleLine("|cff00ff00" .. L["< Shift + Right Click add TomTom waypoint >"], nil, nil, false) -- instance entrances tomtom
         end
       end
