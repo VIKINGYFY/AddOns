@@ -37,6 +37,15 @@ local TeleportList = {
 	[507] = 445424, -- 格瑞姆巴托
 }
 
+local function UpdateTeleportList()
+	if DB.MyFaction == "Alliance" then
+		TeleportList[353] = 445418 -- 围攻伯拉勒斯 - 联盟
+	else
+		TeleportList[353] = 464256 -- 围攻伯拉勒斯 - 部落
+	end
+end
+B:RegisterEvent("PLAYER_ENTERING_WORLD", UpdateTeleportList)
+
 function EX:MDEnhance_TButtonOnEnter(parent, spellID)
 	local dungeonIcon = parent:GetParent()
 	if not dungeonIcon then return end
@@ -45,26 +54,20 @@ function EX:MDEnhance_TButtonOnEnter(parent, spellID)
 	if dungeonIcon_OnEnter then dungeonIcon_OnEnter(dungeonIcon) end
 
 	local _, _, timeLimit = C_ChallengeMode.GetMapUIInfo(dungeonIcon.mapID)
-	GameTooltip:AddLine(L["+2timeLimit"]..SecondsToClock(timeLimit*.8), 1, 1, 1)
-	GameTooltip:AddLine(L["+3timeLimit"]..SecondsToClock(timeLimit*.6), 1, 1, 1)
+	GameTooltip:AddLine(L["+2timeLimit"]..SecondsToClock(timeLimit*.8), 0, 1, 0)
+	GameTooltip:AddLine(L["+3timeLimit"]..SecondsToClock(timeLimit*.6), 1, 1, 0)
+	GameTooltip:AddLine(" ")
 
 	local name = C_Spell.GetSpellName(spellID)
-	GameTooltip:AddLine(" ")
-	GameTooltip:AddLine(name)
-
-	if IsSpellKnown(spellID) then
-		local CDInfo = C_Spell.GetSpellCooldown(spellID)
-		local start, duration = CDInfo.startTime, CDInfo.duration
-
-		if not start or not duration then
-			GameTooltip:AddLine(SPELL_FAILED_NOT_KNOWN, 1, 0, 0)
-		elseif duration == 0 then
-			GameTooltip:AddLine(READY, 0, 1, 0)
+	local CDInfo = C_Spell.GetSpellCooldown(spellID)
+	if IsSpellKnown(spellID) and CDInfo.duration then
+		if CDInfo.duration == 0 then
+			GameTooltip:AddLine(name, 0, 1, 0)
 		else
-			GameTooltip:AddLine(SecondsToTime(math.ceil(start + duration - GetTime())), 1, 1, 0)
+			GameTooltip:AddLine(name, 1, 1, 0)
 		end
 	else
-		GameTooltip:AddLine(SPELL_FAILED_NOT_KNOWN, 1, 0, 0)
+		GameTooltip:AddLine(name, 1, 0, 0)
 	end
 
 	GameTooltip:AddLine(" ")
@@ -77,8 +80,8 @@ function EX:MDEnhance_TButtonOnLeave(parent)
 	GameTooltip:Hide()
 end
 
-function EX:MDEnhance_UpdateScoreInfo(parent)
-	if not parent then return end
+function EX:MDEnhance_UpdateScoreInfo(parent, spellID)
+	if not parent or not spellID then return end
 
 	local affixScores, bestScore = C_MythicPlus.GetSeasonBestAffixScoreInfoForMap(parent.mapID)
 	if not affixScores or not bestScore then return end
@@ -86,6 +89,11 @@ function EX:MDEnhance_UpdateScoreInfo(parent)
 	local color = C_ChallengeMode.GetSpecificDungeonOverallScoreRarityColor(bestScore) or HIGHLIGHT_FONT_COLOR
 	parent.BScore:SetText(bestScore and bestScore or "")
 	parent.BScore:SetTextColor(color.r, color.g, color.b)
+
+	parent.TButton:SetAttribute("type", "spell")
+	parent.TButton:SetAttribute("spell", spellID)
+	parent.TButton:SetScript("OnEnter", function(parent) EX:MDEnhance_TButtonOnEnter(parent, spellID) end)
+	parent.TButton:SetScript("OnLeave", function(parent) EX:MDEnhance_TButtonOnLeave(parent) end)
 
 --[[
 	parent.BScore:SetText(bestScore and bestScore or "")
@@ -99,16 +107,12 @@ function EX:MDEnhance_UpdateScoreInfo(parent)
 ]]
 end
 
-function EX:MDEnhance_CreateEnhance(parent, spellID)
-	if not parent or not spellID then return end
+function EX:MDEnhance_CreateEnhance(parent)
+	if not parent then return end
 
 	local TButton = CreateFrame("Button", nil, parent, "InsecureActionButtonTemplate")
 	TButton:SetAllPoints(parent)
 	TButton:RegisterForClicks("AnyDown")
-	TButton:SetAttribute("type", "spell")
-	TButton:SetAttribute("spell", spellID)
-	TButton:SetScript("OnEnter", function(parent) EX:MDEnhance_TButtonOnEnter(parent, spellID) end)
-	TButton:SetScript("OnLeave", function(parent) EX:MDEnhance_TButtonOnLeave(parent) end)
 
 	parent.TButton = TButton
 	parent.BScore = B.CreateFS(parent, 18, "", false, "BOTTOM", 0, 0)
@@ -121,9 +125,9 @@ function EX.MDEnhance_OnCreate()
 
 	for _, dungeonIcon in next, ChallengesFrame.DungeonIcons do
 		if not dungeonIcon.TButton then
-			EX:MDEnhance_CreateEnhance(dungeonIcon, TeleportList[dungeonIcon.mapID])
+			EX:MDEnhance_CreateEnhance(dungeonIcon)
 		end
-		EX:MDEnhance_UpdateScoreInfo(dungeonIcon)
+		EX:MDEnhance_UpdateScoreInfo(dungeonIcon, TeleportList[dungeonIcon.mapID])
 	end
 end
 
