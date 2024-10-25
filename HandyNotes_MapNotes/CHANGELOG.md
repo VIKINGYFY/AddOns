@@ -1,9 +1,10 @@
 # MapNote
-## [2.4.6](https://github.com/Ssesmar/MapNote) (2024-10-22)
+## [2.4.7](https://github.com/Ssesmar/MapNote) (2024-10-24)
 - Note:
 
 Retail
-• instance icons customizations
+• toc update
+• add 20years WoW Blizzard Party Portals in Tanaris
 
 - Description:
 

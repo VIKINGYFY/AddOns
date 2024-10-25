@@ -15,7 +15,6 @@ local TeleportList = {
 	[245] = 410071, -- 自由镇
 	[248] = 424167, -- 维克雷斯庄园
 	[251] = 410074, -- 地渊孢林
-	[353] = 445418, -- 围攻伯拉勒斯
 	[375] = 354464, -- 塞兹仙林的迷雾
 	[376] = 354462, -- 通灵战潮
 	[399] = 393256, -- 红玉新生法池
@@ -37,16 +36,16 @@ local TeleportList = {
 	[507] = 445424, -- 格瑞姆巴托
 }
 
+local SpellList = {}
 local function UpdateTeleportList()
-	if DB.MyFaction == "Alliance" then
-		TeleportList[353] = 445418 -- 围攻伯拉勒斯 - 联盟
-	else
-		TeleportList[353] = 464256 -- 围攻伯拉勒斯 - 部落
-	end
+	local isAlliance = DB.MyFaction == "Alliance"
+	TeleportList[353] = isAlliance and 445418 or 464256 -- 围攻伯拉勒斯
+
+	for mapID, spellID in pairs(TeleportList) do SpellList[spellID] = mapID end
 end
 B:RegisterEvent("PLAYER_ENTERING_WORLD", UpdateTeleportList)
 
-function EX:MDEnhance_TButtonOnEnter(parent, spellID)
+function EX:TButton_OnEnter(parent, spellID)
 	local dungeonIcon = parent:GetParent()
 	if not dungeonIcon then return end
 
@@ -76,11 +75,11 @@ function EX:MDEnhance_TButtonOnEnter(parent, spellID)
 	GameTooltip:Show()
 end
 
-function EX:MDEnhance_TButtonOnLeave(parent)
+function EX:TButton_OnLeave(parent)
 	GameTooltip:Hide()
 end
 
-function EX:MDEnhance_UpdateScoreInfo(parent, spellID)
+function EX:MDEnhance_UpdateEnhance(parent, spellID)
 	if not parent or not spellID then return end
 
 	local affixScores, bestScore = C_MythicPlus.GetSeasonBestAffixScoreInfoForMap(parent.mapID)
@@ -92,8 +91,8 @@ function EX:MDEnhance_UpdateScoreInfo(parent, spellID)
 
 	parent.TButton:SetAttribute("type", "spell")
 	parent.TButton:SetAttribute("spell", spellID)
-	parent.TButton:SetScript("OnEnter", function(parent) EX:MDEnhance_TButtonOnEnter(parent, spellID) end)
-	parent.TButton:SetScript("OnLeave", function(parent) EX:MDEnhance_TButtonOnLeave(parent) end)
+	parent.TButton:SetScript("OnEnter", function(parent) EX:TButton_OnEnter(parent, spellID) end)
+	parent.TButton:SetScript("OnLeave", function(parent) EX:TButton_OnLeave(parent) end)
 
 --[[
 	parent.BScore:SetText(bestScore and bestScore or "")
@@ -127,7 +126,7 @@ function EX.MDEnhance_OnCreate()
 		if not dungeonIcon.TButton then
 			EX:MDEnhance_CreateEnhance(dungeonIcon)
 		end
-		EX:MDEnhance_UpdateScoreInfo(dungeonIcon, TeleportList[dungeonIcon.mapID])
+		EX:MDEnhance_UpdateEnhance(dungeonIcon, TeleportList[dungeonIcon.mapID])
 	end
 end
 
@@ -138,6 +137,23 @@ function EX.MDEnhance_OnEvent(event, addon)
 	end
 end
 
+function EX:MDEnhance_Notification(unit, casterID, spellID)
+	if unit == "player" and SpellList[spellID] then
+		SendChatMessage(format(L["CastAlertInfo"], UnitName("player"), C_Spell.GetSpellLink(spellID) or C_Spell.GetSpellName(spellID), C_ChallengeMode.GetMapUIInfo(SpellList[spellID])), B.GetMSGChannel())
+	end
+end
+
+function EX:MDEnhance_CheckGroup()
+	if IsInGroup() then
+		B:RegisterEvent("UNIT_SPELLCAST_START", EX.MDEnhance_Notification)
+	else
+		B:UnregisterEvent("UNIT_SPELLCAST_START", EX.MDEnhance_Notification)
+	end
+end
+
 function EX:MDEnhance()
 	B:RegisterEvent("ADDON_LOADED", EX.MDEnhance_OnEvent)
+
+	EX:MDEnhance_CheckGroup()
+	B:RegisterEvent("GROUP_ROSTER_UPDATE", EX.MDEnhance_CheckGroup)
 end

@@ -19,10 +19,9 @@ function EX:OnLogin()
 
 	self:ActionBarGlow()
 	self:AutoHideName()
-	self:CastAlert()
 	self:InstanceAutoMarke()
-	--self:InstanceDifficulty()
-	--self:InstanceReset()
+	self:InstanceDifficulty()
+	self:InstanceReset()
 	self:MDEnhance()
 end
 
@@ -43,7 +42,7 @@ end
 
 -- 副本难度自动喊话
 function EX.UpdateInstanceDifficulty()
-	C_Timer.After(.5, function()
+	C_Timer.After(1, function()
 		if IsInInstance() then
 			local _, instanceType, difficultyID, difficultyName = GetInstanceInfo()
 			if instanceType == "party" then

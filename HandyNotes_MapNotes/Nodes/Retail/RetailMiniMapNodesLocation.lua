@@ -44,6 +44,10 @@ if not db.activate.HideMapNote then
           -- Kalimdor Portals
             if self.db.profile.showMiniMapPortals then
 
+              --20 Year Event
+              minimap[71][62394937] = { name = "", type = "PortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. L["Twilight Highlands"] .. "\n" .. L["Portal"] .. " ==> " .. L["Uldum"] .. "\n" .. L["Portal"] .. " ==> " .. DUNGEON_FLOOR_DRAGONBLIGHTCHROMIESCENARIO3 } -- Portals
+              ---
+
               minimap[57][26305072] = { mnID = 89, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Darnassus"] .. " " .. L["Portal"] .. "\n" .. " ==> " .. L["Rut'theran"] } -- Portal To Teldrassil from Darnassus
               minimap[57][54998820] = { mnID = 89, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. L["Darnassus"] } -- Portal To Darnassus from Teldrassil
               minimap[78][50560773] = { mnID = 119, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"] } -- Portal Unguro to Sholazar
@@ -51,13 +55,13 @@ if not db.activate.HideMapNote then
               if self.faction == "Horde" then --was additionally added without the showEnemyFaction option because the two points would be on top of each other when showing EnemyFaction and would therefore not be clickable for one of the two factions
                 minimap[81][41614520] = { mnID = 862, name = "", type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. L["Zandalar"] } -- Portal from Silithus to Zandalar
                 minimap[71][65984960] = { mnID = 85, name = "", type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ORGRIMMAR } -- Portal from Tanaris to Orgrimmar 
-                minimap[74][58152676] = { mnID = 85, name = "", type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ORGRIMMAR } -- Portal from Tanaris to Orgrimmar 
+                minimap[74][53262794] = { mnID = 85, name = "", type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ORGRIMMAR } -- Portal from Tanaris to Orgrimmar 
               end
 
               if self.faction == "Alliance" then --was additionally added without the showEnemyFaction option because the two points would be on top of each other when showing EnemyFaction and would therefore not be clickable for one of the two factions
                 minimap[81][41614520] = { mnID = 1161, name = "", type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. L["Boralus, Tiragarde Sound"] } -- Portal from Silithus to Boralus
                 minimap[71][65984960] = { mnID = 84,  name = "" , type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. STORMWIND } -- Portal from Tanaris to Stormwind City 
-                minimap[74][58942680] = { mnID = 84,  name = "" , type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. STORMWIND } -- Portal from Tanaris to Stormwind City 
+                minimap[74][53523017] = { mnID = 84,  name = "" , type = "APortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. STORMWIND } -- Portal from Tanaris to Stormwind City 
               end
 
               if self.faction == "Horde" or db.activate.MiniMapEnemyFaction then  
@@ -681,8 +685,8 @@ if not db.activate.HideMapNote then
 
           -- Shadowlands Transporter
             if self.db.profile.showMiniMapTransport then
-              minimap[1543][47294369] = { mnID = 1961, name = "", type = "TravelM", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Transport"] .. " ==> " .. L["Korthia"] } -- Maw to Korthia
-              minimap[1961][64962366] = { mnID = 1543, name = "", type = "TravelM", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Transport"] .. " ==> " .. L["The Maw"] } -- Korthia to the Maw
+              minimap[1543][47344340] = { mnID = 1961, name = "", type = "TravelM", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Transport"] .. " ==> " .. L["Korthia"] } -- Maw to Korthia
+              minimap[1961][65062339] = { mnID = 1543, name = "", type = "TravelM", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Transport"] .. " ==> " .. L["The Maw"] } -- Korthia to the Maw
             end
 
           end

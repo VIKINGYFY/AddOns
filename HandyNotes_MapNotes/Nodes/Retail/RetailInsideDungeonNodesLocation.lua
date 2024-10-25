@@ -54,7 +54,7 @@ if not db.activate.HideMapNote then
             nodes[239][26778493] = { mnID = 69, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Dire Maul Warpwood Quarter
             nodes[239][92544766] = { mnID = 69, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Dire Maul Warpwood Quarter
             nodes[279][46235920] = { mnID = 10, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Wailing Caverns
-            nodes[213][60990723] = { mnID = 86, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Ragefire Chasm
+            nodes[213][60990723] = { mnID = 86, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true} -- Ragefire Chasm
             nodes[221][45131069] = { mnID = 63, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Blackfathom Deeps
             nodes[367][24579004] = { mnID = 198, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Firelands
             nodes[1580][52648361] = { mnID = 1527, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Ny'Alotha, The Waking City
