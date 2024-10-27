@@ -136,13 +136,30 @@ function ns.rewards.Currency:Name(color)
             ("%s x %d"):format(name, self.amount) or
             name
     end
-    return self:Super("Name", color)
+    return self:super("Name", color)
 end
 function ns.rewards.Currency:Icon()
     local info = C_CurrencyInfo.GetBasicCurrencyInfo(self.id)
     if info and info.icon then
         return info.icon
     end
+end
+function ns.rewards.Currency:Notable()
+    if self.faction then
+        -- if this is faction-reputation, consider it non-notable once your reputation is maxed out
+        -- TODO: revisit this for paragon reps later?
+        if C_Reputation.IsMajorFaction(self.faction) then
+            if C_MajorFactions.HasMaximumRenown(self.faction) then
+                return false
+            end
+        else
+            local data = C_Reputation.GetFactionDataByID(self.faction)
+            if data and data.currentReactionThreshold == data.nextReactionThreshold then
+                return false
+            end
+        end
+    end
+    return self:super("Notable")
 end
 function ns.rewards.Currency:TooltipLabel()
     return self.faction and REPUTATION or CURRENCY

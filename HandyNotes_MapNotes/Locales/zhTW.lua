@@ -450,6 +450,8 @@ L["Hallowfall Arathi"] = "神聖墜落阿拉希"
 L["The Severed Threads"] = "斩离之丝"
 -- 14
 L["Displays zone icons on a specific continent"] = "在特定大陸上顯示區域圖示"
+L["Zidormi"] = "希多尔米"
+L["Travel through time to another point in the history of"] = "穿越時空到歷史的另一個點"
 L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"] = "如果你看不到此圖示，可能在不同的階段.  \n在希多米處切換階段"
 L["The associated settings are regulated here. \nRegardless of whether it is the display of an icon, an entire icon group or the display of the complete icons for the corresponding Continent"] = "在此處調整相關設置.  \n無論是圖示顯示、一整組圖示顯示還是對應大陸的全部圖示顯示"
 L["The associated settings are regulated here. \nRegardless of whether it is the display of an icon, an entire icon group or the display of the complete icons for the corresponding Capital"] = "在此處調整相關設置.  \n無論是圖示顯示、一整組圖示顯示還是對應主城的全部圖示顯示"

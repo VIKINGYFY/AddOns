@@ -4,6 +4,9 @@ ns.defaults = {
 
   profile = {
 
+    --ZoneScaleZidormi = 1,
+    --ZoneAlphaZidormi = 1,
+
     --0 General tab
       journal = true,
       tomtom = true,
@@ -100,6 +103,7 @@ ns.defaults = {
       showMiniMapStablemaster = true,
       showMiniMapItemUpgrade = true,
       showMiniMapCatalyst = true,
+      showMiniMapZidormi = true,
     -- MiniMap Paths
       MiniMapPathsScale = 1.5,
       MiniMapPathsAlpha = 1,
@@ -175,6 +179,7 @@ ns.defaults = {
       showZoneStablemaster = true,
       showZoneItemUpgrade = true,
       showZoneCatalyst = true,
+      showZoneZidormi = true,
     -- Zone Path
       ZonesPathsScale = 1.5,
       ZonesPathsAlpha = 1,
@@ -439,6 +444,7 @@ ns.defaults = {
         ClassicClassicProfession = false,
         MapNotesIcons = true,
         RemoveBlizzPOIs = true,
+        RemoveBlizzPOIsZidormi = false,
         RemoveBlizzInstances = true,
         ShowBlizzDelves = true,
         FogOfWar = true,

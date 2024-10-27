@@ -14,19 +14,6 @@ local function SetupStatusbar(bar)
 	bar:SetStatusBarTexture(DB.bdTex)
 	bar:GetStatusBarTexture():SetGradient("VERTICAL", CreateColor(0, .4, 0, 1), CreateColor(0, .6, 0, 1))
 	B.CreateBDFrame(bar, .25)
-
-	local name = bar:GetName()
-	local title = bar.Title or bar.Label or (name and _G[name.."Title"])
-	if title then
-		title:SetTextColor(1, 1, 1)
-		title:SetPoint("LEFT", bar, "LEFT", 6, -1)
-	end
-
-	local text = bar.Text or (name and _G[name.."Text"])
-	if text then
-		text:SetTextColor(1, 1, 1)
-		text:SetPoint("RIGHT", bar, "RIGHT", -5, -1)
-	end
 end
 
 local function UpdateStringColors(button)
@@ -224,6 +211,10 @@ C.themes["Blizzard_AchievementUI"] = function()
 		local bu = _G["AchievementFrameSummaryCategoriesCategory"..i]
 		SetupStatusbar(bu)
 		_G[bu:GetName().."ButtonHighlight"]:SetAlpha(0)
+		bu.Label:SetTextColor(1, 1, 1)
+		bu.Label:SetPoint("LEFT", bu, "LEFT", 6, -1)
+		bu.Text:SetTextColor(1, 1, 1)
+		bu.Text:SetPoint("RIGHT", bu, "RIGHT", -5, -1)
 	end
 
 	local bar = AchievementFrameSummaryCategoriesStatusBar

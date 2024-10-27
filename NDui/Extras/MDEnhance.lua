@@ -2,7 +2,7 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local EX = B:GetModule("Extras")
 
-local TeleportList = {
+local MapList = {
 	[  2] = 131204, -- 青龙寺
 	[165] = 159899, -- 影月墓地
 	[168] = 159901, -- 永茂林地
@@ -39,9 +39,9 @@ local TeleportList = {
 local SpellList = {}
 local function UpdateTeleportList()
 	local isAlliance = DB.MyFaction == "Alliance"
-	TeleportList[353] = isAlliance and 445418 or 464256 -- 围攻伯拉勒斯
+	MapList[353] = isAlliance and 445418 or 464256 -- 围攻伯拉勒斯
 
-	for mapID, spellID in pairs(TeleportList) do SpellList[spellID] = mapID end
+	for mapID, spellID in pairs(MapList) do SpellList[spellID] = mapID end
 end
 B:RegisterEvent("PLAYER_ENTERING_WORLD", UpdateTeleportList)
 
@@ -53,13 +53,13 @@ function EX:TButton_OnEnter(parent, spellID)
 	if dungeonIcon_OnEnter then dungeonIcon_OnEnter(dungeonIcon) end
 
 	local _, _, timeLimit = C_ChallengeMode.GetMapUIInfo(dungeonIcon.mapID)
-	GameTooltip:AddLine(L["+2timeLimit"]..SecondsToClock(timeLimit*.8), 0, 1, 0)
-	GameTooltip:AddLine(L["+3timeLimit"]..SecondsToClock(timeLimit*.6), 1, 1, 0)
+	GameTooltip:AddLine(L["+2timeLimit"]..SecondsToClock(timeLimit*.8), 1, 1, 0)
+	GameTooltip:AddLine(L["+3timeLimit"]..SecondsToClock(timeLimit*.6), 0, 1, 0)
 	GameTooltip:AddLine(" ")
 
 	local name = C_Spell.GetSpellName(spellID)
 	local CDInfo = C_Spell.GetSpellCooldown(spellID)
-	if IsSpellKnown(spellID) and CDInfo.duration then
+	if IsSpellKnown(spellID) and CDInfo then
 		if CDInfo.duration == 0 then
 			GameTooltip:AddLine(name, 0, 1, 0)
 		else
@@ -126,7 +126,7 @@ function EX.MDEnhance_OnCreate()
 		if not dungeonIcon.TButton then
 			EX:MDEnhance_CreateEnhance(dungeonIcon)
 		end
-		EX:MDEnhance_UpdateEnhance(dungeonIcon, TeleportList[dungeonIcon.mapID])
+		EX:MDEnhance_UpdateEnhance(dungeonIcon, MapList[dungeonIcon.mapID])
 	end
 end
 

@@ -451,6 +451,8 @@ L["Hallowfall Arathi"] = true
 L["The Severed Threads"] = true
 -- 14
 L["Displays zone icons on a specific continent"] = true
+L["Zidormi"] = true
+L["Travel through time to another point in the history of"] = true
 L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"] = true
 L["The associated settings are regulated here. \nRegardless of whether it is the display of an icon, an entire icon group or the display of the complete icons for the corresponding Continent"] = true
 L["The associated settings are regulated here. \nRegardless of whether it is the display of an icon, an entire icon group or the display of the complete icons for the corresponding Capital"] = true

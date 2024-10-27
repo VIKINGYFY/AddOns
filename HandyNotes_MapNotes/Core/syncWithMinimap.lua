@@ -166,6 +166,7 @@ local db = ns.Addon.db.profile
         self.db.profile.showMiniMapTransmogger = self.db.profile.showZoneTransmogger
         self.db.profile.showMiniMapItemUpgrade = self.db.profile.showZoneItemUpgrade
         self.db.profile.showMiniMapCatalyst = self.db.profile.showZoneCatalyst
+        self.db.profile.showMiniMapZidormi = self.db.profile.showZoneZidormi
         -- Zone Professions    
         self.db.profile.activate.MiniMapProfessions = self.db.profile.activate.ZoneProfessions
         self.db.profile.showMiniMapProfessionOrders = self.db.profile.showZoneProfessionOrders

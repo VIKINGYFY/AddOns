@@ -111,6 +111,12 @@ if not db.activate.HideMapNote then
 
         -- Kalimdor Portals
           if self.db.profile.showContinentPortals then
+
+            --20 Year Event
+            nodes[12][52772833] = { mnID = 198, name = "", type = "Portal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_TANARIS18 } -- Portal To Tanaris from Hyjal
+            nodes[12][51518860] = { mnID = 1527, name = "", type = "Portal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_TANARIS18 } -- Portal To Tanaris from Uldum
+            ---
+
             nodes[12][60078511] = { mnID = 74, name = "", type = "Portal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = DUNGEON_FLOOR_TANARIS18 .. " " .. L["Portals"] .. "\n" ..  "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. STORMWIND } -- Portal from Tanaris to Orgrimmar and Stormwind
             nodes[12][42807881] = { mnID = 81, name = "", type = "Portal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Silithus"] .. " " .. L["Portals"] .. "\n" ..  "\n" .. " ==> " .. L["Boralus, Tiragarde Sound"] .. "\n" .. " ==> " .. L["Zandalar"] } -- Portal from Silithus to Boralus
             nodes[12][56122725] = { mnID = 198, name = "", type = "Portal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = POSTMASTER_LETTER_HYJAL .. " " .. L["Portals"] .. "\n" ..  "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. STORMWIND } -- Portal To Orgrimmar from Hyjal
@@ -298,6 +304,10 @@ if not db.activate.HideMapNote then
     
         --Eastern Kingdom Portals
           if self.db.profile.showContinentPortals then
+
+            --20 Year Event
+            nodes[13][58275114] = { mnID = 241, name = "", type = "Portal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_TANARIS18 } -- Portal To Tanaris from Shadowmoon Valley
+            ---
     
             if self.faction == "Horde" then          
               nodes[13][52448472] = { mnID = 624, name = L["The Dark Portal"] .. " (" .. L["Portal"] .. " - " .. L["Ashran"] ..")", type = "HPortal", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Blasted Lands to Warspear              

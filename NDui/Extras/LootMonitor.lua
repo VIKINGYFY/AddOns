@@ -120,7 +120,10 @@ local function UpdateLMFrame(self, event, ...)
 		if LMFrame_CFG["inGroup"] and not IsInGroup() then return end
 
 		local lootText, lootPlayer = ...
-		local itemLink = string.match(lootText, "|%x+|Hitem:.-|h.-|h|r")
+		local itemLink
+		for link in string.gmatch(lootText, "|c%x+|Hitem:.-|h.-|h|r") do
+			if link then itemLink = link end
+		end
 
 		if not itemLink or string.len(lootPlayer) < 1 then return end
 

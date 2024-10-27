@@ -67,6 +67,7 @@ local function checkTexture(texture)
 end
 
 local questlist = {
+	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 83285, texture = 6006158},	-- Vanilla
 	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 40168, texture = 1129674},	-- TBC
 	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 40173, texture = 1129686},	-- WotLK
 	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 40786, texture = 1304688},	-- Cata

@@ -450,6 +450,8 @@ L["Hallowfall Arathi"] = "Arathi de Pouso Santo"
 L["The Severed Threads"] = "Os Fios Cortados"
 -- 14
 L["Displays zone icons on a specific continent"] = "Exibe ícones de zona em um continente específico"
+L["Zidormi"] = "Zidormi"
+L["Travel through time to another point in the history of"] = "Viaje no tempo até outro ponto da história da"
 L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"] = "Se você não vê esse ícone, provavelmente está em uma fase diferente.\nMude a fase em Zidormi"
 L["The associated settings are regulated here. \nRegardless of whether it is the display of an icon, an entire icon group or the display of the complete icons for the corresponding Continent"] = "As configurações associadas são reguladas aqui.\nIndependentemente de ser a exibição de um ícone, um grupo de ícone inteiro ou a exibição dos ícones completos para o continente correspondente"
 L["The associated settings are regulated here. \nRegardless of whether it is the display of an icon, an entire icon group or the display of the complete icons for the corresponding Capital"] = "As configurações associadas são reguladas aqui.\nIndependentemente de ser a exibição de um ícone, um grupo de ícones inteiro ou a exibição dos ícones completos para o capital correspondente"

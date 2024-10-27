@@ -22,6 +22,13 @@ if not db.activate.HideMapNote then
         --Kalimdor
         if self.db.profile.showMiniMapKalimdor then
 
+            if self.db.profile.showMiniMapZidormi then
+                minimap[62][48862446] = { name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " ".. L["Darkshore"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[81][78922197] = { name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Silithus"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[249][56013514] = { mnID = 1527, name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Uldum"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[1527][56013514] = { mnID = 249, name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Uldum"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
+            end
+
             if self.db.profile.showMiniMapPvPVendor then
                 minimap[71][51602800] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, type = "PvPVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
             
@@ -242,6 +249,13 @@ if not db.activate.HideMapNote then
 
         --Eastern Kingdom
         if self.db.profile.showMiniMapEasternKingdom then
+
+            if self.db.profile.showMiniMapZidormi then
+                minimap[18][69456280] = { mnID = 2070, name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Tirisfal Glades"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[14][38249009] = { name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Arathi Highlands"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[17][48160728] = { name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Blasted Lands"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2070][69456280] = { mnID = 18, name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Tirisfal Glades"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
+            end
 
             if self.db.profile.showMiniMapStablemaster then
                 minimap[210][41407360] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
@@ -734,6 +748,11 @@ if not db.activate.HideMapNote then
         --Pandaria
         if self.db.profile.showMiniMapPandaria then
 
+            if self.db.profile.showMiniMapZidormi then
+                minimap[390][80483196] = { mnID = 1530, name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Vale of Eternal Blossoms"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[1530][80972948] = { mnID = 390, name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Vale of Eternal Blossoms"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
+            end
+
             if self.db.profile.showMiniMapPvEVendor then
                 minimap[388][37806460] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
             end
@@ -1061,6 +1080,7 @@ if not db.activate.HideMapNote then
                 minimap[650][40005240] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[630][43004260] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[630][56665958] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[630][47344135] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[630][47802332] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[646][41005880] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[750][44395385] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
@@ -1626,10 +1646,10 @@ if not db.activate.HideMapNote then
             end
 
             if self.db.profile.showMiniMapPvEVendor then
-                minimap[2214][47303293] = { L["The Assembly of the Deeps"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2215][42355500] = { L["Hallowfall Arathi"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2255][55334121] = { L["The Severed Threads"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2256][55334121] = { L["The Severed Threads"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2214][47303293] = { dnID = L["The Assembly of the Deeps"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2215][42355500] = { dnID = L["Hallowfall Arathi"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2255][55334121] = { dnID = L["The Severed Threads"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2256][55334121] = { dnID = L["The Severed Threads"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2216][56784582] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. SLASH_EQUIP_SET1, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2213][56784582] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. SLASH_EQUIP_SET1, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
             end

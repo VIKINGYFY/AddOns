@@ -433,7 +433,7 @@ do
                         or value.type == "PvEVendorH" or value.type == "PvEVendorA" or value.type == "MMInnkeeperH" or value.type == "MMInnkeeperA" or value.type == "MMStablemasterH" or value.type == "MMStablemasterA"
                         or value.type == "MMMailboxH" or value.type == "MMMailboxA" or value.type == "MMPvPVendorH" or value.type == "MMPvPVendorA" or value.type == "MMPvEVendorH" or value.type == "MMPvEVendorA" 
                         or value.type == "ZonePvEVendorH" or value.type == "ZonePvPVendorH" or value.type == "ZonePvEVendorA" or value.type == "ZonePvPVendorA" or value.type == "TradingPost" or value.type == "PassageCaveUp"
-                        or value.type == "PassageCaveDown"
+                        or value.type == "PassageCaveDown" or value.type == "Zidormi"
 
       ns.AllZoneIDs = ns.KalimdorIDs
                       or ns.EasternKingdomIDs
@@ -549,16 +549,16 @@ do
         icon = ns.icons["Gray"]
       end
 
-      if (value.type == "LFR") then
-        icon = ns.icons["LFR"]
+      if (value.type == "LFR") then 
+        icon = ns.icons["LFR"] 
       end
 
-      if (value.type == "HIcon") then
-        icon = ns.icons["HIcon"]
+      if (value.type == "HIcon") then 
+        icon = ns.icons["HIcon"] 
       end
 
-      if (value.type == "AIcon") then
-        icon = ns.icons["AIcon"]
+      if (value.type == "AIcon") then 
+        icon = ns.icons["AIcon"] 
       end
 
       if (anyLocked and db.invertlockout) or ((allLocked and not db.invertlockout) and db.uselockoutalpha) then
@@ -572,6 +572,11 @@ do
         scale = db.MiniMapInstanceScale
         alpha = db.MiniMapInstanceAlpha
       end
+
+      --if value.type == "Zidormi" then 
+      --  scale = db.ZoneScaleZidormi
+      --  alpha = db.ZoneAlphaZidormi
+      --end
 
       -- MiniMap Transport (Zeppeline/Ship/Carriage) icons
       if not ns.CapitalMiniMapIDs and ns.transportIcons and (value.showOnMinimap == true) then
@@ -1215,32 +1220,74 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
 
   --remove BlizzPOIs for MapNotes icons function
   function ns.RemoveBlizzPOIs()
-    if (not ns.Addon.db.profile.activate.RemoveBlizzPOIs or ns.Addon.db.profile.activate.HideMapNote) then return end
+    if (ns.Addon.db.profile.activate.HideMapNote) then return end
 
     for pin in WorldMapFrame:EnumeratePinsByTemplate("AreaPOIPinTemplate") do
       
-      for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
-        
-        ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
-        if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
-            WorldMapFrame:RemovePin(pin)
+      if ns.Addon.db.profile.activate.RemoveBlizzPOIs then
+
+        for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
+
+          ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
+
+          if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
+              WorldMapFrame:RemovePin(pin)
+          end
+
         end
+
       end
+
+      if ns.Addon.db.profile.activate.RemoveBlizzPOIsZidormi then
+        
+        for _, poiID in pairs(ns.BlizzAreaPoisInfoZidormi) do
+
+          ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
+
+          if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
+              WorldMapFrame:RemovePin(pin)
+          end
+
+        end
+
+      end
+
     end
   end
 
   hooksecurefunc(AreaPOIPinMixin, "OnMouseEnter", function()
-    if (not ns.Addon.db.profile.activate.RemoveBlizzPOIs or ns.Addon.db.profile.activate.HideMapNote) then return end
+    if (ns.Addon.db.profile.activate.HideMapNote) then return end
 
     for pin in WorldMapFrame:EnumeratePinsByTemplate("AreaPOIPinTemplate") do
+
+      if ns.Addon.db.profile.activate.RemoveBlizzPOIs then
       
-      for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
-        
+        for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
+
         ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
-        if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
-          ns.RemoveBlizzPOIs()
+
+          if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
+            ns.RemoveBlizzPOIs()
+          end
+
         end
+
       end
+
+      if ns.Addon.db.profile.activate.RemoveBlizzPOIsZidormi then
+        
+        for _, poiID in pairs(ns.BlizzAreaPoisInfoZidormi) do
+          
+          ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
+
+          if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
+            ns.RemoveBlizzPOIs()
+          end
+          
+        end
+
+      end
+
     end
   end)
 

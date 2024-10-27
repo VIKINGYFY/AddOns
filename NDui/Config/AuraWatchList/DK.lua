@@ -72,7 +72,6 @@ local list = {
 		{AuraID = 391527, UnitID = "player", Value = true}, -- 永恒脐带
 		{AuraID = 433925, UnitID = "player"}, -- 鲜血女王的精华
 		{AuraID = 441416, UnitID = "player"}, -- 破灭
-		{AuraID = 447954, UnitID = "player"}, -- 破灭
 		{AuraID = 454871, UnitID = "player", Flash = true}, -- 抽血
 		{AuraID = 456370, UnitID = "player"}, -- 低温冰冻
 		{AuraID = 458745, UnitID = "player"}, -- 骨化锋刺

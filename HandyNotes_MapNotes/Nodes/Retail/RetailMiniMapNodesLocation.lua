@@ -46,6 +46,9 @@ if not db.activate.HideMapNote then
 
               --20 Year Event
               minimap[71][62394937] = { name = "", type = "PortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. L["Twilight Highlands"] .. "\n" .. L["Portal"] .. " ==> " .. L["Uldum"] .. "\n" .. L["Portal"] .. " ==> " .. DUNGEON_FLOOR_DRAGONBLIGHTCHROMIESCENARIO3 } -- Portals
+              minimap[198][34213089] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Hyjal
+              minimap[1527][69923469] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Uldum
+              minimap[241][59601682] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Shadowmoon Valley
               ---
 
               minimap[57][26305072] = { mnID = 89, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Darnassus"] .. " " .. L["Portal"] .. "\n" .. " ==> " .. L["Rut'theran"] } -- Portal To Teldrassil from Darnassus
@@ -54,13 +57,13 @@ if not db.activate.HideMapNote then
 
               if self.faction == "Horde" then --was additionally added without the showEnemyFaction option because the two points would be on top of each other when showing EnemyFaction and would therefore not be clickable for one of the two factions
                 minimap[81][41614520] = { mnID = 862, name = "", type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. L["Zandalar"] } -- Portal from Silithus to Zandalar
-                minimap[71][65984960] = { mnID = 85, name = "", type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ORGRIMMAR } -- Portal from Tanaris to Orgrimmar 
+                minimap[71][65984960] = { mnID = 85, name = "", type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ORGRIMMAR } -- Portal from Tanaris to Orgrimmar 
                 minimap[74][53262794] = { mnID = 85, name = "", type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ORGRIMMAR } -- Portal from Tanaris to Orgrimmar 
               end
 
               if self.faction == "Alliance" then --was additionally added without the showEnemyFaction option because the two points would be on top of each other when showing EnemyFaction and would therefore not be clickable for one of the two factions
                 minimap[81][41614520] = { mnID = 1161, name = "", type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. L["Boralus, Tiragarde Sound"] } -- Portal from Silithus to Boralus
-                minimap[71][65984960] = { mnID = 84,  name = "" , type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. STORMWIND } -- Portal from Tanaris to Stormwind City 
+                minimap[71][65984960] = { mnID = 84,  name = "" , type = "APortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. STORMWIND } -- Portal from Tanaris to Stormwind City 
                 minimap[74][53523017] = { mnID = 84,  name = "" , type = "APortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. STORMWIND } -- Portal from Tanaris to Stormwind City 
               end
 

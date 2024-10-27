@@ -53,18 +53,19 @@ local list = {
 		{AuraID =  33697, UnitID = "player"}, -- 血性狂怒 兽人
 		{AuraID = 292463, UnitID = "player"}, -- 帕库之拥 赞达拉
 		-- 11.0 饰品
+		{AuraID =  91374, UnitID = "player"},	-- 卡德罗斯的印记
 		{AuraID =  92099, UnitID = "player"},	-- 灰鳞的优雅
-		{AuraID = 435493, UnitID = "player"},	-- 制剂：死亡之吻
 		{AuraID = 268769, UnitID = "player"},	-- 望远镜饰品
+		{AuraID = 435493, UnitID = "player"},	-- 制剂：死亡之吻
+		{AuraID = 443407, UnitID = "player"},	-- 斯卡莫拉克碎片
 		{AuraID = 443531, UnitID = "player"},	-- 振奋之光
+		{AuraID = 446887, UnitID = "player", Value = true},	-- 邪污巨兽的螯肢
 		{AuraID = 449275, UnitID = "player"},	-- 阿努布伊卡基强能水晶
+		{AuraID = 449947, UnitID = "player", Text = NPE_JUMP},	-- 奸邪发射机，跳3下
+		{AuraID = 449954, UnitID = "player"},	-- 奸邪发射机
+		{AuraID = 451011, UnitID = "player"},	-- 暴虐演说者的喉头
 		{AuraID = 455420, UnitID = "player"},	-- 探洞者的蜡烛残端
 		{AuraID = 455451, UnitID = "player"},	-- 迅芯烛台
-		{AuraID = 449954, UnitID = "player"},	-- 奸邪发射机
-		{AuraID = 449947, UnitID = "player", Text = NPE_JUMP},	-- 奸邪发射机，跳3下
-		{AuraID = 451011, UnitID = "player"},	-- 暴虐演说者的喉头
-		{AuraID = 443407, UnitID = "player"},	-- 斯卡莫拉克碎片
-		{AuraID = 446887, UnitID = "player", Value = true},	-- 邪污巨兽的螯肢
 
 	},
 	["Raid Buff"] = {		-- 团队增益组
@@ -255,6 +256,7 @@ local list = {
 		{AuraID = 321754, UnitID = "target", Value = true},	-- 通灵战潮，冰缚之盾
 		{AuraID = 343470, UnitID = "target", Value = true},	-- 通灵战潮，碎骨之盾
 		{AuraID = 328351, UnitID = "target", Flash = true},	-- 通灵战潮，染血长枪
+		{AuraID = 273721, UnitID = "target", Flash = true},	-- 围攻，1号易伤
 		-- S1
 		{AuraID = 445409, UnitID = "target", Value = true},	-- 加固壳壁，斯卡莫拉克
 		-- Raids

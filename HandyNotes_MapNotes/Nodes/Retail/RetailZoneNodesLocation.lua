@@ -45,6 +45,9 @@ if not db.activate.HideMapNote then
 
             --20 Year Event
             nodes[71][62394937] = { name = "", type = "PortalS", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. L["Twilight Highlands"] .. "\n" .. L["Portal"] .. " ==> " .. L["Uldum"] .. "\n" .. L["Portal"] .. " ==> " .. DUNGEON_FLOOR_DRAGONBLIGHTCHROMIESCENARIO3 } -- Portals
+            nodes[198][34213089] = { mnID = 71, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Portal"]} -- Portal To Tanaris from Hyjal
+            nodes[1527][69923469] = { mnID = 71, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Portal"]} -- Portal To Tanaris from Uldum
+            nodes[241][59601682] = { mnID = 71, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Portal"]} -- Portal To Tanaris from Shadowmoon Valley
             ---
 
             nodes[57][26305072] = { mnID = 89, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Darnassus"] .. " " .. L["Portal"] .. "\n" .. " ==> " .. L["Rut'theran"] } -- Portal To Teldrassil from Darnassus

@@ -1,10 +1,11 @@
 # MapNote
-## [2.4.7](https://github.com/Ssesmar/MapNote) (2024-10-24)
+## [2.4.8](https://github.com/Ssesmar/MapNote) (2024-10-25)
 - Note:
 
 Retail
-• toc update
-• add 20years WoW Blizzard Party Portals in Tanaris
+• add Zidormi icons on Zone Map
+• u can found it under Zones + > Zonemap > • General symbols > Zidormi and Minimap > • General symbols > Zidormi
+• Blizzard POIs on zone maps can be disabled in the General tab to the right of the POIs option
 
 - Description:
 

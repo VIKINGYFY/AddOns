@@ -21,6 +21,13 @@ if not db.activate.HideMapNote then
         --Kalimdor
         if self.db.profile.showZoneKalimdor then
 
+            if self.db.profile.showZoneZidormi then
+                nodes[62][48862446] = { name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " ".. L["Darkshore"], type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[81][78922197] = { name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Silithus"], type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[249][56013514] = { mnID = 1527, name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Uldum"], type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1527][56013514] = { mnID = 249, name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Uldum"], type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            end
+
             if self.db.profile.showZonePvPVendor then
                 nodes[71][51602800] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, type = "PvPVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
             
@@ -240,6 +247,13 @@ if not db.activate.HideMapNote then
 
         -- Eastern Kingdom
         if self.db.profile.showZoneEasternKingdom then
+
+            if self.db.profile.showZoneZidormi then
+                nodes[18][69456280] = { mnID = 2070, name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Tirisfal Glades"], type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[14][38249009] = { name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Arathi Highlands"], type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[17][48160728] = { name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Blasted Lands"], type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2070][69456280] = { mnID = 18, name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Tirisfal Glades"], type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            end
 
             if self.db.profile.showZoneStablemaster then
                 nodes[210][41407360] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
@@ -733,6 +747,11 @@ if not db.activate.HideMapNote then
         --Pandaria
         if self.db.profile.showZonePandaria then
 
+            if self.db.profile.showZoneZidormi then
+                nodes[390][80483196] = { mnID = 1530, name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Vale of Eternal Blossoms"], type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1530][80972948] = { mnID = 390, name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Vale of Eternal Blossoms"], type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            end
+
             if self.db.profile.showZonePvEVendor then
                 nodes[388][37806460] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
@@ -1059,6 +1078,7 @@ if not db.activate.HideMapNote then
                 nodes[650][40005240] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[630][43004260] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[630][56665958] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[630][47344135] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[630][47802332] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[646][41005880] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[750][44395385] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }

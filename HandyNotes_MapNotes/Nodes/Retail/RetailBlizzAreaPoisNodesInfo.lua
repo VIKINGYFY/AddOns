@@ -69,3 +69,13 @@ ns.BlizzAreaPoisInfo = {
     7341, -- Zeppelin Durotar
     7339, -- Ship Icon The Waking Shores to OG
 }
+
+ns.BlizzAreaPoisInfoZidormi = {
+    -- Zidormi
+    5760, -- Darkshore
+    5561, -- Silithus
+    5757, -- Tirisfal
+    6548, -- Uldum
+    5989, -- Arathi Highlands
+    5562, -- Blasted Lands
+}

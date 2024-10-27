@@ -1,4 +1,5 @@
-## Changed in v69
+## Changed in v70
 
-* Add the Flamegard's Hope and Back to the Wall achievements
+* Reputation currencies are no longer notable once maxed
+* Updated for 11.0.5
 
