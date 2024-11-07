@@ -13,11 +13,11 @@ local L = LibStub("AceLocale-3.0"):GetLocale("TeleportMenu")
 local defaultsDB = {
     enabled = true,
     iconSize = 40,
-    hearthstone = "none",
-    maxFlyoutIcons = 5,
-    reverseMageFlyouts = false,
-    buttonText = true,
-    showOnlySeasonalHerosPath = false
+    hearthstone = "rng",
+    maxFlyoutIcons = 20,
+    reverseMageFlyouts = true,
+    buttonText = false,
+    showOnlySeasonalHerosPath = true
 }
 
 -- Get all options and verify them
