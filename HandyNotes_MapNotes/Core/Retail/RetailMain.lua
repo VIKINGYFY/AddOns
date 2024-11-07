@@ -405,6 +405,7 @@ do
 			local allLocked = true
 			local anyLocked = false
 
+      ns.SyncSingleScaleAlpha() -- synch single Icons
       ns.SyncWithMinimapScaleAlpha() -- sync Capitals with Capitals - Minimap and/or Zones with Minimap Alpha/Scale
       ns.ChangeToClassicImagesRetail() -- function to change the icon style from new images to old images
 
@@ -414,26 +415,26 @@ do
                             or value.type == "Blacksmith" or value.type == "Leatherworking" or value.type == "Skinning" or value.type == "Tailoring" or value.type == "Herbalism" or value.type == "Inscription"
                             or value.type == "Enchanting" or value.type == "FishingClassic" or value.type == "ProfessionOrders" or value.type == "ProfessionsMixed"
 
-      ns.instanceIcons = value.type == "Dungeon" or value.type == "Raid" or value.type == "PassageDungeon" or value.type == "PassageDungeonRaidMulti" or value.type == "PassageRaid" or value.type == "VInstance"  or value.type == "MultiVInstance" 
-                          or value.type == "PassageDungeon" or value.type == "Multiple" or value.type == "LFR" or value.type == "Gray" or value.type == "VKey1" or value.type == "Delves" or value.type == "VInstanceD"
-                          or value.type == "VInstanceR" or value.type == "MultiVInstanceD" or value.type == "MultiVInstanceR" or value.type == "DelvesPassage"
+      ns.instanceIcons = value.type == "Dungeon" or value.type == "Raid" or value.type == "PassageDungeon" or value.type == "PassageDungeonRaidMulti" or value.type == "PassageRaid" or value.type == "VInstance" or value.type == "MultiVInstance" 
+                          or value.type == "Multiple" or value.type == "LFR" or value.type == "Gray" or value.type == "VKey1" or value.type == "Delves" or value.type == "VInstanceD" or value.type == "VInstanceR" or value.type == "MultiVInstanceD" 
+                          or value.type == "MultiVInstanceR" or value.type == "DelvesPassage"
 
       ns.transportIcons = value.type == "Portal" or value.type == "PortalS" or value.type == "HPortal" or value.type == "APortal" or value.type == "HPortalS" or value.type == "APortalS" or value.type == "PassageHPortal" 
                           or value.type == "PassageAPortal" or value.type == "PassagePortal" or value.type == "Zeppelin" or value.type == "HZeppelin" or value.type == "AZeppelin" or value.type == "Ship" or value.type == "TorghastUp"
                           or value.type == "AShip" or value.type == "HShip" or value.type == "Carriage" or value.type == "TravelL" or value.type == "TravelH" or value.type == "TravelA" or value.type == "Tport2" 
                           or value.type == "OgreWaygate" or value.type == "WayGateGreen" or value.type == "Ghost" or value.type == "DarkMoon" or value.type == "Mirror" or value.type == "TravelM" or value.type == "B11M" 
                           or value.type == "MOrcF" or value.type == "UndeadF" or value.type == "GoblinF" or value.type == "GilneanF" or value.type == "KulM" or value.type == "DwarfF" or value.type == "OrcM" or value.type == "WayGateGolden"
-
+                          
       ns.generalIcons = value.type == "Exit" or value.type == "PassageUpL" or value.type == "PassageDownL" or value.type == "PassageRightL" or value.type == "PassageLeftL" or value.type == "Innkeeper" 
                         or value.type == "Auctioneer" or value.type == "Bank" or value.type == "MNL" or value.type == "Barber" or value.type == "Transmogger" or value.type == "ItemUpgrade" or value.type == "PvPVendor" 
-                        or value.type == "PvEVendor" or value.type == "MNL" or value.type == "DragonFlyTransmog" or value.type == "Catalyst" or value.type == "PathO" or value.type == "PathRO" or value.type == "PathLO" 
+                        or value.type == "PvEVendor" or value.type == "DragonFlyTransmog" or value.type == "Catalyst" or value.type == "PathO" or value.type == "PathRO" or value.type == "PathLO" 
                         or value.type == "PathU" or value.type == "PathLU" or value.type == "PathRU" or value.type == "PathL" or value.type == "PathR" or value.type == "BlackMarket" or value.type == "Mailbox"
                         or value.type == "StablemasterN" or value.type == "StablemasterH" or value.type == "StablemasterA" or value.type == "HIcon" or value.type == "AIcon" or value.type == "InnkeeperN" 
                         or value.type == "InnkeeperH" or value.type == "InnkeeperA" or value.type == "MailboxN" or value.type == "MailboxH" or value.type == "MailboxA" or value.type == "PvPVendorH" or value.type == "PvPVendorA" 
                         or value.type == "PvEVendorH" or value.type == "PvEVendorA" or value.type == "MMInnkeeperH" or value.type == "MMInnkeeperA" or value.type == "MMStablemasterH" or value.type == "MMStablemasterA"
                         or value.type == "MMMailboxH" or value.type == "MMMailboxA" or value.type == "MMPvPVendorH" or value.type == "MMPvPVendorA" or value.type == "MMPvEVendorH" or value.type == "MMPvEVendorA" 
                         or value.type == "ZonePvEVendorH" or value.type == "ZonePvPVendorH" or value.type == "ZonePvEVendorA" or value.type == "ZonePvPVendorA" or value.type == "TradingPost" or value.type == "PassageCaveUp"
-                        or value.type == "PassageCaveDown" or value.type == "Zidormi"
+                        or value.type == "PassageCaveDown"
 
       ns.AllZoneIDs = ns.KalimdorIDs
                       or ns.EasternKingdomIDs
@@ -573,11 +574,6 @@ do
         alpha = db.MiniMapInstanceAlpha
       end
 
-      --if value.type == "Zidormi" then 
-      --  scale = db.ZoneScaleZidormi
-      --  alpha = db.ZoneAlphaZidormi
-      --end
-
       -- MiniMap Transport (Zeppeline/Ship/Carriage) icons
       if not ns.CapitalMiniMapIDs and ns.transportIcons and (value.showOnMinimap == true) then
         scale = db.MiniMapTransportScale
@@ -590,16 +586,171 @@ do
         alpha = db.MiniMapProfessionsAlpha
       end
 
-      -- MiniMap General (Innkeeper/Exit/Passage) icons
+      -- MiniMap General icons
       if not ns.CapitalMiniMapIDs and ns.generalIcons and (value.showOnMinimap == true) or ns.ZoneIDs and not value.showInZone then
         scale = db.MiniMapGeneralScale
         alpha = db.MiniMapGeneralAlpha
       end
 
-      -- MiniMap Path icons
-      if not ns.CapitalMiniMapIDs and ns.pathIcons and (value.showOnMinimap == true) or ns.ZoneIDs and not value.showInZone then
-        scale = db.MiniMapPathsScale
-        alpha = db.MiniMapPathsAlpha
+      -- MiniMap single icon scale / alpha
+      if not ns.CapitalMiniMapIDs and (value.showOnMinimap == true) then
+
+        -- Instance Icons
+        if value.type == "Raid" then
+          scale = db.MiniMapScaleRaids
+          alpha = db.MiniMapAlphaRaids
+        end
+
+        if value.type == "Dungeon" then
+          scale = db.MiniMapScaleDungeons
+          alpha = db.MiniMapAlphaDungeons
+        end        
+
+        if value.type == "PassageDungeon" or value.type == "PassageRaid" or value.type == "DelvesPassage" then
+          scale = db.MiniMapScalePassage
+          alpha = db.MiniMapAlphaPassage
+        end
+
+        if value.type == "Multiple" or value.type == "MultipleM" or value.type == "MultipleR" or value.type == "MultipleD" or value.type == "PassageDungeonRaidMulti" then
+          scale = db.MiniMapScaleMultiple
+          alpha = db.MiniMapAlphaMultiple
+        end
+
+        if value.type == "VInstance" or value.type == "MultiVInstance" or value.type == "VKey1" or value.type == "VInstanceD" or value.type == "VInstanceR" or value.type == "MultiVInstanceD" or value.type == "MultiVInstanceR" then
+          scale = db.MiniMapScaleOldVanilla
+          alpha = db.MiniMapAlphaOldVanilla
+        end
+
+        if value.type == "LFR" then
+          scale = db.MiniMapScaleLFR
+          alpha = db.MiniMapAlphaLFR
+        end
+
+        -- Transport Icons
+        if value.type == "Portal" or value.type == "PortalS" or value.type == "HPortal" or value.type == "APortal" or value.type == "HPortalS" or value.type == "APortalS" or value.type == "PassageHPortal" 
+          or value.type == "PassageAPortal" or value.type == "WayGateGolden" or value.type == "WayGateGreen" or value.type == "DarkMoon" then
+          scale = db.MiniMapScalePortals
+          alpha = db.MiniMapAlphaPortals
+        end
+
+        if value.type == "DarkMoon" then
+          scale = db.MiniMapScaleDarkmoon
+          alpha = db.MiniMapAlphaDarkmoon
+        end
+
+        if value.type == "Zeppelin" or value.type == "HZeppelin" or value.type == "AZeppelin" then
+          scale = db.MiniMapScaleZeppelins
+          alpha = db.MiniMapAlphaZeppelins
+        end
+
+        if value.type == "Ship" or value.type == "AShip" or value.type == "HShip" then
+          scale = db.MiniMapScaleShips
+          alpha = db.MiniMapAlphaShips
+        end
+
+        if value.type == "Carriage" or value.type == "TravelM" or value.type == "TravelA" then
+          scale = db.MiniMapScaleTransport
+          alpha = db.MiniMapAlphaTransport
+        end
+
+        if value.type == "OgreWaygate" then
+          scale = db.MiniMapScaleOgreWaygate
+          alpha = db.MiniMapAlphaOgreWaygate
+        end
+
+        if value.type == "Tport2" then
+          scale = db.MiniMapScaleTeleporter
+          alpha = db.MiniMapAlphaTeleporter
+        end
+
+        if value.type == "Mirror" then
+          scale = db.MiniMapScaleMirror
+          alpha = db.MiniMapAlphaMirror
+        end
+
+        if value.type == "B11M"  or value.type == "MOrcF" or value.type == "UndeadF" or value.type == "GoblinF" or value.type == "GilneanF" or value.type == "KulM" or value.type == "DwarfF" or value.type == "OrcM" then
+          scale = db.MiniMapScaleTravel
+          alpha = db.MiniMapAlphaTravel
+        end
+
+        -- General icons
+
+        -- General Icons
+        if value.type == "MNL" then
+          scale = db.MiniMapScaleMapNotesIcons
+          alpha = db.MiniMapAlphaMapNotesIcons
+        end
+
+        if value.type == "HIcon" or value.type == "AIcon" then
+          scale = db.MiniMapScaleHordeAllyIcons
+          alpha = db.MiniMapAlphaHordeAllyIcons
+        end
+
+        if value.type == "Innkeeper" or value.type == "InnkeeperN" or value.type == "InnkeeperH" or value.type == "InnkeeperA" or value.type == "MMInnkeeperH" or value.type == "MMInnkeeperA" then
+          scale = db.MiniMapScaleInnkeeper
+          alpha = db.MiniMapAlphaInnkeeper
+        end
+
+        if value.type == "Auctioneer" or value.type == "BlackMarket" then
+          scale = db.MiniMapScaleAuctioneer
+          alpha = db.MiniMapAlphaAuctioneer
+        end
+
+        if value.type == "Bank" then
+          scale = db.MiniMapScaleBank
+          alpha = db.MiniMapAlphaBank
+        end
+
+        if value.type == "Barber" then
+          scale = db.MiniMapScaleBarber
+          alpha = db.MiniMapAlphaBarber
+        end
+
+        if value.type == "Mailbox" or value.type == "MailboxN" or value.type == "MailboxH" or value.type == "MailboxA" or value.type == "MMMailboxH" or value.type == "MMMailboxA" then
+          scale = db.MiniMapScaleMailbox
+          alpha = db.MiniMapAlphaMailbox
+        end
+
+        if value.type == "PvPVendor" or value.type == "PvPVendorH" or value.type == "PvPVendorA" or value.type == "ZonePvPVendorH" or value.type == "ZonePvPVendorA" then
+          scale = db.MiniMapScalePvPVendor
+          alpha = db.MiniMapAlphaPvPVendor
+        end
+
+        if value.type == "PvEVendor" or value.type == "PvEVendorH" or value.type == "PvEVendorA" or value.type == "ZonePvEVendorH" or value.type == "ZonePvEVendorA" then
+          scale = db.MiniMapScalePvEVendor
+          alpha = db.MiniMapAlphaPvEVendor
+        end
+
+        if value.type == "StablemasterN" or value.type == "StablemasterH" or value.type == "StablemasterA" or value.type == "MMStablemasterH" or value.type == "MMStablemasterA" then
+          scale = db.MiniMapScaleStablemaster
+          alpha = db.MiniMapAlphaStablemaster
+        end
+
+        if value.type == "Catalyst" then
+          scale = db.MiniMapScaleCatalyst
+          alpha = db.MiniMapAlphaCatalyst
+        end
+
+        if value.type == "Zidormi" then
+          scale = db.MiniMapScaleZidormi
+          alpha = db.MiniMapAlphaZidormi
+        end
+
+        if value.type == "Transmogger" then
+          scale = db.MiniMapScaleTransmogger
+          alpha = db.MiniMapAlphaTransmogger
+        end
+
+        if value.type == "ItemUpgrade" then
+          scale = db.MiniMapScaleItemUpgrade
+          alpha = db.MiniMapAlphaItemUpgrade
+        end
+
+        if ns.pathIcons or ns.ZoneIDs and not value.showInZone then
+          scale = db.MiniMapScalePaths
+          alpha = db.MiniMapAlphaPaths
+        end
+
       end
 
       -- inside Dungeon
@@ -638,7 +789,7 @@ do
         alpha = db.ZoneInstanceAlpha
       end
 
-      -- Zone Transport (Zeppeline/Ship/Carriage) icons
+      -- Zone Transport icons
       if not ns.CapitalIDs and ns.transportIcons and (value.showOnMinimap == false) then
         scale = db.ZoneTransportScale
         alpha = db.ZoneTransportAlpha
@@ -650,16 +801,169 @@ do
         alpha = db.ZoneProfessionsAlpha
       end
 
-      -- Zones General (Innkeeper/Exit/Passage) icons
+      -- Zones General icons
       if not ns.CapitalIDs and ns.generalIcons and (value.showOnMinimap == false) then
-        scale = db.ZonesGeneralScale
-        alpha = db.ZonesGeneralAlpha
+        scale = db.ZoneGeneralScale
+        alpha = db.ZoneGeneralAlpha
       end
 
-      -- Zones Path (Innkeeper/Exit/Passage) icons
-      if not ns.CapitalIDs and ns.pathIcons and (value.showOnMinimap == false) then
-        scale = db.ZonesPathsScale
-        alpha = db.ZonesPathsAlpha
+      -- Zone single icon scale / alpha
+      if not ns.CapitalIDs and (value.showOnMinimap == false) then
+
+        -- Instance Icons
+        if value.type == "Raid" then
+          scale = db.ZoneScaleRaids
+          alpha = db.ZoneAlphaRaids
+        end
+
+        if value.type == "Dungeon" then
+          scale = db.ZoneScaleDungeons
+          alpha = db.ZoneAlphaDungeons
+        end        
+
+        if value.type == "PassageDungeon" or value.type == "PassageRaid" then
+          scale = db.ZoneScalePassage
+          alpha = db.ZoneAlphaPassage
+        end
+
+        if value.type == "Multiple" or value.type == "MultipleM" or value.type == "MultipleR" or value.type == "MultipleD" or value.type == "PassageDungeonRaidMulti" then
+          scale = db.ZoneScaleMultiple
+          alpha = db.ZoneAlphaMultiple
+        end
+
+        if value.type == "VInstance" or value.type == "MultiVInstance" or value.type == "VKey1" or value.type == "VInstanceD" or value.type == "VInstanceR" or value.type == "MultiVInstanceD" or value.type == "MultiVInstanceR" then
+          scale = db.ZoneScaleOldVanilla
+          alpha = db.ZoneAlphaOldVanilla
+        end
+
+        if value.type == "LFR" then
+          scale = db.ZoneScaleLFR
+          alpha = db.ZoneAlphaLFR
+        end
+
+        -- Transport Icons
+        if value.type == "Portal" or value.type == "PortalS" or value.type == "HPortal" or value.type == "APortal" or value.type == "HPortalS" or value.type == "APortalS" or value.type == "PassageHPortal" 
+          or value.type == "PassageAPortal" or value.type == "WayGateGolden" or value.type == "WayGateGreen" then
+          scale = db.ZoneScalePortals
+          alpha = db.ZoneAlphaPortals
+        end
+
+        if value.type == "DarkMoon" then
+          scale = db.ZoneScaleDarkmoon
+          alpha = db.ZoneAlphaDarkmoon
+        end
+
+        if value.type == "Zeppelin" or value.type == "HZeppelin" or value.type == "AZeppelin" then
+          scale = db.ZoneScaleZeppelins
+          alpha = db.ZoneAlphaZeppelins
+        end
+
+        if value.type == "Ship" or value.type == "AShip" or value.type == "HShip" then
+          scale = db.ZoneScaleShips
+          alpha = db.ZoneAlphaShips
+        end
+
+        if value.type == "Carriage" or value.type == "TravelM" or value.type == "TravelA" then
+          scale = db.ZoneScaleTransport
+          alpha = db.ZoneAlphaTransport
+        end
+
+        if value.type == "OgreWaygate" then
+          scale = db.ZoneScaleOgreWaygate
+          alpha = db.ZoneAlphaOgreWaygate
+        end
+
+        if value.type == "Tport2" then
+          scale = db.ZoneScaleTeleporter
+          alpha = db.ZoneAlphaTeleporter
+        end
+
+        if value.type == "Mirror" then
+          scale = db.ZoneScaleMirror
+          alpha = db.ZoneAlphaMirror
+        end
+
+        if value.type == "B11M"  or value.type == "MOrcF" or value.type == "UndeadF" or value.type == "GoblinF" or value.type == "GilneanF" or value.type == "KulM" or value.type == "DwarfF" or value.type == "OrcM" then
+          scale = db.ZoneScaleTravel
+          alpha = db.ZoneAlphaTravel
+        end
+
+        -- General Icons
+        if value.type == "MNL" then
+          scale = db.ZoneScaleMapNotesIcons
+          alpha = db.ZoneAlphaMapNotesIcons
+        end
+
+        if value.type == "HIcon" or value.type == "AIcon" then
+          scale = db.ZoneScaleHordeAllyIcons
+          alpha = db.ZoneAlphaHordeAllyIcons
+        end
+
+        if value.type == "Innkeeper" or value.type == "InnkeeperN" or value.type == "InnkeeperH" or value.type == "InnkeeperA" then
+          scale = db.ZoneScaleInnkeeper
+          alpha = db.ZoneAlphaInnkeeper
+        end
+
+        if value.type == "Auctioneer" or value.type == "BlackMarket" then
+          scale = db.ZoneScaleAuctioneer
+          alpha = db.ZoneAlphaAuctioneer
+        end
+
+        if value.type == "Bank" then
+          scale = db.ZoneScaleBank
+          alpha = db.ZoneAlphaBank
+        end
+
+        if value.type == "Barber" then
+          scale = db.ZoneScaleBarber
+          alpha = db.ZoneAlphaBarber
+        end
+
+        if value.type == "Mailbox" or value.type == "MailboxN" or value.type == "MailboxH" or value.type == "MailboxA" then
+          scale = db.ZoneScaleMailbox
+          alpha = db.ZoneAlphaMailbox
+        end
+
+        if value.type == "PvPVendor" or value.type == "PvPVendorH" or value.type == "PvPVendorA" or value.type == "ZonePvPVendorH" or value.type == "ZonePvPVendorA" then
+          scale = db.ZoneScalePvPVendor
+          alpha = db.ZoneAlphaPvPVendor
+        end
+
+        if value.type == "PvEVendor" or value.type == "PvEVendorH" or value.type == "PvEVendorA" or value.type == "ZonePvEVendorH" or value.type == "ZonePvEVendorA" then
+          scale = db.ZoneScalePvEVendor
+          alpha = db.ZoneAlphaPvEVendor
+        end
+
+        if value.type == "StablemasterN" or value.type == "StablemasterH" or value.type == "StablemasterA" then
+          scale = db.ZoneScaleStablemaster
+          alpha = db.ZoneAlphaStablemaster
+        end
+
+        if value.type == "Catalyst" then
+          scale = db.ZoneScaleCatalyst
+          alpha = db.ZoneAlphaCatalyst
+        end
+
+        if value.type == "Zidormi" then
+          scale = db.ZoneScaleZidormi
+          alpha = db.ZoneAlphaZidormi
+        end
+
+        if value.type == "Transmogger" then
+          scale = db.ZoneScaleTransmogger
+          alpha = db.ZoneAlphaTransmogger
+        end
+
+        if value.type == "ItemUpgrade" then
+          scale = db.ZoneScaleItemUpgrade
+          alpha = db.ZoneAlphaItemUpgrade
+        end
+
+        if ns.pathIcons then
+          scale = db.ZoneScalePaths
+          alpha = db.ZoneAlphaPaths
+        end
+        
       end
 
       -- Capitals Profession icons 
@@ -1202,9 +1506,9 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
 
   -- Check if Blizz Delves entrances is true then remove Blizzard Pins
   if ns.Addon.db.profile.activate.ShowBlizzDelves then
-    SetCVar("showDelveEntrancesOnMap", 1)
-  elseif not ns.Addon.db.profile.activate.ShowBlizzDelves then
     SetCVar("showDelveEntrancesOnMap", 0)
+  elseif not ns.Addon.db.profile.activate.ShowBlizzDelves then
+    SetCVar("showDelveEntrancesOnMap", 1)
   end
 
   if ns.Addon.db.profile.activate.HideMMB then -- minimap button

@@ -613,6 +613,7 @@ function M:ParagonRepRewards_Refresh()
 end
 
 function M:ParagonRepRewards()
+	if C_AddOns.IsAddOnLoaded("ParagonReputation") then return end
 	if not M.db["ParagonRepRewards"] then return end
 
 	hooksecurefunc(_G.ReputationEntryMixin, "ShowParagonRewardsTooltip", M.AddParagonRewards)

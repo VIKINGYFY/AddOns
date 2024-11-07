@@ -35,13 +35,15 @@ local db = ns.Addon.db.profile
         db.MiniMapProfessionsScale = db.ZoneProfessionsScale
         db.MiniMapProfessionsAlpha = db.ZoneProfessionsAlpha
         -- General Scale/Alpha
-        db.MiniMapGeneralScale = db.ZonesGeneralScale
-        db.MiniMapGeneralAlpha = db.ZonesGeneralAlpha
+        db.MiniMapGeneralScale = db.ZonesGeneralScale -- old sync, but atm needed for Classic+
+        db.MiniMapGeneralAlpha = db.ZonesGeneralAlpha -- old sync, but atm needed for Classic+
+        db.MiniMapGeneralScale = db.ZoneGeneralScale -- new sync for ns.SyncSingleScaleAlpha()
+        db.MiniMapGeneralAlpha = db.ZoneGeneralAlpha -- new sync for ns.SyncSingleScaleAlpha()
         -- General Scale/Alpha
         db.MiniMapPathsScale = db.ZonesPathsScale
         db.MiniMapPathsAlpha = db.ZonesPathsAlpha
     end
-
+    
 end
 
 function ns.SyncWithMinimap(self)
@@ -136,13 +138,14 @@ local db = ns.Addon.db.profile
         db.activate.MiniMapTransporting = db.activate.ZoneTransporting
         db.activate.MiniMapProfessions = db.activate.ZoneProfessions
         db.activate.MiniMapGeneral = db.activate.ZoneGeneral
-        db.activate.MiniMapPaths = db.activate.ZonePaths
         -- Icons
         self.db.profile.showMiniMapRaids = self.db.profile.showZoneRaids
         self.db.profile.showMiniMapDungeons = self.db.profile.showZoneDungeons
         self.db.profile.showMiniMapPassage = self.db.profile.showZonePassage
         self.db.profile.showMiniMapMultiple = self.db.profile.showZoneMultiple
+        self.db.profile.showMiniMapDelves = self.db.profile.activate.ShowBlizzDelves
         self.db.profile.showMiniMapPortals = self.db.profile.showZonePortals
+        self.db.profile.showMiniMapDarkmoon = self.db.profile.showZoneDarkmoon
         self.db.profile.showMiniMapZeppelins = self.db.profile.showZoneZeppelins
         self.db.profile.showMiniMapShips = self.db.profile.showZoneShips
         self.db.profile.showMiniMapTransport = self.db.profile.showZoneTransport
@@ -154,6 +157,8 @@ local db = ns.Addon.db.profile
         self.db.profile.showMiniMapLFR = self.db.profile.showZoneLFR
         self.db.profile.showMiniMapFP = self.db.profile.showZoneFP
         self.db.profile.showMiniMapGhost = self.db.profile.showZoneGhost
+        self.db.profile.showMiniMapNotesIcons = self.db.profile.showZoneMapNotesIcons
+        self.db.profile.showMiniMapHordeAllyIcons = self.db.profile.showZoneHordeAllyIcons
         self.db.profile.showMiniMapPaths = self.db.profile.showZonePaths
         self.db.profile.showMiniMapStablemaster = self.db.profile.showZoneStablemaster
         self.db.profile.showMiniMapInnkeeper = self.db.profile.showZoneInnkeeper

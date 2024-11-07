@@ -1,11 +1,13 @@
 # MapNote
-## [2.4.8](https://github.com/Ssesmar/MapNote) (2024-10-25)
+## [2.5.0](https://github.com/Ssesmar/MapNote) (2024-10-30)
 - Note:
 
 Retail
-• add Zidormi icons on Zone Map
-• u can found it under Zones + > Zonemap > • General symbols > Zidormi and Minimap > • General symbols > Zidormi
-• Blizzard POIs on zone maps can be disabled in the General tab to the right of the POIs option
+Darkmoon Portal has been removed from the Portal group within the Zones + tab (Transport Symbols) and is now independent in the Transport Symbols category under Darkmoon
+The color of the path icons has been changed. This means people with a color deficiency can recognize them better
+some revisions to symbols
+some small changes
+
 
 - Description:
 

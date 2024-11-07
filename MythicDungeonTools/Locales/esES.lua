@@ -1917,6 +1917,8 @@ L["Rancid Gasbag"] = "Saco de gas rancio"
 --[[Translation missing --]]
 L["Rashanan"] = "Rashanan"
 L["Rat"] = "Rata"
+--[[Translation missing --]]
+L["Ravenous Crawler"] = "Ravenous Crawler"
 L["Ravenous Dreadbat"] = "Murciélago aterrador voraz"
 --[[Translation missing --]]
 L["Ravenous Scarab"] = "Ravenous Scarab"
@@ -2606,6 +2608,8 @@ L["Time-Lost Smack-o-Tron"] = "Bofetrón perdido en el tiempo"
 L["Time-Lost Tidehunter"] = "Cazamareas perdido en el tiempo"
 L["Time-Lost Wakethrasher"] = "Destrozaolas perdido en el tiempo"
 L["Time-Lost Waveshaper"] = "Moldeaolas perdido en el tiempo"
+--[[Translation missing --]]
+L["Timer"] = "Timer"
 L["Timestream Anomaly"] = "Anomalía de la línea temporal"
 L["Timestream Leech"] = "Parásito de la línea temporal"
 L["Tirathon Saltheril"] = "Tirathon Saltheril"

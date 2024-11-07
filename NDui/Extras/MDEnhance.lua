@@ -37,13 +37,12 @@ local MapList = {
 }
 
 local SpellList = {}
-local function UpdateTeleportList()
+function EX:MDEnhance_UpdateList()
 	local isAlliance = DB.MyFaction == "Alliance"
 	MapList[353] = isAlliance and 445418 or 464256 -- 围攻伯拉勒斯
 
 	for mapID, spellID in pairs(MapList) do SpellList[spellID] = mapID end
 end
-B:RegisterEvent("PLAYER_ENTERING_WORLD", UpdateTeleportList)
 
 function EX:TButton_OnEnter(parent, spellID)
 	local dungeonIcon = parent:GetParent()
@@ -152,6 +151,7 @@ function EX:MDEnhance_CheckGroup()
 end
 
 function EX:MDEnhance()
+	EX:MDEnhance_UpdateList()
 	B:RegisterEvent("ADDON_LOADED", EX.MDEnhance_OnEvent)
 
 	EX:MDEnhance_CheckGroup()

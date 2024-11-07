@@ -1,11 +1,12 @@
 local mod	= DBM:NewMod("TheDawnbreakerTrash", "DBM-Party-WarWithin", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20241020100524")
+mod:SetRevision("20241104102517")
 --mod:SetModelID(47785)
 mod.isTrashMod = true
 mod.isTrashModBossFightAllowed = true
 mod:SetZone(2662)
+mod:RegisterZoneCombat(2662)
 
 mod:RegisterEvents(
 	"SPELL_CAST_START 451102 450854 451117 451097 431364 431494 432565 432520 431333 431637 451091 451098 431349 446615 450756 431304",
@@ -330,7 +331,7 @@ function mod:StartNameplateTimers(guid, cid)
 		timerStygianSeedCD:Start(9.2, guid)--9.2-11.3
 	elseif cid == 213934 then--Nightfall Tactician
 		timerBlackEdgeCD:Start(3.2, guid)--3.2-6.2
-		timerTacticiansRageCD:Start(10.5, guid)--10.5-11.7
+		timerTacticiansRageCD:Start(9.2, guid)--9.2-11.7
 	elseif cid == 211341 then--Manifested Shadow
 		timerBlackHailCD:Start(5.3, guid)--5.3-8.8
 --	elseif cid == 213893 or cid == 228539 then--Nightfall Darkcaster
@@ -342,13 +343,11 @@ function mod:StartNameplateTimers(guid, cid)
 	elseif cid == 213885 then--Nightfall Dark Architect
 		timerTorentingEruptionCD:Start(5.4, guid)--5.4-5.9
 	elseif cid == 213892 or cid == 228540 then--Nightfall Shadowmage (223994 is an RP mage, not engaged)
-		timerEnsharingShadowsCD:Start(cid == 228540 and 13.2 or 8.3, guid)--8.3-12.9 (213892) 13.2-14 (228540)
+		timerEnsharingShadowsCD:Start(cid == 228540 and 10.8 or 8.3, guid)--8.3-12.9 (213892) 10.8-14 (228540)
 	elseif cid == 210966 then--Sureki Webmage
-		timerBurstingCacoonCD:Start(5.9, guid)--5.9-11.7
+		timerBurstingCacoonCD:Start(1.8, guid)--1.8-11.7
 	end
 end
-
-mod:RegisterZoneCombat(2662, "TheDawnbreakerTrash")
 
 --Abort timers when all players out of combat, so NP timers clear on a wipe
 --Caveat, it won't calls top with GUIDs, so while it might terminate bar objects, it may leave lingering nameplate icons

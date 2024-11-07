@@ -16,7 +16,7 @@ if not db.activate.HideMapNote then
     --#####################################################################################################
     if db.activate.ZoneMap then
 
-        if db.activate.ZonePaths then
+        if db.activate.ZoneGeneral then
 
             --Kalimdor
             if self.db.profile.showZoneKalimdor then

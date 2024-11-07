@@ -2,7 +2,14 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "ruRU")
 if not L then return end
 
---0.01
+--0.08
+L["Displays Horde and Alliance capitals icons with additional information"] = "Отображает значки столиц Орды и Альянса с дополнительной информацией"
+L["Synchronize"] = "Синхронизировать"
+L["Synchronizes size and visibility of all individual symbols"] = "Синхронизирует размер и видимость всех отдельных символов"
+L["This disables the individual icon size and visibility sliders"] = "Это отключает отдельные ползунки размера и видимости отдельных значков"
+L["At the same time, all preset size and visibility settings of the individual symbols are replaced by the values set by these two sliders"] = "При этом все предустановленные настройки размера и видимости отдельных символов заменяются значениями, заданными этими двумя ползунками"
+L["It is recommended not to activate this function if you generally want to see these symbols on the zone map. Since MapNotes didn't place its own Delve icons on the zone map, instead we attached our functions to the Blizzard Delve icons"] = "Рекомендуется не активировать эту функцию, если вы вообще хотите видеть эти символы на карте зоны. Поскольку MapNotes не размещал собственные значки Delve на карте зоны, вместо этого мы прикрепили наши функции к значкам Blizzard Delve"
+--0.09
 L["Profiles"] = "Профили"
 L["Tooltip"] = "подсказка"
 L["to show delve map"] = "показать карту углубления"
@@ -20,7 +27,7 @@ L["With Alt + right click it is now possible to remove any MapNotes icon"] = "С
 L["If 'Tooltip' is activated, an additional tooltip will be added to the icons showing how to interact with this feature"] = "Если активирована «Подсказка», к значкам будет добавлена ​​дополнительная подсказка, показывающая, как взаимодействовать с этой функцией"
 L["If 'Tooltip' is activated, an additional tooltip will be added to the icons, indicating how icons can be deleted"] = "Если активирована «Подсказка», к значкам будет добавлена ​​дополнительная подсказка, указывающая, как можно удалить значки"
 L["Adds an additional tooltip to icons, which lists the functions of the icons"] = "Добавляет к значкам дополнительную подсказку, в которой перечислены функции значков"
-L["Activate the display of all Blizzard Delves entrances on the zone map"] = "Активировать отображение всех входов в Blizzard Delves на карте зоны"
+L["Disables the display of all Blizzard Delves entrances on the zone map"] = "Отключает отображение всех входов в Blizzard Delves на карте зоны"
 L["If you press 'YES', the current run is over and you will be placed outside the entrance"]= "Если вы нажмете «да», текущий запуск закончился, и вы будете размещены за пределами входа"
 L["An exception is the feedback in the chat from the function for deleting or restoring icons. These are always displayed!"] = "Исключением является обратная связь в чате из функции для удаления или восстановления значков. Они всегда отображаются!"
 L["Here you can enable or disable all chat messages sent by MapNotes Minimap and Worldmap buttons when you hide or show icons over them"] = "Здесь вы можете включить или отключить все сообщения чата, отправляемые кнопками «Миникарта MapNotes» и «Карта мира», когда вы скрываете или показываете значки над ними"

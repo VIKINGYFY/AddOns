@@ -17,7 +17,7 @@ if not db.activate.HideMapNote then
 
     if db.activate.MiniMap then
 
-        if db.activate.MiniMapPaths then
+        if db.activate.MiniMapGeneral then
 
             --Kalimdor
             if self.db.profile.showMiniMapKalimdor then

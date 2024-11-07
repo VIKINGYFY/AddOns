@@ -1,7 +1,10 @@
 # BagSync
 
-## [v19.56](https://github.com/Xruptor/BagSync/tree/v19.56) (2024-09-27)
-[Full Changelog](https://github.com/Xruptor/BagSync/compare/v19.55...v19.56) [Previous Releases](https://github.com/Xruptor/BagSync/releases)
+## [v19.58](https://github.com/Xruptor/BagSync/tree/v19.58) (2024-11-04)
+[Full Changelog](https://github.com/Xruptor/BagSync/compare/v19.57...v19.58) [Previous Releases](https://github.com/Xruptor/BagSync/releases)
 
-- Small Core Update  
-    * Small Core link parsing update for enhanced performance.  
+- Updated TOC to support Classic and Cata  
+    * Another TOC update!  Aren't these fun?!?!  Thanks blizzard for such a fantastic system!  
+- Merge pull request #392 from Adal4/patch-1  
+    Updated interface for Cata  
+- Updated interface for Cata  

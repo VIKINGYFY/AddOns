@@ -1,2 +1,2 @@
-## 5.2.0 (2024-10-23)
-  - Patch 10.0.5 Update
+## 5.2.5 (2024-11-02)
+  - Minor Mapping updates

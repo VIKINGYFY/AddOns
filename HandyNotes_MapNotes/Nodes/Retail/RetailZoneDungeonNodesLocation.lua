@@ -743,6 +743,7 @@ if not db.activate.HideMapNote then
 
             -- Dungeon Nodes above Blizzards Icons to make it Clickable for maximized Maps
               nodes[2214][59662149] = { id = 1210, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Darkflame Cleft
+              nodes[2215][96973883] = { id = 1210, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Priory of the Sacred Flame
               nodes[2215][41324933] = { id = 1267, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Priory of the Sacred Flame
               nodes[2215][54906313] = { id = 1270, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Dawnbreaker
               nodes[2214][46860856] = { id = 1269, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Stonevault

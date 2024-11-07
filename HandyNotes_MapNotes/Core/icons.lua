@@ -227,7 +227,7 @@ ns.icons = {
 ["PassageCaveUp"] = iconLink .. "passageCaveUp", 
 ["PassageCaveDown"] = iconLink .. "passageCaveDown", 
 --inside dungeon icons
-["Exit"] = "interface/glues/login/glues-checkbox-check.blp",
+["Exit"] = iconLink .. "Exit",
 ["PassageUpL"] = iconLink .. "passageupL",
 ["PassageDownL"] = iconLink .. "passagedownL",
 ["PassageRightL"] = iconLink .. "passagerightL",
@@ -260,6 +260,13 @@ ns.icons = {
 ["KulM"] = "interface/characterframe/temporaryportrait-male-kultiran",
 ["DwarfF"] = "interface/characterframe/temporaryportrait-female-dwarf",
 }
+
+-- 1 number --self.IconFileX = IconFileX or 0    -- the total X (horizontal) pixels in the image file - not just the icon we want
+-- 2 number --self.IconFileY = IconFileY or 0    -- the total Y (vertical) pixels in the image file
+-- 3 number --self.StartX = StartX or 0        -- The starting point in the file where the icon begins, counted from the left border, in pixels
+-- 4 number --self.EndX = EndX or 0            -- The ending point in the file where the icon ends, counted from the left border, in pixels
+-- 5 number --self.StartY = StartY or 0        -- The starting point in the file where the icon begins, counted from the top border, in pixels
+-- 6 number --self.EndY = EndY or 0            -- The ending point in the file where the icon ends, counted from the top border, in pixels
 
 TextIcon = IconClass
 TextIconMNL4 = TextIcon(iconLink .. "MNL4", 50, 50, 1, 50, 1, 50)
@@ -314,7 +321,6 @@ TextIconStormshield = TextIcon("interface/icons/spell_arcane_teleportstormshield
 TextIconOribos = TextIcon("interface/icons/spell_arcane_teleportoribos.blp", 50, 50, 1, 50, 1, 50)
 TextIconValdrakken = TextIcon("interface/icons/spell_arcane_teleportvaldrakken.blp", 50, 50, 1, 50, 1, 50)
 TextIconDornogal = TextIcon("interface/icons/inv_spell_arcane_telepotdornogal.blp", 50, 50, 1, 50, 1, 50)
-TextIconDarkMoon = TextIcon(iconLink .. "DarkMoon", 50, 50, 1, 50, 1, 50)
 --profession
 TextIconProfessionsMixed = TextIcon("interface/minimap/tracking/profession.blp", 50, 50, 1, 50, 1, 50)
 TextIconProfessionOrders = TextIcon(iconLink .. "CraftingOrders", 50, 50, 1, 50, 1, 50)
@@ -372,6 +378,7 @@ TextIconPassageHPortal = TextIcon(iconLink .. "passageHPortal", 50, 50, 1, 50, 1
 TextIconPassageAPortal = TextIcon(iconLink .. "passageAPortal", 50, 50, 1, 50, 1, 50)
 TextIconWayGateGolden = TextIcon(iconLink .. "WayGateGolden", 50, 50, 1, 50, 1, 50)
 TextIconWayGateGreen = TextIcon(iconLink .. "WayGateGreen", 50, 50, 1, 50, 1, 50)
+TextIconDarkMoon = TextIcon(iconLink .. "DarkMoon", 70, 70, 1, 50, 1, 50)
 --portal Old
 TextIconPortalOld = TextIcon(iconLink .. "portalOld", 50, 50, 1, 50, 1, 50) 
 TextIconHPortalOld = TextIcon(iconLink .. "hportalOld", 50, 50, 1, 50, 1, 50)
@@ -424,7 +431,7 @@ TextIconAShipOld = TextIcon(iconLink .. "shipAOld", 70, 70, 1, 50, 1, 50)
 TextIconPassageCaveUp = TextIcon(iconLink .. "PassageCaveUp", 50, 50, 1, 50, 1, 50)
 TextIconPassageCaveDown = TextIcon(iconLink .. "PassageCaveDown", 50, 50, 1, 50, 1, 50)
 --inside dungeon icons
-TextIconExit = TextIcon("interface/glues/login/glues-checkbox-check.blp", 50, 50, 1, 50, 1, 50)
+TextIconExit = TextIcon(iconLink .. "Exit", 50, 50, 1, 50, 1, 50)
 TextIconPassageup = TextIcon(iconLink .. "PassageUpL", 50, 50, 1, 50, 1, 50)
 TextIconPassagedown = TextIcon(iconLink .. "PassageDownL", 50, 50, 1, 50, 1, 50)
 TextIconPassageright = TextIcon(iconLink .. "PassageRightL", 50, 50, 1, 50, 1, 50)
@@ -471,10 +478,3 @@ TextIconGilneanF = TextIcon("interface/characterframe/temporaryportrait-female-g
 TextIconB11M = TextIcon"interface/characterframe/temporaryportrait-male-bloodelf"
 TextIconOrcF = TextIcon("Interface/CharacterFrame/TemporaryPortrait-Female-Orc")
 TextIconUndeadF = TextIcon("interface/characterframe/temporaryportrait-female-scourge")
-
--- 1 number --self.IconFileX = IconFileX or 0    -- the total X (horizontal) pixels in the image file - not just the icon we want
--- 2 number --self.IconFileY = IconFileY or 0    -- the total Y (vertical) pixels in the image file
--- 3 number --self.StartX = StartX or 0        -- The starting point in the file where the icon begins, counted from the left border, in pixels
--- 4 number --self.EndX = EndX or 0            -- The ending point in the file where the icon ends, counted from the left border, in pixels
--- 5 number --self.StartY = StartY or 0        -- The starting point in the file where the icon begins, counted from the top border, in pixels
--- 6 number --self.EndY = EndY or 0            -- The ending point in the file where the icon ends, counted from the top border, in pixels

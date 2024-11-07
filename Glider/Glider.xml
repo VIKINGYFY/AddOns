@@ -6,7 +6,7 @@
                 <Texture parentKey="Pulse" alpha="0" file="Interface/AddOns/Glider/Media/Atlas" texelSnappingBias="0.0" snapToPixelGrid="false"/>
             </Layer>
             <Layer level="BACKGROUND" textureSubLevel="2">
-                <Texture parentKey="Background" file="Interface/AddOns/Glider/Media/Atlas" texelSnappingBias="0.0" snapToPixelGrid="false"/>
+                <Texture parentKey="Background" file="Interface/AddOns/Glider/Media/Atlas"/>
             </Layer>
             <Layer level="OVERLAY">
                 <Texture parentKey="Flash" alpha="0" file="Interface/AddOns/Glider/Media/Atlas" texelSnappingBias="0.0" snapToPixelGrid="false"/>

@@ -2,7 +2,14 @@
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "koKR")
 if not L then return end
 
---0.01
+--0.08
+L["Displays Horde and Alliance capitals icons with additional information"] = "추가 정보와 함께 호드 및 얼라이언스 수도 아이콘을 표시합니다"
+L["Synchronize"] = "동기화"
+L["Synchronizes size and visibility of all individual symbols"] = "모든 개별 기호의 크기와 가시성을 동기화합니다"
+L["This disables the individual icon size and visibility sliders"] = "이렇게 하면 개별 아이콘 크기 및 가시성 슬라이더가 비활성화됩니다"
+L["At the same time, all preset size and visibility settings of the individual symbols are replaced by the values set by these two sliders"] = "동시에 개별 기호의 모든 사전 설정 크기 및 가시성 설정은 이 두 슬라이더로 설정된 값으로 대체됩니다"
+L["It is recommended not to activate this function if you generally want to see these symbols on the zone map. Since MapNotes didn't place its own Delve icons on the zone map, instead we attached our functions to the Blizzard Delve icons"] = "일반적으로 구역 지도에서 이러한 기호를 보려면 이 기능을 활성화하지 않는 것이 좋습니다. MapNotes는 구역 지도에 자체 Delve 아이콘을 배치하지 않았기 때문에 대신 Blizzard Delve 아이콘에 기능을 연결했습니다"
+--0.09
 L["Profiles"] = "프로필"
 L["Tooltip"] = "툴팁"
 L["to show delve map"] = "탐색 지도를 표시하려면"
@@ -20,7 +27,7 @@ L["With Alt + right click it is now possible to remove any MapNotes icon"] = "Al
 L["If 'Tooltip' is activated, an additional tooltip will be added to the icons showing how to interact with this feature"] = "'툴팁'이 활성화되면 이 기능과 상호 작용하는 방법을 보여주는 아이콘에 추가 툴팁이 추가됩니다"
 L["If 'Tooltip' is activated, an additional tooltip will be added to the icons, indicating how icons can be deleted"] = "'툴팁'이 활성화되면 아이콘 삭제 방법을 알려주는 추가 툴팁이 아이콘에 추가됩니다"
 L["Adds an additional tooltip to icons, which lists the functions of the icons"] = "아이콘의 기능을 나열하는 추가 도구 설명을 아이콘에 추가합니다"
-L["Activate the display of all Blizzard Delves entrances on the zone map"] = "지역 지도에서 모든 Blizzard Delve 입구 표시를 활성화합니다"
+L["Disables the display of all Blizzard Delves entrances on the zone map"] = "지역 지도에서 모든 Blizzard Delve 입력 표시를 비활성화합니다"
 L["If you press 'YES', the current run is over and you will be placed outside the entrance"] = "'예'를 누르면 현재 실행이 끝나고 입구 외부에 배치됩니다"
 L["An exception is the feedback in the chat from the function for deleting or restoring icons. These are always displayed!"] = "아이콘을 삭제하거나 복원하기위한 함수의 채팅의 피드백은 예외입니다. 이것들은 항상 표시됩니다!"
 L["Here you can enable or disable all chat messages sent by MapNotes Minimap and Worldmap buttons when you hide or show icons over them"] = "여기에서 MapNotes 미니맵 및 월드맵 버튼 위에 아이콘을 숨기거나 표시할 때 전송되는 모든 채팅 메시지를 활성화하거나 비활성화할 수 있습니다"

@@ -1,12 +1,13 @@
 local mod	= DBM:NewMod(2590, "DBM-Party-WarWithin", 4, 1269)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20241017063530")
+mod:SetRevision("20241102154000")
 mod:SetCreatureID(213217, 213216)--Brokk, Dorlita
 mod:SetEncounterID(2888)
 mod:SetBossHPInfoToHighest()
 mod:SetHotfixNoticeRev(20240717000000)
 mod:SetMinSyncRevision(20240717000000)
+mod:SetZone(2652)
 --mod.respawnTime = 29
 
 mod:RegisterCombat("combat")
@@ -229,7 +230,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		specWarnExhaustVents:Show(L.SafeVent)
 		specWarnExhaustVents:Play("findclearvent")
 		--This seems to actually have a higher Cd when it's not interfered with, it just gets interferred with a lot
-		timerExhaustVentsCD:Start(26.7, self.vb.ventilationCount+1)
+		timerExhaustVentsCD:Start(23.1, self.vb.ventilationCount+1)
 		updateBrokkTimers(self, 3.6)--Can't cast anything else while channeling this
 	end
 end

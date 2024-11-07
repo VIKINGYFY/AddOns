@@ -1602,7 +1602,7 @@ if not db.activate.HideMapNote then
                 nodes[2216][49752192] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
-            if self.db.profile.showZonePvEVendor and not self.db.profile.ZoneMapNotesIcons then
+            if self.db.profile.showZonePvEVendor and not self.db.profile.showZoneMapNotesIcons then
                 nodes[2214][47303293] = { dnID = L["The Assembly of the Deeps"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2215][42355500] = { dnID = L["Hallowfall Arathi"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2255][55334121] = { dnID = L["The Severed Threads"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
@@ -1619,19 +1619,19 @@ if not db.activate.HideMapNote then
                 nodes[2213][57574582] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. SLASH_EQUIP_SET1, type = "PvPVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
-            if self.db.profile.showZonePvPVendor and not self.db.profile.ZoneMapNotesIcons then
+            if self.db.profile.showZonePvPVendor and not self.db.profile.showZoneMapNotesIcons then
                 nodes[2255][51408082] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. SLASH_EQUIP_SET1, type = "PvPVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
-            if self.db.profile.showZonePvEVendor and not self.db.profile.ZoneMapNotesIcons then
+            if self.db.profile.showZonePvEVendor and not self.db.profile.showZoneMapNotesIcons then
                 nodes[2255][51408082] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. SLASH_EQUIP_SET1, type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
-            if self.db.profile.ZoneMapNotesIcons and (self.db.profile.showZonePvEVendor or self.db.profile.showZonePvPVendor) then
+            if self.db.profile.showZoneMapNotesIcons and (self.db.profile.showZonePvEVendor or self.db.profile.showZonePvPVendor) then
                 nodes[2255][51408082] = { name = "", dnID = TRANSMOG_SET_PVE .. " / " .. TRANSMOG_SET_PVP .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. SLASH_EQUIP_SET1, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
-            if self.db.profile.showZoneMailbox and not self.db.profile.ZoneMapNotesIcons then
+            if self.db.profile.showZoneMailbox and not self.db.profile.showZoneMapNotesIcons then
                 nodes[2248][41917335] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2248][58682793] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2215][42485562] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = true, showOnContinent = false, showOnMinimap = false }
@@ -1651,7 +1651,7 @@ if not db.activate.HideMapNote then
                 nodes[2256][44886632] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
-            if self.db.profile.showZoneInnkeeper and not self.db.profile.ZoneMapNotesIcons then
+            if self.db.profile.showZoneInnkeeper and not self.db.profile.showZoneMapNotesIcons then
                 nodes[2248][41947421] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2248][58402737] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2215][42805583] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
@@ -1670,7 +1670,7 @@ if not db.activate.HideMapNote then
                 nodes[2256][44796648] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
-            if self.db.profile.showZoneStablemaster and not self.db.profile.ZoneMapNotesIcons then
+            if self.db.profile.showZoneStablemaster and not self.db.profile.showZoneMapNotesIcons then
                 nodes[2248][59372796] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2215][42265654] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2255][77936461] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
@@ -1682,7 +1682,7 @@ if not db.activate.HideMapNote then
                 nodes[2214][58636560] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
-            if self.db.profile.ZoneMapNotesIcons then
+            if self.db.profile.showZoneMapNotesIcons then
                 --Innkeeper Mailbox Stabelmaster Merchant
                 nodes[2215][42395647] = { name = L["Hallowfall Arathi"], dnID = TextIconPvEVendor:GetIconString() .. " " .. L["Merchant for Renown items"] .. "\n" .. TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. MINIMAP_TRACKING_STABLEMASTER, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2214][47163209] = { name = L["The Assembly of the Deeps"], dnID = TextIconPvEVendor:GetIconString() .. " " .. L["Merchant for Renown items"] .. "\n" .. TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }                     

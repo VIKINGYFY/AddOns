@@ -2357,6 +2357,8 @@ L["Rancid Gasbag"] = "腐臭的气囊怪"
 --[[Translation missing --]]
 L["Rashanan"] = "Rashanan"
 L["Rat"] = "老鼠"
+--[[Translation missing --]]
+L["Ravenous Crawler"] = "Ravenous Crawler"
 L["Ravenous Dreadbat"] = "贪婪的恐惧蝠"
 --[[Translation missing --]]
 L["Ravenous Scarab"] = "Ravenous Scarab"
@@ -3153,6 +3155,8 @@ L["Time-Lost Tidehunter"] = "Time-Lost Tidehunter"
 L["Time-Lost Wakethrasher"] = "Time-Lost Wakethrasher"
 --[[Translation missing --]]
 L["Time-Lost Waveshaper"] = "Time-Lost Waveshaper"
+--[[Translation missing --]]
+L["Timer"] = "Timer"
 --[[Translation missing --]]
 L["Timestream Anomaly"] = "Timestream Anomaly"
 --[[Translation missing --]]

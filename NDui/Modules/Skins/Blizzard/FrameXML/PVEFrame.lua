@@ -21,7 +21,7 @@ table.insert(C.defaultThemes, function()
 			B.Reskin(bu, true)
 			bu.bg:SetColorTexture(r, g, b, .25)
 			bu.bg:SetInside(bu.__bg)
-	
+
 			bu.icon:SetPoint("LEFT", bu, "LEFT")
 			bu.icon:SetSize(iconSize, iconSize)
 			B.ReskinIcon(bu.icon)

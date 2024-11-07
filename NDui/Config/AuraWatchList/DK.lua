@@ -27,6 +27,8 @@ local list = {
 		{AuraID = 374585, UnitID = "player"}, -- 符文掌握
 		{AuraID = 383269, UnitID = "player"}, -- 憎恶附肢
 		{AuraID = 444347, UnitID = "player"}, -- 死亡冲锋
+		{AuraID = 434242, UnitID = "pet", Value = true}, -- 血凝固结
+
 	},
 	["Target Aura"] = {		-- 目标光环组
 		{AuraID =  45524, UnitID = "target", Caster = "player"}, -- 寒冰锁链
@@ -64,7 +66,6 @@ local list = {
 		{AuraID = 219809, UnitID = "player", Value = true}, -- 墓石
 		{AuraID = 273947, UnitID = "player"}, -- 鲜血禁闭
 		{AuraID = 274156, UnitID = "player"}, -- 吞噬
-		{AuraID = 376907, UnitID = "player"}, -- 狂乱释放
 		{AuraID = 377103, UnitID = "player"}, -- 断裂之痕
 		{AuraID = 377195, UnitID = "player"}, -- 历久弥坚
 		{AuraID = 377253, UnitID = "player"}, -- 冰霜雏龙之援

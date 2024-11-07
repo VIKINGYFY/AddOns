@@ -274,10 +274,6 @@ do
   function MDT.PLAYER_ENTERING_WORLD()
     --initialize Blizzard_ChallengesUI
     C_Timer.After(1, function()
-      C_AddOns.LoadAddOn("Blizzard_ChallengesUI")
-      C_MythicPlus.RequestCurrentAffixes()
-      C_MythicPlus.RequestMapInfo()
-      C_MythicPlus.RequestRewards()
       if db.loadOnStartUp and db.devMode then MDT:Async(function() MDT:ShowInterfaceInternal(true) end, "showInterface") end
     end)
     eventFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
@@ -336,7 +332,13 @@ function MDT:GetNumDungeons()
   return count
 end
 
-function MDT:GetDungeonName(idx) return MDT.dungeonList[idx] end
+function MDT:GetDungeonName(idx, forceEnglish)
+  -- don't fail hard for legacy dungeons
+  if forceEnglish and MDT.mapInfo[idx].englishName then
+    return MDT.mapInfo[idx].englishName
+  end
+  return MDT.dungeonList[idx]
+end
 
 function MDT:GetDungeonSublevels()
   return MDT.dungeonSubLevels
@@ -4487,7 +4489,7 @@ function MDT:GetCurrentAffixWeek()
   C_MythicPlus.RequestMapInfo()
   C_MythicPlus.RequestRewards()
   local affixIds = C_MythicPlus.GetCurrentAffixes() --table
-  if not affixIds then return end
+  if not affixIds then return 1 end
   if not affixIds[1] then return 1 end
   for week, affixes in ipairs(affixWeeks) do
     if affixes[1] == affixIds[2].id and affixes[2] == affixIds[3].id and affixes[3] == affixIds[1].id then

@@ -2,7 +2,14 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "enUS", true)
 
 
---0.01
+--0.08
+L["Displays Horde and Alliance capitals icons with additional information"] = true
+L["Synchronize"] = true
+L["Synchronizes size and visibility of all individual symbols"] = true
+L["This disables the individual icon size and visibility sliders"] = true
+L["At the same time, all preset size and visibility settings of the individual symbols are replaced by the values set by these two sliders"] = true
+L["It is recommended not to activate this function if you generally want to see these symbols on the zone map. Since MapNotes didn't place its own Delve icons on the zone map, instead we attached our functions to the Blizzard Delve icons"] = true
+--0.09
 L["Profiles"] = true
 L["Tooltip"] = true
 L["to show delve map"] = true
@@ -20,7 +27,7 @@ L["With Alt + right click it is now possible to remove any MapNotes icon"] = tru
 L["If 'Tooltip' is activated, an additional tooltip will be added to the icons showing how to interact with this feature"] = true
 L["If 'Tooltip' is activated, an additional tooltip will be added to the icons, indicating how icons can be deleted"] = true
 L["Adds an additional tooltip to icons, which lists the functions of the icons"] = true
-L["Activate the display of all Blizzard Delves entrances on the zone map"] = true
+L["Disables the display of all Blizzard Delves entrances on the zone map"] = true
 L["If you press 'YES', the current run is over and you will be placed outside the entrance"] = true
 L["An exception is the feedback in the chat from the function for deleting or restoring icons. These are always displayed!"] = true
 L["Here you can enable or disable all chat messages sent by MapNotes Minimap and Worldmap buttons when you hide or show icons over them"] = true

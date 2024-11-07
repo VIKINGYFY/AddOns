@@ -2,7 +2,14 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "zhTW")
 if not L then return end
 
---0.01
+--0.08
+L["Displays Horde and Alliance capitals icons with additional information"] = "顯示部落和聯盟首都圖標以及附加信息"
+L["Synchronize"] = "同步"
+L["Synchronizes size and visibility of all individual symbols"] = "同步所有單一符號的大小和可見性"
+L["This disables the individual icon size and visibility sliders"] = "這將禁用單獨的圖標大小和可見性滑塊"
+L["At the same time, all preset size and visibility settings of the individual symbols are replaced by the values set by these two sliders"] = "同時，各個符號的所有預設大小和可見性設定都將替換為這兩個滑桿設定的值"
+L["It is recommended not to activate this function if you generally want to see these symbols on the zone map. Since MapNotes didn't place its own Delve icons on the zone map, instead we attached our functions to the Blizzard Delve icons"] = "如果您通常希望在區域地圖上看到這些符號，建議不要啟動此功能。由於 MapNotes 沒有將自己的 Delve 圖示放置在區域地圖上，因此我們將我們的功能附加到 Blizzard Delve 圖示上。"
+--0.09
 L["Profiles"] = "概況"
 L["Tooltip"] = "工具提示"
 L["to show delve map"] = "顯示探索地圖"
@@ -20,7 +27,7 @@ L["With Alt + right click it is now possible to remove any MapNotes icon"] = "�
 L["If 'Tooltip' is activated, an additional tooltip will be added to the icons showing how to interact with this feature"] = "如果啟動“工具提示”，圖示中將添加額外的工具提示，顯示如何與此功能交互"
 L["If 'Tooltip' is activated, an additional tooltip will be added to the icons, indicating how icons can be deleted"] = "如果啟動“工具提示”，則會在圖示中新增額外的工具提示，指示如何刪除圖示"
 L["Adds an additional tooltip to icons, which lists the functions of the icons"] = "為圖示添加額外的工具提示，其中列出了圖示的功能"
-L["Activate the display of all Blizzard Delves entrances on the zone map"] = "激活區域地圖上所有暴雪洞穴入口的顯示"
+L["Disables the display of all Blizzard Delves entrances on the zone map"] = "禁用區域地圖上所有暴雪探索輸入的顯示"
 L["If you press 'YES', the current run is over and you will be placed outside the entrance"]= "如果按“是”，當前運行已經結束，您將被放置在入口外"
 L["An exception is the feedback in the chat from the function for deleting or restoring icons. These are always displayed!"] = "聊天中的反饋是刪除或還原圖標的函數中的反饋。 這些總是顯示！"
 L["Here you can enable or disable all chat messages sent by MapNotes Minimap and Worldmap buttons when you hide or show icons over them"] = "在這裡，當您隱藏或顯示 MapNotes 小地圖和世界地圖按鈕上的圖示時，您可以啟用或停用它們發送的所有聊天訊息"

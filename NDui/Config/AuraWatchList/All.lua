@@ -64,6 +64,8 @@ local list = {
 		{AuraID = 449947, UnitID = "player", Text = NPE_JUMP},	-- 奸邪发射机，跳3下
 		{AuraID = 449954, UnitID = "player"},	-- 奸邪发射机
 		{AuraID = 451011, UnitID = "player"},	-- 暴虐演说者的喉头
+		{AuraID = 451568, UnitID = "player", Value = true},	-- 折转侵攻模组
+		{AuraID = 452146, UnitID = "player"},	-- 艾拉-卡拉卵囊
 		{AuraID = 455420, UnitID = "player"},	-- 探洞者的蜡烛残端
 		{AuraID = 455451, UnitID = "player"},	-- 迅芯烛台
 
@@ -74,15 +76,35 @@ local list = {
 		{AuraID =   2825, UnitID = "player", Flash = true}, -- 嗜血
 		{AuraID =  32182, UnitID = "player", Flash = true}, -- 英勇
 		{AuraID =  80353, UnitID = "player", Flash = true}, -- 时间扭曲
+		{AuraID =  90355, UnitID = "player", Flash = true}, -- 远古狂乱
 		{AuraID = 102364, UnitID = "player", Flash = true}, -- 青铜龙的祝福
+		{AuraID = 145534, UnitID = "player", Flash = true}, -- 时间扭曲
+		{AuraID = 146555, UnitID = "player", Flash = true}, -- 暴怒之鼓
+		{AuraID = 160452, UnitID = "player", Flash = true}, -- 虚空之风
 		{AuraID = 178207, UnitID = "player", Flash = true}, -- 狂怒战鼓
 		{AuraID = 230935, UnitID = "player", Flash = true}, -- 高山战鼓
 		{AuraID = 256740, UnitID = "player", Flash = true}, -- 漩涡战鼓
-		{AuraID = 264667, UnitID = "player", Flash = true}, -- 原始狂怒
+		{AuraID = 263487, UnitID = "player", Flash = true}, -- 元素增效
+		{AuraID = 264667, UnitID = "player", Flash = true}, -- 原始暴怒
+		{AuraID = 267572, UnitID = "player", Flash = true}, -- 嗜血
+		{AuraID = 267575, UnitID = "player", Flash = true}, -- 时间扭曲
+		{AuraID = 272678, UnitID = "player", Flash = true}, -- 原始暴怒
+		{AuraID = 290582, UnitID = "player", Flash = true}, -- 英勇
+		{AuraID = 290583, UnitID = "player", Flash = true}, -- 嗜血
 		{AuraID = 292686, UnitID = "player", Flash = true}, -- 制皮战鼓
 		{AuraID = 309658, UnitID = "player", Flash = true}, -- 死亡凶蛮战鼓
-		{AuraID = 381301, UnitID = "player", Flash = true}, -- 缝制战鼓
+		{AuraID = 357650, UnitID = "player", Flash = true}, -- 原始暴怒
+		{AuraID = 381301, UnitID = "player", Flash = true}, -- 野性皮革战鼓
 		{AuraID = 390386, UnitID = "player", Flash = true}, -- 守护巨龙之怒
+		{AuraID = 397571, UnitID = "player", Flash = true}, -- 时间扭曲
+		{AuraID = 397744, UnitID = "player", Flash = true}, -- 守护巨龙之怒
+		{AuraID = 420083, UnitID = "player", Flash = true}, -- 玛诺洛斯之血
+		{AuraID = 420321, UnitID = "player", Flash = true}, -- 嗜血
+		{AuraID = 428941, UnitID = "player", Flash = true}, -- 时间扭曲
+		{AuraID = 429485, UnitID = "player", Flash = true}, -- 嗜血
+		{AuraID = 431286, UnitID = "player", Flash = true}, -- 守护巨龙之怒
+		{AuraID = 441076, UnitID = "player", Flash = true}, -- 越时战鼓
+		{AuraID = 444257, UnitID = "player", Flash = true}, -- 掣雷之鼓
 		-- 团队增益或减伤
 		{AuraID =   1022, UnitID = "player"}, -- 圣骑士，保护祝福
 		{AuraID =   1044, UnitID = "player"}, -- 圣骑士，自由祝福
@@ -257,6 +279,7 @@ local list = {
 		{AuraID = 343470, UnitID = "target", Value = true},	-- 通灵战潮，碎骨之盾
 		{AuraID = 328351, UnitID = "target", Flash = true},	-- 通灵战潮，染血长枪
 		{AuraID = 273721, UnitID = "target", Flash = true},	-- 围攻，1号易伤
+		{AuraID = 423588, UnitID = "target", Value = true},	-- 修道院，圣光屏障
 		-- S1
 		{AuraID = 445409, UnitID = "target", Value = true},	-- 加固壳壁，斯卡莫拉克
 		-- Raids
@@ -329,8 +352,10 @@ local list = {
 		{SlotID = 17}, -- 副手
 	},
 	["InternalCD"] = { -- 自定义内置冷却组
-		{IntID = 410232, Duration = 120}, -- 孢子披风冷却
 		{IntID = 114018, Duration = 15, OnSuccess = true, UnitID = "all"}, -- 帷幕
+		{IntID = 410232, Duration = 120}, -- 孢子披风冷却
+		{IntID = 451568, Duration = 60}, -- 折转侵攻模组
+
 		--{IntID = 240447, Duration = 20}, -- 大米，践踏
 		--{IntID = 316958, Duration = 30, OnSuccess = true, UnitID = "all"}, -- 红土
 		--{IntID = 353635, Duration = 27.5, OnSuccess = true, UnitID = "all"},-- 坍缩之星自爆时间

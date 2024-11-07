@@ -7,4 +7,5 @@
     <Script file="RetailWmb.lua"/>
     <Script file="RetailFogOfWar.lua"/>
     <Script file="RetailDelves.lua"/>
+    <Script file="RetailSyncSingleScaleAlpha.lua"/>
 </Ui>

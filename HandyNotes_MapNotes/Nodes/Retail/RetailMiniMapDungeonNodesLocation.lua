@@ -747,7 +747,7 @@ if not db.activate.HideMapNote then
             end
 
           -- Khaz Algar Delves
-            if self.db.profile.showMiniMapDelves then 
+            if self.db.profile.showMiniMapPassage then 
               -- Azj-Kathet
               minimap[2255][54917231] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2259, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tak-Rethan-Abyss
               minimap[2255][51858822] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2299, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Underkeep

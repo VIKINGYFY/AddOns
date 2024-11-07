@@ -27,11 +27,13 @@ end
 
 -- 副本重置自动喊话
 function EX.UpdateInstanceReset(_, msg)
-	if string.find(msg, "难度") or string.find(msg, "重置") then
-		if not IsInGroup() then
-			UIErrorsFrame:AddMessage(DB.InfoColor..msg)
-		else
-			SendChatMessage(msg, B.GetMSGChannel())
+	if not IsInInstance() then
+		if string.find(msg, "难度") or string.find(msg, "重置") then
+			if not IsInGroup() then
+				UIErrorsFrame:AddMessage(DB.InfoColor..msg)
+			else
+				SendChatMessage(msg, B.GetMSGChannel())
+			end
 		end
 	end
 end
@@ -96,19 +98,4 @@ end
 
 function EX:AutoHideName()
 	B:RegisterEvent("PLAYER_ENTERING_WORLD", self.UpdateAutoHideName)
-end
-
--- 自动选择节日BOSS
-do
-	local function autoSelect()
-		for i = 1, GetNumRandomDungeons() do
-			local id, name = GetLFGRandomDungeonInfo(i)
-			local isHoliday = select(15, GetLFGDungeonInfo(id))
-			if isHoliday and not GetLFGDungeonRewards(id) then
-				LFDQueueFrame_SetType(id)
-			end
-		end
-	end
-
-	LFDParentFrame:HookScript("OnShow", autoSelect)
 end

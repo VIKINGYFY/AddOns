@@ -1,3 +1,9 @@
+### 0.2.19
+- When switching between Zones the old Vigor bar should no longer show up as now the entire widget is hidden as well.
+
+### 0.2.18
+- Version Update
+
 ### 0.2.17
 - Added an additonal flag to the cooldowns to hide numbers for addons that check for that only before they add numbers
 

@@ -2,7 +2,14 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "esMX")
 if not L then return end
 
---0.01
+--0.08
+L["Displays Horde and Alliance capitals icons with additional information"] = "Muestra íconos de capitales de la Horda y la Alianza con información adicional"
+L["Synchronize"] = "Sincronizar"
+L["Synchronizes size and visibility of all individual symbols"] = "Sincroniza el tamaño y la visibilidad de todos los símbolos individuales"
+L["This disables the individual icon size and visibility sliders"] = "Esto desactiva los controles deslizantes de visibilidad y tamaño de icono individual"
+L["At the same time, all preset size and visibility settings of the individual symbols are replaced by the values set by these two sliders"] = "Al mismo tiempo, todos los ajustes preestablecidos de tamaño y visibilidad de los símbolos individuales se reemplazan por los valores establecidos por estos dos controles deslizantes"
+L["It is recommended not to activate this function if you generally want to see these symbols on the zone map. Since MapNotes didn't place its own Delve icons on the zone map, instead we attached our functions to the Blizzard Delve icons"] = "Se recomienda no activar esta función si generalmente deseas ver estos símbolos en el mapa de la zona. Dado que MapNotes no colocó sus propios íconos de Delve en el mapa de zona, adjuntamos nuestras funciones a los íconos de Blizzard Delve"
+--0.09
 L["Profiles"] = "Perfiles"
 L["Tooltip"] = "información sobre herramientas"
 L["to show delve map"] = "para mostrar el mapa de profundización"
@@ -20,7 +27,7 @@ L["With Alt + right click it is now possible to remove any MapNotes icon"] = "Co
 L["If 'Tooltip' is activated, an additional tooltip will be added to the icons showing how to interact with this feature"] = "Si se activa la 'Información sobre herramientas', se agregará información sobre herramientas adicional a los íconos que muestran cómo interactuar con esta función"
 L["If 'Tooltip' is activated, an additional tooltip will be added to the icons, indicating how icons can be deleted"] = "Si se activa la 'Información sobre herramientas', se agregará información sobre herramientas adicional a los íconos, indicando cómo se pueden eliminar los íconos"
 L["Adds an additional tooltip to icons, which lists the functions of the icons"] = "Agrega información sobre herramientas adicional a los íconos, que enumera las funciones de los íconos"
-L["Activate the display of all Blizzard Delves entrances on the zone map"] = "Activa la visualización de todas las entradas de Blizzard Delves en el mapa de zona"
+L["Disables the display of all Blizzard Delves entrances on the zone map"] = "Desactiva la visualización de todas las entradas de Blizzard Delves en el mapa de zona"
 L["If you press 'YES', the current run is over and you will be placed outside the entrance"] = "Si presiona 'sí', la ejecución actual ha terminado y se lo colocará fuera de la entrada"
 L["An exception is the feedback in the chat from the function for deleting or restoring icons. These are always displayed!"] = "Una excepción es la retroalimentación en el chat desde la función para eliminar o restaurar iconos. ¡Estos siempre se muestran!"
 L["Here you can enable or disable all chat messages sent by MapNotes Minimap and Worldmap buttons when you hide or show icons over them"] = "Aquí puede habilitar o deshabilitar todos los mensajes de chat enviados por los botones Minimapa y Mapa mundial de MapNotes cuando oculta o muestra íconos sobre ellos"

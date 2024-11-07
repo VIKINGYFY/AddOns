@@ -1824,6 +1824,8 @@ L["Rampaging Clefthoof"] = "Sabot-fourchu enragé"
 L["Rancid Gasbag"] = "Sac à gaz rance"
 L["Rashanan"] = "Rasha'nan"
 L["Rat"] = "Rat"
+--[[Translation missing --]]
+L["Ravenous Crawler"] = "Ravenous Crawler"
 L["Ravenous Dreadbat"] = "Chiropteffroi vorace"
 L["Ravenous Scarab"] = "Scarabée vorace"
 --[[Translation missing --]]
@@ -2488,6 +2490,8 @@ L["Time-Lost Smack-o-Tron"] = "Baffotron perdu dans le temps"
 L["Time-Lost Tidehunter"] = "Chasse-marée perdu dans le temps"
 L["Time-Lost Wakethrasher"] = "Brise-sillage perdu dans le temps"
 L["Time-Lost Waveshaper"] = "Sculpte-vagues perdu dans le temps"
+--[[Translation missing --]]
+L["Timer"] = "Timer"
 L["Timestream Anomaly"] = "Anomalie du flux temporel"
 L["Timestream Leech"] = "Sangsue du flux temporel"
 L["Tirathon Saltheril"] = "Tirathon Saltheril"

@@ -41,7 +41,7 @@ local VOLATILE_VALUES = {
 local defaultPosition = {
   point = 'CENTER',
   x = 0,
-  y = -250,
+  y = 170,
 }
 
 local SPEEDCIRCLE = {
@@ -153,7 +153,7 @@ LEM:AddFrameSettings(fixedSizeFrame, {
   {
     name = "Use Global Settings",
     kind = LEM.SettingType.Checkbox,
-    default = true,
+    default = false,
     get = function()
       return GliderAddOnDB.globalSettingsEnabled
     end,
@@ -166,7 +166,7 @@ LEM:AddFrameSettings(fixedSizeFrame, {
   {
     name = 'Scale',
     kind = LEM.SettingType.Slider,
-    default = 2,
+    default = 1,
     get = function(layoutName)
       layoutName = Glider:ShouldUseGlobalSettings() or layoutName
       return GliderAddOnDB.Settings[layoutName].scale or 1
@@ -271,13 +271,7 @@ LEM:RegisterCallback('enter', function()
 end)
 
 LEM:RegisterCallback('exit', function()
-  local _, info = Glider:GetCurrentWidget()
-  if info then
-    if info.shownState == 0 then
-      Glider:SetAlpha(0)
-      Glider:Hide()
-    end
-  else
+  if not Glider:IsSkyriding() then
     Glider:SetAlpha(0)
     Glider:Hide()
   end
@@ -431,6 +425,9 @@ function Glider:HideAnim()
   if not LEM:IsInEditMode() and self:IsShown() and not self.animHide:IsPlaying() then
     self.animShow:Stop()
     self.animHide:Play()
+    self:SetScript("OnUpdate", nil)
+    VOLATILE_VALUES.isRefreshingVigor = false
+    UIWidgetPowerBarContainerFrame:Show()
   end
 end
 
@@ -439,6 +436,7 @@ function Glider:ShowAnim()
     VOLATILE_VALUES.justShown = true
     C_Timer.After(0.2, function() VOLATILE_VALUES.justShown = false end)
     self.animShow:Play()
+    UIWidgetPowerBarContainerFrame:Hide()
   end
 end
 
@@ -472,34 +470,46 @@ function Glider:GetRidingAbroadPercent()
   end
 end
 
-function Glider:GetCurrentWidget()
-  local info
+function Glider:RemoveWidgets()
   for _, widget in pairs(UIWidgetPowerBarContainerFrame.widgetFrames) do
     if widget then
       if widget.widgetType == 24 and widget.widgetSetID == 283 then
-        local tempInfo = C_UIWidgetManager.GetFillUpFramesWidgetVisualizationInfo(widget.widgetID)
-        if tempInfo and tempInfo.shownState == 1 then
-          info = tempInfo
-        end
-        widget:Hide()
-        widget = nil
+      widget:Hide()
+      widget = nil
       end
     end
   end
+end
 
-  -- GetGlidingInfo is very slow causing my UI to show up late but good enough as a backfall
-  -- where the bar may not actually exist like in Derby Races
-  local hasSkyridingBar = (GetBonusBarIndex() == 11 and GetBonusBarOffset() == 5) or false
+function Glider:IsSkyriding()
+  -- 650 is Derby racing
+  local powerBarID = UnitPowerBarID("player") -- Sadly also bugs out, but we use it in this case cause GetGlidingInfo is laggy, bad for responsive UI
+  local hasSkyridingBar = (GetBonusBarIndex() == 11 and GetBonusBarOffset() == 5)
   local canGlide = select(2, GetGlidingInfo())
-  return (hasSkyridingBar or canGlide) and info
+  return ( hasSkyridingBar or
+          --powerBarID == 631 or
+          --powerBarID == 650 or
+          (canGlide and powerBarID ~= 0)
+        ) and true or false;
 end
 
 function Glider:Update(widget)
-  if not widget or widget.widgetSetID ~= CONFIG_VALUES.vigorWidgetSetID then
+  if not widget or (widget.widgetSetID ~= CONFIG_VALUES.vigorWidgetSetID) then
     return
   end
 
-  local info = self:GetCurrentWidget()
+  self:RemoveWidgets()
+
+  if not self:IsSkyriding() then
+    self:HideAnim()
+    return
+  end
+
+  if widget.widgetID ~= 4460 then
+    return
+  end
+
+  local info = C_UIWidgetManager.GetFillUpFramesWidgetVisualizationInfo(4460)
   if not info then
     self:HideAnim()
     return
@@ -521,6 +531,7 @@ function Glider:Update(widget)
       (info.numFullFrames + fillValue / (info.fillMax + 0.0000001)) / info.numTotalFrames
 
   VOLATILE_VALUES.adjustedPercentage = (CONFIG_VALUES.percentageMulti[info.numTotalFrames] or 0) * originalPercentage
+  self.VigorCharge:SetDrawEdge(VOLATILE_VALUES.adjustedPercentage ~= 1 and VOLATILE_VALUES.adjustedPercentage ~= 0)
 
   if not VOLATILE_VALUES.isRefreshingVigor then
     VOLATILE_VALUES.isRefreshingVigor = true
@@ -550,21 +561,18 @@ function Glider:Update(widget)
     self.flashAnim:Restart()
   end
 
-  self.VigorCharge:SetDrawEdge(VOLATILE_VALUES.numFullFrames ~= info.numTotalFrames)
   VOLATILE_VALUES.lastNumFullFrames = info.numFullFrames
 end
 
 function Glider:OnLoad()
   self:SetupTextures()
   self:SetScript("OnEvent", function(_, ...) self:OnEvent(...) end)
-  self:RegisterEvent("ADDON_LOADED")
   self:RegisterEvent("UPDATE_UI_WIDGET")
   self.SpeedDisplay.Speed:SetRotation(-117 * (math.pi/180))
-  -- no clue if this is truly needed as i can't reproduce this
   self.VigorCharge.noCooldownCount = true
   self.SpeedDisplay.Speed.noCooldownCount = true
 
-  -- VSCode compatible version for color preview ^^ entirely useless!
+  -- VSCode compatible version for color preview ^^ entirely pointless!
   -- Initialize Alpha to 0
   local function CreateRGBAFromHexString(hexColor)
     assert(#hexColor == 8, "Use #AARRGGBB Format")
