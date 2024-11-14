@@ -94,6 +94,10 @@ local questlist = {
 	{name = "", id = 82852, questName = true},	-- 特别任务：山猫救援
 	{name = "", id = 83229, questName = true},	-- 特别任务：无宁邃渊
 
+	{name = "周年庆 - 末日行者", id = 60214},	-- 周年庆：末日行者
+	{name = "周年庆 - 阿尔卡冯", id = 84256},	-- 周年庆：阿尔卡冯
+	{name = "周年庆 - 怒之煞", id = 84282},	-- 周年庆：怒之煞
+
 }
 
 -- Check Invasion Status
@@ -312,7 +316,7 @@ info.onEnter = function(self)
 	-- Quests
 	title = false
 	for _, v in pairs(questlist) do
-		if v.name and C_QuestLog.IsQuestFlaggedCompleted(v.id) then
+		if v.id and C_QuestLog.IsQuestFlaggedCompleted(v.id) then
 			if v.name == PLAYER_DIFFICULTY_TIMEWALKER and isTimeWalker and checkTexture(v.texture) or v.name ~= PLAYER_DIFFICULTY_TIMEWALKER then
 				addTitle(QUESTS_LABEL)
 				GameTooltip:AddDoubleLine((v.itemID and GetItemLink(v.itemID)) or (v.questName and QuestUtils_GetQuestName(v.id)) or v.name, QUEST_COMPLETE, 1,1,1, 1,0,0)

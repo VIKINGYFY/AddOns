@@ -220,7 +220,7 @@ ns.options = {
             if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.extraInformation then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["extra information"], "|cff00ff00" .. L["is activated"]) else 
             if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.extraInformation then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["extra information"], "|cffff0000" ..  L["is deactivated"]) end end end,
           },
-        graymultipleID = {
+        grayMultipleID = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
           type = "toggle",
           name = TextIconLocked:GetIconString() .. " " .. TextIconMultipleM:GetIconString() .. " " .. TextIconPassageDungeonMultiM:GetIconString() .. " " .. L["gray all"],
@@ -228,19 +228,19 @@ ns.options = {
           order = 2.8,
           width = 1.05,
           set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
-            if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.graymultipleID then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["gray all"], "|cff00ff00" .. L["is activated"]) else 
-            if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.graymultipleID then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["gray all"], "|cffff0000" ..  L["is deactivated"]) end end end,
+            if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.grayMultipleID then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["gray all"], "|cff00ff00" .. L["is activated"]) else 
+            if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.grayMultipleID then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["gray all"], "|cffff0000" ..  L["is deactivated"]) end end end,
           },          
-        assignedgray = {
-          disabled = function() return ns.Addon.db.profile.activate.HideMapNote or ns.Addon.db.profile.graymultipleID end,
+        graySingleID = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote or ns.Addon.db.profile.grayMultipleID end,
           type = "toggle",
           name = TextIconLocked:GetIconString() .. " " .. TextIconRaid:GetIconString() .. " " .. TextIconDungeon:GetIconString() .. " " .. L["gray single"],
           desc = L["Colors only individual points of assigned dungeons and raids in gray (if you have an ID)"],
           order = 2.9,
           width = 1.05,
           set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
-            if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.assignedgray then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["gray single"], "|cff00ff00" .. L["is activated"]) else 
-            if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.assignedgray then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["gray single"], "|cffff0000" ..  L["is deactivated"]) end end end,
+            if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.graySingleID then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["gray single"], "|cff00ff00" .. L["is activated"]) else 
+            if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.graySingleID then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["gray single"], "|cffff0000" ..  L["is deactivated"]) end end end,
           },
         DescriptionHeader4 = {
           type = "header",
@@ -3126,7 +3126,7 @@ ns.options = {
                   },
                 zoneinstanceheader8 = {
                   type = "header",
-                  name = "",
+                  name = L["Show individual icons"],
                   order = 2.0,
                   },
                 showZoneRaids = {
@@ -3141,7 +3141,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneRaids then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], L["Raids"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScaleRaids = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneRaids or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -3156,7 +3156,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaRaids = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneRaids or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -3181,7 +3181,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneDungeons then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], L["Dungeons"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                  ZoneScaleDungeons = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneDungeons or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -3196,7 +3196,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaDungeons = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneDungeons or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -3221,7 +3221,7 @@ ns.options = {
                     if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZonePassage then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], L["Passages"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScalePassage = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZonePassage or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -3236,7 +3236,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaPassage = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZonePassage or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -3261,7 +3261,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneMultiple then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], L["Multiple"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScaleMultiple = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneMultiple or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -3276,7 +3276,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaMultiple = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneMultiple or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -3301,7 +3301,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneOldVanilla then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Zone map"], L["Old Instances"], "|cffff0000" ..  L["is deactivated"]) end end end,
                   },
                 ZoneScaleOldVanilla = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneOldVanilla or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -3316,7 +3316,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaOldVanilla = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneOldVanilla or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -3341,7 +3341,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneLFR then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 "..  L["Zone map"], PLAYER_DIFFICULTY3, "|cffff0000" ..  L["is deactivated"]) end end end,
                   },
                 ZoneScaleLFR = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneLFR or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -3356,7 +3356,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaLFR = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneLFR or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneInstances or ns.Addon.db.profile.activate.ZoneInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -3451,7 +3451,7 @@ ns.options = {
                   },
                 zonetransportheader1 = {
                   type = "header",
-                  name = "",
+                  name = L["Show individual icons"],
                   order = 1.9,
                   },
                 showZonePortals = {
@@ -3466,7 +3466,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZonePortals then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], L["Portals"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScalePortals = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZonePortals or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -3481,7 +3481,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaPortals = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZonePortals or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -3506,7 +3506,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneZeppelins then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], L["Zeppelins"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScaleZeppelins = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneZeppelins or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -3521,7 +3521,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaZeppelins = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneZeppelins or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -3546,7 +3546,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneShips then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], L["Ships"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScaleShips = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneShips or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -3561,7 +3561,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaShips = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneShips or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -3586,7 +3586,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneTransport then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], L["Transport"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScaleTransport = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneTransport or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -3601,7 +3601,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaTransport = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneTransport or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -3626,7 +3626,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneOgreWaygate then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], L["Ogre Waygate"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScaleOgreWaygate = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneOgreWaygate or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -3641,7 +3641,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaOgreWaygate = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneOgreWaygate or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -3666,7 +3666,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneTeleporter then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], L["Teleporter"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScaleTeleporter = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneTeleporter or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -3681,7 +3681,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaTeleporter = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneTeleporter or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -3706,7 +3706,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneMirror then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], L["Ever-Shifting Mirror"], L["Transport"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScaleMirror = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneMirror or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -3721,7 +3721,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaMirror = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneMirror or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -3746,7 +3746,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneTravel then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], L["Travel"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScaleTravel = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneTravel or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -3761,7 +3761,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaTravel = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneTravel or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -3786,7 +3786,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneDarkmoon then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], CALENDAR_FILTER_DARKMOON, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScaleDarkmoon = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneDarkmoon or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -3801,7 +3801,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaDarkmoon = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneDarkmoon or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneTransporting or ns.Addon.db.profile.activate.ZoneTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -3891,7 +3891,7 @@ ns.options = {
                   },
                 zoneMNHeader = {
                   type = "header",
-                  name = "",
+                  name = L["Show individual icons"],
                   order = 1.0,
                   },
                 showZoneMapNotesIcons = {
@@ -3907,7 +3907,7 @@ ns.options = {
                         if ns.Addon.db.profile.showZoneMapNotesIcons then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. L["Zone map"], L["icons"], "|cff00ccff" .. L["are shown"] )end end end,
                   },
                 ZoneScaleMapNotesIcons = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha or not ns.Addon.db.profile.showZoneMapNotesIcons end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -3922,7 +3922,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaMapNotesIcons = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha or not ns.Addon.db.profile.showZoneMapNotesIcons end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -3948,7 +3948,7 @@ ns.options = {
                         if ns.Addon.db.profile.showZoneHordeAllyIcons then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. L["Zone map"], FACTION_HORDE .. " / " .. FACTION_ALLIANCE, L["icons"], "|cff00ccff" .. L["are shown"] )end end end,
                   },
                 ZoneScaleHordeAllyIcons = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneHordeAllyIcons or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -3963,7 +3963,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaHordeAllyIcons = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneHordeAllyIcons or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -3988,7 +3988,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZonePaths then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" ..  L["Zone map"], L["Paths"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScalePaths = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZonePaths or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -4003,7 +4003,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaPaths = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZonePaths or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -4028,7 +4028,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneInnkeeper then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], MINIMAP_TRACKING_INNKEEPER, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScaleInnkeeper = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneInnkeeper or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -4043,7 +4043,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaInnkeeper = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneInnkeeper or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -4068,7 +4068,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneMailbox then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], MINIMAP_TRACKING_MAILBOX, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScaleMailbox = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneMailbox or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -4083,7 +4083,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaMailbox = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneMailbox or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -4108,7 +4108,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZonePvPVendor then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], TRANSMOG_SET_PVP .. " " .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScalePvPVendor = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZonePvPVendor or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -4123,7 +4123,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaPvPVendor = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZonePvPVendor or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -4137,7 +4137,7 @@ ns.options = {
                   order = 7.0,
                   },
                 showZonePvEVendor = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral end,
+                  disabled = function() return not ns.Addon.db.profile.ZoneScalePvPVendor or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral end,
                   type = "toggle",
                   name = TextIconPvEVendor:GetIconString() .. " " .. TextIconPvEVendorH:GetIconString() .. " " .. TextIconPvEVendorA:GetIconString(),
                   desc = TRANSMOG_SET_PVE .. "\n" .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. " / " .. AUCTION_CREATOR .. " / " .. MERCHANT .. "\n" .. "\n" .. TextIconPvEVendorH:GetIconString() .. " " .. FACTION_HORDE .. "\n" .. " " .. ORGRIMMAR .. "\n" .. " " .. L["Undercity"] .. "\n" .. " " .. L["Shrine2Moons"] .. "\n" .. "\n" .. TextIconPvEVendor:GetIconString() .. " " .. FACTION_NEUTRAL .. "\n" .. " " .. DUNGEON_FLOOR_DALARAN1 .. "\n" .. " " .. L["Icecrown"] .. "\n" .. " " .. L["Townlong Steppes"] .. "\n" .. " " .. L["Oribos"] .. "\n" .. "\n" .. TextIconPvEVendorA:GetIconString() .. " " .. FACTION_ALLIANCE .. "\n" .. " " .. STORMWIND .. "\n" .. " " .. L["Ironforge"] .. "\n" .. " " .. L["Shrine7Stars"],
@@ -4148,7 +4148,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZonePvEVendor then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], TRANSMOG_SET_PVE .. " " .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScalePvEVendor = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZonePvEVendor or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -4163,7 +4163,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaPvEVendor = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZonePvEVendor or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -4188,7 +4188,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneStablemaster then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], MINIMAP_TRACKING_STABLEMASTER, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScaleStablemaster = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneStablemaster or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -4203,7 +4203,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaStablemaster = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneStablemaster or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -4228,7 +4228,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneAuctioneer then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], MINIMAP_TRACKING_AUCTIONEER, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScaleAuctioneer = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneAuctioneer or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -4243,7 +4243,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaAuctioneer = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneAuctioneer or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -4268,7 +4268,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneBank then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], BANK, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScaleBank = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneBank or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -4283,7 +4283,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaBank = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneBank or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -4308,7 +4308,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneBarber then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], MINIMAP_TRACKING_BARBER, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScaleBarber = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneBarber or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -4323,7 +4323,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaBarber = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneBarber or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -4348,7 +4348,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneCatalyst then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], L["Catalyst"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScaleCatalyst = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneCatalyst or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -4363,7 +4363,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaCatalyst = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneCatalyst or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -4388,7 +4388,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneZidormi then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], L["Zidormi"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScaleZidormi = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneZidormi or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -4403,7 +4403,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaZidormi = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneZidormi or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -4428,7 +4428,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneTransmogger then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], MINIMAP_TRACKING_TRANSMOGRIFIER, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScaleTransmogger = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneTransmogger or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -4443,7 +4443,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaTransmogger = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneTransmogger or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -4468,7 +4468,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showZoneItemUpgrade then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Zone map"], ITEM_UPGRADE, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 ZoneScaleItemUpgrade = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneItemUpgrade or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -4483,7 +4483,7 @@ ns.options = {
                   width = 0.10,
                   },
                 ZoneAlphaItemUpgrade = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showZoneItemUpgrade or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap or not ns.Addon.db.profile.activate.ZoneGeneral or ns.Addon.db.profile.activate.ZoneGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -4963,7 +4963,7 @@ ns.options = {
                   },
                 minimapinstanceheader8 = {
                   type = "header",
-                  name = "",
+                  name = L["Show individual icons"],
                   order = 2.0,
                   },
                 showMiniMapRaids = {
@@ -4978,7 +4978,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapRaids then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Raids"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleRaids = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapRaids or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -4993,7 +4993,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaRaids = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapRaids or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5018,7 +5018,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapDungeons then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Dungeons"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleDungeons = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapDungeons or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -5033,7 +5033,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaDungeons = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapDungeons or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5058,7 +5058,7 @@ ns.options = {
                     if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapPassage then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Passages"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScalePassage = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapPassage or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -5073,7 +5073,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaPassage = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapPassage or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5098,7 +5098,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapMultiple then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Multiple"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleMultiple = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapMultiple or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -5113,7 +5113,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaMultiple = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapMultiple or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5138,7 +5138,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapOldVanilla then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. MINIMAP_LABEL, L["Old Instances"], "|cffff0000" ..  L["is deactivated"]) end end end,
                   },
                 MiniMapScaleOldVanilla = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapOldVanilla or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -5153,7 +5153,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaOldVanilla = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapOldVanilla or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5178,7 +5178,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapLFR then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. MINIMAP_LABEL, PLAYER_DIFFICULTY3, "|cffff0000" ..  L["is deactivated"]) end end end,
                   },
                 MiniMapScaleLFR = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapLFR or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -5193,7 +5193,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaLFR = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapLFR or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapInstances or ns.Addon.db.profile.activate.MiniMapInstanceSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5288,7 +5288,7 @@ ns.options = {
                   },
                 minimaptransportheader8 = {
                   type = "header",
-                  name = "",
+                  name = L["Show individual icons"],
                   order = 1.9,
                   },
                 showMiniMapPortals = {
@@ -5303,7 +5303,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapPortals then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Portals"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScalePortals = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapPortals or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -5318,7 +5318,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaPortals = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapPortals or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5343,7 +5343,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapZeppelins then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Zeppelins"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleZeppelins = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapZeppelins or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -5358,7 +5358,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaZeppelins = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapZeppelins or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5383,7 +5383,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapShips then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Ships"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleShips = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapShips or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -5398,7 +5398,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaShips = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapShips or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5423,7 +5423,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapTransport then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Transport"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleTransport = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapTransport or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -5438,7 +5438,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaTransport = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapTransport or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5463,7 +5463,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapOgreWaygate then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Ogre Waygate"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleOgreWaygate = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapOgreWaygate or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -5478,7 +5478,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaOgreWaygate = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapOgreWaygate or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5503,7 +5503,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapTeleporter then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Teleporter"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleTeleporter = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapTeleporter or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -5518,7 +5518,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaTeleporter = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapTeleporter or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5543,7 +5543,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapMirror then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Ever-Shifting Mirror"], L["Transport"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleMirror = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapMirror or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -5558,7 +5558,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaMirror = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapMirror or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5583,7 +5583,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapTravel then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Travel"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleTravel = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapTravel or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -5598,7 +5598,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaTravel = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapTravel or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5623,7 +5623,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapPortals then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, CALENDAR_FILTER_DARKMOON, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleDarkmoon = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapDarkmoon or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -5638,7 +5638,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaDarkmoon = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapDarkmoon or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapTransporting or ns.Addon.db.profile.activate.MiniMapTransportSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5728,23 +5728,23 @@ ns.options = {
                   },
                 minimapHAHeader = {
                   type = "header",
-                  name = "",
+                  name = L["Show individual icons"],
                   order = 1.0,
                   },
-                showMiniMapNotesIcons = {
+                showMiniMapMapNotesIcons = {
                   disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral end,
                   type = "toggle",
                   name = TextIconMNL4:GetIconString(),
                   desc = ns.COLORED_ADDON_NAME .. " " .. L["icons"] .. "\n" .. "\n" .. TextIconMNL4:GetIconString() .. " " .. L["This MapNotes icons shows various icons that are too close to each other together"] .. "\n" .. "\n" .. "Currently only possible on Khaz Algar and Pandaria Zones. More areas will follow later",
                   order = 1.1,
                   width = 0.50,
-                  get = function() return ns.Addon.db.profile.showMiniMapNotesIcons end,
-                  set = function(info, v) ns.Addon.db.profile.showMiniMapNotesIcons = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
-                        if not ns.Addon.db.profile.showMiniMapNotesIcons then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. MINIMAP_LABEL, L["icons"], "|cffff0000" .. L["are hidden"] ) else
-                        if ns.Addon.db.profile.showMiniMapNotesIcons then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. MINIMAP_LABEL, L["icons"], "|cff00ccff" .. L["are shown"] )end end end,
+                  get = function() return ns.Addon.db.profile.showMiniMapMapNotesIcons end,
+                  set = function(info, v) ns.Addon.db.profile.showMiniMapMapNotesIcons = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                        if not ns.Addon.db.profile.showMiniMapMapNotesIcons then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. MINIMAP_LABEL, L["icons"], "|cffff0000" .. L["are hidden"] ) else
+                        if ns.Addon.db.profile.showMiniMapMapNotesIcons then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. MINIMAP_LABEL, L["icons"], "|cff00ccff" .. L["are shown"] )end end end,
                   },
                 MiniMapScaleMapNotesIcons = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapMapNotesIcons or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -5759,7 +5759,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaMapNotesIcons = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapMapNotesIcons or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5785,7 +5785,7 @@ ns.options = {
                         if ns.Addon.db.profile.showMiniMapHordeAllyIcons then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. MINIMAP_LABEL, FACTION_HORDE .. " / " .. FACTION_ALLIANCE, L["icons"], "|cff00ccff" .. L["are shown"] )end end end,
                   },
                 MiniMapScaleHordeAllyIcons = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapHordeAllyIcons or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -5800,7 +5800,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaHordeAllyIcons = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapHordeAllyIcons or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5825,7 +5825,7 @@ ns.options = {
                     if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapPaths then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" ..  MINIMAP_LABEL, L["Paths"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScalePaths = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapPaths or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -5840,7 +5840,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaPaths = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapPaths or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5865,7 +5865,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapInnkeeper then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, MINIMAP_TRACKING_INNKEEPER, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleInnkeeper = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapInnkeeper or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -5880,7 +5880,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaInnkeeper = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapInnkeeper or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5905,7 +5905,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapMailbox then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, MINIMAP_TRACKING_MAILBOX, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleMailbox = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapMailbox or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -5920,7 +5920,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaMailbox = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapMailbox or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5945,7 +5945,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapPvPVendor then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, TRANSMOG_SET_PVP .. " " .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScalePvPVendor = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapPvPVendor or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -5960,7 +5960,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaPvPVendor = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapPvPVendor or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -5985,7 +5985,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapPvEVendor then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, TRANSMOG_SET_PVE .. " " .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScalePvEVendor = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapPvEVendor or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -6000,7 +6000,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaPvEVendor = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapPvEVendor or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -6025,7 +6025,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapStablemaster then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, MINIMAP_TRACKING_STABLEMASTER, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleStablemaster = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapStablemaster or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -6040,7 +6040,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaStablemaster = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapStablemaster or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -6065,7 +6065,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapAuctioneer then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, MINIMAP_TRACKING_AUCTIONEER, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleAuctioneer = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapAuctioneer or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -6080,7 +6080,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaAuctioneer = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapAuctioneer or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -6105,7 +6105,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapBank then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, BANK, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleBank = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapBank or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -6120,7 +6120,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaBank = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapBank or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -6145,7 +6145,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapBarber then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, MINIMAP_TRACKING_BARBER, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleBarber = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapBarber or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -6160,7 +6160,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaBarber = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapBarber or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -6185,7 +6185,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapCatalyst then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Catalyst"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleCatalyst = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapCatalyst or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -6200,7 +6200,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaCatalyst = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapCatalyst or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -6225,7 +6225,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapZidormi then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, L["Zidormi"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleZidormi = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapZidormi or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -6240,7 +6240,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaZidormi = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapZidormi or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -6265,7 +6265,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapTransmogger then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, MINIMAP_TRACKING_TRANSMOGRIFIER, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleTransmogger = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapTransmogger or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -6280,7 +6280,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaTransmogger = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapTransmogger or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -6305,7 +6305,7 @@ ns.options = {
                         if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMiniMapItemUpgrade then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. MINIMAP_LABEL, ITEM_UPGRADE, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
                   },
                 MiniMapScaleItemUpgrade = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapItemUpgrade or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol size"],
                   desc = L["Changes the size of the icons"],
@@ -6320,7 +6320,7 @@ ns.options = {
                   width = 0.10,
                   },
                 MiniMapAlphaItemUpgrade = {
-                  disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
+                  disabled = function() return not ns.Addon.db.profile.showMiniMapItemUpgrade or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.MiniMap or not ns.Addon.db.profile.activate.MiniMapGeneral or ns.Addon.db.profile.activate.MiniMapGeneralSyncScaleAlpha end,
                   type = "range",
                   name = L["symbol visibility"],
                   desc = L["Changes the visibility of the icons"],
@@ -7131,26 +7131,27 @@ ns.options = {
       desc = L["Certain icons can be displayed or not displayed. If the option (Activate icons) has been activated in this category"],
       order = 6,
       args = {
-        DungeonMapheader = {
-          type = "header",
-          name = TRACKER_HEADER_DUNGEON .. "-" .. BRAWL_TOOLTIP_MAPS .. " " .. L["Informations"],
-          order = 60,
-          },
-        DungeonMapDescriptionText = {
-          name = "|cffff0000" .. "======> " .. "|cffffff00" .. L["Left-click on one of these symbols on a map, the corresponding adventure guide or map of the destination will open"],
+        --DungeonMapheader = {
+        --  type = "header",
+        --  name = TRACKER_HEADER_DUNGEON .. "-" .. BRAWL_TOOLTIP_MAPS .. " " .. L["Informations"],
+        --  order = 1,
+        --  },
+        --DungeonMapDescriptionText = {
+        --  name = "|cffff0000" .. "======> " .. "|cffffff00" .. L["Left-click on one of these symbols on a map, the corresponding adventure guide or map of the destination will open"],
+        --  type = "description",
+        --  order = 1.1,
+        --  },      
+        DungeonMapHeader1 = {
           type = "description",
-          order = 60.1,
-          },      
-        DungeonMapheader1 = {
-            type = "description",
-            name = "",
-            order = 60.2,
-          },
+          name = "",
+          order = 1.0,
+          width = 1,
+          },    
         showDungeonMap = {
           type = "toggle",
           name = L["Activate icons"],
           desc = L["Enables the display of all possible icons on this map"],
-          order = 60.5,
+          order = 1.3,
           get = function() return ns.Addon.db.profile.activate.DungeonMap end,
           set = function(info, v) ns.Addon.db.profile.activate.DungeonMap = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
                 if not ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.DungeonMap and not WorldMapFrame:IsShown() then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(190) else 
@@ -7158,68 +7159,242 @@ ns.options = {
                 if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.DungeonMap and not WorldMapFrame:IsShown()then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(190) print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Dungeon map"], L["icons"], "|cff00ff00" .. L["is activated"]) else 
                 if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.DungeonMap and not WorldMapFrame:IsShown() then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(190) print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Dungeon map"], L["icons"], "|cffff0000" .. L["is deactivated"]) end end end end end,
           },
-        dungeonScale = {
+        DungeonMapSyncScaleAlpha = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap end,
+          type = "toggle",
+          name = L["Synchronize"],
+          desc = L["Dungeon map"] .. " " .. L["icons"] .. "\n" .. "\n" .. L["Synchronizes size and visibility of all individual symbols"] .. "\n" .. "\n" .. L["This disables the individual icon size and visibility sliders"] .. " " .. L["At the same time, all preset size and visibility settings of the individual symbols are replaced by the values set by these two sliders"],
+          width = 0.80,
+          order = 1.4,
+          confirm = true,
+          get = function() return ns.Addon.db.profile.activate.DungeonMapSyncScaleAlpha end,
+          set = function(info, v) ns.Addon.db.profile.activate.DungeonMapSyncScaleAlpha = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+                if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.DungeonMapSyncScaleAlpha then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["synchronizes"] .. " " .. L["Dungeon map"], L["symbol size"], L["symbol visibility"], "|cff00ff00" .. L["is activated"]) else 
+                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.DungeonMapSyncScaleAlpha then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["synchronizes"] .. " " .. L["Dungeon map"], L["symbol size"], L["symbol visibility"], "|cffff0000" .. L["is deactivated"]) end end end,
+          },
+        DungeonHeader2 = {
+          type = "description",
+          name = "",
+          order = 1.5,
+          },
+        DungeonHeader3 = {
+          type = "description",
+          name = "",
+          order = 1.6,
+          width = 0.60,
+          },
+        dungeonScale = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap or not ns.Addon.db.profile.activate.DungeonMapSyncScaleAlpha end,
           type = "range",
           name = L["symbol size"],
           desc = L["Changes the size of the icons"],
           min = 0.5, max = 6, step = 0.1,
           width = 1.25,  
-          order = 60.6,
+          order = 1.7,
           },
         dungeonAlpha = {
-          disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap end,
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap or not ns.Addon.db.profile.activate.DungeonMapSyncScaleAlpha end,
           type = "range",
           name = L["symbol visibility"],
           desc = L["Changes the visibility of the icons"],
           min = 0, max = 1, step = 0.1,
           width = 1.25,  
-          order = 60.7,
+          order = 1.8,
           },
         DungeonMapheader2 = {
           type = "header",
           name = L["Show individual icons"],
-          order = 61.0,
+          order = 2.0,
           },
         showDungeonExit = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap end,
           type = "toggle",
-          name = TextIconExit:GetIconString() .. " " .. L["Exits"],
-          desc = L["Show icons of MapNotes dungeon exit on this map"],
-          order = 62.1,
+          name = TextIconExit:GetIconString(),
+          desc = L["Exits"] .. "\n" .. "\n" .. L["Show icons of MapNotes dungeon exit on this map"],
+          order = 2.1,
           set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
                 if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showDungeonExit then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Dungeon map"], L["Exits"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
                 if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showDungeonExit then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Dungeon map"], L["Exits"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
           },
+        DungeonMapScaleExit = {
+          disabled = function() return not ns.Addon.db.profile.showDungeonExit or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap or ns.Addon.db.profile.activate.DungeonMapSyncScaleAlpha end,
+          type = "range",
+          name = L["symbol size"],
+          desc = L["Changes the size of the icons"],
+          min = 0.5, max = 6, step = 0.1,
+          width = 0.80,
+          order = 2.2,
+          },
+        DungeonMapHeaderScaleAlphaExit = {
+          type = "description",
+          name = "",
+          order = 2.3,
+          width = 0.10,
+          },
+        DungeonMapAlphaExit = {
+          disabled = function() return not ns.Addon.db.profile.showDungeonExit or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap or ns.Addon.db.profile.activate.DungeonMapSyncScaleAlpha end,
+          type = "range",
+          name = L["symbol visibility"],
+          desc = L["Changes the visibility of the icons"],
+          min = 0, max = 1, step = 0.1,
+          width = 0.80,
+          order = 2.4,
+          },
+        DungeonMapPortalHeader = {
+          type = "description",
+          name = "",
+          order = 3.0,
+          },
         showDungeonPortal = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap end,
           type = "toggle",
-          name = TextIconPortalOld:GetIconString() .. " " .. TextIconHPortalOld:GetIconString() .. " " .. TextIconAPortalOld:GetIconString() .. " " .. L["Portals"],
-          desc = L["Show icons of portals on this map"],
-          order = 62.2,
+          name = TextIconPortalOld:GetIconString() .. " " .. TextIconHPortalOld:GetIconString() .. " " .. TextIconAPortalOld:GetIconString(),
+          desc =  L["Portals"] .. "\n" .. "\n" .. L["Show icons of portals on this map"],
+          order = 3.1,
           set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
                 if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showDungeonPortal then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Dungeon map"], L["Portals"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
                 if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showDungeonPortal then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Dungeon map"], L["Portals"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
-          },    
+          },
+        DungeonMapScalePortal = {
+          disabled = function() return not ns.Addon.db.profile.showDungeonPortal or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap or ns.Addon.db.profile.activate.DungeonMapSyncScaleAlpha end,
+          type = "range",
+          name = L["symbol size"],
+          desc = L["Changes the size of the icons"],
+          min = 0.5, max = 6, step = 0.1,
+          width = 0.80,
+          order = 3.2,
+          },
+        DungeonMapHeaderScaleAlphaPortal = {
+          type = "description",
+          name = "",
+          order = 3.3,
+          width = 0.10,
+          },
+        DungeonMapAlphaPortal = {
+          disabled = function() return not ns.Addon.db.profile.showDungeonPortal or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap or ns.Addon.db.profile.activate.DungeonMapSyncScaleAlpha end,
+          type = "range",
+          name = L["symbol visibility"],
+          desc = L["Changes the visibility of the icons"],
+          min = 0, max = 1, step = 0.1,
+          width = 0.80,
+          order = 3.4,
+          },
+        DungeonMapPassageHeader = {
+          type = "description",
+          name = "",
+          order = 4.0,
+          },
         showDungeonPassage = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap end,
           type = "toggle",
-          name = TextIconPassageup:GetIconString() .. " " .. TextIconPassagedown:GetIconString() .. " " .. TextIconPassageright:GetIconString() .. " " .. TextIconPassageleft:GetIconString() .. " " .. L["Passages"],
-          desc = L["Show icons of passage on this map"],
-          order = 62.3,
+          name = TextIconPassageup:GetIconString() .. " " .. TextIconPassagedown:GetIconString() .. " " .. TextIconPassageright:GetIconString() .. " " .. TextIconPassageleft:GetIconString(),
+          desc = L["Passages"] .. "\n" .. "\n" .. L["Show icons of passage on this map"],
+          order = 4.1,
           set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
                 if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showDungeonPassage then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Dungeon map"], L["Passages"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
                 if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showDungeonPassage then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Dungeon map"], L["Passages"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
           },
-          showDungeonTransport = {
+        DungeonMapScalePassage = {
+          disabled = function() return not ns.Addon.db.profile.showDungeonPassage or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap or ns.Addon.db.profile.activate.DungeonMapSyncScaleAlpha end,
+          type = "range",
+          name = L["symbol size"],
+          desc = L["Changes the size of the icons"],
+          min = 0.5, max = 6, step = 0.1,
+          width = 0.80,
+          order = 4.2,
+          },
+        DungeonMapHeaderScaleAlphaPassage = {
+          type = "description",
+          name = "",
+          order = 4.3,
+          width = 0.10,
+          },
+        DungeonMapAlphaPassage = {
+          disabled = function() return not ns.Addon.db.profile.showDungeonPassage or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap or ns.Addon.db.profile.activate.DungeonMapSyncScaleAlpha end,
+          type = "range",
+          name = L["symbol visibility"],
+          desc = L["Changes the visibility of the icons"],
+          min = 0, max = 1, step = 0.1,
+          width = 0.80,
+          order = 4.4,
+          },
+        DungeonMapTransportHeader = {
+          type = "description",
+          name = "",
+          order = 5.0,
+          },
+        showDungeonTransport = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap end,
           type = "toggle",
-          name = TextIconTravelL:GetIconString() .. " " .. TextIconTransport:GetIconString() .. " " .. L["Transport"],
-          desc = L["Shows special transport icons like"],
-          order = 62.4,
+          name = TextIconTravelL:GetIconString() .. " " .. TextIconTransport:GetIconString(),
+          desc = L["Transport"] .. "\n" .. "\n" .. L["Shows special transport icons like"] .. "\n" .. TextIconTravelL:GetIconString() .. "\n" .. TextIconTransport:GetIconString(),
+          order = 5.1,
           set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
                 if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showDungeonTransport then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Dungeon map"], L["Transport"], L["icons"], "|cff00ff00" .. L["are shown"]) else 
                 if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showDungeonTransport then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Dungeon map"], L["Transport"], L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+          },
+        DungeonMapScaleTransport = {
+          disabled = function() return not ns.Addon.db.profile.showDungeonTransport or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap or ns.Addon.db.profile.activate.DungeonMapSyncScaleAlpha end,
+          type = "range",
+          name = L["symbol size"],
+          desc = L["Changes the size of the icons"],
+          min = 0.5, max = 6, step = 0.1,
+          width = 0.80,
+          order = 5.2,
+          },
+        DungeonMapHeaderScaleAlphaTransport = {
+          type = "description",
+          name = "",
+          order = 5.3,
+          width = 0.10,
+          },
+        DungeonMapAlphaTransport = {
+          disabled = function() return not ns.Addon.db.profile.showDungeonTransport or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap or ns.Addon.db.profile.activate.DungeonMapSyncScaleAlpha end,
+          type = "range",
+          name = L["symbol visibility"],
+          desc = L["Changes the visibility of the icons"],
+          min = 0, max = 1, step = 0.1,
+          width = 0.80,
+          order = 5.4,
+          },
+        DungeonMapVendorHeader = {
+          type = "description",
+          name = "",
+          order = 6.0,
+          },
+        showDungeonVendor = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap end,
+          type = "toggle",
+          name = TextIconPvEVendor:GetIconString() .. " " .. TextIconPvPVendor:GetIconString(),
+          desc =  L["Transport"] .. "\n" .. "\n" .. L["Shows special transport icons like"] .. "\n" .. TextIconPvEVendor:GetIconString() .. "\n" .. TextIconPvPVendor:GetIconString(),
+          order = 6.1,
+          set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showDungeonVendor then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Dungeon map"], MERCHANT, L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showDungeonVendor then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Dungeon map"], MERCHANT, L["icons"], "|cffff0000" .. L["are hidden"])end end end,
+          },
+        DungeonMapScaleVendor = {
+          disabled = function() return not ns.Addon.db.profile.showDungeonVendor or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap or ns.Addon.db.profile.activate.DungeonMapSyncScaleAlpha end,
+          type = "range",
+          name = L["symbol size"],
+          desc = L["Changes the size of the icons"],
+          min = 0.5, max = 6, step = 0.1,
+          width = 0.80,
+          order = 6.2,
+          },
+        DungeonMapHeaderScaleAlphaVendor = {
+          type = "description",
+          name = "",
+          order = 6.3,
+          width = 0.10,
+          },
+        DungeonMapAlphaVendor = {
+          disabled = function() return not ns.Addon.db.profile.showDungeonVendor or ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap or ns.Addon.db.profile.activate.DungeonMapSyncScaleAlpha end,
+          type = "range",
+          name = L["symbol visibility"],
+          desc = L["Changes the visibility of the icons"],
+          min = 0, max = 1, step = 0.1,
+          width = 0.80,
+          order = 6.4,
           },
         },
       },

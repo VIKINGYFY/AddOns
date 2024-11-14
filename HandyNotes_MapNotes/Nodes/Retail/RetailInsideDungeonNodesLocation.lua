@@ -15,6 +15,17 @@ if not db.activate.HideMapNote then
     --#####################################################################################################
     
     if db.activate.DungeonMap then
+
+        --################################
+        --## Inside Dungeon PVE Vendor  ##
+        --################################
+
+        if self.db.profile.showDungeonVendor then
+
+          -- IcecrownGlacier
+          nodes[186][38202160] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, type = "PvEVendor", showInZone = true }
+        
+        end
     
     
         --################################

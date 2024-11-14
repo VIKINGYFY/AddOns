@@ -148,8 +148,8 @@ ns.defaults = {
       journal = true,
       tomtom = true,
       extraInformation = true,
-      assignedgray = true,
-      graymultipleID = true,
+      graySingleID = true,
+      grayMultipleID = true,
       CoreChatMassage = true,
       MmbWmbChatMessage = true,
       ChatMassage = false,
@@ -223,7 +223,7 @@ ns.defaults = {
     -- MiniMap General
       showMiniMapFP = true, -- only Classic+
       showMiniMapGhost = true, -- only Classic+
-      showMiniMapNotesIcons = false,
+      showMiniMapMapNotesIcons = false,
       showMiniMapHordeAllyIcons = true,
       showMiniMapInnkeeper = true,
       showMiniMapAuctioneer = true,
@@ -391,6 +391,7 @@ ns.defaults = {
       showDungeonPassage = true,
       showDungeonPortal = true,
       showDungeonTransport = true,
+      showDungeonVendor = true,
 
     --6 Capitals tab
       showCapitals = true,

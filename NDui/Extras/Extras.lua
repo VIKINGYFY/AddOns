@@ -19,10 +19,30 @@ function EX:OnLogin()
 
 	self:ActionBarGlow()
 	self:AutoHideName()
+	self:AutoSetFilter()
 	self:InstanceAutoMarke()
 	self:InstanceDifficulty()
 	self:InstanceReset()
 	self:MDEnhance()
+end
+
+-- 自动隐藏名字，防止卡屏
+function EX:AutoHideName()
+	SetCVar("UnitNameEnemyMinionName", 0)
+	SetCVar("UnitNameEnemyPetName", 0)
+	SetCVar("UnitNameEnemyPlayerName", 0)
+	SetCVar("UnitNameEnemyTotemName", 0)
+	SetCVar("UnitNameFriendlyMinionName", 0)
+	SetCVar("UnitNameFriendlyPetName", 0)
+	SetCVar("UnitNameFriendlyPlayerName", 0)
+	SetCVar("UnitNameFriendlyTotemName", 0)
+end
+
+-- 自动关掉公会过滤，防止卡屏
+function EX:AutoSetFilter()
+	for i=1, 9 do
+		SetGuildNewsFilter(i, 0)
+	end
 end
 
 -- 副本重置自动喊话
@@ -49,7 +69,7 @@ function EX.UpdateInstanceDifficulty()
 			local _, instanceType, difficultyID, difficultyName = GetInstanceInfo()
 			if instanceType == "party" then
 				if difficultyID == 8 then
-					difficultyName = difficultyName..":"..C_ChallengeMode.GetActiveKeystoneInfo()
+					difficultyName = difficultyName.."-"..C_ChallengeMode.GetActiveKeystoneInfo()
 				end
 				if not IsInGroup() then
 					UIErrorsFrame:AddMessage(format(DB.InfoColor..L["Instance Difficulty"], difficultyName))
@@ -84,18 +104,45 @@ function EX:InstanceAutoMarke()
 	B:RegisterEvent("UPDATE_INSTANCE_INFO", self.UpdateInstanceAutoMarke)
 end
 
--- 自动隐藏名字，防止卡屏
-function EX.UpdateAutoHideName()
-	SetCVar("UnitNameEnemyMinionName", 0)
-	SetCVar("UnitNameEnemyPetName", 0)
-	SetCVar("UnitNameEnemyPlayerName", 0)
-	SetCVar("UnitNameEnemyTotemName", 0)
-	SetCVar("UnitNameFriendlyMinionName", 0)
-	SetCVar("UnitNameFriendlyPetName", 0)
-	SetCVar("UnitNameFriendlyPlayerName", 0)
-	SetCVar("UnitNameFriendlyTotemName", 0)
-end
+-- 宏界面扩展和修复
+do
+	local AddSelectHeight = 100
+	local AddTextHeight = 100
+	local tempScrollPer = nil
+	local function Init()
+		hooksecurefunc(MacroFrame, "SelectMacro", function(self, index)
+			if tempScrollPer then
+				MacroFrame.MacroSelector.ScrollBox:SetScrollPercentage(tempScrollPer)
+				tempScrollPer = nil
+			end
+		end)
+		MacroFrame.MacroSelector:SetHeight(146 + AddSelectHeight)
+		MacroHorizontalBarLeft:SetPoint("TOPLEFT", 2, -210 - AddSelectHeight)
+		MacroFrameSelectedMacroBackground:SetPoint("TOPLEFT", 2, -218 - AddSelectHeight)
+		MacroFrameTextBackground:SetPoint("TOPLEFT", 6, -289 - AddSelectHeight)
+		local h = MacroFrame:GetHeight()
+		MacroFrame:SetHeight(h + AddTextHeight + AddSelectHeight)
+		MacroFrameScrollFrame:SetHeight(85 + AddTextHeight)
+		MacroFrameText:SetHeight(85 + AddTextHeight)
+		MacroFrameTextButton:SetHeight(85 + AddTextHeight)
+		MacroFrameTextBackground:SetHeight(95 + AddTextHeight)
+	end
 
-function EX:AutoHideName()
-	B:RegisterEvent("PLAYER_ENTERING_WORLD", self.UpdateAutoHideName)
+	if MacroFrame then
+		Init()
+	else
+		local f = CreateFrame("Frame")
+		f:SetScript("OnEvent", function(self, evnet, addon)
+			if evnet == "ADDON_LOADED" then
+				if addon == "Blizzard_MacroUI" then
+					Init()
+					f:UnregisterEvent("ADDON_LOADED")
+				end
+			elseif MacroFrame then
+				tempScrollPer = MacroFrame.MacroSelector.ScrollBox.scrollPercentage
+			end
+		end)
+		f:RegisterEvent("ADDON_LOADED")
+		f:RegisterEvent("UPDATE_MACROS")
+	end
 end

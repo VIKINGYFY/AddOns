@@ -6,6 +6,28 @@ local cr, cg, cb = DB.r, DB.g, DB.b
 
 local ACCOUNT_BANK_TYPE = Enum.BankType.Account or 2
 
+local sortCache = {}
+function module:ReverseSort()
+	for bag = 0, 4 do
+		local numSlots = C_Container.GetContainerNumSlots(bag)
+		for slot = 1, numSlots do
+			local info = C_Container.GetContainerItemInfo(bag, slot)
+			local texture = info and info.iconFileID
+			local locked = info and info.isLocked
+			if (slot <= numSlots/2) and texture and not locked and not sortCache["b"..bag.."s"..slot] then
+				C_Container.PickupContainerItem(bag, slot)
+				C_Container.PickupContainerItem(bag, numSlots+1 - slot)
+				sortCache["b"..bag.."s"..slot] = true
+			end
+		end
+	end
+
+	module.Bags.isSorting = false
+	module:UpdateAllBags()
+end
+
+local anchorCache = {}
+
 local function CheckForBagReagent(name)
 	local pass = true
 	if name == "BagReagent" and C_Container.GetContainerNumSlots(5) == 0 then
@@ -14,7 +36,6 @@ local function CheckForBagReagent(name)
 	return pass
 end
 
-local anchorCache = {}
 function module:UpdateBagsAnchor(parent, bags)
 	table.wipe(anchorCache)
 
@@ -432,7 +453,18 @@ function module:CreateSortButton(name)
 		elseif name == "Account" then
 			C_Container.SortAccountBankBags()
 		else
-			C_Container.SortBags()
+			if InCombatLockdown() then
+				UIErrorsFrame:AddMessage(DB.InfoColor..ERR_NOT_IN_COMBAT)
+				return
+			end
+			if C.db["Bags"]["BagSortMode"] == 1 then
+				C_Container.SortBags()
+			elseif C.db["Bags"]["BagSortMode"] == 2 then
+				C_Container.SortBags()
+				table.wipe(sortCache)
+				module.Bags.isSorting = true
+				C_Timer.After(.5, module.ReverseSort)
+			end
 		end
 	end)
 	bu.title = L["Sort"]
@@ -1367,7 +1399,7 @@ function module:OnLogin()
 	end
 
 	-- Sort order
-	C_Container.SetSortBagsRightToLeft(true)
+	C_Container.SetSortBagsRightToLeft(C.db["Bags"]["BagSortMode"] == 1)
 	C_Container.SetInsertItemsLeftToRight(false)
 
 	-- Init

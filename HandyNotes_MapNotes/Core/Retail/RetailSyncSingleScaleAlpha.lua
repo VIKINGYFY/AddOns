@@ -162,6 +162,24 @@ function ns.SyncSingleScaleAlpha()
 
   end
 
+  -- DungeonMap
+  if db.activate.DungeonMapSyncScaleAlpha then
+ 
+    -- Scale
+    db.DungeonMapScaleExit = db.dungeonScale
+    db.DungeonMapScalePortal = db.dungeonScale
+    db.DungeonMapScalePassage = db.dungeonScale
+    db.DungeonMapScaleTransport = db.dungeonScale
+    db.DungeonMapScaleVendor = db.dungeonScale
+    -- Alpha
+    db.DungeonMapAlphaExit = db.dungeonAlpha
+    db.DungeonMapAlphaPortal = db.dungeonAlpha
+    db.DungeonMapAlphaPassage = db.dungeonAlpha
+    db.DungeonMapAlphaTransport = db.dungeonAlpha
+    db.DungeonMapAlphaVendor = db.dungeonAlpha
+
+  end
+
   -- MiniMap Instance
   if db.activate.MiniMapInstanceSyncScaleAlpha then
 
@@ -211,38 +229,38 @@ function ns.SyncSingleScaleAlpha()
   -- Minimap General
   if db.activate.MiniMapGeneralSyncScaleAlpha then
 
-      -- Scale
-      db.MiniMapScaleMapNotesIcons = db.MiniMapGeneralScale
-      db.MiniMapScaleHordeAllyIcons = db.MiniMapGeneralScale
-      db.MiniMapScaleInnkeeper = db.MiniMapGeneralScale
-      db.MiniMapScaleAuctioneer = db.MiniMapGeneralScale
-      db.MiniMapScaleBank = db.MiniMapGeneralScale
-      db.MiniMapScaleBarber = db.MiniMapGeneralScale
-      db.MiniMapScaleMailbox = db.MiniMapGeneralScale
-      db.MiniMapScalePvPVendor = db.MiniMapGeneralScale
-      db.MiniMapScalePvEVendor = db.MiniMapGeneralScale
-      db.MiniMapScaleStablemaster = db.MiniMapGeneralScale
-      db.MiniMapScaleCatalyst = db.MiniMapGeneralScale
-      db.MiniMapScaleZidormi = db.MiniMapGeneralScale
-      db.MiniMapScaleTransmogger = db.MiniMapGeneralScale
-      db.MiniMapScaleItemUpgrade = db.MiniMapGeneralScale
-      db.MiniMapScalePaths = db.MiniMapGeneralScale
-      -- Alpha
-      db.MiniMapAlphaMapNotesIcons = db.MiniMapGeneralAlpha
-      db.MiniMapAlphaHordeAllyIcons = db.MiniMapGeneralAlpha
-      db.MiniMapAlphaInnkeeper = db.MiniMapGeneralAlpha
-      db.MiniMapAlphaAuctioneer = db.MiniMapGeneralAlpha
-      db.MiniMapAlphaBank = db.MiniMapGeneralAlpha
-      db.MiniMapAlphaBarber = db.MiniMapGeneralAlpha
-      db.MiniMapAlphaMailbox = db.MiniMapGeneralAlpha
-      db.MiniMapAlphaPvPVendor = db.MiniMapGeneralAlpha
-      db.MiniMapAlphaPvEVendor = db.MiniMapGeneralAlpha
-      db.MiniMapAlphaStablemaster = db.MiniMapGeneralAlpha
-      db.MiniMapAlphaCatalyst = db.MiniMapGeneralAlpha
-      db.MiniMapAlphaZidormi = db.MiniMapGeneralAlpha
-      db.MiniMapAlphaTransmogger = db.MiniMapGeneralAlpha
-      db.MiniMapAlphaItemUpgrade = db.MiniMapGeneralAlpha
-      db.MiniMapAlphaPaths = db.MiniMapGeneralAlpha
+    -- Scale
+    db.MiniMapScaleMapNotesIcons = db.MiniMapGeneralScale
+    db.MiniMapScaleHordeAllyIcons = db.MiniMapGeneralScale
+    db.MiniMapScaleInnkeeper = db.MiniMapGeneralScale
+    db.MiniMapScaleAuctioneer = db.MiniMapGeneralScale
+    db.MiniMapScaleBank = db.MiniMapGeneralScale
+    db.MiniMapScaleBarber = db.MiniMapGeneralScale
+    db.MiniMapScaleMailbox = db.MiniMapGeneralScale
+    db.MiniMapScalePvPVendor = db.MiniMapGeneralScale
+    db.MiniMapScalePvEVendor = db.MiniMapGeneralScale
+    db.MiniMapScaleStablemaster = db.MiniMapGeneralScale
+    db.MiniMapScaleCatalyst = db.MiniMapGeneralScale
+    db.MiniMapScaleZidormi = db.MiniMapGeneralScale
+    db.MiniMapScaleTransmogger = db.MiniMapGeneralScale
+    db.MiniMapScaleItemUpgrade = db.MiniMapGeneralScale
+    db.MiniMapScalePaths = db.MiniMapGeneralScale
+    -- Alpha
+    db.MiniMapAlphaMapNotesIcons = db.MiniMapGeneralAlpha
+    db.MiniMapAlphaHordeAllyIcons = db.MiniMapGeneralAlpha
+    db.MiniMapAlphaInnkeeper = db.MiniMapGeneralAlpha
+    db.MiniMapAlphaAuctioneer = db.MiniMapGeneralAlpha
+    db.MiniMapAlphaBank = db.MiniMapGeneralAlpha
+    db.MiniMapAlphaBarber = db.MiniMapGeneralAlpha
+    db.MiniMapAlphaMailbox = db.MiniMapGeneralAlpha
+    db.MiniMapAlphaPvPVendor = db.MiniMapGeneralAlpha
+    db.MiniMapAlphaPvEVendor = db.MiniMapGeneralAlpha
+    db.MiniMapAlphaStablemaster = db.MiniMapGeneralAlpha
+    db.MiniMapAlphaCatalyst = db.MiniMapGeneralAlpha
+    db.MiniMapAlphaZidormi = db.MiniMapGeneralAlpha
+    db.MiniMapAlphaTransmogger = db.MiniMapGeneralAlpha
+    db.MiniMapAlphaItemUpgrade = db.MiniMapGeneralAlpha
+    db.MiniMapAlphaPaths = db.MiniMapGeneralAlpha
 
   end
 

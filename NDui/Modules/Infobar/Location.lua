@@ -56,7 +56,7 @@ local function FormatCoords()
 		elseif instanceType == "pvp" then
 			zoneCoord = BATTLEGROUND
 		elseif difficultyID == 8 then
-			zoneCoord = difficultyName..":"..C_ChallengeMode.GetActiveKeystoneInfo()
+			zoneCoord = difficultyName.."-"..C_ChallengeMode.GetActiveKeystoneInfo()
 		else
 			zoneCoord = difficultyName
 		end

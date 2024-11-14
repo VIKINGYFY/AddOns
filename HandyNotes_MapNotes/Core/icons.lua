@@ -166,6 +166,7 @@ ns.icons = {
 ["MultipleD"] = iconLink .. "multipleD",
 ["MultipleR"] = iconLink .. "multipleR",
 ["Gray"] = iconLink .. "gray",
+["GrayALL"] = iconLink .. "grayALL",
 --zeppelin
 ["Zeppelin"] = iconLink .. "portal",
 ["HZeppelin"] = iconLink .. "hportal",
@@ -413,6 +414,7 @@ TextIconPassageDungeonRaidMultiM = TextIcon(iconLink .. "PassageDungeonRaidMulti
 TextIconPassageDungeonMultiM = TextIcon(iconLink .. "PassageDungeonMulti", 50, 50, 1, 50, 1, 50)
 TextIconPassageRaidMultiM = TextIcon(iconLink .. "PassageRaidMulti", 50, 50, 1, 50, 1, 50)
 TextIconLocked = TextIcon(iconLink .. "gray", 50, 50, 1, 50, 1, 50)
+TextIconLockedALL = TextIcon(iconLink .. "grayALL", 50, 50, 1, 50, 1, 50)
 --zeppelin
 TextIconZeppelin = TextIcon(iconLink .. "portal", 70, 70, 1, 50, 1, 50)
 TextIconHZeppelin = TextIcon(iconLink .. "hportal", 70, 70, 1, 50, 1, 50)

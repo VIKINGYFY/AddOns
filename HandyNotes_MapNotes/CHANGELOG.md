@@ -1,12 +1,9 @@
 # MapNote
-## [2.5.0](https://github.com/Ssesmar/MapNote) (2024-10-30)
+## [2.5.1](https://github.com/Ssesmar/MapNote) (2024-11-14)
 - Note:
 
 Retail
-Darkmoon Portal has been removed from the Portal group within the Zones + tab (Transport Symbols) and is now independent in the Transport Symbols category under Darkmoon
-The color of the path icons has been changed. This means people with a color deficiency can recognize them better
-some revisions to symbols
-some small changes
+ Dungeon tab icons can now be controlled separately
 
 
 - Description:

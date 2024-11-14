@@ -220,6 +220,8 @@ C.themes["Blizzard_AchievementUI"] = function()
 	local bar = AchievementFrameSummaryCategoriesStatusBar
 	if bar then
 		SetupStatusbar(bar)
+		_G[bar:GetName().."Title"]:SetTextColor(1, 1, 1)
+		_G[bar:GetName().."Title"]:SetPoint("LEFT", bar, "LEFT", 6, -1)
 	end
 
 	AchievementFrameSummaryAchievementsEmptyText:SetText("")

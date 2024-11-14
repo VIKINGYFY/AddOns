@@ -546,23 +546,34 @@ do
 				end
 			end
 
-      if (anyLocked and db.graymultipleID) or ((allLocked and not db.graymultipleID) and db.assignedgray) then
+      -- old assigned
+      --if (anyLocked and db.graymultipleID) or ((allLocked and not db.graymultipleID) and db.graySingleID) then   
+      --  icon = ns.icons["Gray"]
+      --end
+
+      -- new assigned function single
+      if anyLocked and db.graySingleID and allLocked then
         icon = ns.icons["Gray"]
       end
 
-      if (value.type == "LFR") then 
-        icon = ns.icons["LFR"] 
+      -- new assigned function multi
+      if (anyLocked and db.grayMultipleID) then
+        icon = ns.icons["Gray"]
       end
 
-      if (value.type == "HIcon") then 
-        icon = ns.icons["HIcon"] 
+      if (value.type == "LFR") then
+        icon = ns.icons["LFR"]
       end
 
-      if (value.type == "AIcon") then 
-        icon = ns.icons["AIcon"] 
+      if (value.type == "HIcon") then
+        icon = ns.icons["HIcon"]
       end
 
-      if (anyLocked and db.invertlockout) or ((allLocked and not db.invertlockout) and db.uselockoutalpha) then
+      if (value.type == "AIcon") then
+        icon = ns.icons["AIcon"]
+      end
+
+      if (anyLocked and db.invertlockout) or (allLocked and not db.invertlockout) then
 				alpha = db.mapnoteAlpha
       else
 				alpha = db.mapnoteAlpha
@@ -754,10 +765,42 @@ do
       end
 
       -- inside Dungeon
-      if (mapInfo.mapType == 4 or mapInfo.mapType == 6) and not ns.CapitalIDs and not ns.ZoneIDs then 
+      if (mapInfo.mapType == 4 or mapInfo.mapType == 6) and not ns.CapitalIDs and not ns.ZoneIDs then
           scale = db.dungeonScale
           alpha = db.dungeonAlpha
       end
+
+      -- Dungeon Single scale / alpha
+      if (mapInfo.mapType == 4 or mapInfo.mapType == 6) and not ns.CapitalIDs and not ns.ZoneIDs then
+
+        if value.type == "Exit" then
+          scale = db.DungeonMapScaleExit
+          alpha = db.DungeonMapAlphaExit
+        end
+
+        if value.type == "Portal" or value.type == "PortalS" or value.type == "HPortal" or value.type == "APortal" or value.type == "HPortalS" or value.type == "APortalS" or value.type == "PassageHPortal" 
+          or value.type == "PassageAPortal" then
+          scale = db.DungeonMapScalePortal
+          alpha = db.DungeonMapAlphaPortal
+        end
+
+        if value.type == "PassageUpL" or value.type == "PassageDownL" or value.type == "PassageRightL" or value.type == "PassageLeftL" then
+          scale = db.DungeonMapScalePassage
+          alpha = db.DungeonMapAlphaPassage
+        end
+
+        if value.type == "Tport2" or value.type == "TravelM" or value.type == "TravelL" or value.type == "TravelH" or value.type == "TravelA" then
+          scale = db.DungeonMapScaleTransport
+          alpha = db.DungeonMapAlphaTransport
+        end
+
+        if value.type == "PvEVendor" or value.type == "PvPVendor" then
+          scale = db.DungeonMapScaleVendor
+          alpha = db.DungeonMapAlphaVendor
+        end
+
+      end
+
 
       -- Profession Minimap icons in Capitals
       if ns.professionIcons and ns.CapitalMiniMapIDs and (value.showOnMinimap == true) then
@@ -1057,9 +1100,20 @@ do
 						end
 					end
 
-          if (anyLocked and db.graymultipleID) or ((allLocked and not db.graymultipleID) and db.assignedgray) then   
-						icon = ns.icons["Gray"]
-					end
+          -- old assigned function
+          --if (anyLocked and db.graymultipleID) or ((allLocked and not db.graymultipleID) and db.graySingleID) then   
+					--	icon = ns.icons["Gray"]
+					--end
+
+          -- new assigned function single
+          if anyLocked and db.graySingleID and allLocked then
+            icon = ns.icons["Gray"]
+          end
+
+          -- new assigned function multi
+          if (anyLocked and db.grayMultipleID) then
+            icon = ns.icons["Gray"]
+          end
 
           if (value.type == "LFR") then
             icon = ns.icons["LFR"]
@@ -1073,7 +1127,7 @@ do
             icon = ns.icons["AIcon"]
           end
 
-          if (anyLocked and db.invertlockout) or ((allLocked and not db.invertlockout) and db.uselockoutalpha) then
+          if (anyLocked and db.invertlockout) or (allLocked and not db.invertlockout) then
 						alpha = db.continentAlpha
           else
             alpha = db.continentAlpha

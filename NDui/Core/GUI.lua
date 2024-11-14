@@ -100,6 +100,7 @@ G.DefaultSettings = {
 		BankWidth = 14,
 		AccountWidth = 20,
 		BagsiSlot = true,
+		BagSortMode = 1,
 		ItemFilter = true,
 		CustomItems = {},
 		CustomNames = {},
@@ -796,6 +797,10 @@ local function setupAuraWatch()
 	SlashCmdList["NDUI_AWCONFIG"]()
 end
 
+local function updateBagSortOrder()
+	C_Container.SetSortBagsRightToLeft(C.db["Bags"]["BagSortMode"] == 1)
+end
+
 local function updateBagStatus()
 	B:GetModule("Bags"):UpdateAllBags()
 end
@@ -1139,9 +1144,10 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{1, "Bags", "Enable", HeaderTag..L["Enable Bags"]},
 		{},--blank
 		{1, "Bags", "ItemFilter", L["Bags ItemFilter"].."*", nil, setupBagFilter, updateBagStatus},
-		{1, "Bags", "GatherEmpty", L["Bags GatherEmpty"].."*", true, nil, updateBagStatus},
-		{1, "Bags", "BagsiSlot", L["Bags ItemSlot"].."*", nil, nil, updateBagStatus},
 		{1, "Bags", "SpecialJunk", L["SpecialJunk"], true, nil, nil, L["SpecialJunkTip"]},
+		{1, "Bags", "GatherEmpty", L["Bags GatherEmpty"].."*", nil, nil, updateBagStatus},
+		{1, "Bags", "BagsiSlot", L["Bags ItemSlot"].."*", nil, nil, updateBagStatus},
+		{4, "Bags", "BagSortMode", L["BagSortMode"].."*", true, {L["Forward"], L["Backward"]}, updateBagSortOrder, L["BagSortTip"]},
 		{3, "Bags", "iLvlToShow", L["iLvlToShow"].."*", nil, {1, 1000, 1}, nil, L["iLvlToShowTip"]},
 		{3, "Bags", "iExpToShow", L["iExpToShow"].."*", true, {0, 10, 1}, nil, L["iExpToShowTip"]},
 		{},--blank
