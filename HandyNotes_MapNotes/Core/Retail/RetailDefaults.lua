@@ -144,6 +144,20 @@ ns.defaults = {
       MiniMapScalePaths = 1.5,
       MiniMapAlphaPaths = 1,
 
+      -- Dungeon single icon scale and alpha
+      dungeonScale = 2,
+      dungeonAlpha = 1,
+      DungeonMapScaleExit = 2,
+      DungeonMapAlphaExit = 1,
+      DungeonMapScalePortal = 2,
+      DungeonMapAlphaPortal = 1,
+      DungeonMapScalePassage = 2,
+      DungeonMapAlphaPassage = 1,
+      DungeonMapScaleTransport = 2,
+      DungeonMapAlphaTransport = 1,
+      DungeonMapScaleVendor = 2,
+      DungeonMapAlphaVendor = 1,
+
     --0 General tab
       journal = true,
       tomtom = true,
@@ -385,8 +399,6 @@ ns.defaults = {
       showCosmosKhazAlgar = true,
 
     --6 Inside Dungeon Map tab
-      dungeonScale = 2,
-      dungeonAlpha = 1,
       showDungeonExit = true,
       showDungeonPassage = true,
       showDungeonPortal = true,

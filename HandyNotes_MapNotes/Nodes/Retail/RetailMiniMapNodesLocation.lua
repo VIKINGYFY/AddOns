@@ -55,9 +55,9 @@ if not db.activate.HideMapNote then
 
               --20 Year Event
               minimap[71][62394937] = { name = "", type = "PortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. L["Twilight Highlands"] .. "\n" .. L["Portal"] .. " ==> " .. L["Uldum"] .. "\n" .. L["Portal"] .. " ==> " .. DUNGEON_FLOOR_DRAGONBLIGHTCHROMIESCENARIO3 .. "\n" .. "\n" .. OR_CAPS .. "\n" .. "\n" .. L["Portal"] .. " ==> " .. L["Stormsong Valley"] .. "\n" .. L["Portal"] .. " ==> " .. L["Drustvar"] .. "\n" .. L["Portal"] .. " ==> " .. L["Tiragarde Sound"] } -- Portals
-              minimap[198][34213089] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Hyjal
-              minimap[1527][69923469] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Uldum
-              minimap[241][59601682] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Shadowmoon Valley
+              -- minimap[198][34213089] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Hyjal
+              -- minimap[1527][69923469] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Uldum
+              -- minimap[241][59601682] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Shadowmoon Valley
               ---
 
               minimap[57][26305072] = { mnID = 89, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Darnassus"] .. " " .. L["Portal"] .. "\n" .. " ==> " .. L["Rut'theran"] } -- Portal To Teldrassil from Darnassus
@@ -157,6 +157,10 @@ if not db.activate.HideMapNote then
 
           --Eastern Kingdom Portals
             if self.db.profile.showMiniMapPortals then
+
+            -- 20 Year Event
+            -- minimap[241][59601682] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Shadowmoon Valley
+            ---
 
               minimap[244][47135189] = { mnID = 85, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .."\n" .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " " .. JUST_OR .. "\n" .. " ==> " .. STORMWIND } -- Portal Tol Orgrimmar or Stormwind from Baradinhold Tol Barad pvp Area
 
@@ -697,6 +701,13 @@ if not db.activate.HideMapNote then
 
           -- Shadowlands Portals
             if self.db.profile.showMiniMapPortals then
+
+              -- 20 Year Event
+              minimap[1565][68211992] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Ardenweald
+              minimap[1525][65945754] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Revendreth
+              minimap[1970][64655393] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Zereth Mortis
+              ---
+
               minimap[1543][42424210] = { mnID = 1670, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. L["Oribos"] .. " " .. DUNGEON_FLOOR_GILNEAS2 } -- the Maw
               minimap[1961][64472406] = { mnID = 1671, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. L["Oribos"] .. " " .. DUNGEON_FLOOR_GILNEAS3 } -- Korthia to Oribos
               minimap[1970][32956973] = { mnID = 1671, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. L["Oribos"] .. " " .. DUNGEON_FLOOR_GILNEAS3 } -- Zereth Morthis to Oribos

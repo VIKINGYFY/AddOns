@@ -77,6 +77,8 @@ local list = {
 		{AuraID = 456370, UnitID = "player"}, -- 低温冰冻
 		{AuraID = 458745, UnitID = "player"}, -- 骨化锋刺
 		{AuraID = 460049, UnitID = "player"}, -- 苦痛凌虐
+		{AuraID = 469169, UnitID = "player"}, -- 凄惨痛快
+
 	},
 }
 

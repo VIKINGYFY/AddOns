@@ -7,12 +7,15 @@ local function IsAzeriteAvailable()
 	return itemLocation and itemLocation:IsEquipmentSlot() and not C_AzeriteItem.IsAzeriteItemAtMaxLevel()
 end
 
+local function GetCMPText(var, varMax)
+	return format("%s / %s (%.1f%%)", B.Numb(var), B.Numb(varMax), var / varMax * 100)
+end
+
 function M:ExpBar_Update()
 	local rest = self.restBar
 	if rest then rest:Hide() end
 
 	local factionData = C_Reputation.GetWatchedFactionData()
-
 	if not IsPlayerAtEffectiveMaxLevel() then
 		local xp, mxp, rxp = UnitXP("player"), UnitXPMax("player"), GetXPExhaustion()
 		self:SetStatusBarColor(0, .7, 1)
@@ -59,7 +62,7 @@ function M:ExpBar_Update()
 			end
 		end
 		local color = FACTION_BAR_COLORS[standing] or FACTION_BAR_COLORS[5]
-		self:SetStatusBarColor(color.r, color.g, color.b, .85)
+		self:SetStatusBarColor(color.r, color.g, color.b)
 		self:SetMinMaxValues(barMin, barMax)
 		self:SetValue(value)
 		self:Show()
@@ -98,17 +101,17 @@ end
 function M:ExpBar_UpdateTooltip()
 	GameTooltip:SetOwner(self, "ANCHOR_LEFT")
 	GameTooltip:ClearLines()
-	GameTooltip:AddLine(LEVEL.." "..UnitLevel("player"), 0,1,1)
+	GameTooltip:AddLine(LEVEL..UnitLevel("player"), 0,1,1)
 
 	if not IsPlayerAtEffectiveMaxLevel() then
 		GameTooltip:AddLine(" ")
 		local xp, mxp, rxp = UnitXP("player"), UnitXPMax("player"), GetXPExhaustion()
-			GameTooltip:AddDoubleLine(EXPERIENCE_COLON, format("%s / %s (%.1f%%)", B.Numb(xp), B.Numb(mxp), xp/mxp*100), 0,1,1, 1,1,1)
-			GameTooltip:AddDoubleLine(NEXT_RANK_COLON, format("%s (%.1f%%)", B.Numb(mxp-xp), (1-xp/mxp)*100), 0,1,1, 1,1,1)
+			GameTooltip:AddDoubleLine(EXPERIENCE_COLON, GetCMPText(xp, mxp), 0,1,1, 1,1,1)
+			GameTooltip:AddDoubleLine(NEXT_RANK_COLON, GetCMPText(mxp-xp, mxp), 0,1,1, 1,1,1)
 		if rxp then
-			GameTooltip:AddDoubleLine(TUTORIAL_TITLE26..":", format("+%s (%.1f%%)", B.Numb(rxp), rxp/mxp*100), 0,1,1, 1,1,1)
+			GameTooltip:AddDoubleLine(TUTORIAL_TITLE26.."：", GetCMPText(rxp, mxp), 0,1,1, 1,1,1)
 		end
-		if IsXPUserDisabled() then GameTooltip:AddLine("|cffFF0000"..XP..LOCKED) end
+		if IsXPUserDisabled() then GameTooltip:AddLine("|cffFF0000"..XP..GLYPH_LOCKED) end
 	end
 
 	local factionData = C_Reputation.GetWatchedFactionData()
@@ -158,25 +161,30 @@ function M:ExpBar_UpdateTooltip()
 		end
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine(name, 0,1,1)
-		GameTooltip:AddDoubleLine(standingtext, value - barMin.." / "..barMax - barMin.." ("..math.floor((value - barMin)/(barMax - barMin)*100).."%)", 0,1,1, 1,1,1)
+		GameTooltip:AddDoubleLine(standingtext, GetCMPText(value - barMin, barMax - barMin), 0,1,1, 1,1,1)
 
 		if C_Reputation.IsFactionParagon(factionID) then
 			local currentValue, threshold = C_Reputation.GetFactionParagonInfo(factionID)
-			local paraCount = math.floor(currentValue/threshold)
 			currentValue = mod(currentValue, threshold)
-			GameTooltip:AddDoubleLine(L["Paragon"]..paraCount, currentValue.." / "..threshold.." ("..math.floor(currentValue/threshold*100).."%)", 0,1,1, 1,1,1)
+			GameTooltip:AddDoubleLine(L["Paragon"]..math.floor(currentValue/threshold), GetCMPText(currentValue, threshold), 0,1,1, 1,1,1)
 		end
 
 		if factionID == 2465 then -- 荒猎团
 			local repInfo = C_GossipInfo.GetFriendshipReputation(2463) -- 玛拉斯缪斯
-			local rep, name, reaction, threshold, nextThreshold = repInfo.standing, repInfo.name, repInfo.reaction, repInfo.reactionThreshold, repInfo.nextThreshold
-			if nextThreshold and rep > 0 then
-				local current = rep - threshold
-				local currentMax = nextThreshold - threshold
+			local standing, name, reaction, reactionThreshold, nextThreshold = repInfo.standing, repInfo.name, repInfo.reaction, repInfo.reactionThreshold, repInfo.nextThreshold
+			if nextThreshold and standing > 0 then
+				local current = standing - reactionThreshold
+				local currentMax = nextThreshold - reactionThreshold
 				GameTooltip:AddLine(" ")
 				GameTooltip:AddLine(name, 0,1,1)
-				GameTooltip:AddDoubleLine(reaction, current.." / "..currentMax.." ("..math.floor(current/currentMax*100).."%)", 0,1,1, 1,1,1)
+				GameTooltip:AddDoubleLine(reaction, GetCMPText(current, currentMax), 0,1,1, 1,1,1)
 			end
+		elseif factionID == 2574 then -- 梦境守望者
+			local currencyInfo = C_CurrencyInfo.GetCurrencyInfo(2649) -- 梦境注能
+			local quantity = currencyInfo.quantity
+			local maxQuantity = currencyInfo.maxQuantity
+			local name = C_CurrencyInfo.GetCurrencyInfo(2777).name
+			GameTooltip:AddDoubleLine(name, GetCMPText(quantity, maxQuantity), .6,.8,1, 1,1,1)
 		end
 	end
 
@@ -184,7 +192,7 @@ function M:ExpBar_UpdateTooltip()
 		local current, barMax, level = UnitHonor("player"), UnitHonorMax("player"), UnitHonorLevel("player")
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine(HONOR, 0,1,1)
-		GameTooltip:AddDoubleLine(LEVEL.." "..level, current.." / "..barMax, 0,1,1, 1,1,1)
+		GameTooltip:AddDoubleLine(LEVEL..level, GetCMPText(current, barMax), 0,1,1, 1,1,1)
 	end
 
 	if IsAzeriteAvailable() then
@@ -195,7 +203,7 @@ function M:ExpBar_UpdateTooltip()
 		azeriteItem:ContinueWithCancelOnItemLoad(function()
 			GameTooltip:AddLine(" ")
 			GameTooltip:AddLine(azeriteItem:GetItemName().." ("..format(SPELLBOOK_AVAILABLE_AT, currentLevel)..")", 0,1,1)
-			GameTooltip:AddDoubleLine(ARTIFACT_POWER, BreakUpLargeNumbers(xp).." / "..BreakUpLargeNumbers(totalLevelXP).." ("..math.floor(xp/totalLevelXP*100).."%)", 0,1,1, 1,1,1)
+			GameTooltip:AddDoubleLine(ARTIFACT_POWER, GetCMPText(xp, totalLevelXP), 0,1,1, 1,1,1)
 		end)
 	end
 
@@ -211,8 +219,7 @@ function M:ExpBar_UpdateTooltip()
 			local numText = num > 0 and " ("..num..")" or ""
 			GameTooltip:AddDoubleLine(ARTIFACT_POWER, BreakUpLargeNumbers(totalXP)..numText, 0,1,1, 1,1,1)
 			if xpForNextPoint ~= 0 then
-				local perc = " ("..math.floor(xp/xpForNextPoint*100).."%)"
-				GameTooltip:AddDoubleLine(L["Next Trait"], BreakUpLargeNumbers(xp).." / "..BreakUpLargeNumbers(xpForNextPoint)..perc, 0,1,1, 1,1,1)
+				GameTooltip:AddDoubleLine(L["Next Trait"], GetCMPText(xp, xpForNextPoint), 0,1,1, 1,1,1)
 			end
 		end
 	end
@@ -257,9 +264,9 @@ function M:Expbar()
 	if not C.db["Misc"]["ExpRep"] then return end
 
 	local bar = CreateFrame("StatusBar", "NDuiExpRepBar", MinimapCluster)
-	bar:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", 5, -5)
-	bar:SetPoint("TOPRIGHT", Minimap, "BOTTOMRIGHT", -5, -5)
-	bar:SetHeight(5)
+	bar:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", 0, -C.margin)
+	bar:SetPoint("TOPRIGHT", Minimap, "BOTTOMRIGHT", 0, -C.margin)
+	bar:SetHeight(C.margin*2)
 	bar:SetHitRectInsets(0, 0, 0, -10)
 	B.CreateSB(bar)
 

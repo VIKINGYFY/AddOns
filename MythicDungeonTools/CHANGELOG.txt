@@ -1,2 +1,2 @@
-## 5.2.5 (2024-11-02)
-  - Minor Mapping updates
+## 5.2.7 (2024-11-19)
+  - Show correct dungeon timer if player is currently in a key

@@ -32,6 +32,7 @@ if not db.activate.HideMapNote then
             nodes[947][19256697] = { id = 241, mnID = 71, type = "Dungeon", showInZone = true } -- Zul'Farrak
             nodes[947][11895663] = { id = 232, mnID = 66, type = "Dungeon", showInZone = true } -- Maraudon
             nodes[947][13966200] = { id = 230, lfgid = 36, mnID = 69, type = "Dungeon", showInZone = true } -- Dire Maul - Capital Gardens
+            nodes[947][14396099] = { id = 230, lfgid = 38, mnID = 69, type = "Dungeon", showInZone = true } -- Dire Maul - Gordok Commons - North
             nodes[947][17606218] = { id = 234, mnID = 199, type = "Dungeon", showInZone = true } -- Razorfen Kraul
             nodes[947][18617580] = { id = 68, mnID = 1527, type = "Dungeon", showInZone = true } -- The Vortex Pinnacle
             nodes[947][17077426] = { id = 69, mnID = 1527, type = "Dungeon", showInZone = true } -- Lost City of Tol'Vir
@@ -56,7 +57,8 @@ if not db.activate.HideMapNote then
             --nodes[947][20985086] = { id = 226, type = "PassageDungeon", showInZone = true } -- Ragefire
             nodes[947][18475536] = { id = 240, mnID = 10, type = "PassageDungeon", showInZone = true } -- Wailing Caverns
             nodes[947][21846911] = { hideInfo = true, id = {187, 279, 255, 251, 750, 184, 185, 186 }, mnID = 75, type = "PassageDungeonRaidMulti", showInZone = true } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
-            nodes[947][15556144] = { id = 230, lfgid = 34, mnID = 69, type = "PassageDungeon", showInZone = true } -- Dire Maul - Warpwood Quarter
+            nodes[947][15886172] = { id = 230, lfgid = 34, mnID = 69, type = "PassageDungeon", showInZone = true } -- Dire Maul - Warpwood Quarter
+            nodes[947][14796169] = { id = 230, lfgid = 34, type = "PassageDungeon", showInZone = true } -- Dire Maul - Warpwood Quarter - East above Camp Mojache  
           end
 
 
@@ -93,8 +95,8 @@ if not db.activate.HideMapNote then
               nodes[947][145604585] = { id = 227, mnID = 63, type = "Dungeon", showInZone = true } -- Blackfathom Deeps
               --nodes[947][20985086] = { id = 226, mnID = 85, type = "Dungeon", showInZone = true } -- Ragefire
               nodes[947][18475536] = { id = 240, mnID = 10, type = "Dungeon", showInZone = true } -- Wailing Caverns
-              --nodes[947][15556144] = { id = 230, lfgid = 34, mnID = 69, type = "Dungeon", showInZone = true } -- Dire Maul - Warpwood Quarter
-            end            
+              --nodes[947][15886172] = { id = 230, lfgid = 34, mnID = 69, type = "Dungeon", showInZone = true } -- Dire Maul - Warpwood Quarter
+            end
           end
 
 

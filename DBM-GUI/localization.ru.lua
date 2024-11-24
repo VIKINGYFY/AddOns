@@ -20,6 +20,7 @@ L.OTabOptions				= "Настройки"
 L.OTabAbout					= "About"--I need to check it, then I’ll translate it
 
 L.FOLLOWER					= "Союзник"
+L.STORY					    = PLAYER_DIFFICULTY_STORY_RAID or "Сюжет"
 
 L.TabCategory_CURRENT_SEASON		= "Текущий сезон"
 
@@ -438,6 +439,7 @@ L.SpamBlockNoNameplate		= "Не показывать иконки индикат
 L.SpamBlockNoNameplateCD	= "Не показывать иконки индикаторов для таймеров восстановления способностей"
 L.SpamBlockNoNameplateCasts	= "Не показывать индикаторы, а только значки таймера применения способностей"
 L.SpamBlockNoBossGUIDs		= "Не показывать иконки таймера восстановления способностей на индикаторах здоровья, у которых также есть таймеры<br/>(Обычно применяется к боссам подземелий)"
+L.AlwaysKeepNPs				= "Сохранять значки таймера перезарядки на индикаторах здоровья с истекшим сроком действия видимыми до тех пор, пока способность не будет применена повторно"
 
 L.Area_SpamFilter_Misc		= "Разные функции"
 L.SpamBlockNoSetIcon		= "Не устанавливать автоматически метки на цели"

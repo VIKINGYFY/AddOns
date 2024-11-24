@@ -31,13 +31,15 @@ function M:RaidTool_Header()
 			if menu:IsShown() then
 				menu:ClearAllPoints()
 				if M:IsFrameOnTop(self) then
-					menu:SetPoint("TOP", self, "BOTTOM", 0, -3)
+					menu:SetPoint("TOP", self, "BOTTOM", 0, -C.margin)
 				else
-					menu:SetPoint("BOTTOM", self, "TOP", 0, 3)
+					menu:SetPoint("BOTTOM", self, "TOP", 0, C.margin)
 				end
 
 				self.buttons[2].text:SetText(IsInRaid() and CONVERT_TO_PARTY or CONVERT_TO_RAID)
 			end
+		else
+			SendChatMessage(format(L["BR Text"], self.resFrame.Count:GetText(), self.resFrame.Timer:GetText()), B.GetMSGChannel())
 		end
 	end)
 	frame:SetScript("OnDoubleClick", function(_, btn)
@@ -49,6 +51,16 @@ function M:RaidTool_Header()
 		self.bg:SetBackdropColor(0, 0, 0, .5)
 		self.bg:SetBackdropBorderColor(0, 0, 0, 1)
 	end)
+	frame:HookScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+		GameTooltip:ClearLines()
+		GameTooltip:AddLine(L["Raid Tool"], 0,1,1)
+		GameTooltip:AddLine(" ")
+		GameTooltip:AddDoubleLine(DB.LeftButton..DB.InfoColor..ACCESSIBILITY_LABEL)
+		GameTooltip:AddDoubleLine(DB.RightButton..DB.InfoColor..L["BR Send"])
+		GameTooltip:Show()
+	end)
+	frame:HookScript("OnLeave", B.HideTooltip)
 
 	return frame
 end
@@ -132,18 +144,20 @@ function M:RaidTool_UpdateRes(elapsed)
 		local started = chargeInfo and chargeInfo.cooldownStartTime
 		local duration = chargeInfo and chargeInfo.cooldownDuration
 
-		if charges then
+		if chargeInfo then
 			local timer = duration - (GetTime() - started)
-			if timer < 0 then
-				self.Timer:SetText("--:--")
-			else
+			if timer > 0 then
 				self.Timer:SetFormattedText("%d:%.2d", timer/60, timer%60)
 			end
 			self.Count:SetText(charges)
 			if charges == 0 then
+				self.Name:SetTextColor(1, 0, 0)
 				self.Count:SetTextColor(1, 0, 0)
+				self.Timer:SetTextColor(1, 0, 0)
 			else
+				self.Name:SetTextColor(0, 1, 0)
 				self.Count:SetTextColor(0, 1, 0)
+				self.Timer:SetTextColor(0, 1, 0)
 			end
 			self.__owner.resFrame:SetAlpha(1)
 			self.__owner.roleFrame:SetAlpha(0)
@@ -159,25 +173,22 @@ end
 function M:RaidTool_CombatRes(parent)
 	local frame = CreateFrame("Frame", nil, parent)
 	frame:SetAllPoints()
-	frame:SetAlpha(0)
-	local res = CreateFrame("Frame", nil, frame)
-	res:SetSize(22, 22)
-	res:SetPoint("LEFT", 5, 0)
-	B.PixelIcon(res, C_Spell.GetSpellTexture(20484), nil)
-	res.__owner = parent
+	frame.__owner = parent
 
-	res.Count = B.CreateFS(res, 16, "0")
-	res.Count:ClearAllPoints()
-	res.Count:SetPoint("LEFT", res, "RIGHT", 10, 0)
-	res.Timer = B.CreateFS(frame, 16, "00:00", false, "RIGHT", -5, 0)
-	res:SetScript("OnUpdate", M.RaidTool_UpdateRes)
+	frame.Name = B.CreateFS(frame, 16, C_Spell.GetSpellName(20484), false, "LEFT", 5, -1)
+	frame.Timer = B.CreateFS(frame, 16, "--:--", false, "RIGHT", -5, -1)
+	frame.Count = B.CreateFS(frame, 16, "--")
+	frame.Count:ClearAllPoints()
+	frame.Count:SetPoint("LEFT", frame.Name, "RIGHT", 5, 0)
+
+	frame:SetScript("OnUpdate", M.RaidTool_UpdateRes)
 
 	parent.resFrame = frame
 end
 
 function M:RaidTool_ReadyCheck(parent)
 	local frame = CreateFrame("Frame", nil, parent)
-	frame:SetPoint("TOP", parent, "BOTTOM", 0, -3)
+	frame:SetPoint("TOP", parent, "BOTTOM", 0, -C.margin)
 	frame:SetSize(120, 50)
 	frame:Hide()
 	frame:SetScript("OnMouseUp", function(self) self:Hide() end)
@@ -205,9 +216,9 @@ function M:RaidTool_ReadyCheck(parent)
 
 			frame:ClearAllPoints()
 			if M:IsFrameOnTop(parent) then
-				frame:SetPoint("TOP", parent, "BOTTOM", 0, -3)
+				frame:SetPoint("TOP", parent, "BOTTOM", 0, -C.margin)
 			else
-				frame:SetPoint("BOTTOM", parent, "TOP", 0, 3)
+				frame:SetPoint("BOTTOM", parent, "TOP", 0, C.margin)
 			end
 			frame:Show()
 
@@ -237,7 +248,7 @@ end
 
 function M:RaidTool_BuffChecker(parent)
 	local frame = CreateFrame("Button", nil, parent)
-	frame:SetPoint("RIGHT", parent, "LEFT", -3, 0)
+	frame:SetPoint("RIGHT", parent, "LEFT", -C.margin, 0)
 	frame:SetSize(28, 28)
 	B.ReskinMenuButton(frame)
 
@@ -319,7 +330,7 @@ function M:RaidTool_BuffChecker(parent)
 	local potionCheck = C_AddOns.IsAddOnLoaded("MRT")
 
 	frame:HookScript("OnEnter", function(self)
-		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT")
+		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT")
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(L["Raid Tool"], 0,1,1)
 		GameTooltip:AddLine(" ")
@@ -345,7 +356,7 @@ end
 
 function M:RaidTool_CountDown(parent)
 	local frame = CreateFrame("Button", nil, parent)
-	frame:SetPoint("LEFT", parent, "RIGHT", 3, 0)
+	frame:SetPoint("LEFT", parent, "RIGHT", C.margin, 0)
 	frame:SetSize(28, 28)
 	B.ReskinMenuButton(frame)
 
@@ -404,7 +415,7 @@ end
 
 function M:RaidTool_CreateMenu(parent)
 	local frame = CreateFrame("Frame", nil, parent)
-	frame:SetPoint("TOP", parent, "BOTTOM", 0, -3)
+	frame:SetPoint("TOP", parent, "BOTTOM", 0, -C.margin)
 	frame:SetSize(182, 70)
 	B.SetBD(frame)
 	frame:Hide()

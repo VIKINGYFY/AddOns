@@ -113,8 +113,8 @@ if not db.activate.HideMapNote then
           if self.db.profile.showContinentPortals then
 
             --20 Year Event
-            nodes[12][52772833] = { mnID = 198, name = "", type = "Portal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_TANARIS18 } -- Portal To Tanaris from Hyjal
-            nodes[12][51518860] = { mnID = 1527, name = "", type = "Portal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_TANARIS18 } -- Portal To Tanaris from Uldum
+            --nodes[12][52772833] = { mnID = 198, name = "", type = "Portal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_TANARIS18 } -- Portal To Tanaris from Hyjal
+            --nodes[12][51518860] = { mnID = 1527, name = "", type = "Portal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_TANARIS18 } -- Portal To Tanaris from Uldum
             ---
 
             nodes[12][60078511] = { mnID = 74, name = "", type = "Portal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = DUNGEON_FLOOR_TANARIS18 .. " " .. L["Portals"] .. "\n" ..  "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. STORMWIND } -- Portal from Tanaris to Orgrimmar and Stormwind
@@ -306,7 +306,7 @@ if not db.activate.HideMapNote then
           if self.db.profile.showContinentPortals then
 
             --20 Year Event
-            nodes[13][58275114] = { mnID = 241, name = "", type = "Portal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_TANARIS18 } -- Portal To Tanaris from Shadowmoon Valley
+            -- nodes[13][58275114] = { mnID = 241, name = "", type = "Portal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_TANARIS18 } -- Portal To Tanaris from Shadowmoon Valley
             ---
     
             if self.faction == "Horde" then          

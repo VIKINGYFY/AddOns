@@ -67,8 +67,8 @@ local list = {
 		{AuraID = 451568, UnitID = "player", Value = true},	-- 折转侵攻模组
 		{AuraID = 452146, UnitID = "player"},	-- 艾拉-卡拉卵囊
 		{AuraID = 455420, UnitID = "player"},	-- 探洞者的蜡烛残端
+		{AuraID = 455444, UnitID = "player"},	-- 探洞者的蜡烛
 		{AuraID = 455451, UnitID = "player"},	-- 迅芯烛台
-
 	},
 	["Raid Buff"] = {		-- 团队增益组
 		{AuraID =  54861, UnitID = "player"}, -- 火箭靴，工程
@@ -158,7 +158,10 @@ local list = {
 		{AuraID = 408556, UnitID = "player", Flash = true},	-- 缠绕
 		{AuraID = 408805, UnitID = "player", Flash = true},	-- 失衡
 		{AuraID = 409492, UnitID = "player", Flash = true},	-- 痛苦呼号
-		{AuraID = 462661, UnitID = "player", Flash = true},	-- 彼岸之赐, TWW S1
+		{AuraID = 461910, UnitID = "player", Flash = true},	-- 星宇飞升, 萨拉塔斯的交易
+		{AuraID = 462661, UnitID = "player", Flash = true},	-- 彼岸之赐, 萨拉塔斯的交易
+		{AuraID = 463767, UnitID = "player", Flash = true},	-- 虚空精华, 萨拉塔斯的交易
+		{AuraID = 465136, UnitID = "player", Flash = true},	-- 徘徊虚空, 萨拉塔斯的交易
 		-- 5人
 		{AuraID = 395035, UnitID = "player", Flash = true},	-- 粉碎灵魂，阻击战
 		{AuraID = 386881, UnitID = "player"},	-- 冰霜炸弹，碧蓝魔馆
@@ -230,7 +233,10 @@ local list = {
 		-- 大米
 		{AuraID = 226510, UnitID = "target"},	-- 血池回血
 		{AuraID = 343502, UnitID = "target"},	-- 鼓舞光环
-		{AuraID = 462704, UnitID = "target"},	-- 碎裂精华，TWW S1
+		{AuraID = 440328, UnitID = "target"},	-- 愈体虚空，萨拉塔斯的交易
+		{AuraID = 461910, UnitID = "target"},	-- 星宇飞升，萨拉塔斯的交易
+		{AuraID = 462510, UnitID = "target"},	-- 黑暗祷言，萨拉塔斯的交易
+		{AuraID = 462704, UnitID = "target"},	-- 碎裂精华，萨拉塔斯的交易
 		-- 5人
 		{AuraID = 372988, UnitID = "target", Value = true},	-- 寒冰壁垒，红玉
 		{AuraID = 391050, UnitID = "target", Value = true},	-- 暴风骤雨之盾，红玉

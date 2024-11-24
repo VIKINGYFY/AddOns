@@ -10,6 +10,8 @@ local function convertExpansionID()
 	return text
 end
 
+L["BR Text"] = "战复次数：%s 充能时间：%s"
+L["BR Send"] = "通报战复"
 L["Expansion Version"] = "资料片"
 L["Special Container"] = "特殊背包"
 L["BoN Item"] = "未绑定物品"

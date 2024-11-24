@@ -18,12 +18,15 @@ function EX:OnLogin()
 	end
 
 	self:ActionBarGlow()
-	self:AutoHideName()
 	self:AutoSetFilter()
 	self:InstanceAutoMarke()
 	self:InstanceDifficulty()
 	self:InstanceReset()
 	self:MDEnhance()
+
+	if DB.isDeveloper then
+		self:AutoHideName()
+	end
 end
 
 -- 自动隐藏名字，防止卡屏

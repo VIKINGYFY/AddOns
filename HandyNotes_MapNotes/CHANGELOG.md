@@ -1,9 +1,12 @@
 # MapNote
-## [2.5.1](https://github.com/Ssesmar/MapNote) (2024-11-14)
+## [2.5.3](https://github.com/Ssesmar/MapNote) (2024-11-20)
 - Note:
 
 Retail
- Dungeon tab icons can now be controlled separately
+ added current portals in the zone for 20 years of WoW
+
+Classic Era: 
+ toc update
 
 
 - Description:
