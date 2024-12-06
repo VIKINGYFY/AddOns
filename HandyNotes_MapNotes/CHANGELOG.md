@@ -1,13 +1,13 @@
 # MapNote
-## [2.5.3](https://github.com/Ssesmar/MapNote) (2024-11-20)
+## [2.5.5](https://github.com/Ssesmar/MapNote) (2024-12-03)
 - Note:
 
+PTR
+update toc
+add new transport location to siren isle (mole machines & Zeppelin)
+
 Retail
- added current portals in the zone for 20 years of WoW
-
-Classic Era: 
- toc update
-
+ fixed flightmaster number twist in stormshild for the alliance
 
 - Description:
 

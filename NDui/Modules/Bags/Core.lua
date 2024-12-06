@@ -4,6 +4,7 @@ local module = B:RegisterModule("Bags")
 local cargBags = ns.cargBags
 local cr, cg, cb = DB.r, DB.g, DB.b
 
+local CHAR_BANK_TYPE = Enum.BankType.Character or 1
 local ACCOUNT_BANK_TYPE = Enum.BankType.Account or 2
 
 local sortCache = {}
@@ -249,7 +250,7 @@ end
 
 function module:CreateCloseButton(f)
 	local bu = B.CreateButton(self, 22, 22, true, "Interface\\RAIDFRAME\\ReadyCheck-NotReady")
-	bu:RegisterForClicks("AnyDown")
+	bu:RegisterForClicks("AnyUp")
 	bu.__owner = f
 	bu:SetScript("OnClick", CloseOrRestoreBags)
 	bu.title = CLOSE.." / "..RESET
@@ -261,18 +262,15 @@ end
 function module:CreateReagentButton(f)
 	local bu = B.CreateButton(self, 22, 22, true, "Atlas:Reagents")
 	bu.Icon:SetPoint("BOTTOMRIGHT", -C.mult, -C.mult)
-	bu:RegisterForClicks("AnyDown")
+	bu:RegisterForClicks("AnyUp")
 	bu:SetScript("OnClick", function(_, btn)
+		if not C_Bank.CanViewBank(CHAR_BANK_TYPE) then return end
+
 		if not IsReagentBankUnlocked() then
 			StaticPopup_Show("CONFIRM_BUY_REAGENTBANK_TAB")
 		else
 			PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
 			BankFrame_ShowPanel("ReagentBankFrame") -- trigger context matching
-			BankFrame.selectedTab = 2
-			BankFrame.activeTabIndex = 2
-			f.reagent:Show()
-			f.bank:Hide()
-			f.accountbank:Hide()
 			if btn == "RightButton" then DepositReagentBank() end
 		end
 	end)
@@ -286,18 +284,15 @@ function module:CreateAccountBankButton(f)
 	local bu = B.CreateButton(self, 22, 22, true, 235423)
 	bu.Icon:SetTexCoord(.6, .9, .1, .4)
 	bu.Icon:SetPoint("BOTTOMRIGHT", -C.mult, -C.mult)
-	bu:RegisterForClicks("AnyDown")
+	bu:RegisterForClicks("AnyUp")
 	bu:SetScript("OnClick", function(_, btn)
+		if not C_Bank.CanViewBank(ACCOUNT_BANK_TYPE) then return end
+
 		if AccountBankPanel:ShouldShowLockPrompt() then
 			UIErrorsFrame:AddMessage(DB.InfoColor..ACCOUNT_BANK_LOCKED_PROMPT)
 		else
 			PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
 			BankFrame_ShowPanel("AccountBankPanel") -- trigger context matching
-			BankFrame.selectedTab = 3
-			BankFrame.activeTabIndex = 3
-			f.reagent:Hide()
-			f.bank:Hide()
-			f.accountbank:Show()
 		end
 	end)
 	bu.title = ACCOUNT_BANK_PANEL_TITLE
@@ -343,13 +338,10 @@ end
 function module:CreateBankButton(f)
 	local bu = B.CreateButton(self, 22, 22, true, "Atlas:Banker")
 	bu:SetScript("OnClick", function()
+		if not C_Bank.CanViewBank(CHAR_BANK_TYPE) then return end
+
 		PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
 		BankFrame_ShowPanel("BankSlotsFrame") -- trigger context matching
-		BankFrame.selectedTab = 1
-		BankFrame.activeTabIndex = 1
-		f.reagent:Hide()
-		f.accountbank:Hide()
-		f.bank:Show()
 	end)
 	bu.title = BANK
 	B.AddTooltip(bu, "ANCHOR_TOP")
@@ -374,7 +366,7 @@ end
 function module:CreateDepositButton()
 	local bu = B.CreateButton(self, 22, 22, true, "Atlas:GreenCross")
 	bu.Icon:SetOutside()
-	bu:RegisterForClicks("AnyDown")
+	bu:RegisterForClicks("AnyUp")
 	bu:SetScript("OnClick", function(_, btn)
 		if btn == "RightButton" then
 			C.db["Bags"]["AutoDeposit"] = not C.db["Bags"]["AutoDeposit"]
@@ -401,7 +393,7 @@ end
 function module:CreateAccountBankDeposit()
 	local bu = B.CreateButton(self, 22, 22, true, "Atlas:GreenCross")
 	bu.Icon:SetOutside()
-	bu:RegisterForClicks("AnyDown")
+	bu:RegisterForClicks("AnyUp")
 	bu:SetScript("OnClick", function(_, btn)
 		if btn == "RightButton" then
 			local isOn = GetCVarBool("bankAutoDepositReagents")
@@ -1050,15 +1042,15 @@ function module:OnLogin()
 
 		self:HookScript("OnClick", module.ButtonOnClick)
 
-		if not self.ProfessionQualityOverlay then
-			self.ProfessionQualityOverlay = self:CreateTexture(nil, "OVERLAY")
-			self.ProfessionQualityOverlay:SetPoint("TOPLEFT", -3, 2)
-		end
-
 		if hasCanIMogIt then
 			self.canIMogIt = parentFrame:CreateTexture(nil, "OVERLAY")
 			self.canIMogIt:SetSize(13, 13)
 			self.canIMogIt:SetPoint(unpack(CanIMogIt.ICON_LOCATIONS[CanIMogItOptions["iconLocation"]]))
+		end
+
+		if not self.ProfessionQualityOverlay then
+			self.ProfessionQualityOverlay = self:CreateTexture(nil, "OVERLAY")
+			self.ProfessionQualityOverlay:SetPoint("TOPLEFT", -3, 2)
 		end
 	end
 
@@ -1444,6 +1436,23 @@ function module:OnLogin()
 	SetCVar("professionToolSlotsExampleShown", 1)
 	SetCVar("professionAccessorySlotsExampleShown", 1)
 
+	-- Bank frame paging
+	local bankNameIndex = {
+		["BankSlotsFrame"] = 1,
+		["ReagentBankFrame"] = 2,
+		["AccountBankPanel"] = 3,
+	}
+	hooksecurefunc("BankFrame_ShowPanel", function(sidePanelName)
+		local panelIndex = bankNameIndex[sidePanelName]
+		if panelIndex then
+			BankFrame.selectedTab = panelIndex
+			BankFrame.activeTabIndex = panelIndex
+			f.bank:SetShown(panelIndex == 1)
+			f.reagent:SetShown(panelIndex == 2)
+			f.accountbank:SetShown(panelIndex == 3)
+		end
+	end)
+
 	-- Delay updates for data jam
 	local updater = CreateFrame("Frame", nil, f.main)
 	updater:Hide()
@@ -1456,7 +1465,7 @@ function module:OnLogin()
 	end)
 
 	B:RegisterEvent("GET_ITEM_INFO_RECEIVED", function()
-		updater.delay = 1.5
+		updater.delay = 1
 		updater:Show()
 	end)
 end

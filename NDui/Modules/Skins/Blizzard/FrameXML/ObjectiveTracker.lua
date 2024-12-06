@@ -1,4 +1,4 @@
-	local _, ns = ...
+local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 local r, g, b = DB.r, DB.g, DB.b
@@ -61,14 +61,14 @@ local function reskinBar(self, key)
 
 	local icon = bar.Icon
 	if icon then
-		if not icon.bg then			
+		if not icon.bg then
 			icon:SetMask("")
 			icon.bg = B.ReskinIcon(icon, true)
 			icon:ClearAllPoints()
 			icon:SetPoint("TOPLEFT", bar, "TOPRIGHT", 5, 0)
 			icon:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 25, 0)
 		end
-	
+
 		if icon.bg then
 			icon.bg:SetShown(icon:IsShown() and icon:GetTexture() ~= nil)
 		end
@@ -96,6 +96,15 @@ local function reskinMinimizeButton(button, header)
 	button.__texture:DoCollapse(false)
 	if button.SetCollapsed then
 		hooksecurefunc(button, "SetCollapsed", updateMinimizeButton)
+	end
+end
+
+local function GetMawBuffsAnchor(frame)
+	local center = frame:GetCenter()
+	if center and center < GetScreenWidth()/2 then
+		return "LEFT"
+	else
+		return "RIGHT"
 	end
 end
 
@@ -158,7 +167,7 @@ table.insert(C.defaultThemes, function()
 	local trackers = {
 		ScenarioObjectiveTracker,
 		UIWidgetObjectiveTracker,
-		CampaignQuestObjectiveTracker,	
+		CampaignQuestObjectiveTracker,
 		QuestObjectiveTracker,
 		AdventureObjectiveTracker,
 		AchievementObjectiveTracker,
@@ -248,7 +257,7 @@ table.insert(C.defaultThemes, function()
 				local hl = spellButton:GetHighlightTexture()
 				hl:SetColorTexture(1, 1, 1, .25)
 				hl:SetInside(bg)
-	
+
 				spellButton.styled = true
 			end
 		end

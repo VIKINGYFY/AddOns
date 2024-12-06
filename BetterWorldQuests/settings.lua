@@ -1,11 +1,11 @@
-local _, addon = ...
+local addonName, addon = ...
 local L = addon.L
 
 local function formatPercentage(value)
 	return PERCENTAGE_STRING:format(math.floor((value * 100) + 0.5))
 end
 
-addon:RegisterSettings('BetterWorldQuestsDB', {
+local settings = {
 	{
 		key = 'mapScale',
 		type = 'slider',
@@ -40,6 +40,12 @@ addon:RegisterSettings('BetterWorldQuestsDB', {
 		valueFormat = formatPercentage,
 	},
 	{
+		key = 'showEvents',
+		type = 'toggle',
+		title = L['Show events on continent'],
+		default = false,
+	},
+	{
 		key = 'showAzeroth',
 		type = 'toggle',
 		title = L['Show on Azeroth'],
@@ -52,12 +58,14 @@ addon:RegisterSettings('BetterWorldQuestsDB', {
 		tooltip = L['Hold this key to temporarily hide all world quests'],
 		default = 'ALT',
 		options = {
-			NEVER = NEVER,
-			ALT = ALT_KEY,
-			CTRL = CTRL_KEY,
-			SHIFT = SHIFT_KEY,
+			{value='NEVER', label=NEVER},
+			{value='ALT', label=ALT_KEY},
+			{value='CTRL', label=CTRL_KEY},
+			{value='SHIFT', label=SHIFT_KEY},
 		},
 	},
-})
+}
 
+addon:RegisterSettings('BetterWorldQuestsDB', settings)
 addon:RegisterSettingsSlash('/betterworldquests', '/bwq')
+addon:RegisterMapSettings('BetterWorldQuestsDB', settings)

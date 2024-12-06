@@ -4,7 +4,7 @@ local version, build, date, tocversion = GetBuildInfo()
 ns.tocversion = tocversion
 ns.date = date
 ns.build = build
-ns.version = version
+ns.version = version -- example "11.0.7"
 
 local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes", true)
 if not HandyNotes then return end
@@ -659,7 +659,7 @@ do
           alpha = db.MiniMapAlphaShips
         end
 
-        if value.type == "Carriage" or value.type == "TravelM" or value.type == "TravelA" then
+        if value.type == "Carriage" or value.type == "TravelM" or value.type == "TravelA" or value.type == "MoleMachine" then
           scale = db.MiniMapScaleTransport
           alpha = db.MiniMapAlphaTransport
         end
@@ -906,7 +906,7 @@ do
           alpha = db.ZoneAlphaShips
         end
 
-        if value.type == "Carriage" or value.type == "TravelM" or value.type == "TravelA" then
+        if value.type == "Carriage" or value.type == "TravelM" or value.type == "TravelA" or value.type == "MoleMachine" then
           scale = db.ZoneScaleTransport
           alpha = db.ZoneAlphaTransport
         end

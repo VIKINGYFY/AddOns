@@ -1,44 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-local function handleSpellButton(self)
-	local slot, slotType = SpellBook_GetSpellBookSlot(self)
-	local isPassive = C_Spell.IsSpellPassive(slot, SpellBookFrame.bookType)
-	local name = self:GetName()
-	local highlightTexture = _G[name.."Highlight"]
-	if isPassive then
-		highlightTexture:SetColorTexture(1, 1, 1, 0)
-	else
-		highlightTexture:SetColorTexture(1, 1, 1, .25)
-	end
-
-	local subSpellString = _G[name.."SubSpellName"]
-	local isOffSpec = self.offSpecID ~= 0 and SpellBookFrame.bookType == BOOKTYPE_SPELL
-	subSpellString:SetTextColor(1, 1, 1)
-
-	if slotType == "FUTURESPELL" then
-		local level = GetSpellAvailableLevel(slot, SpellBookFrame.bookType)
-		if level and level > UnitLevel("player") then
-			self.SpellName:SetTextColor(.7, .7, .7)
-			subSpellString:SetTextColor(.7, .7, .7)
-		end
-	else
-		if slotType == "SPELL" and isOffSpec then
-			subSpellString:SetTextColor(.7, .7, .7)
-		end
-	end
-	self.RequiredLevelString:SetTextColor(.7, .7, .7)
-
-	local ic = _G[name.."IconTexture"]
-	if ic.bg then
-		ic.bg:SetShown(ic:IsShown())
-	end
-
-	if self.ClickBindingIconCover and self.ClickBindingIconCover:IsShown() then
-		self.SpellName:SetTextColor(.7, .7, .7)
-	end
-end
-
 local function reskinTalentFrameDialog(dialog)
 	B.StripTextures(dialog)
 	B.SetBD(dialog)
@@ -55,18 +17,24 @@ C.themes["Blizzard_PlayerSpells"] = function()
 	local frame = PlayerSpellsFrame
 
 	B.ReskinPortraitFrame(frame)
-	B.Reskin(frame.TalentsFrame.ApplyButton)
-	B.ReskinDropDown(frame.TalentsFrame.LoadSystem.Dropdown)
-	B.Reskin(frame.TalentsFrame.InspectCopyButton)
 	B.ReskinMinMax(frame.MaximizeMinimizeButton)
 
-	frame.TalentsFrame.BlackBG:SetAlpha(.5)
-	frame.TalentsFrame.Background:SetAlpha(.5)
-	frame.TalentsFrame.BottomBar:SetAlpha(.5)
+	local talentsFrame = frame.TalentsFrame
+	B.Reskin(talentsFrame.ApplyButton)
+	B.ReskinDropDown(talentsFrame.LoadSystem.Dropdown)
+	B.Reskin(talentsFrame.InspectCopyButton)
 
-	B.ReskinEditBox(frame.TalentsFrame.SearchBox)
-	frame.TalentsFrame.SearchBox.__bg:SetPoint("TOPLEFT", -4, -5)
-	frame.TalentsFrame.SearchBox.__bg:SetPoint("BOTTOMRIGHT", 0, 5)
+	talentsFrame.BlackBG:Hide()
+	talentsFrame.Background:SetAlpha(.5)
+	talentsFrame.BottomBar:SetAlpha(.5)
+
+	B.ReskinEditBox(talentsFrame.SearchBox)
+	talentsFrame.SearchBox.__bg:SetPoint("TOPLEFT", -4, -5)
+	talentsFrame.SearchBox.__bg:SetPoint("BOTTOMRIGHT", 0, 5)
+
+	local specFrame = frame.SpecFrame
+	specFrame.BlackBG:Hide()
+	specFrame.Background:Hide()
 
 	for i = 1, 3 do
 		local tab = select(i, frame.TabSystem:GetChildren())
@@ -149,10 +117,11 @@ C.themes["Blizzard_PlayerSpells"] = function()
 
 	local spellBook = PlayerSpellsFrame.SpellBookFrame
 	if spellBook then
-		spellBook.BookBGLeft:SetAlpha(.5)
-		spellBook.BookBGRight:SetAlpha(.5)
-		spellBook.BookBGHalved:SetAlpha(.5)
-		spellBook.Bookmark:SetAlpha(.5)
+		spellBook.TopBar:SetAlpha(0)
+		spellBook.BookBGLeft:SetAlpha(0)
+		spellBook.BookBGRight:SetAlpha(0)
+		spellBook.BookBGHalved:SetAlpha(0)
+		spellBook.Bookmark:SetAlpha(0)
 		spellBook.BookCornerFlipbook:Hide()
 
 		for i = 1, 3 do

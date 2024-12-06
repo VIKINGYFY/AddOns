@@ -3,6 +3,8 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "enUS", true)
 
 
 --0.08
+L["Displays location symbols on the Azeroth / Continent map for Horde and Alliance capitals with additional information about what is within that capital at MapNotes associated symbols"] = true
+L["For the zones and capitals themselves, there is an option in the respective tab to display nearby symbols in groups instead of individually"] = true
 L["Displays Horde and Alliance capitals icons with additional information"] = true
 L["Synchronize"] = true
 L["Synchronizes size and visibility of all individual symbols"] = true
@@ -283,6 +285,7 @@ L["Passage"] = true
 L["Portal"] = true
 L["Ship"] = true
 L["Zeppelin"] = true
+L["Mole Machine"] = true
 L["Portalroom"] = true
 L["The Dark Portal"] = true
 L["Captain Krooz"] = true
@@ -456,6 +459,7 @@ L["Council of Dornogal"] = true
 L["The Assembly of the Deeps"] = true
 L["Hallowfall Arathi"] = true
 L["The Severed Threads"] = true
+L["Siren Isle"] = true
 -- 14
 L["Displays zone icons on a specific continent"] = true
 L["Zidormi"] = true

@@ -3,6 +3,8 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "koKR")
 if not L then return end
 
 --0.08
+L["Displays location symbols on the Azeroth / Continent map for Horde and Alliance capitals with additional information about what is within that capital at MapNotes associated symbols"] = "MapNotes 관련 기호에서 해당 수도 내에 무엇이 있는지에 대한 추가 정보와 함께 호드 및 얼라이언스 수도의 아제로스/대륙 지도에 위치 기호를 표시합니다"
+L["For the zones and capitals themselves, there is an option in the respective tab to display nearby symbols in groups instead of individually"] = "구역 및 수도 자체의 경우 해당 탭에 개별 기호가 아닌 그룹으로 인근 기호를 표시하는 옵션이 있습니다"
 L["Displays Horde and Alliance capitals icons with additional information"] = "추가 정보와 함께 호드 및 얼라이언스 수도 아이콘을 표시합니다"
 L["Synchronize"] = "동기화"
 L["Synchronizes size and visibility of all individual symbols"] = "모든 개별 기호의 크기와 가시성을 동기화합니다"
@@ -282,6 +284,7 @@ L["Passage"] = "통로"
 L["Portal"] = "문"
 L["Ship"] = "배"
 L["Zeppelin"] = "제프 펠린"
+L["Mole Machine"] = "굴착기"
 L["Portalroom"] = "포털룸"
 L["The Dark Portal"] = "다크 포탈"
 L["Captain Krooz"] = "크로즈 선장"
@@ -455,6 +458,7 @@ L["Council of Dornogal"] = "도르노갈 의회"
 L["The Assembly of the Deeps"] = "심연의 회합"
 L["Hallowfall Arathi"] = "신성한 협곡 아라시"
 L["The Severed Threads"] = "단절된 실톳"
+L["Siren Isle"] = "사이렌 섬"
 -- 14
 L["Displays zone icons on a specific continent"] = "특정 대륙에 영역 아이콘을 표시합니다"
 L["Zidormi"] = "지도르미"

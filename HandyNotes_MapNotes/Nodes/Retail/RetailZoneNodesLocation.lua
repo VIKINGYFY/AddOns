@@ -870,10 +870,24 @@ if not db.activate.HideMapNote then
               nodes[2248][47043781] = { mnID = 2339, name = "", type = "APortal", TransportName = L["Portal"] .. "\n" .. STORMWIND, showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dornogal to Stormwind
             end
           end
+
+          ----- PTR start
+          if ns.version == "11.0.7" then
+
+          -- Khaz Algar Transport
+          if self.db.profile.showZoneTransport then
+            nodes[2369][67973862] = { mnID = 2214, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Mole Machine from Sirene Isle to Deeps
+            nodes[2214][46033016] = { mnID = 2369, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Mole Machine from Deeps to Sirene Isle
+          end
     
+          end
+          ----- PTR end
     
         -- Khaz Algar Zeppelin
-          if self.db.profile.showZoneZeppelins then      
+          if self.db.profile.showZoneZeppelins then
+
+            nodes[2369][70725350] = { mnID = 2339, name = "", type = "Zeppelin", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Zeppelin"] .. " ==> " .. L["Dornogal"] } -- Zeppelin from TSiren Isle to Dornogal
+
             if self.faction == "Horde" or db.activate.ZoneEnemyFaction then 
               --nodes[2022][81632788] = { mnID = 85, name = "", type = "HZeppelin", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Zeppelin"] .. " ==> " .. ORGRIMMAR } -- Zeppelin from The Waking Shores to Orgrimmar 
             end

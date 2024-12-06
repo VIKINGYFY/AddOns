@@ -1,8 +1,18 @@
 # CompactVendor
 
-## [v11.0.2.240908](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.0.2.240908) (2024-09-08)
-[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.0.2.240908) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
+## [v11.0.5.241130b](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.0.5.241130b) (2024-11-30)
+[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.0.5.241130b) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
 
+- Fixed colorblind mode detection, in addition to the legacy or deprecated global, I also check the cvar itself just like the latest UI code does it when handling rendering money strings.  
+- Fixed issue on Classic SOD when talking to Pix Xizzix (and other vendors with Relics).  
+- Add support for CanIMogIt so when it's available we use it to detect the status of appearance collection.  
+- TOC bump  
+- Track the event for merchant show/closed by setting the `merchantOpen` boolean accordingly.  
+    Reply on this new boolean in `UpdateMerchantInfo` so that if we're not on a merchant we ensure to cleanup and answer properly, we can't be on a merchant if the event said we closed the interface.  
+    Added BuyEmAll support, if the addon is loaded, it will be used for stack purchase instead of the built-in standard frame.  
+    The new Open/Close/IsOpen methods on the quantity button widget will use the API for BuyEmAll when available, otherwise fallback to default behavior.  
+- The wow token price check should only happen on mainline, as classic era and other flavors might not be properly handling the token pricing, as it can cause lua errors on those clients.  
+- Updated GetItemCount to properly include reagent bank and the warbank when checking if you can afford something.  
 - TOC bump.  
 - Use Yes/No instead of the collected texts.  
 - Adjusted item appearance collection status logic. Will display `Appearance` with Yes/No, and `Appearance: Collected` if we have collected the appearance or not, given that the first filter is properly set to show collectable items.  
@@ -69,10 +79,3 @@
     - Merged collected/known into a learnable filter for better control of what to display. Fixed issue with heirlooms and cosmetics not being properly handled and scanned.  
 - TOC bump  
 - When applying font size we also need to apply it to the cost font strings and autoresize them again.  
-- Adding the ability to set a shape onto the icon template. Need to duplicate the exact look of the current Round implementation, then add the additional types.  
-- TOC bump  
-- Using the new Settings cause taint. Replaced with more basic widget template.  
-- Set the default size to 13 and force apply shadows if not using the default font object.  
-- Enforcing shadow on the font if a size is used that doesn't have one as part of it.  
-- Adding merchant scanning as that contains more information.  
-- Removed module CF isn't aware of existing yet.  

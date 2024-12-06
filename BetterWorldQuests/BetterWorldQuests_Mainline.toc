@@ -1,6 +1,6 @@
-## Interface: 110002
+## Interface: 110005, 110007
 ## Author: p3lim
-## Version: 110000.34-Release
+## Version: 110000.36-Release
 ## Title: Better World Quests
 ## Notes: Improves the World Quest POIs on the map
 ## IconTexture: Interface\Icons\icon_treasuremap
@@ -34,3 +34,5 @@ settings.lua
 provider.lua
 pin.lua
 storms.lua
+poi.lua
+events.lua

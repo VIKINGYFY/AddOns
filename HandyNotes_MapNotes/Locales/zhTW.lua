@@ -3,6 +3,8 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "zhTW")
 if not L then return end
 
 --0.08
+L["Displays location symbols on the Azeroth / Continent map for Horde and Alliance capitals with additional information about what is within that capital at MapNotes associated symbols"] = "在艾澤拉斯/大陸地圖上顯示部落和聯盟首都的位置符號，並在 MapNotes 關聯符號中顯示有關該首都內內容的附加信息"
+L["For the zones and capitals themselves, there is an option in the respective tab to display nearby symbols in groups instead of individually"] = "對於區域和首都本身，相應標籤中有一個選項可以按群組顯示附近的符號，而不是單獨顯示"
 L["Displays Horde and Alliance capitals icons with additional information"] = "顯示部落和聯盟首都圖標以及附加信息"
 L["Synchronize"] = "同步"
 L["Synchronizes size and visibility of all individual symbols"] = "同步所有單一符號的大小和可見性"
@@ -282,6 +284,7 @@ L["Passage"] = "通道"
 L["Portal"] = "傳送門"
 L["Ship"] = "船隻"
 L["Zeppelin"] = "飛艇"
+L["Mole Machine"] = "钻探机"
 L["Portalroom"] = "傳送門房間"
 L["The Dark Portal"] = "黑暗之門"
 L["Captain Krooz"] = "克魯茲船長"
@@ -455,6 +458,7 @@ L["Council of Dornogal"] = "多諾加議會"
 L["The Assembly of the Deeps"] = "深淵議會"
 L["Hallowfall Arathi"] = "神聖墜落阿拉希"
 L["The Severed Threads"] = "斩离之丝"
+L["Siren Isle"] = "塞壬島"
 -- 14
 L["Displays zone icons on a specific continent"] = "在特定大陸上顯示區域圖示"
 L["Zidormi"] = "希多尔米"

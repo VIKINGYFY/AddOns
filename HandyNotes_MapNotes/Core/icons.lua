@@ -241,6 +241,7 @@ ns.icons = {
 ["WayGateGreen"] = iconLink .. "WayGateGreen",
 ["Carriage"] = iconLink .. "Carriage",
 ["TorghastUp"] = iconLink .. "TorghastUp",
+["MoleMachine"] = iconLink .. "MoleMachine",
 --travel
 ["TravelL"] = iconLink .. "travelL",
 ["TravelM"] = iconLink .. "travelm",
@@ -452,6 +453,7 @@ TextIconOgreWaygate = TextIcon("Interface/Minimap/Vehicle-AllianceWarlockPortal"
 TextIconToyTransport = TextIcon("interface/icons/inv_tailoring_elekkplushie.blp", 50, 50, 1, 50, 1, 50)
 TextIconMirror = TextIcon(iconLink .. "mirror", 50, 50, 1, 50, 1, 50)
 TextIconCarriage = TextIcon("interface/minimap/vehicle-carriage", 60, 60, 1, 50, 1, 50)
+TextIconMoleMachine = TextIcon(iconLink .. "MoleMachine", 60, 60, 1, 50, 1, 50)
 --information
 TextIconCheck = TextIcon("Interface/Buttons/UI-CheckBox-Up", 50, 50, 1, 50, 1, 50)
 TextIconHorde = TextIcon("interface/pvprankbadges/pvprankhorde")

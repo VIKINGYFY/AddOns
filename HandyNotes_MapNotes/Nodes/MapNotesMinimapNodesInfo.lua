@@ -757,6 +757,7 @@ minimap[2213] = { } -- Nerub'ar
 minimap[2216] = { } -- Nerub'ar_Lower
 minimap[2214] = { } -- The Ringing Deeps
 minimap[2367] = { } -- Chamber of Memory
+minimap[2369] = { } -- Siren Isle
 -- Dungeon map nodes
 minimap[2315] = { } -- The Rookery - Inside Dungeon Map
 minimap[2335] = { } -- The Cinderbrew Meadery - Inside Dungeon Map

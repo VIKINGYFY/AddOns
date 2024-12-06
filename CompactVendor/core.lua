@@ -10,7 +10,7 @@ local DressUpMountLink = DressUpMountLink ---@type fun(itemLink: string): boolea
 local GameTooltip_ShowCompareItem = GameTooltip_ShowCompareItem ---@type fun()
 local GetBindingFromClick = GetBindingFromClick ---@type fun(key: string): string
 local GetCurrencyInfo = GetCurrencyInfo ---@type fun(item: string|number): string?, number, string, number, number, number, boolean, number
-local GetItemCount = GetItemCount or C_Item.GetItemCount ---@type fun(itemInfo: ItemInfo, includeBank?: boolean, includeUses?: boolean, includeReagentBank?: boolean): count: number
+local GetItemCount = GetItemCount or C_Item.GetItemCount ---@type fun(itemInfo: ItemInfo, includeBank?: boolean, includeUses?: boolean, includeReagentBank?: boolean, includeAccountBank?: boolean): count: number
 local GetItemInfo = GetItemInfo or C_Item.GetItemInfo ---@type fun(itemInfo: ItemInfo): itemName: string, itemLink: string, itemQuality: Enum.ItemQuality, itemLevel: number, itemMinLevel: number, itemType: string, itemSubType: string, itemStackCount: number, itemEquipLoc: string, itemTexture: fileID, sellPrice: number, classID: number, subclassID: number, bindType: number, expansionID: number, setID: number?, isCraftingReagent: boolean
 local GetItemInfoInstant = GetItemInfoInstant or C_Item.GetItemInfoInstant  ---@type fun(itemInfo: ItemInfo): itemID: number, itemType: string, itemSubType: string, itemEquipLoc: string, icon: fileID, classID: number, subClassID: number
 -- local GetItemQualityColor = GetItemQualityColor or C_Item.GetItemQualityColor ---@type fun(quality: number): r: number, g: number, b: number, hex: string
@@ -389,7 +389,7 @@ local ConvertToPattern do
         local silver = floor((money - (gold * goldInt)) / COPPER_PER_SILVER)
         local copper = mod(money, COPPER_PER_SILVER)
         local goldFormat, silverFormat, copperFormat
-        local colorBlind = ENABLE_COLORBLIND_MODE == "1"
+        local colorBlind = C_CVar.GetCVarBool("colorblindMode") or ENABLE_COLORBLIND_MODE == "1"
         if noIcons or colorBlind then
             if not noDenominator or colorBlind then
                 goldFormat, silverFormat, copperFormat = separateThousands and MoneyFormat.GOLD_TS or MoneyFormat.GOLD, MoneyFormat.SILVER, MoneyFormat.COPPER
@@ -469,11 +469,18 @@ local IsTransmogCollected do
         INVTYPE_NECK = true,
         INVTYPE_FINGER = true,
         INVTYPE_TRINKET = true,
+        INVTYPE_BAG = true,
+        INVTYPE_AMMO = true,
+        INVTYPE_THROWN = true,
+        INVTYPE_QUIVER = true,
+        INVTYPE_RELIC = true,
     }
 
-    ---@param itemLinkOrID string|number
-    ---@return boolean? canTransmog
-    function CanTransmogItem(itemLinkOrID)
+    ---@alias CompactVendorCanTransmogItem fun(itemLinkOrID: string|number): canTransmog: boolean?
+    ---@alias CompactVendorIsTransmogCollected fun(itemLink: string): canCollect: boolean?, isCollected: boolean?
+
+    ---@type CompactVendorCanTransmogItem
+    local function DefaultCanTransmogItem(itemLinkOrID)
         if not itemLinkOrID then
             return
         end
@@ -494,9 +501,8 @@ local IsTransmogCollected do
         return true
     end
 
-    ---@param itemLink string
-    ---@return boolean? canCollect, boolean? isCollected
-    function IsTransmogCollected(itemLink)
+    ---@type CompactVendorIsTransmogCollected
+    local function DefaultIsTransmogCollected(itemLink)
         if type(itemLink) ~= "string" then
             return
         end
@@ -507,12 +513,70 @@ local IsTransmogCollected do
             return false
         end
         local _, sourceID = C_TransmogCollection.GetItemInfo(itemLink)
+        if not sourceID and not C_TransmogCollection.PlayerHasTransmogByItemInfo then
+            return false
+        end
         if not sourceID then
             local isCollected = C_TransmogCollection.PlayerHasTransmogByItemInfo(itemLink)
             return true, isCollected
         end
         local _, _, _, _, isCollected = C_TransmogCollection.GetAppearanceSourceInfo(sourceID)
         return true, isCollected
+    end
+
+    CanTransmogItem = DefaultCanTransmogItem
+    IsTransmogCollected = DefaultIsTransmogCollected
+
+    -- Support CanIMogIt when available as it does things a bit more accurately than the built-in API when used plainly as we do...
+    if select(4, C_AddOns.GetAddOnInfo("CanIMogIt")) then
+
+        local function isReady()
+            return type(CanIMogIt) == "table" and type(CanIMogIt.IsTransmogable) == "function" and type(CanIMogIt.PlayerKnowsTransmog) == "function"
+        end
+
+        local function replaceAPI()
+
+            ---@type CompactVendorCanTransmogItem
+            function CanTransmogItem(itemLinkOrID)
+                if not itemLinkOrID then
+                    return
+                end
+                local success, canTransmog = pcall(CanIMogIt.IsTransmogable, CanIMogIt, itemLinkOrID)
+                if not success then
+                    return DefaultCanTransmogItem(itemLinkOrID)
+                end
+                return canTransmog
+            end
+
+            ---@type CompactVendorIsTransmogCollected
+            function IsTransmogCollected(itemLink)
+                if not itemLink then
+                    return
+                end
+                if not CanTransmogItem(itemLink) then
+                    return false
+                end
+                local success, isCollected = pcall(CanIMogIt.PlayerKnowsTransmog, CanIMogIt, itemLink)
+                if not success then
+                    return DefaultIsTransmogCollected(itemLink)
+                end
+                return true, isCollected
+            end
+
+        end
+
+        if isReady() then
+            replaceAPI()
+        else
+            local frame = CreateFrame("Frame")
+            frame:RegisterEvent("ADDON_LOADED")
+            frame:SetScript("OnEvent", function(self, event)
+                if not isReady() then return end
+                self:UnregisterEvent(event)
+                replaceAPI()
+            end)
+        end
+
     end
 
 end
@@ -875,6 +939,7 @@ local IsTooltipTextPending do
     ---@param hideVendorPrice? boolean
     ---@return TooltipItem itemData
     function CreateTooltipItem(tooltipData, hyperlinkOrIndex, optionalArg1, optionalArg2, hideVendorPrice)
+        ---@diagnostic disable-next-line: missing-fields
         local itemData = {} ---@type TooltipItem
         Mixin(itemData, TooltipItem)
         itemData:OnLoad(tooltipData, hyperlinkOrIndex, optionalArg1, optionalArg2, hideVendorPrice)
@@ -953,7 +1018,7 @@ local TooltipScanner do
                 tooltipData = C_TooltipInfo.GetMerchantItem(index)
             end
         elseif hyperlink or index then
-            tooltipData = self:LegacyGetTooltipData(hyperlink or GetMerchantItemLink(index))
+            tooltipData = self:LegacyGetTooltipData(hyperlink or GetMerchantItemLink(index)) ---@diagnostic disable-line: param-type-mismatch
         end
         if not tooltipData or IsPending(tooltipData) then
             return nil, true
@@ -1949,6 +2014,7 @@ local MerchantScanner do
         "OnReady",
     })
 
+    MerchantScanner.merchantOpen = false
     MerchantScanner.collection = {}
 
     MerchantScanner.MERCHANT_REFRESH_INTERVAL = 0.25
@@ -2022,6 +2088,13 @@ local MerchantScanner do
 
     ---@return boolean merchantExists, boolean sameMerchant
     function MerchantScanner:UpdateMerchantInfo()
+        if not self.merchantOpen then
+            self.guid = nil
+            self.name = nil
+            self.isReady = false
+            self:TriggerEvent(self.Event.OnHide)
+            return false, false
+        end
         local guid = self.guid
         self.guid = UnitGUID("npc")
         self.name = UnitName("npc")
@@ -2217,9 +2290,11 @@ local MerchantScanner do
     function MerchantScanner:OnEvent(event, ...)
         if event == "MERCHANT_SHOW" then
             FrameUtil.RegisterFrameForEvents(self, self.Events)
+            self.merchantOpen = true
             self:UpdateMerchant(true)
         elseif event == "MERCHANT_CLOSED" then
             FrameUtil.UnregisterFrameForEvents(self, self.Events)
+            self.merchantOpen = false
             self:UpdateMerchant()
         elseif event == "UNIT_INVENTORY_CHANGED" then
             local unit = ...
@@ -3079,8 +3154,8 @@ local CompactVendorFrameMerchantStackSplitTemplate do
 
     ---@param maxStack number
     ---@param owner CompactVendorFrameMerchantButtonQuantityTemplate
-    ---@param anchor AnchorPoint
-    ---@param anchorTo AnchorPoint
+    ---@param anchor FramePoint
+    ---@param anchorTo FramePoint
     ---@param stackCount? number
     function CompactVendorFrameMerchantStackSplitTemplate:OpenStackSplitFrame(maxStack, owner, anchor, anchorTo, stackCount)
         if self.owner then
@@ -3179,6 +3254,89 @@ local CompactVendorFrameMerchantButtonQuantityTemplate do
         --[[ global ]] CompactVendorFrameMerchantButtonQuantityTemplate.StackSplitFrame = CompactVendorFrameMerchantStackSplitFrame ---@type CompactVendorFrameMerchantStackSplitTemplate
     end)
 
+    ---@type BuyEmAll
+    local BuyEmAll do
+
+        ---@alias BuyEmAll fun(): buyEmAllFrame: BuyEmAllFrame?, buyEmAll: BuyEmAllFunc?
+
+        ---@class BuyEmAllFrame : Frame
+
+        ---@class BuyEmAllAPI
+        ---@field public MerchantItemButton_OnModifiedClick fun(self: BuyEmAllAPI, ...)
+
+        ---@alias BuyEmAllFunc fun(frame: Button, button: mouseButton): success: boolean
+
+        ---@type BuyEmAllFunc?
+        local buyEmAllFunc
+
+        local buyEmAllFuncEnv = setmetatable({
+            IsShiftKeyDown = function() return true end,
+        }, {
+            __index = _G,
+        })
+
+        local hasErrored = false
+
+        ---@type BuyEmAll
+        function BuyEmAll()
+            ---@type BuyEmAllFrame
+            local buyEmAllFrame = _G.BuyEmAllFrame ---@diagnostic disable-line: undefined-field
+            if not buyEmAllFrame or type(buyEmAllFrame) ~= "table" or type(buyEmAllFrame.GetObjectType) ~= "function" then
+                return
+            end
+            ---@type BuyEmAllAPI
+            local buyEmAll = _G.BuyEmAll ---@diagnostic disable-line: undefined-field
+            if not buyEmAll or type(buyEmAll) ~= "table" or type(buyEmAll.MerchantItemButton_OnModifiedClick) ~= "function" then
+                return
+            end
+            if not buyEmAllFunc then
+                ---@type BuyEmAllFunc
+                buyEmAllFunc = function(frame, button)
+                    local func = buyEmAll.MerchantItemButton_OnModifiedClick
+                    func = setfenv(func, buyEmAllFuncEnv)
+                    local success, result = pcall(func, buyEmAll, frame, button)
+                    if not success and not hasErrored then
+                        hasErrored = true
+                        print(addonName, "tried to use BuyEmAll but there was an error:", result)
+                    end
+                    return success
+                end
+            end
+            return buyEmAllFrame, buyEmAllFunc
+        end
+
+    end
+
+    function CompactVendorFrameMerchantButtonQuantityTemplate:Open()
+        ---@type CompactVendorFrameMerchantButtonTemplate
+        local owner = self:GetParent() ---@diagnostic disable-line: assign-type-mismatch
+        local buyEmAllFrame, buyEmAllFunc = BuyEmAll()
+        if buyEmAllFrame and buyEmAllFunc and buyEmAllFunc(owner, "LeftButton") then
+            buyEmAllFrame:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 8, 0)
+            return
+        end
+        self.StackSplitFrame:OpenStackSplitFrame(250, self, "TOPLEFT", "TOPRIGHT")
+        self.StackSplitFrameOwnedBy = owner
+    end
+
+    function CompactVendorFrameMerchantButtonQuantityTemplate:Close()
+        local buyEmAllFrame = BuyEmAll()
+        if buyEmAllFrame then
+            buyEmAllFrame:Hide()
+            return
+        end
+        self.StackSplitFrame:Hide()
+    end
+
+    function CompactVendorFrameMerchantButtonQuantityTemplate:IsOpen()
+        local buyEmAllFrame = BuyEmAll()
+        if buyEmAllFrame then
+            local _, relativeTo = buyEmAllFrame:GetPoint()
+            return self == relativeTo and buyEmAllFrame:IsShown()
+        end
+        return self == self.StackSplitFrame.owner and self.StackSplitFrame:IsShown()
+    end
+
     function CompactVendorFrameMerchantButtonQuantityTemplate:OnLoad()
         self:RegisterForClicks("LeftButtonUp")
         self:GetNormalTexture():SetTexCoord(0.15625, 0.5, 0.84375, 0.5, 0.15625, 0, 0.84375, 0) ---@diagnostic disable-line: undefined-field
@@ -3189,23 +3347,22 @@ local CompactVendorFrameMerchantButtonQuantityTemplate do
     end
 
     function CompactVendorFrameMerchantButtonQuantityTemplate:OnShow()
-        self.StackSplitFrame:Hide()
+        self:Close()
     end
 
     function CompactVendorFrameMerchantButtonQuantityTemplate:OnHide()
-        self.StackSplitFrame:Hide()
+        self:Close()
     end
 
     function CompactVendorFrameMerchantButtonQuantityTemplate:OnClick()
-        if self.StackSplitFrame:IsShown() and self == self.StackSplitFrame.owner then
-            self.StackSplitFrame:Hide()
+        if self:IsOpen() then
+            self:Close()
         else
-            self.StackSplitFrame:OpenStackSplitFrame(250, self, "TOPLEFT", "TOPRIGHT")
-            ---@diagnostic disable-next-line: assign-type-mismatch
-            self.StackSplitFrameOwnedBy = self:GetParent() ---@type CompactVendorFrameMerchantButtonTemplate?
+            self:Open()
         end
     end
 
+    ---@param quantity? number
     function CompactVendorFrameMerchantButtonQuantityTemplate:StackSplitFrameCallback(quantity)
         if not self.StackSplitFrameOwnedBy or not quantity then
             return
@@ -3330,7 +3487,7 @@ local CompactVendorFrameMerchantIconTemplate do
     }
 
     ---@param self Region
-    ---@param anchor IconShapeMaskAnchor|AnchorPoint[]
+    ---@param anchor IconShapeMaskAnchor|FramePoint[]
     local function UnpackAnchorArgs(self, anchor)
         local anchor1, anchor2, anchor3, anchor4, anchor5 = unpack(anchor) ---@diagnostic disable-line: param-type-mismatch
         if anchor2 == "$parent.Texture" then
@@ -3471,7 +3628,7 @@ local CompactVendorFrameMerchantButtonCostButtonTemplate do
     ---@param itemLink string
     ---@return number
     local function CountAvailableItems(itemLink)
-        local count = GetItemCount(itemLink, true, false)
+        local count = GetItemCount(itemLink, true, false, true, true)
         if count and count > 0 then
             return count
         end
@@ -3490,14 +3647,20 @@ local CompactVendorFrameMerchantButtonCostButtonTemplate do
         return count or 0
     end
 
-    local PRICE_FORMAT = "€ %.2f"
-    local TOKEN_COST = 20
+    local PRICE_FORMAT = format("%s %%.2f", "€") -- currency is currently hardcoded to Euro
+    local TOKEN_COST = 20 -- token price is currently hardcoded to 20 Euro
     local PRICE_THRESHOLD = 0.1
+
+    ---@return number? copperPerUnit
     local function GetCopperPerUnit()
         C_WowTokenPublic.UpdateMarketPrice()
         local price = C_WowTokenPublic.GetCurrentMarketPrice()
         if not price then return end
         return TOKEN_COST / price
+    end
+
+    if WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE then
+        GetCopperPerUnit = function() end
     end
 
     ---@alias CompactVendorFrameMerchantButtonCostButtonCostType "Item"|"Money"
@@ -3529,15 +3692,11 @@ local CompactVendorFrameMerchantButtonCostButtonTemplate do
         elseif self.costType == "Money" and self.price then
             local copperPerUnit = GetCopperPerUnit()
             if copperPerUnit then
-                local realMoney = copperPerUnit * self.price ---@type string|number|nil
-                if realMoney > PRICE_THRESHOLD then
-                    realMoney = format(PRICE_FORMAT, realMoney)
-                else
-                    realMoney = nil
-                end
-                if realMoney then
+                local realMoney = copperPerUnit * self.price
+                local realMoneyText = realMoney > PRICE_THRESHOLD and format(PRICE_FORMAT, realMoney) or nil
+                if realMoneyText then
                     GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-                    GameTooltip:AddLine(realMoney, 1, 1, 1, false)
+                    GameTooltip:AddLine(realMoneyText, 1, 1, 1, false)
                     GameTooltip:Show()
                 end
             end

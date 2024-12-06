@@ -104,6 +104,7 @@ C.themes["Blizzard_CovenantRenown"] = function()
 		if not self.styled then
 			B.SetBD(self)
 			B.ReskinClose(self.CloseButton)
+			B.Reskin(self.LevelSkipButton)
 
 			self.styled = true
 		end

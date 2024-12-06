@@ -24,9 +24,8 @@ function EX:OnLogin()
 	self:InstanceReset()
 	self:MDEnhance()
 
-	if DB.isDeveloper then
-		self:AutoHideName()
-	end
+	if C.db["Misc"]["AutoConfirm"] then self:AutoConfirm() end
+	if DB.isDeveloper then self:AutoHideName() end
 end
 
 -- 自动隐藏名字，防止卡屏
@@ -105,6 +104,19 @@ end
 
 function EX:InstanceAutoMarke()
 	B:RegisterEvent("UPDATE_INSTANCE_INFO", self.UpdateInstanceAutoMarke)
+end
+
+-- 自动确认出售可交易物品提示
+function EX.UpdateAutoConfirm()
+	hooksecurefunc("StaticPopup_Show", function(name, ...)
+		if name == "CONFIRM_MERCHANT_TRADE_TIMER_REMOVAL" then
+			StaticPopup1Button1:Click() -- 自动点击“确定”按钮
+		end
+	end)
+end
+
+function EX:AutoConfirm()
+	B:RegisterEvent("MERCHANT_SHOW", EX.UpdateAutoConfirm)
 end
 
 -- 宏界面扩展和修复

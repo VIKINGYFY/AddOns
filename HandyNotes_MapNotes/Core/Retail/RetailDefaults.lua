@@ -329,6 +329,7 @@ ns.defaults = {
     --3 Continent map tab
       continentScale = 1.5,
       continentAlpha = 1,
+      showContinentMapNotes = true,
       showContinentRaids = true,
       showContinentDungeons = true,
       showContinentPassage = true,
@@ -360,6 +361,7 @@ ns.defaults = {
       --4 Azeroth map tab
       azerothScale = 1.5,
       azerothAlpha = 1,
+      showAzerothMapNotes = true,
       showAzerothRaids = true,
       showAzerothDungeons = true,
       showAzerothPassage = true,

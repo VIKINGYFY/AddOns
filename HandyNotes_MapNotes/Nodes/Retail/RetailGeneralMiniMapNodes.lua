@@ -1618,6 +1618,9 @@ if not db.activate.HideMapNote then
                 minimap[2214][58726406] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2255][44886632] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2256][44886632] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2369][67623980] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2369][69354651] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2369][71263789] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true }
             end
 
             if self.db.profile.showMiniMapInnkeeper then
@@ -1642,6 +1645,7 @@ if not db.activate.HideMapNote then
                 minimap[2216][49752192] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2255][44796648] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2256][44796648] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2369][71443737] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
             end
 
             if self.db.profile.showMiniMapPvEVendor then
@@ -1651,6 +1655,7 @@ if not db.activate.HideMapNote then
                 minimap[2256][55334121] = { dnID = L["The Severed Threads"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2216][56784582] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. SLASH_EQUIP_SET1, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2213][56784582] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. SLASH_EQUIP_SET1, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2369][67314164] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
             end
 
             if self.db.profile.showMiniMapPvPVendor then

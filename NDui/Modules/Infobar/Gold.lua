@@ -224,7 +224,7 @@ info.onEnter = function(self)
 			end
 		end
 	end
-	
+
 	GameTooltip:AddDoubleLine(" ", DB.LineString)
 	GameTooltip:AddDoubleLine(" ", DB.RightButton..L["Switch Mode"].." ", 1,1,1, 0,1,1)
 	GameTooltip:AddDoubleLine(" ", DB.ScrollButton..L["AutoSell Junk"]..": "..(NDuiADB["AutoSell"] and DB.EnableString or DB.DisableString).." ", 1,1,1, 0,1,1)
@@ -245,9 +245,8 @@ local function startSelling()
 		for slot = 1, C_Container.GetContainerNumSlots(bag) do
 			if stop then return end
 			local info = C_Container.GetContainerItemInfo(bag, slot)
-			if info then
-				if info.hyperlink and (not cache["b"..bag.."s"..slot]) and (not info.hasNoValue) and (not BAG:IsSpecialJunk(info.itemID))
-				and (info.quality <= 0 or NDuiADB["CustomJunkList"][info.itemID]) then
+			if info and info.hyperlink and (not info.hasNoValue) and (not cache["b"..bag.."s"..slot]) and (not BAG:IsSpecialJunk(info.itemID)) then
+				if (info.quality and info.quality <= 0) or NDuiADB["CustomJunkList"][info.itemID] then
 					cache["b"..bag.."s"..slot] = true
 					C_Container.UseContainerItem(bag, slot)
 					C_Timer.After(.15, startSelling)

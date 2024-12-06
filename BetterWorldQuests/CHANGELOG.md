@@ -1,7 +1,8 @@
-### Changes in 110000.34-Release:
+### Changes in 110000.36-Release:
 
-- Added: Option to show world quests on Azeroth world map
-- Changed: World quests on Azeroth world map are now hidden by default
-- Changed: World quests on Azeroth world map are now scaled better
-- Fixed: Scaling on Pandaria map fixed (thanks @justinkb)
+- Added: (Some) settings directly on the map
+- Changed: Update Interface version
+- Changed: Updated chinese translations
+- Fixed: Huge pins showing on Azeroth map
+- Fixed: Pins randomly appearing out of place
 

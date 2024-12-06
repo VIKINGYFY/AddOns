@@ -280,31 +280,3 @@ function M:Expbar()
 	M:SetupScript(bar)
 end
 M:RegisterMisc("ExpRep", M.Expbar)
-
--- Paragon reputation info
-function M:ParagonReputationSetup()
-	if DB.isWW then return end -- FIXME
-	if not C.db["Misc"]["ParagonRep"] then return end
-
-	hooksecurefunc("ReputationFrame_InitReputationRow", function(factionRow, elementData)
-		local factionID = factionRow.factionID
-		local factionContainer = factionRow.Container
-		local factionBar = factionContainer.ReputationBar
-		local factionStanding = factionBar.FactionStanding
-
-		if factionContainer.Paragon:IsShown() then
-			local currentValue, threshold = C_Reputation.GetFactionParagonInfo(factionID)
-			if currentValue then
-				local barValue = mod(currentValue, threshold)
-				local factionStandingtext = L["Paragon"]..math.floor(currentValue/threshold)
-
-				factionBar:SetMinMaxValues(0, threshold)
-				factionBar:SetValue(barValue)
-				factionStanding:SetText(factionStandingtext)
-				factionRow.standingText = factionStandingtext
-				factionRow.rolloverText = format(REPUTATION_PROGRESS_FORMAT, BreakUpLargeNumbers(barValue), BreakUpLargeNumbers(threshold))
-			end
-		end
-	end)
-end
-M:RegisterMisc("ParagonRep", M.ParagonReputationSetup)

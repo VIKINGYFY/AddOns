@@ -32,7 +32,7 @@ function S:CompactVendor()
 	if CompactVendorFrame then
 		S:Proxy("ReskinTrimScroll", CompactVendorFrame.ScrollBar)
 		S:Proxy("ReskinInput", CompactVendorFrame.Search, 22)
-		_G.MerchantFrame:SetWidth(500)
+		_G.MerchantFrame:SetWidth(504)
 
 		hooksecurefunc(CompactVendorFrame.ScrollBox, "Update", function(self)
 			self:ForEachFrame(HandleButton)

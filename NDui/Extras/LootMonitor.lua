@@ -27,8 +27,8 @@ local function isCollection(itemID, itemClassID, itemSubClassID)
 	return (itemID and C_ToyBox.GetToyInfo(itemID)) or (DB.MiscellaneousIDs[itemClassID] and DB.CollectionIDs[itemSubClassID])
 end
 
-local function isEquipment(itemQuality, itemClassID)
-	return DB.EquipmentIDs[itemClassID] and (itemQuality and itemQuality >= LMFrame_CFG["minQuality"])
+local function isEquipment(itemID, itemQuality, itemClassID)
+	return ((itemID and (C_ArtifactUI.GetRelicInfoByItemID(itemID) or C_Soulbinds.IsItemConduitByItemInfo(itemID))) or (itemClassID and DB.EquipmentIDs[itemClassID])) and (itemQuality and itemQuality >= LMFrame_CFG["minQuality"])
 end
 
 local LMFrame = CreateFrame("Frame", "LootMonitor", UIParent)
@@ -130,7 +130,7 @@ local function UpdateLMFrame(self, event, ...)
 		local itemQuality = C_Item.GetItemQualityByID(itemLink)
 		local itemID, _, _, _, _, itemClassID, itemSubClassID = C_Item.GetItemInfoInstant(itemLink)
 
-		if isEquipment(itemQuality, itemClassID) or isCollection(itemID, itemClassID, itemSubClassID) then
+		if isEquipment(itemID, itemQuality, itemClassID) or isCollection(itemID, itemClassID, itemSubClassID) then
 			local textWidth, maxWidth = 0, 0
 			local lootTime = DB.InfoColor..GameTime_GetGameTime(true).."|r"
 			local playerName = UnitClassColor(string.split("-", lootPlayer))

@@ -194,7 +194,7 @@ function M:RaidTool_ReadyCheck(parent)
 	frame:SetScript("OnMouseUp", function(self) self:Hide() end)
 	B.SetBD(frame)
 	B.CreateFS(frame, 14, READY_CHECK, true, "TOP", 0, -8)
-	local rc = B.CreateFS(frame, 14, "", false, "TOP", 0, -28)
+	local rc = B.CreateFS(frame, 14, "", false, "BOTTOM", 0, 8)
 
 	local count, total
 	local function hideRCFrame()

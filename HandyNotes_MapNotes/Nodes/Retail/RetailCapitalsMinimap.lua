@@ -1763,7 +1763,7 @@ if not db.activate.HideMapNote then
                     end
 
                     if self.db.profile.showMinimapCapitalsFP then
-                        minimap[662][30554842] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelA", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                        minimap[622][30554842] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelA", showInZone = false, showOnContinent = false, showOnMinimap = true }
                         minimap[582][47764933] = { name = MINIMAP_TRACKING_FLIGHTMASTER, type = "TravelA", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     end
 
@@ -2295,7 +2295,7 @@ if not db.activate.HideMapNote then
                 end
 
                 if self.db.profile.showMinimapCapitalsAuctioneer then
-                    minimap[125][38402502] = { name = BUTTON_LAG_AUCTIONHOUSE, type = "Auctioneer", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = REQUIRES_LABEL .. " " .. L["Engineer"] }
+                    minimap[125][38402502] = { name = BUTTON_LAG_AUCTIONHOUSE, type = "Auctioneer", showInZone = false, showOnContinent = false, showOnMinimap = true }
 
                     if self.faction == "Horde" or db.activate.MinimapCapitalsEnemyFaction then
                         minimap[125][65522343] = { dnID = BUTTON_LAG_AUCTIONHOUSE, name = "", type = "Auctioneer", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = ITEM_REQ_HORDE}
@@ -3171,6 +3171,16 @@ if not db.activate.HideMapNote then
                         minimap[2339][41162271] = { mnID = 84, name = L["Portal"], type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dornogal to Stormwind
                     end
                 end
+
+                ----- PTR start
+                if ns.version == "11.0.7" then
+
+                if self.db.profile.showMinimapCapitalsZeppelins then
+                    minimap[2339][73540516] = { mnID = 2369, name = "", type = "Zeppelin", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Zeppelin"] .. " ==> " .. L["Siren Isle"] } -- Zeppelin from OG to Borean Tundra - Northrend
+                end
+
+                end
+                ----- PTR end
 
                 if self.db.profile.showMinimapCapitalsTransport then
                     minimap[2339][40722239] = { name = "", type = "Tport2", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Transport"] .. " ==> " .. L["(on the tower)"]  } -- Oribos to The Maw

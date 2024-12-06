@@ -59,6 +59,7 @@ local list = {
 		{AuraID = 435493, UnitID = "player"},	-- 制剂：死亡之吻
 		{AuraID = 443407, UnitID = "player"},	-- 斯卡莫拉克碎片
 		{AuraID = 443531, UnitID = "player"},	-- 振奋之光
+		{AuraID = 445560, UnitID = "player"},	-- 紫蛋
 		{AuraID = 446887, UnitID = "player", Value = true},	-- 邪污巨兽的螯肢
 		{AuraID = 449275, UnitID = "player"},	-- 阿努布伊卡基强能水晶
 		{AuraID = 449947, UnitID = "player", Text = NPE_JUMP},	-- 奸邪发射机，跳3下
@@ -290,10 +291,11 @@ local list = {
 		{AuraID = 445409, UnitID = "target", Value = true},	-- 加固壳壁，斯卡莫拉克
 		-- Raids
 		{AuraID = 440177, UnitID = "target", Flash = true},	-- 准备饕餮，噬灭者乌格拉克斯
-		{AuraID = 450980, UnitID = "target", Value = true},	-- 存在瓦解，阿努巴拉什
+		{AuraID = 440179, UnitID = "target", Flash = true},	-- 缠绕，阿努巴拉什
+		{AuraID = 450980, UnitID = "target", Value = true},	-- 存在瓦解，塔卡兹基
 		{AuraID = 451277, UnitID = "target", Value = true},	-- 尖刺风暴，阿努巴拉什
-		{AuraID = 440179, UnitID = "target", Value = true},	-- 缠绕，阿努巴拉什
-		{AuraID = 456245, UnitID = "target", Value = true},	-- 刺痛谵妄，阿努巴拉什
+		{AuraID = 451334, UnitID = "target", Flash = true},	-- 力勉心衰，阿努巴拉什
+		{AuraID = 456245, UnitID = "target", Flash = true},	-- 刺痛谵妄，塔卡兹基
 		{AuraID = 448488, UnitID = "target", Value = true},	-- 崇拜者的保护，尾王
 		-- PVP
 		{AuraID =    498, UnitID = "target"}, -- 圣佑术

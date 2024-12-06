@@ -6,7 +6,7 @@ A multi-purpose [event](https://warcraft.wiki.gg/wiki/Events)-[mixin](https://en
 These methods are also available as methods directly on `namespace`, e.g:
 
 ```lua
-addon:RegisterEvent('BAG_UPDATE', function(self, ...)
+namespace:RegisterEvent('BAG_UPDATE', function(self, ...)
     -- do something
 end)
 ```
@@ -88,6 +88,21 @@ function eventMixin:UnregisterEvent(event, callback)
 
 		if #callbacks[event] == 0 then
 			eventHandler:UnregisterEvent(event)
+		end
+	end
+end
+
+--[[ namespace.eventMixin:UnregisterAllEvents(_callback_)
+Unregisters all [frame events](https://warcraft.wiki.gg/wiki/Events) from the `callback` function.
+--]]
+function eventMixin:UnregisterAllEvents(callback)
+	assert(type(callback) == 'function', 'arg1 must be a function')
+
+	for event, cbs in next, callbacks do
+		for _, data in next, cbs do
+			if data.owner == self and data.callback == callback then
+				self:UnregisterEvent(event, callback)
+			end
 		end
 	end
 end

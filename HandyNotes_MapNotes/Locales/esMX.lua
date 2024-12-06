@@ -3,6 +3,8 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "esMX")
 if not L then return end
 
 --0.08
+L["Displays location symbols on the Azeroth / Continent map for Horde and Alliance capitals with additional information about what is within that capital at MapNotes associated symbols"] = "Muestra símbolos de ubicación en el mapa de Azeroth/Continente para las capitales de la Horda y la Alianza con información adicional sobre lo que hay dentro de esa capital en los símbolos asociados de MapNotes"
+L["For the zones and capitals themselves, there is an option in the respective tab to display nearby symbols in groups instead of individually"] = "Para las zonas y capitales en sí, hay una opción en la pestaña respectiva para mostrar los símbolos cercanos en grupos en lugar de individualmente"
 L["Displays Horde and Alliance capitals icons with additional information"] = "Muestra íconos de capitales de la Horda y la Alianza con información adicional"
 L["Synchronize"] = "Sincronizar"
 L["Synchronizes size and visibility of all individual symbols"] = "Sincroniza el tamaño y la visibilidad de todos los símbolos individuales"
@@ -282,6 +284,7 @@ L["Passage"] = "Pasaje"
 L["Portal"] = "Portal"
 L["Ship"] = "Barco"
 L["Zeppelin"] = "Zepeline"
+L["Mole Machine"] = "Máquina topo"
 L["Portalroom"] = "Sala de portales"
 L["The Dark Portal"] = "El Portal Oscuro"
 L["Captain Krooz"] = "Capitán Krooz"
@@ -455,6 +458,7 @@ L["Council of Dornogal"] = "Consejo de Dornogal"
 L["The Assembly of the Deeps"] = "La Asamblea de las Profundidades"
 L["Hallowfall Arathi"] = "Arathi de Santificación"
 L["The Severed Threads"] = "Los Hilos Cortados"
+L["Siren Isle"] = "Isla de las sirenas"
 -- 14
 L["Displays zone icons on a specific continent"] = "Muestra iconos de zona en un continente específico"
 L["Zidormi"] = "Zidormi"
