@@ -176,7 +176,7 @@ function M:UIWidgetFrameMover()
 
 	local frame2 = CreateFrame("Frame", "NDuiUIWidgetPowerBarMover", UIParent)
 	frame2:SetSize(260, 40)
-	B.Mover(frame2, L["UIWidgetPowerBar"], "UIWidgetPowerBar", {"BOTTOM", UIParent, "BOTTOM", 0, 150})
+	B.Mover(frame2, L["UIWidgetPowerBar"], "UIWidgetPowerBar", {"TOP", UIParent, "CENTER", 0, -200})
 
 	hooksecurefunc(UIWidgetPowerBarContainerFrame, "SetPoint", function(self, _, parent)
 		if parent ~= frame2 then

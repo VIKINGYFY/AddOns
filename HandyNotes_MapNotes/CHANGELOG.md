@@ -1,13 +1,13 @@
 # MapNote
-## [2.5.5](https://github.com/Ssesmar/MapNote) (2024-12-03)
+## [2.5.6](https://github.com/Ssesmar/MapNote) (2024-12-10)
 - Note:
 
 PTR
-update toc
-add new transport location to siren isle (mole machines & Zeppelin)
+update Mole Machine icon
 
 Retail
- fixed flightmaster number twist in stormshild for the alliance
+ update Torghast icons on zone and minimap
+
 
 - Description:
 

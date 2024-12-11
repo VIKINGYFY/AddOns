@@ -304,6 +304,7 @@ L["(inside portal chamber)"] = "(внутри портальной камеры)
 L["(inside building)"] = "(внутри здания)"
 L["talk to"] = "говорить с"
 --10 places
+L["Torghast"] = "Торгаст"
 L["Bastion"] = "Бастион"
 L["Ardenweald"] = "Арденвельд"
 L["Telogrus Rift"] = "Телогрус"

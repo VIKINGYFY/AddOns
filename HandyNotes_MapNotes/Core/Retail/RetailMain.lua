@@ -639,7 +639,7 @@ do
 
         -- Transport Icons
         if value.type == "Portal" or value.type == "PortalS" or value.type == "HPortal" or value.type == "APortal" or value.type == "HPortalS" or value.type == "APortalS" or value.type == "PassageHPortal" 
-          or value.type == "PassageAPortal" or value.type == "WayGateGolden" or value.type == "WayGateGreen" or value.type == "DarkMoon" then
+          or value.type == "PassageAPortal" or value.type == "WayGateGolden" or value.type == "WayGateGreen" or value.type == "DarkMoon" or value.type == "TorghastUp" then
           scale = db.MiniMapScalePortals
           alpha = db.MiniMapAlphaPortals
         end
@@ -886,7 +886,7 @@ do
 
         -- Transport Icons
         if value.type == "Portal" or value.type == "PortalS" or value.type == "HPortal" or value.type == "APortal" or value.type == "HPortalS" or value.type == "APortalS" or value.type == "PassageHPortal" 
-          or value.type == "PassageAPortal" or value.type == "WayGateGolden" or value.type == "WayGateGreen" then
+          or value.type == "PassageAPortal" or value.type == "WayGateGolden" or value.type == "WayGateGreen" or value.type == "TorghastUp" then
           scale = db.ZoneScalePortals
           alpha = db.ZoneAlphaPortals
         end

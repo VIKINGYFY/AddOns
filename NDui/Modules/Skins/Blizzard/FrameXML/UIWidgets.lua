@@ -15,23 +15,16 @@ end
 
 local function ReskinWidgetStatusBar(bar)
 	if bar and not bar.styled then
-		if bar.BG then bar.BG:SetAlpha(0) end
-		if bar.BGLeft then bar.BGLeft:SetAlpha(0) end
-		if bar.BGRight then bar.BGRight:SetAlpha(0) end
-		if bar.BGCenter then bar.BGCenter:SetAlpha(0) end
-		if bar.BorderLeft then bar.BorderLeft:SetAlpha(0) end
-		if bar.BorderRight then bar.BorderRight:SetAlpha(0) end
-		if bar.BorderCenter then bar.BorderCenter:SetAlpha(0) end
-		if bar.Spark then bar.Spark:SetAlpha(0) end
-		if bar.SparkGlow then bar.SparkGlow:SetAlpha(0) end
-		if bar.BorderGlow then bar.BorderGlow:SetAlpha(0) end
+		B.StripTextures(bar, 0)
+		B.SetBD(bar)
+		bar:SetStatusBarTexture(DB.normTex)
+
 		if bar.Label then
 			--bar.Label:SetPoint("CENTER", 0, -5)
 			--bar.Label:SetFontObject(Game12Font)
 			ResetLabelColor(bar.Label)
 			hooksecurefunc(bar.Label, "SetTextColor", ResetLabelColor)
 		end
-		B.SetBD(bar)
 
 		bar.styled = true
 	end
@@ -47,6 +40,8 @@ local function ReskinDoubleStatusBarWidget(self)
 end
 
 local function ReskinPVPCaptureBar(self)
+	B.StripTextures(self, 0)
+
 	self.LeftBar:SetTexture(DB.normTex)
 	self.NeutralBar:SetTexture(DB.normTex)
 	self.RightBar:SetTexture(DB.normTex)
@@ -54,13 +49,6 @@ local function ReskinPVPCaptureBar(self)
 	self.LeftBar:SetVertexColor(.2, .6, 1)
 	self.NeutralBar:SetVertexColor(.8, .8, .8)
 	self.RightBar:SetVertexColor(.9, .2, .2)
-
-	self.LeftLine:SetAlpha(0)
-	self.RightLine:SetAlpha(0)
-	self.BarBackground:SetAlpha(0)
-	self.Glow1:SetAlpha(0)
-	self.Glow2:SetAlpha(0)
-	self.Glow3:SetAlpha(0)
 
 	if not self.bg then
 		self.bg = B.SetBD(self)
@@ -125,7 +113,7 @@ table.insert(C.defaultThemes, function()
 
 	hooksecurefunc(_G.UIWidgetBelowMinimapContainerFrame, "UpdateWidgetLayout", function(self)
 		if not self.widgetFrames then return end
-	
+
 		for _, widgetFrame in pairs(self.widgetFrames) do
 			if widgetFrame.widgetType == Type_CaptureBar then
 				if not widgetFrame:IsForbidden() then

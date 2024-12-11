@@ -310,6 +310,31 @@ end
 
 -- Kill regions
 do
+	function B:PrintTextures(name)
+		if self.GetRegions then
+			for index, region in pairs {self:GetRegions()} do
+				local regionName = region:GetDebugName()
+				if string.find(regionName, name) then
+					print("Regions:", index, regionName)
+					break
+				end
+			end
+		else
+			for index, child in pairs {self:GetChildren()} do
+				local childName = child:GetDebugName()
+				if string.find(childName, name) then
+					print("Children:", index, childName)
+					break
+				end
+			end
+		end
+	end
+
+	function B:GetObject(key)
+		local frameName = self.GetName and self:GetName()
+		return self[key] or (frameName and _G[frameName..key])
+	end
+
 	function B:Dummy()
 		return
 	end
@@ -333,52 +358,152 @@ do
 	end
 
 	local blizzTextures = {
-		"Inset",
-		"inset",
-		"InsetFrame",
-		"LeftInset",
-		"RightInset",
-		"NineSlice",
-		"BG",
-		"Bg",
-		"border",
-		"Border",
-		"Background",
-		"BorderFrame",
-		"bottomInset",
-		"BottomInset",
-		"bgLeft",
-		"bgRight",
-		"FilligreeOverlay",
-		"PortraitOverlay",
+		"AffixBorder",
 		"ArtOverlayFrame",
+		"BG",
+		"BGBottom",
+		"BGCenter",
+		"BGLeft",
+		"BGRight",
+		"BGTop",
+		"Background",
+		"BackgroundOverlay",
+		"Begin",
+		"Bg",
+		"Border",
+		"BorderBottom",
+		"BorderBottomLeft",
+		"BorderBottomRight",
+		"BorderBox",
+		"BorderCenter",
+		"BorderFrame",
+		"BorderGlow",
+		"BorderLeft",
+		"BorderRight",
+		"BorderTop",
+		"BorderTopLeft",
+		"BorderTopRight",
+		"Bottom",
+		"BottomBar",
+		"BottomInset",
+		"BottomLeft",
+		"BottomLeftBorderDecoration",
+		"BottomLeftTex",
+		"BottomMid",
+		"BottomMiddle",
+		"BottomRight",
+		"BottomRightBorderDecoration",
+		"BottomRightTex",
+		"BottomTex",
+		"Center",
+		"CircleMask",
+		"Cover",
+		"Delimiter1",
+		"Delimiter2",
+		"EmptyBackground",
+		"End",
+		"FilligreeOverlay",
+		"GarrCorners",
+		"IconMask",
+		"IconRing",
+		"Inset",
+		"InsetFrame",
+		"InsetLeft",
+		"InsetRight",
+		"Left",
+		"LeftDisabled",
+		"LeftInset",
+		"LeftSeparator",
+		"LeftTex",
+		"LogoBorder",
+		"Mask",
+		"Mid",
+		"Middle",
+		"MiddleDisabled",
+		"MiddleLeft",
+		"MiddleMid",
+		"MiddleMiddle",
+		"MiddleRight",
+		"MiddleTex",
+		"NameFrame",
+		"NineSlice",
+		"NormalTexture",
+		"Overlay",
+		"OverlayKit",
 		"Portrait",
-		"portrait",
+		"PortraitOverlay",
+		"Right",
+		"RightDisabled",
+		"RightInset",
+		"RightSeparator",
+		"RightTex",
+		"Ring",
+		"ScrollBarBottom",
+		"ScrollBarMiddle",
+		"ScrollBarTop",
+		"ScrollDownBorder",
 		"ScrollFrameBorder",
 		"ScrollUpBorder",
-		"ScrollDownBorder",
+		"ShadowOverlay",
+		"Spark",
+		"SparkGlow",
+		"SpellBorder",
+		"TabSpacer",
+		"TabSpacer1",
+		"TabSpacer2",
+		"Top",
+		"TopBar",
+		"TopInset",
+		"TopLeft",
+		"TopLeftBorderDecoration",
+		"TopLeftTex",
+		"TopMid",
+		"TopMiddle",
+		"TopRight",
+		"TopRightBorderDecoration",
+		"TopRightTex",
+		"TopTex",
+		"Track",
+		"_LeftSeparator",
+		"_RightSeparator",
+		"background",
+		"bgLeft",
+		"bgRight",
+		"border",
+		"bottomInset",
+		"inset",
+		"portrait",
+		"shadows",
+		"topInset",
+		"track",
+		"trackBG",
 	}
-	function B:StripTextures(kill)
-		local frameName = self.GetName and self:GetName()
+
+	function B:CleanTextures(kill, isOverride)
 		for _, texture in pairs(blizzTextures) do
-			local blizzFrame = self[texture] or (frameName and _G[frameName..texture])
-			if blizzFrame then
-				B.StripTextures(blizzFrame, kill)
+			local blizzTexture = B.GetObject(self, texture)
+			if blizzTexture then
+				B.StripTextures(blizzTexture, kill)
 			end
 		end
+	end
 
-		if self.GetNumRegions then
-			for i = 1, self:GetNumRegions() do
-				local region = select(i, self:GetRegions())
-				if region and region.IsObjectType and region:IsObjectType("Texture") then
+	function B:StripTextures(kill)
+		B.CleanTextures(self, kill)
+
+		if self.GetRegions then
+			local regions = {self:GetRegions()}
+			for index, region in pairs(regions) do
+				if region and region:IsObjectType("Texture") then
 					if kill and type(kill) == "boolean" then
 						B.HideObject(region)
 					elseif tonumber(kill) then
 						if kill == 0 then
 							region:SetAlpha(0)
-						elseif i ~= kill then
+						elseif kill ~= index then
 							region:SetTexture("")
 							region:SetAtlas("")
+							region:SetAlpha(0)
 						end
 					else
 						region:SetTexture("")

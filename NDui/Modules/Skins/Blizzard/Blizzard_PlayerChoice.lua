@@ -39,14 +39,11 @@ local uglyBackground = {
 
 C.themes["Blizzard_PlayerChoice"] = function()
 	hooksecurefunc(PlayerChoiceFrame, "TryShow", function(self)
+		B.StripTextures(self)
+
 		if not self.bg then
-			self.BlackBackground:SetAlpha(0)
-			self.Background:SetAlpha(0)
-			self.NineSlice:SetAlpha(0)
-			self.Title:DisableDrawLayer("BACKGROUND")
 			self.Title.Text:SetTextColor(1, .8, 0)
 			self.Title.Text:SetFontObject(SystemFont_Huge1)
-			B.CreateBDFrame(self.Title, .25)
 			B.ReskinClose(self.CloseButton)
 			self.bg = B.SetBD(self)
 
@@ -55,14 +52,14 @@ C.themes["Blizzard_PlayerChoice"] = function()
 			end
 		end
 
-		if self.CloseButton.Border then self.CloseButton.Border:SetAlpha(0) end -- no border for some templates
-
 		local isIgnored = ignoredTextureKit[self.uiTextureKit]
 		self.bg:SetShown(not isIgnored)
 
 		if not self.optionFrameTemplate then return end
 
 		for optionFrame in self.optionPools:EnumerateActiveByTemplate(self.optionFrameTemplate) do
+			--optionFrame:DisableDrawLayer("BACKGROUND")
+
 			local header = optionFrame.Header
 			if header then
 				ReskinOptionText(header.Text, 1, .8, 0)

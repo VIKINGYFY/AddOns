@@ -2,13 +2,16 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 local function ReskinQuestHeader(header, isCalling)
-	if header.styled then return end
+	if not header.styled then
+		B.StripTextures(header)
+		header.Background:SetAlpha(.5)
 
-	if header.Background then header.Background:SetAlpha(.7) end
-	if header.Divider then header.Divider:Hide() end
-	if header.TopFiligree then header.TopFiligree:Hide() end
+		local bg = B.CreateBDFrame(header.Background, .25)
+		bg:SetPoint("TOPLEFT", header.Background, 0, 0)
+		bg:SetPoint("BOTTOMRIGHT", header.Background, 0, 8)
 
-	header.styled = true
+		header.styled = true
+	end
 end
 
 local function ReskinSessionDialog(_, dialog)

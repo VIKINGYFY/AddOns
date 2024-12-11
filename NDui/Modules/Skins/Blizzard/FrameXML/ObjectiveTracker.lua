@@ -43,19 +43,19 @@ local function reskinHeader(header)
 end
 
 local function reskinBarTemplate(bar)
-	if bar.bg then return end
-
-	B.StripTextures(bar)
-	bar:SetStatusBarTexture(DB.normTex)
-	bar:SetStatusBarColor(r, g, b)
-	bar.bg = B.SetBD(bar)
+	if not bar.bg then
+		B.StripTextures(bar)
+		bar:SetStatusBarTexture(DB.normTex)
+		bar:SetStatusBarColor(r, g, b)
+		bar.bg = B.SetBD(bar)
+	end
 end
 
 local function reskinBar(self, key)
 	local progressBar = self.usedProgressBars[key]
 	local bar = progressBar and progressBar.Bar
 
-	if bar and not bar.bg then
+	if bar then
 		reskinBarTemplate(bar)
 	end
 
@@ -79,7 +79,7 @@ local function reskinTimer(self, key)
 	local timerBar = self.usedTimerBars[key]
 	local bar = timerBar and timerBar.Bar
 
-	if bar and not bar.bg then
+	if bar then
 		reskinBarTemplate(bar)
 	end
 end

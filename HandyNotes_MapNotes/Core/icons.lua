@@ -381,6 +381,7 @@ TextIconPassageAPortal = TextIcon(iconLink .. "passageAPortal", 50, 50, 1, 50, 1
 TextIconWayGateGolden = TextIcon(iconLink .. "WayGateGolden", 50, 50, 1, 50, 1, 50)
 TextIconWayGateGreen = TextIcon(iconLink .. "WayGateGreen", 50, 50, 1, 50, 1, 50)
 TextIconDarkMoon = TextIcon(iconLink .. "DarkMoon", 70, 70, 1, 50, 1, 50)
+TextIconTorghastUp = TextIcon(iconLink .. "TorghastUp", 50, 50, 1, 50, 1, 50)
 --portal Old
 TextIconPortalOld = TextIcon(iconLink .. "portalOld", 50, 50, 1, 50, 1, 50) 
 TextIconHPortalOld = TextIcon(iconLink .. "hportalOld", 50, 50, 1, 50, 1, 50)

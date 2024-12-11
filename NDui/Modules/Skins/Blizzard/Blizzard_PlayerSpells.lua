@@ -15,7 +15,6 @@ end
 
 C.themes["Blizzard_PlayerSpells"] = function()
 	local frame = PlayerSpellsFrame
-
 	B.ReskinPortraitFrame(frame)
 	B.ReskinMinMax(frame.MaximizeMinimizeButton)
 
@@ -117,12 +116,7 @@ C.themes["Blizzard_PlayerSpells"] = function()
 
 	local spellBook = PlayerSpellsFrame.SpellBookFrame
 	if spellBook then
-		spellBook.TopBar:SetAlpha(0)
-		spellBook.BookBGLeft:SetAlpha(0)
-		spellBook.BookBGRight:SetAlpha(0)
-		spellBook.BookBGHalved:SetAlpha(0)
-		spellBook.Bookmark:SetAlpha(0)
-		spellBook.BookCornerFlipbook:Hide()
+		B.StripTextures(spellBook)
 
 		for i = 1, 3 do
 			local tab = select(i, spellBook.CategoryTabSystem:GetChildren())

@@ -9,7 +9,7 @@ local function HandleButton(self)
 	end
 
 	self:SetNormalTexture(0)
-	self.bg = B.SetBD(self, .25)
+	self.bg = B.CreateBDFrame(self, .25)
 	self.bg:SetInside(nil, 4, 4)
 	self.bg:SetFrameLevel(self:GetFrameLevel())
 	self:SetHighlightTexture(DB.bdTex)

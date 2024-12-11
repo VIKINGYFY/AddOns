@@ -63,7 +63,6 @@ end
 
 local function reskinReforgeUI(frame, index)
 	B.StripTextures(frame, index)
-	B.CreateBDFrame(frame.Background)
 	B.SetBD(frame)
 	B.ReskinClose(frame.CloseButton)
 	B.ReskinIcon(frame.ItemSlot.Icon)

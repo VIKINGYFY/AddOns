@@ -62,8 +62,9 @@ end
 
 local function HandleDungeon(self)
 	B.StripTextures(self, 0)
-	self.Bg:SetAlpha(1)
 	B.CreateBDFrame(self.Bg, 0)
+
+	self.Bg:SetAlpha(1)
 
 	for _, button in ipairs(self.itemFrames) do
 		HandleItemButton(button)

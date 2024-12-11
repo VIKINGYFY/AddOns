@@ -318,6 +318,8 @@ C.themes["Blizzard_EncounterJournal"] = function()
 
 	local lootJournal = EncounterJournal.LootJournal
 	B.StripTextures(lootJournal)
+	B.ReskinDropDown(lootJournal.ClassDropdown)
+	B.ReskinDropDown(lootJournal.RuneforgePowerDropdown)
 
 	local iconColor = DB.QualityColors[Enum.ItemQuality.Legendary or 5] -- legendary color
 	B.ReskinTrimScroll(lootJournal.ScrollBar)
@@ -381,6 +383,7 @@ C.themes["Blizzard_EncounterJournal"] = function()
 	if frame then
 		B.StripTextures(frame)
 		B.ReskinTrimScroll(frame.ScrollBar)
+		B.ReskinTrimScroll(frame.FilterList.ScrollBar)
 		if frame.ThemeContainer then
 			frame.ThemeContainer:SetAlpha(0)
 		end
@@ -391,17 +394,25 @@ C.themes["Blizzard_EncounterJournal"] = function()
 			end
 		end
 
-		local function handleText(button)
-			local container = button.TextContainer
-			if container and not container.styled then
-				hooksecurefunc(container.NameText, "SetTextColor", replaceBlackColor)
-				hooksecurefunc(container.ConditionsText, "SetTextColor", replaceBlackColor)
-				container.styled = true
+		local function reskinScrollBox(button)
+			if button and not button.styled then
+				B.StripTextures(button, 0)
+				local bg = B.CreateBDFrame(button, .25)
+				bg:SetPoint("TOPLEFT", 3, -3)
+				bg:SetPoint("BOTTOMRIGHT", -4, 2)
+
+				local container = button.TextContainer
+				if container then
+					hooksecurefunc(container.NameText, "SetTextColor", replaceBlackColor)
+					hooksecurefunc(container.ConditionsText, "SetTextColor", replaceBlackColor)
+				end
+
+				button.styled = true
 			end
 		end
 
 		hooksecurefunc(frame.ScrollBox, "Update", function(self)
-			self:ForEachFrame(handleText)
+			self:ForEachFrame(reskinScrollBox)
 		end)
 	end
 end

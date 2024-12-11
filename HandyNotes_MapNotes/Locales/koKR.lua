@@ -304,6 +304,7 @@ L["(inside portal chamber)"] = "(포탈실 내부)"
 L["(inside building)"] = "(건물 내부)"
 L["talk to"] = "이야기하십시오"
 --10 places
+L["Torghast"] = "토르가스트"
 L["Bastion"] = "승천의 보루"
 L["Ardenweald"] = "몽환숲"
 L["Telogrus Rift"] = "텔로그러스 균열"

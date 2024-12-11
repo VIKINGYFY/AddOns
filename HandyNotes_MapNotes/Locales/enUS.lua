@@ -305,6 +305,7 @@ L["(inside portal chamber)"] = true
 L["(inside building)"] = true
 L["talk to"] = true
 --10 places
+L["Torghast"] = true
 L["Bastion"] = true
 L["Ardenweald"] = true
 L["Telogrus Rift"] = true
