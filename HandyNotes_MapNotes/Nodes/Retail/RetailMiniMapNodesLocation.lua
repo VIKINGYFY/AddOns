@@ -54,7 +54,7 @@ if not db.activate.HideMapNote then
             if self.db.profile.showMiniMapPortals then
 
               --20 Year Event
-              minimap[71][62394937] = { name = "", type = "PortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. L["Twilight Highlands"] .. "\n" .. L["Portal"] .. " ==> " .. L["Uldum"] .. "\n" .. L["Portal"] .. " ==> " .. DUNGEON_FLOOR_DRAGONBLIGHTCHROMIESCENARIO3 .. "\n" .. "\n" .. OR_CAPS .. "\n" .. "\n" .. L["Portal"] .. " ==> " .. L["Stormsong Valley"] .. "\n" .. L["Portal"] .. " ==> " .. L["Drustvar"] .. "\n" .. L["Portal"] .. " ==> " .. L["Tiragarde Sound"] } -- Portals
+              minimap[71][62394937] = { name = "", type = "PortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. L["Twilight Highlands"] .. "\n" .. L["Portal"] .. " ==> " .. L["Uldum"] .. "\n" .. L["Portal"] .. " ==> " .. DUNGEON_FLOOR_DRAGONBLIGHTCHROMIESCENARIO3 .. "\n" .. "\n" .. OR_CAPS .. "\n" .. "\n" .. L["Portal"] .. " ==> " .. L["Stormsong Valley"] .. "\n" .. L["Portal"] .. " ==> " .. L["Drustvar"] .. "\n" .. L["Portal"] .. " ==> " .. L["Tiragarde Sound"]  .. "\n" .. "\n" .. OR_CAPS .. "\n" .. "\n" .. L["Portal"] .. " ==> " .. "Val'sharah" .. "\n" .. L["Portal"] .. " ==> " .. "Stormheim" .. "\n" .. L["Portal"] .. " ==> " .. "Suramar"} -- Portals
               -- minimap[198][34213089] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Hyjal
               -- minimap[1527][69923469] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Uldum
               -- minimap[241][59601682] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Shadowmoon Valley
@@ -577,6 +577,13 @@ if not db.activate.HideMapNote then
 
           --Broken Isles Portals
             if self.db.profile.showMiniMapPortals then
+
+            -- 20 Year Event
+            --minimap[619][53906757] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Val'sharah
+            --minimap[634][37394745] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Stormheim
+            --minimap[680][38414294] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Suramar
+            ---
+
               minimap[630][46674136] = { name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. STORMWIND} -- Portal to Orgrimmar from Azsuna
               minimap[971][24952789] = { name = "", type = "Portal", mnID = 629, showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_DALARANCITY1 } -- Portal to Dalaran
     
@@ -703,9 +710,9 @@ if not db.activate.HideMapNote then
             if self.db.profile.showMiniMapPortals then
 
               -- 20 Year Event
-              minimap[1565][68211992] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Ardenweald
-              minimap[1525][65945754] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Revendreth
-              minimap[1970][64655393] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Zereth Mortis
+              --minimap[1565][68211992] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Ardenweald
+              --minimap[1525][65945754] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Revendreth
+              --minimap[1970][64655393] = { mnID = 71, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"]} -- Portal To Tanaris from Zereth Mortis
               ---
 
               minimap[1543][42424210] = { mnID = 1670, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. L["Oribos"] .. " " .. DUNGEON_FLOOR_GILNEAS2 } -- the Maw

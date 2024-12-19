@@ -1,12 +1,11 @@
 # MapNote
-## [2.5.6](https://github.com/Ssesmar/MapNote) (2024-12-10)
+## [2.5.7](https://github.com/Ssesmar/MapNote) (2024-12-17)
 - Note:
 
-PTR
-update Mole Machine icon
+
 
 Retail
- update Torghast icons on zone and minimap
+  toc update
 
 
 - Description:

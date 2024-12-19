@@ -259,7 +259,7 @@ end
 function module:SetupWorldMap()
 	if C.db["Map"]["DisableMap"] then return end
 	if C_AddOns.IsAddOnLoaded("Mapster") then return end
-
+--[[
 	-- Remove from frame manager
 	WorldMapFrame:ClearAllPoints()
 	WorldMapFrame:SetPoint("CENTER") -- init anchor
@@ -267,7 +267,7 @@ function module:SetupWorldMap()
 	WorldMapFrame:SetAttribute("UIPanelLayout-enabled", false)
 	WorldMapFrame:SetAttribute("UIPanelLayout-allowOtherPanels", true)
 	table.insert(UISpecialFrames, "WorldMapFrame")
-
+]]
 	-- Hide stuff
 	WorldMapFrame.BlackoutFrame:SetAlpha(0)
 	WorldMapFrame.BlackoutFrame:EnableMouse(false)

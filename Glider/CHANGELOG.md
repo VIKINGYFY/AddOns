@@ -1,3 +1,6 @@
+### 0.2.21
+- Version Update
+
 ### 0.2.19
 - When switching between Zones the old Vigor bar should no longer show up as now the entire widget is hidden as well.
 

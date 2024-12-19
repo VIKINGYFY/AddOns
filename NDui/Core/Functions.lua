@@ -431,6 +431,7 @@ do
 		"Overlay",
 		"OverlayKit",
 		"Portrait",
+		"PortraitContainer",
 		"PortraitOverlay",
 		"Right",
 		"RightDisabled",
@@ -456,6 +457,7 @@ do
 		"TopInset",
 		"TopLeft",
 		"TopLeftBorderDecoration",
+		"TopLeftCorner",
 		"TopLeftTex",
 		"TopMid",
 		"TopMiddle",
@@ -483,7 +485,13 @@ do
 		for _, texture in pairs(blizzTextures) do
 			local blizzTexture = B.GetObject(self, texture)
 			if blizzTexture then
-				B.StripTextures(blizzTexture, kill)
+				if blizzTexture:IsObjectType("Texture") then
+					blizzTexture:SetTexture("")
+					blizzTexture:SetAtlas("")
+					blizzTexture:SetAlpha(0)
+				else
+					B.StripTextures(blizzTexture, kill)
+				end
 			end
 		end
 	end
@@ -953,56 +961,13 @@ do
 		B.SetBorderColor(self.__bg)
 	end
 
-	local blizzRegions = {
-		"Left",
-		"Middle",
-		"Right",
-		"Mid",
-		"LeftDisabled",
-		"MiddleDisabled",
-		"RightDisabled",
-		"TopLeft",
-		"TopRight",
-		"BottomLeft",
-		"BottomRight",
-		"TopMiddle",
-		"MiddleLeft",
-		"MiddleRight",
-		"BottomMiddle",
-		"MiddleMiddle",
-		"TabSpacer",
-		"TabSpacer1",
-		"TabSpacer2",
-		"_RightSeparator",
-		"_LeftSeparator",
-		"Cover",
-		"Border",
-		"Background",
-		"TopTex",
-		"TopLeftTex",
-		"TopRightTex",
-		"LeftTex",
-		"BottomTex",
-		"BottomLeftTex",
-		"BottomRightTex",
-		"RightTex",
-		"MiddleTex",
-		"Center",
-	}
 	function B:Reskin(noHighlight, override)
 		if self.SetNormalTexture and not override then self:SetNormalTexture(0) end
 		if self.SetHighlightTexture then self:SetHighlightTexture(0) end
 		if self.SetPushedTexture then self:SetPushedTexture(0) end
 		if self.SetDisabledTexture then self:SetDisabledTexture(0) end
 
-		local buttonName = self.GetName and self:GetName()
-		for _, region in pairs(blizzRegions) do
-			region = buttonName and _G[buttonName..region] or self[region]
-			if region then
-				region:SetAlpha(0)
-				region:Hide()
-			end
-		end
+		B.CleanTextures(self, 0)
 
 		self.__bg = B.CreateBDFrame(self, 0, true)
 		self.__bg:SetFrameLevel(self:GetFrameLevel())
@@ -1062,7 +1027,7 @@ do
 	end
 
 	function B:ResetTabAnchor()
-		local text = self.Text or (self.GetName and _G[self:GetName().."Text"])
+		local text = B.GetObject(self, "Text")
 		if text then
 			text:SetPoint("CENTER", self)
 		end
@@ -1251,7 +1216,7 @@ do
 			hooksecurefunc(self, "SetPoint", resetCloseButtonAnchor)
 		end
 
-		B.StripTextures(self)
+		B.StripTextures(self, 99)
 		if self.Border then self.Border:SetAlpha(0) end
 		local bg = B.CreateBDFrame(self, 0, true)
 		bg:SetAllPoints()
@@ -1273,13 +1238,7 @@ do
 
 	-- Handle editbox
 	function B:ReskinEditBox(height, width)
-		local frameName = self.GetName and self:GetName()
-		for _, region in pairs(blizzRegions) do
-			region = frameName and _G[frameName..region] or self[region]
-			if region then
-				region:SetAlpha(0)
-			end
-		end
+		B.CleanTextures(self)
 
 		local bg = B.CreateBDFrame(self, 0, true)
 		bg:SetPoint("TOPLEFT", -2, 0)
@@ -1423,8 +1382,7 @@ do
 
 	-- Color swatch
 	function B:ReskinColorSwatch()
-		local frameName = self.GetName and self:GetName()
-		local swatchBg = frameName and _G[frameName.."SwatchBg"]
+		local swatchBg = B.GetObject(self, "SwatchBg")
 		if swatchBg then
 			swatchBg:SetColorTexture(0, 0, 0)
 			swatchBg:SetInside(nil, 2, 2)

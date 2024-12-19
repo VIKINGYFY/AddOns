@@ -61,8 +61,8 @@ C.themes["Blizzard_AzeriteEssenceUI"] = function()
 	end)
 end
 
-local function reskinReforgeUI(frame, index)
-	B.StripTextures(frame, index)
+local function reskinReforgeUI(frame)
+	B.StripTextures(frame, 0)
 	B.SetBD(frame)
 	B.ReskinClose(frame.CloseButton)
 	B.ReskinIcon(frame.ItemSlot.Icon)
@@ -83,7 +83,7 @@ local function reskinReforgeUI(frame, index)
 end
 
 C.themes["Blizzard_AzeriteRespecUI"] = function()
-	reskinReforgeUI(AzeriteRespecFrame, 15)
+	reskinReforgeUI(AzeriteRespecFrame)
 end
 
 C.themes["Blizzard_ItemInteractionUI"] = function()
