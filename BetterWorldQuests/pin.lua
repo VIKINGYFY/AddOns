@@ -1,5 +1,11 @@
 local _, addon = ...
 
+local ANIMA_SPELLID = {[347555] = 3, [345706] = 5, [336327] = 35, [336456] = 250}
+local function GetAnimaMultiplier(itemID)
+	local _, spellID = C_Item.GetItemSpell(itemID)
+	return ANIMA_SPELLID[spellID]
+end
+
 local FACTION_ASSAULT_ATLAS = UnitFactionGroup('player') == 'Horde' and 'worldquest-icon-horde' or 'worldquest-icon-alliance'
 
 local mapScale, parentScale, zoomFactor
@@ -19,14 +25,14 @@ function BetterWorldQuestPinMixin:OnLoad()
 
 	-- recreate WorldQuestPinTemplate regions
 	local TrackedCheck = self:CreateTexture(nil, 'OVERLAY', nil, 7)
-	TrackedCheck:SetPoint('BOTTOM', self, 'BOTTOMRIGHT', 0, -2)
+	TrackedCheck:SetPoint('CENTER', self, 'RIGHT')
 	TrackedCheck:SetAtlas('worldquest-emissary-tracker-checkmark', true)
 	TrackedCheck:Hide()
 	self.TrackedCheck = TrackedCheck
 
 	local TimeLowFrame = CreateFrame('Frame', nil, self)
-	TimeLowFrame:SetPoint('CENTER', 9, -9)
-	TimeLowFrame:SetSize(22, 22)
+	TimeLowFrame:SetPoint('CENTER', self, 'TOPRIGHT', -2, -2)
+	TimeLowFrame:SetSize(16, 16)
 	TimeLowFrame:Hide()
 	self.TimeLowFrame = TimeLowFrame
 
@@ -48,11 +54,12 @@ function BetterWorldQuestPinMixin:OnLoad()
 	Reward:AddMaskTexture(RewardMask)
 
 	local Indicator = self:CreateTexture(nil, 'OVERLAY', nil, 2)
-	Indicator:SetPoint('CENTER', self, 'TOPLEFT', 4, -4)
+	Indicator:SetScale(1.2)
+	Indicator:SetPoint('CENTER', self, 'TOPLEFT', 2, -2)
 	self.Indicator = Indicator
 
 	local Reputation = self:CreateTexture(nil, 'OVERLAY', nil, 2)
-	Reputation:SetPoint('CENTER', self, 'BOTTOM', 0, 2)
+	Reputation:SetPoint('CENTER', self, 'TOP')
 	Reputation:SetSize(10, 10)
 	Reputation:SetAtlas('socialqueuing-icon-eye')
 	Reputation:Hide()
@@ -60,9 +67,14 @@ function BetterWorldQuestPinMixin:OnLoad()
 
 	local Bounty = self:CreateTexture(nil, 'OVERLAY', nil, 3)
 	Bounty:SetAtlas('QuestNormal', true)
-	Bounty:SetScale(0.65)
-	Bounty:SetPoint('LEFT', self, 'RIGHT', -(Bounty:GetWidth() / 2), 0)
+	Bounty:SetScale(0.6)
+	Bounty:SetPoint('CENTER', self, 'LEFT')
 	self.Bounty = Bounty
+
+	local Text = self:CreateFontString(nil, 'OVERLAY')
+	Text:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
+	Text:SetPoint('CENTER', self, 'BOTTOM')
+	self.Text = Text
 end
 
 function BetterWorldQuestPinMixin:RefreshVisuals()
@@ -74,6 +86,7 @@ function BetterWorldQuestPinMixin:RefreshVisuals()
 	self.Reputation:Hide()
 	self.Indicator:Hide()
 	self.Display.Icon:Hide()
+	self.Text:Hide()
 
 	-- update scale
 	local mapID = self:GetMap():GetMapID()
@@ -92,23 +105,58 @@ function BetterWorldQuestPinMixin:RefreshVisuals()
 		self.NormalTexture:SetAtlas('worldquest-questmarker-epic', true)
 	end
 
+	local r, g, b = 1, 1, 1
+	local warMode = C_PvP.IsWarModeDesired()
+	local warModeBonus = format("%.1f", 1 + (C_PvP.GetWarModeRewardBonus() / 100))
+
 	-- set reward icon
 	local questID = self.questID
 	local currencyRewards = C_QuestLog.GetQuestRewardCurrencies(questID)
-	if GetNumQuestLogRewards(questID) > 0 then
-		local _, texture, _, _, _, itemID = GetQuestLogRewardInfo(1, questID)
+	local rewardsNumber = GetNumQuestLogRewards(questID)
+	local rewardsCopper = GetQuestLogRewardMoney(questID)
+	if rewardsNumber > 0 then
+		local _, itemTexture, itemAmount, itemQuality, _, itemID, itemLevel = GetQuestLogRewardInfo(1, questID)
 		if C_Item.IsAnimaItemByID(itemID) then
-			texture = 3528287 -- from item "Resonating Anima Core"
+			itemTexture = 3528288
+			itemLevel = itemAmount * GetAnimaMultiplier(itemID)
+		elseif itemAmount and itemAmount > 1 then
+			itemLevel = itemAmount
+		elseif itemLevel and itemLevel <= 1 then
+			itemLevel = ""
 		end
 
-		self.Reward:SetTexture(texture)
+		self.Reward:SetTexture(itemTexture)
 		self.Reward:Show()
+
+		r, g, b = C_Item.GetItemQualityColor(itemQuality or 1)
+		self.Text:SetText(itemLevel)
+		self.Text:SetTextColor(r, g, b)
+		self.Text:Show()
 	elseif #currencyRewards > 0 then
 		self.Reward:SetTexture(currencyRewards[1].texture)
 		self.Reward:Show()
-	elseif GetQuestLogRewardMoney(questID) > 0 then
+
+		r, g, b = C_Item.GetItemQualityColor(itemQuality or 1)
+		local itemAmount = currencyRewards[1].totalRewardAmount
+		if warMode then
+			itemAmount = itemAmount * warModeBonus
+			r, g, b = 0, 1, 0
+		end
+		self.Text:SetFormattedText("%d", itemAmount)
+		self.Text:SetTextColor(r, g, b)
+		self.Text:Show()
+	elseif rewardsCopper > 0 then
 		self.Reward:SetTexture([[Interface\Icons\INV_MISC_COIN_01]])
 		self.Reward:Show()
+
+		if warMode then
+			rewardsCopper = rewardsCopper * warModeBonus
+			r, g, b = 0, 1, 0
+		end
+
+		self.Text:SetFormattedText("%d", rewardsCopper / 1e4)
+		self.Text:SetTextColor(r, g, b)
+		self.Text:Show()
 	else
 		-- if there are no rewards just show the default icon
 		self.Display.Icon:Show()
