@@ -1,6 +1,6 @@
-## Interface: 110005, 110007
+## Interface: 110007
 ## Author: p3lim
-## Version: 110000.36-Release
+## Version: 110000.37-Release
 ## Title: Better World Quests
 ## Notes: Improves the World Quest POIs on the map
 ## IconTexture: Interface\Icons\icon_treasuremap
