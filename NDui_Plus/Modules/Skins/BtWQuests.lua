@@ -52,7 +52,7 @@ end
 local function ReskinDropMenu(self)
 	local list = self.list
 	if not list.bg then
-		list.bg = B.SetBD(list, .7)
+		list.bg = B.SetBD(list)
 		list.bg:SetAllPoints()
 
 		for _, key in pairs({"Backdrop", "MenuBackdrop"}) do

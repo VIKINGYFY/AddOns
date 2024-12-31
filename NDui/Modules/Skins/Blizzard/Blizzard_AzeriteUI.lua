@@ -3,7 +3,7 @@ local B, C, L, DB = unpack(ns)
 local r, g, b = DB.r, DB.g, DB.b
 
 C.themes["Blizzard_AzeriteUI"] = function()
-	B.ReskinPortraitFrame(AzeriteEmpoweredItemUI)
+	B.ReskinFrame(AzeriteEmpoweredItemUI)
 	AzeriteEmpoweredItemUIBg:Hide()
 	AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame.Bg:Hide()
 end
@@ -45,7 +45,7 @@ local function updateEssenceButton(button)
 end
 
 C.themes["Blizzard_AzeriteEssenceUI"] = function()
-	B.ReskinPortraitFrame(AzeriteEssenceUI)
+	B.ReskinFrame(AzeriteEssenceUI)
 	B.StripTextures(AzeriteEssenceUI.PowerLevelBadgeFrame)
 	B.ReskinTrimScroll(AzeriteEssenceUI.EssenceList.ScrollBar)
 
@@ -73,8 +73,8 @@ local function reskinReforgeUI(frame)
 	local bg = B.CreateBDFrame(buttonFrame, .25)
 	bg:SetPoint("TOPLEFT", buttonFrame.MoneyFrameEdge, 3, 0)
 	bg:SetPoint("BOTTOMRIGHT", buttonFrame.MoneyFrameEdge, 0, 2)
-	if buttonFrame.AzeriteRespecButton then B.Reskin(buttonFrame.AzeriteRespecButton) end
-	if buttonFrame.ActionButton then B.Reskin(buttonFrame.ActionButton) end
+	if buttonFrame.AzeriteRespecButton then B.ReskinButton(buttonFrame.AzeriteRespecButton) end
+	if buttonFrame.ActionButton then B.ReskinButton(buttonFrame.ActionButton) end
 	if buttonFrame.Currency then B.ReskinIcon(buttonFrame.Currency.Icon) end
 
 	if frame.DescriptionCurrencies then

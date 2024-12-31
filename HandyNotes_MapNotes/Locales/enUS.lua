@@ -3,6 +3,7 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "enUS", true)
 
 
 --0.08
+L["Has not been unlocked yet"] = true
 L["Displays location symbols on the Azeroth / Continent map for Horde and Alliance capitals with additional information about what is within that capital at MapNotes associated symbols"] = true
 L["For the zones and capitals themselves, there is an option in the respective tab to display nearby symbols in groups instead of individually"] = true
 L["Displays Horde and Alliance capitals icons with additional information"] = true

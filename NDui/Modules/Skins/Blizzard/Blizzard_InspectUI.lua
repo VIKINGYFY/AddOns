@@ -4,11 +4,11 @@ local B, C, L, DB = unpack(ns)
 C.themes["Blizzard_InspectUI"] = function()
 	B.StripTextures(InspectModelFrame, true)
 	InspectGuildFrameBG:Hide()
-	B.Reskin(InspectPaperDollFrame.ViewButton)
+	B.ReskinButton(InspectPaperDollFrame.ViewButton)
 	InspectPaperDollFrame.ViewButton:ClearAllPoints()
 	InspectPaperDollFrame.ViewButton:SetPoint("TOP", InspectFrame, 0, -45)
 	InspectPVPFrame.BG:Hide()
-	B.Reskin(InspectPaperDollItemsFrame.InspectTalents)
+	B.ReskinButton(InspectPaperDollItemsFrame.InspectTalents)
 
 	-- Character
 	local slots = {
@@ -51,7 +51,7 @@ C.themes["Blizzard_InspectUI"] = function()
 		end
 	end
 
-	B.ReskinPortraitFrame(InspectFrame)
+	B.ReskinFrame(InspectFrame)
 
 	-- Talents
 	--[=[ currently disabled in 10.0

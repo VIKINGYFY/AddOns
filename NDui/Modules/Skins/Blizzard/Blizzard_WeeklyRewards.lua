@@ -68,7 +68,7 @@ C.themes["Blizzard_WeeklyRewards"] = function()
 	local bg = B.SetBD(WeeklyRewardsFrame)
 	B.ReskinClose(WeeklyRewardsFrame.CloseButton)
 	B.StripTextures(WeeklyRewardsFrame.SelectRewardButton)
-	B.Reskin(WeeklyRewardsFrame.SelectRewardButton)
+	B.ReskinButton(WeeklyRewardsFrame.SelectRewardButton)
 
 	WeeklyRewardsFrame.BorderShadow:SetInside(bg)
 	WeeklyRewardsFrame.BorderContainer:SetAlpha(0)

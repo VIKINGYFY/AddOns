@@ -30,7 +30,7 @@ table.insert(C.defaultThemes, function()
 	for _, buttonName in next, buttons do
 		local button = _G[buttonName]
 		if button then
-			B.Reskin(button)
+			B.ReskinButton(button)
 		end
 	end
 

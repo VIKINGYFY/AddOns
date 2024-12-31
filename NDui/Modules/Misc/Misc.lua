@@ -365,7 +365,7 @@ end
 -- Drag AltPowerbar
 do
 	local mover = CreateFrame("Frame", "NDuiAltBarMover", PlayerPowerBarAlt)
-	mover:SetPoint("CENTER", UIParent, 0, -200)
+	mover:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 200)
 	mover:SetSize(20, 20)
 	B.CreateMF(PlayerPowerBarAlt, mover)
 
@@ -755,7 +755,7 @@ function M:EnhancedPicker()
 
 	local hexBox = pickerFrame.Content and pickerFrame.Content.HexBox
 	if hexBox then
-		B.ReskinEditBox(hexBox)
+		B.ReskinInput(hexBox)
 		hexBox:ClearAllPoints()
 		hexBox:SetPoint("BOTTOMRIGHT", -25, 67)
 	end

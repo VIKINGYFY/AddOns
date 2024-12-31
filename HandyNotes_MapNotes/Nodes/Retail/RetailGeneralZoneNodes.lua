@@ -1593,7 +1593,6 @@ if not db.activate.HideMapNote then
             if self.db.profile.showZoneMailbox then
                 nodes[2215][52606070] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2369][67623980] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2369][69354651] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneInnkeeper then
@@ -1653,6 +1652,7 @@ if not db.activate.HideMapNote then
                 nodes[2255][44886632] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2256][44886632] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2369][71263789] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2369][69354651] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneInnkeeper and not self.db.profile.showZoneMapNotesIcons then
@@ -1673,6 +1673,7 @@ if not db.activate.HideMapNote then
                 nodes[2255][44796648] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2256][44796648] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2369][71443737] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2369][69014647] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneStablemaster and not self.db.profile.showZoneMapNotesIcons then
@@ -1708,6 +1709,7 @@ if not db.activate.HideMapNote then
                 nodes[2255][44796648] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2256][44796648] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2369][71353753] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2369][69014647] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
         end

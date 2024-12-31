@@ -228,7 +228,7 @@ local function BuildBAR(barWidth, iconSize)
 	frame.Icon:SetTexCoord(unpack(DB.TexCoord))
 
 	frame.Statusbar = CreateFrame("StatusBar", nil, frame)
-	frame.Statusbar:SetSize(barWidth, iconSize/2.5)
+	frame.Statusbar:SetSize(barWidth, iconSize/2)
 	frame.Statusbar:SetPoint("BOTTOMLEFT", frame, "BOTTOMRIGHT", 5, 0)
 	frame.Statusbar:SetMinMaxValues(0, 1)
 	frame.Statusbar:SetValue(0)
@@ -776,7 +776,6 @@ SlashCmdList.AuraWatch = function(msg)
 					value[i]:SetScript("OnUpdate", nil)
 					value[i]:Show()
 				end
-				if value[i].Icon then value[i].Icon:SetColorTexture(0, 0, 0, .25) end
 				if value[i].Count then value[i].Count:SetText("") end
 				if value[i].Time then value[i].Time:SetText("59") end
 				if value[i].Statusbar then value[i].Statusbar:SetValue(1) end
@@ -808,7 +807,6 @@ SlashCmdList.AuraWatch = function(msg)
 				IntTable[i].Time:SetText("59")
 				IntTable[i].Statusbar:SetMinMaxValues(0, 1)
 				IntTable[i].Statusbar:SetValue(1)
-				IntTable[i].Icon:SetColorTexture(0, 0, 0, .25)
 			end
 		end
 	elseif msg:lower() == "lock" then

@@ -22,7 +22,7 @@ end
 table.insert(C.defaultThemes, function()
 	if not C.db["Skins"]["BlizzardSkins"] then return end
 
-	B.ReskinPortraitFrame(QuestFrame)
+	B.ReskinFrame(QuestFrame)
 
 	B.StripTextures(QuestFrameDetailPanel, 0)
 	B.StripTextures(QuestFrameRewardPanel, 0)
@@ -60,12 +60,12 @@ table.insert(C.defaultThemes, function()
 		end
 	end)
 
-	B.Reskin(QuestFrameAcceptButton)
-	B.Reskin(QuestFrameDeclineButton)
-	B.Reskin(QuestFrameCompleteQuestButton)
-	B.Reskin(QuestFrameCompleteButton)
-	B.Reskin(QuestFrameGoodbyeButton)
-	B.Reskin(QuestFrameGreetingGoodbyeButton)
+	B.ReskinButton(QuestFrameAcceptButton)
+	B.ReskinButton(QuestFrameDeclineButton)
+	B.ReskinButton(QuestFrameCompleteQuestButton)
+	B.ReskinButton(QuestFrameCompleteButton)
+	B.ReskinButton(QuestFrameGoodbyeButton)
+	B.ReskinButton(QuestFrameGreetingGoodbyeButton)
 
 	B.ReskinTrimScroll(QuestProgressScrollFrame.ScrollBar)
 	B.ReskinTrimScroll(QuestRewardScrollFrame.ScrollBar)

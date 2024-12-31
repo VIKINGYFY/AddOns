@@ -27,8 +27,8 @@ table.insert(C.defaultThemes, function()
 	-- Battletag invite frame
 	local border, send, cancel = BattleTagInviteFrame:GetChildren()
 	border:Hide()
-	B.Reskin(send)
-	B.Reskin(cancel)
+	B.ReskinButton(send)
+	B.ReskinButton(cancel)
 	B.SetBD(BattleTagInviteFrame)
 
 	local friendTex = "Interface\\HELPFRAME\\ReportLagIcon-Chat"
@@ -62,13 +62,13 @@ table.insert(C.defaultThemes, function()
 	hooksecurefunc(QuickJoinToastButton, "HideToast", function() bg:Hide() end)
 
 	-- ChatFrame
-	B.Reskin(ChatFrameChannelButton)
+	B.ReskinButton(ChatFrameChannelButton)
 	ChatFrameChannelButton:SetSize(20, 20)
-	B.Reskin(ChatFrameToggleVoiceDeafenButton)
+	B.ReskinButton(ChatFrameToggleVoiceDeafenButton)
 	ChatFrameToggleVoiceDeafenButton:SetSize(20, 20)
-	B.Reskin(ChatFrameToggleVoiceMuteButton)
+	B.ReskinButton(ChatFrameToggleVoiceMuteButton)
 	ChatFrameToggleVoiceMuteButton:SetSize(20, 20)
-	B.Reskin(ChatFrameMenuButton)
+	B.ReskinButton(ChatFrameMenuButton)
 	ChatFrameMenuButton:SetSize(20, 20)
 	ChatFrameMenuButton:SetNormalTexture(homeTex)
 	ChatFrameMenuButton:SetPushedTexture(homeTex)
@@ -78,9 +78,9 @@ table.insert(C.defaultThemes, function()
 	end
 
 	-- ChannelFrame
-	B.ReskinPortraitFrame(ChannelFrame)
-	B.Reskin(ChannelFrame.NewButton)
-	B.Reskin(ChannelFrame.SettingsButton)
+	B.ReskinFrame(ChannelFrame)
+	B.ReskinButton(ChannelFrame.NewButton)
+	B.ReskinButton(ChannelFrame.SettingsButton)
 	B.ReskinTrimScroll(ChannelFrame.ChannelList.ScrollBar)
 	B.ReskinTrimScroll(ChannelFrame.ChannelRoster.ScrollBar)
 
@@ -99,14 +99,14 @@ table.insert(C.defaultThemes, function()
 
 	B.StripTextures(CreateChannelPopup)
 	B.SetBD(CreateChannelPopup)
-	B.Reskin(CreateChannelPopup.OKButton)
-	B.Reskin(CreateChannelPopup.CancelButton)
+	B.ReskinButton(CreateChannelPopup.OKButton)
+	B.ReskinButton(CreateChannelPopup.CancelButton)
 	B.ReskinClose(CreateChannelPopup.CloseButton)
 	B.ReskinInput(CreateChannelPopup.Name)
 	B.ReskinInput(CreateChannelPopup.Password)
 
 	B.SetBD(VoiceChatPromptActivateChannel)
-	B.Reskin(VoiceChatPromptActivateChannel.AcceptButton)
+	B.ReskinButton(VoiceChatPromptActivateChannel.AcceptButton)
 	VoiceChatChannelActivatedNotification:SetBackdrop(nil)
 	B.SetBD(VoiceChatChannelActivatedNotification)
 

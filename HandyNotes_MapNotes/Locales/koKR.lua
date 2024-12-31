@@ -3,6 +3,7 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "koKR")
 if not L then return end
 
 --0.08
+L["Has not been unlocked yet"] = "아직 잠금이 해제되지 않았습니다"
 L["Displays location symbols on the Azeroth / Continent map for Horde and Alliance capitals with additional information about what is within that capital at MapNotes associated symbols"] = "MapNotes 관련 기호에서 해당 수도 내에 무엇이 있는지에 대한 추가 정보와 함께 호드 및 얼라이언스 수도의 아제로스/대륙 지도에 위치 기호를 표시합니다"
 L["For the zones and capitals themselves, there is an option in the respective tab to display nearby symbols in groups instead of individually"] = "구역 및 수도 자체의 경우 해당 탭에 개별 기호가 아닌 그룹으로 인근 기호를 표시하는 옵션이 있습니다"
 L["Displays Horde and Alliance capitals icons with additional information"] = "추가 정보와 함께 호드 및 얼라이언스 수도 아이콘을 표시합니다"

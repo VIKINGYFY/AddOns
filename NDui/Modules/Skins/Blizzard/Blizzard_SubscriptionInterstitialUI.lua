@@ -12,7 +12,7 @@ C.themes["Blizzard_SubscriptionInterstitialUI"] = function()
 	B.StripTextures(frame)
 	frame.ShadowOverlay:Hide()
 	B.SetBD(frame)
-	B.Reskin(frame.ClosePanelButton)
+	B.ReskinButton(frame.ClosePanelButton)
 	B.ReskinClose(frame.CloseButton)
 
 	reskinSubscribeButton(frame.UpgradeButton)

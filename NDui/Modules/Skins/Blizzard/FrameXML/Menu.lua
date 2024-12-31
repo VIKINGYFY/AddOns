@@ -30,13 +30,13 @@ table.insert(C.defaultThemes, function()
 
 			local minLevel = child.MinLevel
 			if minLevel and not minLevel.styled then
-				B.ReskinEditBox(minLevel)
+				B.ReskinInput(minLevel)
 				minLevel.styled = true
 			end
 
 			local maxLevel = child.MaxLevel
 			if maxLevel and not maxLevel.styled then
-				B.ReskinEditBox(maxLevel)
+				B.ReskinInput(maxLevel)
 				maxLevel.styled = true
 			end
 		end

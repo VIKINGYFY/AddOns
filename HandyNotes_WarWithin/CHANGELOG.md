@@ -1,5 +1,17 @@
 # Changelog
 
+## Changed in v72
+
+* Updated Siren Isle with more rares and treasures
+* Move right-click context menus to the new menu system as well
+
+## Changed in v71
+
+* Updated for 11.0.7
+* Many rares for Siren Isle
+* Some treasures for Siren Isle
+* Switch to the new dropdown menu system for the map icon
+
 ## Changed in v70
 
 * Reputation currencies are no longer notable once maxed

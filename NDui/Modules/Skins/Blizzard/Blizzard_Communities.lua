@@ -16,7 +16,7 @@ local function reskinGuildCards(cards)
 		local guildCard = cards[name.."Card"]
 		B.StripTextures(guildCard)
 		B.CreateBDFrame(guildCard, .25)
-		B.Reskin(guildCard.RequestJoin)
+		B.ReskinButton(guildCard.RequestJoin)
 	end
 	B.ReskinArrow(cards.PreviousPage, "left")
 	B.ReskinArrow(cards.NextPage, "right")
@@ -30,7 +30,7 @@ local function reskinCommunityCard(self)
 			child.LogoBorder:Hide()
 			child.Background:Hide()
 			B.ReskinIcon(child.CommunityLogo)
-			B.Reskin(child)
+			B.ReskinButton(child)
 
 			child.styled = true
 		end
@@ -107,7 +107,7 @@ C.themes["Blizzard_Communities"] = function()
 	local r, g, b = DB.r, DB.g, DB.b
 	local CommunitiesFrame = CommunitiesFrame
 
-	B.ReskinPortraitFrame(CommunitiesFrame)
+	B.ReskinFrame(CommunitiesFrame)
 	CommunitiesFrame.NineSlice:Hide()
 	CommunitiesFrame.PortraitOverlay:SetAlpha(0)
 	B.ReskinDropDown(CommunitiesFrame.StreamDropdown)
@@ -134,10 +134,10 @@ C.themes["Blizzard_Communities"] = function()
 				frame.IconRing:Hide()
 				B.ReskinIcon(frame.Icon)
 			end
-			if frame.FindAGuildButton then B.Reskin(frame.FindAGuildButton) end
-			if frame.AcceptButton then B.Reskin(frame.AcceptButton) end
-			if frame.DeclineButton then B.Reskin(frame.DeclineButton) end
-			if frame.ApplyButton then B.Reskin(frame.ApplyButton) end
+			if frame.FindAGuildButton then B.ReskinButton(frame.FindAGuildButton) end
+			if frame.AcceptButton then B.ReskinButton(frame.AcceptButton) end
+			if frame.DeclineButton then B.ReskinButton(frame.DeclineButton) end
+			if frame.ApplyButton then B.ReskinButton(frame.ApplyButton) end
 
 			local optionsList = frame.OptionsList
 			if optionsList then
@@ -149,7 +149,7 @@ C.themes["Blizzard_Communities"] = function()
 				B.ReskinRole(optionsList.DpsRoleFrame, "DPS")
 				B.ReskinInput(optionsList.SearchBox)
 				optionsList.SearchBox:SetSize(118, 22)
-				B.Reskin(optionsList.Search)
+				B.ReskinButton(optionsList.Search)
 				optionsList.Search:ClearAllPoints()
 				optionsList.Search:SetPoint("TOPRIGHT", optionsList.SearchBox, "BOTTOMRIGHT", 0, -2)
 			end
@@ -161,8 +161,8 @@ C.themes["Blizzard_Communities"] = function()
 				B.StripTextures(requestFrame.MessageFrame)
 				B.StripTextures(requestFrame.MessageFrame.MessageScroll)
 				B.CreateBDFrame(requestFrame.MessageFrame.MessageScroll, .25)
-				B.Reskin(requestFrame.Apply)
-				B.Reskin(requestFrame.Cancel)
+				B.ReskinButton(requestFrame.Apply)
+				B.ReskinButton(requestFrame.Cancel)
 				hooksecurefunc(requestFrame, "Initialize", reskinRequestCheckbox)
 			end
 
@@ -216,7 +216,7 @@ C.themes["Blizzard_Communities"] = function()
 	end
 
 	-- ChatTab
-	B.Reskin(CommunitiesFrame.InviteButton)
+	B.ReskinButton(CommunitiesFrame.InviteButton)
 	B.StripTextures(CommunitiesFrame.Chat)
 	B.ReskinTrimScroll(CommunitiesFrame.Chat.ScrollBar)
 	CommunitiesFrame.ChatEditBox:DisableDrawLayer("BACKGROUND")
@@ -234,13 +234,13 @@ C.themes["Blizzard_Communities"] = function()
 		B.ReskinDropDown(dialog.CommunitiesListDropdown)
 		if dialog.Selector then
 			B.StripTextures(dialog.Selector)
-			B.Reskin(dialog.Selector.OkayButton)
-			B.Reskin(dialog.Selector.CancelButton)
+			B.ReskinButton(dialog.Selector.OkayButton)
+			B.ReskinButton(dialog.Selector.CancelButton)
 		end
 		B.ReskinCheck(dialog.ScrollFrame.Child.QuickJoinButton)
 		dialog.ScrollFrame.Child.QuickJoinButton:SetSize(25, 25)
-		B.Reskin(dialog.ScrollFrame.Child.AllButton)
-		B.Reskin(dialog.ScrollFrame.Child.NoneButton)
+		B.ReskinButton(dialog.ScrollFrame.Child.AllButton)
+		B.ReskinButton(dialog.ScrollFrame.Child.NoneButton)
 		B.ReskinTrimScroll(dialog.ScrollFrame.ScrollBar)
 
 		hooksecurefunc(dialog, "Refresh", function(self)
@@ -268,9 +268,9 @@ C.themes["Blizzard_Communities"] = function()
 		B.StripTextures(dialog.Description)
 		B.CreateBDFrame(dialog.Description, .25)
 		B.ReskinCheck(dialog.TypeCheckbox)
-		B.Reskin(dialog.Accept)
-		B.Reskin(dialog.Delete)
-		B.Reskin(dialog.Cancel)
+		B.ReskinButton(dialog.Accept)
+		B.ReskinButton(dialog.Delete)
+		B.ReskinButton(dialog.Cancel)
 	end
 
 	do
@@ -278,13 +278,13 @@ C.themes["Blizzard_Communities"] = function()
 		B.StripTextures(dialog)
 		B.SetBD(dialog)
 		dialog.Background:Hide()
-		B.Reskin(dialog.LinkToChat)
-		B.Reskin(dialog.Copy)
-		B.Reskin(dialog.Close)
+		B.ReskinButton(dialog.LinkToChat)
+		B.ReskinButton(dialog.Copy)
+		B.ReskinButton(dialog.Close)
 		B.ReskinArrow(dialog.MaximizeButton, "down")
 		B.ReskinDropDown(dialog.ExpiresDropdown)
 		B.ReskinDropDown(dialog.UsesDropdown)
-		B.Reskin(dialog.GenerateLinkButton)
+		B.ReskinButton(dialog.GenerateLinkButton)
 
 		dialog.InviteManager.ArtOverlay:Hide()
 		B.StripTextures(dialog.InviteManager.ColumnDisplay)
@@ -310,9 +310,9 @@ C.themes["Blizzard_Communities"] = function()
 			for i = 1, self.ScrollTarget:GetNumChildren() do
 				local button = select(i, self.ScrollTarget:GetChildren())
 				if not button.styled then
-					B.Reskin(button.CopyLinkButton)
+					B.ReskinButton(button.CopyLinkButton)
 					button.CopyLinkButton.Background:Hide()
-					B.Reskin(button.RevokeButton)
+					B.ReskinButton(button.RevokeButton)
 					button.RevokeButton:SetSize(18, 18)
 
 					button.styled = true
@@ -358,17 +358,17 @@ C.themes["Blizzard_Communities"] = function()
 
 	B.ReskinCheck(CommunitiesFrame.MemberList.ShowOfflineButton)
 	CommunitiesFrame.MemberList.ShowOfflineButton:SetSize(25, 25)
-	B.Reskin(CommunitiesFrame.CommunitiesControlFrame.GuildControlButton)
-	B.Reskin(CommunitiesFrame.CommunitiesControlFrame.GuildRecruitmentButton)
-	B.Reskin(CommunitiesFrame.CommunitiesControlFrame.CommunitiesSettingsButton)
+	B.ReskinButton(CommunitiesFrame.CommunitiesControlFrame.GuildControlButton)
+	B.ReskinButton(CommunitiesFrame.CommunitiesControlFrame.GuildRecruitmentButton)
+	B.ReskinButton(CommunitiesFrame.CommunitiesControlFrame.CommunitiesSettingsButton)
 	B.ReskinDropDown(CommunitiesFrame.CommunityMemberListDropdown)
 
 	local detailFrame = CommunitiesFrame.GuildMemberDetailFrame
 	B.StripTextures(detailFrame)
 	B.SetBD(detailFrame)
 	B.ReskinClose(detailFrame.CloseButton)
-	B.Reskin(detailFrame.RemoveButton)
-	B.Reskin(detailFrame.GroupInviteButton)
+	B.ReskinButton(detailFrame.RemoveButton)
+	B.ReskinButton(detailFrame.GroupInviteButton)
 	B.ReskinDropDown(detailFrame.RankDropdown)
 	B.StripTextures(detailFrame.NoteBackground)
 	B.CreateBDFrame(detailFrame.NoteBackground, .25)
@@ -381,10 +381,10 @@ C.themes["Blizzard_Communities"] = function()
 		local dialog = CommunitiesSettingsDialog
 		dialog.BG:Hide()
 		B.SetBD(dialog)
-		B.Reskin(dialog.ChangeAvatarButton)
-		B.Reskin(dialog.Accept)
-		B.Reskin(dialog.Delete)
-		B.Reskin(dialog.Cancel)
+		B.ReskinButton(dialog.ChangeAvatarButton)
+		B.ReskinButton(dialog.Accept)
+		B.ReskinButton(dialog.Delete)
+		B.ReskinButton(dialog.Cancel)
 		B.ReskinInput(dialog.NameEdit)
 		B.ReskinInput(dialog.ShortNameEdit)
 		B.StripTextures(dialog.Description)
@@ -408,8 +408,8 @@ C.themes["Blizzard_Communities"] = function()
 		B.ReskinTrimScroll(CommunitiesAvatarPickerDialog.ScrollBar)
 		if dialog.Selector then
 			B.StripTextures(dialog.Selector)
-			B.Reskin(dialog.Selector.OkayButton)
-			B.Reskin(dialog.Selector.CancelButton)
+			B.ReskinButton(dialog.Selector.OkayButton)
+			B.ReskinButton(dialog.Selector.CancelButton)
 		end
 	end
 
@@ -457,7 +457,7 @@ C.themes["Blizzard_Communities"] = function()
 	bg:SetOutside(factionFrameBar.Progress)
 
 	-- Guild Info
-	B.Reskin(CommunitiesFrame.GuildLogButton)
+	B.ReskinButton(CommunitiesFrame.GuildLogButton)
 	B.StripTextures(CommunitiesFrameGuildDetailsFrameInfo)
 	B.StripTextures(CommunitiesFrameGuildDetailsFrameNews)
 	B.ReskinTrimScroll(CommunitiesFrameGuildDetailsFrameInfoMOTDScrollFrame.ScrollBar)
@@ -472,9 +472,9 @@ C.themes["Blizzard_Communities"] = function()
 	B.CreateBDFrame(CommunitiesGuildTextEditFrame.Container, .25)
 	B.ReskinTrimScroll(CommunitiesGuildTextEditFrame.Container.ScrollFrame.ScrollBar)
 	B.ReskinClose(CommunitiesGuildTextEditFrameCloseButton)
-	B.Reskin(CommunitiesGuildTextEditFrameAcceptButton)
+	B.ReskinButton(CommunitiesGuildTextEditFrameAcceptButton)
 	local closeButton = select(4, CommunitiesGuildTextEditFrame:GetChildren())
-	B.Reskin(closeButton)
+	B.ReskinButton(closeButton)
 
 	B.ReskinTrimScroll(CommunitiesFrameGuildDetailsFrameInfo.DetailsFrame.ScrollBar)
 	B.CreateBDFrame(CommunitiesFrameGuildDetailsFrameInfo.DetailsFrame, .25)
@@ -505,7 +505,7 @@ C.themes["Blizzard_Communities"] = function()
 	B.StripTextures(CommunitiesGuildLogFrame.Container)
 	B.CreateBDFrame(CommunitiesGuildLogFrame.Container, .25)
 	local closeButton = select(3, CommunitiesGuildLogFrame:GetChildren())
-	B.Reskin(closeButton)
+	B.ReskinButton(closeButton)
 
 	local bossModel = CommunitiesFrameGuildDetailsFrameNews.BossModel
 	B.StripTextures(bossModel)
@@ -532,8 +532,8 @@ C.themes["Blizzard_Communities"] = function()
 		B.ReskinTrimScroll(dialog.RecruitmentMessageFrame.RecruitmentMessageInput.ScrollBar)
 		B.ReskinInput(dialog.RecruitmentMessageFrame)
 		B.ReskinInput(dialog.MinIlvlOnly.EditBox)
-		B.Reskin(dialog.Accept)
-		B.Reskin(dialog.Cancel)
+		B.ReskinButton(dialog.Accept)
+		B.ReskinButton(dialog.Cancel)
 	end
 
 	-- ApplicantList
@@ -555,8 +555,8 @@ C.themes["Blizzard_Communities"] = function()
 		button.InviteButton:SetSize(66, 18)
 		button.CancelInvitationButton:SetSize(20, 18)
 
-		B.Reskin(button.InviteButton)
-		B.Reskin(button.CancelInvitationButton)
+		B.ReskinButton(button.InviteButton)
+		B.ReskinButton(button.CancelInvitationButton)
 		hooksecurefunc(button, "UpdateMemberInfo", updateMemberName)
 
 		UpdateRoleTexture(button.RoleIcon1)

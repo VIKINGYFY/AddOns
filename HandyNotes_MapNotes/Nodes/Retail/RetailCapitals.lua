@@ -3165,8 +3165,8 @@ if not db.activate.HideMapNote then
                     nodes[2266][60506950] = { mnID = 241, name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. L["Twilight Highlands"] } --  Timeways Portal to Twilight Highlands
                     nodes[2339][53563873] = { mnID = 2266, name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["The Timeways"] .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. L["Ardenweald"] .. "\n" .. " ==> " .. L["Bastion"] .. "\n" .. " ==> " .. L["Tiragarde Sound"] .. "\n" .. " ==> " .. L["Twilight Highlands"] } --  Portal from Dornogal to the Timeways
 
-                    nodes[2339][63615205] = { mnID = 2255, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=19559", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Dornogal to Azj-Kahet if u finished the achievement=19559
-                    nodes[2339][29775967] = { mnID = 2367, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=40725", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Kammer der Erinnerung
+                    nodes[2339][63615205] = { mnID = 2255, name = L["Portal"], dnID = "", showWWW = true, achievementID = 19559, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19559", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Dornogal to Azj-Kahet if u finished the achievement=19559
+                    nodes[2339][29775967] = { mnID = 2367, name = L["Portal"], dnID = "", showWWW = true, achievementID = 40725, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=40725", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Kammer der Erinnerung
 
                     if self.faction == "Horde" or db.activate.CapitalsEnemyFaction then
                         nodes[2339][38192724] = { mnID = 85, name = L["Portal"], type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dornogal to Orgrimmar
@@ -3177,15 +3177,9 @@ if not db.activate.HideMapNote then
                     end
                 end
 
-                ----- PTR start
-                if ns.version == "11.0.7" then
-                    
                 if self.db.profile.showCapitalsZeppelins then
                     nodes[2339][73540516] = { mnID = 2369, name = "", type = "Zeppelin", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Zeppelin"] .. " ==> " .. L["Siren Isle"] } -- Zeppelin from OG to Borean Tundra - Northrend
                 end
-
-                end
-                ------- PTR end
 
                 if self.db.profile.showCapitalsTransport then
                     nodes[2339][40722239] = { name = "", type = "Tport2", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Transport"] .. " ==> " .. L["(on the tower)"]  } -- Oribos to The Maw

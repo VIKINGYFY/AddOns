@@ -6,16 +6,16 @@ table.insert(C.defaultThemes, function()
 
 	-- Ready check
 	B.StripTextures(ReadyCheckListenerFrame)
-	B.SetBD(ReadyCheckListenerFrame, nil, 30, -1, 1, -1)
+	B.SetBD(ReadyCheckListenerFrame, 30, -1, 1, -1)
 	ReadyCheckPortrait:SetAlpha(0)
 
-	B.Reskin(ReadyCheckFrameYesButton)
-	B.Reskin(ReadyCheckFrameNoButton)
+	B.ReskinButton(ReadyCheckFrameYesButton)
+	B.ReskinButton(ReadyCheckFrameNoButton)
 
 	-- Role poll
 	B.StripTextures(RolePollPopup)
 	B.SetBD(RolePollPopup)
-	B.Reskin(RolePollPopupAcceptButton)
+	B.ReskinButton(RolePollPopupAcceptButton)
 	B.ReskinClose(RolePollPopupCloseButton)
 
 	B.ReskinRole(RolePollPopupRoleButtonTank, "TANK")

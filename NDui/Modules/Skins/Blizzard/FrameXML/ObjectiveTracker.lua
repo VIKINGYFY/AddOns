@@ -36,27 +36,20 @@ local function reskinHeader(header)
 	local bg = header:CreateTexture(nil, "ARTWORK")
 	bg:SetTexture("Interface\\LFGFrame\\UI-LFG-SEPARATOR")
 	bg:SetTexCoord(0, .66, 0, .31)
-	bg:SetVertexColor(r, g, b, .8)
-	bg:SetPoint("BOTTOMLEFT", 0, -4)
+	bg:SetVertexColor(r, g, b, .5)
+	bg:SetPoint("BOTTOM", 0, -4)
 	bg:SetSize(250, 30)
 	header.bg = bg -- accessable for other addons
-end
-
-local function reskinBarTemplate(bar)
-	if not bar.bg then
-		B.StripTextures(bar)
-		bar:SetStatusBarTexture(DB.normTex)
-		bar:SetStatusBarColor(r, g, b)
-		bar.bg = B.SetBD(bar)
-	end
 end
 
 local function reskinBar(self, key)
 	local progressBar = self.usedProgressBars[key]
 	local bar = progressBar and progressBar.Bar
 
-	if bar then
-		reskinBarTemplate(bar)
+	if bar and not bar.styled then
+		B.ReskinStatusBar(bar, false, true)
+
+		bar.styled = true
 	end
 
 	local icon = bar.Icon
@@ -65,8 +58,8 @@ local function reskinBar(self, key)
 			icon:SetMask("")
 			icon.bg = B.ReskinIcon(icon, true)
 			icon:ClearAllPoints()
-			icon:SetPoint("TOPLEFT", bar, "TOPRIGHT", 5, 0)
-			icon:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 25, 0)
+			icon:SetPoint("TOPLEFT", bar, "TOPRIGHT", C.margin, 0)
+			icon:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", C.margin + bar:GetHeight(), 0)
 		end
 
 		if icon.bg then
@@ -79,8 +72,10 @@ local function reskinTimer(self, key)
 	local timerBar = self.usedTimerBars[key]
 	local bar = timerBar and timerBar.Bar
 
-	if bar then
-		reskinBarTemplate(bar)
+	if bar and not bar.styled then
+		B.ReskinStatusBar(bar, false, true)
+
+		bar.styled = true
 	end
 end
 
@@ -94,8 +89,8 @@ local function reskinMinimizeButton(button, header)
 	button:GetNormalTexture():SetAlpha(0)
 	button:GetPushedTexture():SetAlpha(0)
 	button.__texture:DoCollapse(false)
-	if button.SetCollapsed then
-		hooksecurefunc(button, "SetCollapsed", updateMinimizeButton)
+	if header.SetCollapsed then
+		hooksecurefunc(header, "SetCollapsed", updateMinimizeButton)
 	end
 end
 
@@ -126,7 +121,7 @@ local function blockList_Show(self)
 	self.button:SetButtonState("NORMAL")
 	self.button:SetPushedTextOffset(1.25, -1)
 	self.button:SetButtonState("PUSHED", true)
-	self.__bg:SetBackdropBorderColor(1, .8, 0, .7)
+	self.__bg:SetBackdropBorderColor(1, .8, 0, .5)
 end
 
 local function blockList_Hide(self)
@@ -137,7 +132,7 @@ local function ReskinMawBuffsContainer(container)
 	B.StripTextures(container)
 	container:GetPushedTexture():SetAlpha(0)
 	container:GetHighlightTexture():SetAlpha(0)
-	local bg = B.SetBD(container, 0, 13, -11, -3, 11)
+	local bg = B.SetBD(container, 13, -11, -3, 11)
 	container:HookScript("OnClick", container_OnClick)
 
 	local blockList = container.List
@@ -152,7 +147,7 @@ local function ReskinMawBuffsContainer(container)
 end
 
 table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["QuestTracker"] then return end
+	if not C.db["Skins"]["BlizzardSkins"] then return end
 	if C_AddOns.IsAddOnLoaded("!KalielsTracker") then return end
 
 	-- Reskin Headers
@@ -187,7 +182,7 @@ table.insert(C.defaultThemes, function()
 	hooksecurefunc(ScenarioObjectiveTracker.StageBlock, "UpdateStageBlock", function(block)
 		block.NormalBG:SetTexture("")
 		if not block.bg then
-			block.bg = B.SetBD(block.GlowTexture, nil, 0, -2, 4, 2)
+			block.bg = B.SetBD(block.GlowTexture, 0, -2, 4, 2)
 		end
 	end)
 
@@ -232,18 +227,18 @@ table.insert(C.defaultThemes, function()
 
 	hooksecurefunc(ScenarioObjectiveTracker.ChallengeModeBlock, "Activate", function(block)
 		if not block.bg then
+			B.StripTextures(block)
+			B.ReskinStatusBar(block.StatusBar)
+--[[
+			select(3, block:GetRegions()):Hide()
 			block.TimerBG:Hide()
 			block.TimerBGBack:Hide()
-			block.timerbg = B.CreateBDFrame(block.TimerBGBack, .3)
+			block.timerbg = B.CreateBDFrame(block.TimerBGBack, .25)
 			block.timerbg:SetPoint("TOPLEFT", block.TimerBGBack, 6, -2)
 			block.timerbg:SetPoint("BOTTOMRIGHT", block.TimerBGBack, -6, -5)
-
-			block.StatusBar:SetStatusBarTexture(DB.normTex)
-			block.StatusBar:SetStatusBarColor(r, g, b)
+]]
 			block.StatusBar:SetHeight(10)
-
-			select(3, block:GetRegions()):Hide()
-			block.bg = B.SetBD(block, nil, 4, -2, -4, 0)
+			block.bg = B.SetBD(block, 4, -2, -4, 0)
 		end
 	end)
 

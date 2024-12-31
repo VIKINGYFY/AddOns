@@ -98,9 +98,7 @@ function S:BigWigsSkin()
 	if BigWigsLoader and BigWigsLoader.RegisterMessage then
 		BigWigsLoader.RegisterMessage(_, "BigWigs_FrameCreated", function(_, frame, name)
 			if name == "QueueTimer" and not frame.styled then
-				B.StripTextures(frame)
-				frame:SetStatusBarTexture(DB.normTex)
-				B.SetBD(frame)
+				B.ReskinStatusBar(frame, false, true)
 
 				frame.styled = true
 			end

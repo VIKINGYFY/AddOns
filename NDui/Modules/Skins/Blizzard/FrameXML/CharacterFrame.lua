@@ -1,57 +1,9 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-function B:ReskinIconSelector()
-	B.StripTextures(self)
-	B.SetBD(self):SetInside()
-	B.StripTextures(self.BorderBox)
-	B.StripTextures(self.BorderBox.IconSelectorEditBox, 2)
-	B.ReskinEditBox(self.BorderBox.IconSelectorEditBox)
-	B.StripTextures(self.BorderBox.SelectedIconArea.SelectedIconButton)
-	B.ReskinIcon(self.BorderBox.SelectedIconArea.SelectedIconButton.Icon)
-	B.Reskin(self.BorderBox.OkayButton)
-	B.Reskin(self.BorderBox.CancelButton)
-	B.ReskinDropDown(self.BorderBox.IconTypeDropdown)
-	B.ReskinTrimScroll(self.IconSelector.ScrollBar)
-
-	hooksecurefunc(self.IconSelector.ScrollBox, "Update", function(self)
-		for i = 1, self.ScrollTarget:GetNumChildren() do
-			local child = select(i, self.ScrollTarget:GetChildren())
-			if child.Icon and not child.styled then
-				child:DisableDrawLayer("BACKGROUND")
-				child.SelectedTexture:SetColorTexture(1, .8, 0, .5)
-				child.SelectedTexture:SetAllPoints(child.Icon)
-				local hl = child:GetHighlightTexture()
-				hl:SetColorTexture(1, 1, 1, .25)
-				hl:SetAllPoints(child.Icon)
-				B.ReskinIcon(child.Icon)
-
-				child.styled = true
-			end
-		end
-	end)
-end
-
-function B:ReskinModelControl()
-	for i = 1, 5 do
-		local button = select(i, self.ControlFrame:GetChildren())
-		if button.NormalTexture then
-			button.NormalTexture:SetAlpha(0)
-			button.PushedTexture:SetAlpha(0)
-		end
-	end
-end
-
 local function NoTaintArrow(self, direction) -- needs review
 	B.StripTextures(self)
-
-	local tex = self:CreateTexture(nil, "ARTWORK")
-	tex:SetAllPoints()
-	B.SetupArrow(tex, direction)
-	self.__texture = tex
-
-	self:HookScript("OnEnter", B.Texture_OnEnter)
-	self:HookScript("OnLeave", B.Texture_OnLeave)
+	B.SetupTexture(self, direction)
 end
 
 table.insert(C.defaultThemes, function()
@@ -59,7 +11,7 @@ table.insert(C.defaultThemes, function()
 
 	local r, g, b = DB.r, DB.g, DB.b
 
-	B.ReskinPortraitFrame(CharacterFrame)
+	B.ReskinFrame(CharacterFrame)
 	B.StripTextures(CharacterFrameInsetRight)
 
 	for i = 1, 3 do
@@ -79,24 +31,6 @@ table.insert(C.defaultThemes, function()
 	CharacterModelScene:DisableDrawLayer("OVERLAY")
 
 	-- [[ Item buttons ]]
-
-	local function colourPopout(self)
-		local aR, aG, aB
-		local glow = self:GetParent().IconBorder
-
-		if glow:IsShown() then
-			aR, aG, aB = glow:GetVertexColor()
-		else
-			aR, aG, aB = r, g, b
-		end
-
-		self.arrow:SetVertexColor(aR, aG, aB)
-	end
-
-	local function clearPopout(self)
-		self.arrow:SetVertexColor(1, 1, 1)
-	end
-
 	local function UpdateAzeriteItem(self)
 		if not self.styled then
 			self.AzeriteTexture:SetAlpha(0)
@@ -149,22 +83,17 @@ table.insert(C.defaultThemes, function()
 		B.ReskinIconBorder(slot.IconBorder)
 
 		local popout = slot.popoutButton
-		popout:SetNormalTexture(0)
-		popout:SetHighlightTexture(0)
+		popout:SetSize(14, 14)
+		B.StripTextures(popout)
+		B.SetupTexture(popout, "right")
 
-		local arrow = popout:CreateTexture(nil, "OVERLAY")
-		arrow:SetSize(14, 14)
 		if slot.verticalFlyout then
-			B.SetupArrow(arrow, "down")
-			arrow:SetPoint("TOP", slot, "BOTTOM", 0, 1)
+			B.SetupArrow(popout.__texture, "down")
+			B.UpdatePoint(popout, "TOP", slot, "BOTTOM", 0, 1)
 		else
-			B.SetupArrow(arrow, "right")
-			arrow:SetPoint("LEFT", slot, "RIGHT", -1, 0)
+			B.SetupArrow(popout.__texture, "right")
+			B.UpdatePoint(popout, "LEFT", slot, "RIGHT", -1, 0)
 		end
-		popout.arrow = arrow
-
-		popout:HookScript("OnEnter", clearPopout)
-		popout:HookScript("OnLeave", colourPopout)
 
 		hooksecurefunc(slot, "DisplayAsAzeriteItem", UpdateAzeriteItem)
 		hooksecurefunc(slot, "DisplayAsAzeriteEmpoweredItem", UpdateAzeriteEmpoweredItem)
@@ -174,7 +103,6 @@ table.insert(C.defaultThemes, function()
 		-- also fires for bag slots, we don't want that
 		if button.popoutButton then
 			button.icon:SetShown(GetInventoryItemTexture("player", button:GetID()) ~= nil)
-			colourPopout(button.popoutButton)
 		end
 		UpdateCosmetic(button)
 		UpdateHighlight(button)
@@ -220,13 +148,13 @@ table.insert(C.defaultThemes, function()
 		tab.Hider:SetInside(tab.bg)
 		tab.Highlight:SetInside(tab.bg)
 		tab.Highlight:SetColorTexture(1, 1, 1, .25)
-		tab.Hider:SetColorTexture(.3, .3, .3, .4)
+		tab.Hider:SetColorTexture(.5, .5, .5, .25)
 		tab.TabBg:SetAlpha(0)
 	end
 
 	-- [[ Equipment manager ]]
-	B.Reskin(PaperDollFrameEquipSet)
-	B.Reskin(PaperDollFrameSaveSet)
+	B.ReskinButton(PaperDollFrameEquipSet)
+	B.ReskinButton(PaperDollFrameSaveSet)
 	B.ReskinTrimScroll(PaperDollFrame.EquipmentManagerPane.ScrollBar)
 
 	hooksecurefunc(PaperDollFrame.EquipmentManagerPane.ScrollBox, "Update", function(self)
@@ -304,9 +232,7 @@ table.insert(C.defaultThemes, function()
 				end
 				local repbar = child.Content and child.Content.ReputationBar
 				if repbar then
-					B.StripTextures(repbar)
-					repbar:SetStatusBarTexture(DB.bdTex)
-					B.CreateBDFrame(repbar, .25)
+					B.ReskinStatusBar(repbar, true)
 				end
 				if child.ToggleCollapseButton then
 					child.ToggleCollapseButton:GetPushedTexture():SetAlpha(0)
@@ -331,10 +257,11 @@ table.insert(C.defaultThemes, function()
 	B.ReskinCheck(detailFrame.AtWarCheckbox)
 	B.ReskinCheck(detailFrame.MakeInactiveCheckbox)
 	B.ReskinCheck(detailFrame.WatchFactionCheckbox)
-	B.Reskin(detailFrame.ViewRenownButton)
+	B.ReskinButton(detailFrame.ViewRenownButton)
+	B.ReskinTrimScroll(detailFrame.ScrollingDescriptionScrollBar)
 
 	-- Token frame
-	B.ReskinTrimScroll(TokenFrame.ScrollBar, true) -- taint if touching thumb, needs review
+	B.ReskinTrimScroll(TokenFrame.ScrollBar) -- taint if touching thumb, needs review
 	B.ReskinDropDown(TokenFrame.filterDropdown)
 	if TokenFramePopup.CloseButton then -- blizz typo by parentKey "CloseButton" into "$parent.CloseButton"
 		B.ReskinClose(TokenFramePopup.CloseButton)
@@ -342,12 +269,12 @@ table.insert(C.defaultThemes, function()
 		B.ReskinClose((select(5, TokenFramePopup:GetChildren())))
 	end
 
-	B.Reskin(TokenFramePopup.CurrencyTransferToggleButton)
+	B.ReskinButton(TokenFramePopup.CurrencyTransferToggleButton)
 	B.ReskinCheck(TokenFramePopup.InactiveCheckbox)
 	B.ReskinCheck(TokenFramePopup.BackpackCheckbox)
 
 	NoTaintArrow(TokenFrame.CurrencyTransferLogToggleButton, "right") -- taint control, needs review
-	B.ReskinPortraitFrame(CurrencyTransferLog)
+	B.ReskinFrame(CurrencyTransferLog)
 	B.ReskinTrimScroll(CurrencyTransferLog.ScrollBar)
 
 	local function handleCurrencyIcon(button)
@@ -360,20 +287,20 @@ table.insert(C.defaultThemes, function()
 		self:ForEachFrame(handleCurrencyIcon)
 	end)
 
-	B.ReskinPortraitFrame(CurrencyTransferMenu)
+	B.ReskinFrame(CurrencyTransferMenu)
 	B.CreateBDFrame(CurrencyTransferMenu.SourceSelector, .25)
 	CurrencyTransferMenu.SourceSelector.SourceLabel:SetWidth(56)
 	B.ReskinDropDown(CurrencyTransferMenu.SourceSelector.Dropdown)
 	B.ReskinIcon(CurrencyTransferMenu.SourceBalancePreview.BalanceInfo.CurrencyIcon)
 	B.ReskinIcon(CurrencyTransferMenu.PlayerBalancePreview.BalanceInfo.CurrencyIcon)
-	B.Reskin(CurrencyTransferMenu.ConfirmButton)
-	B.Reskin(CurrencyTransferMenu.CancelButton)
+	B.ReskinButton(CurrencyTransferMenu.ConfirmButton)
+	B.ReskinButton(CurrencyTransferMenu.CancelButton)
 
 	local amountSelector = CurrencyTransferMenu.AmountSelector
 	if amountSelector then
 		B.CreateBDFrame(amountSelector, .25)
-		B.Reskin(amountSelector.MaxQuantityButton)
-		B.ReskinEditBox(amountSelector.InputBox)
+		B.ReskinButton(amountSelector.MaxQuantityButton)
+		B.ReskinInput(amountSelector.InputBox)
 		amountSelector.InputBox.__bg:SetInside(nil, 3, 3)
 	end
 
@@ -409,11 +336,11 @@ table.insert(C.defaultThemes, function()
 
 	-- Quick Join
 	B.ReskinTrimScroll(QuickJoinFrame.ScrollBar)
-	B.Reskin(QuickJoinFrame.JoinQueueButton)
+	B.ReskinButton(QuickJoinFrame.JoinQueueButton)
 
 	B.SetBD(QuickJoinRoleSelectionFrame)
-	B.Reskin(QuickJoinRoleSelectionFrame.AcceptButton)
-	B.Reskin(QuickJoinRoleSelectionFrame.CancelButton)
+	B.ReskinButton(QuickJoinRoleSelectionFrame.AcceptButton)
+	B.ReskinButton(QuickJoinRoleSelectionFrame.CancelButton)
 	B.ReskinClose(QuickJoinRoleSelectionFrame.CloseButton)
 	B.StripTextures(QuickJoinRoleSelectionFrame)
 

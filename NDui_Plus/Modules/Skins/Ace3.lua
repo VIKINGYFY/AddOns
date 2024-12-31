@@ -183,7 +183,7 @@ end
 
 function S:Ace3_MultiLineEditBox(widget)
 	B.StripTextures(widget.scrollBG)
-	local bg = B.CreateBDFrame(widget.scrollBG, .8)
+	local bg = B.CreateBDFrame(widget.scrollBG, .5)
 	bg:SetPoint("TOPLEFT", 0, -2)
 	bg:SetPoint("BOTTOMRIGHT", -2, 1)
 	B.Reskin(widget.button)

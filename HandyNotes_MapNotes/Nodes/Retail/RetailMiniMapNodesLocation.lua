@@ -307,7 +307,7 @@ if not db.activate.HideMapNote then
             if self.db.profile.showMiniMapPortals then
 
               minimap[123][49111534] = { mnID = 125, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_DALARANCITY1  } -- LakeWintergrasp to Dalaran Portal 
-              minimap[127][15724250] = { mnID = 125, TransportName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "The Magical Kingdom of Dalaran", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, name = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_DALARANCITY1, showWWW = true, www = "https://www.wowhead.com/wotlk/quest=12791/the-magical-kingdom-of-dalaran"} -- LakeWintergrasp to Dalaran Portal 
+              minimap[127][15724250] = { mnID = 125, name = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_DALARANCITY1, questID = 12791, wwwLink = "https://www.wowhead.com/quest=12791", wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "The Magical Kingdom of Dalaran", type = "Portal", showWWW = true, showInZone = false, showOnContinent = false, showOnMinimap = true } -- LakeWintergrasp to Dalaran Portal 
               minimap[119][40328303] = { mnID = 78, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"] } -- Portal Sholazar to Unguro
 
               if self.faction == "Horde" or db.activate.MiniMapEnemyFaction then
@@ -460,7 +460,7 @@ if not db.activate.HideMapNote then
               --minimap[379][50604230] = { name = L["Herbalism"], type = "Herbalism", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
 
               if self.faction == "Horde" then
-                minimap[371][46806060] = { name = L["Herbalism"], type = "Herbalism", wwwName = LFG_LIST_REQUIRE .. " " .. STORY_PROGRESS, showWWW = true, www = "wowhead.com/quest=29824", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+                minimap[371][46806060] = { name = L["Herbalism"], type = "Herbalism", wwwName = LFG_LIST_REQUIRE .. " " .. STORY_PROGRESS, questID = 29824, showWWW = true, wwwLink = "wowhead.com/quest=29824", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
                 minimap[371][27801563] = { name = L["Herbalism"], type = "Herbalism", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
               end
 
@@ -797,11 +797,11 @@ if not db.activate.HideMapNote then
 
             -- Khaz Algar Portals
             if self.db.profile.showMiniMapPortals then
-              minimap[2255][57344184] = { mnID = 2339, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=19559", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Dornogal to Azj-Kahet if u finished the achievement=19559
-              minimap[2367][49953591] = { mnID = 2339, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=40725",  type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Chamber of Memory
-              minimap[2248][53024511] = { mnID = 2339, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=19559", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Dornogal to Azj-Kahet if u finished the achievement=19559
+              minimap[2255][57344184] = { mnID = 2339, name = L["Portal"], dnID = "",  achievementID = 19559, showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19559", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Dornogal to Azj-Kahet if u finished the achievement=19559
+              minimap[2367][49953591] = { mnID = 2339, name = L["Portal"], dnID = "",  achievementID = 40725, showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=40725",  type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Chamber of Memory
+              minimap[2248][53024511] = { mnID = 2339, name = L["Portal"], dnID = "",  achievementID = 19559, showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19559", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Dornogal to Azj-Kahet if u finished the achievement=19559
               minimap[2248][50554183] = { mnID = 2266, name = "", type = "WayGateGolden", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["The Timeways"] .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. L["Ardenweald"] .. "\n" .. " ==> " .. L["Bastion"] .. "\n" .. " ==> " .. L["Tiragarde Sound"] .. "\n" .. " ==> " .. L["Twilight Highlands"] } --  Portal from Dornogal to the Timeways
-              minimap[2248][44634679] = { mnID = 2367, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=40725", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Chamber of Memory
+              minimap[2248][44634679] = { mnID = 2367, name = L["Portal"], dnID = "",  achievementID =  40725, showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=40725", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Chamber of Memory
 
               if self.faction == "Horde" or db.activate.MiniMapEnemyFaction then
                 minimap[2248][46913872] = { mnID = 2339, name = "", type = "HPortal", TransportName = L["Portal"] .. "\n" .. ORGRIMMAR, showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dornogal to Orgrimmar
@@ -814,21 +814,16 @@ if not db.activate.HideMapNote then
 
             -- Khaz Algar Zeppelin
             if self.db.profile.showMiniMapZeppelins then
-              minimap[2369][70725350] = { mnID = 2339, name = "", type = "Zeppelin", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Zeppelin"] .. " ==> " .. L["Dornogal"] } -- Zeppelin from TSiren Isle to Dornogal
+              minimap[2369][70725350] = { mnID = 2339, name = "", type = "Zeppelin", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Zeppelin"] .. " ==> " .. L["Dornogal"] } -- Zeppelin from Siren Isle to Dornogal
+              minimap[2248][55453363] = { mnID = 2369, name = "", type = "Zeppelin", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Zeppelin"] .. " ==> " .. L["Dornogal"] } -- Zeppelin to Siren Isle from Dornogal
             end
-
-            ----- PTR start
-            if ns.version == "11.0.7" then
 
             -- Khaz Algar Transport
             if self.db.profile.showMiniMapTransport then
-              minimap[2369][67973862] = { mnID = 2214, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Mole Machine from Sirene Isle to Deeps
-              minimap[2214][46033016] = { mnID = 2369, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Mole Machine from Deeps to Sirene Isle
+              minimap[2369][67613901] = { mnID = 2214, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Mole Machine from Sirene Isle to Deeps
+              minimap[2214][46143028] = { mnID = 2369, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Mole Machine from Deeps to Sirene Isle
             end
 
-            end
-            ---- PTR end
-            ---
           end
 
           --Professions

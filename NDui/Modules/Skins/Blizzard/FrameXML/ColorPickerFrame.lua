@@ -10,6 +10,6 @@ table.insert(C.defaultThemes, function()
 	ColorPickerFrame.Border:Hide()
 
 	B.SetBD(ColorPickerFrame)
-	B.Reskin(ColorPickerFrame.Footer.OkayButton)
-	B.Reskin(ColorPickerFrame.Footer.CancelButton)
+	B.ReskinButton(ColorPickerFrame.Footer.OkayButton)
+	B.ReskinButton(ColorPickerFrame.Footer.CancelButton)
 end)

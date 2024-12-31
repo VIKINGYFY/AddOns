@@ -230,7 +230,7 @@ table.insert(C.defaultThemes, function()
 			bu.SelectedHighlight:SetPoint("TOPLEFT", bu, -12, 12)
 			bu.SelectedHighlight:SetPoint("BOTTOMRIGHT", bu, 12, -12)
 		end
-		buttonList[4]:GetCheckedTexture():SetColorTexture(r, g, b, .3)
+		buttonList[4]:GetCheckedTexture():SetColorTexture(r, g, b, .25)
 	end)
 
 	local skipButton = bottomFrame.TurnTimer.SkipButton
@@ -243,11 +243,9 @@ table.insert(C.defaultThemes, function()
 	skipButton:SetPushedTexture(DB.pushedTex)
 
 	local xpbar = PetBattleFrameXPBar
-	B.StripTextures(xpbar)
 	xpbar:SetParent(bar)
 	xpbar:SetWidth(bar:GetWidth())
-	xpbar:SetStatusBarTexture(DB.normTex)
-	B.SetBD(xpbar)
+	B.ReskinStatusBar(xpbar, false, true)
 
 	local turnTimer = bottomFrame.TurnTimer
 	turnTimer:SetParent(bar)

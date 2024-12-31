@@ -17,7 +17,7 @@ local function SkinLandingOverlay(frame)
 		B.SetBD(frame)
 
 		if frame.SkillsButton then
-			B.Reskin(frame.SkillsButton)
+			B.ReskinButton(frame.SkillsButton)
 		end
 		if frame.CloseButton then
 			B.ReskinClose(frame.CloseButton)

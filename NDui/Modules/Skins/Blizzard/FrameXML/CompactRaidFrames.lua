@@ -29,7 +29,7 @@ table.insert(C.defaultThemes, function()
 
 	for _, button in pairs({CompactRaidFrameManager.displayFrame.BottomButtons:GetChildren()}) do
 		if button:IsObjectType("Button") then
-			B.Reskin(button)
+			B.ReskinButton(button)
 		end
 	end
 

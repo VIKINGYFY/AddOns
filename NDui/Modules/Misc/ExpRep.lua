@@ -273,7 +273,7 @@ function M:Expbar()
 	local rest = CreateFrame("StatusBar", nil, bar)
 	rest:SetAllPoints()
 	rest:SetStatusBarTexture(DB.normTex)
-	rest:SetStatusBarColor(0, .4, 1, .6)
+	rest:SetStatusBarColor(0, .4, 1, .5)
 	rest:SetFrameLevel(bar:GetFrameLevel() - 1)
 	bar.restBar = rest
 

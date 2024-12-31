@@ -9,12 +9,6 @@ table.insert(C.defaultThemes, function()
 
 	if not C.db["Skins"]["BlizzardSkins"] then return end
 
-	-- Tooltips
-	function B:ReskinGarrisonTooltip()
-		if self.Icon then B.ReskinIcon(self.Icon) end
-		if self.CloseButton then B.ReskinClose(self.CloseButton) end
-	end
-
 	B.ReskinGarrisonTooltip(FloatingGarrisonMissionTooltip)
 	B.ReskinGarrisonTooltip(GarrisonFollowerTooltip)
 	B.ReskinGarrisonTooltip(FloatingGarrisonFollowerTooltip)

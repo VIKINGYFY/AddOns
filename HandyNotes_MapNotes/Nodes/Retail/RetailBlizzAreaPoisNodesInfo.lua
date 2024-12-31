@@ -26,6 +26,10 @@ ns.BlizzAreaPoisInfo = {
     8001, -- Portal from Dornogal to Azj-Kahet
     8002, -- Portal from Azj-Kahet to Dornogal
     8171, -- Timeways Portal in Dornogal
+    8247, -- Mole Machine from Deeps to Siren Isle
+    8248, -- Zeppelin to Serin Isle from Isle of Dorn
+    8249, -- Zeppelin to Isle of Dorn from Siren Isle
+    8250, -- Mole Machine from Siren Isle to Deeps
 
     -- City Alliance
     8, -- Ironforge Icon

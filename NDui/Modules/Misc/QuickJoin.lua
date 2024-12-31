@@ -164,7 +164,7 @@ function M:ReplaceFindGroupButton()
 		lastCategory = selectedCategory
 	end)
 
-	if C.db["Skins"]["BlizzardSkins"] then B.Reskin(bu) end
+	if C.db["Skins"]["BlizzardSkins"] then B.ReskinButton(bu) end
 end
 
 local function clickSortButton(self)

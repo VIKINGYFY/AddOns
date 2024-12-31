@@ -21,7 +21,7 @@ C.themes["Blizzard_BlackMarketUI"] = function()
 
 	B.SetBD(BlackMarketFrame)
 	B.CreateBDFrame(BlackMarketFrame.HotDeal, .25)
-	B.Reskin(BlackMarketFrame.BidButton)
+	B.ReskinButton(BlackMarketFrame.BidButton)
 	B.ReskinClose(BlackMarketFrame.CloseButton)
 	B.ReskinInput(BlackMarketBidPriceGold)
 	B.ReskinTrimScroll(BlackMarketFrame.ScrollBar)
@@ -46,7 +46,7 @@ C.themes["Blizzard_BlackMarketUI"] = function()
 
 				bu:SetHighlightTexture(DB.bdTex)
 				local hl = bu:GetHighlightTexture()
-				hl:SetVertexColor(r, g, b, .2)
+				hl:SetVertexColor(r, g, b, .25)
 				hl.SetAlpha = B.Dummy
 				hl:ClearAllPoints()
 				hl:SetAllPoints(bg)
@@ -54,7 +54,7 @@ C.themes["Blizzard_BlackMarketUI"] = function()
 				bu.Selection:ClearAllPoints()
 				bu.Selection:SetAllPoints(bg)
 				bu.Selection:SetTexture(DB.bdTex)
-				bu.Selection:SetVertexColor(r, g, b, .1)
+				bu.Selection:SetVertexColor(r, g, b, .25)
 
 				bu.reskinned = true
 			end

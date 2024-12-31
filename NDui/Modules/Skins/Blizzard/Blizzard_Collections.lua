@@ -42,7 +42,7 @@ end
 C.themes["Blizzard_Collections"] = function()
 	-- [[ General ]]
 
-	CollectionsJournal.bg = B.ReskinPortraitFrame(CollectionsJournal) -- need this for Rematch skin
+	CollectionsJournal.bg = B.ReskinFrame(CollectionsJournal) -- need this for Rematch skin
 	for i = 1, 5 do
 		local tab = _G["CollectionsJournalTab"..i]
 		B.ReskinTab(tab)
@@ -77,9 +77,9 @@ C.themes["Blizzard_Collections"] = function()
 	B.ReskinIcon(MountJournal.MountDisplay.InfoButton.Icon)
 	B.ReskinModelControl(MountJournal.MountDisplay.ModelScene)
 
-	B.Reskin(MountJournalMountButton)
-	B.Reskin(PetJournalSummonButton)
-	B.Reskin(PetJournalFindBattle)
+	B.ReskinButton(MountJournalMountButton)
+	B.ReskinButton(PetJournalSummonButton)
+	B.ReskinButton(PetJournalFindBattle)
 
 	B.ReskinTrimScroll(MountJournal.ScrollBar)
 	hooksecurefunc(MountJournal.ScrollBox, "Update", reskinFrameButton)
@@ -207,21 +207,8 @@ C.themes["Blizzard_Collections"] = function()
 	card.PetInfo.icon.bg = B.ReskinIcon(card.PetInfo.icon)
 
 	B.CreateBDFrame(card, .25)
-
-	for i = 2, 12 do
-		select(i, card.xpBar:GetRegions()):Hide()
-	end
-
-	card.xpBar:SetStatusBarTexture(DB.bdTex)
-	B.CreateBDFrame(card.xpBar, .25)
-
-	PetJournalPetCardHealthFramehealthStatusBarLeft:Hide()
-	PetJournalPetCardHealthFramehealthStatusBarRight:Hide()
-	PetJournalPetCardHealthFramehealthStatusBarMiddle:Hide()
-	PetJournalPetCardHealthFramehealthStatusBarBGMiddle:Hide()
-
-	card.HealthFrame.healthBar:SetStatusBarTexture(DB.bdTex)
-	B.CreateBDFrame(card.HealthFrame.healthBar, .25)
+	B.ReskinStatusBar(card.xpBar, true)
+	B.ReskinStatusBar(card.HealthFrame.healthBar, true)
 
 	for i = 1, 6 do
 		local bu = card["spell"..i]
@@ -263,17 +250,8 @@ C.themes["Blizzard_Collections"] = function()
 		bu.setButton:GetRegions():SetPoint("BOTTOMRIGHT", bu.icon, 5, -5)
 
 		B.CreateBDFrame(bu, .25)
-
-		for i = 2, 12 do
-			select(i, bu.xpBar:GetRegions()):Hide()
-		end
-
-		bu.xpBar:SetStatusBarTexture(DB.bdTex)
-		B.CreateBDFrame(bu.xpBar, .25)
-
-		B.StripTextures(bu.healthFrame.healthBar)
-		bu.healthFrame.healthBar:SetStatusBarTexture(DB.bdTex)
-		B.CreateBDFrame(bu.healthFrame.healthBar, .25)
+		B.ReskinStatusBar(bu.xpBar, true)
+		B.ReskinStatusBar(bu.healthFrame.healthBar, true)
 
 		for j = 1, 3 do
 			local spell = bu["spell"..j]
@@ -330,13 +308,7 @@ C.themes["Blizzard_Collections"] = function()
 	-- Progress bar
 
 	local progressBar = ToyBox.progressBar
-	progressBar.border:Hide()
-	progressBar:DisableDrawLayer("BACKGROUND")
-
-	progressBar.text:SetPoint("CENTER", 0, 1)
-	progressBar:SetStatusBarTexture(DB.bdTex)
-
-	B.CreateBDFrame(progressBar, .25)
+	B.ReskinStatusBar(progressBar)
 
 	-- Toys!
 
@@ -398,13 +370,7 @@ C.themes["Blizzard_Collections"] = function()
 	-- Progress bar
 
 	local progressBar = HeirloomsJournal.progressBar
-	progressBar.border:Hide()
-	progressBar:DisableDrawLayer("BACKGROUND")
-
-	progressBar.text:SetPoint("CENTER", 0, 1)
-	progressBar:SetStatusBarTexture(DB.bdTex)
-
-	B.CreateBDFrame(progressBar, .25)
+	B.ReskinStatusBar(progressBar)
 
 	-- Buttons
 
@@ -487,7 +453,7 @@ C.themes["Blizzard_Collections"] = function()
 		for index = 1, 2 do
 			local tab = self.Tabs[index]
 			if not tab.bg then
-				B.ReskinTab(tab)
+				B.ReskinTab(tab, true)
 			end
 			if tabID == index then
 				tab.bg:SetBackdropColor(cr, cg, cb, .25)
@@ -503,11 +469,7 @@ C.themes["Blizzard_Collections"] = function()
 	ItemsCollectionFrame.BGCornerTopRight:SetAlpha(0)
 
 	local progressBar = WardrobeCollectionFrame.progressBar
-	progressBar:DisableDrawLayer("BACKGROUND")
-	select(2, progressBar:GetRegions()):Hide()
-	progressBar.text:SetPoint("CENTER", 0, 1)
-	progressBar:SetStatusBarTexture(DB.bdTex)
-	B.CreateBDFrame(progressBar, .25)
+	B.ReskinStatusBar(progressBar)
 
 	-- ItemSetsCollection
 
@@ -577,8 +539,8 @@ C.themes["Blizzard_Collections"] = function()
 	local WardrobeTransmogFrame = WardrobeTransmogFrame
 
 	B.StripTextures(WardrobeTransmogFrame)
-	B.ReskinPortraitFrame(WardrobeFrame)
-	B.Reskin(WardrobeTransmogFrame.ApplyButton)
+	B.ReskinFrame(WardrobeFrame)
+	B.ReskinButton(WardrobeTransmogFrame.ApplyButton)
 
 	local specButton = WardrobeTransmogFrame.SpecDropdown
 	if specButton then
@@ -607,7 +569,7 @@ C.themes["Blizzard_Collections"] = function()
 
 	-- Outfit Frame
 	B.ReskinDropDown(WardrobeTransmogFrame.OutfitDropdown)
-	B.Reskin(WardrobeTransmogFrame.OutfitDropdown.SaveButton)
+	B.ReskinButton(WardrobeTransmogFrame.OutfitDropdown.SaveButton)
 
 	-- HPetBattleAny
 	local reskinHPet
@@ -615,11 +577,11 @@ C.themes["Blizzard_Collections"] = function()
 		if not C_AddOns.IsAddOnLoaded("HPetBattleAny") then return end
 		if not reskinHPet then
 			if HPetInitOpenButton then
-				B.Reskin(HPetInitOpenButton)
+				B.ReskinButton(HPetInitOpenButton)
 			end
 			if HPetAllInfoButton then
 				B.StripTextures(HPetAllInfoButton)
-				B.Reskin(HPetAllInfoButton)
+				B.ReskinButton(HPetAllInfoButton)
 			end
 
 			if PetJournalBandageButton then

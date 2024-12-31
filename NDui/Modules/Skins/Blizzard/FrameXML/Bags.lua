@@ -173,11 +173,11 @@ table.insert(C.defaultThemes, function()
 		end
 	end)
 
-	B.ReskinEditBox(BagItemSearchBox)
+	B.ReskinInput(BagItemSearchBox)
 	ReskinSortButton(BagItemAutoSortButton)
 
 	-- Combined bags
-	B.ReskinPortraitFrame(ContainerFrameCombinedBags)
+	B.ReskinFrame(ContainerFrameCombinedBags)
 	createBagIcon(ContainerFrameCombinedBags, 1)
 	ContainerFrameCombinedBags.PortraitButton.Highlight:SetTexture("")
 	hooksecurefunc(ContainerFrameCombinedBags, "UpdateItemSlots", handleBagSlots)
@@ -188,8 +188,8 @@ table.insert(C.defaultThemes, function()
 	B.StripTextures(BankSlotsFrame)
 	BankSlotsFrame.EdgeShadows:Hide()
 
-	B.ReskinPortraitFrame(BankFrame)
-	B.Reskin(BankFramePurchaseButton)
+	B.ReskinFrame(BankFrame)
+	B.ReskinButton(BankFramePurchaseButton)
 	B.ReskinTab(BankFrameTab1)
 	B.ReskinTab(BankFrameTab2)
 	B.ReskinTab(BankFrameTab3)
@@ -219,8 +219,8 @@ table.insert(C.defaultThemes, function()
 	ReagentBankFrame.NineSlice:SetAlpha(0)
 	ReagentBankFrame.EdgeShadows:Hide()
 
-	B.Reskin(ReagentBankFrame.DespositButton)
-	B.Reskin(ReagentBankFrameUnlockInfoPurchaseButton)
+	B.ReskinButton(ReagentBankFrame.DespositButton)
+	B.ReskinButton(ReagentBankFrameUnlockInfoPurchaseButton)
 
 	-- make button more visible
 	B.StripTextures(ReagentBankFrameUnlockInfo)
@@ -241,11 +241,11 @@ table.insert(C.defaultThemes, function()
 	-- [[ Account bank ]]
 	AccountBankPanel.NineSlice:SetAlpha(0)
 	AccountBankPanel.EdgeShadows:Hide()
-	B.Reskin(AccountBankPanel.ItemDepositFrame.DepositButton)
+	B.ReskinButton(AccountBankPanel.ItemDepositFrame.DepositButton)
 	B.ReskinCheck(AccountBankPanel.ItemDepositFrame.IncludeReagentsCheckbox)
 	handleMoneyFrame(AccountBankPanel)
-	B.Reskin(AccountBankPanel.MoneyFrame.WithdrawButton)
-	B.Reskin(AccountBankPanel.MoneyFrame.DepositButton)
+	B.ReskinButton(AccountBankPanel.MoneyFrame.WithdrawButton)
+	B.ReskinButton(AccountBankPanel.MoneyFrame.DepositButton)
 
 	hooksecurefunc(AccountBankPanel, "GenerateItemSlotsForSelectedTab", handleBagSlots)
 
@@ -256,5 +256,5 @@ table.insert(C.defaultThemes, function()
 	end)
 	handleBankTab(AccountBankPanel.PurchaseTab)
 
-	B.Reskin(AccountBankPanel.PurchasePrompt.TabCostFrame.PurchaseButton)
+	B.ReskinButton(AccountBankPanel.PurchasePrompt.TabCostFrame.PurchaseButton)
 end)

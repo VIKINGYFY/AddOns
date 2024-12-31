@@ -9,7 +9,7 @@ local function fixBg(frame)
 	if frame.bg then
 		frame.bg:SetBackdropColor(0, 0, 0, C.db["Skins"]["SkinAlpha"])
 		if frame.bg.__shadow then
-			frame.bg.__shadow:SetBackdropBorderColor(0, 0, 0, .4)
+			frame.bg.__shadow:SetBackdropBorderColor(0, 0, 0, .5)
 		end
 	end
 end
@@ -19,7 +19,7 @@ local function fixParentbg(anim)
 	if frame.bg then
 		frame.bg:SetBackdropColor(0, 0, 0, C.db["Skins"]["SkinAlpha"])
 		if frame.bg.__shadow then
-			frame.bg.__shadow:SetBackdropBorderColor(0, 0, 0, .4)
+			frame.bg.__shadow:SetBackdropBorderColor(0, 0, 0, .5)
 		end
 	end
 end

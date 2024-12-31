@@ -54,8 +54,7 @@ local function SkinItemButton(self)
 	self.IconOverlay:SetInside()
 	self.IconOverlay2:SetInside()
 	P.SetupBackdrop(self)
-	B.CreateBD(self, .3)
-	self:SetBackdropColor(.3, .3, .3, .3)
+	B.CreateBD(self, .25)
 end
 
 local function hasItem(i)

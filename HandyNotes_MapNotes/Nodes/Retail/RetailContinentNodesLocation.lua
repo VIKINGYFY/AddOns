@@ -657,7 +657,7 @@ if not db.activate.HideMapNote then
             
             if self.faction == "Horde" then
               nodes[424][59123739] = { dnID = ITEM_REQ_HORDE .. "\n" .. "\n" .. TextIconHerbalism:GetIconString() .. " " .. L["Herbalism"] .. "\n" .. TextIconMining:GetIconString() .. " " .. L["Mining"] .. "\n" .. TextIconSkinning:GetIconString() .. " " .. L["Skinning"], name = "", type = "ProfessionsMixed", showOnContinent = true, showInZone = false, showOnMinimap = false }
-              nodes[424][67895590] = { name = L["Herbalism"], type = "Herbalism", wwwName = LFG_LIST_REQUIRE .. " " .. STORY_PROGRESS, showWWW = true, www = "wowhead.com/quest=29824", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+              nodes[424][67895590] = { name = L["Herbalism"], type = "Herbalism", questID = 29824, wwwName = LFG_LIST_REQUIRE .. " " .. STORY_PROGRESS, showWWW = true, wwwLink = "wowhead.com/quest=29824", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
               nodes[424][43874801] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
               nodes[424][48314179] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
               nodes[504][33503380] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
@@ -1222,16 +1222,28 @@ if not db.activate.HideMapNote then
               end
             end
 
-            if self.db.profile.showContinentPaths then
-              nodes[2274][46397339] = { mnID = 2339, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=19559", type = "PassageCaveUp", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Azj-Kahet to Dornogal if u finished the achievement=19559
-              nodes[2274][60306969] = { mnID = 2248, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=19560", type = "PassageCaveUp", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Ringing Deeps to Isle of Dornogal
-              nodes[2274][55475781] = { mnID = 2248, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=19560", type = "PassageCaveUp", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Ringing Deeps to Isle of Dornogal
-              nodes[2274][65383353] = { mnID = 2214, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=19560", type = "PassageCaveDown", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Isle of Dornogal to Ringing Deeps
-              nodes[2274][79661540] = { mnID = 2214, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=19560", type = "PassageCaveDown", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Isle of Dornogal to Ringing Deeps
+          -- Khaz Algar Transport
+            if self.db.profile.showContinentTransport then
+              nodes[2274][52685213] = { mnID = 2369, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = false, showOnContinent = true, showOnMinimap = false } -- Mole Machine from Deeps to Sirene Isle
             end
 
-        end 
+          -- Khaz Algar Zeppelin
+            if self.db.profile.showContinentZeppelins then
+              nodes[2274][73131599] = { mnID = 2369, name = "", type = "Zeppelin", showInZone = false, showOnContinent = true, showOnMinimap = false, TransportName = L["Zeppelin"] .. " ==> " .. L["Siren Isle"] } -- Zeppelin to Siren Isle from Dornogal
+            end
 
-      end   
+          -- Khaz Algar Paths
+            if self.db.profile.showContinentPaths then
+              nodes[2274][46397339] = { mnID = 2339, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19559", achievementID = 19559, type = "PassageCaveUp", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Azj-Kahet to Dornogal if u finished the achievement=19559
+              nodes[2274][60306969] = { mnID = 2248, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19560", achievementID = 19560, type = "PassageCaveUp", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Ringing Deeps to Isle of Dornogal
+              nodes[2274][55475781] = { mnID = 2248, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19560", achievementID = 19560, type = "PassageCaveUp", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Ringing Deeps to Isle of Dornogal
+              nodes[2274][65383353] = { mnID = 2214, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19560", achievementID = 19560, type = "PassageCaveDown", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Isle of Dornogal to Ringing Deeps
+              nodes[2274][79661540] = { mnID = 2214, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19560", achievementID = 19560, type = "PassageCaveDown", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Isle of Dornogal to Ringing Deeps
+              nodes[2274][70402160] = { mnID = 2214, name = L["Passage"], dnID = "", type = "PassageCaveDown", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Isle of Dornogal to Ringing Deeps
+            end
+
+        end
+
+      end
   end
-end 
+end

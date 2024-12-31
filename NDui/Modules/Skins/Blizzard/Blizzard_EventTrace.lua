@@ -2,7 +2,7 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 local function ReskinEventTraceButton(button)
-	B.Reskin(button)
+	B.ReskinButton(button)
 	button.NormalTexture:SetAlpha(0)
 	button.MouseoverOverlay:SetAlpha(0)
 end
@@ -39,14 +39,14 @@ local function ReskinEventTraceFrame(frame)
 end
 
 C.themes["Blizzard_EventTrace"] = function()
-	B.ReskinPortraitFrame(EventTrace)
+	B.ReskinFrame(EventTrace)
 
 	local subtitleBar = EventTrace.SubtitleBar
 	B.ReskinFilterButton(subtitleBar.OptionsDropdown)
 
 	local logBar = EventTrace.Log.Bar
 	local filterBar = EventTrace.Filter.Bar
-	B.ReskinEditBox(logBar.SearchBox)
+	B.ReskinInput(logBar.SearchBox)
 
 	ReskinEventTraceFrame(EventTrace.Log.Events)
 	ReskinEventTraceFrame(EventTrace.Log.Search)

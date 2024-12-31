@@ -38,7 +38,7 @@ function info:GuildPanel_CreateButton(parent, index)
 	button:SetPoint("TOPLEFT", 0, - (index-1) *20)
 	button.HL = button:CreateTexture(nil, "HIGHLIGHT")
 	button.HL:SetAllPoints()
-	button.HL:SetColorTexture(r, g, b, .2)
+	button.HL:SetColorTexture(r, g, b, .25)
 
 	button.level = B.CreateFS(button, 13, "Level", false)
 	button.level:SetPoint("TOP", button, "TOPLEFT", 16, -4)
@@ -168,8 +168,7 @@ function info:GuildPanel_Init()
 	updateInfoFrameAnchor(infoFrame)
 	infoFrame:SetClampedToScreen(true)
 	infoFrame:SetFrameStrata("TOOLTIP")
-	local bg = B.SetBD(infoFrame)
-	bg:SetBackdropColor(0, 0, 0, .7)
+	B.SetBD(infoFrame)
 
 	infoFrame:SetScript("OnLeave", function(self)
 		self:SetScript("OnUpdate", isPanelCanHide)
@@ -192,7 +191,7 @@ function info:GuildPanel_Init()
 		end
 		bu[i].HL = bu[i]:CreateTexture(nil, "HIGHLIGHT")
 		bu[i].HL:SetAllPoints(bu[i])
-		bu[i].HL:SetColorTexture(r, g, b, .2)
+		bu[i].HL:SetColorTexture(r, g, b, .25)
 		bu[i].index = i
 		bu[i]:SetScript("OnClick", sortHeaderOnClick)
 	end

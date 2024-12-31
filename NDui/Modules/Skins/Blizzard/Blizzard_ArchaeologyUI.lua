@@ -2,10 +2,10 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 C.themes["Blizzard_ArchaeologyUI"] = function()
-	B.ReskinPortraitFrame(ArchaeologyFrame)
+	B.ReskinFrame(ArchaeologyFrame)
 	ArchaeologyFrame:DisableDrawLayer("BACKGROUND")
-	B.Reskin(ArchaeologyFrameArtifactPageSolveFrameSolveButton)
-	B.Reskin(ArchaeologyFrameArtifactPageBackButton)
+	B.ReskinButton(ArchaeologyFrameArtifactPageSolveFrameSolveButton)
+	B.ReskinButton(ArchaeologyFrameArtifactPageBackButton)
 
 	ArchaeologyFrameSummaryPageTitle:SetTextColor(1, 1, 1)
 	ArchaeologyFrameArtifactPageHistoryTitle:SetTextColor(1, .8, 0)
@@ -56,24 +56,14 @@ C.themes["Blizzard_ArchaeologyUI"] = function()
 	ArchaeologyFrameSummaryPagePrevPageButtonIcon:Hide()
 	ArchaeologyFrameSummaryPageNextPageButtonIcon:Hide()
 
-	B.StripTextures(ArchaeologyFrameRankBar)
-	ArchaeologyFrameRankBarBar:SetTexture(DB.bdTex)
-	ArchaeologyFrameRankBarBar:SetGradient("VERTICAL", CreateColor(0, .65, 0, 1), CreateColor(0, .75, 0, 1))
+	B.ReskinStatusBar(ArchaeologyFrameRankBar)
 	ArchaeologyFrameRankBar:SetHeight(14)
-	B.CreateBDFrame(ArchaeologyFrameRankBar, .25)
 	B.ReskinIcon(ArchaeologyFrameArtifactPageIcon)
-
-	B.StripTextures(ArchaeologyFrameArtifactPageSolveFrameStatusBar)
-	B.CreateBDFrame(ArchaeologyFrameArtifactPageSolveFrameStatusBar, .25)
-	local barTexture = ArchaeologyFrameArtifactPageSolveFrameStatusBar:GetStatusBarTexture()
-	barTexture:SetTexture(DB.bdTex)
-	barTexture:SetGradient("VERTICAL", CreateColor(.65, .25, 0, 1), CreateColor(.75, .35, .1, 1))
+	B.ReskinStatusBar(ArchaeologyFrameArtifactPageSolveFrameStatusBar)
 
 	-- ArcheologyDigsiteProgressBar
 	B.StripTextures(ArcheologyDigsiteProgressBar)
-	B.SetBD(ArcheologyDigsiteProgressBar.FillBar)
-	ArcheologyDigsiteProgressBar.FillBar:SetStatusBarTexture(DB.bdTex)
-	ArcheologyDigsiteProgressBar.FillBar:SetStatusBarColor(.7, .3, .2)
+	B.ReskinStatusBar(ArcheologyDigsiteProgressBar.FillBar)
 
 	local ticks = {}
 	ArcheologyDigsiteProgressBar:HookScript("OnShow", function(self)

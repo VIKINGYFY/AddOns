@@ -27,8 +27,8 @@ table.insert(C.defaultThemes, function()
 
 	local categorySelection = LFGListFrame.CategorySelection
 
-	B.Reskin(categorySelection.FindGroupButton)
-	B.Reskin(categorySelection.StartGroupButton)
+	B.ReskinButton(categorySelection.FindGroupButton)
+	B.ReskinButton(categorySelection.StartGroupButton)
 	categorySelection.Inset:Hide()
 	categorySelection.CategoryButtons[1]:SetNormalFontObject(GameFontNormal)
 
@@ -46,7 +46,7 @@ table.insert(C.defaultThemes, function()
 	hooksecurefunc("LFGListSearchEntry_Update", function(self)
 		local cancelButton = self.CancelButton
 		if not cancelButton.styled then
-			B.Reskin(cancelButton)
+			B.ReskinButton(cancelButton)
 			cancelButton.styled = true
 		end
 	end)
@@ -63,10 +63,10 @@ table.insert(C.defaultThemes, function()
 
 	local searchPanel = LFGListFrame.SearchPanel
 
-	B.Reskin(searchPanel.RefreshButton)
-	B.Reskin(searchPanel.BackButton)
-	B.Reskin(searchPanel.BackToGroupButton)
-	B.Reskin(searchPanel.SignUpButton)
+	B.ReskinButton(searchPanel.RefreshButton)
+	B.ReskinButton(searchPanel.BackButton)
+	B.ReskinButton(searchPanel.BackToGroupButton)
+	B.ReskinButton(searchPanel.SignUpButton)
 	B.ReskinInput(searchPanel.SearchBox)
 	searchPanel.SearchBox:SetHeight(22)
 	B.ReskinFilterButton(searchPanel.FilterButton)
@@ -100,7 +100,7 @@ table.insert(C.defaultThemes, function()
 			result:SetPushedTexture(0)
 			result:SetHighlightTexture(0)
 
-			local bg = B.CreateBDFrame(result, .5)
+			local bg = B.CreateBDFrame(result, .25)
 			local hl = result:CreateTexture(nil, "BACKGROUND")
 			hl:SetInside(bg)
 			hl:SetTexture(DB.bdTex)
@@ -118,7 +118,7 @@ table.insert(C.defaultThemes, function()
 	local function skinCreateButton(button)
 		local child = button:GetChildren()
 		if not child.styled and child:IsObjectType("Button") then
-			B.Reskin(child)
+			B.ReskinButton(child)
 			child.styled = true
 		end
 	end
@@ -126,7 +126,7 @@ table.insert(C.defaultThemes, function()
 	local delayStyled -- otherwise it taints while listing
 	hooksecurefunc(searchPanel.ScrollBox, "Update", function(self)
 		if not delayStyled then
-			B.Reskin(self.StartGroupButton)
+			B.ReskinButton(self.StartGroupButton)
 			B.ReskinTrimScroll(searchPanel.ScrollBar)
 			delayStyled = true
 		end
@@ -165,10 +165,10 @@ table.insert(C.defaultThemes, function()
 		prevHeader = header
 	end
 
-	B.Reskin(applicationViewer.RefreshButton)
-	B.Reskin(applicationViewer.RemoveEntryButton)
-	B.Reskin(applicationViewer.EditButton)
-	B.Reskin(applicationViewer.BrowseGroupsButton)
+	B.ReskinButton(applicationViewer.RefreshButton)
+	B.ReskinButton(applicationViewer.RemoveEntryButton)
+	B.ReskinButton(applicationViewer.EditButton)
+	B.ReskinButton(applicationViewer.BrowseGroupsButton)
 	B.ReskinCheck(applicationViewer.AutoAcceptButton)
 	B.ReskinTrimScroll(applicationViewer.ScrollBar)
 
@@ -177,9 +177,9 @@ table.insert(C.defaultThemes, function()
 
 	hooksecurefunc("LFGListApplicationViewer_UpdateApplicant", function(button)
 		if not button.styled then
-			B.Reskin(button.DeclineButton)
-			B.Reskin(button.InviteButton)
-			B.Reskin(button.InviteButtonSmall)
+			B.ReskinButton(button.DeclineButton)
+			B.ReskinButton(button.InviteButton)
+			B.ReskinButton(button.InviteButtonSmall)
 
 			button.styled = true
 		end
@@ -190,8 +190,8 @@ table.insert(C.defaultThemes, function()
 	local entryCreation = LFGListFrame.EntryCreation
 	entryCreation.Inset:Hide()
 	B.StripTextures(entryCreation.Description)
-	B.Reskin(entryCreation.ListGroupButton)
-	B.Reskin(entryCreation.CancelButton)
+	B.ReskinButton(entryCreation.ListGroupButton)
+	B.ReskinButton(entryCreation.CancelButton)
 	B.ReskinInput(entryCreation.Description)
 	B.ReskinInput(entryCreation.Name)
 	B.ReskinInput(entryCreation.ItemLevel.EditBox)
@@ -250,8 +250,8 @@ table.insert(C.defaultThemes, function()
 	local finderDialog = activityFinder.Dialog
 	B.StripTextures(finderDialog)
 	B.SetBD(finderDialog)
-	B.Reskin(finderDialog.SelectButton)
-	B.Reskin(finderDialog.CancelButton)
+	B.ReskinButton(finderDialog.SelectButton)
+	B.ReskinButton(finderDialog.CancelButton)
 	B.ReskinInput(finderDialog.EntryBox)
 	B.ReskinTrimScroll(finderDialog.ScrollBar)
 
@@ -263,8 +263,8 @@ table.insert(C.defaultThemes, function()
 	B.SetBD(LFGListApplicationDialog)
 	B.StripTextures(LFGListApplicationDialog.Description)
 	B.CreateBDFrame(LFGListApplicationDialog.Description, .25)
-	B.Reskin(LFGListApplicationDialog.SignUpButton)
-	B.Reskin(LFGListApplicationDialog.CancelButton)
+	B.ReskinButton(LFGListApplicationDialog.SignUpButton)
+	B.ReskinButton(LFGListApplicationDialog.CancelButton)
 
 	-- [[ Invite dialog ]]
 
@@ -272,7 +272,7 @@ table.insert(C.defaultThemes, function()
 
 	B.StripTextures(LFGListInviteDialog)
 	B.SetBD(LFGListInviteDialog)
-	B.Reskin(LFGListInviteDialog.AcceptButton)
-	B.Reskin(LFGListInviteDialog.DeclineButton)
-	B.Reskin(LFGListInviteDialog.AcknowledgeButton)
+	B.ReskinButton(LFGListInviteDialog.AcceptButton)
+	B.ReskinButton(LFGListInviteDialog.DeclineButton)
+	B.ReskinButton(LFGListInviteDialog.AcknowledgeButton)
 end)

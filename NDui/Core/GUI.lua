@@ -460,7 +460,6 @@ G.DefaultSettings = {
 		ToggleDirection = 1,
 		BlizzardSkins = true,
 		SkinAlpha = .5,
-		FlatMode = true,
 		AlertFrames = true,
 		FontOutline = true,
 		Loot = true,
@@ -468,7 +467,6 @@ G.DefaultSettings = {
 		BgTex = true,
 		GreyBD = false,
 		FontScale = 1,
-		QuestTracker = true,
 	},
 	Tooltip = {
 		HideInCombat = 1,
@@ -1380,10 +1378,8 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 	[11] = {
 		{1, "Skins", "BlizzardSkins", HeaderTag..L["BlizzardSkins"], nil, nil, nil, L["BlizzardSkinsTips"]},
 		{1, "Skins", "AlertFrames", L["ReskinAlertFrames"], true},
-		{1, "Skins", "QuestTracker", L["QuestTracker"]},
-		{1, "Skins", "Loot", L["Loot"], true},
-		{1, "Skins", "PetBattle", L["PetBattle Skin"]},
-		{1, "Skins", "FlatMode", L["FlatMode"], true},
+		{1, "Skins", "Loot", L["Loot"]},
+		{1, "Skins", "PetBattle", L["PetBattle Skin"], true},
 		{1, "Skins", "Shadow", L["Shadow"]},
 		{1, "Skins", "FontOutline", L["FontOutline"], true},
 		{1, "Skins", "BgTex", L["BgTex"]},
@@ -1478,11 +1474,11 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 local function SelectTab(i)
 	for num = 1, #G.TabList do
 		if num == i then
-			guiTab[num]:SetBackdropColor(cr, cg, cb, .3)
+			guiTab[num]:SetBackdropColor(cr, cg, cb, .25)
 			guiTab[num].checked = true
 			guiPage[num]:Show()
 		else
-			guiTab[num]:SetBackdropColor(0, 0, 0, .3)
+			guiTab[num]:SetBackdropColor(0, 0, 0, .25)
 			guiTab[num].checked = false
 			guiPage[num]:Hide()
 		end
@@ -1495,18 +1491,18 @@ local function tabOnClick(self)
 end
 local function tabOnEnter(self)
 	if self.checked then return end
-	self:SetBackdropColor(cr, cg, cb, .3)
+	self:SetBackdropColor(cr, cg, cb, .25)
 end
 local function tabOnLeave(self)
 	if self.checked then return end
-	self:SetBackdropColor(0, 0, 0, .3)
+	self:SetBackdropColor(0, 0, 0, .25)
 end
 
 local function CreateTab(parent, i, name)
 	local tab = CreateFrame("Button", nil, parent, "BackdropTemplate")
 	tab:SetPoint("TOPLEFT", 20, -30*i - 20 + C.mult)
 	tab:SetSize(130, 28)
-	B.CreateBD(tab, .3)
+	B.CreateBD(tab, .25)
 	B.CreateFS(tab, 15, name, "system", "LEFT", 10, 0)
 	tab.index = i
 
@@ -1569,10 +1565,10 @@ local function updateDropdownSelection(self)
 	for i = 1, #dd.__options do
 		local option = dd.options[i]
 		if i == CheckUIOption(dd.__key, dd.__value) then
-			option:SetBackdropColor(1, .8, 0, .3)
+			option:SetBackdropColor(1, .8, 0, .25)
 			option.selected = true
 		else
-			option:SetBackdropColor(0, 0, 0, .3)
+			option:SetBackdropColor(0, 0, 0, .25)
 			option.selected = false
 		end
 	end
@@ -1721,7 +1717,7 @@ local function CreateOption(i)
 		-- Blank, no optType
 		else
 			if not key then
-				local line = B.SetGradient(parent, "H", 1, 1, 1, .25, .25, 560, C.mult)
+				local line = B.SetGradient(parent, "H", 1, 1, 1, .5, .5, 560, C.mult)
 				line:SetPoint("TOPLEFT", 25, -offset - 12)
 			end
 			offset = offset + 35
@@ -1772,9 +1768,9 @@ function G:AddContactFrame()
 	B.CreateWatermark(frame)
 
 	B.CreateFS(frame, 16, L["Contact"], true, "TOP", 0, -10)
-	local ll = B.SetGradient(frame, "H", .7, .7, .7, 0, .5, 80, C.mult)
+	local ll = B.SetGradient(frame, "H", 1, 1, 1, 0, .5, 80, C.mult)
 	ll:SetPoint("TOP", -40, -32)
-	local lr = B.SetGradient(frame, "H", .7, .7, .7, .5, 0, 80, C.mult)
+	local lr = B.SetGradient(frame, "H", 1, 1, 1, .5, 0, 80, C.mult)
 	lr:SetPoint("TOP", 40, -32)
 
 	CreateContactBox(frame, "NGA.CN", "https://bbs.nga.cn/read.php?tid=5483616", 1)

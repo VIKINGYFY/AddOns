@@ -17,13 +17,13 @@ table.insert(C.defaultThemes, function()
 
 	-- Dressup Frame
 
-	B.ReskinPortraitFrame(DressUpFrame)
-	B.Reskin(DressUpFrameCancelButton)
-	B.Reskin(DressUpFrameResetButton)
+	B.ReskinFrame(DressUpFrame)
+	B.ReskinButton(DressUpFrameCancelButton)
+	B.ReskinButton(DressUpFrameResetButton)
 	B.ReskinMinMax(DressUpFrame.MaximizeMinimizeFrame)
 
-	B.Reskin(DressUpFrame.LinkButton)
-	B.Reskin(DressUpFrame.ToggleOutfitDetailsButton)
+	B.ReskinButton(DressUpFrame.LinkButton)
+	B.ReskinButton(DressUpFrame.ToggleOutfitDetailsButton)
 	ResetToggleTexture(DressUpFrame.ToggleOutfitDetailsButton, 1392954) -- 70_professions_scroll_01
 
 	B.StripTextures(DressUpFrame.OutfitDetailsPanel)
@@ -67,13 +67,13 @@ table.insert(C.defaultThemes, function()
 	end
 
 	B.ReskinDropDown(DressUpFrameOutfitDropdown)
-	B.Reskin(DressUpFrameOutfitDropdown.SaveButton)
+	B.ReskinButton(DressUpFrameOutfitDropdown.SaveButton)
 
 	-- SideDressUp
 
 	B.StripTextures(SideDressUpFrame, 0)
 	B.SetBD(SideDressUpFrame)
-	B.Reskin(SideDressUpFrame.ResetButton)
+	B.ReskinButton(SideDressUpFrame.ResetButton)
 	B.ReskinClose(SideDressUpFrameCloseButton)
 
 	SideDressUpFrame:HookScript("OnShow", function(self)
@@ -89,7 +89,7 @@ table.insert(C.defaultThemes, function()
 	local bg = B.CreateBDFrame(WardrobeOutfitEditFrame.EditBox, .25, true)
 	bg:SetPoint("TOPLEFT", -5, -3)
 	bg:SetPoint("BOTTOMRIGHT", 5, 3)
-	B.Reskin(WardrobeOutfitEditFrame.AcceptButton)
-	B.Reskin(WardrobeOutfitEditFrame.CancelButton)
-	B.Reskin(WardrobeOutfitEditFrame.DeleteButton)
+	B.ReskinButton(WardrobeOutfitEditFrame.AcceptButton)
+	B.ReskinButton(WardrobeOutfitEditFrame.CancelButton)
+	B.ReskinButton(WardrobeOutfitEditFrame.DeleteButton)
 end)

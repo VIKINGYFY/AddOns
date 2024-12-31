@@ -308,7 +308,7 @@ do
 		if not self.tipStyled then
 			self:HideBackdrop()
 			self:DisableDrawLayer("BACKGROUND")
-			self.bg = B.SetBD(self, .7)
+			self.bg = B.SetBD(self)
 			self.bg:SetInside(self)
 
 			self.tipStyled = true
@@ -318,7 +318,7 @@ do
 	function P:Button_OnEnter()
 		if not self:IsEnabled() then return end
 
-		if C.db["Skins"]["FlatMode"] then
+		if __gradient then
 			self.__gradient:SetVertexColor(cr / 4, cg / 4, cb / 4)
 		else
 			self.__bg:SetBackdropColor(cr, cg, cb, .25)
@@ -327,8 +327,8 @@ do
 	end
 
 	function P:Button_OnLeave()
-		if C.db["Skins"]["FlatMode"] then
-			self.__gradient:SetVertexColor(.3, .3, .3, .25)
+		if __gradient then
+			self.__gradient:SetVertexColor(.5, .5, .5, .25)
 		else
 			self.__bg:SetBackdropColor(0, 0, 0, 0)
 		end

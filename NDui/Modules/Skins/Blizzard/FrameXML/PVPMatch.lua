@@ -11,8 +11,8 @@ table.insert(C.defaultThemes, function()
 	PVPReadyDialogBackground:Hide()
 	B.SetBD(PVPReadyDialog)
 
-	B.Reskin(PVPReadyDialog.enterButton)
-	B.Reskin(PVPReadyDialog.leaveButton)
+	B.ReskinButton(PVPReadyDialog.enterButton)
+	B.ReskinButton(PVPReadyDialog.leaveButton)
 	B.ReskinClose(PVPReadyDialogCloseButton)
 
 	local function stripBorders(self)
@@ -62,6 +62,6 @@ table.insert(C.defaultThemes, function()
 	end
 
 	local buttonContainer = PVPMatchResults.buttonContainer
-	B.Reskin(buttonContainer.leaveButton)
-	B.Reskin(buttonContainer.requeueButton)
+	B.ReskinButton(buttonContainer.leaveButton)
+	B.ReskinButton(buttonContainer.requeueButton)
 end)

@@ -216,7 +216,7 @@ function S:MeetingStone()
 					if not button.styled and button:IsShown() then
 						B.StripTextures(button)
 						P.SetupBackdrop(button)
-						B.CreateBD(button, .5)
+						B.CreateBD(button)
 						reskinButtonHL(button)
 
 						button.styled = true

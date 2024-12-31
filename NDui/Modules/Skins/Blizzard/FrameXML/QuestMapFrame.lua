@@ -18,8 +18,8 @@ local function ReskinSessionDialog(_, dialog)
 	if not dialog.styled then
 		B.StripTextures(dialog)
 		B.SetBD(dialog)
-		B.Reskin(dialog.ButtonContainer.Confirm)
-		B.Reskin(dialog.ButtonContainer.Decline)
+		B.ReskinButton(dialog.ButtonContainer.Confirm)
+		B.ReskinButton(dialog.ButtonContainer.Decline)
 		if dialog.MinimizeButton then
 			B.ReskinArrow(dialog.MinimizeButton, "down")
 		end
@@ -58,13 +58,13 @@ table.insert(C.defaultThemes, function()
 	B.StripTextures(QuestMapFrame.DetailsFrame.BackFrame)
 
 	local campaignOverview = QuestMapFrame.CampaignOverview
-	campaignOverview.BG:SetAlpha(0)
+	B.StripTextures(campaignOverview)
 	ReskinQuestHeader(campaignOverview.Header)
 
 	QuestScrollFrame.Edge:Hide()
 	B.ReskinTrimScroll(QuestScrollFrame.ScrollBar)
 	B.ReskinTrimScroll(campaignOverview.ScrollFrame.ScrollBar)
-	B.ReskinEditBox(QuestScrollFrame.SearchBox)
+	B.ReskinInput(QuestScrollFrame.SearchBox)
 
 	-- Quest details
 
@@ -76,12 +76,12 @@ table.insert(C.defaultThemes, function()
 	DetailsFrame.Bg:SetAlpha(0)
 	DetailsFrame.SealMaterialBG:SetAlpha(0)
 
-	B.Reskin(DetailsFrame.AbandonButton)
-	B.Reskin(DetailsFrame.ShareButton)
-	B.Reskin(DetailsFrame.TrackButton)
+	B.ReskinButton(DetailsFrame.AbandonButton)
+	B.ReskinButton(DetailsFrame.ShareButton)
+	B.ReskinButton(DetailsFrame.TrackButton)
 	B.ReskinTrimScroll(QuestMapDetailsScrollFrame.ScrollBar)
 
-	B.Reskin(DetailsFrame.BackFrame.BackButton)
+	B.ReskinButton(DetailsFrame.BackFrame.BackButton)
 	B.StripTextures(DetailsFrame.RewardsFrameContainer.RewardsFrame)
 
 	DetailsFrame.AbandonButton:ClearAllPoints()
@@ -145,7 +145,7 @@ table.insert(C.defaultThemes, function()
 	local mapLegend = QuestMapFrame.MapLegend
 	if mapLegend then
 		B.StripTextures(mapLegend.BorderFrame)
-		B.Reskin(mapLegend.BackButton)
+		B.ReskinButton(mapLegend.BackButton)
 		B.ReskinTrimScroll(mapLegend.ScrollFrame.ScrollBar)
 		B.StripTextures(mapLegend.ScrollFrame)
 		B.CreateBDFrame(mapLegend.ScrollFrame, .25)
@@ -155,10 +155,10 @@ table.insert(C.defaultThemes, function()
 
 	local QuestLogPopupDetailFrame = QuestLogPopupDetailFrame
 
-	B.ReskinPortraitFrame(QuestLogPopupDetailFrame)
-	B.Reskin(QuestLogPopupDetailFrame.AbandonButton)
-	B.Reskin(QuestLogPopupDetailFrame.TrackButton)
-	B.Reskin(QuestLogPopupDetailFrame.ShareButton)
+	B.ReskinFrame(QuestLogPopupDetailFrame)
+	B.ReskinButton(QuestLogPopupDetailFrame.AbandonButton)
+	B.ReskinButton(QuestLogPopupDetailFrame.TrackButton)
+	B.ReskinButton(QuestLogPopupDetailFrame.ShareButton)
 	QuestLogPopupDetailFrame.SealMaterialBG:SetAlpha(0)
 	B.ReskinTrimScroll(QuestLogPopupDetailFrameScrollFrame.ScrollBar)
 
@@ -177,7 +177,7 @@ table.insert(C.defaultThemes, function()
 	ShowMapButton:ClearAllPoints()
 	ShowMapButton:SetPoint("TOPRIGHT", QuestLogPopupDetailFrame, -30, -25)
 
-	B.Reskin(ShowMapButton)
+	B.ReskinButton(ShowMapButton)
 
 	ShowMapButton:HookScript("OnEnter", function(self)
 		self.Text:SetTextColor(1, 1, 1)
@@ -202,7 +202,7 @@ table.insert(C.defaultThemes, function()
 	hooksecurefunc(QuestSessionManager, "NotifyDialogShow", ReskinSessionDialog)
 
 	local executeSessionCommand = sessionManagement.ExecuteSessionCommand
-	B.Reskin(executeSessionCommand)
+	B.ReskinButton(executeSessionCommand)
 
 	local icon = executeSessionCommand:CreateTexture(nil, "ARTWORK")
 	icon:SetInside()

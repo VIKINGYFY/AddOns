@@ -14,8 +14,8 @@ table.insert(C.defaultThemes, function()
 	B.StripTextures(frame)
 	B.SetBD(frame)
 	B.ReskinClose(frame.CloseButton)
-	B.Reskin(frame.RevertAllChangesButton)
-	B.Reskin(frame.SaveChangesButton)
+	B.ReskinButton(frame.RevertAllChangesButton)
+	B.ReskinButton(frame.SaveChangesButton)
 	B.ReskinDropDown(frame.LayoutDropdown)
 	reskinOptionCheck(frame.ShowGridCheckButton.Button)
 	reskinOptionCheck(frame.EnableSnapCheckButton.Button)
@@ -64,13 +64,13 @@ table.insert(C.defaultThemes, function()
 	hooksecurefunc(dialog, "UpdateExtraButtons", function(self)
 		local revertButton = self.Buttons and self.Buttons.RevertChangesButton
 		if revertButton and not revertButton.styled then
-			B.Reskin(revertButton)
+			B.ReskinButton(revertButton)
 			revertButton.styled = true
 		end
 
 		for button in self.pools:EnumerateActiveByTemplate("EditModeSystemSettingsDialogExtraButtonTemplate") do
 			if not button.styled then
-				B.Reskin(button)
+				B.ReskinButton(button)
 				button.styled = true
 			end
 		end
@@ -101,15 +101,15 @@ table.insert(C.defaultThemes, function()
 	local dialog = EditModeUnsavedChangesDialog
 	B.StripTextures(dialog)
 	B.SetBD(dialog)
-	B.Reskin(dialog.SaveAndProceedButton)
-	B.Reskin(dialog.ProceedButton)
-	B.Reskin(dialog.CancelButton)
+	B.ReskinButton(dialog.SaveAndProceedButton)
+	B.ReskinButton(dialog.ProceedButton)
+	B.ReskinButton(dialog.CancelButton)
 
 	local function ReskinLayoutDialog(dialog)
 		B.StripTextures(dialog)
 		B.SetBD(dialog)
-		B.Reskin(dialog.AcceptButton)
-		B.Reskin(dialog.CancelButton)
+		B.ReskinButton(dialog.AcceptButton)
+		B.ReskinButton(dialog.CancelButton)
 
 		local check = dialog.CharacterSpecificLayoutCheckButton
 		if check then
@@ -119,7 +119,7 @@ table.insert(C.defaultThemes, function()
 
 		local editbox = dialog.LayoutNameEditBox
 		if editbox then
-			B.ReskinEditBox(editbox)
+			B.ReskinInput(editbox)
 			editbox.__bg:SetPoint("TOPLEFT", -5, -5)
 			editbox.__bg:SetPoint("BOTTOMRIGHT", 5, 5)
 		end

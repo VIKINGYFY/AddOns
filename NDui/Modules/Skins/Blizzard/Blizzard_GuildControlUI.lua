@@ -54,7 +54,7 @@ C.themes["Blizzard_GuildControlUI"] = function()
 				_G[tab.."Bg"]:Hide()
 				B.ReskinIcon(ownedTab.tabIcon)
 				B.CreateBDFrame(bu, .25)
-				B.Reskin(bu.buy.button)
+				B.ReskinButton(bu.buy.button)
 				B.ReskinInput(ownedTab.editBox)
 
 				for _, name in pairs(checkboxes) do
@@ -88,7 +88,7 @@ C.themes["Blizzard_GuildControlUI"] = function()
 		end
 	end
 
-	B.Reskin(GuildControlUIRankOrderFrameNewButton)
+	B.ReskinButton(GuildControlUIRankOrderFrameNewButton)
 	B.ReskinClose(GuildControlUICloseButton)
 	B.ReskinTrimScroll(GuildControlUIRankBankFrameInsetScrollFrame.ScrollBar)
 	B.ReskinDropDown(GuildControlUINavigationDropdown)

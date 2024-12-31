@@ -20,7 +20,7 @@ end
 function S:WorldQuestsList()
 	local frame = _G["WorldQuestsListFrame"]
 	B.StripTextures(frame)
-	local bg = B.CreateBDFrame(frame, .8)
+	local bg = B.CreateBDFrame(frame, .5)
 	B.CreateSD(bg)
 	for i = 1, _G.WorldMapFrame:GetNumChildren() do
 		local child = select(i, _G.WorldMapFrame:GetChildren())
@@ -38,7 +38,7 @@ function S:MogPartialSets()
 	local filter = _G.MogPartialSets_Filter
 	if filter then
 		B.StripTextures(filter)
-		B.SetBD(filter, .7)
+		B.SetBD(filter)
 		filter:SetScale(NDuiADB["UIScale"])
 
 		for _, key in ipairs({"ShowExtraSetsToggle", "OnlyFavoriteToggle", "FavoriteVariantsToggle", "UseHiddenIfMissingToggle"}) do

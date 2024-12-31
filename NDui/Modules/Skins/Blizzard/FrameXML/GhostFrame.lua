@@ -11,7 +11,7 @@ table.insert(C.defaultThemes, function()
 	end
 	B.ReskinIcon(GhostFrameContentsFrameIcon)
 
-	local bg = B.SetBD(GhostFrame, 0)
+	local bg = B.SetBD(GhostFrame)
 	GhostFrame:SetHighlightTexture(DB.bdTex)
 	GhostFrame:GetHighlightTexture():SetVertexColor(r, g, b, .25)
 end)

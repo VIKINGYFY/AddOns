@@ -39,7 +39,7 @@ table.insert(C.defaultThemes, function()
 
 	QuestFont:SetTextColor(1, 1, 1)
 
-	B.Reskin(GossipFrame.GreetingPanel.GoodbyeButton)
+	B.ReskinButton(GossipFrame.GreetingPanel.GoodbyeButton)
 	B.ReskinTrimScroll(GossipFrame.GreetingPanel.ScrollBar)
 
 	hooksecurefunc(GossipFrame.GreetingPanel.ScrollBox, "Update", function(self)
@@ -65,18 +65,14 @@ table.insert(C.defaultThemes, function()
 		end
 	end)
 
-	for i = 1, 4 do
-		local notch = GossipFrame.FriendshipStatusBar["Notch"..i]
-		if notch then
-			notch:SetColorTexture(0, 0, 0)
-			notch:SetSize(C.mult, 16)
-		end
-	end
-	GossipFrame.FriendshipStatusBar.BarBorder:Hide()
+	local bar = GossipFrame.FriendshipStatusBar
+	bar:ClearAllPoints()
+	bar:SetPoint("TOP", GossipFrame, "TOP", 0, -40)
+	B.ReskinStatusBar(bar, true)
 
 	GossipFrameInset:Hide()
 	if GossipFrame.Background then GossipFrame.Background:Hide() end
-	B.ReskinPortraitFrame(GossipFrame)
+	B.ReskinFrame(GossipFrame)
 
 	-- Text on QuestFrame
 	QuestFrameGreetingPanel:HookScript("OnShow", function(self)

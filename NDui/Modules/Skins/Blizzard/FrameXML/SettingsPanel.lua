@@ -10,9 +10,9 @@ table.insert(C.defaultThemes, function()
 	B.StripTextures(frame)
 	B.SetBD(frame)
 	B.ReskinClose(frame.ClosePanelButton)
-	B.ReskinEditBox(frame.SearchBox)
-	B.Reskin(frame.ApplyButton)
-	B.Reskin(frame.CloseButton)
+	B.ReskinInput(frame.SearchBox)
+	B.ReskinButton(frame.ApplyButton)
+	B.ReskinButton(frame.CloseButton)
 
 	local function resetTabAnchor(tab)
 		tab.Text:SetPoint("BOTTOM", 0, 4)
@@ -57,22 +57,22 @@ table.insert(C.defaultThemes, function()
 	local bg = B.CreateBDFrame(frame.Container, .25)
 	bg:SetInside()
 	bg:SetPoint("TOPLEFT", 1, 6)
-	B.Reskin(frame.Container.SettingsList.Header.DefaultsButton)
+	B.ReskinButton(frame.Container.SettingsList.Header.DefaultsButton)
 	B.ReskinTrimScroll(frame.Container.SettingsList.ScrollBar)
 
 	local function ReskinDropdown(option)
-		B.Reskin(option.Dropdown)
-		B.Reskin(option.DecrementButton)
-		B.Reskin(option.IncrementButton)
+		B.ReskinButton(option.Dropdown)
+		B.ReskinButton(option.DecrementButton)
+		B.ReskinButton(option.IncrementButton)
 	end
 
 	local function UpdateKeybindButtons(self)
 		if not self.bindingsPool then return end
 		for panel in self.bindingsPool:EnumerateActive() do
 			if not panel.styled then
-				B.Reskin(panel.Button1)
-				B.Reskin(panel.Button2)
-				if panel.CustomButton then B.Reskin(panel.CustomButton) end
+				B.ReskinButton(panel.Button1)
+				B.ReskinButton(panel.Button2)
+				if panel.CustomButton then B.ReskinButton(panel.CustomButton) end
 				panel.styled = true
 			end
 		end
@@ -128,7 +128,7 @@ table.insert(C.defaultThemes, function()
 				end
 				if child.Button then
 					if child.Button:GetWidth() < 250 then
-						B.Reskin(child.Button)
+						B.ReskinButton(child.Button)
 					else
 						B.StripTextures(child.Button)
 						child.Button.Right:SetAlpha(0)
@@ -147,22 +147,22 @@ table.insert(C.defaultThemes, function()
 					end
 				end
 				if child.ToggleTest then
-					B.Reskin(child.ToggleTest)
+					B.ReskinButton(child.ToggleTest)
 					B.StripTextures(child.VUMeter)
-					local bg = B.CreateBDFrame(child.VUMeter, .3)
+					local bg = B.CreateBDFrame(child.VUMeter, .25)
 					bg:SetInside(nil, 4, 4)
-					child.VUMeter.Status:SetStatusBarTexture(DB.bdTex)
+					child.VUMeter.Status:SetStatusBarTexture(DB.normTex)
 					child.VUMeter.Status:SetInside(bg)
 				end
 				if child.PushToTalkKeybindButton then
-					B.Reskin(child.PushToTalkKeybindButton)
+					B.ReskinButton(child.PushToTalkKeybindButton)
 				end
 				if child.SliderWithSteppers then
 					B.ReskinStepperSlider(child.SliderWithSteppers)
 				end
 				if child.Button1 and child.Button2 then
-					B.Reskin(child.Button1)
-					B.Reskin(child.Button2)
+					B.ReskinButton(child.Button1)
+					B.ReskinButton(child.Button2)
 				end
 				if child.Controls then
 					for i = 1, #child.Controls do
@@ -202,7 +202,7 @@ table.insert(C.defaultThemes, function()
 				if child:IsObjectType("CheckButton") then
 					B.ReskinCheck(child)
 				elseif child:IsObjectType("Button") then
-					B.Reskin(child)
+					B.ReskinButton(child)
 				elseif child:IsObjectType("Frame") and child.Left and child.Middle and child.Right then
 					B.ReskinDropDown(child)
 				end

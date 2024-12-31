@@ -11,15 +11,15 @@ table.insert(C.defaultThemes, function()
 
 	B.StripTextures(BrowserSettingsTooltip)
 	B.SetBD(BrowserSettingsTooltip)
-	B.Reskin(BrowserSettingsTooltip.CookiesButton)
+	B.ReskinButton(BrowserSettingsTooltip.CookiesButton)
 
 	B.StripTextures(TicketStatusFrameButton)
 	B.SetBD(TicketStatusFrameButton)
 
 	B.SetBD(ReportCheatingDialog)
 	ReportCheatingDialog.Border:Hide()
-	B.Reskin(ReportCheatingDialogReportButton)
-	B.Reskin(ReportCheatingDialogCancelButton)
+	B.ReskinButton(ReportCheatingDialogReportButton)
+	B.ReskinButton(ReportCheatingDialogCancelButton)
 	B.StripTextures(ReportCheatingDialogCommentFrame)
 	B.CreateBDFrame(ReportCheatingDialogCommentFrame, .25)
 end)

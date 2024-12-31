@@ -2,8 +2,8 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 C.themes["Blizzard_ScrappingMachineUI"] = function()
-	B.ReskinPortraitFrame(ScrappingMachineFrame)
-	B.Reskin(ScrappingMachineFrame.ScrapButton)
+	B.ReskinFrame(ScrappingMachineFrame)
+	B.ReskinButton(ScrappingMachineFrame.ScrapButton)
 
 	local ItemSlots = ScrappingMachineFrame.ItemSlots
 	B.StripTextures(ItemSlots)

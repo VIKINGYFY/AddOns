@@ -6,8 +6,8 @@ C.themes["Blizzard_AdventureMap"] = function()
 
 	B.StripTextures(dialog)
 	B.SetBD(dialog)
-	B.Reskin(dialog.AcceptButton)
-	B.Reskin(dialog.DeclineButton)
+	B.ReskinButton(dialog.AcceptButton)
+	B.ReskinButton(dialog.DeclineButton)
 	B.ReskinClose(dialog.CloseButton)
 	B.ReskinTrimScroll(dialog.Details.ScrollBar)
 

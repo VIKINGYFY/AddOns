@@ -309,7 +309,7 @@ if not db.activate.HideMapNote then
           if self.db.profile.showZonePortals then
 
             nodes[123][49111534] = { mnID = 125, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_DALARANCITY1  } -- LakeWintergrasp to Dalaran Portal 
-            nodes[127][15724250] = { mnID = 125, name = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_DALARANCITY1, www = "https://www.wowhead.com/wotlk/quest=12791/the-magical-kingdom-of-dalaran", wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "The Magical Kingdom of Dalaran", type = "Portal", showWWW = true, showInZone = true, showOnContinent = false, showOnMinimap = false } -- LakeWintergrasp to Dalaran Portal 
+            nodes[127][15724250] = { mnID = 125, name = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_DALARANCITY1, questID = 12791, wwwLink = "https://www.wowhead.com/quest=12791", wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "The Magical Kingdom of Dalaran", type = "Portal", showWWW = true, showInZone = true, showOnContinent = false, showOnMinimap = false } -- LakeWintergrasp to Dalaran Portal 
             nodes[119][40328303] = { mnID = 78, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Portal"] } -- Portal Sholazar to Unguro
 
             if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
@@ -435,7 +435,7 @@ if not db.activate.HideMapNote then
 
           if self.db.profile.showZoneHerbalism then            
             if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
-              nodes[371][46806060] = { name = L["Herbalism"], type = "Herbalism", wwwName = LFG_LIST_REQUIRE .. " " .. STORY_PROGRESS, showWWW = true, www = "wowhead.com/quest=29824", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+              nodes[371][46806060] = { name = L["Herbalism"], type = "Herbalism", questID = 29824, wwwName = LFG_LIST_REQUIRE .. " " .. STORY_PROGRESS, questID = 29824, showWWW = true, wwwLink = "wowhead.com/quest=29824", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
             end
 
           end
@@ -863,11 +863,11 @@ if not db.activate.HideMapNote then
           -- Khaz Algar Portals
           if self.db.profile.showZonePortals then
             -- nodes[2214][53404459] = { mnID = 2248, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Ringing Deeps to Isle of Dorn but behind blizzard new portal icon
-            nodes[2255][57344184] = { mnID = 2339, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=19559", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Azj-Kahet to Dornogal if u finished the achievement=19559
-            nodes[2367][49953591] = { mnID = 2339, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=40725",  type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Chamber of Memory
-            nodes[2248][53024511] = { mnID = 2339, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=19559", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Dornogal to Azj-Kahet if u finished the achievement=19559
+            nodes[2255][57344184] = { mnID = 2339, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19559", achievementID = 19559, type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Azj-Kahet to Dornogal if u finished the achievement=19559
+            nodes[2367][49953591] = { mnID = 2339, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=40725", achievementID = 40725, type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Chamber of Memory
+            nodes[2248][53024511] = { mnID = 2339, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19559", achievementID = 19559, type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Dornogal to Azj-Kahet if u finished the achievement=19559
             nodes[2248][50554183] = { mnID = 2266, name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["The Timeways"] .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. L["Ardenweald"] .. "\n" .. " ==> " .. L["Bastion"] .. "\n" .. " ==> " .. L["Tiragarde Sound"] .. "\n" .. " ==> " .. L["Twilight Highlands"] } --  Portal from Dornogal to the Timeways
-            nodes[2248][44634679] = { mnID = 2367, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, www = "https://wowhead.com/achievement=40725", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Chamber of Memory
+            nodes[2248][44634679] = { mnID = 2367, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=40725", achievementID = 40725, type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Chamber of Memory
 
             if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
               nodes[2248][46913872] = { mnID = 2339, name = "", type = "HPortal", TransportName = L["Portal"] .. "\n" .. ORGRIMMAR, showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dornogal to Orgrimmar
@@ -878,22 +878,17 @@ if not db.activate.HideMapNote then
             end
           end
 
-          ----- PTR start
-          if ns.version == "11.0.7" then
-
           -- Khaz Algar Transport
           if self.db.profile.showZoneTransport then
-            nodes[2369][67973862] = { mnID = 2214, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Mole Machine from Sirene Isle to Deeps
-            nodes[2214][46033016] = { mnID = 2369, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Mole Machine from Deeps to Sirene Isle
+            nodes[2369][67613901] = { mnID = 2214, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Mole Machine from Sirene Isle to Deeps
+            nodes[2214][46143028] = { mnID = 2369, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Mole Machine from Deeps to Sirene Isle
           end
-    
-          end
-          ----- PTR end
     
         -- Khaz Algar Zeppelin
           if self.db.profile.showZoneZeppelins then
 
-            nodes[2369][70725350] = { mnID = 2339, name = "", type = "Zeppelin", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Zeppelin"] .. " ==> " .. L["Dornogal"] } -- Zeppelin from TSiren Isle to Dornogal
+            nodes[2369][70725350] = { mnID = 2339, name = "", type = "Zeppelin", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Zeppelin"] .. " ==> " .. L["Dornogal"] } -- Zeppelin from Siren Isle to Dornogal
+            nodes[2248][55453363] = { mnID = 2369, name = "", type = "Zeppelin", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Zeppelin"] .. " ==> " .. L["Siren Isle"] } -- Zeppelin to Siren Isle from Dornogal
 
             if self.faction == "Horde" or db.activate.ZoneEnemyFaction then 
               --nodes[2022][81632788] = { mnID = 85, name = "", type = "HZeppelin", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Zeppelin"] .. " ==> " .. ORGRIMMAR } -- Zeppelin from The Waking Shores to Orgrimmar 

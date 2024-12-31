@@ -51,9 +51,8 @@ table.insert(C.defaultThemes, function()
 	local function handleNavButton(navButton)
 		if navButton.restyled then return end
 
-		B.Reskin(navButton)
-		navButton.arrowUp:SetAlpha(0)
-		navButton.arrowDown:SetAlpha(0)
+		B.ReskinButton(navButton)
+
 		navButton.selected:SetDrawLayer("BACKGROUND", 1)
 		navButton.selected:SetColorTexture(r, g, b, .25)
 		navButton.selected:SetInside(navButton.__bg)
@@ -64,17 +63,8 @@ table.insert(C.defaultThemes, function()
 
 		-- arrow button
 		local arrowButton = navButton.MenuArrowButton
-		arrowButton.Art:Hide()
-		arrowButton:SetHighlightTexture(0)
-
-		local tex = arrowButton:CreateTexture(nil, "ARTWORK")
-		B.SetupArrow(tex, "down")
-		tex:SetSize(14, 14)
-		tex:SetPoint("CENTER")
-		arrowButton.__texture = tex
-
-		arrowButton:SetScript("OnEnter", B.Texture_OnEnter)
-		arrowButton:SetScript("OnLeave", B.Texture_OnLeave)
+		B.StripTextures(arrowButton, 99)
+		B.SetupTexture(arrowButton, "down")
 
 		navButton.restyled = true
 	end

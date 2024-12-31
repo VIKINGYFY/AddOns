@@ -84,7 +84,7 @@ function M:TradeTabs_Update()
 	end
 end
 
-function M:TradeTabs_Reskin()
+function M:TradeTabs_ReskinButton()
 	if not C.db["Skins"]["BlizzardSkins"] then return end
 
 	for _, tab in pairs(tabList) do
@@ -186,7 +186,7 @@ function M:TradeTabs_OnLoad()
 
 	M:UpdateProfessions()
 
-	M:TradeTabs_Reskin()
+	M:TradeTabs_ReskinButton()
 	M:TradeTabs_Update()
 	B:RegisterEvent("TRADE_SKILL_SHOW", M.TradeTabs_Update)
 	B:RegisterEvent("TRADE_SKILL_CLOSE", M.TradeTabs_Update)

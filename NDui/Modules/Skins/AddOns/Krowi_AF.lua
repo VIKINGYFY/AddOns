@@ -14,13 +14,6 @@ local function SetupButtonHighlight(button, bg)
 	hl:SetInside(bg)
 end
 
-local function SetupStatusbar(bar)
-	B.StripTextures(bar)
-	bar:SetStatusBarTexture(DB.bdTex)
-	bar:GetStatusBarTexture():SetGradient("VERTICAL", CreateColor(0, .4, 0, 1), CreateColor(0, .6, 0, 1))
-	B.CreateBDFrame(bar, .25)
-end
-
 local function updateAchievementLabel(frame)
 	local button = frame.__owner
 	if button.DateCompleted:IsShown() then
@@ -108,7 +101,7 @@ function S:KrowiAF()
 
 	B.ReskinFilterButton(KrowiAF_AchievementFrameFilterButton)
 	KrowiAF_AchievementFrameFilterButton:SetPoint("TOPLEFT", 24, 0)
-	B.ReskinEditBox(KrowiAF_SearchBoxFrame)
+	B.ReskinInput(KrowiAF_SearchBoxFrame)
 	KrowiAF_SearchOptionsMenuButton:DisableDrawLayer("BACKGROUND")
 
 	local frame = KrowiAF_CategoriesFrame
@@ -174,7 +167,7 @@ function S:KrowiAF()
 			if bar.styled then return end
 			local barName = bar.GetName and bar:GetName()
 			if barName and string.find(barName, "Krowi") then
-				SetupStatusbar(bar)
+				B.ReskinStatusBar(bar)
 				bar.styled = true
 			end
 		end)
@@ -281,7 +274,7 @@ function S:KrowiAF()
 		for i = 1, 5 do
 			local preview = _G["KrowiAF_SearchPreview"..i]
 			if preview then
-				B.StyleSearchButton(preview)
+				B.ReskinSearchList(preview)
 			end
 		end
 
@@ -289,7 +282,7 @@ function S:KrowiAF()
 		local bg = B.SetBD(container)
 		bg:SetPoint("TOPLEFT", -3, 3)
 		bg:SetPoint("BOTTOMRIGHT", showAllResults, 3, -3)
-		B.StyleSearchButton(showAllResults)
+		B.ReskinSearchList(showAllResults)
 	end
 
 	if KrowiAF_AchievementFrameBrowsingHistoryPrevAchievementButton then
@@ -300,8 +293,8 @@ function S:KrowiAF()
 	end
 
 	if KrowiAF_DataManagerFrame then
-		B.ReskinPortraitFrame(KrowiAF_DataManagerFrame)
-		B.Reskin(KrowiAF_DataManagerFrame.Import)
+		B.ReskinFrame(KrowiAF_DataManagerFrame)
+		B.ReskinButton(KrowiAF_DataManagerFrame.Import)
 
 		local characterList = KrowiAF_DataManagerFrame.CharacterList
 		if characterList then

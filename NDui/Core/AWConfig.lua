@@ -342,22 +342,22 @@ local function CreatePanel()
 		for i = 1, #tabs do
 			if self == tabs[i] then
 				tabs[i].Page:Show()
-				tabs[i]:SetBackdropColor(r, g, b, .3)
+				tabs[i]:SetBackdropColor(r, g, b, .25)
 				tabs[i].selected = true
 			else
 				tabs[i].Page:Hide()
-				tabs[i]:SetBackdropColor(0, 0, 0, .3)
+				tabs[i]:SetBackdropColor(0, 0, 0, .25)
 				tabs[i].selected = false
 			end
 		end
 	end
 	local function tabOnEnter(self)
 		if self.selected then return end
-		self:SetBackdropColor(r, g, b, .3)
+		self:SetBackdropColor(r, g, b, .25)
 	end
 	local function tabOnLeave(self)
 		if self.selected then return end
-		self:SetBackdropColor(0, 0, 0, .3)
+		self:SetBackdropColor(0, 0, 0, .25)
 	end
 
 	for i, group in pairs(groups) do

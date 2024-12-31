@@ -2,7 +2,7 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 local function ReskinCustomizeButton(button)
-	B.Reskin(button)
+	B.ReskinButton(button)
 	button.__bg:SetInside(nil, 5, 5)
 end
 

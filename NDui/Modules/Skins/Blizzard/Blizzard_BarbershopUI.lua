@@ -4,13 +4,13 @@ local B, C, L, DB = unpack(ns)
 C.themes["Blizzard_BarbershopUI"] = function()
 	local frame = BarberShopFrame
 
-	B.Reskin(frame.AcceptButton)
-	B.Reskin(frame.CancelButton)
-	B.Reskin(frame.ResetButton)
+	B.ReskinButton(frame.AcceptButton)
+	B.ReskinButton(frame.CancelButton)
+	B.ReskinButton(frame.ResetButton)
 end
 
 local function ReskinCustomizeButton(button)
-	B.Reskin(button)
+	B.ReskinButton(button)
 	button.__bg:SetInside(nil, 5, 5)
 end
 
@@ -33,9 +33,9 @@ C.themes["Blizzard_CharacterCustomize"] = function()
 		if self.dropdownPool then
 			for option in self.dropdownPool:EnumerateActive() do
 				if not option.styled then
-					B.Reskin(option.Dropdown)
-					B.Reskin(option.DecrementButton)
-					B.Reskin(option.IncrementButton)
+					B.ReskinButton(option.Dropdown)
+					B.ReskinButton(option.DecrementButton)
+					B.ReskinButton(option.IncrementButton)
 					option.styled = true
 				end
 			end

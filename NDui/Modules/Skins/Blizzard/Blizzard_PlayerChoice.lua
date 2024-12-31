@@ -3,18 +3,12 @@ local B, C, L, DB = unpack(ns)
 
 local Type_ItemDisplay = Enum.UIWidgetVisualizationType.ItemDisplay
 
-local function ReskinOptionText(text, r, g, b)
-	if text then
-		text:SetTextColor(r, g, b)
-	end
-end
-
 -- Needs review, still buggy on blizz
 local function ReskinOptionButton(self)
 	if not self or self.__bg then return end
 
 	B.StripTextures(self, true)
-	B.Reskin(self)
+	B.ReskinButton(self)
 end
 
 local function ReskinSpellWidget(spell)
@@ -40,15 +34,17 @@ local uglyBackground = {
 C.themes["Blizzard_PlayerChoice"] = function()
 	hooksecurefunc(PlayerChoiceFrame, "TryShow", function(self)
 		B.StripTextures(self)
+		B.CleanTextures(self.CloseButton)
 
 		if not self.bg then
-			self.Title.Text:SetTextColor(1, .8, 0)
-			self.Title.Text:SetFontObject(SystemFont_Huge1)
+			B.StripTextures(self.Title)
+			B.ReskinText(self.Title.Text, 1, .8, 0, nil, SystemFont_Huge1)
+
 			B.ReskinClose(self.CloseButton)
 			self.bg = B.SetBD(self)
 
 			if GenericPlayerChoiceToggleButton then
-				B.Reskin(GenericPlayerChoiceToggleButton)
+				B.ReskinButton(GenericPlayerChoiceToggleButton)
 			end
 		end
 
@@ -58,18 +54,23 @@ C.themes["Blizzard_PlayerChoice"] = function()
 		if not self.optionFrameTemplate then return end
 
 		for optionFrame in self.optionPools:EnumerateActiveByTemplate(self.optionFrameTemplate) do
-			--optionFrame:DisableDrawLayer("BACKGROUND")
+			optionFrame:DisableDrawLayer("BACKGROUND")
+			if not optionFrame.bg then
+				optionFrame.bg = B.CreateBDFrame(optionFrame, .25)
+				B.UpdateSize(optionFrame.bg, 0, -15, 0, -15)
+			end
 
 			local header = optionFrame.Header
 			if header then
-				ReskinOptionText(header.Text, 1, .8, 0)
-				if header.Contents then ReskinOptionText(header.Contents.Text, 1, .8, 0) end
+				B.StripTextures(header)
+				B.ReskinText(header.Text, 1, .8, 0)
+				if header.Contents then B.ReskinText(header.Contents.Text, 1, .8, 0) end
 			end
-			ReskinOptionText(optionFrame.OptionText, 1, 1, 1)
+			B.ReskinText(optionFrame.OptionText, 1, 1, 1)
 			B.ReplaceIconString(optionFrame.OptionText.String)
 
 			if optionFrame.Artwork and isIgnored then optionFrame.Artwork:SetSize(64, 64) end -- fix high resolution icons
-
+--[[
 			local optionBG = optionFrame.Background
 			if optionBG then
 				if not optionBG.bg then
@@ -80,7 +81,7 @@ C.themes["Blizzard_PlayerChoice"] = function()
 				optionBG:SetShown(not isUgly)
 				optionBG.bg:SetShown(isUgly)
 			end
-
+]]
 			local optionButtonsContainer = optionFrame.OptionButtonsContainer
 			if optionButtonsContainer and optionButtonsContainer.buttonPool then
 				for button in optionButtonsContainer.buttonPool:EnumerateActive() do
@@ -93,7 +94,7 @@ C.themes["Blizzard_PlayerChoice"] = function()
 				for rewardFrame in rewards.rewardsPool:EnumerateActive() do
 					local text = rewardFrame.Name or rewardFrame.Text -- .Text for PlayerChoiceBaseOptionReputationRewardTemplate
 					if text then
-						ReskinOptionText(text, .9, .8, .5)
+						B.ReskinText(text, .9, .8, .5)
 					end
 
 					if not rewardFrame.styled then
@@ -119,7 +120,7 @@ C.themes["Blizzard_PlayerChoice"] = function()
 			local widgetContainer = optionFrame.WidgetContainer
 			if widgetContainer and widgetContainer.widgetFrames then
 				for _, widgetFrame in pairs(widgetContainer.widgetFrames) do
-					ReskinOptionText(widgetFrame.Text, 1, 1, 1)
+					B.ReskinText(widgetFrame.Text, 1, 1, 1)
 					if widgetFrame.Spell then
 						ReskinSpellWidget(widgetFrame.Spell)
 					end

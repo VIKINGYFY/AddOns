@@ -11,7 +11,7 @@ C.themes["Blizzard_Contribution"] = function()
 	hooksecurefunc(ContributionMixin, "Update", function(self)
 		if not self.styled then
 			self.Header.Text:SetTextColor(1, .8, 0)
-			B.Reskin(self.ContributeButton)
+			B.ReskinButton(self.ContributeButton)
 			B.ReplaceIconString(self.ContributeButton)
 			hooksecurefunc(self.ContributeButton, "SetText", B.ReplaceIconString)
 

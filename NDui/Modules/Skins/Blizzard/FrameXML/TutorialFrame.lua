@@ -10,7 +10,7 @@ table.insert(C.defaultThemes, function()
 	TutorialFrameBackground.Show = B.Dummy
 	TutorialFrame:DisableDrawLayer("BORDER")
 
-	B.Reskin(TutorialFrameOkayButton, true)
+	B.ReskinButton(TutorialFrameOkayButton)
 	B.ReskinClose(TutorialFrameCloseButton)
 	B.ReskinArrow(TutorialFramePrevButton, "left")
 	B.ReskinArrow(TutorialFrameNextButton, "right")

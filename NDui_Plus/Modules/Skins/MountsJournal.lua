@@ -22,7 +22,7 @@ local function toggleDropDownMenu(_, level)
 	local menu = LibSFDropDown:GetMenu(level or 1)
 
 	if not menu.__bg then
-		menu.__bg = B.SetBD(menu, .7)
+		menu.__bg = B.SetBD(menu)
 	end
 
 	for _, backdrop in pairs(menu.styles) do

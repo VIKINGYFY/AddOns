@@ -38,7 +38,7 @@ end
 table.insert(C.defaultThemes, function()
 	if not C.db["Skins"]["BlizzardSkins"] then return end
 
-	B.ReskinPortraitFrame(MerchantFrame)
+	B.ReskinFrame(MerchantFrame)
 	B.ReskinDropDown(MerchantFrame.FilterDropdown)
 	B.StripTextures(MerchantPrevPageButton)
 	B.ReskinArrow(MerchantPrevPageButton, "left")
@@ -104,8 +104,8 @@ table.insert(C.defaultThemes, function()
 	local StackSplitFrame = StackSplitFrame
 	B.StripTextures(StackSplitFrame)
 	B.SetBD(StackSplitFrame)
-	B.Reskin(StackSplitFrame.OkayButton)
-	B.Reskin(StackSplitFrame.CancelButton)
+	B.ReskinButton(StackSplitFrame.OkayButton)
+	B.ReskinButton(StackSplitFrame.CancelButton)
 	B.ReskinArrow(StackSplitFrame.LeftButton, "left")
 	B.ReskinArrow(StackSplitFrame.RightButton, "right")
 end)

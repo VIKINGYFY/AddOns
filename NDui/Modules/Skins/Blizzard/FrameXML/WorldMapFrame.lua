@@ -7,7 +7,7 @@ table.insert(C.defaultThemes, function()
 	local WorldMapFrame = WorldMapFrame
 	local BorderFrame = WorldMapFrame.BorderFrame
 
-	B.ReskinPortraitFrame(WorldMapFrame)
+	B.ReskinFrame(WorldMapFrame)
 	BorderFrame.NineSlice:Hide()
 	BorderFrame.Tutorial.Ring:Hide()
 	B.ReskinMinMax(BorderFrame.MaximizeMinimizeFrame)

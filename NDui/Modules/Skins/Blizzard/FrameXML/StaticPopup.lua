@@ -51,9 +51,9 @@ table.insert(C.defaultThemes, function()
 		frame.Border:Hide()
 		B.SetBD(frame)
 		for j = 1, 4 do
-			B.Reskin(frame["button"..j])
+			B.ReskinButton(frame["button"..j])
 		end
-		B.Reskin(frame.extraButton)
+		B.ReskinButton(frame.extraButton)
 		B.ReskinClose(close)
 
 		close.minimize = close:CreateTexture(nil, "OVERLAY")
@@ -125,16 +125,16 @@ table.insert(C.defaultThemes, function()
 	B.SetBD(PetBattleQueueReadyFrame)
 	B.CreateBDFrame(PetBattleQueueReadyFrame.Art)
 	PetBattleQueueReadyFrame.Border:Hide()
-	B.Reskin(PetBattleQueueReadyFrame.AcceptButton)
-	B.Reskin(PetBattleQueueReadyFrame.DeclineButton)
+	B.ReskinButton(PetBattleQueueReadyFrame.AcceptButton)
+	B.ReskinButton(PetBattleQueueReadyFrame.DeclineButton)
 
 	-- PlayerReportFrame
 	B.StripTextures(ReportFrame)
 	B.SetBD(ReportFrame)
 	B.ReskinClose(ReportFrame.CloseButton)
-	B.Reskin(ReportFrame.ReportButton)
+	B.ReskinButton(ReportFrame.ReportButton)
 	B.ReskinDropDown(ReportFrame.ReportingMajorCategoryDropdown)
-	B.ReskinEditBox(ReportFrame.Comment)
+	B.ReskinInput(ReportFrame.Comment)
 
 	hooksecurefunc(ReportFrame, "AnchorMinorCategory", function(self)
 		if self.MinorCategoryButtonPool then

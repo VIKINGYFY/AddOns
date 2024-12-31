@@ -47,7 +47,7 @@ C.themes["Blizzard_TalentUI"] = function()
 			local bu = frame["specButton"..i]
 			local _, _, _, icon, role = GetSpecializationInfo(i, false, frame.isPet)
 			B.StripTextures(bu)
-			B.Reskin(bu, true)
+			B.ReskinButton(bu)
 
 			bu.selectedTex:SetColorTexture(r, g, b, .25)
 			bu.selectedTex:SetDrawLayer("BACKGROUND")
@@ -144,7 +144,7 @@ C.themes["Blizzard_TalentUI"] = function()
 				local _, _, _, selected, _, _, _, _, _, _, known = GetTalentInfo(i, j, 1)
 				local bu = _G["PlayerTalentFrameTalentsTalentRow"..i.."Talent"..j]
 				if known then
-					bu.bg:SetBackdropColor(r, g, b, .6)
+					bu.bg:SetBackdropColor(r, g, b, .5)
 				elseif selected then
 					bu.bg:SetBackdropColor(r, g, b, .25)
 				else
@@ -154,14 +154,14 @@ C.themes["Blizzard_TalentUI"] = function()
 		end
 	end)
 
-	B.ReskinPortraitFrame(PlayerTalentFrame)
-	B.Reskin(PlayerTalentFrameSpecializationLearnButton)
-	B.Reskin(PlayerTalentFrameActivateButton)
-	B.Reskin(PlayerTalentFramePetSpecializationLearnButton)
+	B.ReskinFrame(PlayerTalentFrame)
+	B.ReskinButton(PlayerTalentFrameSpecializationLearnButton)
+	B.ReskinButton(PlayerTalentFrameActivateButton)
+	B.ReskinButton(PlayerTalentFramePetSpecializationLearnButton)
 
 	-- PVP Talents
 
-	B.Reskin(PlayerTalentFrameTalentsPvpTalentButton)
+	B.ReskinButton(PlayerTalentFrameTalentsPvpTalentButton)
 	PlayerTalentFrameTalentsPvpTalentButton:SetSize(20, 20)
 
 	local talentList = PlayerTalentFrameTalentsPvpTalentFrameTalentList
@@ -170,7 +170,7 @@ C.themes["Blizzard_TalentUI"] = function()
 	B.StripTextures(talentList)
 	B.SetBD(talentList)
 	talentList.Inset:Hide()
-	B.Reskin(select(4, talentList:GetChildren()), nil)
+	B.ReskinButton(select(4, talentList:GetChildren()), nil)
 
 	B.StripTextures(PlayerTalentFrameTalentsPvpTalentFrame)
 	B.ReskinTrimScroll(talentList.ScrollBar)

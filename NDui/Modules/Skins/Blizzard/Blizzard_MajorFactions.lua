@@ -7,5 +7,5 @@ C.themes["Blizzard_MajorFactions"] = function()
 	B.StripTextures(frame, 0)
 	B.SetBD(frame)
 	B.ReskinClose(frame.CloseButton)
-	B.Reskin(frame.LevelSkipButton)
+	B.ReskinButton(frame.LevelSkipButton)
 end

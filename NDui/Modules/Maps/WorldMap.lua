@@ -78,7 +78,7 @@ function module:SetupCoords()
 	textParent:SetPoint("BOTTOMLEFT", WorldMapFrame.ScrollContainer)
 	textParent:SetSize(1, 18)
 	textParent:SetFrameLevel(5)
-	B.SetGradient(textParent, "H", 0,0,0, .5, 0, 450, 18):SetPoint("LEFT")
+	B.SetGradient(textParent, "H", 0, 0, 0, .5, 0, 450, 18):SetPoint("LEFT")
 
 	playerCoords = B.CreateFS(textParent, 13, "", false, "LEFT", 5, 0)
 	playerCoords:SetJustifyH("LEFT")

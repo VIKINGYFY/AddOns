@@ -3,6 +3,7 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "ruRU")
 if not L then return end
 
 --0.08
+L["Has not been unlocked yet"] = "Еще не разблокирован"
 L["Displays location symbols on the Azeroth / Continent map for Horde and Alliance capitals with additional information about what is within that capital at MapNotes associated symbols"] = "Отображает символы местоположения на карте Азерота/Континента для столиц Орды и Альянса с дополнительной информацией о том, что находится в этой столице, в связанных символах MapNotes"
 L["For the zones and capitals themselves, there is an option in the respective tab to display nearby symbols in groups instead of individually"] = "Для самих зон и столиц на соответствующей вкладке есть возможность отображать близлежащие символы группами, а не по отдельности"
 L["Displays Horde and Alliance capitals icons with additional information"] = "Отображает значки столиц Орды и Альянса с дополнительной информацией"

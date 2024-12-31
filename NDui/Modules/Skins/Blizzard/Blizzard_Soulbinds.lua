@@ -29,8 +29,8 @@ C.themes["Blizzard_Soulbinds"] = function()
 	SoulbindViewer.Background:SetAlpha(0)
 	B.SetBD(SoulbindViewer)
 	B.ReskinClose(SoulbindViewer.CloseButton)
-	B.Reskin(SoulbindViewer.CommitConduitsButton)
-	B.Reskin(SoulbindViewer.ActivateSoulbindButton)
+	B.ReskinButton(SoulbindViewer.CommitConduitsButton)
+	B.ReskinButton(SoulbindViewer.ActivateSoulbindButton)
 
 	local numChildrenStyled = 0
 	hooksecurefunc(SoulbindViewer.ConduitList.ScrollBox, "Update", function(self)

@@ -4,7 +4,7 @@ local B, C, L, DB = unpack(ns)
 C.themes["Blizzard_TrainerUI"] = function()
 	local r, g, b = DB.r, DB.g, DB.b
 
-	B.ReskinPortraitFrame(ClassTrainerFrame)
+	B.ReskinFrame(ClassTrainerFrame)
 	ClassTrainerStatusBarSkillRank:ClearAllPoints()
 	ClassTrainerStatusBarSkillRank:SetPoint("CENTER", ClassTrainerStatusBar, "CENTER", 0, 0)
 
@@ -19,12 +19,7 @@ C.themes["Blizzard_TrainerUI"] = function()
 	ClassTrainerFrameSkillStepButton.selectedTex:SetInside(bg)
 	ClassTrainerFrameSkillStepButton.selectedTex:SetColorTexture(r, g, b, .25)
 
-	B.StripTextures(ClassTrainerStatusBar)
-	ClassTrainerStatusBar:SetPoint("TOPLEFT", ClassTrainerFrame, "TOPLEFT", 64, -35)
-	ClassTrainerStatusBar:SetStatusBarTexture(DB.bdTex)
-	B.CreateBDFrame(ClassTrainerStatusBar, .25)
-
-	ClassTrainerStatusBar:GetStatusBarTexture():SetGradient("VERTICAL", CreateColor(.1, .3, .9, 1), CreateColor(.2, .4, 1, 1))
+	B.ReskinStatusBar(ClassTrainerStatusBar)
 	B.ReskinTrimScroll(ClassTrainerFrame.ScrollBar)
 
 	hooksecurefunc(ClassTrainerFrame.ScrollBox, "Update", function(self)
@@ -52,6 +47,6 @@ C.themes["Blizzard_TrainerUI"] = function()
 		end
 	end)
 
-	B.Reskin(ClassTrainerTrainButton)
+	B.ReskinButton(ClassTrainerTrainButton)
 	B.ReskinFilterButton(ClassTrainerFrame.FilterDropdown)
 end

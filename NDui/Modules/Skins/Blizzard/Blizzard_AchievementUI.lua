@@ -9,13 +9,6 @@ local function SetupButtonHighlight(button, bg)
 	hl:SetInside(bg)
 end
 
-local function SetupStatusbar(bar)
-	B.StripTextures(bar)
-	bar:SetStatusBarTexture(DB.bdTex)
-	bar:GetStatusBarTexture():SetGradient("VERTICAL", CreateColor(0, .4, 0, 1), CreateColor(0, .6, 0, 1))
-	B.CreateBDFrame(bar, .25)
-end
-
 local function UpdateStringColors(button)
 	if button.DateCompleted:IsShown() then
 		if button.accountWide then
@@ -49,7 +42,7 @@ local function UpdateProgressBars(frame)
 	if objectives and objectives.progressBars then
 		for _, bar in next, objectives.progressBars do
 			if bar and not bar.styled then
-				SetupStatusbar(bar)
+				B.ReskinStatusBar(bar)
 				bar.styled = true
 			end
 		end
@@ -68,8 +61,11 @@ C.themes["Blizzard_AchievementUI"] = function()
 		local tab = _G["AchievementFrameTab"..i]
 		if tab then
 			B.ReskinTab(tab)
-			if i ~= 1 then
-				tab:ClearAllPoints()
+
+			tab:ClearAllPoints()
+			if i == 1 then
+				tab:SetPoint("TOPLEFT", AchievementFrame, "BOTTOMLEFT", 15, 1)
+			else
 				tab:SetPoint("TOPLEFT", _G["AchievementFrameTab"..(i-1)], "TOPRIGHT", -15, 0)
 			end
 		end
@@ -96,9 +92,9 @@ C.themes["Blizzard_AchievementUI"] = function()
 	bg:SetPoint("BOTTOMRIGHT", showAllSearchResults, 3, -3)
 
 	for i = 1, 5 do
-		B.StyleSearchButton(previewContainer["SearchPreview"..i])
+		B.ReskinSearchList(previewContainer["SearchPreview"..i])
 	end
-	B.StyleSearchButton(showAllSearchResults)
+	B.ReskinSearchList(showAllSearchResults)
 
 	local result = AchievementFrame.SearchResults
 	result:SetPoint("BOTTOMLEFT", AchievementFrame, "BOTTOMRIGHT", 15, -1)
@@ -209,7 +205,7 @@ C.themes["Blizzard_AchievementUI"] = function()
 
 	for i = 1, 12 do
 		local bu = _G["AchievementFrameSummaryCategoriesCategory"..i]
-		SetupStatusbar(bu)
+		B.ReskinStatusBar(bu)
 		_G[bu:GetName().."ButtonHighlight"]:SetAlpha(0)
 		bu.Label:SetTextColor(1, 1, 1)
 		bu.Label:SetPoint("LEFT", bu, "LEFT", 6, -1)
@@ -219,7 +215,7 @@ C.themes["Blizzard_AchievementUI"] = function()
 
 	local bar = AchievementFrameSummaryCategoriesStatusBar
 	if bar then
-		SetupStatusbar(bar)
+		B.ReskinStatusBar(bar)
 		_G[bar:GetName().."Title"]:SetTextColor(1, 1, 1)
 		_G[bar:GetName().."Title"]:SetPoint("LEFT", bar, "LEFT", 6, -1)
 	end
@@ -282,7 +278,7 @@ C.themes["Blizzard_AchievementUI"] = function()
 	local function handleCompareSummary(frame)
 		B.StripTextures(frame)
 		if frame.StatusBar then
-			SetupStatusbar(frame.StatusBar)
+			B.ReskinStatusBar(frame.StatusBar)
 		end
 	end
 	handleCompareSummary(AchievementFrameComparison.Summary.Player)

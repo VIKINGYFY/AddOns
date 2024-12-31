@@ -8,6 +8,6 @@ table.insert(C.defaultThemes, function()
 	for i = 1, 10 do
 		select(i, GuildInviteFrame:GetRegions()):Hide()
 	end
-	B.Reskin(GuildInviteFrameJoinButton)
-	B.Reskin(GuildInviteFrameDeclineButton)
+	B.ReskinButton(GuildInviteFrameJoinButton)
+	B.ReskinButton(GuildInviteFrameDeclineButton)
 end)

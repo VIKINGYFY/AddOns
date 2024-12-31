@@ -1,12 +1,10 @@
 # MapNote
-## [2.5.7](https://github.com/Ssesmar/MapNote) (2024-12-17)
+## [2.5.9](https://github.com/Ssesmar/MapNote) (2024-12-29)
 - Note:
 
-
-
 Retail
-  toc update
-
+  Requirements tooltip has been added for the Khaz Algar portals from Dornogal to Azj-Kahet and back. These will be automatically hidden if you have met this requirement
+  This option will be further expanded in the next updates
 
 - Description:
 

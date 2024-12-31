@@ -33,7 +33,7 @@ local function createExtraGUI(parent, name, title, scrollFrame)
 		local scroll = CreateFrame("ScrollFrame", nil, frame, "UIPanelScrollFrameTemplate")
 		scroll:SetSize(frame:GetWidth() - 40, frame:GetHeight() - 60)
 		scroll:SetPoint("TOPLEFT", 10, -50)
-		scroll.bg = B.CreateBDFrame(scroll, .3)
+		scroll.bg = B.CreateBDFrame(scroll, .25)
 		scroll.bg:SetAllPoints()
 		scroll.child = CreateFrame("Frame", nil, scroll)
 		scroll.child:SetSize(frame:GetWidth() - 40, 1)
@@ -179,6 +179,10 @@ function G:SetupABFader(parent)
 
 		offset = offset + 35
 	end
+
+	local blank = CreateFrame("Frame", nil, frame)
+	blank:SetSize(20, 20)
+	blank:SetPoint("TOPLEFT", 20, -offset)
 end
 
 local function updateUFsFader()

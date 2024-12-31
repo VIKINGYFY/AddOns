@@ -153,7 +153,6 @@ function Bar:UpdateButtonConfig(i)
 		button:SetAttribute("checkselfcast", true)
 		--button:SetAttribute("*unit2", "player")
 		button:UpdateConfig(self.buttonConfig)
-		button.__bg:SetBackdropColor(.3, .3, .3, .25)
 	end
 end
 

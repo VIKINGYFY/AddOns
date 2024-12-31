@@ -61,10 +61,13 @@ local function ReskinTooltipFrame(frame)
 end
 
 local function HandleDungeon(self)
-	B.StripTextures(self, 0)
+	local tex = self.Bg:GetTexture()
+
+	B.StripTextures(self)
 	B.CreateBDFrame(self.Bg, 0)
 
-	self.Bg:SetAlpha(1)
+	self.Bg:SetAlpha(.5)
+	self.Bg:SetTexture(tex)
 
 	for _, button in ipairs(self.itemFrames) do
 		HandleItemButton(button)

@@ -305,9 +305,7 @@ function TT:GameTooltip_ShowStatusBar()
 
 	local bar = self.statusBarPool:GetNextActive()
 	if bar and not bar.styled then
-		B.StripTextures(bar)
-		B.CreateBDFrame(bar, .25)
-		bar:SetStatusBarTexture(DB.normTex)
+		B.ReskinStatusBar(bar)
 
 		bar.styled = true
 	end
@@ -319,9 +317,7 @@ function TT:GameTooltip_ShowProgressBar()
 
 	local bar = self.progressBarPool:GetNextActive()
 	if bar and not bar.styled then
-		B.StripTextures(bar.Bar)
-		B.CreateBDFrame(bar.Bar, .25)
-		bar.Bar:SetStatusBarTexture(DB.normTex)
+		B.ReskinStatusBar(bar.Bar)
 
 		bar.styled = true
 	end

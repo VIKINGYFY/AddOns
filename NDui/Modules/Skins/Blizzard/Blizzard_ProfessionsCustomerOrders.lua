@@ -3,8 +3,8 @@ local B, C, L, DB = unpack(ns)
 
 local function hideCategoryButton(button)
 	button.NormalTexture:Hide()
-	button.SelectedTexture:SetColorTexture(0, 1, 1, .3)
-	button.HighlightTexture:SetColorTexture(1, 1, 1, .1)
+	button.SelectedTexture:SetColorTexture(0, 1, 1, .25)
+	button.HighlightTexture:SetColorTexture(1, 1, 1, .25)
 end
 
 local function reskinListIcon(frame)
@@ -34,7 +34,7 @@ local function reskinListHeader(headerContainer)
 			header:DisableDrawLayer("BACKGROUND")
 			header.bg = B.CreateBDFrame(header)
 			local hl = header:GetHighlightTexture()
-			hl:SetColorTexture(1, 1, 1, .1)
+			hl:SetColorTexture(1, 1, 1, .25)
 			hl:SetAllPoints(header.bg)
 
 			header.styled = true
@@ -54,7 +54,7 @@ local function reskinBrowseOrders(frame)
 end
 
 local function reskinMoneyInput(box)
-	B.ReskinEditBox(box)
+	B.ReskinInput(box)
 	box.__bg:SetPoint("TOPLEFT", 0, -3)
 	box.__bg:SetPoint("BOTTOMRIGHT", 0, 3)
 end
@@ -69,7 +69,7 @@ local function reskinContainer(container)
 
 	local box = container.EditBox
 	box:DisableDrawLayer("BACKGROUND")
-	B.ReskinEditBox(box)
+	B.ReskinInput(box)
 	B.ReskinArrow(box.DecrementButton, "left")
 	B.ReskinArrow(box.IncrementButton, "right")
 end
@@ -88,7 +88,7 @@ end
 C.themes["Blizzard_ProfessionsCustomerOrders"] = function()
 	local frame = _G.ProfessionsCustomerOrdersFrame
 
-	B.ReskinPortraitFrame(frame)
+	B.ReskinFrame(frame)
 	for i = 1, 2 do
 		B.ReskinTab(frame.Tabs[i])
 	end
@@ -97,10 +97,10 @@ C.themes["Blizzard_ProfessionsCustomerOrders"] = function()
 	B.StripTextures(frame.MoneyFrameInset)
 
 	local searchBar = frame.BrowseOrders.SearchBar
-	B.Reskin(searchBar.FavoritesSearchButton)
+	B.ReskinButton(searchBar.FavoritesSearchButton)
 	searchBar.FavoritesSearchButton:SetSize(22, 22)
-	B.ReskinEditBox(searchBar.SearchBox)
-	B.Reskin(searchBar.SearchButton)
+	B.ReskinInput(searchBar.SearchBox)
+	B.ReskinButton(searchBar.SearchButton)
 	B.ReskinFilterButton(searchBar.FilterDropdown)
 
 	B.StripTextures(frame.BrowseOrders.CategoryList)
@@ -127,7 +127,7 @@ C.themes["Blizzard_ProfessionsCustomerOrders"] = function()
 	hooksecurefunc(frame.BrowseOrders, "StartSearch", reskinListIcon)
 
 	-- Form
-	B.Reskin(frame.Form.BackButton)
+	B.ReskinButton(frame.Form.BackButton)
 	B.ReskinCheck(frame.Form.AllocateBestQualityCheckbox)
 	B.ReskinCheck(frame.Form.TrackRecipeCheckbox.Checkbox)
 
@@ -145,7 +145,7 @@ C.themes["Blizzard_ProfessionsCustomerOrders"] = function()
 	hl:SetColorTexture(1, 1, 1, .25)
 	hl:SetInside(itemButton.bg)
 
-	B.ReskinEditBox(frame.Form.OrderRecipientTarget)
+	B.ReskinInput(frame.Form.OrderRecipientTarget)
 	frame.Form.OrderRecipientTarget.__bg:SetPoint("TOPLEFT", -8, -2)
 	frame.Form.OrderRecipientTarget.__bg:SetPoint("BOTTOMRIGHT", 0, 2)
 	B.ReskinDropDown(frame.Form.OrderRecipientDropdown)
@@ -160,8 +160,8 @@ C.themes["Blizzard_ProfessionsCustomerOrders"] = function()
 	reskinMoneyInput(paymentContainer.TipMoneyInputFrame.GoldBox)
 	reskinMoneyInput(paymentContainer.TipMoneyInputFrame.SilverBox)
 	B.ReskinDropDown(paymentContainer.DurationDropdown)
-	B.Reskin(paymentContainer.ListOrderButton)
-	B.Reskin(paymentContainer.CancelOrderButton)
+	B.ReskinButton(paymentContainer.ListOrderButton)
+	B.ReskinButton(paymentContainer.CancelOrderButton)
 
 	local viewButton = paymentContainer.ViewListingsButton
 	viewButton:SetAlpha(0)
@@ -174,7 +174,7 @@ C.themes["Blizzard_ProfessionsCustomerOrders"] = function()
 	local current = frame.Form.CurrentListings
 	B.StripTextures(current)
 	B.SetBD(current)
-	B.Reskin(current.CloseButton)
+	B.ReskinButton(current.CloseButton)
 	B.ReskinTrimScroll(current.OrderList.ScrollBar)
 	reskinListHeader(current.OrderList.HeaderContainer)
 	B.StripTextures(current.OrderList)
@@ -213,16 +213,16 @@ C.themes["Blizzard_ProfessionsCustomerOrders"] = function()
 	B.StripTextures(qualityDialog)
 	B.SetBD(qualityDialog)
 	B.ReskinClose(qualityDialog.ClosePanelButton)
-	B.Reskin(qualityDialog.AcceptButton)
-	B.Reskin(qualityDialog.CancelButton)
+	B.ReskinButton(qualityDialog.AcceptButton)
+	B.ReskinButton(qualityDialog.CancelButton)
 	for i = 1, 3 do
 		reskinContainer(qualityDialog["Container"..i])
 	end
 
-	B.Reskin(frame.Form.OrderRecipientDisplay.SocialDropdown)
+	B.ReskinButton(frame.Form.OrderRecipientDisplay.SocialDropdown)
 
 	-- Orders
-	B.Reskin(frame.MyOrdersPage.RefreshButton)
+	B.ReskinButton(frame.MyOrdersPage.RefreshButton)
 	frame.MyOrdersPage.RefreshButton.__bg:SetInside(nil, 3, 3)
 	B.StripTextures(frame.MyOrdersPage.OrderList)
 	B.CreateBDFrame(frame.MyOrdersPage.OrderList, .25)

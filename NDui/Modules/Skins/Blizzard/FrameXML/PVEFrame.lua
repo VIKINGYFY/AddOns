@@ -18,7 +18,7 @@ table.insert(C.defaultThemes, function()
 		local bu = GroupFinderFrame["groupButton"..i]
 		if bu then
 			bu.ring:Hide()
-			B.Reskin(bu, true)
+			B.ReskinButton(bu)
 			bu.bg:SetColorTexture(r, g, b, .25)
 			bu.bg:SetInside(bu.__bg)
 
@@ -39,7 +39,7 @@ table.insert(C.defaultThemes, function()
 		end
 	end)
 
-	B.ReskinPortraitFrame(PVEFrame)
+	B.ReskinFrame(PVEFrame)
 
 	for i = 1, 4 do
 		local tab = _G["PVEFrameTab"..i]
@@ -56,7 +56,7 @@ table.insert(C.defaultThemes, function()
 		B.StripTextures(ScenarioFinderFrame)
 		ScenarioQueueFrameBackground:SetAlpha(0)
 		B.ReskinDropDown(ScenarioQueueFrameTypeDropdown)
-		B.Reskin(ScenarioQueueFrameFindGroupButton)
+		B.ReskinButton(ScenarioQueueFrameFindGroupButton)
 		B.ReskinTrimScroll(ScenarioQueueFrameRandomScrollFrame.ScrollBar)
 		if ScenarioQueueFrameRandomScrollFrameScrollBar then
 			ScenarioQueueFrameRandomScrollFrameScrollBar:SetAlpha(0)

@@ -4,11 +4,11 @@ local B, C, L, DB = unpack(ns)
 table.insert(C.defaultThemes, function()
 	if not C.db["Skins"]["BlizzardSkins"] then return end
 
-	B.ReskinPortraitFrame(PetitionFrame)
-	B.Reskin(PetitionFrameSignButton)
-	B.Reskin(PetitionFrameRequestButton)
-	B.Reskin(PetitionFrameRenameButton)
-	B.Reskin(PetitionFrameCancelButton)
+	B.ReskinFrame(PetitionFrame)
+	B.ReskinButton(PetitionFrameSignButton)
+	B.ReskinButton(PetitionFrameRequestButton)
+	B.ReskinButton(PetitionFrameRenameButton)
+	B.ReskinButton(PetitionFrameCancelButton)
 
 	PetitionFrameCharterTitle:SetTextColor(1, .8, 0)
 	PetitionFrameCharterTitle:SetShadowColor(0, 0, 0)

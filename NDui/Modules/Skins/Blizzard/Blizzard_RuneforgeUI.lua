@@ -36,14 +36,14 @@ C.themes["Blizzard_RuneforgeUI"] = function()
 	B.ReskinClose(frame.CloseButton, nil, -70, -70)
 
 	local createFrame = frame.CreateFrame
-	B.Reskin(createFrame.CraftItemButton)
+	B.ReskinButton(createFrame.CraftItemButton)
 
 	hooksecurefunc(frame.CurrencyDisplay, "SetCurrencies", SetCurrenciesHook)
 	hooksecurefunc(createFrame.Cost.Currencies, "SetCurrencies", SetCurrenciesHook)
 
 	local powerFrame = frame.CraftingFrame.PowerFrame
 	B.StripTextures(powerFrame)
-	B.SetBD(powerFrame, 1)
+	B.SetBD(powerFrame)
 
 	hooksecurefunc(powerFrame.PowerList, "RefreshListDisplay", function(self)
 		if not self.elements then return end

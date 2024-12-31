@@ -3,6 +3,7 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "zhCN")
 if not L then return end
 
 --0.08
+L["Has not been unlocked yet"] = "尚未解锁"
 L["Displays location symbols on the Azeroth / Continent map for Horde and Alliance capitals with additional information about what is within that capital at MapNotes associated symbols"] = "在艾泽拉斯/大陆地图上显示部落和联盟首都的位置符号，并在 MapNotes 关联符号中显示有关该首都内内容的附加信息"
 L["For the zones and capitals themselves, there is an option in the respective tab to display nearby symbols in groups instead of individually"] = "对于区域和首都本身，相应选项卡中有一个选项可以按组显示附近的符号，而不是单独显示"
 L["Displays Horde and Alliance capitals icons with additional information"] = "显示部落和联盟首都图标以及附加信息"

@@ -9,10 +9,7 @@ local function ReskinPvPFrame(frame)
 	B.ReskinRole(frame.DPSIcon, "DPS")
 
 	local bar = frame.ConquestBar
-	B.StripTextures(bar)
-	B.CreateBDFrame(bar, .25)
-	bar:SetStatusBarTexture(DB.bdTex)
-	bar:GetStatusBarTexture():SetGradient("VERTICAL", CreateColor(1, .8, 0, 1), CreateColor(6, .4, 0, 1))
+	B.ReskinStatusBar(bar)
 
 	local reward = bar.Reward
 	reward.Ring:Hide()
@@ -44,7 +41,7 @@ C.themes["Blizzard_PVPUI"] = function()
 		local cu = bu.CurrencyDisplay
 
 		bu.Ring:Hide()
-		B.Reskin(bu, true)
+		B.ReskinButton(bu)
 		bu.Background:SetInside(bu.__bg)
 		bu.Background:SetColorTexture(r, g, b, .25)
 		bu.Background:SetAlpha(1)
@@ -83,7 +80,7 @@ C.themes["Blizzard_PVPUI"] = function()
 	PVPQueueFrame.HonorInset.Background:Hide()
 
 	local popup = PVPQueueFrame.NewSeasonPopup
-	B.Reskin(popup.Leave)
+	B.ReskinButton(popup.Leave)
 	popup.Leave.__bg:SetFrameLevel(popup:GetFrameLevel() + 1)
 	popup.NewSeason:SetTextColor(1, .8, 0)
 	popup.SeasonRewardText:SetTextColor(1, .8, 0)
@@ -110,7 +107,7 @@ C.themes["Blizzard_PVPUI"] = function()
 
 	HonorFrame.Inset:Hide()
 	ReskinPvPFrame(HonorFrame)
-	B.Reskin(HonorFrame.QueueButton)
+	B.ReskinButton(HonorFrame.QueueButton)
 	B.ReskinDropDown(HonorFrameTypeDropdown)
 	B.ReskinTrimScroll(HonorFrame.SpecificScrollBar)
 
@@ -145,7 +142,7 @@ C.themes["Blizzard_PVPUI"] = function()
 
 	for _, bonusButton in pairs({"RandomBGButton", "RandomEpicBGButton", "Arena1Button", "BrawlButton", "BrawlButton2"}) do
 		local bu = bonusFrame[bonusButton]
-		B.Reskin(bu, true)
+		B.ReskinButton(bu)
 		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
 		bu.SelectedTexture:SetColorTexture(r, g, b, .25)
 		bu.SelectedTexture:SetInside(bu.__bg)
@@ -167,13 +164,13 @@ C.themes["Blizzard_PVPUI"] = function()
 	ConquestFrame.Arena2v2:HookScript("OnEnter", ConquestFrameButton_OnEnter)
 	ConquestFrame.Arena3v3:HookScript("OnEnter", ConquestFrameButton_OnEnter)
 	ConquestFrame.RatedBG:HookScript("OnEnter", ConquestFrameButton_OnEnter)
-	B.Reskin(ConquestFrame.JoinButton)
+	B.ReskinButton(ConquestFrame.JoinButton)
 
 	local names = {"RatedSoloShuffle", "RatedBGBlitz", "Arena2v2", "Arena3v3", "RatedBG"}
 	for _, name in pairs(names) do
 		local bu = ConquestFrame[name]
 		if bu then
-			B.Reskin(bu, true)
+			B.ReskinButton(bu)
 			local reward = bu.Reward
 			if reward then
 				reward.Border:Hide()

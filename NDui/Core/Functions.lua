@@ -134,7 +134,7 @@ do
 
 	function B.ClassColor(class)
 		local color = DB.ClassColors[class]
-		if not color then return 1, 1, 1 end
+		if not color then return .5, .5, .5 end
 		return color.r, color.g, color.b
 	end
 
@@ -310,31 +310,6 @@ end
 
 -- Kill regions
 do
-	function B:PrintTextures(name)
-		if self.GetRegions then
-			for index, region in pairs {self:GetRegions()} do
-				local regionName = region:GetDebugName()
-				if string.find(regionName, name) then
-					print("Regions:", index, regionName)
-					break
-				end
-			end
-		else
-			for index, child in pairs {self:GetChildren()} do
-				local childName = child:GetDebugName()
-				if string.find(childName, name) then
-					print("Children:", index, childName)
-					break
-				end
-			end
-		end
-	end
-
-	function B:GetObject(key)
-		local frameName = self.GetName and self:GetName()
-		return self[key] or (frameName and _G[frameName..key])
-	end
-
 	function B:Dummy()
 		return
 	end
@@ -406,12 +381,14 @@ do
 		"GarrCorners",
 		"IconMask",
 		"IconRing",
+		"InnerBorder",
 		"Inset",
 		"InsetFrame",
 		"InsetLeft",
 		"InsetRight",
 		"Left",
 		"LeftDisabled",
+		"LeftHighlight",
 		"LeftInset",
 		"LeftSeparator",
 		"LeftTex",
@@ -420,6 +397,7 @@ do
 		"Mid",
 		"Middle",
 		"MiddleDisabled",
+		"MiddleHighlight",
 		"MiddleLeft",
 		"MiddleMid",
 		"MiddleMiddle",
@@ -435,6 +413,7 @@ do
 		"PortraitOverlay",
 		"Right",
 		"RightDisabled",
+		"RightHighlight",
 		"RightInset",
 		"RightSeparator",
 		"RightTex",
@@ -468,12 +447,15 @@ do
 		"Track",
 		"_LeftSeparator",
 		"_RightSeparator",
+		"arrowDown",
+		"arrowUp",
 		"background",
 		"bgLeft",
 		"bgRight",
 		"border",
 		"bottomInset",
 		"inset",
+		"overlay",
 		"portrait",
 		"shadows",
 		"topInset",
@@ -482,6 +464,13 @@ do
 	}
 
 	function B:CleanTextures(kill, isOverride)
+		if self.SetBackdrop then self:SetBackdrop(nil) end
+		if self.SetPushedTexture then self:SetPushedTexture(0) end
+		if self.SetCheckedTexture then self:SetCheckedTexture(0) end
+		if self.SetDisabledTexture then self:SetDisabledTexture(0) end
+		if self.SetHighlightTexture then self:SetHighlightTexture(0) end
+		if self.SetNormalTexture and not isOverride then self:SetNormalTexture(0) end
+
 		for _, texture in pairs(blizzTextures) do
 			local blizzTexture = B.GetObject(self, texture)
 			if blizzTexture then
@@ -500,9 +489,8 @@ do
 		B.CleanTextures(self, kill)
 
 		if self.GetRegions then
-			local regions = {self:GetRegions()}
-			for index, region in pairs(regions) do
-				if region and region:IsObjectType("Texture") then
+			for index, region in pairs {self:GetRegions()} do
+				if region and region:IsObjectType("Texture") and not region.isIgnored then
 					if kill and type(kill) == "boolean" then
 						B.HideObject(region)
 					elseif tonumber(kill) then
@@ -574,6 +562,9 @@ do
 		B.SetFontSize(fs, size)
 		fs:SetText(text)
 		fs:SetWordWrap(false)
+		--fs:SetJustifyV("CENTER")
+		fs:SetShadowColor(0, 0, 0, 0)
+
 		if color and type(color) == "boolean" then
 			fs:SetTextColor(cr, cg, cb)
 		elseif color == "system" then
@@ -581,10 +572,10 @@ do
 		end
 		if anchor and x and y then
 			fs:SetJustifyH(justifyList[anchor])
-			fs:SetPoint(anchor, x, y)
+			B.UpdatePoint(fs, anchor, self, anchor, x, y)
 		else
 			fs:SetJustifyH("CENTER")
-			fs:SetPoint("CENTER", 1, 0)
+			B.UpdatePoint(fs, "CENTER", self, "CENTER", 1, 0)
 		end
 
 		return fs
@@ -677,8 +668,6 @@ do
 	end
 
 	-- Backdrop shadow
-	local shadowBackdrop = {edgeFile = DB.glowTex}
-
 	function B:CreateSD(size, override)
 		if not override and not C.db["Skins"]["Shadow"] then return end
 		if self.__shadow then return end
@@ -705,43 +694,40 @@ do
 
 	function B:SetBorderColor()
 		if C.db["Skins"]["GreyBD"] then
-			self:SetBackdropBorderColor(1, 1, 1, .2)
+			self:SetBackdropBorderColor(.5, .5, .5)
 		else
 			self:SetBackdropBorderColor(0, 0, 0)
 		end
 	end
 
-	function B:CreateBD(a)
+	function B:CreateBD(alpha)
 		self:SetBackdrop({bgFile = DB.bdTex, edgeFile = DB.bdTex, edgeSize = C.mult})
-		self:SetBackdropColor(0, 0, 0, a or C.db["Skins"]["SkinAlpha"])
+		self:SetBackdropColor(0, 0, 0, alpha or C.db["Skins"]["SkinAlpha"])
 		B.SetBorderColor(self)
-		if not a then table.insert(C.frames, self) end
+
+		if not alpha then table.insert(C.frames, self) end
 	end
 
-	local gradientFrom, gradientTo = CreateColor(.6, .6, .6, .6), CreateColor(.3, .3, .3, .3)
 	function B:CreateGradient()
 		local tex = self:CreateTexture(nil, "BORDER")
 		tex:SetInside()
 		tex:SetTexture(DB.bdTex)
-		if C.db["Skins"]["FlatMode"] then
-			tex:SetVertexColor(.3, .3, .3, .25)
-		else
-			tex:SetGradient("Vertical", gradientFrom, gradientTo)
-		end
+		tex:SetVertexColor(.5, .5, .5, .25)
 
 		return tex
 	end
 
 	-- Handle frame
-	function B:CreateBDFrame(a, gradient)
+	function B:CreateBDFrame(alpha, gradient)
 		local frame = self
 		if self:IsObjectType("Texture") then frame = self:GetParent() end
-		local lvl = frame:GetFrameLevel()
 
+		local lvl = frame:GetFrameLevel()
 		local bg = CreateFrame("Frame", nil, frame, "BackdropTemplate")
-		bg:SetOutside(self)
 		bg:SetFrameLevel(lvl == 0 and 0 or lvl - 1)
-		B.CreateBD(bg, a)
+		bg:SetOutside(self)
+
+		B.CreateBD(bg, alpha)
 		if gradient then
 			self.__gradient = B.CreateGradient(bg)
 		end
@@ -749,12 +735,12 @@ do
 		return bg
 	end
 
-	function B:SetBD(a, x, y, x2, y2)
-		local bg = B.CreateBDFrame(self, a)
+	function B:SetBD(x, y, x2, y2)
+		local bg = B.CreateBDFrame(self)
 		if x then
-			bg:SetPoint("TOPLEFT", self, x, y)
-			bg:SetPoint("BOTTOMRIGHT", self, x2, y2)
+			B.UpdateSize(bg, x, y, x2, y2)
 		end
+
 		B.CreateSD(bg)
 		B.CreateTex(bg)
 
@@ -766,17 +752,21 @@ do
 
 	function B:ReskinIcon(shadow)
 		self:SetTexCoord(x1, x2, y1, y2)
+
 		local bg = B.CreateBDFrame(self, .25) -- exclude from opacity control
 		if shadow then B.CreateSD(bg) end
+
 		return bg
 	end
 
 	function B:PixelIcon(texture, highlight)
 		self.bg = B.CreateBDFrame(self)
 		self.bg:SetAllPoints()
+
 		self.Icon = self:CreateTexture(nil, "ARTWORK")
 		self.Icon:SetInside(self.bg)
 		self.Icon:SetTexCoord(x1, x2, y1, y2)
+
 		if texture then
 			local atlas = string.match(texture, "Atlas:(.+)$")
 			if atlas then
@@ -797,6 +787,7 @@ do
 		self.CD = CreateFrame("Cooldown", nil, self, "CooldownFrameTemplate")
 		self.CD:SetInside()
 		self.CD:SetReverse(true)
+
 		B.PixelIcon(self, nil, highlight)
 		B.CreateSD(self)
 	end
@@ -912,7 +903,7 @@ do
 			self.Spark = self:CreateTexture(nil, "OVERLAY")
 			self.Spark:SetTexture(DB.sparkTex)
 			self.Spark:SetBlendMode("ADD")
-			self.Spark:SetAlpha(.8)
+			self.Spark:SetAlpha(1)
 			self.Spark:SetPoint("TOPLEFT", self:GetStatusBarTexture(), "TOPRIGHT", -10, 10)
 			self.Spark:SetPoint("BOTTOMRIGHT", self:GetStatusBarTexture(), "BOTTOMRIGHT", 10, -10)
 		end
@@ -945,38 +936,29 @@ do
 	local function Button_OnEnter(self)
 		if not self:IsEnabled() then return end
 
-		if C.db["Skins"]["FlatMode"] then
-			self.__gradient:SetVertexColor(cr / 4, cg / 4, cb / 4)
+		if self.__gradient then
+			self.__gradient:SetVertexColor(cr, cg, cb, .25)
 		else
 			self.__bg:SetBackdropColor(cr, cg, cb, .25)
 		end
-		self.__bg:SetBackdropBorderColor(cr, cg, cb)
 	end
 	local function Button_OnLeave(self)
-		if C.db["Skins"]["FlatMode"] then
-			self.__gradient:SetVertexColor(.3, .3, .3, .25)
+		if self.__gradient then
+			self.__gradient:SetVertexColor(.5, .5, .5, .25)
 		else
 			self.__bg:SetBackdropColor(0, 0, 0, 0)
 		end
-		B.SetBorderColor(self.__bg)
 	end
 
-	function B:Reskin(noHighlight, override)
-		if self.SetNormalTexture and not override then self:SetNormalTexture(0) end
-		if self.SetHighlightTexture then self:SetHighlightTexture(0) end
-		if self.SetPushedTexture then self:SetPushedTexture(0) end
-		if self.SetDisabledTexture then self:SetDisabledTexture(0) end
-
-		B.CleanTextures(self, 0)
+	function B:ReskinButton(override)
+		B.CleanTextures(self, 99, override)
 
 		self.__bg = B.CreateBDFrame(self, 0, true)
 		self.__bg:SetFrameLevel(self:GetFrameLevel())
 		self.__bg:SetAllPoints()
 
-		if not noHighlight then
-			self:HookScript("OnEnter", Button_OnEnter)
-			self:HookScript("OnLeave", Button_OnLeave)
-		end
+		self:HookScript("OnEnter", Button_OnEnter)
+		self:HookScript("OnLeave", Button_OnLeave)
 	end
 
 	local function Menu_OnEnter(self)
@@ -986,7 +968,7 @@ do
 		B.SetBorderColor(self.bg)
 	end
 	local function Menu_OnMouseUp(self)
-		self.bg:SetBackdropColor(0, 0, 0, C.db["Skins"]["SkinAlpha"])
+		self.bg:SetBackdropColor(0, 0, 0, .25)
 	end
 	local function Menu_OnMouseDown(self)
 		self.bg:SetBackdropColor(cr, cg, cb, .25)
@@ -1002,34 +984,29 @@ do
 	end
 
 	-- Handle tabs
-	function B:ReskinTab()
+	function B:ReskinTab(noShadow)
+		B.CleanTextures(self)
 		self:DisableDrawLayer("BACKGROUND")
-		if self.LeftHighlight then
-			self.LeftHighlight:SetAlpha(0)
-		end
-		if self.RightHighlight then
-			self.RightHighlight:SetAlpha(0)
-		end
-		if self.MiddleHighlight then
-			self.MiddleHighlight:SetAlpha(0)
-		end
 
 		local bg = B.CreateBDFrame(self)
-		bg:SetPoint("TOPLEFT", 8, -3)
-		bg:SetPoint("BOTTOMRIGHT", -8, 0)
+		bg:SetPoint("TOPLEFT", 8, -2)
+		bg:SetPoint("BOTTOMRIGHT", -8, 4)
 		self.bg = bg
 
-		self:SetHighlightTexture(DB.bdTex)
-		local hl = self:GetHighlightTexture()
-		hl:ClearAllPoints()
-		hl:SetInside(bg)
-		hl:SetVertexColor(cr, cg, cb, .25)
+		B.ReskinHLTex(self, bg, true)
+		B.ResetTabAnchor(self)
+
+		if not noShadow then
+			B.CreateSD(bg)
+			B.CreateTex(bg)
+		end
 	end
 
 	function B:ResetTabAnchor()
 		local text = B.GetObject(self, "Text")
 		if text then
-			text:SetPoint("CENTER", self)
+			text:ClearAllPoints()
+			text:SetPoint("CENTER", self, "CENTER", 0, 1)
 		end
 	end
 	hooksecurefunc("PanelTemplates_SelectTab", B.ResetTabAnchor)
@@ -1038,68 +1015,43 @@ do
 	-- Handle scrollframe
 	local function Thumb_OnEnter(self)
 		local thumb = self.thumb or self
-		thumb.bg:SetBackdropColor(cr, cg, cb, .75)
+		thumb.__gradient:SetVertexColor(cr, cg, cb, .25)
 	end
 	local function Thumb_OnLeave(self)
 		local thumb = self.thumb or self
-		if thumb.__isActive then return end
-		thumb.bg:SetBackdropColor(cr, cg, cb, .25)
-	end
-	local function Thumb_OnMouseDown(self)
-		local thumb = self.thumb or self
-		thumb.__isActive = true
-		thumb.bg:SetBackdropColor(cr, cg, cb, .75)
-	end
-	local function Thumb_OnMouseUp(self)
-		local thumb = self.thumb or self
-		thumb.__isActive = nil
-		thumb.bg:SetBackdropColor(cr, cg, cb, .25)
+		thumb.__gradient:SetVertexColor(.5, .5, .5, .25)
 	end
 
 	local function updateScrollArrow(arrow)
 		if not arrow.__texture then return end
 
 		if arrow:IsEnabled() then
-			arrow.__texture:SetVertexColor(1, 1, 1)
+			arrow.__texture:SetAlpha(1)
 		else
-			arrow.__texture:SetVertexColor(.5, .5, .5)
+			arrow.__texture:SetAlpha(.5)
 		end
 	end
 	local function updateTrimScrollArrow(self, atlas)
 		local arrow = self.__owner
 		if not arrow.__texture then return end
 
-		if atlas == arrow.disabledTexture then
-			arrow.__texture:SetVertexColor(.5, .5, .5)
+		if arrow:IsEnabled() then
+			arrow.__texture:SetAlpha(1)
 		else
-			arrow.__texture:SetVertexColor(1, 1, 1)
+			arrow.__texture:SetAlpha(.5)
 		end
 	end
 
-	local function reskinScrollArrow(self, direction, minimal)
+	local function reskinScrollArrow(self, direction)
 		if not self then return end
 
-		if self.Texture then
-			self.Texture:SetAlpha(0)
-			if self.Overlay then self.Overlay:SetAlpha(0) end
-			if minimal then self:SetHeight(17) end
-		else
-			B.StripTextures(self)
-		end
-
-		local tex = self:CreateTexture(nil, "ARTWORK")
-		tex:SetAllPoints()
-		B.SetupArrow(tex, direction)
-		self.__texture = tex
-
-		self:HookScript("OnEnter", B.Texture_OnEnter)
-		self:HookScript("OnLeave", B.Texture_OnLeave)
+		self:SetSize(18, 18)
+		B.StripTextures(self, 99)
+		B.SetupTexture(self, direction)
 
 		if self.Texture then
-			if minimal then return end
 			self.Texture.__owner = self
 			hooksecurefunc(self.Texture, "SetAtlas", updateTrimScrollArrow)
-			updateTrimScrollArrow(self.Texture, self.Texture:GetAtlas())
 		else
 			hooksecurefunc(self, "Enable", updateScrollArrow)
 			hooksecurefunc(self, "Disable", updateScrollArrow)
@@ -1107,65 +1059,55 @@ do
 	end
 
 	function B:ReskinScroll()
-		B.StripTextures(self:GetParent())
-		B.StripTextures(self)
-
-		local thumb = self:GetThumbTexture()
-		if thumb then
-			thumb:SetAlpha(0)
-			thumb.bg = B.CreateBDFrame(thumb, .25)
-			thumb.bg:SetBackdropColor(cr, cg, cb, .25)
-			thumb.bg:SetPoint("TOPLEFT", thumb, 4, -1)
-			thumb.bg:SetPoint("BOTTOMRIGHT", thumb, -4, 1)
-			self.thumb = thumb
-
-			self:HookScript("OnEnter", Thumb_OnEnter)
-			self:HookScript("OnLeave", Thumb_OnLeave)
-			self:HookScript("OnMouseDown", Thumb_OnMouseDown)
-			self:HookScript("OnMouseUp", Thumb_OnMouseUp)
-		end
+		B.StripTextures(self:GetParent(), 99)
+		B.StripTextures(self, 99)
 
 		local up, down = self:GetChildren()
 		reskinScrollArrow(up, "up")
 		reskinScrollArrow(down, "down")
+
+		local thumb = self:GetThumbTexture()
+		if thumb then
+			B.StripTextures(thumb, 99)
+
+			thumb.bg = B.CreateBDFrame(thumb, 0, true)
+			B.UpdateSize(thumb.bg, 4, -1, -4, 1, thumb)
+			self.thumb = thumb
+
+			self:HookScript("OnEnter", Thumb_OnEnter)
+			self:HookScript("OnLeave", Thumb_OnLeave)
+		end
 	end
 
 	-- WowTrimScrollBar
-	function B:ReskinTrimScroll(noTaint)
+	function B:ReskinTrimScroll()
 		B.StripTextures(self)
-		reskinScrollArrow(self.Back, "up", true)
-		reskinScrollArrow(self.Forward, "down", true)
-		if self.Track then
-			self.Track:DisableDrawLayer("ARTWORK")
-		end
+		reskinScrollArrow(self.Back, "up")
+		reskinScrollArrow(self.Forward, "down")
 
-		if noTaint then return end
 		local thumb = self:GetThumb()
 		if thumb then
 			thumb:DisableDrawLayer("ARTWORK")
 			thumb:DisableDrawLayer("BACKGROUND")
-			thumb.bg = B.CreateBDFrame(thumb, .25)
-			thumb.bg:SetBackdropColor(cr, cg, cb, .25)
+
+			thumb.bg = B.CreateBDFrame(thumb, 0, true)
 
 			thumb:HookScript("OnEnter", Thumb_OnEnter)
 			thumb:HookScript("OnLeave", Thumb_OnLeave)
-			thumb:HookScript("OnMouseDown", Thumb_OnMouseDown)
-			thumb:HookScript("OnMouseUp", Thumb_OnMouseUp)
 		end
 	end
 
 	-- Handle dropdown
 	function B:ReskinDropDown()
-		B.StripTextures(self)
-		if self.Arrow then self.Arrow:SetAlpha(0) end
+		B.StripTextures(self, 99)
 
 		local bg = B.CreateBDFrame(self, 0, true)
-		bg:SetPoint("TOPLEFT", 0, -2)
-		bg:SetPoint("BOTTOMRIGHT", 0, 2)
+		B.UpdateSize(bg, 0, -2, 0, 2)
+
 		local tex = self:CreateTexture(nil, "ARTWORK")
+		tex:SetTexture(DB.arrowTex.."down")
 		tex:SetPoint("RIGHT", bg, -3, 0)
 		tex:SetSize(18, 18)
-		B.SetupArrow(tex, "down")
 		self.__texture = tex
 
 		self:HookScript("OnEnter", B.Texture_OnEnter)
@@ -1181,7 +1123,7 @@ do
 			if self.bg then
 				self.bg:SetBackdropColor(cr, cg, cb, .25)
 			else
-				self.__texture:SetVertexColor(0, 1, 1)
+				self.__texture:SetVertexColor(cr, cg, cb)
 			end
 		end
 	end
@@ -1206,7 +1148,6 @@ do
 		xOffset = xOffset or -6
 		yOffset = yOffset or -6
 
-		self:SetSize(16, 16)
 		if not override then
 			self:ClearAllPoints()
 			self:SetPoint("TOPRIGHT", parent, "TOPRIGHT", xOffset, yOffset)
@@ -1216,165 +1157,144 @@ do
 			hooksecurefunc(self, "SetPoint", resetCloseButtonAnchor)
 		end
 
+		self:SetSize(18, 18)
+
 		B.StripTextures(self, 99)
-		if self.Border then self.Border:SetAlpha(0) end
-		local bg = B.CreateBDFrame(self, 0, true)
-		bg:SetAllPoints()
-
-		self:SetDisabledTexture(DB.bdTex)
-		local dis = self:GetDisabledTexture()
-		dis:SetVertexColor(0, 0, 0, .4)
-		dis:SetDrawLayer("OVERLAY")
-		dis:SetAllPoints()
-
-		local tex = self:CreateTexture()
-		tex:SetTexture(DB.closeTex)
-		tex:SetAllPoints()
-		self.__texture = tex
-
-		self:HookScript("OnEnter", B.Texture_OnEnter)
-		self:HookScript("OnLeave", B.Texture_OnLeave)
-	end
-
-	-- Handle editbox
-	function B:ReskinEditBox(height, width)
-		B.CleanTextures(self)
-
-		local bg = B.CreateBDFrame(self, 0, true)
-		bg:SetPoint("TOPLEFT", -2, 0)
-		bg:SetPoint("BOTTOMRIGHT")
-		self.__bg = bg
-
-		if height then self:SetHeight(height) end
-		if width then self:SetWidth(width) end
-	end
-	B.ReskinInput = B.ReskinEditBox -- Deprecated
-
-	-- Handle arrows
-	local arrowDegree = {
-		["up"] = 0,
-		["down"] = 180,
-		["left"] = 90,
-		["right"] = -90,
-	}
-	function B:SetupArrow(direction)
-		self:SetTexture(DB.ArrowUp)
-		self:SetRotation(math.rad(arrowDegree[direction]))
-	end
-
-	function B:ReskinArrow(direction)
-		self:SetSize(16, 16)
-		B.Reskin(self, true)
-		if self.Texture then self.Texture:SetAlpha(0) end
+		B.ReskinButton(self)
+		B.SetupTexture(self, "close")
 
 		self:SetDisabledTexture(DB.bdTex)
 		local dis = self:GetDisabledTexture()
 		dis:SetVertexColor(0, 0, 0, .5)
 		dis:SetDrawLayer("OVERLAY")
-		dis:SetInside()
+		dis:SetInside(self.__bg)
+	end
+
+	-- Handle editbox
+	function B:ReskinInput(height, width)
+		B.CleanTextures(self)
+
+		if height then self:SetHeight(height) end
+		if width then self:SetWidth(width) end
+
+		local bg = B.CreateBDFrame(self, 0, true)
+		B.UpdateSize(bg, -3, 0, -3, 0)
+		self.__bg = bg
+	end
+
+	-- Handle arrows
+	function B:SetupArrow(direction)
+		self:SetTexture(DB.arrowTex..direction)
+	end
+
+	function B:SetupTexture(direction)
+		if self.__texture then return end
 
 		local tex = self:CreateTexture(nil, "ARTWORK")
 		tex:SetAllPoints()
-		B.SetupArrow(tex, direction)
+		if direction == "close" then
+			tex:SetTexture(DB.closeTex)
+		else
+			tex:SetTexture(DB.arrowTex..direction)
+		end
 		self.__texture = tex
 
 		self:HookScript("OnEnter", B.Texture_OnEnter)
 		self:HookScript("OnLeave", B.Texture_OnLeave)
 	end
 
+	function B:ReskinArrow(direction, size)
+		self:SetSize(size or 18, size or 18)
+
+		B.StripTextures(self, 99)
+		B.ReskinButton(self)
+		B.SetupTexture(self, direction)
+
+		self:SetDisabledTexture(DB.bdTex)
+		local dis = self:GetDisabledTexture()
+		dis:SetVertexColor(0, 0, 0, .5)
+		dis:SetDrawLayer("OVERLAY")
+		dis:SetInside(self.__bg)
+	end
+
 	function B:ReskinFilterReset()
 		B.StripTextures(self)
-		self:ClearAllPoints()
-		self:SetPoint("TOPRIGHT", -5, 10)
+		B.UpdatePoint(self, "CENTER", self:GetParent(), "TOP", 0, 0)
 
 		local tex = self:CreateTexture(nil, "ARTWORK")
-		tex:SetInside(nil, 2, 2)
 		tex:SetTexture(DB.closeTex)
 		tex:SetVertexColor(1, 0, 0)
+		tex:SetAllPoints()
 	end
 
 	function B:ReskinFilterButton()
 		B.StripTextures(self)
-		B.Reskin(self)
+		B.ReskinButton(self)
+
 		if self.Text then
-			self.Text:SetPoint("CENTER")
-		end
-		if self.Icon then
-			B.SetupArrow(self.Icon, "right")
-			self.Icon:SetPoint("RIGHT")
-			self.Icon:SetSize(14, 14)
+			B.UpdatePoint(self.Text, "CENTER", self, "CENTER", 0, 0)
 		end
 		if self.ResetButton then
 			B.ReskinFilterReset(self.ResetButton)
 		end
-		self.__bg:SetOutside()
+		if self.Icon then
+			self.Icon:SetTexture(DB.arrowTex.."right")
+			self.Icon:SetPoint("RIGHT")
+			self.Icon:SetSize(14, 14)
+		end
+
 		local tex = self:CreateTexture(nil, "ARTWORK")
-		B.SetupArrow(tex, "right")
+		tex:SetTexture(DB.arrowTex.."right")
+		tex:SetPoint("RIGHT", -3, 0)
 		tex:SetSize(16, 16)
-		tex:SetPoint("RIGHT", -2, 0)
 		self.__texture = tex
 	end
 
 	function B:ReskinNavBar()
 		if self.navBarStyled then return end
 
+		B.StripTextures(self, 99)
+
 		local homeButton = self.homeButton
+		B.ReskinButton(homeButton)
+
 		local overflowButton = self.overflowButton
-
-		self:GetRegions():Hide()
-		self:DisableDrawLayer("BORDER")
-		self.overlay:Hide()
-		homeButton:GetRegions():Hide()
-		B.Reskin(homeButton)
-		B.Reskin(overflowButton, true)
-
-		local tex = overflowButton:CreateTexture(nil, "ARTWORK")
-		B.SetupArrow(tex, "left")
-		tex:SetSize(14, 14)
-		tex:SetPoint("CENTER")
-		overflowButton.__texture = tex
-
-		overflowButton:HookScript("OnEnter", B.Texture_OnEnter)
-		overflowButton:HookScript("OnLeave", B.Texture_OnLeave)
+		B.ReskinButton(overflowButton)
+		B.SetupTexture(overflowButton, "left")
 
 		self.navBarStyled = true
 	end
 
 	-- Handle checkbox and radio
 	function B:ReskinCheck(forceSaturation)
-		self:SetNormalTexture(0)
-		self:SetPushedTexture(0)
+		B.StripTextures(self)
 
 		local bg = B.CreateBDFrame(self, 0, true)
 		bg:SetInside(self, 4, 4)
 		self.bg = bg
 
-		self:SetHighlightTexture(DB.bdTex)
-		local hl = self:GetHighlightTexture()
-		hl:SetInside(bg)
-		hl:SetVertexColor(cr, cg, cb, .25)
+		B.ReskinHLTex(self, bg, true)
 
-		local ch = self:GetCheckedTexture()
-		ch:SetAtlas("checkmark-minimal")
-		ch:SetDesaturated(true)
-		ch:SetTexCoord(0, 1, 0, 1)
-		ch:SetVertexColor(cr, cg, cb)
+		local check = self:GetCheckedTexture()
+		check:SetAtlas("checkmark-minimal")
+		check:SetDesaturated(true)
+		check:SetTexCoord(0, 1, 0, 1)
+		check:SetVertexColor(cr, cg, cb)
 
 		self.forceSaturation = forceSaturation
 	end
 
 	function B:ReskinRadio()
-		self:GetNormalTexture():SetAlpha(0)
-		self:GetHighlightTexture():SetAlpha(0)
-		self:SetCheckedTexture(DB.bdTex)
-
-		local ch = self:GetCheckedTexture()
-		ch:SetInside(self, 4, 4)
-		ch:SetVertexColor(cr, cg, cb, .6)
+		B.StripTextures(self)
 
 		local bg = B.CreateBDFrame(self, 0, true)
-		bg:SetInside(self, 3, 3)
+		bg:SetInside(self, 2, 2)
 		self.bg = bg
+
+		self:SetCheckedTexture(DB.bdTex)
+		local ch = self:GetCheckedTexture()
+		ch:SetInside(bg)
+		ch:SetVertexColor(cr, cg, cb, .5)
 
 		self:HookScript("OnEnter", Menu_OnEnter)
 		self:HookScript("OnLeave", Menu_OnLeave)
@@ -1382,14 +1302,23 @@ do
 
 	-- Color swatch
 	function B:ReskinColorSwatch()
-		local swatchBg = B.GetObject(self, "SwatchBg")
-		if swatchBg then
-			swatchBg:SetColorTexture(0, 0, 0)
-			swatchBg:SetInside(nil, 2, 2)
+		local icon
+
+		if self.Color then
+			icon = self.Color
+			icon:SetTexture(DB.bdTex)
+		else
+			self:SetNormalTexture(DB.bdTex)
+			icon = self:GetNormalTexture()
 		end
 
-		self:SetNormalTexture(DB.bdTex)
-		self:GetNormalTexture():SetInside(self, 3, 3)
+		icon:SetInside(nil, 2, 2)
+
+		local bg = B.GetObject(self, "SwatchBg")
+		bg:SetColorTexture(0, 0, 0, 1)
+		bg:SetOutside(icon)
+
+		--if self.InnerBorder then
 	end
 
 	-- Handle slider
@@ -1397,8 +1326,7 @@ do
 		B.StripTextures(self)
 
 		local bg = B.CreateBDFrame(self, 0, true)
-		bg:SetPoint("TOPLEFT", 14, -2)
-		bg:SetPoint("BOTTOMRIGHT", -15, 3)
+		B.UpdateSize(bg, 14, -2, -15, 3)
 
 		local thumb = self:GetThumbTexture()
 		thumb:SetTexture(DB.sparkTex)
@@ -1421,16 +1349,10 @@ do
 	end
 
 	local function reskinStepper(stepper, direction)
+		stepper:SetSize(20, 20)
+
 		B.StripTextures(stepper)
-		stepper:SetWidth(19)
-
-		local tex = stepper:CreateTexture(nil, "ARTWORK")
-		tex:SetAllPoints()
-		B.SetupArrow(tex, direction)
-		stepper.__texture = tex
-
-		stepper:HookScript("OnEnter", B.Texture_OnEnter)
-		stepper:HookScript("OnLeave", B.Texture_OnLeave)
+		B.SetupTexture(stepper, direction)
 	end
 
 	function B:ReskinStepperSlider(minimal)
@@ -1481,14 +1403,11 @@ do
 	end
 
 	function B:ReskinCollapse(isAtlas)
-		self:SetNormalTexture(0)
-		self:SetHighlightTexture(0)
-		self:SetPushedTexture(0)
+		B.CleanTextures(self)
 
-		local bg = B.CreateBDFrame(self, .25, true)
-		bg:ClearAllPoints()
-		bg:SetSize(13, 13)
-		bg:SetPoint("LEFT", self:GetNormalTexture())
+		local bg = B.CreateBDFrame(self, 0, true)
+		bg:SetSize(14, 14)
+		B.UpdatePoint(bg, "LEFT", self:GetNormalTexture(), "LEFT", 0, 0)
 		self.bg = bg
 
 		self.__texture = bg:CreateTexture(nil, "OVERLAY")
@@ -1509,115 +1428,31 @@ do
 		for _, name in next, buttonNames do
 			local button = self[name]
 			if button then
-				button:SetSize(16, 16)
 				button:ClearAllPoints()
 				button:SetPoint("CENTER", -3, 0)
 				button:SetHitRectInsets(1, 1, 1, 1)
-				B.Reskin(button)
+				B.ReskinArrow(button, "max")
 
-				local tex = button:CreateTexture()
-				tex:SetAllPoints()
 				if name == "MaximizeButton" then
-					B.SetupArrow(tex, "up")
+					button.__texture:SetTexture(DB.arrowTex.."max")
 				else
-					B.SetupArrow(tex, "down")
+					button.__texture:SetTexture(DB.arrowTex.."min")
 				end
-				button.__texture = tex
-
-				button:SetScript("OnEnter", B.Texture_OnEnter)
-				button:SetScript("OnLeave", B.Texture_OnLeave)
 			end
 		end
 	end
 
-	-- UI templates
-	function B:ReskinPortraitFrame()
-		B.StripTextures(self)
-		local bg = B.SetBD(self)
-		bg:SetAllPoints(self)
-		local frameName = self.GetName and self:GetName()
-		local portrait = self.PortraitTexture or self.portrait or (frameName and _G[frameName.."Portrait"])
-		if portrait then
-			portrait:SetAlpha(0)
-		end
-		local closeButton = self.CloseButton or (frameName and _G[frameName.."CloseButton"])
-		if closeButton then
-			B.ReskinClose(closeButton)
-		end
-		return bg
-	end
-
-	local ReplacedRoleTex = {
-		["Adventures-Tank"] = "Soulbinds_Tree_Conduit_Icon_Protect",
-		["Adventures-Healer"] = "ui_adv_health",
-		["Adventures-DPS"] = "ui_adv_atk",
-		["Adventures-DPS-Ranged"] = "Soulbinds_Tree_Conduit_Icon_Utility",
-	}
-	local function replaceFollowerRole(roleIcon, atlas)
-		local newAtlas = ReplacedRoleTex[atlas]
-		if newAtlas then
-			roleIcon:SetAtlas(newAtlas)
-		end
-	end
-
-	function B:ReskinGarrisonPortrait()
-		local level = self.Level or self.LevelText
-		if level then
-			level:ClearAllPoints()
-			level:SetPoint("BOTTOM", self, 0, 15)
-			if self.LevelCircle then self.LevelCircle:Hide() end
-			if self.LevelBorder then self.LevelBorder:SetScale(.0001) end
-		end
-
-		self.squareBG = B.CreateBDFrame(self.Portrait, 1)
-
-		if self.PortraitRing then
-			self.PortraitRing:Hide()
-			self.PortraitRingQuality:SetTexture("")
-			self.PortraitRingCover:SetColorTexture(0, 0, 0)
-			self.PortraitRingCover:SetAllPoints(self.squareBG)
-		end
-
-		if self.Empty then
-			self.Empty:SetColorTexture(0, 0, 0)
-			self.Empty:SetAllPoints(self.Portrait)
-		end
-		if self.Highlight then self.Highlight:Hide() end
-		if self.PuckBorder then self.PuckBorder:SetAlpha(0) end
-		if self.TroopStackBorder1 then self.TroopStackBorder1:SetAlpha(0) end
-		if self.TroopStackBorder2 then self.TroopStackBorder2:SetAlpha(0) end
-
-		if self.HealthBar then
-			self.HealthBar.Border:Hide()
-
-			local roleIcon = self.HealthBar.RoleIcon
-			roleIcon:ClearAllPoints()
-			roleIcon:SetPoint("CENTER", self.squareBG, "TOPRIGHT", -2, -2)
-			replaceFollowerRole(roleIcon, roleIcon:GetAtlas())
-			hooksecurefunc(roleIcon, "SetAtlas", replaceFollowerRole)
-
-			local background = self.HealthBar.Background
-			background:SetAlpha(0)
-			background:ClearAllPoints()
-			background:SetPoint("TOPLEFT", self.squareBG, "BOTTOMLEFT", C.mult, 6)
-			background:SetPoint("BOTTOMRIGHT", self.squareBG, "BOTTOMRIGHT", -C.mult, C.mult)
-			self.HealthBar.Health:SetTexture(DB.normTex)
-		end
-	end
-
-	function B:StyleSearchButton()
+	function B:ReskinSearchList()
 		B.StripTextures(self)
 		local bg = B.CreateBDFrame(self, .25)
 		bg:SetInside()
+
 		local icon = self.icon or self.Icon
 		if icon then
 			B.ReskinIcon(icon)
 		end
 
-		self:SetHighlightTexture(DB.bdTex)
-		local hl = self:GetHighlightTexture()
-		hl:SetVertexColor(cr, cg, cb, .25)
-		hl:SetInside(bg)
+		B.ReskinHLTex(self, bg, true)
 	end
 
 	function B:AffixesSetup()
@@ -1625,8 +1460,8 @@ do
 		if not list then return end
 
 		for _, frame in ipairs(list) do
-			frame.Border:SetTexture(nil)
-			frame.Portrait:SetTexture(nil)
+			frame.Border:SetTexture("")
+			frame.Portrait:SetTexture("")
 			if not frame.bg then
 				frame.bg = B.ReskinIcon(frame.Portrait)
 			end
@@ -1666,56 +1501,6 @@ do
 			B.ReskinCheck(checkButton)
 		end
 	end
-
-	function B:ReskinStatusBar()
-		self.StatusBar:ClearAllPoints()
-		self.StatusBar:SetPoint("BOTTOMLEFT", self.bg, "TOPLEFT", C.mult, 3)
-		self.StatusBar:SetPoint("BOTTOMRIGHT", self.bg, "TOPRIGHT", -C.mult, 3)
-		self.StatusBar:SetStatusBarTexture(DB.normTex)
-		self.StatusBar:SetHeight(5)
-		B.SetBD(self.StatusBar)
-	end
-
-	-- Tooltip skin
-	function B:ReskinTooltip()
-		if not self then
-			if DB.isDeveloper then print("Unknown tooltip spotted.") end
-			return
-		end
-		if self:IsForbidden() then return end
-		self:SetScale(C.db["Tooltip"]["Scale"])
-
-		if not self.tipStyled then
-			self:HideBackdrop()
-			self:DisableDrawLayer("BACKGROUND")
-			self.bg = B.SetBD(self, .7)
-			self.bg:SetInside(self)
-			self.bg:SetFrameLevel(self:GetFrameLevel())
-			B.SetBorderColor(self.bg)
-
-			if self.StatusBar then
-				B.ReskinStatusBar(self)
-			end
-
-			self.tipStyled = true
-		end
-
-		B.SetBorderColor(self.bg)
-
-		if not C.db["Tooltip"]["ItemQuality"] then return end
-
-		local data = self.GetTooltipData and self:GetTooltipData()
-		if data then
-			local link = data.guid and C_Item.GetItemLinkByGUID(data.guid) or data.hyperlink
-			if link then
-				local quality = select(3, C_Item.GetItemInfo(link))
-				local color = DB.QualityColors[quality or 1]
-				if color then
-					self.bg:SetBackdropBorderColor(color.r, color.g, color.b)
-				end
-			end
-		end
-	end
 end
 
 -- GUI elements
@@ -1726,7 +1511,7 @@ do
 		if type(text) == "boolean" then
 			B.PixelIcon(bu, fontSize, true)
 		else
-			B.Reskin(bu)
+			B.ReskinButton(bu)
 			bu.text = B.CreateFS(bu, fontSize or 14, text, true)
 		end
 
@@ -1766,10 +1551,10 @@ do
 		local opt = self.__owner.options
 		for i = 1, #opt do
 			if self == opt[i] then
-				opt[i]:SetBackdropColor(1, .8, 0, .3)
+				opt[i]:SetBackdropColor(1, .8, 0, .25)
 				opt[i].selected = true
 			else
-				opt[i]:SetBackdropColor(0, 0, 0, .3)
+				opt[i]:SetBackdropColor(0, 0, 0, .25)
 				opt[i].selected = false
 			end
 		end
@@ -1800,7 +1585,7 @@ do
 		local dd = CreateFrame("Frame", nil, self, "BackdropTemplate")
 		dd:SetSize(width, height)
 		B.CreateBD(dd)
-		dd:SetBackdropBorderColor(1, 1, 1, .2)
+		dd:SetBackdropBorderColor(1, 1, 1, .25)
 		dd.Text = B.CreateFS(dd, 14, "", false, "LEFT", 5, 0)
 		dd.Text:SetPoint("RIGHT", -5, 0)
 		dd.options = {}
@@ -1813,7 +1598,7 @@ do
 		list:SetPoint("TOP", dd, "BOTTOM", 0, -2)
 		RaiseFrameLevel(list)
 		B.CreateBD(list, 1)
-		list:SetBackdropBorderColor(1, 1, 1, .2)
+		list:SetBackdropBorderColor(1, 1, 1, .25)
 		list:Hide()
 		bu.__list = list
 		bu:SetScript("OnShow", buttonOnShow)
@@ -1896,7 +1681,7 @@ do
 		if name then
 			swatch.text = B.CreateFS(swatch, 14, name, false, "LEFT", 26, 0)
 		end
-		local tex = swatch:CreateTexture()
+		local tex = swatch:CreateTexture(nil, "ARTWORK")
 		tex:SetInside()
 		tex:SetTexture(DB.bdTex)
 		tex:SetVertexColor(color.r, color.g, color.b)
@@ -2054,4 +1839,279 @@ do
 
 		object = EnumerateFrames(object)
 	end
+end
+
+-- 自定义
+do
+	function B:GetObject(key)
+		local frameName = self.GetName and self:GetName()
+		return self[key] or (frameName and _G[frameName..key])
+	end
+
+	function B:PrintTextures(name)
+		if self.GetRegions then
+			for index, region in pairs {self:GetRegions()} do
+				local regionName = region:GetDebugName()
+				if string.find(regionName, name) then
+					print("Regions:", index, regionName)
+					break
+				end
+			end
+		else
+			for index, child in pairs {self:GetChildren()} do
+				local childName = child:GetDebugName()
+				if string.find(childName, name) then
+					print("Children:", index, childName)
+					break
+				end
+			end
+		end
+	end
+
+	function B.UpdatePoint(f1, p1, f2, p2, x, y)
+		if not f1 then return end
+
+		f1:ClearAllPoints()
+		f1:SetPoint(p1, f2, p2, x, y)
+	end
+
+	function B.UpdateSize(f1, x1, y1, x2, y2, f2)
+		if not f1 then return end
+
+		local f = f1:GetParent()
+		f1:ClearAllPoints()
+		f1:SetPoint("TOPLEFT", f2 or f, x1, y1)
+		f1:SetPoint("BOTTOMRIGHT", f2 or f, x2, y2)
+	end
+
+	local headers = {"Header", "header"}
+	local portraits = {"Portrait", "portrait"}
+	local closes = {"CloseButton", "Close"}
+	function B:ReskinFrame(killType)
+		if killType == "none" then
+			B.CleanTextures(self)
+		else
+			B.StripTextures(self, killType or 99)
+		end
+
+		local bg = B.SetBD(self, 0, 0, 0, 0)
+		for _, key in pairs(headers) do
+			local frameHeader = B.GetObject(self, key)
+			if frameHeader then
+				B.StripTextures(frameHeader)
+				B.UpdatePoint(frameHeader, "TOP", bg, "TOP", 0, 5)
+			end
+		end
+		for _, key in pairs(portraits) do
+			local framePortrait = B.GetObject(self, key)
+			if framePortrait then framePortrait:SetAlpha(0) end
+		end
+		for _, key in pairs(closes) do
+			local closeButton = B.GetObject(self, key)
+			if closeButton and closeButton:IsObjectType("Button") then
+				B.ReskinClose(closeButton, bg)
+			end
+		end
+
+		return bg
+	end
+
+	local barWords = {
+		"Label",
+		"label",
+		"Rank",
+		"RankText",
+		"rankText",
+		"Text",
+		"text",
+	}
+
+	function B:ReskinStatusBar(noCC, shadow)
+		B.StripTextures(self)
+		if shadow then
+			B.SetBD(self)
+		else
+			B.CreateBDFrame(self, .25)
+		end
+
+		self:SetStatusBarTexture(DB.normTex)
+		if not noCC then
+			self:SetStatusBarColor(cr, cg, cb, C.alpha)
+		end
+
+		for _, key in pairs(barWords) do
+			local text = B.GetObject(self, key)
+			if text then
+				text:SetJustifyH("CENTER")
+				text:ClearAllPoints()
+				text:SetPoint("CENTER", self, "CENTER", 1, 0)
+			end
+		end
+	end
+
+	function B:ReskinTTStatusBar()
+		self.StatusBar:ClearAllPoints()
+		self.StatusBar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", C.mult, C.margin)
+		self.StatusBar:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -C.mult, C.margin)
+		self.StatusBar:SetHeight(6)
+
+		B.ReskinStatusBar(self.StatusBar, true, true)
+	end
+
+	function B:ReskinTooltip()
+		if not self then
+			if DB.isDeveloper then print("Unknown tooltip spotted.") end
+			return
+		end
+		if self:IsForbidden() then return end
+		self:SetScale(C.db["Tooltip"]["Scale"])
+
+		if not self.tipStyled then
+			self:HideBackdrop()
+			self:DisableDrawLayer("BACKGROUND")
+			self.bg = B.SetBD(self, 0, 0, 0, 0)
+			self.bg:SetFrameLevel(self:GetFrameLevel())
+			B.SetBorderColor(self.bg)
+
+			if self.StatusBar then
+				B.ReskinTTStatusBar(self)
+			end
+
+			self.tipStyled = true
+		end
+
+		B.SetBorderColor(self.bg)
+
+		if not C.db["Tooltip"]["ItemQuality"] then return end
+
+		local data = self.GetTooltipData and self:GetTooltipData()
+		if data then
+			local link = data.guid and C_Item.GetItemLinkByGUID(data.guid) or data.hyperlink
+			if link then
+				local quality = select(3, C_Item.GetItemInfo(link))
+				local color = DB.QualityColors[quality or 1]
+				if color then
+					self.bg:SetBackdropBorderColor(color.r, color.g, color.b)
+				end
+			end
+		end
+	end
+
+	function B:ReskinSideTab()
+		if not self or not self.GetNormalTexture then return end
+
+		self:SetSize(32, 32)
+		self:GetRegions():Hide()
+
+		local icon = self:GetNormalTexture()
+		local icbg = B.ReskinIcon(icon)
+		B.ReskinHLTex(self, icbg)
+		B.ReskinCPTex(self, icbg)
+	end
+
+	function B:ReskinFrameTab(index, tabName)
+		local frameName = self:GetDebugName()
+		local tab = frameName and frameName.."Tab"
+
+		if tabName then tab = frameName and frameName..tabName end
+		if not tab then return end
+
+		for i = 1, index do
+			local tabs = _G[tab..i]
+			if tabs then
+				if not tabs.styled then
+					B.ReskinTab(tabs)
+
+					tabs.styled = true
+				end
+
+				tabs:ClearAllPoints()
+				if i == 1 then
+					tabs:Point("TOPLEFT", frameName, "BOTTOMLEFT", 15, 1)
+				else
+					tabs:Point("LEFT", _G[tab..(i-1)], "RIGHT", -15, 0)
+				end
+			end
+		end
+	end
+
+	function B:ReskinBGBorder(relativeTo, classColor)
+		if not self then return end
+
+		self:SetTexture(DB.bdTex)
+		self:SetDrawLayer("BACKGROUND")
+
+		if classColor then
+			self:SetVertexColor(cr, cg, cb)
+		end
+
+		self:ClearAllPoints()
+		self:SetAllPoints(relativeTo)
+	end
+
+	function B:ReskinHLTex(relativeTo, classColor, isColorTex)
+		if not self then return end
+
+		local r, g, b = 1, 1, 1
+		if classColor then r, g, b = cr, cg, cb end
+
+		local tex
+		if self.SetHighlightTexture then
+			self:SetHighlightTexture(DB.bdTex)
+			tex = self:GetHighlightTexture()
+		elseif self.SetNormalTexture then
+			self:SetNormalTexture(DB.bdTex)
+			tex = self:GetNormalTexture()
+		elseif self.SetTexture then
+			self:SetTexture(DB.bdTex)
+			tex = self
+		end
+
+		if tex then
+			if isColorTex then
+				tex:SetColorTexture(r, g, b, .25)
+			else
+				tex:SetVertexColor(r, g, b, .25)
+			end
+
+			if relativeTo then
+				tex:SetInside(relativeTo)
+			end
+		end
+	end
+
+	function B:ReskinCPTex(relativeTo)
+		if not self then return end
+
+		local checked = self.GetCheckedTexture and self:GetCheckedTexture()
+		if checked then
+			checked:SetVertexColor(1, 1, 1)
+			B.ReskinBGBorder(checked, relativeTo)
+		end
+
+		local pushed = self.GetPushedTexture and self:GetPushedTexture()
+		if pushed then
+			pushed:SetVertexColor(0, 1, 1)
+			B.ReskinBGBorder(pushed, relativeTo)
+		end
+	end
+
+	function B:ReskinText(r, g, b, a, size)
+		if not self then return end
+
+		self:SetTextColor(r, g, b, a or 1)
+
+		if size then
+			if tonumber(size) then
+				self:SetFontSize(size)
+			else
+				self:SetFontObject(size)
+			end
+		end
+	end
+
+	B.ReskinPortraitFrame = B.ReskinFrame
+	B.StyleSearchButton = B.ReskinSearchList
+	B.ReskinEditBox = B.ReskinInput
+	B.Reskin = B.ReskinButton
 end

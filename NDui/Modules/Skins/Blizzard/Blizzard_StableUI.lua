@@ -2,15 +2,15 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 C.themes["Blizzard_StableUI"] = function()
-	B.ReskinPortraitFrame(StableFrame)
-	B.Reskin(StableFrame.StableTogglePetButton)
-	B.Reskin(StableFrame.ReleasePetButton)
+	B.ReskinFrame(StableFrame)
+	B.ReskinButton(StableFrame.StableTogglePetButton)
+	B.ReskinButton(StableFrame.ReleasePetButton)
 
 	local stabledPetList = StableFrame.StabledPetList
 	B.StripTextures(stabledPetList)
 	B.StripTextures(stabledPetList.ListCounter)
 	B.CreateBDFrame(stabledPetList.ListCounter, .25)
-	B.ReskinEditBox(stabledPetList.FilterBar.SearchBox)
+	B.ReskinInput(stabledPetList.FilterBar.SearchBox)
 	B.ReskinFilterButton(stabledPetList.FilterBar.FilterDropdown)
 	B.ReskinTrimScroll(stabledPetList.ScrollBar)
 

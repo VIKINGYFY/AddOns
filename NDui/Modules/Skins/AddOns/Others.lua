@@ -38,10 +38,10 @@ function S:PostalSkin()
 	if not C_AddOns.IsAddOnLoaded("Postal") then return end
 	if not PostalOpenAllButton then return end -- outdate postal
 
-	B.Reskin(PostalSelectOpenButton)
-	B.Reskin(PostalSelectReturnButton)
-	B.Reskin(PostalOpenAllButton)
-	B.Reskin(PostalForwardButton)
+	B.ReskinButton(PostalSelectOpenButton)
+	B.ReskinButton(PostalSelectReturnButton)
+	B.ReskinButton(PostalOpenAllButton)
+	B.ReskinButton(PostalForwardButton)
 	B.ReskinArrow(Postal_ModuleMenuButton, "down")
 	B.ReskinArrow(Postal_OpenAllMenuButton, "down")
 	B.ReskinArrow(Postal_BlackBookButton, "down")
@@ -228,7 +228,7 @@ function S:SoulshapeJournal()
 		styled = true
 
 		B.StripTextures(frame)
-		B.SetBD(frame, 1) -- on top of mount journal
+		B.SetBD(frame) -- on top of mount journal
 		B.ReskinClose(frame.CloseButton)
 		B.ReskinScroll(frame.ScrollFrame.ScrollBar)
 		B.ReskinArrow(frame.SoulshapeDisplay.ModelScene.RotateLeftButton, "left")
@@ -257,7 +257,7 @@ function S:ATT()
 	local function reskinATTWindow(frame)
 		if not frame or frame.styled then return end
 
-		B.SetBD(frame, nil, 2, -2, -2, 2)
+		B.SetBD(frame, 2, -2, -2, 2)
 		B.ReskinClose(frame.CloseButton, nil, -4, -4)
 		B.ReskinScroll(frame.ScrollBar)
 		frame.Grip:SetTexture([[Interface\ChatFrame\UI-ChatIM-SizeGrabber-Up]])
@@ -321,7 +321,7 @@ function S:ERT()
 		tab:SetPushedTexture(0)
 		tab:SetDisabledTexture(0)
 		local hl = tab:GetHighlightTexture()
-		hl:SetColorTexture(cr, cg, cb, .2)
+		hl:SetColorTexture(cr, cg, cb, .25)
 		hl:SetInside(bg)
 	end
 
@@ -356,7 +356,7 @@ function S:ERT()
 					for i = 5, 19 do
 						select(i, header.button:GetRegions()):SetTexture("")
 					end
-					B.Reskin(header.button)
+					B.ReskinButton(header.button)
 					header.descriptionBG:SetAlpha(0)
 					header.descriptionBGBottom:SetAlpha(0)
 					header.description:SetTextColor(1, 1, 1)
@@ -450,11 +450,11 @@ function S:TLDR()
 				B.ReskinCheck(child)
 				child:SetSize(24, 24)
 			elseif child:IsObjectType("Button") then
-				B.Reskin(child)
+				B.ReskinButton(child)
 			elseif child:IsObjectType("Slider") then
 				B.ReskinSlider(child)
 			elseif child:IsObjectType("EditBox") then
-				B.ReskinEditBox(child)
+				B.ReskinInput(child)
 			elseif child:IsObjectType("Frame") and child.Button then
 				B.StripTextures(child)
 				B.ReskinArrow(child.Button, "down")
@@ -465,7 +465,7 @@ function S:TLDR()
 	B.StripTextures(TLDRMissionsFrame)
 	B.ReskinClose(TLDRMissionsFrame.CloseButton)
 	B.SetBD(TLDRMissionsFrame):SetInside(nil, 2, 2)
-	B.Reskin(TLDRMissionsToggleButton)
+	B.ReskinButton(TLDRMissionsToggleButton)
 
 	reskinUIElements(TLDRMissionsFrameMainPanel)
 	reskinUIElements(TLDRMissionsFrameAdvancedPanel)
@@ -482,16 +482,12 @@ local function handleJournal()
 
 	local progressBar = frame.progressBar
 	if progressBar then
-		progressBar.border:Hide()
-		progressBar:DisableDrawLayer("BACKGROUND")
-		progressBar.text:SetPoint("CENTER", 0, 1)
-		progressBar:SetStatusBarTexture(DB.bdTex)
-		B.CreateBDFrame(progressBar, 1)
+		B.ReskinStatusBar(progressBar)
 	end
 
 	B.StripTextures(frame.iconsFrame)
 	B.CreateBDFrame(frame, 1)
-	B.ReskinEditBox(frame.SearchBox)
+	B.ReskinInput(frame.SearchBox)
 	B.ReskinFilterButton(frame.FilterButton)
 	B.ReskinArrow(frame.PagingFrame.PrevPageButton, "left")
 	B.ReskinArrow(frame.PagingFrame.NextPageButton, "right")

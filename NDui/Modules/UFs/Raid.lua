@@ -65,7 +65,8 @@ end
 
 function UF:CreateThreatBorder(self)
 	local threatIndicator = B.CreateSD(self.backdrop, 6, true)
-	threatIndicator:SetOutside(self, 4+C.mult, 4+C.mult)
+	threatIndicator:SetFrameLevel(self:GetFrameLevel()+1)
+	threatIndicator:SetOutside(self, 6+C.mult, 6+C.mult)
 	threatIndicator:Hide()
 	self.backdrop.__shadow = nil
 

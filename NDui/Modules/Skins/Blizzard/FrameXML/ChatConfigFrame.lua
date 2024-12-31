@@ -11,19 +11,28 @@ table.insert(C.defaultThemes, function()
 
 	hooksecurefunc("ChatConfig_UpdateCheckboxes", function(frame)
 		if not FCF_GetCurrentChatFrame() then return end
+		if not frame.styled then
+			B.StripTextures(frame)
 
-		local nameString = frame:GetName().."Checkbox"
-		for index in ipairs(frame.checkBoxTable) do
-			local checkBoxName = nameString..index
-			local checkbox = _G[checkBoxName]
-			if checkbox and not checkbox.styled then
-				checkbox:HideBackdrop()
-				local bg = B.CreateBDFrame(checkbox, .25)
-				bg:SetInside()
-				B.ReskinCheck(_G[checkBoxName.."Check"])
+			local nameString = frame:GetName().."Checkbox"
+			for index in pairs(frame.checkBoxTable) do
+				local buttonName = nameString..index
 
-				checkbox.styled = true
+				local button = _G[buttonName]
+				B.StripTextures(button)
+				local bg = B.CreateBDFrame(button, .25)
+				B.UpdateSize(bg, 1, -1, -1, 1)
+
+				local check = _G[buttonName.."Check"]
+				B.ReskinCheck(check)
+
+				local swatch = _G[buttonName.."ColorSwatch"]
+				if swatch then
+					B.ReskinColorSwatch(swatch)
+				end
 			end
+
+			frame.styled = true
 		end
 	end)
 
@@ -123,18 +132,20 @@ table.insert(C.defaultThemes, function()
 
 	hooksecurefunc("ChatConfig_UpdateSwatches", function(frame)
 		if not frame.swatchTable then return end
+		if not frame.styled then
+			B.StripTextures(frame)
 
-		local nameString = frame:GetName().."Swatch"
-		local baseName, colorSwatch
-		for index in ipairs(frame.swatchTable) do
-			baseName = nameString..index
-			local bu = _G[baseName]
-			if not bu.styled then
-				B.StripTextures(bu)
-				B.CreateBDFrame(bu, .25):SetInside()
-				B.ReskinColorSwatch(_G[baseName.."ColorSwatch"])
-				bu.styled = true
+			local nameString = frame:GetDebugName().."Swatch"
+			for index in pairs(frame.swatchTable) do
+				local buttonName = frame:GetDebugName().."Swatch"..index
+				local button = _G[buttonName]
+				local swatch = _G[buttonName.."ColorSwatch"]
+
+				B.StripTextures(button)
+				B.ReskinColorSwatch(swatch)
 			end
+
+			frame.styled = true
 		end
 	end)
 
@@ -142,14 +153,14 @@ table.insert(C.defaultThemes, function()
 	bg:SetPoint("TOPLEFT", 3, 0)
 	bg:SetPoint("BOTTOMRIGHT", 0, 1)
 
-	B.Reskin(CombatLogDefaultButton)
-	B.Reskin(ChatConfigCombatSettingsFiltersCopyFilterButton)
-	B.Reskin(ChatConfigCombatSettingsFiltersAddFilterButton)
-	B.Reskin(ChatConfigCombatSettingsFiltersDeleteButton)
-	B.Reskin(CombatConfigSettingsSaveButton)
-	B.Reskin(ChatConfigFrameOkayButton)
-	B.Reskin(ChatConfigFrameDefaultButton)
-	B.Reskin(ChatConfigFrameRedockButton)
+	B.ReskinButton(CombatLogDefaultButton)
+	B.ReskinButton(ChatConfigCombatSettingsFiltersCopyFilterButton)
+	B.ReskinButton(ChatConfigCombatSettingsFiltersAddFilterButton)
+	B.ReskinButton(ChatConfigCombatSettingsFiltersDeleteButton)
+	B.ReskinButton(CombatConfigSettingsSaveButton)
+	B.ReskinButton(ChatConfigFrameOkayButton)
+	B.ReskinButton(ChatConfigFrameDefaultButton)
+	B.ReskinButton(ChatConfigFrameRedockButton)
 	B.ReskinArrow(ChatConfigMoveFilterUpButton, "up")
 	B.ReskinArrow(ChatConfigMoveFilterDownButton, "down")
 	B.ReskinInput(CombatConfigSettingsNameEditBox)
@@ -170,9 +181,9 @@ table.insert(C.defaultThemes, function()
 	-- TextToSpeech
 	B.StripTextures(TextToSpeechButton, 5)
 
-	B.Reskin(TextToSpeechFramePlaySampleButton)
-	B.Reskin(TextToSpeechFramePlaySampleAlternateButton)
-	B.Reskin(TextToSpeechDefaultButton)
+	B.ReskinButton(TextToSpeechFramePlaySampleButton)
+	B.ReskinButton(TextToSpeechFramePlaySampleAlternateButton)
+	B.ReskinButton(TextToSpeechDefaultButton)
 	B.ReskinCheck(TextToSpeechCharacterSpecificButton)
 
 	B.ReskinDropDown(TextToSpeechFrameTtsVoiceDropdown)

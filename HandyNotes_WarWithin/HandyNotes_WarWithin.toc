@@ -1,8 +1,8 @@
-## Interface: 110005
+## Interface: 110007
 ## Title: HandyNotes: The War Within Treasures and Rares
 ## Notes: Where are the hidden treasures in the War Within?
 ## Author: Kemayo
-## Version: v70
+## Version: v72
 ## IconTexture: Interface\Icons\Ability_Spy
 ## DefaultState: enabled
 ## X-Category: Map
@@ -11,9 +11,6 @@
 ## X-Wago-ID: 56n9w0N9
 ## SavedVariables: HandyNotes_WarWithinDB
 ## RequiredDeps: HandyNotes
-## OptionalDeps: !LibUIDropDownMenu
-
-lib\LibUIDropDownMenu\LibUIDropDownMenu.xml
 
 handler\handler.xml
 
@@ -25,6 +22,7 @@ zones\Hallowfall.lua
 zones\IsleOfDorn.lua
 zones\KhazAlgar.lua
 zones\RingingDeeps.lua
+zones\SirenIsle.lua
 
 achievements\GlyphHunter.lua
 #achievements\EchoesOfDanger.lua

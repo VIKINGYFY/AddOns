@@ -292,7 +292,7 @@ function M:MailBox_CreatButton(parent, width, height, text, anchor)
 	button:SetSize(width, height)
 	button:SetPoint(unpack(anchor))
 	button:SetText(text)
-	if C.db["Skins"]["BlizzardSkins"] then B.Reskin(button) end
+	if C.db["Skins"]["BlizzardSkins"] then B.ReskinButton(button) end
 
 	return button
 end

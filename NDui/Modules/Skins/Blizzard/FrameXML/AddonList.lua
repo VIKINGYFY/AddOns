@@ -6,11 +6,11 @@ table.insert(C.defaultThemes, function()
 
 	local cr, cg, cb = DB.r, DB.g, DB.b
 
-	B.ReskinPortraitFrame(AddonList)
-	B.Reskin(AddonListEnableAllButton)
-	B.Reskin(AddonListDisableAllButton)
-	B.Reskin(AddonListCancelButton)
-	B.Reskin(AddonListOkayButton)
+	B.ReskinFrame(AddonList)
+	B.ReskinButton(AddonListEnableAllButton)
+	B.ReskinButton(AddonListDisableAllButton)
+	B.ReskinButton(AddonListCancelButton)
+	B.ReskinButton(AddonListOkayButton)
 	B.ReskinCheck(AddonListForceLoad)
 	B.ReskinDropDown(AddonList.Dropdown)
 	B.ReskinTrimScroll(AddonList.ScrollBar)
@@ -26,7 +26,7 @@ table.insert(C.defaultThemes, function()
 	hooksecurefunc("AddonList_InitButton", function(entry)
 		if not entry.styled then
 			B.ReskinCheck(entry.Enabled, true)
-			B.Reskin(entry.LoadAddonButton)
+			B.ReskinButton(entry.LoadAddonButton)
 			hooksecurefunc(entry.Enabled:GetCheckedTexture(), "SetDesaturated", forceSaturation)
 
 			B.ReplaceIconString(entry.Title)

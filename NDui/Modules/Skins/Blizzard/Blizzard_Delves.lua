@@ -15,7 +15,7 @@ end
 local function reskinOptionSlot(frame, skip)
 	local option = frame.OptionsList
 	B.StripTextures(option)
-	local bg = B.SetBD(option, nil, -5, 5, 5, -5)
+	local bg = B.SetBD(option, -5, 5, 5, -5)
 	bg:SetFrameLevel(3)
 	if not skip then
 		hooksecurefunc(option.ScrollBox, "Update", updateButton)
@@ -23,14 +23,14 @@ local function reskinOptionSlot(frame, skip)
 end
 
 C.themes["Blizzard_DelvesCompanionConfiguration"] = function()
-	B.ReskinPortraitFrame(DelvesCompanionConfigurationFrame)
-	B.Reskin(DelvesCompanionConfigurationFrame.CompanionConfigShowAbilitiesButton)
+	B.ReskinFrame(DelvesCompanionConfigurationFrame)
+	B.ReskinButton(DelvesCompanionConfigurationFrame.CompanionConfigShowAbilitiesButton)
 
 	reskinOptionSlot(DelvesCompanionConfigurationFrame.CompanionCombatRoleSlot, true)
 	reskinOptionSlot(DelvesCompanionConfigurationFrame.CompanionUtilityTrinketSlot)
 	reskinOptionSlot(DelvesCompanionConfigurationFrame.CompanionCombatTrinketSlot)
 
-	B.ReskinPortraitFrame(DelvesCompanionAbilityListFrame)
+	B.ReskinFrame(DelvesCompanionAbilityListFrame)
 	B.ReskinDropDown(DelvesCompanionAbilityListFrame.DelvesCompanionRoleDropdown)
 	B.ReskinArrow(DelvesCompanionAbilityListFrame.DelvesCompanionAbilityListPagingControls.PrevPageButton, "left")
 	B.ReskinArrow(DelvesCompanionAbilityListFrame.DelvesCompanionAbilityListPagingControls.NextPageButton, "right")
@@ -48,7 +48,7 @@ end
 
 C.themes["Blizzard_DelvesDashboardUI"] = function()
 	DelvesDashboardFrame.DashboardBackground:SetAlpha(0)
-	B.Reskin(DelvesDashboardFrame.ButtonPanelLayoutFrame.CompanionConfigButtonPanel.CompanionConfigButton)
+	B.ReskinButton(DelvesDashboardFrame.ButtonPanelLayoutFrame.CompanionConfigButtonPanel.CompanionConfigButton)
 end
 
 local function handleRewards(self)
@@ -63,9 +63,9 @@ local function handleRewards(self)
 end
 
 C.themes["Blizzard_DelvesDifficultyPicker"] = function()
-	B.ReskinPortraitFrame(DelvesDifficultyPickerFrame)
+	B.ReskinFrame(DelvesDifficultyPickerFrame)
 	B.ReskinDropDown(DelvesDifficultyPickerFrame.Dropdown)
-	B.Reskin(DelvesDifficultyPickerFrame.EnterDelveButton)
+	B.ReskinButton(DelvesDifficultyPickerFrame.EnterDelveButton)
 
 	DelvesDifficultyPickerFrame.DelveRewardsContainerFrame:HookScript("OnShow", handleRewards)
 	hooksecurefunc(DelvesDifficultyPickerFrame.DelveRewardsContainerFrame, "SetRewards", handleRewards)

@@ -7,7 +7,7 @@ local function reskinHeader(header)
 	for i = 4, 18 do
 		select(i, header.button:GetRegions()):SetTexture("")
 	end
-	B.Reskin(header.button)
+	B.ReskinButton(header.button)
 	header.descriptionBG:SetAlpha(0)
 	header.descriptionBGBottom:SetAlpha(0)
 	header.description:SetTextColor(1, 1, 1)
@@ -60,7 +60,7 @@ C.themes["Blizzard_EncounterJournal"] = function()
 		tab:SetPushedTexture(0)
 		tab:SetDisabledTexture(0)
 		local hl = tab:GetHighlightTexture()
-		hl:SetColorTexture(r, g, b, .2)
+		hl:SetColorTexture(r, g, b, .25)
 		hl:SetInside(bg)
 
 		if name == "overviewTab" then
@@ -112,7 +112,7 @@ C.themes["Blizzard_EncounterJournal"] = function()
 		for i = 1, self.ScrollTarget:GetNumChildren() do
 			local child = select(i, self.ScrollTarget:GetChildren())
 			if not child.styled then
-				B.Reskin(child, true)
+				B.ReskinButton(child)
 				local hl = child:GetHighlightTexture()
 				hl:SetColorTexture(r, g, b, .25)
 				hl:SetInside(child.__bg)
@@ -180,10 +180,10 @@ C.themes["Blizzard_EncounterJournal"] = function()
 	for i = 1, EncounterJournalSearchBox:GetNumChildren() do
 		local child = select(i, EncounterJournalSearchBox:GetChildren())
 		if child.iconFrame then
-			B.StyleSearchButton(child)
+			B.ReskinSearchList(child)
 		end
 	end
-	B.StyleSearchButton(showAllResults)
+	B.ReskinSearchList(showAllResults)
 
 	do
 		local result = EncounterJournalSearchResults
@@ -217,7 +217,7 @@ C.themes["Blizzard_EncounterJournal"] = function()
 	end
 
 	-- Various controls
-	B.ReskinPortraitFrame(EncounterJournal)
+	B.ReskinFrame(EncounterJournal)
 	B.ReskinInput(EncounterJournalSearchBox)
 	B.ReskinTrimScroll(EncounterJournal.encounter.instance.LoreScrollBar)
 	B.ReskinTrimScroll(EncounterJournal.encounter.info.BossesScrollBar)
@@ -242,7 +242,7 @@ C.themes["Blizzard_EncounterJournal"] = function()
 	local centerDisplay = suggestion.centerDisplay
 	centerDisplay.title.text:SetTextColor(1, 1, 1)
 	centerDisplay.description.text:SetTextColor(.9, .9, .9)
-	B.Reskin(suggestion.button)
+	B.ReskinButton(suggestion.button)
 
 	local reward = suggestion.reward
 	reward.text:SetTextColor(.9, .9, .9)
@@ -267,7 +267,7 @@ C.themes["Blizzard_EncounterJournal"] = function()
 		centerDisplay:SetPoint("TOPLEFT", 85, -10)
 		centerDisplay.title.text:SetTextColor(1, 1, 1)
 		centerDisplay.description.text:SetTextColor(.9, .9, .9)
-		B.Reskin(centerDisplay.button)
+		B.ReskinButton(centerDisplay.button)
 
 		local reward = suggestion.reward
 		reward.iconRing:Hide()

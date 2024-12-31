@@ -74,7 +74,7 @@ do
 		elseif DB.Studying[spellID] then
 			itemType = "知识"
 		end
-		
+
 		if DB.SpecialJunk[itemID] then
 			itemType = SPECIAL
 		end
@@ -100,6 +100,8 @@ do
 				if string.find(stat, "EMPTY_SOCKET_") then
 					itemStat = itemStat.."-"..L["Socket"]
 				end
+
+				break
 			end
 		end
 

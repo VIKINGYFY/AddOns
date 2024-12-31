@@ -21,7 +21,7 @@ table.insert(C.defaultThemes, function()
 				local backdrop = _G[name..i.."Backdrop"]
 				if backdrop and not backdrop.styled then
 					B.StripTextures(backdrop)
-					B.SetBD(backdrop, .7)
+					B.SetBD(backdrop)
 
 					backdrop.styled = true
 				end
@@ -73,7 +73,7 @@ table.insert(C.defaultThemes, function()
 						check:SetSize(20, 20)
 						check:SetDesaturated(true)
 					else
-						check:SetColorTexture(r, g, b, .6)
+						check:SetColorTexture(r, g, b, .5)
 						check:SetSize(10, 10)
 						check:SetDesaturated(false)
 					end
@@ -87,7 +87,7 @@ table.insert(C.defaultThemes, function()
 
 	hooksecurefunc("UIDropDownMenu_SetIconImage", function(icon, texture)
 		if texture:find("Divider") then
-			icon:SetColorTexture(1, 1, 1, .2)
+			icon:SetColorTexture(1, 1, 1, .25)
 			icon:SetHeight(C.mult)
 		end
 	end)

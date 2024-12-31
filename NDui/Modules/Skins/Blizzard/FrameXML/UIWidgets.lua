@@ -15,9 +15,8 @@ end
 
 local function ReskinWidgetStatusBar(bar)
 	if bar and not bar.styled then
-		B.StripTextures(bar, 0)
+		B.CleanTextures(bar)
 		B.SetBD(bar)
-		bar:SetStatusBarTexture(DB.normTex)
 
 		if bar.Label then
 			--bar.Label:SetPoint("CENTER", 0, -5)
@@ -143,5 +142,5 @@ table.insert(C.defaultThemes, function()
 		end
 	end)
 
-	B.Reskin(_G.UIWidgetCenterDisplayFrame.CloseButton)
+	B.ReskinButton(_G.UIWidgetCenterDisplayFrame.CloseButton)
 end)

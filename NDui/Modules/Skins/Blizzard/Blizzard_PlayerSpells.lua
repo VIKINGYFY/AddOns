@@ -4,30 +4,30 @@ local B, C, L, DB = unpack(ns)
 local function reskinTalentFrameDialog(dialog)
 	B.StripTextures(dialog)
 	B.SetBD(dialog)
-	if dialog.AcceptButton then B.Reskin(dialog.AcceptButton) end
-	if dialog.CancelButton then B.Reskin(dialog.CancelButton) end
-	if dialog.DeleteButton then B.Reskin(dialog.DeleteButton) end
+	if dialog.AcceptButton then B.ReskinButton(dialog.AcceptButton) end
+	if dialog.CancelButton then B.ReskinButton(dialog.CancelButton) end
+	if dialog.DeleteButton then B.ReskinButton(dialog.DeleteButton) end
 
-	B.ReskinEditBox(dialog.NameControl.EditBox)
+	B.ReskinInput(dialog.NameControl.EditBox)
 	dialog.NameControl.EditBox.__bg:SetPoint("TOPLEFT", -5, -10)
 	dialog.NameControl.EditBox.__bg:SetPoint("BOTTOMRIGHT", 5, 10)
 end
 
 C.themes["Blizzard_PlayerSpells"] = function()
 	local frame = PlayerSpellsFrame
-	B.ReskinPortraitFrame(frame)
+	B.ReskinFrame(frame)
 	B.ReskinMinMax(frame.MaximizeMinimizeButton)
 
 	local talentsFrame = frame.TalentsFrame
-	B.Reskin(talentsFrame.ApplyButton)
+	B.ReskinButton(talentsFrame.ApplyButton)
 	B.ReskinDropDown(talentsFrame.LoadSystem.Dropdown)
-	B.Reskin(talentsFrame.InspectCopyButton)
+	B.ReskinButton(talentsFrame.InspectCopyButton)
 
 	talentsFrame.BlackBG:Hide()
 	talentsFrame.Background:SetAlpha(.5)
 	talentsFrame.BottomBar:SetAlpha(.5)
 
-	B.ReskinEditBox(talentsFrame.SearchBox)
+	B.ReskinInput(talentsFrame.SearchBox)
 	talentsFrame.SearchBox.__bg:SetPoint("TOPLEFT", -4, -5)
 	talentsFrame.SearchBox.__bg:SetPoint("BOTTOMRIGHT", 0, 5)
 
@@ -43,7 +43,7 @@ C.themes["Blizzard_PlayerSpells"] = function()
 	hooksecurefunc(frame.SpecFrame, "UpdateSpecFrame", function(self)
 		for specContentFrame in self.SpecContentFramePool:EnumerateActive() do
 			if not specContentFrame.styled then
-				B.Reskin(specContentFrame.ActivateButton)
+				B.ReskinButton(specContentFrame.ActivateButton)
 
 				local role = GetSpecializationRole(specContentFrame.specIndex)
 				if role then
@@ -85,7 +85,7 @@ C.themes["Blizzard_PlayerSpells"] = function()
 
 		local editbox = dialog.LoadoutName
 		if editbox then
-			B.ReskinEditBox(editbox)
+			B.ReskinInput(editbox)
 			editbox.__bg:SetPoint("TOPLEFT", -5, -5)
 			editbox.__bg:SetPoint("BOTTOMRIGHT", 5, 5)
 		end
@@ -100,14 +100,14 @@ C.themes["Blizzard_PlayerSpells"] = function()
 	local dialog = HeroTalentsSelectionDialog
 	if dialog then
 		B.StripTextures(dialog)
-		B.SetBD(dialog, 1)
+		B.SetBD(dialog)
 		B.ReskinClose(dialog.CloseButton)
 
 		hooksecurefunc(dialog, "ShowDialog", function(self)
 			for specFrame in self.SpecContentFramePool:EnumerateActive() do
 				if not specFrame.styled then
-					B.Reskin(specFrame.ActivateButton)
-					B.Reskin(specFrame.ApplyChangesButton)
+					B.ReskinButton(specFrame.ActivateButton)
+					B.ReskinButton(specFrame.ApplyChangesButton)
 					specFrame.styled = true
 				end
 			end
@@ -120,13 +120,13 @@ C.themes["Blizzard_PlayerSpells"] = function()
 
 		for i = 1, 3 do
 			local tab = select(i, spellBook.CategoryTabSystem:GetChildren())
-			B.ReskinTab(tab)
+			B.ReskinTab(tab, true)
 		end
 		B.ReskinArrow(spellBook.PagedSpellsFrame.PagingControls.PrevPageButton, "left")
 		B.ReskinArrow(spellBook.PagedSpellsFrame.PagingControls.NextPageButton, "right")
 		spellBook.PagedSpellsFrame.PagingControls.PageText:SetTextColor(1, 1, 1)
 		B.ReskinCheck(spellBook.HidePassivesCheckButton.Button)
-		B.ReskinEditBox(spellBook.SearchBox)
+		B.ReskinInput(spellBook.SearchBox)
 		spellBook.SearchBox.__bg:SetPoint("TOPLEFT", -5, -3)
 		spellBook.SearchBox.__bg:SetPoint("BOTTOMRIGHT", 2, 3)
 

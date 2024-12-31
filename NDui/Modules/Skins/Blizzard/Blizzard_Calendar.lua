@@ -70,7 +70,7 @@ C.themes["Blizzard_Calendar"] = function()
 	B.StripTextures(CalendarClassTotalsButton)
 
 	B.StripTextures(CalendarFrame)
-	B.SetBD(CalendarFrame, nil, 9, 0, -7, 1)
+	B.SetBD(CalendarFrame, 9, 0, -7, 1)
 	B.CreateBDFrame(CalendarClassTotalsButton)
 
 	ReskinEventList(CalendarViewEventInviteList)
@@ -160,7 +160,7 @@ C.themes["Blizzard_Calendar"] = function()
 		if not cbutton then
 			print(cbuttons[i])
 		else
-			B.Reskin(cbutton)
+			B.ReskinButton(cbutton)
 		end
 	end
 
@@ -189,7 +189,5 @@ C.themes["Blizzard_Calendar"] = function()
 	B.ReskinInput(CalendarMassInviteMaxLevelEdit)
 	B.ReskinArrow(CalendarPrevMonthButton, "left")
 	B.ReskinArrow(CalendarNextMonthButton, "right")
-	CalendarPrevMonthButton:SetSize(19, 19)
-	CalendarNextMonthButton:SetSize(19, 19)
 	B.ReskinCheck(CalendarCreateEventLockEventCheck)
 end

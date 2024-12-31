@@ -1,5 +1,5 @@
-## Changed in v70
+## Changed in v72
 
-* Reputation currencies are no longer notable once maxed
-* Updated for 11.0.5
+* Updated Siren Isle with more rares and treasures
+* Move right-click context menus to the new menu system as well
 

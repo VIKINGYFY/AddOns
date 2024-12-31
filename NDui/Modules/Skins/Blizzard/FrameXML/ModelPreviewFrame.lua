@@ -15,7 +15,7 @@ table.insert(C.defaultThemes, function()
 	B.ReskinArrow(Display.ModelScene.CarouselLeftButton, "left")
 	B.ReskinArrow(Display.ModelScene.CarouselRightButton, "right")
 	B.ReskinClose(ModelPreviewFrameCloseButton)
-	B.Reskin(ModelPreviewFrame.CloseButton)
+	B.ReskinButton(ModelPreviewFrame.CloseButton)
 
 	local bg = B.CreateBDFrame(Display.ModelScene, .25)
 	bg:SetPoint("TOPLEFT", -1, 0)

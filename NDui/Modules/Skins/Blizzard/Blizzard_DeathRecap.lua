@@ -10,7 +10,7 @@ C.themes["Blizzard_DeathRecap"] = function()
 	DeathRecapFrame.Divider:Hide()
 
 	B.SetBD(DeathRecapFrame)
-	B.Reskin(select(8, DeathRecapFrame:GetChildren())) -- bottom close button has no parentKey
+	B.ReskinButton(select(8, DeathRecapFrame:GetChildren())) -- bottom close button has no parentKey
 	B.ReskinClose(DeathRecapFrame.CloseXButton)
 
 	for i = 1, NUM_DEATH_RECAP_EVENTS do

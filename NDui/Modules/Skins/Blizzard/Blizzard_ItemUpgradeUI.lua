@@ -12,7 +12,7 @@ end
 
 C.themes["Blizzard_ItemUpgradeUI"] = function()
 	local ItemUpgradeFrame = ItemUpgradeFrame
-	B.ReskinPortraitFrame(ItemUpgradeFrame)
+	B.ReskinFrame(ItemUpgradeFrame)
 
 	hooksecurefunc(ItemUpgradeFrame, "UpdateUpgradeItemInfo", function(self)
 		if self.upgradeInfo then
@@ -31,7 +31,7 @@ C.themes["Blizzard_ItemUpgradeUI"] = function()
 	B.ReskinIconBorder(itemButton.IconBorder)
 
 	B.ReskinDropDown(ItemUpgradeFrame.ItemInfo.Dropdown)
-	B.Reskin(ItemUpgradeFrame.UpgradeButton)
+	B.ReskinButton(ItemUpgradeFrame.UpgradeButton)
 	ItemUpgradeFramePlayerCurrenciesBorder:Hide()
 
 	B.CreateBDFrame(ItemUpgradeFrameLeftItemPreviewFrame, .25)

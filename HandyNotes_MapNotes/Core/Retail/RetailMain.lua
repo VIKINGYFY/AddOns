@@ -79,7 +79,7 @@ ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
 		tooltip:SetOwner(self, "ANCHOR_RIGHT")
 	end
 
-    if (not nodeData.name) then return end
+  if (not nodeData.name) then return end
 
 	local instances = { strsplit("\n", nodeData.name) }
 
@@ -180,16 +180,60 @@ ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
       end
     end
 
-    if nodeData.wwwName then
-      tooltip:AddDoubleLine(nodeData.wwwName, nil, nil, false)
+    local IsQuestFlaggedCompleted = C_QuestLog.IsQuestFlaggedCompleted
+    if nodeData.questID then
+
+      if IsQuestFlaggedCompleted(nodeData.questID) == false then
+      
+        if nodeData.wwwName then
+          tooltip:AddDoubleLine("\n" .. nodeData.wwwName, nil, nil, false)
+        end
+
+        if nodeData.wwwLink and nodeData.showWWW == true then
+          tooltip:AddDoubleLine("|cffffffff" .. nodeData.wwwLink, nil, nil, false)
+          tooltip:AddLine("\n" .. L["Has not been unlocked yet"] .. "\n" .. "\n", 1, 0, 0)
+          if ns.Addon.db.profile.ExtraTooltip then
+            tooltip:AddDoubleLine("|cff00ff00".. "< " .. L["Middle mouse button to post the link in the chat"] .. " >" .. "\n" .. "< " .. L["Use the addon 'Prat', 'Chat Copy Paste' for example to then copy this link from the chat"] .. " >", nil, nil, false)
+          end
+        end
+      end
+
+      if IsQuestFlaggedCompleted(nodeData.questID) then
+          nodeData.showWWW = false
+          nodeData.wwwName = false
+      end
+
     end
 
-    if nodeData.www and nodeData.showWWW == true then
-      tooltip:AddDoubleLine("|cffffffff" .. nodeData.www, nil, nil, false)
-      if ns.Addon.db.profile.ExtraTooltip then
-        tooltip:AddDoubleLine("|cff00ff00".. "< " .. L["Middle mouse button to post the link in the chat"] .. " >" .. "\n" .. "< " .. L["Use the addon 'Prat', 'Chat Copy Paste' for example to then copy this link from the chat"] .. " >", nil, nil, false)
+    if nodeData.achievementID then
+      local _, name, _, completed, _, _, _, description, _, _, _, _, wasEarnedByMe = GetAchievementInfo(nodeData.achievementID)
+
+      --if wasEarnedByMe == false or completed == false then
+      if completed == false then
+        tooltip:AddLine("\n" .. description, nil, nil, false)
+
+        if nodeData.wwwName then
+          tooltip:AddDoubleLine(nodeData.wwwName, nil, nil, false)
+        end
+
+        if nodeData.wwwLink and nodeData.showWWW == true then
+          tooltip:AddDoubleLine("|cffffffff" .. nodeData.wwwLink, nil, nil, false)
+          tooltip:AddLine("\n" .. L["Has not been unlocked yet"], 1, 0, 0)
+          if ns.Addon.db.profile.ExtraTooltip then
+            tooltip:AddDoubleLine("\n" .. "|cff00ff00".. "< " .. L["Middle mouse button to post the link in the chat"] .. " >" .. "\n" .. "< " .. L["Use the addon 'Prat', 'Chat Copy Paste' for example to then copy this link from the chat"] .. " >", nil, nil, false)
+          end
+        end
+        
       end
+
+      -- if wasEarnedByMe == true and completed == true then
+      if completed == true then
+        nodeData.showWWW = false
+        nodeData.wwwName = false
+      end
+
     end
+
 
     -- Dungeons ,Raids and Multi
     if nodeData.type then
@@ -1204,7 +1248,9 @@ local leaveDelve = nodes[uiMapId][coord].leaveDelve
 local mnID = nodes[uiMapId][coord].mnID
 local mnID2 = nodes[uiMapId][coord].mnID2
 local mnID3 = nodes[uiMapId][coord].mnID3
-local www = nodes[uiMapId][coord].www
+local wwwLink = nodes[uiMapId][coord].wwwLink
+local questID = nodes[uiMapId][coord].questID
+local achievementID = nodes[uiMapId][coord].achievementID
 
 local mapInfo = C_Map.GetMapInfo(uiMapId)
 local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() == 87  or WorldMapFrame:GetMapID() == 89 or WorldMapFrame:GetMapID() == 103 or WorldMapFrame:GetMapID() == 85
@@ -1294,8 +1340,12 @@ local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() ==
     end
 
     if (button == "MiddleButton") then
-      if www then
-        print(www)
+      if wwwLink and not (achievementID or questID) then
+        print(wwwLink)
+      elseif questID then
+        print("wowhead.com/quest=" .. questID)
+      elseif achievementID then
+        print("wowhead.com/achievement=" .. achievementID)
       end
     end
 
@@ -1361,9 +1411,9 @@ local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() ==
     end
 
     if IsShiftKeyDown() and (button == "MiddleButton") then
-      local www = nodes[uiMapId][coord].www
-      if www then
-        print(www)
+      local wwwLink = nodes[uiMapId][coord].wwwLink
+      if wwwLink then
+        print(wwwLink)
       end
     end
 
@@ -1576,12 +1626,11 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
     else ns.WorldMapButton:Show()
   end
 
-  --remove BlizzPOIs for MapNotes icons function
   function ns.RemoveBlizzPOIs()
     if (ns.Addon.db.profile.activate.HideMapNote) then return end
 
     for pin in WorldMapFrame:EnumeratePinsByTemplate("AreaPOIPinTemplate") do
-      
+
       if ns.Addon.db.profile.activate.RemoveBlizzPOIs then
 
         for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
@@ -1597,7 +1646,7 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
       end
 
       if ns.Addon.db.profile.activate.RemoveBlizzPOIsZidormi then
-        
+
         for _, poiID in pairs(ns.BlizzAreaPoisInfoZidormi) do
 
           ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
@@ -1611,6 +1660,7 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
       end
 
     end
+
   end
 
   hooksecurefunc(AreaPOIPinMixin, "OnMouseEnter", function()
@@ -1619,7 +1669,7 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
     for pin in WorldMapFrame:EnumeratePinsByTemplate("AreaPOIPinTemplate") do
 
       if ns.Addon.db.profile.activate.RemoveBlizzPOIs then
-      
+
         for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
 
         ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
@@ -1633,21 +1683,29 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
       end
 
       if ns.Addon.db.profile.activate.RemoveBlizzPOIsZidormi then
-        
+
         for _, poiID in pairs(ns.BlizzAreaPoisInfoZidormi) do
-          
+
           ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
 
           if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
             ns.RemoveBlizzPOIs()
           end
-          
+
         end
 
       end
 
     end
   end)
+
+  --for dp in pairs(WorldMapFrame.dataProviders) do
+  --  if (not dp.GetPinTemplates and type(dp.GetPinTemplate) == "function") then
+  --    if (dp:GetPinTemplate() == "AreaPOIPinTemplate") then
+  --        hooksecurefunc(dp, "RefreshAllData", ns.RemoveBlizzPOIs)
+  --    end
+  --  end
+  --end
 
   hooksecurefunc(WorldMapFrame,"OnMapChanged", function()
     ns.RemoveBlizzPOIs()

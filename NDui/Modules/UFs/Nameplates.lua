@@ -270,8 +270,9 @@ function UF:UpdateThreatColor(_, unit)
 end
 
 function UF:CreateThreatColor(self)
-	local threatIndicator = B.CreateSD(self.backdrop, 6, true)
-	threatIndicator:SetFrameLevel(2)
+	local threatIndicator = B.CreateSD(self.backdrop, 8, true)
+	threatIndicator:SetFrameLevel(self:GetFrameLevel()+1)
+	threatIndicator:SetOutside(self, 8+C.mult, 8+C.mult)
 	threatIndicator:Hide()
 	self.backdrop.__shadow = nil
 
@@ -407,9 +408,8 @@ function UF:AddTargetIndicator(self)
 	frame.ArrowAnimGroup = animGroup
 
 	frame.Glow = B.CreateSD(frame, 8, true)
-	frame.Glow:SetOutside(self.backdrop, 8, 8)
+	frame.Glow:SetOutside(self, 8+C.mult, 8+C.mult)
 	frame.Glow:SetBackdropBorderColor(1, 0, 1)
-	frame.Glow:SetFrameLevel(0)
 
 	frame.nameGlow = frame:CreateTexture(nil, "BACKGROUND", nil, -5)
 	frame.nameGlow:SetSize(150, 80)
@@ -519,7 +519,7 @@ local NPClassifies = {
 }
 
 function UF:AddCreatureIcon(self)
-	local icon = self.Health:CreateTexture(nil, "ARTWORK")
+	local icon = self:CreateTexture(nil, "ARTWORK")
 	icon:SetTexture(DB.starTex)
 	icon:SetPoint("RIGHT", self.nameText, "LEFT", 10, 0)
 	icon:SetSize(18, 18)
@@ -584,15 +584,15 @@ end
 function UF:MouseoverIndicator(self)
 	local highlight = CreateFrame("Frame", nil, self.Health)
 	highlight:SetAllPoints(self)
+	highlight:SetFrameLevel(0)
 	highlight:Hide()
 
 	local texture = highlight:CreateTexture(nil, "ARTWORK")
 	texture:SetAllPoints()
-	texture:SetColorTexture(1, 1, 1, .35)
+	texture:SetColorTexture(1, 1, 1, .25)
 	local glow = B.CreateSD(highlight, 8, true)
-	glow:SetOutside(self.backdrop, 8, 8)
+	glow:SetOutside(self, 8+C.mult, 8+C.mult)
 	glow:SetBackdropBorderColor(1, 1, 1)
-	glow:SetFrameLevel(1)
 
 	self:RegisterEvent("UPDATE_MOUSEOVER_UNIT", UF.UpdateMouseoverShown, true)
 

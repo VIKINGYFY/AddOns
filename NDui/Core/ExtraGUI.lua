@@ -260,7 +260,7 @@ function G:SetupRaidDebuffs(parent)
 		prioBox:SetTextInsets(10, 0, 0, 0)
 		prioBox:SetMaxLetters(1)
 		prioBox:SetTextColor(0, 1, 0)
-		prioBox.bg:SetBackdropColor(1, 1, 1, .2)
+		prioBox.bg:SetBackdropColor(1, 1, 1, .25)
 		prioBox:HookScript("OnEscapePressed", function(self)
 			self:SetText(bar.priority)
 		end)
@@ -949,7 +949,7 @@ end
 
 local function createOptionTitle(parent, title, offset)
 	B.CreateFS(parent, 14, title, "system", "TOP", 0, offset)
-	local line = B.SetGradient(parent, "H", 1, 1, 1, .25, .25, 200, C.mult)
+	local line = B.SetGradient(parent, "H", 1, 1, 1, .5, .5, 200, C.mult)
 	line:SetPoint("TOPLEFT", 30, offset-20)
 end
 
@@ -998,10 +998,10 @@ local function updateDropdownHighlight(self)
 	for i = 1, #dd.__options do
 		local option = dd.options[i]
 		if i == C.db[dd.__key][dd.__value] then
-			option:SetBackdropColor(1, .8, 0, .3)
+			option:SetBackdropColor(1, .8, 0, .25)
 			option.selected = true
 		else
-			option:SetBackdropColor(0, 0, 0, .3)
+			option:SetBackdropColor(0, 0, 0, .25)
 			option.selected = false
 		end
 	end
@@ -1995,9 +1995,9 @@ function G:SetupActionbarStyle(parent)
 
 	local function GetButtonText(i)
 		if i == 5 then
-			return "|T"..DB.ArrowUp..":18|t"
+			return "|T"..DB.arrowTex.."up:18|t"
 		elseif i == 6 then
-			return "|T"..DB.ArrowUp..":18:18:0:0:1:1:0:1:1:0|t"
+			return "|T"..DB.arrowTex.."down:18|t"
 		else
 			return i
 		end

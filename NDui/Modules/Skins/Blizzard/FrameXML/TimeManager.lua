@@ -14,7 +14,7 @@ table.insert(C.defaultThemes, function()
 	B.ReskinDropDown(TimeManagerAlarmTimeFrame.MinuteDropdown)
 	B.ReskinDropDown(TimeManagerAlarmTimeFrame.AMPMDropdown)
 
-	B.ReskinPortraitFrame(TimeManagerFrame)
+	B.ReskinFrame(TimeManagerFrame)
 	B.ReskinInput(TimeManagerAlarmMessageEditBox)
 	B.ReskinCheck(TimeManagerAlarmEnabledButton)
 	B.ReskinCheck(TimeManagerMilitaryTimeCheck)

@@ -21,7 +21,7 @@ end
 C.themes["Blizzard_ProfessionsBook"] = function()
 	if not C.db["Skins"]["BlizzardSkins"] then return end
 
-	B.ReskinPortraitFrame(ProfessionsBookFrame)
+	B.ReskinFrame(ProfessionsBookFrame)
 
 	-- Professions
 
@@ -33,12 +33,9 @@ C.themes["Blizzard_ProfessionsBook"] = function()
 		bu.missingHeader:SetTextColor(1, 1, 1)
 		bu.missingText:SetTextColor(1, 1, 1)
 
-		B.StripTextures(bu.statusBar)
+		B.ReskinStatusBar(bu.statusBar)
 		bu.statusBar:SetHeight(10)
-		bu.statusBar:SetStatusBarTexture(DB.bdTex)
-		bu.statusBar:GetStatusBarTexture():SetGradient("VERTICAL", CreateColor(0, .6, 0, 1), CreateColor(0, .8, 0, 1))
-		bu.statusBar.rankText:SetPoint("CENTER")
-		B.CreateBDFrame(bu.statusBar, .25)
+
 		if i > 2 then
 			bu.statusBar:ClearAllPoints()
 			bu.statusBar:SetPoint("BOTTOMLEFT", 16, 3)

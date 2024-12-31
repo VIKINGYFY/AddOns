@@ -26,10 +26,10 @@ local function reskinScrollChild(self)
 			child.Background:Hide()
 			child.bg = B.CreateBDFrame(child.Background, .25)
 
-			B.Reskin(child.DeleteButton)
+			B.ReskinButton(child.DeleteButton)
 			child.DeleteButton:SetSize(20, 20)
 			child.FrameHighlight:SetInside(child.bg)
-			child.FrameHighlight:SetColorTexture(1, 1, 1, .15) -- 0.25 might be too much
+			child.FrameHighlight:SetColorTexture(1, 1, 1, .25) -- 0.25 might be too much
 
 			child.NewOutline:SetTexture("")
 			child.BindingText:SetFontObject(Game12Font)
@@ -46,13 +46,13 @@ end
 C.themes["Blizzard_ClickBindingUI"] = function()
 	local frame = _G.ClickBindingFrame
 
-	B.ReskinPortraitFrame(frame)
+	B.ReskinFrame(frame)
 	frame.TutorialButton.Ring:Hide()
 	frame.TutorialButton:SetPoint("TOPLEFT", frame, "TOPLEFT", -12, 12)
 
-	B.Reskin(frame.ResetButton)
-	B.Reskin(frame.AddBindingButton)
-	B.Reskin(frame.SaveButton)
+	B.ReskinButton(frame.ResetButton)
+	B.ReskinButton(frame.AddBindingButton)
+	B.ReskinButton(frame.SaveButton)
 	B.ReskinTrimScroll(frame.ScrollBar)
 
 	frame.ScrollBoxBackground:Hide()
