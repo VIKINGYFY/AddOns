@@ -215,7 +215,7 @@ function info:GuildPanel_Init()
 
 	local scrollBar = CreateFrame("Slider", "$parentScrollBar", scrollFrame, "HybridScrollBarTemplate")
 	scrollBar.doNotHide = true
-	B.ReskinScroll(scrollBar)
+	B.ReskinTrimScroll(scrollBar)
 	scrollFrame.scrollBar = scrollBar
 
 	local scrollChild = scrollFrame.scrollChild

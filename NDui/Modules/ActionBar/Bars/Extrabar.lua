@@ -48,12 +48,14 @@ function Bar:CreateExtrabar()
 	hooksecurefunc(ZoneAbilityFrame, "UpdateDisplayedZoneAbilities", function(self)
 		for spellButton in self.SpellButtonContainer:EnumerateActive() do
 			if spellButton and not spellButton.styled then
-				spellButton.NormalTexture:SetAlpha(0)
-				spellButton:SetPushedTexture(DB.pushedTex) --force it to gain a texture
-				spellButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-				spellButton:GetHighlightTexture():SetInside()
 				spellButton.Icon:SetInside()
-				B.ReskinIcon(spellButton.Icon, true)
+
+				B.CleanTextures(spellButton)
+
+				local icbg = B.ReskinIcon(spellButton.Icon, true)
+				B.ReskinHLTex(spellButton, icbg)
+				B.ReskinCPTex(spellButton, icbg)
+
 				spellButton.styled = true
 			end
 		end

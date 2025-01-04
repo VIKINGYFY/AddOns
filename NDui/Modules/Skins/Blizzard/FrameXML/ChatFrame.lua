@@ -7,7 +7,7 @@ local function ReskinChatScroll(self)
 
 	B.StripTextures(self.ScrollToBottomButton)
 	local flash = self.ScrollToBottomButton.Flash
-	B.SetupArrow(flash, "down")
+	B.SetupArrow(flash, "bottom")
 	flash:SetVertexColor(1, .8, 0)
 end
 

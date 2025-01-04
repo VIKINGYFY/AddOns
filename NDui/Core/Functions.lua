@@ -373,6 +373,8 @@ do
 		"Center",
 		"CircleMask",
 		"Cover",
+		"DecorLeft",
+		"DecorRight",
 		"Delimiter1",
 		"Delimiter2",
 		"EmptyBackground",
@@ -737,8 +739,12 @@ do
 
 	function B:SetBD(x, y, x2, y2)
 		local bg = B.CreateBDFrame(self)
-		if x then
+		if self:IsObjectType("StatusBar") then
+			B.UpdateSize(bg, -C.mult, C.mult, C.mult, -C.mult)
+		elseif x and y and x2 and y2 then
 			B.UpdateSize(bg, x, y, x2, y2)
+		else
+			B.UpdateSize(bg, 0, 0, 0, 0)
 		end
 
 		B.CreateSD(bg)
@@ -753,6 +759,12 @@ do
 	function B:ReskinIcon(shadow)
 		self:SetTexCoord(x1, x2, y1, y2)
 
+		if self.SetDrawLayer then
+			if self:GetDrawLayer() == "BACKGROUND" or self:GetDrawLayer() == "BORDER" then
+				self:SetDrawLayer("ARTWORK")
+			end
+		end
+
 		local bg = B.CreateBDFrame(self, .25) -- exclude from opacity control
 		if shadow then B.CreateSD(bg) end
 
@@ -760,9 +772,7 @@ do
 	end
 
 	function B:PixelIcon(texture, highlight)
-		self.bg = B.CreateBDFrame(self)
-		self.bg:SetAllPoints()
-
+		self.bg = B.CreateBDFrame(self, .25)
 		self.Icon = self:CreateTexture(nil, "ARTWORK")
 		self.Icon:SetInside(self.bg)
 		self.Icon:SetTexCoord(x1, x2, y1, y2)
@@ -968,7 +978,7 @@ do
 		B.SetBorderColor(self.bg)
 	end
 	local function Menu_OnMouseUp(self)
-		self.bg:SetBackdropColor(0, 0, 0, .25)
+		self.bg:SetBackdropColor(0, 0, 0, C.db["Skins"]["SkinAlpha"])
 	end
 	local function Menu_OnMouseDown(self)
 		self.bg:SetBackdropColor(cr, cg, cb, .25)
@@ -988,18 +998,12 @@ do
 		B.CleanTextures(self)
 		self:DisableDrawLayer("BACKGROUND")
 
-		local bg = B.CreateBDFrame(self)
-		bg:SetPoint("TOPLEFT", 8, -2)
-		bg:SetPoint("BOTTOMRIGHT", -8, 4)
+		local bg = noShadow and B.CreateBDFrame(self, 0, true) or B.SetBD(self)
+		B.UpdateSize(bg, 8, -2, -8, 4)
 		self.bg = bg
 
 		B.ReskinHLTex(self, bg, true)
 		B.ResetTabAnchor(self)
-
-		if not noShadow then
-			B.CreateSD(bg)
-			B.CreateTex(bg)
-		end
 	end
 
 	function B:ResetTabAnchor()
@@ -1058,42 +1062,46 @@ do
 		end
 	end
 
-	function B:ReskinScroll()
-		B.StripTextures(self:GetParent(), 99)
-		B.StripTextures(self, 99)
-
-		local up, down = self:GetChildren()
-		reskinScrollArrow(up, "up")
-		reskinScrollArrow(down, "down")
-
-		local thumb = self:GetThumbTexture()
-		if thumb then
-			B.StripTextures(thumb, 99)
-
-			thumb.bg = B.CreateBDFrame(thumb, 0, true)
-			B.UpdateSize(thumb.bg, 4, -1, -4, 1, thumb)
-			self.thumb = thumb
-
-			self:HookScript("OnEnter", Thumb_OnEnter)
-			self:HookScript("OnLeave", Thumb_OnLeave)
-		end
-	end
-
 	-- WowTrimScrollBar
 	function B:ReskinTrimScroll()
-		B.StripTextures(self)
-		reskinScrollArrow(self.Back, "up")
-		reskinScrollArrow(self.Forward, "down")
+		B.StripTextures(self, 99)
 
-		local thumb = self:GetThumb()
-		if thumb then
+		local thumb
+		if self.GetThumb then
+			local track = self.Track
+			if track then
+				track:DisableDrawLayer("ARTWORK")
+			end
+
+			reskinScrollArrow(self.Back, "up")
+			reskinScrollArrow(self.Forward, "down")
+
+			thumb = self:GetThumb()
 			thumb:DisableDrawLayer("ARTWORK")
 			thumb:DisableDrawLayer("BACKGROUND")
 
 			thumb.bg = B.CreateBDFrame(thumb, 0, true)
-
 			thumb:HookScript("OnEnter", Thumb_OnEnter)
 			thumb:HookScript("OnLeave", Thumb_OnLeave)
+		else
+			local parent = self:GetParent()
+			if parent then
+				B.StripTextures(parent, 99)
+			end
+
+			local up, down = self:GetChildren()
+			reskinScrollArrow(up, "up")
+			reskinScrollArrow(down, "down")
+
+			thumb = self:GetThumbTexture()
+			B.StripTextures(thumb, 99)
+
+			thumb.bg = B.CreateBDFrame(thumb, 0, true)
+			B.UpdateSize(thumb.bg, 4, -2, -4, 2, thumb)
+
+			self.thumb = thumb
+			self:HookScript("OnEnter", Thumb_OnEnter)
+			self:HookScript("OnLeave", Thumb_OnLeave)
 		end
 	end
 
@@ -1366,10 +1374,9 @@ do
 		thumb:SetBlendMode("ADD")
 		thumb:SetSize(20, 30)
 
-		local bg = B.CreateBDFrame(self.Slider, 0, true)
 		local offset = minimal and 10 or 13
-		bg:SetPoint("TOPLEFT", 10, -offset)
-		bg:SetPoint("BOTTOMRIGHT", -10, offset)
+		local bg = B.CreateBDFrame(self.Slider, 0, true)
+		B.UpdateSize(bg, 10, -offset, -10, offset)
 		local bar = CreateFrame("StatusBar", nil, bg)
 		bar:SetStatusBarTexture(DB.normTex)
 		bar:SetStatusBarColor(1, .8, 0, .5)
@@ -1444,8 +1451,7 @@ do
 
 	function B:ReskinSearchList()
 		B.StripTextures(self)
-		local bg = B.CreateBDFrame(self, .25)
-		bg:SetInside()
+		B.CreateBDFrame(self, .25)
 
 		local icon = self.icon or self.Icon
 		if icon then
@@ -1537,8 +1543,7 @@ do
 		eb:SetAutoFocus(false)
 		eb:SetTextInsets(5, 5, 0, 0)
 		B.SetFontSize(eb, DB.Font[2]+2)
-		eb.bg = B.CreateBDFrame(eb, 0, true)
-		eb.bg:SetAllPoints()
+		B.CreateBDFrame(eb, 0, true)
 		eb:SetScript("OnEscapePressed", editBoxClearFocus)
 		eb:SetScript("OnEnterPressed", editBoxClearFocus)
 
@@ -1894,7 +1899,7 @@ do
 			B.StripTextures(self, killType or 99)
 		end
 
-		local bg = B.SetBD(self, 0, 0, 0, 0)
+		local bg = B.SetBD(self)
 		for _, key in pairs(headers) do
 			local frameHeader = B.GetObject(self, key)
 			if frameHeader then
@@ -1963,13 +1968,14 @@ do
 			if DB.isDeveloper then print("Unknown tooltip spotted.") end
 			return
 		end
+
 		if self:IsForbidden() then return end
 		self:SetScale(C.db["Tooltip"]["Scale"])
 
 		if not self.tipStyled then
 			self:HideBackdrop()
 			self:DisableDrawLayer("BACKGROUND")
-			self.bg = B.SetBD(self, 0, 0, 0, 0)
+			self.bg = B.SetBD(self)
 			self.bg:SetFrameLevel(self:GetFrameLevel())
 			B.SetBorderColor(self.bg)
 
@@ -2085,13 +2091,13 @@ do
 
 		local checked = self.GetCheckedTexture and self:GetCheckedTexture()
 		if checked then
-			checked:SetVertexColor(1, 1, 1)
+			checked:SetVertexColor(0, 1, 1)
 			B.ReskinBGBorder(checked, relativeTo)
 		end
 
 		local pushed = self.GetPushedTexture and self:GetPushedTexture()
 		if pushed then
-			pushed:SetVertexColor(0, 1, 1)
+			pushed:SetVertexColor(1, 1, 1)
 			B.ReskinBGBorder(pushed, relativeTo)
 		end
 	end
@@ -2110,8 +2116,9 @@ do
 		end
 	end
 
-	B.ReskinPortraitFrame = B.ReskinFrame
-	B.StyleSearchButton = B.ReskinSearchList
-	B.ReskinEditBox = B.ReskinInput
 	B.Reskin = B.ReskinButton
+	B.ReskinEditBox = B.ReskinInput
+	B.ReskinPortraitFrame = B.ReskinFrame
+	B.ReskinScroll = B.ReskinTrimScroll
+	B.StyleSearchButton = B.ReskinSearchList
 end

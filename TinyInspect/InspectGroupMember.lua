@@ -208,6 +208,7 @@ frame.label:SetScript("OnClick", function(self)
 end)
 frame.label.text = B.CreateFS(frame.label, 14, ITEM_LEVEL_ABBR, true)
 frame.label.progress = CreateFrame("StatusBar", nil, frame.label)
+frame.label.progress:SetInside()
 frame.label.progress:SetFrameLevel(frame.label:GetFrameLevel())
 frame.label.progress:SetStatusBarTexture(DB.normTex)
 frame.label.progress:SetStatusBarColor(0, 1, 0)
@@ -324,7 +325,7 @@ end
 --團友列表
 frame.panel = CreateFrame("Frame", nil, frame)
 frame.panel:SetScript("OnShow", function(self) SortAndShowMembersList() end)
-frame.panel:SetPoint("TOP", frame, "BOTTOM", 0, -1)
+frame.panel:SetPoint("TOP", frame, "BOTTOM", 0, -3)
 frame.panel:SetSize(240, 110)
 frame.panel:Hide()
 
@@ -353,9 +354,6 @@ end)
 LibEvent:attachEvent("PLAYER_LOGIN", function()
 	B.SetBD(frame)
 	B.SetBD(frame.panel)
-
-	frame.label.progress:SetPoint("TOPLEFT", C.mult, -C.mult)
-	frame.label.progress:SetPoint("BOTTOMRIGHT", -C.mult, C.mult)
 
 	members[UnitGUID("player")] = {
 		done = true,

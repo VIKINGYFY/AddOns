@@ -52,9 +52,9 @@ function module:UpdateBagsAnchor(parent, bags)
 
 			bag:ClearAllPoints()
 			if (index-1) % perRow == 0 then
-				bag:SetPoint("BOTTOMRIGHT", anchorCache[index-perRow], "BOTTOMLEFT", -5, 0)
+				bag:SetPoint("BOTTOMRIGHT", anchorCache[index-perRow], "BOTTOMLEFT", -C.margin, 0)
 			else
-				bag:SetPoint("BOTTOMLEFT", anchorCache[index-1], "TOPLEFT", 0, 5)
+				bag:SetPoint("BOTTOMLEFT", anchorCache[index-1], "TOPLEFT", 0, C.margin)
 			end
 			anchorCache[index] = bag
 		else
@@ -78,13 +78,13 @@ function module:UpdateBankAnchor(parent, bags)
 
 			bag:ClearAllPoints()
 			if index <= perRow then
-				bag:SetPoint("BOTTOMLEFT", anchorCache[index-1], "TOPLEFT", 0, 5)
+				bag:SetPoint("BOTTOMLEFT", anchorCache[index-1], "TOPLEFT", 0, C.margin)
 			elseif index == perRow+1 then
-				bag:SetPoint("TOPLEFT", anchorCache[index-1], "TOPRIGHT", 5, 0)
+				bag:SetPoint("TOPLEFT", anchorCache[index-1], "TOPRIGHT", C.margin, 0)
 			elseif (index-1) % perRow == 0 then
-				bag:SetPoint("TOPLEFT", anchorCache[index-perRow], "TOPRIGHT", 5, 0)
+				bag:SetPoint("TOPLEFT", anchorCache[index-perRow], "TOPRIGHT", C.margin, 0)
 			else
-				bag:SetPoint("TOPLEFT", anchorCache[index-1], "BOTTOMLEFT", 0, -5)
+				bag:SetPoint("TOPLEFT", anchorCache[index-1], "BOTTOMLEFT", 0, -C.margin)
 			end
 			anchorCache[index] = bag
 		else
@@ -186,7 +186,7 @@ function module:CreateCollapseArrow()
 end
 
 local function updateBagBar(bar)
-	local spacing = 3
+	local spacing = C.margin
 	local offset = 5
 	local width, height = bar:LayoutButtons("grid", bar.columns, spacing, offset, -offset)
 	bar:SetSize(width + offset*2, height + offset*2)
@@ -244,7 +244,7 @@ local function CloseOrRestoreBags(self, btn)
 end
 
 function module:CreateCloseButton(f)
-	local bu = B.CreateButton(self, 22, 22, true, "Interface\\RAIDFRAME\\ReadyCheck-NotReady")
+	local bu = B.CreateButton(self, 22, 22, true, DB.closeTex)
 	bu:RegisterForClicks("AnyUp")
 	bu.__owner = f
 	bu:SetScript("OnClick", CloseOrRestoreBags)
@@ -255,8 +255,7 @@ function module:CreateCloseButton(f)
 end
 
 function module:CreateReagentButton(f)
-	local bu = B.CreateButton(self, 22, 22, true, "Atlas:Reagents")
-	bu.Icon:SetPoint("BOTTOMRIGHT", -C.mult, -C.mult)
+	local bu = B.CreateButton(self, 22, 22, true, 134421)
 	bu:RegisterForClicks("AnyUp")
 	bu:SetScript("OnClick", function(_, btn)
 		if not C_Bank.CanViewBank(CHAR_BANK_TYPE) then return end
@@ -276,9 +275,7 @@ function module:CreateReagentButton(f)
 end
 
 function module:CreateAccountBankButton(f)
-	local bu = B.CreateButton(self, 22, 22, true, 235423)
-	bu.Icon:SetTexCoord(.6, .9, .1, .4)
-	bu.Icon:SetPoint("BOTTOMRIGHT", -C.mult, -C.mult)
+	local bu = B.CreateButton(self, 22, 22, true, 939373)
 	bu:RegisterForClicks("AnyUp")
 	bu:SetScript("OnClick", function(_, btn)
 		if not C_Bank.CanViewBank(ACCOUNT_BANK_TYPE) then return end
@@ -331,7 +328,7 @@ function module:CreateAccountMoney()
 end
 
 function module:CreateBankButton(f)
-	local bu = B.CreateButton(self, 22, 22, true, "Atlas:Banker")
+	local bu = B.CreateButton(self, 22, 22, true, 134422)
 	bu:SetScript("OnClick", function()
 		if not C_Bank.CanViewBank(CHAR_BANK_TYPE) then return end
 
@@ -359,8 +356,7 @@ function module:AutoDeposit()
 end
 
 function module:CreateDepositButton()
-	local bu = B.CreateButton(self, 22, 22, true, "Atlas:GreenCross")
-	bu.Icon:SetOutside()
+	local bu = B.CreateButton(self, 22, 22, true, 514607)
 	bu:RegisterForClicks("AnyUp")
 	bu:SetScript("OnClick", function(_, btn)
 		if btn == "RightButton" then
@@ -386,8 +382,7 @@ local function updateAccountBankDeposit(bu)
 end
 
 function module:CreateAccountBankDeposit()
-	local bu = B.CreateButton(self, 22, 22, true, "Atlas:GreenCross")
-	bu.Icon:SetOutside()
+	local bu = B.CreateButton(self, 22, 22, true, 514607)
 	bu:RegisterForClicks("AnyUp")
 	bu:SetScript("OnClick", function(_, btn)
 		if btn == "RightButton" then
@@ -418,7 +413,7 @@ local function ToggleBackpacks(self)
 end
 
 function module:CreateBagToggle(click)
-	local bu = B.CreateButton(self, 22, 22, true, "Interface\\Buttons\\Button-Backpack-Up")
+	local bu = B.CreateButton(self, 22, 22, true, "Interface\\Icons\\inv_misc_bag_08")
 	bu.__owner = self
 	bu:SetScript("OnClick", ToggleBackpacks)
 	bu.title = BACKPACK_TOOLTIP
@@ -528,12 +523,10 @@ function module:CreateFreeSlots()
 
 	local slot = CreateFrame("Button", name.."FreeSlot", self, "BackdropTemplate")
 	slot:SetSize(self.iconSize, self.iconSize)
-	slot:SetHighlightTexture(DB.bdTex)
-	slot:GetHighlightTexture():SetVertexColor(1, 1, 1, .25)
-	slot:GetHighlightTexture():SetInside()
-	B.CreateBD(slot, .25)
 	slot:SetScript("OnMouseUp", module.FreeSlotOnDrop)
 	slot:SetScript("OnReceiveDrag", module.FreeSlotOnDrop)
+	B.CreateBD(slot, .25)
+	B.ReskinHLTex(slot, slot)
 	B.AddTooltip(slot, "ANCHOR_RIGHT", L["FreeSlots"])
 	slot.__name = name
 
@@ -576,9 +569,7 @@ function module:CreateSplitButton()
 	editbox:SetJustifyH("CENTER")
 	editbox:SetScript("OnTextChanged", saveSplitCount)
 
-	local bu = B.CreateButton(self, 22, 22, true, "Interface\\HELPFRAME\\ReportLagIcon-AuctionHouse")
-	bu.Icon:SetPoint("TOPLEFT", -1, 3)
-	bu.Icon:SetPoint("BOTTOMRIGHT", 1, -3)
+	local bu = B.CreateButton(self, 22, 22, true, "Interface\\Icons\\Ability_Monk_CounteractMagic")
 	bu.__turnOff = function()
 		B.SetBorderColor(bu.bg)
 		bu.text = nil
@@ -693,9 +684,7 @@ function module:CreateFavouriteButton()
 
 	local enabledText = DB.InfoColor..L["FavouriteMode Enabled"]
 
-	local bu = B.CreateButton(self, 22, 22, true, "Interface\\Common\\friendship-heart")
-	bu.Icon:SetPoint("TOPLEFT", -5, 2.5)
-	bu.Icon:SetPoint("BOTTOMRIGHT", 5, -1.5)
+	local bu = B.CreateButton(self, 22, 22, true, "Interface\\Icons\\PetBattle_Health")
 	bu.__turnOff = function()
 		B.SetBorderColor(bu.bg)
 		bu.text = nil
@@ -752,9 +741,7 @@ local customJunkEnable
 function module:CreateJunkButton()
 	local enabledText = DB.InfoColor..L["JunkMode Enabled"]
 
-	local bu = B.CreateButton(self, 22, 22, true, "Interface\\BUTTONS\\UI-GroupLoot-Coin-Up")
-	bu.Icon:SetPoint("TOPLEFT", C.mult, -3)
-	bu.Icon:SetPoint("BOTTOMRIGHT", -C.mult, -3)
+	local bu = B.CreateButton(self, 22, 22, true, "Interface\\Icons\\Spell_ChargePositive")
 	bu.__turnOff = function()
 		B.SetBorderColor(bu.bg)
 		bu.text = nil
@@ -809,9 +796,7 @@ local deleteEnable
 function module:CreateDeleteButton()
 	local enabledText = DB.InfoColor..L["DeleteMode Enabled"]
 
-	local bu = B.CreateButton(self, 22, 22, true, "Interface\\Buttons\\UI-GroupLoot-Pass-Up")
-	bu.Icon:SetPoint("TOPLEFT", 3, -2)
-	bu.Icon:SetPoint("BOTTOMRIGHT", -1, 2)
+	local bu = B.CreateButton(self, 22, 22, true, "Interface\\Icons\\Spell_ChargeNegative")
 	bu.__turnOff = function()
 		B.SetBorderColor(bu.bg)
 		bu.text = nil
@@ -1001,11 +986,6 @@ function module:OnLogin()
 	MyButton:Scaffold("Default")
 
 	function MyButton:OnCreate()
-		self:SetNormalTexture(0)
-		self:SetPushedTexture(0)
-		self:SetHighlightTexture(DB.bdTex)
-		self:GetHighlightTexture():SetVertexColor(1, 1, 1, .25)
-		self:GetHighlightTexture():SetInside()
 		self:SetSize(iconSize, iconSize)
 
 		self.Icon:SetInside()
@@ -1017,7 +997,9 @@ function module:OnLogin()
 		self.IconOverlay:SetInside()
 		self.IconOverlay2:SetInside()
 
+		B.CleanTextures(self)
 		B.CreateBD(self, .25)
+		B.ReskinHLTex(self, self)
 
 		local parentFrame = CreateFrame("Frame", nil, self)
 		parentFrame:SetAllPoints()
@@ -1138,6 +1120,8 @@ function module:OnLogin()
 				self.iSlot:SetText(slot)
 				if DB.SpecialJunk[item.id] then
 					self.iSlot:SetTextColor(cr, cg, cb)
+				elseif NDuiADB["CustomJunkList"][item.id] then
+					self.iSlot:SetTextColor(.5, .5, .5)
 				else
 					self.iSlot:SetTextColor(1, 1, 1)
 				end
@@ -1201,8 +1185,8 @@ function module:OnLogin()
 		self:SortButtons("bagSlot")
 
 		local columns = module:GetContainerColumns(self.Settings.BagType)
-		local offset = 38
-		local spacing = 3
+		local offset = 37
+		local spacing = C.margin
 		local xOffset = 5
 		local yOffset = -offset + xOffset
 		local _, height = self:LayoutButtons("grid", columns, spacing, xOffset, yOffset)
@@ -1313,7 +1297,7 @@ function module:OnLogin()
 			if i == 1 then
 				bu:SetPoint("TOPRIGHT", -5, -5)
 			else
-				bu:SetPoint("RIGHT", buttons[i-1], "LEFT", -3, 0)
+				bu:SetPoint("RIGHT", buttons[i-1], "LEFT", -C.margin, 0)
 			end
 		end
 		self.widgetButtons = buttons
@@ -1352,16 +1336,13 @@ function module:OnLogin()
 
 	local BagButton = Backpack:GetClass("BagButton", true, "BagButton")
 	function BagButton:OnCreate()
-		self:SetNormalTexture(0)
-		self:SetPushedTexture(0)
-		self:SetHighlightTexture(DB.bdTex)
-		self:GetHighlightTexture():SetVertexColor(1, 1, 1, .25)
-		self:GetHighlightTexture():SetInside()
-
 		self:SetSize(iconSize, iconSize)
-		B.CreateBD(self, .25)
 		self.Icon:SetInside()
 		self.Icon:SetTexCoord(unpack(DB.TexCoord))
+
+		B.CleanTextures(self)
+		B.CreateBD(self, .25)
+		B.ReskinHLTex(self, self)
 	end
 
 	function BagButton:OnUpdateButton()

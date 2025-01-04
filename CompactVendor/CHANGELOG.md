@@ -1,8 +1,12 @@
 # CompactVendor
 
-## [v11.0.5.241130b](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.0.5.241130b) (2024-11-30)
-[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.0.5.241130b) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
+## [v11.0.7.250103](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.0.7.250103) (2025-01-03)
+[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.0.7.250103) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
 
+- TOC bump.  
+- Transmog API are unstable on Classic so added an override to avoid that situation as a fix for the addon.  
+- Changes to GetMerchantItemInfo had to have a method implemented to migrate between the old style and the new table return value.  
+    Some minor docs changes.  
 - Fixed colorblind mode detection, in addition to the legacy or deprecated global, I also check the cvar itself just like the latest UI code does it when handling rendering money strings.  
 - Fixed issue on Classic SOD when talking to Pix Xizzix (and other vendors with Relics).  
 - Add support for CanIMogIt so when it's available we use it to detect the status of appearance collection.  
@@ -75,7 +79,3 @@
     - Added more states for items like transmog and toys instead of tooltip scanning.  
     - The merchant list and filters rely on this new infomation from the core itself.  
 - TOC bump  
-- - We tooltip scan cosmetics and otherwise tooltips with information to extract.  
-    - Merged collected/known into a learnable filter for better control of what to display. Fixed issue with heirlooms and cosmetics not being properly handled and scanned.  
-- TOC bump  
-- When applying font size we also need to apply it to the cost font strings and autoresize them again.  

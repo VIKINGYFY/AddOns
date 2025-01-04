@@ -204,9 +204,9 @@ function G:CreateProfileBar(parent, index)
 	if index == 1 then
 		B.PixelIcon(icon, nil, true) -- character
 		SetPortraitTexture(icon.Icon, "player")
+		icon.Icon:SetTexCoord(.15, .85, .15, .85)
 	else
-		B.PixelIcon(icon, 235423, true) -- share
-		icon.Icon:SetTexCoord(.6, .9, .1, .4)
+		B.PixelIcon(icon, "Interface\\Icons\\RaceChange", true) -- share
 		icon.index = index
 		G:FindProfleUser(icon)
 		icon:SetScript("OnEnter", G.Icon_OnEnter)
@@ -245,7 +245,6 @@ function G:CreateProfileBar(parent, index)
 	bar.download = download
 
 	local upload = G:CreateProfileIcon(bar, 4, "Atlas:bags-icon-addslots", L["UploadProfile"], L["UploadProfileTip"])
-	upload.Icon:SetInside(nil, 6, 6)
 	upload:SetScript("OnClick", G.Upload_OnClick)
 	bar.upload = upload
 
@@ -713,7 +712,7 @@ function G:CreateDataFrame()
 	scrollArea:SetPoint("TOPLEFT", 10, -30)
 	scrollArea:SetPoint("BOTTOMRIGHT", -28, 40)
 	B.CreateBDFrame(scrollArea, .25)
-	B.ReskinScroll(scrollArea.ScrollBar)
+	B.ReskinTrimScroll(scrollArea.ScrollBar)
 
 	local editBox = CreateFrame("EditBox", nil, dataFrame)
 	editBox:SetMultiLine(true)

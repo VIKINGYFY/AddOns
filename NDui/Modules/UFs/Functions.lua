@@ -666,9 +666,9 @@ function UF:CreateCastBar(self)
 	if mystyle ~= "nameplate" and not C.db["UFs"]["Castbars"] then return end
 
 	local cb = CreateFrame("StatusBar", "oUF_Castbar"..mystyle, self)
+	cb:SetWidth(self:GetWidth() - (20 + C.margin))
 	cb:SetHeight(20)
-	cb:SetWidth(self:GetWidth() - 22)
-	B.CreateSB(cb, true, .3, .7, 1)
+	B.CreateSB(cb, true)
 	cb.castTicks = {}
 
 	if mystyle == "player" then
@@ -684,8 +684,8 @@ function UF:CreateCastBar(self)
 		cb:SetSize(C.db["UFs"]["FocusCBWidth"], C.db["UFs"]["FocusCBHeight"])
 		createBarMover(cb, L["Focus Castbar"], "FocusCB", C.UFs.FocusCB)
 	elseif mystyle == "boss" or mystyle == "arena" then
-		cb:SetPoint("TOPLEFT", self.Power, "BOTTOMLEFT", 0, -8)
-		cb:SetPoint("TOPRIGHT", self.Power, "BOTTOMRIGHT", 0, -8)
+		cb:SetPoint("TOPLEFT", self.Power, "BOTTOMLEFT", 0, -C.margin)
+		cb:SetPoint("TOPRIGHT", self.Power, "BOTTOMRIGHT", 0, -C.margin)
 		cb:SetHeight(10)
 	elseif mystyle == "nameplate" then
 		cb:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -5)
@@ -701,9 +701,8 @@ function UF:CreateCastBar(self)
 	if mystyle ~= "boss" and mystyle ~= "arena" then
 		cb.Icon = cb:CreateTexture(nil, "ARTWORK")
 		cb.Icon:SetSize(cb:GetHeight(), cb:GetHeight())
-		cb.Icon:SetPoint("BOTTOMRIGHT", cb, "BOTTOMLEFT", -3, 0)
-		cb.Icon:SetTexCoord(x1, x2, y1, y2)
-		B.SetBD(cb.Icon)
+		cb.Icon:SetPoint("BOTTOMRIGHT", cb, "BOTTOMLEFT", -C.margin, 0)
+		B.ReskinIcon(cb.Icon, true)
 	end
 
 	if mystyle == "player" then
@@ -797,23 +796,26 @@ function UF:ToggleCastBar(unit)
 end
 
 local function reskinTimerBar(bar)
-	bar:SetSize(280, 15)
-	B.StripTextures(bar)
+	bar:SetSize(280, 18)
 
-	local statusbar = bar.StatusBar or _G[bar:GetName().."StatusBar"]
+	B.StripTextures(bar)
+	B.SetBD(bar)
+
+	local statusbar = B.GetObject(bar, "StatusBar")
 	if statusbar then
 		statusbar:SetAllPoints()
-	elseif bar.SetStatusBarTexture then
+	else
 		bar:SetStatusBarTexture(DB.normTex)
 	end
 
-	B.SetBD(bar)
+	local text = B.GetObject(bar, "Text")
+	B.UpdatePoint(text, "CENTER", bar, "CENTER")
 end
 
 function UF:ReskinMirrorBars()
 	hooksecurefunc(MirrorTimerContainer, "SetupTimer", function(self, timer)
 		local bar = self:GetAvailableTimer(timer)
-		if not bar.styled then
+		if bar and not bar.styled then
 			reskinTimerBar(bar)
 			bar.styled = true
 		end
@@ -855,7 +857,7 @@ function UF.PostCreateButton(element, button)
 
 	button.HL = button:CreateTexture(nil, "HIGHLIGHT")
 	button.HL:SetColorTexture(1, 1, 1, .25)
-	button.HL:SetAllPoints()
+	button.HL:SetInside(button.iconbg)
 
 	button.Overlay:SetTexture(nil)
 	button.Stealable:SetAtlas("bags-newitem")
@@ -1070,6 +1072,7 @@ function UF:RefreshUFAuras(frame)
 	if frame.Auras then
 		UF:ConfigureAuras(frame.Auras)
 		UF:UpdateAuraContainer(frame, frame.Auras, frame.Auras.numBuffs + frame.Auras.numDebuffs)
+		UF:UpdateAuraDirection(frame, frame.Auras)
 		frame.Auras:ForceUpdate()
 	elseif frame.Buffs then
 		UF:ConfigureAuras(frame.Buffs, "Buff")
@@ -1317,14 +1320,6 @@ function UF:CreateClassPower(self)
 	bar:SetSize(barWidth, barHeight)
 	bar:SetPoint(unpack(barPoint))
 
-	-- show bg while size changed
-	if not isDK then
-		bar.bg = B.SetBD(bar)
-		bar.bg:SetFrameLevel(5)
-		bar.bg:SetBackdropBorderColor(1, .8, 0)
-		bar.bg:Hide()
-	end
-
 	local bars = {}
 	for i = 1, maxBar do
 		bars[i] = CreateFrame("StatusBar", nil, bar)
@@ -1339,7 +1334,7 @@ function UF:CreateClassPower(self)
 			bars[i]:SetPoint("LEFT", bars[i-1], "RIGHT", C.margin, 0)
 		end
 
-		bars[i].bg = (isDK and bars[i] or bar):CreateTexture(nil, "BACKGROUND")
+		bars[i].bg = bars[i]:CreateTexture(nil, "BACKGROUND")
 		bars[i].bg:SetAllPoints(bars[i])
 		bars[i].bg:SetTexture(DB.normTex)
 		bars[i].bg.multiplier = .25
@@ -1378,11 +1373,10 @@ end
 function UF:StaggerBar(self)
 	if DB.MyClass ~= "MONK" then return end
 
+	local barPoint = {"BOTTOM", self, "TOP", 0, C.margin}
 	local barWidth, barHeight = C.db["UFs"]["PlayerWidth"], C.db["UFs"]["PlayerPowerHeight"]
-	local barPoint = {"BOTTOMLEFT", self, "TOPLEFT", 0, C.margin}
 	if self.mystyle == "playerplate" then
 		barWidth, barHeight = C.db["Nameplate"]["PPWidth"], C.db["Nameplate"]["PPBarHeight"]
-		barPoint = {"BOTTOMLEFT", self, "TOPLEFT", 0, C.margin}
 	end
 
 	local stagger = CreateFrame("StatusBar", nil, self.Health)
@@ -1458,7 +1452,6 @@ function UF:UpdateUFClassPower()
 		local bar = playerFrame.ClassPowerBar
 		bar:SetSize(barWidth, barHeight)
 		bar:SetPoint("BOTTOMLEFT", playerFrame, "TOPLEFT", xOffset, yOffset)
-		if bar.bg then bar.bg:Show() end
 		local max = bars.__max
 		for i = 1, max do
 			bars[i]:SetHeight(barHeight)
@@ -1468,7 +1461,6 @@ function UF:UpdateUFClassPower()
 
 	if playerFrame.Stagger then
 		playerFrame.Stagger:SetSize(barWidth, barHeight)
-		playerFrame.Stagger:SetPoint("BOTTOMLEFT", playerFrame, "TOPLEFT", xOffset, yOffset)
 	end
 end
 
@@ -1481,14 +1473,15 @@ end
 
 function UF:CreateAltPower(self)
 	local bar = CreateFrame("StatusBar", nil, self)
+	bar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -C.margin)
+	bar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -C.margin)
 	bar:SetStatusBarTexture(DB.normTex)
-	bar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -3)
-	bar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -3)
-	bar:SetHeight(2)
+	bar:SetHeight(6)
+
 	B.SetBD(bar)
+	B:SmoothBar(bar)
 
 	local text = B.CreateFS(bar, 14, "")
-	text:SetJustifyH("CENTER")
 	self:Tag(text, "[altpower]")
 
 	self.AlternativePower = bar
@@ -1638,32 +1631,31 @@ end
 function UF.PostUpdateAddPower(element, cur, max)
 	if element.Text and max > 0 then
 		local perc = cur/max * 100
-		if perc > 95 then
-			perc = ""
-			element:SetAlpha(0)
-		else
-			perc = format("%d%%", perc)
+		if perc < 100 then
 			element:SetAlpha(1)
+		else
+			element:SetAlpha(0)
 		end
-		element.Text:SetText(perc)
+		element.Text:SetText(B.Perc(perc))
 	end
 end
 
 function UF:CreateAddPower(self)
 	local bar = CreateFrame("StatusBar", nil, self)
-	bar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -3)
-	bar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -3)
-	bar:SetHeight(4)
+	bar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -C.margin)
+	bar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -C.margin)
 	bar:SetStatusBarTexture(DB.normTex)
-	B.SetBD(bar)
+	bar:SetHeight(6)
 	bar.colorPower = true
+
+	B.SetBD(bar)
 	B:SmoothBar(bar)
 
 	local bg = bar:CreateTexture(nil, "BACKGROUND")
 	bg:SetAllPoints()
 	bg:SetTexture(DB.normTex)
 	bg.multiplier = .25
-	local text = B.CreateFS(bar, 12, "", false, "CENTER", 1, -3)
+	local text = B.CreateFS(bar, 12, "")
 
 	self.AdditionalPower = bar
 	self.AdditionalPower.bg = bg

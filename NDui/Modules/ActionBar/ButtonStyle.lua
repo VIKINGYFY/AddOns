@@ -55,74 +55,88 @@ function Bar:UpdateEquipedColor(button)
 end
 
 function Bar:StyleActionButton(button)
-	if not button then return end
-	if button.__styled then return end
+	if not button or button.__bg then return end
 
-	local buttonName = button:GetName()
-	local icon = button.icon
-	local cooldown = button.cooldown
-	local hotkey = button.HotKey
-	local count = button.Count
-	local name = button.Name
-	local flash = button.Flash
-	local border = button.Border
-	local normal = button.NormalTexture
-	local normal2 = button:GetNormalTexture()
-	local slotbg = button.SlotBackground
-	local pushed = button.PushedTexture
-	local checked = button.CheckedTexture
-	local highlight = button.HighlightTexture
-	local newActionTexture = button.NewActionTexture
-	local spellHighlight = button.SpellHighlightTexture
-	local iconMask = button.IconMask
-	local petShine = _G[buttonName.."Shine"]
-	local autoCastable = button.AutoCastable
+	button.__bg = B.SetBD(button)
 
-	if normal then normal:SetAlpha(0) end
-	if normal2 then normal2:SetAlpha(0) end
-	if flash then flash:SetTexture(nil) end
-	if newActionTexture then newActionTexture:SetTexture(nil) end
-	if border then border:SetTexture(nil) end
-	if slotbg then slotbg:Hide() end
-	if iconMask then iconMask:Hide() end
-	if button.style then button.style:SetAlpha(0) end
-	if petShine then petShine:SetInside() end
-	if autoCastable then
-		autoCastable:SetTexCoord(.217, .765, .217, .765)
-		autoCastable:SetInside()
-	end
-
+	local icon = B.GetObject(button, "icon")
 	if icon then
-		icon:SetInside()
+		icon:SetInside(button.__bg)
+		icon:SetDrawLayer("ARTWORK")
+
 		if not icon.__lockdown then
 			icon:SetTexCoord(unpack(DB.TexCoord))
 		end
-		button.__bg = B.SetBD(icon)
 	end
+
+	local cooldown = B.GetObject(button, "cooldown")
 	if cooldown then
-		cooldown:SetAllPoints()
+		cooldown:SetInside(button.__bg)
 	end
+
+	local pushed = B.GetObject(button, "PushedTexture")
 	if pushed then
-		pushed:SetInside()
-		pushed:SetTexture(DB.pushedTex)
+		B.ReskinBGBorder(pushed, button.__bg)
+		pushed:SetColorTexture(1, 1, 1)
 	end
+
+	local checked = B.GetObject(button, "CheckedTexture")
 	if checked then
-		checked:SetInside()
-		checked:SetColorTexture(1, .8, 0, .25)
+		B.ReskinBGBorder(checked, button.__bg)
+		checked:SetColorTexture(0, 1, 1)
 	end
+
+	local highlight = B.GetObject(button, "HighlightTexture")
 	if highlight then
-		highlight:SetInside()
-		highlight:SetColorTexture(1, 1, 1, .25)
+		B.ReskinHLTex(highlight, button.__bg)
 	end
+
+	local spellHighlight = B.GetObject(button, "SpellHighlightTexture")
 	if spellHighlight then
-		spellHighlight:SetOutside()
+		B.ReskinBGBorder(spellHighlight, button.__bg)
+		spellHighlight:SetColorTexture(1, 1, 1)
 	end
+
+	local hotkey = B.GetObject(button, "HotKey")
 	if hotkey then
 		Bar.UpdateHotKey(hotkey)
 		hooksecurefunc(hotkey, "SetText", Bar.UpdateHotKey)
 	end
 
-	button.__styled = true
+	local petShine = B.GetObject(button, "Shine")
+	if petShine then
+		petShine:SetAllPoints(button.__bg)
+	end
+
+	local autoCastable = B.GetObject(button, "AutoCastable")
+	if autoCastable then
+		autoCastable:SetTexCoord(.217, .765, .217, .765)
+		autoCastable:SetAllPoints(button.__bg)
+	end
+
+	local style = B.GetObject(button, "style")
+	if style then style:SetAlpha(0) end
+
+	local normal = B.GetObject(button, "NormalTexture")
+	if normal then normal:SetAlpha(0) end
+
+	local normal2 = button:GetNormalTexture()
+	if normal2 then normal2:SetAlpha(0) end
+
+	local flash = B.GetObject(button, "Flash")
+	if flash then flash:SetTexture(nil) end
+
+	local border = B.GetObject(button, "Border")
+	if border then border:SetTexture(nil) end
+
+	local newActionTexture = B.GetObject(button, "NewActionTexture")
+	if newActionTexture then newActionTexture:SetTexture(nil) end
+
+	local iconMask = B.GetObject(button, "IconMask")
+	if iconMask then iconMask:Hide() end
+
+	local slotbg = B.GetObject(button, "SlotBackground")
+	if slotbg then slotbg:Hide() end
 end
 
 function Bar:ReskinBars()
@@ -142,7 +156,7 @@ function Bar:ReskinBars()
 	--leave vehicle
 	Bar:StyleActionButton(_G["NDui_LeaveVehicleButton"])
 	--extra action button
-	Bar:StyleActionButton(ExtraActionButton1)
+	Bar:StyleActionButton(_G["ExtraActionButton1"])
 	--spell flyout
 	SpellFlyout.Background:SetAlpha(0)
 	local numFlyouts = 1

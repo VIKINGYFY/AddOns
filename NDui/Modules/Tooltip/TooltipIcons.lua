@@ -83,4 +83,5 @@ function TT:ReskinTooltipIcons()
 	-- Tooltip rewards icon
 	TT.ReskinRewardIcon(GameTooltip.ItemTooltip)
 	TT.ReskinRewardIcon(EmbeddedItemTooltip.ItemTooltip)
+	hooksecurefunc(UIWidgetBaseItemTemplateMixin, "OnLoad", TT.ReskinRewardIcon)
 end

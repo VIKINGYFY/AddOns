@@ -1,11 +1,9 @@
 # BagSync
 
-## [v19.59](https://github.com/Xruptor/BagSync/tree/v19.59) (2024-12-05)
-[Full Changelog](https://github.com/Xruptor/BagSync/compare/v19.58...v19.59) [Previous Releases](https://github.com/Xruptor/BagSync/releases)
+## [v19.60](https://github.com/Xruptor/BagSync/tree/v19.60) (2025-01-03)
+[Full Changelog](https://github.com/Xruptor/BagSync/compare/v19.59...v19.60) [Previous Releases](https://github.com/Xruptor/BagSync/releases)
 
-- Earthen Race Icon  
-    * I added the missing Earthen Race icon.  (Fixes #397)  
-- Merge pull request #398 from nanjuekaien1/patch-79  
-    Update zhCN/zhTW  
-- Update zhTW.lua  
-- Update zhCN.lua  
+- New Sorting Option  
+    * Added a new sorting option that will always display the current character at the top when using the default sort.  (Fixes #399)  
+- GitHub YML Update  
+    * Update for the YML Package Action  

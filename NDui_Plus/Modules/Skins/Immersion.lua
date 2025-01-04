@@ -64,7 +64,7 @@ function S:Immersion()
 
 	local Elements = TalkBox.Elements
 	B.StripTextures(Elements)
-	B.SetBD(Elements, nil, 0, -10, 0, 0)
+	B.SetBD(Elements, 0, -10, 0, 0)
 	Elements.Content.RewardsFrame.ItemHighlight.Icon:SetAlpha(0)
 
 	local MainFrame = TalkBox.MainFrame

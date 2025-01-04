@@ -126,7 +126,7 @@ end
 
 function S:BuyEmAll()
 	B.StripTextures(_G.BuyEmAllFrame)
-	B.SetBD(_G.BuyEmAllFrame, nil, 10, -10, -10, 10)
+	B.SetBD(_G.BuyEmAllFrame, 10, -10, -10, 10)
 	B.Reskin(_G.BuyEmAllOkayButton)
 	B.Reskin(_G.BuyEmAllCancelButton)
 	B.Reskin(_G.BuyEmAllStackButton)

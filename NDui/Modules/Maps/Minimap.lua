@@ -6,6 +6,7 @@ local cr, cg, cb = DB.r, DB.g, DB.b
 function module:CreatePulse()
 	local bg = B.SetBD(Minimap)
 	bg:SetFrameStrata("BACKGROUND")
+	bg:SetOutside()
 
 	if not C.db["Map"]["CombatPulse"] then return end
 
@@ -415,7 +416,8 @@ function module:RecycleBin()
 
 		local numShown = #shownButtons
 		local row = numShown == 0 and 1 or B:Round((numShown + rowMult) / iconsPerRow)
-		local newHeight = row*37
+		local base = B:Round(height / row)
+		local newHeight = row*base
 		bin:SetHeight(newHeight)
 		tex:SetHeight(newHeight)
 		rightLine:SetHeight(newHeight + 2*C.mult)
@@ -423,9 +425,9 @@ function module:RecycleBin()
 		for index, button in pairs(shownButtons) do
 			button:ClearAllPoints()
 			if index == 1 then
-				button:SetPoint("RIGHT", bin, -3, 0)
+				button:SetPoint("RIGHT", bin, -C.margin, 0)
 			else
-				button:SetPoint("RIGHT", shownButtons[index - 1], "LEFT", -3, 0)
+				button:SetPoint("RIGHT", shownButtons[index - 1], "LEFT", -C.margin, 0)
 			end
 		end
 	end

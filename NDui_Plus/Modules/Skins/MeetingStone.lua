@@ -407,7 +407,7 @@ function S:MeetingStone()
 	local DataBroker = MSEnv.DataBroker
 	DataBroker.BrokerPanel:SetBackdrop(nil)
 	DataBroker.BrokerPanel:SetSize(174, 30)
-	B.SetBD(DataBroker.BrokerPanel, nil, 0, 0, 0, 0)
+	B.SetBD(DataBroker.BrokerPanel)
 	DataBroker.BrokerIcon:SetPoint("LEFT", 8, 0)
 
 	-- Misc

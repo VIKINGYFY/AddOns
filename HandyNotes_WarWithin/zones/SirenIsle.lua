@@ -8,6 +8,9 @@ local myname, ns = ...
 -- unlock the undersea overseer's citrine: 85670
 -- unlock the old salt's bardic citrine: 85673
 -- unlock the storm sewer's citrine: 85674
+-- unlock the stormbringer's runed citrine: 85676
+-- unlock the squall sailor's citrine: 85671
+-- unlock the legendary skipper's citrine: 85707 (? 84794, 85070 at same time)
 
 -- starving snapdragon runt daily: 86566
 -- (+86482 A Lifeline, 86486 Hungry Hungry Snapdragon, )
@@ -53,6 +56,14 @@ ns.RegisterPoints(ns.SIRENISLE, {
         loot={229181}, -- Ordained Forge Maul
         vignette=6685,
     },
+    [62449081] = {
+        quest=84529, -- 84873
+        label="Bilge Rat Supply Chest",
+        loot={},
+        vignette=6683,
+        related={[61146889]={label="{npc:228582:First Mate Shellshock}",loot={228621}},},
+        note="Get the {item:228621:Bilge Rat Supply Key} from {npc:228582:First Mate Shellshock}",
+    },
 })
 
 ns.RegisterPoints(ns.FORGOTTENVAULT, {
@@ -94,6 +105,7 @@ ns.RegisterPoints(ns.SIRENISLE, {
 -- 44.49 22.70 = Forgotten Vault Entrance
 
 ns.RegisterPoints(ns.SIRENISLE, {
+    -- Always
     [35791339] = { -- Grimgull
         criteria=70797,
         quest=84796,
@@ -124,6 +136,7 @@ ns.RegisterPoints(ns.SIRENISLE, {
         npc=228151,
         vignette=6526,
     },
+    -- Project quests
     [37105499] = { -- Stalagnarok
         criteria=70793,
         quest=85437,
@@ -146,16 +159,6 @@ ns.RegisterPoints(ns.SIRENISLE, {
         vignette=6754,
         path=32456476,
     },
-    [32327408] = { -- Ikir the Flotsurge
-        criteria=70805,
-        quest=84792, -- 84847
-        npc=227545,
-        loot={
-            231117, -- Darktide Wavebender's Orb
-            231118, -- Runecaster's Stormbound Rune
-        },
-        vignette=6525,
-    },
     [55206840] = { -- Gravesludge (The Drain)
         criteria=70792,
         quest=85937, -- 84753 the drain
@@ -167,6 +170,18 @@ ns.RegisterPoints(ns.SIRENISLE, {
         vignette=6517,
         path=62607519,
     },
+    -- Storm
+    [32327408] = { -- Ikir the Flotsurge
+        criteria=70805,
+        quest=84792, -- 84847
+        npc=227545,
+        loot={
+            231117, -- Darktide Wavebender's Orb
+            231118, -- Runecaster's Stormbound Rune
+        },
+        vignette=6525,
+    },
+    -- Vrykul phase
     [63938735] = { -- Asbjorn the Bloodsoaked
         criteria=70806,
         quest=84805, -- 84839 first time?
@@ -176,39 +191,37 @@ ns.RegisterPoints(ns.SIRENISLE, {
         },
         vignette=6590,
     },
+    -- Naga phase
     [31757154] = { -- Bloodbrine
         criteria=70794,
         quest=84795, -- 84875
         npc=228154,
         vignette=6530,
     },
-    --[[
-    [0] = { -- Chef Chum Platter
-        criteria=70803,
-        quest=nil,
-        npc=228583,
-        vignette=6580,
-    },
-    --]]
     [61708967] = { -- Coralweaver Calliso
         criteria=70801,
         quest=84802,
         npc=229852,
         vignette=6581,
     },
-    --[[
-    [0] = { -- Plank-Master Bluebelly
-        criteria=70804,
-        quest=nil,
-        npc=228580,
-        vignette=6577,
-    },
-    --]]
     [55808381] = { -- Siris the Sea Scorpion
         criteria=70802,
         quest=84803,
         npc=229853,
         vignette=6582,
+    },
+    -- Pirate phase
+    [66128506] = { -- Chef Chum Platter
+        criteria=70803,
+        quest=84800,
+        npc=228583,
+        vignette=6580,
+    },
+    [60568904] = { -- Plank-Master Bluebelly
+        criteria=70804,
+        quest=84799,
+        npc=228580,
+        vignette=6577,
     },
 }, {
     achievement=41046, -- Clean Up On Isle Siren

@@ -192,7 +192,7 @@ end
 local function reskinPopout(self)
 	if self.Border then
 		B.StripTextures(self.Border)
-		B.SetBD(self.Border, .7, 5, -2, -5, 20)
+		B.SetBD(self.Border, 5, -2, -5, 20)
 	end
 end
 

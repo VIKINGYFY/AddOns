@@ -229,14 +229,6 @@ table.insert(C.defaultThemes, function()
 		if not block.bg then
 			B.StripTextures(block)
 			B.ReskinStatusBar(block.StatusBar)
---[[
-			select(3, block:GetRegions()):Hide()
-			block.TimerBG:Hide()
-			block.TimerBGBack:Hide()
-			block.timerbg = B.CreateBDFrame(block.TimerBGBack, .25)
-			block.timerbg:SetPoint("TOPLEFT", block.TimerBGBack, 6, -2)
-			block.timerbg:SetPoint("BOTTOMRIGHT", block.TimerBGBack, -6, -5)
-]]
 			block.StatusBar:SetHeight(10)
 			block.bg = B.SetBD(block, 4, -2, -4, 0)
 		end

@@ -120,7 +120,7 @@ local function GetInspectItemListFrame(parent)
 		parent.inspectFrame = frame
 		LibEvent:trigger("INSPECT_FRAME_CREATED", frame, parent)
 
-		frame.bg = B.SetBD(frame, 0, 0, 0, 0)
+		frame.bg = B.SetBD(frame)
 	end
 
 	return parent.inspectFrame

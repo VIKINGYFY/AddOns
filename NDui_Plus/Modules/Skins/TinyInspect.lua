@@ -18,7 +18,7 @@ function S:TinyInspect()
 			frame:SetBackdropBorderColor(0, 0, 0, 0)
 			frame.SetBackdropBorderColor = B.Dummy
 			frame.GetBackdrop = function(self) return self.backdrop end
-			B.SetBD(frame, nil, 0, 0, 0, 0)
+			B.SetBD(frame)
 
 			local specicon = frame.specicon
 			specicon:SetSize(41, 41)

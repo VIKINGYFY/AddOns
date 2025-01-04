@@ -83,7 +83,7 @@ function M:ContactButton_Create(parent, index)
 	button:RegisterForClicks("AnyDown")
 	button:SetScript("OnClick", M.ContactButton_OnClick)
 
-	button.delete = B.CreateButton(button, 20, 20, true, "Interface\\RAIDFRAME\\ReadyCheck-NotReady")
+	button.delete = B.CreateButton(button, 20, 20, true, DB.closeTex)
 	button.delete:SetPoint("LEFT", button, "RIGHT", 2, 0)
 	button.delete.__owner = button
 	button.delete:SetScript("OnClick", M.ContactButton_Delete)
@@ -208,7 +208,7 @@ function M:MailBox_ContactList()
 
 	local scrollBar = CreateFrame("Slider", "$parentScrollBar", scrollFrame, "HybridScrollBarTemplate")
 	scrollBar.doNotHide = true
-	B.ReskinScroll(scrollBar)
+	B.ReskinTrimScroll(scrollBar)
 	scrollFrame.scrollBar = scrollBar
 
 	local scrollChild = scrollFrame.scrollChild

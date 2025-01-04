@@ -58,8 +58,7 @@ end
 
 function S:ReskinScrollEnd(direction)
 	B.ReskinArrow(self, direction)
-	if self.Texture then self.Texture:SetAlpha(0) end
-	self:SetSize(16, 12)
+	self:SetSize(18, 18)
 	self.__texture:SetVertexColor(1, .8, 0)
 	self:HookScript("OnLeave", scrollEndOnLeave)
 end
@@ -67,8 +66,8 @@ end
 function S:RematchScroll()
 	B.StripTextures(self)
 	B.ReskinTrimScroll(self.ScrollBar)
-	S.ReskinScrollEnd(self.ScrollToTopButton, "up")
-	S.ReskinScrollEnd(self.ScrollToBottomButton, "down")
+	S.ReskinScrollEnd(self.ScrollToTopButton, "top")
+	S.ReskinScrollEnd(self.ScrollToBottomButton, "bottom")
 end
 
 function S:RematchDropdown()
@@ -118,7 +117,7 @@ end
 
 function S:RematchLockButton(button)
 	B.StripTextures(button, 1)
-	local bg = B.CreateBDFrame(button, .25, true)
+	local bg = B.CreateBDFrame(button, 0, true)
 	bg:SetInside(nil, 7, 7)
 end
 
@@ -312,7 +311,7 @@ function S:ReskinRematchElements()
 	B.StripTextures(petCard.PinButton)
 	B.ReskinArrow(petCard.PinButton, "up")
 	petCard.PinButton:SetPoint("TOPLEFT", 5, -5)
-	local bg = B.SetBD(petCard.Title, .7)
+	local bg = B.SetBD(petCard.Title)
 	bg:SetAllPoints(petCard)
 	S.RematchCard(petCard.Front)
 	S.RematchCard(petCard.Back)
@@ -326,7 +325,7 @@ function S:ReskinRematchElements()
 	-- RematchAbilityCard
 	local abilityCard = RematchAbilityCard
 	B.StripTextures(abilityCard, 15)
-	B.SetBD(abilityCard, .7)
+	B.SetBD(abilityCard)
 	abilityCard.Hints.HintsBG:Hide()
 
 	-- RematchWinRecordCard
@@ -376,12 +375,12 @@ function S:ReskinRematchElements()
 	S.RematchInput(preferences.MaxXP)
 
 	local iconPicker = dialog.TeamTabIconPicker
-	B.ReskinScroll(iconPicker.ScrollFrame.ScrollBar)
+	B.ReskinTrimScroll(iconPicker.ScrollFrame.ScrollBar)
 	B.StripTextures(iconPicker)
 	B.CreateBDFrame(iconPicker, .25)
 	S.RematchInput(iconPicker.SearchBox)
 
-	B.ReskinScroll(dialog.MultiLine.ScrollBar)
+	B.ReskinTrimScroll(dialog.MultiLine.ScrollBar)
 	select(2, dialog.MultiLine:GetChildren()):HideBackdrop()
 	local bg = B.CreateBDFrame(dialog.MultiLine, .25)
 	bg:SetPoint("TOPLEFT", -5, 5)
@@ -469,7 +468,7 @@ function S:ReskinRematch()
 		self.LockButton:SetPoint("TOPLEFT")
 
 		local content = self.Content
-		B.ReskinScroll(content.ScrollFrame.ScrollBar)
+		B.ReskinTrimScroll(content.ScrollFrame.ScrollBar)
 		local bg = B.CreateBDFrame(content.ScrollFrame, .25)
 		bg:SetPoint("TOPLEFT", 0, 5)
 		bg:SetPoint("BOTTOMRIGHT", 0, -2)

@@ -1,5 +1,4 @@
-## Changed in v72
+## Changed in v73
 
-* Updated Siren Isle with more rares and treasures
-* Move right-click context menus to the new menu system as well
+* Siren Isle updates for the pirate phase
 

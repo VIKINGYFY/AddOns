@@ -1115,6 +1115,7 @@ function G:SetupUnitFrame(parent)
 			UF.UpdateFramePowerTag(frame)
 		end
 		UF:UpdateUFAuras()
+		UF:UpdateUFClassPower()
 	end
 
 	local function updateFocusSize()

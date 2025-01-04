@@ -221,15 +221,15 @@ end
 local function BuildBAR(barWidth, iconSize)
 	local frame = CreateFrame("Frame", nil, PetBattleFrameHider)
 	frame:SetSize(iconSize, iconSize)
-	B.SetBD(frame)
+	frame.bg = B.SetBD(frame)
 
 	frame.Icon = frame:CreateTexture(nil, "ARTWORK")
-	frame.Icon:SetAllPoints()
+	frame.Icon:SetInside(frame.bg)
 	frame.Icon:SetTexCoord(unpack(DB.TexCoord))
 
 	frame.Statusbar = CreateFrame("StatusBar", nil, frame)
 	frame.Statusbar:SetSize(barWidth, iconSize/2)
-	frame.Statusbar:SetPoint("BOTTOMLEFT", frame, "BOTTOMRIGHT", 5, 0)
+	frame.Statusbar:SetPoint("BOTTOMLEFT", frame, "BOTTOMRIGHT", C.margin, 0)
 	frame.Statusbar:SetMinMaxValues(0, 1)
 	frame.Statusbar:SetValue(0)
 	B.CreateSB(frame.Statusbar, true)

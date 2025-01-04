@@ -30,7 +30,7 @@ function S:TalentLoadoutsEx()
 		if not frame then return end
 
 		B.StripTextures(frame)
-		B.SetBD(frame, nil, 0, 0, 0, 0)
+		B.SetBD(frame)
 		frame:ClearAllPoints()
 		frame:SetPoint("TOPLEFT", _G.PlayerSpellsFrame, "TOPRIGHT", 1, 0)
 		frame:SetPoint("BOTTOMLEFT", _G.PlayerSpellsFrame, "BOTTOMRIGHT", 1, 0)

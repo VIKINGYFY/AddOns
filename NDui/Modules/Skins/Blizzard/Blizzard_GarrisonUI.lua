@@ -80,28 +80,30 @@ end
 
 local function ReskinMissionButton(button)
 	if not button.styled then
-		local rareOverlay = button.RareOverlay
-		local rareText = button.RareText
-
-		button.LocBG:SetDrawLayer("BACKGROUND")
-		if button.ButtonBG then button.ButtonBG:Hide() end
 		B.StripTextures(button)
-		B.CreateBDFrame(button, .25, true)
-		button.Highlight:SetColorTexture(0, 1, 1, .25)
-		button.Highlight:SetAllPoints()
 
-		if button.CompleteCheck then
-			button.CompleteCheck:SetAtlas("Adventures-Checkmark")
-		end
+		local bg = B.CreateBDFrame(button, .25)
+		B.UpdateSize(bg, 5, -5, -5, 5)
+
+		local rareText = button.RareText
 		if rareText then
 			rareText:ClearAllPoints()
 			rareText:SetPoint("BOTTOMLEFT", button, 20, 10)
 		end
+
+		local rareOverlay = button.RareOverlay
 		if rareOverlay then
 			rareOverlay:SetDrawLayer("BACKGROUND")
 			rareOverlay:SetTexture(DB.bdTex)
 			rareOverlay:SetAllPoints()
 			rareOverlay:SetVertexColor(.098, .537, .969, .25)
+		end
+
+		if button.ButtonBG then
+			button.ButtonBG:Hide()
+		end
+		if button.CompleteCheck then
+			button.CompleteCheck:SetAtlas("Adventures-Checkmark")
 		end
 		if button.Overlay and button.Overlay.Overlay then
 			button.Overlay.Overlay:SetAllPoints()
@@ -1201,7 +1203,7 @@ C.themes["Blizzard_GarrisonUI"] = function()
 					numButtons = numButtons + 1
 					if numButtons > 2 then
 						peek("UsedBorder"):SetTexture(nil)
-						peek("UsedBorder").__shadow = B.CreateSD(peek("Portrait"), 5, true)
+						peek("UsedBorder").__shadow = B.CreateSD(peek("Portrait"), nil, true)
 						peek("UsedBorder").__shadow:SetBackdropBorderColor(peek("UsedBorder"):GetVertexColor())
 						hooksecurefunc(peek("UsedBorder"), "SetShown", updateActiveGlow)
 						table.insert(VPFollowers, widget)

@@ -96,7 +96,7 @@ G.DefaultSettings = {
 		Enable = true,
 		IconSize = 34,
 		FontSize = 12,
-		BagsWidth = 12,
+		BagsWidth = 14,
 		BankWidth = 14,
 		AccountWidth = 20,
 		BagsiSlot = true,
@@ -1867,7 +1867,7 @@ local function OpenGUI()
 		guiPage[i].child = CreateFrame("Frame", nil, guiPage[i])
 		guiPage[i].child:SetSize(610, 1)
 		guiPage[i]:SetScrollChild(guiPage[i].child)
-		B.ReskinScroll(guiPage[i].ScrollBar)
+		B.ReskinTrimScroll(guiPage[i].ScrollBar)
 		guiPage[i]:SetScript("OnMouseWheel", scrollBarHook)
 
 		CreateOption(i)

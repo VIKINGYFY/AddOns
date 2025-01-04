@@ -386,7 +386,7 @@ function UF:UpdateTargetIndicator()
 end
 
 function UF:AddTargetIndicator(self)
-	local frame = CreateFrame("Frame", nil, self)
+	local frame = CreateFrame("Frame", nil, self.Health)
 	frame:SetAllPoints()
 	frame:SetFrameLevel(0)
 	frame:Hide()
@@ -496,7 +496,7 @@ end
 function UF:AddQuestIcon(self)
 	if not C.db["Nameplate"]["QuestIndicator"] then return end
 
-	local qicon = self:CreateTexture(nil, "OVERLAY", nil, 2)
+	local qicon = self.Health:CreateTexture(nil, "ARTWORK")
 	qicon:SetPoint("LEFT", self, "RIGHT", -1, 0)
 	qicon:SetSize(30, 30)
 	qicon:SetAtlas(DB.questTex)
@@ -519,7 +519,7 @@ local NPClassifies = {
 }
 
 function UF:AddCreatureIcon(self)
-	local icon = self:CreateTexture(nil, "ARTWORK")
+	local icon = self.Health:CreateTexture(nil, "ARTWORK")
 	icon:SetTexture(DB.starTex)
 	icon:SetPoint("RIGHT", self.nameText, "LEFT", 10, 0)
 	icon:SetSize(18, 18)
@@ -626,7 +626,7 @@ function UF:SpellInterruptor(self)
 end
 
 function UF:ShowUnitTargeted(self)
-	local tex = self:CreateTexture()
+	local tex = self.Health:CreateTexture(nil, "ARTWORK")
 	tex:SetSize(20, 20)
 	tex:SetPoint("LEFT", self, "RIGHT", 5, 0)
 	tex:SetAtlas("target")

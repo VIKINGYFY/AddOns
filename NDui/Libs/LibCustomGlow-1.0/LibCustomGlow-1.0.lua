@@ -88,7 +88,7 @@ local TexPoolResetter = function(pool,tex)
 	tex:Hide()
 	tex:ClearAllPoints()
 end
-local GlowTexPool = CreateTexturePool(GlowParent ,"ARTWORK",7,nil,TexPoolResetter)
+local GlowTexPool = CreateTexturePool(GlowParent ,"OVERLAY",7,nil,TexPoolResetter)
 lib.GlowTexPool = GlowTexPool
 
 local FramePoolResetter = function(framePool,frame)
@@ -147,7 +147,7 @@ local function addFrameAndTex(r,color,name,key,N,xOffset,yOffset,texture,texCoor
 			f.textures[i]:SetTexCoord(texCoord[1],texCoord[2],texCoord[3],texCoord[4])
 			f.textures[i]:SetDesaturated(desaturated)
 			f.textures[i]:SetParent(f)
-			f.textures[i]:SetDrawLayer("ARTWORK",7)
+			f.textures[i]:SetDrawLayer("OVERLAY",7)
 			if not isRetail and name == "_AutoCastGlow" then
 				f.textures[i]:SetBlendMode("ADD")
 			end
@@ -309,7 +309,7 @@ function lib.PixelGlow_Start(r,color,N,frequency,length,th,xOffset,yOffset,borde
 			f.bg:SetColorTexture(0.1,0.1,0.1,0.8)
 			f.bg:SetParent(f)
 			f.bg:SetAllPoints(f)
-			f.bg:SetDrawLayer("ARTWORK",6)
+			f.bg:SetDrawLayer("OVERLAY",6)
 			f.bg:AddMaskTexture(f.masks[2])
 		end
 	else
@@ -557,14 +557,14 @@ local function configureButtonGlow(f,alpha)
 	f.spark:SetTexCoord(0.00781250, 0.61718750, 0.00390625, 0.26953125)
 
 	-- inner glow
-	f.innerGlow = f:CreateTexture(nil, "ARTWORK")
+	f.innerGlow = f:CreateTexture(nil, "OVERLAY")
 	f.innerGlow:SetPoint("CENTER")
 	f.innerGlow:SetAlpha(0)
 	f.innerGlow:SetTexture([[Interface\SpellActivationOverlay\IconAlert]])
 	f.innerGlow:SetTexCoord(0.00781250, 0.50781250, 0.27734375, 0.52734375)
 
 	-- inner glow over
-	f.innerGlowOver = f:CreateTexture(nil, "ARTWORK")
+	f.innerGlowOver = f:CreateTexture(nil, "OVERLAY")
 	f.innerGlowOver:SetPoint("TOPLEFT", f.innerGlow, "TOPLEFT")
 	f.innerGlowOver:SetPoint("BOTTOMRIGHT", f.innerGlow, "BOTTOMRIGHT")
 	f.innerGlowOver:SetAlpha(0)
@@ -572,14 +572,14 @@ local function configureButtonGlow(f,alpha)
 	f.innerGlowOver:SetTexCoord(0.00781250, 0.50781250, 0.53515625, 0.78515625)
 
 	-- outer glow
-	f.outerGlow = f:CreateTexture(nil, "ARTWORK")
+	f.outerGlow = f:CreateTexture(nil, "OVERLAY")
 	f.outerGlow:SetPoint("CENTER")
 	f.outerGlow:SetAlpha(0)
 	f.outerGlow:SetTexture([[Interface\SpellActivationOverlay\IconAlert]])
 	f.outerGlow:SetTexCoord(0.00781250, 0.50781250, 0.27734375, 0.52734375)
 
 	-- outer glow over
-	f.outerGlowOver = f:CreateTexture(nil, "ARTWORK")
+	f.outerGlowOver = f:CreateTexture(nil, "OVERLAY")
 	f.outerGlowOver:SetPoint("TOPLEFT", f.outerGlow, "TOPLEFT")
 	f.outerGlowOver:SetPoint("BOTTOMRIGHT", f.outerGlow, "BOTTOMRIGHT")
 	f.outerGlowOver:SetAlpha(0)
@@ -769,14 +769,14 @@ local ProcGlowPool = CreateFramePool("Frame", GlowParent, nil, ProcGlowResetter)
 lib.ProcGlowPool = ProcGlowPool
 
 local function InitProcGlow(f)
-	f.ProcStart = f:CreateTexture(nil, "ARTWORK")
+	f.ProcStart = f:CreateTexture(nil, "OVERLAY")
 	f.ProcStart:SetBlendMode("ADD")
 	f.ProcStart:SetAtlas("UI-HUD-ActionBar-Proc-Start-Flipbook")
 	f.ProcStart:SetAlpha(1)
 	f.ProcStart:SetSize(150, 150)
 	f.ProcStart:SetPoint("CENTER")
 
-	f.ProcLoop = f:CreateTexture(nil, "ARTWORK")
+	f.ProcLoop = f:CreateTexture(nil, "OVERLAY")
 	f.ProcLoop:SetAtlas("UI-HUD-ActionBar-Proc-Loop-Flipbook")
 	f.ProcLoop:SetAlpha(0)
 	f.ProcLoop:SetAllPoints()

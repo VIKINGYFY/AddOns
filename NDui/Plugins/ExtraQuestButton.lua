@@ -5,6 +5,9 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
+local cr, cg, cb = DB.cr, DB.cg, DB.cb
+local tL, tR, tT, tB = unpack(DB.TexCoord)
+
 local MAX_DISTANCE_YARDS = 1e3 -- needs review
 local onlyCurrentZone = true
 
@@ -234,11 +237,15 @@ function ExtraQuestButton:PLAYER_LOGIN()
 	self:SetAttribute("_onattributechanged", onAttributeChanged)
 	self:SetAttribute("type", "item")
 
+	self:SetPushedTexture(DB.pushedTex)
 	self:SetSize(ExtraActionButton1:GetSize())
 	self:SetScale(ExtraActionButton1:GetScale())
 	self:SetScript("OnLeave", B.HideTooltip)
 	self:SetClampedToScreen(true)
 	self:SetToplevel(true)
+
+	self.updateTimer = 0
+	self.rangeTimer = 0
 
 	if not self:GetPoint() then
 		if _G.NDui_ActionBarExtra then
@@ -248,41 +255,40 @@ function ExtraQuestButton:PLAYER_LOGIN()
 		end
 	end
 
-	self.updateTimer = 0
-	self.rangeTimer = 0
+	if not self.bg then
+		self.bg = B.SetBD(self)
+		B.ReskinCPTex(self, self.bg)
 
-	self:SetPushedTexture(DB.pushedTex)
-	local push = self:GetPushedTexture()
-	push:SetBlendMode("ADD")
-	push:SetInside()
+		local Cooldown = CreateFrame("Cooldown", "$parentCooldown", self, "CooldownFrameTemplate")
+		Cooldown:SetReverse(false)
+		Cooldown:SetInside(self.bg)
+		Cooldown:Hide()
+		self.Cooldown = Cooldown
 
-	local Icon = self:CreateTexture("$parentIcon", "ARTWORK")
-	Icon:SetInside()
-	B.ReskinIcon(Icon, true)
-	self.HL = self:CreateTexture(nil, "HIGHLIGHT")
-	self.HL:SetColorTexture(1, 1, 1, .25)
-	self.HL:SetAllPoints(Icon)
-	self.Icon = Icon
+		local Icon = self:CreateTexture("$parentIcon", "ARTWORK")
+		Icon:SetTexCoord(tL, tR, tT, tB)
+		Icon:SetInside(self.bg)
+		self.Icon = Icon
 
-	local HotKey = self:CreateFontString("$parentHotKey", nil, "NumberFontNormal")
-	HotKey:SetPoint("TOP", 0, -5)
-	self.HotKey = HotKey
+		local Highlight = self:CreateTexture("$parentHighlight", "HIGHLIGHT")
+		Highlight:SetColorTexture(1, 1, 1, .25)
+		Highlight:SetInside(self.bg)
+		self.Highlight = Highlight
 
-	local Count = self:CreateFontString("$parentCount", nil, "NumberFont_Shadow_Med")
-	Count:SetPoint("BOTTOMRIGHT", -3, 3)
-	self.Count = Count
+		local Artwork = self:CreateTexture("$parentArtwork", "OVERLAY")
+		B.UpdatePoint(Artwork, "BOTTOMLEFT", self, "BOTTOMLEFT", 0, 0)
+		Artwork:SetSize(20, 20)
+		Artwork:SetAtlas(DB.questTex)
+		self.Artwork = Artwork
 
-	local Cooldown = CreateFrame("Cooldown", "$parentCooldown", self, "CooldownFrameTemplate")
-	Cooldown:SetInside()
-	Cooldown:SetReverse(false)
-	Cooldown:Hide()
-	self.Cooldown = Cooldown
+		local HotKey = self:CreateFontString("$parentHotKey", nil, "NumberFontNormal")
+		B.UpdatePoint(HotKey, "TOPLEFT", self, "TOPLEFT", 3, -3)
+		self.HotKey = HotKey
 
-	local Artwork = self:CreateTexture("$parentArtwork", "OVERLAY")
-	Artwork:SetPoint("BOTTOMLEFT", -1, -3)
-	Artwork:SetSize(20, 20)
-	Artwork:SetAtlas(DB.questTex)
-	self.Artwork = Artwork
+		local Count = self:CreateFontString("$parentCount", nil, "NumberFont_Shadow_Med")
+		B.UpdatePoint(Count, "BOTTOMRIGHT", self, "BOTTOMRIGHT", -3, 3)
+		self.Count = Count
+	end
 
 	self:RegisterEvent("UPDATE_BINDINGS")
 	self:RegisterEvent("BAG_UPDATE_COOLDOWN")

@@ -125,31 +125,26 @@ table.insert(C.defaultThemes, function()
 	end
 
 	-- [[ Sidebar tabs ]]
-	if PaperDollSidebarTabs.DecorRight then
-		PaperDollSidebarTabs.DecorRight:Hide()
-	end
+	local SidebarTabs = PaperDollSidebarTabs
+	B.StripTextures(SidebarTabs)
+	B.UpdatePoint(SidebarTabs, "BOTTOM", CharacterFrameInsetRight, "TOP", 0, 0)
+
+	local SidebarTab3 = PaperDollSidebarTab3
+	B.UpdatePoint(SidebarTab3, "RIGHT", SidebarTabs, "RIGHT", -17, 0)
 
 	for i = 1, #PAPERDOLL_SIDEBARS do
 		local tab = _G["PaperDollSidebarTab"..i]
+		tab:SetSize(31, 33)
+		tab.TabBg:Hide()
 
+		local bg = B.CreateBDFrame(tab)
+		B.ReskinHLTex(tab.Highlight, bg)
+		B.ReskinHLTex(tab.Hider, bg)
+
+		tab.Icon:SetInside(bg)
 		if i == 1 then
-			for i = 1, 4 do
-				local region = select(i, tab:GetRegions())
-				region:SetTexCoord(.16, .86, .16, .86)
-				region.SetTexCoord = B.Dummy
-			end
+			tab.Icon:SetTexCoord(.15, .85, .15, .85)
 		end
-
-		tab.bg = B.CreateBDFrame(tab)
-		tab.bg:SetPoint("TOPLEFT", 2, -3)
-		tab.bg:SetPoint("BOTTOMRIGHT", 0, -2)
-
-		tab.Icon:SetInside(tab.bg)
-		tab.Hider:SetInside(tab.bg)
-		tab.Highlight:SetInside(tab.bg)
-		tab.Highlight:SetColorTexture(1, 1, 1, .25)
-		tab.Hider:SetColorTexture(.5, .5, .5, .25)
-		tab.TabBg:SetAlpha(0)
 	end
 
 	-- [[ Equipment manager ]]

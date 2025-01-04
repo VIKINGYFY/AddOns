@@ -288,8 +288,10 @@ function A:CreateAuraIcon(button)
 	end
 	local fontSize = math.floor(cfg.size/30*12 + .5)
 
+	button.bg = B.SetBD(button)
+
 	button.icon = button:CreateTexture(nil, "BORDER")
-	button.icon:SetInside()
+	button.icon:SetInside(button.bg)
 	button.icon:SetTexCoord(unpack(DB.TexCoord))
 
 	button.count = button:CreateFontString(nil, "ARTWORK")
@@ -302,10 +304,7 @@ function A:CreateAuraIcon(button)
 
 	button.highlight = button:CreateTexture(nil, "HIGHLIGHT")
 	button.highlight:SetColorTexture(1, 1, 1, .25)
-	button.highlight:SetInside()
-
-	B.CreateBD(button, .25)
-	B.CreateSD(button)
+	button.highlight:SetInside(button.bg)
 
 	button:RegisterForClicks("RightButtonUp", "RightButtonDown")
 	button:SetScript("OnAttributeChanged", A.OnAttributeChanged)

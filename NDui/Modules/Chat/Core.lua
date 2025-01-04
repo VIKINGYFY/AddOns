@@ -45,7 +45,8 @@ function module:UpdateChatSize()
 end
 
 local function BlackBackground(self)
-	local frame = B.SetBD(self.Background)
+	local frame = B.SetBD(self)
+	frame:SetOutside(self.Background)
 	frame:SetShown(C.db["Chat"]["ChatBGType"] == 2)
 
 	return frame

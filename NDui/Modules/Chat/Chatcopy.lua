@@ -135,7 +135,7 @@ function module:ChatCopy_Create()
 	copy:HookScript("OnLeave", function() copy:SetAlpha(.5) end)
 
 	B.ReskinClose(frame.close)
-	B.ReskinScroll(ChatCopyScrollFrameScrollBar)
+	B.ReskinTrimScroll(ChatCopyScrollFrameScrollBar)
 end
 
 function module:ChatCopy()

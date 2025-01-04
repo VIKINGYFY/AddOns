@@ -256,7 +256,7 @@ C.themes["Blizzard_Professions"] = function()
 		for tab in self.tabsPool:EnumerateActive() do
 			if not tab.styled then
 				tab.styled = true
-				B.ReskinTab(tab)
+				B.ReskinTab(tab, true)
 			end
 		end
 	end)
