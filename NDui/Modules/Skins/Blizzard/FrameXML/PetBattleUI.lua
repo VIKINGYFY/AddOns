@@ -238,7 +238,7 @@ table.insert(C.defaultThemes, function()
 	skipButton:SetSize(42, 42)
 	B.StripTextures(skipButton)
 	B.PixelIcon(skipButton, "Interface\\Icons\\Ability_Foundryraid_Dormant", true)
-	B.CreateSD(skipButton)
+	B.CreateSD(skipButton.bg)
 	skipButton.HL:SetAllPoints(skipButton)
 	skipButton:SetPushedTexture(DB.pushedTex)
 
@@ -294,8 +294,8 @@ table.insert(C.defaultThemes, function()
 	-- Petbar Background
 	local width, height = 180, 68
 	local anchors = {
-		["BOTTOMRIGHT"] = {0, .5},
-		["BOTTOMLEFT"] = {.5, 0}
+		["BOTTOMRIGHT"] = {0, C.alpha},
+		["BOTTOMLEFT"] = {C.alpha, 0}
 	}
 	for anchor, v in pairs(anchors) do
 		local frame = CreateFrame("Frame", nil, UIParent)

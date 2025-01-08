@@ -49,7 +49,7 @@ table.insert(C.defaultThemes, function()
 	local selectionPanel = DressUpFrame.SetSelectionPanel
 	if selectionPanel then
 		B.StripTextures(selectionPanel)
-		B.SetBD(selectionPanel):SetInside(nil, 9, 9)
+		B.SetBD(selectionPanel, 9)
 
 		local function SetupSetButton(button)
 			if button.styled then return end

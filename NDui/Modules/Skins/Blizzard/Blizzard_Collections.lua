@@ -97,7 +97,7 @@ C.themes["Blizzard_Collections"] = function()
 		if button.DragButton.ActiveTexture:IsShown() then
 			button.icon.bg:SetBackdropBorderColor(1, .8, 0)
 		else
-			button.icon.bg:SetBackdropBorderColor(0, 0, 0)
+			B.SetBorderColor(button.icon.bg)
 		end
 	end)
 
@@ -130,7 +130,7 @@ C.themes["Blizzard_Collections"] = function()
 		if button.dragButton.ActiveTexture:IsShown() then
 			button.icon.bg:SetBackdropBorderColor(1, .8, 0)
 		else
-			button.icon.bg:SetBackdropBorderColor(0, 0, 0)
+			B.SetBorderColor(button.icon.bg)
 		end
 	end)
 
@@ -407,7 +407,7 @@ C.themes["Blizzard_Collections"] = function()
 			button.newLevelBg:Show()
 		else
 			button.name:SetTextColor(.5, .5, .5)
-			button.bg:SetBackdropBorderColor(0, 0, 0)
+			B.SetBorderColor(button.bg)
 			button.newLevelBg:Hide()
 		end
 	end)
@@ -524,7 +524,7 @@ C.themes["Blizzard_Collections"] = function()
 			local color = DB.QualityColors[quality or 1]
 			ic.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 		else
-			ic.bg:SetBackdropBorderColor(0, 0, 0)
+			B.SetBorderColor(ic.bg)
 		end
 	end)
 

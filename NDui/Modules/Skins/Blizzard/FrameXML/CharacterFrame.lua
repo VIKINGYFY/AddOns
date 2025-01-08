@@ -71,16 +71,15 @@ table.insert(C.defaultThemes, function()
 		local cooldown = _G["Character"..slots[i].."SlotCooldown"]
 
 		B.StripTextures(slot)
-		slot.icon:SetTexCoord(unpack(DB.TexCoord))
-		slot.icon:SetInside()
-		slot.bg = B.CreateBDFrame(slot.icon, .25)
-		slot.bg:SetFrameLevel(3) -- higher than portrait
-		cooldown:SetInside()
 
+		slot.bg = B.ReskinIcon(slot.icon)
 		slot.ignoreTexture:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-LeaveItem-Transparent")
 		slot.IconOverlay:SetAtlas("CosmeticIconFrame")
-		slot.IconOverlay:SetInside()
+		slot.IconOverlay:SetInside(slot.bg)
+		cooldown:SetInside(slot.bg)
+
 		B.ReskinIconBorder(slot.IconBorder)
+		B.ReskinHLTex(slot, slot.bg, nil, true)
 
 		local popout = slot.popoutButton
 		popout:SetSize(14, 14)

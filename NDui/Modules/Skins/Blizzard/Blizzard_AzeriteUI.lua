@@ -39,7 +39,7 @@ local function updateEssenceButton(button)
 		if button.PendingGlow and button.PendingGlow:IsShown() then
 			button.bg:SetBackdropBorderColor(1, .8, 0)
 		else
-			button.bg:SetBackdropBorderColor(0, 0, 0)
+			B.SetBorderColor(button.bg)
 		end
 	end
 end

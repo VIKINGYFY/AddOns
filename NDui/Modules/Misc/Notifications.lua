@@ -403,7 +403,7 @@ local spellList = {
 
 	[384893] = true,	-- 足以乱真的救急电缆11.0工程战复
 	[453949] = true,	-- 不可抗拒的红色按钮11.0工程战复工具
-	[453942] = true,	-- 阿加修理机器人11O   
+	[453942] = true,	-- 阿加修理机器人11O
 	[432877] = true,	-- 阿加合剂大锅
 	[433292] = true,	-- 阿加药水大锅
 	[455960] = true,	-- 全味炖煮
@@ -492,24 +492,26 @@ function M:NVision_Create()
 	}
 
 	for i, v in ipairs(barData) do
-		local bar = CreateFrame("StatusBar", nil, frame)
-		bar:SetSize(80, 20)
+		local bar = B.CreateSB(frame)
 		bar:SetPoint(v.anchorF, frame, "CENTER", v.offset, 0)
+		bar:SetStatusBarColor(unpack(v.color))
 		bar:SetMinMaxValues(0, v.maxValue)
-		bar:SetValue(0)
 		bar:SetReverseFill(v.reverse)
-		B:SmoothBar(bar)
-		B.CreateSB(bar, nil, unpack(v.color))
-		bar.text = B.CreateFS(bar, 16, "0/"..v.maxValue, nil, "CENTER", 0, 0)
+		bar:SetSize(80, 20)
+		bar:SetValue(0)
+
+		B.SmoothBar(bar)
 
 		local icon = CreateFrame("Frame", nil, bar)
 		icon:SetSize(22, 22)
 		icon:SetPoint(v.anchorF, bar, v.anchorT, v.offset, 0)
 		B.PixelIcon(icon, v.texture)
-		B.CreateSD(icon)
+		B.CreateSD(icon.bg)
 
-		bar.count = 0
+		bar.text = B.CreateFS(bar, 16, "0/"..v.maxValue, nil, "CENTER", 0, 0)
 		bar.__max = v.maxValue
+		bar.count = 0
+
 		frame.bars[i] = bar
 	end
 

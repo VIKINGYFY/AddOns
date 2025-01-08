@@ -36,7 +36,7 @@ local function reskinHeader(header)
 	local bg = header:CreateTexture(nil, "ARTWORK")
 	bg:SetTexture("Interface\\LFGFrame\\UI-LFG-SEPARATOR")
 	bg:SetTexCoord(0, .66, 0, .31)
-	bg:SetVertexColor(r, g, b, .5)
+	bg:SetVertexColor(r, g, b)
 	bg:SetPoint("BOTTOM", 0, -4)
 	bg:SetSize(250, 30)
 	header.bg = bg -- accessable for other addons
@@ -121,11 +121,11 @@ local function blockList_Show(self)
 	self.button:SetButtonState("NORMAL")
 	self.button:SetPushedTextOffset(1.25, -1)
 	self.button:SetButtonState("PUSHED", true)
-	self.__bg:SetBackdropBorderColor(1, .8, 0, .5)
+	self.__bg:SetBackdropBorderColor(1, .8, 0)
 end
 
 local function blockList_Hide(self)
-	self.__bg:SetBackdropBorderColor(0, 0, 0, 1)
+	B.SetBorderColor(self.__bg)
 end
 
 local function ReskinMawBuffsContainer(container)

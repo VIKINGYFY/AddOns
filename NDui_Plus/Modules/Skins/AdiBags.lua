@@ -82,7 +82,7 @@ local function ContainerButton_UpdateBorder(self)
 		local color = DB.QualityColors[quality]
 		self:SetBackdropBorderColor(color.r, color.g, color.b)
 	else
-		self:SetBackdropBorderColor(0, 0, 0)
+		B.SetBorderColor(self)
 	end
 end
 

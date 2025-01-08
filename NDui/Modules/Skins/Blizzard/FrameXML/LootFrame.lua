@@ -24,12 +24,12 @@ table.insert(C.defaultThemes, function()
 		if button.PushedNameFrame:IsShown() then
 			button.bg:SetBackdropBorderColor(1, .8, 0)
 		else
-			button.bg:SetBackdropBorderColor(0, 0, 0)
+			B.SetBorderColor(button.bg)
 		end
 	end
 
 	local function onHide(self)
-		self.__owner.bg:SetBackdropBorderColor(0, 0, 0)
+		B.SetBorderColor(self.__owner.bg)
 	end
 
 	hooksecurefunc(LootFrame.ScrollBox, "Update", function(self)
@@ -124,9 +124,7 @@ table.insert(C.defaultThemes, function()
 	hooksecurefunc("BossBanner_ConfigureLootFrame", function(lootFrame)
 		local iconHitBox = lootFrame.IconHitBox
 		if not iconHitBox.bg then
-			iconHitBox.bg = B.CreateBDFrame(iconHitBox)
-			iconHitBox.bg:SetOutside(lootFrame.Icon)
-			lootFrame.Icon:SetTexCoord(unpack(DB.TexCoord))
+			iconHitBox.bg = B.ReskinIcon(lootFrame.Icon)
 			B.ReskinIconBorder(iconHitBox.IconBorder, true)
 		end
 

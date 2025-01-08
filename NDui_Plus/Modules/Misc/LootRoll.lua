@@ -200,7 +200,7 @@ function LR:CreateRollBar(name)
 	bar:Hide()
 
 	local button = CreateFrame("Button", nil, bar)
-	button:SetPoint("RIGHT", bar, "LEFT", - (C.mult*2), 0)
+	button:SetPoint("RIGHT", bar, "LEFT", -C.margin, 0)
 	button:SetSize(bar:GetHeight() - (C.mult*2), bar:GetHeight() - (C.mult*2))
 	button:SetScript("OnEnter", ItemButton_OnEnter)
 	button:SetScript("OnLeave", ItemButton_OnLeave)
@@ -210,8 +210,7 @@ function LR:CreateRollBar(name)
 
 	button.icon = button:CreateTexture(nil, "OVERLAY")
 	button.icon:SetAllPoints()
-	button.icon:SetTexCoord(unpack(DB.TexCoord))
-	button.bg = B.SetBD(button.icon)
+	button.bg = B.ReskinIcon(button.icon, true)
 
 	button.stack = button:CreateFontString(nil, "OVERLAY")
 	button.stack:SetPoint("BOTTOMRIGHT", -1, 2)
@@ -221,13 +220,11 @@ function LR:CreateRollBar(name)
 	button.ilvl:SetPoint("BOTTOMLEFT", 1, 1)
 	button.ilvl:SetFont(DB.Font[1], fontSize - 2, DB.Font[3])
 
-	local status = CreateFrame("StatusBar", nil, bar)
+	local status = B.CreateSB(bar, true)
 	status:SetPoint("TOPLEFT", C.mult, -(LR.db["Style"] == 2 and bar:GetHeight() / 1.6 or C.mult))
 	status:SetPoint("BOTTOMRIGHT", -C.mult, C.mult)
 	status:SetScript("OnUpdate", StatusUpdate)
 	status:SetFrameLevel(status:GetFrameLevel()-1)
-	B.CreateSB(status, true)
-	status:SetStatusBarColor(.8, .8, .8, .9)
 	status.parent = bar
 	bar.status = status
 
@@ -311,7 +308,7 @@ function LR:LootRoll_Start(rollID, rollTime)
 	if LR.db["ItemQuality"] then
 		bar.button.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 	else
-		bar.button.bg:SetBackdropBorderColor(0, 0, 0)
+		B.SetBorderColor(bar.button.bg)
 	end
 
 	bar.need.text:SetText("")
@@ -487,7 +484,7 @@ function LR:LootRollTest()
 		if LR.db["ItemQuality"] then
 			testFrame.button.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 		else
-			testFrame.button.bg:SetBackdropBorderColor(0, 0, 0)
+			B.SetBorderColor(testFrame.button.bg)
 		end
 	end)
 end
@@ -520,7 +517,7 @@ function LR:UpdateLootRollTest()
 	if LR.db["ItemQuality"] then
 		testFrame.button.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 	else
-		testFrame.button.bg:SetBackdropBorderColor(0, 0, 0)
+		B.SetBorderColor(testFrame.button.bg)
 	end
 end
 

@@ -136,8 +136,7 @@ function module:CreateInfoFrame()
 	search:SetPoint("LEFT", 0, 5)
 	search:DisableDrawLayer("BACKGROUND")
 	local bg = B.CreateBDFrame(search, 0, true)
-	bg:SetPoint("TOPLEFT", -5, -5)
-	bg:SetPoint("BOTTOMRIGHT", 5, 5)
+	B.UpdateSize(bg, -5, -5, 5, 5)
 	search.textFilters = BagSmartFilter
 
 	infoFrame.title = SEARCH
@@ -1161,7 +1160,7 @@ function module:OnLogin()
 			local color = DB.QualityColors[item.quality]
 			self:SetBackdropBorderColor(color.r, color.g, color.b)
 		else
-			self:SetBackdropBorderColor(0, 0, 0)
+			B.SetBorderColor(self)
 		end
 	end
 
@@ -1346,7 +1345,7 @@ function module:OnLogin()
 	end
 
 	function BagButton:OnUpdateButton()
-		self:SetBackdropBorderColor(0, 0, 0)
+		B.SetBorderColor(self)
 
 		local id = GetInventoryItemID("player", (self.GetInventorySlot and self:GetInventorySlot()) or self.invID)
 		if not id then return end

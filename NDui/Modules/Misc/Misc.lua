@@ -753,9 +753,8 @@ function M:EnhancedPicker()
 
 	local hexBox = pickerFrame.Content and pickerFrame.Content.HexBox
 	if hexBox then
-		B.ReskinInput(hexBox)
-		hexBox:ClearAllPoints()
-		hexBox:SetPoint("BOTTOMRIGHT", -25, 67)
+		B.ReskinInput(hexBox, 22, 80)
+		B.UpdatePoint(hexBox, "TOPLEFT", pickerFrame.__boxB, "BOTTOMLEFT", 3+C.mult, -3)
 	end
 
 	pickerFrame.Content.ColorPicker.__owner = pickerFrame

@@ -678,12 +678,11 @@ do
 		if self:IsObjectType("Texture") then frame = self:GetParent() end
 
 		local sdSize = size or 4
-		local lvl = frame:GetFrameLevel()
 		self.__shadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
 		self.__shadow:SetOutside(self, sdSize, sdSize)
 		self.__shadow:SetBackdrop({edgeFile = DB.glowTex, edgeSize = sdSize})
 		self.__shadow:SetBackdropBorderColor(0, 0, 0, size and 1 or .5)
-		self.__shadow:SetFrameLevel(lvl)
+		self.__shadow:SetFrameLevel(frame:GetFrameLevel())
 
 		return self.__shadow
 	end
@@ -695,8 +694,9 @@ do
 	C.frames = {}
 
 	function B:SetBorderColor()
-		if C.db["Skins"]["GreyBD"] then
-			self:SetBackdropBorderColor(.5, .5, .5)
+		if C.db["Skins"]["CustomBD"] then
+			local color = C.db["Skins"]["CustomBDColor"]
+			self:SetBackdropBorderColor(color.r, color.g, color.b)
 		else
 			self:SetBackdropBorderColor(0, 0, 0)
 		end
@@ -712,7 +712,7 @@ do
 
 	function B:CreateGradient()
 		local tex = self:CreateTexture(nil, "BORDER")
-		tex:SetInside()
+		tex:SetInside(self)
 		tex:SetTexture(DB.bdTex)
 		tex:SetVertexColor(.5, .5, .5, .25)
 
@@ -720,14 +720,20 @@ do
 	end
 
 	-- Handle frame
-	function B:CreateBDFrame(alpha, gradient)
+	function B:CreateBDFrame(alpha, gradient, offset)
 		local frame = self
 		if self:IsObjectType("Texture") then frame = self:GetParent() end
 
 		local lvl = frame:GetFrameLevel()
 		local bg = CreateFrame("Frame", nil, frame, "BackdropTemplate")
-		bg:SetFrameLevel(lvl == 0 and 0 or lvl - 1)
-		bg:SetOutside(self)
+		bg:SetFrameLevel(lvl <= 0 and 0 or lvl - 1)
+
+		local value = offset and math.abs(offset) or 0
+		if (offset and offset <= 0) or (not offset) then
+			bg:SetOutside(self, value, value)
+		elseif (offset and offset >= 0) or (not offset) then
+			bg:SetInside(self, value, value)
+		end
 
 		B.CreateBD(bg, alpha)
 		if gradient then
@@ -737,14 +743,12 @@ do
 		return bg
 	end
 
-	function B:SetBD(x, y, x2, y2)
+	function B:SetBD(x1, y1, x2, y2)
 		local bg = B.CreateBDFrame(self)
 		if self:IsObjectType("StatusBar") then
 			B.UpdateSize(bg, -C.mult, C.mult, C.mult, -C.mult)
-		elseif x and y and x2 and y2 then
-			B.UpdateSize(bg, x, y, x2, y2)
 		else
-			B.UpdateSize(bg, 0, 0, 0, 0)
+			B.UpdateSize(bg, x1, y1, x2, y2)
 		end
 
 		B.CreateSD(bg)
@@ -765,7 +769,7 @@ do
 			end
 		end
 
-		local bg = B.CreateBDFrame(self, .25) -- exclude from opacity control
+		local bg = B.CreateBDFrame(self, .25, nil, -C.mult) -- exclude from opacity control
 		if shadow then B.CreateSD(bg) end
 
 		return bg
@@ -794,12 +798,12 @@ do
 	end
 
 	function B:AuraIcon(highlight)
-		self.CD = CreateFrame("Cooldown", nil, self, "CooldownFrameTemplate")
-		self.CD:SetInside()
-		self.CD:SetReverse(true)
-
 		B.PixelIcon(self, nil, highlight)
-		B.CreateSD(self)
+		B.CreateSD(self.bg)
+
+		self.CD = CreateFrame("Cooldown", nil, self, "CooldownFrameTemplate")
+		self.CD:SetInside(self.bg)
+		self.CD:SetReverse(true)
 	end
 
 	function B:CreateGear(name)
@@ -863,7 +867,7 @@ do
 	end
 	local function resetIconBorderColor(border, texture)
 		if not texture then
-			border.__owner.bg:SetBackdropBorderColor(0, 0, 0)
+			B.SetBorderColor(border.__owner.bg)
 		end
 	end
 	local function iconBorderShown(border, show)
@@ -898,25 +902,30 @@ do
 	end
 
 	-- Handle statusbar
-	function B:CreateSB(spark, r, g, b)
-		self:SetStatusBarTexture(DB.normTex)
-		if r and g and b then
-			self:SetStatusBarColor(r, g, b)
-		else
-			self:SetStatusBarColor(cr, cg, cb)
-		end
+	function B:CreateSB(spark, bg, name)
+		local bar = CreateFrame("StatusBar", name, self)
+		bar:SetStatusBarTexture(DB.normTex)
+		bar:SetStatusBarColor(cr, cg, cb)
 
-		local bg = B.SetBD(self)
-		self.__shadow = bg.__shadow
+		bar.bd = B.SetBD(bar)
+
+		if bg then
+			bar.bg = bar:CreateTexture(nil, "BACKGROUND")
+			bar.bg:SetTexture(DB.normTex)
+			bar.bg:SetInside(bar.bd)
+			bar.bg.multiplier = .25
+		end
 
 		if spark then
-			self.Spark = self:CreateTexture(nil, "OVERLAY")
-			self.Spark:SetTexture(DB.sparkTex)
-			self.Spark:SetBlendMode("ADD")
-			self.Spark:SetAlpha(1)
-			self.Spark:SetPoint("TOPLEFT", self:GetStatusBarTexture(), "TOPRIGHT", -10, 10)
-			self.Spark:SetPoint("BOTTOMRIGHT", self:GetStatusBarTexture(), "BOTTOMRIGHT", 10, -10)
+			bar.Spark = bar:CreateTexture(nil, "OVERLAY")
+			bar.Spark:SetTexture(DB.sparkTex)
+			bar.Spark:SetBlendMode("ADD")
+			bar.Spark:SetAlpha(1)
+			bar.Spark:SetPoint("TOPLEFT", bar:GetStatusBarTexture(), "TOPRIGHT", -10, 10)
+			bar.Spark:SetPoint("BOTTOMRIGHT", bar:GetStatusBarTexture(), "BOTTOMRIGHT", 10, -10)
 		end
+
+		return bar
 	end
 
 	function B:CreateAndUpdateBarTicks(bar, ticks, numTicks)
@@ -965,7 +974,6 @@ do
 
 		self.__bg = B.CreateBDFrame(self, 0, true)
 		self.__bg:SetFrameLevel(self:GetFrameLevel())
-		self.__bg:SetAllPoints()
 
 		self:HookScript("OnEnter", Button_OnEnter)
 		self:HookScript("OnLeave", Button_OnLeave)
@@ -1277,11 +1285,9 @@ do
 	function B:ReskinCheck(forceSaturation)
 		B.StripTextures(self)
 
-		local bg = B.CreateBDFrame(self, 0, true)
-		bg:SetInside(self, 4, 4)
-		self.bg = bg
+		self.bg = B.CreateBDFrame(self, 0, true, 4)
 
-		B.ReskinHLTex(self, bg, true)
+		B.ReskinHLTex(self, self.bg, true)
 
 		local check = self:GetCheckedTexture()
 		check:SetAtlas("checkmark-minimal")
@@ -1295,13 +1301,11 @@ do
 	function B:ReskinRadio()
 		B.StripTextures(self)
 
-		local bg = B.CreateBDFrame(self, 0, true)
-		bg:SetInside(self, 2, 2)
-		self.bg = bg
+		self.bg = B.CreateBDFrame(self, 0, true, 2)
 
 		self:SetCheckedTexture(DB.bdTex)
 		local ch = self:GetCheckedTexture()
-		ch:SetInside(bg)
+		ch:SetInside(self.bg)
 		ch:SetVertexColor(cr, cg, cb, .5)
 
 		self:HookScript("OnEnter", Menu_OnEnter)
@@ -1524,10 +1528,14 @@ do
 		return bu
 	end
 
-	function B:CreateCheckBox()
+	function B:CreateCheckBox(system)
 		local cb = CreateFrame("CheckButton", nil, self, "InterfaceOptionsBaseCheckButtonTemplate")
 		cb:SetScript("OnClick", nil) -- reset onclick handler
 		B.ReskinCheck(cb)
+
+		if system then
+			cb.bg:SetBackdropBorderColor(1, .8, 0)
+		end
 
 		cb.Type = "CheckBox"
 		return cb
@@ -1574,7 +1582,7 @@ do
 
 	local function optOnLeave(self)
 		if self.selected then return end
-		self:SetBackdropColor(0, 0, 0)
+		self:SetBackdropColor(0, 0, 0, .25)
 	end
 
 	local function buttonOnShow(self)
@@ -1586,11 +1594,11 @@ do
 		B:TogglePanel(self.__list)
 	end
 
-	function B:CreateDropDown(width, height, data)
+	function B:CreateDropDown(width, height, data, system)
 		local dd = CreateFrame("Frame", nil, self, "BackdropTemplate")
 		dd:SetSize(width, height)
-		B.CreateBD(dd)
-		dd:SetBackdropBorderColor(1, 1, 1, .25)
+		B.CreateBD(dd, 0)
+		B.CreateGradient(dd)
 		dd.Text = B.CreateFS(dd, 14, "", false, "LEFT", 5, 0)
 		dd.Text:SetPoint("RIGHT", -5, 0)
 		dd.options = {}
@@ -1603,7 +1611,6 @@ do
 		list:SetPoint("TOP", dd, "BOTTOM", 0, -2)
 		RaiseFrameLevel(list)
 		B.CreateBD(list, 1)
-		list:SetBackdropBorderColor(1, 1, 1, .25)
 		list:Hide()
 		bu.__list = list
 		bu:SetScript("OnShow", buttonOnShow)
@@ -1615,7 +1622,7 @@ do
 			opt[i] = CreateFrame("Button", nil, list, "BackdropTemplate")
 			opt[i]:SetPoint("TOPLEFT", 4, -4 - (i-1)*(height+2))
 			opt[i]:SetSize(width - 8, height)
-			B.CreateBD(opt[i])
+			B.CreateBD(opt[i], .25)
 			local text = B.CreateFS(opt[i], 14, j, false, "LEFT", 5, 0)
 			text:SetPoint("RIGHT", -5, 0)
 			opt[i].text = j
@@ -1629,6 +1636,12 @@ do
 			index = index + 1
 		end
 		list:SetSize(width, index*(height+2) + 6)
+
+		if system then
+			dd:SetBackdropBorderColor(1, .8, 0)
+			dd.button.__bg:SetBackdropBorderColor(1, .8, 0)
+			dd.button.__list:SetBackdropBorderColor(1, .8, 0)
+		end
 
 		dd.Type = "DropDown"
 		return dd
@@ -1682,7 +1695,7 @@ do
 
 		local swatch = CreateFrame("Button", nil, self, "BackdropTemplate")
 		swatch:SetSize(18, 18)
-		B.CreateBD(swatch, 1)
+		B.CreateBD(swatch, .25)
 		if name then
 			swatch.text = B.CreateFS(swatch, 14, name, false, "LEFT", 26, 0)
 		end
@@ -1848,6 +1861,12 @@ end
 
 -- 自定义
 do
+	function B.PixelFix(x)
+		local mult = C.mult
+
+		return mult * B.Round(x / mult)
+	end
+
 	function B:GetObject(key)
 		local frameName = self.GetName and self:GetName()
 		return self[key] or (frameName and _G[frameName..key])
@@ -1936,7 +1955,7 @@ do
 		if shadow then
 			B.SetBD(self)
 		else
-			B.CreateBDFrame(self, .25)
+			B.CreateBDFrame(self, .25, nil, -C.mult)
 		end
 
 		self:SetStatusBarTexture(DB.normTex)
@@ -1954,16 +1973,8 @@ do
 		end
 	end
 
-	function B:ReskinTTStatusBar()
-		self.StatusBar:ClearAllPoints()
-		self.StatusBar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", C.mult, C.margin)
-		self.StatusBar:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -C.mult, C.margin)
-		self.StatusBar:SetHeight(6)
-
-		B.ReskinStatusBar(self.StatusBar, true, true)
-	end
-
 	function B:ReskinTooltip()
+		local mult, margin = C.mult, C.margin
 		if not self then
 			if DB.isDeveloper then print("Unknown tooltip spotted.") end
 			return
@@ -1980,7 +1991,12 @@ do
 			B.SetBorderColor(self.bg)
 
 			if self.StatusBar then
-				B.ReskinTTStatusBar(self)
+				self.StatusBar:ClearAllPoints()
+				self.StatusBar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", mult, margin)
+				self.StatusBar:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -mult, margin)
+				self.StatusBar:SetHeight(2*margin)
+
+				B.ReskinStatusBar(self.StatusBar, true, true)
 			end
 
 			self.tipStyled = true

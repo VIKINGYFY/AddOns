@@ -12,12 +12,10 @@ C.themes["Blizzard_ScrappingMachineUI"] = function()
 		for button in self.ItemSlots.scrapButtons:EnumerateActive() do
 			if not button.bg then
 				B.StripTextures(button)
-				button.Icon:SetTexCoord(unpack(DB.TexCoord))
-				button.bg = B.CreateBDFrame(button.Icon, .25)
+
+				button.bg = B.ReskinIcon(button.Icon)
 				B.ReskinIconBorder(button.IconBorder)
-				local hl = button:GetHighlightTexture()
-				hl:SetColorTexture(1, 1, 1, .25)
-				hl:SetAllPoints(button.Icon)
+				B.ReskinHLTex(button, button.bg)
 			end
 		end
 	end)

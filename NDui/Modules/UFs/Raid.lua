@@ -40,6 +40,7 @@ end
 
 function UF:CreateTargetBorder(self)
 	local border = B.CreateBDFrame(self, 0)
+	border:SetOutside(self)
 	border:SetBackdropBorderColor(1, 1, 1)
 	border:Hide()
 
@@ -64,11 +65,10 @@ function UF:UpdateThreatBorder(_, unit)
 end
 
 function UF:CreateThreatBorder(self)
-	local threatIndicator = B.CreateSD(self.backdrop, 6, true)
+	local threatIndicator = B.CreateSD(self, 6, true)
 	threatIndicator:SetFrameLevel(self:GetFrameLevel()+1)
 	threatIndicator:SetOutside(self, 6+C.mult, 6+C.mult)
 	threatIndicator:Hide()
-	self.backdrop.__shadow = nil
 
 	self.ThreatIndicator = threatIndicator
 	self.ThreatIndicator.Override = UF.UpdateThreatBorder

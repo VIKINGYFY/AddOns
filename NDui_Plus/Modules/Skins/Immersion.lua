@@ -17,7 +17,7 @@ local function updateItemBorder(self)
 		local color = DB.QualityColors[quality or 1]
 		self.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 	else
-		self.bg:SetBackdropBorderColor(0, 0, 0)
+		B.SetBorderColor(self.bg)
 	end
 end
 

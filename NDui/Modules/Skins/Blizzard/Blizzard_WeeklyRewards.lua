@@ -10,7 +10,7 @@ local function updateSelection(frame)
 	if frame.SelectedTexture:IsShown() then
 		frame.bg:SetBackdropBorderColor(1, .8, 0)
 	else
-		frame.bg:SetBackdropBorderColor(0, 0, 0)
+		B.SetBorderColor(frame.bg)
 	end
 end
 

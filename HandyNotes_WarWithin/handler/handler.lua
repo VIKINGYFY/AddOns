@@ -893,7 +893,7 @@ local function tooltip_criteria(tooltip, achievement, criteriaid, ignore_quantit
     local criteria, _, complete, _, _, completedBy, flags, _, quantityString = ns.GetCriteria(achievement, criteriaid) -- include hidden
     -- by this current character, or by any character if the setting says it's okay
     if completedBy and not complete then
-        name = TEXT_MODE_A_STRING_VALUE_TYPE:format(name, GREEN_FONT_COLOR:WrapTextInColorCode(completedBy))
+        criteria = TEXT_MODE_A_STRING_VALUE_TYPE:format(criteria, GREEN_FONT_COLOR:WrapTextInColorCode(completedBy))
     end
     local r, g, b = (complete and GREEN_FONT_COLOR or RED_FONT_COLOR):GetRGB()
     if quantityString and not ignore_quantityString then

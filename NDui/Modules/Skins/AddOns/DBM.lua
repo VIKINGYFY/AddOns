@@ -2,52 +2,50 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local S = B:GetModule("Skins")
 
-local buttonsize = 24
+local buttonsize = 20
 
 local function ReskinDBMIcon(icon, frame)
 	if not icon then return end
+
 	if not icon.styled then
 		icon:SetSize(buttonsize, buttonsize)
 		icon.SetSize = B.Dummy
 
-		local bg = B.ReskinIcon(icon, true)
-		bg.icon = bg:CreateTexture(nil, "ARTWORK")
-		bg.icon:SetInside()
-		bg.icon:SetTexture(icon:GetTexture())
-		bg.icon:SetTexCoord(unpack(DB.TexCoord))
+		B.ReskinIcon(icon, true)
 
 		icon.styled = true
 	end
-	icon:ClearAllPoints()
-	icon:SetPoint("BOTTOMRIGHT", frame, "BOTTOMLEFT", -2, 2)
+
+	B.UpdatePoint(icon, "BOTTOMRIGHT", frame, "BOTTOMLEFT", -C.margin, C.mult)
 end
 
 local function ReskinDBMBar(bar, frame)
 	if not bar then return end
+
 	if not bar.styled then
-		B.StripTextures(bar)
-		B.CreateSB(bar, true)
+		B.StripTextures(bar, 6)
+		B.SetBD(bar)
+		bar:SetStatusBarTexture(DB.normTex)
 
 		bar.styled = true
 	end
-	bar:SetInside(frame, 2, 2)
+
+	bar:SetInside(frame)
 end
 
 local function HideDBMSpark(self)
-	local spark = _G[self.frame:GetName().."BarSpark"]
-	spark:SetAlpha(0)
-	spark:SetTexture(nil)
+	B.GetObject(self.frame, "BarSpark"):Hide()
 end
 
 local function ApplyDBMStyle(self)
 	local frame = self.frame
-	local frame_name = frame:GetName()
-	local tbar = _G[frame_name.."Bar"]
-	local texture = _G[frame_name.."BarTexture"]
-	local icon1 = _G[frame_name.."BarIcon1"]
-	local icon2 = _G[frame_name.."BarIcon2"]
-	local name = _G[frame_name.."BarName"]
-	local timer = _G[frame_name.."BarTimer"]
+	local tbar = B.GetObject(frame, "Bar")
+	local name = B.GetObject(frame, "BarName")
+	local icon1 = B.GetObject(frame, "BarIcon1")
+	local icon2 = B.GetObject(frame, "BarIcon2")
+	local spark = B.GetObject(frame, "BarSpark")
+	local timer = B.GetObject(frame, "BarTimer")
+	local texture = B.GetObject(frame, "BarTexture")
 
 	if self.enlarged then
 		frame:SetWidth(self.owner.Options.HugeWidth)
@@ -60,24 +58,30 @@ local function ApplyDBMStyle(self)
 	frame:SetScale(1)
 	frame:SetHeight(buttonsize/2)
 
-	ReskinDBMIcon(icon1, frame)
-	ReskinDBMIcon(icon2, frame)
 	ReskinDBMBar(tbar, frame)
-	if texture then texture:SetTexture(DB.normTex) end
 
-	name:ClearAllPoints()
-	name:SetPoint("LEFT", frame, "LEFT", 2, 8)
-	name:SetPoint("RIGHT", frame, "LEFT", tbar:GetWidth()*.85, 8)
-	B.SetFontSize(name, 14)
-	name:SetJustifyH("LEFT")
+	if icon1 then
+		ReskinDBMIcon(icon1, frame)
+	elseif icon2 then
+		ReskinDBMIcon(icon2, frame)
+	else
+		ReskinDBMIcon(icon1, frame)
+		ReskinDBMIcon(icon2, frame)
+	end
+	if texture then
+		texture:SetTexture(DB.normTex)
+	end
+
 	name:SetWordWrap(false)
-	name:SetShadowColor(0, 0, 0, 0)
+	name:SetJustifyH("LEFT")
+	name:SetWidth(tbar:GetWidth()*.8)
+	B.SetFontSize(name, 14)
+	B.UpdatePoint(name, "LEFT", tbar, "TOPLEFT", C.margin, 0)
 
-	timer:ClearAllPoints()
-	timer:SetPoint("RIGHT", frame, "RIGHT", -2, 8)
-	B.SetFontSize(timer, 14)
 	timer:SetJustifyH("RIGHT")
-	timer:SetShadowColor(0, 0, 0, 0)
+	timer:SetWidth(tbar:GetWidth()*.2)
+	B.SetFontSize(name, 14)
+	B.UpdatePoint(timer, "RIGHT", tbar, "TOPRIGHT", -C.margin, 0)
 end
 
 function S:DBMSkin()
@@ -135,9 +139,11 @@ function S:DBMSkin()
 	if not DBM_AllSavedOptions["Default"] then DBM_AllSavedOptions["Default"] = {} end
 	DBM_AllSavedOptions["Default"]["BlockVersionUpdateNotice"] = true
 	DBM_AllSavedOptions["Default"]["EventSoundVictory"] = "None"
+	DBM_AllSavedOptions["Default"]["EventSoundVictory2"] = "None"
+
 	if not DBT_AllPersistentOptions["Default"] then DBT_AllPersistentOptions["Default"] = {} end
-	DBT_AllPersistentOptions["Default"]["DBM"].BarYOffset = 8
-	DBT_AllPersistentOptions["Default"]["DBM"].HugeBarYOffset = 8
-	DBT_AllPersistentOptions["Default"]["DBM"].ExpandUpwards = true
-	DBT_AllPersistentOptions["Default"]["DBM"].ExpandUpwardsLarge = true
+	DBT_AllPersistentOptions["Default"]["DBM"]["BarYOffset"] = 5
+	DBT_AllPersistentOptions["Default"]["DBM"]["HugeBarYOffset"] = 5
+	DBT_AllPersistentOptions["Default"]["DBM"]["ExpandUpwards"] = true
+	DBT_AllPersistentOptions["Default"]["DBM"]["ExpandUpwardsLarge"] = true
 end

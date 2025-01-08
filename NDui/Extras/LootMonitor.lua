@@ -53,7 +53,7 @@ local function CreateLMFrame()
 	B.CreateMF(LMFrame)
 
 	local LMFrame_Close = B.CreateButton(LMFrame, 18, 18, true, DB.closeTex)
-	LMFrame_Close:SetPoint("TOPRIGHT", -10, -7)
+	LMFrame_Close:SetPoint("TOPRIGHT", -7, -7)
 	LMFrame_Close:SetScript("OnClick", function(self) CloseLMFrame() end)
 end
 

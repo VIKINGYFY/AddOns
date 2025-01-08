@@ -50,7 +50,7 @@ function Bar:UpdateEquipedColor(button)
 	if button.Border:IsShown() then
 		button.__bg:SetBackdropBorderColor(r, g, b)
 	else
-		button.__bg:SetBackdropBorderColor(0, 0, 0)
+		B.SetBorderColor(button.__bg)
 	end
 end
 
@@ -103,15 +103,9 @@ function Bar:StyleActionButton(button)
 		hooksecurefunc(hotkey, "SetText", Bar.UpdateHotKey)
 	end
 
-	local petShine = B.GetObject(button, "Shine")
-	if petShine then
-		petShine:SetAllPoints(button.__bg)
-	end
-
-	local autoCastable = B.GetObject(button, "AutoCastable")
-	if autoCastable then
-		autoCastable:SetTexCoord(.217, .765, .217, .765)
-		autoCastable:SetAllPoints(button.__bg)
+	local autoCast = B.GetObject(button, "AutoCastOverlay")
+	if autoCast then
+		autoCast:SetAllPoints(button.__bg)
 	end
 
 	local style = B.GetObject(button, "style")

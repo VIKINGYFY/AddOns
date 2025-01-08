@@ -11,6 +11,11 @@ local x1, x2, y1, y2 = unpack(DB.TexCoord)
 oUF.colors.smooth = {1, 0, 0, .85, .8, .45, .1, .1, .1}
 oUF.colors.debuff.none = {0, 0, 0}
 
+B:RegisterEvent("PLAYER_LOGIN", function()
+	local colors = C.db["Skins"]["CustomBDColor"]
+	oUF.colors.debuff.none = {colors.r, colors.g, colors.b}
+end)
+
 local function ReplacePowerColor(name, index, color)
 	oUF.colors.power[name] = color
 	oUF.colors.power[index] = oUF.colors.power[name]
@@ -59,7 +64,7 @@ function UF:CreateHeader(self, onKeyDown)
 	hl:SetAllPoints()
 	hl:SetTexture("Interface\\PETBATTLES\\PetBattle-SelectedPetGlow")
 	hl:SetTexCoord(0, 1, .5, 1)
-	hl:SetVertexColor(.6, .6, .6)
+	hl:SetVertexColor(.5, .5, .5)
 	hl:SetBlendMode("ADD")
 	hl:Hide()
 	self.Highlight = hl
@@ -84,8 +89,8 @@ local function UpdateHealthColorByIndex(health, index)
 	end
 	health.colorSmooth = (index == 3)
 	if index == 1 then
-		health:SetStatusBarColor(.1, .1, .1)
-		health.bg:SetVertexColor(.6, .6, .6)
+		health:SetStatusBarColor(.1, .1, .1, 1)
+		health.bg:SetVertexColor(.9, .9, .9, 1)
 	elseif index == 4 then
 		health:SetStatusBarColor(0, 0, 0, 0)
 	end
@@ -107,7 +112,6 @@ function UF:UpdateHealthBarColor(self, force)
 	end
 end
 
-local endColor = CreateColor(0, 0, 0, .25)
 function UF.HealthPostUpdate(element, unit, cur, max)
 	local self = element.__owner
 	local mystyle = self.mystyle
@@ -115,14 +119,14 @@ function UF.HealthPostUpdate(element, unit, cur, max)
 	if mystyle == "playerplate" then
 		-- do nothing
 	elseif mystyle == "raid" then
-		useGradient = C.db["UFs"]["RaidHealthColor"] > 3
+		useGradient = C.db["UFs"]["RaidHealthColor"] >= 4
 		useGradientClass = C.db["UFs"]["RaidHealthColor"] == 5
 	else
-		useGradient = C.db["UFs"]["HealthColor"] > 3
+		useGradient = C.db["UFs"]["HealthColor"] >= 4
 		useGradientClass = C.db["UFs"]["HealthColor"] == 5
 	end
 	if useGradient then
-		element.bg:SetVertexColor(self:ColorGradient(cur or 1, max or 1, 1,0,0, 1,.7,0, .7,1,0))
+		element.bg:SetVertexColor(self:ColorGradient(cur or 1, max or 1, 1,0,0, 1,1,0, 0,1,0))
 	end
 	if useGradientClass then
 		local color
@@ -133,7 +137,7 @@ function UF.HealthPostUpdate(element, unit, cur, max)
 			color = self.colors.reaction[UnitReaction(unit, "player")]
 		end
 		if color then
-			element:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(color[1], color[2], color[3], .75), endColor)
+			element:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(color[1], color[2], color[3], 1), CreateColor(0, 0, 0, 0))
 		end
 	end
 end
@@ -141,6 +145,7 @@ end
 function UF:CreateHealthBar(self)
 	local mystyle = self.mystyle
 	local health = CreateFrame("StatusBar", nil, self)
+	health:SetStatusBarTexture(DB.normTex)
 	health:SetPoint("TOPLEFT", self)
 	health:SetPoint("TOPRIGHT", self)
 	local healthHeight
@@ -161,23 +166,17 @@ function UF:CreateHealthBar(self)
 		healthHeight = retVal(self, C.db["UFs"]["PlayerHeight"], C.db["UFs"]["FocusHeight"], C.db["UFs"]["BossHeight"], C.db["UFs"]["PetHeight"])
 	end
 	health:SetHeight(healthHeight)
-	health:SetStatusBarTexture(DB.normTex)
 	health:SetStatusBarColor(.1, .1, .1)
-	health:SetFrameLevel(self:GetFrameLevel() - 2)
+	health:SetFrameLevel(self:GetFrameLevel() - 1)
 
-	self.backdrop = B.SetBD(health)
-	if self.backdrop.__shadow then
-		self.backdrop.__shadow:SetOutside(self, 4+C.mult, 4+C.mult)
-		self.backdrop.__shadow:SetFrameLevel(0)
-		self.backdrop.__shadow = nil
-	end
-	B:SmoothBar(health)
+	B.SetBD(health):SetOutside(self)
+	B.SmoothBar(health)
 
-	local bg = self:CreateTexture(nil, "BACKGROUND")
+	local bg = health:CreateTexture(nil, "BACKGROUND")
 	bg:SetPoint("TOPLEFT", health:GetStatusBarTexture(), "TOPRIGHT", 0, 0)
-	bg:SetPoint("BOTTOMRIGHT", health)
-	bg:SetTexture(DB.bdTex)
-	bg:SetVertexColor(.6, .6, .6)
+	bg:SetPoint("BOTTOMRIGHT", health, "BOTTOMRIGHT", 0, 0)
+	bg:SetVertexColor(.9, .9, .9)
+	bg:SetTexture(DB.normTex)
 	bg.multiplier = .25
 
 	self.Health = health
@@ -385,14 +384,15 @@ function UF:CreatePowerBar(self)
 		powerHeight = retVal(self, C.db["UFs"]["PlayerPowerHeight"], C.db["UFs"]["FocusPowerHeight"], C.db["UFs"]["BossPowerHeight"], C.db["UFs"]["PetPowerHeight"])
 	end
 	power:SetHeight(powerHeight)
+	power:SetFrameLevel(self:GetFrameLevel() - 1)
 	power.wasHidden = powerHeight == 0
-	power:SetFrameLevel(self:GetFrameLevel() - 2)
-	power.backdrop = B.CreateBDFrame(power, 0)
-	B:SmoothBar(power)
+
+	B.SmoothBar(power)
+	B.CreateBDFrame(power, 0, nil, -C.mult)
 
 	local bg = power:CreateTexture(nil, "BACKGROUND")
-	bg:SetAllPoints()
 	bg:SetTexture(DB.normTex)
+	bg:SetAllPoints()
 	bg.multiplier = .25
 
 	self.Power = power
@@ -494,7 +494,7 @@ function UF:UpdateRaidTextScale()
 end
 
 function UF:CreatePortrait(self)
-	local portrait = CreateFrame("PlayerModel", nil, self.Health)
+	local portrait = CreateFrame("PlayerModel", nil, self)
 	portrait:SetAllPoints()
 	portrait:SetAlpha(.2)
 	self.Portrait = portrait
@@ -665,10 +665,9 @@ function UF:CreateCastBar(self)
 	local mystyle = self.mystyle
 	if mystyle ~= "nameplate" and not C.db["UFs"]["Castbars"] then return end
 
-	local cb = CreateFrame("StatusBar", "oUF_Castbar"..mystyle, self)
+	local cb = B.CreateSB(self, true, nil, "oUF_Castbar"..mystyle)
 	cb:SetWidth(self:GetWidth() - (20 + C.margin))
 	cb:SetHeight(20)
-	B.CreateSB(cb, true)
 	cb.castTicks = {}
 
 	if mystyle == "player" then
@@ -769,15 +768,13 @@ function UF:CreateCastBar(self)
 end
 
 function UF:CreateSparkleCastBar(self)
-	local bar = CreateFrame("StatusBar", "oUF_SparkleCastbar"..self.mystyle, self)
-	bar:SetAllPoints(self.Power)
-	bar:SetStatusBarTexture(DB.normTex)
-	bar:SetStatusBarColor(1, 1, 1, .75)
+	local bar = CreateFrame("StatusBar", "oUF_SparkleCastbar"..self.mystyle, self.Power)
+	bar:SetStatusBarTexture(DB.tpTex)
+	bar:SetAllPoints()
 
 	local spark = bar:CreateTexture(nil, "OVERLAY")
 	spark:SetTexture(DB.sparkTex)
 	spark:SetBlendMode("ADD")
-	spark:SetAlpha(.8)
 	spark:SetPoint("TOPLEFT", bar:GetStatusBarTexture(), "TOPRIGHT", -10, 10)
 	spark:SetPoint("BOTTOMRIGHT", bar:GetStatusBarTexture(), "BOTTOMRIGHT", 10, -10)
 	bar.Spark = spark
@@ -799,7 +796,7 @@ local function reskinTimerBar(bar)
 	bar:SetSize(280, 18)
 
 	B.StripTextures(bar)
-	B.SetBD(bar)
+	B.SetBD(bar, -C.mult)
 
 	local statusbar = B.GetObject(bar, "StatusBar")
 	if statusbar then
@@ -917,7 +914,7 @@ function UF.PostUpdateButton(element, button, unit, data)
 		local color = oUF.colors.debuff[debuffType] or oUF.colors.debuff.none
 		button.iconbg:SetBackdropBorderColor(color[1], color[2], color[3])
 	else
-		button.iconbg:SetBackdropBorderColor(0, 0, 0)
+		B.SetBorderColor(button.iconbg)
 	end
 
 	if element.alwaysShowStealable and dispellType[debuffType] and not UnitIsPlayer(unit) and (not button.isHarmful) then
@@ -1316,31 +1313,24 @@ function UF:CreateClassPower(self)
 
 	local isDK = DB.MyClass == "DEATHKNIGHT"
 	local maxBar = isDK and 6 or 7
-	local bar = CreateFrame("Frame", "$parentClassPowerBar", self.Health)
+	local bar = CreateFrame("Frame", "$parentClassPowerBar", self)
 	bar:SetSize(barWidth, barHeight)
 	bar:SetPoint(unpack(barPoint))
 
 	local bars = {}
 	for i = 1, maxBar do
-		bars[i] = CreateFrame("StatusBar", nil, bar)
+		bars[i] = B.CreateSB(bar, nil, true)
 		bars[i]:SetHeight(barHeight)
 		bars[i]:SetWidth((barWidth - (maxBar-1)*C.margin) / maxBar)
-		bars[i]:SetStatusBarTexture(DB.normTex)
-		bars[i]:SetFrameLevel(self:GetFrameLevel() + 5)
-		B.SetBD(bars[i])
+		bars[i]:SetFrameLevel(bar:GetFrameLevel() - 1)
 		if i == 1 then
 			bars[i]:SetPoint("BOTTOMLEFT")
 		else
 			bars[i]:SetPoint("LEFT", bars[i-1], "RIGHT", C.margin, 0)
 		end
 
-		bars[i].bg = bars[i]:CreateTexture(nil, "BACKGROUND")
-		bars[i].bg:SetAllPoints(bars[i])
-		bars[i].bg:SetTexture(DB.normTex)
-		bars[i].bg.multiplier = .25
-
 		if isDK then
-			bars[i].timer = B.CreateFS(bars[i], 13, "")
+			bars[i].timer = B.CreateFS(bars[i], 12, "")
 		else
 			if not bar.chargeParent then
 				bar.chargeParent = CreateFrame("Frame", nil, bar)
@@ -1379,24 +1369,14 @@ function UF:StaggerBar(self)
 		barWidth, barHeight = C.db["Nameplate"]["PPWidth"], C.db["Nameplate"]["PPBarHeight"]
 	end
 
-	local stagger = CreateFrame("StatusBar", nil, self.Health)
-	stagger:SetSize(barWidth, barHeight)
-	stagger:SetPoint(unpack(barPoint))
-	stagger:SetStatusBarTexture(DB.normTex)
-	stagger:SetFrameLevel(self:GetFrameLevel() + 5)
-	B.SetBD(stagger)
+	local bar = B.CreateSB(self, nil, true)
+	bar:SetSize(barWidth, barHeight)
+	bar:SetPoint(unpack(barPoint))
 
-	local bg = stagger:CreateTexture(nil, "BACKGROUND")
-	bg:SetAllPoints()
-	bg:SetTexture(DB.normTex)
-	bg.multiplier = .25
-
-	local text = B.CreateFS(stagger, 13)
-	text:SetPoint("CENTER", stagger, "TOP")
+	local text = B.CreateFS(bar, 14, "")
 	self:Tag(text, "[monkstagger]")
 
-	self.Stagger = stagger
-	self.Stagger.bg = bg
+	self.Stagger = bar
 end
 
 function UF:ToggleUFClassPower()
@@ -1472,14 +1452,12 @@ function UF.PostUpdateAltPower(element, _, cur, _, max)
 end
 
 function UF:CreateAltPower(self)
-	local bar = CreateFrame("StatusBar", nil, self)
+	local bar = B.CreateSB(self)
 	bar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -C.margin)
 	bar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -C.margin)
-	bar:SetStatusBarTexture(DB.normTex)
-	bar:SetHeight(6)
+	bar:SetHeight(2*C.margin)
 
-	B.SetBD(bar)
-	B:SmoothBar(bar)
+	B.SmoothBar(bar)
 
 	local text = B.CreateFS(bar, 14, "")
 	self:Tag(text, "[altpower]")
@@ -1489,16 +1467,16 @@ function UF:CreateAltPower(self)
 end
 
 function UF:CreateExpRepBar(self)
-	local bar = CreateFrame("StatusBar", nil, self)
-	bar:SetPoint("TOPLEFT", self, "TOPRIGHT", 5, 0)
-	bar:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 10, 0)
+	local bar = B.CreateSB(self, nil, nil, "NDuiExpRepBar")
+	bar:SetPoint("TOPRIGHT", self, "TOPLEFT", C.margin, 0)
+	bar:SetPoint("BOTTOMRIGHT", self, "BOTTOLEFT", C.margin, 0)
+	bar:SetWidth(2*C.margin)
 	bar:SetOrientation("VERTICAL")
-	B.CreateSB(bar)
 
 	local rest = CreateFrame("StatusBar", nil, bar)
-	rest:SetAllPoints(bar)
+	rest:SetAllPoints()
 	rest:SetStatusBarTexture(DB.normTex)
-	rest:SetStatusBarColor(0, .5, 1, .75)
+	rest:SetStatusBarColor(0, .5, 1, .5)
 	rest:SetFrameLevel(bar:GetFrameLevel() - 1)
 	rest:SetOrientation("VERTICAL")
 	bar.restBar = rest
@@ -1540,7 +1518,7 @@ function UF:CreatePrediction(self)
 	local frameLevel = frame:GetFrameLevel()-1
 
 	-- Position and size
-	local myBar = CreateFrame("StatusBar", nil, frame)
+	local myBar = CreateFrame("StatusBar", nil, self.Health)
 	myBar:SetPoint("TOP")
 	myBar:SetPoint("BOTTOM")
 	myBar:SetPoint("LEFT", self.Health:GetStatusBarTexture(), "RIGHT")
@@ -1548,7 +1526,7 @@ function UF:CreatePrediction(self)
 	myBar:SetStatusBarColor(0, 1, 0, .75)
 	myBar:Hide()
 
-	local otherBar = CreateFrame("StatusBar", nil, frame)
+	local otherBar = CreateFrame("StatusBar", nil, self.Health)
 	otherBar:SetPoint("TOP")
 	otherBar:SetPoint("BOTTOM")
 	otherBar:SetPoint("LEFT", myBar:GetStatusBarTexture(), "RIGHT")
@@ -1556,13 +1534,13 @@ function UF:CreatePrediction(self)
 	otherBar:SetStatusBarColor(1, 1, 0, .75)
 	otherBar:Hide()
 
-	local absorbBar = CreateFrame("StatusBar", nil, frame)
+	local absorbBar = CreateFrame("StatusBar", nil, self.Health)
 	absorbBar:SetPoint("TOP")
 	absorbBar:SetPoint("BOTTOM")
 	absorbBar:SetPoint("LEFT", otherBar:GetStatusBarTexture(), "RIGHT")
 	absorbBar:SetStatusBarTexture(DB.bdTex)
 	absorbBar:SetStatusBarColor(0, 1, 1, .75)
-	absorbBar:SetFrameLevel(frameLevel)
+	--absorbBar:SetFrameLevel(frameLevel)
 	absorbBar:Hide()
 	local tex = absorbBar:CreateTexture(nil, "ARTWORK", nil, 1)
 	tex:SetAllPoints(absorbBar:GetStatusBarTexture())
@@ -1570,11 +1548,11 @@ function UF:CreatePrediction(self)
 	tex:SetHorizTile(true)
 	tex:SetVertTile(true)
 
-	local overAbsorbBar = CreateFrame("StatusBar", nil, frame)
+	local overAbsorbBar = CreateFrame("StatusBar", nil, self.Health)
 	overAbsorbBar:SetAllPoints()
 	overAbsorbBar:SetStatusBarTexture(DB.bdTex)
 	overAbsorbBar:SetStatusBarColor(0, 1, 1, .75)
-	overAbsorbBar:SetFrameLevel(frameLevel)
+	--overAbsorbBar:SetFrameLevel(frameLevel)
 	overAbsorbBar:Hide()
 	local tex = overAbsorbBar:CreateTexture(nil, "ARTWORK", nil, 1)
 	tex:SetAllPoints(overAbsorbBar:GetStatusBarTexture())
@@ -1582,14 +1560,14 @@ function UF:CreatePrediction(self)
 	tex:SetHorizTile(true)
 	tex:SetVertTile(true)
 
-	local healAbsorbBar = CreateFrame("StatusBar", nil, frame)
+	local healAbsorbBar = CreateFrame("StatusBar", nil, self.Health)
 	healAbsorbBar:SetPoint("TOP")
 	healAbsorbBar:SetPoint("BOTTOM")
 	healAbsorbBar:SetPoint("RIGHT", self.Health:GetStatusBarTexture())
 	healAbsorbBar:SetReverseFill(true)
 	healAbsorbBar:SetStatusBarTexture(DB.bdTex)
 	healAbsorbBar:SetStatusBarColor(1, 0, .5, .75)
-	healAbsorbBar:SetFrameLevel(frameLevel)
+	--healAbsorbBar:SetFrameLevel(frameLevel)
 	healAbsorbBar:Hide()
 	local tex = healAbsorbBar:CreateTexture(nil, "ARTWORK", nil, 1)
 	tex:SetAllPoints(healAbsorbBar:GetStatusBarTexture())
@@ -1605,7 +1583,7 @@ function UF:CreatePrediction(self)
 	overAbsorb:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMRIGHT", -5, -2)
 	overAbsorb:Hide()
 
-	local overHealAbsorb = frame:CreateTexture(nil, "OVERLAY")
+	local overHealAbsorb = self.Health:CreateTexture(nil, "OVERLAY")
 	overHealAbsorb:SetWidth(15)
 	overHealAbsorb:SetTexture("Interface\\RaidFrame\\Absorb-Overabsorb")
 	overHealAbsorb:SetBlendMode("ADD")
@@ -1641,24 +1619,17 @@ function UF.PostUpdateAddPower(element, cur, max)
 end
 
 function UF:CreateAddPower(self)
-	local bar = CreateFrame("StatusBar", nil, self)
+	local bar = B.CreateSB(self, nil, true)
 	bar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -C.margin)
 	bar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -C.margin)
-	bar:SetStatusBarTexture(DB.normTex)
-	bar:SetHeight(6)
+	bar:SetHeight(2*C.margin)
 	bar.colorPower = true
 
-	B.SetBD(bar)
-	B:SmoothBar(bar)
+	B.SmoothBar(bar)
 
-	local bg = bar:CreateTexture(nil, "BACKGROUND")
-	bg:SetAllPoints()
-	bg:SetTexture(DB.normTex)
-	bg.multiplier = .25
 	local text = B.CreateFS(bar, 12, "")
 
 	self.AdditionalPower = bar
-	self.AdditionalPower.bg = bg
 	self.AdditionalPower.Text = text
 	self.AdditionalPower.PostUpdate = UF.PostUpdateAddPower
 	self.AdditionalPower.displayPairs = {
@@ -1712,27 +1683,24 @@ function UF:CreateSwing(self)
 	bar:ClearAllPoints()
 	bar:SetPoint("CENTER", bar.mover)
 
-	local two = CreateFrame("StatusBar", nil, bar)
-	two:Hide()
+	local two = B.CreateSB(bar, true)
 	two:SetAllPoints()
-	B.CreateSB(two, true, .8, .8, .8)
+	two:Hide()
 
-	local main = CreateFrame("StatusBar", nil, bar)
-	main:Hide()
+	local main = B.CreateSB(bar, true)
 	main:SetAllPoints()
-	B.CreateSB(main, true, .8, .8, .8)
+	main:Hide()
 
-	local off = CreateFrame("StatusBar", nil, bar)
+	local off = B.CreateSB(bar, true)
+	off:SetSize(width, height)
+	off:SetAllPoints()
 	off:Hide()
+
 	if C.db["UFs"]["OffOnTop"] then
-		off:SetPoint("BOTTOMLEFT", bar, "TOPLEFT", 0, 3)
-		off:SetPoint("BOTTOMRIGHT", bar, "TOPRIGHT", 0, 3)
+		B.UpdatePoint(off, "BOTTOM", bar, "TOP", 0, C.margin)
 	else
-		off:SetPoint("TOPLEFT", bar, "BOTTOMLEFT", 0, -3)
-		off:SetPoint("TOPRIGHT", bar, "BOTTOMRIGHT", 0, -3)
+		B.UpdatePoint(off, "TOP", bar, "BOTTOM", 0, -C.margin)
 	end
-	off:SetHeight(height)
-	B.CreateSB(off, true, .8, .8, .8)
 
 	bar.Text = B.CreateFS(bar, 12, "")
 	bar.Text:SetShown(C.db["UFs"]["SwingTimer"])

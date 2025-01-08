@@ -152,7 +152,7 @@ table.insert(C.defaultThemes, function()
 				frame.bg:SetPoint("BOTTOMRIGHT", -10, 5)
 
 				frame:GetRegions():SetTexture("")
-				B.CreateBDFrame(frame.Icon)
+				B.CreateBDFrame(frame.Icon, .25, nil, -C.mult)
 				frame.glow:SetTexture("")
 				frame.shine:SetTexture("")
 			end

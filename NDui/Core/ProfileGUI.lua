@@ -108,10 +108,8 @@ StaticPopupDialogs["NDUI_DELETE_UNIT_PROFILE"] = {
 }
 
 function G:CreateProfileIcon(bar, index, texture, title, description)
-	local button = CreateFrame("Button", nil, bar)
-	button:SetSize(32, 32)
+	local button = B.CreateButton(bar, 32, 32, true, texture)
 	button:SetPoint("RIGHT", -5 - (index-1)*37, 0)
-	B.PixelIcon(button, texture, true)
 	button.title = title
 	B.AddTooltip(button, "ANCHOR_RIGHT", description, "info")
 
@@ -351,7 +349,7 @@ function G:CreateProfileGUI(parent)
 	panel:SetPoint("BOTTOMLEFT", delete, "TOPLEFT", 0, 10)
 	panel:SetWidth(parent:GetWidth() - 20)
 	panel:SetHeight(15 + numBars*45)
-	panel:SetFrameLevel(11)
+	panel:SetFrameLevel(10)
 
 	G.bars = {}
 	for i = 1, numBars do

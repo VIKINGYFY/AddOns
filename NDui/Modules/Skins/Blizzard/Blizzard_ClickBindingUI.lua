@@ -5,7 +5,7 @@ local function updateNewGlow(self)
 	if self.NewOutline:IsShown() then
 		self.bg:SetBackdropBorderColor(0, .7, .08)
 	else
-		self.bg:SetBackdropBorderColor(0, 0, 0)
+		B.SetBorderColor(self.bg)
 	end
 end
 
@@ -13,7 +13,7 @@ local function updateIconGlow(self, show)
 	if show then
 		self.__owner.bg:SetBackdropBorderColor(0, .7, .08)
 	else
-		self.__owner.bg:SetBackdropBorderColor(0, 0, 0)
+		B.SetBorderColor(self.__owner.bg)
 	end
 end
 

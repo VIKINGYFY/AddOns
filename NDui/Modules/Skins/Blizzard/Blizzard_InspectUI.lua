@@ -20,13 +20,13 @@ C.themes["Blizzard_InspectUI"] = function()
 	for i = 1, #slots do
 		local slot = _G["Inspect"..slots[i].."Slot"]
 		B.StripTextures(slot)
-		slot.icon:SetTexCoord(unpack(DB.TexCoord))
-		slot.icon:SetInside()
-		slot.bg = B.CreateBDFrame(slot.icon, .25)
-		slot:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-		B.ReskinIconBorder(slot.IconBorder)
+
+		slot.bg = B.ReskinIcon(slot.icon)
 		slot.IconOverlay:SetAtlas("CosmeticIconFrame")
-		slot.IconOverlay:SetInside()
+		slot.IconOverlay:SetInside(slot.bg)
+
+		B.ReskinIconBorder(slot.IconBorder)
+		B.ReskinHLTex(slot, slot.bg)
 	end
 
 	local function UpdateCosmetic(self)

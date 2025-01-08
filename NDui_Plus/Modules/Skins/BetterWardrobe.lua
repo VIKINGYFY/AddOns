@@ -81,7 +81,7 @@ end
 
 local function resetIconBorderColor(border, texture)
 	if not texture then
-		border.__owner.bg:SetBackdropBorderColor(0, 0, 0)
+		B.SetBorderColor(border.__owner.bg)
 	end
 end
 
@@ -193,7 +193,7 @@ local function ReskinCollectionFrame()
 				local color = DB.QualityColors[quality or 1]
 				ic.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 			else
-				ic.bg:SetBackdropBorderColor(0, 0, 0)
+				B.SetBorderColor(ic.bg)
 			end
 		end)
 	end

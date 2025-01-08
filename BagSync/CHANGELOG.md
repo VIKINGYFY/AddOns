@@ -1,9 +1,13 @@
 # BagSync
 
-## [v19.60](https://github.com/Xruptor/BagSync/tree/v19.60) (2025-01-03)
-[Full Changelog](https://github.com/Xruptor/BagSync/compare/v19.59...v19.60) [Previous Releases](https://github.com/Xruptor/BagSync/releases)
+## [v19.61](https://github.com/Xruptor/BagSync/tree/v19.61) (2025-01-07)
+[Full Changelog](https://github.com/Xruptor/BagSync/compare/v19.60...v19.61) [Previous Releases](https://github.com/Xruptor/BagSync/releases)
 
-- New Sorting Option  
-    * Added a new sorting option that will always display the current character at the top when using the default sort.  (Fixes #399)  
-- GitHub YML Update  
-    * Update for the YML Package Action  
+- zhCN and zhTW Locale Updates  
+- Merge pull request #400 from nanjuekaien1/patch-80  
+    zhCN/zhTW  
+- Update zhCN.lua  
+- Update zhCN.lua  
+- Update zhCN.lua  
+- Update zhTW.lua  
+- Update zhCN.lua  

@@ -205,12 +205,9 @@ oUF.Tags.Events["nprare"] = "UNIT_CLASSIFICATION_CHANGED"
 
 oUF.Tags.Methods["pppower"] = function(unit)
 	local cur = UnitPower(unit)
-	local per = oUF.Tags.Methods["perpp"](unit) or 0
-	if UnitPowerType(unit) == 0 then
-		return per
-	else
-		return cur
-	end
+	local max = UnitPowerMax(unit)
+
+	return B.Perc(cur/max * 100)
 end
 oUF.Tags.Events["pppower"] = "UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER"
 

@@ -185,7 +185,7 @@ function A:CreateLumos(self)
 	self.lumos = {}
 	self.lumos.onFire = C.db["Nameplate"]["PPOnFire"]
 
-	local iconSize = (C.db["Nameplate"]["PPWidth"]+2*C.mult - C.margin*4)/5
+	local iconSize = (C.db["Nameplate"]["PPWidth"]+2*C.mult - 4*C.margin)/5
 	for i = 1, 5 do
 		local bu = CreateFrame("Frame", nil, self.Health)
 		bu:SetSize(iconSize, iconSize)

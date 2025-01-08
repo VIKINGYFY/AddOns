@@ -246,13 +246,13 @@ local function CreateConsole()
 	B.CreateFS(f, 15, L["Mover Console"], "system", "TOP", 0, -8)
 	local bu, text = {}, {LOCK, L["Grids"], L["AuraWatch"], RESET}
 	for i = 1, 4 do
-		bu[i] = B.CreateButton(f, 100, 22, text[i])
+		bu[i] = B.CreateButton(f, 100, 20, text[i])
 		if i == 1 then
-			bu[i]:SetPoint("BOTTOMLEFT", 5, 29)
+			bu[i]:SetPoint("TOPRIGHT", f, "TOP", -1, -30)
 		elseif i == 3 then
-			bu[i]:SetPoint("TOP", bu[1], "BOTTOM", 0, -2)
+			bu[i]:SetPoint("TOP", bu[1], "BOTTOM", 0, -C.margin)
 		else
-			bu[i]:SetPoint("LEFT", bu[i-1], "RIGHT", 2, 0)
+			bu[i]:SetPoint("LEFT", bu[i-1], "RIGHT", C.margin, 0)
 		end
 	end
 
@@ -340,16 +340,13 @@ local function CreateConsole()
 	end
 
 	for i = 1, 4 do
-		arrows[i] = CreateFrame("Button", nil, frame)
-		arrows[i]:SetSize(20, 20)
-		B.PixelIcon(arrows[i], "Interface\\OPTIONSFRAME\\VoiceChat-Play", true)
+		arrows[i] = B.CreateButton(frame, 20, 20, true, DB.arrowTex.."right")
 		local arrowData = arrowIndex[i]
 		arrows[i].__index = i
 		arrows[i].__offset = arrowData.offset
 		arrows[i]:SetScript("OnClick", arrowOnClick)
 		arrows[i]:SetPoint("CENTER", arrowData.x, arrowData.y)
-		arrows[i].Icon:SetPoint("TOPLEFT", 3, -3)
-		arrows[i].Icon:SetPoint("BOTTOMRIGHT", -3, 3)
+		arrows[i].Icon:SetInside(nil, 3, 3)
 		arrows[i].Icon:SetRotation(math.rad(arrowData.degree))
 	end
 

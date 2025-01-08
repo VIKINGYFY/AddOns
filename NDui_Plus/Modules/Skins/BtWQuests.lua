@@ -45,7 +45,7 @@ local function ReskinItemButton(self)
 	if Active:IsShown() then
 		self.bg:SetBackdropBorderColor(0, .7, .08)
 	else
-		self.bg:SetBackdropBorderColor(0, 0, 0)
+		B.SetBorderColor(self.bg)
 	end
 end
 

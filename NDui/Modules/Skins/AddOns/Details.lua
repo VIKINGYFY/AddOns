@@ -24,7 +24,9 @@ local function SetupInstance(instance)
 	instance:SetBarRightTextSettings(true, true, true)
 
 	local bg = B.SetBD(instance.baseframe)
-	bg:SetPoint("TOPLEFT", -1, 18)
+	bg:ClearAllPoints()
+	bg:SetPoint("TOPLEFT", instance.baseframe.titleBar, "TOPLEFT", -C.mult, 3*C.mult)
+	bg:SetPoint("BOTTOMRIGHT", instance.baseframe, "BOTTOMRIGHT", C.mult, -C.mult)
 	instance.baseframe.bg = bg
 
 	if instance:GetId() < 4 then -- only the top 3 windows

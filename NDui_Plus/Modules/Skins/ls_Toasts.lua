@@ -4,10 +4,11 @@ local S = P:GetModule("Skins")
 
 local _G = getfenv(0)
 
+local colors = C.db["Skins"]["CustomBDColor"]
 local style = {
 	name = "NDui",
 	border = {
-		color = {0, 0, 0},
+		color = {colors.r, colors.g, colors.b},
 		offset = 0,
 		size = 1,
 		texture = {1, 1, 1, 1},
@@ -24,7 +25,7 @@ local style = {
 		tex_coords = DB.TexCoord,
 	},
 	icon_border = {
-		color = {0, 0, 0},
+		color = {colors.r, colors.g, colors.b},
 		offset = 0,
 		size = 1,
 		texture = {1, 1, 1, 1},
@@ -39,7 +40,7 @@ local style = {
 		tex_coords = DB.TexCoord,
 	},
 	slot_border = {
-		color = {0, 0, 0},
+		color = {colors.r, colors.g, colors.b},
 		offset = 0,
 		size = 1,
 		texture = {1, 1, 1, 1},
@@ -75,7 +76,7 @@ local style = {
 }
 
 local function SkinToast(event, toast)
-	B.SetBD(toast)
+	B.SetBD(toast):SetOutside(nil)
 end
 
 function S:ls_Toasts()

@@ -29,17 +29,12 @@ table.insert(C.defaultThemes, function()
 	TradePlayerInputMoneyFrameCopper:SetPoint("LEFT", TradePlayerInputMoneyFrameSilver, "RIGHT", 1, 0)
 
 	local function reskinButton(bu)
-		bu:SetNormalTexture(0)
-		bu:SetPushedTexture(0)
-		local hl = bu:GetHighlightTexture()
-		hl:SetColorTexture(1, 1, 1, .25)
-		hl:SetInside()
-		bu.icon:SetTexCoord(unpack(DB.TexCoord))
-		bu.icon:SetInside()
-		bu.IconOverlay:SetInside()
-		bu.IconOverlay2:SetInside()
-		bu.bg = B.CreateBDFrame(bu.icon, .25)
+		B.CleanTextures(bu)
+
+		bu.bg = B.ReskinIcon(bu.icon)
 		B.ReskinIconBorder(bu.IconBorder)
+		B.ReskinHLTex(bu, bu.bg)
+		B.ReskinCPTex(bu, bu.bg)
 	end
 
 	for i = 1, MAX_TRADE_ITEMS do

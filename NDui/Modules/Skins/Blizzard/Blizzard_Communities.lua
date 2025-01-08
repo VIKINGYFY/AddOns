@@ -338,15 +338,12 @@ C.themes["Blizzard_Communities"] = function()
 
 			local header = child.ProfessionHeader
 			if header and not header.styled then
-				for i = 1, 3 do
-					select(i, header:GetRegions()):Hide()
-				end
-				header.bg = B.CreateBDFrame(header, .25)
-				header.bg:SetInside()
-				header:SetHighlightTexture(DB.bdTex)
-				header:GetHighlightTexture():SetVertexColor(r, g, b, .25)
-				header:GetHighlightTexture():SetInside(header.bg)
-				B.CreateBDFrame(header.Icon)
+				B.StripTextures(header)
+
+				local bg = B.CreateBDFrame(header, .25, nil, C.mult)
+				B.ReskinHLTex(header, bg, true)
+				B.ReskinIcon(header.Icon)
+
 				header.styled = true
 			end
 

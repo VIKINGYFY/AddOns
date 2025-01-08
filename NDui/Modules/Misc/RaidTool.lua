@@ -47,10 +47,6 @@ function M:RaidTool_Header()
 			C_PartyInfo.LeaveParty()
 		end
 	end)
-	frame:SetScript("OnHide", function(self)
-		self.bg:SetBackdropColor(0, 0, 0, .5)
-		self.bg:SetBackdropBorderColor(0, 0, 0, 1)
-	end)
 	frame:HookScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
 		GameTooltip:ClearLines()
@@ -619,7 +615,7 @@ function M:RaidTool_UpdateGrid()
 	local frame = _G["NDui_WorldMarkers"]
 	if not frame then return end
 
-	local size, margin = C.db["Misc"]["MarkerSize"], 5
+	local size, margin = C.db["Misc"]["MarkerSize"], C.margin
 	local showType = C.db["Misc"]["ShowMarkerBar"]
 	local perRow = markerTypeToRow[showType]
 

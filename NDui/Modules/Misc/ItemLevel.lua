@@ -170,7 +170,7 @@ function M:ItemLevel_UpdateInfo(slotFrame, info, quality)
 				if color then
 					bg:SetBackdropBorderColor(color.r, color.g, color.b)
 				else
-					bg:SetBackdropBorderColor(0, 0, 0)
+					B.SetBorderColor(bg)
 				end
 				bg:Show()
 
@@ -182,7 +182,7 @@ function M:ItemLevel_UpdateInfo(slotFrame, info, quality)
 				if r and g and b then
 					bg:SetBackdropBorderColor(r, g, b)
 				else
-					bg:SetBackdropBorderColor(0, 0, 0)
+					B.SetBorderColor(bg)
 				end
 
 				local selected = essence[1]

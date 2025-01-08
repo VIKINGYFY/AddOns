@@ -31,7 +31,8 @@ function module:Chatbar()
 		local bu = CreateFrame("Button", nil, Chatbar, "SecureActionButtonTemplate, BackdropTemplate")
 		bu:SetSize(width, height)
 		B.PixelIcon(bu, DB.normTex, true)
-		B.CreateSD(bu)
+		B.CreateSD(bu.bg)
+		bu.bg:SetFrameLevel(bu:GetFrameLevel())
 		bu.Icon:SetVertexColor(r, g, b)
 		bu:SetHitRectInsets(0, 0, -8, -8)
 		bu:RegisterForClicks("AnyDown")
@@ -163,19 +164,22 @@ end
 function module:ChatBarBackground()
 	if not C.db["Skins"]["ChatbarLine"] then return end
 
-	local cr, cg, cb = 0, 0, 0
-	if C.db["Skins"]["ClassLine"] then cr, cg, cb = DB.r, DB.g, DB.b end
+	local r, g, b = DB.r, DB.g, DB.b
+	if not C.db["Skins"]["ClassLine"] then
+		local colors = C.db["Skins"]["CustomBDColor"]
+		r, g, b = colors.r, colors.g, colors.b
+	end
 
 	local parent = _G["NDui_ChatBar"]
-	local width, height, alpha = 450, 18, .5
+	local width, height = 450, 18
 	local frame = CreateFrame("Frame", nil, parent)
 	frame:SetPoint("LEFT", parent, "LEFT", -5, 0)
 	frame:SetSize(width, height)
 
-	local tex = B.SetGradient(frame, "H", 0, 0, 0, alpha, 0, width, height)
+	local tex = B.SetGradient(frame, "H", 0, 0, 0, C.alpha, 0, width, height)
 	tex:SetPoint("CENTER")
-	local bottomLine = B.SetGradient(frame, "H", cr, cg, cb, alpha, 0, width, C.mult)
+	local bottomLine = B.SetGradient(frame, "H", r, g, b, C.alpha, 0, width, C.mult)
 	bottomLine:SetPoint("TOP", frame, "BOTTOM")
-	local topLine = B.SetGradient(frame, "H", cr, cg, cb, alpha, 0, width, C.mult)
+	local topLine = B.SetGradient(frame, "H", r, g, b, C.alpha, 0, width, C.mult)
 	topLine:SetPoint("BOTTOM", frame, "TOP")
 end

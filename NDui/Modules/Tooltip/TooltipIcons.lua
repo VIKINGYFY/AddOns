@@ -31,8 +31,7 @@ function TT:HookTooltipMethod()
 end
 
 function TT:ReskinRewardIcon()
-	self.Icon:SetTexCoord(unpack(DB.TexCoord))
-	self.bg = B.CreateBDFrame(self.Icon, 0)
+	self.bg = B.ReskinIcon(self.Icon)
 	B.ReskinIconBorder(self.IconBorder)
 end
 

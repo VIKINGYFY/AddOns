@@ -40,15 +40,12 @@ local function ReskinSortButton(button)
 end
 
 local function ReskinBagSlot(bu)
-	bu:SetNormalTexture(0)
-	bu:SetPushedTexture(0)
-	if bu.Background then bu.Background:SetAlpha(0) end
-	bu:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-	bu.searchOverlay:SetOutside()
+	B.CleanTextures(bu)
 
-	bu.icon:SetTexCoord(unpack(DB.TexCoord))
-	bu.bg = B.CreateBDFrame(bu.icon, .25)
+	bu.bg = B.ReskinIcon(bu.icon)
 	B.ReskinIconBorder(bu.IconBorder)
+	B.ReskinHLTex(bu, bu.bg)
+	B.ReskinCPTex(bu, bu.bg)
 
 	local questTexture = bu.IconQuestTexture
 	if questTexture then

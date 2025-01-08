@@ -43,8 +43,8 @@ function G:CreateCheckBox(parent, text, x, y, tip)
 	return cb
 end
 
-function G:CreateDropdown(parent, text, x, y, data, tip, width, height)
-	local dd = B.CreateDropDown(parent, width or 90, height or 30, data)
+function G:CreateDropdown(parent, text, x, y, data, tip, width, height, system)
+	local dd = B.CreateDropDown(parent, width or 90, height or 30, data, system)
 	dd:SetPoint("TOPLEFT", x, y)
 	createLabel(dd, text, tip)
 

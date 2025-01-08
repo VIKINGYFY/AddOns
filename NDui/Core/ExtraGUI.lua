@@ -723,10 +723,9 @@ function G:SetupSpellsIndicator(parent)
 	swatch:SetPoint("LEFT", scroll.box, "RIGHT", 5, 0)
 	scroll.swatch = swatch
 
-	local showAll = B.CreateCheckBox(frame)
+	local showAll = B.CreateCheckBox(frame, true)
 	showAll:SetPoint("LEFT", swatch, "RIGHT", 2, 0)
 	showAll:SetHitRectInsets(0, 0, 0, 0)
-	showAll.bg:SetBackdropBorderColor(1, .8, 0, .5)
 	B.AddTooltip(showAll, "ANCHOR_TOPRIGHT", L["ShowAllTip"], "info", true)
 	scroll.showAll = showAll
 
@@ -949,7 +948,7 @@ end
 
 local function createOptionTitle(parent, title, offset)
 	B.CreateFS(parent, 14, title, "system", "TOP", 0, offset)
-	local line = B.SetGradient(parent, "H", 1, 1, 1, .5, .5, 200, C.mult)
+	local line = B.SetGradient(parent, "H", 1, 1, 1, C.alpha, C.alpha, 200, C.mult)
 	line:SetPoint("TOPLEFT", 30, offset-20)
 end
 
@@ -1040,7 +1039,7 @@ local function SetUnitFrameSize(self, unit)
 	local powerHeight = C.db["UFs"][unit.."PowerHeight"]
 	local nameOffset = C.db["UFs"][unit.."NameOffset"]
 	local powerOffset = C.db["UFs"][unit.."PowerOffset"]
-	local height = powerHeight == 0 and healthHeight or healthHeight + powerHeight + C.mult
+	local height = healthHeight + powerHeight + C.mult
 	self:SetSize(width, height)
 	self.Health:SetHeight(healthHeight)
 	if self.nameText and nameOffset then
@@ -1158,10 +1157,9 @@ function G:SetupUnitFrame(parent)
 		[4] = {"Boss", updateBossSize},
 	}
 
-	local dd = G:CreateDropdown(scroll.child, "", 40, -15, options, nil, 180, 28)
+	local dd = G:CreateDropdown(scroll.child, "", 40, -15, options, nil, 180, 28, true)
 	dd:SetFrameLevel(20)
 	dd.Text:SetText(options[1])
-	dd:SetBackdropBorderColor(1, .8, 0, .5)
 	dd.panels = {}
 
 	for i = 1, #options do
@@ -1647,10 +1645,9 @@ function G:SetupNameplateSize(parent)
 		[2] = L["FriendlyNameplate"],
 	}
 
-	local dd = G:CreateDropdown(scroll.child, "", 40, -15, options, nil, 180, 28)
+	local dd = G:CreateDropdown(scroll.child, "", 40, -15, options, nil, 180, 28, true)
 	dd:SetFrameLevel(20)
 	dd.Text:SetText(options[1])
-	dd:SetBackdropBorderColor(1, .8, 0, .5)
 	dd.panels = {}
 
 	for i = 1, #options do
@@ -1714,10 +1711,9 @@ function G:SetupActionBar(parent)
 	end
 	local function createOptionGroup(parent, offset, value, color)
 		if value ~= "BarPet" then
-			local box = B.CreateCheckBox(parent)
+			local box = B.CreateCheckBox(parent, true)
 			box:SetPoint("TOPLEFT", parent, 10, offset + 25)
 			box:SetChecked(C.db["Actionbar"][value])
-			box.bg:SetBackdropBorderColor(1, .8, 0, .5)
 			box.__value = value
 			box:SetScript("OnClick", toggleBar)
 			B.AddTooltip(box, "ANCHOR_RIGHT", L["ToggleActionbarTip"], "info", true)
@@ -1745,10 +1741,9 @@ function G:SetupActionBar(parent)
 	table.insert(options, L["Pet Actionbar"]) -- 9
 	table.insert(options, L["LeaveVehicle"]) -- 10
 
-	local dd = G:CreateDropdown(scroll.child, "", 40, -15, options, nil, 180, 28)
+	local dd = G:CreateDropdown(scroll.child, "", 40, -15, options, nil, 180, 28, true)
 	dd:SetFrameLevel(20)
 	dd.Text:SetText(options[1])
-	dd:SetBackdropBorderColor(1, .8, 0, .5)
 	dd.panels = {}
 
 	for i = 1, #options do
@@ -1871,10 +1866,9 @@ function G:SetupUFAuras(parent)
 		[6] = "Boss",
 	}
 
-	local dd = G:CreateDropdown(scroll.child, "", 40, -135, options, nil, 180, 28)
+	local dd = G:CreateDropdown(scroll.child, "", 40, -135, options, nil, 180, 28, true)
 	dd:SetFrameLevel(20)
 	dd.Text:SetText(options[1])
-	dd:SetBackdropBorderColor(1, .8, 0, .5)
 	dd.panels = {}
 
 	for i = 1, #options do

@@ -37,7 +37,7 @@ table.insert(C.defaultThemes, function()
 		if bu and not bu.styled then
 			bu.Cover:Hide()
 			bu.Icon:SetTexCoord(.01, .99, .01, .99)
-			B.CreateBDFrame(bu.Icon)
+			B.CreateBDFrame(bu.Icon, .25, nil, -C.mult)
 
 			bu.styled = true
 		end

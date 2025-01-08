@@ -116,7 +116,7 @@ table.insert(C.defaultThemes, function()
 
 	local broadcastFrame = FriendsFrameBattlenetFrame.BroadcastFrame
 	B.StripTextures(broadcastFrame)
-	B.SetBD(broadcastFrame, 10, -10, -10, 10)
+	B.SetBD(broadcastFrame, 10)
 	broadcastFrame.EditBox:DisableDrawLayer("BACKGROUND")
 	local bg = B.CreateBDFrame(broadcastFrame.EditBox, 0, true)
 	bg:SetPoint("TOPLEFT", -2, -2)

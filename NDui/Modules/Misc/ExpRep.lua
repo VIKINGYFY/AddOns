@@ -263,17 +263,16 @@ function M:Expbar()
 	if C.db["Map"]["DisableMinimap"] then return end
 	if not C.db["Misc"]["ExpRep"] then return end
 
-	local bar = CreateFrame("StatusBar", "NDuiExpRepBar", MinimapCluster)
+	local bar = B.CreateSB(MinimapCluster, nil, nil, "NDuiExpRepBar")
 	bar:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", 0, -C.margin)
 	bar:SetPoint("TOPRIGHT", Minimap, "BOTTOMRIGHT", 0, -C.margin)
-	bar:SetHeight(C.margin*2)
 	bar:SetHitRectInsets(0, 0, 0, -10)
-	B.CreateSB(bar)
+	bar:SetHeight(2*C.margin)
 
 	local rest = CreateFrame("StatusBar", nil, bar)
 	rest:SetAllPoints()
 	rest:SetStatusBarTexture(DB.normTex)
-	rest:SetStatusBarColor(0, .4, 1, .5)
+	rest:SetStatusBarColor(0, .5, 1, .5)
 	rest:SetFrameLevel(bar:GetFrameLevel() - 1)
 	bar.restBar = rest
 

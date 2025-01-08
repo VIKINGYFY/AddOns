@@ -257,7 +257,7 @@ function S:ATT()
 	local function reskinATTWindow(frame)
 		if not frame or frame.styled then return end
 
-		B.SetBD(frame, 2, -2, -2, 2)
+		B.SetBD(frame, 2)
 		B.ReskinClose(frame.CloseButton, nil, -4, -4)
 		B.ReskinTrimScroll(frame.ScrollBar)
 		frame.Grip:SetTexture([[Interface\ChatFrame\UI-ChatIM-SizeGrabber-Up]])
@@ -283,7 +283,7 @@ function S:TrinketMenu()
 	local function reskinFrame(frame)
 		if not frame then return end
 		B.StripTextures(frame)
-		B.SetBD(frame):SetInside(nil, 3, 3)
+		B.SetBD(frame, 3)
 	end
 
 	local function reskinButton(name)
@@ -404,7 +404,7 @@ function S:PSFJ()
 	end
 
 	local function onLeave(button)
-		button.bg:SetBackdropBorderColor(0, 0, 0)
+		B.SetBorderColor(button.bg)
 	end
 
 	hooksecurefunc(frame.List, "Update", function(self)
@@ -464,7 +464,7 @@ function S:TLDR()
 
 	B.StripTextures(TLDRMissionsFrame)
 	B.ReskinClose(TLDRMissionsFrame.CloseButton)
-	B.SetBD(TLDRMissionsFrame):SetInside(nil, 2, 2)
+	B.SetBD(TLDRMissionsFrame, 2)
 	B.ReskinButton(TLDRMissionsToggleButton)
 
 	reskinUIElements(TLDRMissionsFrameMainPanel)

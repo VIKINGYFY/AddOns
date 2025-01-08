@@ -20,8 +20,7 @@ table.insert(C.defaultThemes, function()
 
 				local button = _G[buttonName]
 				B.StripTextures(button)
-				local bg = B.CreateBDFrame(button, .25)
-				B.UpdateSize(bg, 1, -1, -1, 1)
+				B.CreateBDFrame(button, .25):SetInside()
 
 				local check = _G[buttonName.."Check"]
 				B.ReskinCheck(check)

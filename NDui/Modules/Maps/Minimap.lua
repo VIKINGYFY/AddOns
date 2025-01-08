@@ -29,7 +29,7 @@ function module:CreatePulse()
 				anim:Play()
 			else
 				anim:Stop()
-				bg:SetBackdropBorderColor(0, 0, 0)
+				B.SetBorderColor(bg)
 			end
 		end
 	end
@@ -41,7 +41,7 @@ function module:CreatePulse()
 	MinimapMailFrame:HookScript("OnHide", function()
 		if InCombatLockdown() then return end
 		anim:Stop()
-		bg:SetBackdropBorderColor(0, 0, 0)
+		B.SetBorderColor(bg)
 	end)
 end
 
@@ -179,7 +179,7 @@ function module:ReskinRegions()
 	if indicatorFrame then
 		updateMapAnchor(indicatorFrame)
 		hooksecurefunc(indicatorFrame, "SetPoint", updateMapAnchor)
-		indicatorFrame:SetFrameLevel(11)
+		indicatorFrame:SetFrameLevel(10)
 	end
 
 	-- Invites Icon
@@ -265,19 +265,19 @@ function module:RecycleBin()
 	B.AddTooltip(bu, "ANCHOR_LEFT")
 	updateRecycleTip(bu)
 
-	local width, height, alpha = 220, 40, .5
+	local width, height = 220, 40
 	local bin = CreateFrame("Frame", "RecycleBinFrame", UIParent)
 	bin:SetPoint("BOTTOMRIGHT", bu, "BOTTOMLEFT", -3, 10)
 	bin:SetSize(width, height)
 	bin:Hide()
 
-	local tex = B.SetGradient(bin, "H", 0, 0, 0, 0, alpha, width, height)
+	local tex = B.SetGradient(bin, "H", 0, 0, 0, 0, C.alpha, width, height)
 	tex:SetPoint("CENTER")
-	local topLine = B.SetGradient(bin, "H", cr, cg, cb, 0, 1, width, C.mult)
+	local topLine = B.SetGradient(bin, "H", cr, cg, cb, 0, C.alpha, width, C.mult)
 	topLine:SetPoint("BOTTOM", bin, "TOP")
-	local bottomLine = B.SetGradient(bin, "H", cr, cg, cb, 0, 1, width, C.mult)
+	local bottomLine = B.SetGradient(bin, "H", cr, cg, cb, 0, C.alpha, width, C.mult)
 	bottomLine:SetPoint("TOP", bin, "BOTTOM")
-	local rightLine = B.SetGradient(bin, "V", cr, cg, cb, 1, 1, C.mult, height + C.mult*2)
+	local rightLine = B.SetGradient(bin, "V", cr, cg, cb, C.alpha, C.alpha, C.mult, height + C.mult*2)
 	rightLine:SetPoint("LEFT", bin, "RIGHT")
 
 	local function hideBinButton()
@@ -319,9 +319,9 @@ function module:RecycleBin()
 	}
 
 	local function ReskinMinimapButton(child, name)
-		for j = 1, child:GetNumRegions() do
-			local region = select(j, child:GetRegions())
+		for index, region in pairs {child:GetRegions()} do
 			if region:IsObjectType("Texture") then
+				--region:SetInside(child.bg)
 				local texture = region:GetTexture() or ""
 				if removedTextures[texture] or string.find(texture, "Interface\\CharacterFrame") or string.find(texture, "Interface\\Minimap") then
 					region:SetTexture(nil)
@@ -335,9 +335,10 @@ function module:RecycleBin()
 					region:SetTexCoord(unpack(DB.TexCoord))
 				end
 			end
+
 			child:SetSize(34, 34)
 			B.PixelIcon(child)
-			B.CreateSD(child)
+			child.bg:SetOutside()
 		end
 
 		table.insert(buttons, child)

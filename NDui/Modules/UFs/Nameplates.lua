@@ -270,11 +270,11 @@ function UF:UpdateThreatColor(_, unit)
 end
 
 function UF:CreateThreatColor(self)
-	local threatIndicator = B.CreateSD(self.backdrop, 8, true)
+	local threatIndicator = B.CreateSD(self, 8, true)
 	threatIndicator:SetFrameLevel(self:GetFrameLevel()+1)
 	threatIndicator:SetOutside(self, 8+C.mult, 8+C.mult)
 	threatIndicator:Hide()
-	self.backdrop.__shadow = nil
+	--self.backdrop.__shadow = nil
 
 	self.ThreatIndicator = threatIndicator
 	self.ThreatIndicator.Override = UF.UpdateThreatColor
@@ -501,7 +501,7 @@ function UF:AddQuestIcon(self)
 	qicon:SetSize(30, 30)
 	qicon:SetAtlas(DB.questTex)
 	qicon:Hide()
-	local count = B.CreateFS(self, 20, "", nil, "LEFT", 0, 0)
+	local count = B.CreateFS(self.Health, 20, "", nil, "LEFT", 0, 0)
 	count:SetPoint("LEFT", qicon, "RIGHT", -4, 0)
 	count:SetTextColor(0, 1, 1)
 
@@ -631,7 +631,7 @@ function UF:ShowUnitTargeted(self)
 	tex:SetPoint("LEFT", self, "RIGHT", 5, 0)
 	tex:SetAtlas("target")
 	tex:Hide()
-	local count = B.CreateFS(self, 22)
+	local count = B.CreateFS(self.Health, 22)
 	count:SetPoint("LEFT", tex, "RIGHT", 1, 0)
 	count:SetTextColor(1, .8, 0)
 
@@ -648,11 +648,11 @@ function UF:CreatePlates()
 	self:SetScale(NDuiADB["UIScale"])
 
 	local health = CreateFrame("StatusBar", nil, self)
-	health:SetAllPoints()
 	health:SetStatusBarTexture(DB.normTex)
-	self.backdrop = B.SetBD(health)
-	self.backdrop.__shadow = nil
-	B:SmoothBar(health)
+	health:SetAllPoints()
+
+	B.SetBD(health)
+	B.SmoothBar(health)
 
 	self.Health = health
 	self.Health.UpdateColor = UF.UpdateColor
@@ -1071,7 +1071,7 @@ function UF:ResizePlayerPlate()
 			plate.Stagger:SetSize(barWidth, barHeight)
 		end
 		if plate.lumos then
-			local iconSize = (barWidth+2*C.mult - C.margin*4)/5
+			local iconSize = (barWidth+2*C.mult - 4*C.margin)/5
 			for i = 1, 5 do
 				plate.lumos[i]:SetSize(iconSize, iconSize)
 			end
@@ -1275,9 +1275,7 @@ end
 
 function UF:CreateGCDTicker(self)
 	local ticker = CreateFrame("StatusBar", nil, self.Power)
-	ticker:SetFrameLevel(self:GetFrameLevel() + 3)
-	ticker:SetStatusBarTexture(DB.normTex)
-	ticker:GetStatusBarTexture():SetAlpha(0)
+	ticker:SetStatusBarTexture(DB.tpTex)
 	ticker:SetAllPoints()
 
 	local spark = ticker:CreateTexture(nil, "OVERLAY")

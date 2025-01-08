@@ -18,11 +18,10 @@ function M:MailBox_DelectClick()
 end
 
 function M:MailItem_AddDelete(i)
-	local bu = CreateFrame("Button", nil, self)
-	bu:SetPoint("BOTTOMRIGHT", self:GetParent(), "BOTTOMRIGHT", -10, 5)
-	bu:SetSize(16, 16)
-	B.PixelIcon(bu, 136813, true)
+	local bu = B.CreateButton(self, 16, 16, true, DB.closeTex)
 	bu.id = i
+
+	bu:SetPoint("BOTTOMRIGHT", self:GetParent(), "BOTTOMRIGHT", -10, 5)
 	bu:SetScript("OnClick", M.MailBox_DelectClick)
 	B.AddTooltip(bu, "ANCHOR_RIGHT", DELETE, "system")
 end

@@ -2,10 +2,10 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 C.themes["Blizzard_ChallengesUI"] = function()
-	ChallengesFrameInset:Hide()
-	for i = 1, 2 do
-		select(i, ChallengesFrame:GetRegions()):Hide()
-	end
+	B.StripTextures(ChallengesFrame)
+	B.StripTextures(ChallengesFrame.WeeklyInfo.Child)
+	
+	ChallengesFrame.Background:SetInside()
 
 	local angryStyle
 	local function UpdateIcons(self)
@@ -13,15 +13,16 @@ C.themes["Blizzard_ChallengesUI"] = function()
 			local bu = self.DungeonIcons[i]
 			if bu and not bu.styled then
 				bu:GetRegions():SetAlpha(0)
-				bu.Icon:SetTexCoord(unpack(DB.TexCoord))
-				bu.Icon:SetInside()
-				B.CreateBDFrame(bu.Icon, 0)
+
+				B.ReskinIcon(bu.Icon)
 
 				bu.styled = true
 			end
 			if i == 1 then
-				self.WeeklyInfo.Child.SeasonBest:ClearAllPoints()
-				self.WeeklyInfo.Child.SeasonBest:SetPoint("BOTTOMLEFT", self.DungeonIcons[i], "TOPLEFT", 0, 2)
+				B.UpdatePoint(self.WeeklyInfo.Child.SeasonBest, "BOTTOMLEFT", self.DungeonIcons[i], "TOPLEFT", 0, 2)
+				B.UpdatePoint(bu, "BOTTOMLEFT", ChallengesFrame, "BOTTOMLEFT", 3+C.mult, 3+C.mult)
+			else
+				B.UpdatePoint(self.DungeonIcons[i], "LEFT", self.DungeonIcons[i-1], "RIGHT", 3, 0)
 			end
 		end
 

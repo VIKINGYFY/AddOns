@@ -332,7 +332,7 @@ do
 		else
 			self.__bg:SetBackdropColor(0, 0, 0, 0)
 		end
-		self.__bg:SetBackdropBorderColor(0, 0, 0)
+		B.SetBorderColor(self.__bg)
 	end
 end
 

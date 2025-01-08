@@ -81,14 +81,17 @@ function INFO:LoadInfobar(info)
 end
 
 function INFO:BackgroundLines()
-	local cr, cg, cb = 0, 0, 0
-	if C.db["Skins"]["ClassLine"] then cr, cg, cb = DB.r, DB.g, DB.b end
+	local r, g, b = DB.r, DB.g, DB.b
+	if not C.db["Skins"]["ClassLine"] then
+		local colors = C.db["Skins"]["CustomBDColor"]
+		r, g, b = colors.r, colors.g, colors.b
+	end
 
 	local parent = UIParent
 	local width, height = 450, 18
 	local anchors = {
-		[1] = {"TOPLEFT", -3, .5, 0, "LeftInfobar"},
-		[2] = {"BOTTOMRIGHT", 3, 0, .5, "RightInfobar"},
+		[1] = {"TOPLEFT", -3, C.alpha, 0, "LeftInfobar"},
+		[2] = {"BOTTOMRIGHT", 3, 0, C.alpha, "RightInfobar"},
 	}
 	for _, v in pairs(anchors) do
 		local frame = CreateFrame("Frame", "NDui"..v[5], parent)
@@ -99,9 +102,9 @@ function INFO:BackgroundLines()
 		if C.db["Skins"]["InfobarLine"] then
 			local tex = B.SetGradient(frame, "H", 0, 0, 0, v[3], v[4], width, height)
 			tex:SetPoint("CENTER")
-			local bottomLine = B.SetGradient(frame, "H", cr, cg, cb, v[3], v[4], width, C.mult)
+			local bottomLine = B.SetGradient(frame, "H", r, g, b, v[3], v[4], width, C.mult)
 			bottomLine:SetPoint("TOP", frame, "BOTTOM")
-			local topLine = B.SetGradient(frame, "H", cr, cg, cb, v[3], v[4], width, C.mult)
+			local topLine = B.SetGradient(frame, "H", r, g, b, v[3], v[4], width, C.mult)
 			topLine:SetPoint("BOTTOM", frame, "TOP")
 		end
 	end

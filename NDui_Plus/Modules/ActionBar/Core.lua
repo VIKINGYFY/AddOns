@@ -183,7 +183,7 @@ local function UpdateEquipItemColor(self)
 	if C.db["Actionbar"]["EquipColor"] and IsEquippedAction(self.action) then
 		self.__bg:SetBackdropBorderColor(0, .7, .1)
 	else
-		self.__bg:SetBackdropBorderColor(0, 0, 0)
+		B.SetBorderColor(self.__bg)
 	end
 end
 

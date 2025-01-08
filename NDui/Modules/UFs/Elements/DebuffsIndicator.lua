@@ -85,7 +85,7 @@ function UF:DebuffsIndicator_UpdateButton(debuffIndex, aura)
 			local color = oUF.colors.debuff[aura.debuffType] or oUF.colors.debuff.none
 			button.bg:SetBackdropBorderColor(color[1], color[2], color[3])
 		else
-			button.bg:SetBackdropBorderColor(0, 0, 0)
+			B.SetBorderColor(button.bg)
 		end
 	end
 

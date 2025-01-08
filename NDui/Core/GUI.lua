@@ -465,7 +465,8 @@ G.DefaultSettings = {
 		Loot = true,
 		Shadow = true,
 		BgTex = true,
-		GreyBD = false,
+		CustomBD = true,
+		CustomBDColor = {r=.5, g=.5, b=.5},
 		FontScale = 1,
 	},
 	Tooltip = {
@@ -543,6 +544,7 @@ G.DefaultSettings = {
 		MenuButton = true,
 		QuickJoin = true,
 		MaxZoom = 2.6,
+		SingingSocket = true,
 	},
 	Tutorial = {
 		Complete = false,
@@ -1105,7 +1107,7 @@ G.TabList = {
 	L["Bags"],
 	IsNew..L["Unitframes"],
 	IsNew..L["RaidFrame"],
-	IsNew..L["Nameplate"],
+	L["Nameplate"],
 	L["PlayerPlate"],
 	L["Auras"],
 	IsNew..L["Raid Tools"],
@@ -1113,7 +1115,7 @@ G.TabList = {
 	L["Maps"],
 	L["Skins"],
 	L["Tooltip"],
-	L["Misc"],
+	IsNew..L["Misc"],
 	L["UI Settings"],
 	L["Profile"],
 }
@@ -1261,7 +1263,7 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{},--blank
 		{1, "Nameplate", "CVarOnlyNames", L["CVarOnlyNames"], nil, nil, updatePlateCVars, L["CVarOnlyNamesTip"]},
 		{1, "Nameplate", "CVarShowNPCs", L["CVarShowNPCs"].."*", true, nil, updatePlateCVars, L["CVarShowNPCsTip"]},
-		{3, "Nameplate", "PlateRange", IsNew..L["PlateRange"].."*", nil, {0, 60, 1}, updatePlateCVars, L["PlateRangeTip"]},
+		{3, "Nameplate", "PlateRange", L["PlateRange"].."*", nil, {0, 60, 1}, updatePlateCVars, L["PlateRangeTip"]},
 		{3, "Nameplate", "VerticalSpacing", L["NP VerticalSpacing"].."*", true, {.5, 2.5, .1}, updatePlateCVars},
 		{3, "Nameplate", "MinScale", L["Nameplate MinScale"].."*", nil, {.5, 1, .1}, updatePlateCVars},
 		{3, "Nameplate", "MinAlpha", L["Nameplate MinAlpha"].."*", true, {.3, 1, .1}, updatePlateCVars},
@@ -1383,11 +1385,12 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{1, "Skins", "Shadow", L["Shadow"]},
 		{1, "Skins", "FontOutline", L["FontOutline"], true},
 		{1, "Skins", "BgTex", L["BgTex"]},
-		{1, "Skins", "GreyBD", L["GreyBackdrop"], true, nil, nil, L["GreyBackdropTip"]},
+		{1, "Skins", "CustomBD", L["CustomBD"], true, nil, nil, L["CustomBackdropTip"]},
+		{5, "Skins", "CustomBDColor", L["CustomBackdrop"], 3},
 		{3, "Skins", "SkinAlpha", L["SkinAlpha"].."*", nil, {0, 1, .05}, updateSkinAlpha},
 		{3, "Skins", "FontScale", L["GlobalFontScale"], true, {.5, 1.5, .05}},
 		{},--blank
-		{1, "Skins", "ClassLine", L["ClassColor Line"]},
+		{1, "Skins", "ClassLine", L["ClassColor Line"], nil, nil, nil, L["ClassColor Line Tip"]},
 		{1, "Skins", "InfobarLine", L["Infobar Line"], true},
 		{1, "Skins", "ChatbarLine", L["Chat Line"]},
 		{1, "Skins", "MenuLine", L["Menu Line"], true},
@@ -1450,6 +1453,7 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{1, "Misc", "QuestTool", L["QuestTool"], nil, nil, nil, L["QuestToolTip"]},
 		{1, "Misc", "QuickJoin", HeaderTag..L["EnhancedPremade"], nil, nil, nil, L["EnhancedPremadeTip"]},
 		{3, "Misc", "MaxZoom", L["MaxZoom"].."*", true, {1, 2.6, .1}, updateMaxZoomLevel},
+		{1, "Misc", "SingingSocket", IsNew..L["SingingSocket"], nil, nil, nil, L["SingingSocketTip"]},
 	},
 	[14] = {
 		{1, "ACCOUNT", "VersionCheck", L["Version Check"]},
@@ -1717,7 +1721,7 @@ local function CreateOption(i)
 		-- Blank, no optType
 		else
 			if not key then
-				local line = B.SetGradient(parent, "H", 1, 1, 1, .5, .5, 560, C.mult)
+				local line = B.SetGradient(parent, "H", 1, 1, 1, C.alpha, C.alpha, 560, C.mult)
 				line:SetPoint("TOPLEFT", 25, -offset - 12)
 			end
 			offset = offset + 35
@@ -1768,9 +1772,9 @@ function G:AddContactFrame()
 	B.CreateWatermark(frame)
 
 	B.CreateFS(frame, 16, L["Contact"], true, "TOP", 0, -10)
-	local ll = B.SetGradient(frame, "H", 1, 1, 1, 0, .5, 80, C.mult)
+	local ll = B.SetGradient(frame, "H", 1, 1, 1, 0, C.alpha, 80, C.mult)
 	ll:SetPoint("TOP", -40, -32)
-	local lr = B.SetGradient(frame, "H", 1, 1, 1, .5, 0, 80, C.mult)
+	local lr = B.SetGradient(frame, "H", 1, 1, 1, C.alpha, 0, 80, C.mult)
 	lr:SetPoint("TOP", 40, -32)
 
 	CreateContactBox(frame, "NGA.CN", "https://bbs.nga.cn/read.php?tid=5483616", 1)

@@ -32,6 +32,7 @@ table.insert(C.defaultThemes, function()
 
 	EquipmentFlyoutFrameButtons.bg1:SetAlpha(0)
 	EquipmentFlyoutFrameButtons:DisableDrawLayer("ARTWORK")
+	EquipmentFlyoutFrameHighlight:SetOutside(nil, 7, 7)
 
 	local navigationFrame = EquipmentFlyoutFrame.NavigationFrame
 	B.SetBD(navigationFrame)

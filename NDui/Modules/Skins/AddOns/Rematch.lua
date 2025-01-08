@@ -30,8 +30,7 @@ function S:RematchIcon()
 
 	if self.Border then self.Border:SetAlpha(0) end
 	if self.Icon then
-		self.Icon:SetTexCoord(unpack(DB.TexCoord))
-		self.Icon.bg = B.CreateBDFrame(self.Icon)
+		self.Icon.bg = B.ReskinIcon(self.Icon)
 	end
 	if self.Level then
 		if self.Level.BG then self.Level.BG:Hide() end
@@ -76,7 +75,7 @@ function S:RematchDropdown()
 	B.CreateBDFrame(self, 0, true)
 	if self.Icon then
 		self.Icon:SetAlpha(1)
-		B.CreateBDFrame(self.Icon)
+		B.ReskinIcon(self.Icon)
 	end
 	local arrow = select(2, self:GetChildren())
 	B.ReskinArrow(arrow, "down")
@@ -202,15 +201,6 @@ function S:ReskinRematchElements()
 
 	B.StripTextures(toolbar)
 	S.RematchButton(toolbar.TotalsButton)
-
-	if ALPTRematchOptionButton then
-		ALPTRematchOptionButton:SetPushedTexture(0)
-		ALPTRematchOptionButton:SetHighlightTexture(DB.bdTex)
-		ALPTRematchOptionButton:GetHighlightTexture():SetVertexColor(1, 1, 1, .25)
-		local tex = ALPTRematchOptionButton:GetNormalTexture()
-		tex:SetTexCoord(unpack(DB.TexCoord))
-		B.CreateBDFrame(tex)
-	end
 
 	for _, name in pairs({"SummonButton", "SaveButton", "SaveAsButton", "FindBattleButton"}) do
 		local button = Rematch.bottombar[name]

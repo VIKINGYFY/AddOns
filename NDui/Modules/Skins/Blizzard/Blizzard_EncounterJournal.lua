@@ -235,9 +235,9 @@ C.themes["Blizzard_EncounterJournal"] = function()
 	-- Suggestion 1
 	local suggestion = suggestFrame.Suggestion1
 	suggestion.bg:Hide()
-	B.CreateBDFrame(suggestion, .25)
 	suggestion.icon:SetPoint("TOPLEFT", 135, -15)
-	B.CreateBDFrame(suggestion.icon)
+	B.CreateBDFrame(suggestion, .25)
+	B.CreateBDFrame(suggestion.icon, .25, nil, -C.mult)
 
 	local centerDisplay = suggestion.centerDisplay
 	centerDisplay.title.text:SetTextColor(1, 1, 1)
@@ -248,7 +248,7 @@ C.themes["Blizzard_EncounterJournal"] = function()
 	reward.text:SetTextColor(.9, .9, .9)
 	reward.iconRing:Hide()
 	reward.iconRingHighlight:SetTexture("")
-	B.CreateBDFrame(reward.icon):SetFrameLevel(3)
+	B.CreateBDFrame(reward.icon, .25, nil, -C.mult):SetFrameLevel(3)
 	B.ReskinArrow(suggestion.prevButton, "left")
 	B.ReskinArrow(suggestion.nextButton, "right")
 
@@ -257,9 +257,10 @@ C.themes["Blizzard_EncounterJournal"] = function()
 		local suggestion = suggestFrame["Suggestion"..i]
 
 		suggestion.bg:Hide()
-		B.CreateBDFrame(suggestion, .25)
 		suggestion.icon:SetPoint("TOPLEFT", 10, -10)
-		B.CreateBDFrame(suggestion.icon)
+
+		B.CreateBDFrame(suggestion, .25)
+		B.CreateBDFrame(suggestion.icon, .25, nil, -C.mult)
 
 		local centerDisplay = suggestion.centerDisplay
 
@@ -272,7 +273,7 @@ C.themes["Blizzard_EncounterJournal"] = function()
 		local reward = suggestion.reward
 		reward.iconRing:Hide()
 		reward.iconRingHighlight:SetTexture("")
-		B.CreateBDFrame(reward.icon):SetFrameLevel(3)
+		B.CreateBDFrame(reward.icon, .25, nil, -C.mult):SetFrameLevel(3)
 	end
 
 	-- Hook functions

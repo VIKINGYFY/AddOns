@@ -81,9 +81,7 @@ end
 local function ReskinMissionButton(button)
 	if not button.styled then
 		B.StripTextures(button)
-
-		local bg = B.CreateBDFrame(button, .25)
-		B.UpdateSize(bg, 5, -5, -5, 5)
+		B.CreateBDFrame(button, .25):SetInside(nil, 5, 5)
 
 		local rareText = button.RareText
 		if rareText then
@@ -353,7 +351,7 @@ end
 
 local function resetFollowerColorOnBoard(self)
 	if self.squareBG then
-		self.squareBG:SetBackdropBorderColor(0, 0, 0)
+		B.SetBorderColor(self.squareBG)
 	end
 end
 
@@ -1072,7 +1070,7 @@ C.themes["Blizzard_GarrisonUI"] = function()
 			if show then
 				portrait.__owner.bg:SetBackdropBorderColor(.6, 0, 0)
 			else
-				portrait.__owner.bg:SetBackdropBorderColor(0, 0, 0)
+				B.SetBorderColor(portrait.__owner.bg)
 			end
 		end
 
@@ -1166,7 +1164,7 @@ C.themes["Blizzard_GarrisonUI"] = function()
 					local bg = B.CreateBDFrame(widget, .25)
 					bg:SetPoint("TOPLEFT", -3, 1)
 					bg:SetPoint("BOTTOMRIGHT", 2, -2)
-					B.CreateBDFrame(widget.Icon, .25)
+					B.CreateBDFrame(widget.Icon, .25, nil, -C.mult)
 				elseif otype == "IconButton" then
 					B.ReskinIcon(widget.Icon)
 					widget:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)

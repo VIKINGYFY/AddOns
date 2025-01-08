@@ -6,7 +6,7 @@ local function updateSelectedTexture(texture, shown)
 	if shown then
 		button.bg:SetBackdropBorderColor(1, .8, 0)
 	else
-		button.bg:SetBackdropBorderColor(0, 0, 0)
+		B.SetBorderColor(button.bg)
 	end
 end
 

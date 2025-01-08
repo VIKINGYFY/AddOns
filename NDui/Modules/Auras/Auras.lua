@@ -124,7 +124,7 @@ function A:UpdateAuras(button, index)
 		local color = oUF.colors.debuff[auraData.dispelName or "none"]
 		button:SetBackdropBorderColor(color[1], color[2], color[3])
 	else
-		button:SetBackdropBorderColor(0, 0, 0)
+		B.SetBorderColor(button)
 	end
 
 	-- Show spell stat for 'Soleahs Secret Technique'
