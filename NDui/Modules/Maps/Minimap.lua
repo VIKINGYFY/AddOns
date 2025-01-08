@@ -179,7 +179,7 @@ function module:ReskinRegions()
 	if indicatorFrame then
 		updateMapAnchor(indicatorFrame)
 		hooksecurefunc(indicatorFrame, "SetPoint", updateMapAnchor)
-		indicatorFrame:SetFrameLevel(10)
+		indicatorFrame:SetFrameLevel(11)
 	end
 
 	-- Invites Icon

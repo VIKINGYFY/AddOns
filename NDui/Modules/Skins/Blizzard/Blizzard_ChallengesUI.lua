@@ -4,7 +4,7 @@ local B, C, L, DB = unpack(ns)
 C.themes["Blizzard_ChallengesUI"] = function()
 	B.StripTextures(ChallengesFrame)
 	B.StripTextures(ChallengesFrame.WeeklyInfo.Child)
-	
+
 	ChallengesFrame.Background:SetInside()
 
 	local angryStyle
@@ -12,7 +12,8 @@ C.themes["Blizzard_ChallengesUI"] = function()
 		for i = 1, #self.maps do
 			local bu = self.DungeonIcons[i]
 			if bu and not bu.styled then
-				bu:GetRegions():SetAlpha(0)
+				bu:GetRegions():Hide()
+				bu.HighestLevel:SetDrawLayer("OVERLAY")
 
 				B.ReskinIcon(bu.Icon)
 

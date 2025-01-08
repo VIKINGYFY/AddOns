@@ -1478,11 +1478,11 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 local function SelectTab(i)
 	for num = 1, #G.TabList do
 		if num == i then
-			guiTab[num]:SetBackdropColor(cr, cg, cb, .25)
+			guiTab[num].__bg:SetBackdropColor(cr, cg, cb, .25)
 			guiTab[num].checked = true
 			guiPage[num]:Show()
 		else
-			guiTab[num]:SetBackdropColor(0, 0, 0, .25)
+			guiTab[num].__bg:SetBackdropColor(0, 0, 0, 0)
 			guiTab[num].checked = false
 			guiPage[num]:Hide()
 		end
@@ -1493,26 +1493,16 @@ local function tabOnClick(self)
 	PlaySound(SOUNDKIT.GS_TITLE_OPTION_OK)
 	SelectTab(self.index)
 end
-local function tabOnEnter(self)
-	if self.checked then return end
-	self:SetBackdropColor(cr, cg, cb, .25)
-end
-local function tabOnLeave(self)
-	if self.checked then return end
-	self:SetBackdropColor(0, 0, 0, .25)
-end
 
 local function CreateTab(parent, i, name)
 	local tab = CreateFrame("Button", nil, parent, "BackdropTemplate")
 	tab:SetPoint("TOPLEFT", 20, -30*i - 20 + C.mult)
 	tab:SetSize(130, 28)
-	B.CreateBD(tab, .25)
+	B.ReskinButton(tab)
 	B.CreateFS(tab, 15, name, "system", "LEFT", 10, 0)
 	tab.index = i
 
 	tab:SetScript("OnClick", tabOnClick)
-	tab:SetScript("OnEnter", tabOnEnter)
-	tab:SetScript("OnLeave", tabOnLeave)
 
 	return tab
 end
@@ -1935,7 +1925,7 @@ function G:OnLogin()
 				button:SetNormalFontObject("GameFontHighlight")
 				button:SetHighlightFontObject("GameFontHighlight")
 				button:SetDisabledFontObject("GameFontDisable")
-				button:SetSize(160, 27)
+				button:SetSize(160, 25)
 
 				button.resized = true
 			end

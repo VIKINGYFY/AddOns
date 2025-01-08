@@ -349,7 +349,7 @@ function G:CreateProfileGUI(parent)
 	panel:SetPoint("BOTTOMLEFT", delete, "TOPLEFT", 0, 10)
 	panel:SetWidth(parent:GetWidth() - 20)
 	panel:SetHeight(15 + numBars*45)
-	panel:SetFrameLevel(10)
+	panel:SetFrameLevel(parent:GetFrameLevel()+1)
 
 	G.bars = {}
 	for i = 1, numBars do

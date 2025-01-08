@@ -108,23 +108,29 @@ function M:GuildBest_Update()
 	end
 
 	if not resize and hasAngryKeystones then
-		hooksecurefunc(self.WeeklyInfo.Child.WeeklyChest, "SetPoint", function(frame, _, x, y)
+		local weeklyInfo = self.WeeklyInfo.Child
+		weeklyInfo.ThisWeekLabel:SetPoint("TOP", -125, -25)
+
+		hooksecurefunc(weeklyInfo.WeeklyChest, "SetPoint", function(frame, _, x, y)
 			if x == 100 and y == 0 then
 				frame:SetPoint("LEFT", 110, -5)
 			end
 		end)
-		self.WeeklyInfo.Child.ThisWeekLabel:SetPoint("TOP", -125, -25)
 
 		local schedule = AngryKeystones.Modules.Schedule
+		hooksecurefunc(schedule.AffixFrame, "SetPoint", function(f1, p1, f2, p2, x, y)
+			if e == 55 then
+				f1:SetPoint(p1, f2, p2, x, 40)
+			end
+		end)
+
 		frame:SetWidth(246)
-		frame:ClearAllPoints()
-		frame:SetPoint("BOTTOMLEFT", schedule.AffixFrame, "TOPLEFT", 0, 10)
+		B.UpdatePoint(frame, "BOTTOM", schedule.AffixFrame, "TOP", 0, 10)
 
 		local keystoneText = schedule.KeystoneText
 		if keystoneText then
 			keystoneText:SetFontObject(Game13Font)
-			keystoneText:ClearAllPoints()
-			keystoneText:SetPoint("TOP", self.WeeklyInfo.Child.DungeonScoreInfo.Score, "BOTTOM", 0, -3)
+			B.UpdatePoint(keystoneText, "TOP", weeklyInfo.DungeonScoreInfo.Score, "BOTTOM", 0, -3)
 		end
 
 		resize = true

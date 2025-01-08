@@ -15,25 +15,6 @@ table.insert(C.defaultThemes, function()
 	line:SetPoint("BOTTOM", 0, 5)
 	line:SetColorTexture(1, 1, 1, .25)
 
-	local buttons = {
-		"GameMenuButtonHelp",
-		"GameMenuButtonWhatsNew",
-		"GameMenuButtonStore",
-		"GameMenuButtonMacros",
-		"GameMenuButtonAddons",
-		"GameMenuButtonLogout",
-		"GameMenuButtonQuit",
-		"GameMenuButtonContinue",
-		"GameMenuButtonSettings",
-		"GameMenuButtonEditMode",
-	}
-	for _, buttonName in next, buttons do
-		local button = _G[buttonName]
-		if button then
-			B.ReskinButton(button)
-		end
-	end
-
 	local cr, cg, cb = DB.r, DB.g, DB.b
 
 	hooksecurefunc(GameMenuFrame, "InitButtons", function(self)
@@ -42,11 +23,8 @@ table.insert(C.defaultThemes, function()
 		for button in self.buttonPool:EnumerateActive() do
 			if not button.styled then
 				button:DisableDrawLayer("BACKGROUND")
-				button.bg = B.CreateBDFrame(button, 0, true)
-				local hl = button:GetHighlightTexture()
-				hl:SetColorTexture(cr, cg, cb, .25)
-				hl:SetInside(button.bg)
-				button.bg:SetInside()
+				button.bg = B.CreateBDFrame(button, 0, true, C.mult)
+				B.ReskinHLTex(button, button.bg, true)
 
 				button.styled = true
 			end

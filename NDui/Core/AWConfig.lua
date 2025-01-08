@@ -3,7 +3,7 @@ local B, C, L, DB = unpack(ns)
 local G = B:GetModule("GUI")
 
 local f
-local r, g, b = DB.r, DB.g, DB.b
+local cr, cg, cb = DB.r, DB.g, DB.b
 
 -- Elements
 local function labelOnEnter(self)
@@ -341,23 +341,15 @@ local function CreatePanel()
 	local function tabOnClick(self)
 		for i = 1, #tabs do
 			if self == tabs[i] then
-				tabs[i].Page:Show()
-				tabs[i]:SetBackdropColor(r, g, b, .25)
+				tabs[i].__bg:SetBackdropColor(cr, cg, cb, .25)
 				tabs[i].selected = true
+				tabs[i].Page:Show()
 			else
-				tabs[i].Page:Hide()
-				tabs[i]:SetBackdropColor(0, 0, 0, .25)
+				tabs[i].__bg:SetBackdropColor(0, 0, 0, 0)
 				tabs[i].selected = false
+				tabs[i].Page:Hide()
 			end
 		end
-	end
-	local function tabOnEnter(self)
-		if self.selected then return end
-		self:SetBackdropColor(r, g, b, .25)
-	end
-	local function tabOnLeave(self)
-		if self.selected then return end
-		self:SetBackdropColor(0, 0, 0, .25)
 	end
 
 	for i, group in pairs(groups) do
@@ -367,10 +359,11 @@ local function CreatePanel()
 		tabs[i] = CreateFrame("Button", "$parentTab"..i, f, "BackdropTemplate")
 		tabs[i]:SetPoint("TOPLEFT", 20, -40 - i*30)
 		tabs[i]:SetSize(130, 28)
-		B.CreateBD(tabs[i], .25)
+		B.ReskinButton(tabs[i])
+
 		local label = B.CreateFS(tabs[i], 15, group, "system", "LEFT", 10, 0)
 		if i == 10 then
-			label:SetTextColor(0, .8, .3)
+			label:SetTextColor(cr, cg, cb)
 		end
 		tabs[i].Page = createPage(group)
 		tabs[i].List = G:CreateScroll(tabs[i].Page, 575, 200, L["AuraWatch List"])
@@ -473,8 +466,6 @@ local function CreatePanel()
 		end)
 
 		tabs[i]:SetScript("OnClick", tabOnClick)
-		tabs[i]:SetScript("OnEnter", tabOnEnter)
-		tabs[i]:SetScript("OnLeave", tabOnLeave)
 	end
 
 	for i = 1, 10 do

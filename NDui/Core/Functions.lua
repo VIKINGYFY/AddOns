@@ -1329,8 +1329,6 @@ do
 		local bg = B.GetObject(self, "SwatchBg")
 		bg:SetColorTexture(0, 0, 0, 1)
 		bg:SetOutside(icon)
-
-		--if self.InnerBorder then
 	end
 
 	-- Handle slider
