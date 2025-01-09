@@ -63,6 +63,8 @@ table.insert(C.defaultThemes, function()
 
 		-- arrow button
 		local arrowButton = navButton.MenuArrowButton
+		arrowButton:SetSize(20, 20)
+		B.UpdatePoint(arrowButton, "RIGHT", navButton, "RIGHT", -5, 0)
 		B.StripTextures(arrowButton, 99)
 		B.SetupTexture(arrowButton, "down")
 

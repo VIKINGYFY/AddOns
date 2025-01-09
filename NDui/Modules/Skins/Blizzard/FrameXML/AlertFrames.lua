@@ -426,7 +426,7 @@ table.insert(C.defaultThemes, function()
 			toast.bg = B.ReskinIcon(icon)
 			if border then
 				border:SetTexture("")
-				B.ReskinIconBorder(border, true)
+				B.ReskinBorder(border, true)
 			end
 		end
 

@@ -157,7 +157,7 @@ table.insert(C.defaultThemes, function()
 	-- Minimize Button
 	local mainMinimize =mainHeader.MinimizeButton
 	reskinMinimizeButton(mainMinimize, mainHeader)
-	mainMinimize.bg:SetBackdropBorderColor(1, .8, 0, .5)
+	mainMinimize.bg:SetBackdropBorderColor(1, .8, 0)
 
 	local trackers = {
 		ScenarioObjectiveTracker,

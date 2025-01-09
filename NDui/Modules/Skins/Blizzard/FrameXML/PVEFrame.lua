@@ -40,17 +40,7 @@ table.insert(C.defaultThemes, function()
 	end)
 
 	B.ReskinFrame(PVEFrame)
-
-	for i = 1, 4 do
-		local tab = _G["PVEFrameTab"..i]
-		if tab then
-			B.ReskinTab(tab)
-			if i ~= 1 then
-				tab:ClearAllPoints()
-				tab:SetPoint("TOPLEFT", _G["PVEFrameTab"..(i-1)], "TOPRIGHT", -15, 0)
-			end
-		end
-	end
+	B.ReskinFrameTab(PVEFrame, 4)
 
 	if ScenarioQueueFrame then
 		B.StripTextures(ScenarioFinderFrame)

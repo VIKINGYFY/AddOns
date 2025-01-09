@@ -103,13 +103,13 @@ C.themes["Blizzard_PlayerChoice"] = function()
 						if itemButton then
 							B.StripTextures(itemButton, 1)
 							itemButton.bg = B.ReskinIcon((itemButton:GetRegions()))
-							B.ReskinIconBorder(itemButton.IconBorder, true)
+							B.ReskinBorder(itemButton.IconBorder, true)
 						end
 						-- PlayerChoiceBaseOptionCurrencyRewardTemplate
 						local count = rewardFrame.Count
 						if count then
 							rewardFrame.bg = B.ReskinIcon(rewardFrame.Icon)
-							B.ReskinIconBorder(rewardFrame.IconBorder, true)
+							B.ReskinBorder(rewardFrame.IconBorder, true)
 						end
 
 						rewardFrame.styled = true
@@ -132,7 +132,7 @@ C.themes["Blizzard_PlayerChoice"] = function()
 							if not item.bg then
 								item.bg = B.ReskinIcon(item.Icon)
 								item.bg:SetFrameLevel(item.bg:GetFrameLevel() + 1)
-								B.ReskinIconBorder(item.IconBorder, true)
+								B.ReskinBorder(item.IconBorder, true)
 							end
 						end
 					end

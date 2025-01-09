@@ -137,7 +137,7 @@ ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
       end
     end
 
-    if nodeData.TransportName and not nodeData.delveID then
+    if nodeData.TransportName and not nodeData.delveID and not nodeData.dnID then
       tooltip:AddDoubleLine(nodeData.TransportName, nil, nil, false)
     end
 
@@ -148,7 +148,7 @@ ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
     if (nodeData.dnID and nodeData.mnID) and not nodeData.mnID2 and not nodeData.mnID3 then -- outputs the Zone or Dungeonmap name and displays it in the tooltip
       local mnIDname = C_Map.GetMapInfo(nodeData.mnID).name
       if mnIDname then
-        tooltip:AddDoubleLine(" ==> " .. mnIDname, nil, nil, false)
+        tooltip:AddDoubleLine("==> " .. mnIDname, nil, nil, false)
       end
     end
 
@@ -175,6 +175,14 @@ ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
 
     if not nodeData.dnID and nodeData.mnID and not nodeData.id and not nodeData.TransportName and not nodeData.wwwName and not ns.icons["Delves"] then -- outputs the Zone or Dungeonmap name and displays it in the tooltip
       local mnIDname = C_Map.GetMapInfo(nodeData.mnID).name
+      if mnIDname then
+        tooltip:AddDoubleLine(" ==> " .. mnIDname, nil, nil, false)
+      end
+    end
+
+    if nodeData.mnID and not (nodeData.dnID or nodeData.id or nodeData.TransportName) then
+      local mnIDname = C_Map.GetMapInfo(nodeData.mnID).name
+      local type = nodeData.typem
       if mnIDname then
         tooltip:AddDoubleLine(" ==> " .. mnIDname, nil, nil, false)
       end
@@ -243,46 +251,70 @@ ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
         tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_DUNGEON, nil, nil, false)
       end
 
-      if nodeData.mnID and nodeData.type == "PassageDungeon" then -- Delves
+      if nodeData.id and nodeData.lfgid and nodeData.type == "PassageDungeon" then -- 
         tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_DUNGEON, nil, nil, false)
       end
 
-      if nodeData.mnID and nodeData.type == "PassageDungeonMulti" then -- Delves
+      if nodeData.id and nodeData.type == "PassageDungeon" and not nodeData.mnID then
+        tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_DUNGEON, nil, nil, false)
+      end
+      
+      if nodeData.mnID and nodeData.type == "PassageDungeon" then -- 
+        --tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_DUNGEON, nil, nil, false)
+      end
+
+      if nodeData.mnID and nodeData.type == "PassageDungeonMulti" then -- 
         tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_DUNGEON, nil, nil, false)
       end
 
-      if nodeData.mnID and nodeData.type == "VInstanceD" then -- Delves
+      if nodeData.mnID and nodeData.type == "VInstanceD" then -- 
         tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_DUNGEON, nil, nil, false)
       end
 
-      if nodeData.mnID and nodeData.type == "MultiVInstanceD" then -- Delves
+      if nodeData.mnID and nodeData.type == "MultiVInstanceD" then -- 
+        tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_DUNGEON, nil, nil, false)
+      end
+
+      if nodeData.mnID and nodeData.type == "MultipleD" then -- 
         tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_DUNGEON, nil, nil, false)
       end
 
       -- Raids
-      if nodeData.type == "Raid" and not ns.MapType0 then -- Delves
+      if nodeData.type == "Raid" and not ns.MapType0 then -- 
         tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_RAID, nil, nil, false)
       end
 
-      if nodeData.mnID and nodeData.type == "PassageRaid" then -- Delves
+      if nodeData.id and nodeData.type == "PassageRaid" and not nodeData.mnID then -- 
         tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_RAID, nil, nil, false)
       end
 
-      if nodeData.mnID and nodeData.type == "PassageRaidMulti" then -- Delves
+      if nodeData.mnID and nodeData.type == "PassageRaid" then -- 
+        --tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_RAID, nil, nil, false)
+      end
+
+      if nodeData.mnID and nodeData.type == "PassageRaidMulti" then -- 
         tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_RAID, nil, nil, false)
       end
 
-      if nodeData.mnID and nodeData.type == "MultiVInstanceR" then -- Delves
+      if nodeData.mnID and nodeData.type == "MultiVInstanceR" then -- 
         tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_RAID .. " & " .. CALENDAR_TYPE_DUNGEON, nil, nil, false)
       end
 
-      if nodeData.mnID and nodeData.type == "VInstanceR" then -- Delves
+      if nodeData.mnID and nodeData.type == "VInstanceR" then -- 
+        tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_RAID, nil, nil, false)
+      end
+
+      if nodeData.mnID and nodeData.type == "MultipleR" then -- 
         tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_RAID, nil, nil, false)
       end
 
       -- Mixed Raid & Dungeon
-      if nodeData.mnID and nodeData.type == "MultiVInstance" then -- Delves
+      if nodeData.mnID and nodeData.type == "MultiVInstance" then -- 
         tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_RAID .. " & " .. CALENDAR_TYPE_DUNGEON, nil, nil, false)
+      end
+
+      if nodeData.mnID and nodeData.type == "MultipleM" then -- 
+        --tooltip:AddLine("|cffffffff" .. CALENDAR_TYPE_RAID .. " / " .. CALENDAR_TYPE_DUNGEON, nil, nil, false)
       end
 
     end
@@ -575,7 +607,8 @@ do
       ns.DragonIsleIDs = WorldMapFrame:GetMapID() == 2022 or WorldMapFrame:GetMapID() == 2023 or WorldMapFrame:GetMapID() == 2024 or WorldMapFrame:GetMapID() == 2025 or WorldMapFrame:GetMapID() == 2026 or WorldMapFrame:GetMapID() == 2133
                       or WorldMapFrame:GetMapID() == 2151 or WorldMapFrame:GetMapID() == 2200 or WorldMapFrame:GetMapID() == 2239
           
-      ns.KhazAlgar = WorldMapFrame:GetMapID() == 2248 or WorldMapFrame:GetMapID() == 2214 or WorldMapFrame:GetMapID() == 2215 or WorldMapFrame:GetMapID() == 2255 or  WorldMapFrame:GetMapID() == 2256 or WorldMapFrame:GetMapID() == 2213 or WorldMapFrame:GetMapID() == 2216
+      ns.KhazAlgar = WorldMapFrame:GetMapID() == 2248 or WorldMapFrame:GetMapID() == 2214 or WorldMapFrame:GetMapID() == 2215 or WorldMapFrame:GetMapID() == 2255 or  WorldMapFrame:GetMapID() == 2256 or WorldMapFrame:GetMapID() == 2213 
+                      or WorldMapFrame:GetMapID() == 2216 or WorldMapFrame:GetMapID() == 2369 or WorldMapFrame:GetMapID() == 2322
 
       ns.ZoneIDs = WorldMapFrame:GetMapID() == 750 or WorldMapFrame:GetMapID() == 652 or WorldMapFrame:GetMapID() == 2266
 

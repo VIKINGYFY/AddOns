@@ -32,7 +32,7 @@ end
 local function ReskinSortButton(button)
 	replaceSortTexture(button:GetNormalTexture())
 	replaceSortTexture(button:GetPushedTexture())
-	B.CreateBDFrame(button)
+	B.CreateBDFrame(button, .25, nil, -C.mult)
 
 	local highlight = button:GetHighlightTexture()
 	highlight:SetColorTexture(1, 1, 1, .25)
@@ -43,7 +43,7 @@ local function ReskinBagSlot(bu)
 	B.CleanTextures(bu)
 
 	bu.bg = B.ReskinIcon(bu.icon)
-	B.ReskinIconBorder(bu.IconBorder)
+	B.ReskinBorder(bu.IconBorder)
 	B.ReskinHLTex(bu, bu.bg)
 	B.ReskinCPTex(bu, bu.bg)
 
@@ -174,7 +174,8 @@ table.insert(C.defaultThemes, function()
 	ReskinSortButton(BagItemAutoSortButton)
 
 	-- Combined bags
-	B.ReskinFrame(ContainerFrameCombinedBags)
+	B.StripTextures(ContainerFrameCombinedBags)
+	B.SetBD(ContainerFrameCombinedBags)
 	createBagIcon(ContainerFrameCombinedBags, 1)
 	ContainerFrameCombinedBags.PortraitButton.Highlight:SetTexture("")
 	hooksecurefunc(ContainerFrameCombinedBags, "UpdateItemSlots", handleBagSlots)
@@ -184,13 +185,10 @@ table.insert(C.defaultThemes, function()
 	BankFrameMoneyFrameBorder:Hide()
 	B.StripTextures(BankSlotsFrame)
 	BankSlotsFrame.EdgeShadows:Hide()
-
 	B.ReskinFrame(BankFrame)
 	B.ReskinButton(BankFramePurchaseButton)
-	B.ReskinTab(BankFrameTab1)
-	B.ReskinTab(BankFrameTab2)
-	B.ReskinTab(BankFrameTab3)
 	B.ReskinInput(BankItemSearchBox)
+	B.ReskinFrameTab(BankFrame, 3)
 
 	for i = 1, 28 do
 		ReskinBagSlot(_G["BankFrameItem"..i])

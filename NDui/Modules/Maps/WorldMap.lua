@@ -34,30 +34,25 @@ function module:GetCursorCoords()
 	return cursorX, cursorY
 end
 
-local function CoordsFormat(owner, none)
-	local text = none and ": --, --" or ": %.1f, %.1f"
-	return owner..DB.MyColor..text
-end
-
 function module:UpdateCoords(elapsed)
 	self.elapsed = (self.elapsed or 0) + elapsed
 	if self.elapsed > .1 then
 		local cursorX, cursorY = module:GetCursorCoords()
 		if cursorX and cursorY then
-			cursorCoords:SetFormattedText(CoordsFormat(MOUSE_LABEL), 100 * cursorX, 100 * cursorY)
+			cursorCoords:SetFormattedText("<%.1f , %.1f> %s", 100 * cursorX, 100 * cursorY, DB.MyColor..MOUSE_LABEL.."|r")
 			cursorCoords:Show()
 		else
 			cursorCoords:Hide()
 		end
 
 		if not currentMapID then
-			playerCoords:SetText(CoordsFormat(PLAYER, true))
+			playerCoords:SetFormattedText("<%s> %s", "-- , --", DB.MyColor..PLAYER.."|r")
 		else
 			local x, y = module:GetPlayerMapPos(currentMapID)
 			if not x or (x == 0 and y == 0) then
-				playerCoords:SetText(CoordsFormat(PLAYER, true))
+				playerCoords:SetFormattedText("<%s> %s", "-- , --", DB.MyColor..PLAYER.."|r")
 			else
-				playerCoords:SetFormattedText(CoordsFormat(PLAYER), 100 * x, 100 * y)
+				playerCoords:SetFormattedText("<%.1f , %.1f> %s", 100 * x, 100 * y, DB.MyColor..PLAYER.."|r")
 			end
 		end
 
@@ -75,15 +70,13 @@ end
 
 function module:SetupCoords()
 	local textParent = CreateFrame("Frame", nil, WorldMapFrame)
-	textParent:SetPoint("BOTTOMLEFT", WorldMapFrame.ScrollContainer)
+	textParent:SetPoint("BOTTOMRIGHT", WorldMapFrame.ScrollContainer, "BOTTOMRIGHT", -30, 8)
 	textParent:SetSize(1, 18)
 	textParent:SetFrameLevel(5)
-	B.SetGradient(textParent, "H", 0, 0, 0, C.alpha, 0, 450, 18):SetPoint("LEFT")
+	B.SetGradient(textParent, "H", 0, 0, 0, 0, C.alpha, 350, 18):SetPoint("RIGHT")
 
-	playerCoords = B.CreateFS(textParent, 13, "", false, "LEFT", 5, 0)
-	playerCoords:SetJustifyH("LEFT")
-	cursorCoords = B.CreateFS(textParent, 13, "", false, "LEFT", 180, 0)
-	cursorCoords:SetJustifyH("LEFT")
+	playerCoords = B.CreateFS(textParent, 14, "", false, "RIGHT", -10, 0)
+	cursorCoords = B.CreateFS(textParent, 14, "", false, "RIGHT", -185, 0)
 	WorldMapFrame.BorderFrame.Tutorial:SetPoint("TOPLEFT", WorldMapFrame, "TOPLEFT", -12, -12)
 
 	hooksecurefunc(WorldMapFrame, "OnFrameSizeChanged", module.UpdateMapID)

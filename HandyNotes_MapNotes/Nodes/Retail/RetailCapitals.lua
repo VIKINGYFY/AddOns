@@ -137,6 +137,7 @@ if not db.activate.HideMapNote then
                         nodes[85][48236216] = { mnID = 407, name = L["Transport"] .. " ==> " .. CALENDAR_FILTER_DARKMOON, TransportName = "\n" .. REQUIRES_LABEL .. " " .. CALENDAR_FILTER_DARKMOON .. "\n" .. L["Starting on the first Sunday of each month for one week"], type = "DarkMoon", showInZone = true, showOnContinent = false, showOnMinimap = false }
                         nodes[85][38607586] = { mnID = 680, name = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_SURAMARRAID3, type = "HPortalS", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal to Night Fortress
                         nodes[85][38167527] = { mnID = 652, name = L["Portal"] .. " ==> " .. POSTMASTER_LETTER_THUNDERTOTEM, type = "HPortalS", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal to Night Fortress
+                        nodes[85][37437619] = { mnID = 2322, name = L["Portal"], dnID = "", type = "HPortalS", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Hall of Awakening
                     end
 
                     if self.db.profile.showCapitalsZeppelins then
@@ -893,12 +894,12 @@ if not db.activate.HideMapNote then
                 if self.db.profile.activate.CapitalsTransporting then
 
                     if self.db.profile.showCapitalsPortals then
-                        nodes[1165][51424583] = { mnID = 1163, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Dazar'alor"] .. " " .. L["Portalroom"] .. L["(inside building)"] .. "\n" .. " ==> " .. L["Silvermoon City"] .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. L["Thunder Bluff"] .. "\n" .. " ==> " .. L["Silithus"] .. "\n" .. " ==> " .. L["Nazjatar"] } -- Portalroom from Dazar'alor
-                        nodes[1163][73726194] = { mnID = 110, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portalroom from Dazar'alor
-                        nodes[1163][74006974] = { mnID = 85, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ORGRIMMAR } -- Portalroom from Dazar'alor
-                        nodes[1163][74027739] = { mnID = 88, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portalroom from Dazar'alor
-                        nodes[1163][73808541] = { mnID = 81, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portalroom from Dazar'alor
-                        nodes[1163][63008553] = { mnID = 1355,  name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portalroom from Dazar'alor
+                        nodes[1165][51424583] = { mnID = 1163, name = L["Portal"], type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Dazar'alor"] .. " " .. L["Portalroom"] .. L["(inside building)"] .. "\n" .. " ==> " .. L["Silvermoon City"] .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. L["Thunder Bluff"] .. "\n" .. " ==> " .. L["Silithus"] .. "\n" .. " ==> " .. L["Nazjatar"] } -- Portalroom from Dazar'alor
+                        nodes[1163][73726194] = { mnID = 110, name = L["Portal"], type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portalroom from Dazar'alor
+                        nodes[1163][74006974] = { mnID = 85, name = L["Portal"], type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ORGRIMMAR } -- Portalroom from Dazar'alor
+                        nodes[1163][74027739] = { mnID = 88, name = L["Portal"], type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portalroom from Dazar'alor
+                        nodes[1163][73808541] = { mnID = 81, name = L["Portal"], type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portalroom from Dazar'alor
+                        nodes[1163][63008553] = { mnID = 1355, name = L["Portal"], type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portalroom from Dazar'alor
                         nodes[1165][52079454] = { mnID = 62, name = L["This Darkshore portal is only active if your faction is currently occupying Bashal'Aran"], type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Dazar'alor to Arathi or Darkshore
                         nodes[1165][51719454] = { mnID = 14, name = L["This Arathi Highlands portal is only active if your faction is currently occupying Ar'gorok"], type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Dazar'alor to Arathi or Darkshore         
                     end
@@ -1140,6 +1141,7 @@ if not db.activate.HideMapNote then
                         nodes[84][23865611] = { mnID = 89, name = "", type = "APortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. L["Darnassus"] } -- Portal to Darnassus 
                         nodes[84][63197339] = { mnID = 407, name = L["Transport"] .. " ==> " .. CALENDAR_FILTER_DARKMOON, TransportName = "\n" .. REQUIRES_LABEL .. " " .. CALENDAR_FILTER_DARKMOON .. "\n" .. L["Starting on the first Sunday of each month for one week"], type = "DarkMoon", showInZone = true, showOnContinent = false, showOnMinimap = false }
                         nodes[84][62043235] = { mnID = 407, name = L["Transport"] .. " ==> " .. CALENDAR_FILTER_DARKMOON, TransportName = "\n" .. REQUIRES_LABEL .. " " .. CALENDAR_FILTER_DARKMOON .. "\n" .. L["Starting on the first Sunday of each month for one week"], type = "DarkMoon", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                        nodes[84][51551012] = { mnID = 2322, name = L["Portal"], dnID = "", type = "APortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Hall of Awakening
                     end
    
                     if self.db.profile.showCapitalsShips then
@@ -2955,9 +2957,9 @@ if not db.activate.HideMapNote then
             if self.db.profile.activate.CapitalsGeneral then
     
                 if self.db.profile.showCapitalsPvEVendor then
-                    nodes[407][48246955] = { dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT, name = "", TransportName = ACCESSIBILITY_MOUNT_LABEL .. "\n" .. PERKS_VENDOR_CATEGORY_PET,  type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[407][51447510] = { dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT, name = "", TransportName = PERKS_VENDOR_CATEGORY_TRANSMOG_SET,  type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[407][48096567] = { dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT, name = "", TransportName = HEIRLOOMS .. "\n" ..  BAG_FILTER_EQUIPMENT .. "\n" .. TOY,  type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[407][48246955] = { dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. "\n" .. ACCESSIBILITY_MOUNT_LABEL .. "\n" .. PERKS_VENDOR_CATEGORY_PET, name = "", type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[407][51447510] = { dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. "\n" .. PERKS_VENDOR_CATEGORY_TRANSMOG_SET, name = "", type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[407][48096567] = { dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. "\n" .. HEIRLOOMS .. "\n" ..  BAG_FILTER_EQUIPMENT .. "\n" .. TOY, name = "", type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
 
             end
@@ -2989,50 +2991,102 @@ if not db.activate.HideMapNote then
         --Professions Darkmoon
             if self.db.profile.activate.CapitalsProfessions then
 
+                if self.db.profile.showCapitalsProfessionsMixed then
+                    
+                    if self.db.profile.showCapitalsMining and self.db.profile.showCapitalsLeatherworking and not self.db.profile.showCapitalsEngineer then
+                        nodes[407][49256079] = { name = "", dnID = TextIconMining:GetIconString() .. " " .. L["Mining"] .. "\n" .. TextIconLeatherworking:GetIconString() .. " " .. L["Leatherworking"], TransportName = TUTORIAL_TITLE1, type = "ProfessionsMixed", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    elseif self.db.profile.showCapitalsMining and self.db.profile.showCapitalsEngineer and not self.db.profile.showCapitalsLeatherworking then
+                        nodes[407][49256079] = { name = "", dnID = TextIconMining:GetIconString() .. " " .. L["Mining"] .. "\n" .. TextIconEngineer:GetIconString() .. " " .. L["Engineer"], TransportName = TUTORIAL_TITLE1, type = "ProfessionsMixed", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    elseif self.db.profile.showCapitalsLeatherworking and self.db.profile.showCapitalsEngineer and not self.db.profile.showCapitalsMining then
+                        nodes[407][49256079] = { name = "", dnID = TextIconLeatherworking:GetIconString() .. " " .. L["Leatherworking"] .. "\n" .. TextIconEngineer:GetIconString() .. " " .. L["Engineer"], TransportName = TUTORIAL_TITLE1, type = "ProfessionsMixed", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    elseif self.db.profile.showCapitalsMining and self.db.profile.showCapitalsLeatherworking and self.db.profile.showCapitalsEngineer then
+                        nodes[407][49256079] = { name = "", dnID = TextIconMining:GetIconString() .. " " .. L["Mining"] .. "\n" .. TextIconLeatherworking:GetIconString() .. " " .. L["Leatherworking"] .. "\n" .. TextIconEngineer:GetIconString() .. " " .. L["Engineer"], TransportName = TUTORIAL_TITLE1, type = "ProfessionsMixed", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    elseif self.db.profile.showCapitalsMining and not (self.db.profile.showCapitalsLeatherworking and self.db.profile.showCapitalsEngineer) then
+                        nodes[407][49446141] = { name = L["Mining"], type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
+                    elseif self.db.profile.showCapitalsLeatherworking and not (self.db.profile.showCapitalsMining and self.db.profile.showCapitalsEngineer) then
+                        nodes[407][49406080] = { name = L["Leatherworking"], type = "Leatherworking", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
+                    elseif self.db.profile.showCapitalsEngineer and not (self.db.profile.showCapitalsLeatherworking and self.db.profile.showCapitalsMining) then
+                        nodes[407][49406081] = { name = L["Engineer"], type = "Engineer", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
+                    end
+
+                    if self.db.profile.showCapitalsSkinning and self.db.profile.showCapitalsHerbalism and not self.db.profile.showCapitalsJewelcrafting then
+                        nodes[407][55007060] = { name = "", dnID = TextIconSkinning:GetIconString() .. " " .. L["Skinning"] .. "\n" .. TextIconHerbalism:GetIconString() .. " " .. L["Herbalism"], TransportName = TUTORIAL_TITLE1, type = "ProfessionsMixed", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    elseif self.db.profile.showCapitalsSkinning and self.db.profile.showCapitalsJewelcrafting and not self.db.profile.showCapitalsHerbalism then
+                        nodes[407][55007060] = { name = "", dnID = TextIconSkinning:GetIconString() .. " " .. L["Skinning"] .. "\n" .. TextIconJewelcrafting:GetIconString() .. " " .. L["Jewelcrafting"], TransportName = TUTORIAL_TITLE1, type = "ProfessionsMixed", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    elseif self.db.profile.showCapitalsJewelcrafting and self.db.profile.showCapitalsHerbalism and not self.db.profile.showCapitalsSkinning then
+                        nodes[407][55007060] = { name = "", dnID = TextIconJewelcrafting:GetIconString() .. " " .. L["Jewelcrafting"] .. "\n" .. TextIconHerbalism:GetIconString() .. " " .. L["Herbalism"], TransportName = TUTORIAL_TITLE1, type = "ProfessionsMixed", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    elseif self.db.profile.showCapitalsJewelcrafting and self.db.profile.showCapitalsHerbalism and self.db.profile.showCapitalsSkinning then
+                        nodes[407][55007060] = { name = "", dnID = TextIconJewelcrafting:GetIconString() .. " " .. L["Jewelcrafting"] .. "\n" .. TextIconHerbalism:GetIconString() .. " " .. L["Herbalism"] .. "\n" .. TextIconSkinning:GetIconString() .. " " .. L["Skinning"], TransportName = TUTORIAL_TITLE1, type = "ProfessionsMixed", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    elseif self.db.profile.showCapitalsSkinning and not (self.db.profile.showCapitalsHerbalism and self.db.profile.showCapitalsJewelcrafting) then
+                        nodes[407][55007060] = { name = L["Skinning"], type = "Skinning", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
+                    elseif self.db.profile.showCapitalsHerbalism and not (self.db.profile.showCapitalsSkinning and self.db.profile.showCapitalsJewelcrafting) then
+                        nodes[407][55007060] = { name = L["Herbalism"], type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
+                    elseif self.db.profile.showCapitalsJewelcrafting and not (self.db.profile.showCapitalsSkinning and self.db.profile.showCapitalsHerbalism) then
+                        nodes[407][55007060] = { name = L["Jewelcrafting"], type = "Jewelcrafting", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
+                    end
+
+                    if self.db.profile.showCapitalsCooking and self.db.profile.showCapitalsFishing then
+                        nodes[407][52606800] = { name = "", dnID = TextIconFishing:GetIconString() .. " " .. PROFESSIONS_FISHING .. "\n" .. TextIconCooking:GetIconString() .. " " .. PROFESSIONS_COOKING, TransportName = TUTORIAL_TITLE1, type = "ProfessionsMixed", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    elseif self.db.profile.showCapitalsCooking and not self.db.profile.showCapitalsFishing then
+                        nodes[407][52606800] = { name = PROFESSIONS_COOKING, type = "Cooking", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
+                    elseif self.db.profile.showCapitalsFishing and not self.db.profile.showCapitalsCooking then
+                        nodes[407][52606800] = { name = PROFESSIONS_FISHING, type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
+                    end
+                    
+                end
+
+                if not self.db.profile.showCapitalsProfessionsMixed then
+
+                    if self.db.profile.showCapitalsMining then
+                        nodes[407][49446141] = { name = L["Mining"], type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
+                    end
+
+                    if self.db.profile.showCapitalsLeatherworking then
+                        nodes[407][49406080] = { name = L["Leatherworking"], type = "Leatherworking", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
+                    end
+
+                    if self.db.profile.showCapitalsEngineer  then
+                        nodes[407][49406081] = { name = L["Engineer"], type = "Engineer", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
+                    end
+
+                    if self.db.profile.showCapitalsSkinning then
+                        nodes[407][55007060] = { name = L["Skinning"], type = "Skinning", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
+                    end                    
+
+                    if self.db.profile.showCapitalsJewelcrafting then
+                        nodes[407][55007060] = { name = L["Jewelcrafting"], type = "Jewelcrafting", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
+                    end
+    
+                    if self.db.profile.showCapitalsHerbalism then
+                        nodes[407][55017052] = { name = L["Herbalism"], type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
+                    end
+
+                    if self.db.profile.showCapitalsCooking then
+                        nodes[407][52606800] = { name = PROFESSIONS_COOKING, type = "Cooking", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
+                    end
+
+                    if self.db.profile.showCapitalsFishing then
+                        --nodes[407][52608860] = { name = PROFESSIONS_FISHING, type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+                        nodes[407][52606800] = { name = PROFESSIONS_FISHING, type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
+                    end
+                
+                end
+
                 if self.db.profile.showCapitalsAlchemy then
                     nodes[407][50206940] = { name = L["Alchemy"], type = "Alchemy", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
-                end
-            
-                if self.db.profile.showCapitalsLeatherworking then
-                    nodes[407][49406080] = { name = L["Leatherworking"], type = "Leatherworking", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
-                end
-
-                if self.db.profile.showCapitalsEngineer then
-                    nodes[407][49406081] = { name = L["Engineer"], type = "Engineer", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
-                end
-
-                if self.db.profile.showCapitalsSkinning then
-                    nodes[407][48197805] = { name = L["Skinning"], type = "Skinning", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
                 end
 
                 if self.db.profile.showCapitalsTailoring then
                     nodes[407][55805440] = { name = L["Tailoring"], type = "Tailoring", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
                 end
 
-                if self.db.profile.showCapitalsJewelcrafting then
-                    nodes[407][55007060] = { name = L["Jewelcrafting"], type = "Jewelcrafting", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
-                end
-
                 if self.db.profile.showCapitalsBlacksmith then
                     nodes[407][51008180] = { name = L["Blacksmithing"], type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
                 end
 
-                if self.db.profile.showCapitalsMining then
-                    nodes[407][49446141] = { name = L["Mining"], type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
-                end
 
-                if self.db.profile.showCapitalsFishing then
-                    nodes[407][52608860] = { name = PROFESSIONS_FISHING, type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-                    nodes[407][52606800] = { name = PROFESSIONS_FISHING, type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
-                end
 
-                if self.db.profile.showCapitalsCooking then
-                    nodes[407][52606800] = { name = PROFESSIONS_COOKING, type = "Cooking", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
-                end
 
-                if self.db.profile.showCapitalsHerbalism then
-                    nodes[407][55017052] = { name = L["Herbalism"], type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
-                end
 
                 if self.db.profile.showCapitalsInscription then
                     nodes[407][53007580] = { name = INSCRIPTION, type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = TUTORIAL_TITLE1 }
@@ -3169,16 +3223,17 @@ if not db.activate.HideMapNote then
                     nodes[2339][29775967] = { mnID = 2367, name = L["Portal"], dnID = "", showWWW = true, achievementID = 40725, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=40725", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Kammer der Erinnerung
 
                     if self.faction == "Horde" or db.activate.CapitalsEnemyFaction then
-                        nodes[2339][38192724] = { mnID = 85, name = L["Portal"], type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dornogal to Orgrimmar
+                        nodes[2339][38192724] = { mnID = 85, name = L["Portal"], dnID = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dornogal to Orgrimmar
                     end
 
                     if self.faction == "Alliance" or db.activate.CapitalsEnemyFaction then
-                        nodes[2339][41162271] = { mnID = 84, name = L["Portal"], type = "APortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dornogal to Stormwind
+                        nodes[2339][41162271] = { mnID = 84, name = L["Portal"], dnID = "", type = "APortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dornogal to Stormwind
                     end
                 end
 
                 if self.db.profile.showCapitalsZeppelins then
                     nodes[2339][73540516] = { mnID = 2369, name = "", type = "Zeppelin", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Zeppelin"] .. " ==> " .. L["Siren Isle"] } -- Zeppelin from OG to Borean Tundra - Northrend
+                    nodes[2339][73860881] = { mnID = 2369, name = "", type = "Zeppelin", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Zeppelin"] .. " ==> " .. L["Siren Isle"] } -- Zeppelin from OG to Borean Tundra - Northrend
                 end
 
                 if self.db.profile.showCapitalsTransport then

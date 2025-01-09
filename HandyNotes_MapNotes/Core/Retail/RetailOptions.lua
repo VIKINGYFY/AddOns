@@ -1170,6 +1170,18 @@ ns.options = {
                   name = "",
                   order = 40.8,
                   },
+                showCapitalsProfessionsMixed = {
+                  disabled = function() return not ns.Addon.db.profile.activate.Capitals or not ns.Addon.db.profile.activate.CapitalsProfessions end,
+                  type = "toggle",
+                  name = TextIconProfessionsMixed:GetIconString() .. " " .. PROFESSIONS_BUTTON .. " +",
+                  desc = L["This MapNotes icons shows various icons that are too close to each other together"],
+                  width = 1.2,
+                  order = 41.8,
+                  get = function() return ns.Addon.db.profile.showCapitalsProfessionsMixed end,
+                  set = function(info, v) ns.Addon.db.profile.showCapitalsProfessionsMixed = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showCapitalsProfessionsMixed then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. TUTORIAL_TITLE38 .. " " .. PROFESSIONS_BUTTON .. " +" .. " " .. L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showCapitalsProfessionsMixed then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. TUTORIAL_TITLE38 .. " " .. PROFESSIONS_BUTTON .. " +" .. " " .. L["icons"], "|cffff0000" .. L["are hidden"]) end end end,
+                  },
                 showCapitalsProfessionOrders = {
                   disabled = function() return not ns.Addon.db.profile.activate.Capitals or not ns.Addon.db.profile.activate.CapitalsProfessions end,
                   type = "toggle",
@@ -2157,6 +2169,18 @@ ns.options = {
                   type = "header",
                   name = "",
                   order = 86.7,
+                  },
+                  showMinimapCapitalsProfessionsMixed = {
+                  disabled = function() return not ns.Addon.db.profile.activate.Capitals or not ns.Addon.db.profile.activate.MinimapCapitalsProfessions end,
+                  type = "toggle",
+                  name = TextIconProfessionsMixed:GetIconString() .. " " .. PROFESSIONS_BUTTON .. " +",
+                  desc = L["This MapNotes icons shows various icons that are too close to each other together"],
+                  width = 1.2,
+                  order = 87.9,
+                  get = function() return ns.Addon.db.profile.showMinimapCapitalsProfessionsMixed end,
+                  set = function(info, v) ns.Addon.db.profile.showMinimapCapitalsProfessionsMixed = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+                        if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showMinimapCapitalsProfessionsMixed then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. MINIMAP_LABEL .. " " .. TUTORIAL_TITLE38 .. " " .. PROFESSIONS_BUTTON .. " +" .. " " .. L["icons"], "|cff00ff00" .. L["are shown"]) else 
+                        if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showMinimapCapitalsProfessionsMixed then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. MINIMAP_LABEL .. " " .. TUTORIAL_TITLE38 .. " " .. PROFESSIONS_BUTTON .. " +" .. " " .. L["icons"], "|cffff0000" .. L["are hidden"]) end end end,
                   },
                 showMinimapCapitalsProfessionOrders = {
                   disabled = function() return not ns.Addon.db.profile.activate.Capitals or not ns.Addon.db.profile.activate.MinimapCapitalsProfessions end,

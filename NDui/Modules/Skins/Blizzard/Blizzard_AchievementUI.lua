@@ -57,19 +57,7 @@ C.themes["Blizzard_AchievementUI"] = function()
 	AchievementFrame.Header.Title:Hide()
 	AchievementFrame.Header.Points:SetPoint("TOP", AchievementFrame, 0, -3)
 
-	for i = 1, 3 do
-		local tab = _G["AchievementFrameTab"..i]
-		if tab then
-			B.ReskinTab(tab)
-
-			tab:ClearAllPoints()
-			if i == 1 then
-				tab:SetPoint("TOPLEFT", AchievementFrame, "BOTTOMLEFT", 15, 1)
-			else
-				tab:SetPoint("TOPLEFT", _G["AchievementFrameTab"..(i-1)], "TOPRIGHT", -15, 0)
-			end
-		end
-	end
+	B.ReskinFrameTab(AchievementFrame, 3)
 
 	B.ReskinFilterButton(AchievementFrameFilterDropdown)
 	AchievementFrameFilterDropdown:ClearAllPoints()

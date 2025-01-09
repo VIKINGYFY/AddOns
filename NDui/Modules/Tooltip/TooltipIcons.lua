@@ -32,7 +32,7 @@ end
 
 function TT:ReskinRewardIcon()
 	self.bg = B.ReskinIcon(self.Icon)
-	B.ReskinIconBorder(self.IconBorder)
+	B.ReskinBorder(self.IconBorder)
 end
 
 local GetTooltipTextureByType = {

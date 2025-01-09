@@ -344,7 +344,7 @@ function M:LastMailSaver()
 	mailSaver:SetPoint("LEFT", SendMailNameEditBox, "RIGHT", 0, 0)
 	mailSaver:SetSize(24, 24)
 	B.ReskinCheck(mailSaver)
-	mailSaver.bg:SetBackdropBorderColor(1, .8, 0, .5)
+	mailSaver.bg:SetBackdropBorderColor(1, .8, 0)
 
 	mailSaver:SetChecked(C.db["Misc"]["MailSaver"])
 	mailSaver:SetScript("OnClick", function(self)

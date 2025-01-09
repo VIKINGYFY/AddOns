@@ -42,7 +42,7 @@ table.insert(C.defaultThemes, function()
 				B.StripTextures(item, 1)
 				item.bg = B.ReskinIcon(item.icon)
 				item.bg:SetFrameLevel(item.bg:GetFrameLevel() + 1)
-				B.ReskinIconBorder(item.IconBorder, true)
+				B.ReskinBorder(item.IconBorder, true)
 
 				pushedFrame:SetAlpha(0)
 				questTexture:SetAlpha(0)
@@ -101,7 +101,7 @@ table.insert(C.defaultThemes, function()
 			if not frame.styled then
 				frame.Background:SetAlpha(0)
 				frame.bg = B.SetBD(frame)
-				B.ReskinIconBorder(frame.Border, true)
+				B.ReskinBorder(frame.Border, true)
 
 				frame.Timer.Bar:SetTexture(DB.bdTex)
 				frame.Timer.Bar:SetVertexColor(1, .8, 0)
@@ -125,7 +125,7 @@ table.insert(C.defaultThemes, function()
 		local iconHitBox = lootFrame.IconHitBox
 		if not iconHitBox.bg then
 			iconHitBox.bg = B.ReskinIcon(lootFrame.Icon)
-			B.ReskinIconBorder(iconHitBox.IconBorder, true)
+			B.ReskinBorder(iconHitBox.IconBorder, true)
 		end
 
 		iconHitBox.IconBorder:SetTexture(nil)

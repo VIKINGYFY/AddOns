@@ -453,6 +453,7 @@ ns.defaults = {
     -- Capital Professions
       CapitalsProfessionsScale = 1.5,
       CapitalsProfessionsAlpha = 1,
+      showCapitalsProfessionsMixed = true,
       showCapitalsProfessionOrders = true,
       showCapitalsAlchemy = true,
       showCapitalsEngineer = true,
@@ -535,6 +536,7 @@ ns.defaults = {
     -- Capital Minimap Professions
       MinimapCapitalsProfessionsScale = 1.5,
       MinimapCapitalsProfessionsAlpha = 1,
+      showMinimapCapitalsProfessionsMixed = true,
       showMinimapCapitalsProfessionOrders = true,
       showMinimapCapitalsAlchemy = true,
       showMinimapCapitalsEngineer = true,

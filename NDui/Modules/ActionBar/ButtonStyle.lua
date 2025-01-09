@@ -59,7 +59,7 @@ function Bar:StyleActionButton(button)
 
 	button.__bg = B.SetBD(button)
 
-	local icon = B.GetObject(button, "icon")
+	local icon = B.GetObject(button, "Icon")
 	if icon then
 		icon:SetInside(button.__bg)
 		icon:SetDrawLayer("ARTWORK")
@@ -69,7 +69,7 @@ function Bar:StyleActionButton(button)
 		end
 	end
 
-	local cooldown = B.GetObject(button, "cooldown")
+	local cooldown = B.GetObject(button, "Cooldown")
 	if cooldown then
 		cooldown:SetInside(button.__bg)
 	end

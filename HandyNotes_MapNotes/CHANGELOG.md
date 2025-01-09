@@ -1,10 +1,10 @@
 # MapNote
-## [2.5.9](https://github.com/Ssesmar/MapNote) (2024-12-29)
+## [2.6.0](https://github.com/Ssesmar/MapNote) (2025-01-08)
 - Note:
 
 Retail
-  Requirements tooltip has been added for the Khaz Algar portals from Dornogal to Azj-Kahet and back. These will be automatically hidden if you have met this requirement
-  This option will be further expanded in the next updates
+  removed 20 Years Event Icons
+  some small changes
 
 - Description:
 

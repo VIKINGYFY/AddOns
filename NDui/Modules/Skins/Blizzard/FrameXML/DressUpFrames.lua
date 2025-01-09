@@ -35,7 +35,7 @@ table.insert(C.defaultThemes, function()
 			for slot in self.slotPool:EnumerateActive() do
 				if not slot.bg then
 					slot.bg = B.ReskinIcon(slot.Icon)
-					B.ReskinIconBorder(slot.IconBorder, true, true)
+					B.ReskinBorder(slot.IconBorder, true, true)
 				end
 			end
 		end
@@ -54,7 +54,7 @@ table.insert(C.defaultThemes, function()
 		local function SetupSetButton(button)
 			if button.styled then return end
 			button.bg = B.ReskinIcon(button.Icon)
-			B.ReskinIconBorder(button.IconBorder, true, true)
+			B.ReskinBorder(button.IconBorder, true, true)
 			button.BackgroundTexture:SetAlpha(0)
 			button.SelectedTexture:SetColorTexture(1, .8, 0, .25)
 			button.HighlightTexture:SetColorTexture(1, 1, 1, .25)

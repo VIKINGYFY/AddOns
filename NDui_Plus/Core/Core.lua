@@ -113,7 +113,7 @@ P.DefaultSettings = {
 		TinyInspect = false,
 		WhisperPop = true,
 		WorldQuestTab = true,
-		HideToggle = false,
+		HideToggle = true,
 	},
 	Tooltip = {
 		Progression = true,

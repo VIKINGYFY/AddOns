@@ -32,7 +32,7 @@ table.insert(C.defaultThemes, function()
 		B.CleanTextures(bu)
 
 		bu.bg = B.ReskinIcon(bu.icon)
-		B.ReskinIconBorder(bu.IconBorder)
+		B.ReskinBorder(bu.IconBorder)
 		B.ReskinHLTex(bu, bu.bg)
 		B.ReskinCPTex(bu, bu.bg)
 	end

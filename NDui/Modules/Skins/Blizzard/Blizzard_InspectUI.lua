@@ -25,7 +25,7 @@ C.themes["Blizzard_InspectUI"] = function()
 		slot.IconOverlay:SetAtlas("CosmeticIconFrame")
 		slot.IconOverlay:SetInside(slot.bg)
 
-		B.ReskinIconBorder(slot.IconBorder)
+		B.ReskinBorder(slot.IconBorder)
 		B.ReskinHLTex(slot, slot.bg)
 	end
 
@@ -40,18 +40,8 @@ C.themes["Blizzard_InspectUI"] = function()
 		UpdateCosmetic(button)
 	end)
 
-	for i = 1, 4 do
-		local tab = _G["InspectFrameTab"..i]
-		if tab then
-			B.ReskinTab(tab)
-			if i ~= 1 then
-				tab:ClearAllPoints()
-				tab:SetPoint("LEFT", _G["InspectFrameTab"..i-1], "RIGHT", -15, 0)
-			end
-		end
-	end
-
 	B.ReskinFrame(InspectFrame)
+	B.ReskinFrameTab(InspectFrame, 4)
 
 	-- Talents
 	--[=[ currently disabled in 10.0

@@ -351,6 +351,7 @@ do
 		"BorderBottomRight",
 		"BorderBox",
 		"BorderCenter",
+		"BorderContainer",
 		"BorderFrame",
 		"BorderGlow",
 		"BorderLeft",
@@ -875,7 +876,7 @@ do
 			resetIconBorderColor(border)
 		end
 	end
-	function B:ReskinIconBorder(needInit, useAtlas)
+	function B:ReskinBorder(needInit, useAtlas)
 		self:SetAlpha(0)
 		self.__owner = self:GetParent()
 		if not self.__owner.bg then return end
@@ -1859,14 +1860,14 @@ end
 
 -- 自定义
 do
-	function B.PixelFix(x)
-		local mult = C.mult
+	function B.GetQualityColor(quality)
+		local color = DB.QualityColors[quality or -1]
 
-		return mult * B.Round(x / mult)
+		return color.r, color.g, color.b
 	end
 
 	function B:GetObject(key)
-		local frameName = self.GetName and self:GetName()
+		local frameName = self.GetDebugName and self:GetDebugName()
 		return self[key] or (frameName and _G[frameName..key])
 	end
 
@@ -1907,11 +1908,10 @@ do
 	end
 
 	local headers = {"Header", "header"}
-	local portraits = {"Portrait", "portrait"}
 	local closes = {"CloseButton", "Close"}
 	function B:ReskinFrame(killType)
 		if killType == "none" then
-			B.CleanTextures(self)
+			B.CleanTextures(self, 99)
 		else
 			B.StripTextures(self, killType or 99)
 		end
@@ -1924,14 +1924,11 @@ do
 				B.UpdatePoint(frameHeader, "TOP", bg, "TOP", 0, 5)
 			end
 		end
-		for _, key in pairs(portraits) do
-			local framePortrait = B.GetObject(self, key)
-			if framePortrait then framePortrait:SetAlpha(0) end
-		end
+
 		for _, key in pairs(closes) do
-			local closeButton = B.GetObject(self, key)
-			if closeButton and closeButton:IsObjectType("Button") then
-				B.ReskinClose(closeButton, bg)
+			local frameClose = B.GetObject(self, key)
+			if frameClose and frameClose:IsObjectType("Button") then
+				B.ReskinClose(frameClose, bg)
 			end
 		end
 
@@ -1972,7 +1969,6 @@ do
 	end
 
 	function B:ReskinTooltip()
-		local mult, margin = C.mult, C.margin
 		if not self then
 			if DB.isDeveloper then print("Unknown tooltip spotted.") end
 			return
@@ -1990,9 +1986,9 @@ do
 
 			if self.StatusBar then
 				self.StatusBar:ClearAllPoints()
-				self.StatusBar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", mult, margin)
-				self.StatusBar:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -mult, margin)
-				self.StatusBar:SetHeight(2*margin)
+				self.StatusBar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", C.mult, 3)
+				self.StatusBar:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -C.mult, 3)
+				self.StatusBar:SetHeight(6)
 
 				B.ReskinStatusBar(self.StatusBar, true, true)
 			end
@@ -2045,11 +2041,10 @@ do
 					tabs.styled = true
 				end
 
-				tabs:ClearAllPoints()
 				if i == 1 then
-					tabs:Point("TOPLEFT", frameName, "BOTTOMLEFT", 15, 1)
+					B.UpdatePoint(tabs, "TOPLEFT", frameName, "BOTTOMLEFT", 15, 1)
 				else
-					tabs:Point("LEFT", _G[tab..(i-1)], "RIGHT", -15, 0)
+					B.UpdatePoint(tabs, "LEFT", _G[tab..(i-1)], "RIGHT", -15, 0)
 				end
 			end
 		end
@@ -2130,8 +2125,19 @@ do
 		end
 	end
 
+	function B:CreateBGFrame(frame, offset)
+		local bg = B.CreateBDFrame(self, .25)
+		bg:ClearAllPoints()
+		bg:Point("TOPLEFT", frame, "TOPRIGHT", C.margin, 0)
+		bg:Point("BOTTOMLEFT", frame, "BOTTOMRIGHT", C.margin, 0)
+		bg:Point("RIGHT", self, "RIGHT", offset or 0, 0)
+
+		return bg
+	end
+
 	B.Reskin = B.ReskinButton
 	B.ReskinEditBox = B.ReskinInput
+	B.ReskinIconBorder = B.ReskinBorder
 	B.ReskinPortraitFrame = B.ReskinFrame
 	B.ReskinScroll = B.ReskinTrimScroll
 	B.StyleSearchButton = B.ReskinSearchList

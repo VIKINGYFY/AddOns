@@ -63,15 +63,7 @@ local function reskinConfirmIcon(frame)
 end
 
 C.themes["Blizzard_WeeklyRewards"] = function()
-	local WeeklyRewardsFrame = WeeklyRewardsFrame
-
-	local bg = B.SetBD(WeeklyRewardsFrame)
-	B.ReskinClose(WeeklyRewardsFrame.CloseButton)
-	B.StripTextures(WeeklyRewardsFrame.SelectRewardButton)
-	B.ReskinButton(WeeklyRewardsFrame.SelectRewardButton)
-
-	WeeklyRewardsFrame.BorderShadow:SetInside(bg)
-	WeeklyRewardsFrame.BorderContainer:SetAlpha(0)
+	B.ReskinFrame(WeeklyRewardsFrame)
 
 	ReskinActivityFrame(WeeklyRewardsFrame.RaidFrame)
 	ReskinActivityFrame(WeeklyRewardsFrame.MythicFrame)

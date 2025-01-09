@@ -294,16 +294,13 @@ local function ReskinMissionFrame(self)
 	B.SetBD(self)
 	B.StripTextures(self.CloseButton, 0)
 	B.ReskinClose(self.CloseButton)
+	B.ReskinFrameTab(self, 3)
 	self.GarrCorners:Hide()
 	if self.OverlayElements then self.OverlayElements:SetAlpha(0) end
 	if self.ClassHallIcon then self.ClassHallIcon:Hide() end
 	if self.TitleScroll then
 		B.StripTextures(self.TitleScroll)
 		select(4, self.TitleScroll:GetRegions()):SetTextColor(1, .8, 0)
-	end
-	for i = 1, 3 do
-		local tab = _G[self:GetName().."Tab"..i]
-		if tab then B.ReskinTab(tab) end
 	end
 	if self.MapTab then self.MapTab.ScrollContainer.Child.TiledBackground:Hide() end
 
@@ -541,9 +538,7 @@ C.themes["Blizzard_GarrisonUI"] = function()
 	B.StripTextures(GarrisonLandingPage)
 	B.SetBD(GarrisonLandingPage)
 	B.ReskinClose(GarrisonLandingPage.CloseButton)
-	B.ReskinTab(GarrisonLandingPageTab1)
-	B.ReskinTab(GarrisonLandingPageTab2)
-	B.ReskinTab(GarrisonLandingPageTab3)
+	B.ReskinFrameTab(GarrisonLandingPage, 3)
 
 	GarrisonLandingPageTab1:ClearAllPoints()
 	GarrisonLandingPageTab1:SetPoint("TOPLEFT", GarrisonLandingPage, "BOTTOMLEFT", 70, 2)
@@ -566,7 +561,7 @@ C.themes["Blizzard_GarrisonUI"] = function()
 				for _, reward in pairs(button.Rewards) do
 					reward:GetRegions():Hide()
 					reward.bg = B.ReskinIcon(reward.Icon)
-					B.ReskinIconBorder(reward.IconBorder)
+					B.ReskinBorder(reward.IconBorder)
 				end
 
 				button.styled = true
@@ -665,7 +660,7 @@ C.themes["Blizzard_GarrisonUI"] = function()
 		if not frame.bg then
 			frame:GetRegions():Hide()
 			frame.bg = B.ReskinIcon(frame.Icon)
-			B.ReskinIconBorder(frame.IconBorder, true)
+			B.ReskinBorder(frame.IconBorder, true)
 		end
 	end)
 
@@ -873,8 +868,7 @@ C.themes["Blizzard_GarrisonUI"] = function()
 	ReskinFollowerTab(shipyardTab)
 
 	B.ReskinClose(GarrisonShipyardFrame.BorderFrame.CloseButton2)
-	B.ReskinTab(GarrisonShipyardFrameTab1)
-	B.ReskinTab(GarrisonShipyardFrameTab2)
+	B.ReskinFrameTab(GarrisonShipyardFrame, 2)
 
 	local shipyardMission = GarrisonShipyardFrame.MissionTab.MissionPage
 	B.StripTextures(shipyardMission)

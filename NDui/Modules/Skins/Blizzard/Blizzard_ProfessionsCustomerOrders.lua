@@ -62,7 +62,7 @@ end
 local function reskinContainer(container)
 	local button = container.Button
 	button.bg = B.ReskinIcon(button.Icon)
-	B.ReskinIconBorder(button.IconBorder)
+	B.ReskinBorder(button.IconBorder)
 	button:SetNormalTexture(0)
 	button:SetPushedTexture(0)
 	button:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
@@ -80,7 +80,7 @@ local function reskinOrderIcon(child)
 	local button = child:GetChildren()
 	if button and button.IconBorder then
 		button.bg = B.ReskinIcon(button.Icon)
-		B.ReskinIconBorder(button.IconBorder)
+		B.ReskinBorder(button.IconBorder)
 	end
 	child.styled = true
 end
@@ -139,7 +139,7 @@ C.themes["Blizzard_ProfessionsCustomerOrders"] = function()
 	local itemButton = frame.Form.OutputIcon
 	itemButton.CircleMask:Hide()
 	itemButton.bg = B.ReskinIcon(itemButton.Icon)
-	B.ReskinIconBorder(itemButton.IconBorder, true, true)
+	B.ReskinBorder(itemButton.IconBorder, true, true)
 
 	local hl = itemButton:GetHighlightTexture()
 	hl:SetColorTexture(1, 1, 1, .25)
@@ -194,7 +194,7 @@ C.themes["Blizzard_ProfessionsCustomerOrders"] = function()
 			local button = slot.Button
 			if button and not button.styled then
 				button.bg = B.ReskinIcon(button.Icon)
-				B.ReskinIconBorder(button.IconBorder, true)
+				B.ReskinBorder(button.IconBorder, true)
 				if button.SlotBackground then
 					button.SlotBackground:Hide()
 				end

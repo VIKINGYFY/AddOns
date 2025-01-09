@@ -796,7 +796,7 @@ local function reskinTimerBar(bar)
 	bar:SetSize(280, 18)
 
 	B.StripTextures(bar)
-	B.SetBD(bar, -C.mult)
+	B.SetBD(bar):SetOutside()
 
 	local statusbar = B.GetObject(bar, "StatusBar")
 	if statusbar then

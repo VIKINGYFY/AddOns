@@ -14,7 +14,7 @@ C.themes["Blizzard_ScrappingMachineUI"] = function()
 				B.StripTextures(button)
 
 				button.bg = B.ReskinIcon(button.Icon)
-				B.ReskinIconBorder(button.IconBorder)
+				B.ReskinBorder(button.IconBorder)
 				B.ReskinHLTex(button, button.bg)
 			end
 		end

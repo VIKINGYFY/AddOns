@@ -12,7 +12,7 @@ end
 local function reskinSlotButton(button)
 	if button and not button.styled then
 		button.bg = B.ReskinIcon(button.Icon)
-		B.ReskinIconBorder(button.IconBorder, true)
+		B.ReskinBorder(button.IconBorder, true)
 		if button.SlotBackground then
 			button.SlotBackground:Hide()
 		end
@@ -36,7 +36,7 @@ local function reskinQualityContainer(container)
 	button:SetPushedTexture(0)
 	button:SetHighlightTexture(0)
 	button.bg = B.ReskinIcon(button.Icon)
-	B.ReskinIconBorder(button.IconBorder, true)
+	B.ReskinBorder(button.IconBorder, true)
 	reskinArrowInput(container.EditBox)
 end
 
@@ -45,7 +45,7 @@ local function reskinProfessionForm(form)
 	if button then
 		button.CircleMask:Hide()
 		button.bg = B.ReskinIcon(button.Icon)
-		B.ReskinIconBorder(button.IconBorder, nil, true)
+		B.ReskinBorder(button.IconBorder, nil, true)
 		local hl = button:GetHighlightTexture()
 		hl:SetColorTexture(1, 1, 1, .25)
 		hl:SetInside(button.bg)
@@ -106,7 +106,7 @@ local function reskinOutputButtons(self)
 
 				local icon = item:GetRegions()
 				item.bg = B.ReskinIcon(icon)
-				B.ReskinIconBorder(item.IconBorder, true)
+				B.ReskinBorder(item.IconBorder, true)
 				itemContainer.CritFrame:SetAlpha(0)
 				itemContainer.BorderFrame:Hide()
 				itemContainer.HighlightNameFrame:SetAlpha(0)
@@ -191,7 +191,7 @@ C.themes["Blizzard_Professions"] = function()
 		local button = craftingPage[name]
 		if button then
 			button.bg = B.ReskinIcon(button.icon)
-			B.ReskinIconBorder(button.IconBorder)
+			B.ReskinBorder(button.IconBorder)
 			button:SetNormalTexture(0)
 			button:SetPushedTexture(0)
 		end
@@ -365,7 +365,7 @@ C.themes["Blizzard_Professions"] = function()
 			if not button then return end
 			B.StripTextures(button)
 			button.bg = B.ReskinIcon(button.Icon)
-			B.ReskinIconBorder(button.IconBorder, true)
+			B.ReskinBorder(button.IconBorder, true)
 		end
 		handleRewardButton(rewardsFrame.RewardItem1)
 		handleRewardButton(rewardsFrame.RewardItem2)

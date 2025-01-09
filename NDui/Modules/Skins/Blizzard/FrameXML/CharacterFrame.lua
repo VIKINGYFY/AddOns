@@ -13,17 +13,7 @@ table.insert(C.defaultThemes, function()
 
 	B.ReskinFrame(CharacterFrame)
 	B.StripTextures(CharacterFrameInsetRight)
-
-	for i = 1, 3 do
-		local tab = _G["CharacterFrameTab"..i]
-		if tab then
-			B.ReskinTab(tab)
-			if i ~= 1 then
-				tab:ClearAllPoints()
-				tab:SetPoint("TOPLEFT", _G["CharacterFrameTab"..(i-1)], "TOPRIGHT", -15, 0)
-			end
-		end
-	end
+	B.ReskinFrameTab(CharacterFrame, 3)
 
 	B.ReskinModelControl(CharacterModelScene)
 	CharacterModelScene:DisableDrawLayer("BACKGROUND")
@@ -78,7 +68,7 @@ table.insert(C.defaultThemes, function()
 		slot.IconOverlay:SetInside(slot.bg)
 		cooldown:SetInside(slot.bg)
 
-		B.ReskinIconBorder(slot.IconBorder)
+		B.ReskinBorder(slot.IconBorder)
 		B.ReskinHLTex(slot, slot.bg, nil, true)
 
 		local popout = slot.popoutButton

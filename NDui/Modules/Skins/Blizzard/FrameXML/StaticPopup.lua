@@ -39,7 +39,7 @@ table.insert(C.defaultThemes, function()
 		bu:SetHighlightTexture(0)
 		bu:SetPushedTexture(0)
 		bu.bg = B.ReskinIcon(icon)
-		B.ReskinIconBorder(bu.IconBorder)
+		B.ReskinBorder(bu.IconBorder)
 
 		local bg = B.CreateBDFrame(bu, .25)
 		bg:SetPoint("TOPLEFT", bu.bg, "TOPRIGHT", 2, 0)

@@ -57,7 +57,7 @@ local function handleRewards(self)
 			B.CreateBDFrame(rewardFrame, .25)
 			rewardFrame.NameFrame:SetAlpha(0)
 			rewardFrame.bg = B.ReskinIcon(rewardFrame.Icon)
-			B.ReskinIconBorder(rewardFrame.IconBorder, true)
+			B.ReskinBorder(rewardFrame.IconBorder, true)
 		end
 	end
 end

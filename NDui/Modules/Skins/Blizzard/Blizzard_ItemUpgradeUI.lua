@@ -28,7 +28,7 @@ C.themes["Blizzard_ItemUpgradeUI"] = function()
 	itemButton.ButtonFrame:Hide()
 	itemButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 	itemButton.bg = B.ReskinIcon(itemButton.icon)
-	B.ReskinIconBorder(itemButton.IconBorder)
+	B.ReskinBorder(itemButton.IconBorder)
 
 	B.ReskinDropDown(ItemUpgradeFrame.ItemInfo.Dropdown)
 	B.ReskinButton(ItemUpgradeFrame.UpgradeButton)

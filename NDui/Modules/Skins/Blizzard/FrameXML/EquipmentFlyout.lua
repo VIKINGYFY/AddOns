@@ -11,7 +11,7 @@ table.insert(C.defaultThemes, function()
 		button:SetPushedTexture(0)
 		button:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 		button.bg = B.ReskinIcon(button.icon)
-		B.ReskinIconBorder(button.IconBorder)
+		B.ReskinBorder(button.IconBorder)
 	end)
 
 	hooksecurefunc("EquipmentFlyout_DisplayButton", function(button)

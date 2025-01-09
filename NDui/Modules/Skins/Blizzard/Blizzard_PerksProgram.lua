@@ -20,7 +20,7 @@ end
 local function SetupSetButton(button)
 	if button.bg then return end
 	button.bg = B.ReskinIcon(button.Icon)
-	B.ReskinIconBorder(button.IconBorder, true, true)
+	B.ReskinBorder(button.IconBorder, true, true)
 	button.BackgroundTexture:SetAlpha(0)
 	button.SelectedTexture:SetColorTexture(1, .8, 0, .25)
 	button.SelectedTexture:SetInside()

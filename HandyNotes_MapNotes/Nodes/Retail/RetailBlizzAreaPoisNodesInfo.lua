@@ -14,6 +14,7 @@ ns.BlizzAreaPoisInfo = {
     2071, -- Area 52
     2317, -- Dalaran City
     2837, -- Tonlongstepps PvE Vendor
+    5056, -- The Dark Portal Blasted Lands
     5881, -- The Cape of Stranglethorn, Boat to Ratschet
     5882, -- Northern Barrens, Boat to Booty Bay
     7945, -- Ship Icon Gilneas to Bel Ameth

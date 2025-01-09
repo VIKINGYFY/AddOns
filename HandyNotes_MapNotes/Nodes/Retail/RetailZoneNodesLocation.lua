@@ -52,30 +52,13 @@ if not db.activate.HideMapNote then
         -- Kalimdor Portals
           if self.db.profile.showZonePortals then
 
-            -- 20 Year Event
-            nodes[71][62394937] = { name = "", type = "PortalS", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. L["Twilight Highlands"] .. "\n" .. L["Portal"] .. " ==> " .. L["Uldum"] .. "\n" .. L["Portal"] .. " ==> " .. DUNGEON_FLOOR_DRAGONBLIGHTCHROMIESCENARIO3 .. "\n" .. "\n" .. OR_CAPS .. "\n" .. "\n" .. L["Portal"] .. " ==> " .. L["Stormsong Valley"] .. "\n" .. L["Portal"] .. " ==> " .. L["Drustvar"] .. "\n" .. L["Portal"] .. " ==> " .. L["Tiragarde Sound"] .. "\n" .. "\n" .. OR_CAPS .. "\n" .. "\n" .. L["Portal"] .. " ==> " .. L["Zereth Mortis"] .. "\n" .. L["Portal"] .. " ==> " .. L["Ardenweald"] .. "\n" .. L["Portal"] .. " ==> " .. "Revendreth" .. "\n" .. "\n" .. OR_CAPS .. "\n" .. "\n" .. L["Portal"] .. " ==> " .. "Val'sharah" .. "\n" .. L["Portal"] .. " ==> " .. "Stormheim" .. "\n" .. L["Portal"] .. " ==> " .. "Suramar"} -- Portals
-            -- nodes[198][34213089] = { mnID = 71, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Portal"]} -- Portal To Tanaris from Hyjal
-            -- nodes[1527][69923469] = { mnID = 71, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Portal"]} -- Portal To Tanaris from Uldum
-            -- nodes[241][59601682] = { mnID = 71, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Portal"]} -- Portal To Tanaris from Shadowmoon Valley
-            ---
-
             nodes[57][26305072] = { mnID = 89, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Darnassus"] .. " " .. L["Portal"] .. "\n" .. " ==> " .. L["Rut'theran"] } -- Portal To Teldrassil from Darnassus
             nodes[57][54998820] = { mnID = 89, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. L["Darnassus"] } -- Portal To Darnassus from Teldrassil
             nodes[78][50560773] = { mnID = 119, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Portal"] } -- Portal Unguro to Sholazar
+            nodes[74][58142669] = { mnID = 85, mnID2 = 84, name = "", type = "PortalS", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portals"] .. "\n" .. "\n" .. FACTION_HORDE .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. "\n" .. FACTION_ALLIANCE .. "\n" .. " ==> " .. STORMWIND } -- Portal from Tanaris to Orgrimmar or Stormwind
+            nodes[71][65984960] = { mnID = 85, mnID2 = 84, name = "", type = "PortalS", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portals"] .. "\n" .. "\n" .. FACTION_HORDE .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. "\n" .. FACTION_ALLIANCE .. "\n" .. " ==> " .. STORMWIND } -- Portal from Tanaris to Orgrimmar or Stormwind
+            nodes[81][41614520] = { mnID = 862, mnID2 = 1161, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portals"] .. "\n" .. "\n" .. FACTION_HORDE .. "\n" .. " ==> " .. L["Zandalar"] .. "\n" .. "\n" .. FACTION_ALLIANCE .. "\n" .. " ==> " .. L["Boralus, Tiragarde Sound"] } -- Portal from Silithus to Zandalar or Boralus 
 
-            if self.faction == "Horde" then --was additionally added without the showEnemyFaction option because the two points would be on top of each other when showing EnemyFaction and would therefore not be clickable for one of the two factions
-              nodes[81][41614520] = { mnID = 862, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. L["Zandalar"] } -- Portal from Silithus to Zandalar
-              nodes[71][65984960] = { mnID = 85, name = "", type = "HPortalS", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ORGRIMMAR } -- Portal from Tanaris to Orgrimmar 
-              nodes[74][53262794] = { mnID = 85, name = "", type = "HPortalS", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ORGRIMMAR } -- Portal from Tanaris to Orgrimmar 
-            end
-  
-            if self.faction == "Alliance" then --was additionally added without the showEnemyFaction option because the two points would be on top of each other when showing EnemyFaction and would therefore not be clickable for one of the two factions
-              nodes[81][41614520] = { mnID = 1161, name = "", type = "APortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. L["Boralus, Tiragarde Sound"] } -- Portal from Silithus to Boralus
-              nodes[71][65984960] = { mnID = 84,  name = "" , type = "APortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. STORMWIND } -- Portal from Tanaris to Stormwind City 
-              nodes[74][53523017] = { mnID = 84,  name = "" , type = "APortalS", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. STORMWIND } -- Portal from Tanaris to Stormwind City 
-            end
-  
-            
             if self.faction == "Horde" or db.activate.ZoneEnemyFaction then  
               nodes[62][46243511] = { mnID = 862, name = "", TransportName = L["Portal"] .. " ==> " .. L["Zuldazar"] .. "\n" .. "\n" .. L["(its only shown up ingame if your faction\n is currently occupying Bashal'Aran)"], type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from New Darkshore to Zandalar 
               nodes[207][50945311] = { mnID = 85, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ORGRIMMAR } -- Portal To Orgrimmar from Deepholm
@@ -156,19 +139,8 @@ if not db.activate.HideMapNote then
         --Eastern Kingdom Portals
           if self.db.profile.showZonePortals then
 
-            -- 20 Year Event
-            -- nodes[241][59601682] = { mnID = 71, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Portal"]} -- Portal To Tanaris from Shadowmoon Valley
-            ---
-
             nodes[244][47135189] = { mnID = 85, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .."\n" .."\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " " .. JUST_OR .. "\n" .. " ==> " .. STORMWIND } -- Portal Tol Orgrimmar or Stormwind from Baradinhold Tol Barad pvp Area
-    
-            if self.faction == "Horde" then
-              nodes[17][55005418] = { mnID = 624, name = L["The Dark Portal"] .. " (" .. L["Portal"] .. " - " .. L["Ashran"] ..")", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Blasted Lands to Warspear              
-            end
-
-            if self.faction == "Alliance" then
-              nodes[17][55005418] = { mnID = 622, name = L["The Dark Portal"] .. " (" .. L["Portal"] .. " - " .. L["Ashran"] ..")", type = "APortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Blasted Lands to Stormshield
-            end
+            nodes[17][55005418] = { mnID = 624, mnID2 = 622, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["The Dark Portal"] .. "\n" .. "\n" .. FACTION_HORDE .. "\n" .. " ==> " .. L["Warspear"] .. "\n" .. "\n" .. FACTION_ALLIANCE .. "\n" .. " ==> " .. L["Stormshield"] } -- Portal from Tanaris to Orgrimmar 
 
             if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
               nodes[18][62167276] = { mnID = 90, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. "\n" .. " ==> " .. L["Hellfire Peninsula"] } -- Portalroom from Dazar'alor
@@ -633,12 +605,6 @@ if not db.activate.HideMapNote then
         --Broken Isles Portals
           if self.db.profile.showZonePortals then
 
-            -- 20 Year Event
-            --nodes[619][53906757] = { mnID = 71, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Portal"]} -- Portal To Tanaris from Val'sharah
-            --nodes[634][37394745] = { mnID = 71, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Portal"]} -- Portal To Tanaris from Stormheim
-            --nodes[680][38414294] = { mnID = 71, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Portal"]} -- Portal To Tanaris from Suramar
-            ---
-
             nodes[630][46674136] = { name = "", type = "Portal", mnID = 85, mnID2 = 84, showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. STORMWIND} -- Portal to Orgrimmar from Azsuna
             nodes[971][24952789] = { name = "", type = "Portal", mnID = 629, showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_DALARANCITY1 } -- Portal to Dalaran
     
@@ -774,12 +740,6 @@ if not db.activate.HideMapNote then
         -- Shadowlands Portals
           if self.db.profile.showZonePortals then
 
-            -- 20 Year Event
-            --nodes[1565][68211992] = { mnID = 71, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Portal"]} -- Portal To Tanaris from Ardenweald
-            --nodes[1525][65945754] = { mnID = 71, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Portal"]} -- Portal To Tanaris from Revendreth
-            --nodes[1970][64655393] = { mnID = 71, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Portal"]} -- Portal To Tanaris from Zereth Mortis
-            ----
-
             nodes[1543][42424210] = { mnID = 1670, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. L["Oribos"] .. " " .. DUNGEON_FLOOR_GILNEAS2 } -- the Maw
             nodes[1961][64472406] = { mnID = 1671, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. L["Oribos"] .. " " .. DUNGEON_FLOOR_GILNEAS3 } -- Korthia to Oribos
             nodes[1970][32956973] = { mnID = 1671, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. L["Oribos"] .. " " .. DUNGEON_FLOOR_GILNEAS3 } -- Zereth Morthis to Oribos
@@ -871,10 +831,12 @@ if not db.activate.HideMapNote then
 
             if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
               nodes[2248][46913872] = { mnID = 2339, name = "", type = "HPortal", TransportName = L["Portal"] .. "\n" .. ORGRIMMAR, showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dornogal to Orgrimmar
+              nodes[2322][07105283] = { mnID = 85, name = L["Portal"], dnID = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
    
             if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
               nodes[2248][47043781] = { mnID = 2339, name = "", type = "APortal", TransportName = L["Portal"] .. "\n" .. STORMWIND, showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dornogal to Stormwind
+              nodes[2322][07184634] = { mnID = 84, name = L["Portal"], dnID = "", type = "APortal", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
           end
 

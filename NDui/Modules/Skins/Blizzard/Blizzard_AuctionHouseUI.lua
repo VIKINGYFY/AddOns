@@ -20,7 +20,7 @@ local function reskinSellPanel(frame)
 	itemButton.Highlight:SetColorTexture(1, 1, 1, .25)
 	itemButton.Highlight:SetAllPoints(itemButton.Icon)
 	itemButton.bg = B.ReskinIcon(itemButton.Icon)
-	B.ReskinIconBorder(itemButton.IconBorder)
+	B.ReskinBorder(itemButton.IconBorder)
 
 	B.ReskinInput(frame.QuantityInput.InputBox)
 	B.ReskinButton(frame.QuantityInput.MaxButton)
@@ -120,7 +120,7 @@ local function reskinItemDisplay(itemDisplay, needInit)
 		itemButton.useCircularIconBorder = true
 	end
 	itemButton.bg = B.ReskinIcon(itemButton.Icon)
-	B.ReskinIconBorder(itemButton.IconBorder, needInit)
+	B.ReskinBorder(itemButton.IconBorder, needInit)
 
 	local hl = itemButton:GetHighlightTexture()
 	hl:SetColorTexture(1, 1, 1, .25)

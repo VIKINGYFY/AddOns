@@ -19,7 +19,7 @@ local function styleRewardButton(button)
 	if shortageBorder then shortageBorder:SetAlpha(0) end
 	if count then count:SetDrawLayer("OVERLAY") end
 	if nameFrame then nameFrame:SetAlpha(0) end
-	if border then B.ReskinIconBorder(border) end
+	if border then B.ReskinBorder(border) end
 
 	button.styled = true
 end

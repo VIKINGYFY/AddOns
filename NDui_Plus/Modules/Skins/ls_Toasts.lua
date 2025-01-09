@@ -82,6 +82,11 @@ end
 function S:ls_Toasts()
 	if not S.db["ls_Toasts"] then return end
 
+	style.border.size = C.mult
+	style.icon_border.size = C.mult
+	style.slot_border.size = C.mult
+	style.shine.point.y = -C.mult
+
 	local LE, LC = unpack(_G.ls_Toasts)
 	LE:RegisterSkin("ndui", style)
 	LE:RegisterCallback("ToastCreated", SkinToast)

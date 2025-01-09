@@ -53,12 +53,8 @@ table.insert(C.defaultThemes, function()
 	SendMailMoneyCopper:SetPoint("LEFT", SendMailMoneySilver, "RIGHT", 1, 0)
 
 	SendMailSubjectEditBox:SetPoint("TOPLEFT", SendMailNameEditBox, "BOTTOMLEFT", 0, -1)
-
-	for i = 1, 2 do
-		B.ReskinTab(_G["MailFrameTab"..i])
-	end
-	MailFrameTab2:ClearAllPoints()
-	MailFrameTab2:SetPoint("TOPLEFT", MailFrameTab1, "TOPRIGHT", -15, 0)
+	
+	B.ReskinFrameTab(MailFrame, 2)
 
 	for _, button in pairs({OpenMailLetterButton, OpenMailMoneyButton}) do
 		B.StripTextures(button)
@@ -84,7 +80,7 @@ table.insert(C.defaultThemes, function()
 		B.StripTextures(button)
 		button:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 		button.bg = B.CreateBDFrame(button, .25)
-		B.ReskinIconBorder(button.IconBorder)
+		B.ReskinBorder(button.IconBorder)
 	end
 
 	hooksecurefunc("SendMailFrame_Update", function()
@@ -102,7 +98,7 @@ table.insert(C.defaultThemes, function()
 		button:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 		button.icon:SetTexCoord(texL, texR, texT, texB)
 		button.bg = B.CreateBDFrame(button, .25)
-		B.ReskinIconBorder(button.IconBorder)
+		B.ReskinBorder(button.IconBorder)
 	end
 
 	MailFont_Large:SetTextColor(1, 1, 1)

@@ -11,7 +11,7 @@ local isMoving = false
 local hasNew = false
 local timeout = 0
 local chatIn = true
-local offset = 18
+local offset = 19
 
 do
 	-- NDui CopyButton
@@ -29,7 +29,7 @@ end
 function CH:StopFlash()
 	hasNew = false
 	P:StopFlash(CH.ChatToggle.bg.__shadow)
-	CH.ChatToggle.bg.__shadow:SetBackdropBorderColor(0, 0, 0, .4)
+	CH.ChatToggle.bg.__shadow:SetBackdropBorderColor(0, 0, 0, .5)
 end
 
 function CH:MoveOut()

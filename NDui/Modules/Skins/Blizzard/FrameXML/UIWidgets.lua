@@ -80,7 +80,7 @@ end
 local function ReskinWidgetItemDisplay(item)
 	if not item.bg then
 		item.bg = B.ReskinIcon(item.Icon)
-		B.ReskinIconBorder(item.IconBorder, true)
+		B.ReskinBorder(item.IconBorder, true)
 	end
 	item.IconMask:Hide()
 end

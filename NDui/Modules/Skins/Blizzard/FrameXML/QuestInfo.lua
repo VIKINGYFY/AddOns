@@ -111,7 +111,7 @@ table.insert(C.defaultThemes, function()
 		local bu = rewardsFrame.RewardButtons[index]
 		if not bu.styled then
 			ReskinRewardButtonWithSize(bu, rewardsFrame == MapQuestInfoRewardsFrame)
-			B.ReskinIconBorder(bu.IconBorder)
+			B.ReskinBorder(bu.IconBorder)
 
 			bu.styled = true
 		end

@@ -43,14 +43,7 @@ C.themes["Blizzard_Collections"] = function()
 	-- [[ General ]]
 
 	CollectionsJournal.bg = B.ReskinFrame(CollectionsJournal) -- need this for Rematch skin
-	for i = 1, 5 do
-		local tab = _G["CollectionsJournalTab"..i]
-		B.ReskinTab(tab)
-		if i ~= 1 then
-			tab:ClearAllPoints()
-			tab:SetPoint("TOPLEFT", _G["CollectionsJournalTab"..(i-1)], "TOPRIGHT", -15, 0)
-		end
-	end
+	B.ReskinFrameTab(CollectionsJournal, 5)
 
 	-- [[ Mounts and pets ]]
 

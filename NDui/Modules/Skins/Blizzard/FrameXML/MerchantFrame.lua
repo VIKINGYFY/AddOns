@@ -19,7 +19,7 @@ local function reskinMerchantItem(item)
 
 	icon:SetInside()
 	button.bg = B.ReskinIcon(icon)
-	B.ReskinIconBorder(button.IconBorder)
+	B.ReskinBorder(button.IconBorder)
 	button.IconOverlay:SetInside()
 	button.IconOverlay2:SetInside()
 
@@ -49,14 +49,8 @@ table.insert(C.defaultThemes, function()
 	MerchantExtraCurrencyBg:SetAlpha(0)
 	MerchantExtraCurrencyInset:SetAlpha(0)
 	BuybackBG:SetAlpha(0)
-
-	MerchantFrameTab1:ClearAllPoints()
-	MerchantFrameTab1:SetPoint("CENTER", MerchantFrame, "BOTTOMLEFT", 50, -14)
-	MerchantFrameTab2:SetPoint("LEFT", MerchantFrameTab1, "RIGHT", -15, 0)
-
-	for i = 1, 2 do
-		B.ReskinTab(_G["MerchantFrameTab"..i])
-	end
+	
+	B.ReskinFrameTab(MerchantFrame, 2)
 
 	for i = 1, BUYBACK_ITEMS_PER_PAGE do
 		local item = _G["MerchantItem"..i]

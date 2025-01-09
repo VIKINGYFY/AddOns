@@ -60,7 +60,7 @@ table.insert(C.defaultThemes, function()
 				B.StripTextures(item, 1)
 				item.bg = B.ReskinIcon(item.icon)
 				item.bg:SetFrameLevel(item.bg:GetFrameLevel() + 1)
-				B.ReskinIconBorder(item.IconBorder, true)
+				B.ReskinBorder(item.IconBorder, true)
 			end
 
 			button.styled = true

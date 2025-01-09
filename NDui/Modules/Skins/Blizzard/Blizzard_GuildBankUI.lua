@@ -4,6 +4,7 @@ local B, C, L, DB = unpack(ns)
 C.themes["Blizzard_GuildBankUI"] = function()
 	B.StripTextures(GuildBankFrame)
 	B.ReskinFrame(GuildBankFrame)
+	B.ReskinFrameTab(GuildBankFrame, 4)
 
 	GuildBankFrame.Emblem:Hide()
 	GuildBankFrame.MoneyFrameBG:Hide()
@@ -18,15 +19,6 @@ C.themes["Blizzard_GuildBankUI"] = function()
 
 	GuildBankFrame.WithdrawButton:SetPoint("RIGHT", GuildBankFrame.DepositButton, "LEFT", -2, 0)
 
-	for i = 1, 4 do
-		local tab = _G["GuildBankFrameTab"..i]
-		B.ReskinTab(tab)
-
-		if i ~= 1 then
-			tab:SetPoint("LEFT", _G["GuildBankFrameTab"..i-1], "RIGHT", -15, 0)
-		end
-	end
-
 	for i = 1, 7 do
 		local column = GuildBankFrame.Columns[i]
 		column:GetRegions():Hide()
@@ -39,7 +31,7 @@ C.themes["Blizzard_GuildBankUI"] = function()
 			button.icon:SetTexCoord(unpack(DB.TexCoord))
 			button.bg = B.CreateBDFrame(button, .25)
 			button.searchOverlay:SetOutside()
-			B.ReskinIconBorder(button.IconBorder)
+			B.ReskinBorder(button.IconBorder)
 		end
 	end
 

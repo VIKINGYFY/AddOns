@@ -44,7 +44,7 @@ C.themes["Blizzard_EncounterJournal"] = function()
 			B.ReskinTab(tab)
 			if i ~= 1 then
 				tab:ClearAllPoints()
-				tab:SetPoint("TOPLEFT", EncounterJournal.Tabs[i-1], "TOPRIGHT", -15, 0)
+				tab:SetPoint("TOPLEFT", EncounterJournal.Tabs[i-1], "TOPRIGHT", -15, 1)
 			end
 		end
 	end
@@ -365,7 +365,7 @@ C.themes["Blizzard_EncounterJournal"] = function()
 				local button = itemButtons[i]
 				if not button.bg then
 					button.bg = B.ReskinIcon(button.Icon)
-					B.ReskinIconBorder(button.Border, true, true)
+					B.ReskinBorder(button.Border, true, true)
 				end
 			end
 		end
