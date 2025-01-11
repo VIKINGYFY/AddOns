@@ -18,7 +18,7 @@ table.insert(C.defaultThemes, function()
 	B.ReskinButton(RaidInfoExtendButton)
 	B.ReskinButton(RaidInfoCancelButton)
 	B.ReskinClose(RaidInfoCloseButton)
-	B.ReskinTrimScroll(RaidInfoFrame.ScrollBar)
+	B.ReskinScroll(RaidInfoFrame.ScrollBar)
 	B.ReskinClose(RaidParentFrameCloseButton)
 
 	B.ReskinFrame(RaidParentFrame)

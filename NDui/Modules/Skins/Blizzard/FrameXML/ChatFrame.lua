@@ -1,9 +1,8 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local r, g, b = DB.r, DB.g, DB.b
 
 local function ReskinChatScroll(self)
-	B.ReskinTrimScroll(self.ScrollBar)
+	B.ReskinScroll(self.ScrollBar)
 
 	B.StripTextures(self.ScrollToBottomButton)
 	local flash = self.ScrollToBottomButton.Flash
@@ -81,8 +80,8 @@ table.insert(C.defaultThemes, function()
 	B.ReskinFrame(ChannelFrame)
 	B.ReskinButton(ChannelFrame.NewButton)
 	B.ReskinButton(ChannelFrame.SettingsButton)
-	B.ReskinTrimScroll(ChannelFrame.ChannelList.ScrollBar)
-	B.ReskinTrimScroll(ChannelFrame.ChannelRoster.ScrollBar)
+	B.ReskinScroll(ChannelFrame.ChannelList.ScrollBar)
+	B.ReskinScroll(ChannelFrame.ChannelRoster.ScrollBar)
 
 	hooksecurefunc(ChannelFrame.ChannelList, "Update", function(self)
 		for i = 1, self.Child:GetNumChildren() do

@@ -4,7 +4,7 @@ local B, C, L, DB = unpack(ns)
 table.insert(C.defaultThemes, function()
 	if not C.db["Skins"]["BlizzardSkins"] then return end
 
-	local r, g, b = DB.r, DB.g, DB.b
+	local cr, cg, cb = DB.r, DB.g, DB.b
 
 	local function moveNavButtons(self)
 		local width = 0
@@ -54,7 +54,7 @@ table.insert(C.defaultThemes, function()
 		B.ReskinButton(navButton)
 
 		navButton.selected:SetDrawLayer("BACKGROUND", 1)
-		navButton.selected:SetColorTexture(r, g, b, .25)
+		navButton.selected:SetColorTexture(cr, cg, cb, .25)
 		navButton.selected:SetInside(navButton.__bg)
 
 		navButton:HookScript("OnClick", function()

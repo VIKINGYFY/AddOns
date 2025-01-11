@@ -14,7 +14,7 @@ C.themes["Blizzard_MacroUI"] = function()
 	MacroNewButton:ClearAllPoints()
 	MacroNewButton:SetPoint("RIGHT", MacroExitButton, "LEFT", -1, 0)
 
-	B.ReskinTrimScroll(MacroFrame.MacroSelector.ScrollBar)
+	B.ReskinScroll(MacroFrame.MacroSelector.ScrollBar)
 
 	local function handleMacroButton(button)
 		local bg = B.ReskinIcon(button.Icon)
@@ -42,7 +42,7 @@ C.themes["Blizzard_MacroUI"] = function()
 
 	B.ReskinFrame(MacroFrame)
 	B.CreateBDFrame(MacroFrameScrollFrame, .25)
-	B.ReskinTrimScroll(MacroFrameScrollFrame.ScrollBar)
+	B.ReskinScroll(MacroFrameScrollFrame.ScrollBar)
 	B.ReskinButton(MacroDeleteButton)
 	B.ReskinButton(MacroNewButton)
 	B.ReskinButton(MacroExitButton)

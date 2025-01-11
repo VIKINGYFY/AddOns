@@ -13,7 +13,7 @@ table.insert(C.defaultThemes, function()
 	ItemTextMaterialBotRight:SetAlpha(0)
 
 	B.ReskinFrame(ItemTextFrame)
-	B.ReskinTrimScroll(ItemTextScrollFrame.ScrollBar)
+	B.ReskinScroll(ItemTextScrollFrame.ScrollBar)
 	B.ReskinArrow(ItemTextPrevPageButton, "left")
 	B.ReskinArrow(ItemTextNextPageButton, "right")
 	ItemTextFramePageBg:SetAlpha(0)

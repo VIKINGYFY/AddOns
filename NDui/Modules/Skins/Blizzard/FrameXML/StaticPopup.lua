@@ -1,10 +1,10 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local r, g, b = DB.r, DB.g, DB.b
+local cr, cg, cb = DB.r, DB.g, DB.b
 
 local function colorMinimize(f)
 	if f:IsEnabled() then
-		f.minimize:SetVertexColor(r, g, b)
+		f.minimize:SetVertexColor(cr, cg, cb)
 	end
 end
 

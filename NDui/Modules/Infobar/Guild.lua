@@ -6,7 +6,7 @@ local module = B:GetModule("Infobar")
 local info = module:RegisterInfobar("Guild", C.Infobar.GuildPos)
 
 info.guildTable = {}
-local r, g, b = DB.r, DB.g, DB.b
+local cr, cg, cb = DB.r, DB.g, DB.b
 local infoFrame, gName, gOnline, gRank, prevTime
 
 local function rosterButtonOnClick(self, btn)
@@ -38,7 +38,7 @@ function info:GuildPanel_CreateButton(parent, index)
 	button:SetPoint("TOPLEFT", 0, - (index-1) *20)
 	button.HL = button:CreateTexture(nil, "HIGHLIGHT")
 	button.HL:SetAllPoints()
-	button.HL:SetColorTexture(r, g, b, .25)
+	button.HL:SetColorTexture(cr, cg, cb, .25)
 
 	button.level = B.CreateFS(button, 13, "Level", false)
 	button.level:SetPoint("TOP", button, "TOPLEFT", 16, -4)
@@ -183,7 +183,7 @@ function info:GuildPanel_Init()
 	for i = 1, 4 do
 		bu[i] = CreateFrame("Button", nil, infoFrame)
 		bu[i]:SetSize(width[i], 22)
-		bu[i]:SetFrameLevel(infoFrame:GetFrameLevel() + 3)
+		bu[i]:SetFrameLevel(infoFrame:GetFrameLevel() + 1)
 		if i == 1 then
 			bu[i]:SetPoint("TOPLEFT", 12, -75)
 		else
@@ -191,7 +191,7 @@ function info:GuildPanel_Init()
 		end
 		bu[i].HL = bu[i]:CreateTexture(nil, "HIGHLIGHT")
 		bu[i].HL:SetAllPoints(bu[i])
-		bu[i].HL:SetColorTexture(r, g, b, .25)
+		bu[i].HL:SetColorTexture(cr, cg, cb, .25)
 		bu[i].index = i
 		bu[i]:SetScript("OnClick", sortHeaderOnClick)
 	end
@@ -215,7 +215,7 @@ function info:GuildPanel_Init()
 
 	local scrollBar = CreateFrame("Slider", "$parentScrollBar", scrollFrame, "HybridScrollBarTemplate")
 	scrollBar.doNotHide = true
-	B.ReskinTrimScroll(scrollBar)
+	B.ReskinScroll(scrollBar)
 	scrollFrame.scrollBar = scrollBar
 
 	local scrollChild = scrollFrame.scrollChild

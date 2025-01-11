@@ -53,7 +53,7 @@ C.themes["Blizzard_ClickBindingUI"] = function()
 	B.ReskinButton(frame.ResetButton)
 	B.ReskinButton(frame.AddBindingButton)
 	B.ReskinButton(frame.SaveButton)
-	B.ReskinTrimScroll(frame.ScrollBar)
+	B.ReskinScroll(frame.ScrollBar)
 
 	frame.ScrollBoxBackground:Hide()
 	hooksecurefunc(frame.ScrollBox, "Update", reskinScrollChild)

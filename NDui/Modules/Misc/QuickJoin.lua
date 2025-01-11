@@ -61,9 +61,8 @@ function M:QuickJoin_ShowTips()
 end
 
 function M:AddAutoAcceptButton()
-	local bu = B.CreateCheckBox(ApplicationViewerFrame)
+	local bu = B.CreateCheckBox(ApplicationViewerFrame, true)
 	bu:SetSize(24, 24)
-	bu:SetHitRectInsets(0, -130, 0, 0)
 	bu:SetPoint("BOTTOMLEFT", ApplicationViewerFrame.InfoBackground, 12, 5)
 	B.CreateFS(bu, 14, _G.LFG_LIST_AUTO_ACCEPT, "system", "LEFT", 24, 0)
 

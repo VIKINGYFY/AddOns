@@ -4,13 +4,13 @@ if not C.Infobar.Friends then return end
 
 local module = B:GetModule("Infobar")
 local info = module:RegisterInfobar("Friend", C.Infobar.FriendsPos)
+local cr, cg, cb = DB.r, DB.g, DB.b
 
 local WOW_PROJECT_ID = WOW_PROJECT_ID or 1
 local WOW_PROJECT_60 = WOW_PROJECT_CLASSIC or 2
 local WOW_PROJECT_CATA = WOW_PROJECT_CATACLYSM_CLASSIC or 14
 local CLIENT_WOW_DIFF = "WoV" -- for sorting
 
-local r, g, b = DB.r, DB.g, DB.b
 local infoFrame, updateRequest, prevTime
 local friendTable, bnetTable = {}, {}
 local activeZone, inactiveZone = "|cff4CFF4C", DB.GreyColor
@@ -186,7 +186,7 @@ function info:FriendsPanel_Init()
 
 	local scrollBar = CreateFrame("Slider", "$parentScrollBar", scrollFrame, "HybridScrollBarTemplate")
 	scrollBar.doNotHide = true
-	B.ReskinTrimScroll(scrollBar)
+	B.ReskinScroll(scrollBar)
 	scrollFrame.scrollBar = scrollBar
 
 	local scrollChild = scrollFrame.scrollChild
@@ -394,7 +394,7 @@ function info:FriendsPanel_CreateButton(parent, index)
 	button:SetPoint("TOPLEFT", 0, - (index-1) *20)
 	button.HL = button:CreateTexture(nil, "HIGHLIGHT")
 	button.HL:SetAllPoints()
-	button.HL:SetColorTexture(r, g, b, .25)
+	button.HL:SetColorTexture(cr, cg, cb, .25)
 
 	button.status = button:CreateTexture(nil, "ARTWORK")
 	button.status:SetPoint("LEFT", button, 5, 0)

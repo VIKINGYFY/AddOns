@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-local r, g, b = DB.r, DB.g, DB.b
+local cr, cg, cb = DB.r, DB.g, DB.b
 
 local function reskinHeader(header)
 	for i = 4, 18 do
@@ -60,7 +60,7 @@ C.themes["Blizzard_EncounterJournal"] = function()
 		tab:SetPushedTexture(0)
 		tab:SetDisabledTexture(0)
 		local hl = tab:GetHighlightTexture()
-		hl:SetColorTexture(r, g, b, .25)
+		hl:SetColorTexture(cr, cg, cb, .25)
 		hl:SetInside(bg)
 
 		if name == "overviewTab" then
@@ -71,7 +71,7 @@ C.themes["Blizzard_EncounterJournal"] = function()
 	-- Instance select
 	EncounterJournalInstanceSelectBG:SetAlpha(0)
 	B.ReskinDropDown(EncounterJournal.instanceSelect.ExpansionDropdown)
-	B.ReskinTrimScroll(EncounterJournal.instanceSelect.ScrollBar)
+	B.ReskinScroll(EncounterJournal.instanceSelect.ScrollBar)
 
 	hooksecurefunc(EncounterJournal.instanceSelect.ScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
@@ -114,7 +114,7 @@ C.themes["Blizzard_EncounterJournal"] = function()
 			if not child.styled then
 				B.ReskinButton(child)
 				local hl = child:GetHighlightTexture()
-				hl:SetColorTexture(r, g, b, .25)
+				hl:SetColorTexture(cr, cg, cb, .25)
 				hl:SetInside(child.__bg)
 
 				child.text:SetTextColor(1, 1, 1)
@@ -194,7 +194,7 @@ C.themes["Blizzard_EncounterJournal"] = function()
 		bg:SetPoint("BOTTOMRIGHT")
 
 		B.ReskinClose(EncounterJournalSearchResultsCloseButton)
-		B.ReskinTrimScroll(result.ScrollBar)
+		B.ReskinScroll(result.ScrollBar)
 
 		hooksecurefunc(result.ScrollBox, "Update", function(self)
 			for i = 1, self.ScrollTarget:GetNumChildren() do
@@ -207,7 +207,7 @@ C.themes["Blizzard_EncounterJournal"] = function()
 
 					child:SetHighlightTexture(DB.bdTex)
 					local hl = child:GetHighlightTexture()
-					hl:SetVertexColor(r, g, b, .25)
+					hl:SetVertexColor(cr, cg, cb, .25)
 					hl:SetInside(bg)
 
 					child.styled = true
@@ -219,11 +219,11 @@ C.themes["Blizzard_EncounterJournal"] = function()
 	-- Various controls
 	B.ReskinFrame(EncounterJournal)
 	B.ReskinInput(EncounterJournalSearchBox)
-	B.ReskinTrimScroll(EncounterJournal.encounter.instance.LoreScrollBar)
-	B.ReskinTrimScroll(EncounterJournal.encounter.info.BossesScrollBar)
-	B.ReskinTrimScroll(EncounterJournal.encounter.info.LootContainer.ScrollBar)
-	B.ReskinTrimScroll(EncounterJournal.encounter.info.overviewScroll.ScrollBar)
-	B.ReskinTrimScroll(EncounterJournal.encounter.info.detailsScroll.ScrollBar)
+	B.ReskinScroll(EncounterJournal.encounter.instance.LoreScrollBar)
+	B.ReskinScroll(EncounterJournal.encounter.info.BossesScrollBar)
+	B.ReskinScroll(EncounterJournal.encounter.info.LootContainer.ScrollBar)
+	B.ReskinScroll(EncounterJournal.encounter.info.overviewScroll.ScrollBar)
+	B.ReskinScroll(EncounterJournal.encounter.info.detailsScroll.ScrollBar)
 	B.ReskinDropDown(EncounterJournal.encounter.info.LootContainer.filter)
 	B.ReskinDropDown(EncounterJournal.encounter.info.LootContainer.slotFilter)
 	B.ReskinDropDown(EncounterJournalEncounterFrameInfoDifficulty)
@@ -323,7 +323,7 @@ C.themes["Blizzard_EncounterJournal"] = function()
 	B.ReskinDropDown(lootJournal.RuneforgePowerDropdown)
 
 	local iconColor = DB.QualityColors[Enum.ItemQuality.Legendary or 5] -- legendary color
-	B.ReskinTrimScroll(lootJournal.ScrollBar)
+	B.ReskinScroll(lootJournal.ScrollBar)
 
 	hooksecurefunc(lootJournal.ScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
@@ -371,7 +371,7 @@ C.themes["Blizzard_EncounterJournal"] = function()
 		end
 
 		local itemSetsFrame = EncounterJournal.LootJournalItems.ItemSetsFrame
-		B.ReskinTrimScroll(itemSetsFrame.ScrollBar)
+		B.ReskinScroll(itemSetsFrame.ScrollBar)
 
 		hooksecurefunc(itemSetsFrame.ScrollBox, "Update", function(self)
 			self:ForEachFrame(reskinBar)
@@ -383,8 +383,8 @@ C.themes["Blizzard_EncounterJournal"] = function()
 	local frame = EncounterJournalMonthlyActivitiesFrame
 	if frame then
 		B.StripTextures(frame)
-		B.ReskinTrimScroll(frame.ScrollBar)
-		B.ReskinTrimScroll(frame.FilterList.ScrollBar)
+		B.ReskinScroll(frame.ScrollBar)
+		B.ReskinScroll(frame.FilterList.ScrollBar)
 		if frame.ThemeContainer then
 			frame.ThemeContainer:SetAlpha(0)
 		end

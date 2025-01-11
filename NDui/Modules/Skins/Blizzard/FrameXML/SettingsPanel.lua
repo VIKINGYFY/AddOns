@@ -58,7 +58,7 @@ table.insert(C.defaultThemes, function()
 	bg:SetInside()
 	bg:SetPoint("TOPLEFT", 1, 6)
 	B.ReskinButton(frame.Container.SettingsList.Header.DefaultsButton)
-	B.ReskinTrimScroll(frame.Container.SettingsList.ScrollBar)
+	B.ReskinScroll(frame.Container.SettingsList.ScrollBar)
 
 	local function ReskinDropdown(option)
 		B.ReskinButton(option.Dropdown)

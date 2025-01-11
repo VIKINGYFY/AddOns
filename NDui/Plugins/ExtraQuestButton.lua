@@ -5,9 +5,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-local cr, cg, cb = DB.cr, DB.cg, DB.cb
-local tL, tR, tT, tB = unpack(DB.TexCoord)
-
 local MAX_DISTANCE_YARDS = 1e3 -- needs review
 local onlyCurrentZone = true
 
@@ -266,7 +263,7 @@ function ExtraQuestButton:PLAYER_LOGIN()
 		self.Cooldown = Cooldown
 
 		local Icon = self:CreateTexture("$parentIcon", "ARTWORK")
-		Icon:SetTexCoord(tL, tR, tT, tB)
+		Icon:SetTexCoord(unpack(DB.TexCoord))
 		Icon:SetInside(self.bg)
 		self.Icon = Icon
 

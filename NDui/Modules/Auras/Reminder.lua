@@ -59,8 +59,7 @@ end
 function A:Reminder_Create(cfg)
 	local frame = CreateFrame("Frame", nil, parentFrame)
 	frame:SetSize(iconSize, iconSize)
-	B.PixelIcon(frame)
-	B.CreateSD(frame.bg)
+	B.AuraIcon(frame, true, true)
 	local texture = cfg.texture
 	if not texture then
 		for spellID in pairs(cfg.spells) do

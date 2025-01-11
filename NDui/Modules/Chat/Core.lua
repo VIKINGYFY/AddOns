@@ -98,10 +98,8 @@ function module:SkinChat()
 	local name = self:GetName()
 	local font, fontSize = self:GetFont()
 	self:SetFont(fontFile or font, fontSize, fontOutline)
-	if fontOutline ~= "" then
-		self:SetShadowColor(0, 0, 0, 0)
-	end
 	self:SetClampRectInsets(0, 0, 0, 0)
+	self:SetShadowColor(0, 0, 0, 0)
 	self:SetClampedToScreen(false)
 	if self:GetMaxLines() < maxLines then
 		self:SetMaxLines(maxLines)

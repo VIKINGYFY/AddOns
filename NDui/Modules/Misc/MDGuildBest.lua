@@ -119,7 +119,7 @@ function M:GuildBest_Update()
 
 		local schedule = AngryKeystones.Modules.Schedule
 		hooksecurefunc(schedule.AffixFrame, "SetPoint", function(f1, p1, f2, p2, x, y)
-			if e == 55 then
+			if y == 55 then
 				f1:SetPoint(p1, f2, p2, x, 40)
 			end
 		end)

@@ -1,6 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local r, g, b = DB.r, DB.g, DB.b
+local cr, cg, cb = DB.r, DB.g, DB.b
 
 local function ReskinMissionPage(self)
 	B.StripTextures(self)
@@ -54,7 +54,7 @@ local function ReskinMissionTabs(self)
 			B.StripTextures(tab)
 			tab.bg = B.CreateBDFrame(tab, .25)
 			if i == 1 then
-				tab.bg:SetBackdropColor(r, g, b, .25)
+				tab.bg:SetBackdropColor(cr, cg, cb, .25)
 			end
 		end
 	end
@@ -178,7 +178,7 @@ local function ReskinFollowerButton(button)
 		button.bg = B.CreateBDFrame(button, .25)
 
 		local hl = button:GetHighlightTexture()
-		hl:SetColorTexture(r, g, b, .25)
+		hl:SetColorTexture(cr, cg, cb, .25)
 		hl:ClearAllPoints()
 		hl:SetInside(button.bg)
 
@@ -207,7 +207,7 @@ local function ReskinFollowerButton(button)
 	end
 
 	if button.Selection:IsShown() then
-		button.bg:SetBackdropColor(r, g, b, .25)
+		button.bg:SetBackdropColor(cr, cg, cb, .25)
 	else
 		button.bg:SetBackdropColor(0, 0, 0, .25)
 	end
@@ -315,7 +315,7 @@ local function ReskinMissionFrame(self)
 
 	local missionList = self.MissionTab.MissionList
 	B.StripTextures(missionList)
-	B.ReskinTrimScroll(missionList.ScrollBar)
+	B.ReskinScroll(missionList.ScrollBar)
 	ReskinGarrMaterial(missionList)
 	ReskinMissionTabs(missionList)
 	B.ReskinButton(missionList.CompleteDialog.BorderFrame.ViewButton)
@@ -324,7 +324,7 @@ local function ReskinMissionFrame(self)
 	local FollowerList = self.FollowerList
 	B.StripTextures(FollowerList)
 	if FollowerList.SearchBox then B.ReskinInput(FollowerList.SearchBox) end
-	B.ReskinTrimScroll(FollowerList.ScrollBar)
+	B.ReskinScroll(FollowerList.ScrollBar)
 	ReskinGarrMaterial(FollowerList)
 	ReskinFollowerList(FollowerList)
 	hooksecurefunc(FollowerList, "ShowFollower", UpdateFollowerAbilities)
@@ -411,7 +411,7 @@ C.themes["Blizzard_GarrisonUI"] = function()
 		tab.bg = bg
 
 		local hl = tab:GetHighlightTexture()
-		hl:SetColorTexture(r, g, b, .25)
+		hl:SetColorTexture(cr, cg, cb, .25)
 		hl:ClearAllPoints()
 		hl:SetInside(bg)
 	end
@@ -425,7 +425,7 @@ C.themes["Blizzard_GarrisonUI"] = function()
 				otherTab.bg:SetBackdropColor(0, 0, 0, .25)
 			end
 		end
-		tab.bg:SetBackdropColor(r, g, b, .25)
+		tab.bg:SetBackdropColor(cr, cg, cb, .25)
 
 		for _, button in pairs(list.Buttons) do
 			if not button.styled then
@@ -436,12 +436,12 @@ C.themes["Blizzard_GarrisonUI"] = function()
 				bg:SetPoint("TOPLEFT", 44, -5)
 				bg:SetPoint("BOTTOMRIGHT", 0, 6)
 
-				button.SelectedBG:SetColorTexture(r, g, b, .25)
+				button.SelectedBG:SetColorTexture(cr, cg, cb, .25)
 				button.SelectedBG:ClearAllPoints()
 				button.SelectedBG:SetInside(bg)
 
 				local hl = button:GetHighlightTexture()
-				hl:SetColorTexture(r, g, b, .25)
+				hl:SetColorTexture(cr, cg, cb, .25)
 				hl:SetAllPoints(button.SelectedBG)
 
 				button.styled = true
@@ -455,7 +455,7 @@ C.themes["Blizzard_GarrisonUI"] = function()
 	followerList:SetPoint("BOTTOMLEFT", 24, 34)
 	followerList:DisableDrawLayer("BACKGROUND")
 	followerList:DisableDrawLayer("BORDER")
-	B.ReskinTrimScroll(followerList.ScrollBar)
+	B.ReskinScroll(followerList.ScrollBar)
 	ReskinFollowerList(followerList)
 	hooksecurefunc(followerList, "ShowFollower", UpdateFollowerAbilities)
 
@@ -547,7 +547,7 @@ C.themes["Blizzard_GarrisonUI"] = function()
 	local report = GarrisonLandingPage.Report
 	B.StripTextures(report)
 	B.StripTextures(report.List)
-	B.ReskinTrimScroll(report.List.ScrollBar)
+	B.ReskinScroll(report.List.ScrollBar)
 
 	hooksecurefunc(report.List.ScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
@@ -578,7 +578,7 @@ C.themes["Blizzard_GarrisonUI"] = function()
 
 		local selectedTex = bg:CreateTexture(nil, "BACKGROUND")
 		selectedTex:SetAllPoints()
-		selectedTex:SetColorTexture(r, g, b, .25)
+		selectedTex:SetColorTexture(cr, cg, cb, .25)
 		selectedTex:Hide()
 		tab.selectedTex = selectedTex
 
@@ -604,7 +604,7 @@ C.themes["Blizzard_GarrisonUI"] = function()
 	local followerList = GarrisonLandingPage.FollowerList
 	B.StripTextures(followerList)
 	B.ReskinInput(followerList.SearchBox)
-	B.ReskinTrimScroll(followerList.ScrollBar)
+	B.ReskinScroll(followerList.ScrollBar)
 	ReskinFollowerList(GarrisonLandingPageFollowerList)
 	hooksecurefunc(GarrisonLandingPageFollowerList, "ShowFollower", UpdateFollowerAbilities)
 
@@ -612,7 +612,7 @@ C.themes["Blizzard_GarrisonUI"] = function()
 	local shipFollowerList = GarrisonLandingPage.ShipFollowerList
 	B.StripTextures(shipFollowerList)
 	B.ReskinInput(shipFollowerList.SearchBox)
-	B.ReskinTrimScroll(shipFollowerList.ScrollBar)
+	B.ReskinScroll(shipFollowerList.ScrollBar)
 
 	-- Follower tab
 	local followerTab = GarrisonLandingPage.FollowerTab
@@ -630,7 +630,7 @@ C.themes["Blizzard_GarrisonUI"] = function()
 
 	hooksecurefunc("GarrisonMissonListTab_SetSelected", function(tab, isSelected)
 		if isSelected then
-			tab.bg:SetBackdropColor(r, g, b, .25)
+			tab.bg:SetBackdropColor(cr, cg, cb, .25)
 		else
 			tab.bg:SetBackdropColor(0, 0, 0, .25)
 		end
@@ -793,7 +793,7 @@ C.themes["Blizzard_GarrisonUI"] = function()
 	-- Follower list
 	local followerList = GarrisonRecruitSelectFrame.FollowerList
 	followerList:DisableDrawLayer("BORDER")
-	B.ReskinTrimScroll(followerList.ScrollBar)
+	B.ReskinScroll(followerList.ScrollBar)
 	B.ReskinInput(followerList.SearchBox)
 	ReskinFollowerList(followerList)
 	hooksecurefunc(followerList, "ShowFollower", UpdateFollowerAbilities)
@@ -858,7 +858,7 @@ C.themes["Blizzard_GarrisonUI"] = function()
 	GarrisonShipyardFrame.BackgroundTile:Hide()
 	B.SetBD(GarrisonShipyardFrame)
 	B.ReskinInput(GarrisonShipyardFrameFollowers.SearchBox)
-	B.ReskinTrimScroll(GarrisonShipyardFrame.FollowerList.ScrollBar)
+	B.ReskinScroll(GarrisonShipyardFrame.FollowerList.ScrollBar)
 	B.StripTextures(GarrisonShipyardFrameFollowers)
 	ReskinGarrMaterial(GarrisonShipyardFrameFollowers)
 

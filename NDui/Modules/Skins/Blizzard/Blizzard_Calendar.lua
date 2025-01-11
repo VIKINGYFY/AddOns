@@ -1,11 +1,13 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
+local cr, cg, cb = DB.r, DB.g, DB.b
+
 local function ReskinEventList(frame)
 	B.StripTextures(frame)
 	B.CreateBDFrame(frame, .25)
 	if frame.ScrollBar then
-		B.ReskinTrimScroll(frame.ScrollBar)
+		B.ReskinScroll(frame.ScrollBar)
 	end
 end
 
@@ -14,12 +16,11 @@ local function ReskinCalendarPage(frame)
 	B.SetBD(frame)
 	B.StripTextures(frame.Header)
 	if frame.ScrollBar then
-		B.ReskinTrimScroll(frame.ScrollBar)
+		B.ReskinScroll(frame.ScrollBar)
 	end
 end
 
 C.themes["Blizzard_Calendar"] = function()
-	local r, g, b = DB.r, DB.g, DB.b
 
 	for i = 1, 42 do
 		local dayButtonName = "CalendarDayButton"..i
@@ -29,7 +30,7 @@ C.themes["Blizzard_Calendar"] = function()
 		local bg = B.CreateBDFrame(bu, .25)
 		bg:SetInside()
 		local hl = bu:GetHighlightTexture()
-		hl:SetVertexColor(r, g, b, .25)
+		hl:SetVertexColor(cr, cg, cb, .25)
 		hl:SetInside(bg)
 		hl.SetAlpha = B.Dummy
 
@@ -101,7 +102,7 @@ C.themes["Blizzard_Calendar"] = function()
 	end
 
 	CalendarWeekdaySelectedTexture:SetDesaturated(true)
-	CalendarWeekdaySelectedTexture:SetVertexColor(r, g, b)
+	CalendarWeekdaySelectedTexture:SetVertexColor(cr, cg, cb)
 
 	hooksecurefunc("CalendarFrame_SetToday", function()
 		CalendarTodayFrame:SetAllPoints()
@@ -113,7 +114,7 @@ C.themes["Blizzard_Calendar"] = function()
 
 	local bg = B.CreateBDFrame(CalendarTodayFrame, 0)
 	bg:SetInside()
-	bg:SetBackdropBorderColor(r, g, b)
+	bg:SetBackdropBorderColor(cr, cg, cb)
 
 	for i, class in ipairs(CLASS_SORT_ORDER) do
 		local bu = _G["CalendarClassButton"..i]

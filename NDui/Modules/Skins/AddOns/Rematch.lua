@@ -7,7 +7,7 @@ local select, pairs, ipairs, next, unpack = select, pairs, ipairs, next, unpack
 
 function S:RematchFilter()
 	B.StripTextures(self)
-	B.Reskin(self)
+	B.ReskinButton(self)
 	B.SetupArrow(self.Arrow, "right")
 	self.Arrow:ClearAllPoints()
 	self.Arrow:SetPoint("RIGHT")
@@ -18,7 +18,7 @@ end
 function S:RematchButton()
 	if self.styled then return end
 
-	B.Reskin(self)
+	B.ReskinButton(self)
 	self:DisableDrawLayer("BACKGROUND")
 	self:DisableDrawLayer("BORDER")
 
@@ -64,7 +64,7 @@ end
 
 function S:RematchScroll()
 	B.StripTextures(self)
-	B.ReskinTrimScroll(self.ScrollBar)
+	B.ReskinScroll(self.ScrollBar)
 	S.ReskinScrollEnd(self.ScrollToTopButton, "top")
 	S.ReskinScrollEnd(self.ScrollToBottomButton, "bottom")
 end
@@ -267,7 +267,7 @@ function S:ReskinRematchElements()
 	S.RematchFilter(queue.Top.QueueButton)
 	S.RematchScroll(queue.List)
 	B.StripTextures(queue.PreferencesFrame)
-	B.Reskin(queue.PreferencesFrame.PreferencesButton)
+	B.ReskinButton(queue.PreferencesFrame.PreferencesButton)
 	S.RematchPetList(queue.List)
 
 	-- Options
@@ -332,9 +332,9 @@ function S:ReskinRematchElements()
 		S.RematchInput(card.Content[result].EditBox)
 		card.Content[result].Add.IconBorder:Hide()
 	end
-	B.Reskin(card.Controls.ResetButton)
-	B.Reskin(card.Controls.SaveButton)
-	B.Reskin(card.Controls.CancelButton)
+	B.ReskinButton(card.Controls.ResetButton)
+	B.ReskinButton(card.Controls.SaveButton)
+	B.ReskinButton(card.Controls.CancelButton)
 
 	-- RematchDialog
 	local dialog = RematchDialog
@@ -345,9 +345,9 @@ function S:ReskinRematchElements()
 	S.RematchIcon(dialog.Slot)
 	S.RematchInput(dialog.EditBox)
 	B.StripTextures(dialog.Prompt)
-	B.Reskin(dialog.Accept)
-	B.Reskin(dialog.Cancel)
-	B.Reskin(dialog.Other)
+	B.ReskinButton(dialog.Accept)
+	B.ReskinButton(dialog.Cancel)
+	B.ReskinButton(dialog.Other)
 	B.ReskinCheck(dialog.CheckButton)
 	S.RematchInput(dialog.SaveAs.Name)
 	S.RematchInput(dialog.Send.EditBox)
@@ -365,12 +365,12 @@ function S:ReskinRematchElements()
 	S.RematchInput(preferences.MaxXP)
 
 	local iconPicker = dialog.TeamTabIconPicker
-	B.ReskinTrimScroll(iconPicker.ScrollFrame.ScrollBar)
+	B.ReskinScroll(iconPicker.ScrollFrame.ScrollBar)
 	B.StripTextures(iconPicker)
 	B.CreateBDFrame(iconPicker, .25)
 	S.RematchInput(iconPicker.SearchBox)
 
-	B.ReskinTrimScroll(dialog.MultiLine.ScrollBar)
+	B.ReskinScroll(dialog.MultiLine.ScrollBar)
 	select(2, dialog.MultiLine:GetChildren()):HideBackdrop()
 	local bg = B.CreateBDFrame(dialog.MultiLine, .25)
 	bg:SetPoint("TOPLEFT", -5, 5)
@@ -458,7 +458,7 @@ function S:ReskinRematch()
 		self.LockButton:SetPoint("TOPLEFT")
 
 		local content = self.Content
-		B.ReskinTrimScroll(content.ScrollFrame.ScrollBar)
+		B.ReskinScroll(content.ScrollFrame.ScrollBar)
 		local bg = B.CreateBDFrame(content.ScrollFrame, .25)
 		bg:SetPoint("TOPLEFT", 0, 5)
 		bg:SetPoint("BOTTOMRIGHT", 0, -2)

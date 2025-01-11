@@ -297,7 +297,6 @@ local function CreateOption(i)
 		-- Checkboxes
 		if optType == 1 then
 			local cb = B.CreateCheckBox(parent)
-			cb:SetHitRectInsets(0, -80, 0, 0)
 			if horizon then
 				cb:SetPoint("TOPLEFT", 250, -offset + 35)
 			else

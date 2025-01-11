@@ -14,9 +14,9 @@ local diceSpells = {
 }
 
 function A:PostCreateLumos(self)
-	local left, right, top, bottom = unpack(DB.TexCoord)
-	top = top + 1/4
-	bottom = bottom - 1/4
+	local tL, tR, tT, tB = unpack(DB.TexCoord)
+	tT = tT + 1/4
+	tB = tB - 1/4
 
 	local iconSize = (self:GetWidth() - 10)/6
 	local buttons = {}
@@ -26,7 +26,7 @@ function A:PostCreateLumos(self)
 		bu:SetSize(iconSize, iconSize/2)
 		bu.Text = B.CreateFS(bu, 12, diceSpells[i].text, false, "TOP", 1, 12)
 		B.AuraIcon(bu)
-		bu.Icon:SetTexCoord(left, right, top, bottom)
+		bu.Icon:SetTexCoord(tL, tR, tT, tB)
 		if i == 1 then
 			bu:SetPoint("BOTTOMLEFT", parent, "TOPLEFT", 0, C.margin)
 		else

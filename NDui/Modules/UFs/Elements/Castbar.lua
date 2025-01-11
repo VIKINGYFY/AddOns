@@ -229,7 +229,7 @@ function UF:CreatePip(stage)
 	pip.BasePip:SetVertexColor(0, 0, 0)
 	pip.BasePip:SetWidth(C.mult)
 	pip.BasePip:SetHeight(height)
-	pip.tex = pip:CreateTexture(nil, "ARTWORK", nil, 2)
+	pip.tex = pip:CreateTexture(nil, "ARTWORK")
 	pip.tex:SetTexture(DB.normTex)
 	pip.tex:SetVertexColor(unpack(UF.PipColors[stage]))
 

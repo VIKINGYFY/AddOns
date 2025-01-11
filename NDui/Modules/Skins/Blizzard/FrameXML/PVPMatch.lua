@@ -34,7 +34,7 @@ table.insert(C.defaultThemes, function()
 	B.StripTextures(content)
 	local bg = B.CreateBDFrame(content, .25)
 	bg:SetPoint("BOTTOMRIGHT", tabContainer.InsetBorderTop, 4, -1)
-	B.ReskinTrimScroll(content.ScrollBar)
+	B.ReskinScroll(content.ScrollBar)
 
 	B.StripTextures(tabContainer)
 	for i = 1, 3 do
@@ -54,7 +54,7 @@ table.insert(C.defaultThemes, function()
 	local bg = B.CreateBDFrame(content, .25)
 	bg:SetPoint("BOTTOMRIGHT", tabContainer.InsetBorderTop, 4, -1)
 	B.StripTextures(content.earningsArt)
-	B.ReskinTrimScroll(content.scrollBar)
+	B.ReskinScroll(content.scrollBar)
 
 	B.StripTextures(tabContainer)
 	for i = 1, 3 do

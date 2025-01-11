@@ -230,7 +230,7 @@ function S:SoulshapeJournal()
 		B.StripTextures(frame)
 		B.SetBD(frame) -- on top of mount journal
 		B.ReskinClose(frame.CloseButton)
-		B.ReskinTrimScroll(frame.ScrollFrame.ScrollBar)
+		B.ReskinScroll(frame.ScrollFrame.ScrollBar)
 		B.ReskinArrow(frame.SoulshapeDisplay.ModelScene.RotateLeftButton, "left")
 		B.ReskinArrow(frame.SoulshapeDisplay.ModelScene.RotateRightButton, "right")
 		B.StripTextures(SoulshapeCollectionPanelCount)
@@ -259,7 +259,7 @@ function S:ATT()
 
 		B.SetBD(frame, 2)
 		B.ReskinClose(frame.CloseButton, nil, -4, -4)
-		B.ReskinTrimScroll(frame.ScrollBar)
+		B.ReskinScroll(frame.ScrollBar)
 		frame.Grip:SetTexture([[Interface\ChatFrame\UI-ChatIM-SizeGrabber-Up]])
 		local up = frame.ScrollBar:GetChildren()
 		up:ClearAllPoints()
@@ -345,7 +345,7 @@ function S:ERT()
 		end
 
 		reskinTab(ERTTab)
-		B.ReskinTrimScroll(ERTFrame.scrollframe.ScrollBar)
+		B.ReskinScroll(ERTFrame.scrollframe.ScrollBar)
 
 		local scrollChild = ERTFrame.scrollframe:GetScrollChild()
 
@@ -389,7 +389,7 @@ function S:PSFJ()
 	B.ReskinTab(frame.PanelTabs.SettingsTab)
 
 	local function handlePSFJScroll(scrollBar)
-		B.ReskinTrimScroll(scrollBar)
+		B.ReskinScroll(scrollBar)
 		S.ReskinScrollEnd(scrollBar.TopButton, "top")
 		S.ReskinScrollEnd(scrollBar.BottomButton, "bottom")
 	end

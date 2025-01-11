@@ -5,12 +5,14 @@ local S = P:GetModule("Skins")
 local _G = getfenv(0)
 local pairs = pairs
 
-local Media = "Interface\\Addons\\NDui_Plus\\Media\\Texture\\"
-
-local function reskinFrame(frame)
-	B.StripTextures(frame)
-	local bg = B.SetBD(frame)
-	bg:SetInside()
+local function reskinListFont()
+	local listButtons = _G.WhisperPopFrameList.listButtons
+	for _, button in pairs(listButtons) do
+		if button.text and not button.styled then
+			P.ReskinFont(button.text)
+			button.styled = true
+		end
+	end
 end
 
 local function reskinArrow(button, name)
@@ -22,49 +24,57 @@ local function reskinArrow(button, name)
 	end
 end
 
-local function reskinListFont()
-	local listButtons = _G.WhisperPopFrameList.listButtons
-	for _, button in pairs(listButtons) do
-		if button.text and not button.styled then
-			P.ReskinFont(button.text)
-			button.styled = true
-		end
-	end
-end
-
 function S:WhisperPop()
 	if not S.db["WhisperPop"] then return end
 
-	reskinFrame(_G.WhisperPopFrame)
-	reskinFrame(_G.WhisperPopMessageFrame)
-	reskinArrow(_G.WhisperPopScrollingMessageFrameButtonUp, "Up")
-	reskinArrow(_G.WhisperPopScrollingMessageFrameButtonDown, "Down")
-	reskinArrow(_G.WhisperPopScrollingMessageFrameButtonEnd, "End")
-	S:Proxy("ReskinScroll", _G.WhisperPopFrameListScrollBar)
-	S:Proxy("ReskinCheck", _G.WhisperPopMessageFrameProtectCheck)
-	S:Proxy("ReskinClose", _G.WhisperPopFrameTopCloseButton)
-	S:Proxy("ReskinClose", _G.WhisperPopMessageFrameTopCloseButton)
-	S:Proxy("ReskinClose", _G.WhisperPopFrameListDelete, nil, nil, nil, true)
-	_G.WhisperPopFrameList:HookScript("OnShow", reskinListFont)
-	_G.WhisperPopFrameList:HookScript("OnSizeChanged", reskinListFont)
+	B.ReskinFrame(WhisperPopFrame)
+	B.ReskinFrame(WhisperPopMessageFrame)
 
-	local HL = _G.WhisperPopFrameListHighlightTexture
-	HL:SetTexture(DB.bdTex)
-	HL:SetVertexColor(DB.r, DB.g, DB.b, .25)
+	B.ReskinCheck(WhisperPopMessageFrameProtectCheck)
+	B.ReskinScroll(WhisperPopFrameListScrollBar)
+	B.ReskinHLTex(WhisperPopFrameListHighlightTexture, nil, true)
+	B.ReskinClose(WhisperPopFrameListDelete, nil, nil, nil, true)
 
-	local config = _G.WhisperPopFrameConfig
-	config:SetNormalTexture(0)
-	config:SetPushedTexture(0)
-	config:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-	B.ReskinIcon(config.icon)
+	local arrows = {
+		{WhisperPopScrollingMessageFrameButtonUp, "up"},
+		{WhisperPopScrollingMessageFrameButtonDown, "down"},
+		{WhisperPopScrollingMessageFrameButtonEnd, "bottom"},
+	}
 
-	local notify = _G.WhisperPopNotifyButton
-	B.Reskin(notify)
-	notify:SetCheckedTexture(0)
-	notify.icon:SetDesaturated(false)
-	notify.icon.SetDesaturated = B.Dummy
-	notify.icon:SetSize(14, 14)
-	notify.icon:SetTexture("Interface\\Buttons\\UI-GuildButton-MOTD-Up")
+	for index, arrow in ipairs(arrows) do
+		local arrowButton, arrowType = unpack(arrow)
+		B.ReskinArrow(arrowButton, arrowType)
+
+		if arrowButton.flashFrame then
+			arrowButton.flashFrame:SetOutside(arrowButton.__bg, 4, 4)
+		end
+
+		if index < #arrows then
+			local nextButton = arrows[index + 1][1]
+			B.UpdatePoint(arrowButton, "BOTTOM", nextButton, "TOP", 0, 5)
+		end
+	end
+
+	local lists = {
+		WhisperPopFrameTopCloseButton,
+		WhisperPopMessageFrameTopCloseButton,
+	}
+	for _, list in pairs(lists) do
+		B.ReskinClose(list)
+	end
+
+	local buttons = {
+		"WhisperPopFrameConfig",
+		"WhisperPopNotifyButton",
+	}
+	for _, button in pairs(buttons) do
+		local bu = _G[button]
+		B.CleanTextures(bu)
+
+		local icbg = B.ReskinIcon(_G[button.."Icon"])
+		B.ReskinHLTex(bu, icbg)
+		B.ReskinCPTex(bu, icbg)
+	end
 end
 
 S:RegisterSkin("WhisperPop", S.WhisperPop)

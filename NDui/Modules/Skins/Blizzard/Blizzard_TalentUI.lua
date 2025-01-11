@@ -1,6 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local r, g, b = DB.r, DB.g, DB.b
+local cr, cg, cb = DB.r, DB.g, DB.b
 
 local function ReanchorTutorial(button)
 	button.Ring:Hide()
@@ -49,7 +49,7 @@ C.themes["Blizzard_TalentUI"] = function()
 			B.StripTextures(bu)
 			B.ReskinButton(bu)
 
-			bu.selectedTex:SetColorTexture(r, g, b, .25)
+			bu.selectedTex:SetColorTexture(cr, cg, cb, .25)
 			bu.selectedTex:SetDrawLayer("BACKGROUND")
 			bu.selectedTex:SetInside(bu.__bg)
 
@@ -117,9 +117,9 @@ C.themes["Blizzard_TalentUI"] = function()
 		row:DisableDrawLayer("BORDER")
 
 		row.TopLine:SetDesaturated(true)
-		row.TopLine:SetVertexColor(r, g, b)
+		row.TopLine:SetVertexColor(cr, cg, cb)
 		row.BottomLine:SetDesaturated(true)
-		row.BottomLine:SetVertexColor(r, g, b)
+		row.BottomLine:SetVertexColor(cr, cg, cb)
 
 		for j = 1, NUM_TALENT_COLUMNS do
 			local bu = _G["PlayerTalentFrameTalentsTalentRow"..i.."Talent"..j]
@@ -144,9 +144,9 @@ C.themes["Blizzard_TalentUI"] = function()
 				local _, _, _, selected, _, _, _, _, _, _, known = GetTalentInfo(i, j, 1)
 				local bu = _G["PlayerTalentFrameTalentsTalentRow"..i.."Talent"..j]
 				if known then
-					bu.bg:SetBackdropColor(r, g, b, .5)
+					bu.bg:SetBackdropColor(cr, cg, cb, .5)
 				elseif selected then
-					bu.bg:SetBackdropColor(r, g, b, .25)
+					bu.bg:SetBackdropColor(cr, cg, cb, .25)
 				else
 					bu.bg:SetBackdropColor(0, 0, 0, .25)
 				end
@@ -173,5 +173,5 @@ C.themes["Blizzard_TalentUI"] = function()
 	B.ReskinButton(select(4, talentList:GetChildren()), nil)
 
 	B.StripTextures(PlayerTalentFrameTalentsPvpTalentFrame)
-	B.ReskinTrimScroll(talentList.ScrollBar)
+	B.ReskinScroll(talentList.ScrollBar)
 end

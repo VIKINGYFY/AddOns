@@ -104,7 +104,7 @@ local function updateMemberName(self, info)
 end
 
 C.themes["Blizzard_Communities"] = function()
-	local r, g, b = DB.r, DB.g, DB.b
+	local cr, cg, cb = DB.r, DB.g, DB.b
 	local CommunitiesFrame = CommunitiesFrame
 
 	B.ReskinFrame(CommunitiesFrame)
@@ -171,11 +171,11 @@ C.themes["Blizzard_Communities"] = function()
 			if frame.GuildCards then reskinGuildCards(frame.GuildCards) end
 			if frame.PendingGuildCards then reskinGuildCards(frame.PendingGuildCards) end
 			if frame.CommunityCards then
-				B.ReskinTrimScroll(frame.CommunityCards.ScrollBar)
+				B.ReskinScroll(frame.CommunityCards.ScrollBar)
 				hooksecurefunc(frame.CommunityCards.ScrollBox, "Update", reskinCommunityCard)
 			end
 			if frame.PendingCommunityCards then
-				B.ReskinTrimScroll(frame.PendingCommunityCards.ScrollBar)
+				B.ReskinScroll(frame.PendingCommunityCards.ScrollBar)
 				hooksecurefunc(frame.PendingCommunityCards.ScrollBox, "Update", reskinCommunityCard)
 			end
 		end
@@ -185,7 +185,7 @@ C.themes["Blizzard_Communities"] = function()
 	CommunitiesFrameCommunitiesList.InsetFrame:Hide()
 	CommunitiesFrameCommunitiesList.FilligreeOverlay:Hide()
 	CommunitiesFrameCommunitiesList.ScrollBar:GetChildren():Hide()
-	B.ReskinTrimScroll(CommunitiesFrameCommunitiesList.ScrollBar)
+	B.ReskinScroll(CommunitiesFrameCommunitiesList.ScrollBar)
 
 	hooksecurefunc(CommunitiesFrameCommunitiesList.ScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
@@ -218,7 +218,7 @@ C.themes["Blizzard_Communities"] = function()
 	-- ChatTab
 	B.ReskinButton(CommunitiesFrame.InviteButton)
 	B.StripTextures(CommunitiesFrame.Chat)
-	B.ReskinTrimScroll(CommunitiesFrame.Chat.ScrollBar)
+	B.ReskinScroll(CommunitiesFrame.Chat.ScrollBar)
 	CommunitiesFrame.ChatEditBox:DisableDrawLayer("BACKGROUND")
 	local bg1 = B.CreateBDFrame(CommunitiesFrame.Chat.InsetFrame, .25)
 	bg1:SetPoint("TOPLEFT", 1, -3)
@@ -241,7 +241,7 @@ C.themes["Blizzard_Communities"] = function()
 		dialog.ScrollFrame.Child.QuickJoinButton:SetSize(25, 25)
 		B.ReskinButton(dialog.ScrollFrame.Child.AllButton)
 		B.ReskinButton(dialog.ScrollFrame.Child.NoneButton)
-		B.ReskinTrimScroll(dialog.ScrollFrame.ScrollBar)
+		B.ReskinScroll(dialog.ScrollFrame.ScrollBar)
 
 		hooksecurefunc(dialog, "Refresh", function(self)
 			local frame = self.ScrollFrame.Child
@@ -289,7 +289,7 @@ C.themes["Blizzard_Communities"] = function()
 		dialog.InviteManager.ArtOverlay:Hide()
 		B.StripTextures(dialog.InviteManager.ColumnDisplay)
 		dialog.InviteManager.ScrollBar:GetChildren():Hide()
-		B.ReskinTrimScroll(dialog.InviteManager.ScrollBar)
+		B.ReskinScroll(dialog.InviteManager.ScrollBar)
 
 		hooksecurefunc(dialog, "Update", function(self)
 			local column = self.InviteManager.ColumnDisplay
@@ -326,7 +326,7 @@ C.themes["Blizzard_Communities"] = function()
 	B.StripTextures(CommunitiesFrame.MemberList.ColumnDisplay)
 	B.ReskinDropDown(CommunitiesFrame.GuildMemberListDropdown)
 	CommunitiesFrame.MemberList.ScrollBar:GetChildren():Hide()
-	B.ReskinTrimScroll(CommunitiesFrame.MemberList.ScrollBar)
+	B.ReskinScroll(CommunitiesFrame.MemberList.ScrollBar)
 
 	hooksecurefunc(CommunitiesFrame.MemberList.ScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
@@ -402,7 +402,7 @@ C.themes["Blizzard_Communities"] = function()
 		local dialog = CommunitiesAvatarPickerDialog
 		B.StripTextures(dialog)
 		B.SetBD(dialog)
-		B.ReskinTrimScroll(CommunitiesAvatarPickerDialog.ScrollBar)
+		B.ReskinScroll(CommunitiesAvatarPickerDialog.ScrollBar)
 		if dialog.Selector then
 			B.StripTextures(dialog.Selector)
 			B.ReskinButton(dialog.Selector.OkayButton)
@@ -426,7 +426,7 @@ C.themes["Blizzard_Communities"] = function()
 	CommunitiesFrame.GuildBenefitsFrame.Perks:GetRegions():SetAlpha(0)
 	CommunitiesFrame.GuildBenefitsFrame.Rewards.Bg:SetAlpha(0)
 	B.StripTextures(CommunitiesFrame.GuildBenefitsFrame)
-	B.ReskinTrimScroll(CommunitiesFrame.GuildBenefitsFrame.Rewards.ScrollBar)
+	B.ReskinScroll(CommunitiesFrame.GuildBenefitsFrame.Rewards.ScrollBar)
 
 	local function handleRewardButton(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
@@ -457,7 +457,7 @@ C.themes["Blizzard_Communities"] = function()
 	B.ReskinButton(CommunitiesFrame.GuildLogButton)
 	B.StripTextures(CommunitiesFrameGuildDetailsFrameInfo)
 	B.StripTextures(CommunitiesFrameGuildDetailsFrameNews)
-	B.ReskinTrimScroll(CommunitiesFrameGuildDetailsFrameInfoMOTDScrollFrame.ScrollBar)
+	B.ReskinScroll(CommunitiesFrameGuildDetailsFrameInfoMOTDScrollFrame.ScrollBar)
 	local bg3 = B.CreateBDFrame(CommunitiesFrameGuildDetailsFrameInfoMOTDScrollFrame, .25)
 	bg3:SetPoint("TOPLEFT", 0, 3)
 	bg3:SetPoint("BOTTOMRIGHT", -5, -4)
@@ -467,16 +467,16 @@ C.themes["Blizzard_Communities"] = function()
 	CommunitiesGuildTextEditFrameBg:Hide()
 	B.StripTextures(CommunitiesGuildTextEditFrame.Container)
 	B.CreateBDFrame(CommunitiesGuildTextEditFrame.Container, .25)
-	B.ReskinTrimScroll(CommunitiesGuildTextEditFrame.Container.ScrollFrame.ScrollBar)
+	B.ReskinScroll(CommunitiesGuildTextEditFrame.Container.ScrollFrame.ScrollBar)
 	B.ReskinClose(CommunitiesGuildTextEditFrameCloseButton)
 	B.ReskinButton(CommunitiesGuildTextEditFrameAcceptButton)
 	local closeButton = select(4, CommunitiesGuildTextEditFrame:GetChildren())
 	B.ReskinButton(closeButton)
 
-	B.ReskinTrimScroll(CommunitiesFrameGuildDetailsFrameInfo.DetailsFrame.ScrollBar)
+	B.ReskinScroll(CommunitiesFrameGuildDetailsFrameInfo.DetailsFrame.ScrollBar)
 	B.CreateBDFrame(CommunitiesFrameGuildDetailsFrameInfo.DetailsFrame, .25)
 	CommunitiesFrameGuildDetailsFrameNews.ScrollBar:GetChildren():Hide()
-	B.ReskinTrimScroll(CommunitiesFrameGuildDetailsFrameNews.ScrollBar)
+	B.ReskinScroll(CommunitiesFrameGuildDetailsFrameNews.ScrollBar)
 	B.StripTextures(CommunitiesFrameGuildDetailsFrame)
 
 	hooksecurefunc("GuildNewsButton_SetNews", function(button)
@@ -498,7 +498,7 @@ C.themes["Blizzard_Communities"] = function()
 	CommunitiesGuildLogFrameBg:Hide()
 	B.SetBD(CommunitiesGuildLogFrame)
 	B.ReskinClose(CommunitiesGuildLogFrameCloseButton)
-	B.ReskinTrimScroll(CommunitiesGuildLogFrame.Container.ScrollFrame.ScrollBar)
+	B.ReskinScroll(CommunitiesGuildLogFrame.Container.ScrollFrame.ScrollBar)
 	B.StripTextures(CommunitiesGuildLogFrame.Container)
 	B.CreateBDFrame(CommunitiesGuildLogFrame.Container, .25)
 	local closeButton = select(3, CommunitiesGuildLogFrame:GetChildren())
@@ -526,7 +526,7 @@ C.themes["Blizzard_Communities"] = function()
 		B.ReskinDropDown(dialog.LanguageDropdown)
 		B.StripTextures(dialog.RecruitmentMessageFrame)
 		B.StripTextures(dialog.RecruitmentMessageFrame.RecruitmentMessageInput)
-		B.ReskinTrimScroll(dialog.RecruitmentMessageFrame.RecruitmentMessageInput.ScrollBar)
+		B.ReskinScroll(dialog.RecruitmentMessageFrame.RecruitmentMessageInput.ScrollBar)
 		B.ReskinInput(dialog.RecruitmentMessageFrame)
 		B.ReskinInput(dialog.MinIlvlOnly.EditBox)
 		B.ReskinButton(dialog.Accept)
@@ -548,7 +548,7 @@ C.themes["Blizzard_Communities"] = function()
 		button:SetPoint("LEFT", listBG, C.mult, 0)
 		button:SetPoint("RIGHT", listBG, -C.mult, 0)
 		button:SetHighlightTexture(DB.bdTex)
-		button:GetHighlightTexture():SetVertexColor(r, g, b, .25)
+		button:GetHighlightTexture():SetVertexColor(cr, cg, cb, .25)
 		button.InviteButton:SetSize(66, 18)
 		button.CancelInvitationButton:SetSize(20, 18)
 
@@ -575,7 +575,7 @@ C.themes["Blizzard_Communities"] = function()
 
 				child:SetHighlightTexture(DB.bdTex)
 				local hl = child:GetHighlightTexture()
-				hl:SetVertexColor(r, g, b, .25)
+				hl:SetVertexColor(cr, cg, cb, .25)
 				hl:SetInside(bg)
 
 				child.styled = true
@@ -584,7 +584,7 @@ C.themes["Blizzard_Communities"] = function()
 	end)
 
 	applicantList.ScrollBar:GetChildren():Hide()
-	B.ReskinTrimScroll(applicantList.ScrollBar)
+	B.ReskinScroll(applicantList.ScrollBar)
 
 	hooksecurefunc(applicantList.ScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do

@@ -22,7 +22,9 @@ function S:MythicDungeonTools()
 	hooksecurefunc(MDT, "Async", function(_, _, name)
 		if name ~= "showInterface" or styled then return end
 
-		P:Delay(1, function()
+		P.WaitFor(function()
+			return not not (MDT.tooltip and MDT.pullTooltip)
+		end, function()
 			local frame = MDT.main_frame
 			if not frame then return end
 
@@ -64,9 +66,9 @@ function S:MythicDungeonTools()
 
 			P.ReskinTooltip(MDT.tooltip)
 			P.ReskinTooltip(MDT.pullTooltip)
-
-			styled = true
 		end)
+
+		styled = true
 	end)
 
 	local enemyStyled

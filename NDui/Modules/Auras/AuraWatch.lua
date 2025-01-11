@@ -192,23 +192,16 @@ local function BuildICON(iconSize)
 
 	local frame = CreateFrame("Frame", nil, PetBattleFrameHider)
 	frame:SetSize(iconSize, iconSize)
-	frame.bg = B.SetBD(frame)
 
-	frame.Icon = frame:CreateTexture(nil, "ARTWORK")
-	frame.Icon:SetInside(frame.bg)
-	frame.Icon:SetTexCoord(unpack(DB.TexCoord))
-
-	frame.Cooldown = CreateFrame("Cooldown", nil, frame, "CooldownFrameTemplate")
-	frame.Cooldown:SetInside(frame.bg)
-	frame.Cooldown:SetReverse(true)
+	B.AuraIcon(frame)
+	frame.bg:SetOutside()
 
 	local parentFrame = CreateFrame("Frame", nil, frame)
 	parentFrame:SetAllPoints()
-	parentFrame:SetFrameLevel(frame:GetFrameLevel() + 6)
+	parentFrame:SetFrameLevel(frame:GetFrameLevel() + 1)
 
 	frame.Spellname = B.CreateFS(parentFrame, 13, "", false, "TOP", 0, 5)
 	frame.Count = B.CreateFS(parentFrame, iconSize*.55, "", false, "BOTTOMRIGHT", 6, -3)
-
 	frame.glowFrame = B.CreateGlowFrame(frame, iconSize)
 
 	if not C.db["AuraWatch"]["ClickThrough"] then enableTooltip(frame) end
@@ -221,7 +214,9 @@ end
 local function BuildBAR(barWidth, iconSize)
 	local frame = CreateFrame("Frame", nil, PetBattleFrameHider)
 	frame:SetSize(iconSize, iconSize)
+
 	frame.bg = B.SetBD(frame)
+	frame.bg:SetOutside()
 
 	frame.Icon = frame:CreateTexture(nil, "ARTWORK")
 	frame.Icon:SetInside(frame.bg)
@@ -229,7 +224,7 @@ local function BuildBAR(barWidth, iconSize)
 
 	frame.Statusbar = B.CreateSB(frame, true)
 	frame.Statusbar:SetSize(barWidth, iconSize/2)
-	frame.Statusbar:SetPoint("BOTTOMLEFT", frame, "BOTTOMRIGHT", C.margin, C.mult)
+	frame.Statusbar:SetPoint("BOTTOMLEFT", frame, "BOTTOMRIGHT", C.margin, 0)
 	frame.Statusbar:SetMinMaxValues(0, 1)
 	frame.Statusbar:SetValue(0)
 
@@ -237,7 +232,7 @@ local function BuildBAR(barWidth, iconSize)
 	frame.Time = B.CreateFS(frame.Statusbar, 14, "", false, "RIGHT", 0, 8)
 	frame.Spellname = B.CreateFS(frame.Statusbar, 14, "", false, "LEFT", 2, 8)
 	frame.Spellname:SetWidth(frame.Statusbar:GetWidth()*.6)
-	frame.Spellname:SetJustifyH("LEFT")
+
 	if not C.db["AuraWatch"]["ClickThrough"] then enableTooltip(frame) end
 
 	frame:Hide()
@@ -344,10 +339,10 @@ function A:AuraWatch_SetupCD(index, name, icon, start, duration, _, type, id, ch
 	local frame = frames[frames.Index]
 	if frame then frame:Show() end
 	if frame.Icon then frame.Icon:SetTexture(icon) end
-	if frame.Cooldown then
-		frame.Cooldown:SetReverse(false)
-		frame.Cooldown:SetCooldown(start, duration)
-		frame.Cooldown:Show()
+	if frame.CD then
+		frame.CD:SetReverse(false)
+		frame.CD:SetCooldown(start, duration)
+		frame.CD:Show()
 	end
 	if frame.Count then frame.Count:SetText(charges) end
 	if frame.Spellname then frame.Spellname:SetText(name) end
@@ -441,9 +436,9 @@ function A:AuraWatch_SetupAura(KEY, unit, index, filter, name, icon, count, dura
 		frame.Icon:SetTexture(replacedTexture[spellID] or icon)
 	end
 	if frame.Count then frame.Count:SetText(count > 1 and count or "") end
-	if frame.Cooldown then
-		frame.Cooldown:SetReverse(true)
-		frame.Cooldown:SetCooldown(expires-duration, duration)
+	if frame.CD then
+		frame.CD:SetReverse(true)
+		frame.CD:SetCooldown(expires-duration, duration)
 	end
 	if frame.Spellname then frame.Spellname:SetText(name) end
 	if frame.Statusbar then
@@ -584,9 +579,9 @@ function A:AuraWatch_SetupInt(intID, itemID, duration, unitID, guid, sourceName)
 	end
 	if frame.Icon then frame.Icon:SetTexture(icon) end
 	if frame.Count then frame.Count:SetText("") end
-	if frame.Cooldown then
-		frame.Cooldown:SetReverse(true)
-		frame.Cooldown:SetCooldown(GetTime(), duration)
+	if frame.CD then
+		frame.CD:SetReverse(true)
+		frame.CD:SetCooldown(GetTime(), duration)
 	end
 	if frame.Spellname then frame.Spellname:SetText(name) end
 	if frame.Statusbar then

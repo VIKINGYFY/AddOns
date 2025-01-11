@@ -18,6 +18,6 @@ C.themes["Blizzard_NewPlayerExperienceGuide"] = function()
 	B.ReskinFrame(GuideFrame)
 	GuideFrame.Title:SetTextColor(1, .8, 0)
 	GuideFrame.ScrollFrame.Child.Text:SetTextColor(1, 1, 1)
-	B.ReskinTrimScroll(GuideFrame.ScrollFrame.ScrollBar)
+	B.ReskinScroll(GuideFrame.ScrollFrame.ScrollBar)
 	B.ReskinButton(GuideFrame.ScrollFrame.ConfirmationButton)
 end

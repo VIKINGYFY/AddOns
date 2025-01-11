@@ -27,8 +27,6 @@ function module:OnSizeChanged(width, height)
 		self:Hide()
 	else
 		B.SetFontSize(self.text, fontScale * FONT_SIZE)
-		self.text:SetShadowColor(0, 0, 0, 0)
-
 		if self.enabled then
 			module.ForceUpdate(self)
 		end
@@ -60,15 +58,12 @@ function module:OnCreate()
 	scaler:SetAllPoints(self)
 
 	local timer = CreateFrame("Frame", nil, scaler)
-	timer:Hide()
-	timer:SetAllPoints(scaler)
 	timer:SetScript("OnUpdate", module.TimerOnUpdate)
+	timer:SetAllPoints(scaler)
+	timer:Hide()
 	scaler.timer = timer
 
-	local text = timer:CreateFontString(nil, "BACKGROUND")
-	text:SetPoint("CENTER", 1, 0)
-	text:SetJustifyH("CENTER")
-	timer.text = text
+	timer.text = B.CreateFS(timer, FONT_SIZE, "")
 
 	module.OnSizeChanged(timer, scaler:GetSize())
 	scaler:SetScript("OnSizeChanged", module.ScalerOnSizeChanged)

@@ -25,28 +25,25 @@ end
 
 function UF:CreateBuffsIndicator(self)
 	local buffFrame = CreateFrame("Frame", nil, self)
+	buffFrame:SetFrameLevel(self:GetFrameLevel() + 1)
 	buffFrame:SetSize(1, 1)
-	buffFrame:SetPoint("BOTTOMRIGHT", -C.mult, C.mult)
-	buffFrame:SetFrameLevel(5)
+	buffFrame:SetPoint("BOTTOMRIGHT", self.Health, "BOTTOMRIGHT")
 
 	buffFrame.buttons = {}
 	local prevBuff
 	for i = 1, 3 do
 		local button = CreateFrame("Frame", nil, buffFrame)
-		B.PixelIcon(button)
+		B.AuraIcon(button)
 		button:SetScript("OnEnter", UF.AuraButton_OnEnter)
 		button:SetScript("OnLeave", B.HideTooltip)
 		button:Hide()
 
 		local parentFrame = CreateFrame("Frame", nil, button)
 		parentFrame:SetAllPoints()
-		parentFrame:SetFrameLevel(button:GetFrameLevel() + 3)
-		button.count = B.CreateFS(parentFrame, 10, "", false, "BOTTOMRIGHT", 6, -3)
+		parentFrame:SetFrameLevel(button:GetFrameLevel() + 1)
 
-		button.cd = CreateFrame("Cooldown", nil, button, "CooldownFrameTemplate")
-		button.cd:SetAllPoints()
-		button.cd:SetReverse(true)
-		button.cd:SetHideCountdownNumbers(true)
+		button.count = B.CreateFS(parentFrame, 12, "", false, "BOTTOMRIGHT", 6, -3)
+		button.CD:SetHideCountdownNumbers(true)
 
 		if not prevBuff then
 			button:SetPoint("BOTTOMRIGHT", self.Health)
@@ -67,12 +64,12 @@ function UF:BuffsIndicator_UpdateButton(buffIndex, aura)
 	if not button then return end
 
 	button.unit, button.index, button.filter = aura.unit, aura.index, aura.filter
-	if button.cd then
+	if button.CD then
 		if aura.duration and aura.duration > 0 then
-			button.cd:SetCooldown(aura.expiration - aura.duration, aura.duration)
-			button.cd:Show()
+			button.CD:SetCooldown(aura.expiration - aura.duration, aura.duration)
+			button.CD:Show()
 		else
-			button.cd:Hide()
+			button.CD:Hide()
 		end
 	end
 

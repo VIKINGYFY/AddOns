@@ -349,7 +349,7 @@ function G:CreateProfileGUI(parent)
 	panel:SetPoint("BOTTOMLEFT", delete, "TOPLEFT", 0, 10)
 	panel:SetWidth(parent:GetWidth() - 20)
 	panel:SetHeight(15 + numBars*45)
-	panel:SetFrameLevel(parent:GetFrameLevel()+1)
+	panel:SetFrameLevel(parent:GetFrameLevel() + 1)
 
 	G.bars = {}
 	for i = 1, numBars do
@@ -710,7 +710,7 @@ function G:CreateDataFrame()
 	scrollArea:SetPoint("TOPLEFT", 10, -30)
 	scrollArea:SetPoint("BOTTOMRIGHT", -28, 40)
 	B.CreateBDFrame(scrollArea, .25)
-	B.ReskinTrimScroll(scrollArea.ScrollBar)
+	B.ReskinScroll(scrollArea.ScrollBar)
 
 	local editBox = CreateFrame("EditBox", nil, dataFrame)
 	editBox:SetMultiLine(true)

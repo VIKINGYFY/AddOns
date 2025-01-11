@@ -31,7 +31,7 @@ table.insert(C.defaultThemes, function()
 	B.ReskinClose(dialog.CloseButton)
 	frame.AccountSettings.SettingsContainer.BorderArt:Hide()
 	B.CreateBDFrame(frame.AccountSettings.SettingsContainer, .25)
-	B.ReskinTrimScroll(frame.AccountSettings.SettingsContainer.ScrollBar)
+	B.ReskinScroll(frame.AccountSettings.SettingsContainer.ScrollBar)
 
 	local function reskinOptionChecks(settings)
 		for i = 1, settings:GetNumChildren() do

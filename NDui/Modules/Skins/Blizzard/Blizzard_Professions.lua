@@ -143,7 +143,7 @@ local function reskinOutputLog(outputLog)
 	B.StripTextures(outputLog)
 	B.SetBD(outputLog)
 	B.ReskinClose(outputLog.ClosePanelButton)
-	B.ReskinTrimScroll(outputLog.ScrollBar)
+	B.ReskinScroll(outputLog.ScrollBar)
 	hooksecurefunc(outputLog.ScrollBox, "Update", reskinOutputButtons)
 end
 
@@ -175,7 +175,7 @@ C.themes["Blizzard_Professions"] = function()
 	B.CreateBDFrame(guildFrame, .25)
 	B.StripTextures(guildFrame.Container)
 	B.CreateBDFrame(guildFrame.Container, .25)
-	B.ReskinTrimScroll(guildFrame.Container.ScrollBar)
+	B.ReskinScroll(guildFrame.Container.ScrollBar)
 
 	for i = 1, 3 do
 		local tab = select(i, frame.TabSystem:GetChildren())
@@ -199,7 +199,7 @@ C.themes["Blizzard_Professions"] = function()
 
 	local recipeList = craftingPage.RecipeList
 	B.StripTextures(recipeList)
-	B.ReskinTrimScroll(recipeList.ScrollBar)
+	B.ReskinScroll(recipeList.ScrollBar)
 	hooksecurefunc(recipeList.ScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
 			local child = select(i, self.ScrollTarget:GetChildren())
@@ -289,7 +289,7 @@ C.themes["Blizzard_Professions"] = function()
 
 	local recipeList = browseFrame.RecipeList
 	B.StripTextures(recipeList)
-	B.ReskinTrimScroll(recipeList.ScrollBar)
+	B.ReskinScroll(recipeList.ScrollBar)
 	if recipeList.BackgroundNineSlice then recipeList.BackgroundNineSlice:Hide() end -- in case blizz rename
 	B.CreateBDFrame(recipeList, .25):SetInside()
 	B.ReskinInput(recipeList.SearchBox)
@@ -306,7 +306,7 @@ C.themes["Blizzard_Professions"] = function()
 	B.StripTextures(orderList)
 	orderList.Background:SetAlpha(0)
 	B.CreateBDFrame(orderList, .25):SetInside()
-	B.ReskinTrimScroll(orderList.ScrollBar)
+	B.ReskinScroll(orderList.ScrollBar)
 
 	hooksecurefunc(frame.OrdersPage, "SetupTable", function()
 		local maxHeaders = orderList.HeaderContainer:GetNumChildren()

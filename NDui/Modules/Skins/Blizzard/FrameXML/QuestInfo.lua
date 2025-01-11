@@ -1,6 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local r, g, b = DB.r, DB.g, DB.b
+local cr, cg, cb = DB.r, DB.g, DB.b
 
 local function clearHighlight()
 	for _, button in pairs(QuestInfoRewardsFrame.RewardButtons) do
@@ -13,7 +13,7 @@ local function setHighlight(self)
 
 	local _, point = self:GetPoint()
 	if point then
-		point.textBg:SetBackdropColor(r, g, b, .25)
+		point.textBg:SetBackdropColor(cr, cg, cb, .25)
 	end
 end
 
@@ -90,7 +90,7 @@ local function HookTextColor_White(self, r, g, b)
 end
 
 local function SetTextColor_White(font)
-	font:SetShadowColor(0, 0, 0)
+	font:SetShadowColor(0, 0, 0, 0)
 	font:SetTextColor(1, 1, 1)
 	hooksecurefunc(font, "SetTextColor", HookTextColor_White)
 end

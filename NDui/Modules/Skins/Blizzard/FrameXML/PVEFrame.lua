@@ -4,7 +4,7 @@ local B, C, L, DB = unpack(ns)
 table.insert(C.defaultThemes, function()
 	if not C.db["Skins"]["BlizzardSkins"] then return end
 
-	local r, g, b = DB.r, DB.g, DB.b
+	local cr, cg, cb = DB.r, DB.g, DB.b
 
 	PVEFrameLeftInset:SetAlpha(0)
 	PVEFrameBlueBg:SetAlpha(0)
@@ -19,7 +19,7 @@ table.insert(C.defaultThemes, function()
 		if bu then
 			bu.ring:Hide()
 			B.ReskinButton(bu)
-			bu.bg:SetColorTexture(r, g, b, .25)
+			bu.bg:SetColorTexture(cr, cg, cb, .25)
 			bu.bg:SetInside(bu.__bg)
 
 			bu.icon:SetPoint("LEFT", bu, "LEFT")
@@ -47,7 +47,7 @@ table.insert(C.defaultThemes, function()
 		ScenarioQueueFrameBackground:SetAlpha(0)
 		B.ReskinDropDown(ScenarioQueueFrameTypeDropdown)
 		B.ReskinButton(ScenarioQueueFrameFindGroupButton)
-		B.ReskinTrimScroll(ScenarioQueueFrameRandomScrollFrame.ScrollBar)
+		B.ReskinScroll(ScenarioQueueFrameRandomScrollFrame.ScrollBar)
 		if ScenarioQueueFrameRandomScrollFrameScrollBar then
 			ScenarioQueueFrameRandomScrollFrameScrollBar:SetAlpha(0)
 		end

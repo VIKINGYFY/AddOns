@@ -9,7 +9,7 @@ C.themes["Blizzard_AdventureMap"] = function()
 	B.ReskinButton(dialog.AcceptButton)
 	B.ReskinButton(dialog.DeclineButton)
 	B.ReskinClose(dialog.CloseButton)
-	B.ReskinTrimScroll(dialog.Details.ScrollBar)
+	B.ReskinScroll(dialog.Details.ScrollBar)
 
 	dialog:HookScript("OnShow", function(self)
 		if self.styled then return end

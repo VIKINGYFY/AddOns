@@ -58,12 +58,14 @@ table.insert(C.defaultThemes, function()
 	B.StripTextures(QuestMapFrame.DetailsFrame.BackFrame)
 
 	local campaignOverview = QuestMapFrame.CampaignOverview
-	B.StripTextures(campaignOverview)
-	ReskinQuestHeader(campaignOverview.Header)
+	if campaignOverview then -- isNewPath, removed?
+		B.StripTextures(campaignOverview)
+		ReskinQuestHeader(campaignOverview.Header)
+		B.ReskinScroll(campaignOverview.ScrollFrame.ScrollBar)
+	end
 
 	QuestScrollFrame.Edge:Hide()
-	B.ReskinTrimScroll(QuestScrollFrame.ScrollBar)
-	B.ReskinTrimScroll(campaignOverview.ScrollFrame.ScrollBar)
+	B.ReskinScroll(QuestScrollFrame.ScrollBar)
 	B.ReskinInput(QuestScrollFrame.SearchBox)
 
 	-- Quest details
@@ -79,7 +81,7 @@ table.insert(C.defaultThemes, function()
 	B.ReskinButton(DetailsFrame.AbandonButton)
 	B.ReskinButton(DetailsFrame.ShareButton)
 	B.ReskinButton(DetailsFrame.TrackButton)
-	B.ReskinTrimScroll(QuestMapDetailsScrollFrame.ScrollBar)
+	B.ReskinScroll(QuestMapDetailsScrollFrame.ScrollBar)
 
 	B.ReskinButton(DetailsFrame.BackFrame.BackButton)
 	B.StripTextures(DetailsFrame.RewardsFrameContainer.RewardsFrame)
@@ -145,8 +147,10 @@ table.insert(C.defaultThemes, function()
 	local mapLegend = QuestMapFrame.MapLegend
 	if mapLegend then
 		B.StripTextures(mapLegend.BorderFrame)
-		B.ReskinButton(mapLegend.BackButton)
-		B.ReskinTrimScroll(mapLegend.ScrollFrame.ScrollBar)
+		if mapLegend.BackButton then -- isNewPatch
+			B.ReskinButton(mapLegend.BackButton)
+		end
+		B.ReskinScroll(mapLegend.ScrollFrame.ScrollBar)
 		B.StripTextures(mapLegend.ScrollFrame)
 		B.CreateBDFrame(mapLegend.ScrollFrame, .25)
 	end
@@ -160,7 +164,7 @@ table.insert(C.defaultThemes, function()
 	B.ReskinButton(QuestLogPopupDetailFrame.TrackButton)
 	B.ReskinButton(QuestLogPopupDetailFrame.ShareButton)
 	QuestLogPopupDetailFrame.SealMaterialBG:SetAlpha(0)
-	B.ReskinTrimScroll(QuestLogPopupDetailFrameScrollFrame.ScrollBar)
+	B.ReskinScroll(QuestLogPopupDetailFrameScrollFrame.ScrollBar)
 
 	-- Show map button
 

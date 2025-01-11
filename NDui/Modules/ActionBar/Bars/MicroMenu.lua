@@ -36,7 +36,6 @@ function Bar:MicroButton_Create(parent, data)
 	if type(method) == "string" then
 		local button = _G[method]
 		if not button then return end
-		button:SetHitRectInsets(0, 0, 0, 0)
 		button:SetParent(bu)
 		button.__owner = bu
 		hooksecurefunc(button, "SetParent", ResetButtonParent)

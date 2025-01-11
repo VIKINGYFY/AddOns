@@ -18,7 +18,7 @@ end
 table.insert(C.defaultThemes, function()
 	if not C.db["Skins"]["BlizzardSkins"] then return end
 
-	local r, g, b = DB.r, DB.g, DB.b
+	local cr, cg, cb = DB.r, DB.g, DB.b
 
 	local LFGListFrame = LFGListFrame
 	LFGListFrame.NothingAvailable.Inset:Hide()
@@ -104,7 +104,7 @@ table.insert(C.defaultThemes, function()
 			local hl = result:CreateTexture(nil, "BACKGROUND")
 			hl:SetInside(bg)
 			hl:SetTexture(DB.bdTex)
-			hl:SetVertexColor(r, g, b, .25)
+			hl:SetVertexColor(cr, cg, cb, .25)
 			hl:Hide()
 			result.hl = hl
 
@@ -127,7 +127,7 @@ table.insert(C.defaultThemes, function()
 	hooksecurefunc(searchPanel.ScrollBox, "Update", function(self)
 		if not delayStyled then
 			B.ReskinButton(self.StartGroupButton)
-			B.ReskinTrimScroll(searchPanel.ScrollBar)
+			B.ReskinScroll(searchPanel.ScrollBar)
 			delayStyled = true
 		end
 		self:ForEachFrame(skinCreateButton)
@@ -152,7 +152,7 @@ table.insert(C.defaultThemes, function()
 		local hl = header:CreateTexture(nil, "BACKGROUND")
 		hl:SetInside(bg)
 		hl:SetTexture(DB.bdTex)
-		hl:SetVertexColor(r, g, b, .25)
+		hl:SetVertexColor(cr, cg, cb, .25)
 		hl:Hide()
 		header.hl = hl
 
@@ -170,7 +170,7 @@ table.insert(C.defaultThemes, function()
 	B.ReskinButton(applicationViewer.EditButton)
 	B.ReskinButton(applicationViewer.BrowseGroupsButton)
 	B.ReskinCheck(applicationViewer.AutoAcceptButton)
-	B.ReskinTrimScroll(applicationViewer.ScrollBar)
+	B.ReskinScroll(applicationViewer.ScrollBar)
 
 	applicationViewer.RefreshButton:SetSize(24, 24)
 	applicationViewer.RefreshButton.Icon:SetPoint("CENTER")
@@ -253,7 +253,7 @@ table.insert(C.defaultThemes, function()
 	B.ReskinButton(finderDialog.SelectButton)
 	B.ReskinButton(finderDialog.CancelButton)
 	B.ReskinInput(finderDialog.EntryBox)
-	B.ReskinTrimScroll(finderDialog.ScrollBar)
+	B.ReskinScroll(finderDialog.ScrollBar)
 
 	-- [[ Application dialog ]]
 

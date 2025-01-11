@@ -8,7 +8,7 @@ table.insert(C.defaultThemes, function()
 	B.ReskinClose(LootFrame.ClosePanelButton)
 	B.StripTextures(LootFrame)
 	B.SetBD(LootFrame)
-	B.ReskinTrimScroll(LootFrame.ScrollBar)
+	B.ReskinScroll(LootFrame.ScrollBar)
 
 	local function updateHighlight(self)
 		local button = self.__owner

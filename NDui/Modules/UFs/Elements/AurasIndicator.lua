@@ -25,6 +25,13 @@ local DispellPriority = {
 	["Poison"]	= 1,
 }
 
+B:RegisterEvent("PLAYER_LOGIN", function()
+	if C.db["Skins"]["CustomBD"] then
+		local colors = C.db["Skins"]["CustomBDColor"]
+		DispellColor.none = {colors.r, colors.g, colors.b}
+	end
+end)
+
 local DispellFilter
 do
 	local dispellClasses = {
@@ -119,6 +126,7 @@ function UF:CreateAurasIndicator(self)
 	local auraSize = 18
 
 	local auraFrame = CreateFrame("Frame", nil, self)
+	auraFrame:SetFrameLevel(self:GetFrameLevel() + 1)
 	auraFrame:SetSize(1, 1)
 	auraFrame:SetPoint("RIGHT", -15, 0)
 	auraFrame.instAura = C.db["UFs"]["InstanceAuras"]
@@ -129,22 +137,20 @@ function UF:CreateAurasIndicator(self)
 	for i = 1, 2 do
 		local button = CreateFrame("Frame", nil, auraFrame)
 		button:SetSize(auraSize, auraSize)
-		button:SetFrameLevel(self:GetFrameLevel() + 3)
-		B.PixelIcon(button)
-		B.CreateSD(button, nil, true)
-		button.__shadow:SetOutside(button.bg)
-		button.__shadow:SetFrameLevel(self:GetFrameLevel() + 2)
-		button:Hide()
-
 		button:SetScript("OnEnter", UF.AuraButton_OnEnter)
 		button:SetScript("OnLeave", B.HideTooltip)
 
+		B.AuraIcon(button)
+		button:Hide()
+
 		local parentFrame = CreateFrame("Frame", nil, button)
 		parentFrame:SetAllPoints()
-		parentFrame:SetFrameLevel(button:GetFrameLevel() + 6)
+		parentFrame:SetFrameLevel(button:GetFrameLevel() + 1)
+
 		button.count = B.CreateFS(parentFrame, 12, "", false, "BOTTOMRIGHT", 6, -3)
 		button.timer = B.CreateFS(button, 12, "", false, "CENTER", 1, 0)
 		button.glowFrame = B.CreateGlowFrame(button, auraSize)
+		button.CD:SetHideCountdownNumbers(true)
 
 		if not prevAura then
 			button:SetPoint("RIGHT")
@@ -221,17 +227,17 @@ function UF:AurasIndicator_UpdateButton(button, aura)
 			button.timer:Hide()
 		end
 	end
-	if button.cd then
+	if button.CD then
 		if duration and duration > 0 then
-			button.cd:SetCooldown(expiration - duration, duration)
-			button.cd:Show()
+			button.CD:SetCooldown(expiration - duration, duration)
+			button.CD:Show()
 		else
-			button.cd:Hide()
+			button.CD:Hide()
 		end
 	end
-	local color = DispellColor[debuffType] or DispellColor.none
-	if button.__shadow then
-		button.__shadow:SetBackdropBorderColor(color[1], color[2], color[3])
+	if button.bg then
+		local color = DispellColor[debuffType] or DispellColor.none
+		button.bg:SetBackdropBorderColor(color[1], color[2], color[3])
 	end
 	if button.glowFrame then
 		if aura.priority == 6 then

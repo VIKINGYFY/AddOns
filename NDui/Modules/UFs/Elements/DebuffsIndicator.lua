@@ -25,32 +25,25 @@ end
 
 function UF:CreateDebuffsIndicator(self)
 	local debuffFrame = CreateFrame("Frame", nil, self)
+	debuffFrame:SetFrameLevel(self:GetFrameLevel() + 1)
 	debuffFrame:SetSize(1, 1)
-	debuffFrame:SetPoint("BOTTOMLEFT", C.mult, C.mult)
+	debuffFrame:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT")
 
 	debuffFrame.buttons = {}
 	local prevDebuff
 	for i = 1, 3 do
 		local button = CreateFrame("Frame", nil, debuffFrame)
-		B.PixelIcon(button)
+		B.AuraIcon(button)
 		button:SetScript("OnEnter", UF.AuraButton_OnEnter)
 		button:SetScript("OnLeave", B.HideTooltip)
 		button:Hide()
 
-		local cd = CreateFrame("Cooldown", "$parentCooldown", button, "CooldownFrameTemplate")
-		cd:SetAllPoints()
-		cd:SetReverse(true)
-		button.cd = cd
-
 		local parentFrame = CreateFrame("Frame", nil, button)
 		parentFrame:SetAllPoints()
-		parentFrame:SetFrameLevel(button:GetFrameLevel() + 6)
-		button.count = B.CreateFS(parentFrame, 12, "", false, "BOTTOMRIGHT", 6, -3)
+		parentFrame:SetFrameLevel(button:GetFrameLevel() + 1)
 
-		button.cd = CreateFrame("Cooldown", nil, button, "CooldownFrameTemplate")
-		button.cd:SetAllPoints()
-		button.cd:SetReverse(true)
-		button.cd:SetHideCountdownNumbers(true)
+		button.count = B.CreateFS(parentFrame, 12, "", false, "BOTTOMRIGHT", 6, -3)
+		button.CD:SetHideCountdownNumbers(true)
 
 		if not prevDebuff then
 			button:SetPoint("BOTTOMLEFT", self.Health)
@@ -71,12 +64,12 @@ function UF:DebuffsIndicator_UpdateButton(debuffIndex, aura)
 	if not button then return end
 
 	button.unit, button.index, button.filter = aura.unit, aura.index, aura.filter
-	if button.cd then
+	if button.CD then
 		if aura.duration and aura.duration > 0 then
-			button.cd:SetCooldown(aura.expiration - aura.duration, aura.duration)
-			button.cd:Show()
+			button.CD:SetCooldown(aura.expiration - aura.duration, aura.duration)
+			button.CD:Show()
 		else
-			button.cd:Hide()
+			button.CD:Hide()
 		end
 	end
 

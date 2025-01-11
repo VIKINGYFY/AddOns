@@ -4,7 +4,7 @@ local B, C, L, DB = unpack(ns)
 table.insert(C.defaultThemes, function()
 	if not C.db["Skins"]["BlizzardSkins"] then return end
 
-	local r, g, b = DB.r, DB.g, DB.b
+	local cr, cg, cb = DB.r, DB.g, DB.b
 
 	local frame = GroupLootHistoryFrame
 	if not frame then return end
@@ -12,15 +12,15 @@ table.insert(C.defaultThemes, function()
 	B.StripTextures(frame)
 	B.SetBD(frame)
 	B.ReskinClose(frame.ClosePanelButton)
-	B.ReskinTrimScroll(frame.ScrollBar)
+	B.ReskinScroll(frame.ScrollBar)
 	B.ReskinDropDown(frame.EncounterDropdown)
 
 	local bar = frame.Timer
 	if bar then
 		B.StripTextures(bar)
-		B.CreateBDFrame(bar, .25)
+		B.CreateBDFrame(bar, .25, nil, -C.mult)
 		bar.Fill:SetTexture(DB.normTex)
-		bar.Fill:SetVertexColor(r, g, b)
+		bar.Fill:SetVertexColor(cr, cg, cb)
 	end
 
 	-- Resize button
@@ -39,8 +39,8 @@ table.insert(C.defaultThemes, function()
 	line2:SetPoint("TOP", 0, -5)
 
 	frame.ResizeButton:HookScript("OnEnter", function()
-		line1:SetVertexColor(r, g, b)
-		line2:SetVertexColor(r, g, b)
+		line1:SetVertexColor(cr, cg, cb)
+		line2:SetVertexColor(cr, cg, cb)
 	end)
 	frame.ResizeButton:HookScript("OnLeave", function()
 		line1:SetVertexColor(.7, .7, .7)

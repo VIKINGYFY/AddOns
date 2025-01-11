@@ -107,7 +107,7 @@ function S:KrowiAF()
 	local frame = KrowiAF_CategoriesFrame
 	if frame then
 		B.StripTextures(frame)
-		B.ReskinTrimScroll(frame.ScrollBar)
+		B.ReskinScroll(frame.ScrollBar)
 
 		hooksecurefunc(frame.ScrollBox, "Update", function(self)
 			self:ForEachFrame(SetupCategory)
@@ -119,7 +119,7 @@ function S:KrowiAF()
 		B.StripTextures(frame)
 		frame:GetChildren():Hide()
 		frame.AchievementsFrame.Border:Hide()
-		B.ReskinTrimScroll(frame.AchievementsFrame.ScrollBar)
+		B.ReskinScroll(frame.AchievementsFrame.ScrollBar)
 
 		hooksecurefunc(frame.AchievementsFrame.ScrollBox, "Update", function(self)
 			self:ForEachFrame(SetupAchivementButton)
@@ -155,7 +155,7 @@ function S:KrowiAF()
 	local frame = KrowiAF_AchievementsFrame
 	if frame then
 		B.StripTextures(frame)
-		B.ReskinTrimScroll(frame.ScrollBar)
+		B.ReskinScroll(frame.ScrollBar)
 
 		hooksecurefunc(frame.ScrollBox, "Update", function(self)
 			self:ForEachFrame(SetupAchivementButton)
@@ -259,7 +259,7 @@ function S:KrowiAF()
 			local achesFrame = sideFrame.AchievementsFrame
 			if achesFrame then
 				B.StripTextures(achesFrame)
-				B.ReskinTrimScroll(achesFrame.ScrollBar)
+				B.ReskinScroll(achesFrame.ScrollBar)
 		
 				hooksecurefunc(achesFrame.ScrollBox, "Update", function(self)
 					self:ForEachFrame(SetupAchivementButton)
@@ -329,7 +329,7 @@ function S:KrowiAF()
 					end
 				end
 			end)
-			B.ReskinTrimScroll(characterList.ScrollBar)
+			B.ReskinScroll(characterList.ScrollBar)
 		end
 	end
 end

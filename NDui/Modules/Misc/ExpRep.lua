@@ -266,7 +266,6 @@ function M:Expbar()
 	local bar = B.CreateSB(MinimapCluster, nil, nil, "NDuiExpRepBar")
 	bar:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", 0, -C.margin)
 	bar:SetPoint("TOPRIGHT", Minimap, "BOTTOMRIGHT", 0, -C.margin)
-	bar:SetHitRectInsets(0, 0, 0, -10)
 	bar:SetHeight(2*C.margin)
 
 	local rest = CreateFrame("StatusBar", nil, bar)

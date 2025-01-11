@@ -37,7 +37,6 @@ end
 function G:CreateCheckBox(parent, text, x, y, tip)
 	local cb = B.CreateCheckBox(parent)
 	cb:SetPoint("TOPLEFT", x, y)
-	cb:SetHitRectInsets(-5, -5, -5, -5)
 	createLabel(cb, text, tip)
 
 	return cb
@@ -86,7 +85,7 @@ function G:CreateScroll(parent, width, height, text)
 	scroll.child = CreateFrame("Frame", nil, scroll)
 	scroll.child:SetSize(width, 1)
 	scroll:SetScrollChild(scroll.child)
-	B.ReskinTrimScroll(scroll.ScrollBar)
+	B.ReskinScroll(scroll.ScrollBar)
 
 	return scroll
 end
@@ -302,7 +301,6 @@ local function CreatePanel()
 
 	local function createGroupSwitcher(parent, index)
 		local bu = B.CreateCheckBox(parent)
-		bu:SetHitRectInsets(-100, 0, 0, 0)
 		bu:SetPoint("TOPRIGHT", -40, -145)
 		bu:SetChecked(C.db["AuraWatchList"]["Switcher"][index])
 		bu:SetScript("OnClick", function()

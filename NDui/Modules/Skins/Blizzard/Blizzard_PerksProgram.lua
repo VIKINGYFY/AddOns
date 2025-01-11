@@ -64,7 +64,7 @@ C.themes["Blizzard_PerksProgram"] = function()
 		B.ReskinIcon(productsFrame.PerksProgramCurrencyFrame.Icon)
 		B.StripTextures(productsFrame.PerksProgramProductDetailsContainerFrame)
 		SetupFramBG(productsFrame.PerksProgramProductDetailsContainerFrame)
-		B.ReskinTrimScroll(productsFrame.PerksProgramProductDetailsContainerFrame.SetDetailsScrollBoxContainer.ScrollBar)
+		B.ReskinScroll(productsFrame.PerksProgramProductDetailsContainerFrame.SetDetailsScrollBoxContainer.ScrollBar)
 
 		hooksecurefunc(productsFrame.PerksProgramProductDetailsContainerFrame.SetDetailsScrollBoxContainer.ScrollBox, "Update", function(self)
 			self:ForEachFrame(SetupSetButton)
@@ -73,7 +73,7 @@ C.themes["Blizzard_PerksProgram"] = function()
 		local productsContainer = productsFrame.ProductsScrollBoxContainer
 		B.StripTextures(productsContainer)
 		SetupFramBG(productsContainer)
-		B.ReskinTrimScroll(productsContainer.ScrollBar)
+		B.ReskinScroll(productsContainer.ScrollBar)
 		B.StripTextures(productsContainer.PerksProgramHoldFrame)
 		B.CreateBDFrame(productsContainer.PerksProgramHoldFrame, .25):SetInside(nil, 3, 3)
 

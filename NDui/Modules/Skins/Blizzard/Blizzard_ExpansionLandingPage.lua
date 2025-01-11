@@ -26,7 +26,7 @@ local function SkinLandingOverlay(frame)
 			frame.ScrollFadeOverlay:SetAlpha(0)
 		end
 		if frame.MajorFactionList then
-			B.ReskinTrimScroll(frame.MajorFactionList.ScrollBar)
+			B.ReskinScroll(frame.MajorFactionList.ScrollBar)
 			frame.MajorFactionList.ScrollBox:ForEachFrame(SkinFactionCategory)
 			hooksecurefunc(frame.MajorFactionList.ScrollBox, "Update", function(self)
 				self:ForEachFrame(SkinFactionCategory)

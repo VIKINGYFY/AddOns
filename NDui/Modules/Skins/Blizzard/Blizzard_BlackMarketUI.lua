@@ -2,7 +2,7 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 C.themes["Blizzard_BlackMarketUI"] = function()
-	local r, g, b = DB.r, DB.g, DB.b
+	local cr, cg, cb = DB.r, DB.g, DB.b
 
 	B.StripTextures(BlackMarketFrame)
 	BlackMarketFrame.MoneyFrameBorder:SetAlpha(0)
@@ -24,7 +24,7 @@ C.themes["Blizzard_BlackMarketUI"] = function()
 	B.ReskinButton(BlackMarketFrame.BidButton)
 	B.ReskinClose(BlackMarketFrame.CloseButton)
 	B.ReskinInput(BlackMarketBidPriceGold)
-	B.ReskinTrimScroll(BlackMarketFrame.ScrollBar)
+	B.ReskinScroll(BlackMarketFrame.ScrollBar)
 
 	hooksecurefunc(BlackMarketFrame.ScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
@@ -46,7 +46,7 @@ C.themes["Blizzard_BlackMarketUI"] = function()
 
 				bu:SetHighlightTexture(DB.bdTex)
 				local hl = bu:GetHighlightTexture()
-				hl:SetVertexColor(r, g, b, .25)
+				hl:SetVertexColor(cr, cg, cb, .25)
 				hl.SetAlpha = B.Dummy
 				hl:ClearAllPoints()
 				hl:SetAllPoints(bg)
@@ -54,7 +54,7 @@ C.themes["Blizzard_BlackMarketUI"] = function()
 				bu.Selection:ClearAllPoints()
 				bu.Selection:SetAllPoints(bg)
 				bu.Selection:SetTexture(DB.bdTex)
-				bu.Selection:SetVertexColor(r, g, b, .25)
+				bu.Selection:SetVertexColor(cr, cg, cb, .25)
 
 				bu.reskinned = true
 			end

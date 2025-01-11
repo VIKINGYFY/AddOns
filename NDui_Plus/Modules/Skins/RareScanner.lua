@@ -17,7 +17,6 @@ function S:RareScanner()
 	local close = button.CloseButton
 	if close then
 		B.ReskinClose(close)
-		close:SetHitRectInsets(0, 0, 0, 0)
 		close:SetScale(1)
 		close:ClearAllPoints()
 		close:SetPoint("BOTTOMRIGHT",-5, 5)

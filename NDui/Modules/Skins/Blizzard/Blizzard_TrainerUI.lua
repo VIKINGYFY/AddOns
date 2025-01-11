@@ -2,7 +2,7 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 C.themes["Blizzard_TrainerUI"] = function()
-	local r, g, b = DB.r, DB.g, DB.b
+	local cr, cg, cb = DB.r, DB.g, DB.b
 
 	B.ReskinFrame(ClassTrainerFrame)
 	ClassTrainerStatusBarSkillRank:ClearAllPoints()
@@ -17,10 +17,10 @@ C.themes["Blizzard_TrainerUI"] = function()
 	ClassTrainerFrameSkillStepButton:SetHighlightTexture(0)
 	ClassTrainerFrameSkillStepButton.disabledBG:SetTexture(0)
 	ClassTrainerFrameSkillStepButton.selectedTex:SetInside(bg)
-	ClassTrainerFrameSkillStepButton.selectedTex:SetColorTexture(r, g, b, .25)
+	ClassTrainerFrameSkillStepButton.selectedTex:SetColorTexture(cr, cg, cb, .25)
 
 	B.ReskinStatusBar(ClassTrainerStatusBar)
-	B.ReskinTrimScroll(ClassTrainerFrame.ScrollBar)
+	B.ReskinScroll(ClassTrainerFrame.ScrollBar)
 
 	hooksecurefunc(ClassTrainerFrame.ScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
@@ -40,7 +40,7 @@ C.themes["Blizzard_TrainerUI"] = function()
 				button:SetHighlightTexture(0)
 				button.disabledBG:SetTexture(0)
 				button.selectedTex:SetInside(bg)
-				button.selectedTex:SetColorTexture(r, g, b, .25)
+				button.selectedTex:SetColorTexture(cr, cg, cb, .25)
 
 				button.styled = true
 			end

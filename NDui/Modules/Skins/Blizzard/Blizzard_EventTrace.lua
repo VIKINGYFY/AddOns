@@ -35,7 +35,7 @@ end
 
 local function ReskinEventTraceFrame(frame)
 	reskinEventTraceScrollBox(frame.ScrollBox)
-	B.ReskinTrimScroll(frame.ScrollBar)
+	B.ReskinScroll(frame.ScrollBar)
 end
 
 C.themes["Blizzard_EventTrace"] = function()

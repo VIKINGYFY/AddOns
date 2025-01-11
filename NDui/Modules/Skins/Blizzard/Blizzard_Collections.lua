@@ -43,7 +43,7 @@ C.themes["Blizzard_Collections"] = function()
 	-- [[ General ]]
 
 	CollectionsJournal.bg = B.ReskinFrame(CollectionsJournal) -- need this for Rematch skin
-	B.ReskinFrameTab(CollectionsJournal, 5)
+	B.ReskinFrameTab(CollectionsJournal, 6)
 
 	-- [[ Mounts and pets ]]
 
@@ -74,7 +74,7 @@ C.themes["Blizzard_Collections"] = function()
 	B.ReskinButton(PetJournalSummonButton)
 	B.ReskinButton(PetJournalFindBattle)
 
-	B.ReskinTrimScroll(MountJournal.ScrollBar)
+	B.ReskinScroll(MountJournal.ScrollBar)
 	hooksecurefunc(MountJournal.ScrollBox, "Update", reskinFrameButton)
 	hooksecurefunc("MountJournal_InitMountButton", function(button)
 		if not button.bg then return end
@@ -94,7 +94,7 @@ C.themes["Blizzard_Collections"] = function()
 		end
 	end)
 
-	B.ReskinTrimScroll(PetJournal.ScrollBar)
+	B.ReskinScroll(PetJournal.ScrollBar)
 	hooksecurefunc(PetJournal.ScrollBox, "Update", reskinFrameButton)
 	hooksecurefunc("PetJournal_InitPetButton", function(button)
 		if not button.bg then return end
@@ -176,12 +176,14 @@ C.themes["Blizzard_Collections"] = function()
 		B.ReskinIcon(select(index, button:GetRegions()), nil)
 		button:SetNormalTexture(0)
 	end
-	reskinDynamicButton(MountJournal.ToggleDynamicFlightFlyoutButton, 1)
+	reskinDynamicButton(MountJournal.ToggleDynamicFlightFlyoutButton, DB.isNewPatch and 3 or 1)
 
-	local flyout = MountJournal.DynamicFlightFlyout
-	flyout.Background:Hide()
-	reskinDynamicButton(flyout.OpenDynamicFlightSkillTreeButton, 4)
-	reskinDynamicButton(flyout.DynamicFlightModeButton, 4)
+	local flyout = MountJournal.ToggleDynamicFlightFlyoutButton.popup or MountJournal.DynamicFlightFlyout
+	if flyout then
+		flyout.Background:Hide()
+		reskinDynamicButton(flyout.OpenDynamicFlightSkillTreeButton, 4)
+		reskinDynamicButton(flyout.DynamicFlightModeButton, 4)
+	end
 
 	-- Pet card
 
@@ -471,7 +473,7 @@ C.themes["Blizzard_Collections"] = function()
 	SetsCollectionFrame.RightInset:Hide()
 	B.CreateBDFrame(SetsCollectionFrame.Model, .25)
 
-	B.ReskinTrimScroll(SetsCollectionFrame.ListContainer.ScrollBar)
+	B.ReskinScroll(SetsCollectionFrame.ListContainer.ScrollBar)
 	hooksecurefunc(SetsCollectionFrame.ListContainer.ScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
 			local child = select(i, self.ScrollTarget:GetChildren())
@@ -588,4 +590,25 @@ C.themes["Blizzard_Collections"] = function()
 			reskinHPet = true
 		end
 	end)
+
+	-- WarbandSceneJournal
+	if WarbandSceneJournal then
+		local iconsFrame = WarbandSceneJournal.IconsFrame
+		if iconsFrame then
+			B.StripTextures(iconsFrame)
+
+			local controls = iconsFrame.Icons and iconsFrame.Icons.Controls
+			if controls then
+				local showCheck = controls and controls.ShowOwned and controls.ShowOwned.Checkbox
+				if showCheck then
+					B.ReskinCheck(showCheck)
+					showCheck:SetSize(28, 28)
+				end
+				if controls.PagingControls then
+					B.ReskinArrow(controls.PagingControls.PrevPageButton, "left")
+					B.ReskinArrow(controls.PagingControls.NextPageButton, "right")
+				end
+			end
+		end
+	end
 end

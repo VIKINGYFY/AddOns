@@ -162,7 +162,7 @@ function B:ReskinIconSelector()
 	B.ReskinButton(self.BorderBox.OkayButton)
 	B.ReskinButton(self.BorderBox.CancelButton)
 	B.ReskinDropDown(self.BorderBox.IconTypeDropdown)
-	B.ReskinTrimScroll(self.IconSelector.ScrollBar)
+	B.ReskinScroll(self.IconSelector.ScrollBar)
 
 	hooksecurefunc(self.IconSelector.ScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
@@ -242,7 +242,7 @@ function B:ReskinProfessionsFlyout(parent)
 			hooksecurefunc(flyoutFrame, "SetParent", resetFrameStrata)
 			B.ReskinCheck(checkbox)
 			checkbox.bg:SetInside(nil, 6, 6)
-			B.ReskinTrimScroll(flyoutFrame.ScrollBar)
+			B.ReskinScroll(flyoutFrame.ScrollBar)
 			reskinFlyoutButton(flyoutFrame.UndoItem)
 			hooksecurefunc(flyoutFrame.ScrollBox, "Update", refreshFlyoutButtons)
 

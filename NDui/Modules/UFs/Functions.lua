@@ -5,15 +5,15 @@ local oUF = ns.oUF
 local UF = B:RegisterModule("UnitFrames")
 local AURA = B:GetModule("Auras")
 
-local x1, x2, y1, y2 = unpack(DB.TexCoord)
-
 -- Custom colors
 oUF.colors.smooth = {1, 0, 0, .85, .8, .45, .1, .1, .1}
 oUF.colors.debuff.none = {0, 0, 0}
 
 B:RegisterEvent("PLAYER_LOGIN", function()
-	local colors = C.db["Skins"]["CustomBDColor"]
-	oUF.colors.debuff.none = {colors.r, colors.g, colors.b}
+	if C.db["Skins"]["CustomBD"] then
+		local colors = C.db["Skins"]["CustomBDColor"]
+		oUF.colors.debuff.none = {colors.r, colors.g, colors.b}
+	end
 end)
 
 local function ReplacePowerColor(name, index, color)
@@ -169,8 +169,9 @@ function UF:CreateHealthBar(self)
 	health:SetStatusBarColor(.1, .1, .1)
 	health:SetFrameLevel(self:GetFrameLevel() - 1)
 
-	B.SetBD(health):SetOutside(self)
-	B.SmoothBar(health)
+	local bd = B.SetBD(health)
+	bd:SetFrameLevel(health:GetFrameLevel() - 1)
+	bd:SetOutside(self)
 
 	local bg = health:CreateTexture(nil, "BACKGROUND")
 	bg:SetPoint("TOPLEFT", health:GetStatusBarTexture(), "TOPRIGHT", 0, 0)
@@ -178,6 +179,8 @@ function UF:CreateHealthBar(self)
 	bg:SetVertexColor(.9, .9, .9)
 	bg:SetTexture(DB.normTex)
 	bg.multiplier = .25
+
+	B.SmoothBar(health)
 
 	self.Health = health
 	self.Health.bg = bg
@@ -387,13 +390,15 @@ function UF:CreatePowerBar(self)
 	power:SetFrameLevel(self:GetFrameLevel() - 1)
 	power.wasHidden = powerHeight == 0
 
-	B.SmoothBar(power)
-	B.CreateBDFrame(power, 0, nil, -C.mult)
+	local bd = B.CreateBDFrame(power, 0, nil, -C.mult)
+	bd:SetFrameLevel(power:GetFrameLevel() - 1)
 
 	local bg = power:CreateTexture(nil, "BACKGROUND")
 	bg:SetTexture(DB.normTex)
 	bg:SetAllPoints()
 	bg.multiplier = .25
+
+	B.SmoothBar(power)
 
 	self.Power = power
 	self.Power.bg = bg
@@ -593,9 +598,8 @@ function UF:CreateIcons(self)
 	end
 
 	local phase = CreateFrame("Frame", nil, self)
-	phase:SetSize(24, 24)
 	phase:SetPoint("CENTER", self.Health)
-	phase:SetFrameLevel(5)
+	phase:SetSize(24, 24)
 	phase:EnableMouse(true)
 	local icon = phase:CreateTexture(nil, "OVERLAY")
 	icon:SetAllPoints()
@@ -833,42 +837,39 @@ function UF:ReskinTimerTrakcer(self)
 end
 
 -- Auras Relevant
+local tL, tR, tT, tB = unpack(DB.TexCoord)
 function UF:UpdateIconTexCoord(width, height)
 	local ratio = height / width
 	local mult = (1 - ratio) / 2
-	self.Icon:SetTexCoord(x1, x2, y1 + mult, y2 - mult)
+	self.Icon:SetTexCoord(tL, tR, tT + mult, tB - mult)
 end
 
 function UF.PostCreateButton(element, button)
 	local fontSize = element.fontSize or element.size*.6
 	local parentFrame = CreateFrame("Frame", nil, button)
+	parentFrame:SetFrameLevel(button:GetFrameLevel() + 1)
 	parentFrame:SetAllPoints()
-	parentFrame:SetFrameLevel(button:GetFrameLevel() + 3)
+
 	button.Count = B.CreateFS(parentFrame, fontSize, "", false, "BOTTOMRIGHT", 6, -3)
-	button.Cooldown:SetReverse(true)
-	local needShadow = true
-	if element.__owner.mystyle == "raid" and not C.db["UFs"]["RaidBuffIndicator"] then
-		needShadow = false
-	end
-	button.iconbg = B.ReskinIcon(button.Icon, needShadow)
+	button.timer = B.CreateFS(button, fontSize, "")
+	button.iconbg = B.ReskinIcon(button.Icon, true)
 
 	button.HL = button:CreateTexture(nil, "HIGHLIGHT")
 	button.HL:SetColorTexture(1, 1, 1, .25)
 	button.HL:SetInside(button.iconbg)
 
 	button.Overlay:SetTexture(nil)
+	button.Cooldown:SetReverse(true)
 	button.Stealable:SetAtlas("bags-newitem")
+
 	if AURA then
 		button:HookScript("OnMouseDown", AURA.RemoveSpellFromIgnoreList)
 	end
 
 	if element.disableCooldown then
 		hooksecurefunc(button, "SetSize", UF.UpdateIconTexCoord)
-		button.timer = B.CreateFS(button, fontSize, "")
-		button.timer:ClearAllPoints()
-		button.timer:SetPoint("LEFT", button, "TOPLEFT", -2, 0)
-		button.Count:ClearAllPoints()
-		button.Count:SetPoint("RIGHT", button, "BOTTOMRIGHT", 5, 0)
+		B.UpdatePoint(button.timer, "LEFT", button, "TOPLEFT", -2, 0)
+		B.UpdatePoint(button.Count, "RIGHT", button, "BOTTOMRIGHT", 5, 0)
 	end
 end
 
@@ -1145,7 +1146,6 @@ local auraUFs = {
 function UF:CreateAuras(self)
 	local mystyle = self.mystyle
 	local bu = CreateFrame("Frame", nil, self)
-	bu:SetFrameLevel(self:GetFrameLevel() + 2)
 	bu.gap = true
 	bu.initialAnchor = "TOPLEFT"
 	bu["growth-y"] = "DOWN"
@@ -1313,7 +1313,8 @@ function UF:CreateClassPower(self)
 
 	local isDK = DB.MyClass == "DEATHKNIGHT"
 	local maxBar = isDK and 6 or 7
-	local bar = CreateFrame("Frame", "$parentClassPowerBar", self)
+	local bar = CreateFrame("Frame", nil, self.Health)
+	bar:SetFrameLevel(self:GetFrameLevel() - 1)
 	bar:SetSize(barWidth, barHeight)
 	bar:SetPoint(unpack(barPoint))
 
@@ -1322,7 +1323,6 @@ function UF:CreateClassPower(self)
 		bars[i] = B.CreateSB(bar, nil, true)
 		bars[i]:SetHeight(barHeight)
 		bars[i]:SetWidth((barWidth - (maxBar-1)*C.margin) / maxBar)
-		bars[i]:SetFrameLevel(bar:GetFrameLevel() - 1)
 		if i == 1 then
 			bars[i]:SetPoint("BOTTOMLEFT")
 		else
@@ -1332,12 +1332,7 @@ function UF:CreateClassPower(self)
 		if isDK then
 			bars[i].timer = B.CreateFS(bars[i], 12, "")
 		else
-			if not bar.chargeParent then
-				bar.chargeParent = CreateFrame("Frame", nil, bar)
-				bar.chargeParent:SetAllPoints()
-				bar.chargeParent:SetFrameLevel(8)
-			end
-			local chargeStar = bar.chargeParent:CreateTexture()
+			local chargeStar = bar:CreateTexture()
 			chargeStar:SetTexture(DB.starTex)
 			chargeStar:SetSize(12, 12)
 			chargeStar:SetPoint("CENTER", bars[i])
@@ -1369,12 +1364,14 @@ function UF:StaggerBar(self)
 		barWidth, barHeight = C.db["Nameplate"]["PPWidth"], C.db["Nameplate"]["PPBarHeight"]
 	end
 
-	local bar = B.CreateSB(self, nil, true)
+	local bar = B.CreateSB(self.Health, nil, true)
 	bar:SetSize(barWidth, barHeight)
 	bar:SetPoint(unpack(barPoint))
 
 	local text = B.CreateFS(bar, 14, "")
 	self:Tag(text, "[monkstagger]")
+
+	B.SmoothBar(bar)
 
 	self.Stagger = bar
 end
@@ -1457,10 +1454,10 @@ function UF:CreateAltPower(self)
 	bar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -C.margin)
 	bar:SetHeight(2*C.margin)
 
-	B.SmoothBar(bar)
-
 	local text = B.CreateFS(bar, 14, "")
 	self:Tag(text, "[altpower]")
+
+	B.SmoothBar(bar)
 
 	self.AlternativePower = bar
 	self.AlternativePower.PostUpdate = UF.PostUpdateAltPower
@@ -1513,12 +1510,11 @@ end
 
 function UF:CreatePrediction(self)
 	local frame = CreateFrame("Frame", nil, self)
+	frame:SetFrameLevel(self:GetFrameLevel())
 	frame:SetAllPoints(self.Health)
 	frame:SetClipsChildren(true)
-	local frameLevel = frame:GetFrameLevel()-1
 
-	-- Position and size
-	local myBar = CreateFrame("StatusBar", nil, self.Health)
+	local myBar = CreateFrame("StatusBar", nil, frame)
 	myBar:SetPoint("TOP")
 	myBar:SetPoint("BOTTOM")
 	myBar:SetPoint("LEFT", self.Health:GetStatusBarTexture(), "RIGHT")
@@ -1526,7 +1522,7 @@ function UF:CreatePrediction(self)
 	myBar:SetStatusBarColor(0, 1, 0, .75)
 	myBar:Hide()
 
-	local otherBar = CreateFrame("StatusBar", nil, self.Health)
+	local otherBar = CreateFrame("StatusBar", nil, frame)
 	otherBar:SetPoint("TOP")
 	otherBar:SetPoint("BOTTOM")
 	otherBar:SetPoint("LEFT", myBar:GetStatusBarTexture(), "RIGHT")
@@ -1534,46 +1530,28 @@ function UF:CreatePrediction(self)
 	otherBar:SetStatusBarColor(1, 1, 0, .75)
 	otherBar:Hide()
 
-	local absorbBar = CreateFrame("StatusBar", nil, self.Health)
+	local absorbBar = CreateFrame("StatusBar", nil, frame)
 	absorbBar:SetPoint("TOP")
 	absorbBar:SetPoint("BOTTOM")
 	absorbBar:SetPoint("LEFT", otherBar:GetStatusBarTexture(), "RIGHT")
 	absorbBar:SetStatusBarTexture(DB.bdTex)
 	absorbBar:SetStatusBarColor(0, 1, 1, .75)
-	--absorbBar:SetFrameLevel(frameLevel)
 	absorbBar:Hide()
-	local tex = absorbBar:CreateTexture(nil, "ARTWORK", nil, 1)
-	tex:SetAllPoints(absorbBar:GetStatusBarTexture())
-	tex:SetTexture("Interface\\RaidFrame\\Shield-Overlay", true, true)
-	tex:SetHorizTile(true)
-	tex:SetVertTile(true)
 
-	local overAbsorbBar = CreateFrame("StatusBar", nil, self.Health)
+	local overAbsorbBar = CreateFrame("StatusBar", nil, frame)
 	overAbsorbBar:SetAllPoints()
 	overAbsorbBar:SetStatusBarTexture(DB.bdTex)
 	overAbsorbBar:SetStatusBarColor(0, 1, 1, .75)
-	--overAbsorbBar:SetFrameLevel(frameLevel)
 	overAbsorbBar:Hide()
-	local tex = overAbsorbBar:CreateTexture(nil, "ARTWORK", nil, 1)
-	tex:SetAllPoints(overAbsorbBar:GetStatusBarTexture())
-	tex:SetTexture("Interface\\RaidFrame\\Shield-Overlay", true, true)
-	tex:SetHorizTile(true)
-	tex:SetVertTile(true)
 
-	local healAbsorbBar = CreateFrame("StatusBar", nil, self.Health)
+	local healAbsorbBar = CreateFrame("StatusBar", nil, frame)
 	healAbsorbBar:SetPoint("TOP")
 	healAbsorbBar:SetPoint("BOTTOM")
-	healAbsorbBar:SetPoint("RIGHT", self.Health:GetStatusBarTexture())
+	healAbsorbBar:SetPoint("RIGHT", self.Health:GetStatusBarTexture(), "RIGHT")
 	healAbsorbBar:SetReverseFill(true)
 	healAbsorbBar:SetStatusBarTexture(DB.bdTex)
-	healAbsorbBar:SetStatusBarColor(1, 0, .5, .75)
-	--healAbsorbBar:SetFrameLevel(frameLevel)
+	healAbsorbBar:SetStatusBarColor(1, 0, 1, .75)
 	healAbsorbBar:Hide()
-	local tex = healAbsorbBar:CreateTexture(nil, "ARTWORK", nil, 1)
-	tex:SetAllPoints(healAbsorbBar:GetStatusBarTexture())
-	tex:SetTexture("Interface\\RaidFrame\\Shield-Overlay", true, true)
-	tex:SetHorizTile(true)
-	tex:SetVertTile(true)
 
 	local overAbsorb = self.Health:CreateTexture(nil, "OVERLAY")
 	overAbsorb:SetWidth(15)
@@ -1625,9 +1603,9 @@ function UF:CreateAddPower(self)
 	bar:SetHeight(2*C.margin)
 	bar.colorPower = true
 
-	B.SmoothBar(bar)
-
 	local text = B.CreateFS(bar, 12, "")
+
+	B.SmoothBar(bar)
 
 	self.AdditionalPower = bar
 	self.AdditionalPower.Text = text
@@ -1729,8 +1707,7 @@ function UF:CreateFCT(self)
 	if not C.db["UFs"]["CombatText"] then return end
 
 	local parentFrame = CreateFrame("Frame", nil, UIParent)
-	local parentName = self:GetName()
-	local fcf = CreateFrame("Frame", parentName.."CombatTextFrame", parentFrame)
+	local fcf = CreateFrame("Frame", "$parentCombatTextFrame", parentFrame)
 	fcf:SetSize(32, 32)
 	if self.mystyle == "player" then
 		B.Mover(fcf, L["CombatText"], "PlayerCombatText", {"BOTTOM", self, "TOPLEFT", 0, 120})
@@ -1739,10 +1716,10 @@ function UF:CreateFCT(self)
 	end
 
 	for i = 1, 36 do
-		fcf[i] = parentFrame:CreateFontString("$parentText", "OVERLAY")
+		fcf[i] = B.CreateFS(parentFrame, C.db["UFs"]["FCTFontSize"], "")
 	end
 
-	local scrolling = CreateFrame("ScrollingMessageFrame", parentName.."CombatTextScrollingFrame", parentFrame)
+	local scrolling = CreateFrame("ScrollingMessageFrame", "$parentCombatTextScrollingFrame", parentFrame)
 	scrolling:SetSpacing(3)
 	scrolling:SetMaxLines(20)
 	scrolling:SetFadeDuration(.2)

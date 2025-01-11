@@ -528,7 +528,6 @@ function module:ShowCalendar()
 			GameTimeFrame:SetParent(Minimap)
 			GameTimeFrame:ClearAllPoints()
 			GameTimeFrame:SetPoint("BOTTOMRIGHT", Minimap, 1, 18)
-			GameTimeFrame:SetHitRectInsets(0, 0, 0, 0)
 
 			for i = 1, GameTimeFrame:GetNumRegions() do
 				local region = select(i, GameTimeFrame:GetRegions())

@@ -1,6 +1,5 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local r, g, b = DB.r, DB.g, DB.b
 
 -- /run UIParent_OnEvent({}, "WEEKLY_REWARDS_SHOW")
 
@@ -59,7 +58,7 @@ end
 local function reskinConfirmIcon(frame)
 	if frame.bg then return end
 	frame.bg = B.ReskinIcon(frame.Icon)
-	B.ReskinIconBorder(frame.IconBorder, true)
+	B.ReskinBorder(frame.IconBorder, true)
 end
 
 C.themes["Blizzard_WeeklyRewards"] = function()

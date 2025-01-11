@@ -1,6 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local r, g, b = DB.r, DB.g, DB.b
+local cr, cg, cb = DB.r, DB.g, DB.b
 
 C.themes["Blizzard_AzeriteUI"] = function()
 	B.ReskinFrame(AzeriteEmpoweredItemUI)
@@ -24,7 +24,7 @@ local function updateEssenceButton(button)
 
 		local hl = button:GetHighlightTexture()
 		if hl then
-			hl:SetColorTexture(r, g, b, .25)
+			hl:SetColorTexture(cr, cg, cb, .25)
 			hl:SetInside(bg)
 		end
 
@@ -47,7 +47,7 @@ end
 C.themes["Blizzard_AzeriteEssenceUI"] = function()
 	B.ReskinFrame(AzeriteEssenceUI)
 	B.StripTextures(AzeriteEssenceUI.PowerLevelBadgeFrame)
-	B.ReskinTrimScroll(AzeriteEssenceUI.EssenceList.ScrollBar)
+	B.ReskinScroll(AzeriteEssenceUI.EssenceList.ScrollBar)
 
 	for _, milestoneFrame in pairs(AzeriteEssenceUI.Milestones) do
 		if milestoneFrame.LockedState then

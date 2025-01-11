@@ -227,11 +227,9 @@ function module:MapData_ResetTexturePool(texture)
 end
 
 function module:RemoveMapFog()
-	local bu = CreateFrame("CheckButton", nil, WorldMapFrame.BorderFrame.TitleContainer, "OptionsBaseCheckButtonTemplate")
-	bu:SetHitRectInsets(-5, -5, -5, -5)
+	local bu = B.CreateCheckBox(WorldMapFrame.BorderFrame.TitleContainer, true)
 	bu:SetPoint("BOTTOMLEFT", WorldMapFrameHomeButton, "TOPLEFT", -4, 0)
 	bu:SetSize(26, 26)
-	B.ReskinCheck(bu)
 	bu:SetChecked(C.db["Map"]["MapReveal"])
 	bu.text = B.CreateFS(bu, 14, L["Map Reveal"], false, "LEFT", 25, 0)
 

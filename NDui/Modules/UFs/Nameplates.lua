@@ -271,10 +271,9 @@ end
 
 function UF:CreateThreatColor(self)
 	local threatIndicator = B.CreateSD(self, 8, true)
-	threatIndicator:SetFrameLevel(self:GetFrameLevel()+1)
+	threatIndicator:SetFrameLevel(self:GetFrameLevel() + 1)
 	threatIndicator:SetOutside(self, 8+C.mult, 8+C.mult)
 	threatIndicator:Hide()
-	--self.backdrop.__shadow = nil
 
 	self.ThreatIndicator = threatIndicator
 	self.ThreatIndicator.Override = UF.UpdateThreatColor
@@ -1110,7 +1109,7 @@ function UF:CreatePlayerPlate()
 
 	local textFrame = CreateFrame("Frame", nil, self.Power)
 	textFrame:SetAllPoints()
-	textFrame:SetFrameLevel(self:GetFrameLevel() + 5)
+	textFrame:SetFrameLevel(self:GetFrameLevel() + 1)
 	self.powerText = B.CreateFS(textFrame, 14)
 	self:Tag(self.powerText, "[pppower]")
 	UF:TogglePlatePower()

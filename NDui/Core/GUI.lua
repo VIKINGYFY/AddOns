@@ -1589,7 +1589,6 @@ local function CreateOption(i)
 		-- Checkboxes
 		if optType == 1 then
 			local cb = B.CreateCheckBox(parent)
-			cb:SetHitRectInsets(-5, -5, -5, -5)
 			if horizon then
 				cb:SetPoint("TOPLEFT", 330, -offset + 35)
 			else
@@ -1861,7 +1860,7 @@ local function OpenGUI()
 		guiPage[i].child = CreateFrame("Frame", nil, guiPage[i])
 		guiPage[i].child:SetSize(610, 1)
 		guiPage[i]:SetScrollChild(guiPage[i].child)
-		B.ReskinTrimScroll(guiPage[i].ScrollBar)
+		B.ReskinScroll(guiPage[i].ScrollBar)
 		guiPage[i]:SetScript("OnMouseWheel", scrollBarHook)
 
 		CreateOption(i)

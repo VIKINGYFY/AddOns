@@ -7,7 +7,7 @@ local UF = B:GetModule("UnitFrames")
 function UF:CreateRaidIcons(self)
 	local parent = CreateFrame("Frame", nil, self)
 	parent:SetAllPoints()
-	parent:SetFrameLevel(self:GetFrameLevel() + 2)
+	parent:SetFrameLevel(self:GetFrameLevel() + 1)
 
 	local check = parent:CreateTexture(nil, "OVERLAY")
 	check:SetSize(16, 16)
@@ -66,7 +66,7 @@ end
 
 function UF:CreateThreatBorder(self)
 	local threatIndicator = B.CreateSD(self, 6, true)
-	threatIndicator:SetFrameLevel(self:GetFrameLevel()+1)
+	threatIndicator:SetFrameLevel(self:GetFrameLevel() + 1)
 	threatIndicator:SetOutside(self, 6+C.mult, 6+C.mult)
 	threatIndicator:Hide()
 

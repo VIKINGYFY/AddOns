@@ -12,11 +12,9 @@ local QuestLabelPrepend = Enum.GossipOptionRecFlags.QuestLabelPrepend
 local created
 local function setupCheckButton()
 	if created then return end
-	local mono = CreateFrame("CheckButton", nil, QuestMapFrame, "OptionsBaseCheckButtonTemplate")
-	mono:SetHitRectInsets(-5, -5, -5, -5)
+	local mono = B.CreateCheckBox(QuestMapFrame, true)
 	mono:SetPoint("TOPLEFT", 0, 25)
 	mono:SetSize(26, 26)
-	B.ReskinCheck(mono)
 	mono:SetFrameLevel(999)
 	mono.text = B.CreateFS(mono, 14, L["AutoQuest"], false, "LEFT", 25, 0)
 	mono:SetChecked(C.db["Misc"]["AutoQuest"])
@@ -498,7 +496,7 @@ QuestNpcNameFrame:HookScript("OnShow", UnitQuickQuestStatus)
 QuestNpcNameFrame:HookScript("OnMouseDown", ToggleQuickQuestStatus)
 local frame = GossipFrame.TitleContainer
 if frame then
-	GossipFrameCloseButton:SetFrameLevel(frame:GetFrameLevel()+1) -- fix clicking on gossip close button
+	GossipFrameCloseButton:SetFrameLevel(frame:GetFrameLevel() + 1) -- fix clicking on gossip close button
 	frame:HookScript("OnShow", UnitQuickQuestStatus)
 	frame:HookScript("OnMouseDown", ToggleQuickQuestStatus)
 end

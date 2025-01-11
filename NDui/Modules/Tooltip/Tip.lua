@@ -1,5 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
+local cr, cg, cb = DB.r, DB.g, DB.b
 local TT = B:RegisterModule("Tooltip")
 
 local classification = {
@@ -352,18 +353,13 @@ function TT:GameTooltip_SetDefaultAnchor(parent)
 	end
 end
 
-local function TooltipSetFont(font, size)
-	B.SetFontSize(font, size)
-	font:SetShadowColor(0, 0, 0, 0)
-end
-
 function TT:SetupTooltipFonts()
 	local textSize = DB.Font[2] + 2
 	local headerSize = DB.Font[2] + 4
 
-	TooltipSetFont(GameTooltipHeaderText, headerSize)
-	TooltipSetFont(GameTooltipText, textSize)
-	TooltipSetFont(GameTooltipTextSmall, textSize)
+	B.SetFontSize(GameTooltipHeaderText, headerSize)
+	B.SetFontSize(GameTooltipText, textSize)
+	B.SetFontSize(GameTooltipTextSmall, textSize)
 
 	if not GameTooltip.hasMoney then
 		SetTooltipMoney(GameTooltip, 1, nil, "", "")
@@ -372,8 +368,8 @@ function TT:SetupTooltipFonts()
 	end
 	if GameTooltip.hasMoney then
 		for i = 1, GameTooltip.numMoneyFrames do
-			TooltipSetFont(_G["GameTooltipMoneyFrame"..i.."PrefixText"], textSize)
-			TooltipSetFont(_G["GameTooltipMoneyFrame"..i.."SuffixText"], textSize)
+			B.SetFontSize(_G["GameTooltipMoneyFrame"..i.."PrefixText"], textSize)
+			B.SetFontSize(_G["GameTooltipMoneyFrame"..i.."SuffixText"], textSize)
 		end
 	end
 
@@ -381,7 +377,7 @@ function TT:SetupTooltipFonts()
 		for i = 1, tt:GetNumRegions() do
 			local region = select(i, tt:GetRegions())
 			if region:IsObjectType("FontString") then
-				TooltipSetFont(region, textSize)
+				B.SetFontSize(region, textSize)
 			end
 		end
 	end
@@ -511,8 +507,7 @@ TT:RegisterTooltips("NDui", function()
 	hooksecurefunc("UIDropDownMenu_CreateFrames", reskinDropdown)
 
 	-- IME
-	local r, g, b = DB.r, DB.g, DB.b
-	IMECandidatesFrame.selection:SetVertexColor(r, g, b)
+	IMECandidatesFrame.selection:SetVertexColor(cr, cg, cb)
 
 	-- Pet Tooltip
 	PetBattlePrimaryUnitTooltip:HookScript("OnShow", function(self)

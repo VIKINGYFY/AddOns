@@ -12,7 +12,7 @@ C.themes["Blizzard_StableUI"] = function()
 	B.CreateBDFrame(stabledPetList.ListCounter, .25)
 	B.ReskinInput(stabledPetList.FilterBar.SearchBox)
 	B.ReskinFilterButton(stabledPetList.FilterBar.FilterDropdown)
-	B.ReskinTrimScroll(stabledPetList.ScrollBar)
+	B.ReskinScroll(stabledPetList.ScrollBar)
 
 	local modelScene = StableFrame.PetModelScene
 	if modelScene then
@@ -34,5 +34,9 @@ C.themes["Blizzard_StableUI"] = function()
 		end
 
 		B.ReskinModelControl(modelScene)
+
+		if DB.isNewPatch and petInfo.Specialization then
+			B.ReskinDropDown(petInfo.Specialization)
+		end
 	end
 end

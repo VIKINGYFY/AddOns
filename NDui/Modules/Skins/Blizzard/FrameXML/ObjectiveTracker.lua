@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-local r, g, b = DB.r, DB.g, DB.b
+local cr, cg, cb = DB.r, DB.g, DB.b
 local select, pairs = select, pairs
 
 local function reskinQuestIcon(button)
@@ -31,12 +31,12 @@ local function reskinQuestIcons(_, block)
 end
 
 local function reskinHeader(header)
-	header.Text:SetTextColor(r, g, b)
+	header.Text:SetTextColor(cr, cg, cb)
 	header.Background:SetTexture(nil)
 	local bg = header:CreateTexture(nil, "ARTWORK")
 	bg:SetTexture("Interface\\LFGFrame\\UI-LFG-SEPARATOR")
 	bg:SetTexCoord(0, .66, 0, .31)
-	bg:SetVertexColor(r, g, b)
+	bg:SetVertexColor(cr, cg, cb)
 	bg:SetPoint("BOTTOM", 0, -4)
 	bg:SetSize(250, 30)
 	header.bg = bg -- accessable for other addons

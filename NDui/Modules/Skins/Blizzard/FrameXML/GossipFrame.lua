@@ -40,7 +40,7 @@ table.insert(C.defaultThemes, function()
 	QuestFont:SetTextColor(1, 1, 1)
 
 	B.ReskinButton(GossipFrame.GreetingPanel.GoodbyeButton)
-	B.ReskinTrimScroll(GossipFrame.GreetingPanel.ScrollBar)
+	B.ReskinScroll(GossipFrame.GreetingPanel.ScrollBar)
 
 	hooksecurefunc(GossipFrame.GreetingPanel.ScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do

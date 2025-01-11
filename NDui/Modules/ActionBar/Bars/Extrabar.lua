@@ -53,10 +53,7 @@ function Bar:CreateExtrabar()
 				local bubg = B.CreateBDFrame(spellButton, .25)
 				B.ReskinHLTex(spellButton, bubg)
 				B.ReskinCPTex(spellButton, bubg)
-
-				spellButton.Cooldown:SetInside(bubg)
-				spellButton.Icon:SetInside(bubg)
-				spellButton.Icon:SetTexCoord(unpack(DB.TexCoord))
+				B.UpdateButton(spellButton, bubg)
 
 				spellButton.styled = true
 			end

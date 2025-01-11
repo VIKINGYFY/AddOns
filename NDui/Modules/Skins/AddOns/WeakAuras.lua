@@ -2,9 +2,6 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local S = B:GetModule("Skins")
 
-local pairs = pairs
-local x1, x2, y1, y2 = unpack(DB.TexCoord)
-
 local function UpdateIconBgAlpha(icon, _, _, _, alpha)
 	icon.bg:SetAlpha(alpha)
 	if icon.bg.__shadow then
@@ -18,7 +15,7 @@ local function UpdateIconTexCoord(icon)
 
 	local width, height = icon:GetSize()
 	if width ~= 0 and height ~= 0 then
-		local left, right, top, bottom = x1, x2, y1, y2 -- normal icon
+		local left, right, top, bottom = unpack(DB.TexCoord) -- normal icon
 		local ratio = width/height
 		if ratio > 1 then -- fat icon
 			local offset = (1 - 1/ratio) / 2

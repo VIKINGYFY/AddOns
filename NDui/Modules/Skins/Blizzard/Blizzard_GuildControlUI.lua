@@ -20,7 +20,7 @@ local function updateGuildRanks()
 end
 
 C.themes["Blizzard_GuildControlUI"] = function()
-	local r, g, b = DB.r, DB.g, DB.b
+	local cr, cg, cb = DB.r, DB.g, DB.b
 
 	B.SetBD(GuildControlUI)
 
@@ -65,14 +65,14 @@ C.themes["Blizzard_GuildControlUI"] = function()
 
 					local check = box:GetCheckedTexture()
 					check:SetDesaturated(true)
-					check:SetVertexColor(r, g, b)
+					check:SetVertexColor(cr, cg, cb)
 
 					local bg = B.CreateBDFrame(box, 0, true)
 					bg:SetInside(box, 4, 4)
 
 					local hl = box:GetHighlightTexture()
 					hl:SetInside(bg)
-					hl:SetVertexColor(r, g, b, .25)
+					hl:SetVertexColor(cr, cg, cb, .25)
 				end
 
 				bu.styled = true
@@ -90,7 +90,7 @@ C.themes["Blizzard_GuildControlUI"] = function()
 
 	B.ReskinButton(GuildControlUIRankOrderFrameNewButton)
 	B.ReskinClose(GuildControlUICloseButton)
-	B.ReskinTrimScroll(GuildControlUIRankBankFrameInsetScrollFrame.ScrollBar)
+	B.ReskinScroll(GuildControlUIRankBankFrameInsetScrollFrame.ScrollBar)
 	B.ReskinDropDown(GuildControlUINavigationDropdown)
 	B.ReskinDropDown(GuildControlUIRankSettingsFrameRankDropdown)
 	B.ReskinDropDown(GuildControlUIRankBankFrameRankDropdown)

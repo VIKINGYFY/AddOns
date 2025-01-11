@@ -1,6 +1,5 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local r, g, b = DB.r, DB.g, DB.b
 
 table.insert(C.defaultThemes, function()
 	if not C.db["Skins"]["BlizzardSkins"] then return end
@@ -167,7 +166,7 @@ table.insert(C.defaultThemes, function()
 	B.ReskinRadio(CombatConfigColorsColorizeEntireLineByTarget)
 	B.ReskinColorSwatch(CombatConfigColorsColorizeSpellNamesColorSwatch)
 	B.ReskinColorSwatch(CombatConfigColorsColorizeDamageNumberColorSwatch)
-	B.ReskinTrimScroll(ChatConfigCombatSettingsFilters.ScrollBar)
+	B.ReskinScroll(ChatConfigCombatSettingsFilters.ScrollBar)
 
 	ChatConfigMoveFilterUpButton:SetSize(22, 22)
 	ChatConfigMoveFilterDownButton:SetSize(22, 22)

@@ -133,7 +133,7 @@ function A:UpdateAuras(button, index)
 	end
 
 	button.spellID = auraData.spellId
-	button.icon:SetTexture(auraData.icon)
+	button.Icon:SetTexture(auraData.icon)
 	button.expiration = nil
 end
 
@@ -143,7 +143,7 @@ function A:UpdateTempEnchant(button, index)
 		local quality = GetInventoryItemQuality("player", index)
 		local color = DB.QualityColors[quality or 1]
 		button:SetBackdropBorderColor(color.r, color.g, color.b)
-		button.icon:SetTexture(GetInventoryItemTexture("player", index))
+		button.Icon:SetTexture(GetInventoryItemTexture("player", index))
 
 		button.expiration = expirationTime
 		button.oldTime = GetTime()
@@ -288,23 +288,13 @@ function A:CreateAuraIcon(button)
 	end
 	local fontSize = math.floor(cfg.size/30*12 + .5)
 
-	button.bg = B.SetBD(button)
+	B.AuraIcon(button, true, true)
 
-	button.icon = button:CreateTexture(nil, "BORDER")
-	button.icon:SetInside(button.bg)
-	button.icon:SetTexCoord(unpack(DB.TexCoord))
+	button.count = B.CreateFS(button, fontSize, "")
+	B.UpdatePoint(button.count, "TOPRIGHT", button, "TOPRIGHT", -1, -3)
 
-	button.count = button:CreateFontString(nil, "ARTWORK")
-	button.count:SetPoint("TOPRIGHT", -1, -3)
-	B.SetFontSize(button.count, fontSize)
-
-	button.timer = button:CreateFontString(nil, "ARTWORK")
-	button.timer:SetPoint("TOP", button, "BOTTOM", 1, 2)
-	B.SetFontSize(button.timer, fontSize)
-
-	button.highlight = button:CreateTexture(nil, "HIGHLIGHT")
-	button.highlight:SetColorTexture(1, 1, 1, .25)
-	button.highlight:SetInside(button.bg)
+	button.timer = B.CreateFS(button, fontSize, "")
+	B.UpdatePoint(button.timer, "TOP", button, "BOTTOM", 1, 2)
 
 	button:RegisterForClicks("RightButtonUp", "RightButtonDown")
 	button:SetScript("OnAttributeChanged", A.OnAttributeChanged)

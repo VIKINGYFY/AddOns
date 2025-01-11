@@ -45,23 +45,21 @@ function UF:CreateSpellsIndicator(self)
 
 	local buttons = {}
 	for _, anchor in pairs(anchors) do
-		local button = CreateFrame("Frame", nil, self.Health)
-		button:SetFrameLevel(self:GetFrameLevel()+10)
+		local button = CreateFrame("Frame", nil, self)
+		button:SetFrameLevel(self:GetFrameLevel() + 1)
 		button:SetSize(spellSize, spellSize)
 		button:SetPoint(anchor)
+
+		B.AuraIcon(button)
 		button:Hide()
 
-		button.icon = button:CreateTexture(nil, "BORDER")
-		button.icon:SetAllPoints()
-		button.bg = B.ReskinIcon(button.icon)
+		local parentFrame = CreateFrame("Frame", nil, button)
+		parentFrame:SetAllPoints()
+		parentFrame:SetFrameLevel(button:GetFrameLevel() + 1)
 
-		button.cd = CreateFrame("Cooldown", nil, button, "CooldownFrameTemplate")
-		button.cd:SetAllPoints()
-		button.cd:SetReverse(true)
-		button.cd:SetHideCountdownNumbers(true)
-
-		button.timer = B.CreateFS(button, 12, "", false, "CENTER", -counterOffsets[anchor][2][3], 0)
-		button.count = B.CreateFS(button, 12, "")
+		button.timer = B.CreateFS(parentFrame, 12, "", false, "CENTER", -counterOffsets[anchor][2][3], 0)
+		button.count = B.CreateFS(parentFrame, 12, "", false, "CENTER", 1, 0)
+		button.CD:SetHideCountdownNumbers(true)
 
 		button.anchor = anchor
 		buttons[anchor] = button
@@ -85,15 +83,15 @@ function UF:SpellsIndicator_UpdateButton(button, aura, r, g, b)
 		button.timer:SetTextColor(r, g, b)
 	else
 		if aura.duration and aura.duration > 0 then
-			button.cd:SetCooldown(aura.expiration - aura.duration, aura.duration)
-			button.cd:Show()
+			button.CD:SetCooldown(aura.expiration - aura.duration, aura.duration)
+			button.CD:Show()
 		else
-			button.cd:Hide()
+			button.CD:Hide()
 		end
 		if C.db["UFs"]["BuffIndicatorType"] == 1 then
-			button.icon:SetVertexColor(r, g, b)
+			button.Icon:SetVertexColor(r, g, b)
 		else
-			button.icon:SetTexture(aura.texture)
+			button.Icon:SetTexture(aura.texture)
 		end
 	end
 
@@ -113,8 +111,8 @@ function UF:RefreshBuffIndicator(bu)
 		bu.timer:Show()
 		bu.count:ClearAllPoints()
 		bu.count:SetPoint(point, bu.timer, anchorPoint, x, y)
-		bu.icon:Hide()
-		bu.cd:Hide()
+		bu.Icon:Hide()
+		bu.CD:Hide()
 		bu.bg:Hide()
 	else
 		bu:SetScript("OnUpdate", nil)
@@ -122,12 +120,12 @@ function UF:RefreshBuffIndicator(bu)
 		bu.count:ClearAllPoints()
 		bu.count:SetPoint("CENTER", unpack(counterOffsets[bu.anchor][1]))
 		if C.db["UFs"]["BuffIndicatorType"] == 1 then
-			bu.icon:SetTexture(DB.bdTex)
+			bu.Icon:SetTexture(DB.bdTex)
 		else
-			bu.icon:SetVertexColor(1, 1, 1)
+			bu.Icon:SetVertexColor(1, 1, 1)
 		end
-		bu.icon:Show()
-		bu.cd:Show()
+		bu.Icon:Show()
+		bu.CD:Show()
 		bu.bg:Show()
 	end
 end

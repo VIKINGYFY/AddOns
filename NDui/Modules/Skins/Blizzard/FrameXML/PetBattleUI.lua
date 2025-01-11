@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-local r, g, b, pairs = DB.r, DB.g, DB.b, pairs
+local cr, cg, cb = DB.r, DB.g, DB.b
 local LE_BATTLE_PET_ALLY = Enum.BattlePetOwner.Ally
 
 table.insert(C.defaultThemes, function()
@@ -113,7 +113,6 @@ table.insert(C.defaultThemes, function()
 		unit.healthBg:SetPoint("TOPLEFT", unit.ActualHealthBar, -mult, mult)
 		unit.healthBg:SetPoint("BOTTOMLEFT", unit.ActualHealthBar, -mult, -mult)
 		unit.healthBg:SetWidth(unit.healthBarWidth + 2*mult)
-		unit.healthBg:SetFrameLevel(unit:GetFrameLevel())
 
 		if index < 3 then
 			unit.ActualHealthBar:SetGradient("VERTICAL", CreateColor(.26, 1, .22, 1), CreateColor(.13, .5, .11, 1))
@@ -230,7 +229,7 @@ table.insert(C.defaultThemes, function()
 			bu.SelectedHighlight:SetPoint("TOPLEFT", bu, -12, 12)
 			bu.SelectedHighlight:SetPoint("BOTTOMRIGHT", bu, 12, -12)
 		end
-		buttonList[4]:GetCheckedTexture():SetColorTexture(r, g, b, .25)
+		buttonList[4]:GetCheckedTexture():SetColorTexture(cr, cg, cb, .25)
 	end)
 
 	local skipButton = bottomFrame.TurnTimer.SkipButton
@@ -239,8 +238,7 @@ table.insert(C.defaultThemes, function()
 	B.StripTextures(skipButton)
 	B.PixelIcon(skipButton, "Interface\\Icons\\Ability_Foundryraid_Dormant", true)
 	B.CreateSD(skipButton.bg)
-	skipButton.HL:SetAllPoints(skipButton)
-	skipButton:SetPushedTexture(DB.pushedTex)
+	B.ReskinCPTex(skipButton, skipButton.bg)
 
 	local xpbar = PetBattleFrameXPBar
 	xpbar:SetParent(bar)
@@ -304,7 +302,7 @@ table.insert(C.defaultThemes, function()
 		frame:SetFrameLevel(0)
 		local tex = B.SetGradient(frame, "H", 0, 0, 0, v[1], v[2], width, height)
 		tex:SetPoint("CENTER")
-		local line = B.SetGradient(frame, "H", r, g, b, v[1], v[2], width, C.mult)
+		local line = B.SetGradient(frame, "H", cr, cg, cb, v[1], v[2], width, C.mult)
 		line:SetPoint("BOTTOM", frame, "TOP")
 
 		RegisterStateDriver(frame, "visibility", visibleState)

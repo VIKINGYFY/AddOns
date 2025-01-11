@@ -85,12 +85,11 @@ end
 
 function module:ChatCopy_Create()
 	frame = CreateFrame("Frame", "NDuiChatCopy", UIParent)
+	frame:SetFrameStrata("DIALOG")
 	frame:SetPoint("CENTER")
 	frame:SetSize(700, 400)
 	frame:Hide()
-	frame:SetFrameStrata("DIALOG")
-	B.CreateMF(frame)
-	B.SetBD(frame)
+
 	frame.close = CreateFrame("Button", nil, frame, "UIPanelCloseButton")
 	frame.close:SetPoint("TOPRIGHT", frame)
 
@@ -116,9 +115,6 @@ function module:ChatCopy_Create()
 	end)
 
 	scrollArea:SetScrollChild(editBox)
-	scrollArea:HookScript("OnVerticalScroll", function(self, offset)
-		editBox:SetHitRectInsets(0, 0, offset, (editBox:GetHeight() - offset - self:GetHeight()))
-	end)
 
 	local copy = CreateFrame("Button", "NDuiChatCopyButton", UIParent)
 	copy:SetPoint("BOTTOMRIGHT", _G.ChatFrame1, 15, -6)
@@ -134,8 +130,10 @@ function module:ChatCopy_Create()
 	copy:HookScript("OnEnter", function() copy:SetAlpha(1) end)
 	copy:HookScript("OnLeave", function() copy:SetAlpha(.5) end)
 
+	B.CreateMF(frame)
+	B.SetBD(frame)
 	B.ReskinClose(frame.close)
-	B.ReskinTrimScroll(ChatCopyScrollFrameScrollBar)
+	B.ReskinScroll(ChatCopyScrollFrameScrollBar)
 end
 
 function module:ChatCopy()

@@ -67,10 +67,10 @@ table.insert(C.defaultThemes, function()
 	B.ReskinButton(QuestFrameGoodbyeButton)
 	B.ReskinButton(QuestFrameGreetingGoodbyeButton)
 
-	B.ReskinTrimScroll(QuestProgressScrollFrame.ScrollBar)
-	B.ReskinTrimScroll(QuestRewardScrollFrame.ScrollBar)
-	B.ReskinTrimScroll(QuestDetailScrollFrame.ScrollBar)
-	B.ReskinTrimScroll(QuestGreetingScrollFrame.ScrollBar)
+	B.ReskinScroll(QuestProgressScrollFrame.ScrollBar)
+	B.ReskinScroll(QuestRewardScrollFrame.ScrollBar)
+	B.ReskinScroll(QuestDetailScrollFrame.ScrollBar)
+	B.ReskinScroll(QuestGreetingScrollFrame.ScrollBar)
 
 	-- Text colour stuff
 
@@ -99,7 +99,7 @@ table.insert(C.defaultThemes, function()
 	bg:SetOutside(nil, nil, nil, QuestModelScene.ModelTextFrame)
 
 	if QuestNPCModelTextScrollFrame then
-		B.ReskinTrimScroll(QuestNPCModelTextScrollFrame.ScrollBar)
+		B.ReskinScroll(QuestNPCModelTextScrollFrame.ScrollBar)
 	end
 
 	hooksecurefunc("QuestFrame_ShowQuestPortrait", function(parentFrame, _, _, _, _, _, x, y)

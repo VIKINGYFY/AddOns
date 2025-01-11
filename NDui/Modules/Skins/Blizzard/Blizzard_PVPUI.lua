@@ -26,7 +26,7 @@ local function ConquestFrameButton_OnEnter(self)
 end
 
 C.themes["Blizzard_PVPUI"] = function()
-	local r, g, b = DB.r, DB.g, DB.b
+	local cr, cg, cb = DB.r, DB.g, DB.b
 
 	local PVPQueueFrame = PVPQueueFrame
 	local HonorFrame = HonorFrame
@@ -43,7 +43,7 @@ C.themes["Blizzard_PVPUI"] = function()
 		bu.Ring:Hide()
 		B.ReskinButton(bu)
 		bu.Background:SetInside(bu.__bg)
-		bu.Background:SetColorTexture(r, g, b, .25)
+		bu.Background:SetColorTexture(cr, cg, cb, .25)
 		bu.Background:SetAlpha(1)
 
 		icon:SetPoint("LEFT", bu, "LEFT")
@@ -109,7 +109,7 @@ C.themes["Blizzard_PVPUI"] = function()
 	ReskinPvPFrame(HonorFrame)
 	B.ReskinButton(HonorFrame.QueueButton)
 	B.ReskinDropDown(HonorFrameTypeDropdown)
-	B.ReskinTrimScroll(HonorFrame.SpecificScrollBar)
+	B.ReskinScroll(HonorFrame.SpecificScrollBar)
 
 	hooksecurefunc(HonorFrame.SpecificScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
@@ -125,7 +125,7 @@ C.themes["Blizzard_PVPUI"] = function()
 				bg:SetPoint("BOTTOMRIGHT", -1, 2)
 
 				button.SelectedTexture:SetDrawLayer("BACKGROUND")
-				button.SelectedTexture:SetColorTexture(r, g, b, .25)
+				button.SelectedTexture:SetColorTexture(cr, cg, cb, .25)
 				button.SelectedTexture:SetInside(bg)
 
 				B.ReskinIcon(button.Icon)
@@ -144,7 +144,7 @@ C.themes["Blizzard_PVPUI"] = function()
 		local bu = bonusFrame[bonusButton]
 		B.ReskinButton(bu)
 		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
-		bu.SelectedTexture:SetColorTexture(r, g, b, .25)
+		bu.SelectedTexture:SetColorTexture(cr, cg, cb, .25)
 		bu.SelectedTexture:SetInside(bu.__bg)
 
 		local reward = bu.Reward
@@ -179,7 +179,7 @@ C.themes["Blizzard_PVPUI"] = function()
 			end
 
 			bu.SelectedTexture:SetDrawLayer("BACKGROUND")
-			bu.SelectedTexture:SetColorTexture(r, g, b, .25)
+			bu.SelectedTexture:SetColorTexture(cr, cg, cb, .25)
 			bu.SelectedTexture:SetInside(bu.__bg)
 		end
 	end

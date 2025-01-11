@@ -83,7 +83,7 @@ function M:ContactButton_Create(parent, index)
 	button:SetScript("OnClick", M.ContactButton_OnClick)
 
 	button.delete = B.CreateButton(button, 20, 20, true, DB.closeTex)
-	button.delete:SetPoint("LEFT", button, "RIGHT", 2, 0)
+	button.delete:SetPoint("LEFT", button, "RIGHT", 1, 0)
 	button.delete.__owner = button
 	button.delete:SetScript("OnClick", M.ContactButton_Delete)
 
@@ -170,8 +170,8 @@ function M:MailBox_ContactList()
 	bu:SetPoint("LEFT", SendMailNameEditBox, "RIGHT", 20, 0)
 
 	local list = CreateFrame("Frame", nil, bu)
-	list:SetSize(200, 422)
-	list:SetPoint("TOPLEFT", MailFrame, "TOPRIGHT", 3, -C.mult)
+	list:SetSize(200, 424)
+	list:SetPoint("TOPLEFT", MailFrame, "TOPRIGHT", C.margin, 0)
 	list:SetFrameStrata("Tooltip")
 	B.SetBD(list)
 	B.CreateFS(list, 14, L["ContactList"], "system", "TOP", 0, -5)
@@ -207,7 +207,7 @@ function M:MailBox_ContactList()
 
 	local scrollBar = CreateFrame("Slider", "$parentScrollBar", scrollFrame, "HybridScrollBarTemplate")
 	scrollBar.doNotHide = true
-	B.ReskinTrimScroll(scrollBar)
+	B.ReskinScroll(scrollBar)
 	scrollFrame.scrollBar = scrollBar
 
 	local scrollChild = scrollFrame.scrollChild
@@ -339,12 +339,9 @@ function M:CollectCurrentButton()
 end
 
 function M:LastMailSaver()
-	local mailSaver = CreateFrame("CheckButton", nil, SendMailFrame, "OptionsBaseCheckButtonTemplate")
-	mailSaver:SetHitRectInsets(0, 0, 0, 0)
+	local mailSaver = B.CreateCheckBox(SendMailFrame, true)
 	mailSaver:SetPoint("LEFT", SendMailNameEditBox, "RIGHT", 0, 0)
 	mailSaver:SetSize(24, 24)
-	B.ReskinCheck(mailSaver)
-	mailSaver.bg:SetBackdropBorderColor(1, .8, 0)
 
 	mailSaver:SetChecked(C.db["Misc"]["MailSaver"])
 	mailSaver:SetScript("OnClick", function(self)
@@ -380,9 +377,8 @@ function M:ArrangeDefaultElements()
 	InboxTooMuchMail:ClearAllPoints()
 	InboxTooMuchMail:SetPoint("BOTTOM", MailFrame, "TOP", 0, 5)
 
-	SendMailNameEditBox:SetWidth(155)
-	SendMailNameEditBoxMiddle:SetWidth(146)
-	SendMailCostMoneyFrame:SetAlpha(0)
+	SendMailNameEditBox:SetWidth(200)
+	SendMailSubjectEditBox:SetWidth(200)
 
 	SendMailMailButton:HookScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_TOP")

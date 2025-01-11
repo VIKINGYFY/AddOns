@@ -1,11 +1,11 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local r, g, b = DB.r, DB.g, DB.b
+local cr, cg, cb = DB.r, DB.g, DB.b
 
 local function SetupButtonHighlight(button, bg)
 	button:SetHighlightTexture(DB.bdTex)
 	local hl = button:GetHighlightTexture()
-	hl:SetVertexColor(r, g, b, .25)
+	hl:SetVertexColor(cr, cg, cb, .25)
 	hl:SetInside(bg)
 end
 
@@ -92,7 +92,7 @@ C.themes["Blizzard_AchievementUI"] = function()
 	bg:SetPoint("BOTTOMRIGHT")
 
 	B.ReskinClose(result.CloseButton)
-	B.ReskinTrimScroll(result.ScrollBar)
+	B.ReskinScroll(result.ScrollBar)
 	hooksecurefunc(result.ScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
 			local child = select(i, self.ScrollTarget:GetChildren())
@@ -110,7 +110,7 @@ C.themes["Blizzard_AchievementUI"] = function()
 
 	-- AchievementFrameCategories
 	B.StripTextures(AchievementFrameCategories)
-	B.ReskinTrimScroll(AchievementFrameCategories.ScrollBar)
+	B.ReskinScroll(AchievementFrameCategories.ScrollBar)
 	hooksecurefunc(AchievementFrameCategories.ScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
 			local child = select(i, self.ScrollTarget:GetChildren())
@@ -128,7 +128,7 @@ C.themes["Blizzard_AchievementUI"] = function()
 	end)
 
 	B.StripTextures(AchievementFrameAchievements)
-	B.ReskinTrimScroll(AchievementFrameAchievements.ScrollBar)
+	B.ReskinScroll(AchievementFrameAchievements.ScrollBar)
 	select(3, AchievementFrameAchievements:GetChildren()):Hide()
 
 	hooksecurefunc(AchievementFrameAchievements.ScrollBox, "Update", function(self)
@@ -233,7 +233,7 @@ C.themes["Blizzard_AchievementUI"] = function()
 	-- Summaries
 	AchievementFrameStatsBG:Hide()
 	select(4, AchievementFrameStats:GetChildren()):Hide()
-	B.ReskinTrimScroll(AchievementFrameStats.ScrollBar)
+	B.ReskinScroll(AchievementFrameStats.ScrollBar)
 	hooksecurefunc(AchievementFrameStats.ScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
 			local child = select(i, self.ScrollTarget:GetChildren())
@@ -261,7 +261,7 @@ C.themes["Blizzard_AchievementUI"] = function()
 
 	B.StripTextures(AchievementFrameComparison)
 	select(5, AchievementFrameComparison:GetChildren()):Hide()
-	B.ReskinTrimScroll(AchievementFrameComparison.AchievementContainer.ScrollBar)
+	B.ReskinScroll(AchievementFrameComparison.AchievementContainer.ScrollBar)
 
 	local function handleCompareSummary(frame)
 		B.StripTextures(frame)

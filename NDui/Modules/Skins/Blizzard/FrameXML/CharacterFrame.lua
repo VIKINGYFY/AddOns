@@ -9,7 +9,7 @@ end
 table.insert(C.defaultThemes, function()
 	if not C.db["Skins"]["BlizzardSkins"] then return end
 
-	local r, g, b = DB.r, DB.g, DB.b
+	local cr, cg, cb = DB.r, DB.g, DB.b
 
 	B.ReskinFrame(CharacterFrame)
 	B.StripTextures(CharacterFrameInsetRight)
@@ -106,7 +106,7 @@ table.insert(C.defaultThemes, function()
 	local categories = {pane.ItemLevelCategory, pane.AttributesCategory, pane.EnhancementsCategory}
 	for _, category in pairs(categories) do
 		category.Background:Hide()
-		category.Title:SetTextColor(r, g, b)
+		category.Title:SetTextColor(cr, cg, cb)
 		local line = category:CreateTexture(nil, "ARTWORK")
 		line:SetSize(180, C.mult)
 		line:SetPoint("BOTTOM", 0, 5)
@@ -139,7 +139,7 @@ table.insert(C.defaultThemes, function()
 	-- [[ Equipment manager ]]
 	B.ReskinButton(PaperDollFrameEquipSet)
 	B.ReskinButton(PaperDollFrameSaveSet)
-	B.ReskinTrimScroll(PaperDollFrame.EquipmentManagerPane.ScrollBar)
+	B.ReskinScroll(PaperDollFrame.EquipmentManagerPane.ScrollBar)
 
 	hooksecurefunc(PaperDollFrame.EquipmentManagerPane.ScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
@@ -153,7 +153,7 @@ table.insert(C.defaultThemes, function()
 
 				child.HighlightBar:SetColorTexture(1, 1, 1, .25)
 				child.HighlightBar:SetDrawLayer("BACKGROUND")
-				child.SelectedBar:SetColorTexture(r, g, b, .25)
+				child.SelectedBar:SetColorTexture(cr, cg, cb, .25)
 				child.SelectedBar:SetDrawLayer("BACKGROUND")
 				child.Check:SetAtlas("checkmark-minimal")
 
@@ -165,7 +165,7 @@ table.insert(C.defaultThemes, function()
 	B.ReskinIconSelector(GearManagerPopupFrame)
 
 	-- TitlePane
-	B.ReskinTrimScroll(PaperDollFrame.TitleManagerPane.ScrollBar)
+	B.ReskinScroll(PaperDollFrame.TitleManagerPane.ScrollBar)
 
 	hooksecurefunc(PaperDollFrame.TitleManagerPane.ScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
@@ -231,7 +231,7 @@ table.insert(C.defaultThemes, function()
 	end
 	hooksecurefunc(ReputationFrame.ScrollBox, "Update", updateReputationBars)
 
-	B.ReskinTrimScroll(ReputationFrame.ScrollBar)
+	B.ReskinScroll(ReputationFrame.ScrollBar)
 	B.ReskinDropDown(ReputationFrame.filterDropdown)
 
 	local detailFrame = ReputationFrame.ReputationDetailFrame
@@ -242,10 +242,10 @@ table.insert(C.defaultThemes, function()
 	B.ReskinCheck(detailFrame.MakeInactiveCheckbox)
 	B.ReskinCheck(detailFrame.WatchFactionCheckbox)
 	B.ReskinButton(detailFrame.ViewRenownButton)
-	B.ReskinTrimScroll(detailFrame.ScrollingDescriptionScrollBar)
+	B.ReskinScroll(detailFrame.ScrollingDescriptionScrollBar)
 
 	-- Token frame
-	B.ReskinTrimScroll(TokenFrame.ScrollBar) -- taint if touching thumb, needs review
+	B.ReskinScroll(TokenFrame.ScrollBar) -- taint if touching thumb, needs review
 	B.ReskinDropDown(TokenFrame.filterDropdown)
 	if TokenFramePopup.CloseButton then -- blizz typo by parentKey "CloseButton" into "$parent.CloseButton"
 		B.ReskinClose(TokenFramePopup.CloseButton)
@@ -259,7 +259,7 @@ table.insert(C.defaultThemes, function()
 
 	NoTaintArrow(TokenFrame.CurrencyTransferLogToggleButton, "right") -- taint control, needs review
 	B.ReskinFrame(CurrencyTransferLog)
-	B.ReskinTrimScroll(CurrencyTransferLog.ScrollBar)
+	B.ReskinScroll(CurrencyTransferLog.ScrollBar)
 
 	local function handleCurrencyIcon(button)
 		local icon = button.CurrencyIcon
@@ -319,7 +319,7 @@ table.insert(C.defaultThemes, function()
 	B.SetBD(TokenFramePopup)
 
 	-- Quick Join
-	B.ReskinTrimScroll(QuickJoinFrame.ScrollBar)
+	B.ReskinScroll(QuickJoinFrame.ScrollBar)
 	B.ReskinButton(QuickJoinFrame.JoinQueueButton)
 
 	B.SetBD(QuickJoinRoleSelectionFrame)

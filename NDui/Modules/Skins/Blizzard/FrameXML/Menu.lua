@@ -21,7 +21,7 @@ table.insert(C.defaultThemes, function()
 		end
 
 		if not menuFrame.ScrollBar.styled then
-			B.ReskinTrimScroll(menuFrame.ScrollBar)
+			B.ReskinScroll(menuFrame.ScrollBar)
 			menuFrame.ScrollBar.styled = true
 		end
 

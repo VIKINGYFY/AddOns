@@ -546,6 +546,7 @@ do
 	-- Fontstring
 	function B:SetFontSize(size)
 		self:SetFont(DB.Font[1], size, DB.Font[3])
+		self:SetShadowColor(0, 0, 0, 0)
 	end
 
 	local justifyList = {
@@ -562,11 +563,10 @@ do
 
 	function B:CreateFS(size, text, color, anchor, x, y)
 		local fs = self:CreateFontString(nil, "OVERLAY")
-		B.SetFontSize(fs, size)
-		fs:SetText(text)
-		fs:SetWordWrap(false)
-		--fs:SetJustifyV("CENTER")
+		fs:SetFont(DB.Font[1], size, DB.Font[3])
 		fs:SetShadowColor(0, 0, 0, 0)
+		fs:SetWordWrap(false)
+		fs:SetText(text)
 
 		if color and type(color) == "boolean" then
 			fs:SetTextColor(cr, cg, cb)
@@ -629,7 +629,7 @@ do
 		local frame = CreateFrame("Frame", nil, self)
 		frame:SetPoint("CENTER")
 		frame:SetSize(size+8, size+8)
-		frame:SetFrameLevel(frame:GetFrameLevel()+1)
+		frame:SetFrameLevel(frame:GetFrameLevel() + 1)
 
 		return frame
 	end
@@ -660,7 +660,7 @@ do
 		local frame = self
 		if self:IsObjectType("Texture") then frame = self:GetParent() end
 
-		local tex = frame:CreateTexture(nil, "BACKGROUND", nil, 1)
+		local tex = frame:CreateTexture(nil, "BACKGROUND")
 		tex:SetAllPoints(self)
 		tex:SetTexture(DB.bgTex, true, true)
 		tex:SetHorizTile(true)
@@ -725,9 +725,8 @@ do
 		local frame = self
 		if self:IsObjectType("Texture") then frame = self:GetParent() end
 
-		local lvl = frame:GetFrameLevel()
 		local bg = CreateFrame("Frame", nil, frame, "BackdropTemplate")
-		bg:SetFrameLevel(lvl <= 0 and 0 or lvl - 1)
+		bg:SetFrameLevel(frame:GetFrameLevel())
 
 		local value = offset and math.abs(offset) or 0
 		if (offset and offset <= 0) or (not offset) then
@@ -759,10 +758,8 @@ do
 	end
 
 	-- Handle icons
-	local x1, x2, y1, y2 = unpack(DB.TexCoord)
-
 	function B:ReskinIcon(shadow)
-		self:SetTexCoord(x1, x2, y1, y2)
+		self:SetTexCoord(unpack(DB.TexCoord))
 
 		if self.SetDrawLayer then
 			if self:GetDrawLayer() == "BACKGROUND" or self:GetDrawLayer() == "BORDER" then
@@ -778,9 +775,10 @@ do
 
 	function B:PixelIcon(texture, highlight)
 		self.bg = B.CreateBDFrame(self, .25)
+
 		self.Icon = self:CreateTexture(nil, "ARTWORK")
 		self.Icon:SetInside(self.bg)
-		self.Icon:SetTexCoord(x1, x2, y1, y2)
+		self.Icon:SetTexCoord(unpack(DB.TexCoord))
 
 		if texture then
 			local atlas = string.match(texture, "Atlas:(.+)$")
@@ -798,13 +796,15 @@ do
 		end
 	end
 
-	function B:AuraIcon(highlight)
+	function B:AuraIcon(highlight, noCooldown)
 		B.PixelIcon(self, nil, highlight)
 		B.CreateSD(self.bg)
 
-		self.CD = CreateFrame("Cooldown", nil, self, "CooldownFrameTemplate")
-		self.CD:SetInside(self.bg)
-		self.CD:SetReverse(true)
+		if not noCooldown then
+			self.CD = CreateFrame("Cooldown", nil, self, "CooldownFrameTemplate")
+			self.CD:SetInside(self.bg)
+			self.CD:SetReverse(true)
+		end
 	end
 
 	function B:CreateGear(name)
@@ -877,9 +877,13 @@ do
 		end
 	end
 	function B:ReskinBorder(needInit, useAtlas)
+		if not self then return end
+
 		self:SetAlpha(0)
 		self.__owner = self:GetParent()
+
 		if not self.__owner.bg then return end
+
 		if useAtlas or self.__owner.useCircularIconBorder then -- for auction item display
 			hooksecurefunc(self, "SetAtlas", updateIconBorderColorByAtlas)
 			hooksecurefunc(self, "SetTexture", resetIconBorderColor)
@@ -911,6 +915,8 @@ do
 		bar.bd = B.SetBD(bar)
 
 		if bg then
+			bar.bd:SetFrameLevel(bar:GetFrameLevel() - 1)
+
 			bar.bg = bar:CreateTexture(nil, "BACKGROUND")
 			bar.bg:SetTexture(DB.normTex)
 			bar.bg:SetInside(bar.bd)
@@ -974,7 +980,6 @@ do
 		B.CleanTextures(self, 99, override)
 
 		self.__bg = B.CreateBDFrame(self, 0, true)
-		self.__bg:SetFrameLevel(self:GetFrameLevel())
 
 		self:HookScript("OnEnter", Button_OnEnter)
 		self:HookScript("OnLeave", Button_OnLeave)
@@ -1035,7 +1040,8 @@ do
 		thumb.__gradient:SetVertexColor(.5, .5, .5, .25)
 	end
 
-	local function updateScrollArrow(arrow)
+	local function updateScrollArrow(self)
+		local arrow = self.__owner or self
 		if not arrow.__texture then return end
 
 		if arrow:IsEnabled() then
@@ -1044,17 +1050,6 @@ do
 			arrow.__texture:SetAlpha(.5)
 		end
 	end
-	local function updateTrimScrollArrow(self, atlas)
-		local arrow = self.__owner
-		if not arrow.__texture then return end
-
-		if arrow:IsEnabled() then
-			arrow.__texture:SetAlpha(1)
-		else
-			arrow.__texture:SetAlpha(.5)
-		end
-	end
-
 	local function reskinScrollArrow(self, direction)
 		if not self then return end
 
@@ -1064,15 +1059,14 @@ do
 
 		if self.Texture then
 			self.Texture.__owner = self
-			hooksecurefunc(self.Texture, "SetAtlas", updateTrimScrollArrow)
+			hooksecurefunc(self.Texture, "SetAtlas", updateScrollArrow)
 		else
 			hooksecurefunc(self, "Enable", updateScrollArrow)
 			hooksecurefunc(self, "Disable", updateScrollArrow)
 		end
 	end
 
-	-- WowTrimScrollBar
-	function B:ReskinTrimScroll()
+	function B:ReskinScroll()
 		B.StripTextures(self, 99)
 
 		local thumb
@@ -1082,9 +1076,6 @@ do
 				track:DisableDrawLayer("ARTWORK")
 			end
 
-			reskinScrollArrow(self.Back, "up")
-			reskinScrollArrow(self.Forward, "down")
-
 			thumb = self:GetThumb()
 			thumb:DisableDrawLayer("ARTWORK")
 			thumb:DisableDrawLayer("BACKGROUND")
@@ -1092,6 +1083,11 @@ do
 			thumb.bg = B.CreateBDFrame(thumb, 0, true)
 			thumb:HookScript("OnEnter", Thumb_OnEnter)
 			thumb:HookScript("OnLeave", Thumb_OnLeave)
+
+			self.Back:SetParent(thumb)
+			self.Forward:SetParent(thumb)
+			reskinScrollArrow(self.Back, "up")
+			reskinScrollArrow(self.Forward, "down")
 		else
 			local parent = self:GetParent()
 			if parent then
@@ -1440,7 +1436,6 @@ do
 			if button then
 				button:ClearAllPoints()
 				button:SetPoint("CENTER", -3, 0)
-				button:SetHitRectInsets(1, 1, 1, 1)
 				B.ReskinArrow(button, "max")
 
 				if name == "MaximizeButton" then
@@ -1505,7 +1500,7 @@ do
 
 		local checkButton = self.checkButton or self.CheckButton or self.CheckBox or self.Checkbox
 		if checkButton then
-			checkButton:SetFrameLevel(self:GetFrameLevel() + 2)
+			checkButton:SetFrameLevel(self:GetFrameLevel() + 1)
 			checkButton:SetPoint("BOTTOMLEFT", -2, -2)
 			B.ReskinCheck(checkButton)
 		end
@@ -1528,7 +1523,7 @@ do
 	end
 
 	function B:CreateCheckBox(system)
-		local cb = CreateFrame("CheckButton", nil, self, "InterfaceOptionsBaseCheckButtonTemplate")
+		local cb = CreateFrame("CheckButton", nil, self, "OptionsBaseCheckButtonTemplate")
 		cb:SetScript("OnClick", nil) -- reset onclick handler
 		B.ReskinCheck(cb)
 
@@ -1738,7 +1733,6 @@ do
 		slider:SetMinMaxValues(minValue, maxValue)
 		slider:SetValueStep(step)
 		slider:SetObeyStepOnDrag(true)
-		slider:SetHitRectInsets(0, 0, 0, 0)
 		B.ReskinSlider(slider)
 
 		slider.Low:SetText(minValue)
@@ -1891,6 +1885,22 @@ do
 		end
 	end
 
+	function B.UpdateButton(f1, f2)
+		if not f1 then return end
+
+		local ic = B.GetObject(f1, "Icon") or B.GetObject(f1, "icon")
+		if ic then
+			ic:SetInside(f2)
+			ic:SetDrawLayer("ARTWORK")
+			ic:SetTexCoord(unpack(DB.TexCoord))
+		end
+
+		local cd = B.GetObject(f1, "Cooldown") or B.GetObject(f1, "cooldown")
+		if cd then
+			cd:SetInside(f2)
+		end
+	end
+
 	function B.UpdatePoint(f1, p1, f2, p2, x, y)
 		if not f1 then return end
 
@@ -1981,7 +1991,6 @@ do
 			self:HideBackdrop()
 			self:DisableDrawLayer("BACKGROUND")
 			self.bg = B.SetBD(self)
-			self.bg:SetFrameLevel(self:GetFrameLevel())
 			B.SetBorderColor(self.bg)
 
 			if self.StatusBar then
@@ -2118,7 +2127,7 @@ do
 
 		if size then
 			if tonumber(size) then
-				self:SetFontSize(size)
+				B.SetFontSize(size)
 			else
 				self:SetFontObject(size)
 			end
@@ -2139,6 +2148,6 @@ do
 	B.ReskinEditBox = B.ReskinInput
 	B.ReskinIconBorder = B.ReskinBorder
 	B.ReskinPortraitFrame = B.ReskinFrame
-	B.ReskinScroll = B.ReskinTrimScroll
+	B.ReskinTrimScroll = B.ReskinScroll
 	B.StyleSearchButton = B.ReskinSearchList
 end

@@ -32,9 +32,7 @@ function module:Chatbar()
 		bu:SetSize(width, height)
 		B.PixelIcon(bu, DB.normTex, true)
 		B.CreateSD(bu.bg)
-		bu.bg:SetFrameLevel(bu:GetFrameLevel())
 		bu.Icon:SetVertexColor(r, g, b)
-		bu:SetHitRectInsets(0, 0, -8, -8)
 		bu:RegisterForClicks("AnyDown")
 		if text then B.AddTooltip(bu, "ANCHOR_TOP", B.HexRGB(r, g, b)..text) end
 		if func then

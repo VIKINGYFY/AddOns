@@ -34,7 +34,6 @@ end
 
 function INFO:RegisterInfobar(name, point)
 	local info = CreateFrame("Frame", nil, UIParent)
-	info:SetHitRectInsets(0, 0, -10, -10)
 	info.text = B.CreateFS(info, 12)
 	info.text:ClearAllPoints()
 	if C.Infobar.CustomAnchor then
