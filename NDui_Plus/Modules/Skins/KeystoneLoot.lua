@@ -3,12 +3,8 @@ local B, C, L, DB, P = unpack(ns)
 local S = P:GetModule("Skins")
 
 local function HandleItemButton(self)
-	self.bg = B.ReskinIcon(self.Icon, true)
-	B.ReskinIconBorder(self.IconBorder, true)
-
-	if self.bg.__shadow then
-		self.bg.__shadow:SetFrameLevel(self:GetFrameLevel())
-	end
+	self.bg = B.ReskinIcon(self.Icon)
+	B.ReskinBorder(self.IconBorder, true, true)
 end
 
 local function ReskinCatalystFrame(frame)
@@ -17,8 +13,7 @@ local function ReskinCatalystFrame(frame)
 			local objType = child:GetObjectType()
 			if objType == "Frame" and child.Bg then
 				B.StripTextures(child)
-				local bg = B.SetBD(child)
-				bg:SetInside()
+				B.SetBD(child)
 				child.styled = true
 			elseif objType == "Button" and child.Icon and child.FavoriteStar then
 				HandleItemButton(child)
@@ -64,9 +59,9 @@ local function HandleDungeon(self)
 	local tex = self.Bg:GetTexture()
 
 	B.StripTextures(self)
-	B.CreateBDFrame(self.Bg, 0)
+	B.CreateBDFrame(self.Bg, .25)
 
-	self.Bg:SetAlpha(.5)
+	self.Bg:SetAlpha(1)
 	self.Bg:SetTexture(tex)
 
 	for _, button in ipairs(self.itemFrames) do
@@ -78,11 +73,12 @@ local function HandleDungeon(self)
 		local icon = button.Icon:GetTexture()
 		local noTex = button.NoTeleportTexture:GetTexture()
 		B.StripTextures(button)
+		button.bg = B.CreateBDFrame(button, .25)
+		B.UpdateButton(button, button.bg)
+		B.ReskinHLTex(button, button.bg)
+
 		button.Icon:SetTexture(icon)
 		button.NoTeleportTexture:SetTexture(noTex)
-		button.bg = B.ReskinIcon(button.Icon)
-		button:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-		button:GetHighlightTexture():SetInside(button.bg)
 	end
 end
 
@@ -108,20 +104,16 @@ end
 
 local function updateBackdropColor(self, isDisabled)
 	if isDisabled then
-		self.bg:SetBackdropColor(0, 0, 0, .25)
+		self.bubg:SetBackdropColor(0, 0, 0, .25)
 	else
-		self.bg:SetBackdropColor(DB.r, DB.g, DB.b, .25)
+		self.bubg:SetBackdropColor(DB.r, DB.g, DB.b, .25)
 	end
 end
 
 local function HandleRaid(self)
 	self.BgTexture:SetAlpha(0)
-	self.iconbg = B.ReskinIcon(self.BossIcon)
-	self.bg = B.CreateBDFrame(self, .25)
-	self.bg:ClearAllPoints()
-	self.bg:SetPoint("TOPLEFT", self.iconbg, "TOPRIGHT", 2, 0)
-	self.bg:SetPoint("BOTTOMLEFT", self.iconbg, "BOTTOMRIGHT", 2, 0)
-	self.bg:SetPoint("RIGHT")
+	self.icbg = B.ReskinIcon(self.BossIcon)
+	self.bubg = B.CreateBGFrame(self, self.icbg)
 
 	for _, button in ipairs(self.itemFrames) do
 		HandleItemButton(button)
@@ -155,12 +147,11 @@ local function ReskinRaidsFrame(frame)
 		end
 
 		for i, tab in ipairs(frame.Tabs) do
-			B.ReskinTab(tab)
+			B.ReskinTab(tab, true)
 			B.ResetTabAnchor(tab)
 
 			if i ~= 1 then
-				tab:ClearAllPoints()
-				tab:SetPoint("TOPLEFT", frame.Tabs[i-1], "TOPRIGHT", -15, 0)
+				B.UpdatePoint(tab, "LEFT", frame.Tabs[i-1], "RIGHT", -15, 0)
 			end
 
 			ReskinRaidTab(tab.Children)
@@ -174,7 +165,7 @@ function S:KeystoneLoot()
 	local frame = _G.KeystoneLootFrame
 	if not frame then return end
 
-	B.ReskinPortraitFrame(frame)
+	B.ReskinFrame(frame)
 
 	for _, child in pairs {frame:GetChildren()} do
 		local texture = child.GetNormalTexture and child:GetNormalTexture()
@@ -208,9 +199,10 @@ function S:KeystoneLoot()
 		B.ReskinTab(tab)
 		B.ResetTabAnchor(tab)
 
-		if i ~= 1 then
-			tab:ClearAllPoints()
-			tab:SetPoint("TOPLEFT", frame.Tabs[i-1], "TOPRIGHT", -15, 0)
+		if i == 1 then
+			B.UpdatePoint(tab, "TOPLEFT", frame, "BOTTOMLEFT", 15, 1)
+		else
+			B.UpdatePoint(tab, "LEFT", frame.Tabs[i-1], "RIGHT", -15, 0)
 		end
 
 		if tab.id == "dungeons" then

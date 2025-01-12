@@ -861,7 +861,6 @@ do
 		local color = DB.QualityColors[quality or 1]
 		border.__owner.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 	end
-
 	local function updateIconBorderColor(border, r, g, b)
 		border.__owner.bg:SetBackdropBorderColor(r, g, b)
 		border:Hide(true) -- fix icon border
@@ -871,11 +870,7 @@ do
 			B.SetBorderColor(border.__owner.bg)
 		end
 	end
-	local function iconBorderShown(border, show)
-		if not show then
-			resetIconBorderColor(border)
-		end
-	end
+
 	function B:ReskinBorder(needInit, useAtlas)
 		if not self then return end
 
@@ -889,6 +884,7 @@ do
 			hooksecurefunc(self, "SetTexture", resetIconBorderColor)
 			if needInit then
 				self:SetAtlas(self:GetAtlas()) -- for border with color before hook
+				self:SetTexture(self:GetTexture()) -- for border with color before hook
 			end
 		else
 			hooksecurefunc(self, "SetVertexColor", updateIconBorderColor)
@@ -897,7 +893,7 @@ do
 			end
 		end
 		hooksecurefunc(self, "Hide", resetIconBorderColor)
-		hooksecurefunc(self, "SetShown", iconBorderShown)
+		hooksecurefunc(self, "SetShown", resetIconBorderColor)
 	end
 
 	local CLASS_ICON_TCOORDS = CLASS_ICON_TCOORDS
@@ -1008,11 +1004,11 @@ do
 	end
 
 	-- Handle tabs
-	function B:ReskinTab(noShadow)
+	function B:ReskinTab(isInside)
 		B.CleanTextures(self)
 		self:DisableDrawLayer("BACKGROUND")
 
-		local bg = noShadow and B.CreateBDFrame(self, 0, true) or B.SetBD(self)
+		local bg = isInside and B.CreateBDFrame(self, 0, true) or B.SetBD(self)
 		B.UpdateSize(bg, 8, -2, -8, 4)
 		self.bg = bg
 
@@ -1955,9 +1951,9 @@ do
 		"text",
 	}
 
-	function B:ReskinStatusBar(noCC, shadow)
+	function B:ReskinStatusBar(noCC, isOutside)
 		B.StripTextures(self)
-		if shadow then
+		if isOutside then
 			B.SetBD(self)
 		else
 			B.CreateBDFrame(self, .25, nil, -C.mult)
@@ -2137,9 +2133,9 @@ do
 	function B:CreateBGFrame(frame, offset)
 		local bg = B.CreateBDFrame(self, .25)
 		bg:ClearAllPoints()
-		bg:Point("TOPLEFT", frame, "TOPRIGHT", C.margin, 0)
-		bg:Point("BOTTOMLEFT", frame, "BOTTOMRIGHT", C.margin, 0)
-		bg:Point("RIGHT", self, "RIGHT", offset or 0, 0)
+		bg:SetPoint("TOPLEFT", frame, "TOPRIGHT", C.margin, 0)
+		bg:SetPoint("BOTTOMLEFT", frame, "BOTTOMRIGHT", C.margin, 0)
+		bg:SetPoint("RIGHT", self, "RIGHT", offset or 0, 0)
 
 		return bg
 	end

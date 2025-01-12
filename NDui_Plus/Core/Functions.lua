@@ -47,6 +47,22 @@ do
 
 		return true
 	end
+
+	function P.WaitFor(condition, callback, interval, leftTimes)
+		leftTimes = (leftTimes or 10) - 1
+		interval = interval or 0.1
+
+		if condition() then
+			callback()
+			return
+		end
+
+		if leftTimes and leftTimes <= 0 then
+			return
+		end
+
+		P:Delay(interval, P.WaitFor, condition, callback, interval, leftTimes)
+	end
 end
 
 -- UI widgets
@@ -318,21 +334,19 @@ do
 	function P:Button_OnEnter()
 		if not self:IsEnabled() then return end
 
-		if __gradient then
-			self.__gradient:SetVertexColor(cr / 4, cg / 4, cb / 4)
+		if self.__gradient then
+			self.__gradient:SetVertexColor(cr, cg, cb, .25)
 		else
 			self.__bg:SetBackdropColor(cr, cg, cb, .25)
 		end
-		self.__bg:SetBackdropBorderColor(cr, cg, cb)
 	end
 
 	function P:Button_OnLeave()
-		if __gradient then
+		if self.__gradient then
 			self.__gradient:SetVertexColor(.5, .5, .5, .25)
 		else
 			self.__bg:SetBackdropColor(0, 0, 0, 0)
 		end
-		B.SetBorderColor(self.__bg)
 	end
 end
 

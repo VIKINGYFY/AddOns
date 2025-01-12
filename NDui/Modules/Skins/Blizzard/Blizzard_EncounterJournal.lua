@@ -42,9 +42,10 @@ C.themes["Blizzard_EncounterJournal"] = function()
 		local tab = EncounterJournal.Tabs[i]
 		if tab then
 			B.ReskinTab(tab)
-			if i ~= 1 then
-				tab:ClearAllPoints()
-				tab:SetPoint("TOPLEFT", EncounterJournal.Tabs[i-1], "TOPRIGHT", -15, 1)
+			if i == 1 then
+				B.UpdatePoint(tab, "TOPLEFT", EncounterJournal, "BOTTOMLEFT", 15, 1)
+			else
+				B.UpdatePoint(tab, "LEFT", EncounterJournal.Tabs[i-1], "RIGHT", -15, 0)
 			end
 		end
 	end

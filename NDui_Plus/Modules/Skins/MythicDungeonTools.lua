@@ -31,19 +31,16 @@ function S:MythicDungeonTools()
 			local closeButton = frame.closeButton
 			if closeButton then
 				B.ReskinClose(closeButton, frame.sidePanel, -7, -7)
-				closeButton:SetSize(20, 20)
 			end
 
 			local maximize = frame.maximizeButton
 			if maximize then
 				B.ReskinMinMax(maximize)
-				maximize.MaximizeButton:SetSize(20, 20)
-				maximize.MinimizeButton:SetSize(20, 20)
 			end
 
 			for _, key in pairs(Buttons) do
 				local button = frame[key] and frame[key].frame
-				if button and button.__bg and button.__gradient then
+				if button and (button.__bg or button.__gradient) then
 					button:HookScript("OnEnter", P.Button_OnEnter)
 					button:HookScript("OnLeave", P.Button_OnLeave)
 				end
@@ -51,9 +48,7 @@ function S:MythicDungeonTools()
 
 			local progressBar = frame.sidePanel and frame.sidePanel.ProgressBar and frame.sidePanel.ProgressBar.Bar
 			if progressBar then
-				B.StripTextures(progressBar)
-				progressBar:SetStatusBarTexture(DB.normTex)
-				B.CreateBDFrame(progressBar, .25)
+				B.ReskinStatusBar(progressBar, true)
 			end
 
 			for _, key in ipairs({"topPanelTex", "bottomPanelTex", "sidePanelTex"}) do
@@ -61,8 +56,8 @@ function S:MythicDungeonTools()
 			end
 
 			local bg = B.SetBD(frame)
-			bg:SetPoint("TOPLEFT", frame.topPanel)
-			bg:SetPoint("BOTTOMRIGHT", frame.sidePanel)
+			bg:SetPoint("TOPLEFT", frame.topPanel, -1, 0)
+			bg:SetPoint("BOTTOMRIGHT", frame.sidePanel, 0, 0)
 
 			P.ReskinTooltip(MDT.tooltip)
 			P.ReskinTooltip(MDT.pullTooltip)
