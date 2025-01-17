@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["ModelPreviewFrame"] = function()
 
 	local ModelPreviewFrame = ModelPreviewFrame
 	local Display = ModelPreviewFrame.Display
@@ -20,4 +19,4 @@ table.insert(C.defaultThemes, function()
 	local bg = B.CreateBDFrame(Display.ModelScene, .25)
 	bg:SetPoint("TOPLEFT", -1, 0)
 	bg:SetPoint("BOTTOMRIGHT", 2, -2)
-end)
+end

@@ -293,6 +293,7 @@ if not db.activate.HideMapNote then
             -- The Ringing Deeps
             nodes[2251][45450999] = { mnID = 2214, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- The Waterworks
             nodes[2302][25046296] = { mnID = 2214, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- The Waterworks
+            nodes[2396][48970399] = { mnID = 2214, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Rowdy Rifts
             -- Isle of Dorn
             nodes[2269][45441087] = { mnID = 2248, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Earthcrawl Mines
             nodes[2249][68888884] = { mnID = 2248, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Fungal Folly

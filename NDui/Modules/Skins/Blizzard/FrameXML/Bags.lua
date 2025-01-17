@@ -115,8 +115,7 @@ local function handleBankTab(tab)
 	end
 end
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["Bags"] = function()
 
 	local menu = AccountBankPanel and AccountBankPanel.TabSettingsMenu
 	if menu then
@@ -252,4 +251,4 @@ table.insert(C.defaultThemes, function()
 	handleBankTab(AccountBankPanel.PurchaseTab)
 
 	B.ReskinButton(AccountBankPanel.PurchasePrompt.TabCostFrame.PurchaseButton)
-end)
+end

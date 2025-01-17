@@ -12,9 +12,8 @@ local function reskinHelpTips(self)
 	end
 end
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["HelpTipTemplate"] = function()
 
 	reskinHelpTips(HelpTip)
 	hooksecurefunc(HelpTip, "Show", reskinHelpTips)
-end)
+end

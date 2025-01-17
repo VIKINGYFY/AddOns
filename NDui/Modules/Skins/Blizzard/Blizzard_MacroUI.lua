@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_MacroUI"] = function()
+C.OnLoadThemes["Blizzard_MacroUI"] = function()
 	MacroHorizontalBarLeft:Hide()
 	B.StripTextures(MacroFrameTab1)
 	B.StripTextures(MacroFrameTab2)

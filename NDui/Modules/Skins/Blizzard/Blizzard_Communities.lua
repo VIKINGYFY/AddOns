@@ -103,7 +103,7 @@ local function updateMemberName(self, info)
 	end
 end
 
-C.themes["Blizzard_Communities"] = function()
+C.OnLoadThemes["Blizzard_Communities"] = function()
 	local cr, cg, cb = DB.r, DB.g, DB.b
 	local CommunitiesFrame = CommunitiesFrame
 

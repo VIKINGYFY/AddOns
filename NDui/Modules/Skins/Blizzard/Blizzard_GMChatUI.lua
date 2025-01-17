@@ -2,7 +2,7 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 -- /run LoadAddOn'Blizzard_GMChatUI' GMChatFrame:Show()
-C.themes["Blizzard_GMChatUI"] = function()
+C.OnLoadThemes["Blizzard_GMChatUI"] = function()
 	local frame = _G["GMChatFrame"]
 	frame:SetClampRectInsets(0, 0, 0, 0)
 	B.StripTextures(frame)

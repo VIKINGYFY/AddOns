@@ -95,8 +95,7 @@ local function SetTextColor_White(font)
 	hooksecurefunc(font, "SetTextColor", HookTextColor_White)
 end
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["QuestInfo"] = function()
 
 	-- Item reward highlight
 	QuestInfoItemHighlight:GetRegions():Hide()
@@ -256,4 +255,4 @@ table.insert(C.defaultThemes, function()
 			end
 		end
 	end)
-end)
+end

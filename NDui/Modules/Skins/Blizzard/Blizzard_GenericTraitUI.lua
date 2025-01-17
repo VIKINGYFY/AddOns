@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_GenericTraitUI"] = function()
+C.OnLoadThemes["Blizzard_GenericTraitUI"] = function()
 	local frame = GenericTraitFrame
 
 	B.StripTextures(frame)

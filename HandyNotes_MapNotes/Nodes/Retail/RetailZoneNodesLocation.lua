@@ -407,7 +407,7 @@ if not db.activate.HideMapNote then
 
           if self.db.profile.showZoneHerbalism then            
             if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
-              nodes[371][46806060] = { name = L["Herbalism"], type = "Herbalism", questID = 29824, wwwName = LFG_LIST_REQUIRE .. " " .. STORY_PROGRESS, questID = 29824, showWWW = true, wwwLink = "wowhead.com/quest=29824", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+              nodes[371][46806060] = { name = L["Herbalism"], type = "Herbalism", wwwName = LFG_LIST_REQUIRE .. " " .. STORY_PROGRESS, questID = 29824, showWWW = true, wwwLink = "wowhead.com/quest=29824", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
             end
 
           end
@@ -844,6 +844,12 @@ if not db.activate.HideMapNote then
           if self.db.profile.showZoneTransport then
             nodes[2369][67613901] = { mnID = 2214, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Mole Machine from Sirene Isle to Deeps
             nodes[2214][46143028] = { mnID = 2369, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Mole Machine from Deeps to Sirene Isle
+            
+            if ns.version == "11.1.0" then
+              nodes[2214][77117320] = { mnID = 2346, name = L["Mole Machine"], dnID = "", type = "MoleMachine", questID = 83151, wwwLink = "wowhead.com/ptr-2/quest=83151", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Down Undermine", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Mole Machine Deeps to Undermine
+              nodes[2346][17285075] = { mnID = 2214, name = L["Mole Machine"], dnID = "", type = "MoleMachine", questID = 83151, wwwLink = "wowhead.com/ptr-2/quest=83151", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Down Undermine", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Mole Machine from Undermine to Deeps
+            end
+            
           end
     
         -- Khaz Algar Zeppelin

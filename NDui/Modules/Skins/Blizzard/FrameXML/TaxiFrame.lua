@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["TaxiFrame"] = function()
 
 	TaxiFrame:DisableDrawLayer("BORDER")
 	TaxiFrame:DisableDrawLayer("OVERLAY")
@@ -12,4 +11,4 @@ table.insert(C.defaultThemes, function()
 
 	B.SetBD(TaxiFrame, 3, -23, -5, 3)
 	B.ReskinClose(TaxiFrame.CloseButton, TaxiRouteMap)
-end)
+end

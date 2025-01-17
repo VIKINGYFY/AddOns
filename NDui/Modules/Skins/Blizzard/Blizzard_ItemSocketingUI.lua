@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_ItemSocketingUI"] = function()
+C.OnLoadThemes["Blizzard_ItemSocketingUI"] = function()
 	local GemTypeInfo = {
 		Yellow = {r=0.97, g=0.82, b=0.29},
 		Red = {r=1, g=0.47, b=0.47},

@@ -1,0 +1,12 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Bigwigs.lua"/>
+	<Script file="DBM.lua"/>
+	<Script file="Skada.lua"/>
+	<Script file="TMW.lua"/>
+	<Script file="WeakAuras.lua"/>
+	<Script file="Details.lua"/>
+	<Script file="PremadeGroupsFilter.lua"/>
+	<Script file="Rematch.lua"/>
+	<Script file="Krowi_AF.lua"/>
+	<Script file="Others.lua"/>
+</Ui>

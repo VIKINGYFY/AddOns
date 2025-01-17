@@ -17,7 +17,7 @@ local function Update_OpenAllMail(self)
 	B.UpdatePoint(self, "BOTTOMRIGHT", MailFrameInset, "TOP", -2, 5)
 end
 
-table.insert(C.defaultThemes, function()
+C.OnLoginThemes["MailFrame"] = function()
 	B.ReskinFrame(MailFrame)
 	B.ReskinFrameTab(MailFrame, 2)
 	B.ReskinFrame(OpenMailFrame)
@@ -153,4 +153,4 @@ table.insert(C.defaultThemes, function()
 	end
 
 	hooksecurefunc("SendMailFrame_Update", Update_SendMailFrame)
-end)
+end

@@ -538,6 +538,11 @@ if not db.activate.HideMapNote then
                     minimap[2248][67333102] = { dnID = "|cffffffff" .. L["Passage"], name = "", mnID = 2214, type = "PassageCaveDown", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     minimap[2214][65707693] = { dnID = "|cffffffff" .. L["Passage"], name = "", mnID = 2248, type = "PassageCaveUp", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     minimap[2214][53414454] = { dnID = "|cffffffff" .. L["Passage"], name = "", mnID = 2248, type = "PassageCaveUp", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                    
+                    if ns.version == "11.1.0" then
+                        minimap[2214][66927839] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2346, type = "PathR", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                    end
+                    
                 end
 
             end

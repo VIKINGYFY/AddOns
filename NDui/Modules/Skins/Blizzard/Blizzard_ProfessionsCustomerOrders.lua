@@ -85,7 +85,7 @@ local function reskinOrderIcon(child)
 	child.styled = true
 end
 
-C.themes["Blizzard_ProfessionsCustomerOrders"] = function()
+C.OnLoadThemes["Blizzard_ProfessionsCustomerOrders"] = function()
 	local frame = _G.ProfessionsCustomerOrdersFrame
 
 	B.ReskinFrame(frame)

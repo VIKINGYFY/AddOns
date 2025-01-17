@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["ReadyCheck"] = function()
 
 	-- Ready check
 	B.StripTextures(ReadyCheckListenerFrame)
@@ -21,4 +20,4 @@ table.insert(C.defaultThemes, function()
 	B.ReskinRole(RolePollPopupRoleButtonTank, "TANK")
 	B.ReskinRole(RolePollPopupRoleButtonHealer, "HEALER")
 	B.ReskinRole(RolePollPopupRoleButtonDPS, "DPS")
-end)
+end

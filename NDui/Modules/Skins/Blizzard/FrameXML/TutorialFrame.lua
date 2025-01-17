@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["TutorialFrame"] = function()
 
 	B.SetBD(TutorialFrame)
 
@@ -23,4 +22,4 @@ table.insert(C.defaultThemes, function()
 	TutorialFrameOkayButton.__bg:SetBackdropColor(0, 0, 0, .25)
 	TutorialFramePrevButton.__bg:SetBackdropColor(0, 0, 0, .25)
 	TutorialFrameNextButton.__bg:SetBackdropColor(0, 0, 0, .25)
-end)
+end

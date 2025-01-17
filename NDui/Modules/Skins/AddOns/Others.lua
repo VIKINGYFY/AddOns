@@ -524,10 +524,7 @@ function S:ManuscriptsJournal()
 end
 
 function S:OtherSkins()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
-
 	S:FriendGroups()
-	C_Timer.After(1, S.PostalSkin)
 	S:SoulbindsTalents()
 	S:MRT_Skin()
 	S:SoulshapeJournal()
@@ -537,4 +534,6 @@ function S:OtherSkins()
 	S:PSFJ()
 	S:TLDR()
 	S:ManuscriptsJournal()
+
+	C_Timer.After(1, S.PostalSkin)
 end

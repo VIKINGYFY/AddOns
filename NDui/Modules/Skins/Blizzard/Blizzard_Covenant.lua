@@ -3,7 +3,7 @@ local B, C, L, DB = unpack(ns)
 
 -- Blizzard_CovenantPreviewUI
 
-C.themes["Blizzard_CovenantPreviewUI"] = function()
+C.OnLoadThemes["Blizzard_CovenantPreviewUI"] = function()
 	local CovenantPreviewFrame = CovenantPreviewFrame
 	B.ReskinButton(CovenantPreviewFrame.SelectButton)
 
@@ -63,7 +63,7 @@ local function replaceCurrencies(displayGroup)
 	end
 end
 
-C.themes["Blizzard_CovenantSanctum"] = function()
+C.OnLoadThemes["Blizzard_CovenantSanctum"] = function()
 	local CovenantSanctumFrame = CovenantSanctumFrame
 
 	CovenantSanctumFrame:HookScript("OnShow", function(self)
@@ -97,7 +97,7 @@ C.themes["Blizzard_CovenantSanctum"] = function()
 end
 
 -- Covenant renown
-C.themes["Blizzard_CovenantRenown"] = function()
+C.OnLoadThemes["Blizzard_CovenantRenown"] = function()
 	hooksecurefunc(CovenantRenownFrame, "SetUpCovenantData", function(self)
 		B.StripTextures(self)
 

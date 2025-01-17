@@ -379,7 +379,7 @@ local function ReskinMissionBoards(self)
 	reskinFollowerBoard(self, "follower")
 end
 
-C.themes["Blizzard_GarrisonUI"] = function()
+C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 	-- Tooltips
 	B.ReskinGarrisonTooltip(GarrisonFollowerAbilityWithoutCountersTooltip)
 	B.ReskinGarrisonTooltip(GarrisonFollowerMissionAbilityWithoutCountersTooltip)
@@ -1276,7 +1276,7 @@ local function updateTalentBorder(bu, atlas)
 	end
 end
 
-C.themes["Blizzard_OrderHallUI"] = function()
+C.OnLoadThemes["Blizzard_OrderHallUI"] = function()
 	-- Talent Frame
 	local OrderHallTalentFrame = OrderHallTalentFrame
 

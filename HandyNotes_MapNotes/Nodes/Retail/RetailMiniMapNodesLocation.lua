@@ -746,7 +746,7 @@ if not db.activate.HideMapNote then
         --##### Continent Khaz Algar ######
         --#################################
     
-        if self.db.profile.showMiniMapDragonIsles then
+        if self.db.profile.showMiniMapKhazAlgar then
 
         -- Khaz Algar MapNotesIcons
           if self.db.profile.showMiniMapHordeAllyIcons then
@@ -785,6 +785,12 @@ if not db.activate.HideMapNote then
             if self.db.profile.showMiniMapTransport then
               minimap[2369][67613901] = { mnID = 2214, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Mole Machine from Sirene Isle to Deeps
               minimap[2214][46143028] = { mnID = 2369, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Mole Machine from Deeps to Sirene Isle
+              
+              if ns.version == "11.1.0" then
+                minimap[2214][77117320] = { mnID = 2346, name = L["Mole Machine"], dnID = "", type = "MoleMachine", questID = 83151, wwwLink = "wowhead.com/ptr-2/quest=83151", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Down Undermine", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Mole Machine from Deeps to Undermine
+                minimap[2346][17285075] = { mnID = 2214, name = L["Mole Machine"], dnID = "", type = "MoleMachine", questID = 83151, wwwLink = "wowhead.com/ptr-2/quest=83151", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Down Undermine", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Mole Machine from Undermine to Deeps
+              end
+
             end
 
           end

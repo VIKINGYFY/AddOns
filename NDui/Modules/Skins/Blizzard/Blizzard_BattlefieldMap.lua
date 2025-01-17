@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_BattlefieldMap"] = function()
+C.OnLoadThemes["Blizzard_BattlefieldMap"] = function()
 	local BattlefieldMapFrame = _G.BattlefieldMapFrame
 	local BorderFrame = BattlefieldMapFrame.BorderFrame
 

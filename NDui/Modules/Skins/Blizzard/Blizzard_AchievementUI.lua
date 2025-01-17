@@ -49,7 +49,7 @@ local function UpdateProgressBars(frame)
 	end
 end
 
-C.themes["Blizzard_AchievementUI"] = function()
+C.OnLoadThemes["Blizzard_AchievementUI"] = function()
 	B.StripTextures(AchievementFrame)
 	B.SetBD(AchievementFrame)
 	AchievementFrameWaterMark:SetAlpha(0)

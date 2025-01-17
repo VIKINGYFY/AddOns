@@ -22,7 +22,7 @@ local function reskinOptionSlot(frame, skip)
 	end
 end
 
-C.themes["Blizzard_DelvesCompanionConfiguration"] = function()
+C.OnLoadThemes["Blizzard_DelvesCompanionConfiguration"] = function()
 	B.ReskinFrame(DelvesCompanionConfigurationFrame)
 	B.ReskinButton(DelvesCompanionConfigurationFrame.CompanionConfigShowAbilitiesButton)
 
@@ -46,7 +46,7 @@ C.themes["Blizzard_DelvesCompanionConfiguration"] = function()
 	end)
 end
 
-C.themes["Blizzard_DelvesDashboardUI"] = function()
+C.OnLoadThemes["Blizzard_DelvesDashboardUI"] = function()
 	DelvesDashboardFrame.DashboardBackground:SetAlpha(0)
 	B.ReskinButton(DelvesDashboardFrame.ButtonPanelLayoutFrame.CompanionConfigButtonPanel.CompanionConfigButton)
 end
@@ -62,7 +62,7 @@ local function handleRewards(self)
 	end
 end
 
-C.themes["Blizzard_DelvesDifficultyPicker"] = function()
+C.OnLoadThemes["Blizzard_DelvesDifficultyPicker"] = function()
 	B.ReskinFrame(DelvesDifficultyPickerFrame)
 	B.ReskinDropDown(DelvesDifficultyPickerFrame.Dropdown)
 	B.ReskinButton(DelvesDifficultyPickerFrame.EnterDelveButton)

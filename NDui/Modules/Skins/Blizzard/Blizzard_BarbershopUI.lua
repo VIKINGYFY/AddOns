@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_BarbershopUI"] = function()
+C.OnLoadThemes["Blizzard_BarbershopUI"] = function()
 	local frame = BarberShopFrame
 
 	B.ReskinButton(frame.AcceptButton)
@@ -19,7 +19,7 @@ local function ReskinCustomizeTooltip(tooltip)
 	tooltip:SetScale(UIParent:GetScale())
 end
 
-C.themes["Blizzard_CharacterCustomize"] = function()
+C.OnLoadThemes["Blizzard_CharacterCustomize"] = function()
 	local frame = CharCustomizeFrame
 
 	ReskinCustomizeButton(frame.SmallButtons.ResetCameraButton)

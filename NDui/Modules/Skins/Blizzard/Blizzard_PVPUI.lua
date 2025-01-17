@@ -25,7 +25,7 @@ local function ConquestFrameButton_OnEnter(self)
 	ConquestTooltip:SetPoint("TOPLEFT", self, "TOPRIGHT", 1, 0)
 end
 
-C.themes["Blizzard_PVPUI"] = function()
+C.OnLoadThemes["Blizzard_PVPUI"] = function()
 	local cr, cg, cb = DB.r, DB.g, DB.b
 
 	local PVPQueueFrame = PVPQueueFrame
@@ -35,28 +35,30 @@ C.themes["Blizzard_PVPUI"] = function()
 	-- Category buttons
 
 	local iconSize = 60-2*C.mult
-	for i = 1, 3 do
+	for i = 1, 4 do
 		local bu = PVPQueueFrame["CategoryButton"..i]
-		local icon = bu.Icon
-		local cu = bu.CurrencyDisplay
+		if bu then
+			local icon = bu.Icon
+			local cu = bu.CurrencyDisplay
 
-		bu.Ring:Hide()
-		B.ReskinButton(bu)
-		bu.Background:SetInside(bu.__bg)
-		bu.Background:SetColorTexture(cr, cg, cb, .25)
-		bu.Background:SetAlpha(1)
+			bu.Ring:Hide()
+			B.ReskinButton(bu)
+			bu.Background:SetInside(bu.__bg)
+			bu.Background:SetColorTexture(cr, cg, cb, .25)
+			bu.Background:SetAlpha(1)
 
-		icon:SetPoint("LEFT", bu, "LEFT")
-		icon:SetSize(iconSize, iconSize)
-		B.ReskinIcon(icon)
+			icon:SetPoint("LEFT", bu, "LEFT")
+			icon:SetSize(iconSize, iconSize)
+			B.ReskinIcon(icon)
 
-		if cu then
-			local ic = cu.Icon
+			if cu then
+				local ic = cu.Icon
 
-			ic:SetSize(16, 16)
-			ic:SetPoint("TOPLEFT", bu.Name, "BOTTOMLEFT", 0, -8)
-			cu.Amount:SetPoint("LEFT", ic, "RIGHT", 4, 0)
-			B.ReskinIcon(ic)
+				ic:SetSize(16, 16)
+				ic:SetPoint("TOPLEFT", bu.Name, "BOTTOMLEFT", 0, -8)
+				cu.Amount:SetPoint("LEFT", ic, "RIGHT", 4, 0)
+				B.ReskinIcon(ic)
+			end
 		end
 	end
 
@@ -215,4 +217,25 @@ C.themes["Blizzard_PVPUI"] = function()
 			end
 		end
 	end)
+
+	-- PlunderstormFrame
+	if PlunderstormFrame then
+		PlunderstormFrame.Inset:Hide()
+		B.ReskinButton(PlunderstormFrame.StartQueue)
+
+		local panel = PVPQueueFrame.HonorInset.PlunderstormPanel
+		if panel then
+			B.ReskinButton(panel.PlunderstoreButton)
+			B.ReplaceIconString(panel.PlunderDisplay)
+			hooksecurefunc(panel.PlunderDisplay, "SetText", B.ReplaceIconString)
+		end
+
+		local popup = PlunderstormFramePopup
+		if popup then
+			B.StripTextures(popup)
+			B.SetBD(popup)
+			B.ReskinButton(popup.AcceptButton)
+			B.ReskinButton(popup.DeclineButton)
+		end
+	end
 end

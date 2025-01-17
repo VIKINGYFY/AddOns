@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["TabardFrame"] = function()
 
 	B.ReskinFrame(TabardFrame)
 	TabardFrameMoneyInset:Hide()
@@ -20,4 +19,4 @@ table.insert(C.defaultThemes, function()
 		B.ReskinArrow(_G["TabardFrameCustomization"..i.."LeftButton"], "left")
 		B.ReskinArrow(_G["TabardFrameCustomization"..i.."RightButton"], "right")
 	end
-end)
+end

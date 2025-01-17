@@ -507,7 +507,11 @@ if not db.activate.HideMapNote then
                     nodes[2248][56233921] = { name = "", dnID = "|cffffffff" .. L["Entrance"], mnID = 2339, type = "PathL", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     --nodes[2248][46154704] = { name = "", dnID = "|cffffffff" .. L["Passage"], mnID = 2214, type = "PathU", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     --nodes[2248][37427287] = { dnID = "|cffffffff" .. L["Passage"], name = "", mnID = 2214, type = "PathU", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                end--
+                    
+                    if ns.version == "11.1.0" then
+                        nodes[2214][66927839] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2346, type = "PathR", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+                end
             end
 
         end

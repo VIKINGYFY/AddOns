@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["CompactRaidFrames"] = function()
 
 	local toggleButton = CompactRaidFrameManagerToggleButton
 	if not toggleButton then return end
@@ -40,4 +39,4 @@ table.insert(C.defaultThemes, function()
 	bd:SetPoint("TOPLEFT")
 	bd:SetPoint("BOTTOMRIGHT", -9, 9)
 	B.ReskinCheck(CompactRaidFrameManagerDisplayFrameEveryoneIsAssistButton)
-end)
+end

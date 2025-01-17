@@ -43,9 +43,7 @@ local function fixAnim(frame)
 	frame.hookded = true
 end
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["AlertFrames"] then return end
-
+C.OnLoginThemes["AlertFrames"] = function()
 	-- AlertFrames
 	hooksecurefunc("AlertFrame_PauseOutAnimation", fixBg)
 
@@ -435,4 +433,4 @@ table.insert(C.defaultThemes, function()
 		end
 	end)
 	]=]
-end)
+end

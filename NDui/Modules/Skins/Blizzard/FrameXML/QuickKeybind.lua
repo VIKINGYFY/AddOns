@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["QuickKeybind"] = function()
 
 	local frame = QuickKeybindFrame
 	B.StripTextures(frame)
@@ -13,4 +12,4 @@ table.insert(C.defaultThemes, function()
 	B.ReskinButton(frame.OkayButton)
 	B.ReskinButton(frame.DefaultsButton)
 	B.ReskinButton(frame.CancelButton)
-end)
+end

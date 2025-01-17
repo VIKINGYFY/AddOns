@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["GuildRegistrarFrame"] = function()
 
 	GuildRegistrarFrameEditBox:SetHeight(20)
 	AvailableServicesText:SetTextColor(1, 1, 1)
@@ -14,4 +13,4 @@ table.insert(C.defaultThemes, function()
 	B.ReskinButton(GuildRegistrarFrameGoodbyeButton)
 	B.ReskinButton(GuildRegistrarFramePurchaseButton)
 	B.ReskinButton(GuildRegistrarFrameCancelButton)
-end)
+end

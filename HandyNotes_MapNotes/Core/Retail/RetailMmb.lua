@@ -18,8 +18,10 @@ local info = C_Map.GetMapInfo(WorldMapFrame:GetMapID())
     tooltip:AddLine(L["Shift + Right-click => hide"] .. " " .. "|cffffff00" .. L["-> MiniMapButton <-"],1,1,1)
     tooltip:AddLine(L["Middle-Mouse-Button => Open/Close"] .. " " .. "|cff00ccff" .. "-> " .. WORLDMAP_BUTTON .." <-",1,1,1)
 
+
+
   -- Zone without Sync function
-  if not ns.Addon.db.profile.activate.SyncZoneAndMinimap and (info.mapType == 3 or info.mapType == 5 or info.mapType == 6)
+  if not ns.Addon.db.profile.activate.SyncZoneAndMinimap and (info.mapType == 3 or info.mapType == 4 or info.mapType == 5 or info.mapType == 6)
     and not (C_Map.GetBestMapForUnit("player") == 1454 or C_Map.GetBestMapForUnit("player") == 1456 --Cata nodes
     or C_Map.GetBestMapForUnit("player") == 2266 -- Millenia's Threshold
     or C_Map.GetBestMapForUnit("player") == 84 or C_Map.GetBestMapForUnit("player") == 87 or C_Map.GetBestMapForUnit("player") == 89 or C_Map.GetBestMapForUnit("player") == 103 or C_Map.GetBestMapForUnit("player") == 85
@@ -110,7 +112,7 @@ local info = C_Map.GetMapInfo(WorldMapFrame:GetMapID())
       tooltip:Show()
     --Khaz Algar
     elseif (C_Map.GetBestMapForUnit("player") == 2248 or C_Map.GetBestMapForUnit("player") == 2214 or C_Map.GetBestMapForUnit("player") == 2215 or C_Map.GetBestMapForUnit("player") == 2255 or C_Map.GetBestMapForUnit("player") == 2256 or C_Map.GetBestMapForUnit("player") == 2213 
-      or C_Map.GetBestMapForUnit("player") == 2216 or C_Map.GetBestMapForUnit("player") == 2369 or C_Map.GetBestMapForUnit("player") == 2322)
+      or C_Map.GetBestMapForUnit("player") == 2216 or C_Map.GetBestMapForUnit("player") == 2369 or C_Map.GetBestMapForUnit("player") == 2322 or C_Map.GetBestMapForUnit("player") == 2346)
     then
       tooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["Khaz Algar"] .. " " .. MINIMAP_LABEL .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
       tooltip:Show()
@@ -209,7 +211,7 @@ local info = C_Map.GetMapInfo(WorldMapFrame:GetMapID())
       tooltip:Show()
     --Khaz Algar
     elseif (C_Map.GetBestMapForUnit("player") == 2248 or C_Map.GetBestMapForUnit("player") == 2214 or C_Map.GetBestMapForUnit("player") == 2215 or C_Map.GetBestMapForUnit("player") or C_Map.GetBestMapForUnit("player") == 2213 or C_Map.GetBestMapForUnit("player") == 2216
-      or C_Map.GetBestMapForUnit("player") == 2369 or C_Map.GetBestMapForUnit("player") == 2322)
+      or C_Map.GetBestMapForUnit("player") == 2369 or C_Map.GetBestMapForUnit("player") == 2322 or C_Map.GetBestMapForUnit("player") == 2346)
     then
       tooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["Khaz Algar"] .. " " .. L["Zones"] .. " & " .. MINIMAP_LABEL .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
       tooltip:Show()
@@ -258,8 +260,9 @@ OnClick = function(self, button)
 local info = C_Map.GetMapInfo(C_Map.GetBestMapForUnit("player"))
 
   if button == "RightButton" and not IsShiftKeyDown() then
+
     -- Zone without Sync function
-    if not ns.Addon.db.profile.activate.SyncZoneAndMinimap and (info.mapType == 3 or info.mapType == 5 or info.mapType == 6) 
+    if not ns.Addon.db.profile.activate.SyncZoneAndMinimap and (info.mapType == 3 or info.mapType == 4 or info.mapType == 5 or info.mapType == 6) 
       and not (C_Map.GetBestMapForUnit("player") == 1454 or C_Map.GetBestMapForUnit("player") == 1456 --Cata nodes
       or C_Map.GetBestMapForUnit("player") == 84 or C_Map.GetBestMapForUnit("player") == 87 or C_Map.GetBestMapForUnit("player") == 89 or C_Map.GetBestMapForUnit("player") == 103 or C_Map.GetBestMapForUnit("player") == 85
       or C_Map.GetBestMapForUnit("player") == 90 or C_Map.GetBestMapForUnit("player") == 86 or C_Map.GetBestMapForUnit("player") == 88 or C_Map.GetBestMapForUnit("player") == 110 or C_Map.GetBestMapForUnit("player") == 111
@@ -448,7 +451,7 @@ local info = C_Map.GetMapInfo(C_Map.GetBestMapForUnit("player"))
         end
       --Khaz Algar
       elseif (C_Map.GetBestMapForUnit("player") == 2248 or C_Map.GetBestMapForUnit("player") == 2214 or C_Map.GetBestMapForUnit("player") == 2215 or C_Map.GetBestMapForUnit("player") == 2255 or C_Map.GetBestMapForUnit("player") == 2256 or C_Map.GetBestMapForUnit("player") == 2213 
-        or C_Map.GetBestMapForUnit("player") == 2216  or C_Map.GetBestMapForUnit("player") == 2369 or C_Map.GetBestMapForUnit("player") == 2322)
+        or C_Map.GetBestMapForUnit("player") == 2216 or C_Map.GetBestMapForUnit("player") == 2369 or C_Map.GetBestMapForUnit("player") == 2322 or C_Map.GetBestMapForUnit("player") == 2346)
       then
         if not ns.Addon.db.profile.showMiniMapKhazAlgar then
           ns.Addon.db.profile.showMiniMapKhazAlgar = true
@@ -655,7 +658,7 @@ local info = C_Map.GetMapInfo(C_Map.GetBestMapForUnit("player"))
         end
        --Khaz Algar
       elseif (C_Map.GetBestMapForUnit("player") == 2248 or C_Map.GetBestMapForUnit("player") == 2214 or C_Map.GetBestMapForUnit("player") == 2215 or C_Map.GetBestMapForUnit("player") == 2255 or C_Map.GetBestMapForUnit("player") == 2256 or C_Map.GetBestMapForUnit("player") == 2213 
-        or C_Map.GetBestMapForUnit("player") == 2216  or C_Map.GetBestMapForUnit("player") == 2369 or C_Map.GetBestMapForUnit("player") == 2322)
+        or C_Map.GetBestMapForUnit("player") == 2216 or C_Map.GetBestMapForUnit("player") == 2369 or C_Map.GetBestMapForUnit("player") == 2322 or C_Map.GetBestMapForUnit("player") == 2346)
       then
         if not ns.Addon.db.profile.showZoneKhazAlgar then
           ns.Addon.db.profile.showZoneKhazAlgar = true

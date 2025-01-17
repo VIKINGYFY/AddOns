@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_GuildBankUI"] = function()
+C.OnLoadThemes["Blizzard_GuildBankUI"] = function()
 	B.StripTextures(GuildBankFrame)
 	B.ReskinFrame(GuildBankFrame)
 	B.ReskinFrameTab(GuildBankFrame, 4)

@@ -31,7 +31,7 @@ local function reskinTableAttribute(frame)
 	frame.styled = true
 end
 
-C.themes["Blizzard_DebugTools"] = function()
+C.OnLoadThemes["Blizzard_DebugTools"] = function()
 	-- Table Attribute Display
 	reskinTableAttribute(TableAttributeDisplay)
 	hooksecurefunc(TableInspectorMixin, "InspectTable", reskinTableAttribute)

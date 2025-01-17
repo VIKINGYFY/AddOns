@@ -1210,6 +1210,10 @@ if not db.activate.HideMapNote then
           -- Khaz Algar Transport
             if self.db.profile.showContinentTransport then
               nodes[2274][52685213] = { mnID = 2369, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = false, showOnContinent = true, showOnMinimap = false } -- Mole Machine from Deeps to Sirene Isle
+              
+              if ns.version == "11.1.0" then
+                nodes[2274][64396827] = { mnID = 2346, name = L["Mole Machine"], dnID = "", type = "MoleMachine", questID = 83151, wwwLink = "wowhead.com/ptr-2/quest=83151", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Down Undermine", showInZone = false, showOnContinent = true, showOnMinimap = false } -- Mole Machine from Deeps to Undermine
+              end
             end
 
           -- Khaz Algar Zeppelin

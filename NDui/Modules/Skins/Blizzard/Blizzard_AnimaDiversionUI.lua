@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_AnimaDiversionUI"] = function()
+C.OnLoadThemes["Blizzard_AnimaDiversionUI"] = function()
 	local frame = AnimaDiversionFrame
 
 	B.StripTextures(frame)

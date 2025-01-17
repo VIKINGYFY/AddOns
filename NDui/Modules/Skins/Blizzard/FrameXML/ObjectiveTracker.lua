@@ -146,8 +146,7 @@ local function ReskinMawBuffsContainer(container)
 	blockList:HookScript("OnHide", blockList_Hide)
 end
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["ObjectiveTracker"] = function()
 	if C_AddOns.IsAddOnLoaded("!KalielsTracker") then return end
 
 	-- Reskin Headers
@@ -252,4 +251,4 @@ table.insert(C.defaultThemes, function()
 
 	-- Maw buffs container
 	ReskinMawBuffsContainer(ScenarioObjectiveTracker.MawBuffsBlock.Container)
-end)
+end

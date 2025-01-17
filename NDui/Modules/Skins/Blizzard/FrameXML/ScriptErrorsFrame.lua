@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["ScriptErrorsFrame"] = function()
 
 	ScriptErrorsFrame:SetScale(UIParent:GetScale())
 	B.StripTextures(ScriptErrorsFrame)
@@ -14,4 +13,4 @@ table.insert(C.defaultThemes, function()
 	B.ReskinButton(ScriptErrorsFrame.Close)
 	B.ReskinScroll(ScriptErrorsFrame.ScrollFrame.ScrollBar)
 	B.ReskinClose(ScriptErrorsFrameClose)
-end)
+end

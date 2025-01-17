@@ -256,9 +256,10 @@ ns.options = {
           width = 0.50,
           get = function() return ns.Addon.db.profile.activate.RemoveBlizzPOIs end,
           set = function(info, v) ns.Addon.db.profile.activate.RemoveBlizzPOIs = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-            ns.RemoveBlizzPOIs()
+          if ns.version == "11.0.7" then ns.RemoveBlizzPOIs() 
             if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.RemoveBlizzPOIs then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. L["Points of interests"] .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
-            if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.RemoveBlizzPOIs then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. L["Points of interests"] .. " " .. L["icons"], "|cff00ccff" .. L["are shown"] )end end end,
+            if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.RemoveBlizzPOIs then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. L["Points of interests"] .. " " .. L["icons"], "|cff00ccff" .. L["are shown"] ) end end end
+            if ns.version == "11.1.0" then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. "POIs function not currently working on the PTR, so this feature has been temporarily disabled" ) end end,
           },
         RemoveBlizzPOIsZidormi = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,

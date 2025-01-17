@@ -6,13 +6,13 @@ local function ReskinFont(font, size)
 		if DB.isDeveloper then print("UNKNOWN FONT.") end
 		return
 	end
+
 	local oldSize = select(2, font:GetFont())
 	size = size or oldSize
 	B.SetFontSize(font, size*C.db["Skins"]["FontScale"])
-	font:SetShadowColor(0, 0, 0, 0)
 end
 
-table.insert(C.defaultThemes, function()
+C.OnLoadThemes["Fonts"] = function()
 	if not C.db["Skins"]["BlizzardSkins"] then return end
 
 	-- Text color
@@ -172,4 +172,4 @@ table.insert(C.defaultThemes, function()
 			frame.fontStyled = true
 		end
 	end)
-end)
+end

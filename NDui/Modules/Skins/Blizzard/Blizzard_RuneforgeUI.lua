@@ -31,7 +31,7 @@ local function SetCurrenciesHook(self)
 end
 B.SetCurrenciesHook = SetCurrenciesHook
 
-C.themes["Blizzard_RuneforgeUI"] = function()
+C.OnLoadThemes["Blizzard_RuneforgeUI"] = function()
 	local frame = RuneforgeFrame
 	B.ReskinClose(frame.CloseButton, nil, -70, -70)
 

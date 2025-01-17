@@ -2,7 +2,7 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 --/run LoadAddOn"Blizzard_ChromieTimeUI" ChromieTimeFrame:Show()
-C.themes["Blizzard_ChromieTimeUI"] = function()
+C.OnLoadThemes["Blizzard_ChromieTimeUI"] = function()
 	local frame = ChromieTimeFrame
 
 	B.StripTextures(frame)

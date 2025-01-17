@@ -10,8 +10,7 @@ local function ReskinChatScroll(self)
 	flash:SetVertexColor(1, .8, 0)
 end
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["ChatFrame"] = function()
 
 	-- Battlenet toast frame
 	BNToastFrame:SetBackdrop(nil)
@@ -119,4 +118,4 @@ table.insert(C.defaultThemes, function()
 			end
 		end
 	end)
-end)
+end

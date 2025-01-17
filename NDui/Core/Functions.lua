@@ -343,6 +343,7 @@ do
 		"BGTop",
 		"Background",
 		"BackgroundOverlay",
+		"BlackBackgroundHoist",
 		"Begin",
 		"Bg",
 		"Border",
@@ -434,6 +435,7 @@ do
 		"TabSpacer",
 		"TabSpacer1",
 		"TabSpacer2",
+		"TitleContainer",
 		"Top",
 		"TopBar",
 		"TopInset",
@@ -447,6 +449,7 @@ do
 		"TopRightBorderDecoration",
 		"TopRightTex",
 		"TopTex",
+		"TopTileStreaks",
 		"Track",
 		"_LeftSeparator",
 		"_RightSeparator",
@@ -466,7 +469,7 @@ do
 		"trackBG",
 	}
 
-	function B:CleanTextures(kill, isOverride)
+	function B:CleanTextures(isOverride)
 		if self.SetBackdrop then self:SetBackdrop(nil) end
 		if self.SetPushedTexture then self:SetPushedTexture(0) end
 		if self.SetCheckedTexture then self:SetCheckedTexture(0) end
@@ -482,14 +485,14 @@ do
 					blizzTexture:SetAtlas("")
 					blizzTexture:SetAlpha(0)
 				else
-					B.StripTextures(blizzTexture, kill)
+					B.StripTextures(blizzTexture, 99)
 				end
 			end
 		end
 	end
 
 	function B:StripTextures(kill)
-		B.CleanTextures(self, kill)
+		B.CleanTextures(self)
 
 		if self.GetRegions then
 			for index, region in pairs {self:GetRegions()} do
@@ -973,7 +976,7 @@ do
 	end
 
 	function B:ReskinButton(override)
-		B.CleanTextures(self, 99, override)
+		B.CleanTextures(self, override)
 
 		self.__bg = B.CreateBDFrame(self, 0, true)
 
@@ -1861,19 +1864,19 @@ do
 		return self[key] or (frameName and _G[frameName..key])
 	end
 
-	function B:PrintTextures(name)
+	function B:PT(name)
 		if self.GetRegions then
 			for index, region in pairs {self:GetRegions()} do
 				local regionName = region:GetDebugName()
-				if string.find(regionName, name) then
+				if regionName and string.find(regionName, name) then
 					print("Regions:", index, regionName)
 					break
 				end
 			end
-		else
+		elseif self.GetChildren then
 			for index, child in pairs {self:GetChildren()} do
 				local childName = child:GetDebugName()
-				if string.find(childName, name) then
+				if childName and string.find(childName, name) then
 					print("Children:", index, childName)
 					break
 				end
@@ -1916,11 +1919,7 @@ do
 	local headers = {"Header", "header"}
 	local closes = {"CloseButton", "Close"}
 	function B:ReskinFrame(killType)
-		if killType == "none" then
-			B.CleanTextures(self, 99)
-		else
-			B.StripTextures(self, killType or 99)
-		end
+		B.StripTextures(self, killType or 99)
 
 		local bg = B.SetBD(self)
 		for _, key in pairs(headers) do
@@ -1930,7 +1929,6 @@ do
 				B.UpdatePoint(frameHeader, "TOP", bg, "TOP", 0, 5)
 			end
 		end
-
 		for _, key in pairs(closes) do
 			local frameClose = B.GetObject(self, key)
 			if frameClose and frameClose:IsObjectType("Button") then
@@ -2130,14 +2128,26 @@ do
 		end
 	end
 
-	function B:CreateBGFrame(frame, offset)
+	function B:CreateBGFrame(frame, offset, color)
 		local bg = B.CreateBDFrame(self, .25)
 		bg:ClearAllPoints()
 		bg:SetPoint("TOPLEFT", frame, "TOPRIGHT", C.margin, 0)
 		bg:SetPoint("BOTTOMLEFT", frame, "BOTTOMRIGHT", C.margin, 0)
 		bg:SetPoint("RIGHT", self, "RIGHT", offset or 0, 0)
 
+		if color then
+			bg:SetBackdropBorderColor(frame:GetBackdropBorderColor())
+		end
+
 		return bg
+	end
+
+	function B:ReskinRMTColor(r)
+		if r == 0 then
+			B.ReskinText(self, 1, 0, 0)
+		elseif r == .2 then
+			B.ReskinText(self, 0, 1, 0)
+		end
 	end
 
 	B.Reskin = B.ReskinButton

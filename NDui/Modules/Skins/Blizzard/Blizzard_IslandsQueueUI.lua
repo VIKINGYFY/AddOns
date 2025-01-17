@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_IslandsQueueUI"] = function()
+C.OnLoadThemes["Blizzard_IslandsQueueUI"] = function()
 	B.ReskinFrame(IslandsQueueFrame)
 	IslandsQueueFrame.ArtOverlayFrame.PortraitFrame:SetAlpha(0)
 	IslandsQueueFrame.ArtOverlayFrame.portrait:SetAlpha(0)

@@ -17,8 +17,7 @@ local function reskinChatBubble(chatbubble)
 	chatbubble.styled = true
 end
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["ChatBubbles"] = function()
 
 	local events = {
 		CHAT_MSG_SAY = "chatBubbles",
@@ -51,4 +50,4 @@ table.insert(C.defaultThemes, function()
 		end
 	end)
 	bubbleHook:Hide()
-end)
+end

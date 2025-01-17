@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_NewPlayerExperience"] = function()
+C.OnLoadThemes["Blizzard_NewPlayerExperience"] = function()
 	B.ReskinButton(KeyboardMouseConfirmButton)
 	if NPE_TutorialWalk_Frame then
 		NPE_TutorialWalk_Frame.ContainerFrame.TURNLEFT.KeyBind:SetTextColor(1, .8, 0)
@@ -12,7 +12,7 @@ C.themes["Blizzard_NewPlayerExperience"] = function()
 	end
 end
 
-C.themes["Blizzard_NewPlayerExperienceGuide"] = function()
+C.OnLoadThemes["Blizzard_NewPlayerExperienceGuide"] = function()
 	local GuideFrame = GuideFrame
 
 	B.ReskinFrame(GuideFrame)

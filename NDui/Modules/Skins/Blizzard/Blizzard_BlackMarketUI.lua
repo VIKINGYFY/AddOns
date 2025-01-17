@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_BlackMarketUI"] = function()
+C.OnLoadThemes["Blizzard_BlackMarketUI"] = function()
 	local cr, cg, cb = DB.r, DB.g, DB.b
 
 	B.StripTextures(BlackMarketFrame)

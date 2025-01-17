@@ -43,7 +43,7 @@ local function reskinScrollChild(self)
 	end
 end
 
-C.themes["Blizzard_ClickBindingUI"] = function()
+C.OnLoadThemes["Blizzard_ClickBindingUI"] = function()
 	local frame = _G.ClickBindingFrame
 
 	B.ReskinFrame(frame)

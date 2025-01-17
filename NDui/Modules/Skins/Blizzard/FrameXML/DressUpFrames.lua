@@ -10,8 +10,7 @@ local function ResetToggleTexture(button, texture)
 	button:SetPushedTexture(texture)
 end
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["DressUpFrames"] = function()
 
 	-- Dressup Frame
 	B.ReskinFrame(DressUpFrame)
@@ -89,4 +88,4 @@ table.insert(C.defaultThemes, function()
 	B.ReskinButton(WardrobeOutfitEditFrame.AcceptButton)
 	B.ReskinButton(WardrobeOutfitEditFrame.CancelButton)
 	B.ReskinButton(WardrobeOutfitEditFrame.DeleteButton)
-end)
+end

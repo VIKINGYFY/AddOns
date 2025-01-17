@@ -10,7 +10,7 @@ local function reskinCurrencyIcon(self)
 	end
 end
 
-C.themes["Blizzard_ItemUpgradeUI"] = function()
+C.OnLoadThemes["Blizzard_ItemUpgradeUI"] = function()
 	local ItemUpgradeFrame = ItemUpgradeFrame
 	B.ReskinFrame(ItemUpgradeFrame)
 

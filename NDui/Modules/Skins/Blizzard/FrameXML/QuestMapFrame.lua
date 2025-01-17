@@ -41,8 +41,7 @@ local function ReskinAWQHeader()
 	end
 end
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["QuestMapFrame"] = function()
 
 	-- Quest frame
 
@@ -227,4 +226,4 @@ table.insert(C.defaultThemes, function()
 			self.ExecuteSessionCommand.normalIcon:SetAtlas(atlas)
 		end
 	end)
-end)
+end

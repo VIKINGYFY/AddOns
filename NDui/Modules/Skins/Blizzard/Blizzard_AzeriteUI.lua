@@ -2,7 +2,7 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local cr, cg, cb = DB.r, DB.g, DB.b
 
-C.themes["Blizzard_AzeriteUI"] = function()
+C.OnLoadThemes["Blizzard_AzeriteUI"] = function()
 	B.ReskinFrame(AzeriteEmpoweredItemUI)
 	AzeriteEmpoweredItemUIBg:Hide()
 	AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame.Bg:Hide()
@@ -44,7 +44,7 @@ local function updateEssenceButton(button)
 	end
 end
 
-C.themes["Blizzard_AzeriteEssenceUI"] = function()
+C.OnLoadThemes["Blizzard_AzeriteEssenceUI"] = function()
 	B.ReskinFrame(AzeriteEssenceUI)
 	B.StripTextures(AzeriteEssenceUI.PowerLevelBadgeFrame)
 	B.ReskinScroll(AzeriteEssenceUI.EssenceList.ScrollBar)
@@ -82,10 +82,10 @@ local function reskinReforgeUI(frame)
 	end
 end
 
-C.themes["Blizzard_AzeriteRespecUI"] = function()
+C.OnLoadThemes["Blizzard_AzeriteRespecUI"] = function()
 	reskinReforgeUI(AzeriteRespecFrame)
 end
 
-C.themes["Blizzard_ItemInteractionUI"] = function()
+C.OnLoadThemes["Blizzard_ItemInteractionUI"] = function()
 	reskinReforgeUI(ItemInteractionFrame)
 end

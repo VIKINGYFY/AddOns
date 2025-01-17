@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_RaidUI"] = function()
+C.OnLoadThemes["Blizzard_RaidUI"] = function()
 	local cr, cg, cb = DB.r, DB.g, DB.b
 
 	for i = 1, NUM_RAID_GROUPS do

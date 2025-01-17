@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_AlliedRacesUI"] = function()
+C.OnLoadThemes["Blizzard_AlliedRacesUI"] = function()
 	local AlliedRacesFrame = AlliedRacesFrame
 	B.ReskinFrame(AlliedRacesFrame)
 	select(2, AlliedRacesFrame.ModelScene:GetRegions()):Hide()

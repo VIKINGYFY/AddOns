@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_DeathRecap"] = function()
+C.OnLoadThemes["Blizzard_DeathRecap"] = function()
 	local DeathRecapFrame = DeathRecapFrame
 
 	DeathRecapFrame:DisableDrawLayer("BORDER")

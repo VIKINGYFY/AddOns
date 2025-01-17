@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["GameMenuFrame"] = function()
 
 	B.StripTextures(GameMenuFrame.Header)
 	GameMenuFrame.Header:ClearAllPoints()
@@ -30,4 +29,4 @@ table.insert(C.defaultThemes, function()
 			end
 		end
 	end)
-end)
+end

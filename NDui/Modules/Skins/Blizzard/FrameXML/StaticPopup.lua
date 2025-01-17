@@ -20,8 +20,7 @@ local function updateMinorButtonState(button)
 	end
 end
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["StaticPopup"] = function()
 
 	for i = 1, 4 do
 		local frame = _G["StaticPopup"..i]
@@ -152,4 +151,4 @@ table.insert(C.defaultThemes, function()
 			end
 		end
 	end)
-end)
+end

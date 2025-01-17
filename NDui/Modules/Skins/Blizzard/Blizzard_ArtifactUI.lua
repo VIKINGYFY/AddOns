@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_ArtifactUI"] = function()
+C.OnLoadThemes["Blizzard_ArtifactUI"] = function()
 	B.StripTextures(ArtifactFrame)
 	B.SetBD(ArtifactFrame)
 	B.ReskinFrameTab(ArtifactFrame, 2)

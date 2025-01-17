@@ -22,7 +22,7 @@ local function ReskinConduitList(frame)
 	end
 end
 
-C.themes["Blizzard_Soulbinds"] = function()
+C.OnLoadThemes["Blizzard_Soulbinds"] = function()
 	local SoulbindViewer = SoulbindViewer
 
 	B.StripTextures(SoulbindViewer)

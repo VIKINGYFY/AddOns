@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_ObliterumUI"] = function()
+C.OnLoadThemes["Blizzard_ObliterumUI"] = function()
 	local obliterum = ObliterumForgeFrame
 
 	B.ReskinFrame(obliterum)

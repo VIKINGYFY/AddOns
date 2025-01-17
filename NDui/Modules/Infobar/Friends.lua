@@ -168,7 +168,6 @@ function info:FriendsPanel_Init()
 	infoFrame:SetSize(400, 495)
 	updateInfoFrameAnchor(infoFrame)
 	infoFrame:SetClampedToScreen(true)
-	infoFrame:SetFrameStrata("DIALOG")
 	B.SetBD(infoFrame)
 
 	infoFrame:SetScript("OnLeave", function(self)

@@ -39,7 +39,7 @@ local function reskinFrameButton(self)
 	end
 end
 
-C.themes["Blizzard_Collections"] = function()
+C.OnLoadThemes["Blizzard_Collections"] = function()
 	-- [[ General ]]
 
 	CollectionsJournal.bg = B.ReskinFrame(CollectionsJournal) -- need this for Rematch skin

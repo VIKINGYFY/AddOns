@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["TradeFrame"] = function()
 
 	TradePlayerEnchantInset:Hide()
 	TradePlayerItemsInset:Hide()
@@ -59,4 +58,4 @@ table.insert(C.defaultThemes, function()
 		local bg = B.CreateBDFrame(highlight, 1)
 		bg:SetBackdropColor(0, 1, 0, .25)
 	end
-end)
+end

@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_StableUI"] = function()
+C.OnLoadThemes["Blizzard_StableUI"] = function()
 	B.ReskinFrame(StableFrame)
 	B.ReskinButton(StableFrame.StableTogglePetButton)
 	B.ReskinButton(StableFrame.ReleasePetButton)

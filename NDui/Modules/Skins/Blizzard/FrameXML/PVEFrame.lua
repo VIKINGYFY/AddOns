@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["PVEFrame"] = function()
 
 	local cr, cg, cb = DB.r, DB.g, DB.b
 
@@ -52,4 +51,4 @@ table.insert(C.defaultThemes, function()
 			ScenarioQueueFrameRandomScrollFrameScrollBar:SetAlpha(0)
 		end
 	end
-end)
+end

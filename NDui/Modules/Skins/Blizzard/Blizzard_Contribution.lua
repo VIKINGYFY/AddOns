@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_Contribution"] = function()
+C.OnLoadThemes["Blizzard_Contribution"] = function()
 	local frame = ContributionCollectionFrame
 	B.SetBD(frame)
 	B.ReskinClose(frame.CloseButton)

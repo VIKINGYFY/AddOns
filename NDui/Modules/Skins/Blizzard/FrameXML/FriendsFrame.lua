@@ -43,8 +43,7 @@ local function reskinFriendButton(button)
 	end
 end
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["FriendsFrame"] = function()
 
 	B.ReskinFrameTab(FriendsFrame, 4)
 	FriendsFrameIcon:Hide()
@@ -209,4 +208,4 @@ table.insert(C.defaultThemes, function()
 			end
 		end
 	end)
-end)
+end

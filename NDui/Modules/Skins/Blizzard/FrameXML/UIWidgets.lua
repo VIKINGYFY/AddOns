@@ -104,8 +104,7 @@ local function ReskinWidgetGroups(self)
 	end
 end
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["UIWidgets"] = function()
 
 	hooksecurefunc(_G.UIWidgetTopCenterContainerFrame, "UpdateWidgetLayout", ReskinWidgetGroups)
 	ReskinWidgetGroups(_G.UIWidgetTopCenterContainerFrame)
@@ -143,4 +142,4 @@ table.insert(C.defaultThemes, function()
 	end)
 
 	B.ReskinButton(_G.UIWidgetCenterDisplayFrame.CloseButton)
-end)
+end

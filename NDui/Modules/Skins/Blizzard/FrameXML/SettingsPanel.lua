@@ -2,8 +2,7 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local cr, cg, cb = DB.r, DB.g, DB.b
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["SettingsPanel"] = function()
 
 	local frame = SettingsPanel
 
@@ -216,4 +215,4 @@ table.insert(C.defaultThemes, function()
 		CompactUnitFrameProfilesGeneralOptionsFrameAutoActivateBG:Hide()
 		B.CreateBDFrame(CompactUnitFrameProfilesGeneralOptionsFrameAutoActivateBG, .25)
 	end
-end)
+end

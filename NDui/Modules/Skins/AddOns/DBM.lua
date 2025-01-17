@@ -80,7 +80,7 @@ local function ApplyDBMStyle(self)
 
 	timer:SetJustifyH("RIGHT")
 	timer:SetWidth(tbar:GetWidth()*.2)
-	B.SetFontSize(name, 14)
+	B.SetFontSize(timer, 14)
 	B.UpdatePoint(timer, "RIGHT", tbar, "TOPRIGHT", -C.margin, 0)
 end
 

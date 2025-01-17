@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["MovieFrame"] = function()
 
 	-- Cinematic
 
@@ -29,4 +28,4 @@ table.insert(C.defaultThemes, function()
 	bg:SetFrameLevel(1)
 	B.ReskinButton(closeDialog.ConfirmButton)
 	B.ReskinButton(closeDialog.ResumeButton)
-end)
+end

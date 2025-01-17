@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_MajorFactions"] = function()
+C.OnLoadThemes["Blizzard_MajorFactions"] = function()
 	local frame = _G.MajorFactionRenownFrame
 
 	B.StripTextures(frame, 0)

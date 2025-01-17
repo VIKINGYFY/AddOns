@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["GhostFrame"] = function()
 
 	local cr, cg, cb = DB.r, DB.g, DB.b
 
@@ -14,4 +13,4 @@ table.insert(C.defaultThemes, function()
 	local bg = B.SetBD(GhostFrame)
 	GhostFrame:SetHighlightTexture(DB.bdTex)
 	GhostFrame:GetHighlightTexture():SetVertexColor(cr, cg, cb, .25)
-end)
+end

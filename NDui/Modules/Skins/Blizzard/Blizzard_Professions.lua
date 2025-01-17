@@ -156,7 +156,7 @@ local function reskinRankBar(rankBar)
 	B.ReskinArrow(rankBar.ExpansionDropdownButton, "down")
 end
 
-C.themes["Blizzard_Professions"] = function()
+C.OnLoadThemes["Blizzard_Professions"] = function()
 	local frame = ProfessionsFrame
 	local craftingPage = ProfessionsFrame.CraftingPage
 

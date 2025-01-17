@@ -765,10 +765,11 @@ if not db.activate.HideMapNote then
               -- The Ringing Deeps
               minimap[2214][46114791] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2251, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Waterworks
               minimap[2214][73583853] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2302, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Dread Pit
+              minimap[2214][80579703] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2302, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Dread Pit
               -- Isle of Dorn
               minimap[2248][38907328] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2269, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Earthcrawl Mines
               minimap[2248][52526626] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2249, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Fungal Folly
-              minimap[2248][61644271] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2250, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Kriegval's Rest
+              minimap[2248][61644271] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2396, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Kriegval's Rest
             end
 
         end

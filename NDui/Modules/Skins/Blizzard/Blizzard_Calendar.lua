@@ -20,7 +20,7 @@ local function ReskinCalendarPage(frame)
 	end
 end
 
-C.themes["Blizzard_Calendar"] = function()
+C.OnLoadThemes["Blizzard_Calendar"] = function()
 
 	for i = 1, 42 do
 		local dayButtonName = "CalendarDayButton"..i

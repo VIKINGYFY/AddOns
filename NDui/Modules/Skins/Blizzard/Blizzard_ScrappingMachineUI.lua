@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_ScrappingMachineUI"] = function()
+C.OnLoadThemes["Blizzard_ScrappingMachineUI"] = function()
 	B.ReskinFrame(ScrappingMachineFrame)
 	B.ReskinButton(ScrappingMachineFrame.ScrapButton)
 

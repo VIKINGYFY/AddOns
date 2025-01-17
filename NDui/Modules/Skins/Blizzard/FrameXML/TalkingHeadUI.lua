@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["TalkingHeadUI"] = function()
 
 	local TalkingHeadFrame = TalkingHeadFrame
 	TalkingHeadFrame:SetScale(.9)
@@ -29,4 +28,4 @@ table.insert(C.defaultThemes, function()
 	text:SetShadowColor(0, 0, 0, 0)
 
 	B.ReskinClose(TalkingHeadFrame.MainFrame.CloseButton, nil, -25, -25)
-end)
+end

@@ -19,7 +19,7 @@ local function updateGuildRanks()
 	end
 end
 
-C.themes["Blizzard_GuildControlUI"] = function()
+C.OnLoadThemes["Blizzard_GuildControlUI"] = function()
 	local cr, cg, cb = DB.r, DB.g, DB.b
 
 	B.SetBD(GuildControlUI)

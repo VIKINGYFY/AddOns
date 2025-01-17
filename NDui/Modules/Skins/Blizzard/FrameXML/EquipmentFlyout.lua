@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["EquipmentFlyout"] = function()
 
 	hooksecurefunc("EquipmentFlyout_CreateButton", function()
 		local button = EquipmentFlyoutFrame.buttons[#EquipmentFlyoutFrame.buttons]
@@ -41,4 +40,4 @@ table.insert(C.defaultThemes, function()
 	B.ReskinArrow(navigationFrame.PrevButton, "left")
 	B.ReskinArrow(navigationFrame.NextButton, "right")
 	navigationFrame.BottomBackground:Hide()
-end)
+end

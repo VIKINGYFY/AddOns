@@ -1,10 +1,9 @@
 # MapNote
-## [2.6.0](https://github.com/Ssesmar/MapNote) (2025-01-08)
+## [2.6.2](https://github.com/Ssesmar/MapNote) (2025-01-14)
 - Note:
 
-Retail
-  removed 20 Years Event Icons
-  some small changes
+PTR
+  toc update
 
 - Description:
 

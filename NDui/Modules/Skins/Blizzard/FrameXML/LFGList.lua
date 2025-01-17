@@ -15,8 +15,7 @@ local function HandleRoleAnchor(self, role)
 	self[role.."Count"]:SetPoint("RIGHT", self[role.."Icon"], "LEFT", 1, 0)
 end
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["LFGList"] = function()
 
 	local cr, cg, cb = DB.r, DB.g, DB.b
 
@@ -275,4 +274,4 @@ table.insert(C.defaultThemes, function()
 	B.ReskinButton(LFGListInviteDialog.AcceptButton)
 	B.ReskinButton(LFGListInviteDialog.DeclineButton)
 	B.ReskinButton(LFGListInviteDialog.AcknowledgeButton)
-end)
+end

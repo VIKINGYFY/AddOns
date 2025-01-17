@@ -1,10 +1,8 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
+local cr, cg, cb = DB.r, DB.g, DB.b
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
-	if not C.db["Skins"]["Loot"] then return end
-
+C.OnLoginThemes["LootFrame"] = function()
 	B.ReskinClose(LootFrame.ClosePanelButton)
 	B.StripTextures(LootFrame)
 	B.SetBD(LootFrame)
@@ -69,28 +67,27 @@ table.insert(C.defaultThemes, function()
 	end)
 
 	-- Bonus roll
-	BonusRollFrame.Background:SetAlpha(0)
-	BonusRollFrame.IconBorder:Hide()
-	BonusRollFrame.BlackBackgroundHoist.Background:Hide()
-	BonusRollFrame.SpecRing:SetAlpha(0)
-	B.SetBD(BonusRollFrame)
+	B.ReskinFrame(BonusRollFrame, 4)
 
-	local specIcon = BonusRollFrame.SpecIcon
-	specIcon:ClearAllPoints()
-	specIcon:SetPoint("TOPRIGHT", -90, -18)
-	local bg = B.ReskinIcon(specIcon)
+	local PromptFrame = BonusRollFrame.PromptFrame
+	B.ReskinIcon(PromptFrame.Icon)
+
+	local Timer = PromptFrame.Timer
+	Timer.Bar:SetTexture(DB.normTex)
+	Timer.Bar:SetVertexColor(cr, cg, cb)
+	B.CreateBDFrame(Timer, .25, nil, -C.mult)
+
+	local SpecIcon = BonusRollFrame.SpecIcon
+	B.UpdatePoint(SpecIcon, "RIGHT", PromptFrame.InfoFrame, "RIGHT", -5, 0)
+
+	local icbg = B.ReskinIcon(SpecIcon)
 	hooksecurefunc("BonusRollFrame_StartBonusRoll", function()
-		bg:SetShown(specIcon:IsShown())
+		icbg:SetShown(SpecIcon:IsShown())
 	end)
 
-	local promptFrame = BonusRollFrame.PromptFrame
-	B.ReskinIcon(promptFrame.Icon)
-	promptFrame.Timer.Bar:SetTexture(DB.normTex)
-	B.CreateBDFrame(promptFrame.Timer, .25)
-
 	local from, to = "|T.+|t", "|T%%s:14:14:0:0:64:64:5:59:5:59|t"
-	BONUS_ROLL_COST = BONUS_ROLL_COST:gsub(from, to)
-	BONUS_ROLL_CURRENT_COUNT = BONUS_ROLL_CURRENT_COUNT:gsub(from, to)
+	BONUS_ROLL_COST = gsub(BONUS_ROLL_COST, from, to)
+	BONUS_ROLL_CURRENT_COUNT = gsub(BONUS_ROLL_CURRENT_COUNT, from, to)
 
 	-- Loot Roll Frame
 	local NUM_GROUP_LOOT_FRAMES = 4
@@ -130,4 +127,4 @@ table.insert(C.defaultThemes, function()
 
 		iconHitBox.IconBorder:SetTexture(nil)
 	end)
-end)
+end

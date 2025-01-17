@@ -31,7 +31,7 @@ local uglyBackground = {
 	["ui-frame-genericplayerchoice-cardparchment"] = true
 }
 
-C.themes["Blizzard_PlayerChoice"] = function()
+C.OnLoadThemes["Blizzard_PlayerChoice"] = function()
 	hooksecurefunc(PlayerChoiceFrame, "TryShow", function(self)
 		B.StripTextures(self)
 		B.CleanTextures(self.CloseButton)

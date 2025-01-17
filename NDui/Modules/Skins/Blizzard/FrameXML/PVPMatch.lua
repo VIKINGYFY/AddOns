@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["PVPMatch"] = function()
 
 	-- ready dialog
 	local PVPReadyDialog = PVPReadyDialog
@@ -64,4 +63,4 @@ table.insert(C.defaultThemes, function()
 	local buttonContainer = PVPMatchResults.buttonContainer
 	B.ReskinButton(buttonContainer.leaveButton)
 	B.ReskinButton(buttonContainer.requeueButton)
-end)
+end

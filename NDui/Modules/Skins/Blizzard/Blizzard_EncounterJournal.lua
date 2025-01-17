@@ -36,7 +36,7 @@ local function reskinSectionHeader()
 	end
 end
 
-C.themes["Blizzard_EncounterJournal"] = function()
+C.OnLoadThemes["Blizzard_EncounterJournal"] = function()
 	-- Tabs
 	for i = 1, 5 do
 		local tab = EncounterJournal.Tabs[i]

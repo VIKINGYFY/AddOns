@@ -38,7 +38,7 @@ local function ReskinEventTraceFrame(frame)
 	B.ReskinScroll(frame.ScrollBar)
 end
 
-C.themes["Blizzard_EventTrace"] = function()
+C.OnLoadThemes["Blizzard_EventTrace"] = function()
 	B.ReskinFrame(EventTrace)
 
 	local subtitleBar = EventTrace.SubtitleBar

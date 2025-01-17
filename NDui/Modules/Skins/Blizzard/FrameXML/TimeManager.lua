@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["TimeManager"] = function()
 
 	TimeManagerGlobe:Hide()
 	TimeManagerStopwatchCheck:GetNormalTexture():SetTexCoord(unpack(DB.TexCoord))
@@ -35,4 +34,4 @@ table.insert(C.defaultThemes, function()
 	play:SetSize(18, 18)
 	play:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 	play:SetPoint("RIGHT", reset, "LEFT", -2, 0)
-end)
+end

@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["NavigationBar"] = function()
 
 	local cr, cg, cb = DB.r, DB.g, DB.b
 
@@ -84,4 +83,4 @@ table.insert(C.defaultThemes, function()
 		handleNavButton(navList[i])
 	end
 	moveNavButtons(WorldMapFrame.NavBar)
-end)
+end

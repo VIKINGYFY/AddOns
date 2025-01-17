@@ -5,7 +5,6 @@ local cr, cg, cb = DB.r, DB.g, DB.b
 
 function module:CreatePulse()
 	local bg = B.SetBD(Minimap)
-	bg:SetFrameStrata("BACKGROUND")
 	bg:SetOutside()
 
 	if not C.db["Map"]["CombatPulse"] then return end
@@ -14,16 +13,13 @@ function module:CreatePulse()
 	local anim = bg:CreateAnimationGroup()
 	anim:SetLooping("BOUNCE")
 	anim.fader = anim:CreateAnimation("Alpha")
-	anim.fader:SetFromAlpha(.8)
-	anim.fader:SetToAlpha(.2)
+	anim.fader:SetFromAlpha(1)
+	anim.fader:SetToAlpha(.5)
 	anim.fader:SetDuration(1)
 	anim.fader:SetSmoothing("OUT")
 
 	local function updateMinimapAnim(event)
-		if event == "PLAYER_REGEN_DISABLED" then
-			bg:SetBackdropBorderColor(1, 0, 0)
-			anim:Play()
-		elseif not InCombatLockdown() then
+		if not InCombatLockdown() then
 			if C_Calendar.GetNumPendingInvites() > 0 or MinimapMailFrame:IsShown() then
 				bg:SetBackdropBorderColor(1, 1, 0)
 				anim:Play()
@@ -33,8 +29,7 @@ function module:CreatePulse()
 			end
 		end
 	end
-	B:RegisterEvent("PLAYER_REGEN_ENABLED", updateMinimapAnim)
-	B:RegisterEvent("PLAYER_REGEN_DISABLED", updateMinimapAnim)
+
 	B:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", updateMinimapAnim)
 	B:RegisterEvent("UPDATE_PENDING_MAIL", updateMinimapAnim)
 

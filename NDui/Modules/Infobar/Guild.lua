@@ -167,7 +167,6 @@ function info:GuildPanel_Init()
 	infoFrame:SetSize(335, 495)
 	updateInfoFrameAnchor(infoFrame)
 	infoFrame:SetClampedToScreen(true)
-	infoFrame:SetFrameStrata("TOOLTIP")
 	B.SetBD(infoFrame)
 
 	infoFrame:SetScript("OnLeave", function(self)

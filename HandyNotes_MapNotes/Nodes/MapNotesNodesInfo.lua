@@ -758,6 +758,7 @@ nodes[2214] = { } -- The Ringing Deeps
 nodes[2367] = { } -- Chamber of Memory
 nodes[2369] = { } -- Siren Isle
 nodes[2322] = { } -- Hall of Awakening
+nodes[2346] = { } -- Undermine
 -- Dungeon map nodes
 nodes[2315] = { } -- The Rookery - Inside Dungeon Map
 nodes[2335] = { } -- The Cinderbrew Meadery - Inside Dungeon Map
@@ -782,4 +783,5 @@ nodes[2302] = { } -- The Waterworks - Inside Dungeon Map
 nodes[2269] = { } -- Earthcrawl Mines - Inside Dungeon Map
 nodes[2249] = { } -- Fungal Folly - Inside Dungeon Map
 nodes[2250] = { } -- Kriegval's Rest - Inside Dungeon Map
+nodes[2396] = { } -- Rowdy Rifts - Inside Dungeon Map
 end

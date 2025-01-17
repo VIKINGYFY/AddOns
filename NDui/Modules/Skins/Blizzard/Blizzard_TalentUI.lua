@@ -7,7 +7,7 @@ local function ReanchorTutorial(button)
 	button:SetPoint("TOPLEFT", PlayerTalentFrame, "TOPLEFT", -12, 12)
 end
 
-C.themes["Blizzard_TalentUI"] = function()
+C.OnLoadThemes["Blizzard_TalentUI"] = function()
 	PlayerTalentFrameTalents:DisableDrawLayer("BORDER")
 	PlayerTalentFrameTalentsBg:Hide()
 	ReanchorTutorial(PlayerTalentFrameTalentsTutorialButton)

@@ -37,7 +37,7 @@ local function SkinLandingOverlay(frame)
 	end
 end
 
-C.themes["Blizzard_ExpansionLandingPage"] = function()
+C.OnLoadThemes["Blizzard_ExpansionLandingPage"] = function()
 	local frame = _G.ExpansionLandingPage
 
 	frame:HookScript("OnShow", function()

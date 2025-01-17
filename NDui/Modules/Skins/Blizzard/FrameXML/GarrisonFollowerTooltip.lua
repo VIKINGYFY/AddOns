@@ -1,13 +1,12 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
+C.OnLoginThemes["GarrisonFollowerTooltip"] = function()
 	-- Tooltip close buttons
 	B.ReskinClose(ItemRefTooltip.CloseButton)
 	B.ReskinClose(FloatingBattlePetTooltip.CloseButton)
 	B.ReskinClose(FloatingPetBattleAbilityTooltip.CloseButton)
 
-	if not C.db["Skins"]["BlizzardSkins"] then return end
 
 	B.ReskinGarrisonTooltip(FloatingGarrisonMissionTooltip)
 	B.ReskinGarrisonTooltip(GarrisonFollowerTooltip)
@@ -52,4 +51,4 @@ table.insert(C.defaultThemes, function()
 
 		tooltipFrame.numTraitsStyled = numTraitsStyled
 	end)
-end)
+end

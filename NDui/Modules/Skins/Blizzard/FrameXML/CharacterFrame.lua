@@ -6,8 +6,7 @@ local function NoTaintArrow(self, direction) -- needs review
 	B.SetupTexture(self, direction)
 end
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["CharacterFrame"] = function()
 
 	local cr, cg, cb = DB.r, DB.g, DB.b
 
@@ -331,4 +330,4 @@ table.insert(C.defaultThemes, function()
 	B.ReskinRole(QuickJoinRoleSelectionFrame.RoleButtonTank, "TANK")
 	B.ReskinRole(QuickJoinRoleSelectionFrame.RoleButtonHealer, "HEALER")
 	B.ReskinRole(QuickJoinRoleSelectionFrame.RoleButtonDPS, "DPS")
-end)
+end

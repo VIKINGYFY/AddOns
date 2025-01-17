@@ -139,7 +139,7 @@ local function reskinItemList(frame, hasHeader)
 	end
 end
 
-C.themes["Blizzard_AuctionHouseUI"] = function()
+C.OnLoadThemes["Blizzard_AuctionHouseUI"] = function()
 	B.ReskinFrame(AuctionHouseFrame)
 	B.StripTextures(AuctionHouseFrame.MoneyFrameBorder)
 	B.CreateBDFrame(AuctionHouseFrame.MoneyFrameBorder, .25)

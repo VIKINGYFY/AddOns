@@ -1,7 +1,20 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-local function UpdateProgressItemQuality(self)
+local function Reskin_TitleTextColor(fontString)
+	B.ReskinText(fontString, 1, .8, 0)
+end
+
+local function Reskin_TextColor(fontString)
+	B.ReskinText(fontString, 1, 1, 1)
+end
+
+local function Fix_ShowQuestPortrait(parentFrame, _, _, _, _, _, x, y)
+	x = (parentFrame == WorldMapFrame) and 2 or 1
+	B.UpdatePoint(QuestModelScene, "TOPLEFT", parentFrame, "TOPRIGHT", x, -25)
+end
+
+local function Update_ProgressItemQuality(self)
 	local button = self.__owner
 	local index = button:GetID()
 	local buttonType = button.type
@@ -11,23 +24,19 @@ local function UpdateProgressItemQuality(self)
 	if objectType == "item" then
 		quality = select(4, GetQuestItemInfo(buttonType, index))
 	elseif objectType == "currency" then
-		local info = C_QuestOffer.GetQuestRequiredCurrencyInfo(index)
-		quality = info and info.quality
+		quality = select(4, GetQuestCurrencyInfo(buttonType, index))
 	end
 
-	local color = DB.QualityColors[quality or 1]
-	button.bg:SetBackdropBorderColor(color.r, color.g, color.b)
+	local r, g, b = B.GetQualityColor(quality)
+	button.icbg:SetBackdropBorderColor(r, g, b)
+	button.bubg:SetBackdropBorderColor(r, g, b)
 end
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
-
+C.OnLoginThemes["QuestFrame"] = function()
 	B.ReskinFrame(QuestFrame)
+	B.ReskinText(QuestProgressRequiredItemsText, 1, 0, 0)
 
-	B.StripTextures(QuestFrameDetailPanel, 0)
-	B.StripTextures(QuestFrameRewardPanel, 0)
-	B.StripTextures(QuestFrameProgressPanel, 0)
-	B.StripTextures(QuestFrameGreetingPanel, 0)
+	QuestDetailScrollFrame:SetWidth(302)
 
 	local line = QuestFrameGreetingPanel:CreateTexture()
 	line:SetColorTexture(1, 1, 1, .25)
@@ -38,82 +47,60 @@ table.insert(C.defaultThemes, function()
 		line:SetShown(QuestGreetingFrameHorizontalBreak:IsShown())
 	end)
 
+	local lists = {
+		QuestFrameDetailPanel,
+		QuestFrameGreetingPanel,
+		QuestFrameProgressPanel,
+		QuestFrameRewardPanel,
+	}
+	for _, list in pairs(lists) do
+		B.StripTextures(list, 99)
+	end
+
+	local buttons = {
+		QuestFrameAcceptButton,
+		QuestFrameCompleteButton,
+		QuestFrameCompleteQuestButton,
+		QuestFrameDeclineButton,
+		QuestFrameGoodbyeButton,
+		QuestFrameGreetingGoodbyeButton,
+	}
+	for _, button in pairs(buttons) do
+		B.ReskinButton(button)
+	end
+
+	local scrolls = {
+		QuestProgressScrollFrame,
+		QuestRewardScrollFrame,
+		QuestDetailScrollFrame,
+		QuestGreetingScrollFrame,
+	}
+	for _, scroll in pairs(scrolls) do
+		B.ReskinScroll(scroll.ScrollBar)
+	end
+
+	hooksecurefunc("QuestFrame_SetTextColor", Reskin_TextColor)
+	hooksecurefunc("QuestFrame_SetTitleTextColor", Reskin_TitleTextColor)
+	hooksecurefunc(QuestProgressRequiredMoneyText, "SetTextColor", B.ReskinRMTColor)
+
+	-- QuestModelScene
+	B.StripTextures(QuestModelScene.ModelTextFrame)
+	B.ReskinScroll(QuestNPCModelTextScrollFrame.ScrollBar)
+
+	local boss = B.ReskinFrame(QuestModelScene)
+	boss:SetOutside(QuestModelScene, 0, 0, QuestModelScene.ModelTextFrame)
+
+	hooksecurefunc("QuestFrame_ShowQuestPortrait", Fix_ShowQuestPortrait)
+
+	-- Quest Progress Item
 	for i = 1, MAX_REQUIRED_ITEMS do
 		local button = _G["QuestProgressItem"..i]
-		button.NameFrame:Hide()
-		button.bg = B.ReskinIcon(button.Icon)
+		B.StripTextures(button)
+
+		button.icbg = B.ReskinIcon(button.Icon)
 		button.Icon.__owner = button
-		hooksecurefunc(button.Icon, "SetTexture", UpdateProgressItemQuality)
+		button.bubg = B.CreateBGFrame(button, button.icbg, -5)
 
-		local bg = B.CreateBDFrame(button, .25)
-		bg:SetPoint("TOPLEFT", button.bg, "TOPRIGHT", 2, 0)
-		bg:SetPoint("BOTTOMRIGHT", button.bg, 100, 0)
+		hooksecurefunc(button.Icon, "SetTexture", Update_ProgressItemQuality)
 	end
-
-	QuestDetailScrollFrame:SetWidth(302) -- else these buttons get cut off
-
-	hooksecurefunc(QuestProgressRequiredMoneyText, "SetTextColor", function(self, r)
-		if r == 0 then
-			self:SetTextColor(.8, .8, .8)
-		elseif r == .2 then
-			self:SetTextColor(1, 1, 1)
-		end
-	end)
-
-	B.ReskinButton(QuestFrameAcceptButton)
-	B.ReskinButton(QuestFrameDeclineButton)
-	B.ReskinButton(QuestFrameCompleteQuestButton)
-	B.ReskinButton(QuestFrameCompleteButton)
-	B.ReskinButton(QuestFrameGoodbyeButton)
-	B.ReskinButton(QuestFrameGreetingGoodbyeButton)
-
-	B.ReskinScroll(QuestProgressScrollFrame.ScrollBar)
-	B.ReskinScroll(QuestRewardScrollFrame.ScrollBar)
-	B.ReskinScroll(QuestDetailScrollFrame.ScrollBar)
-	B.ReskinScroll(QuestGreetingScrollFrame.ScrollBar)
-
-	-- Text colour stuff
-
-	QuestProgressRequiredItemsText:SetTextColor(1, .8, 0)
-	QuestProgressRequiredItemsText:SetShadowColor(0, 0, 0)
-	QuestProgressRequiredItemsText.SetTextColor = B.Dummy
-	QuestProgressTitleText:SetTextColor(1, .8, 0)
-	QuestProgressTitleText:SetShadowColor(0, 0, 0)
-	QuestProgressTitleText.SetTextColor = B.Dummy
-	QuestProgressText:SetTextColor(1, 1, 1)
-	QuestProgressText.SetTextColor = B.Dummy
-	GreetingText:SetTextColor(1, 1, 1)
-	GreetingText.SetTextColor = B.Dummy
-	AvailableQuestsText:SetTextColor(1, .8, 0)
-	AvailableQuestsText.SetTextColor = B.Dummy
-	AvailableQuestsText:SetShadowColor(0, 0, 0)
-	CurrentQuestsText:SetTextColor(1, .8, 0)
-	CurrentQuestsText.SetTextColor = B.Dummy
-	CurrentQuestsText:SetShadowColor(0, 0, 0)
-
-	-- Quest NPC model
-
-	B.StripTextures(QuestModelScene)
-	local bg = B.SetBD(QuestModelScene)
-	B.StripTextures(QuestModelScene.ModelTextFrame)
-	bg:SetOutside(nil, nil, nil, QuestModelScene.ModelTextFrame)
-
-	if QuestNPCModelTextScrollFrame then
-		B.ReskinScroll(QuestNPCModelTextScrollFrame.ScrollBar)
-	end
-
-	hooksecurefunc("QuestFrame_ShowQuestPortrait", function(parentFrame, _, _, _, _, _, x, y)
-		x = x + 6
-		QuestModelScene:SetPoint("TOPLEFT", parentFrame, "TOPRIGHT", x, y)
-	end)
-
-	-- Friendship
-	for i = 1, 4 do
-		local notch = QuestFrame.FriendshipStatusBar["Notch"..i]
-		if notch then
-			notch:SetColorTexture(0, 0, 0)
-			notch:SetSize(C.mult, 16)
-		end
-	end
-	QuestFrame.FriendshipStatusBar.BarBorder:Hide()
-end)
+end

@@ -34,8 +34,7 @@ local function replaceTextColor(text, r)
 	end
 end
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["GossipFrame"] = function()
 
 	QuestFont:SetTextColor(1, 1, 1)
 
@@ -85,4 +84,4 @@ table.insert(C.defaultThemes, function()
 			end
 		end
 	end)
-end)
+end

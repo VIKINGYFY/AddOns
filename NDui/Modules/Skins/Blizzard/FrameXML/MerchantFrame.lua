@@ -35,8 +35,7 @@ local function reskinMerchantInteract(button)
 	button:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 end
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["MerchantFrame"] = function()
 
 	B.ReskinFrame(MerchantFrame)
 	B.ReskinDropDown(MerchantFrame.FilterDropdown)
@@ -102,4 +101,4 @@ table.insert(C.defaultThemes, function()
 	B.ReskinButton(StackSplitFrame.CancelButton)
 	B.ReskinArrow(StackSplitFrame.LeftButton, "left")
 	B.ReskinArrow(StackSplitFrame.RightButton, "right")
-end)
+end

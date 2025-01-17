@@ -608,9 +608,9 @@ do
                       or WorldMapFrame:GetMapID() == 2151 or WorldMapFrame:GetMapID() == 2200 or WorldMapFrame:GetMapID() == 2239
           
       ns.KhazAlgar = WorldMapFrame:GetMapID() == 2248 or WorldMapFrame:GetMapID() == 2214 or WorldMapFrame:GetMapID() == 2215 or WorldMapFrame:GetMapID() == 2255 or  WorldMapFrame:GetMapID() == 2256 or WorldMapFrame:GetMapID() == 2213 
-                      or WorldMapFrame:GetMapID() == 2216 or WorldMapFrame:GetMapID() == 2369 or WorldMapFrame:GetMapID() == 2322
+                      or WorldMapFrame:GetMapID() == 2216 or WorldMapFrame:GetMapID() == 2369 or WorldMapFrame:GetMapID() == 2346
 
-      ns.ZoneIDs = WorldMapFrame:GetMapID() == 750 or WorldMapFrame:GetMapID() == 652 or WorldMapFrame:GetMapID() == 2266
+      ns.ZoneIDs = WorldMapFrame:GetMapID() == 750 or WorldMapFrame:GetMapID() == 652 or WorldMapFrame:GetMapID() == 2266 or WorldMapFrame:GetMapID() == 2322
 
 			if value.name == nil then value.name = value.id or value.mnID end
 
@@ -681,7 +681,7 @@ do
       end
 
       -- MiniMap single icon scale / alpha
-      if not ns.CapitalMiniMapIDs and (value.showOnMinimap == true) then
+      if not ns.CapitalMiniMapIDs or ns.ZoneIDs and (value.showOnMinimap == true)  then
 
         -- Instance Icons
         if value.type == "Raid" then
@@ -834,7 +834,7 @@ do
           alpha = db.MiniMapAlphaItemUpgrade
         end
 
-        if ns.pathIcons or ns.ZoneIDs and not value.showInZone then
+        if ns.pathIcons or ns.ZoneIDs and not value.showInZone and not WorldMapFrame:GetMapID() == 2322 then
           scale = db.MiniMapScalePaths
           alpha = db.MiniMapAlphaPaths
         end
@@ -1130,7 +1130,6 @@ do
       -- X = 6 =	Orphan 	
 
       if t.uiMapId == 948 -- Mahlstrom Continent 
-        --or WorldMapFrame:GetMapID() == 2274 -- PTR: Khaz Algar - The War Within. Continent Scale atm on Beta a Zone not a Continent!!
         or (mapInfo.mapType == 0 and (ns.dbChar.AzerothDeletedIcons[t.uiMapId] and not ns.dbChar.AzerothDeletedIcons[t.uiMapId][state])) -- Cosmos
         or (mapInfo.mapType == 1 and (ns.dbChar.AzerothDeletedIcons[t.uiMapId] and not ns.dbChar.AzerothDeletedIcons[t.uiMapId][state])) -- Azeroth
         or (not ns.CapitalIDs and (mapInfo.mapType == 4 or mapInfo.mapType == 6) and (ns.dbChar.DungeonDeletedIcons[t.uiMapId] and not ns.dbChar.DungeonDeletedIcons[t.uiMapId][state])) -- Dungeon
@@ -1659,6 +1658,8 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
     else ns.WorldMapButton:Show()
   end
 
+  if ns.version == "11.0.7" then
+
   function ns.RemoveBlizzPOIs()
     if (ns.Addon.db.profile.activate.HideMapNote) then return end
 
@@ -1741,12 +1742,14 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
   --end
 
   hooksecurefunc(WorldMapFrame,"OnMapChanged", function()
-    ns.RemoveBlizzPOIs()
+   ns.RemoveBlizzPOIs()
   end)
 
   WorldMapFrame:HookScript("OnShow", function()
     ns.RemoveBlizzPOIs()
   end)
+
+  end -- not on PTR
 
 end
 

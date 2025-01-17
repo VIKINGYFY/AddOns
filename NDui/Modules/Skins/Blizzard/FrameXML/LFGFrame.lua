@@ -41,8 +41,7 @@ local function styleRewardRole(roleIcon)
 	end
 end
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["LFGFrame"] = function()
 	-- LFDFrame
 	hooksecurefunc("LFGDungeonListButton_SetDungeon", function(button)
 		if not button.expandOrCollapseButton.styled then
@@ -173,4 +172,4 @@ table.insert(C.defaultThemes, function()
 	B.ReskinButton(RaidFinderQueueFramePartyBackfillBackfillButton)
 	B.ReskinButton(RaidFinderQueueFramePartyBackfillNoBackfillButton)
 	styleRewardButton(RaidFinderQueueFrameScrollFrameChildFrameMoneyReward)
-end)
+end

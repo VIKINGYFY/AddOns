@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["PetitionFrame"] = function()
 
 	B.ReskinFrame(PetitionFrame)
 	B.ReskinButton(PetitionFrameSignButton)
@@ -16,4 +15,4 @@ table.insert(C.defaultThemes, function()
 	PetitionFrameMasterTitle:SetShadowColor(0, 0, 0)
 	PetitionFrameMemberTitle:SetTextColor(1, .8, 0)
 	PetitionFrameMemberTitle:SetShadowColor(0, 0, 0)
-end)
+end

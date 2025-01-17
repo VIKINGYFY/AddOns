@@ -6,7 +6,7 @@ local function reskinSubscribeButton(button)
 	button.ButtonText:SetTextColor(1, .8, 0)
 end
 
-C.themes["Blizzard_SubscriptionInterstitialUI"] = function()
+C.OnLoadThemes["Blizzard_SubscriptionInterstitialUI"] = function()
 	local frame = SubscriptionInterstitialFrame
 
 	B.StripTextures(frame)

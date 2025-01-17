@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_TrainerUI"] = function()
+C.OnLoadThemes["Blizzard_TrainerUI"] = function()
 	local cr, cg, cb = DB.r, DB.g, DB.b
 
 	B.ReskinFrame(ClassTrainerFrame)

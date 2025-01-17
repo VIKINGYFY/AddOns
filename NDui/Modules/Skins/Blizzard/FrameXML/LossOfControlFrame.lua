@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["LossOfControlFrame"] = function()
 
 	local styled
 	hooksecurefunc("LossOfControlFrame_SetUpDisplay", function(self)
@@ -12,4 +11,4 @@ table.insert(C.defaultThemes, function()
 			styled = true
 		end
 	end)
-end)
+end

@@ -34,7 +34,7 @@ local function SetupFramBG(frame)
 	bg.__shadow:SetFrameLevel(0)
 end
 
-C.themes["Blizzard_PerksProgram"] = function()
+C.OnLoadThemes["Blizzard_PerksProgram"] = function()
 	local frame = PerksProgramFrame
 	if not frame then return end
 

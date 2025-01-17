@@ -6,8 +6,7 @@ local function reskinOptionCheck(button)
 	button.bg:SetInside(button, 6, 6)
 end
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["EditModeManager"] = function()
 
 	local frame = EditModeManagerFrame
 
@@ -133,4 +132,4 @@ table.insert(C.defaultThemes, function()
 
 	ReskinLayoutDialog(EditModeNewLayoutDialog)
 	ReskinLayoutDialog(EditModeImportLayoutDialog)
-end)
+end

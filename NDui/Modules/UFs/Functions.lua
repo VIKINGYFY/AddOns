@@ -308,18 +308,12 @@ function UF:CreateHealthText(self)
 	self.healthValue = hpval
 	if mystyle == "raid" then
 		self:Tag(hpval, "[raidhp]")
-		if self.raidType == "pet" then
-			hpval:SetPoint("RIGHT", -3, -1)
-		elseif self.raidType == "simple" then
-			hpval:SetPoint("RIGHT", -4, 0)
-		else
-			hpval:ClearAllPoints()
-			hpval:SetPoint("BOTTOM", 0, 1)
-			hpval:SetJustifyH("CENTER")
-		end
+		hpval:ClearAllPoints()
+		hpval:SetPoint("BOTTOM", 0, 1)
+		hpval:SetJustifyH("CENTER")
 		hpval:SetScale(C.db["UFs"]["RaidTextScale"])
 	elseif mystyle == "nameplate" then
-		hpval:SetPoint("RIGHT", self, "TOPRIGHT", 0, 0)
+		hpval:SetPoint("RIGHT", self, "RIGHT", 0, 0)
 		self:Tag(hpval, "[VariousHP(currentpercent)]")
 	else
 		UF.UpdateFrameHealthTag(self)
@@ -435,7 +429,7 @@ function UF:CreatePowerText(self)
 	local textFrame = CreateFrame("Frame", nil, self)
 	textFrame:SetAllPoints(self.Power)
 
-	local ppval = B.CreateFS(textFrame, retVal(self, 13, 12, 12, 12), "", false, "RIGHT", -3, 2)
+	local ppval = B.CreateFS(textFrame, retVal(self, 13, 12, 12, 12), "", false, "RIGHT", -3, 0)
 	local mystyle = self.mystyle
 	if mystyle == "raid" then
 		ppval:SetScale(C.db["UFs"]["RaidTextScale"])
@@ -598,6 +592,7 @@ function UF:CreateIcons(self)
 	end
 
 	local phase = CreateFrame("Frame", nil, self)
+	phase:SetFrameLevel(self:GetFrameLevel() + 1)
 	phase:SetPoint("CENTER", self.Health)
 	phase:SetSize(24, 24)
 	phase:EnableMouse(true)
@@ -696,9 +691,9 @@ function UF:CreateCastBar(self)
 		cb:SetHeight(self:GetHeight())
 	end
 
-	local timer = B.CreateFS(cb, 12, "", false, "RIGHT", -2, 0)
-	local name = B.CreateFS(cb, 12, "", false, "LEFT", 2, 0)
-	name:SetPoint("RIGHT", timer, "LEFT", -5, 0)
+	local timer = B.CreateFS(cb, 12, "", false, "RIGHT", -3, 0)
+	local name = B.CreateFS(cb, 12, "", false, "LEFT", 3, 0)
+	name:SetPoint("RIGHT", timer, "LEFT", -3, 0)
 	name:SetJustifyH("LEFT")
 
 	if mystyle ~= "boss" and mystyle ~= "arena" then
@@ -720,8 +715,8 @@ function UF:CreateCastBar(self)
 		UF:ToggleCastBarLatency(self)
 
 	elseif mystyle == "nameplate" then
-		name:SetPoint("LEFT", cb, "BOTTOMLEFT", 0, 0)
-		timer:SetPoint("RIGHT", cb, "BOTTOMRIGHT", 0, 0)
+		name:SetPoint("LEFT", cb, "LEFT", 0, 0)
+		timer:SetPoint("RIGHT", cb, "RIGHT", 0, 0)
 
 		local shield = cb:CreateTexture(nil, "OVERLAY")
 		shield:SetAtlas("nameplates-InterruptShield")
@@ -1186,7 +1181,7 @@ end
 
 function UF:CreateBuffs(self)
 	local bu = CreateFrame("Frame", nil, self)
-	bu:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, 5)
+	bu:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, C.margin)
 	bu.initialAnchor = "BOTTOMLEFT"
 	bu["growth-x"] = "RIGHT"
 	bu["growth-y"] = "UP"
@@ -1207,7 +1202,7 @@ end
 
 function UF:CreateDebuffs(self)
 	local bu = CreateFrame("Frame", nil, self)
-	bu:SetPoint("TOPRIGHT", self, "TOPLEFT", -5, 0)
+	bu:SetPoint("TOPRIGHT", self, "TOPLEFT", -C.margin, 0)
 	bu.spacing = C.margin
 	bu.initialAnchor = "TOPRIGHT"
 	bu.tooltipAnchor = "ANCHOR_BOTTOMLEFT"

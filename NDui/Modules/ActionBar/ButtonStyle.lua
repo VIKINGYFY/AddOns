@@ -58,6 +58,7 @@ function Bar:StyleActionButton(button)
 	if not button or button.__bg then return end
 
 	button.__bg = B.SetBD(button)
+	button.__bg:SetFrameLevel(button:GetFrameLevel() - 1)
 
 	local icon = B.GetObject(button, "Icon")
 	if icon then

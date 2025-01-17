@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["ItemTextFrame"] = function()
 
 	InboxFrameBg:Hide()
 	ItemTextPrevPageButton:GetRegions():Hide()
@@ -19,4 +18,4 @@ table.insert(C.defaultThemes, function()
 	ItemTextFramePageBg:SetAlpha(0)
 	ItemTextPageText:SetTextColor("P", 1, 1, 1)
 	ItemTextPageText.SetTextColor = B.Dummy
-end)
+end

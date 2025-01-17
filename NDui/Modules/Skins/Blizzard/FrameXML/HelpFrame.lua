@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["HelpFrame"] = function()
 
 	B.StripTextures(HelpFrame)
 	B.SetBD(HelpFrame)
@@ -22,4 +21,4 @@ table.insert(C.defaultThemes, function()
 	B.ReskinButton(ReportCheatingDialogCancelButton)
 	B.StripTextures(ReportCheatingDialogCommentFrame)
 	B.CreateBDFrame(ReportCheatingDialogCommentFrame, .25)
-end)
+end

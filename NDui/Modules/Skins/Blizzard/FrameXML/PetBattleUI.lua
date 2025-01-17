@@ -4,9 +4,7 @@ local B, C, L, DB = unpack(ns)
 local cr, cg, cb = DB.r, DB.g, DB.b
 local LE_BATTLE_PET_ALLY = Enum.BattlePetOwner.Ally
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["PetBattle"] then return end
-
+C.OnLoginThemes["PetBattleUI"] = function()
 	local mult = C.mult
 
 	-- Head Frame
@@ -307,4 +305,4 @@ table.insert(C.defaultThemes, function()
 
 		RegisterStateDriver(frame, "visibility", visibleState)
 	end
-end)
+end

@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_ChallengesUI"] = function()
+C.OnLoadThemes["Blizzard_ChallengesUI"] = function()
 	B.StripTextures(ChallengesFrame)
 	B.StripTextures(ChallengesFrame.WeeklyInfo.Child)
 

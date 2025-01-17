@@ -13,7 +13,7 @@ local function reskinTalentFrameDialog(dialog)
 	dialog.NameControl.EditBox.__bg:SetPoint("BOTTOMRIGHT", 5, 10)
 end
 
-C.themes["Blizzard_PlayerSpells"] = function()
+C.OnLoadThemes["Blizzard_PlayerSpells"] = function()
 	local frame = PlayerSpellsFrame
 	B.ReskinFrame(frame)
 	B.ReskinMinMax(frame.MaximizeMinimizeButton)

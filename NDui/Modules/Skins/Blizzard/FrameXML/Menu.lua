@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["Menu"] = function()
 
 	if not Menu then return end
 
@@ -52,4 +51,4 @@ table.insert(C.defaultThemes, function()
 
 	hooksecurefunc(menuManagerProxy, "OpenMenu", setupMenu)
 	hooksecurefunc(menuManagerProxy, "OpenContextMenu", setupMenu)
-end)
+end

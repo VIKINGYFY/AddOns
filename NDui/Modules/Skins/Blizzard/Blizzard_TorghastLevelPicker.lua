@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_TorghastLevelPicker"] = function()
+C.OnLoadThemes["Blizzard_TorghastLevelPicker"] = function()
 	local frame = TorghastLevelPickerFrame
 
 	B.ReskinClose(frame.CloseButton, frame, -60, -60)

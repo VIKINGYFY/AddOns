@@ -18,9 +18,7 @@ local function handleSkillButton(button)
 	if nameFrame then nameFrame:Hide() end
 end
 
-C.themes["Blizzard_ProfessionsBook"] = function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
-
+C.OnLoadThemes["Blizzard_ProfessionsBook"] = function()
 	B.ReskinFrame(ProfessionsBookFrame)
 
 	-- Professions

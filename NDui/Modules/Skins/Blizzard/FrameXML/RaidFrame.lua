@@ -1,8 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-table.insert(C.defaultThemes, function()
-	if not C.db["Skins"]["BlizzardSkins"] then return end
+C.OnLoginThemes["RaidFrame"] = function()
 
 	B.StripTextures(RaidInfoFrame)
 	B.SetBD(RaidInfoFrame)
@@ -28,4 +27,4 @@ table.insert(C.defaultThemes, function()
 	B.ReskinSmallRole(RaidFrame.RoleCount.TankIcon, "TANK")
 	B.ReskinSmallRole(RaidFrame.RoleCount.HealerIcon, "HEALER")
 	B.ReskinSmallRole(RaidFrame.RoleCount.DamagerIcon, "DPS")
-end)
+end

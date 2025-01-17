@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-C.themes["Blizzard_ArchaeologyUI"] = function()
+C.OnLoadThemes["Blizzard_ArchaeologyUI"] = function()
 	B.ReskinFrame(ArchaeologyFrame)
 	ArchaeologyFrame:DisableDrawLayer("BACKGROUND")
 	B.ReskinButton(ArchaeologyFrameArtifactPageSolveFrameSolveButton)
