@@ -169,7 +169,7 @@ function UF:UpdateColor(_, unit)
 	local isCustomUnit = UF.CustomUnits[name] or UF.CustomUnits[npcID]
 
 	local isOffTank, status = UF:CheckThreatStatus(unit)
-	local healthPerc = UnitHealth(unit) / (UnitHealthMax(unit) + .0001) * 100
+	local healthPerc = UnitHealth(unit) / (UnitHealthMax(unit)+.0001) * 100
 
 	local coloredFocus = C.db["Nameplate"]["ColoredFocus"]
 	local coloredTarget = C.db["Nameplate"]["ColoredTarget"]
@@ -271,7 +271,7 @@ end
 
 function UF:CreateThreatColor(self)
 	local threatIndicator = B.CreateSD(self, 8, true)
-	threatIndicator:SetFrameLevel(self:GetFrameLevel() + 1)
+	threatIndicator:SetFrameLevel(self:GetFrameLevel()+1)
 	threatIndicator:SetOutside(self, 8+C.mult, 8+C.mult)
 	threatIndicator:Hide()
 
@@ -567,7 +567,7 @@ function UF:UpdateMouseoverShown()
 end
 
 function UF:HighlightOnUpdate(elapsed)
-	self.elapsed = (self.elapsed or 0) + elapsed
+	self.elapsed = (self.elapsed or 0)+elapsed
 	if self.elapsed > .1 then
 		if not UF.IsMouseoverUnit(self.__owner) then
 			self:Hide()
@@ -716,16 +716,16 @@ function UF:UpdateNameplateAuras()
 
 	local element = self.Auras
 	if C.db["Nameplate"]["TargetPower"] then
-		element:SetPoint("BOTTOMLEFT", self.nameText, "TOPLEFT", 0, 10 + C.db["Nameplate"]["PPBarHeight"])
+		element:SetPoint("BOTTOMLEFT", self.nameText, "TOPLEFT", 0, 10+C.db["Nameplate"]["PPBarHeight"])
 	else
 		element:SetPoint("BOTTOMLEFT", self.nameText, "TOPLEFT", 0, 5)
 	end
 	element.numTotal = C.db["Nameplate"]["maxAuras"]
 	element.iconsPerRow = C.db["Nameplate"]["perRow"]
-	element.showDebuffType = C.db["Nameplate"]["DebuffColor"]
 	element.showStealableBuffs = C.db["Nameplate"]["DispellMode"] == 1
 	element.alwaysShowStealable = C.db["Nameplate"]["DispellMode"] == 2
-	element.desaturateDebuff = C.db["Nameplate"]["Desaturate"]
+	element.showDebuffType = true
+	element.desaturateDebuff = true
 	UF:UpdateAuraContainer(self, element, element.numTotal)
 	element:ForceUpdate()
 end
@@ -739,20 +739,20 @@ UF.PlateNameTags = {
 }
 function UF:UpdateNameplateSize()
 	local plateWidth, plateHeight = C.db["Nameplate"]["PlateWidth"], C.db["Nameplate"]["PlateHeight"]
-	local plateCBHeight, plateCBOffset = C.db["Nameplate"]["PlateCBHeight"], C.db["Nameplate"]["PlateCBOffset"]
-	local nameTextSize, CBTextSize = C.db["Nameplate"]["NameTextSize"], C.db["Nameplate"]["CBTextSize"]
+	local plateCBTextOffset, plateCBTextSize = C.db["Nameplate"]["PlateCBTextOffset"], C.db["Nameplate"]["PlateCBTextSize"]
+	local nameTextSize = C.db["Nameplate"]["NameTextSize"]
 	local nameTextOffset = C.db["Nameplate"]["NameTextOffset"]
 	local healthTextSize = C.db["Nameplate"]["HealthTextSize"]
 	local healthTextOffset = C.db["Nameplate"]["HealthTextOffset"]
 	if C.db["Nameplate"]["FriendPlate"] and self.isFriendly and not C.db["Nameplate"]["NameOnlyMode"] then -- cannot use plateType here
 		plateWidth, plateHeight = C.db["Nameplate"]["FriendPlateWidth"], C.db["Nameplate"]["FriendPlateHeight"]
-		plateCBHeight, plateCBOffset = C.db["Nameplate"]["FriendPlateCBHeight"], C.db["Nameplate"]["FriendPlateCBOffset"]
-		nameTextSize, CBTextSize = C.db["Nameplate"]["FriendNameSize"], C.db["Nameplate"]["FriendCBTextSize"]
+		plateCBTextOffset, plateCBTextSize = C.db["Nameplate"]["FriendCBTextOffset"], C.db["Nameplate"]["FriendCBTextSize"]
+		nameTextSize = C.db["Nameplate"]["FriendNameSize"]
 		nameTextOffset = C.db["Nameplate"]["FriendNameOffset"]
 		healthTextSize = C.db["Nameplate"]["FriendHealthSize"]
 		healthTextOffset = C.db["Nameplate"]["FriendHealthOffset"]
 	end
-	local iconSize = plateHeight + plateCBHeight + 5
+	local iconSize = plateHeight*2+C.margin*2
 	local nameType = C.db["Nameplate"]["NameType"]
 	local nameOnlyTextSize, nameOnlyTitleSize = C.db["Nameplate"]["NameOnlyTextSize"], C.db["Nameplate"]["NameOnlyTitleSize"]
 
@@ -773,14 +773,14 @@ function UF:UpdateNameplateSize()
 		B.SetFontSize(self.tarName, nameTextSize+4)
 		self.Castbar.Icon:SetSize(iconSize, iconSize)
 		self.Castbar.glowFrame:SetSize(iconSize+8, iconSize+8)
-		self.Castbar:SetHeight(plateCBHeight)
-		B.SetFontSize(self.Castbar.Time, CBTextSize)
-		self.Castbar.Time:SetPoint("RIGHT", self.Castbar, "RIGHT", 0, plateCBOffset)
-		B.SetFontSize(self.Castbar.Text, CBTextSize)
-		self.Castbar.Text:SetPoint("LEFT", self.Castbar, "LEFT", 0, plateCBOffset)
-		self.Castbar.Shield:SetPoint("TOP", self.Castbar, "CENTER", 0, plateCBOffset)
-		self.Castbar.Shield:SetSize(CBTextSize + 4, CBTextSize + 4)
-		B.SetFontSize(self.Castbar.spellTarget, CBTextSize+3)
+		self.Castbar:SetHeight(plateHeight)
+		B.SetFontSize(self.Castbar.Time, plateCBTextSize)
+		self.Castbar.Time:SetPoint("RIGHT", self.Castbar, "RIGHT", 0, plateCBTextOffset)
+		B.SetFontSize(self.Castbar.Text, plateCBTextSize)
+		self.Castbar.Text:SetPoint("LEFT", self.Castbar, "LEFT", 0, plateCBTextOffset)
+		self.Castbar.Shield:SetPoint("CENTER", self.Castbar, "CENTER", 0, plateCBTextOffset)
+		self.Castbar.Shield:SetSize(plateCBTextSize+4, plateCBTextSize+4)
+		B.SetFontSize(self.Castbar.spellTarget, plateCBTextSize+3)
 		B.SetFontSize(self.healthValue, healthTextSize)
 		self.healthValue:SetPoint("RIGHT", self, "RIGHT", 0, healthTextOffset)
 		self:Tag(self.healthValue, "[VariousHP("..UF.VariousTagIndex[C.db["Nameplate"]["HealthType"]]..")]")
@@ -954,7 +954,7 @@ function UF:OnUnitTargetChanged()
 			local memberTarget = member.."target"
 			if not UnitIsDeadOrGhost(member) and UnitExists(memberTarget) then
 				local unitGUID = UnitGUID(memberTarget)
-				targetedList[unitGUID] = (targetedList[unitGUID] or 0) + 1
+				targetedList[unitGUID] = (targetedList[unitGUID] or 0)+1
 			end
 		end
 	end
@@ -1052,8 +1052,8 @@ function UF:ResizePlayerPlate()
 		local healthHeight = C.db["Nameplate"]["PPHealthHeight"]
 		local powerHeight = C.db["Nameplate"]["PPPowerHeight"]
 
-		plate:SetSize(barWidth, healthHeight + powerHeight + C.mult)
-		plate.mover:SetSize(barWidth, healthHeight + powerHeight + C.mult)
+		plate:SetSize(barWidth, healthHeight+powerHeight+C.mult)
+		plate.mover:SetSize(barWidth, healthHeight+powerHeight+C.mult)
 		plate.Health:SetHeight(healthHeight)
 		plate.Power:SetHeight(powerHeight)
 
@@ -1093,7 +1093,7 @@ function UF:CreatePlayerPlate()
 	self.mystyle = "playerplate"
 	self:EnableMouse(false)
 	local healthHeight, powerHeight = C.db["Nameplate"]["PPHealthHeight"], C.db["Nameplate"]["PPPowerHeight"]
-	self:SetSize(C.db["Nameplate"]["PPWidth"], healthHeight + powerHeight + C.mult)
+	self:SetSize(C.db["Nameplate"]["PPWidth"], healthHeight+powerHeight+C.mult)
 
 	UF:CreateHealthBar(self)
 	UF:CreatePowerBar(self)
@@ -1109,7 +1109,7 @@ function UF:CreatePlayerPlate()
 
 	local textFrame = CreateFrame("Frame", nil, self.Power)
 	textFrame:SetAllPoints()
-	textFrame:SetFrameLevel(self:GetFrameLevel() + 1)
+	textFrame:SetFrameLevel(self:GetFrameLevel()+1)
 	self.powerText = B.CreateFS(textFrame, 14)
 	self:Tag(self.powerText, "[pppower]")
 	UF:TogglePlatePower()

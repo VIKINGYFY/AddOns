@@ -12,7 +12,7 @@ local function ReskinFont(font, size)
 	B.SetFontSize(font, size*C.db["Skins"]["FontScale"])
 end
 
-C.OnLoadThemes["Fonts"] = function()
+C.OnLoginThemes["Fonts"] = function()
 	if not C.db["Skins"]["BlizzardSkins"] then return end
 
 	-- Text color

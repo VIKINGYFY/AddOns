@@ -195,6 +195,7 @@ local function BuildICON(iconSize)
 
 	B.AuraIcon(frame)
 	frame.bg:SetOutside()
+	frame.glowFrame = B.CreateGlowFrame(frame, iconSize)
 
 	local parentFrame = CreateFrame("Frame", nil, frame)
 	parentFrame:SetAllPoints()
@@ -202,7 +203,6 @@ local function BuildICON(iconSize)
 
 	frame.Spellname = B.CreateFS(parentFrame, 13, "", false, "TOP", 0, 5)
 	frame.Count = B.CreateFS(parentFrame, iconSize*.55, "", false, "BOTTOMRIGHT", 6, -3)
-	frame.glowFrame = B.CreateGlowFrame(frame, iconSize)
 
 	if not C.db["AuraWatch"]["ClickThrough"] then enableTooltip(frame) end
 

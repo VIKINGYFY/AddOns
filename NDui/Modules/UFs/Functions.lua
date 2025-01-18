@@ -721,21 +721,21 @@ function UF:CreateCastBar(self)
 		local shield = cb:CreateTexture(nil, "OVERLAY")
 		shield:SetAtlas("nameplates-InterruptShield")
 		shield:SetSize(18, 18)
-		shield:SetPoint("TOP", cb, "CENTER", 0, -1)
+		shield:SetPoint("CENTER", cb, "CENTER", 0, 0)
 		cb.Shield = shield
 
-		local iconSize = self:GetHeight()*2 + 5
+		local iconSize = self:GetHeight()*2 + C.margin*2
 		cb.Icon:SetSize(iconSize, iconSize)
-		cb.Icon:SetPoint("BOTTOMRIGHT", cb, "BOTTOMLEFT", -5, 0)
+		cb.Icon:SetPoint("BOTTOMRIGHT", cb, "BOTTOMLEFT", -C.margin*2, 0)
 		cb.timeToHold = .5
 
 		cb.glowFrame = B.CreateGlowFrame(cb, iconSize)
 		cb.glowFrame:SetPoint("CENTER", cb.Icon)
 
-		local spellTarget = B.CreateFS(cb, C.db["Nameplate"]["NameTextSize"]+3)
+		local spellTarget = B.CreateFS(cb, C.db["Nameplate"]["NameTextSize"] + 3)
 		spellTarget:ClearAllPoints()
 		spellTarget:SetJustifyH("LEFT")
-		spellTarget:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -2)
+		spellTarget:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -C.margin)
 		cb.spellTarget = spellTarget
 
 		self:RegisterEvent("UNIT_TARGET", updateSpellTarget)
@@ -1047,23 +1047,23 @@ function UF:UpdateAuraContainer(parent, element, maxAuras)
 	end
 end
 
-function UF:ConfigureAuras(element, types)
+function UF:ConfigureAuras(element, type)
 	local value = element.__value
-	local vType = types or "Auras"
 
-	element.num = C.db["UFs"][value..vType.."Type"] ~= 1 and C.db["UFs"][value.."Num"..vType] or 0
+	element.num = C.db["UFs"][value..type.."Type"] ~= 1 and C.db["UFs"][value.."Num"..type] or 0
 	element.numBuffs = C.db["UFs"][value.."BuffType"] ~= 1 and C.db["UFs"][value.."NumBuff"] or 0
 	element.numDebuffs = C.db["UFs"][value.."DebuffType"] ~= 1 and C.db["UFs"][value.."NumDebuff"] or 0
-	element.iconsPerRow = C.db["UFs"][value..vType.."PerRow"]
-	element.showDebuffType = C.db["UFs"]["DebuffColor"]
-	element.desaturateDebuff = C.db["UFs"]["Desaturate"]
+	element.iconsPerRow = C.db["UFs"][value..type.."PerRow"]
+	element.showDebuffType = true
+	element.desaturateDebuff = true
+	element.showStealableBuffs = true
 end
 
 function UF:RefreshUFAuras(frame)
 	if not frame then return end
 
 	if frame.Auras then
-		UF:ConfigureAuras(frame.Auras)
+		UF:ConfigureAuras(frame.Auras, "Auras")
 		UF:UpdateAuraContainer(frame, frame.Auras, frame.Auras.numBuffs + frame.Auras.numDebuffs)
 		UF:UpdateAuraDirection(frame, frame.Auras)
 		frame.Auras:ForceUpdate()
@@ -1148,7 +1148,7 @@ function UF:CreateAuras(self)
 	bu.tooltipAnchor = "ANCHOR_BOTTOMLEFT"
 	if auraUFs[mystyle] then
 		bu.__value = auraUFs[mystyle]
-		UF:ConfigureAuras(bu)
+		UF:ConfigureAuras(bu, "Auras")
 		UF:UpdateAuraDirection(self, bu)
 		bu.FilterAura = UF.UnitCustomFilter
 	elseif mystyle == "nameplate" then
@@ -1161,8 +1161,9 @@ function UF:CreateAuras(self)
 		end
 		bu.numTotal = C.db["Nameplate"]["maxAuras"]
 		bu.iconsPerRow = C.db["Nameplate"]["perRow"]
-		bu.showDebuffType = C.db["Nameplate"]["DebuffColor"]
-		bu.desaturateDebuff = C.db["Nameplate"]["Desaturate"]
+		bu.showDebuffType = true
+		bu.desaturateDebuff = true
+		bu.showStealableBuffs = true
 		bu.gap = false
 		bu.disableMouse = true
 		bu.disableCooldown = true
@@ -1171,7 +1172,6 @@ function UF:CreateAuras(self)
 	end
 
 	UF:UpdateAuraContainer(self, bu, bu.numTotal or bu.numBuffs + bu.numDebuffs)
-	bu.showStealableBuffs = true
 	bu.PostCreateButton = UF.PostCreateButton
 	bu.PostUpdateButton = UF.PostUpdateButton
 	bu.PostUpdateGapButton = UF.PostUpdateGapButton
@@ -1192,7 +1192,6 @@ function UF:CreateBuffs(self)
 	UF:ConfigureAuras(bu, "Buff")
 	UF:UpdateAuraContainer(self, bu, bu.num)
 
-	bu.showStealableBuffs = true
 	bu.FilterAura = UF.UnitCustomFilter
 	bu.PostCreateButton = UF.PostCreateButton
 	bu.PostUpdateButton = UF.PostUpdateButton
@@ -1213,7 +1212,6 @@ function UF:CreateDebuffs(self)
 	UF:ConfigureAuras(bu, "Debuff")
 	UF:UpdateAuraContainer(self, bu, bu.num)
 
-	bu.showDebuffType = true
 	bu.FilterAura = UF.UnitCustomFilter
 	bu.PostCreateButton = UF.PostCreateButton
 	bu.PostUpdateButton = UF.PostUpdateButton
