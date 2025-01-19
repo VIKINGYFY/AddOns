@@ -52,9 +52,9 @@ function module:UpdateBagsAnchor(parent, bags)
 
 			bag:ClearAllPoints()
 			if (index-1) % perRow == 0 then
-				bag:SetPoint("BOTTOMRIGHT", anchorCache[index-perRow], "BOTTOMLEFT", -C.margin, 0)
+				bag:SetPoint("BOTTOMRIGHT", anchorCache[index-perRow], "BOTTOMLEFT", -DB.margin, 0)
 			else
-				bag:SetPoint("BOTTOMLEFT", anchorCache[index-1], "TOPLEFT", 0, C.margin)
+				bag:SetPoint("BOTTOMLEFT", anchorCache[index-1], "TOPLEFT", 0, DB.margin)
 			end
 			anchorCache[index] = bag
 		else
@@ -78,13 +78,13 @@ function module:UpdateBankAnchor(parent, bags)
 
 			bag:ClearAllPoints()
 			if index <= perRow then
-				bag:SetPoint("BOTTOMLEFT", anchorCache[index-1], "TOPLEFT", 0, C.margin)
+				bag:SetPoint("BOTTOMLEFT", anchorCache[index-1], "TOPLEFT", 0, DB.margin)
 			elseif index == perRow+1 then
-				bag:SetPoint("TOPLEFT", anchorCache[index-1], "TOPRIGHT", C.margin, 0)
+				bag:SetPoint("TOPLEFT", anchorCache[index-1], "TOPRIGHT", DB.margin, 0)
 			elseif (index-1) % perRow == 0 then
-				bag:SetPoint("TOPLEFT", anchorCache[index-perRow], "TOPRIGHT", C.margin, 0)
+				bag:SetPoint("TOPLEFT", anchorCache[index-perRow], "TOPRIGHT", DB.margin, 0)
 			else
-				bag:SetPoint("TOPLEFT", anchorCache[index-1], "BOTTOMLEFT", 0, -C.margin)
+				bag:SetPoint("TOPLEFT", anchorCache[index-1], "BOTTOMLEFT", 0, -DB.margin)
 			end
 			anchorCache[index] = bag
 		else
@@ -185,7 +185,7 @@ function module:CreateCollapseArrow()
 end
 
 local function updateBagBar(bar)
-	local spacing = C.margin
+	local spacing = DB.margin
 	local offset = 5
 	local width, height = bar:LayoutButtons("grid", bar.columns, spacing, offset, -offset)
 	bar:SetSize(width + offset*2, height + offset*2)
@@ -1185,7 +1185,7 @@ function module:OnLogin()
 
 		local columns = module:GetContainerColumns(self.Settings.BagType)
 		local offset = 37
-		local spacing = C.margin
+		local spacing = DB.margin
 		local xOffset = 5
 		local yOffset = -offset + xOffset
 		local _, height = self:LayoutButtons("grid", columns, spacing, xOffset, yOffset)
@@ -1296,7 +1296,7 @@ function module:OnLogin()
 			if i == 1 then
 				bu:SetPoint("TOPRIGHT", -5, -5)
 			else
-				bu:SetPoint("RIGHT", buttons[i-1], "LEFT", -C.margin, 0)
+				bu:SetPoint("RIGHT", buttons[i-1], "LEFT", -DB.margin, 0)
 			end
 		end
 		self.widgetButtons = buttons

@@ -752,7 +752,7 @@ function UF:UpdateNameplateSize()
 		healthTextSize = C.db["Nameplate"]["FriendHealthSize"]
 		healthTextOffset = C.db["Nameplate"]["FriendHealthOffset"]
 	end
-	local iconSize = plateHeight*2+C.margin*2
+	local iconSize = plateHeight*2+DB.margin*2
 	local nameType = C.db["Nameplate"]["NameType"]
 	local nameOnlyTextSize, nameOnlyTitleSize = C.db["Nameplate"]["NameOnlyTextSize"], C.db["Nameplate"]["NameOnlyTitleSize"]
 
@@ -1063,14 +1063,14 @@ function UF:ResizePlayerPlate()
 			local max = bars.__max
 			for i = 1, max do
 				bars[i]:SetHeight(barHeight)
-				bars[i]:SetWidth((barWidth - (max-1)*C.margin) / max)
+				bars[i]:SetWidth((barWidth - (max-1)*DB.margin) / max)
 			end
 		end
 		if plate.Stagger then
 			plate.Stagger:SetSize(barWidth, barHeight)
 		end
 		if plate.lumos then
-			local iconSize = (barWidth+2*C.mult - 4*C.margin)/5
+			local iconSize = (barWidth+2*C.mult - 4*DB.margin)/5
 			for i = 1, 5 do
 				plate.lumos[i]:SetSize(iconSize, iconSize)
 			end
@@ -1082,7 +1082,7 @@ function UF:ResizePlayerPlate()
 				local dice = plate.dices[i]
 				dice:SetSize(size, size/2)
 				if i == 1 then
-					dice:SetPoint("BOTTOMLEFT", parent, "TOPLEFT", 0, C.margin)
+					dice:SetPoint("BOTTOMLEFT", parent, "TOPLEFT", 0, DB.margin)
 				end
 			end
 		end
@@ -1250,7 +1250,7 @@ function UF:ResizeTargetPower()
 		local max = bars.__max
 		for i = 1, max do
 			bars[i]:SetHeight(barHeight)
-			bars[i]:SetWidth((barWidth - (max-1)*C.margin) / max)
+			bars[i]:SetWidth((barWidth - (max-1)*DB.margin) / max)
 		end
 	end
 end

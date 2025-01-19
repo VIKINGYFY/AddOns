@@ -16,7 +16,7 @@ local function ReskinDBMIcon(icon, frame)
 		icon.styled = true
 	end
 
-	B.UpdatePoint(icon, "BOTTOMRIGHT", frame, "BOTTOMLEFT", -C.margin, C.mult)
+	B.UpdatePoint(icon, "BOTTOMRIGHT", frame, "BOTTOMLEFT", -DB.margin, C.mult)
 end
 
 local function ReskinDBMBar(bar, frame)
@@ -76,12 +76,12 @@ local function ApplyDBMStyle(self)
 	name:SetJustifyH("LEFT")
 	name:SetWidth(tbar:GetWidth()*.8)
 	B.SetFontSize(name, 14)
-	B.UpdatePoint(name, "LEFT", tbar, "TOPLEFT", C.margin, 0)
+	B.UpdatePoint(name, "LEFT", tbar, "TOPLEFT", DB.margin, 0)
 
 	timer:SetJustifyH("RIGHT")
 	timer:SetWidth(tbar:GetWidth()*.2)
 	B.SetFontSize(timer, 14)
-	B.UpdatePoint(timer, "RIGHT", tbar, "TOPRIGHT", -C.margin, 0)
+	B.UpdatePoint(timer, "RIGHT", tbar, "TOPRIGHT", -DB.margin, 0)
 end
 
 function S:DBMSkin()

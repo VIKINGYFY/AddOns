@@ -26,9 +26,9 @@ local function changelog()
 	B.CreateFS(f, 18, majorVersion.." "..L["Changelog"], true, "TOP", 0, -10)
 	B.CreateWatermark(f)
 
-	local ll = B.SetGradient(f, "H", 1, 1, 1, 0, C.alpha, 100, C.mult)
+	local ll = B.SetGradient(f, "H", 1, 1, 1, 0, DB.alpha, 100, C.mult)
 	ll:SetPoint("TOP", -50, -35)
-	local lr = B.SetGradient(f, "H", 1, 1, 1, C.alpha, 0, 100, C.mult)
+	local lr = B.SetGradient(f, "H", 1, 1, 1, DB.alpha, 0, 100, C.mult)
 	lr:SetPoint("TOP", 50, -35)
 
 	local offset = 0

@@ -32,7 +32,7 @@ end
 
 local function Reskin_SetIconImage(icon, texture)
 	if texture:find("Divider") then
-		icon:SetColorTexture(cr, cg, cb, C.alpha)
+		icon:SetColorTexture(cr, cg, cb, DB.alpha)
 		icon:SetHeight(C.mult)
 	end
 end
@@ -77,7 +77,7 @@ local function Reskin_ToggleDropDownMenu(level)
 					check:SetSize(20, 20)
 					check:SetDesaturated(true)
 				else
-					check:SetColorTexture(cr, cg, cb, C.alpha)
+					check:SetColorTexture(cr, cg, cb, DB.alpha)
 					check:SetSize(10, 10)
 					check:SetDesaturated(false)
 				end

@@ -27,7 +27,7 @@ local function Update_ProgressItemQuality(self)
 		quality = select(4, GetQuestCurrencyInfo(buttonType, index))
 	end
 
-	local r, g, b = B.GetQualityColor(quality)
+	local r, g, b = C_Item.GetItemQualityColor(quality)
 	button.icbg:SetBackdropBorderColor(r, g, b)
 	button.bubg:SetBackdropBorderColor(r, g, b)
 end

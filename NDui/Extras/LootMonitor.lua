@@ -137,6 +137,7 @@ local function UpdateLMFrame(self, event, ...)
 
 			local itemExtra, hasStat = B.GetItemExtra(itemLink)
 			if hasStat then itemExtra = "|cff00FF00"..itemExtra.."|r" end
+			if isCollection(itemID, itemClassID, itemSubClassID) then itemExtra = "|cff00FFFF"..itemExtra.."|r" end
 
 			if #LMFrame_Report >= LMFrame_CFG["maxLines"] then table.remove(LMFrame_Report, 1) end
 

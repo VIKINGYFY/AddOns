@@ -22,7 +22,7 @@ C.OnLoadThemes["Blizzard_AdventureMap"] = function()
 				local icbg = B.ReskinIcon(bu.Icon)
 				local bubg = B.CreateBDFrame(bu, .25)
 				bubg:ClearAllPoints()
-				bubg:SetPoint("LEFT", icbg, "RIGHT", C.margin, 0)
+				bubg:SetPoint("LEFT", icbg, "RIGHT", DB.margin, 0)
 			end
 		end
 		dialog.Details.Child.TitleHeader:SetTextColor(1, .8, 0)

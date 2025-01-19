@@ -28,12 +28,6 @@ local function SetupSetButton(button)
 	button.HighlightTexture:SetInside()
 end
 
-local function SetupFramBG(frame)
-	local bg = B.SetBD(frame)
-	bg:SetFrameLevel(0)
-	bg.__shadow:SetFrameLevel(0)
-end
-
 C.OnLoadThemes["Blizzard_PerksProgram"] = function()
 	local frame = PerksProgramFrame
 	if not frame then return end
@@ -63,7 +57,7 @@ C.OnLoadThemes["Blizzard_PerksProgram"] = function()
 		B.ReskinFilterButton(productsFrame.PerksProgramFilter)
 		B.ReskinIcon(productsFrame.PerksProgramCurrencyFrame.Icon)
 		B.StripTextures(productsFrame.PerksProgramProductDetailsContainerFrame)
-		SetupFramBG(productsFrame.PerksProgramProductDetailsContainerFrame)
+		B.SetBD(productsFrame.PerksProgramProductDetailsContainerFrame)
 		B.ReskinScroll(productsFrame.PerksProgramProductDetailsContainerFrame.SetDetailsScrollBoxContainer.ScrollBar)
 
 		hooksecurefunc(productsFrame.PerksProgramProductDetailsContainerFrame.SetDetailsScrollBoxContainer.ScrollBox, "Update", function(self)
@@ -72,7 +66,7 @@ C.OnLoadThemes["Blizzard_PerksProgram"] = function()
 
 		local productsContainer = productsFrame.ProductsScrollBoxContainer
 		B.StripTextures(productsContainer)
-		SetupFramBG(productsContainer)
+		B.SetBD(productsContainer)
 		B.ReskinScroll(productsContainer.ScrollBar)
 		B.StripTextures(productsContainer.PerksProgramHoldFrame)
 		B.CreateBDFrame(productsContainer.PerksProgramHoldFrame, .25):SetInside(nil, 3, 3)

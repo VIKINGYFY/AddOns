@@ -1695,7 +1695,7 @@ local function CreateOption(i)
 		-- Blank, no optType
 		else
 			if not key then
-				local line = B.SetGradient(parent, "H", 1, 1, 1, C.alpha, C.alpha, 560, C.mult)
+				local line = B.SetGradient(parent, "H", 1, 1, 1, DB.alpha, DB.alpha, 560, C.mult)
 				line:SetPoint("TOPLEFT", 25, -offset - 12)
 			end
 			offset = offset + 35
@@ -1746,9 +1746,9 @@ function G:AddContactFrame()
 	B.CreateWatermark(frame)
 
 	B.CreateFS(frame, 16, L["Contact"], true, "TOP", 0, -10)
-	local ll = B.SetGradient(frame, "H", 1, 1, 1, 0, C.alpha, 80, C.mult)
+	local ll = B.SetGradient(frame, "H", 1, 1, 1, 0, DB.alpha, 80, C.mult)
 	ll:SetPoint("TOP", -40, -32)
-	local lr = B.SetGradient(frame, "H", 1, 1, 1, C.alpha, 0, 80, C.mult)
+	local lr = B.SetGradient(frame, "H", 1, 1, 1, DB.alpha, 0, 80, C.mult)
 	lr:SetPoint("TOP", 40, -32)
 
 	CreateContactBox(frame, "NGA.CN", "https://bbs.nga.cn/read.php?tid=5483616", 1)

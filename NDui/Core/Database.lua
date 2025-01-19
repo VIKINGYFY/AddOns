@@ -45,8 +45,8 @@ for k, v in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do
 	DB.ClassList[v] = k
 end
 DB.ClassColors = {}
-local colors = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
-for class, value in pairs(colors) do
+local classColors = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
+for class, value in pairs(classColors) do
 	DB.ClassColors[class] = {}
 	DB.ClassColors[class].r = value.r
 	DB.ClassColors[class].g = value.g
@@ -62,10 +62,10 @@ local qualityColors = ITEM_QUALITY_COLORS or BAG_ITEM_QUALITY_COLORS
 for index, value in pairs(qualityColors) do
 	DB.QualityColors[index] = {r = value.r, g = value.g, b = value.b}
 end
-DB.QualityColors[-1] = {r = 0, g = 0, b = 0}
---DB.QualityColors[Enum.ItemQuality.Poor] = {r = 0, g = 0, b = 0}
---DB.QualityColors[Enum.ItemQuality.Common] = {r = .7, g = .7, b = .7}
-DB.QualityColors[99] = {r = 1, g = 0, b = 0}
+
+-- Other
+DB.margin = 3
+DB.alpha = .75
 
 -- Fonts
 DB.Font = {STANDARD_TEXT_FONT, 12, "OUTLINE"}

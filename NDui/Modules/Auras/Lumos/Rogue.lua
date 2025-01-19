@@ -28,7 +28,7 @@ function A:PostCreateLumos(self)
 		B.AuraIcon(bu)
 		bu.Icon:SetTexCoord(tL, tR, tT, tB)
 		if i == 1 then
-			bu:SetPoint("BOTTOMLEFT", parent, "TOPLEFT", 0, C.margin)
+			bu:SetPoint("BOTTOMLEFT", parent, "TOPLEFT", 0, DB.margin)
 		else
 			bu:SetPoint("LEFT", buttons[i-1], "RIGHT", 2, 0)
 		end

@@ -266,13 +266,13 @@ function module:RecycleBin()
 	bin:SetSize(width, height)
 	bin:Hide()
 
-	local tex = B.SetGradient(bin, "H", 0, 0, 0, 0, C.alpha, width, height)
+	local tex = B.SetGradient(bin, "H", 0, 0, 0, 0, DB.alpha, width, height)
 	tex:SetPoint("CENTER")
-	local topLine = B.SetGradient(bin, "H", cr, cg, cb, 0, C.alpha, width, C.mult)
+	local topLine = B.SetGradient(bin, "H", cr, cg, cb, 0, DB.alpha, width, C.mult)
 	topLine:SetPoint("BOTTOM", bin, "TOP")
-	local bottomLine = B.SetGradient(bin, "H", cr, cg, cb, 0, C.alpha, width, C.mult)
+	local bottomLine = B.SetGradient(bin, "H", cr, cg, cb, 0, DB.alpha, width, C.mult)
 	bottomLine:SetPoint("TOP", bin, "BOTTOM")
-	local rightLine = B.SetGradient(bin, "V", cr, cg, cb, C.alpha, C.alpha, C.mult, height + C.mult*2)
+	local rightLine = B.SetGradient(bin, "V", cr, cg, cb, DB.alpha, DB.alpha, C.mult, height + C.mult*2)
 	rightLine:SetPoint("LEFT", bin, "RIGHT")
 
 	local function hideBinButton()
@@ -421,9 +421,9 @@ function module:RecycleBin()
 		for index, button in pairs(shownButtons) do
 			button:ClearAllPoints()
 			if index == 1 then
-				button:SetPoint("RIGHT", bin, -C.margin, 0)
+				button:SetPoint("RIGHT", bin, -DB.margin, 0)
 			else
-				button:SetPoint("RIGHT", shownButtons[index - 1], "LEFT", -C.margin, 0)
+				button:SetPoint("RIGHT", shownButtons[index - 1], "LEFT", -DB.margin, 0)
 			end
 		end
 	end

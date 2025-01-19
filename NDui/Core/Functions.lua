@@ -1852,12 +1852,6 @@ end
 
 -- 自定义
 do
-	function B.GetQualityColor(quality)
-		local color = DB.QualityColors[quality or -1]
-
-		return color.r, color.g, color.b
-	end
-
 	function B:GetObject(key)
 		local frameName = self.GetDebugName and self:GetDebugName()
 		return self[key] or (frameName and _G[frameName..key])
@@ -1958,7 +1952,7 @@ do
 
 		self:SetStatusBarTexture(DB.normTex)
 		if not noCC then
-			self:SetStatusBarColor(cr, cg, cb, C.alpha)
+			self:SetStatusBarColor(cr, cg, cb, DB.alpha)
 		end
 
 		for _, key in pairs(barWords) do
@@ -1988,9 +1982,9 @@ do
 
 			if self.StatusBar then
 				self.StatusBar:ClearAllPoints()
-				self.StatusBar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", C.mult, 3)
-				self.StatusBar:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -C.mult, 3)
-				self.StatusBar:SetHeight(6)
+				self.StatusBar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", C.mult, DB.margin)
+				self.StatusBar:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -C.mult, DB.margin)
+				self.StatusBar:SetHeight(DB.margin*2)
 
 				B.ReskinStatusBar(self.StatusBar, true, true)
 			end
@@ -2130,8 +2124,8 @@ do
 	function B:CreateBGFrame(frame, offset, color)
 		local bg = B.CreateBDFrame(self, .25)
 		bg:ClearAllPoints()
-		bg:SetPoint("TOPLEFT", frame, "TOPRIGHT", C.margin, 0)
-		bg:SetPoint("BOTTOMLEFT", frame, "BOTTOMRIGHT", C.margin, 0)
+		bg:SetPoint("TOPLEFT", frame, "TOPRIGHT", DB.margin, 0)
+		bg:SetPoint("BOTTOMLEFT", frame, "BOTTOMRIGHT", DB.margin, 0)
 		bg:SetPoint("RIGHT", self, "RIGHT", offset or 0, 0)
 
 		if color then

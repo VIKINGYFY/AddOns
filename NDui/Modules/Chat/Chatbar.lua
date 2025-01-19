@@ -174,10 +174,10 @@ function module:ChatBarBackground()
 	frame:SetPoint("LEFT", parent, "LEFT", -5, 0)
 	frame:SetSize(width, height)
 
-	local tex = B.SetGradient(frame, "H", 0, 0, 0, C.alpha, 0, width, height)
+	local tex = B.SetGradient(frame, "H", 0, 0, 0, DB.alpha, 0, width, height)
 	tex:SetPoint("CENTER")
-	local bottomLine = B.SetGradient(frame, "H", r, g, b, C.alpha, 0, width, C.mult)
+	local bottomLine = B.SetGradient(frame, "H", r, g, b, DB.alpha, 0, width, C.mult)
 	bottomLine:SetPoint("TOP", frame, "BOTTOM")
-	local topLine = B.SetGradient(frame, "H", r, g, b, C.alpha, 0, width, C.mult)
+	local topLine = B.SetGradient(frame, "H", r, g, b, DB.alpha, 0, width, C.mult)
 	topLine:SetPoint("BOTTOM", frame, "TOP")
 end

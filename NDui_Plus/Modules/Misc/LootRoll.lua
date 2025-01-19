@@ -199,7 +199,7 @@ function LR:CreateRollBar(name)
 	bar:Hide()
 
 	local button = CreateFrame("Button", nil, bar)
-	button:SetPoint("RIGHT", bar, "LEFT", -C.margin, 0)
+	button:SetPoint("RIGHT", bar, "LEFT", -DB.margin, 0)
 	button:SetSize(bar:GetHeight() - (C.mult*2), bar:GetHeight() - (C.mult*2))
 	button:SetScript("OnEnter", ItemButton_OnEnter)
 	button:SetScript("OnLeave", ItemButton_OnLeave)

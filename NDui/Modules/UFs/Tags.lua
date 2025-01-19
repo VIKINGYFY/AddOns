@@ -6,7 +6,6 @@ local ALTERNATE_POWER_INDEX = Enum.PowerType.Alternate or 10
 -- Add scantip back, due to issue on ColorMixin
 local scanTip = CreateFrame("GameTooltip", "NDui_ScanTooltip", nil, "GameTooltipTemplate")
 
-
 local function CurrentAndPercent(cur, per)
 	if per < 100 then
 		return B.Numb(cur)..DB.Separator..B.Perc(per)

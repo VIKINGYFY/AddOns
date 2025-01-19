@@ -224,7 +224,7 @@ local function BuildBAR(barWidth, iconSize)
 
 	frame.Statusbar = B.CreateSB(frame, true)
 	frame.Statusbar:SetSize(barWidth, iconSize/2)
-	frame.Statusbar:SetPoint("BOTTOMLEFT", frame, "BOTTOMRIGHT", C.margin, 0)
+	frame.Statusbar:SetPoint("BOTTOMLEFT", frame, "BOTTOMRIGHT", DB.margin, 0)
 	frame.Statusbar:SetMinMaxValues(0, 1)
 	frame.Statusbar:SetValue(0)
 

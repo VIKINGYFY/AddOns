@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-local r, g, b = B.GetQualityColor(4)
+local r, g, b = C_Item.GetItemQualityColor(4)
 local function Reskin_SetRewards(self)
 	if not self.styled then
 		self:DisableDrawLayer("BORDER")

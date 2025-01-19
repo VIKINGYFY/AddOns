@@ -73,7 +73,7 @@ function module:SetupCoords()
 	textParent:SetPoint("BOTTOMRIGHT", WorldMapFrame.ScrollContainer, "BOTTOMRIGHT", -30, 8)
 	textParent:SetSize(1, 18)
 	textParent:SetFrameLevel(5)
-	B.SetGradient(textParent, "H", 0, 0, 0, 0, C.alpha, 350, 18):SetPoint("RIGHT")
+	B.SetGradient(textParent, "H", 0, 0, 0, 0, DB.alpha, 350, 18):SetPoint("RIGHT")
 
 	playerCoords = B.CreateFS(textParent, 14, "", false, "RIGHT", -10, 0)
 	cursorCoords = B.CreateFS(textParent, 14, "", false, "RIGHT", -185, 0)

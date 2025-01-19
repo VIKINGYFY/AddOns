@@ -31,9 +31,9 @@ function M:RaidTool_Header()
 			if menu:IsShown() then
 				menu:ClearAllPoints()
 				if M:IsFrameOnTop(self) then
-					menu:SetPoint("TOP", self, "BOTTOM", 0, -C.margin)
+					menu:SetPoint("TOP", self, "BOTTOM", 0, -DB.margin)
 				else
-					menu:SetPoint("BOTTOM", self, "TOP", 0, C.margin)
+					menu:SetPoint("BOTTOM", self, "TOP", 0, DB.margin)
 				end
 
 				self.buttons[2].text:SetText(IsInRaid() and CONVERT_TO_PARTY or CONVERT_TO_RAID)
@@ -184,7 +184,7 @@ end
 
 function M:RaidTool_ReadyCheck(parent)
 	local frame = CreateFrame("Frame", nil, parent)
-	frame:SetPoint("TOP", parent, "BOTTOM", 0, -C.margin)
+	frame:SetPoint("TOP", parent, "BOTTOM", 0, -DB.margin)
 	frame:SetSize(120, 50)
 	frame:Hide()
 	frame:SetScript("OnMouseUp", function(self) self:Hide() end)
@@ -212,9 +212,9 @@ function M:RaidTool_ReadyCheck(parent)
 
 			frame:ClearAllPoints()
 			if M:IsFrameOnTop(parent) then
-				frame:SetPoint("TOP", parent, "BOTTOM", 0, -C.margin)
+				frame:SetPoint("TOP", parent, "BOTTOM", 0, -DB.margin)
 			else
-				frame:SetPoint("BOTTOM", parent, "TOP", 0, C.margin)
+				frame:SetPoint("BOTTOM", parent, "TOP", 0, DB.margin)
 			end
 			frame:Show()
 
@@ -244,7 +244,7 @@ end
 
 function M:RaidTool_BuffChecker(parent)
 	local frame = CreateFrame("Button", nil, parent)
-	frame:SetPoint("RIGHT", parent, "LEFT", -C.margin, 0)
+	frame:SetPoint("RIGHT", parent, "LEFT", -DB.margin, 0)
 	frame:SetSize(28, 28)
 	B.ReskinMenuButton(frame)
 
@@ -352,7 +352,7 @@ end
 
 function M:RaidTool_CountDown(parent)
 	local frame = CreateFrame("Button", nil, parent)
-	frame:SetPoint("LEFT", parent, "RIGHT", C.margin, 0)
+	frame:SetPoint("LEFT", parent, "RIGHT", DB.margin, 0)
 	frame:SetSize(28, 28)
 	B.ReskinMenuButton(frame)
 
@@ -411,7 +411,7 @@ end
 
 function M:RaidTool_CreateMenu(parent)
 	local frame = CreateFrame("Frame", nil, parent)
-	frame:SetPoint("TOP", parent, "BOTTOM", 0, -C.margin)
+	frame:SetPoint("TOP", parent, "BOTTOM", 0, -DB.margin)
 	frame:SetSize(182, 70)
 	B.SetBD(frame)
 	frame:Hide()
@@ -617,7 +617,7 @@ function M:RaidTool_UpdateGrid()
 	local frame = _G["NDui_WorldMarkers"]
 	if not frame then return end
 
-	local size, margin = C.db["Misc"]["MarkerSize"], C.margin
+	local size, margin = C.db["Misc"]["MarkerSize"], DB.margin
 	local showType = C.db["Misc"]["ShowMarkerBar"]
 	local perRow = markerTypeToRow[showType]
 

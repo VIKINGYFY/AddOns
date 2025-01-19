@@ -228,11 +228,11 @@ function UF:UpdateFrameNameTag()
 	local colorTag = C.db["UFs"][value] and "[color]" or ""
 
 	if mystyle == "player" then
-		self:Tag(name, " "..colorTag.."[name]")
+		self:Tag(name, colorTag.."[name]")
 	elseif mystyle == "target" then
-		self:Tag(name, " [fulllevel] "..colorTag.."[name][flags]")
+		self:Tag(name, "[fulllevel] "..colorTag.."[name][flags]")
 	elseif mystyle == "focus" then
-		self:Tag(name, " "..colorTag.."[name][flags]")
+		self:Tag(name, colorTag.."[name][flags]")
 	elseif mystyle == "arena" then
 		self:Tag(name, "[arenaspec] "..colorTag.."[name]")
 	elseif self.raidType == "simple" and C.db["UFs"]["TeamIndex"] then
@@ -665,7 +665,7 @@ function UF:CreateCastBar(self)
 	if mystyle ~= "nameplate" and not C.db["UFs"]["Castbars"] then return end
 
 	local cb = B.CreateSB(self, true, nil, "oUF_Castbar"..mystyle)
-	cb:SetWidth(self:GetWidth() - (20 + C.margin))
+	cb:SetWidth(self:GetWidth() - (20 + DB.margin))
 	cb:SetHeight(20)
 	cb.castTicks = {}
 
@@ -682,8 +682,8 @@ function UF:CreateCastBar(self)
 		cb:SetSize(C.db["UFs"]["FocusCBWidth"], C.db["UFs"]["FocusCBHeight"])
 		createBarMover(cb, L["Focus Castbar"], "FocusCB", C.UFs.FocusCB)
 	elseif mystyle == "boss" or mystyle == "arena" then
-		cb:SetPoint("TOPLEFT", self.Power, "BOTTOMLEFT", 0, -C.margin)
-		cb:SetPoint("TOPRIGHT", self.Power, "BOTTOMRIGHT", 0, -C.margin)
+		cb:SetPoint("TOPLEFT", self.Power, "BOTTOMLEFT", 0, -DB.margin)
+		cb:SetPoint("TOPRIGHT", self.Power, "BOTTOMRIGHT", 0, -DB.margin)
 		cb:SetHeight(10)
 	elseif mystyle == "nameplate" then
 		cb:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -5)
@@ -699,7 +699,7 @@ function UF:CreateCastBar(self)
 	if mystyle ~= "boss" and mystyle ~= "arena" then
 		cb.Icon = cb:CreateTexture(nil, "ARTWORK")
 		cb.Icon:SetSize(cb:GetHeight(), cb:GetHeight())
-		cb.Icon:SetPoint("BOTTOMRIGHT", cb, "BOTTOMLEFT", -C.margin, 0)
+		cb.Icon:SetPoint("BOTTOMRIGHT", cb, "BOTTOMLEFT", -DB.margin, 0)
 		B.ReskinIcon(cb.Icon, true)
 	end
 
@@ -724,9 +724,9 @@ function UF:CreateCastBar(self)
 		shield:SetPoint("CENTER", cb, "CENTER", 0, 0)
 		cb.Shield = shield
 
-		local iconSize = self:GetHeight()*2 + C.margin*2
+		local iconSize = self:GetHeight()*2 + DB.margin*2
 		cb.Icon:SetSize(iconSize, iconSize)
-		cb.Icon:SetPoint("BOTTOMRIGHT", cb, "BOTTOMLEFT", -C.margin*2, 0)
+		cb.Icon:SetPoint("BOTTOMRIGHT", cb, "BOTTOMLEFT", -DB.margin*2, 0)
 		cb.timeToHold = .5
 
 		cb.glowFrame = B.CreateGlowFrame(cb, iconSize)
@@ -735,7 +735,7 @@ function UF:CreateCastBar(self)
 		local spellTarget = B.CreateFS(cb, C.db["Nameplate"]["NameTextSize"] + 3)
 		spellTarget:ClearAllPoints()
 		spellTarget:SetJustifyH("LEFT")
-		spellTarget:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -C.margin)
+		spellTarget:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -DB.margin)
 		cb.spellTarget = spellTarget
 
 		self:RegisterEvent("UNIT_TARGET", updateSpellTarget)
@@ -847,11 +847,11 @@ function UF.PostCreateButton(element, button)
 
 	button.Count = B.CreateFS(parentFrame, fontSize, "", false, "BOTTOMRIGHT", 6, -3)
 	button.timer = B.CreateFS(button, fontSize, "")
-	button.iconbg = B.ReskinIcon(button.Icon, true)
+	button.icbg = B.ReskinIcon(button.Icon, true)
 
 	button.HL = button:CreateTexture(nil, "HIGHLIGHT")
 	button.HL:SetColorTexture(1, 1, 1, .25)
-	button.HL:SetInside(button.iconbg)
+	button.HL:SetInside(button.icbg)
 
 	button.Overlay:SetTexture(nil)
 	button.Cooldown:SetReverse(true)
@@ -863,8 +863,10 @@ function UF.PostCreateButton(element, button)
 
 	if element.disableCooldown then
 		hooksecurefunc(button, "SetSize", UF.UpdateIconTexCoord)
+		button.timer:SetJustifyH("LEFT")
 		B.UpdatePoint(button.timer, "LEFT", button, "TOPLEFT", -2, 0)
-		B.UpdatePoint(button.Count, "RIGHT", button, "BOTTOMRIGHT", 5, 0)
+		button.Count:SetJustifyH("RIGHT")
+		B.UpdatePoint(button.Count, "RIGHT", button, "BOTTOMRIGHT", 2, 0)
 	end
 end
 
@@ -891,7 +893,7 @@ local dispellType = {
 function UF.PostUpdateButton(element, button, unit, data)
 	local duration, expiration, debuffType = data.duration, data.expirationTime, data.dispelName
 
-	if duration then button.iconbg:Show() end
+	if duration then button.icbg:Show() end
 
 	local style = element.__owner.mystyle
 	if style == "nameplate" then
@@ -908,9 +910,9 @@ function UF.PostUpdateButton(element, button, unit, data)
 
 	if element.showDebuffType and button.isHarmful then
 		local color = oUF.colors.debuff[debuffType] or oUF.colors.debuff.none
-		button.iconbg:SetBackdropBorderColor(color[1], color[2], color[3])
+		button.icbg:SetBackdropBorderColor(color[1], color[2], color[3])
 	else
-		B.SetBorderColor(button.iconbg)
+		B.SetBorderColor(button.icbg)
 	end
 
 	if element.alwaysShowStealable and dispellType[debuffType] and not UnitIsPlayer(unit) and (not button.isHarmful) then
@@ -978,8 +980,8 @@ function UF.AurasPostUpdateInfo(element, _, _, debuffsChanged)
 end
 
 function UF.PostUpdateGapButton(_, _, button)
-	if button.iconbg and button.iconbg:IsShown() then
-		button.iconbg:Hide()
+	if button.icbg and button.icbg:IsShown() then
+		button.icbg:Hide()
 	end
 end
 
@@ -1144,7 +1146,7 @@ function UF:CreateAuras(self)
 	bu.gap = true
 	bu.initialAnchor = "TOPLEFT"
 	bu["growth-y"] = "DOWN"
-	bu.spacing = C.margin
+	bu.spacing = DB.margin
 	bu.tooltipAnchor = "ANCHOR_BOTTOMLEFT"
 	if auraUFs[mystyle] then
 		bu.__value = auraUFs[mystyle]
@@ -1181,11 +1183,11 @@ end
 
 function UF:CreateBuffs(self)
 	local bu = CreateFrame("Frame", nil, self)
-	bu:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, C.margin)
+	bu:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, DB.margin)
 	bu.initialAnchor = "BOTTOMLEFT"
 	bu["growth-x"] = "RIGHT"
 	bu["growth-y"] = "UP"
-	bu.spacing = C.margin
+	bu.spacing = DB.margin
 	bu.tooltipAnchor = "ANCHOR_BOTTOMLEFT"
 
 	bu.__value = "Boss"
@@ -1201,8 +1203,8 @@ end
 
 function UF:CreateDebuffs(self)
 	local bu = CreateFrame("Frame", nil, self)
-	bu:SetPoint("TOPRIGHT", self, "TOPLEFT", -C.margin, 0)
-	bu.spacing = C.margin
+	bu:SetPoint("TOPRIGHT", self, "TOPLEFT", -DB.margin, 0)
+	bu.spacing = DB.margin
 	bu.initialAnchor = "TOPRIGHT"
 	bu.tooltipAnchor = "ANCHOR_BOTTOMLEFT"
 	bu["growth-x"] = "LEFT"
@@ -1248,7 +1250,7 @@ function UF.PostUpdateClassPower(element, cur, max, diff, powerType, chargedPowe
 
 	if diff then
 		for i = 1, max do
-			element[i]:SetWidth((element.__owner.ClassPowerBar:GetWidth() - (max-1)*C.margin)/max)
+			element[i]:SetWidth((element.__owner.ClassPowerBar:GetWidth() - (max-1)*DB.margin)/max)
 		end
 		for i = max + 1, 7 do
 			element[i].bg:Hide()
@@ -1295,10 +1297,10 @@ end
 
 function UF:CreateClassPower(self)
 	local barWidth, barHeight = C.db["UFs"]["PlayerWidth"], C.db["UFs"]["PlayerPowerHeight"]
-	local barPoint = {"BOTTOMLEFT", self, "TOPLEFT", 0, C.margin}
+	local barPoint = {"BOTTOMLEFT", self, "TOPLEFT", 0, DB.margin}
 	if self.mystyle == "playerplate" then
 		barWidth, barHeight = C.db["Nameplate"]["PPWidth"], C.db["Nameplate"]["PPBarHeight"]
-		barPoint = {"BOTTOMLEFT", self, "TOPLEFT", 0, C.margin}
+		barPoint = {"BOTTOMLEFT", self, "TOPLEFT", 0, DB.margin}
 	elseif self.mystyle == "targetplate" then
 		barWidth, barHeight = C.db["Nameplate"]["PlateWidth"], C.db["Nameplate"]["PPBarHeight"]
 		barPoint = {"CENTER", self}
@@ -1315,11 +1317,11 @@ function UF:CreateClassPower(self)
 	for i = 1, maxBar do
 		bars[i] = B.CreateSB(bar, nil, true)
 		bars[i]:SetHeight(barHeight)
-		bars[i]:SetWidth((barWidth - (maxBar-1)*C.margin) / maxBar)
+		bars[i]:SetWidth((barWidth - (maxBar-1)*DB.margin) / maxBar)
 		if i == 1 then
 			bars[i]:SetPoint("BOTTOMLEFT")
 		else
-			bars[i]:SetPoint("LEFT", bars[i-1], "RIGHT", C.margin, 0)
+			bars[i]:SetPoint("LEFT", bars[i-1], "RIGHT", DB.margin, 0)
 		end
 
 		if isDK then
@@ -1351,7 +1353,7 @@ end
 function UF:StaggerBar(self)
 	if DB.MyClass ~= "MONK" then return end
 
-	local barPoint = {"BOTTOM", self, "TOP", 0, C.margin}
+	local barPoint = {"BOTTOM", self, "TOP", 0, DB.margin}
 	local barWidth, barHeight = C.db["UFs"]["PlayerWidth"], C.db["UFs"]["PlayerPowerHeight"]
 	if self.mystyle == "playerplate" then
 		barWidth, barHeight = C.db["Nameplate"]["PPWidth"], C.db["Nameplate"]["PPBarHeight"]
@@ -1416,7 +1418,7 @@ function UF:UpdateUFClassPower()
 	if not playerFrame then return end
 
 	local barWidth, barHeight = C.db["UFs"]["PlayerWidth"], C.db["UFs"]["PlayerPowerHeight"]
-	local xOffset, yOffset = 0, C.margin
+	local xOffset, yOffset = 0, DB.margin
 	local bars = playerFrame.ClassPower or playerFrame.Runes
 	if bars then
 		local bar = playerFrame.ClassPowerBar
@@ -1425,7 +1427,7 @@ function UF:UpdateUFClassPower()
 		local max = bars.__max
 		for i = 1, max do
 			bars[i]:SetHeight(barHeight)
-			bars[i]:SetWidth((barWidth - (max-1)*C.margin) / max)
+			bars[i]:SetWidth((barWidth - (max-1)*DB.margin) / max)
 		end
 	end
 
@@ -1443,9 +1445,9 @@ end
 
 function UF:CreateAltPower(self)
 	local bar = B.CreateSB(self)
-	bar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -C.margin)
-	bar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -C.margin)
-	bar:SetHeight(2*C.margin)
+	bar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -DB.margin)
+	bar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -DB.margin)
+	bar:SetHeight(2*DB.margin)
 
 	local text = B.CreateFS(bar, 14, "")
 	self:Tag(text, "[altpower]")
@@ -1458,9 +1460,9 @@ end
 
 function UF:CreateExpRepBar(self)
 	local bar = B.CreateSB(self, nil, nil, "NDuiExpRepBar")
-	bar:SetPoint("TOPRIGHT", self, "TOPLEFT", C.margin, 0)
-	bar:SetPoint("BOTTOMRIGHT", self, "BOTTOLEFT", C.margin, 0)
-	bar:SetWidth(2*C.margin)
+	bar:SetPoint("TOPRIGHT", self, "TOPLEFT", DB.margin, 0)
+	bar:SetPoint("BOTTOMRIGHT", self, "BOTTOLEFT", DB.margin, 0)
+	bar:SetWidth(2*DB.margin)
 	bar:SetOrientation("VERTICAL")
 
 	local rest = CreateFrame("StatusBar", nil, bar)
@@ -1591,9 +1593,9 @@ end
 
 function UF:CreateAddPower(self)
 	local bar = B.CreateSB(self, nil, true)
-	bar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -C.margin)
-	bar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -C.margin)
-	bar:SetHeight(2*C.margin)
+	bar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -DB.margin)
+	bar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -DB.margin)
+	bar:SetHeight(2*DB.margin)
 	bar.colorPower = true
 
 	local text = B.CreateFS(bar, 12, "")
@@ -1668,9 +1670,9 @@ function UF:CreateSwing(self)
 	off:Hide()
 
 	if C.db["UFs"]["OffOnTop"] then
-		B.UpdatePoint(off, "BOTTOM", bar, "TOP", 0, C.margin)
+		B.UpdatePoint(off, "BOTTOM", bar, "TOP", 0, DB.margin)
 	else
-		B.UpdatePoint(off, "TOP", bar, "BOTTOM", 0, -C.margin)
+		B.UpdatePoint(off, "TOP", bar, "BOTTOM", 0, -DB.margin)
 	end
 
 	bar.Text = B.CreateFS(bar, 12, "")

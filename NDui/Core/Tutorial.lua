@@ -264,9 +264,9 @@ local function YesTutor()
 	B.SetBD(tutor)
 	B.CreateWatermark(tutor)
 
-	local ll = B.SetGradient(tutor, "H", 1, 1, 1, 0, C.alpha, 80, C.mult)
+	local ll = B.SetGradient(tutor, "H", 1, 1, 1, 0, DB.alpha, 80, C.mult)
 	ll:SetPoint("TOP", -40, -32)
-	local lr = B.SetGradient(tutor, "H", 1, 1, 1, C.alpha, 0, 80, C.mult)
+	local lr = B.SetGradient(tutor, "H", 1, 1, 1, DB.alpha, 0, 80, C.mult)
 	lr:SetPoint("TOP", 40, -32)
 
 	local title = B.CreateFS(tutor, 16, "", true, "TOP", 0, -10)
@@ -337,9 +337,9 @@ local function HelloWorld()
 	B.CreateWatermark(welcome)
 	B.CreateFS(welcome, 18, L["Help Title"], true, "TOP", 0, -10)
 
-	local ll = B.SetGradient(welcome, "H", 1, 1, 1, 0, C.alpha, 100, C.mult)
+	local ll = B.SetGradient(welcome, "H", 1, 1, 1, 0, DB.alpha, 100, C.mult)
 	ll:SetPoint("TOP", -50, -35)
-	local lr = B.SetGradient(welcome, "H", 1, 1, 1, C.alpha, 0, 100, C.mult)
+	local lr = B.SetGradient(welcome, "H", 1, 1, 1, DB.alpha, 0, 100, C.mult)
 	lr:SetPoint("TOP", 50, -35)
 
 	local intro = B.CreateFS(welcome, 14, "", false, "TOPLEFT", 20, -70)

@@ -290,8 +290,8 @@ C.OnLoginThemes["PetBattleUI"] = function()
 	-- Petbar Background
 	local width, height = 180, 68
 	local anchors = {
-		["BOTTOMRIGHT"] = {0, C.alpha},
-		["BOTTOMLEFT"] = {C.alpha, 0}
+		["BOTTOMRIGHT"] = {0, DB.alpha},
+		["BOTTOMLEFT"] = {DB.alpha, 0}
 	}
 	for anchor, v in pairs(anchors) do
 		local frame = CreateFrame("Frame", nil, UIParent)

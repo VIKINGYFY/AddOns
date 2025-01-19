@@ -89,8 +89,8 @@ function INFO:BackgroundLines()
 	local parent = UIParent
 	local width, height = 450, 18
 	local anchors = {
-		[1] = {"TOPLEFT", -3, C.alpha, 0, "LeftInfobar"},
-		[2] = {"BOTTOMRIGHT", 3, 0, C.alpha, "RightInfobar"},
+		[1] = {"TOPLEFT", -3, DB.alpha, 0, "LeftInfobar"},
+		[2] = {"BOTTOMRIGHT", 3, 0, DB.alpha, "RightInfobar"},
 	}
 	for _, v in pairs(anchors) do
 		local frame = CreateFrame("Frame", "NDui"..v[5], parent)

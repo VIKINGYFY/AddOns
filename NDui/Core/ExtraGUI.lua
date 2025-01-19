@@ -931,7 +931,7 @@ end
 
 local function createOptionTitle(parent, title, offset)
 	B.CreateFS(parent, 14, title, "system", "TOP", 0, offset)
-	local line = B.SetGradient(parent, "H", 1, 1, 1, C.alpha, C.alpha, 200, C.mult)
+	local line = B.SetGradient(parent, "H", 1, 1, 1, DB.alpha, DB.alpha, 200, C.mult)
 	line:SetPoint("TOPLEFT", 30, offset-20)
 end
 

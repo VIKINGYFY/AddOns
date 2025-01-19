@@ -346,7 +346,7 @@ local function Enable(self, unit)
 	element.__owner = self
 	element.ForceUpdate = ForceUpdate
 	element.defaultMode = "vertical"
-	element.format = "|T%s:18:18:-2:0:64:64:5:59:5:59|t%s"
+	element.format = "|T%s:18:18:-2:-4:64:64:5:59:5:59|t%s"
 	element.xDirection = 1
 	element.yDirection = element.yDirection or 1
 	element.scrollTime = element.scrollTime or 2

@@ -58,8 +58,8 @@ local function reskinBar(self, key)
 			icon:SetMask("")
 			icon.bg = B.ReskinIcon(icon, true)
 			icon:ClearAllPoints()
-			icon:SetPoint("TOPLEFT", bar, "TOPRIGHT", C.margin, 0)
-			icon:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", C.margin + bar:GetHeight(), 0)
+			icon:SetPoint("TOPLEFT", bar, "TOPRIGHT", DB.margin, 0)
+			icon:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", DB.margin + bar:GetHeight(), 0)
 		end
 
 		if icon.bg then

@@ -188,9 +188,9 @@ function A:UpdateHeader(header)
 	header:SetAttribute("wrapAfter", cfg.wrapAfter)
 	header:SetAttribute("maxWraps", cfg.maxWraps)
 	header:SetAttribute("point", cfg.reverseGrow and "TOPLEFT" or "TOPRIGHT")
-	header:SetAttribute("minWidth", (cfg.size + C.margin)*cfg.wrapAfter)
+	header:SetAttribute("minWidth", (cfg.size + DB.margin)*cfg.wrapAfter)
 	header:SetAttribute("minHeight", (cfg.size + cfg.offset)*cfg.maxWraps)
-	header:SetAttribute("xOffset", (cfg.reverseGrow and 1 or -1) * (cfg.size + C.margin))
+	header:SetAttribute("xOffset", (cfg.reverseGrow and 1 or -1) * (cfg.size + DB.margin))
 	header:SetAttribute("yOffset", 0)
 	header:SetAttribute("wrapXOffset", 0)
 	header:SetAttribute("wrapYOffset", -(cfg.size + cfg.offset))
@@ -337,7 +337,7 @@ function A:CreatePrivateAuras()
 	local reverse = C.db["Auras"]["ReversePrivate"]
 
 	A.PrivateFrame = CreateFrame("Frame", "NDuiPrivateAuras", UIParent)
-	A.PrivateFrame:SetSize((buttonSize + C.margin)*maxButtons - C.margin, buttonSize + 2*C.margin)
+	A.PrivateFrame:SetSize((buttonSize + DB.margin)*maxButtons - DB.margin, buttonSize + 2*DB.margin)
 	A.PrivateFrame.mover = B.Mover(A.PrivateFrame, "PrivateAuras", "PrivateAuras", {"TOPRIGHT", A.DebuffFrame.mover, "BOTTOMRIGHT", 0, -12})
 	A.PrivateFrame:ClearAllPoints()
 	A.PrivateFrame:SetPoint("TOPRIGHT", A.PrivateFrame.mover)
@@ -348,7 +348,7 @@ function A:CreatePrivateAuras()
 	local rel1 = reverse and "TOPLEFT" or "TOPRIGHT"
 	local rel2 = reverse and "LEFT" or "RIGHT"
 	local rel3 = reverse and "RIGHT" or "LEFT"
-	local margin = reverse and C.margin or -C.margin
+	local margin = reverse and DB.margin or -DB.margin
 
 	for i = 1, maxButtons do
 		local button = CreateFrame("Frame", "$parentAnchor"..i, A.PrivateFrame)

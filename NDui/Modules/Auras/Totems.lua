@@ -6,7 +6,7 @@ local A = B:GetModule("Auras")
 local totems = {}
 
 function A:TotemBar_Init()
-	local margin = C.margin
+	local margin = DB.margin
 	local vertical = C.db["Auras"]["VerticalTotems"]
 	local iconSize = C.db["Auras"]["TotemSize"]
 	local width = vertical and (iconSize + margin*2) or (iconSize*4 + margin*5)

@@ -53,7 +53,7 @@ function M:CreateSingingSockets()
 
 	for i = 1, 3 do
 		local frame = CreateFrame("Frame", "NDuiSingingSocket"..i, ItemSocketingFrame)
-		frame:SetSize(iconSize*2 + 3*C.margin, iconSize*2 + 3*C.margin)
+		frame:SetSize(iconSize*2 + 3*DB.margin, iconSize*2 + 3*DB.margin)
 		frame:SetPoint("TOP", _G["ItemSocketingSocket"..i], "BOTTOM", 0, -50)
 		B.SetBD(frame)
 		M.SingingFrames[i] = frame
@@ -61,7 +61,7 @@ function M:CreateSingingSockets()
 		local index = 0
 		for _, gemID in next, gemsInfo[i] do
 			local button = B.CreateButton(frame, iconSize, iconSize, true, C_Item.GetItemIconByID(gemID))
-			button:SetPoint("TOPLEFT", mod(index, 2)*(iconSize + C.margin) + C.margin, -(index>1 and (iconSize + 2*C.margin) or C.margin))
+			button:SetPoint("TOPLEFT", mod(index, 2)*(iconSize + DB.margin) + DB.margin, -(index>1 and (iconSize + 2*DB.margin) or DB.margin))
 			index = index + 1
 
 			button.socketID = i

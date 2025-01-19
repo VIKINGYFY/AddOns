@@ -58,9 +58,9 @@ local function GradientBackground(self)
 	frame:SetFrameLevel(0)
 	frame:SetShown(C.db["Chat"]["ChatBGType"] == 3)
 
-	local tex = B.SetGradient(frame, "H", 0, 0, 0, C.alpha, 0)
+	local tex = B.SetGradient(frame, "H", 0, 0, 0, DB.alpha, 0)
 	tex:SetOutside()
-	local line = B.SetGradient(frame, "H", cr, cg, cb, C.alpha, 0, nil, C.mult)
+	local line = B.SetGradient(frame, "H", cr, cg, cb, DB.alpha, 0, nil, C.mult)
 	line:SetPoint("BOTTOMLEFT", frame, "TOPLEFT")
 	line:SetPoint("BOTTOMRIGHT", frame, "TOPRIGHT")
 

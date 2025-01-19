@@ -250,9 +250,9 @@ local function CreateConsole()
 		if i == 1 then
 			bu[i]:SetPoint("TOPRIGHT", f, "TOP", -1, -30)
 		elseif i == 3 then
-			bu[i]:SetPoint("TOP", bu[1], "BOTTOM", 0, -C.margin)
+			bu[i]:SetPoint("TOP", bu[1], "BOTTOM", 0, -DB.margin)
 		else
-			bu[i]:SetPoint("LEFT", bu[i-1], "RIGHT", C.margin, 0)
+			bu[i]:SetPoint("LEFT", bu[i-1], "RIGHT", DB.margin, 0)
 		end
 	end
 

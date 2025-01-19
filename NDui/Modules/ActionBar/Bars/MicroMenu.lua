@@ -88,8 +88,8 @@ function Bar:MicroMenu_Lines(parent)
 
 	local width, height = 200, 20
 	local anchors = {
-		["LEFT"] = {C.alpha, 0},
-		["RIGHT"] = {0, C.alpha}
+		["LEFT"] = {DB.alpha, 0},
+		["RIGHT"] = {0, DB.alpha}
 	}
 	for anchor, v in pairs(anchors) do
 		local frame = CreateFrame("Frame", nil, parent)

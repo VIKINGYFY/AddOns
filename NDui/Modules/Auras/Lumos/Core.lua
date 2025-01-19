@@ -185,7 +185,7 @@ function A:CreateLumos(self)
 	self.lumos = {}
 	self.lumos.onFire = C.db["Nameplate"]["PPOnFire"]
 
-	local iconSize = (C.db["Nameplate"]["PPWidth"]+2*C.mult - 4*C.margin)/5
+	local iconSize = (C.db["Nameplate"]["PPWidth"]+2*C.mult - 4*DB.margin)/5
 	for i = 1, 5 do
 		local bu = CreateFrame("Frame", nil, self.Health)
 		bu:SetSize(iconSize, iconSize)
@@ -197,9 +197,9 @@ function A:CreateLumos(self)
 		fontParent:SetFrameLevel(bu:GetFrameLevel() + 1)
 		bu.Count = B.CreateFS(fontParent, 16, "", false, "BOTTOM", 0, -10)
 		if i == 1 then
-			bu:SetPoint("TOPLEFT", self.Power, "BOTTOMLEFT", -C.mult, -C.margin)
+			bu:SetPoint("TOPLEFT", self.Power, "BOTTOMLEFT", -C.mult, -DB.margin)
 		else
-			bu:SetPoint("LEFT", self.lumos[i-1], "RIGHT", C.margin, 0)
+			bu:SetPoint("LEFT", self.lumos[i-1], "RIGHT", DB.margin, 0)
 		end
 
 		self.lumos[i] = bu

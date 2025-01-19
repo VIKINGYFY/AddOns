@@ -7,7 +7,24 @@ local info = module:RegisterInfobar("Time", C.Infobar.TimePos)
 
 local HORRIFIC_VISION = SPLASH_BATTLEFORAZEROTH_8_3_0_FEATURE1_TITLE
 local COMMUNITY_FEAST = C_Spell.GetSpellName(388961)
-local PROGRESS_FORMAT = " |cff%s %s / %s|r"
+local DIFFICULTY_COLOR = {
+	[ 7] = "1eff00",
+	[17] = "1eff00",
+
+	[ 1] = "0070dd",
+	[ 3] = "0070dd",
+	[ 4] = "0070dd",
+	[14] = "0070dd",
+
+	[ 2] = "a335ee",
+	[ 5] = "a335ee",
+	[ 6] = "a335ee",
+	[15] = "a335ee",
+
+	[ 9] = "ff8000",
+	[16] = "ff8000",
+	[23] = "ff8000",
+}
 
 local function updateTimerFormat(color, hour, minute)
 	if GetCVarBool("timeMgrUseMilitaryTime") then
@@ -303,13 +320,13 @@ info.onEnter = function(self)
 	-- Raids
 	title = false
 	for i = 1, GetNumSavedInstances() do
-		local name, _, reset, _, locked, extended, _, isRaid, _, diffName, numBosses, progress = GetSavedInstanceInfo(i)
+		local name, _, reset, diffID, locked, extended, _, isRaid, _, diffName, numBosses, progress = GetSavedInstanceInfo(i)
 		if isRaid and (locked or extended) then
 			addTitle(RAID_INFO)
 			if extended then r,g,b = 1,0,0 elseif locked then r,g,b = 0,1,0 end
 			local progressColor = (numBosses == progress) and "ff0000" or "00ff00"
-			local progressStr = format(PROGRESS_FORMAT, progressColor, progress, numBosses)
-			GameTooltip:AddDoubleLine(name.." - "..diffName..progressStr, SecondsToTime(reset, true, nil, 3), 1,1,1, r,g,b)
+			local difficultyColor = DIFFICULTY_COLOR[diffID]
+			GameTooltip:AddDoubleLine(format("%s |cff%s%s|r |cff%s%s / %s|r", name, difficultyColor, diffName, progressColor, progress, numBosses), SecondsToTime(reset, true, nil, 3), 1,1,1, r,g,b)
 		end
 	end
 
