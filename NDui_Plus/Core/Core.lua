@@ -77,18 +77,18 @@ P.DefaultSettings = {
 		ASGuild = false,
 	},
 	Loot = {
-		Enable = true,
-		Announce = true,
-		AnnounceTitle = true,
+		Enable = false,
+		Announce = false,
+		AnnounceTitle = false,
 		AnnounceRarity = 1,
 	},
 	LootRoll = {
 		Enable = true,
 		Width = 328,
 		Height = 28,
-		Style = 2,
+		Style = 1,
 		Direction = 2,
-		ItemLevel = false,
+		ItemLevel = true,
 		ItemQuality = false,
 	},
 	AFK = {

@@ -415,7 +415,6 @@ G.DefaultSettings = {
 		PlateCBTextOffset = 0,
 		PlateCBTextSize = 16,
 		NameTextSize = 14,
-		NameTextOffset = 5,
 		HealthTextSize = 16,
 		HealthTextOffset = 0,
 
@@ -424,7 +423,6 @@ G.DefaultSettings = {
 		FriendCBTextOffset = 0,
 		FriendCBTextSize = 14,
 		FriendNameSize = 14,
-		FriendNameOffset = 5,
 		FriendHealthSize = 16,
 		FriendHealthOffset = 0,
 
@@ -432,6 +430,7 @@ G.DefaultSettings = {
 		HarmHeight = 50,
 		HelpWidth = 200,
 		HelpHeight = 50,
+		NameplateMargin = 5,
 		NameOnlyTextSize = 14,
 		NameOnlyTitleSize = 12,
 		NameOnlyTitle = true,

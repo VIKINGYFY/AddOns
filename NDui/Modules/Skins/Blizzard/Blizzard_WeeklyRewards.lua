@@ -68,7 +68,6 @@ local function Reskin_Reward(self)
 
 	self.bg = B.ReskinIcon(self.Icon)
 	B.ReskinBorder(self.IconBorder, true)
-	B.CreateBGFrame(self, self.bg, nil, true)
 end
 
 local function Reskin_SelectReward(self)

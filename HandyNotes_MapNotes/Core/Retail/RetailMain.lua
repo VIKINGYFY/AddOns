@@ -1822,7 +1822,7 @@ function Addon:UpdateInstanceNames(node)
                 if not ns.Addon.db.profile.activate.ShiftWorld then 
 
                   if not ns.Addon.db.profile.DeleteIcons and not ns.Addon.db.profile.tomtom then
-                    node.name = "|cff00ff00" .. L["< Left Click to show map >"] .. "|r" .."\n" .. name
+                    node.name = "|cff00ff00" .. "1" .. L["< Left Click to show map >"] .. "|r" .."\n" .. name
                   end
 
                   if ns.Addon.db.profile.DeleteIcons and ns.Addon.db.profile.tomtom then
@@ -1834,7 +1834,7 @@ function Addon:UpdateInstanceNames(node)
                   end
 
                   if ns.Addon.db.profile.tomtom and not ns.Addon.db.profile.DeleteIcons then
-                      node.name = "|cff00ff00" .. L["< Left Click to show map >"] .."\n" .. name
+                      node.name = "|cff00ff00" .. L["< Left Click to show map >"] .."\n" .. name --
                   end
 
                 elseif ns.Addon.db.profile.activate.ShiftWorld then 

@@ -95,7 +95,7 @@ function TT:SetupTooltipID()
 		if caster then
 			local name = GetUnitName(caster, true)
 			local hexColor = B.HexRGB(B.UnitColor(caster))
-			self:AddDoubleLine(L["From"]..":", hexColor..name)
+			self:AddDoubleLine(SPELL_TARGET_CENTER_CASTER..":", hexColor..name)
 			self:Show()
 		end
 	end)
@@ -111,7 +111,7 @@ function TT:SetupTooltipID()
 		if caster then
 			local name = GetUnitName(caster, true)
 			local hexColor = B.HexRGB(B.UnitColor(caster))
-			self:AddDoubleLine(L["From"]..":", hexColor..name)
+			self:AddDoubleLine(SPELL_TARGET_CENTER_CASTER..":", hexColor..name)
 			self:Show()
 		end
 	end

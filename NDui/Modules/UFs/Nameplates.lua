@@ -271,7 +271,7 @@ end
 
 function UF:CreateThreatColor(self)
 	local threatIndicator = B.CreateSD(self, 8, true)
-	threatIndicator:SetFrameLevel(self:GetFrameLevel()+1)
+	threatIndicator:SetFrameLevel(self:GetFrameLevel() + 1)
 	threatIndicator:SetOutside(self, 8+C.mult, 8+C.mult)
 	threatIndicator:Hide()
 
@@ -582,16 +582,13 @@ end
 
 function UF:MouseoverIndicator(self)
 	local highlight = CreateFrame("Frame", nil, self.Health)
-	highlight:SetAllPoints(self)
+	highlight:SetAllPoints()
 	highlight:SetFrameLevel(0)
 	highlight:Hide()
 
-	local texture = highlight:CreateTexture(nil, "ARTWORK")
-	texture:SetAllPoints()
-	texture:SetColorTexture(1, 1, 1, .25)
-	local glow = B.CreateSD(highlight, 8, true)
-	glow:SetOutside(self, 8+C.mult, 8+C.mult)
-	glow:SetBackdropBorderColor(1, 1, 1)
+	highlight.Glow = B.CreateSD(highlight, 8, true)
+	highlight.Glow:SetOutside(self, 8+C.mult, 8+C.mult)
+	highlight.Glow:SetBackdropBorderColor(1, 1, 1)
 
 	self:RegisterEvent("UPDATE_MOUSEOVER_UNIT", UF.UpdateMouseoverShown, true)
 
@@ -716,9 +713,9 @@ function UF:UpdateNameplateAuras()
 
 	local element = self.Auras
 	if C.db["Nameplate"]["TargetPower"] then
-		element:SetPoint("BOTTOMLEFT", self.nameText, "TOPLEFT", 0, 10+C.db["Nameplate"]["PPBarHeight"])
+		element:SetPoint("BOTTOMLEFT", self.nameText, "TOPLEFT", 0, DB.margin*2 + C.db["Nameplate"]["PPBarHeight"])
 	else
-		element:SetPoint("BOTTOMLEFT", self.nameText, "TOPLEFT", 0, 5)
+		element:SetPoint("BOTTOMLEFT", self.nameText, "TOPLEFT", 0, DB.margin)
 	end
 	element.numTotal = C.db["Nameplate"]["maxAuras"]
 	element.iconsPerRow = C.db["Nameplate"]["perRow"]
@@ -740,52 +737,59 @@ UF.PlateNameTags = {
 function UF:UpdateNameplateSize()
 	local plateWidth, plateHeight = C.db["Nameplate"]["PlateWidth"], C.db["Nameplate"]["PlateHeight"]
 	local plateCBTextOffset, plateCBTextSize = C.db["Nameplate"]["PlateCBTextOffset"], C.db["Nameplate"]["PlateCBTextSize"]
+	local nameplateMargin = C.db["Nameplate"]["NameplateMargin"]
 	local nameTextSize = C.db["Nameplate"]["NameTextSize"]
-	local nameTextOffset = C.db["Nameplate"]["NameTextOffset"]
 	local healthTextSize = C.db["Nameplate"]["HealthTextSize"]
 	local healthTextOffset = C.db["Nameplate"]["HealthTextOffset"]
 	if C.db["Nameplate"]["FriendPlate"] and self.isFriendly and not C.db["Nameplate"]["NameOnlyMode"] then -- cannot use plateType here
 		plateWidth, plateHeight = C.db["Nameplate"]["FriendPlateWidth"], C.db["Nameplate"]["FriendPlateHeight"]
 		plateCBTextOffset, plateCBTextSize = C.db["Nameplate"]["FriendCBTextOffset"], C.db["Nameplate"]["FriendCBTextSize"]
 		nameTextSize = C.db["Nameplate"]["FriendNameSize"]
-		nameTextOffset = C.db["Nameplate"]["FriendNameOffset"]
 		healthTextSize = C.db["Nameplate"]["FriendHealthSize"]
 		healthTextOffset = C.db["Nameplate"]["FriendHealthOffset"]
 	end
-	local iconSize = plateHeight*2+DB.margin*2
+	local iconSize = plateHeight*2 + nameplateMargin
 	local nameType = C.db["Nameplate"]["NameType"]
 	local nameOnlyTextSize, nameOnlyTitleSize = C.db["Nameplate"]["NameOnlyTextSize"], C.db["Nameplate"]["NameOnlyTitleSize"]
 
 	if self.plateType == "NameOnly" then
 		B.SetFontSize(self.nameText, nameOnlyTextSize)
-		self:Tag(self.nameText, "[nprare][nplevel][color][name]")
-		self.__tagIndex = 6
 		B.SetFontSize(self.npcTitle, nameOnlyTitleSize)
+
+		self.__tagIndex = 6
+		self:Tag(self.nameText, "[nprare][nplevel][color][name]")
 		self.npcTitle:UpdateTag()
 	else
-		B.SetFontSize(self.nameText, nameTextSize)
-		self.nameText:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, nameTextOffset)
-		self.nameText:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, nameTextOffset)
-		self:Tag(self.nameText, UF.PlateNameTags[nameType])
 		self.__tagIndex = nameType
 
-		self:SetSize(plateWidth, plateHeight)
+		B.SetFontSize(self.nameText, nameTextSize)
 		B.SetFontSize(self.tarName, nameTextSize+4)
-		self.Castbar.Icon:SetSize(iconSize, iconSize)
-		self.Castbar.glowFrame:SetSize(iconSize+8, iconSize+8)
-		self.Castbar:SetHeight(plateHeight)
-		B.SetFontSize(self.Castbar.Time, plateCBTextSize)
-		self.Castbar.Time:SetPoint("RIGHT", self.Castbar, "RIGHT", 0, plateCBTextOffset)
 		B.SetFontSize(self.Castbar.Text, plateCBTextSize)
-		self.Castbar.Text:SetPoint("LEFT", self.Castbar, "LEFT", 0, plateCBTextOffset)
-		self.Castbar.Shield:SetPoint("CENTER", self.Castbar, "CENTER", 0, plateCBTextOffset)
-		self.Castbar.Shield:SetSize(plateCBTextSize+4, plateCBTextSize+4)
+		B.SetFontSize(self.Castbar.Time, plateCBTextSize)
 		B.SetFontSize(self.Castbar.spellTarget, plateCBTextSize+3)
 		B.SetFontSize(self.healthValue, healthTextSize)
+
+		self:SetSize(plateWidth, plateHeight)
+		self.Castbar:SetHeight(plateHeight)
+
+		self.Castbar.Icon:SetSize(iconSize, iconSize)
+		self.Castbar.glowFrame:SetSize(iconSize+8, iconSize+8)
+		self.Castbar.Shield:SetSize(plateCBTextSize+4, plateCBTextSize+4)
+
+		self.nameText:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, nameplateMargin)
+		self.nameText:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, nameplateMargin)
+		self.Castbar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -nameplateMargin)
+		self.Castbar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -nameplateMargin)
+		self.Castbar.Icon:SetPoint("BOTTOMRIGHT", self.Castbar, "BOTTOMLEFT", -nameplateMargin, 0)
+		self.Castbar.Text:SetPoint("LEFT", self.Castbar, "LEFT", 0, plateCBTextOffset)
+		self.Castbar.Shield:SetPoint("CENTER", self.Castbar, "CENTER", 0, plateCBTextOffset)
+		self.Castbar.Time:SetPoint("RIGHT", self.Castbar, "RIGHT", 0, plateCBTextOffset)
 		self.healthValue:SetPoint("RIGHT", self, "RIGHT", 0, healthTextOffset)
+		self.RaidTargetIndicator:SetPoint("BOTTOMRIGHT", self, "TOPLEFT", C.db["Nameplate"]["RaidTargetX"], C.db["Nameplate"]["RaidTargetY"])
+
+		self:Tag(self.nameText, UF.PlateNameTags[nameType])
 		self:Tag(self.healthValue, "[VariousHP("..UF.VariousTagIndex[C.db["Nameplate"]["HealthType"]]..")]")
 		self.healthValue:UpdateTag()
-		self.RaidTargetIndicator:SetPoint("BOTTOMRIGHT", self, "TOPLEFT", C.db["Nameplate"]["RaidTargetX"], C.db["Nameplate"]["RaidTargetY"])
 	end
 	self.nameText:UpdateTag()
 end
@@ -1109,7 +1113,7 @@ function UF:CreatePlayerPlate()
 
 	local textFrame = CreateFrame("Frame", nil, self.Power)
 	textFrame:SetAllPoints()
-	textFrame:SetFrameLevel(self:GetFrameLevel()+1)
+	textFrame:SetFrameLevel(self:GetFrameLevel() + 1)
 	self.powerText = B.CreateFS(textFrame, 14)
 	self:Tag(self.powerText, "[pppower]")
 	UF:TogglePlatePower()

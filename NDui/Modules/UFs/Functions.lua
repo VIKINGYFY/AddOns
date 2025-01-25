@@ -285,8 +285,8 @@ function UF:CreateHealthText(self)
 		name:SetScale(C.db["UFs"]["RaidTextScale"])
 	elseif mystyle == "nameplate" then
 		name:ClearAllPoints()
-		name:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, 5)
-		name:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, 5)
+		name:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, DB.margin)
+		name:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, DB.margin)
 		self:Tag(name, "[nplevel][name]")
 	elseif mystyle == "player" or mystyle == "target" then
 		name:SetPoint("LEFT", 3, C.db["UFs"]["PlayerNameOffset"])
@@ -654,10 +654,9 @@ function UF:ToggleCastBarLatency(frame)
 	frame = frame or _G.oUF_Player
 	if not frame then return end
 
-	frame:UnregisterEvent("GLOBAL_MOUSE_UP", UF.OnCastSent)
-	frame:UnregisterEvent("GLOBAL_MOUSE_DOWN", UF.OnCastSent)
-	frame:UnregisterEvent("CURRENT_SPELL_CAST_CHANGED", UF.OnCastSent)
-	if frame.Castbar then frame.Castbar.__sendTime = nil end
+	frame:RegisterEvent("GLOBAL_MOUSE_UP", UF.OnCastSent, true) -- Fix quests with WorldFrame interaction
+	frame:RegisterEvent("GLOBAL_MOUSE_DOWN", UF.OnCastSent, true)
+	frame:RegisterEvent("CURRENT_SPELL_CAST_CHANGED", UF.OnCastSent, true)
 end
 
 function UF:CreateCastBar(self)
@@ -682,12 +681,12 @@ function UF:CreateCastBar(self)
 		cb:SetSize(C.db["UFs"]["FocusCBWidth"], C.db["UFs"]["FocusCBHeight"])
 		createBarMover(cb, L["Focus Castbar"], "FocusCB", C.UFs.FocusCB)
 	elseif mystyle == "boss" or mystyle == "arena" then
-		cb:SetPoint("TOPLEFT", self.Power, "BOTTOMLEFT", 0, -DB.margin)
-		cb:SetPoint("TOPRIGHT", self.Power, "BOTTOMRIGHT", 0, -DB.margin)
+		cb:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -DB.margin)
+		cb:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -DB.margin)
 		cb:SetHeight(10)
 	elseif mystyle == "nameplate" then
-		cb:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -5)
-		cb:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -5)
+		cb:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -DB.margin)
+		cb:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -DB.margin)
 		cb:SetHeight(self:GetHeight())
 	end
 
@@ -724,9 +723,8 @@ function UF:CreateCastBar(self)
 		shield:SetPoint("CENTER", cb, "CENTER", 0, 0)
 		cb.Shield = shield
 
-		local iconSize = self:GetHeight()*2 + DB.margin*2
+		local iconSize = self:GetHeight()*2 + DB.margin
 		cb.Icon:SetSize(iconSize, iconSize)
-		cb.Icon:SetPoint("BOTTOMRIGHT", cb, "BOTTOMLEFT", -DB.margin*2, 0)
 		cb.timeToHold = .5
 
 		cb.glowFrame = B.CreateGlowFrame(cb, iconSize)
@@ -1157,9 +1155,9 @@ function UF:CreateAuras(self)
 		bu.initialAnchor = "BOTTOMLEFT"
 		bu["growth-y"] = "UP"
 		if C.db["Nameplate"]["TargetPower"] then
-			bu:SetPoint("BOTTOMLEFT", self.nameText, "TOPLEFT", 0, 10 + C.db["Nameplate"]["PPBarHeight"])
+			bu:SetPoint("BOTTOMLEFT", self.nameText, "TOPLEFT", 0, DB.margin*2 + C.db["Nameplate"]["PPBarHeight"])
 		else
-			bu:SetPoint("BOTTOMLEFT", self.nameText, "TOPLEFT", 0, 5)
+			bu:SetPoint("BOTTOMLEFT", self.nameText, "TOPLEFT", 0, DB.margin)
 		end
 		bu.numTotal = C.db["Nameplate"]["maxAuras"]
 		bu.iconsPerRow = C.db["Nameplate"]["perRow"]
@@ -1184,11 +1182,11 @@ end
 function UF:CreateBuffs(self)
 	local bu = CreateFrame("Frame", nil, self)
 	bu:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, DB.margin)
+	bu.spacing = DB.margin
+	bu.tooltipAnchor = "ANCHOR_BOTTOMLEFT"
 	bu.initialAnchor = "BOTTOMLEFT"
 	bu["growth-x"] = "RIGHT"
 	bu["growth-y"] = "UP"
-	bu.spacing = DB.margin
-	bu.tooltipAnchor = "ANCHOR_BOTTOMLEFT"
 
 	bu.__value = "Boss"
 	UF:ConfigureAuras(bu, "Buff")
@@ -1205,8 +1203,8 @@ function UF:CreateDebuffs(self)
 	local bu = CreateFrame("Frame", nil, self)
 	bu:SetPoint("TOPRIGHT", self, "TOPLEFT", -DB.margin, 0)
 	bu.spacing = DB.margin
-	bu.initialAnchor = "TOPRIGHT"
 	bu.tooltipAnchor = "ANCHOR_BOTTOMLEFT"
+	bu.initialAnchor = "TOPRIGHT"
 	bu["growth-x"] = "LEFT"
 	bu["growth-y"] = "UP"
 

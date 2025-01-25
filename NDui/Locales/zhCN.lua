@@ -18,6 +18,7 @@ L["BoN Item"] = "未绑定物品"
 L["iExpToShow"] = "资料片版本阈值"
 L["iExpToShowTip"] = "|n低于设置阈值的 部分非装备 将自动归类在 垃圾 分类里，不会自动出售。|n"..convertExpansionID()
 L["AutoConfirm"] = "自动确认出售可交易物品提示"
+L["NameplateMargin"] = "姓名版各元素间隙"
 
 L["From"] = "来自"
 L["Tell"] = "告诉"

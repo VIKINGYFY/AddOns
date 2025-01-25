@@ -1,9 +1,10 @@
 # MapNote
-## [2.6.2](https://github.com/Ssesmar/MapNote) (2025-01-14)
+## [2.6.3](https://github.com/Ssesmar/MapNote) (2025-01-21)
 - Note:
 
-PTR
-  toc update
+Retail
+    Nazjatar Portal added in Boralus
+    Stormwind Portal added in Nazjatar
 
 - Description:
 

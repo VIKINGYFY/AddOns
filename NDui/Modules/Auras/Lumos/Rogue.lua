@@ -30,7 +30,7 @@ function A:PostCreateLumos(self)
 		if i == 1 then
 			bu:SetPoint("BOTTOMLEFT", parent, "TOPLEFT", 0, DB.margin)
 		else
-			bu:SetPoint("LEFT", buttons[i-1], "RIGHT", 2, 0)
+			bu:SetPoint("LEFT", buttons[i-1], "RIGHT", DB.margin, 0)
 		end
 		buttons[i] = bu
 	end

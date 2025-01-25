@@ -246,7 +246,8 @@ oUF.Tags.Methods["tarname"] = function(unit)
 	local tarUnit = unit.."target"
 	if UnitExists(tarUnit) then
 		local tarClass = select(2, UnitClass(tarUnit))
-		return B.HexRGB(oUF.colors.class[tarClass])..UnitName(tarUnit)
+		local tarName = UnitName(tarUnit) or ""
+		return B.HexRGB(oUF.colors.class[tarClass])..tarName
 	end
 end
 oUF.Tags.Events["tarname"] = "UNIT_NAME_UPDATE UNIT_THREAT_SITUATION_UPDATE UNIT_HEALTH"

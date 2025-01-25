@@ -64,7 +64,6 @@ local ART = {
   Turquoise = "VigorTurquoise",
 }
 
-
 local ART_OPTIONS = {}
 for name in next, ART do
   table.insert(ART_OPTIONS, {
@@ -340,6 +339,13 @@ end)
 function Glider:OnEvent(e, ...)
   if e == "UPDATE_UI_WIDGET" then
     self:Update(...)
+  elseif e == "UPDATE_ALL_UI_WIDGETS" then
+    -- ugly fix: Flying from Khaz Algar to Ringing Deeps and similar world transitions can flash the vigor bar
+    -- so just hide the entire container for a short duration, permamently hiding it messes with content that uses the same bar
+    if self:IsShown() then
+      UIWidgetPowerBarContainerFrame:Hide()
+      C_Timer.After(5, function() UIWidgetPowerBarContainerFrame:Show() end)
+    end
   end
 end
 
@@ -427,7 +433,6 @@ function Glider:HideAnim()
     self.animHide:Play()
     self:SetScript("OnUpdate", nil)
     VOLATILE_VALUES.isRefreshingVigor = false
-    UIWidgetPowerBarContainerFrame:Show()
   end
 end
 
@@ -436,22 +441,16 @@ function Glider:ShowAnim()
     VOLATILE_VALUES.justShown = true
     C_Timer.After(0.2, function() VOLATILE_VALUES.justShown = false end)
     self.animShow:Play()
-    UIWidgetPowerBarContainerFrame:Hide()
   end
 end
 
-local instancesParent = {
-  -- Dragon Isles
-  [1978] = true,
-  --Amirdrassil
-  [2234] = true,
-  -- Thaldraszus
-  [2025] = true
-}
-
 local instances = {
-  -- nokhud offensive
+  -- Nokhud Offensive
   [2093] = true,
+  -- Valdrakken
+  [2112] = true,
+  -- Amirdrassil (Raid)
+  [2234] = true,
 }
 
 function Glider:GetRidingAbroadPercent()
@@ -463,7 +462,7 @@ function Glider:GetRidingAbroadPercent()
   local mapID = C_Map.GetBestMapForUnit('player')
   if not mapID then return 85 end
   local mapInfo = C_Map.GetMapInfo(mapID)
-  if mapInfo and instancesParent[mapInfo.parentMapID] or instances[mapID] then
+  if mapInfo and (instances[mapID] or mapInfo.parentMapID == 1978) then -- 1978 is Dragon Isles
     return 100
   else
     return 85
@@ -550,7 +549,7 @@ function Glider:Update(widget)
   end
 
   -- Widget API is returning garbage data when you first mount up after login for the first few updates
-  -- so it would cause some frame to flash up which isn't behaviour i want
+  -- so it would cause some frame to flash up
   if VOLATILE_VALUES.justShown then
     VOLATILE_VALUES.lastNumFullFrames = info.numFullFrames
     return
@@ -568,6 +567,7 @@ function Glider:OnLoad()
   self:SetupTextures()
   self:SetScript("OnEvent", function(_, ...) self:OnEvent(...) end)
   self:RegisterEvent("UPDATE_UI_WIDGET")
+  self:RegisterEvent("UPDATE_ALL_UI_WIDGETS")
   self.SpeedDisplay.Speed:SetRotation(-117 * (math.pi/180))
   self.VigorCharge.noCooldownCount = true
   self.SpeedDisplay.Speed.noCooldownCount = true

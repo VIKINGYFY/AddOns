@@ -9,19 +9,16 @@ local function reskinQuestIcon(button)
 	if not button.SetNormalTexture then return end
 
 	if not button.styled then
-		button:SetNormalTexture(0)
-		button:SetPushedTexture(0)
-		button:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
+		B.CleanTextures(button)
+
 		local icon = button.icon or button.Icon
 		if icon then
 			button.bg = B.ReskinIcon(icon, true)
+			B.ReskinHLTex(button, button.bg)
+			B.ReskinCPTex(button, button.bg)
 		end
 
 		button.styled = true
-	end
-
-	if button.bg then
-		button.bg:SetFrameLevel(0)
 	end
 end
 
@@ -42,7 +39,7 @@ local function reskinHeader(header)
 	header.bg = bg -- accessable for other addons
 end
 
-local function reskinBar(self, key)
+local function reskinProgress(self, key)
 	local progressBar = self.usedProgressBars[key]
 	local bar = progressBar and progressBar.Bar
 
@@ -173,7 +170,7 @@ C.OnLoginThemes["ObjectiveTracker"] = function()
 	for _, tracker in pairs(trackers) do
 		reskinHeader(tracker.Header)
 		hooksecurefunc(tracker, "AddBlock", reskinQuestIcons)
-		hooksecurefunc(tracker, "GetProgressBar", reskinBar)
+		hooksecurefunc(tracker, "GetProgressBar", reskinProgress)
 		hooksecurefunc(tracker, "GetTimerBar", reskinTimer)
 	end
 
@@ -184,6 +181,10 @@ C.OnLoginThemes["ObjectiveTracker"] = function()
 			block.bg = B.SetBD(block.GlowTexture, 0, -2, 4, 2)
 		end
 	end)
+
+	local isIgnoredTex = {
+		[6013778] = true,	-- 生命值图标
+	}
 
 	hooksecurefunc(ScenarioObjectiveTracker.StageBlock, "UpdateWidgetRegistration", function(self)
 		local widgetContainer = self.WidgetContainer
@@ -198,7 +199,8 @@ C.OnLoginThemes["ObjectiveTracker"] = function()
 
 				if widgetFrame.CurrencyContainer then
 					for currencyFrame in widgetFrame.currencyPool:EnumerateActive() do
-						if not currencyFrame.bg then
+						local tex = currencyFrame.Icon:GetTexture()
+						if not isIgnoredTex[tex] and not currencyFrame.bg then
 							currencyFrame.bg = B.ReskinIcon(currencyFrame.Icon)
 						end
 					end
@@ -209,8 +211,9 @@ C.OnLoginThemes["ObjectiveTracker"] = function()
 
 	hooksecurefunc(ScenarioObjectiveTracker.ChallengeModeBlock, "SetUpAffixes", function(self)
 		for frame in self.affixPool:EnumerateActive() do
-			frame.Border:SetTexture(nil)
-			frame.Portrait:SetTexture(nil)
+			frame.Border:SetTexture("")
+			frame.Portrait:SetTexture("")
+
 			if not frame.bg then
 				frame.bg = B.ReskinIcon(frame.Portrait)
 			end
@@ -237,12 +240,11 @@ C.OnLoginThemes["ObjectiveTracker"] = function()
 		for spellFrame in self.spellFramePool:EnumerateActive() do
 			local spellButton = spellFrame.SpellButton
 			if spellButton and not spellButton.styled then
+				B.CleanTextures(spellButton)
+
 				local bg = B.ReskinIcon(spellButton.Icon)
-				spellButton:SetNormalTexture(0)
-				spellButton:SetPushedTexture(0)
-				local hl = spellButton:GetHighlightTexture()
-				hl:SetColorTexture(1, 1, 1, .25)
-				hl:SetInside(bg)
+				B.ReskinHLTex(spellButton, bg)
+				B.ReskinCPTex(spellButton, bg)
 
 				spellButton.styled = true
 			end
