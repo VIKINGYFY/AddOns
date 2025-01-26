@@ -131,7 +131,6 @@ C.OnLoadThemes["Blizzard_PlayerChoice"] = function()
 							item.NameFrame:SetAlpha(0)
 							if not item.bg then
 								item.bg = B.ReskinIcon(item.Icon)
-								item.bg:SetFrameLevel(item.bg:GetFrameLevel() + 1)
 								B.ReskinBorder(item.IconBorder, true)
 							end
 						end

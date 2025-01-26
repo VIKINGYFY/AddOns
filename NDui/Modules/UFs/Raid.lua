@@ -5,28 +5,24 @@ local UF = B:GetModule("UnitFrames")
 
 -- RaidFrame Elements
 function UF:CreateRaidIcons(self)
-	local parent = CreateFrame("Frame", nil, self)
-	parent:SetAllPoints()
-	parent:SetFrameLevel(self:GetFrameLevel() + 1)
-
-	local check = parent:CreateTexture(nil, "OVERLAY")
+	local check = self:CreateTexture(nil, "OVERLAY")
 	check:SetSize(16, 16)
-	check:SetPoint("BOTTOM", 0, 1)
+	check:SetPoint("BOTTOM", self, "BOTTOM")
 	self.ReadyCheckIndicator = check
 
-	local resurrect = parent:CreateTexture(nil, "OVERLAY")
+	local resurrect = self:CreateTexture(nil, "OVERLAY")
 	resurrect:SetSize(20, 20)
-	resurrect:SetPoint("CENTER", self, 1, 0)
+	resurrect:SetPoint("CENTER", self, "CENTER")
 	self.ResurrectIndicator = resurrect
 
-	local role = parent:CreateTexture(nil, "OVERLAY")
-	role:SetSize(12, 12)
-	role:SetPoint("TOPLEFT", 12, 8)
+	local role = self:CreateTexture(nil, "OVERLAY")
+	role:SetSize(16, 16)
+	role:SetPoint("RIGHT", self.GroupRoleIndicator, "LEFT")
 	self.RaidRoleIndicator = role
 
-	local summon = parent:CreateTexture(nil, "OVERLAY")
+	local summon = self:CreateTexture(nil, "OVERLAY")
 	summon:SetSize(32, 32)
-	summon:SetPoint("CENTER", parent)
+	summon:SetPoint("CENTER", self, "CENTER")
 	self.SummonIndicator = summon
 end
 

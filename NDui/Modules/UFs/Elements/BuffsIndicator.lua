@@ -25,7 +25,6 @@ end
 
 function UF:CreateBuffsIndicator(self)
 	local buffFrame = CreateFrame("Frame", nil, self)
-	buffFrame:SetFrameLevel(self:GetFrameLevel() + 1)
 	buffFrame:SetSize(1, 1)
 	buffFrame:SetPoint("BOTTOMRIGHT", self.Health, "BOTTOMRIGHT")
 
@@ -38,11 +37,7 @@ function UF:CreateBuffsIndicator(self)
 		button:SetScript("OnLeave", B.HideTooltip)
 		button:Hide()
 
-		local parentFrame = CreateFrame("Frame", nil, button)
-		parentFrame:SetAllPoints()
-		parentFrame:SetFrameLevel(button:GetFrameLevel() + 1)
-
-		button.count = B.CreateFS(parentFrame, 12, "", false, "BOTTOMRIGHT", 6, -3)
+		button.count = B.CreateFS(button, 12, "", false, "BOTTOMRIGHT", 6, -3)
 		button.CD:SetHideCountdownNumbers(true)
 
 		if not prevBuff then

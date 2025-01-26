@@ -145,7 +145,9 @@ end
 function UF:CreateHealthBar(self)
 	local mystyle = self.mystyle
 	local health = CreateFrame("StatusBar", nil, self)
+	health:SetFrameLevel(self:GetFrameLevel() - 1)
 	health:SetStatusBarTexture(DB.normTex)
+	health:SetStatusBarColor(.1, .1, .1)
 	health:SetPoint("TOPLEFT", self)
 	health:SetPoint("TOPRIGHT", self)
 	local healthHeight
@@ -166,8 +168,6 @@ function UF:CreateHealthBar(self)
 		healthHeight = retVal(self, C.db["UFs"]["PlayerHeight"], C.db["UFs"]["FocusHeight"], C.db["UFs"]["BossHeight"], C.db["UFs"]["PetHeight"])
 	end
 	health:SetHeight(healthHeight)
-	health:SetStatusBarColor(.1, .1, .1)
-	health:SetFrameLevel(self:GetFrameLevel() - 1)
 
 	local bd = B.SetBD(health)
 	bd:SetFrameLevel(health:GetFrameLevel() - 1)
@@ -275,10 +275,8 @@ end
 
 function UF:CreateHealthText(self)
 	local mystyle = self.mystyle
-	local textFrame = CreateFrame("Frame", nil, self)
-	textFrame:SetAllPoints(self.Health)
 
-	local name = B.CreateFS(textFrame, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["NameTextSize"]), "", false, "LEFT", 3, 0)
+	local name = B.CreateFS(self.Health, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["NameTextSize"]), "", false, "LEFT", 3, 0)
 	self.nameText = name
 	if mystyle == "raid" then
 		UF.UpdateRaidNameAnchor(self, name)
@@ -304,7 +302,7 @@ function UF:CreateHealthText(self)
 
 	UF.UpdateFrameNameTag(self)
 
-	local hpval = B.CreateFS(textFrame, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["HealthTextSize"]), "", false, "RIGHT", -3, 0)
+	local hpval = B.CreateFS(self.Health, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["HealthTextSize"]), "", false, "RIGHT", -3, 0)
 	self.healthValue = hpval
 	if mystyle == "raid" then
 		self:Tag(hpval, "[raidhp]")
@@ -361,6 +359,7 @@ local frequentUpdateCheck = {
 function UF:CreatePowerBar(self)
 	local mystyle = self.mystyle
 	local power = CreateFrame("StatusBar", nil, self)
+	power:SetFrameLevel(self:GetFrameLevel() - 1)
 	power:SetStatusBarTexture(DB.normTex)
 	power:SetPoint("BOTTOMLEFT", self)
 	power:SetPoint("BOTTOMRIGHT", self)
@@ -381,7 +380,6 @@ function UF:CreatePowerBar(self)
 		powerHeight = retVal(self, C.db["UFs"]["PlayerPowerHeight"], C.db["UFs"]["FocusPowerHeight"], C.db["UFs"]["BossPowerHeight"], C.db["UFs"]["PetPowerHeight"])
 	end
 	power:SetHeight(powerHeight)
-	power:SetFrameLevel(self:GetFrameLevel() - 1)
 	power.wasHidden = powerHeight == 0
 
 	local bd = B.CreateBDFrame(power, 0, nil, -C.mult)
@@ -426,10 +424,7 @@ function UF:UpdateFramePowerTag()
 end
 
 function UF:CreatePowerText(self)
-	local textFrame = CreateFrame("Frame", nil, self)
-	textFrame:SetAllPoints(self.Power)
-
-	local ppval = B.CreateFS(textFrame, retVal(self, 13, 12, 12, 12), "", false, "RIGHT", -3, 0)
+	local ppval = B.CreateFS(self.Power, retVal(self, 13, 12, 12, 12), "", false, "RIGHT", -3, 0)
 	local mystyle = self.mystyle
 	if mystyle == "raid" then
 		ppval:SetScale(C.db["UFs"]["RaidTextScale"])
@@ -494,6 +489,7 @@ end
 
 function UF:CreatePortrait(self)
 	local portrait = CreateFrame("PlayerModel", nil, self)
+	portrait:SetFrameLevel(self:GetFrameLevel())
 	portrait:SetAllPoints()
 	portrait:SetAlpha(.2)
 	self.Portrait = portrait
@@ -586,14 +582,13 @@ function UF:CreateIcons(self)
 		self.CombatIndicator = combat
 	elseif mystyle == "target" then
 		local quest = self:CreateTexture(nil, "OVERLAY")
-		quest:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 8)
+		quest:SetPoint("LEFT", self, "TOPLEFT")
 		quest:SetSize(16, 16)
 		self.QuestIndicator = quest
 	end
 
 	local phase = CreateFrame("Frame", nil, self)
-	phase:SetFrameLevel(self:GetFrameLevel() + 1)
-	phase:SetPoint("CENTER", self.Health)
+	phase:SetPoint("CENTER", self.Health, "CENTER")
 	phase:SetSize(24, 24)
 	phase:EnableMouse(true)
 	local icon = phase:CreateTexture(nil, "OVERLAY")
@@ -604,37 +599,35 @@ function UF:CreateIcons(self)
 	if C.db["UFs"]["ShowRoleMode"] ~= 2 then
 		local ri = self:CreateTexture(nil, "OVERLAY")
 		if mystyle == "raid" then
-			ri:SetPoint("TOPRIGHT", self, 5, 5)
+			ri:SetPoint("CENTER", self, "TOPRIGHT")
 		else
-			ri:SetPoint("TOPRIGHT", self, 0, 8)
+			ri:SetPoint("RIGHT", self, "TOPRIGHT")
 		end
-		ri:SetSize(15, 15)
+		ri:SetSize(16, 16)
 		ri.PostUpdate = postUpdateRole
 		self.GroupRoleIndicator = ri
 	end
 
 	local li = self:CreateTexture(nil, "OVERLAY")
-	li:SetPoint("TOPLEFT", self, -1, 8)
-	li:SetSize(12, 12)
+	li:SetPoint("LEFT", self, "TOPLEFT")
+	li:SetSize(14, 14)
 	self.LeaderIndicator = li
 
 	local ai = self:CreateTexture(nil, "OVERLAY")
-	ai:SetPoint("TOPLEFT", self, -1, 8)
-	ai:SetSize(12, 12)
+	ai:SetPoint("LEFT", self, "TOPLEFT")
+	ai:SetSize(14, 14)
 	self.AssistantIndicator = ai
 end
 
 function UF:CreateRaidMark(self)
 	local mystyle = self.mystyle
 	local ri = self:CreateTexture(nil, "OVERLAY")
-	if mystyle == "raid" then
-		ri:SetPoint("TOP", self, 0, 10)
-	elseif mystyle == "nameplate" then
-		ri:SetPoint("BOTTOMRIGHT", self, "TOPLEFT", 0, 3)
+	if mystyle == "nameplate" then
+		ri:SetPoint("BOTTOMRIGHT", self, "TOPLEFT")
 	else
 		ri:SetPoint("CENTER", self, "TOP")
 	end
-	local size = retVal(self, 18, 13, 12, 12, 32)
+	local size = retVal(self, 18, 14, 12, 12, 32)
 	ri:SetSize(size, size)
 	self.RaidTargetIndicator = ri
 end
@@ -839,11 +832,8 @@ end
 
 function UF.PostCreateButton(element, button)
 	local fontSize = element.fontSize or element.size*.6
-	local parentFrame = CreateFrame("Frame", nil, button)
-	parentFrame:SetFrameLevel(button:GetFrameLevel() + 1)
-	parentFrame:SetAllPoints()
 
-	button.Count = B.CreateFS(parentFrame, fontSize, "", false, "BOTTOMRIGHT", 6, -3)
+	button.Count = B.CreateFS(button, fontSize, "", false, "BOTTOMRIGHT", 6, -3)
 	button.timer = B.CreateFS(button, fontSize, "")
 	button.icbg = B.ReskinIcon(button.Icon, true)
 

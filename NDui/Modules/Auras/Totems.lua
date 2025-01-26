@@ -67,7 +67,6 @@ function A:TotemBar_Update()
 		button:SetParent(totem)
 		button:SetAllPoints(totem)
 		button:SetAlpha(0)
-		button:SetFrameLevel(totem:GetFrameLevel() + 1)
 	end
 
 	for i = activeTotems+1, 4 do

@@ -332,7 +332,7 @@ function UF:UpdateTargetIndicator()
 			element.nameGlow:Hide()
 		elseif style == 3 then
 			element.Arrow:ClearAllPoints()
-			element.Arrow:SetPoint("LEFT", element, "RIGHT", 3, 0)
+			element.Arrow:SetPoint("LEFT", element, "RIGHT", 5, 0)
 			element.Arrow:SetRotation(math.rad(-90))
 			element.Arrow:Show()
 			for i = 1, 5 do
@@ -366,7 +366,7 @@ function UF:UpdateTargetIndicator()
 			end
 		elseif style == 6 then
 			element.Arrow:ClearAllPoints()
-			element.Arrow:SetPoint("LEFT", element, "RIGHT", 3, 0)
+			element.Arrow:SetPoint("LEFT", element, "RIGHT", 5, 0)
 			element.Arrow:SetRotation(math.rad(-90))
 			element.Arrow:Show()
 			for i = 1, 5 do
@@ -390,9 +390,9 @@ function UF:AddTargetIndicator(self)
 	frame:SetFrameLevel(0)
 	frame:Hide()
 
-	frame.Arrow = frame:CreateTexture(nil, "BACKGROUND", nil, -5)
+	frame.Arrow = frame:CreateTexture(nil, "BACKGROUND")
 	frame.Arrow:SetSize(50, 50)
-	frame.Arrow:SetTexture(DB.arrowTex)
+	frame.Arrow:SetTexture(DB.targetTex)
 
 	local animGroup = frame.Arrow:CreateAnimationGroup()
 	animGroup:SetLooping("REPEAT")
@@ -410,7 +410,7 @@ function UF:AddTargetIndicator(self)
 	frame.Glow:SetOutside(self, 8+C.mult, 8+C.mult)
 	frame.Glow:SetBackdropBorderColor(1, 0, 1)
 
-	frame.nameGlow = frame:CreateTexture(nil, "BACKGROUND", nil, -5)
+	frame.nameGlow = frame:CreateTexture(nil, "BACKGROUND")
 	frame.nameGlow:SetSize(150, 80)
 	frame.nameGlow:SetTexture("Interface\\GLUES\\Models\\UI_Draenei\\GenericGlow64")
 	frame.nameGlow:SetVertexColor(0, 1, 1)
@@ -500,7 +500,7 @@ function UF:AddQuestIcon(self)
 	qicon:SetSize(30, 30)
 	qicon:SetAtlas(DB.questTex)
 	qicon:Hide()
-	local count = B.CreateFS(self.Health, 20, "", nil, "LEFT", 0, 0)
+	local count = B.CreateFS(self.Health, 20)
 	count:SetPoint("LEFT", qicon, "RIGHT", -4, 0)
 	count:SetTextColor(0, 1, 1)
 
@@ -627,6 +627,7 @@ function UF:ShowUnitTargeted(self)
 	tex:SetPoint("LEFT", self, "RIGHT", 5, 0)
 	tex:SetAtlas("target")
 	tex:Hide()
+
 	local count = B.CreateFS(self.Health, 22)
 	count:SetPoint("LEFT", tex, "RIGHT", 1, 0)
 	count:SetTextColor(1, .8, 0)
@@ -1111,10 +1112,7 @@ function UF:CreatePlayerPlate()
 		end
 	end
 
-	local textFrame = CreateFrame("Frame", nil, self.Power)
-	textFrame:SetAllPoints()
-	textFrame:SetFrameLevel(self:GetFrameLevel() + 1)
-	self.powerText = B.CreateFS(textFrame, 14)
+	self.powerText = B.CreateFS(self.Power, 14)
 	self:Tag(self.powerText, "[pppower]")
 	UF:TogglePlatePower()
 

@@ -172,7 +172,7 @@ function M:MailBox_ContactList()
 	local list = CreateFrame("Frame", nil, bu)
 	list:SetSize(200, 424)
 	list:SetPoint("TOPLEFT", MailFrame, "TOPRIGHT", DB.margin, 0)
-	list:SetFrameStrata("Tooltip")
+	list:SetFrameStrata("HIGH")
 	B.SetBD(list)
 	B.CreateFS(list, 14, L["ContactList"], "system", "TOP", 0, -5)
 

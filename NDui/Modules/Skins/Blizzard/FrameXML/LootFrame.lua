@@ -39,7 +39,6 @@ C.OnLoginThemes["LootFrame"] = function()
 			if item and not button.styled then
 				B.StripTextures(item, 1)
 				item.bg = B.ReskinIcon(item.icon)
-				item.bg:SetFrameLevel(item.bg:GetFrameLevel() + 1)
 				B.ReskinBorder(item.IconBorder, true)
 
 				pushedFrame:SetAlpha(0)

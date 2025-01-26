@@ -25,7 +25,6 @@ end
 
 function UF:CreateDebuffsIndicator(self)
 	local debuffFrame = CreateFrame("Frame", nil, self)
-	debuffFrame:SetFrameLevel(self:GetFrameLevel() + 1)
 	debuffFrame:SetSize(1, 1)
 	debuffFrame:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT")
 
@@ -38,11 +37,7 @@ function UF:CreateDebuffsIndicator(self)
 		button:SetScript("OnLeave", B.HideTooltip)
 		button:Hide()
 
-		local parentFrame = CreateFrame("Frame", nil, button)
-		parentFrame:SetAllPoints()
-		parentFrame:SetFrameLevel(button:GetFrameLevel() + 1)
-
-		button.count = B.CreateFS(parentFrame, 12, "", false, "BOTTOMRIGHT", 6, -3)
+		button.count = B.CreateFS(button, 12, "", false, "BOTTOMRIGHT", 6, -3)
 		button.CD:SetHideCountdownNumbers(true)
 
 		if not prevDebuff then

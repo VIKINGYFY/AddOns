@@ -12,7 +12,7 @@ local COPPER_SYMBOL = format("|cffC77050%s|r", COPPER_AMOUNT_SYMBOL)
 
 local LightLoot = CreateFrame("Button", "LightLoot", UIParent, "BackdropTemplate")
 LightLoot:RegisterForClicks("AnyUp")
-LightLoot:SetFrameStrata("TOOLTIP")
+LightLoot:SetFrameStrata("HIGH")
 LightLoot:SetClampedToScreen(true)
 LightLoot:SetParent(UIParent)
 LightLoot:SetToplevel(true)

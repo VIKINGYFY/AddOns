@@ -46,19 +46,14 @@ function UF:CreateSpellsIndicator(self)
 	local buttons = {}
 	for _, anchor in pairs(anchors) do
 		local button = CreateFrame("Frame", nil, self)
-		button:SetFrameLevel(self:GetFrameLevel() + 1)
 		button:SetSize(spellSize, spellSize)
 		button:SetPoint(anchor)
 
 		B.AuraIcon(button)
 		button:Hide()
 
-		local parentFrame = CreateFrame("Frame", nil, button)
-		parentFrame:SetAllPoints()
-		parentFrame:SetFrameLevel(button:GetFrameLevel() + 1)
-
-		button.timer = B.CreateFS(parentFrame, 12, "", false, "CENTER", -counterOffsets[anchor][2][3], 0)
-		button.count = B.CreateFS(parentFrame, 12, "", false, "CENTER", 1, 0)
+		button.timer = B.CreateFS(button, 12, "", false, "CENTER", -counterOffsets[anchor][2][3], 0)
+		button.count = B.CreateFS(button, 12, "", false, "CENTER", 1, 0)
 		button.CD:SetHideCountdownNumbers(true)
 
 		button.anchor = anchor

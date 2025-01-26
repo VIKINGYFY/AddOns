@@ -58,7 +58,6 @@ C.OnLoginThemes["LootHistory"] = function()
 			if item then
 				B.StripTextures(item, 1)
 				item.bg = B.ReskinIcon(item.icon)
-				item.bg:SetFrameLevel(item.bg:GetFrameLevel() + 1)
 				B.ReskinBorder(item.IconBorder, true)
 			end
 

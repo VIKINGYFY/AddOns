@@ -681,11 +681,13 @@ do
 		if self:IsObjectType("Texture") then frame = self:GetParent() end
 
 		local sdSize = size or 4
-		self.__shadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
-		self.__shadow:SetOutside(self, sdSize, sdSize)
-		self.__shadow:SetBackdrop({edgeFile = DB.glowTex, edgeSize = sdSize})
-		self.__shadow:SetBackdropBorderColor(0, 0, 0, size and 1 or .5)
-		self.__shadow:SetFrameLevel(frame:GetFrameLevel())
+		local shadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+		shadow:SetOutside(self, sdSize, sdSize)
+		shadow:SetBackdrop({edgeFile = DB.glowTex, edgeSize = sdSize})
+		shadow:SetBackdropBorderColor(0, 0, 0, size and 1 or .5)
+		shadow:SetFrameLevel(frame:GetFrameLevel())
+
+		self.__shadow = shadow
 
 		return self.__shadow
 	end
@@ -804,6 +806,7 @@ do
 
 		if not noCooldown then
 			self.CD = CreateFrame("Cooldown", nil, self, "CooldownFrameTemplate")
+			self.CD:SetFrameLevel(self:GetFrameLevel())
 			self.CD:SetInside(self.bg)
 			self.CD:SetReverse(true)
 		end

@@ -103,6 +103,7 @@ local function CreateButton(element, index)
 	local button = CreateFrame('Button', element:GetDebugName() .. 'Button' .. index, element)
 
 	local cd = CreateFrame('Cooldown', '$parentCooldown', button, 'CooldownFrameTemplate')
+	cd:SetFrameLevel(button:GetFrameLevel())
 	cd:SetAllPoints()
 	button.Cooldown = cd
 
@@ -110,11 +111,7 @@ local function CreateButton(element, index)
 	icon:SetAllPoints()
 	button.Icon = icon
 
-	local countFrame = CreateFrame('Frame', nil, button)
-	countFrame:SetAllPoints(button)
-	countFrame:SetFrameLevel(cd:GetFrameLevel() + 1)
-
-	local count = countFrame:CreateFontString(nil, 'OVERLAY', 'NumberFontNormal')
+	local count = button:CreateFontString(nil, 'OVERLAY', 'NumberFontNormal')
 	count:SetPoint('BOTTOMRIGHT', countFrame, 'BOTTOMRIGHT', -1, 0)
 	button.Count = count
 

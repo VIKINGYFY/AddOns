@@ -126,7 +126,6 @@ function UF:CreateAurasIndicator(self)
 	local auraSize = 18
 
 	local auraFrame = CreateFrame("Frame", nil, self)
-	auraFrame:SetFrameLevel(self:GetFrameLevel() + 1)
 	auraFrame:SetSize(1, 1)
 	auraFrame:SetPoint("RIGHT", -15, 0)
 	auraFrame.instAura = C.db["UFs"]["InstanceAuras"]
@@ -143,11 +142,7 @@ function UF:CreateAurasIndicator(self)
 		B.AuraIcon(button)
 		button:Hide()
 
-		local parentFrame = CreateFrame("Frame", nil, button)
-		parentFrame:SetAllPoints()
-		parentFrame:SetFrameLevel(button:GetFrameLevel() + 1)
-
-		button.count = B.CreateFS(parentFrame, 12, "", false, "BOTTOMRIGHT", 6, -3)
+		button.count = B.CreateFS(button, 12, "", false, "BOTTOMRIGHT", 6, -3)
 		button.timer = B.CreateFS(button, 12, "", false, "CENTER", 1, 0)
 		button.glowFrame = B.CreateGlowFrame(button, auraSize)
 		button.CD:SetHideCountdownNumbers(true)

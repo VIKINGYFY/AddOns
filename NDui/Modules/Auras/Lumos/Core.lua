@@ -190,12 +190,10 @@ function A:CreateLumos(self)
 		local bu = CreateFrame("Frame", nil, self.Health)
 		bu:SetSize(iconSize, iconSize)
 		B.AuraIcon(bu)
-		bu.glowFrame = B.CreateGlowFrame(bu, iconSize)
 
-		local fontParent = CreateFrame("Frame", nil, bu)
-		fontParent:SetAllPoints()
-		fontParent:SetFrameLevel(bu:GetFrameLevel() + 1)
-		bu.Count = B.CreateFS(fontParent, 16, "", false, "BOTTOM", 0, -10)
+		bu.glowFrame = B.CreateGlowFrame(bu, iconSize)
+		bu.Count = B.CreateFS(bu, 16, "", false, "BOTTOM", 0, -10)
+
 		if i == 1 then
 			bu:SetPoint("TOPLEFT", self.Power, "BOTTOMLEFT", -C.mult, -DB.margin)
 		else

@@ -165,8 +165,9 @@ function info:GuildPanel_Init()
 
 	infoFrame = CreateFrame("Frame", "NDuiGuildInfobar", info)
 	infoFrame:SetSize(335, 495)
-	updateInfoFrameAnchor(infoFrame)
 	infoFrame:SetClampedToScreen(true)
+	infoFrame:SetFrameStrata("TOOLTIP")
+	updateInfoFrameAnchor(infoFrame)
 	B.SetBD(infoFrame)
 
 	infoFrame:SetScript("OnLeave", function(self)
@@ -182,7 +183,6 @@ function info:GuildPanel_Init()
 	for i = 1, 4 do
 		bu[i] = CreateFrame("Button", nil, infoFrame)
 		bu[i]:SetSize(width[i], 22)
-		bu[i]:SetFrameLevel(infoFrame:GetFrameLevel() + 1)
 		if i == 1 then
 			bu[i]:SetPoint("TOPLEFT", 12, -75)
 		else
