@@ -276,7 +276,11 @@ end
 function UF:CreateHealthText(self)
 	local mystyle = self.mystyle
 
-	local name = B.CreateFS(self.Health, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["NameTextSize"]), "", false, "LEFT", 3, 0)
+	local textFrame = CreateFrame("Frame", nil, self)
+	textFrame:SetFrameLevel(self:GetFrameLevel())
+	textFrame:SetAllPoints(self.Health)
+
+	local name = B.CreateFS(textFrame, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["NameTextSize"]), "", false, "LEFT", 3, 0)
 	self.nameText = name
 	if mystyle == "raid" then
 		UF.UpdateRaidNameAnchor(self, name)
@@ -287,27 +291,27 @@ function UF:CreateHealthText(self)
 		name:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, DB.margin)
 		self:Tag(name, "[nplevel][name]")
 	elseif mystyle == "player" or mystyle == "target" then
-		name:SetPoint("LEFT", 3, C.db["UFs"]["PlayerNameOffset"])
+		name:SetPoint("LEFT", self, "LEFT", 3, C.db["UFs"]["PlayerNameOffset"])
 		name:SetWidth(self:GetWidth()*(C.db["UFs"]["PlayerNameOffset"] == 0 and .55 or 1))
 	elseif mystyle == "focus" then
-		name:SetPoint("LEFT", 3, C.db["UFs"]["FocusNameOffset"])
+		name:SetPoint("LEFT", self, "LEFT", 3, C.db["UFs"]["FocusNameOffset"])
 		name:SetWidth(self:GetWidth()*(C.db["UFs"]["FocusNameOffset"] == 0 and .55 or 1))
 	elseif mystyle == "boss" or mystyle == "arena" then
-		name:SetPoint("LEFT", 3, C.db["UFs"]["BossNameOffset"])
+		name:SetPoint("LEFT", self, "LEFT", 3, C.db["UFs"]["BossNameOffset"])
 		name:SetWidth(self:GetWidth()*(C.db["UFs"]["BossNameOffset"] == 0 and .55 or 1))
 	else
-		name:SetPoint("LEFT", 3, C.db["UFs"]["PetNameOffset"])
+		name:SetPoint("LEFT", self, "LEFT", 3, C.db["UFs"]["PetNameOffset"])
 		name:SetWidth(self:GetWidth()*(C.db["UFs"]["PetNameOffset"] == 0 and .55 or 1))
 	end
 
 	UF.UpdateFrameNameTag(self)
 
-	local hpval = B.CreateFS(self.Health, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["HealthTextSize"]), "", false, "RIGHT", -3, 0)
+	local hpval = B.CreateFS(textFrame, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["HealthTextSize"]), "", false, "RIGHT", -3, 0)
 	self.healthValue = hpval
 	if mystyle == "raid" then
 		self:Tag(hpval, "[raidhp]")
 		hpval:ClearAllPoints()
-		hpval:SetPoint("BOTTOM", 0, 1)
+		hpval:SetPoint("BOTTOM", self, "BOTTOM", 0, 1)
 		hpval:SetJustifyH("CENTER")
 		hpval:SetScale(C.db["UFs"]["RaidTextScale"])
 	elseif mystyle == "nameplate" then
@@ -424,8 +428,14 @@ function UF:UpdateFramePowerTag()
 end
 
 function UF:CreatePowerText(self)
-	local ppval = B.CreateFS(self.Power, retVal(self, 13, 12, 12, 12), "", false, "RIGHT", -3, 0)
 	local mystyle = self.mystyle
+
+	local textFrame = CreateFrame("Frame", nil, self)
+	textFrame:SetFrameLevel(self:GetFrameLevel())
+	textFrame:SetAllPoints(self.Power)
+
+	local ppval = B.CreateFS(textFrame, retVal(self, 13, 12, 12, 12), "", false, "RIGHT", -3, 0)
+	self.powerText = ppval
 	if mystyle == "raid" then
 		ppval:SetScale(C.db["UFs"]["RaidTextScale"])
 	elseif mystyle == "player" or mystyle == "target" then
@@ -435,7 +445,7 @@ function UF:CreatePowerText(self)
 	elseif mystyle == "boss" or mystyle == "arena" then
 		ppval:SetPoint("RIGHT", -3, C.db["UFs"]["BossPowerOffset"])
 	end
-	self.powerText = ppval
+
 	UF.UpdateFramePowerTag(self)
 end
 

@@ -645,6 +645,7 @@ function UF:CreatePlates()
 	self:SetScale(NDuiADB["UIScale"])
 
 	local health = CreateFrame("StatusBar", nil, self)
+	health:SetFrameLevel(self:GetFrameLevel() - 1)
 	health:SetStatusBarTexture(DB.normTex)
 	health:SetAllPoints()
 
