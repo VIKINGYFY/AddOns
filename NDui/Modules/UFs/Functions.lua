@@ -275,47 +275,42 @@ end
 
 function UF:CreateHealthText(self)
 	local mystyle = self.mystyle
+	local health = self.Health
 
-	local textFrame = CreateFrame("Frame", nil, self)
-	textFrame:SetFrameLevel(self:GetFrameLevel())
-	textFrame:SetAllPoints(self.Health)
-
-	local name = B.CreateFS(textFrame, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["NameTextSize"]), "", false, "LEFT", 3, 0)
+	local name = B.CreateFS(self, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["NameTextSize"]))
+	name:SetJustifyH("LEFT")
+	name:ClearAllPoints()
+	name:SetPoint("LEFT", health, "LEFT", 3, 0)
 	self.nameText = name
+
 	if mystyle == "raid" then
 		UF.UpdateRaidNameAnchor(self, name)
 		name:SetScale(C.db["UFs"]["RaidTextScale"])
 	elseif mystyle == "nameplate" then
 		name:ClearAllPoints()
-		name:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, DB.margin)
-		name:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, DB.margin)
+		name:SetPoint("BOTTOMLEFT", health, "TOPLEFT", 0, DB.margin)
+		name:SetPoint("BOTTOMRIGHT", health, "TOPRIGHT", 0, DB.margin)
 		self:Tag(name, "[nplevel][name]")
-	elseif mystyle == "player" or mystyle == "target" then
-		name:SetPoint("LEFT", self, "LEFT", 3, C.db["UFs"]["PlayerNameOffset"])
-		name:SetWidth(self:GetWidth()*(C.db["UFs"]["PlayerNameOffset"] == 0 and .55 or 1))
-	elseif mystyle == "focus" then
-		name:SetPoint("LEFT", self, "LEFT", 3, C.db["UFs"]["FocusNameOffset"])
-		name:SetWidth(self:GetWidth()*(C.db["UFs"]["FocusNameOffset"] == 0 and .55 or 1))
-	elseif mystyle == "boss" or mystyle == "arena" then
-		name:SetPoint("LEFT", self, "LEFT", 3, C.db["UFs"]["BossNameOffset"])
-		name:SetWidth(self:GetWidth()*(C.db["UFs"]["BossNameOffset"] == 0 and .55 or 1))
 	else
-		name:SetPoint("LEFT", self, "LEFT", 3, C.db["UFs"]["PetNameOffset"])
-		name:SetWidth(self:GetWidth()*(C.db["UFs"]["PetNameOffset"] == 0 and .55 or 1))
+		name:SetWidth(self:GetWidth()*.55)
 	end
 
 	UF.UpdateFrameNameTag(self)
 
-	local hpval = B.CreateFS(textFrame, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["HealthTextSize"]), "", false, "RIGHT", -3, 0)
+	local hpval = B.CreateFS(self, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["HealthTextSize"]))
+	hpval:SetJustifyH("RIGHT")
+	hpval:ClearAllPoints()
+	hpval:SetPoint("RIGHT", health, "RIGHT", -3, 0)
 	self.healthValue = hpval
+
 	if mystyle == "raid" then
 		self:Tag(hpval, "[raidhp]")
 		hpval:ClearAllPoints()
-		hpval:SetPoint("BOTTOM", self, "BOTTOM", 0, 1)
+		hpval:SetPoint("BOTTOM", health, "BOTTOM", 0, 1)
 		hpval:SetJustifyH("CENTER")
 		hpval:SetScale(C.db["UFs"]["RaidTextScale"])
 	elseif mystyle == "nameplate" then
-		hpval:SetPoint("RIGHT", self, "RIGHT", 0, 0)
+		hpval:SetPoint("RIGHT", health, "RIGHT", 0, 0)
 		self:Tag(hpval, "[VariousHP(currentpercent)]")
 	else
 		UF.UpdateFrameHealthTag(self)
@@ -429,21 +424,16 @@ end
 
 function UF:CreatePowerText(self)
 	local mystyle = self.mystyle
+	local power = self.Power
 
-	local textFrame = CreateFrame("Frame", nil, self)
-	textFrame:SetFrameLevel(self:GetFrameLevel())
-	textFrame:SetAllPoints(self.Power)
-
-	local ppval = B.CreateFS(textFrame, retVal(self, 13, 12, 12, 12), "", false, "RIGHT", -3, 0)
+	local ppval = B.CreateFS(self, retVal(self, 13, 12, 12, 12))
+	ppval:SetJustifyH("RIGHT")
+	ppval:ClearAllPoints()
+	ppval:SetPoint("RIGHT", power, "RIGHT", -3, 0)
 	self.powerText = ppval
+
 	if mystyle == "raid" then
 		ppval:SetScale(C.db["UFs"]["RaidTextScale"])
-	elseif mystyle == "player" or mystyle == "target" then
-		ppval:SetPoint("RIGHT", -3, C.db["UFs"]["PlayerPowerOffset"])
-	elseif mystyle == "focus" then
-		ppval:SetPoint("RIGHT", -3, C.db["UFs"]["FocusPowerOffset"])
-	elseif mystyle == "boss" or mystyle == "arena" then
-		ppval:SetPoint("RIGHT", -3, C.db["UFs"]["BossPowerOffset"])
 	end
 
 	UF.UpdateFramePowerTag(self)
@@ -530,6 +520,7 @@ end
 
 function UF:CreateRestingIndicator(self)
 	local frame = CreateFrame("Frame", "NDuiRestingFrame", self)
+	frame:SetFrameLevel(self:GetFrameLevel())
 	frame:SetSize(5, 5)
 	frame:SetPoint("CENTER", self, "LEFT", -2, 4)
 	frame:Hide()
@@ -547,7 +538,7 @@ function UF:CreateRestingIndicator(self)
 	}
 
 	local offsets = {
-		[1] = {4, -4},
+		[1] = {5, -5},
 		[2] = {0, 0},
 		[3] = {-5, 5},
 	}
@@ -598,6 +589,7 @@ function UF:CreateIcons(self)
 	end
 
 	local phase = CreateFrame("Frame", nil, self)
+	phase:SetFrameLevel(self:GetFrameLevel())
 	phase:SetPoint("CENTER", self.Health, "CENTER")
 	phase:SetSize(24, 24)
 	phase:EnableMouse(true)

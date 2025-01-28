@@ -1020,15 +1020,9 @@ local function SetUnitFrameSize(self, unit)
 	local width = C.db["UFs"][unit.."Width"]
 	local healthHeight = C.db["UFs"][unit.."Height"]
 	local powerHeight = C.db["UFs"][unit.."PowerHeight"]
-	local nameOffset = C.db["UFs"][unit.."NameOffset"]
-	local powerOffset = C.db["UFs"][unit.."PowerOffset"]
 	local height = healthHeight + powerHeight + C.mult
 	self:SetSize(width, height)
 	self.Health:SetHeight(healthHeight)
-	if self.nameText and nameOffset then
-		self.nameText:SetPoint("LEFT", 3, nameOffset)
-		self.nameText:SetWidth(self:GetWidth()*(nameOffset == 0 and .55 or 1))
-	end
 	if powerHeight == 0 then
 		if self:IsElementEnabled("Power") then
 			self:DisableElement("Power")
@@ -1041,9 +1035,6 @@ local function SetUnitFrameSize(self, unit)
 			if self.powerText then self.powerText:Show() end
 		end
 		self.Power:SetHeight(powerHeight)
-		if self.powerText and powerOffset then
-			self.powerText:SetPoint("RIGHT", -3, powerOffset)
-		end
 	end
 end
 
@@ -1062,11 +1053,11 @@ function G:SetupUnitFrame(parent)
 		["Boss"] = {100, 500},
 	}
 
-	local defaultData = { -- healthWidth, healthHeight, powerHeight, healthTag, powerTag, powerOffset, nameOffset
-		["Player"] = {250, 30, 6, 2, 4, 0, 0},
-		["Focus"] = {200, 24, 4, 2, 4, 0, 0},
-		["Pet"] = {160, 20, 2, 4, 0}, -- nameOffset on 5th
-		["Boss"] = {160, 24, 4, 5, 5, 0, 0},
+	local defaultData = { -- healthWidth, healthHeight, powerHeight, healthTag, powerTag
+		["Player"] = {250, 30, 6, 2, 4},
+		["Focus"] = {200, 24, 4, 2, 4},
+		["Pet"] = {160, 20, 2, 4, 0},
+		["Boss"] = {160, 24, 4, 5, 5},
 	}
 
 	local function createOptionGroup(parent, offset, value, func)
@@ -1080,12 +1071,6 @@ function G:SetupUnitFrame(parent)
 		createOptionSlider(parent, L["Width"], sliderRange[value][1], sliderRange[value][2], defaultData[value][1], offset-110-mult, value.."Width", func)
 		createOptionSlider(parent, L["Height"], 15, 100, defaultData[value][2], offset-180-mult, value.."Height", func)
 		createOptionSlider(parent, L["Power Height"], 0, 50, defaultData[value][3], offset-250-mult, value.."PowerHeight", func)
-		if value ~= "Pet" then
-			createOptionSlider(parent, L["Power Offset"], -20, 20, defaultData[value][6], offset-320-mult, value.."PowerOffset", func)
-			createOptionSlider(parent, L["NameTextOffset"], -50, 50, defaultData[value][7], offset-390-mult, value.."NameOffset", func)
-		else
-			createOptionSlider(parent, L["NameTextOffset"], -20, 20, defaultData[value][5], offset-320-mult, value.."NameOffset", func)
-		end
 	end
 
 	local UF = B:GetModule("UnitFrames")
