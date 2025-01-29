@@ -243,38 +243,35 @@ function UF:UpdateFrameNameTag()
 	name:UpdateTag()
 end
 
-function UF:UpdateRaidNameAnchor(name)
+function UF:UpdateRaidTextAnchor()
+	if self.mystyle ~= "raid" then return end
+
+	local name, hpval = self.nameText, self.healthValue
 	if C.db["UFs"]["RaidHPMode"] == 1 then
 		name:ClearAllPoints()
 		name:SetWidth(self:GetWidth()*.95)
 		name:SetJustifyH("CENTER")
 		name:SetPoint("CENTER", self.Health, "CENTER")
+
+		hpval:ClearAllPoints()
+		hpval:SetJustifyH("CENTER")
+		hpval:SetPoint("TOP", name, "BOTTOM")
 	else
 		if self.raidType == "pet" or self.raidType == "simple" then
 			name:ClearAllPoints()
 			name:SetWidth(self:GetWidth()*.55)
 			name:SetJustifyH("LEFT")
 			name:SetPoint("LEFT", self.Health, "LEFT")
+
+			hpval:ClearAllPoints()
+			hpval:SetJustifyH("RIGHT")
+			hpval:SetPoint("RIGHT", self.Health, "RIGHT")
 		else
 			name:ClearAllPoints()
 			name:SetWidth(self:GetWidth()*.95)
 			name:SetJustifyH("CENTER")
 			name:SetPoint("BOTTOM", self.Health, "CENTER")
-		end
-	end
-end
 
-function UF:UpdateRaidHealthAnchor(hpval)
-	if C.db["UFs"]["RaidHPMode"] == 1 then
-		hpval:ClearAllPoints()
-		hpval:SetJustifyH("CENTER")
-		hpval:SetPoint("CENTER", self.Health, "CENTER")
-	else
-		if self.raidType == "pet" or self.raidType == "simple" then
-			hpval:ClearAllPoints()
-			hpval:SetJustifyH("RIGHT")
-			hpval:SetPoint("RIGHT", self.Health, "RIGHT")
-		else
 			hpval:ClearAllPoints()
 			hpval:SetJustifyH("CENTER")
 			hpval:SetPoint("TOP", self.Health, "CENTER")
@@ -293,7 +290,6 @@ function UF:CreateHealthText(self)
 	self.nameText = name
 
 	if mystyle == "raid" then
-		UF.UpdateRaidNameAnchor(self, name)
 		name:SetScale(C.db["UFs"]["RaidTextScale"])
 	elseif mystyle == "nameplate" then
 		name:ClearAllPoints()
@@ -304,8 +300,6 @@ function UF:CreateHealthText(self)
 		name:SetWidth(self:GetWidth()*.55)
 	end
 
-	UF.UpdateFrameNameTag(self)
-
 	local hpval = B.CreateFS(self, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["HealthTextSize"]))
 	hpval:SetJustifyH("RIGHT")
 	hpval:ClearAllPoints()
@@ -313,7 +307,6 @@ function UF:CreateHealthText(self)
 	self.healthValue = hpval
 
 	if mystyle == "raid" then
-		UF.UpdateRaidHealthAnchor(self, hpval)
 		self:Tag(hpval, "[raidhp]")
 		hpval:SetScale(C.db["UFs"]["RaidTextScale"])
 	elseif mystyle == "nameplate" then
@@ -324,6 +317,9 @@ function UF:CreateHealthText(self)
 	else
 		UF.UpdateFrameHealthTag(self)
 	end
+
+	UF.UpdateFrameNameTag(self)
+	UF.UpdateRaidTextAnchor(self)
 end
 
 local function UpdatePowerColorByIndex(power, index)
@@ -487,8 +483,7 @@ function UF:UpdateRaidTextScale()
 			frame.healthValue:SetScale(scale)
 			frame.healthValue:UpdateTag()
 			if frame.powerText then frame.powerText:SetScale(scale) end
-			UF.UpdateRaidNameAnchor(frame, frame.nameText)
-			UF.UpdateRaidHealthAnchor(frame, frame.healthValue)
+			UF.UpdateRaidTextAnchor(frame)
 			UF:UpdateHealthBarColor(frame, true)
 			UF:UpdatePowerBarColor(frame, true)
 			UF.UpdateFrameNameTag(frame)
@@ -1182,9 +1177,9 @@ end
 
 function UF:CreateBuffs(self)
 	local bu = CreateFrame("Frame", nil, self)
-	bu:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, DB.margin)
+	bu:SetPoint("BOTTOMLEFT", self.AlternativePower, "TOPLEFT", 0, DB.margin)
 	bu.spacing = DB.margin
-	bu.tooltipAnchor = "ANCHOR_BOTTOMLEFT"
+	bu.tooltipAnchor = "ANCHOR_TOPLEFT"
 	bu.initialAnchor = "BOTTOMLEFT"
 	bu["growth-x"] = "RIGHT"
 	bu["growth-y"] = "UP"
@@ -1204,7 +1199,7 @@ function UF:CreateDebuffs(self)
 	local bu = CreateFrame("Frame", nil, self)
 	bu:SetPoint("TOPRIGHT", self, "TOPLEFT", -DB.margin, 0)
 	bu.spacing = DB.margin
-	bu.tooltipAnchor = "ANCHOR_BOTTOMLEFT"
+	bu.tooltipAnchor = "ANCHOR_TOPLEFT"
 	bu.initialAnchor = "TOPRIGHT"
 	bu["growth-x"] = "LEFT"
 	bu["growth-y"] = "UP"
@@ -1444,8 +1439,8 @@ end
 
 function UF:CreateAltPower(self)
 	local bar = B.CreateSB(self)
-	bar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -DB.margin)
-	bar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -DB.margin)
+	bar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, -DB.margin)
+	bar:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, -DB.margin)
 	bar:SetHeight(2*DB.margin)
 
 	local text = B.CreateFS(bar, 14, "")
@@ -1455,6 +1450,47 @@ function UF:CreateAltPower(self)
 
 	self.AlternativePower = bar
 	self.AlternativePower.PostUpdate = UF.PostUpdateAltPower
+end
+
+function UF.PostUpdateAddPower(element, cur, max)
+	if element.Text and max > 0 then
+		local perc = cur/max * 100
+		if perc < 100 then
+			element:SetAlpha(1)
+		else
+			element:SetAlpha(0)
+		end
+		element.Text:SetText(B.Perc(perc))
+	end
+end
+
+function UF:CreateAddPower(self)
+	local bar = B.CreateSB(self, nil, true)
+	bar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -DB.margin)
+	bar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -DB.margin)
+	bar:SetHeight(2*DB.margin)
+	bar.colorPower = true
+
+	local text = B.CreateFS(bar, 12, "")
+
+	B.SmoothBar(bar)
+
+	self.AdditionalPower = bar
+	self.AdditionalPower.Text = text
+	self.AdditionalPower.PostUpdate = UF.PostUpdateAddPower
+	self.AdditionalPower.displayPairs = {
+		["DRUID"] = {
+			[1] = true,
+			[3] = true,
+			[8] = true,
+		},
+		["SHAMAN"] = {
+			[11] = true,
+		},
+		["PRIEST"] = {
+			[13] = true,
+		}
+	}
 end
 
 function UF:CreateExpRepBar(self)
@@ -1576,47 +1612,6 @@ function UF:CreatePrediction(self)
 		PostUpdate = UF.PostUpdatePrediction,
 	}
 	self.predicFrame = frame
-end
-
-function UF.PostUpdateAddPower(element, cur, max)
-	if element.Text and max > 0 then
-		local perc = cur/max * 100
-		if perc < 100 then
-			element:SetAlpha(1)
-		else
-			element:SetAlpha(0)
-		end
-		element.Text:SetText(B.Perc(perc))
-	end
-end
-
-function UF:CreateAddPower(self)
-	local bar = B.CreateSB(self, nil, true)
-	bar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -DB.margin)
-	bar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -DB.margin)
-	bar:SetHeight(2*DB.margin)
-	bar.colorPower = true
-
-	local text = B.CreateFS(bar, 12, "")
-
-	B.SmoothBar(bar)
-
-	self.AdditionalPower = bar
-	self.AdditionalPower.Text = text
-	self.AdditionalPower.PostUpdate = UF.PostUpdateAddPower
-	self.AdditionalPower.displayPairs = {
-		["DRUID"] = {
-			[1] = true,
-			[3] = true,
-			[8] = true,
-		},
-		["SHAMAN"] = {
-			[11] = true,
-		},
-		["PRIEST"] = {
-			[13] = true,
-		}
-	}
 end
 
 function UF:ToggleAddPower()

@@ -1169,8 +1169,7 @@ function G:SetupRaidFrame(parent)
 		for _, frame in pairs(ns.oUF.objects) do
 			if frame.mystyle == "raid" and not frame.raidType then
 				SetUnitFrameSize(frame, "Raid")
-				UF.UpdateRaidNameAnchor(frame, frame.nameText)
-				UF.UpdateRaidHealthAnchor(frame, frame.healthValue)
+				UF.UpdateRaidTextAnchor(frame)
 			end
 		end
 		if UF.CreateAndUpdateRaidHeader then
@@ -1228,8 +1227,7 @@ function G:SetupSimpleRaidFrame(parent)
 				frame:SetSize(frameWidth, frameHeight)
 				frame.Health:SetHeight(healthHeight)
 				frame.Power:SetHeight(powerHeight)
-				UF.UpdateRaidNameAnchor(frame, frame.nameText)
-				UF.UpdateRaidHealthAnchor(frame, frame.healthValue)
+				UF.UpdateRaidTextAnchor(frame)
 			end
 		end
 
@@ -1251,8 +1249,7 @@ function G:SetupPartyFrame(parent)
 		for _, frame in pairs(ns.oUF.objects) do
 			if frame.raidType == "party" then
 				SetUnitFrameSize(frame, "Party")
-				UF.UpdateRaidNameAnchor(frame, frame.nameText)
-				UF.UpdateRaidHealthAnchor(frame, frame.healthValue)
+				UF.UpdateRaidTextAnchor(frame)
 			end
 		end
 		if UF.CreateAndUpdatePartyHeader then
@@ -1294,8 +1291,7 @@ function G:SetupPartyPetFrame(parent)
 		for _, frame in pairs(ns.oUF.objects) do
 			if frame.raidType == "pet" then
 				SetUnitFrameSize(frame, "PartyPet")
-				UF.UpdateRaidNameAnchor(frame, frame.nameText)
-				UF.UpdateRaidHealthAnchor(frame, frame.healthValue)
+				UF.UpdateRaidTextAnchor(frame)
 			end
 		end
 

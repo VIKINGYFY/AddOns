@@ -170,30 +170,24 @@ function UF:UpdateColor(_, unit)
 	local isOffTank, status = UF:CheckThreatStatus(unit)
 	local healthPerc = UnitHealth(unit) / (UnitHealthMax(unit)+.0001) * 100
 
-	local coloredFocus = C.db["Nameplate"]["ColoredFocus"]
-	local coloredTarget = C.db["Nameplate"]["ColoredTarget"]
 	local customColor = C.db["Nameplate"]["CustomColor"]
 	local dotColor = C.db["Nameplate"]["DotColor"]
 	local executeRatio = C.db["Nameplate"]["ExecuteRatio"]
-	local focusColor = C.db["Nameplate"]["FocusColor"]
 	local friendlyCC = C.db["Nameplate"]["FriendlyCC"]
 	local hostileCC = C.db["Nameplate"]["HostileCC"]
 	local insecureColor = C.db["Nameplate"]["InsecureColor"]
 	local offTankColor = C.db["Nameplate"]["OffTankColor"]
 	local secureColor = C.db["Nameplate"]["SecureColor"]
-	local targetColor = C.db["Nameplate"]["TargetColor"]
 	local transColor = C.db["Nameplate"]["TransColor"]
+	local targetColor = C.db["Nameplate"]["TargetColor"]
+	local highlightColor = C.db["Nameplate"]["HighlightColor"]
 
 	local r, g, b
 
 	if not UnitIsConnected(unit) or (not UnitPlayerControlled(unit) and UnitIsTapDenied(unit)) or C.TrashUnits[npcID] then
 		r, g, b = .5, .5, .5
 	else
-		if coloredTarget and UnitIsUnit(unit, "target") then
-			r, g, b = targetColor.r, targetColor.g, targetColor.b
-		elseif coloredFocus and UnitIsUnit(unit, "focus") then
-			r, g, b = focusColor.r, focusColor.g, focusColor.b
-		elseif isCustomUnit then
+		if isCustomUnit then
 			r, g, b = customColor.r, customColor.g, customColor.b
 		elseif isHasTheDot then
 			r, g, b = dotColor.r, dotColor.g, dotColor.b
@@ -229,9 +223,9 @@ function UF:UpdateColor(_, unit)
 		end
 	end
 
-	if r or g or b then
-		self.Health:SetStatusBarColor(r, g, b)
-	end
+	self.Health:SetStatusBarColor(r, g, b)
+	self.TargetIndicator.Glow:SetBackdropBorderColor(targetColor.r, targetColor.g, targetColor.b)
+	self.HighlightIndicator.Glow:SetBackdropBorderColor(highlightColor.r, highlightColor.g, highlightColor.b)
 
 	self.ThreatIndicator:Hide()
 	if isCustomUnit and status then
@@ -278,12 +272,6 @@ function UF:CreateThreatColor(self)
 	self.ThreatIndicator.Override = UF.UpdateThreatColor
 end
 
-function UF:UpdateFocusColor()
-	if C.db["Nameplate"]["ColoredFocus"] then
-		UF.UpdateThreatColor(self, _, self.unit)
-	end
-end
-
 -- Target indicator
 function UF:UpdateTargetChange()
 	local element = self.TargetIndicator
@@ -302,9 +290,6 @@ function UF:UpdateTargetChange()
 				element.ArrowAnimGroup:Stop()
 			end
 		end
-	end
-	if C.db["Nameplate"]["ColoredTarget"] then
-		UF.UpdateThreatColor(self, _, unit)
 	end
 end
 
@@ -384,6 +369,7 @@ function UF:UpdateTargetIndicator()
 end
 
 function UF:AddTargetIndicator(self)
+	local targetColor = C.db["Nameplate"]["TargetColor"]
 	local target = CreateFrame("Frame", nil, self.Health)
 	target:SetAllPoints()
 	target:SetFrameLevel(0)
@@ -407,7 +393,7 @@ function UF:AddTargetIndicator(self)
 
 	target.Glow = B.CreateSD(target, 8, true)
 	target.Glow:SetOutside(self, 8+C.mult, 8+C.mult)
-	target.Glow:SetBackdropBorderColor(1, 0, 1)
+	target.Glow:SetBackdropBorderColor(targetColor.r, targetColor.g, targetColor.b)
 
 	target.nameGlow = target:CreateTexture(nil, "BACKGROUND")
 	target.nameGlow:SetSize(150, 80)
@@ -561,6 +547,7 @@ function UF:UpdateMouseoverShown()
 		self.HighlightIndicator:Show()
 		self.HighlightUpdater:Show()
 	else
+		self.HighlightIndicator:Hide()
 		self.HighlightUpdater:Hide()
 	end
 end
@@ -580,6 +567,7 @@ function UF:HighlightOnHide()
 end
 
 function UF:MouseoverIndicator(self)
+	local highlightColor = C.db["Nameplate"]["HighlightColor"]
 	local highlight = CreateFrame("Frame", nil, self.Health)
 	highlight:SetAllPoints()
 	highlight:SetFrameLevel(0)
@@ -587,7 +575,7 @@ function UF:MouseoverIndicator(self)
 
 	highlight.Glow = B.CreateSD(highlight, 8, true)
 	highlight.Glow:SetOutside(self, 8+C.mult, 8+C.mult)
-	highlight.Glow:SetBackdropBorderColor(1, 1, 1)
+	highlight.Glow:SetBackdropBorderColor(highlightColor.r, highlightColor.g, highlightColor.b)
 
 	self:RegisterEvent("UPDATE_MOUSEOVER_UNIT", UF.UpdateMouseoverShown, true)
 
@@ -689,8 +677,6 @@ function UF:CreatePlates()
 	UF:AddQuestIcon(self)
 	UF:SpellInterruptor(self)
 	UF:ShowUnitTargeted(self)
-
-	self:RegisterEvent("PLAYER_FOCUS_CHANGED", UF.UpdateFocusColor, true)
 
 	platesList[self] = self:GetName()
 end
