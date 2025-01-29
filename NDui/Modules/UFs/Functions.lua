@@ -244,31 +244,40 @@ function UF:UpdateFrameNameTag()
 end
 
 function UF:UpdateRaidNameAnchor(name)
-	if self.raidType == "pet" then
-		name:ClearAllPoints()
-		if C.db["UFs"]["RaidHPMode"] == 1 then
-			name:SetWidth(self:GetWidth()*.95)
-			name:SetJustifyH("CENTER")
-			name:SetPoint("CENTER")
-		else
-			name:SetWidth(self:GetWidth()*.65)
-			name:SetJustifyH("LEFT")
-			name:SetPoint("LEFT", 3, -1)
-		end
-	elseif self.raidType == "simple" then
-		if C.db["UFs"]["RaidHPMode"] == 1 then
-			name:SetWidth(self:GetWidth()*.95)
-		else
-			name:SetWidth(self:GetWidth()*.65)
-		end
-	else
+	if C.db["UFs"]["RaidHPMode"] == 1 then
 		name:ClearAllPoints()
 		name:SetWidth(self:GetWidth()*.95)
 		name:SetJustifyH("CENTER")
-		if C.db["UFs"]["RaidHPMode"] == 1 then
-			name:SetPoint("CENTER")
+		name:SetPoint("CENTER", self.Health, "CENTER")
+	else
+		if self.raidType == "pet" or self.raidType == "simple" then
+			name:ClearAllPoints()
+			name:SetWidth(self:GetWidth()*.55)
+			name:SetJustifyH("LEFT")
+			name:SetPoint("LEFT", self.Health, "LEFT")
 		else
-			name:SetPoint("TOP", 0, -3)
+			name:ClearAllPoints()
+			name:SetWidth(self:GetWidth()*.95)
+			name:SetJustifyH("CENTER")
+			name:SetPoint("BOTTOM", self.Health, "CENTER")
+		end
+	end
+end
+
+function UF:UpdateRaidHealthAnchor(hpval)
+	if C.db["UFs"]["RaidHPMode"] == 1 then
+		hpval:ClearAllPoints()
+		hpval:SetJustifyH("CENTER")
+		hpval:SetPoint("CENTER", self.Health, "CENTER")
+	else
+		if self.raidType == "pet" or self.raidType == "simple" then
+			hpval:ClearAllPoints()
+			hpval:SetJustifyH("RIGHT")
+			hpval:SetPoint("RIGHT", self.Health, "RIGHT")
+		else
+			hpval:ClearAllPoints()
+			hpval:SetJustifyH("CENTER")
+			hpval:SetPoint("TOP", self.Health, "CENTER")
 		end
 	end
 end
@@ -304,13 +313,13 @@ function UF:CreateHealthText(self)
 	self.healthValue = hpval
 
 	if mystyle == "raid" then
+		UF.UpdateRaidHealthAnchor(self, hpval)
 		self:Tag(hpval, "[raidhp]")
-		hpval:ClearAllPoints()
-		hpval:SetPoint("BOTTOM", health, "BOTTOM", 0, 1)
-		hpval:SetJustifyH("CENTER")
 		hpval:SetScale(C.db["UFs"]["RaidTextScale"])
 	elseif mystyle == "nameplate" then
+		hpval:ClearAllPoints()
 		hpval:SetPoint("RIGHT", health, "RIGHT", 0, 0)
+		hpval:SetJustifyH("RIGHT")
 		self:Tag(hpval, "[VariousHP(currentpercent)]")
 	else
 		UF.UpdateFrameHealthTag(self)
@@ -474,11 +483,12 @@ function UF:UpdateRaidTextScale()
 	local scale = C.db["UFs"]["RaidTextScale"]
 	for _, frame in pairs(oUF.objects) do
 		if frame.mystyle == "raid" then
-			UF.UpdateRaidNameAnchor(frame, frame.nameText)
 			frame.nameText:SetScale(scale)
 			frame.healthValue:SetScale(scale)
 			frame.healthValue:UpdateTag()
 			if frame.powerText then frame.powerText:SetScale(scale) end
+			UF.UpdateRaidNameAnchor(frame, frame.nameText)
+			UF.UpdateRaidHealthAnchor(frame, frame.healthValue)
 			UF:UpdateHealthBarColor(frame, true)
 			UF:UpdatePowerBarColor(frame, true)
 			UF.UpdateFrameNameTag(frame)
@@ -1114,13 +1124,12 @@ UF.AuraDirections = {
 
 function UF:UpdateAuraDirection(self, element)
 	local direc = C.db["UFs"][element.__value.."AuraDirec"]
-	local yOffset = C.db["UFs"][element.__value.."AuraOffset"]
 	local value = UF.AuraDirections[direc]
 	element.initialAnchor = value.initialAnchor
 	element["growth-x"] = value.growthX
 	element["growth-y"] = value.growthY
 	element:ClearAllPoints()
-	element:SetPoint(value.initialAnchor, self, value.relAnchor, value.x, value.y * yOffset)
+	element:SetPoint(value.initialAnchor, self, value.relAnchor, value.x, value.y * DB.margin*2)
 end
 
 local auraUFs = {

@@ -26,11 +26,10 @@ function UF:UpdateClickableSize()
 	if InCombatLockdown() then return end
 
 	local uiScale = NDuiADB["UIScale"]
-	local harmWidth, harmHeight = C.db["Nameplate"]["HarmWidth"], C.db["Nameplate"]["HarmHeight"]
-	local helpWidth, helpHeight = C.db["Nameplate"]["HelpWidth"], C.db["Nameplate"]["HelpHeight"]
+	local harmWidth, harmHeight = C.db["Nameplate"]["InteractWidth"], C.db["Nameplate"]["InteractHeight"]
 
 	C_NamePlate.SetNamePlateEnemySize(harmWidth*uiScale, harmHeight*uiScale)
-	C_NamePlate.SetNamePlateFriendlySize(helpWidth*uiScale, helpHeight*uiScale)
+	C_NamePlate.SetNamePlateFriendlySize(harmWidth*uiScale, harmHeight*uiScale)
 end
 
 function UF:UpdatePlateClickThru()
@@ -385,16 +384,16 @@ function UF:UpdateTargetIndicator()
 end
 
 function UF:AddTargetIndicator(self)
-	local frame = CreateFrame("Frame", nil, self.Health)
-	frame:SetAllPoints()
-	frame:SetFrameLevel(0)
-	frame:Hide()
+	local target = CreateFrame("Frame", nil, self.Health)
+	target:SetAllPoints()
+	target:SetFrameLevel(0)
+	target:Hide()
 
-	frame.Arrow = frame:CreateTexture(nil, "BACKGROUND")
-	frame.Arrow:SetSize(50, 50)
-	frame.Arrow:SetTexture(DB.targetTex)
+	target.Arrow = target:CreateTexture(nil, "BACKGROUND")
+	target.Arrow:SetSize(50, 50)
+	target.Arrow:SetTexture(DB.targetTex)
 
-	local animGroup = frame.Arrow:CreateAnimationGroup()
+	local animGroup = target.Arrow:CreateAnimationGroup()
 	animGroup:SetLooping("REPEAT")
 	local anim = animGroup:CreateAnimation("Path")
 	anim:SetDuration(1)
@@ -403,21 +402,21 @@ function UF:AddTargetIndicator(self)
 		anim.points[i] = anim:CreateControlPoint()
 		anim.points[i]:SetOrder(i)
 	end
-	frame.ArrowAnim = anim
-	frame.ArrowAnimGroup = animGroup
+	target.ArrowAnim = anim
+	target.ArrowAnimGroup = animGroup
 
-	frame.Glow = B.CreateSD(frame, 8, true)
-	frame.Glow:SetOutside(self, 8+C.mult, 8+C.mult)
-	frame.Glow:SetBackdropBorderColor(1, 0, 1)
+	target.Glow = B.CreateSD(target, 8, true)
+	target.Glow:SetOutside(self, 8+C.mult, 8+C.mult)
+	target.Glow:SetBackdropBorderColor(1, 0, 1)
 
-	frame.nameGlow = frame:CreateTexture(nil, "BACKGROUND")
-	frame.nameGlow:SetSize(150, 80)
-	frame.nameGlow:SetTexture("Interface\\GLUES\\Models\\UI_Draenei\\GenericGlow64")
-	frame.nameGlow:SetVertexColor(0, 1, 1)
-	frame.nameGlow:SetBlendMode("ADD")
-	frame.nameGlow:SetPoint("CENTER", self, "BOTTOM")
+	target.nameGlow = target:CreateTexture(nil, "BACKGROUND")
+	target.nameGlow:SetSize(150, 80)
+	target.nameGlow:SetTexture("Interface\\GLUES\\Models\\UI_Draenei\\GenericGlow64")
+	target.nameGlow:SetVertexColor(0, 1, 1)
+	target.nameGlow:SetBlendMode("ADD")
+	target.nameGlow:SetPoint("CENTER", self, "BOTTOM")
 
-	self.TargetIndicator = frame
+	self.TargetIndicator = target
 	self:RegisterEvent("PLAYER_TARGET_CHANGED", UF.UpdateTargetChange, true)
 	UF.UpdateTargetIndicator(self)
 end
@@ -738,19 +737,12 @@ UF.PlateNameTags = {
 }
 function UF:UpdateNameplateSize()
 	local plateWidth, plateHeight = C.db["Nameplate"]["PlateWidth"], C.db["Nameplate"]["PlateHeight"]
-	local plateCBTextOffset, plateCBTextSize = C.db["Nameplate"]["PlateCBTextOffset"], C.db["Nameplate"]["PlateCBTextSize"]
-	local nameplateMargin = C.db["Nameplate"]["NameplateMargin"]
+	local plateMargin = C.db["Nameplate"]["PlateMargin"]
 	local nameTextSize = C.db["Nameplate"]["NameTextSize"]
 	local healthTextSize = C.db["Nameplate"]["HealthTextSize"]
-	local healthTextOffset = C.db["Nameplate"]["HealthTextOffset"]
-	if C.db["Nameplate"]["FriendPlate"] and self.isFriendly and not C.db["Nameplate"]["NameOnlyMode"] then -- cannot use plateType here
-		plateWidth, plateHeight = C.db["Nameplate"]["FriendPlateWidth"], C.db["Nameplate"]["FriendPlateHeight"]
-		plateCBTextOffset, plateCBTextSize = C.db["Nameplate"]["FriendCBTextOffset"], C.db["Nameplate"]["FriendCBTextSize"]
-		nameTextSize = C.db["Nameplate"]["FriendNameSize"]
-		healthTextSize = C.db["Nameplate"]["FriendHealthSize"]
-		healthTextOffset = C.db["Nameplate"]["FriendHealthOffset"]
-	end
-	local iconSize = plateHeight*2 + nameplateMargin
+	local castbarTextSize = C.db["Nameplate"]["CastBarTextSize"]
+
+	local iconSize = plateHeight*2 + plateMargin
 	local nameType = C.db["Nameplate"]["NameType"]
 	local nameOnlyTextSize, nameOnlyTitleSize = C.db["Nameplate"]["NameOnlyTextSize"], C.db["Nameplate"]["NameOnlyTitleSize"]
 
@@ -766,9 +758,9 @@ function UF:UpdateNameplateSize()
 
 		B.SetFontSize(self.nameText, nameTextSize)
 		B.SetFontSize(self.tarName, nameTextSize+4)
-		B.SetFontSize(self.Castbar.Text, plateCBTextSize)
-		B.SetFontSize(self.Castbar.Time, plateCBTextSize)
-		B.SetFontSize(self.Castbar.spellTarget, plateCBTextSize+3)
+		B.SetFontSize(self.Castbar.Text, castbarTextSize)
+		B.SetFontSize(self.Castbar.Time, castbarTextSize)
+		B.SetFontSize(self.Castbar.spellTarget, castbarTextSize+3)
 		B.SetFontSize(self.healthValue, healthTextSize)
 
 		self:SetSize(plateWidth, plateHeight)
@@ -776,17 +768,13 @@ function UF:UpdateNameplateSize()
 
 		self.Castbar.Icon:SetSize(iconSize, iconSize)
 		self.Castbar.glowFrame:SetSize(iconSize+8, iconSize+8)
-		self.Castbar.Shield:SetSize(plateCBTextSize+4, plateCBTextSize+4)
+		self.Castbar.Shield:SetSize(castbarTextSize+4, castbarTextSize+4)
 
-		self.nameText:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, nameplateMargin)
-		self.nameText:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, nameplateMargin)
-		self.Castbar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -nameplateMargin)
-		self.Castbar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -nameplateMargin)
-		self.Castbar.Icon:SetPoint("BOTTOMRIGHT", self.Castbar, "BOTTOMLEFT", -nameplateMargin, 0)
-		self.Castbar.Text:SetPoint("LEFT", self.Castbar, "LEFT", 0, plateCBTextOffset)
-		self.Castbar.Shield:SetPoint("CENTER", self.Castbar, "CENTER", 0, plateCBTextOffset)
-		self.Castbar.Time:SetPoint("RIGHT", self.Castbar, "RIGHT", 0, plateCBTextOffset)
-		self.healthValue:SetPoint("RIGHT", self, "RIGHT", 0, healthTextOffset)
+		self.nameText:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, plateMargin)
+		self.nameText:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, plateMargin)
+		self.Castbar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -plateMargin)
+		self.Castbar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -plateMargin)
+		self.Castbar.Icon:SetPoint("BOTTOMRIGHT", self.Castbar, "BOTTOMLEFT", -plateMargin, 0)
 		self.RaidTargetIndicator:SetPoint("BOTTOMRIGHT", self, "TOPLEFT", C.db["Nameplate"]["RaidTargetX"], C.db["Nameplate"]["RaidTargetY"])
 
 		self:Tag(self.nameText, UF.PlateNameTags[nameType])
@@ -901,7 +889,7 @@ function UF:RefreshPlateType(unit)
 	self.isSoftTarget = UnitIsUnit(unit, "softinteract")
 	if C.db["Nameplate"]["NameOnlyMode"] and self.isFriendly or self.widgetsOnly or self.isSoftTarget then
 		self.plateType = "NameOnly"
-	elseif C.db["Nameplate"]["FriendPlate"] and self.isFriendly then
+	elseif self.isFriendly then
 		self.plateType = "FriendPlate"
 	else
 		self.plateType = "None"

@@ -1170,6 +1170,7 @@ function G:SetupRaidFrame(parent)
 			if frame.mystyle == "raid" and not frame.raidType then
 				SetUnitFrameSize(frame, "Raid")
 				UF.UpdateRaidNameAnchor(frame, frame.nameText)
+				UF.UpdateRaidHealthAnchor(frame, frame.healthValue)
 			end
 		end
 		if UF.CreateAndUpdateRaidHeader then
@@ -1228,6 +1229,7 @@ function G:SetupSimpleRaidFrame(parent)
 				frame.Health:SetHeight(healthHeight)
 				frame.Power:SetHeight(powerHeight)
 				UF.UpdateRaidNameAnchor(frame, frame.nameText)
+				UF.UpdateRaidHealthAnchor(frame, frame.healthValue)
 			end
 		end
 
@@ -1250,6 +1252,7 @@ function G:SetupPartyFrame(parent)
 			if frame.raidType == "party" then
 				SetUnitFrameSize(frame, "Party")
 				UF.UpdateRaidNameAnchor(frame, frame.nameText)
+				UF.UpdateRaidHealthAnchor(frame, frame.healthValue)
 			end
 		end
 		if UF.CreateAndUpdatePartyHeader then
@@ -1292,6 +1295,7 @@ function G:SetupPartyPetFrame(parent)
 			if frame.raidType == "pet" then
 				SetUnitFrameSize(frame, "PartyPet")
 				UF.UpdateRaidNameAnchor(frame, frame.nameText)
+				UF.UpdateRaidHealthAnchor(frame, frame.healthValue)
 			end
 		end
 
@@ -1583,55 +1587,18 @@ function G:SetupNameplateSize(parent)
 
 	local panel = createExtraGUI(parent, guiName, L["NameplateSize"].."*")
 	local scroll = G:CreateScroll(panel, 260, 540)
-
-	local optionValues = {
-		["enemy"] = {"PlateWidth", "PlateHeight", "HarmWidth", "HarmHeight", "NameTextSize", "HealthTextSize", "HealthTextOffset", "PlateCBTextSize", "PlateCBTextOffset"},
-		["friend"] = {"FriendPlateWidth", "FriendPlateHeight", "HelpWidth", "HelpHeight", "FriendNameSize", "FriendHealthSize", "FriendHealthOffset", "FriendCBTextSize", "FriendCBTextOffset"},
-	}
-	local function createOptionGroup(parent, offset, value, func, isEnemy)
-		createOptionTitle(parent, "", offset)
-		createOptionSlider(parent, L["Width"], 50, 500, 200, offset-60, optionValues[value][1], func, "Nameplate")
-		createOptionSlider(parent, L["Height"], 5, 50, 10, offset-130, optionValues[value][2], func, "Nameplate")
-		createOptionSlider(parent, L["InteractWidth"], 50, 500, 200, offset-200, optionValues[value][3], func, "Nameplate")
-		createOptionSlider(parent, L["InteractHeight"], 5, 50, 50, offset-270, optionValues[value][4], func, "Nameplate")
-		createOptionSlider(parent, L["NameTextSize"], 10, 50, 14, offset-340, optionValues[value][5], func, "Nameplate")
-		createOptionSlider(parent, L["HealthTextSize"], 10, 50, 16, offset-410, optionValues[value][6], func, "Nameplate")
-		createOptionSlider(parent, L["HealthTextOffset"], -50, 50, 0, offset-480, optionValues[value][7], func, "Nameplate")
-		createOptionSlider(parent, L["CastbarTextSize"], 10, 50, 16, offset-550, optionValues[value][8], func, "Nameplate")
-		createOptionSlider(parent, L["CastbarTextOffset"], -50, 50, 0, offset-620, optionValues[value][9], func, "Nameplate")
-	end
-
 	local UF = B:GetModule("UnitFrames")
-	local options = {
-		[1] = L["HostileNameplate"],
-		[2] = L["FriendlyNameplate"],
-	}
 
-	createOptionTitle(scroll.child, GENERAL, -10)
-	createOptionSlider(scroll.child, L["RaidTargetX"], -200, 200, 0, -70, "RaidTargetX", func, "Nameplate")
-	createOptionSlider(scroll.child, L["RaidTargetY"], -200, 200, 0, -140, "RaidTargetY", func, "Nameplate")
-	createOptionSlider(scroll.child, L["NameplateMargin"], 0, 10, 5, -210, "NameplateMargin", func, "Nameplate")
-
-	local dd = G:CreateDropdown(scroll.child, "", 40, -280, options, nil, 180, 28, true)
-	dd:SetFrameLevel(20)
-	dd.Text:SetText(options[1])
-	dd.panels = {}
-
-	for i = 1, #options do
-		local panel = CreateFrame("Frame", nil, scroll.child)
-		panel:SetSize(260, 1)
-		panel:SetPoint("TOP", 0, -30)
-		panel:Hide()
-		if i == 1 then
-			createOptionGroup(panel, -280, "enemy", UF.RefreshAllPlates, true)
-		else
-			createOptionGroup(panel, -280, "friend", UF.RefreshAllPlates)
-		end
-
-		dd.panels[i] = panel
-		dd.options[i]:HookScript("OnClick", toggleOptionsPanel)
-	end
-	toggleOptionsPanel(dd.options[1])
+	createOptionSlider(scroll.child, L["Width"], 50, 500, 200, -30, "PlateWidth", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["Height"], 5, 50, 10, -100, "PlateHeight", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["InteractWidth"], 50, 500, 200, -170, "InteractWidth", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["InteractHeight"], 5, 50, 50, -240, "InteractHeight", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["NameTextSize"], 10, 50, 14, -310, "NameTextSize", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["HealthTextSize"], 10, 50, 16, -380, "HealthTextSize", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["CastbarTextSize"], 10, 50, 16, -450, "CastBarTextSize", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["PlateMargin"], 0, 10, 5, -520, "PlateMargin", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["RaidTargetX"], -200, 200, 0, -590, "RaidTargetX", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["RaidTargetY"], -200, 200, 0, -660, "RaidTargetY", UF.RefreshAllPlates, "Nameplate")
 end
 
 function G:SetupNameOnlySize(parent)
@@ -1794,20 +1761,19 @@ function G:SetupUFAuras(parent)
 		local default = defaultData[value]
 		createOptionTitle(parent, "", offset)
 		if isBoss then
-			offset = offset + 130
+			offset = offset + 60
 		else
 			createOptionDropdown(parent, L["GrowthDirection"], offset-50, growthOptions, "", "UFs", value.."AuraDirec", 1, func)
-			createOptionSlider(parent, L["yOffset"], 0, 200, 10, offset-110, value.."AuraOffset", func)
 		end
-		createOptionDropdown(parent, L["BuffType"], offset-180, buffOptions, nil, "UFs", value.."BuffType", default[1], func)
-		createOptionDropdown(parent, L["DebuffType"], offset-240, debuffOptions, nil, "UFs", value.."DebuffType", default[2], func)
-		createOptionSlider(parent, L["MaxBuffs"], 1, 40, default[4], offset-300, value.."NumBuff", func)
-		createOptionSlider(parent, L["MaxDebuffs"], 1, 40, default[5], offset-370, value.."NumDebuff", func)
+		createOptionDropdown(parent, L["BuffType"], offset-110, buffOptions, nil, "UFs", value.."BuffType", default[1], func)
+		createOptionDropdown(parent, L["DebuffType"], offset-170, debuffOptions, nil, "UFs", value.."DebuffType", default[2], func)
+		createOptionSlider(parent, L["MaxBuffs"], 1, 40, default[4], offset-240, value.."NumBuff", func)
+		createOptionSlider(parent, L["MaxDebuffs"], 1, 40, default[5], offset-310, value.."NumDebuff", func)
 		if isBoss then
-			createOptionSlider(parent, "Buff "..L["IconsPerRow"], 5, 20, default[3], offset-440, value.."BuffPerRow", func)
-			createOptionSlider(parent, "Debuff "..L["IconsPerRow"], 5, 20, default[3], offset-510, value.."DebuffPerRow", func)
+			createOptionSlider(parent, "Buff "..L["IconsPerRow"], 5, 20, default[3], offset-380, value.."BuffPerRow", func)
+			createOptionSlider(parent, "Debuff "..L["IconsPerRow"], 5, 20, default[3], offset-450, value.."DebuffPerRow", func)
 		else
-			createOptionSlider(parent, L["IconsPerRow"], 5, 20, default[3], offset-440, value.."AurasPerRow", func)
+			createOptionSlider(parent, L["IconsPerRow"], 5, 20, default[3], offset-380, value.."AurasPerRow", func)
 		end
 	end
 
