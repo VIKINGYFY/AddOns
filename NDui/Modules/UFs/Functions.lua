@@ -29,6 +29,7 @@ ReplacePowerColor("ARCANE_CHARGES", 16, {.41, .8, .94})
 -- Various values
 local function retVal(self, val1, val2, val3, val4, val5)
 	local mystyle = self.mystyle
+
 	if mystyle == "player" or mystyle == "target" then
 		return val1
 	elseif mystyle == "focus" then
@@ -97,8 +98,8 @@ local function UpdateHealthColorByIndex(health, index)
 end
 
 function UF:UpdateHealthBarColor(self, force)
-	local health = self.Health
-	local mystyle = self.mystyle
+	local mystyle, health = self.mystyle, self.Health
+
 	if mystyle == "playerplate" then
 		health.colorHealth = true
 	elseif mystyle == "raid" then
@@ -115,6 +116,7 @@ end
 function UF.HealthPostUpdate(element, unit, cur, max)
 	local self = element.__owner
 	local mystyle = self.mystyle
+
 	local useGradient, useGradientClass
 	if mystyle == "playerplate" then
 		-- do nothing
@@ -144,12 +146,14 @@ end
 
 function UF:CreateHealthBar(self)
 	local mystyle = self.mystyle
+
 	local health = CreateFrame("StatusBar", nil, self)
 	health:SetFrameLevel(self:GetFrameLevel() - 1)
 	health:SetStatusBarTexture(DB.normTex)
 	health:SetStatusBarColor(.1, .1, .1)
 	health:SetPoint("TOPLEFT", self)
 	health:SetPoint("TOPRIGHT", self)
+
 	local healthHeight
 	if mystyle == "playerplate" then
 		healthHeight = C.db["Nameplate"]["PPHealthHeight"]
@@ -200,7 +204,9 @@ UF.VariousTagIndex = {
 }
 
 function UF:UpdateFrameHealthTag()
-	local mystyle = self.mystyle
+	local mystyle, hpval = self.mystyle, self.healthValue
+	if mystyle == "raid" or mystyle == "nameplate" then return end
+
 	local valueType
 	if mystyle == "player" or mystyle == "target" then
 		valueType = UF.VariousTagIndex[C.db["UFs"]["PlayerHPTag"]]
@@ -213,15 +219,12 @@ function UF:UpdateFrameHealthTag()
 	end
 
 	local showValue = C.db["UFs"]["PlayerAbsorb"] and mystyle == "player" and "[curAbsorb] " or ""
-	self:Tag(self.healthValue, showValue.."[VariousHP("..valueType..")]")
-	self.healthValue:UpdateTag()
+	self:Tag(hpval, showValue.."[VariousHP("..valueType..")]")
+	hpval:UpdateTag()
 end
 
 function UF:UpdateFrameNameTag()
-	local name = self.nameText
-	if not name then return end
-
-	local mystyle = self.mystyle
+	local mystyle, name = self.mystyle, self.nameText
 	if mystyle == "nameplate" then return end
 
 	local value = mystyle == "raid" and "RCCName" or "CCName"
@@ -240,6 +243,7 @@ function UF:UpdateFrameNameTag()
 	else
 		self:Tag(name, colorTag.."[name]")
 	end
+
 	name:UpdateTag()
 end
 
@@ -249,7 +253,6 @@ function UF:UpdateRaidTextAnchor()
 	local name, hpval = self.nameText, self.healthValue
 	if C.db["UFs"]["RaidHPMode"] == 1 then
 		name:ClearAllPoints()
-		name:SetWidth(self:GetWidth()*.95)
 		name:SetJustifyH("CENTER")
 		name:SetPoint("CENTER", self.Health, "CENTER")
 
@@ -258,47 +261,28 @@ function UF:UpdateRaidTextAnchor()
 		hpval:SetPoint("TOP", name, "BOTTOM")
 	else
 		if self.raidType == "pet" or self.raidType == "simple" then
-			name:ClearAllPoints()
-			name:SetWidth(self:GetWidth()*.55)
-			name:SetJustifyH("LEFT")
-			name:SetPoint("LEFT", self.Health, "LEFT")
-
 			hpval:ClearAllPoints()
 			hpval:SetJustifyH("RIGHT")
 			hpval:SetPoint("RIGHT", self.Health, "RIGHT")
-		else
-			name:ClearAllPoints()
-			name:SetWidth(self:GetWidth()*.95)
-			name:SetJustifyH("CENTER")
-			name:SetPoint("BOTTOM", self.Health, "CENTER")
 
+			name:ClearAllPoints()
+			name:SetJustifyH("LEFT")
+			name:SetPoint("LEFT", self.Health, "LEFT")
+			name:SetPoint("RIGHT", self.healthValue, "LEFT")
+		else
 			hpval:ClearAllPoints()
 			hpval:SetJustifyH("CENTER")
 			hpval:SetPoint("TOP", self.Health, "CENTER")
+
+			name:ClearAllPoints()
+			name:SetJustifyH("CENTER")
+			name:SetPoint("BOTTOM", self.Health, "CENTER")
 		end
 	end
 end
 
 function UF:CreateHealthText(self)
-	local mystyle = self.mystyle
-	local health = self.Health
-
-	local name = B.CreateFS(self, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["NameTextSize"]))
-	name:SetJustifyH("LEFT")
-	name:ClearAllPoints()
-	name:SetPoint("LEFT", health, "LEFT", 3, 0)
-	self.nameText = name
-
-	if mystyle == "raid" then
-		name:SetScale(C.db["UFs"]["RaidTextScale"])
-	elseif mystyle == "nameplate" then
-		name:ClearAllPoints()
-		name:SetPoint("BOTTOMLEFT", health, "TOPLEFT", 0, DB.margin)
-		name:SetPoint("BOTTOMRIGHT", health, "TOPRIGHT", 0, DB.margin)
-		self:Tag(name, "[nplevel][name]")
-	else
-		name:SetWidth(self:GetWidth()*.55)
-	end
+	local mystyle, health = self.mystyle, self.Health
 
 	local hpval = B.CreateFS(self, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["HealthTextSize"]))
 	hpval:SetJustifyH("RIGHT")
@@ -314,11 +298,26 @@ function UF:CreateHealthText(self)
 		hpval:SetPoint("RIGHT", health, "RIGHT", 0, 0)
 		hpval:SetJustifyH("RIGHT")
 		self:Tag(hpval, "[VariousHP(currentpercent)]")
-	else
-		UF.UpdateFrameHealthTag(self)
+	end
+
+	local name = B.CreateFS(self, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["NameTextSize"]))
+	name:SetJustifyH("LEFT")
+	name:ClearAllPoints()
+	name:SetPoint("LEFT", health, "LEFT", 3, 0)
+	name:SetPoint("RIGHT", hpval, "LEFT", -3, 0)
+	self.nameText = name
+
+	if mystyle == "raid" then
+		name:SetScale(C.db["UFs"]["RaidTextScale"])
+	elseif mystyle == "nameplate" then
+		name:ClearAllPoints()
+		name:SetPoint("BOTTOMLEFT", health, "TOPLEFT", 0, DB.margin)
+		name:SetPoint("BOTTOMRIGHT", health, "TOPRIGHT", 0, DB.margin)
+		self:Tag(name, "[nplevel][name]")
 	end
 
 	UF.UpdateFrameNameTag(self)
+	UF.UpdateFrameHealthTag(self)
 	UF.UpdateRaidTextAnchor(self)
 end
 
@@ -339,8 +338,8 @@ local function UpdatePowerColorByIndex(power, index)
 end
 
 function UF:UpdatePowerBarColor(self, force)
-	local power = self.Power
-	local mystyle = self.mystyle
+	local mystyle, power = self.mystyle, self.Power
+
 	if mystyle == "playerplate" then
 		power.colorPower = true
 	elseif mystyle == "raid" then
@@ -362,11 +361,13 @@ local frequentUpdateCheck = {
 }
 function UF:CreatePowerBar(self)
 	local mystyle = self.mystyle
+
 	local power = CreateFrame("StatusBar", nil, self)
 	power:SetFrameLevel(self:GetFrameLevel() - 1)
 	power:SetStatusBarTexture(DB.normTex)
 	power:SetPoint("BOTTOMLEFT", self)
 	power:SetPoint("BOTTOMRIGHT", self)
+
 	local powerHeight
 	if mystyle == "playerplate" then
 		powerHeight = C.db["Nameplate"]["PPPowerHeight"]
@@ -414,6 +415,7 @@ end
 
 function UF:UpdateFramePowerTag()
 	local mystyle = self.mystyle
+
 	local valueType
 	if mystyle == "player" or mystyle == "target" then
 		valueType = UF.VariousTagIndex[C.db["UFs"]["PlayerMPTag"]]
@@ -428,8 +430,7 @@ function UF:UpdateFramePowerTag()
 end
 
 function UF:CreatePowerText(self)
-	local mystyle = self.mystyle
-	local power = self.Power
+	local mystyle, power = self.mystyle, self.Power
 
 	local ppval = B.CreateFS(self, retVal(self, 13, 12, 12, 12))
 	ppval:SetJustifyH("RIGHT")
@@ -580,6 +581,7 @@ end
 
 function UF:CreateIcons(self)
 	local mystyle = self.mystyle
+
 	if mystyle == "player" then
 		local combat = self:CreateTexture(nil, "OVERLAY")
 		combat:SetPoint("CENTER", self, "BOTTOMLEFT")
@@ -628,6 +630,7 @@ end
 
 function UF:CreateRaidMark(self)
 	local mystyle = self.mystyle
+
 	local ri = self:CreateTexture(nil, "OVERLAY")
 	if mystyle == "nameplate" then
 		ri:SetPoint("BOTTOMRIGHT", self, "TOPLEFT")
@@ -1136,6 +1139,7 @@ local auraUFs = {
 }
 function UF:CreateAuras(self)
 	local mystyle = self.mystyle
+
 	local bu = CreateFrame("Frame", nil, self)
 	bu.gap = true
 	bu.initialAnchor = "TOPLEFT"
@@ -1539,12 +1543,7 @@ function UF:PostUpdatePrediction(_, health, maxHealth, allIncomingHeal, allAbsor
 end
 
 function UF:CreatePrediction(self)
-	local frame = CreateFrame("Frame", nil, self)
-	frame:SetFrameLevel(self:GetFrameLevel())
-	frame:SetAllPoints(self.Health)
-	frame:SetClipsChildren(true)
-
-	local myBar = CreateFrame("StatusBar", nil, frame)
+	local myBar = CreateFrame("StatusBar", nil, self.Health)
 	myBar:SetPoint("TOP")
 	myBar:SetPoint("BOTTOM")
 	myBar:SetPoint("LEFT", self.Health:GetStatusBarTexture(), "RIGHT")
@@ -1552,7 +1551,7 @@ function UF:CreatePrediction(self)
 	myBar:SetStatusBarColor(0, 1, 0, .75)
 	myBar:Hide()
 
-	local otherBar = CreateFrame("StatusBar", nil, frame)
+	local otherBar = CreateFrame("StatusBar", nil, self.Health)
 	otherBar:SetPoint("TOP")
 	otherBar:SetPoint("BOTTOM")
 	otherBar:SetPoint("LEFT", myBar:GetStatusBarTexture(), "RIGHT")
@@ -1560,7 +1559,7 @@ function UF:CreatePrediction(self)
 	otherBar:SetStatusBarColor(1, 1, 0, .75)
 	otherBar:Hide()
 
-	local absorbBar = CreateFrame("StatusBar", nil, frame)
+	local absorbBar = CreateFrame("StatusBar", nil, self.Health)
 	absorbBar:SetPoint("TOP")
 	absorbBar:SetPoint("BOTTOM")
 	absorbBar:SetPoint("LEFT", otherBar:GetStatusBarTexture(), "RIGHT")
@@ -1568,13 +1567,13 @@ function UF:CreatePrediction(self)
 	absorbBar:SetStatusBarColor(0, 1, 1, .75)
 	absorbBar:Hide()
 
-	local overAbsorbBar = CreateFrame("StatusBar", nil, frame)
+	local overAbsorbBar = CreateFrame("StatusBar", nil, self.Health)
 	overAbsorbBar:SetAllPoints()
 	overAbsorbBar:SetStatusBarTexture(DB.bdTex)
 	overAbsorbBar:SetStatusBarColor(0, 1, 1, .75)
 	overAbsorbBar:Hide()
 
-	local healAbsorbBar = CreateFrame("StatusBar", nil, frame)
+	local healAbsorbBar = CreateFrame("StatusBar", nil, self.Health)
 	healAbsorbBar:SetPoint("TOP")
 	healAbsorbBar:SetPoint("BOTTOM")
 	healAbsorbBar:SetPoint("RIGHT", self.Health:GetStatusBarTexture(), "RIGHT")

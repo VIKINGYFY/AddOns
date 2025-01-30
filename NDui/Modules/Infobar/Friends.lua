@@ -167,7 +167,7 @@ function info:FriendsPanel_Init()
 	infoFrame = CreateFrame("Frame", "NDuiFriendsFrame", info)
 	infoFrame:SetSize(400, 495)
 	infoFrame:SetClampedToScreen(true)
-	infoFrame:SetFrameStrata("TOOLTIP")
+	infoFrame:SetFrameStrata("HIGH")
 	updateInfoFrameAnchor(infoFrame)
 	B.SetBD(infoFrame)
 
