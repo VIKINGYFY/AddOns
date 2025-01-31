@@ -41,9 +41,7 @@ C.OnLoadThemes["Blizzard_ArchaeologyUI"] = function()
 
 	ArchaeologyFrameInfoButton:SetPoint("TOPLEFT", 3, -3)
 	ArchaeologyFrameSummarytButton:SetPoint("TOPLEFT", ArchaeologyFrame, "TOPRIGHT", 1, -50)
-	ArchaeologyFrameSummarytButton:SetFrameLevel(ArchaeologyFrame:GetFrameLevel() - 1)
 	ArchaeologyFrameCompletedButton:SetPoint("TOPLEFT", ArchaeologyFrame, "TOPRIGHT", 1, -120)
-	ArchaeologyFrameCompletedButton:SetFrameLevel(ArchaeologyFrame:GetFrameLevel() - 1)
 
 	B.ReskinDropDown(ArchaeologyFrameRaceFilter)
 	B.ReskinScroll(ArchaeologyFrameArtifactPageHistoryScroll.ScrollBar)

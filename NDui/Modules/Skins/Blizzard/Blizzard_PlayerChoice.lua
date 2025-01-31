@@ -27,10 +27,6 @@ local ignoredTextureKit = {
 	["genericplayerchoice"] = true,
 }
 
-local uglyBackground = {
-	["ui-frame-genericplayerchoice-cardparchment"] = true
-}
-
 C.OnLoadThemes["Blizzard_PlayerChoice"] = function()
 	hooksecurefunc(PlayerChoiceFrame, "TryShow", function(self)
 		B.StripTextures(self)
@@ -44,6 +40,7 @@ C.OnLoadThemes["Blizzard_PlayerChoice"] = function()
 			self.bg = B.SetBD(self)
 
 			if GenericPlayerChoiceToggleButton then
+				B.StripTextures(GenericPlayerChoiceToggleButton)
 				B.ReskinButton(GenericPlayerChoiceToggleButton)
 			end
 		end
@@ -70,18 +67,8 @@ C.OnLoadThemes["Blizzard_PlayerChoice"] = function()
 			B.ReplaceIconString(optionFrame.OptionText.String)
 
 			if optionFrame.Artwork and isIgnored then optionFrame.Artwork:SetSize(64, 64) end -- fix high resolution icons
---[[
-			local optionBG = optionFrame.Background
-			if optionBG then
-				if not optionBG.bg then
-					optionBG.bg = B.SetBD(optionBG)
-					optionBG.bg:SetInside(optionBG, 4, 4)
-				end
-				local isUgly = uglyBackground[optionBG:GetAtlas()]
-				optionBG:SetShown(not isUgly)
-				optionBG.bg:SetShown(isUgly)
-			end
-]]
+			if optionFrame.BackgroundContainer then B.StripTextures(optionFrame.BackgroundContainer) end
+
 			local optionButtonsContainer = optionFrame.OptionButtonsContainer
 			if optionButtonsContainer and optionButtonsContainer.buttonPool then
 				for button in optionButtonsContainer.buttonPool:EnumerateActive() do
@@ -94,7 +81,7 @@ C.OnLoadThemes["Blizzard_PlayerChoice"] = function()
 				for rewardFrame in rewards.rewardsPool:EnumerateActive() do
 					local text = rewardFrame.Name or rewardFrame.Text -- .Text for PlayerChoiceBaseOptionReputationRewardTemplate
 					if text then
-						B.ReskinText(text, .9, .8, .5)
+						B.ReskinText(text, 1, .8, 0)
 					end
 
 					if not rewardFrame.styled then

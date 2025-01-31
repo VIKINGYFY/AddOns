@@ -2,10 +2,12 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 local function reskinButton(button)
-	if button.styled then return end
-	if button.Border then button.Border:SetAlpha(0) end
-	if button.Icon then B.ReskinIcon(button.Icon) end
-	button.styled = true
+	if not button.styled then
+		if button.Border then button.Border:SetAlpha(0) end
+		if button.Icon then B.ReskinIcon(button.Icon) end
+
+		button.styled = true
+	end
 end
 
 local function updateButton(self)
@@ -14,11 +16,11 @@ end
 
 local function reskinOptionSlot(frame, skip)
 	local option = frame.OptionsList
-	B.StripTextures(option)
-	local bg = B.SetBD(option, -5)
-	bg:SetFrameLevel(3)
+	option.bg = B.ReskinFrame(option)
+
 	if not skip then
 		hooksecurefunc(option.ScrollBox, "Update", updateButton)
+		B.UpdateSize(option.bg, -1, 0, 0, -2)
 	end
 end
 
@@ -54,10 +56,10 @@ end
 local function handleRewards(self)
 	for rewardFrame in self.rewardPool:EnumerateActive() do
 		if not rewardFrame.bg then
-			B.CreateBDFrame(rewardFrame, .25)
-			rewardFrame.NameFrame:SetAlpha(0)
+			rewardFrame.NameFrame:Hide()
 			rewardFrame.bg = B.ReskinIcon(rewardFrame.Icon)
 			B.ReskinBorder(rewardFrame.IconBorder, true)
+			B.CreateBGFrame(rewardFrame, rewardFrame.bg)
 		end
 	end
 end

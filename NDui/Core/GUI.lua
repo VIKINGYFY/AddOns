@@ -427,7 +427,7 @@ G.DefaultSettings = {
 		BlizzardSkins = true,
 		SkinAlpha = .5,
 		FontOutline = true,
-		Shadow = true,
+		Shadow = false,
 		BgTex = true,
 		CustomBD = true,
 		CustomBDColor = {r=.5, g=.5, b=.5},
