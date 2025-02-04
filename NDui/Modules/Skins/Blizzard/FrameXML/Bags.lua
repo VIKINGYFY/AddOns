@@ -13,7 +13,7 @@ end
 
 local function createBagIcon(frame, index)
 	if not frame.bagIcon then
-		frame.bagIcon = frame.PortraitButton:CreateTexture()
+		frame.bagIcon = frame.PortraitButton:CreateTexture(nil, "ARTWORK")
 		B.ReskinIcon(frame.bagIcon)
 		frame.bagIcon:SetPoint("TOPLEFT", 5, -3)
 		frame.bagIcon:SetSize(32, 32)

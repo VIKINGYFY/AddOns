@@ -211,7 +211,7 @@ function S:KrowiAF()
 	local button = KrowiAF_AchievementCalendarButton
 	if button then
 		B.StripTextures(button)
-		local icon = button:CreateTexture()
+		local icon = button:CreateTexture(nil, "ARTWORK")
 		icon:SetAllPoints()
 		icon:SetTexture(DB.garrTex)
 

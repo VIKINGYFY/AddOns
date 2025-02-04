@@ -607,12 +607,8 @@ function UF:CreateIcons(self)
 
 	if C.db["UFs"]["ShowRoleMode"] ~= 2 then
 		local ri = self:CreateTexture(nil, "OVERLAY")
-		if mystyle == "raid" then
-			ri:SetPoint("CENTER", self, "TOPRIGHT")
-		else
-			ri:SetPoint("RIGHT", self, "TOPRIGHT")
-		end
-		ri:SetSize(16, 16)
+		ri:SetPoint("RIGHT", self, "TOPRIGHT")
+		ri:SetSize(12, 12)
 		ri.PostUpdate = postUpdateRole
 		self.GroupRoleIndicator = ri
 	end
@@ -1325,7 +1321,7 @@ function UF:CreateClassPower(self)
 		if isDK then
 			bars[i].timer = B.CreateFS(bars[i], 12, "")
 		else
-			local chargeStar = bar:CreateTexture()
+			local chargeStar = bar:CreateTexture(nil, "OVERLAY")
 			chargeStar:SetTexture(DB.starTex)
 			chargeStar:SetSize(12, 12)
 			chargeStar:SetPoint("CENTER", bars[i])
@@ -1543,15 +1539,17 @@ function UF:PostUpdatePrediction(_, health, maxHealth, allIncomingHeal, allAbsor
 end
 
 function UF:CreatePrediction(self)
-	local myBar = CreateFrame("StatusBar", nil, self.Health)
+	local health = self.Health
+
+	local myBar = CreateFrame("StatusBar", nil, health)
 	myBar:SetPoint("TOP")
 	myBar:SetPoint("BOTTOM")
-	myBar:SetPoint("LEFT", self.Health:GetStatusBarTexture(), "RIGHT")
+	myBar:SetPoint("LEFT", health:GetStatusBarTexture(), "RIGHT")
 	myBar:SetStatusBarTexture(DB.bdTex)
 	myBar:SetStatusBarColor(0, 1, 0, .75)
 	myBar:Hide()
 
-	local otherBar = CreateFrame("StatusBar", nil, self.Health)
+	local otherBar = CreateFrame("StatusBar", nil, health)
 	otherBar:SetPoint("TOP")
 	otherBar:SetPoint("BOTTOM")
 	otherBar:SetPoint("LEFT", myBar:GetStatusBarTexture(), "RIGHT")
@@ -1559,7 +1557,7 @@ function UF:CreatePrediction(self)
 	otherBar:SetStatusBarColor(1, 1, 0, .75)
 	otherBar:Hide()
 
-	local absorbBar = CreateFrame("StatusBar", nil, self.Health)
+	local absorbBar = CreateFrame("StatusBar", nil, health)
 	absorbBar:SetPoint("TOP")
 	absorbBar:SetPoint("BOTTOM")
 	absorbBar:SetPoint("LEFT", otherBar:GetStatusBarTexture(), "RIGHT")
@@ -1567,22 +1565,22 @@ function UF:CreatePrediction(self)
 	absorbBar:SetStatusBarColor(0, 1, 1, .75)
 	absorbBar:Hide()
 
-	local overAbsorbBar = CreateFrame("StatusBar", nil, self.Health)
+	local overAbsorbBar = CreateFrame("StatusBar", nil, health)
 	overAbsorbBar:SetAllPoints()
 	overAbsorbBar:SetStatusBarTexture(DB.bdTex)
 	overAbsorbBar:SetStatusBarColor(0, 1, 1, .75)
 	overAbsorbBar:Hide()
 
-	local healAbsorbBar = CreateFrame("StatusBar", nil, self.Health)
+	local healAbsorbBar = CreateFrame("StatusBar", nil, health)
 	healAbsorbBar:SetPoint("TOP")
 	healAbsorbBar:SetPoint("BOTTOM")
-	healAbsorbBar:SetPoint("RIGHT", self.Health:GetStatusBarTexture(), "RIGHT")
+	healAbsorbBar:SetPoint("RIGHT", health:GetStatusBarTexture(), "RIGHT")
 	healAbsorbBar:SetReverseFill(true)
 	healAbsorbBar:SetStatusBarTexture(DB.bdTex)
 	healAbsorbBar:SetStatusBarColor(1, 0, 1, .75)
 	healAbsorbBar:Hide()
 
-	local overAbsorb = self.Health:CreateTexture(nil, "OVERLAY")
+	local overAbsorb = health:CreateTexture(nil, "OVERLAY")
 	overAbsorb:SetWidth(15)
 	overAbsorb:SetTexture("Interface\\RaidFrame\\Shield-Overshield")
 	overAbsorb:SetBlendMode("ADD")
@@ -1590,7 +1588,7 @@ function UF:CreatePrediction(self)
 	overAbsorb:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMRIGHT", -5, -2)
 	overAbsorb:Hide()
 
-	local overHealAbsorb = self.Health:CreateTexture(nil, "OVERLAY")
+	local overHealAbsorb = health:CreateTexture(nil, "OVERLAY")
 	overHealAbsorb:SetWidth(15)
 	overHealAbsorb:SetTexture("Interface\\RaidFrame\\Absorb-Overabsorb")
 	overHealAbsorb:SetBlendMode("ADD")

@@ -16,7 +16,7 @@ function UF:CreateRaidIcons(self)
 	self.ResurrectIndicator = resurrect
 
 	local role = self:CreateTexture(nil, "OVERLAY")
-	role:SetSize(16, 16)
+	role:SetSize(12, 12)
 	role:SetPoint("RIGHT", self.GroupRoleIndicator, "LEFT")
 	self.RaidRoleIndicator = role
 

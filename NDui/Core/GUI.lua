@@ -1049,7 +1049,7 @@ local function resetDetails()
 end
 
 local function AddTextureToOption(parent, index)
-	local tex = parent[index]:CreateTexture()
+	local tex = parent[index]:CreateTexture(nil, "ARTWORK")
 	tex:SetInside(nil, 4, 4)
 	tex:SetTexture(G.TextureList[index].texture)
 	tex:SetVertexColor(cr, cg, cb)
@@ -1656,9 +1656,9 @@ local function CreateOption(i)
 			if isNew then AddNewTag(swatch) end
 			local width = 25 + (horizon or 0)*155
 			if horizon then
-				swatch:SetPoint("TOPLEFT", width, -offset + 30)
+				swatch:SetPoint("TOPLEFT", width, -offset + 31)
 			else
-				swatch:SetPoint("TOPLEFT", width, -offset - 5)
+				swatch:SetPoint("TOPLEFT", width, -offset - 4)
 				offset = offset + 35
 			end
 			swatch.__default = (key == "ACCOUNT" and G.AccountSettings[value]) or G.DefaultSettings[key][value]

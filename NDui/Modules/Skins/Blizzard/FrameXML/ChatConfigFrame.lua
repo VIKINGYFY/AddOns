@@ -71,7 +71,7 @@ C.OnLoginThemes["ChatConfigFrame"] = function()
 		end
 	end
 
-	local line = ChatConfigFrame:CreateTexture()
+	local line = ChatConfigFrame:CreateTexture(nil, "ARTWORK")
 	line:SetSize(C.mult, 460)
 	line:SetPoint("TOPLEFT", ChatConfigCategoryFrame, "TOPRIGHT")
 	line:SetColorTexture(1, 1, 1, .25)

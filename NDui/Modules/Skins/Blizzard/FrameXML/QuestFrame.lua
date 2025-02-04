@@ -38,7 +38,7 @@ C.OnLoginThemes["QuestFrame"] = function()
 
 	QuestDetailScrollFrame:SetWidth(302)
 
-	local line = QuestFrameGreetingPanel:CreateTexture()
+	local line = QuestFrameGreetingPanel:CreateTexture(nil, "ARTWORK")
 	line:SetColorTexture(1, 1, 1, .25)
 	line:SetSize(256, C.mult)
 	line:SetPoint("CENTER", QuestGreetingFrameHorizontalBreak)

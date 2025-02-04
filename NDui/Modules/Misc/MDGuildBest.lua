@@ -66,7 +66,7 @@ function M:GuildBest_Create()
 				SlashCmdList.KEYSTONE()
 			end
 		end)
-		local tex = button:CreateTexture()
+		local tex = button:CreateTexture(nil, "ARTWORK")
 		tex:SetAllPoints()
 		tex:SetTexture(DB.copyTex)
 		tex:SetVertexColor(0, 1, 0)

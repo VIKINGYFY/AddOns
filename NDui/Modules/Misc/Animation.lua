@@ -30,7 +30,7 @@ function M:Logo_Create()
 	frame:SetAlpha(0)
 	frame:Hide()
 
-	local tex = frame:CreateTexture()
+	local tex = frame:CreateTexture(nil, "ARTWORK")
 	tex:SetAllPoints()
 	tex:SetTexture(DB.logoTex)
 

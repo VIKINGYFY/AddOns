@@ -663,7 +663,7 @@ do
 		if self:IsObjectType("Texture") then frame = self:GetParent() end
 
 		local tex = frame:CreateTexture(nil, "BACKGROUND")
-		tex:SetAllPoints(self)
+		tex:SetInside(self)
 		tex:SetTexture(DB.bgTex, true, true)
 		tex:SetHorizTile(true)
 		tex:SetVertTile(true)
@@ -1839,7 +1839,7 @@ do
 	local handled = {["Frame"] = true}
 	local object = CreateFrame("Frame")
 	addapi(object)
-	addapi(object:CreateTexture())
+	addapi(object:CreateTexture(nil, "ARTWORK"))
 	addapi(object:CreateMaskTexture())
 
 	object = EnumerateFrames()

@@ -38,7 +38,7 @@ function M:GetSlotAnchor(index)
 end
 
 function M:CreateItemTexture(slot, relF, x, y)
-	local icon = slot:CreateTexture()
+	local icon = slot:CreateTexture(nil, "ARTWORK")
 	icon:SetPoint(relF, x, y)
 	icon:SetSize(14, 14)
 	icon:SetTexCoord(unpack(DB.TexCoord))

@@ -1,10 +1,12 @@
 # MapNote
-## [2.6.3](https://github.com/Ssesmar/MapNote) (2025-01-21)
+## [2.6.4](https://github.com/Ssesmar/MapNote) (2025-02-02)
 - Note:
 
-Retail
-    Nazjatar Portal added in Boralus
-    Stormwind Portal added in Nazjatar
+Cataclysm Classic
+    darnassus first aid icon moved
+
+Classic
+  toc update
 
 - Description:
 
