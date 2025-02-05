@@ -644,7 +644,7 @@ function UF:CreatePlates()
 
 	local tarName = B.CreateFS(self, C.db["Nameplate"]["NameTextSize"]+4)
 	tarName:ClearAllPoints()
-	tarName:SetPoint("TOP", self, "BOTTOM", 0, -10)
+	tarName:SetPoint("TOP", self, "BOTTOM", 0, -DB.margin)
 	tarName:Hide()
 	self:Tag(tarName, "[tarname]")
 	self.tarName = tarName
@@ -661,12 +661,12 @@ function UF:CreatePlates()
 	self.Auras.alwaysShowStealable = C.db["Nameplate"]["DispellMode"] == 2
 	self.powerText = B.CreateFS(self, 22)
 	self.powerText:ClearAllPoints()
-	self.powerText:SetPoint("TOP", self.Castbar, "BOTTOM", 0, -4)
+	self.powerText:SetPoint("TOP", self.Castbar, "BOTTOM", 0, -DB.margin)
 	self:Tag(self.powerText, "[nppp]")
 
 	local title = B.CreateFS(self, C.db["Nameplate"]["NameOnlyTitleSize"])
 	title:ClearAllPoints()
-	title:SetPoint("TOP", self.nameText, "BOTTOM", 0, -3)
+	title:SetPoint("TOP", self.nameText, "BOTTOM", 0, -DB.margin)
 	title:Hide()
 	self:Tag(title, "[npctitle]")
 	self.npcTitle = title
@@ -796,6 +796,8 @@ local SoftTargetBlockElements = {
 }
 
 function UF:UpdatePlateByType()
+	local health = self.Health
+	local castbar = self.Castbar
 	local name = self.nameText
 	local hpval = self.healthValue
 	local title = self.npcTitle
@@ -807,9 +809,7 @@ function UF:UpdatePlateByType()
 	else
 		name:Show()
 		name:UpdateTag()
-		name:ClearAllPoints()
 	end
-	raidtarget:ClearAllPoints()
 
 	if self.isSoftTarget then
 		for _, element in pairs(SoftTargetBlockElements) do
@@ -825,6 +825,9 @@ function UF:UpdatePlateByType()
 		end
 	end
 
+	name:ClearAllPoints()
+	raidtarget:ClearAllPoints()
+
 	if self.plateType == "NameOnly" then
 		for _, element in pairs(DisabledElements) do
 			if self:IsElementEnabled(element) then
@@ -837,12 +840,15 @@ function UF:UpdatePlateByType()
 		hpval:Hide()
 		title:Show()
 
-		raidtarget:SetPoint("TOP", title, "BOTTOM", 0, -5)
-		if questIcon then questIcon:SetPoint("LEFT", name, "RIGHT", -1, 0) end
+		raidtarget:SetPoint("BOTTOM", name, "TOP", 0, 0)
+		if questIcon then
+			questIcon:ClearAllPoints()
+			questIcon:SetPoint("LEFT", name, "RIGHT", 0, 0)
+		end
 
 		if self.widgetContainer then
 			self.widgetContainer:ClearAllPoints()
-			self.widgetContainer:SetPoint("TOP", title, "BOTTOM", 0, -5)
+			self.widgetContainer:SetPoint("TOP", title, "BOTTOM", 0, 0)
 		end
 	else
 		for _, element in pairs(DisabledElements) do
@@ -852,15 +858,20 @@ function UF:UpdatePlateByType()
 		end
 
 		name:SetJustifyH("LEFT")
+		name:SetPoint("BOTTOMLEFT", health, "TOPLEFT", 0, DB.margin)
+		name:SetPoint("BOTTOMRIGHT", health, "TOPRIGHT", 0, DB.margin)
 		hpval:Show()
 		title:Hide()
 
 		raidtarget:SetPoint("BOTTOMRIGHT", self, "TOPLEFT", C.db["Nameplate"]["RaidTargetX"], C.db["Nameplate"]["RaidTargetY"])
-		if questIcon then questIcon:SetPoint("LEFT", self, "RIGHT", -1, 0) end
+		if questIcon then
+			questIcon:ClearAllPoints()
+			questIcon:SetPoint("LEFT", self, "RIGHT", 0, 0)
+		end
 
 		if self.widgetContainer then
 			self.widgetContainer:ClearAllPoints()
-			self.widgetContainer:SetPoint("TOP", self.Castbar, "BOTTOM", 0, -5)
+			self.widgetContainer:SetPoint("TOP", castbar, "BOTTOM", 0, 0)
 		end
 	end
 
