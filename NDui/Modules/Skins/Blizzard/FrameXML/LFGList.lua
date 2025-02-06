@@ -36,7 +36,7 @@ C.OnLoginThemes["LFGList"] = function()
 		if bu and not bu.styled then
 			bu.Cover:Hide()
 			bu.Icon:SetTexCoord(.01, .99, .01, .99)
-			B.CreateBDFrame(bu.Icon, .25, nil, -C.mult)
+			B.CreateBDFrame(bu.Icon, .25, nil, -1)
 
 			bu.styled = true
 		end

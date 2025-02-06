@@ -1,5 +1,6 @@
 local ADDON_NAME, ns = ...
 local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
+local buildVersion = GetBuildInfo() -- buildVersion == "11.0.7"
 local dataProvider
 ns.DelveContinent = CreateFromMixins(AreaPOIDataProviderMixin)
 
@@ -18,7 +19,15 @@ end
 
 function ns.BlizzardDelvesAddFunction()
     hooksecurefunc(DelveEntrancePinMixin, "OnClick", function(self, button)
+
+        if buildVersion == "11.1.0" then
+    ns.BlizzDelveIDs = ns.BlizzDelveAreaPoisInfoIDs[self.poiInfo.areaPoiID] or ns.BlizzBountifulDelveAreaPoisInfoIDs[self.poiInfo.areaPoiID]
+        end
+
+        if buildVersion == "11.0.7" then
     ns.BlizzDelveIDs = ns.BlizzDelveAreaPoisInfoIDs[self.areaPoiID] or ns.BlizzBountifulDelveAreaPoisInfoIDs[self.areaPoiID]
+        end
+
     if button == "MiddleButton" and not ns.Addon.db.profile.activate.ShiftWorld then
         if ns.BlizzDelveIDs then
             WorldMapFrame:SetMapID(ns.BlizzDelveIDs)
@@ -26,7 +35,7 @@ function ns.BlizzardDelvesAddFunction()
     end
 
     if button == "MiddleButton" and IsShiftKeyDown() and ns.Addon.db.profile.activate.ShiftWorld then
-        if ns.BlizzDelveIDs or ns.BlizzBountifulDelveIDs then
+        if ns.BlizzDelveIDs then
             WorldMapFrame:SetMapID(ns.BlizzDelveIDs)
         end
     end

@@ -17,7 +17,7 @@ C.OnLoginThemes["LootHistory"] = function()
 	local bar = frame.Timer
 	if bar then
 		B.StripTextures(bar)
-		B.CreateBDFrame(bar, .25, nil, -C.mult)
+		B.CreateBDFrame(bar, .25, nil, -1)
 		bar.Fill:SetTexture(DB.normTex)
 		bar.Fill:SetVertexColor(cr, cg, cb)
 	end

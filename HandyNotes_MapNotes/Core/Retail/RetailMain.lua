@@ -1,10 +1,8 @@
 local ADDON_NAME, ns = ...
 
-local version, build, date, tocversion = GetBuildInfo()
-ns.tocversion = tocversion
-ns.date = date
-ns.build = build
-ns.version = version -- example "11.0.7"
+local buildVersion, buildNumber, buildDate, interfaceVersion, localizedVersion, buildInfo = GetBuildInfo()
+
+ns.version = buildVersion -- ns.version == "11.0.7"
 
 local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes", true)
 if not HandyNotes then return end
@@ -1658,7 +1656,6 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
     else ns.WorldMapButton:Show()
   end
 
-  if ns.version == "11.0.7" then
 
   function ns.RemoveBlizzPOIs()
     if (ns.Addon.db.profile.activate.HideMapNote) then return end
@@ -1669,7 +1666,13 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
 
         for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
 
-          ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
+          if ns.version == "11.0.7" then
+            ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
+            end
+  
+            if ns.version == "11.1.0" then
+              ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.poiInfo.areaPoiID)
+            end
 
           if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
               WorldMapFrame:RemovePin(pin)
@@ -1683,7 +1686,13 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
 
         for _, poiID in pairs(ns.BlizzAreaPoisInfoZidormi) do
 
-          ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
+          if ns.version == "11.0.7" then
+            ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
+            end
+  
+            if ns.version == "11.1.0" then
+              ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.poiInfo.areaPoiID)
+            end
 
           if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
               WorldMapFrame:RemovePin(pin)
@@ -1706,7 +1715,13 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
 
         for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
 
-        ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
+          if ns.version == "11.0.7" then
+            ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
+          end
+
+          if ns.version == "11.1.0" then
+            ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.poiInfo.areaPoiID)
+          end
 
           if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
             ns.RemoveBlizzPOIs()
@@ -1720,7 +1735,13 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
 
         for _, poiID in pairs(ns.BlizzAreaPoisInfoZidormi) do
 
-          ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
+          if ns.version == "11.0.7" then
+            ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
+            end
+  
+            if ns.version == "11.0.7" then
+              ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.poiInfo.areaPoiID)
+            end
 
           if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
             ns.RemoveBlizzPOIs()
@@ -1749,7 +1770,6 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
     ns.RemoveBlizzPOIs()
   end)
 
-  end -- not on PTR
 
 end
 

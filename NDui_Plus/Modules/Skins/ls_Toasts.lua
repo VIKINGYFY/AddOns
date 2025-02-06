@@ -4,11 +4,10 @@ local S = P:GetModule("Skins")
 
 local _G = getfenv(0)
 
-local colors = C.db["Skins"]["CustomBDColor"]
 local style = {
 	name = "NDui",
 	border = {
-		color = {colors.r, colors.g, colors.b},
+		color = {0, 0, 0},
 		offset = 0,
 		size = 1,
 		texture = {1, 1, 1, 1},
@@ -25,7 +24,7 @@ local style = {
 		tex_coords = DB.TexCoord,
 	},
 	icon_border = {
-		color = {colors.r, colors.g, colors.b},
+		color = {0, 0, 0},
 		offset = 0,
 		size = 1,
 		texture = {1, 1, 1, 1},
@@ -40,7 +39,7 @@ local style = {
 		tex_coords = DB.TexCoord,
 	},
 	slot_border = {
-		color = {colors.r, colors.g, colors.b},
+		color = {0, 0, 0},
 		offset = 0,
 		size = 1,
 		texture = {1, 1, 1, 1},
@@ -90,6 +89,13 @@ function S:ls_Toasts()
 	style.icon_border.size = C.mult
 	style.slot_border.size = C.mult
 	style.shine.point.y = -C.mult
+
+	if C.db["Skins"]["CustomBD"] then
+		local colors = C.db["Skins"]["CustomBDColor"]
+		style.border.color = {colors.r, colors.g, colors.b}
+		style.icon_border.color = {colors.r, colors.g, colors.b}
+		style.slot_border.color = {colors.r, colors.g, colors.b}
+	end
 
 	local LE, LC = unpack(_G.ls_Toasts)
 	LE:RegisterSkin("ndui", style)

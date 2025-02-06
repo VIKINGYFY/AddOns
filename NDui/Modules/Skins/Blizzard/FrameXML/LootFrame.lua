@@ -74,7 +74,7 @@ C.OnLoginThemes["LootFrame"] = function()
 	local Timer = PromptFrame.Timer
 	Timer.Bar:SetTexture(DB.normTex)
 	Timer.Bar:SetVertexColor(cr, cg, cb)
-	B.CreateBDFrame(Timer, .25, nil, -C.mult)
+	B.CreateBDFrame(Timer, .25, nil, -1)
 
 	local SpecIcon = BonusRollFrame.SpecIcon
 	B.UpdatePoint(SpecIcon, "RIGHT", PromptFrame.InfoFrame, "RIGHT", -5, 0)

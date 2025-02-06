@@ -32,7 +32,7 @@ end
 local function ReskinSortButton(button)
 	replaceSortTexture(button:GetNormalTexture())
 	replaceSortTexture(button:GetPushedTexture())
-	B.CreateBDFrame(button, .25, nil, -C.mult)
+	B.CreateBDFrame(button, .25, nil, -1)
 
 	local highlight = button:GetHighlightTexture()
 	highlight:SetColorTexture(1, 1, 1, .25)

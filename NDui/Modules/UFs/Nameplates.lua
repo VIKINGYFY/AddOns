@@ -642,13 +642,6 @@ function UF:CreatePlates()
 	self.Health = health
 	self.Health.UpdateColor = UF.UpdateColor
 
-	local tarName = B.CreateFS(self, C.db["Nameplate"]["NameTextSize"]+4)
-	tarName:ClearAllPoints()
-	tarName:SetPoint("TOP", self, "BOTTOM", 0, -DB.margin)
-	tarName:Hide()
-	self:Tag(tarName, "[tarname]")
-	self.tarName = tarName
-
 	UF:CreateHealthText(self)
 	UF:CreateCastBar(self)
 	UF:CreateRaidMark(self)
@@ -659,10 +652,20 @@ function UF:CreatePlates()
 
 	self.Auras.showStealableBuffs = C.db["Nameplate"]["DispellMode"] == 1
 	self.Auras.alwaysShowStealable = C.db["Nameplate"]["DispellMode"] == 2
-	self.powerText = B.CreateFS(self, 22)
-	self.powerText:ClearAllPoints()
-	self.powerText:SetPoint("TOP", self.Castbar, "BOTTOM", 0, -DB.margin)
-	self:Tag(self.powerText, "[nppp]")
+
+	local tarName = B.CreateFS(self, C.db["Nameplate"]["NameTextSize"]+4)
+	tarName:ClearAllPoints()
+	tarName:SetPoint("TOP", self.Castbar, "BOTTOM", 0, -DB.margin)
+	tarName:Hide()
+	self:Tag(tarName, "[tarname]")
+	self.tarName = tarName
+
+	local powerText = B.CreateFS(self, C.db["Nameplate"]["NameTextSize"]+2)
+	powerText:ClearAllPoints()
+	powerText:SetPoint("TOP", self.tarName, "BOTTOM", 0, -DB.margin)
+	powerText:Hide()
+	self:Tag(powerText, "[nppp]")
+	self.powerText = powerText
 
 	local title = B.CreateFS(self, C.db["Nameplate"]["NameOnlyTitleSize"])
 	title:ClearAllPoints()

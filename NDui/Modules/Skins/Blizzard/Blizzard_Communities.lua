@@ -340,7 +340,7 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 			if header and not header.styled then
 				B.StripTextures(header)
 
-				local bg = B.CreateBDFrame(header, .25, nil, C.mult)
+				local bg = B.CreateBDFrame(header, .25, nil, 1)
 				B.ReskinHLTex(header, bg, true)
 				B.ReskinIcon(header.Icon)
 

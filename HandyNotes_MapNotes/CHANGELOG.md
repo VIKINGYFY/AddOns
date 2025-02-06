@@ -1,12 +1,9 @@
 # MapNote
-## [2.6.4](https://github.com/Ssesmar/MapNote) (2025-02-02)
+## [2.6.5](https://github.com/Ssesmar/MapNote) (2025-02-05)
 - Note:
 
-Cataclysm Classic
-    darnassus first aid icon moved
-
-Classic
-  toc update
+PTR
+    some small changes
 
 - Description:
 

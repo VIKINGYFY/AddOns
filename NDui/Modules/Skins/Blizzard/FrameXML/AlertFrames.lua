@@ -150,7 +150,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 				frame.bg:SetPoint("BOTTOMRIGHT", -10, 5)
 
 				frame:GetRegions():SetTexture("")
-				B.CreateBDFrame(frame.Icon, .25, nil, -C.mult)
+				B.CreateBDFrame(frame.Icon, .25, nil, -1)
 				frame.glow:SetTexture("")
 				frame.shine:SetTexture("")
 			end

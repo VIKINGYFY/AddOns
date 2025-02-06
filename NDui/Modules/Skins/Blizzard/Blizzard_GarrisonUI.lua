@@ -1158,7 +1158,7 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 					local bg = B.CreateBDFrame(widget, .25)
 					bg:SetPoint("TOPLEFT", -3, 1)
 					bg:SetPoint("BOTTOMRIGHT", 2, -2)
-					B.CreateBDFrame(widget.Icon, .25, nil, -C.mult)
+					B.CreateBDFrame(widget.Icon, .25, nil, -1)
 				elseif otype == "IconButton" then
 					B.ReskinIcon(widget.Icon)
 					widget:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)

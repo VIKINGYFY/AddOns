@@ -1,0 +1,209 @@
+== v4.12 - 6th February 2025
+* Added large Meta pins for Khaz Algar and Dragon Isles Elders
+* Shuffled the pin contents of the city / world map clusters to 
+    squeeze in the Dragon Isles and Khaz Algar meta achievements
+* Neighbouring zone pins added to Dun Morogh from Ironforge
+* Added neighbouring zone pins for Dragon Isles
+* Tiny coordinate adjustments (plus one larger one) for Dragon Isles Elders
+* Cataclysm version of the Stormwind/Elwynn NPC pins moved to their Cata location
+
+== v4.11 - 4th February 2025
+* Elune's Blessing is now internally a "Seasonal" quest
+* Entire Lunar Preservation quest chain is now "One Time" from "Seasonal" previously
+   - My bad. As I played through on various characters I realised something was up
+* "Dailies" option replaced by "One Time" option - this event has no dailies
+    - it was just my generic leftover template code for my AddOns
+* A lot more translations added
+* zhCN by @枫聖御雷. Many thanks!
+* Chat commands formatting in the Options panel altered slightly
+* Moonglade pins added to neighbouring zones to assist with flying etc
+* Remove unnecessary Zidormi phase message from pins in neighbouring zones
+
+== v4.10 - 3rd February 2025
+* Meta achievements added, along with pin clusters in every city
+* Removed one of the Undercity pins to avoid confusion - it all happpens above!
+
+== v4.09 - 2nd February 2025
+* Better messages / management of different Zidormi phases. Retains immersion too
+
+== v4.08 - 1st February 2025
+* Cataclysm version launched!
+* Elder Ironband finally added as a neighbour zone (on to do list since before v2.00 lol)
+
+== v4.07 - 31st January 2025
+* Numerous Harbingers added plus any neighbouring zones
+
+== v4.06 - 30th January 2025
+* Zul'Drak Elders were incorrectly colour coded as Dungeons
+    (but worked correctly as regular Elders)
+* More zhCN translations provided by @枫聖御雷. Many thanks! 	
+* Added "Quests" translation for all languages	
+* Delay for pin refresh increased slightly to avoid server busy abend
+* "Crown of... Quests" translated
+
+== v4.05 - 29th January 2025
+* Blasted Lands pin neighbour added to Stranglethorne Vale
+* Elder Hammershout (Elwynn Forest) got moved so the pin moved too!
+* "Not yet begun" message for completed Lunar Preservation fixed
+* Crown Flowers now visible - due to naming copy/pasta error
+
+== v4.04 - 29th January 2025
+* The counting of moonwell progress hack is no longer required in 2025 so removed
+    as would give erroneous progress tally
+* Logic for Achievement/Seasonal pin suppression corrected	
+
+== v4.03 - 29th January 2025
+* zhCN translations provided by @枫聖御雷. Many thanks!
+* Further changes to the hack to track Moonwell progress
+
+== v4.02 - 29th January 2025
+* Fix for deprecated UnitAura API call
+* Seasonal quests now active
+
+== v4.01 - 29th January 2025
+* TOC files updated - better translated AddOn titles and colour selection
+* Better shade of yellow for certain text - easier on the eye plus is more "golden"
+    which is essential for the gold/red immersion for Lunar New Year
+* Khaz Algar added (thanks to @枫聖御雷)
+
+== v4.00 - 28th January 2025
+* Rewrite for 2025, building upon the success of the Winter Veil AddOn
+
+== v3.04 - 7th January 2025
+* Added another HandyNotes Refresh() delay for logins (both new and character swap),
+  reloads, and loading screen situations (various - enter/exit instances or Mage
+  teleport, etc). This will assist players with slow internet, unusual Blizzard
+  server glitches, too many AddOns, potato PCs
+  Note: This is a preemptive change due to a report for another of my AddOns
+* Lunar Preservation buff counting overhauled
+
+== v3.03 - 24th December 2024
+* The Refresh() timer now checks every 7 seconds to avoid server issues when the
+  API is unreliable during loading screens.
+  Note: This is a preemptive change due to a report for another of my AddOns
+
+== v3.02 - 10th December 2024
+* TOC update to 11.0.7
+
+== v3.01 - 26th November 2024
+* Minimap pins now disappear/appear around the same time as they do on the World Map
+  I arbitrarily set the timer to checking every 3 seconds - to avoid FPS / DPS hits
+  If show/hide via the options panel then that's instant
+  If in combat then I rely wholly on the HandyNotes engine to avoid taint errors
+  (a main reason I moved to the HN ecosystem years ago)
+* Maladath added to the OCE server list
+
+== v3.00 - 29th October 2024
+* Slash/chat commands added
+* Lots of helpful text added to the Options panel
+* Added Curse and Wago Project IDs
+* Title text improved too
+
+== v2.15 - 17th October 2024
+* TOC update to 11.0.5
+
+== v2.14 - 21st August 2024
+* TOC update to 11.0.2
+
+== v2.13 - 23rd July 2024
+* TOC update to 11.0.0
+
+== v2.12 - 20th April 2024
+* TOC update to 10.2.7
+
+== v2.11 - 18th March 2024
+* TOC update to 10.2.6
+
+== v2.10 - 13th February 2024
+* Added that missing 10th flower from Eversong. Finally found it!
+
+== v2.09 - 12th January 2024
+* TOC update to 10.2.5
+
+== v2.08 - 1st December 2023
+* Small additions to Northrend
+* Felstriker server added
+* Penance and Shadowstrike added (SoD)
+
+== v2.07 - 3rd November 2023
+* TOC update to 10.2.0
+* Reworked pin scaling
+
+== v2.06 - 18th September 2023
+* TOC update to 10.1.7
+
+== v2.05 - 28th June 2023
+* TOC update to 10.1.5
+
+== v2.04 - 21st June 2023
+* Bug fix. Just noticed a missing scaling paramter for the 15th selectable icon
+
+== v2.03 - 6th May 2023
+* Now supports the new AddOn Compartment introduced in 10.1.0
+  Clicking the drop down for this AddOn takes you directly to the configuration panel!
+
+== v2.02 - 3rd May 2023
+* Added an icon to the TOC file
+
+== v2.01 - 24th April 2023
+* TOC update to 10.1.0
+
+== v2.00 - 15th April 2022
+* All flowers, quests, achievement pins are now visible in adjacent zones of a World Mao's zone!
+* Complete data/core overhaul to facilitate going forward ;)
+
+== v1.12 - 21st Mar 2023
+* TOC update to 10.0.7
+
+== v1.11 - 23rd February 2023
+* Localised / up values for a couple of Quest Log calls
+
+== v1.10 - 15th February 2023
+* Icons now appear on the Azeroth map. Previously on so far as the continent maps
+* Localized the use of "character" in case I couldn't pull the character name and also the upvalue of UnitName while I was at it
+
+== v1.09 - 7th February 2023
+* Changed tooltip for Lunar Preservation from "nine" to "eight" - there is no secret ninth!
+* Also now Lunar Preservation appears on the continent maps
+
+== v1.08 - 3rd February 2023
+* Added translations for the 12 flowers, 3 for each of the four cosmetic crowns.
+  I had a bit of trouble with a few so I used Google translate.
+  Please DM me any corrections, thanks!
+
+== v1.07 - 31st January 2023
+* Lunar Preservation is now fully supported
+* The four option follow on quests for "Crown of ..." cosmetics are also fully supprted too
+
+== v1.06 - 29th January 2023
+* Swapped the coordinates of the two Elders in the Ohn'ahran Plains. Thankyou again to hexpinLIVE
+* Finished tweaking / visiting every non Dragon Isles Elder with any outstanding Northrend Elders also included in this update
+
+== v1.05 - 28th January 2023
+* Added Dragon Flight
+* Tweak to some Northrend Dungeons and locations
+* Especially added a lot more help to do the Wintergrasp glitch
+
+== v1.04 - 27th January 2023
+* Every location in Kalimdor and the Eastern Kingdoms (and Cataclysm locations too) have been slightly tweeked.
+* This includes the big location fix reported by Megalithe for the Elder in Bloodhoof Village.
+* Added intermediate map locations to Vashj'ir and Stranglethron Vale.
+* Reversed the logic of the Uldum Elder markers - I had no way of knowing in advance which map would be used. It was 50/50 and I guessed wrong lol.
+
+== v1.03 - 26th January 2023
+* Fix submitted by hexpinLIVE for Elder Meadowrun. Thank you!
+* Code for toggling SEASONAL completion now included and it is working
+
+== v1.02 - 26th January 2023
+* Trivial update to 10.0.5
+
+== v1.01 - 17th January 2023
+* This marks the completion of this new AddOn.
+* I've polished the help for the opposite faction Elders
+* Added oustanding translations
+* Fixed copy/paste oversights ( i based this off my Hallow's End AddOn)
+* Finalised icon choices for configuration
+* Play tested on opposite factions to ensure the hlp was... helpful
+
+== v1.00 - 25th December 2022
+* Initial release.

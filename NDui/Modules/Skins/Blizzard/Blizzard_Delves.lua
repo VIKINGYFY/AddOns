@@ -56,10 +56,9 @@ end
 local function handleRewards(self)
 	for rewardFrame in self.rewardPool:EnumerateActive() do
 		if not rewardFrame.bg then
-			rewardFrame.NameFrame:Hide()
 			rewardFrame.bg = B.ReskinIcon(rewardFrame.Icon)
 			B.ReskinBorder(rewardFrame.IconBorder, true)
-			B.CreateBGFrame(rewardFrame, rewardFrame.bg)
+			B.ReskinNameFrame(rewardFrame, rewardFrame.bg)
 		end
 	end
 end

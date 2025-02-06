@@ -2,21 +2,17 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 C.OnLoadThemes["Blizzard_Contribution"] = function()
-	local frame = ContributionCollectionFrame
-	B.SetBD(frame)
-	B.ReskinClose(frame.CloseButton)
-	frame.CloseButton.CloseButtonBackground:Hide()
-	frame.Background:Hide()
+	B.ReskinFrame(ContributionCollectionFrame)
 
 	hooksecurefunc(ContributionMixin, "Update", function(self)
 		if not self.styled then
-			self.Header.Text:SetTextColor(1, .8, 0)
+			B.ReskinText(self.Header.Text, 1, .8, 0)
 			B.ReskinButton(self.ContributeButton)
 			B.ReplaceIconString(self.ContributeButton)
 			hooksecurefunc(self.ContributeButton, "SetText", B.ReplaceIconString)
 
 			B.StripTextures(self.Status)
-			B.CreateBDFrame(self.Status, .25)
+			B.CreateBDFrame(self.Status, .25, nil, -1)
 
 			self.styled = true
 		end
@@ -24,7 +20,7 @@ C.OnLoadThemes["Blizzard_Contribution"] = function()
 
 	hooksecurefunc(ContributionRewardMixin, "Setup", function(self)
 		if not self.styled then
-			self.RewardName:SetTextColor(1, 1, 1)
+			B.ReskinText(self.RewardName, 1, 1, 1)
 			self.Border:Hide()
 			self:GetRegions():Hide()
 			B.ReskinIcon(self.Icon)

@@ -24,6 +24,9 @@ local DIFFICULTY_COLOR = {
 	[ 9] = "ff8000",
 	[16] = "ff8000",
 	[23] = "ff8000",
+
+	[24] = "e6cc80",
+	[33] = "e6cc80",
 }
 
 local function updateTimerFormat(color, hour, minute)

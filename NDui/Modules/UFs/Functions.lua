@@ -151,8 +151,8 @@ function UF:CreateHealthBar(self)
 	health:SetFrameLevel(self:GetFrameLevel() - 1)
 	health:SetStatusBarTexture(DB.normTex)
 	health:SetStatusBarColor(.1, .1, .1)
-	health:SetPoint("TOPLEFT", self)
-	health:SetPoint("TOPRIGHT", self)
+	health:SetPoint("TOPLEFT", self, "TOPLEFT")
+	health:SetPoint("TOPRIGHT", self, "TOPRIGHT")
 
 	local healthHeight
 	if mystyle == "playerplate" then
@@ -365,8 +365,8 @@ function UF:CreatePowerBar(self)
 	local power = CreateFrame("StatusBar", nil, self)
 	power:SetFrameLevel(self:GetFrameLevel() - 1)
 	power:SetStatusBarTexture(DB.normTex)
-	power:SetPoint("BOTTOMLEFT", self)
-	power:SetPoint("BOTTOMRIGHT", self)
+	power:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT")
+	power:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT")
 
 	local powerHeight
 	if mystyle == "playerplate" then
@@ -387,7 +387,7 @@ function UF:CreatePowerBar(self)
 	power:SetHeight(powerHeight)
 	power.wasHidden = powerHeight == 0
 
-	local bd = B.CreateBDFrame(power, 0, nil, -C.mult)
+	local bd = B.CreateBDFrame(power, 0, nil, -1)
 	bd:SetFrameLevel(power:GetFrameLevel() - 1)
 
 	local bg = power:CreateTexture(nil, "BACKGROUND")
@@ -641,7 +641,7 @@ end
 local function createBarMover(bar, text, value, anchor)
 	local mover = B.Mover(bar, text, value, anchor, bar:GetHeight()+bar:GetWidth()+3, bar:GetHeight()+3)
 	bar:ClearAllPoints()
-	bar:SetPoint("RIGHT", mover)
+	bar:SetPoint("RIGHT", mover, "RIGHT")
 	bar.mover = mover
 end
 
@@ -1466,8 +1466,8 @@ end
 
 function UF:CreateAddPower(self)
 	local bar = B.CreateSB(self, nil, true)
-	bar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -DB.margin)
-	bar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -DB.margin)
+	bar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, -DB.margin)
+	bar:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, -DB.margin)
 	bar:SetHeight(2*DB.margin)
 	bar.colorPower = true
 
@@ -1584,16 +1584,16 @@ function UF:CreatePrediction(self)
 	overAbsorb:SetWidth(15)
 	overAbsorb:SetTexture("Interface\\RaidFrame\\Shield-Overshield")
 	overAbsorb:SetBlendMode("ADD")
-	overAbsorb:SetPoint("TOPLEFT", self.Health, "TOPRIGHT", -5, 2)
-	overAbsorb:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMRIGHT", -5, -2)
+	overAbsorb:SetPoint("TOPLEFT", health, "TOPRIGHT", -5, 2)
+	overAbsorb:SetPoint("BOTTOMLEFT", health, "BOTTOMRIGHT", -5, -2)
 	overAbsorb:Hide()
 
 	local overHealAbsorb = health:CreateTexture(nil, "OVERLAY")
 	overHealAbsorb:SetWidth(15)
 	overHealAbsorb:SetTexture("Interface\\RaidFrame\\Absorb-Overabsorb")
 	overHealAbsorb:SetBlendMode("ADD")
-	overHealAbsorb:SetPoint("TOPRIGHT", self.Health, "TOPLEFT", 5, 2)
-	overHealAbsorb:SetPoint("BOTTOMRIGHT", self.Health, "BOTTOMLEFT", 5, -2)
+	overHealAbsorb:SetPoint("TOPRIGHT", health, "TOPLEFT", 5, 2)
+	overHealAbsorb:SetPoint("BOTTOMRIGHT", health, "BOTTOMLEFT", 5, -2)
 	overHealAbsorb:Hide()
 
 	-- Register with oUF
@@ -1711,7 +1711,7 @@ function UF:CreateFCT(self)
 	scrolling:SetFadeDuration(.2)
 	scrolling:SetTimeVisible(3)
 	scrolling:SetJustifyH("CENTER")
-	scrolling:SetPoint("BOTTOM", fcf)
+	scrolling:SetPoint("BOTTOM", fcf, "BOTTOM")
 	fcf.Scrolling = scrolling
 	table.insert(scrolls, scrolling)
 

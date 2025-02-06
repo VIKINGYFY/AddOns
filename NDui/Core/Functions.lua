@@ -732,7 +732,7 @@ do
 		local bg = CreateFrame("Frame", nil, frame, "BackdropTemplate")
 		bg:SetFrameLevel(frame:GetFrameLevel())
 
-		local value = offset and math.abs(offset) or 0
+		local value = offset and math.abs(offset) * C.mult or 0
 		if (offset and offset <= 0) or (not offset) then
 			bg:SetOutside(self, value, value)
 		elseif (offset and offset >= 0) or (not offset) then
@@ -771,7 +771,7 @@ do
 			end
 		end
 
-		local bg = B.CreateBDFrame(self, .25, nil, -C.mult) -- exclude from opacity control
+		local bg = B.CreateBDFrame(self, .25, nil, -1) -- exclude from opacity control
 		if shadow then B.CreateSD(bg) end
 
 		return bg
@@ -1950,7 +1950,7 @@ do
 		if isOutside then
 			B.SetBD(self)
 		else
-			B.CreateBDFrame(self, .25, nil, -C.mult)
+			B.CreateBDFrame(self, .25, nil, -1)
 		end
 
 		self:SetStatusBarTexture(DB.normTex)
@@ -2124,7 +2124,10 @@ do
 		end
 	end
 
-	function B:CreateBGFrame(frame, offset, color)
+	function B:ReskinNameFrame(frame, offset, color)
+		local nf = B.GetObject(self, "NameFrame")
+		if nf then nf:Hide() end
+
 		local bg = B.CreateBDFrame(self, .25)
 		bg:ClearAllPoints()
 		bg:SetPoint("TOPLEFT", frame, "TOPRIGHT", DB.margin, 0)

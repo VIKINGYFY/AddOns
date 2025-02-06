@@ -22,7 +22,7 @@ C.OnLoginThemes["GameMenuFrame"] = function()
 		for button in self.buttonPool:EnumerateActive() do
 			if not button.styled then
 				button:DisableDrawLayer("BACKGROUND")
-				button.bg = B.CreateBDFrame(button, 0, true, C.mult)
+				button.bg = B.CreateBDFrame(button, 0, true, 1)
 				B.ReskinHLTex(button, button.bg, true)
 
 				button.styled = true

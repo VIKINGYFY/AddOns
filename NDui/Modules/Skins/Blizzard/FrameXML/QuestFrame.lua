@@ -99,7 +99,7 @@ C.OnLoginThemes["QuestFrame"] = function()
 
 		button.icbg = B.ReskinIcon(button.Icon)
 		button.Icon.__owner = button
-		button.bubg = B.CreateBGFrame(button, button.icbg, -5)
+		button.bubg = B.ReskinNameFrame(button, button.icbg, -5)
 
 		hooksecurefunc(button.Icon, "SetTexture", Update_ProgressItemQuality)
 	end

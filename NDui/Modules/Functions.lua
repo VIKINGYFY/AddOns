@@ -114,7 +114,7 @@ do
 	function B.GetItemExtra(itemInfo)
 		if extraCache[itemInfo] then return extraCache[itemInfo] end
 
-		local itemExtra, hasStat
+		local itemExtra, hasStat, hasMisc
 		local itemType = B.GetItemType(itemInfo)
 		local itemStat = B.GetItemStat(itemInfo)
 		local itemLevel = B.GetItemLevel(itemInfo)
@@ -131,8 +131,12 @@ do
 			hasStat = true
 		end
 
+		if itemType == PETS or itemType == MOUNTS then
+			hasMisc = true
+		end
+
 		extraCache[itemInfo] = itemExtra
-		return itemExtra, hasStat
+		return itemExtra, hasStat, hasMisc
 	end
 
 	local rtgColor = {1, 0, 0, 1, 1, 0, 0, 1, 0}

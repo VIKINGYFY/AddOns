@@ -135,9 +135,9 @@ local function UpdateLMFrame(self, event, ...)
 			local lootTime = DB.InfoColor..GameTime_GetGameTime(true).."|r"
 			local playerName = UnitClassColor(string.split("-", lootPlayer))
 
-			local itemExtra, hasStat = B.GetItemExtra(itemLink)
+			local itemExtra, hasStat, hasMisc = B.GetItemExtra(itemLink)
 			if hasStat then itemExtra = "|cff00FF00"..itemExtra.."|r" end
-			if isCollection(itemID, itemClassID, itemSubClassID) then itemExtra = "|cff00FFFF"..itemExtra.."|r" end
+			if hasMisc then itemExtra = "|cff00FFFF"..itemExtra.."|r" end
 
 			if #LMFrame_Report >= LMFrame_CFG["maxLines"] then table.remove(LMFrame_Report, 1) end
 

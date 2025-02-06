@@ -31,6 +31,8 @@ ns.BlizzAreaPoisInfo = {
     8248, -- Zeppelin to Serin Isle from Isle of Dorn
     8249, -- Zeppelin to Isle of Dorn from Siren Isle
     8250, -- Mole Machine from Siren Isle to Deeps
+    8230, -- Portal from Dornogal to Undermine
+    8231, -- Portal from Undermine to Dornogal
 
     -- City Alliance
     8, -- Ironforge Icon
