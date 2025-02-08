@@ -75,10 +75,10 @@ end
 function TT:InsertFactionFrame(faction)
 	if not self.factionFrame then
 		local f = self:CreateTexture(nil, "OVERLAY")
-		f:SetPoint("TOPRIGHT", 0, -5)
+		f:SetPoint("RIGHT", self, "RIGHT", 25, 0)
 		f:SetBlendMode("ADD")
-		f:SetScale(.3)
-		f:SetAlpha(.7)
+		f:SetScale(.4)
+		f:SetAlpha(.6)
 		self.factionFrame = f
 	end
 	self.factionFrame:SetTexture("Interface\\Timer\\"..faction.."-Logo")
@@ -88,8 +88,8 @@ end
 function TT:InsertRoleFrame(role)
 	if not self.roleFrame then
 		local f = self:CreateTexture(nil, "OVERLAY")
-		f:SetPoint("TOPRIGHT", self, -2, -2)
-		f:SetSize(18, 18)
+		f:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -6, 6)
+		f:SetSize(24, 24)
 		self.roleFrame = f
 	end
 	B.ReskinSmallRole(self.roleFrame, role)

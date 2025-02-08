@@ -6,30 +6,37 @@ local cr, cg, cb = DB.r, DB.g, DB.b
 do
 	-- Numberize
 	function B.Numb(n)
+		local v, t = math.abs(n)
 		if NDuiADB["NumberFormat"] == 1 then
-			if n >= 1e12 then
-				return format("%.4ft", n / 1e12)
-			elseif n >= 1e9 then
-				return format("%.3fb", n / 1e9)
-			elseif n >= 1e6 then
-				return format("%.2fm", n / 1e6)
-			elseif n >= 1e3 then
-				return format("%.1fk", n / 1e3)
+			if v >= 1e12 then
+				t = format("%.4ft", v / 1e12)
+			elseif v >= 1e9 then
+				t = format("%.3fb", v / 1e9)
+			elseif v >= 1e6 then
+				t = format("%.2fm", v / 1e6)
+			elseif v >= 1e3 then
+				t = format("%.1fk", v / 1e3)
 			else
-				return format("%.0f", n)
+				t = format("%.0f", v)
 			end
 		elseif NDuiADB["NumberFormat"] == 2 then
-			if n >= 1e12 then
-				return format("%.3f"..FOURTH_NUMBER, n / 1e12)
-			elseif n >= 1e8 then
-				return format("%.2f"..THIRD_NUMBER, n / 1e8)
-			elseif n >= 1e4 then
-				return format("%.1f"..SECOND_NUMBER, n / 1e4)
+			if v >= 1e12 then
+				t = format("%.3f"..FOURTH_NUMBER, v / 1e12)
+			elseif v >= 1e8 then
+				t = format("%.2f"..THIRD_NUMBER, v / 1e8)
+			elseif v >= 1e4 then
+				t = format("%.1f"..SECOND_NUMBER, v / 1e4)
 			else
-				return format("%.0f", n)
+				t = format("%.0f", v)
 			end
 		else
-			return format("%.0f", n)
+			t = format("%.0f", v)
+		end
+
+		if n < 0 then
+			return "-"..t
+		else
+			return t
 		end
 	end
 

@@ -6,17 +6,17 @@ local ALTERNATE_POWER_INDEX = Enum.PowerType.Alternate or 10
 -- Add scantip back, due to issue on ColorMixin
 local scanTip = CreateFrame("GameTooltip", "NDui_ScanTooltip", nil, "GameTooltipTemplate")
 
-local function CurrentAndPercent(cur, per)
+local function CurrentAndPercent(cur, per, isMP)
 	if per < 100 then
-		return B.Numb(cur)..DB.Separator..B.Perc(per)
+		return B.Numb(cur)..DB.Separator..B.ColorPerc(per, isMP)
 	else
 		return B.Numb(cur)
 	end
 end
 
-local function CurrentAndMax(cur, max)
+local function CurrentAndMax(cur, max, isMP)
 	if cur < max then
-		return B.Numb(cur)..DB.Separator..B.Numb(max)
+		return B.ColorNumb(cur, max, isMP)..DB.Separator..B.Numb(max)
 	else
 		return B.Numb(cur)
 	end
@@ -30,7 +30,7 @@ oUF.Tags.Methods["VariousHP"] = function(unit, _, arg1)
 	if not arg1 then return end
 	local cur, max = UnitHealth(unit), UnitHealthMax(unit)
 	local per = max == 0 and 0 or (cur/max * 100)
-	local loss = max == 0 and 0 or (max - cur)
+	local loss = max == 0 and 0 or (cur - max)
 	local lossper = max == 0 and 0 or (loss/max * 100)
 	local absorb = UnitGetTotalAbsorbs(unit) or 0
 
@@ -39,37 +39,38 @@ oUF.Tags.Methods["VariousHP"] = function(unit, _, arg1)
 	elseif arg1 == "currentmax" then
 		return CurrentAndMax(cur, max)
 	elseif arg1 == "current" then
-		return B.Numb(cur)
+		return B.ColorNumb(cur, max)
 	elseif arg1 == "percent" then
-		return per < 100 and B.Perc(per, true)
+		return B.ColorPerc(per)
 	elseif arg1 == "loss" then
-		return loss ~= 0 and B.Numb(loss)
+		return B.ColorNumb(loss, max, true)
 	elseif arg1 == "losspercent" then
-		return loss ~= 0 and B.Perc(lossper)
+		return B.ColorPerc(lossper, true)
 	elseif arg1 == "absorb" then
-		return DB.InfoColor..B.Numb(cur+absorb)
+		return DB.InfoColor..B.Numb(cur+absorb).."|r"
 	end
 end
 oUF.Tags.Events["VariousHP"] = "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED PARTY_MEMBER_ENABLE PARTY_MEMBER_DISABLE"
 
 oUF.Tags.Methods["VariousMP"] = function(unit, _, arg1)
+	if not arg1 then return end
 	local cur, max = UnitPower(unit), UnitPowerMax(unit)
 	local per = max == 0 and 0 or (cur/max * 100)
-	local loss = max == 0 and 0 or (max - cur)
+	local loss = max == 0 and 0 or (cur - max)
 	local lossper = max == 0 and 0 or (loss/max * 100)
 
 	if arg1 == "currentpercent" then
-		return CurrentAndPercent(cur, per)
+		return CurrentAndPercent(cur, per, true)
 	elseif arg1 == "currentmax" then
-		return CurrentAndMax(cur, max)
+		return CurrentAndMax(cur, max, true)
 	elseif arg1 == "current" then
-		return B.Numb(cur)
+		return B.ColorNumb(cur, max, true)
 	elseif arg1 == "percent" then
-		return per < 100 and B.Perc(per, true)
+		return B.ColorPerc(per, true)
 	elseif arg1 == "loss" then
-		return loss ~= 0 and B.Numb(loss)
+		return B.ColorNumb(loss, max)
 	elseif arg1 == "losspercent" then
-		return loss ~= 0 and B.Perc(lossper)
+		return B.ColorPerc(lossper)
 	end
 end
 oUF.Tags.Events["VariousMP"] = "UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER"
@@ -168,11 +169,13 @@ end
 oUF.Tags.Events["raidhp"] = oUF.Tags.Events["VariousHP"].." UNIT_ABSORB_AMOUNT_CHANGED UNIT_HEAL_ABSORB_AMOUNT_CHANGED"
 
 -- Nameplate tags
-oUF.Tags.Methods["nppp"] = function(unit)
-	local per = oUF.Tags.Methods["perpp"](unit)
-	return B.Perc(per)
+oUF.Tags.Methods["nppower"] = function(unit)
+	local cur, max = UnitPower(unit), UnitPowerMax(unit)
+	local per = max == 0 and 0 or (cur/max * 100)
+
+	return B.ColorPerc(per, true)
 end
-oUF.Tags.Events["nppp"] = "UNIT_POWER_FREQUENT UNIT_MAXPOWER"
+oUF.Tags.Events["nppower"] = "UNIT_POWER_FREQUENT UNIT_MAXPOWER"
 
 oUF.Tags.Methods["nplevel"] = function(unit)
 	local level = UnitLevel(unit)
@@ -203,10 +206,10 @@ end
 oUF.Tags.Events["nprare"] = "UNIT_CLASSIFICATION_CHANGED"
 
 oUF.Tags.Methods["pppower"] = function(unit)
-	local cur = UnitPower(unit)
-	local max = UnitPowerMax(unit)
+	local cur, max = UnitPower(unit), UnitPowerMax(unit)
+	local per = max == 0 and 0 or (cur/max * 100)
 
-	return B.Perc(cur/max * 100)
+	return B.ColorPerc(per, true)
 end
 oUF.Tags.Events["pppower"] = "UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER"
 
@@ -247,6 +250,7 @@ oUF.Tags.Methods["tarname"] = function(unit)
 	if UnitExists(tarUnit) then
 		local tarClass = select(2, UnitClass(tarUnit))
 		local tarName = UnitName(tarUnit) or ""
+
 		return B.HexRGB(oUF.colors.class[tarClass])..tarName
 	end
 end
@@ -263,10 +267,9 @@ oUF.Tags.Events["altpower"] = "UNIT_POWER_UPDATE UNIT_MAXPOWER"
 -- Monk stagger
 oUF.Tags.Methods["monkstagger"] = function(unit)
 	if unit ~= "player" then return end
-	local cur = UnitStagger(unit) or 0
-	local max = UnitHealthMax(unit) or 0
-	if (cur == 0) or (max == 0) then return end
+	local cur, max = UnitStagger(unit), UnitHealthMax(unit)
+	local per = max == 0 and 0 or (cur/max * 100)
 
-	return B.Numb(cur)..DB.Separator..B.Perc(cur/max * 100)
+	return CurrentAndPercent(cur, per, true)
 end
 oUF.Tags.Events["monkstagger"] = "UNIT_MAXHEALTH UNIT_AURA"

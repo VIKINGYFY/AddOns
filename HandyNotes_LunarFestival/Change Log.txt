@@ -1,3 +1,15 @@
+== v4.13 - 7th February 2025
+* New style of Zone achievement pins (the large ones) - now check QUEST completion
+   (i.e. the current season) and no longer achievement index (ie. ever for the character)
+* Large Dragon Isles zone pin on Azeroth repositioned as it conflicts with one of my other AddOns
+* Improved formatting. Gone are the seemingly doubled/repeated achievement descriptions
+* Better Refresh delay to prevent that annoying GetAchievementCriteriaInfo abend
+* Added The Maelstrom Elder pins to Azeroth map
+* Better positioning of Classic Cataclysm's Cataclysm zone meta pin
+* General tidyup of Continent code
+* Many small changes as I prepare for modularising across my AddOns,
+    sharing common code and translations
+
 == v4.12 - 6th February 2025
 * Added large Meta pins for Khaz Algar and Dragon Isles Elders
 * Shuffled the pin contents of the city / world map clusters to 

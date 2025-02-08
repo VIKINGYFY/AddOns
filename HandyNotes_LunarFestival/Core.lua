@@ -3,7 +3,7 @@
 
                                            Lunar Festival
 
-                                      v4.12 - 6th February 2025
+                                      v4.13 - 7th February 2025
                                 Copyright (C) Taraezor / Chris Birch
                                          All Rights Reserved
 
@@ -38,20 +38,17 @@ local defaults = { profile = { iconScale = 2.5, iconAlpha = 1, showCoords = true
 								iconZoneElders = 15, iconDungeonElders = 14, iconCrown = 13,
 								iconFactionElders = 11, iconPreservation = 9, iconSeasonal=12,
 								iconMeta = 16, iconHistory = 10, iconSpecial = 8, } }
-local continents = {}
 local pluginHandler = {}
 
 -- upvalues
 local GameTooltip = _G.GameTooltip
 local GetAchievementCriteriaInfo = GetAchievementCriteriaInfo
 local GetAchievementInfo = GetAchievementInfo
-local GetMapArtID = C_Map.GetMapArtID
 local GetMapChildrenInfo = C_Map.GetMapChildrenInfo
 local IsComplete = C_QuestLog.IsComplete
 local IsOnQuest = C_QuestLog.IsOnQuest
 local IsQuestFlaggedCompleted = C_QuestLog.IsQuestFlaggedCompleted
 local UnitAura = C_UnitAuras.GetAuraDataByIndex
---local GetMapInfo = C_Map.GetMapInfo -- phase checking during testing
 local LibStub = _G.LibStub
 local UIParent = _G.UIParent
 local format = _G.format
@@ -62,34 +59,29 @@ local pairs = _G.pairs
 local HandyNotes = _G.HandyNotes
 
 _, _, _, ns.version = GetBuildInfo()
-
-ns.continents = ( ns.version < 50000 ) and
-{
-	[ 1414 ] = true, -- Kalimdor
-	[ 1415 ] = true, -- Eastern Kingdoms
-	[ 1945 ] = ( ns.version >= 20000) and true or nil, -- Outland
-	[ 113 ]  = ( ns.version >= 30000) and true or nil, -- Northrend
-	[ 203 ] = ( ns.version >= 40000) and true or nil, -- Vashj'ir
-	[ 947 ]  = true, -- World
-}
-or
-{
-	[ 12 ]   = true, -- Kalimdor
-	[ 13 ]   = true, -- Eastern Kingdoms
-	[ 101 ]  = true, -- Outland
-	[ 113 ]  = true, -- Northrend
-	[ 203 ]  = true, -- Vashj'ir
-	[ 572 ]  = true, -- Draenor
-	[ 946 ]  = true, -- Azeroth
-	[ 1978 ]  = true, -- Dragon Isles
-	
-	[ 947 ]  = true, -- Azeroth -- Original coding
-}
-
--- ---------------------------------------------------------------------------------------------------------------------------------
-
 ns.faction = UnitFactionGroup( "player" )
 ns.name = UnitName( "player" ) or "Character"
+
+ns.continents = {}
+if ( ns.version < 60000) then
+	ns.continents[ 1414 ] = true -- Kalimdor
+	ns.continents[ 1415 ] = true -- Eastern Kingdoms
+	ns.continents[ 1945 ] = ( ns.version >= 20000) and true or nil -- Outland
+else
+	ns.continents[ 12 ] = true -- Kalimdor
+	ns.continents[ 13 ] = true -- Eastern Kingdoms
+	ns.continents[ 101 ] = true -- Outland
+end
+ns.continents[ 113 ] = ( ns.version >= 30000) and true or nil -- Northrend
+ns.continents[ 203 ] = ( ns.version >= 40000) and true or nil -- Vashj'ir
+ns.continents[ 948 ] = ( ns.version >= 40000) and true or nil -- Vashj'ir
+ns.continents[ 424 ] = ( ns.version >= 50000) and true or nil -- Pandaria
+ns.continents[ 572 ] = ( ns.version >= 60000) and true or nil -- Draenor
+ns.continents[ 619 ] = ( ns.version >= 70000) and true or nil -- Broken Isles
+ns.continents[ 875 ] = ( ns.version >= 80000) and true or nil -- Zandalar
+ns.continents[ 876 ] = ( ns.version >= 80000) and true or nil -- Kul Tiras
+ns.continents[ 1978 ] = ( ns.version >= 90000) and true or nil -- Dragon Isles
+ns.continents[ 947 ] = true -- Azeroth
 
 -- ---------------------------------------------------------------------------------------------------------------------------------
 
@@ -124,7 +116,7 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------------------
 
-local function CorrectMapPhase( mapID )
+local function CorrectMapPhase( mapID, old )
 
 	if ( ns.version < 60000 ) then return true end -- Safe to drop through the code but more efficient to just exit
 
@@ -139,13 +131,13 @@ local function CorrectMapPhase( mapID )
 				if ( auraData.spellId == 372329 ) or ( auraData.spellId == 276827 ) or ( auraData.spellId == 255152 ) or
 						( auraData.spellId == 290246 ) or ( auraData.spellId == 317785 ) then
 					-- Time Travelling buff for Blasted Lands, Tirisfal Glades, Silithus, Darkshore/Teldrassil/Darnassus, Uldum
-					return true
+					return old
 				end
 			end
 		end
-		return false
+		return not old
 	else
-		return true
+		return old
 	end
 end
 
@@ -157,10 +149,12 @@ local function SpacerFirstTimeHeader( firstTime, heading, colour )
 	return false
 end
 
-local function CompletionShow( completed, whatever, colour, name )
+local function CompletionShow( completed, whatever, colour, name, completionS ) -- Last two parms are optional
 	GameTooltip:AddDoubleLine( ( whatever and ( colour ..whatever) or " " ), 
-		( ( completed == true ) and ( ns.colour.completeG ..ns.L["Completed"] ) or ( ns.colour.completeR ..ns.L["Not Completed"] ) )
-		..( ( name == nil ) and "" or ( " (" ..( ( name == true ) and ns.name or ns.L["Account"] ) ..")" ) ) )
+		( ( completed == true ) and ( ns.colour.completeG ..ns.L[ "Completed" ] ) or ( ns.colour.completeR
+		..ns.L[ "Not Completed" ] ) ) .." (" ..( ( completionS == nil ) and "" or ( ( completionS == true ) and
+		ns.colour.completeG or ns.colour.completeR ) ) ..( name or "Account" )
+		..( ( completed == true ) and ns.colour.completeG or ns.colour.completeR ) ..")" )
 end
 
 local function Tip( tip )
@@ -191,14 +185,14 @@ end
 -- Plugin handler for HandyNotes
 function pluginHandler:OnEnter(mapFile, coord)
 	if self:GetCenter() > UIParent:GetCenter() then
-		GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+		GameTooltip:SetOwner( self, "ANCHOR_LEFT" )
 	else
-		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:SetOwner( self, "ANCHOR_RIGHT" )
 	end
 
 	local pin = ns.points[ mapFile ] and ns.points[ mapFile ][ coord ]
 
-	local firstTime, aName, completed, description, earnedByMe, completedMe, cType, assetID;
+	local firstTime, aName, completed, completedQ, description, earnedByMe, cType, assetID;
 	
 	if pin.name then
 		GameTooltip:SetText( ns.colour.prefix ..ns.L[ pin.name ] )
@@ -212,33 +206,34 @@ function pluginHandler:OnEnter(mapFile, coord)
 			if PassFactionCheck( v ) and PassVersionCheck( v ) then
 				_, aName, _, completed, _, _, _, description, _, _, _, _, earnedByMe = GetAchievementInfo( v.id )
 				SpacerFirstTimeHeader( firstTime, ns.L[ "Achievement" ], ns.colour.highlight )
-				CompletionShow( completed, aName, ns.colour.achieveH, false )
+				CompletionShow( completed, aName, ns.colour.achieveH )
 				-- Strictly speaking the results are NOT correct from the API for the event's meta for earnedByMe
-				CompletionShow( earnedByMe , nil, nil, true )
+				CompletionShow( earnedByMe , nil, nil, ns.name )
 				if v.showAllCriteria then
 					GameTooltip:AddLine( ns.colour.achieveD ..description, nil, nil, nil, true )
 					numCriteria = GetAchievementNumCriteria( v.id )
 					for i = 1, numCriteria do
 						aName, cType, completed, _, _, _, _, assetID = GetAchievementCriteriaInfo( v.id, i )
-						if ( cType ~= 8 ) then
-							CompletionShow( completed, aName, ns.colour.achieveI, true )
-							description = select( 8, GetAchievementInfo( assetID ) )
-						else
-							-- Achievement type. Merrmaker. cType will show each line as an achievement
+						if ( cType == 27 ) then
+							-- Quest type
+								if i == 1 then GameTooltip:AddLine( ns.colour.achieveH ..ns.L[ "Seasonal" ] ) end
+								completedQ = IsQuestFlaggedCompleted( assetID )
+								CompletionShow( completedQ, aName, ns.colour.achieveI, ns.name, completed )
+						elseif ( cType == 8 ) then
+							-- Achievement type. Meta. cType will show each line as an achievement
 							-- Must do it this way as "completed" for the criteria becomes account wide for meta achievements
 							_, aName, _, completed, _, _, _, description, _, _, _, _, earnedByMe = GetAchievementInfo( assetID )
-							CompletionShow( earnedByMe, aName, ns.colour.achieveH, true )
-							completed = earnedByMe
-						end
-						if completed == false and description then
-							GameTooltip:AddLine( ns.colour.plaintext ..description, nil, nil, nil, true )
+							CompletionShow( earnedByMe, aName, ns.colour.achieveH, ns.name )
+							if earnedByMe == false and description then
+								GameTooltip:AddLine( ns.colour.achieveD ..description, nil, nil, nil, true )
+							end
 						end
 					end
 				else
 					GameTooltip:AddLine( ns.colour.achieveD ..description, nil, nil, nil, true )
 					if v.index then
 						aName, _, completed = GetAchievementCriteriaInfo( v.id, v.index )
-						CompletionShow( completed, aName, ns.colour.achieveI, true )
+						CompletionShow( completed, aName, ns.colour.achieveI, ns.name )
 					end
 				end
 				GuideTip( v )
@@ -252,7 +247,7 @@ function pluginHandler:OnEnter(mapFile, coord)
 			if PassFactionCheck( v ) and PassVersionCheck( v ) and PassClassCheck( v ) and ( v.qType == "Seasonal" ) then
 				completed = IsQuestFlaggedCompleted( v.id )
 				firstTime = SpacerFirstTimeHeader( firstTime, ns.L[ "Seasonal" ], ns.colour.highlight )
-				CompletionShow( completed, GetQuestName( v ), ns.colour.seasonal, true )
+				CompletionShow( completed, GetQuestName( v ), ns.colour.seasonal, ns.name )
 				if v.id == 56842 then -- Lunar Preservation
 					if ( IsOnQuest( 56842 ) == true ) then
 						completed = IsComplete( 56842 )
@@ -274,7 +269,7 @@ function pluginHandler:OnEnter(mapFile, coord)
 			if PassFactionCheck( v ) and PassVersionCheck( v ) and PassClassCheck( v ) and ( v.qType == "Daily" ) then
 				completed = IsQuestFlaggedCompleted( v.id )
 				firstTime = SpacerFirstTimeHeader( firstTime, ns.L[ "Daily" ], ns.colour.highlight )
-				CompletionShow( completed, GetQuestName( v ), ns.colour.daily, true )
+				CompletionShow( completed, GetQuestName( v ), ns.colour.daily, ns.name )
 				GuideTip( v )
 			end
 		end
@@ -284,13 +279,13 @@ function pluginHandler:OnEnter(mapFile, coord)
 			if PassFactionCheck( v ) and PassVersionCheck( v ) and PassClassCheck( v ) and ( v.qType == "One Time" ) then
 				completed = IsQuestFlaggedCompleted( v.id )
 				firstTime = SpacerFirstTimeHeader( firstTime, ns.L[ "One Time" ], ns.colour.highlight )
-				CompletionShow( completed, GetQuestName( v ), ns.colour.seasonal, true )
+				CompletionShow( completed, GetQuestName( v ), ns.colour.seasonal, ns.name )
 				GuideTip( v )
 			end
 		end
 	end
 	
-	if ( pin.noZidormi == nil ) and ( CorrectMapPhase( mapFile ) == false ) then
+	if ( pin.noZidormi == nil ) and ( CorrectMapPhase( mapFile, old ) == false ) then
 		Tip( ns.L[ "ZidormiWrongPhase" ] )
 	end
 
@@ -443,7 +438,6 @@ do
 		end
 	end
 	function pluginHandler:GetNodes2(mapID)
-		ns.mapID = mapID
 		return iterator, ns.points[mapID]
 	end
 end
@@ -658,7 +652,7 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------------------
 
 function pluginHandler:OnEnable()
-	local HereBeDragons = LibStub("HereBeDragons-2.0", true)
+	local HereBeDragons = LibStub( "HereBeDragons-2.0", true )
 	if not HereBeDragons then return end
 	
 	for continentMapID in next, ns.continents do
@@ -700,20 +694,21 @@ function pluginHandler:OnEnable()
 end
 
 function pluginHandler:Refresh()
-	if not ns.delay then self:SendMessage( "HandyNotes_NotifyUpdate", "LunarFestival" ) end
+	if GetTime() > ( ns.delay or 0 ) then
+		ns.delay = nil
+		self:SendMessage( "HandyNotes_NotifyUpdate", "LunarFestival" )
+	end
 end
 
-LibStub("AceAddon-3.0"):NewAddon( pluginHandler, "HandyNotes_LunarFestivalDB", "AceEvent-3.0" )
+LibStub( "AceAddon-3.0" ):NewAddon( pluginHandler, "HandyNotes_LunarFestivalDB", "AceEvent-3.0" )
 
 -- ---------------------------------------------------------------------------------------------------------------------------------
 
 ns.eventFrame = CreateFrame( "Frame" )
-ns.timeSinceLastRefresh, ns.timeSinceLastBuffCheck = 0, 0
 
 local function OnUpdate()
-	ns.curTime = GetTime()
-	if ns.curTime - ns.timeSinceLastBuffCheck > 1 then
-		ns.timeSinceLastBuffCheck = ns.curTime
+	if GetTime() > ( ns.timeSinceLastBuffCheck or 0 ) then
+		ns.timeSinceLastBuffCheck = GetTime() + 1
 		if ( IsOnQuest( 56842 ) == true ) then -- Lunar Preservation
 			for i = 1, 40 do
 				local aura = UnitAura( "player", i, "HELPFUL" )
@@ -728,23 +723,24 @@ local function OnUpdate()
 		end
 	end
 	
-	if ns.curTime - ns.timeSinceLastRefresh <= 8 then return end
-	ns.timeSinceLastRefresh = ns.curTime
-	pluginHandler:Refresh()
+	if GetTime() > ( ns.saveTime or 0 ) then
+		ns.saveTime = GetTime() + 5
+		pluginHandler:Refresh()
+	end
 end
 
 ns.eventFrame:SetScript( "OnUpdate", OnUpdate )
 
 local function OnEventHandler( self, event, ... )
-	-- This is based upon my own research as documented in my WDW AddOn
-	if ( event == "PLAYER_ENTERING_WORLD" ) then
-		ns.delay = true
+	if ( event == "PLAYER_ENTERING_WORLD" ) or ( event == "PLAYER_LEAVING_WORLD" ) then
+		ns.delay = GetTime() + 60 -- Some arbitrary large amount
 	elseif ( event == "SPELLS_CHANGED" ) then
-		ns.delay = nil
+		ns.delay = GetTime() + 5 -- Allow a 5 second safety buffer before we resume refreshes
 	end
 end
 
 ns.eventFrame:RegisterEvent( "PLAYER_ENTERING_WORLD" )
+ns.eventFrame:RegisterEvent( "PLAYER_LEAVING_WORLD" )
 ns.eventFrame:RegisterEvent( "SPELLS_CHANGED" )
 ns.eventFrame:SetScript( "OnEvent", OnEventHandler )
 

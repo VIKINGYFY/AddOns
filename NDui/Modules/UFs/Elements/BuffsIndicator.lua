@@ -41,7 +41,7 @@ function UF:CreateBuffsIndicator(self)
 		button.CD:SetHideCountdownNumbers(true)
 
 		if not prevBuff then
-			button:SetPoint("BOTTOMRIGHT", self.Health)
+			button:SetPoint("BOTTOMRIGHT", self.Health, "BOTTOMRIGHT")
 		else
 			button:SetPoint("RIGHT", prevBuff, "LEFT")
 		end

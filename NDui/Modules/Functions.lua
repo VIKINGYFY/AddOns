@@ -146,10 +146,16 @@ do
 		return r, g, b
 	end
 
-	function B.Perc(value, fullRed)
-		local per = format("%.1f%%", value)
-		local r, g, b = B.Color(value, 100, fullRed)
-		return B.HexRGB(r, g, b, per)
+	function B.ColorPerc(per, fullRed)
+		local var = format("%.1f%%", per)
+		local r, g, b = B.Color(math.abs(per), 100, fullRed)
+		return B.HexRGB(r, g, b, var)
+	end
+
+	function B.ColorNumb(cur, max, fullRed)
+		local num = B.Numb(cur)
+		local r, g, b = B.Color(math.abs(cur), max, fullRed)
+		return B.HexRGB(r, g, b, num)
 	end
 end
 

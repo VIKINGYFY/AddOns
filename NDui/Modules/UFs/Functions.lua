@@ -227,21 +227,16 @@ function UF:UpdateFrameNameTag()
 	local mystyle, name = self.mystyle, self.nameText
 	if mystyle == "nameplate" then return end
 
-	local value = mystyle == "raid" and "RCCName" or "CCName"
-	local colorTag = C.db["UFs"][value] and "[color]" or ""
-
 	if mystyle == "player" then
-		self:Tag(name, colorTag.."[name]")
-	elseif mystyle == "target" then
-		self:Tag(name, "[fulllevel] "..colorTag.."[name][flags]")
-	elseif mystyle == "focus" then
-		self:Tag(name, colorTag.."[name][flags]")
+		self:Tag(name, "[color][name][flags]")
+	elseif mystyle == "target" or mystyle == "focus" then
+		self:Tag(name, "[fulllevel] [color][name][flags]")
 	elseif mystyle == "arena" then
-		self:Tag(name, "[arenaspec] "..colorTag.."[name]")
+		self:Tag(name, "[arenaspec] [color][name]")
 	elseif self.raidType == "simple" and C.db["UFs"]["TeamIndex"] then
-		self:Tag(name, "[group] "..colorTag.."[name]")
+		self:Tag(name, "[group] [color][name]")
 	else
-		self:Tag(name, colorTag.."[name]")
+		self:Tag(name, "[color][name]")
 	end
 
 	name:UpdateTag()
@@ -250,33 +245,32 @@ end
 function UF:UpdateRaidTextAnchor()
 	if self.mystyle ~= "raid" then return end
 
-	local name, hpval = self.nameText, self.healthValue
-	if C.db["UFs"]["RaidHPMode"] == 1 then
-		name:ClearAllPoints()
-		name:SetJustifyH("CENTER")
-		name:SetPoint("CENTER", self.Health, "CENTER")
+	local health, name, hpval = self.Health, self.nameText, self.healthValue
+	name:ClearAllPoints()
+	hpval:ClearAllPoints()
 
-		hpval:ClearAllPoints()
+	if C.db["UFs"]["RaidHPMode"] == 1 then
+		name:SetJustifyH("CENTER")
+		name:SetWidth(self:GetWidth() * .9)
+		name:SetPoint("CENTER", health, "CENTER")
+
 		hpval:SetJustifyH("CENTER")
 		hpval:SetPoint("TOP", name, "BOTTOM")
 	else
 		if self.raidType == "pet" or self.raidType == "simple" then
-			hpval:ClearAllPoints()
 			hpval:SetJustifyH("RIGHT")
-			hpval:SetPoint("RIGHT", self.Health, "RIGHT")
+			hpval:SetPoint("RIGHT", health, "RIGHT")
 
-			name:ClearAllPoints()
 			name:SetJustifyH("LEFT")
-			name:SetPoint("LEFT", self.Health, "LEFT")
-			name:SetPoint("RIGHT", self.healthValue, "LEFT")
+			name:SetPoint("LEFT", health, "LEFT")
+			name:SetPoint("RIGHT", hpval, "LEFT")
 		else
-			hpval:ClearAllPoints()
 			hpval:SetJustifyH("CENTER")
-			hpval:SetPoint("TOP", self.Health, "CENTER")
+			hpval:SetPoint("TOP", health, "CENTER")
 
-			name:ClearAllPoints()
 			name:SetJustifyH("CENTER")
-			name:SetPoint("BOTTOM", self.Health, "CENTER")
+			name:SetWidth(self:GetWidth() * .9)
+			name:SetPoint("BOTTOM", health, "CENTER")
 		end
 	end
 end
@@ -425,7 +419,7 @@ function UF:UpdateFramePowerTag()
 		valueType = UF.VariousTagIndex[C.db["UFs"]["BossMPTag"]]
 	end
 
-	self:Tag(self.powerText, "[color][VariousMP("..valueType..")]")
+	self:Tag(self.powerText, "[VariousMP("..valueType..")]")
 	self.powerText:UpdateTag()
 end
 
@@ -1460,7 +1454,7 @@ function UF.PostUpdateAddPower(element, cur, max)
 		else
 			element:SetAlpha(0)
 		end
-		element.Text:SetText(B.Perc(perc))
+		element.Text:SetText(B.ColorPerc(perc))
 	end
 end
 

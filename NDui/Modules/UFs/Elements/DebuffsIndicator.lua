@@ -41,7 +41,7 @@ function UF:CreateDebuffsIndicator(self)
 		button.CD:SetHideCountdownNumbers(true)
 
 		if not prevDebuff then
-			button:SetPoint("BOTTOMLEFT", self.Health)
+			button:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT")
 		else
 			button:SetPoint("LEFT", prevDebuff, "RIGHT")
 		end

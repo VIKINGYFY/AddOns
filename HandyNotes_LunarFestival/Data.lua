@@ -1085,6 +1085,8 @@ ns.map.shattrath = ( ns.version < 60000 ) and 1955 or 111
 ns.map.terokkar = ( ns.version < 60000 ) and 1952 or 108
 
 points[ ns.map.shattrath ] = { -- Shattrath
+	[48143685] = { seasonalQuest=true, name="Lunar Festival Harbinger",
+					quests={ { id=8867, qType="Seasonal", }, { id=8883, qType="Seasonal", }, }, },
 	[53293309] = { seasonalQuest=true, name="Lunar Festival Harbinger",
 					quests={ { id=8867, qType="Seasonal", }, { id=8883, qType="Seasonal", }, }, },
 	[83508520] = ns.setNewZones,
@@ -1472,6 +1474,14 @@ points[ 205 ] = { -- Shimmering Expanse in Vashj'ir
 					{ id=6006, index=2, versionUnder=60000, }, }, quests={ { id=29738, qType="Seasonal", }, }, },
 }
 
+points[ 948 ] = { -- The Maelstrom
+	-- Cannot auto populate as a pseudo Continent. Must do it manually. Used a gradient of -0.65 for the two points
+	[50903050] = { elder=true, achievements={ { id=6006, index=1, version=60000, },
+					{ id=6006, index=5, versionUnder=60000, }, }, quests={ { id=29735, qType="Seasonal", }, }, },
+	[44503470] = { elder=true, achievements={ { id=6006, index=9, version=60000, },
+					{ id=6006, index=9, versionUnder=60000, }, }, quests={ { id=29734, qType="Seasonal", }, }, },
+}
+
 points[ 241 ] = { -- Twilight Highlands
 	[50917045] = { elder=true, achievements={ { id=6006, index=4, version=60000, },
 					{ id=6006, index=8, versionUnder=60000, }, }, quests={ { id=29737, qType="Seasonal", }, }, },
@@ -1548,7 +1558,7 @@ points[ 2022 ] = { -- The Waking Shores
 }
 
 points[ 1978 ] = { -- Dragon Isles
-	[25003500] = { metaLarge=true, noCoords=true, achievements={ { id=17321, showAllCriteria=true, }, }, },
+	[76007700] = { metaLarge=true, noCoords=true, achievements={ { id=17321, showAllCriteria=true, }, }, },
 }
 
 --==================================================================================================================================
@@ -1604,7 +1614,7 @@ points[ 2274 ] = { -- Khaz Algar
 
 if ( ns.version < 60000 ) then
 	points[ 947 ] = { -- Azeroth
-		[42004500] = { metaLarge=true, noCoords=true, achievements={ { id=6006, showAllCriteria=true, }, }, },
+		[44904700] = { metaLarge=true, noCoords=true, achievements={ { id=6006, showAllCriteria=true, }, }, },
 		[53508520] = ns.setNewZones,
 		[53508950] = ns.setHonorElders,
 		[55709230] = ns.setElune,
@@ -1612,6 +1622,10 @@ if ( ns.version < 60000 ) then
 		[56208400] = ns.setMetaFaction,
 		[58309100] = ns.setPyro,
 		[58408680] = ns.set50Coins,
+		[51305190] = { elder=true, achievements={ { id=6006, index=1, version=60000, }, -- Gradient -0.65
+						{ id=6006, index=5, versionUnder=60000, }, }, quests={ { id=29735, qType="Seasonal", }, }, },
+		[48705360] = { elder=true, achievements={ { id=6006, index=9, version=60000, },
+						{ id=6006, index=9, versionUnder=60000, }, }, quests={ { id=29734, qType="Seasonal", }, }, },
 	} 
 else
 	points[ 947 ] = { -- Azeroth
@@ -1624,6 +1638,10 @@ else
 		[88309100] = ns.setPyro,
 		[88408680] = ns.set50Coins,
 		[34008700] = { metaLarge=true, noCoords=true, achievements={ { id=41130, showAllCriteria=true, }, }, },
+		[46004850] = { elder=true, achievements={ { id=6006, index=1, version=60000, }, -- Gradient -0.65
+						{ id=6006, index=5, versionUnder=60000, }, }, quests={ { id=29735, qType="Seasonal", }, }, },
+		[44504950] = { elder=true, achievements={ { id=6006, index=9, version=60000, },
+						{ id=6006, index=9, versionUnder=60000, }, }, quests={ { id=29734, qType="Seasonal", }, }, },
 	}
 end
 

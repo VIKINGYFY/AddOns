@@ -486,6 +486,7 @@ function UF:AddQuestIcon(self)
 	qicon:SetAtlas(DB.questTex)
 	qicon:Hide()
 	local count = B.CreateFS(self.Health, 20)
+	count:SetJustifyH("LEFT")
 	count:SetPoint("LEFT", qicon, "RIGHT", -4, 0)
 	count:SetTextColor(0, 1, 1)
 
@@ -616,6 +617,7 @@ function UF:ShowUnitTargeted(self)
 	tex:Hide()
 
 	local count = B.CreateFS(self.Health, 22)
+	count:SetJustifyH("LEFT")
 	count:SetPoint("LEFT", tex, "RIGHT", 1, 0)
 	count:SetTextColor(1, .8, 0)
 
@@ -664,7 +666,7 @@ function UF:CreatePlates()
 	powerText:ClearAllPoints()
 	powerText:SetPoint("TOP", self.tarName, "BOTTOM", 0, -DB.margin)
 	powerText:Hide()
-	self:Tag(powerText, "[nppp]")
+	self:Tag(powerText, "[nppower]")
 	self.powerText = powerText
 
 	local title = B.CreateFS(self, C.db["Nameplate"]["NameOnlyTitleSize"])

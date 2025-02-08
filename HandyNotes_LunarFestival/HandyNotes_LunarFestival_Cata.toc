@@ -1,5 +1,5 @@
 ## Interface: 40401
-## Version: 4.12
+## Version: 4.13
 ## Author: Taraezor
 ## IconTexture: Interface\Icons\Inv_misc_elvencoins
 ## Title: Lunar Festival
@@ -34,6 +34,8 @@
 ## X-Curse-Project-ID: 776143
 ## X-Wago-ID: baND0oNo
 
-Localisations.lua
+Localisations_Common.lua
+Localisations_Events.lua
+Localisations_LF.lua
 Core.lua
 Data.lua
