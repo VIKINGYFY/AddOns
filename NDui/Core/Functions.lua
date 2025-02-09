@@ -40,6 +40,10 @@ do
 		end
 	end
 
+	function B.Perc(p)
+		return format("%.1f%%", p)
+	end
+
 	function B:Round(number, idp)
 		idp = idp or 1
 		local mult = 10 ^ idp

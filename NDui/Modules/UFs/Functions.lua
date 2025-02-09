@@ -223,20 +223,29 @@ function UF:UpdateFrameHealthTag()
 	hpval:UpdateTag()
 end
 
+local needColor = {
+	[1] = true,
+	[3] = true,
+	[4] = true,
+}
+
 function UF:UpdateFrameNameTag()
 	local mystyle, name = self.mystyle, self.nameText
 	if mystyle == "nameplate" then return end
 
+	local value = mystyle == "raid" and "RaidHealthColor" or "HealthColor"
+	local colorTag = needColor[C.db["UFs"][value]] and "[color]" or B.HexRGB(oUF.colors.reaction[5])
+
 	if mystyle == "player" then
-		self:Tag(name, "[color][name][flags]")
+		self:Tag(name, colorTag.."[name][flags]")
 	elseif mystyle == "target" or mystyle == "focus" then
-		self:Tag(name, "[fulllevel] [color][name][flags]")
+		self:Tag(name, "[fulllevel] "..colorTag.."[name][flags]")
 	elseif mystyle == "arena" then
-		self:Tag(name, "[arenaspec] [color][name]")
+		self:Tag(name, "[arenaspec] "..colorTag.."[name]")
 	elseif self.raidType == "simple" and C.db["UFs"]["TeamIndex"] then
-		self:Tag(name, "[group] [color][name]")
+		self:Tag(name, "[group] "..colorTag.."[name]")
 	else
-		self:Tag(name, "[color][name]")
+		self:Tag(name, colorTag.."[name]")
 	end
 
 	name:UpdateTag()
@@ -419,7 +428,7 @@ function UF:UpdateFramePowerTag()
 		valueType = UF.VariousTagIndex[C.db["UFs"]["BossMPTag"]]
 	end
 
-	self:Tag(self.powerText, "[VariousMP("..valueType..")]")
+	self:Tag(self.powerText, "[color][VariousMP("..valueType..")]")
 	self.powerText:UpdateTag()
 end
 
@@ -1352,7 +1361,7 @@ function UF:StaggerBar(self)
 	bar:SetPoint(unpack(barPoint))
 
 	local text = B.CreateFS(bar, 14, "")
-	self:Tag(text, "[monkstagger]")
+	self:Tag(text, "[stagger]")
 
 	B.SmoothBar(bar)
 

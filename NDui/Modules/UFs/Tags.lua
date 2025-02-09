@@ -6,17 +6,17 @@ local ALTERNATE_POWER_INDEX = Enum.PowerType.Alternate or 10
 -- Add scantip back, due to issue on ColorMixin
 local scanTip = CreateFrame("GameTooltip", "NDui_ScanTooltip", nil, "GameTooltipTemplate")
 
-local function CurrentAndPercent(cur, per, isMP)
+local function CurrentAndPercent(cur, per, noColor)
 	if per < 100 then
-		return B.Numb(cur)..DB.Separator..B.ColorPerc(per, isMP)
+		return B.Numb(cur)..DB.Separator..(noColor and B.Perc(per) or B.ColorPerc(per))
 	else
 		return B.Numb(cur)
 	end
 end
 
-local function CurrentAndMax(cur, max, isMP)
+local function CurrentAndMax(cur, max, noColor)
 	if cur < max then
-		return B.ColorNumb(cur, max, isMP)..DB.Separator..B.Numb(max)
+		return (noColor and B.Numb(cur) or B.ColorNumb(cur, max))..DB.Separator..B.Numb(max)
 	else
 		return B.Numb(cur)
 	end
@@ -64,13 +64,13 @@ oUF.Tags.Methods["VariousMP"] = function(unit, _, arg1)
 	elseif arg1 == "currentmax" then
 		return CurrentAndMax(cur, max, true)
 	elseif arg1 == "current" then
-		return B.ColorNumb(cur, max, true)
+		return B.Numb(cur)
 	elseif arg1 == "percent" then
-		return B.ColorPerc(per, true)
+		return B.Perc(per)
 	elseif arg1 == "loss" then
-		return B.ColorNumb(loss, max)
+		return B.Numb(loss)
 	elseif arg1 == "losspercent" then
-		return B.ColorPerc(lossper)
+		return B.Perc(lossper)
 	end
 end
 oUF.Tags.Events["VariousMP"] = "UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER"
@@ -258,18 +258,18 @@ oUF.Tags.Events["tarname"] = "UNIT_NAME_UPDATE UNIT_THREAT_SITUATION_UPDATE UNIT
 
 -- AltPower value tag
 oUF.Tags.Methods["altpower"] = function(unit)
-	local cur = UnitPower(unit, ALTERNATE_POWER_INDEX)
+	local cur, max = UnitPower(unit, ALTERNATE_POWER_INDEX), UnitPowerMax(unit, ALTERNATE_POWER_INDEX)
 
-	return cur > 0 and cur
+	return cur > 0 and B.ColorNumb(cur, max, true)
 end
 oUF.Tags.Events["altpower"] = "UNIT_POWER_UPDATE UNIT_MAXPOWER"
 
 -- Monk stagger
-oUF.Tags.Methods["monkstagger"] = function(unit)
+oUF.Tags.Methods["stagger"] = function(unit)
 	if unit ~= "player" then return end
 	local cur, max = UnitStagger(unit), UnitHealthMax(unit)
 	local per = max == 0 and 0 or (cur/max * 100)
 
-	return CurrentAndPercent(cur, per, true)
+	return B.ColorNumb(cur, max, true)..DB.Separator..B.ColorPerc(per, true)
 end
-oUF.Tags.Events["monkstagger"] = "UNIT_MAXHEALTH UNIT_AURA"
+oUF.Tags.Events["stagger"] = "UNIT_MAXHEALTH UNIT_AURA"
