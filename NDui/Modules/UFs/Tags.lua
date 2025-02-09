@@ -207,9 +207,8 @@ oUF.Tags.Events["nprare"] = "UNIT_CLASSIFICATION_CHANGED"
 
 oUF.Tags.Methods["pppower"] = function(unit)
 	local cur, max = UnitPower(unit), UnitPowerMax(unit)
-	local per = max == 0 and 0 or (cur/max * 100)
 
-	return B.ColorPerc(per, true)
+	return DB.MyColor..B.Numb(cur).."|r"
 end
 oUF.Tags.Events["pppower"] = "UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER"
 

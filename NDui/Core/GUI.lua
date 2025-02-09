@@ -220,6 +220,8 @@ G.DefaultSettings = {
 		RaidDebuffSize = 12,
 		DebuffClickThru = true,
 		SmartRaid = false,
+		CCName = true,
+		RCCName = true,
 		HideTip = false,
 		DescRole = true,
 		PlayerAbsorb = false,
@@ -430,6 +432,7 @@ G.DefaultSettings = {
 		CustomBD = true,
 		CustomBDColor = {r=.5, g=.5, b=.5},
 		FontScale = 1,
+		CustomNameColor = {r=1, g=1, b=1},
 	},
 	Tooltip = {
 		HideInCombat = 1,
@@ -1127,9 +1130,10 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{1, "UFs", "ShowAuras", L["ShowAuras"].."*", nil, setupUFAuras, toggleAllAuras},
 		{1, "UFs", "ClassPower", L["UFs ClassPower"].."*", true, nil, toggleUFClassPower},
 		{1, "UFs", "Portrait", L["UFs Portrait"].."*", nil, nil, togglePortraits},
-		{1, "UFs", "AddPower", L["AddPower"].."*", true, nil, toggleAddPower, L["AddPowerTip"]},
+		{1, "UFs", "CCName", L["ClassColor Name"].."*", true, nil, updateUFTextScale, L["CustomNameColorTip"]},
 		{1, "UFs", "PlayerAbsorb", L["PlayerAbsorb"].."*", nil, nil, togglePlayerAbsorb, L["PlayerAbsorbTip"]},
-		{1, "UFs", "OverAbsorb", IsNew..L["OverAbsorb"].."*", true, nil, nil, L["OverAbsorbTip"]},
+		{1, "UFs", "AddPower", L["AddPower"].."*", true, nil, toggleAddPower, L["AddPowerTip"]},
+		{1, "UFs", "OverAbsorb", IsNew..L["OverAbsorb"].."*", nil, nil, nil, L["OverAbsorbTip"]},
 		{3, "UFs", "UFTextScale", L["UFTextScale"].."*", nil, {.8, 1.5, .05}, updateUFTextScale},
 		{4, "UFs", "HealthColor", L["HealthColor"].."*", true, {L["Default Dark"], L["ClassColorHP"], L["GradientHP"], L["ClearHealth"], L["ClearClass"]}, updateUFTextScale},
 		{},--blank
@@ -1177,7 +1181,8 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{1, "UFs", "SmartRaid", HeaderTag..L["SmartRaid"].."*", true, nil, updateAllHeaders, L["SmartRaidTip"]},
 		{1, "UFs", "TeamIndex", L["RaidFrame TeamIndex"].."*", nil, nil, updateTeamIndex},
 		{1, "UFs", "SpecRaidPos", L["Spec RaidPos"], true, nil, nil, L["SpecRaidPosTip"]},
-		{1, "UFs", "HideTip", L["HideTooltip"].."*", nil, nil, updateRaidTextScale, L["HideTooltipTip"]},
+		{1, "UFs", "RCCName", L["ClassColor Name"].."*", nil, nil, updateRaidTextScale, L["CustomNameColorTip"]},
+		{1, "UFs", "HideTip", L["HideTooltip"].."*", true, nil, updateRaidTextScale, L["HideTooltipTip"]},
 	},
 	[5] = {
 		{1, "Nameplate", "Enable", HeaderTag..L["Enable Nameplate"], nil, setupNameplateSize, refreshNameplates},
@@ -1334,12 +1339,13 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 	},
 	[11] = {
 		{1, "Skins", "BlizzardSkins", HeaderTag..L["BlizzardSkins"], nil, nil, nil, L["BlizzardSkinsTips"]},
+		{5, "Skins", "CustomNameColor", L["CustomNameColor"], 2},
+		{5, "Skins", "CustomBDColor", L["CustomBDColor"], 3},
 		{},--blank
 		{1, "Skins", "Shadow", L["Shadow"]},
 		{1, "Skins", "FontOutline", L["FontOutline"], true},
 		{1, "Skins", "BgTex", L["BgTex"]},
-		{1, "Skins", "CustomBD", L["CustomBD"], true, nil, nil, L["CustomBackdropTip"]},
-		{5, "Skins", "CustomBDColor", L["CustomBackdrop"], 3},
+		{1, "Skins", "CustomBD", L["CustomBD"], true, nil, nil, L["CustomBDColorTip"]},
 		{3, "Skins", "SkinAlpha", L["SkinAlpha"].."*", nil, {0, 1, .05}, updateSkinAlpha},
 		{3, "Skins", "FontScale", L["GlobalFontScale"], true, {.5, 1.5, .05}},
 		{},--blank

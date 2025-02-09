@@ -89,8 +89,7 @@ do
 
 	-- GUID to npcID
 	function B.GetNPCID(guid)
-		local id = tonumber(string.match((guid or ""), "%-(%d-)%-%x-$"))
-		return id
+		return tonumber(string.match((guid or ""), "%-(%d-)%-%x-$"))
 	end
 
 	-- Table
@@ -151,13 +150,13 @@ do
 
 	function B.UnitColor(unit)
 		local r, g, b = 1, 1, 1
-		if UnitIsPlayer(unit) or UnitInPartyIsAI(unit) then
+		if UnitIsTapDenied(unit) then
+			r, g, b = .5, .5, .5
+		elseif UnitIsPlayer(unit) or UnitInPartyIsAI(unit) then
 			local class = select(2, UnitClass(unit))
 			if class then
 				r, g, b = B.ClassColor(class)
 			end
-		elseif UnitIsTapDenied(unit) then
-			r, g, b = .5, .5, .5
 		else
 			local reaction = UnitReaction(unit, "player")
 			if reaction then
@@ -165,6 +164,7 @@ do
 				r, g, b = color.r, color.g, color.b
 			end
 		end
+
 		return r, g, b
 	end
 end
@@ -641,8 +641,9 @@ do
 	-- Glow parent
 	function B:CreateGlowFrame(size)
 		local frame = CreateFrame("Frame", nil, self)
-		frame:SetPoint("CENTER")
+		frame:SetFrameLevel(self:GetFrameLevel())
 		frame:SetSize(size+8, size+8)
+		frame:SetPoint("CENTER")
 
 		return frame
 	end
@@ -694,9 +695,9 @@ do
 		local sdSize = size or 4
 		local shadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
 		shadow:SetOutside(self, sdSize, sdSize)
+		shadow:SetFrameLevel(frame:GetFrameLevel())
 		shadow:SetBackdrop({edgeFile = DB.glowTex, edgeSize = sdSize})
 		shadow:SetBackdropBorderColor(0, 0, 0, size and 1 or .5)
-		shadow:SetFrameLevel(frame:GetFrameLevel())
 
 		self.__shadow = shadow
 

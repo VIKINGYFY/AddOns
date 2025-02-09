@@ -223,18 +223,13 @@ function UF:UpdateFrameHealthTag()
 	hpval:UpdateTag()
 end
 
-local needColor = {
-	[1] = true,
-	[3] = true,
-	[4] = true,
-}
-
 function UF:UpdateFrameNameTag()
 	local mystyle, name = self.mystyle, self.nameText
 	if mystyle == "nameplate" then return end
 
-	local value = mystyle == "raid" and "RaidHealthColor" or "HealthColor"
-	local colorTag = needColor[C.db["UFs"][value]] and "[color]" or B.HexRGB(oUF.colors.reaction[5])
+	local nameColor = C.db["Skins"]["CustomNameColor"]
+	local value = mystyle == "raid" and "RCCName" or "CCName"
+	local colorTag = C.db["UFs"][value] and "[color]" or B.HexRGB(nameColor)
 
 	if mystyle == "player" then
 		self:Tag(name, colorTag.."[name][flags]")
