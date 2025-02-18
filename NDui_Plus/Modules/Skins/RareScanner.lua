@@ -8,7 +8,7 @@ function S:RareScanner()
 	if not S.db["RareScanner"] then return end
 
 	-- Scanner Button
-	local button = _G.scanner_button
+	local button = _G.RARESCANNER_BUTTON
 	if not button then return end
 
 	B.StripTextures(button)
@@ -16,24 +16,31 @@ function S:RareScanner()
 
 	local close = button.CloseButton
 	if close then
-		B.ReskinClose(close)
+		B.ReskinClose(close, nil, nil, nil, true)
+		close:SetHitRectInsets(0, 0, 0, 0)
 		close:SetScale(1)
 		close:ClearAllPoints()
 		close:SetPoint("BOTTOMRIGHT",-5, 5)
 	end
 
-	if button.FilterEntityButton and button.UnfilterEnabledButton then
-		B.ReskinArrow(button.FilterEntityButton, "down")
-		B.ReskinArrow(button.UnfilterEnabledButton, "up")
+	S:Proxy("ReskinArrow", button.FilterEntityButton, "down")
+	local filterButton = button.FilterEntityButton
+	if filterButton then
+		B.ReskinArrow(filterButton, "down")
+		filterButton:HookScript("OnEnter", function(self)
+			P.ReskinTooltip(self.tooltip)
+		end)
 	end
+
+	P.ReskinFont(button.Title)
+	P.ReskinFont(button.Description_text)
 
 	-- LootBar
 	local LootBar = button.LootBar
 	if LootBar then
-		for _, key in ipairs({"LootBarToolTipComp1", "LootBarToolTipComp2"}) do
+		for _, key in ipairs({"LootBarToolTip", "LootBarToolTipComp1", "LootBarToolTipComp2"}) do
 			local tip = LootBar[key]
 			if tip then
-				P.ReskinTooltip(tip)
 				P.ReskinTooltip(tip)
 			end
 		end

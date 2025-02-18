@@ -5,7 +5,7 @@
 ## SavedVariables: AngryKeystones_Config, AngryKeystones_Data
 ## SavedVariablesPerCharacter: AngryKeystones_CharacterConfig
 ## OptionalDeps: !KalielsTracker
-## X-Packaged-Version: v0.31.10b
+## X-Packaged-Version: v0.31.11
 
 embeds.xml
 

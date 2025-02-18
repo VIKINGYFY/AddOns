@@ -78,6 +78,8 @@ end
 local function UpdateHealthColorByIndex(health, index)
 	health.colorClass = (index == 2)
 	health.colorReaction = (index == 2)
+	health.colorSmooth = (index == 3)
+
 	if health.SetColorTapping then
 		health:SetColorTapping(index == 2)
 	else
@@ -88,7 +90,6 @@ local function UpdateHealthColorByIndex(health, index)
 	else
 		health.colorDisconnected = (index == 2)
 	end
-	health.colorSmooth = (index == 3)
 	if index == 1 then
 		health:SetStatusBarColor(.1, .1, .1, 1)
 		health.bg:SetVertexColor(.9, .9, .9, 1)
@@ -323,6 +324,7 @@ local function UpdatePowerColorByIndex(power, index)
 	power.colorPower = (index == 2) or (index == 5)
 	power.colorClass = (index ~= 2)
 	power.colorReaction = (index ~= 2)
+
 	if power.SetColorTapping then
 		power:SetColorTapping(index ~= 2)
 	else
