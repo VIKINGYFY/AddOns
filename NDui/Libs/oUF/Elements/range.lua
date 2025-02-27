@@ -18,11 +18,11 @@ Offline units are handled as if they are in range.
 
 ## Examples
 
-    -- Register with oUF
-    self.Range = {
-        insideAlpha = 1,
-        outsideAlpha = 1/2,
-    }
+	-- Register with oUF
+	self.Range = {
+		insideAlpha = 1,
+		outsideAlpha = 1/2,
+	}
 --]]
 
 local _, ns = ...

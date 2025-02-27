@@ -25,11 +25,11 @@ A default texture will be applied if the widget is a StatusBar and doesn't have 
 The following options are listed by priority. The first check that returns true decides the color of the bar.
 
 .colorPower  - Use `self.colors.power[token]` to color the bar based on the player's additional power type
-               (boolean)
+			   (boolean)
 .colorClass  - Use `self.colors.class[class]` to color the bar based on unit class. `class` is defined by the
-               second return of [UnitClass](https://warcraft.wiki.gg/wiki/API_UnitClass) (boolean)
+			   second return of [UnitClass](https://warcraft.wiki.gg/wiki/API_UnitClass) (boolean)
 .colorSmooth - Use `self.colors.smooth` to color the bar with a smooth gradient based on the player's current
-               additional power percentage (boolean)
+			   additional power percentage (boolean)
 
 ## Sub-Widget Options
 
@@ -37,21 +37,21 @@ The following options are listed by priority. The first check that returns true 
 
 ## Examples
 
-    -- Position and size
-    local AdditionalPower = CreateFrame('StatusBar', nil, self)
-    AdditionalPower:SetSize(20, 20)
-    AdditionalPower:SetPoint('TOP')
-    AdditionalPower:SetPoint('LEFT')
-    AdditionalPower:SetPoint('RIGHT')
+	-- Position and size
+	local AdditionalPower = CreateFrame('StatusBar', nil, self)
+	AdditionalPower:SetSize(20, 20)
+	AdditionalPower:SetPoint('TOP')
+	AdditionalPower:SetPoint('LEFT')
+	AdditionalPower:SetPoint('RIGHT')
 
-    -- Add a background
-    local Background = AdditionalPower:CreateTexture(nil, 'BACKGROUND')
-    Background:SetAllPoints(AdditionalPower)
-    Background:SetTexture(1, 1, 1, .5)
+	-- Add a background
+	local Background = AdditionalPower:CreateTexture(nil, 'BACKGROUND')
+	Background:SetAllPoints(AdditionalPower)
+	Background:SetTexture(1, 1, 1, .5)
 
-    -- Register it with oUF
-    AdditionalPower.bg = Background
-    self.AdditionalPower = AdditionalPower
+	-- Register it with oUF
+	AdditionalPower.bg = Background
+	self.AdditionalPower = AdditionalPower
 --]]
 
 local _, ns = ...

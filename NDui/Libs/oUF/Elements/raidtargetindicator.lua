@@ -13,13 +13,13 @@ A default texture will be applied if the widget is a Texture and doesn't have a 
 
 ## Examples
 
-    -- Position and size
-    local RaidTargetIndicator = self:CreateTexture(nil, 'OVERLAY')
-    RaidTargetIndicator:SetSize(16, 16)
-    RaidTargetIndicator:SetPoint('TOPRIGHT', self)
+	-- Position and size
+	local RaidTargetIndicator = self:CreateTexture(nil, 'OVERLAY')
+	RaidTargetIndicator:SetSize(16, 16)
+	RaidTargetIndicator:SetPoint('TOPRIGHT', self)
 
-    -- Register it with oUF
-    self.RaidTargetIndicator = RaidTargetIndicator
+	-- Register it with oUF
+	self.RaidTargetIndicator = RaidTargetIndicator
 --]]
 
 local _, ns = ...

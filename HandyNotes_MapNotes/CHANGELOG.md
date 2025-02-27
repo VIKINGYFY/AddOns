@@ -1,10 +1,14 @@
 # MapNote
-## [2.6.5](https://github.com/Ssesmar/MapNote) (2025-02-05)
+## [2.6.7](https://github.com/Ssesmar/MapNote) (2025-02-25)
 - Note:
 
-PTR
-    some small changes
+Retail
+    update for 11.1.0
 
+Classic
+    add first aid profession trainer icons
+
+    
 - Description:
 
 REQUIRES --> HandyNotes <-- to be installed                                                                                    

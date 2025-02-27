@@ -35,7 +35,7 @@ C.OnLoginThemes["CharacterFrame"] = function()
 	local function UpdateAzeriteEmpoweredItem(self)
 		self.AzeriteTexture:SetAtlas("AzeriteIconFrame")
 		self.AzeriteTexture:SetInside()
-		self.AzeriteTexture:SetDrawLayer("BORDER", 1)
+		self.AzeriteTexture:SetDrawLayer("BORDER")
 	end
 
 	local function UpdateHighlight(self)

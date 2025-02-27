@@ -725,7 +725,7 @@ Used to create a single unit frame and apply the currently active style to it.
 * self         - the global oUF object
 * unit         - the frame's unit (string)
 * overrideName - unique global name to use for the unit frame. Defaults to an auto-generated name based on the unit
-                 (string?)
+				 (string?)
 
 oUF implements some of its own attributes. These can be supplied by the layout, but are optional.
 PingableUnitFrameTemplate is inherited for Ping support.
@@ -757,8 +757,8 @@ Used to create nameplates and apply the currently active style to them.
 * self      - the global oUF object
 * prefix    - prefix for the global name of the nameplate. Defaults to an auto-generated prefix (string?)
 * callback  - function to be called after a nameplate unit or the player's target has changed. The arguments passed to
-              the callback are the updated nameplate, if any, the event that triggered the update, and the new unit
-              (function?)
+			  the callback are the updated nameplate, if any, the event that triggered the update, and the new unit
+			  (function?)
 * variables - list of console variable-value pairs to be set when the player logs in (table?)
 
 PingableUnitFrameTemplate is inherited for Ping support.

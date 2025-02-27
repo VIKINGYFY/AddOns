@@ -801,7 +801,7 @@ if not db.activate.HideMapNote then
 
           --Azeroth Khaz ALgar Multiple
             if self.db.profile.showAzerothMultiple then
-              nodes[947][25708352] = { hideInfo = true, id = { 1273, 1210, 1267, 1269, 1270, 1271, 1274 }, mnID = 2274, type = "MultipleM", showInZone = true } -- Darkflame Cleft, Priory of the Sacred Flame, The Stonevault, The Dawnbreaker, Ara-Kara, City of Echeos, City of Threads
+              nodes[947][25708352] = { hideInfo = true, id = { 1273, 1296, 1210, 1267, 1269, 1270, 1271, 1274, 1298 }, mnID = 2274, type = "MultipleM", showInZone = true } -- Darkflame Cleft, Priory of the Sacred Flame, The Stonevault, The Dawnbreaker, Ara-Kara, City of Echeos, City of Threads
             end
 
           -- Khaz Algar MapNotesIcons

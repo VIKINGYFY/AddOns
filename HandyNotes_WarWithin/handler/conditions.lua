@@ -196,6 +196,11 @@ function ns.conditions.QuestComplete:Matched() return C_QuestLog.IsQuestFlaggedC
 
 ns.conditions.QuestIncomplete = Negated(ns.conditions.QuestComplete)
 
+ns.conditions.QuestCompleteOnAccount = Condition:extends{classname = "QuestCompleteOnAccount", type = 'quest'}
+function ns.conditions.QuestCompleteOnAccount:Matched() return C_QuestLog.IsQuestFlaggedCompletedOnAccount(self.id) end
+
+ns.conditions.QuestIncompleteOnAccount = Negated(ns.conditions.QuestCompleteOnAccount)
+
 ns.conditions.WorldQuestActive = Condition:extends{classname = "WorldQuestActive", type = 'worldquest'}
 function ns.conditions.WorldQuestActive:Matched() return C_TaskQuest.IsActive(self.id) or C_QuestLog.IsQuestFlaggedCompleted(self.id) end
 
@@ -311,6 +316,26 @@ function ns.conditions.DayOfWeek:Label()
 end
 function ns.conditions.DayOfWeek:Matched()
     return tonumber(date('%w')) == self.id
+end
+
+ns.conditions.Vehicle = Condition:extends{classname = "Vehicle", type = "npc"}
+function ns.conditions.Vehicle:Matched()
+    return UnitInVehicle("player") and self:UnitID("vehicle") == self.id
+end
+do
+    local valid_unit_types = {
+        Creature = true, -- npcs
+        Vehicle = true, -- vehicles
+    }
+    function ns.conditions.Vehicle:UnitID(unit)
+        local guid = UnitGUID(unit)
+        if not guid then return end
+        local unit_type, id = guid:match("(%a+)-%d+-%d+-%d+-%d+-(%d+)-.+")
+        if not (unit_type and valid_unit_types[unit_type]) then
+            return
+        end
+        return tonumber(id)
+    end
 end
 
 -- Helpers:

@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.1
+- Version Update
+
 ## 1.0.0
 - Should no longer interfere with other widgets that use the same bar that are not for dragonriding
 

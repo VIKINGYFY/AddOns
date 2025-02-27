@@ -21,12 +21,12 @@ A default texture will be applied if the widget is a StatusBar and doesn't have 
 
 ## Examples
 
-    local Stagger = CreateFrame('StatusBar', nil, self)
-    Stagger:SetSize(120, 20)
-    Stagger:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, 0)
+	local Stagger = CreateFrame('StatusBar', nil, self)
+	Stagger:SetSize(120, 20)
+	Stagger:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, 0)
 
-    -- Register with oUF
-    self.Stagger = Stagger
+	-- Register with oUF
+	self.Stagger = Stagger
 --]]
 
 if (select(2, UnitClass('player')) ~= 'MONK') then return end

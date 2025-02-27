@@ -54,7 +54,7 @@ function A:BuildBuffFrame()
 	A.DebuffFrame:ClearAllPoints()
 	A.DebuffFrame:SetPoint("TOPRIGHT", A.DebuffFrame.mover)
 
-	A:CreatePrivateAuras()
+--	A:CreatePrivateAuras()
 end
 
 function A:UpdateTimer(elapsed)

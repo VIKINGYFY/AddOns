@@ -13,13 +13,13 @@ This element updates by changing the texture.
 
 ## Examples
 
-    -- Position and size
-    local SummonIndicator = self:CreateTexture(nil, 'OVERLAY')
-    SummonIndicator:SetSize(32, 32)
-    SummonIndicator:SetPoint('TOPRIGHT', self)
+	-- Position and size
+	local SummonIndicator = self:CreateTexture(nil, 'OVERLAY')
+	SummonIndicator:SetSize(32, 32)
+	SummonIndicator:SetPoint('TOPRIGHT', self)
 
-    -- Register it with oUF
-    self.SummonIndicator = SummonIndicator
+	-- Register it with oUF
+	self.SummonIndicator = SummonIndicator
 --]]
 
 local _, ns = ...

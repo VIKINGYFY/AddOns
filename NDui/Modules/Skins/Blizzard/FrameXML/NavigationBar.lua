@@ -52,7 +52,7 @@ C.OnLoginThemes["NavigationBar"] = function()
 
 		B.ReskinButton(navButton)
 
-		navButton.selected:SetDrawLayer("BACKGROUND", 1)
+		navButton.selected:SetDrawLayer("BACKGROUND")
 		navButton.selected:SetColorTexture(cr, cg, cb, .25)
 		navButton.selected:SetInside(navButton.__bg)
 

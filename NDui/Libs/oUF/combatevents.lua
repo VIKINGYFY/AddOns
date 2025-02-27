@@ -44,7 +44,7 @@ Used to register a frame for a combat log event and add an event handler.
 * self     - frame that will be registered for the given event
 * event    - name of the combat log event to register (string)
 * handler  - function which will be executed when the combat log event fires. Multiple handlers can be added for the
-             same frame and event (function)
+			 same frame and event (function)
 --]]
 function frame_metatable.__index:RegisterCombatEvent(event, handler)
 	argcheck(event, 2, 'string')

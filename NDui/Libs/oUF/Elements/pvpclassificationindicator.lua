@@ -17,13 +17,13 @@ This element updates by changing the texture.
 
 ## Examples
 
-    -- Position and size
-    local PvPClassificationIndicator = self:CreateTexture(nil, 'OVERLAY')
-    PvPClassificationIndicator:SetSize(24, 24)
-    PvPClassificationIndicator:SetPoint('CENTER')
+	-- Position and size
+	local PvPClassificationIndicator = self:CreateTexture(nil, 'OVERLAY')
+	PvPClassificationIndicator:SetSize(24, 24)
+	PvPClassificationIndicator:SetPoint('CENTER')
 
-    -- Register it with oUF
-    self.PvPClassificationIndicator = PvPClassificationIndicator
+	-- Register it with oUF
+	self.PvPClassificationIndicator = PvPClassificationIndicator
 --]]
 
 local _, ns = ...

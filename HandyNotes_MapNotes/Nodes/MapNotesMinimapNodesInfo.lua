@@ -769,6 +769,7 @@ minimap[2341] = { } -- The Stonevault - Inside Dungeon Map
 minimap[2303] = { } -- Darkflame Cleft - Inside Dungeon Map
 minimap[2357] = { } -- Ara-Kara, City of Echoes - Inside Dungeon Map
 minimap[2343] = { } -- City of Threads - Inside Dungeon Map
+minimap[2387] = { } -- Operation: Floodgate - Inside Dungeon Map
 minimap[2292] = { } -- Nerub-ar Palace - Inside Dungeon Map
 -- Delves map nodes
 minimap[2259] = { } -- Tak-Rethan-Abyss - Inside Dungeon Map
@@ -785,4 +786,6 @@ minimap[2269] = { } -- Earthcrawl Mines - Inside Dungeon Map
 minimap[2249] = { } -- Fungal Folly - Inside Dungeon Map
 minimap[2250] = { } -- Kriegval's Rest - Inside Dungeon Map
 minimap[2396] = { } -- Rowdy Rifts - Inside Dungeon Map
+minimap[2423] = { } -- Sidestreet Sluice - Inside Dungeon Map
+minimap[2420] = { } -- Sidestreet Sluice - The Pits - Inside Dungeon Map
 end

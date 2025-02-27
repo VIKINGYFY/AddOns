@@ -13,13 +13,13 @@ A default texture will be applied if the widget is a Texture and doesn't have a 
 
 ## Examples
 
-    -- Position and size
-    local AssistantIndicator = self:CreateTexture(nil, 'OVERLAY')
-    AssistantIndicator:SetSize(16, 16)
-    AssistantIndicator:SetPoint('TOP', self)
+	-- Position and size
+	local AssistantIndicator = self:CreateTexture(nil, 'OVERLAY')
+	AssistantIndicator:SetSize(16, 16)
+	AssistantIndicator:SetPoint('TOP', self)
 
-    -- Register it with oUF
-    self.AssistantIndicator = AssistantIndicator
+	-- Register it with oUF
+	self.AssistantIndicator = AssistantIndicator
 --]]
 
 local _, ns = ...

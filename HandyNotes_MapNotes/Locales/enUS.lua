@@ -462,6 +462,10 @@ L["The Assembly of the Deeps"] = true
 L["Hallowfall Arathi"] = true
 L["The Severed Threads"] = true
 L["Siren Isle"] = true
+L["Bilgewater Cartel"] = true
+L["Blackwater Cartel"] = true
+L["Steamwheedle Cartel"] = true
+L["Venture Company"] = true
 -- 14
 L["Displays zone icons on a specific continent"] = true
 L["Zidormi"] = true

@@ -1143,10 +1143,11 @@ if not db.activate.HideMapNote then
     
           -- Khaz Algar Dungeons
             if self.db.profile.showContinentDungeons then
-              nodes[2274][56904935] = { id = 1210, type = "Dungeon", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Darkflame Cleft
+              nodes[2274][57814889] = { id = 1210, type = "Dungeon", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Darkflame Cleft
               nodes[2274][35095289] = { id = 1267, type = "Dungeon", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Priory of the Sacred Flame
               nodes[2274][40465803] = { id = 1270, type = "Dungeon", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Dawnbreaker
-              nodes[2274][52514448] = { id = 1269, type = "Dungeon", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Stonevault
+              nodes[2274][53004397] = { id = 1269, type = "Dungeon", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Stonevault
+              nodes[2274][52715561] = { id = 1298, type = "Dungeon", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Operation: Floodgate
               nodes[2274][70301908] = { id = 1268, type = "Dungeon", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Rookery
               nodes[2274][84362059] = { id = 1272, type = "Dungeon", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Cinderbrew Meadery
               nodes[2274][43337984] = { id = 1274, type = "Dungeon", showOnContinent = true, showInZone = true, showOnMinimap = false } -- City of Threads
@@ -1157,6 +1158,7 @@ if not db.activate.HideMapNote then
             if self.db.profile.showContinentRaids then
               nodes[2274][42188673] = { id = 1273, type = "Raid"}  -- Nerub-ar Palace
               nodes[2274][41469096] = { id = 1273, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Nerub-ar Palace     
+              nodes[2274][82217245] = { id = 1296, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Liberation of Undermine   
             end
 
           -- Khaz Algar Delves
@@ -1210,10 +1212,7 @@ if not db.activate.HideMapNote then
           -- Khaz Algar Transport
             if self.db.profile.showContinentTransport then
               nodes[2274][52685213] = { mnID = 2369, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = false, showOnContinent = true, showOnMinimap = false } -- Mole Machine from Deeps to Sirene Isle
-              
-              if ns.version == "11.1.0" then
-                nodes[2274][64396827] = { mnID = 2346, name = L["Mole Machine"], dnID = "", type = "MoleMachine", questID = 83151, wwwLink = "wowhead.com/ptr-2/quest=83151", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Down Undermine", showInZone = false, showOnContinent = true, showOnMinimap = false } -- Mole Machine from Deeps to Undermine
-              end
+              nodes[2274][64396827] = { mnID = 2346, name = L["Mole Machine"], dnID = "", type = "MoleMachine", questID = 83151, wwwLink = "wowhead.com/quest=83151", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Down Undermine", showInZone = false, showOnContinent = true, showOnMinimap = false } -- Mole Machine from Deeps to Undermine
             end
 
           -- Khaz Algar Zeppelin

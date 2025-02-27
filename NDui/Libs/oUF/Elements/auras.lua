@@ -29,9 +29,9 @@ At least one of the above widgets must be present for the element to work.
 .['growth-y']             - Vertical growth direction. Defaults to 'UP' (string)
 .initialAnchor            - Anchor point for the aura buttons. Defaults to 'BOTTOMLEFT' (string)
 .filter                   - Custom filter list for auras to display. Defaults to 'HELPFUL' for buffs and 'HARMFUL' for
-                            debuffs (string)
+							debuffs (string)
 .tooltipAnchor            - Anchor point for the tooltip. Defaults to 'ANCHOR_BOTTOMRIGHT', however, if a frame has
-                            anchoring restrictions it will be set to 'ANCHOR_CURSOR' (string)
+							anchoring restrictions it will be set to 'ANCHOR_CURSOR' (string)
 .reanchorIfVisibleChanged - Reanchors aura buttons when the number of visible auras has changed (boolean)
 
 ## Options Auras
@@ -39,7 +39,7 @@ At least one of the above widgets must be present for the element to work.
 .numBuffs     - The maximum number of buffs to display. Defaults to 32 (number)
 .numDebuffs   - The maximum number of debuffs to display. Defaults to 40 (number)
 .numTotal     - The maximum number of auras to display. Prioritizes buffs over debuffs. Defaults to the sum of
-                .numBuffs and .numDebuffs (number)
+				.numBuffs and .numDebuffs (number)
 .gap          - Controls the creation of an invisible button between buffs and debuffs. Defaults to false (boolean)
 .buffFilter   - Custom filter list for buffs to display. Takes priority over `filter` (string)
 .debuffFilter - Custom filter list for debuffs to display. Takes priority over `filter` (string)
@@ -61,13 +61,13 @@ button.auraInstanceID - unique ID for the current aura being tracked by the butt
 
 ## Examples
 
-    -- Position and size
-    local Buffs = CreateFrame('Frame', nil, self)
-    Buffs:SetPoint('RIGHT', self, 'LEFT')
-    Buffs:SetSize(16 * 2, 16 * 16)
+	-- Position and size
+	local Buffs = CreateFrame('Frame', nil, self)
+	Buffs:SetPoint('RIGHT', self, 'LEFT')
+	Buffs:SetSize(16 * 2, 16 * 16)
 
-    -- Register with oUF
-    self.Buffs = Buffs
+	-- Register with oUF
+	self.Buffs = Buffs
 --]]
 
 local _, ns = ...
@@ -593,8 +593,8 @@ local function UpdateAuras(self, event, unit, updateInfo)
 				local data = processData(buffs, unit, C_UnitAuras.GetAuraDataBySlot(unit, slots[i]))
 				if data then -- needs review
 					buffs.all[data.auraInstanceID] = data
-	
-					if((buffs.FilterAura or FilterAura) (buffs, unit, data)) then
+
+					if ((buffs.FilterAura or FilterAura) (buffs, unit, data)) then
 						buffs.active[data.auraInstanceID] = true
 					end
 				end

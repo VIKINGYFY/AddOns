@@ -15,17 +15,17 @@ A default texture will be applied if the widget is a Texture and doesn't have a 
 ## Options
 
 .feedbackUnit - The unit whose threat situation is being requested. If defined, it'll be passed as the first argument to
-                [UnitThreatSituation](https://warcraft.wiki.gg/wiki/API_UnitThreatSituation).
+				[UnitThreatSituation](https://warcraft.wiki.gg/wiki/API_UnitThreatSituation).
 
 ## Examples
 
-    -- Position and size
-    local ThreatIndicator = self:CreateTexture(nil, 'OVERLAY')
-    ThreatIndicator:SetSize(16, 16)
-    ThreatIndicator:SetPoint('TOPRIGHT', self)
+	-- Position and size
+	local ThreatIndicator = self:CreateTexture(nil, 'OVERLAY')
+	ThreatIndicator:SetSize(16, 16)
+	ThreatIndicator:SetPoint('TOPRIGHT', self)
 
-    -- Register it with oUF
-    self.ThreatIndicator = ThreatIndicator
+	-- Register it with oUF
+	self.ThreatIndicator = ThreatIndicator
 --]]
 
 local _, ns = ...

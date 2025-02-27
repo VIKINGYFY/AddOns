@@ -13,13 +13,13 @@ A default texture will be applied if the widget is a Texture and doesn't have a 
 
 ## Examples
 
-    -- Position and size
-    local QuestIndicator = self:CreateTexture(nil, 'OVERLAY')
-    QuestIndicator:SetSize(16, 16)
-    QuestIndicator:SetPoint('TOPRIGHT', self)
+	-- Position and size
+	local QuestIndicator = self:CreateTexture(nil, 'OVERLAY')
+	QuestIndicator:SetSize(16, 16)
+	QuestIndicator:SetPoint('TOPRIGHT', self)
 
-    -- Register it with oUF
-    self.QuestIndicator = QuestIndicator
+	-- Register it with oUF
+	self.QuestIndicator = QuestIndicator
 --]]
 
 local _, ns = ...

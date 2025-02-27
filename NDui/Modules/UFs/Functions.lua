@@ -498,6 +498,7 @@ function UF:CreatePortrait(self)
 	portrait:SetFrameLevel(self:GetFrameLevel())
 	portrait:SetAllPoints()
 	portrait:SetAlpha(.2)
+
 	self.Portrait = portrait
 end
 

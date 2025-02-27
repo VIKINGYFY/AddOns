@@ -145,6 +145,7 @@ local function CreateRaidStyle(self)
 	if self.raidType ~= "simple" then
 		UF:CreateRaidAuras(self)
 	end
+	UF:CreatePrivateAuras(self)
 end
 
 local function CreateSimpleRaidStyle(self)

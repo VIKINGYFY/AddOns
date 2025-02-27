@@ -1,8 +1,7 @@
 local ADDON_NAME, ns = ...
 
 local buildVersion, buildNumber, buildDate, interfaceVersion, localizedVersion, buildInfo = GetBuildInfo()
-
-ns.version = buildVersion -- ns.version == "11.0.7"
+ns.version = buildVersion -- ns.version == "11.1.0"
 
 local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes", true)
 if not HandyNotes then return end
@@ -1174,11 +1173,6 @@ do
 						end
 					end
 
-          -- old assigned function
-          --if (anyLocked and db.graymultipleID) or ((allLocked and not db.graymultipleID) and db.graySingleID) then   
-					--	icon = ns.icons["Gray"]
-					--end
-
           -- new assigned function single
           if anyLocked and db.graySingleID and allLocked then
             icon = ns.icons["Gray"]
@@ -1656,7 +1650,6 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
     else ns.WorldMapButton:Show()
   end
 
-
   function ns.RemoveBlizzPOIs()
     if (ns.Addon.db.profile.activate.HideMapNote) then return end
 
@@ -1666,13 +1659,7 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
 
         for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
 
-          if ns.version == "11.0.7" then
-            ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
-            end
-  
-            if ns.version == "11.1.0" then
-              ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.poiInfo.areaPoiID)
-            end
+          ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.poiInfo.areaPoiID)
 
           if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
               WorldMapFrame:RemovePin(pin)
@@ -1686,13 +1673,7 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
 
         for _, poiID in pairs(ns.BlizzAreaPoisInfoZidormi) do
 
-          if ns.version == "11.0.7" then
-            ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
-            end
-  
-            if ns.version == "11.1.0" then
-              ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.poiInfo.areaPoiID)
-            end
+          ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.poiInfo.areaPoiID)
 
           if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
               WorldMapFrame:RemovePin(pin)
@@ -1715,13 +1696,7 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
 
         for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
 
-          if ns.version == "11.0.7" then
-            ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
-          end
-
-          if ns.version == "11.1.0" then
-            ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.poiInfo.areaPoiID)
-          end
+          ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.poiInfo.areaPoiID)
 
           if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
             ns.RemoveBlizzPOIs()
@@ -1735,13 +1710,7 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
 
         for _, poiID in pairs(ns.BlizzAreaPoisInfoZidormi) do
 
-          if ns.version == "11.0.7" then
-            ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
-            end
-  
-            if ns.version == "11.0.7" then
-              ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.poiInfo.areaPoiID)
-            end
+          ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.poiInfo.areaPoiID)
 
           if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
             ns.RemoveBlizzPOIs()
@@ -1753,14 +1722,6 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
 
     end
   end)
-
-  --for dp in pairs(WorldMapFrame.dataProviders) do
-  --  if (not dp.GetPinTemplates and type(dp.GetPinTemplate) == "function") then
-  --    if (dp:GetPinTemplate() == "AreaPOIPinTemplate") then
-  --        hooksecurefunc(dp, "RefreshAllData", ns.RemoveBlizzPOIs)
-  --    end
-  --  end
-  --end
 
   hooksecurefunc(WorldMapFrame,"OnMapChanged", function()
    ns.RemoveBlizzPOIs()
@@ -1842,7 +1803,7 @@ function Addon:UpdateInstanceNames(node)
                 if not ns.Addon.db.profile.activate.ShiftWorld then 
 
                   if not ns.Addon.db.profile.DeleteIcons and not ns.Addon.db.profile.tomtom then
-                    node.name = "|cff00ff00" .. "1" .. L["< Left Click to show map >"] .. "|r" .."\n" .. name
+                    node.name = "|cff00ff00" .. L["< Left Click to show map >"] .. "|r" .."\n" .. name
                   end
 
                   if ns.Addon.db.profile.DeleteIcons and ns.Addon.db.profile.tomtom then
@@ -1854,7 +1815,7 @@ function Addon:UpdateInstanceNames(node)
                   end
 
                   if ns.Addon.db.profile.tomtom and not ns.Addon.db.profile.DeleteIcons then
-                      node.name = "|cff00ff00" .. L["< Left Click to show map >"] .."\n" .. name --
+                      node.name = "|cff00ff00" .. L["< Left Click to show map >"] .."\n" .. name
                   end
 
                 elseif ns.Addon.db.profile.activate.ShiftWorld then 

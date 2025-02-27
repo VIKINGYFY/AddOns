@@ -228,6 +228,8 @@ G.DefaultSettings = {
 		AutoBuffs = false,
 		ShowRoleMode = 1,
 		OverAbsorb = true,
+		PrivateSize = 30,
+		ReversePrivate = false,
 
 		PlayerWidth = 250,
 		PlayerHeight = 30,

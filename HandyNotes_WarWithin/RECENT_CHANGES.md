@@ -1,9 +1,8 @@
-## Changed in v74
+## Changed in v75
 
-* Siren Isle:
-    * added the Proper Parrot as loot to pirate week rares
-    * added quests for the storm phase rares
-    * properly isolate storm phase and calm phase mobs on the map
-    * show where the turbulent fragments are in the storm phase
-* Fix tooltip criteria error for incomplete criteria completed by an alt
+* Updated for 11.1.0
+* Undermine: added data for rares and treasures
+* Hallowfall: show the Mereldar Menace targets
+* Fix Siren Isle treasures to only show until collected on later characters
+* Assorted minor tweaks in older zones
 

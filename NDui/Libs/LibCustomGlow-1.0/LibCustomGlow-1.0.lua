@@ -36,47 +36,47 @@ lib.stopList = {}
 
 local GlowParent = UIParent
 local GlowMaskPool = {
-    createFunc = function(self)
-        return self.parent:CreateMaskTexture()
-    end,
-    resetFunc = function(self, mask)
-        mask:Hide()
-        mask:ClearAllPoints()
-    end,
-    AddObject = function(self, object)
-        local dummy = true
-        self.activeObjects[object] = dummy
-        self.activeObjectCount = self.activeObjectCount + 1
-    end,
-    ReclaimObject = function(self, object)
-        table.insert(self.inactiveObjects, object)
-        self.activeObjects[object] = nil
-        self.activeObjectCount = self.activeObjectCount - 1
-    end,
-    Release = function(self, object)
-        local active = self.activeObjects[object] ~= nil
-        if active then
-            self:resetFunc(object)
-            self:ReclaimObject(object)
-        end
-        return active
-    end,
-    Acquire = function(self)
-        local object = table.remove(self.inactiveObjects)
-        local new = object == nil
-        if new then
-            object = self:createFunc()
-            self:resetFunc(object, new)
-        end
-        self:AddObject(object)
-        return object, new
-    end,
-    Init = function(self, parent)
-        self.activeObjects = {}
-        self.inactiveObjects = {}
-        self.activeObjectCount = 0
-        self.parent = parent
-    end
+	createFunc = function(self)
+		return self.parent:CreateMaskTexture()
+	end,
+	resetFunc = function(self, mask)
+		mask:Hide()
+		mask:ClearAllPoints()
+	end,
+	AddObject = function(self, object)
+		local dummy = true
+		self.activeObjects[object] = dummy
+		self.activeObjectCount = self.activeObjectCount + 1
+	end,
+	ReclaimObject = function(self, object)
+		table.insert(self.inactiveObjects, object)
+		self.activeObjects[object] = nil
+		self.activeObjectCount = self.activeObjectCount - 1
+	end,
+	Release = function(self, object)
+		local active = self.activeObjects[object] ~= nil
+		if active then
+			self:resetFunc(object)
+			self:ReclaimObject(object)
+		end
+		return active
+	end,
+	Acquire = function(self)
+		local object = table.remove(self.inactiveObjects)
+		local new = object == nil
+		if new then
+			object = self:createFunc()
+			self:resetFunc(object, new)
+		end
+		self:AddObject(object)
+		return object, new
+	end,
+	Init = function(self, parent)
+		self.activeObjects = {}
+		self.inactiveObjects = {}
+		self.activeObjectCount = 0
+		self.parent = parent
+	end
 }
 GlowMaskPool:Init(GlowParent)
 
@@ -147,7 +147,7 @@ local function addFrameAndTex(r,color,name,key,N,xOffset,yOffset,texture,texCoor
 			f.textures[i]:SetTexCoord(texCoord[1],texCoord[2],texCoord[3],texCoord[4])
 			f.textures[i]:SetDesaturated(desaturated)
 			f.textures[i]:SetParent(f)
-			f.textures[i]:SetDrawLayer("OVERLAY",7)
+			f.textures[i]:SetDrawLayer("OVERLAY")
 			if not isRetail and name == "_AutoCastGlow" then
 				f.textures[i]:SetBlendMode("ADD")
 			end
@@ -309,7 +309,7 @@ function lib.PixelGlow_Start(r,color,N,frequency,length,th,xOffset,yOffset,borde
 			f.bg:SetColorTexture(0.1,0.1,0.1,0.8)
 			f.bg:SetParent(f)
 			f.bg:SetAllPoints(f)
-			f.bg:SetDrawLayer("OVERLAY",6)
+			f.bg:SetDrawLayer("OVERLAY")
 			f.bg:AddMaskTexture(f.masks[2])
 		end
 	else
@@ -796,7 +796,7 @@ local function InitProcGlow(f)
 	local flipbookRepeat = f.ProcLoopAnim:CreateAnimation("FlipBook")
 	flipbookRepeat:SetChildKey("ProcLoop")
 	flipbookRepeat:SetDuration(1)
-    flipbookRepeat:SetOrder(0)
+	flipbookRepeat:SetOrder(0)
 	flipbookRepeat:SetFlipBookRows(6)
 	flipbookRepeat:SetFlipBookColumns(5)
 	flipbookRepeat:SetFlipBookFrames(30)

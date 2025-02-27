@@ -19,18 +19,18 @@ OnEnter and/or OnLeave handlers.
 
 ## Examples
 
-    -- Position and size
-    local PhaseIndicator = CreateFrame('Frame', nil, self)
-    PhaseIndicator:SetSize(16, 16)
-    PhaseIndicator:SetPoint('TOPLEFT', self)
-    PhaseIndicator:EnableMouse(true)
+	-- Position and size
+	local PhaseIndicator = CreateFrame('Frame', nil, self)
+	PhaseIndicator:SetSize(16, 16)
+	PhaseIndicator:SetPoint('TOPLEFT', self)
+	PhaseIndicator:EnableMouse(true)
 
-    local Icon = PhaseIndicator:CreateTexture(nil, 'OVERLAY')
-    Icon:SetAllPoints()
-    PhaseIndicator.Icon = Icon
+	local Icon = PhaseIndicator:CreateTexture(nil, 'OVERLAY')
+	Icon:SetAllPoints()
+	PhaseIndicator.Icon = Icon
 
-    -- Register it with oUF
-    self.PhaseIndicator = PhaseIndicator
+	-- Register it with oUF
+	self.PhaseIndicator = PhaseIndicator
 --]]
 
 local _, ns = ...

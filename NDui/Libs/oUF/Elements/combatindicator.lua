@@ -13,13 +13,13 @@ A default texture will be applied if the widget is a Texture and doesn't have a 
 
 ## Examples
 
-    -- Position and size
-    local CombatIndicator = self:CreateTexture(nil, 'OVERLAY')
-    CombatIndicator:SetSize(16, 16)
-    CombatIndicator:SetPoint('TOP', self)
+	-- Position and size
+	local CombatIndicator = self:CreateTexture(nil, 'OVERLAY')
+	CombatIndicator:SetSize(16, 16)
+	CombatIndicator:SetPoint('TOP', self)
 
-    -- Register it with oUF
-    self.CombatIndicator = CombatIndicator
+	-- Register it with oUF
+	self.CombatIndicator = CombatIndicator
 --]]
 
 local _, ns = ...

@@ -45,11 +45,11 @@ in the `oUF.Tags.SharedEvents` table as follows: `oUF.Tags.SharedEvents.EVENT_NA
 ## Options
 
 .overrideUnit    - if specified on the font string widget, the frame's realUnit will be passed as the second argument to
-                   every tag function whose name is contained in the relevant tag string. Otherwise the second argument
-                   is always nil (boolean)
+				   every tag function whose name is contained in the relevant tag string. Otherwise the second argument
+				   is always nil (boolean)
 .frequentUpdates - defines how often the corresponding tag function(s) should be called. This will override the events
-                   for the tag(s), if any. If the value is a number, it is taken as a time interval in seconds. If the
-                   value is a boolean, the time interval is set to 0.5 seconds (number or boolean)
+				   for the tag(s), if any. If the value is a number, it is taken as a time interval in seconds. If the
+				   value is a boolean, the time interval is set to 0.5 seconds (number or boolean)
 
 ## Attributes
 
@@ -59,47 +59,47 @@ in the `oUF.Tags.SharedEvents` table as follows: `oUF.Tags.SharedEvents.EVENT_NA
 
 ### Example 1
 
-    -- define the tag function
-    oUF.Tags.Methods['mylayout:threatname'] = function(unit, realUnit)
-        local color = _TAGS['threatcolor'](unit)
-        local name = _TAGS['name'](unit, realUnit)
-        return string.format('%s%s|r', color, name)
-    end
+	-- define the tag function
+	oUF.Tags.Methods['mylayout:threatname'] = function(unit, realUnit)
+		local color = _TAGS['threatcolor'](unit)
+		local name = _TAGS['name'](unit, realUnit)
+		return string.format('%s%s|r', color, name)
+	end
 
-    -- add the events
-    oUF.Tags.Events['mylayout:threatname'] = 'UNIT_NAME_UPDATE UNIT_THREAT_SITUATION_UPDATE'
+	-- add the events
+	oUF.Tags.Events['mylayout:threatname'] = 'UNIT_NAME_UPDATE UNIT_THREAT_SITUATION_UPDATE'
 
-    -- create the text widget
-    local info = self.Health:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
-    info:SetPoint('LEFT')
+	-- create the text widget
+	local info = self.Health:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
+	info:SetPoint('LEFT')
 
-    -- register the tag on the text widget with oUF
-    self:Tag(info, '[mylayout:threatname]')
+	-- register the tag on the text widget with oUF
+	self:Tag(info, '[mylayout:threatname]')
 
 ### Example 2
 
-    -- define the tag function that accepts optional arguments
-    oUF.Tags.Methods['mylayout:name'] = function(unit, realUnit, ...)
-        local name = _TAGS['name'](unit, realUnit)
-        local length = tonumber(...)
-        if (length) then
-            return name:sub(1, length) -- please note, this code doesn't support UTF-8 chars
-        else
-            return name
-        end
-    end
+	-- define the tag function that accepts optional arguments
+	oUF.Tags.Methods['mylayout:name'] = function(unit, realUnit, ...)
+		local name = _TAGS['name'](unit, realUnit)
+		local length = tonumber(...)
+		if (length) then
+			return name:sub(1, length) -- please note, this code doesn't support UTF-8 chars
+		else
+			return name
+		end
+	end
 
-    -- add the events
-    oUF.Tags.Events['mylayout:name'] = 'UNIT_NAME_UPDATE'
+	-- add the events
+	oUF.Tags.Events['mylayout:name'] = 'UNIT_NAME_UPDATE'
 
-    -- create the text widget
-    local info = self.Health:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
-    info:SetPoint('LEFT')
+	-- create the text widget
+	local info = self.Health:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
+	info:SetPoint('LEFT')
 
-    -- register the tag on the text widget with oUF
-    self:Tag(info, '[mylayout:name(5)]') -- the output will be shortened to 5 characters
-    -- self:Tag(info, '[mylayout:name]') -- alternative, the output won't be adjusted
-    -- self:Tag(info, '[mylayout:name(10)]') -- alternative, the output will be shortened to 10 characters
+	-- register the tag on the text widget with oUF
+	self:Tag(info, '[mylayout:name(5)]') -- the output will be shortened to 5 characters
+	-- self:Tag(info, '[mylayout:name]') -- alternative, the output won't be adjusted
+	-- self:Tag(info, '[mylayout:name(10)]') -- alternative, the output will be shortened to 10 characters
 --]]
 
 local _, ns = ...

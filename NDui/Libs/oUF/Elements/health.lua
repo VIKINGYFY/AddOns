@@ -20,29 +20,29 @@ A default texture will be applied if the widget is a StatusBar and doesn't have 
 
 .smoothGradient                   - 9 color values to be used with the .colorSmooth option (table)
 .considerSelectionInCombatHostile - Indicates whether selection should be considered hostile while the unit is in
-                                    combat with the player (boolean)
+									combat with the player (boolean)
 
 The following options are listed by priority. The first check that returns true decides the color of the bar.
 
 .colorDisconnected - Use `self.colors.disconnected` to color the bar if the unit is offline (boolean)
 .colorTapping      - Use `self.colors.tapping` to color the bar if the unit isn't tapped by the player (boolean)
 .colorThreat       - Use `self.colors.threat[threat]` to color the bar based on the unit's threat status. `threat` is
-                     defined by the first return of [UnitThreatSituation](https://warcraft.wiki.gg/wiki/API_UnitThreatSituation) (boolean)
+					 defined by the first return of [UnitThreatSituation](https://warcraft.wiki.gg/wiki/API_UnitThreatSituation) (boolean)
 .colorClass        - Use `self.colors.class[class]` to color the bar based on unit class. `class` is defined by the
-                     second return of [UnitClass](https://warcraft.wiki.gg/wiki/API_UnitClass) (boolean)
+					 second return of [UnitClass](https://warcraft.wiki.gg/wiki/API_UnitClass) (boolean)
 .colorClassNPC     - Use `self.colors.class[class]` to color the bar if the unit is a NPC (boolean)
 .colorClassPet     - Use `self.colors.class[class]` to color the bar if the unit is player controlled, but not a player
-                     (boolean)
+					 (boolean)
 .colorSelection    - Use `self.colors.selection[selection]` to color the bar based on the unit's selection color.
-                     `selection` is defined by the return value of Private.unitSelectionType, a wrapper function
-                     for [UnitSelectionType](https://warcraft.wiki.gg/wiki/API_UnitSelectionType) (boolean)
+					 `selection` is defined by the return value of Private.unitSelectionType, a wrapper function
+					 for [UnitSelectionType](https://warcraft.wiki.gg/wiki/API_UnitSelectionType) (boolean)
 .colorReaction     - Use `self.colors.reaction[reaction]` to color the bar based on the player's reaction towards the
-                     unit. `reaction` is defined by the return value of
-                     [UnitReaction](https://warcraft.wiki.gg/wiki/API_UnitReaction) (boolean)
+					 unit. `reaction` is defined by the return value of
+					 [UnitReaction](https://warcraft.wiki.gg/wiki/API_UnitReaction) (boolean)
 .colorSmooth       - Use `smoothGradient` if present or `self.colors.smooth` to color the bar with a smooth gradient
-                     based on the player's current health percentage (boolean)
+					 based on the player's current health percentage (boolean)
 .colorHealth       - Use `self.colors.health` to color the bar. This flag is used to reset the bar color back to default
-                     if none of the above conditions are met (boolean)
+					 if none of the above conditions are met (boolean)
 
 ## Sub-Widgets Options
 
@@ -50,64 +50,64 @@ The following options are listed by priority. The first check that returns true 
 
 ## Examples
 
-    -- Position and size
-    local Health = CreateFrame('StatusBar', nil, self)
-    Health:SetHeight(20)
-    Health:SetPoint('TOP')
-    Health:SetPoint('LEFT')
-    Health:SetPoint('RIGHT')
+	-- Position and size
+	local Health = CreateFrame('StatusBar', nil, self)
+	Health:SetHeight(20)
+	Health:SetPoint('TOP')
+	Health:SetPoint('LEFT')
+	Health:SetPoint('RIGHT')
 
-    -- Add a background
-    local Background = Health:CreateTexture(nil, 'BACKGROUND')
-    Background:SetAllPoints()
-    Background:SetTexture(1, 1, 1, .5)
+	-- Add a background
+	local Background = Health:CreateTexture(nil, 'BACKGROUND')
+	Background:SetAllPoints()
+	Background:SetTexture(1, 1, 1, .5)
 
-    -- Options
-    Health.colorTapping = true
-    Health.colorDisconnected = true
-    Health.colorClass = true
-    Health.colorReaction = true
-    Health.colorHealth = true
+	-- Options
+	Health.colorTapping = true
+	Health.colorDisconnected = true
+	Health.colorClass = true
+	Health.colorReaction = true
+	Health.colorHealth = true
 
-    -- Make the background darker.
-    Background.multiplier = .5
+	-- Make the background darker.
+	Background.multiplier = .5
 
-    -- Register it with oUF
-    Health.bg = Background
-    self.Health = Health
+	-- Register it with oUF
+	Health.bg = Background
+	self.Health = Health
 
-    -- Alternatively, if .TempLoss is being used
-    local TempLoss = CreateFrame('StatusBar', nil, self)
-    TempLoss:SetReverseFill(true)
-    TempLoss:SetHeight(20)
-    TempLoss:SetPoint('TOP')
-    TempLoss:SetPoint('LEFT')
-    TempLoss:SetPoint('RIGHT')
+	-- Alternatively, if .TempLoss is being used
+	local TempLoss = CreateFrame('StatusBar', nil, self)
+	TempLoss:SetReverseFill(true)
+	TempLoss:SetHeight(20)
+	TempLoss:SetPoint('TOP')
+	TempLoss:SetPoint('LEFT')
+	TempLoss:SetPoint('RIGHT')
 
-    local Health = CreateFrame('StatusBar', nil, self)
-    Health:SetPoint('LEFT')
-    Health:SetPoint('TOPRIGHT', TempLoss:GetStatusBarTexture(), 'TOPLEFT')
-    Health:SetPoint('BOTTOMRIGHT', TempLoss:GetStatusBarTexture(), 'BOTTOMLEFT')
+	local Health = CreateFrame('StatusBar', nil, self)
+	Health:SetPoint('LEFT')
+	Health:SetPoint('TOPRIGHT', TempLoss:GetStatusBarTexture(), 'TOPLEFT')
+	Health:SetPoint('BOTTOMRIGHT', TempLoss:GetStatusBarTexture(), 'BOTTOMLEFT')
 
-    -- Add a background
-    local Background = TempLoss:CreateTexture(nil, 'BACKGROUND')
-    Background:SetAllPoints()
-    Background:SetTexture(1, 1, 1, .5)
+	-- Add a background
+	local Background = TempLoss:CreateTexture(nil, 'BACKGROUND')
+	Background:SetAllPoints()
+	Background:SetTexture(1, 1, 1, .5)
 
-    -- Options
-    Health.colorTapping = true
-    Health.colorDisconnected = true
-    Health.colorClass = true
-    Health.colorReaction = true
-    Health.colorHealth = true
+	-- Options
+	Health.colorTapping = true
+	Health.colorDisconnected = true
+	Health.colorClass = true
+	Health.colorReaction = true
+	Health.colorHealth = true
 
-    -- Make the background darker.
-    Background.multiplier = .5
+	-- Make the background darker.
+	Background.multiplier = .5
 
-    -- Register it with oUF
-    Health.TempLoss = TempLoss
-    Health.bg = Background
-    self.Health = Health
+	-- Register it with oUF
+	Health.TempLoss = TempLoss
+	Health.bg = Background
+	self.Health = Health
 --]]
 
 local _, ns = ...

@@ -457,9 +457,9 @@ if not db.activate.HideMapNote then
             if self.db.profile.showZoneKhazAlgar then
 
                 if self.db.profile.showZonePaths then
-                    nodes[2214][43752838] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2339, type = "PathL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- only zone map
-                    nodes[2214][39142489] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2215, type = "PathLU", showInZone = true, showOnContinent = false, showOnMinimap = false } -- only zone map
-                    nodes[2214][49076454] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2255, type = "PathLO", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[2214][39532837] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2339, type = "PathL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- only zone map
+                    nodes[2214][37582279] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2215, type = "PathLU", showInZone = true, showOnContinent = false, showOnMinimap = false } -- only zone map
+                    nodes[2214][44776444] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2255, type = "PathLO", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     --nodes[2214][42706933] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2255, type = "PathLU", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     --nodes[2255][70582441] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2214, type = "PathRO", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     --nodes[2256][70582441] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2214, type = "PathRO", showInZone = true, showOnContinent = false, showOnMinimap = false }
@@ -507,10 +507,7 @@ if not db.activate.HideMapNote then
                     nodes[2248][56233921] = { name = "", dnID = "|cffffffff" .. L["Entrance"], mnID = 2339, type = "PathL", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     --nodes[2248][46154704] = { name = "", dnID = "|cffffffff" .. L["Passage"], mnID = 2214, type = "PathU", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     --nodes[2248][37427287] = { dnID = "|cffffffff" .. L["Passage"], name = "", mnID = 2214, type = "PathU", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    
-                    if ns.version == "11.1.0" then
-                        nodes[2214][66927839] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2346, type = "PathR", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    end
+                    nodes[2214][63197831] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2346, type = "PathR", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
             end
 

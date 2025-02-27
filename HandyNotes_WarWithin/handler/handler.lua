@@ -1465,6 +1465,8 @@ function HL:OnInitialize()
     if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
         self:RegisterEvent("SHOW_LOOT_TOAST", "RefreshOnEvent")
         self:RegisterEvent("GARRISON_FOLLOWER_ADDED", "RefreshOnEvent")
+        self:RegisterEvent("UNIT_ENTERING_VEHICLE", "RefreshOnUnitEvent", "player")
+        self:RegisterEvent("UNIT_EXITED_VEHICLE", "RefreshOnUnitEvent", "player")
     end
     -- This is sometimes spammy, but is the only thing that tends to get us casts:
     self:RegisterEvent("CRITERIA_UPDATE", "RefreshOnEvent")
@@ -1499,6 +1501,11 @@ do
     end
     function HL:RefreshOnEvent(event)
         bucket:Show()
+    end
+    function HL:RefreshOnUnitEvent(requiredUnit, event, unit)
+        if unit == requiredUnit then
+            bucket:Show()
+        end
     end
     function HL:RefreshProviders()
         if ns.RouteWorldMapDataProvider then

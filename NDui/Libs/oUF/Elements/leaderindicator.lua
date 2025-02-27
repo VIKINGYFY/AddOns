@@ -13,13 +13,13 @@ This element updates by changing the texture.
 
 ## Examples
 
-    -- Position and size
-    local LeaderIndicator = self:CreateTexture(nil, 'OVERLAY')
-    LeaderIndicator:SetSize(16, 16)
-    LeaderIndicator:SetPoint('BOTTOM', self, 'TOP')
+	-- Position and size
+	local LeaderIndicator = self:CreateTexture(nil, 'OVERLAY')
+	LeaderIndicator:SetSize(16, 16)
+	LeaderIndicator:SetPoint('BOTTOM', self, 'TOP')
 
-    -- Register it with oUF
-    self.LeaderIndicator = LeaderIndicator
+	-- Register it with oUF
+	self.LeaderIndicator = LeaderIndicator
 --]]
 
 local _, ns = ...

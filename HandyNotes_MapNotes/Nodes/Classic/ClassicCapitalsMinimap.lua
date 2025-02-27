@@ -79,6 +79,10 @@ if not db.activate.HideMapNote then
                         minimap[1454][53493856] = { name = L["Enchanting"], type = "Enchanting", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
                     end
 
+                    if self.db.profile.showMinimapCapitalsFirstAid then
+                        minimap[1454][34188458] = { name = PROFESSIONS_FIRST_AID, type = "FirstAid", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+                    end
+
                 end
 
             --Transports Orgrimmar
@@ -118,6 +122,11 @@ if not db.activate.HideMapNote then
 
                     if self.db.profile.showMinimapCapitalsBank then
                         minimap[1454][49506897] = { dnID = BANK, name = "", type = "Bank", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                    end
+
+                    if self.db.profile.showMinimapCapitalsMailbox then
+                        minimap[1454][50707037] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                        minimap[1454][62504020] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     end
 
                 end
@@ -177,6 +186,10 @@ if not db.activate.HideMapNote then
                         minimap[1456][44993816] = { name = L["Enchanting"], type = "Enchanting", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
                     end
 
+                    if self.db.profile.showMinimapCapitalsFirstAid then
+                        minimap[1456][29602160] = { name = PROFESSIONS_FIRST_AID, type = "FirstAid", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+                    end
+
                 end
 
             --Transports Thunder Bluff
@@ -213,6 +226,10 @@ if not db.activate.HideMapNote then
 
                 if self.db.profile.showMinimapCapitalsGhost then
                     minimap[1456][56621900] = { name = SPIRIT_HEALER_RELEASE_RED, type = "Ghost", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Thunder Bluff
+                end
+
+                if self.db.profile.showMinimapCapitalsMailbox then
+                    minimap[1456][45505980] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 end
 
             end
@@ -280,6 +297,10 @@ if not db.activate.HideMapNote then
                     if self.db.profile.showMinimapCapitalsEnchanting then
                         minimap[1458][61866139] = { name = L["Enchanting"], type = "Enchanting", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
                     end
+
+                    if self.db.profile.showMinimapCapitalsFirstAid then
+                        minimap[1458][73605560] = { name = PROFESSIONS_FIRST_AID, type = "FirstAid", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+                    end
                 end
 
             --Transports Undercity
@@ -324,6 +345,10 @@ if not db.activate.HideMapNote then
 
                     if self.db.profile.showMinimapCapitalsGhost then
                         minimap[1458][67851396] = { name = SPIRIT_HEALER_RELEASE_RED .. "\n" .. DUNGEON_FLOOR_GILNEAS3, type = "Ghost", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Undercity
+                    end
+
+                    if self.db.profile.showMinimapCapitalsMailbox then
+                        minimap[1458][67903850] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     end
 
                 end
@@ -417,6 +442,10 @@ if not db.activate.HideMapNote then
                     if self.db.profile.showMinimapCapitalsEnchanting then
                         minimap[1453][43116374] = { name = L["Enchanting"], type = "Enchanting", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
                     end
+
+                    if self.db.profile.showMinimapCapitalsFirstAid then
+                        minimap[1453][42802660] = { name = PROFESSIONS_FIRST_AID, type = "FirstAid", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+                    end
                 end
 
             --General Stormwind
@@ -436,6 +465,13 @@ if not db.activate.HideMapNote then
 
                     if self.db.profile.showMinimapCapitalsBank then
                         minimap[1453][56377117] = { dnID = BANK, name = "", type = "Bank", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                    end
+
+                    if self.db.profile.showMinimapCapitalsMailbox then
+                        minimap[1453][22205760] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                        minimap[1453][40008420] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                        minimap[1453][54506650] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                        minimap[1453][71004050] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     end
 
                 end
@@ -513,6 +549,10 @@ if not db.activate.HideMapNote then
                     if self.db.profile.showMinimapCapitalsEnchanting then
                         minimap[1455][60114533] = { name = L["Enchanting"], type = "Enchanting", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
                     end
+
+                    if self.db.profile.showMinimapCapitalsFirstAid then
+                        minimap[1455][57805860] = { name = PROFESSIONS_FIRST_AID, type = "FirstAid", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+                    end
                 end
 
             --General Ironforge
@@ -532,6 +572,13 @@ if not db.activate.HideMapNote then
 
                     if self.db.profile.showMinimapCapitalsBank then
                         minimap[1455][35486068] = { dnID = BANK, name = "", type = "Bank", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                    end
+
+                    if self.db.profile.showMinimapCapitalsMailbox then
+                        minimap[1455][21505270] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                        minimap[1455][33506550] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                        minimap[1455][71207140] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                        minimap[1455][72504960] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     end
 
                 end
@@ -585,6 +632,10 @@ if not db.activate.HideMapNote then
                         minimap[1457][77662585] = { name = SPIRIT_HEALER_RELEASE_RED, type = "Ghost", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Darnassus
                     end
 
+                    if self.db.profile.showMinimapCapitalsMailbox then
+                        minimap[1457][41904140] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                    end
+
                 end
 
             --Transports Darnassus
@@ -630,6 +681,10 @@ if not db.activate.HideMapNote then
 
                     if self.db.profile.showMinimapCapitalsEnchanting then
                         minimap[1457][58801277] = { name = L["Enchanting"], type = "Enchanting", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+                    end
+
+                    if self.db.profile.showMinimapCapitalsFirstAid then
+                        minimap[1457][51601360] = { name = PROFESSIONS_FIRST_AID, type = "FirstAid", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
                     end
                 end
 

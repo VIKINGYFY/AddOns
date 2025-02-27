@@ -30,19 +30,19 @@ Supported class powers:
 
 ## Examples
 
-    local ClassPower = {}
-    for index = 1, 10 do
-        local Bar = CreateFrame('StatusBar', nil, self)
+	local ClassPower = {}
+	for index = 1, 10 do
+		local Bar = CreateFrame('StatusBar', nil, self)
 
-        -- Position and size.
-        Bar:SetSize(16, 16)
-        Bar:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', (index - 1) * Bar:GetWidth(), 0)
+		-- Position and size.
+		Bar:SetSize(16, 16)
+		Bar:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', (index - 1) * Bar:GetWidth(), 0)
 
-        ClassPower[index] = Bar
-    end
+		ClassPower[index] = Bar
+	end
 
-    -- Register with oUF
-    self.ClassPower = ClassPower
+	-- Register with oUF
+	self.ClassPower = ClassPower
 --]]
 
 local _, ns = ...

@@ -480,8 +480,8 @@ if not db.activate.HideMapNote then
             if self.db.profile.showMiniMapKhazAlgar then
 
                 if self.db.profile.showMiniMapPaths then
-                    minimap[2214][42272836] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2339, type = "PassageCaveUp", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only MiniMap
-                    minimap[2214][40752398] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2215, type = "PassageCaveDown", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only MiniMap
+                    minimap[2214][37462838] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2339, type = "PassageCaveUp", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only MiniMap
+                    minimap[2214][36612396] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2215, type = "PassageCaveDown", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only MiniMap
                     minimap[2215][73835929] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2255, type = "PathRO", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only MiniMap
                     minimap[2255][40236266] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2213, type = "PathLU", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only MiniMap
                     minimap[2255][62760031] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2215, type = "PathR", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only MiniMap
@@ -492,7 +492,7 @@ if not db.activate.HideMapNote then
                     minimap[2256][70582441] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2214, type = "PathRO", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only MiniMap
                     minimap[2256][61840352] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2215, type = "PathO", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only MiniMap
                     minimap[2214][42706933] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2255, type = "PathLU", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only MiniMap
-                    minimap[2214][49076454] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2255, type = "PathLO", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                    minimap[2214][44776444] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2255, type = "PathLO", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     minimap[2255][66521977] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2214, type = "PathRU", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     minimap[2255][23843044] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2215, type = "PathRO", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     --minimap[2255][24722251] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2215, type = "PathLO", showInZone = false, showOnContinent = false, showOnMinimap = true }
@@ -536,12 +536,9 @@ if not db.activate.HideMapNote then
                     --minimap[2248][46154704] = { name = "", dnID = "|cffffffff" .. L["Passage"], mnID = 2214, type = "PathU", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     minimap[2248][37427287] = { dnID = "|cffffffff" .. L["Passage"], name = "", mnID = 2214, type = "PassageCaveDown", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     minimap[2248][67333102] = { dnID = "|cffffffff" .. L["Passage"], name = "", mnID = 2214, type = "PassageCaveDown", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                    minimap[2214][65707693] = { dnID = "|cffffffff" .. L["Passage"], name = "", mnID = 2248, type = "PassageCaveUp", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                    minimap[2214][53414454] = { dnID = "|cffffffff" .. L["Passage"], name = "", mnID = 2248, type = "PassageCaveUp", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                    
-                    if ns.version == "11.1.0" then
-                        minimap[2214][66927839] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2346, type = "PathR", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                    end
+                    minimap[2214][61547692] = { dnID = "|cffffffff" .. L["Passage"], name = "", mnID = 2248, type = "PassageCaveUp", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only Minimap
+                    minimap[2214][49194459] = { dnID = "|cffffffff" .. L["Passage"], name = "", mnID = 2248, type = "PassageCaveUp", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only Minimap
+                    minimap[2214][63197831] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2346, type = "PathR", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     
                 end
 

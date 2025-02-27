@@ -278,6 +278,7 @@ ns.defaults = {
       showCapitalsHerbalism = true,
       showCapitalsInscription = true,
       showCapitalsEnchanting = true,
+      showCapitalsFirstAid = true,
 
     --Capital General
       CapitalsGeneralScale = 1,
@@ -359,6 +360,7 @@ ns.defaults = {
       showMinimapCapitalsHerbalism = true,
       showMinimapCapitalsInscription = true,
       showMinimapCapitalsEnchanting = true,
+      showMinimapCapitalsFirstAid = true,
 
     --Capital Minimap General
       MinimapCapitalsGeneralScale = 1,

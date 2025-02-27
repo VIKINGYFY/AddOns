@@ -16,7 +16,7 @@ Default textures will be applied if the layout does not provide custom ones. See
 
 .finishedTime    - For how many seconds the icon should stick after a check has completed. Defaults to 10 (number).
 .fadeTime        - For how many seconds the icon should fade away after the stick duration has completed. Defaults to
-                   1.5 (number).
+				   1.5 (number).
 .readyTexture    - Path to an alternate texture for the ready check 'ready' status.
 .notReadyTexture - Path to an alternate texture for the ready check 'notready' status.
 .waitingTexture  - Path to an alternate texture for the ready check 'waiting' status.
@@ -27,13 +27,13 @@ Default textures will be applied if the layout does not provide custom ones. See
 
 ## Examples
 
-    -- Position and size
-    local ReadyCheckIndicator = self:CreateTexture(nil, 'OVERLAY')
-    ReadyCheckIndicator:SetSize(16, 16)
-    ReadyCheckIndicator:SetPoint('TOP')
+	-- Position and size
+	local ReadyCheckIndicator = self:CreateTexture(nil, 'OVERLAY')
+	ReadyCheckIndicator:SetSize(16, 16)
+	ReadyCheckIndicator:SetPoint('TOP')
 
-    -- Register with oUF
-    self.ReadyCheckIndicator = ReadyCheckIndicator
+	-- Register with oUF
+	self.ReadyCheckIndicator = ReadyCheckIndicator
 --]]
 
 local _, ns = ...

@@ -20,13 +20,7 @@ end
 function ns.BlizzardDelvesAddFunction()
     hooksecurefunc(DelveEntrancePinMixin, "OnClick", function(self, button)
 
-        if buildVersion == "11.1.0" then
     ns.BlizzDelveIDs = ns.BlizzDelveAreaPoisInfoIDs[self.poiInfo.areaPoiID] or ns.BlizzBountifulDelveAreaPoisInfoIDs[self.poiInfo.areaPoiID]
-        end
-
-        if buildVersion == "11.0.7" then
-    ns.BlizzDelveIDs = ns.BlizzDelveAreaPoisInfoIDs[self.areaPoiID] or ns.BlizzBountifulDelveAreaPoisInfoIDs[self.areaPoiID]
-        end
 
     if button == "MiddleButton" and not ns.Addon.db.profile.activate.ShiftWorld then
         if ns.BlizzDelveIDs then

@@ -1,7 +1,8 @@
 # Premade Groups Filter
 
-## [6.6.1](https://github.com/0xbs/premade-groups-filter/tree/6.6.1) (2025-01-30)
-[Full Changelog](https://github.com/0xbs/premade-groups-filter/compare/6.6.0...6.6.1) [Previous Releases](https://github.com/0xbs/premade-groups-filter/releases)
+## [6.6.3](https://github.com/0xbs/premade-groups-filter/tree/6.6.3) (2025-02-19)
+[Full Changelog](https://github.com/0xbs/premade-groups-filter/compare/6.6.2...6.6.3) [Previous Releases](https://github.com/0xbs/premade-groups-filter/releases)
 
-- Bump TOC  
-- Preparation for patch 11.1  
+- Merge pull request #309 from Hollicsh/master  
+    Update PremadeGroupsFilter\_Cata.toc  
+- Update PremadeGroupsFilter\_Cata.toc  

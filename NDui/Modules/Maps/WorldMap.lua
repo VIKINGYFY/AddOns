@@ -207,7 +207,7 @@ function module:MapData_RefreshOverlays(fullUpdate)
 						else
 							texture:SetVertexColor(1, 1, 1)
 						end
-						texture:SetDrawLayer("ARTWORK", -1)
+						texture:SetDrawLayer("ARTWORK")
 						texture:Show()
 						if fullUpdate then self.textureLoadGroup:AddTexture(texture) end
 					else

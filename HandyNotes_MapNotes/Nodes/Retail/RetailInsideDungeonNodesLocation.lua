@@ -294,10 +294,14 @@ if not db.activate.HideMapNote then
             nodes[2251][45450999] = { mnID = 2214, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- The Waterworks
             nodes[2302][25046296] = { mnID = 2214, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- The Waterworks
             nodes[2396][48970399] = { mnID = 2214, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Rowdy Rifts
+            nodes[2387][42751241] = { mnID = 2214, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Operation: Floodgate
             -- Isle of Dorn
             nodes[2269][45441087] = { mnID = 2248, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Earthcrawl Mines
             nodes[2249][68888884] = { mnID = 2248, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Fungal Folly
             nodes[2250][31962673] = { mnID = 2248, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Kriegval's Rest
+            -- Undermine
+            nodes[2423][48926758] = { mnID = 2346, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Sidestreet Sluice
+
           end
     
     
@@ -743,6 +747,15 @@ if not db.activate.HideMapNote then
             nodes[597][65185336] = { mnID = 598, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_FOUNDRYRAID3, name = "", type = "PassageLeftL", showInZone = true }
             nodes[599][41058439] = { mnID = 598, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_FOUNDRYRAID3, name = "", type = "PassageLeftL", showInZone = true }
             nodes[599][55024931] = { mnID = 596, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_FOUNDRYRAID1, name = "", type = "PassageLeftL", showInZone = true }
+
+        --#######################################
+        --#### The war Within Delve Passage #####
+        --#######################################
+
+          -- Sidestreet Sluice
+            --nodes[2423][50094552] = { mnID = 2420, dnID = L["Passage"], name = "", type = "PassageDownL", showInZone = true }
+            --nodes[2420][44234162] = { mnID = 2423, dnID = L["Passage"], name = "", type = "PassageUpL", showInZone = true }
+
           end
 
 

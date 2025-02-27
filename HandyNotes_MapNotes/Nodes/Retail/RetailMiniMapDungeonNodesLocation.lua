@@ -720,10 +720,11 @@ if not db.activate.HideMapNote then
             if self.db.profile.showMiniMapDungeons then
   
               -- Dungeon minimap above Blizzards Icons to make it Clickable for maximized Maps
-              minimap[2214][59662149] = { id = 1210, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Darkflame Cleft
+              minimap[2214][55452162] = { id = 1210, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Darkflame Cleft
               minimap[2215][41324933] = { id = 1267, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Priory of the Sacred Flame
               minimap[2215][54906313] = { id = 1270, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Dawnbreaker
-              minimap[2214][46860856] = { id = 1269, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Stonevault
+              minimap[2214][42700856] = { id = 1269, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Stonevault
+              minimap[2214][42083948] = { id = 1298, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Operation: Floodgate
               minimap[2248][45234108] = { id = 1268, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Rookery
               minimap[2248][76584378] = { id = 1272, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Cinderbrew Meadery
               minimap[2255][46746917] = { id = 1274, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- City of Threads
@@ -743,7 +744,8 @@ if not db.activate.HideMapNote then
               minimap[2255][43559029] = { id = 1273, type = "Raid", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Nerub-ar Palace
               minimap[2256][43559029] = { id = 1273, type = "Raid", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Nerub-ar Palace
               minimap[2213][35047242] = { id = 1273, type = "Raid", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Nerub-ar Palace              
-              minimap[2216][35047242] = { id = 1273, type = "Raid", dnID = DUNGEON_FLOOR_GILNEAS3, showInZone = false, showOnContinent = false, showOnMinimap = true } -- Nerub-ar Palace              
+              minimap[2216][35047242] = { id = 1273, type = "Raid", dnID = DUNGEON_FLOOR_GILNEAS3, showInZone = false, showOnContinent = false, showOnMinimap = true } -- Nerub-ar Palace
+              minimap[2346][41554877] = { id = 1296, type = "Raid", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Liberation of Undermine
             end
 
           -- Khaz Algar Delves
@@ -764,12 +766,15 @@ if not db.activate.HideMapNote then
               minimap[2215][35324593] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2277, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Nightfall Sanctum
               -- The Ringing Deeps
               minimap[2214][46114791] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2251, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Waterworks
-              minimap[2214][73583853] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2302, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Dread Pit
-              minimap[2214][80579703] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2302, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Dread Pit
+              minimap[2214][69403862] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2302, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Dread Pit
+              minimap[2214][76859810] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2396, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Excavation Site 9
               -- Isle of Dorn
               minimap[2248][38907328] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2269, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Earthcrawl Mines
               minimap[2248][52526626] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2249, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Fungal Folly
               minimap[2248][61644271] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2396, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Kriegval's Rest
+              -- Undermine
+              minimap[2346][53870930] = { name = "", TransportName = L["Way to the Instance Entrance"], delveID = 2425, type = "DelvesPassage", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Kriegval's Rest
+
             end
 
         end
