@@ -268,7 +268,9 @@ function TT:OnTooltipSetUnit()
 		local npcID = B.GetNPCID(guid)
 		if npcID then
 			self:AddLine(format(npcIDstring, "NpcID:", npcID))
-			print(format("[%s] = true,  -- %s", npcID, UnitName("mouseover")))
+
+			local npcName = UnitName("mouseover") or UNKNOWN
+			print(format("[%s] = true,  -- %s", npcID, npcName))
 		end
 	end
 

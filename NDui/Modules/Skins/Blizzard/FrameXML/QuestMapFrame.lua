@@ -67,6 +67,15 @@ C.OnLoginThemes["QuestMapFrame"] = function()
 	B.ReskinScroll(QuestScrollFrame.ScrollBar)
 	B.ReskinInput(QuestScrollFrame.SearchBox)
 
+	local tabs = {"QuestsTab", "EventsTab", "MapLegendTab"}
+	for _, name in pairs(tabs) do
+		local tab = QuestMapFrame[name]
+		B.StripTextures(tab, 2)
+
+		local bg = B.SetBD(tab, 1, -4, -5, 4)
+		B.ReskinHLTex(tab.SelectedTexture, bg, true)
+	end
+
 	-- Quest details
 
 	local DetailsFrame = QuestMapFrame.DetailsFrame
@@ -152,6 +161,13 @@ C.OnLoginThemes["QuestMapFrame"] = function()
 		B.ReskinScroll(mapLegend.ScrollFrame.ScrollBar)
 		B.StripTextures(mapLegend.ScrollFrame)
 		B.CreateBDFrame(mapLegend.ScrollFrame, .25)
+	end
+
+	-- Events
+	local event = QuestMapFrame.EventsFrame
+	if event then
+		B.StripTextures(event.BorderFrame)
+		B.ReskinScroll(event.ScrollBar)
 	end
 
 	-- [[ Quest log popup detail frame ]]

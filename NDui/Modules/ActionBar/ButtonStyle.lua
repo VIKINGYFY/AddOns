@@ -54,43 +54,18 @@ function Bar:UpdateEquipedColor(button)
 	end
 end
 
-local killList = {
-	"Border",
-	"BorderShadow",
-	"Flash",
---	"IconMask",
-	"NewActionTexture",
-	"NormalTexture",
-	"SlotBackground",
-	"style",
-}
-
 function Bar:StyleActionButton(button)
 	if not button or button.__bg then return end
 
 	button.__bg = B.SetBD(button)
 	button.__bg:SetFrameLevel(button:GetFrameLevel() - 1)
 
-	for index, list in pairs(killList) do
-		local region = B.GetObject(button, list)
-		if region then
-			region:SetTexture("")
-			region:SetAtlas("")
-			region:SetAlpha(0)
-		end
-	end
-
-	local normal = button:GetNormalTexture()
-	if normal then
-		normal:SetTexture("")
-		normal:SetAtlas("")
-		normal:SetAlpha(0)
-	end
+	B.CleanTextures(button)
 
 	local icon = B.GetObject(button, "Icon")
 	if icon then
 		icon:SetInside(button.__bg)
-		--icon:SetDrawLayer("ARTWORK")
+		icon:SetDrawLayer("ARTWORK")
 
 		if not icon.__lockdown then
 			icon:SetTexCoord(unpack(DB.TexCoord))

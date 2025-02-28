@@ -354,9 +354,9 @@ do
 		"BGTop",
 		"Background",
 		"BackgroundOverlay",
-		"BlackBackgroundHoist",
 		"Begin",
 		"Bg",
+		"BlackBackgroundHoist",
 		"Border",
 		"BorderBottom",
 		"BorderBottomLeft",
@@ -368,6 +368,7 @@ do
 		"BorderGlow",
 		"BorderLeft",
 		"BorderRight",
+		"BorderShadow",
 		"BorderTop",
 		"BorderTopLeft",
 		"BorderTopRight",
@@ -419,6 +420,7 @@ do
 		"MiddleRight",
 		"MiddleTex",
 		"NameFrame",
+		"NewActionTexture",
 		"NineSlice",
 		"NormalTexture",
 		"Overlay",
@@ -440,6 +442,7 @@ do
 		"ScrollFrameBorder",
 		"ScrollUpBorder",
 		"ShadowOverlay",
+		"SlotBackground",
 		"Spark",
 		"SparkGlow",
 		"SpellBorder",
@@ -475,6 +478,7 @@ do
 		"overlay",
 		"portrait",
 		"shadows",
+		"style",
 		"topInset",
 		"track",
 		"trackBG",
@@ -491,7 +495,9 @@ do
 		for _, texture in pairs(blizzTextures) do
 			local blizzTexture = B.GetObject(self, texture)
 			if blizzTexture then
-				if blizzTexture:IsObjectType("Texture") then
+				if blizzTexture:IsObjectType("MaskTexture") then
+					blizzTexture:Hide()
+				elseif blizzTexture:IsObjectType("Texture") then
 					blizzTexture:SetTexture("")
 					blizzTexture:SetAtlas("")
 					blizzTexture:SetAlpha(0)
@@ -507,20 +513,24 @@ do
 
 		if self.GetRegions then
 			for index, region in pairs {self:GetRegions()} do
-				if region and region:IsObjectType("Texture") and not region.isIgnored then
-					if kill and type(kill) == "boolean" then
-						B.HideObject(region)
-					elseif tonumber(kill) then
-						if kill == 0 then
-							region:SetAlpha(0)
-						elseif kill ~= index then
+				if region and not region.isIgnored then
+					if region:IsObjectType("MaskTexture") then
+						region:Hide()
+					elseif region:IsObjectType("Texture") then
+						if kill and type(kill) == "boolean" then
+							B.HideObject(region)
+						elseif tonumber(kill) then
+							if kill == 0 then
+								region:SetAlpha(0)
+							elseif kill ~= index then
+								region:SetTexture("")
+								region:SetAtlas("")
+								region:SetAlpha(0)
+							end
+						else
 							region:SetTexture("")
 							region:SetAtlas("")
-							region:SetAlpha(0)
 						end
-					else
-						region:SetTexture("")
-						region:SetAtlas("")
 					end
 				end
 			end

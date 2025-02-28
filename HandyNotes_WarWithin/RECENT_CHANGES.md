@@ -1,8 +1,5 @@
-## Changed in v75
+## Changed in v76
 
-* Updated for 11.1.0
-* Undermine: added data for rares and treasures
-* Hallowfall: show the Mereldar Menace targets
-* Fix Siren Isle treasures to only show until collected on later characters
-* Assorted minor tweaks in older zones
+* Added Read Between the Lines achievement to Undermine
+* Fixed changed coordinates in the Ringing Deeps
 

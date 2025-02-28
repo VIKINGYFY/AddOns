@@ -234,10 +234,10 @@ local list = {
 		-- 大米
 		{AuraID = 226510, UnitID = "target"},	-- 血池回血
 		{AuraID = 343502, UnitID = "target"},	-- 鼓舞光环
-		{AuraID = 440328, UnitID = "target"},	-- 愈体虚空，萨拉塔斯的交易
-		{AuraID = 461904, UnitID = "target"},	-- 星宇飞升，萨拉塔斯的交易
-		{AuraID = 462510, UnitID = "target"},	-- 黑暗祷言，萨拉塔斯的交易
-		{AuraID = 462704, UnitID = "target"},	-- 碎裂精华，萨拉塔斯的交易
+		{AuraID = 440328, UnitID = "target"},	-- 萨拉塔斯的交易
+		{AuraID = 461904, UnitID = "target"},	-- 萨拉塔斯的交易
+		{AuraID = 462704, UnitID = "target"},	-- 萨拉塔斯的交易
+		{AuraID =1221061, UnitID = "target"},	-- 萨拉塔斯的赠礼
 		-- 5人
 		{AuraID = 372988, UnitID = "target", Value = true},	-- 寒冰壁垒，红玉
 		{AuraID = 391050, UnitID = "target", Value = true},	-- 暴风骤雨之盾，红玉

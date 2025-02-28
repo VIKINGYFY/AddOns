@@ -4,14 +4,11 @@ local B, C, L, DB = unpack(ns)
 local cr, cg, cb = DB.r, DB.g, DB.b
 
 local function reskinHeader(header)
-	for i = 4, 18 do
-		select(i, header.button:GetRegions()):SetTexture("")
-	end
+	B.StripTextures(header)
+	B.StripTextures(header.button, 2)
+
 	B.ReskinButton(header.button)
-	header.descriptionBG:SetAlpha(0)
-	header.descriptionBGBottom:SetAlpha(0)
-	header.description:SetTextColor(1, 1, 1)
-	header.button.title:SetTextColor(1, 1, 1)
+	B.ReskinText(header.description, 1, 1, 1)
 	header.button.expandedIcon:SetWidth(20) -- don't wrap the text
 end
 
@@ -22,14 +19,14 @@ local function reskinSectionHeader()
 		if not header then return end
 		if not header.styled then
 			reskinHeader(header)
-			header.button.bg = B.ReskinIcon(header.button.abilityIcon)
+			header.button.icbg = B.ReskinIcon(header.button.abilityIcon)
 			header.styled = true
 		end
 
 		if header.button.abilityIcon:IsShown() then
-			header.button.bg:Show()
+			header.button.icbg:Show()
 		else
-			header.button.bg:Hide()
+			header.button.icbg:Hide()
 		end
 
 		index = index + 1
@@ -54,18 +51,13 @@ C.OnLoadThemes["Blizzard_EncounterJournal"] = function()
 	local tabs = {"overviewTab", "modelTab", "bossTab", "lootTab"}
 	for _, name in pairs(tabs) do
 		local tab = EncounterJournal.encounter.info[name]
-		local bg = B.SetBD(tab)
-		bg:SetInside(tab, 2, 2)
+		B.CleanTextures(tab)
 
-		tab:SetNormalTexture(0)
-		tab:SetPushedTexture(0)
-		tab:SetDisabledTexture(0)
-		local hl = tab:GetHighlightTexture()
-		hl:SetColorTexture(cr, cg, cb, .25)
-		hl:SetInside(bg)
+		local bg = B.SetBD(tab, 6, -2, -2, 4)
+		B.ReskinHLTex(tab, bg, true)
 
 		if name == "overviewTab" then
-			tab:SetPoint("TOPLEFT", EncounterJournalEncounterFrameInfo, "TOPRIGHT", 9, -35)
+			B.UpdatePoint(tab, "TOPLEFT", EncounterJournalEncounterFrameInfo, "TOPRIGHT", 6, 0)
 		end
 	end
 
@@ -78,13 +70,11 @@ C.OnLoadThemes["Blizzard_EncounterJournal"] = function()
 		for i = 1, self.ScrollTarget:GetNumChildren() do
 			local child = select(i, self.ScrollTarget:GetChildren())
 			if not child.styled then
-				child:SetNormalTexture(0)
-				child:SetHighlightTexture(0)
-				child:SetPushedTexture(0)
+				B.CleanTextures(child)
 
-				local bg = B.CreateBDFrame(child.bgImage)
-				bg:SetPoint("TOPLEFT", 3, -3)
-				bg:SetPoint("BOTTOMRIGHT", -4, 2)
+				child.bgImage:SetTexCoord(.02, .66, .04, .71)
+				local bg = B.CreateBDFrame(child.bgImage, .25)
+				B.ReskinHLTex(child, bg)
 
 				child.styled = true
 			end
@@ -364,8 +354,8 @@ C.OnLoadThemes["Blizzard_EncounterJournal"] = function()
 			local itemButtons = bar.ItemButtons
 			for i = 1, #itemButtons do
 				local button = itemButtons[i]
-				if not button.bg then
-					button.bg = B.ReskinIcon(button.Icon)
+				if not button.icbg then
+					button.icbg = B.ReskinIcon(button.Icon)
 					B.ReskinBorder(button.Border, true, true)
 				end
 			end
