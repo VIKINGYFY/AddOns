@@ -1,65 +1,77 @@
 local myname, ns = ...
 
+--[[
+notes:
+Picked any cartel: 84948 (contract work)
+Picked bilgewater: 54951
+
+Worldsoul memory:
+6358 @ 58206866
+--]]
+
 -- Treasures
 
 ns.RegisterPoints(ns.UNDERMINE, {
-    [48504310] = { -- Unexploded Fireworks
+    [48454293] = { -- Unexploded Fireworks
         criteria=71613,
         quest=85683,
         loot={235042}, -- Imminently Exploding Fireworks
+        note="On the roof; there's a door you can click to open",
         vignette=6657,
     },
-    [49806620] = { -- Suspicious Book
+    [49886618] = { -- Suspicious Book
         criteria=71624,
         quest=85868,
         loot={235283}, -- Bashful Book
         note="Pick it up three times",
         vignette=6679,
     },
-    [57905270] = { -- Fireworks Hat
+    [57845269] = { -- Fireworks Hat
         criteria=71614,
-        quest=85856,
+        quest=85856, -- first attempt 85838 @ 57845269, second attempt 85839 @ 56015172
         loot={{235220, toy=true}}, -- Fireworks Hat
         note="Pick it up twice",
         vignette=6677,
     },
-    [49609030] = { -- Exploded Plunger
+    [49709027] = { -- Exploded Plunger
         criteria=71615,
-        quest=85698,
+        quest=85698, -- 85694 first press
         loot={235238}, -- Exploded Plunder
-        vignette=6672,
+        vignette=6658, -- Inert Plunger? / 6672 Exploded Plunger
     },
-    [39005960] = { -- Blackened Dice
+    [38965963] = { -- Blackened Dice
         criteria=71625,
-        quest=85814,
+        quest=85814, -- 84813 for the valve
         loot={235255}, -- Durable Dice
         vignette=6671,
+        note="Use the Pipe Valve",
     },
-    [59301900] = { -- Lonely Tub
+    [59371914] = { -- Lonely Tub
         criteria=71626,
-        quest=85858,
+        quest=85858, -- 85860 extinguished
         loot={235279}, -- Scorched Shorts
         vignette=6678,
+        note="Use the {spell:471345:Fire Extinguisher}",
     },
-    [69602160] = { -- Potent Potable
+    [69652164] = { -- Potent Potable
         criteria=71627,
         quest=85426,
         loot={235230}, -- Impotent Potable
         vignette=6646,
     },
-    [40802120] = { -- Abandoned Toolbox
+    [40842127] = { -- Abandoned Toolbox
         criteria=71628,
         quest=85422,
         loot={}, -- assorted engineering items
         vignette=6643,
     },
-    [74607980] = { -- Papa's Prized Putter
+    [74697984] = { -- Papa's Prized Putter
         criteria=71629,
         quest=85424,
         loot={234821}, -- Papa's Prized Putter
         vignette=6644,
     },
-    [26904270] = { -- Unsupervised Takeout
+    [26844266] = { -- Unsupervised Takeout
         criteria=71630,
         quest=85425,
         loot={
@@ -68,31 +80,31 @@ ns.RegisterPoints(ns.UNDERMINE, {
         },
         vignette=6645,
     },
-    [39506070] = { -- Particularly Nice Lamp
+    [39386107] = { -- Particularly Nice Lamp
         criteria=71631,
         quest=85492,
         loot={235221}, -- Particularly Bright Lightbulb
         vignette=6651,
     },
-    [53505280] = { -- Uncracked Cold Ones
+    [53415274] = { -- Uncracked Cold Ones
         criteria=71632,
         quest=85495,
         loot={{234951, toy=true}}, -- Uncracked Cold Ones
         vignette=6654,
     },
-    [63803220] = { -- Marooned Floatmingo
+    [63813220] = { -- Marooned Floatmingo
         criteria=71633,
         quest=85494,
         loot={235273}, -- Distracting Floatmingo
         vignette=6653,
     },
-    [43705150] = { -- Trick Deck of Cards
+    [43645155] = { -- Trick Deck of Cards
         criteria=71634,
         quest=85496,
         loot={235268}, -- Misprinted Card
         vignette=6655,
     },
-    [42408220] = { -- Crumpled Schematics
+    [42288231] = { -- Crumpled Schematics
         criteria=71635,
         quest=86487,
         loot={235038}, -- Crumpled Schematic
@@ -103,14 +115,15 @@ ns.RegisterPoints(ns.UNDERMINE, {
 })
 
 ns.RegisterPoints(ns.UNDERMINE, {
-    [23814539] = {quest=85072, loot={234427}}, -- Gorillion Fork
-    [71468588] = {quest=85114, loot={234430}}, -- Gorillion Grease
-    [75142295] = {quest=85115, loot={234431}}, -- Gorillion Batteries
-    [56665547] = {quest=85116, loot={234432}}, -- Gorillion Engine
-    [34318286] = {quest=85117, loot={234433}}, -- Gorillion Chasis
+    [23814539] = {quest=85072, loot={234427}, vignette=6624}, -- Gorillion Fork
+    [71458594] = {quest=85114, loot={234430}, vignette=6625}, -- Gorillion Grease
+    [75142295] = {quest=85115, loot={234431}, vignette=6626}, -- Gorillion Batteries
+    [56675547] = {quest=85116, loot={234432}, vignette=6627}, -- Gorillion Engine
+    [34338286] = {quest=85117, loot={234433}, vignette=6628}, -- Gorillion Chasis
 }, {
     achievement=40948, -- Nine-Tenths of the Law
     texture=ns.atlas_texture("VignetteLoot", {r=0.5, g=0.5, b=1}),
+    note="Unlock the Muff's Auto-Locker",
 })
 
 local READ = {
@@ -118,27 +131,45 @@ local READ = {
     texture=ns.atlas_texture("loreobject-32x32"),
 }
 ns.RegisterPoints(ns.UNDERMINE, {
+    [65621421] = {criteria=103112, quest=86568, vignette=6733}, -- Misplaced Work Order
+}, READ)
+ns.RegisterPoints(ns.UNDERMINE, {
     [27317085] = {criteria=103108, quest=86567, vignette=6732}, -- A Threatening Letter
     [40402851] = {criteria=103106, quest=86572, vignette=6737}, -- First Half of Noggenfogger's Journal
     [32915880] = {criteria=103109, quest=86571, vignette=6736}, -- Second Half of Noggenfogger's Journal
     [58585932] = {criteria=103111, quest=86573, vignette=6738}, -- Gallywix's Notes
-    [65621421] = {criteria=103112, quest=86568, vignette=6733}, -- Misplaced Work Order
-}, READ)
+}, ns.merge({
+    hide_before=ns.conditions.QuestComplete(83130), -- Sour Victory
+}, READ))
 ns.RegisterPoints(ns.RINGINGDEEPS, {
     [72917314] = {criteria=103107, quest=86570, vignette=6735}, -- Rocket Drill Safety Manual
     [68029650] = {criteria=103110, quest=86569, vignette=6734}, -- Extractor Drill X-78 Safety Guide
 }, READ)
 
+ns.RegisterPoints(ns.UNDERMINE, {
+    -- there are no tracking quests for this one, sadly
+    [43591131] = {note="Beneath the stands"},
+    [28485579] = {note="Upper floor under a trash can"},
+    [35808557] = {note="On the bannister"},
+    [65328859] = {note="In the cave"},
+    [65864395] = {note="By a tree"},
+}, {
+    achievement=41708, -- You're My Friend Now
+    texture=ns.atlas_texture("WildBattlePetCapturable", {r=1, g=0.7, b=1}),
+    note="Grab the {npc:239248:Grabbable Rat}",
+    minimap=true,
+})
+
 -- Rares
 
 ns.RegisterPoints(ns.UNDERMINE, {
-    [42007460] = { -- Candy Stickemup
-        -- [42007460, 42207640, 42207700, 42207820]
+    [42227600] = { -- Candy Stickemup
         criteria=71599,
         quest=84927, --v
         npc=231012, -- 238119
         loot={
             235304, -- Gutter Rat Mask
+            235347, -- 100% Sharp Glimmerblade
             {234380, quest=85783}, -- Steamboil Fuel Tank
         },
         vignette=6605,
@@ -157,20 +188,19 @@ ns.RegisterPoints(ns.UNDERMINE, {
         },
         vignette=6606,
     },
-    [36604140] = { -- Tally Doublespeak
-        -- [36604140, 36604540, 37404160, 37604240, 37604500, 37804260]
+    [37074526] = { -- Tally Doublespeak
         criteria=71593,
         quest=84919,
         npc=230940,
         loot={
             234218, -- Goo-blin Grenade
             {234380, quest=85783}, -- Steamboil Fuel Tank
+            {234418, quest=85783}, -- Steamboil Gears
             {234420, quest=85784}, -- Handcrank Mounting System
         },
         vignette=6600,
     },
-    [37207820] = { -- V.V. Goosworth
-        -- [37207820, 37607880, 38007820]
+    [36847814] = { -- V.V. Goosworth
         criteria=71595,
         quest=84920, --v
         npc=230946,
@@ -180,6 +210,7 @@ ns.RegisterPoints(ns.UNDERMINE, {
             {234380, quest=85783}, -- Steamboil Fuel Tank
             {234418, quest=85783}, -- Steamboil Gears
             {234381, quest=85784}, -- Handcrank Fuel Tank
+            {234386, quest=85784}, -- Handcrank Fuel Injector
         },
         vignette=6601,
         note="Accompanied by {npc:230947:Slimesby}",
@@ -192,13 +223,13 @@ ns.RegisterPoints(ns.UNDERMINE, {
         vignette=6601, -- V.V.
         note="Accompanies {npc:230946:V.V. Goosworth}",
     },
-    [25606840] = { -- Ephemeral Agent Lathyd
-        -- [25606840, 26006720]
+    [26516830] = { -- Ephemeral Agent Lathyd
         criteria=71602,
         quest=84877, --v
         npc=230746,
         loot={
             {234416, quest=85783}, -- Steamboil Casing
+            {234418, quest=85783}, -- Steamboil Gears
             {234417, quest=85784}, -- Handcrank Gears
         },
         vignette=6593,
@@ -215,12 +246,12 @@ ns.RegisterPoints(ns.UNDERMINE, {
         },
         vignette=6598,
     },
-    [46605740] = { -- Nitro
-        -- [46605740, 46805620, 47005520, 48205660, 48405580]
+    [46915565] = { -- Nitro
         criteria=71598,
         quest=84926, --v
         npc=230995,
         loot={
+            235318, -- Ironfang Plate Legguards
             235325, -- Rusthide Gloves
             {234418, quest=85783}, -- Steamboil Gears
             {234419, quest=85783}, -- Steamboil Mounting System
@@ -228,19 +259,18 @@ ns.RegisterPoints(ns.UNDERMINE, {
         },
         vignette=6604,
     },
-    [50603960] = { -- Slugger the Smart
-        -- [50603960, 52004120, 52604120]
+    [52354107] = { -- Slugger the Smart
         criteria=71604,
         quest=84895, --v
         npc=230800,
         loot={
             {234380, quest=85783}, -- Steamboil Fuel Tank
+            {234381, quest=85784}, -- Handcrank Fuel Tank
             {234417, quest=85784}, -- Handcrank Gears
         },
         vignette=6595,
     },
-    [57808640] = { -- Chief Foreman Gutso
-        -- [57808640, 59008760, 59208340]
+    [58408663] = { -- Chief Foreman Gutso
         criteria=71605,
         quest=84907, --v
         npc=230828,
@@ -259,52 +289,52 @@ ns.RegisterPoints(ns.UNDERMINE, {
         vignette=6667, -- 6752
         note="Talk to {npc:236035:Scrapminer Krazzik} to summon",
     },
-    [63204920] = { -- The Junk-Wall
-        -- [63204920, 63604920, 64205020]
+    [63354975] = { -- The Junk-Wall
         criteria=71603,
         quest=84884, --v
         npc=230793,
         loot={
+            235313, -- Shockproof Helm
             {234420, quest=85784}, -- Handcrank Mounting System
         },
         vignette=6594,
     },
-    [60200880] = { -- Flyboy Snooty
-        -- [60200880, 60600980]
+    [60550987] = { -- Flyboy Snooty
         criteria=71606,
         quest=84911, --v
         npc=230840,
         loot={
             235312, -- Snooty's Aviator Bindings
+            {234419, quest=85783}, -- Steamboil Mounting System
         },
         vignette=6597,
     },
-    [41404300] = { -- Swigs Farsight
-        -- [41404300, 41404380, 41604380]
+    [41334367] = { -- Swigs Farsight
         criteria=71601,
         quest=85004, --v
         npc=231288,
         loot={
             235307, -- Smoketrail Belt
             235314, -- Knightrider's Steelfists
+            {234381, quest=85784}, -- Handcrank Fuel Tank
             {234415, quest=85784}, -- Handcrank Casing
             {234420, quest=85784}, -- Handcrank Mounting System
         },
         vignette=6609,
     },
-    [52004940] = { -- Thwack
-        -- [52004940, 52605260, 52805180, 53805040, 54005080, 54605060, 54805160]
+    [54045018] = { -- Thwack
         criteria=71596,
         quest=84921, --v
         npc=230951,
         loot={
             235317, -- Chestplate of the Ultimatum
+            235353, -- Debtsmasher Axe
+            {234386, quest=85784}, -- Handcrank Fuel Injector
             {234419, quest=85783}, -- Steamboil Mounting System
         },
         vignette=6602,
     },
-    [40002680] = { -- S.A.L.
-        -- [40002680, 40402620, 40802400, 41202540, 41402560, 41602520, 41802560]
+    [42012566] = { -- S.A.L.
         criteria=71597,
         quest=84922, --v
         npc=230979,
@@ -328,15 +358,15 @@ ns.RegisterPoints(ns.UNDERMINE, {
         },
         vignette=6689,
     },
-    [25203680] = { -- Ratspit
-        -- [25203680, 25603540, 25803560]
+    [25453654] = { -- Ratspit
         criteria=71592,
         quest=84918,
         npc=230934, -- accompanied by Grease (230935) and Grime (230936)
         loot={
             235326, -- Ratspit's Heirloom Wristwraps
-            {234381, quest=85784}, -- Handcrank Fuel Tank
+            {234387, quest=85783}, -- Steamboil Fuel Injector
             {234419, quest=85783}, -- Steamboil Mounting System
+            {234381, quest=85784}, -- Handcrank Fuel Tank
             {234420, quest=85784}, -- Handcrank Mounting System
         },
         vignette=6599, -- Court of Rats

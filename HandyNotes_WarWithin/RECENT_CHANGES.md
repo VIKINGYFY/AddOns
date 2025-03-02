@@ -1,5 +1,7 @@
-## Changed in v76
+## Changed in v77
 
-* Added Read Between the Lines achievement to Undermine
-* Fixed changed coordinates in the Ringing Deeps
+* Updated Undermine coordinates from vignettes
+* Added You're My Friend Now achievement to Undermine
+* Hide a few of the Read Between the Lines points in Undermine before you've reached a certain point in the campaign
+* Delves: added Excavation Site 9 and Sidestreet Sluice
 

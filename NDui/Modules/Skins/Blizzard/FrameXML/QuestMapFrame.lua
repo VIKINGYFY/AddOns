@@ -155,7 +155,7 @@ C.OnLoginThemes["QuestMapFrame"] = function()
 	local mapLegend = QuestMapFrame.MapLegend
 	if mapLegend then
 		B.StripTextures(mapLegend.BorderFrame)
-		if mapLegend.BackButton then -- isNewPatch
+		if mapLegend.BackButton then
 			B.ReskinButton(mapLegend.BackButton)
 		end
 		B.ReskinScroll(mapLegend.ScrollFrame.ScrollBar)

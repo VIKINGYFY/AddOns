@@ -15,46 +15,23 @@ C.OnLoginThemes["AddonList"] = function()
 	B.ReskinDropDown(AddonList.Dropdown)
 	B.ReskinScroll(AddonList.ScrollBar)
 
-	if DB.isNewPatch then
-		B.ReskinButton(AddonList.EnableAllButton)
-		B.ReskinButton(AddonList.DisableAllButton)
-		B.ReskinButton(AddonList.CancelButton)
-		B.ReskinButton(AddonList.OkayButton)
-		B.ReskinCheck(AddonList.ForceLoad)
-		B.ReskinInput(AddonList.SearchBox)
-	
-		hooksecurefunc("AddonList_InitAddon", function(entry)
-			if not entry.styled then
-				B.ReskinCheck(entry.Enabled, true)
-				B.ReskinButton(entry.LoadAddonButton)
-				hooksecurefunc(entry.Enabled:GetCheckedTexture(), "SetDesaturated", forceSaturation)
-	
-				B.ReplaceIconString(entry.Title)
-				hooksecurefunc(entry.Title, "SetText", B.ReplaceIconString)
-	
-				entry.styled = true
-			end
-		end)
-	else
-		B.ReskinButton(AddonListEnableAllButton)
-		B.ReskinButton(AddonListDisableAllButton)
-		B.ReskinButton(AddonListCancelButton)
-		B.ReskinButton(AddonListOkayButton)
-		B.ReskinCheck(AddonListForceLoad)
-	
-		AddonListForceLoad:SetSize(26, 26)
-	
-		hooksecurefunc("AddonList_InitButton", function(entry)
-			if not entry.styled then
-				B.ReskinCheck(entry.Enabled, true)
-				B.ReskinButton(entry.LoadAddonButton)
-				hooksecurefunc(entry.Enabled:GetCheckedTexture(), "SetDesaturated", forceSaturation)
-	
-				B.ReplaceIconString(entry.Title)
-				hooksecurefunc(entry.Title, "SetText", B.ReplaceIconString)
-	
-				entry.styled = true
-			end
-		end)
-	end
+	B.ReskinButton(AddonList.EnableAllButton)
+	B.ReskinButton(AddonList.DisableAllButton)
+	B.ReskinButton(AddonList.CancelButton)
+	B.ReskinButton(AddonList.OkayButton)
+	B.ReskinCheck(AddonList.ForceLoad)
+	B.ReskinInput(AddonList.SearchBox)
+
+	hooksecurefunc("AddonList_InitAddon", function(entry)
+		if not entry.styled then
+			B.ReskinCheck(entry.Enabled, true)
+			B.ReskinButton(entry.LoadAddonButton)
+			hooksecurefunc(entry.Enabled:GetCheckedTexture(), "SetDesaturated", forceSaturation)
+
+			B.ReplaceIconString(entry.Title)
+			hooksecurefunc(entry.Title, "SetText", B.ReplaceIconString)
+
+			entry.styled = true
+		end
+	end)
 end

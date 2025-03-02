@@ -14,11 +14,6 @@ local function ReskinCustomizeButton(button)
 	button.__bg:SetInside(nil, 5, 5)
 end
 
-local function ReskinCustomizeTooltip(tooltip)
-	B.ReskinTooltip(tooltip)
-	tooltip:SetScale(UIParent:GetScale())
-end
-
 C.OnLoadThemes["Blizzard_CharacterCustomize"] = function()
 	local frame = CharCustomizeFrame
 
@@ -50,14 +45,14 @@ C.OnLoadThemes["Blizzard_CharacterCustomize"] = function()
 			end
 		end
 
-		local optionPool = self.pools:GetPool("CharCustomizeOptionCheckButtonTemplate")
-		for button in optionPool:EnumerateActive() do
-			if not button.styled then
-				B.ReskinCheck(button.Button)
-				button.styled = true
+		local optionPool = self.pools:GetPool("CustomizationOptionCheckButtonTemplate")
+		if optionPool then
+			for button in optionPool:EnumerateActive() do
+				if not button.styled then
+					B.ReskinCheck(button.Button)
+					button.styled = true
+				end
 			end
 		end
 	end)
-
-	ReskinCustomizeTooltip(CharCustomizeNoHeaderTooltip)
 end
