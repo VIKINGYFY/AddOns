@@ -1,7 +1,6 @@
-## Changed in v77
+## Changed in v78
 
-* Updated Undermine coordinates from vignettes
-* Added You're My Friend Now achievement to Undermine
-* Hide a few of the Read Between the Lines points in Undermine before you've reached a certain point in the campaign
-* Delves: added Excavation Site 9 and Sidestreet Sluice
+* Show data on Skyrocketing and Breaknecking races in Undermine
+* Show the vendor Ditty Fuzeboy in Undermine
+* Don't interfere with race data from [Continental Racing](https://curseforge.com/wow/addons/continental-racing) if it's present
 

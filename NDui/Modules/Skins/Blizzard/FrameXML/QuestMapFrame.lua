@@ -166,8 +166,33 @@ C.OnLoginThemes["QuestMapFrame"] = function()
 	-- Events
 	local event = QuestMapFrame.EventsFrame
 	if event then
-		B.StripTextures(event.BorderFrame)
+		B.StripTextures(event)
 		B.ReskinScroll(event.ScrollBar)
+		event.ScrollBox.Background:Hide()
+
+		local function updateCategory(_, button)
+			if button.styled then return end
+			if button.Highlight then
+				button.Highlight:SetColorTexture(1, 1, 1, .25)
+				button.Highlight:SetInside()
+			end
+			if button.Label then
+				B.StripTextures(button)
+				button.Label:SetTextColor(1, 1, 1)
+				local bg = B.CreateBDFrame(button, .25)
+				bg:SetPoint("TOPLEFT", 1, -2)
+				bg:SetPoint("BOTTOMRIGHT", -1, 2)
+			end
+			if button.Location then
+				button.Location:SetFontObject(Game13Font)
+			end
+			if button.Icon and not button.Timeline then
+				button.Background:Hide()
+				B.SetGradient(button, "H", 0, 1, 0, .25, 0, 290, 38):SetPoint("LEFT")
+			end
+			button.styled = true
+		end
+		ScrollUtil.AddAcquiredFrameCallback(event.ScrollBox, updateCategory, event, true)
 	end
 
 	-- [[ Quest log popup detail frame ]]

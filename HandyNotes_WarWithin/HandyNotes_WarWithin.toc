@@ -2,7 +2,7 @@
 ## Title: HandyNotes: The War Within Treasures and Rares
 ## Notes: Where are the hidden treasures in the War Within?
 ## Author: Kemayo
-## Version: v77
+## Version: v78
 ## IconTexture: Interface\Icons\Ability_Spy
 ## DefaultState: enabled
 ## X-Category: Map

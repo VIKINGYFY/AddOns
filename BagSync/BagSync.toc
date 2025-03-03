@@ -1,17 +1,28 @@
-## Interface: 110100, 11505, 40402
+## Interface: 110100, 11506, 40402
 ## Title: BagSync
 ## Notes: BagSync tracks your characters items and displays it within tooltips.
 ## Notes-zhCN: BagSync 是统计您角色内的物品数量并将其显示在鼠标提示中.
 ## Notes-frFR: BagSync fait l'inventaire des objets de vos personnages et l'affiche dans des infobulles.
 ## Notes-deDE: BagSync verfolgt die Gegenstände Deiner Charaktere und zeigt sie in Tooltips an.
 ## Author: Xruptor
-## Version: 19.63
+## Version: 19.64
 ## IconTexture: Interface\AddOns\BagSync\media\icon
 ## X-Curse-Project-ID: 22067
 ## X-WoWI-ID: 15351
 ## X-Wago-ID: xZKxjQNk
 ## OptionalDeps: tekDebug
 ## SavedVariables: BagSyncDB
+## Category-enUS: Inventory
+## Category-deDE: Inventar
+## Category-esES: Inventario
+## Category-esMX: Inventario
+## Category-frFR: Inventaire
+## Category-itIT: Inventario
+## Category-koKR: 소지품
+## Category-ptBR: Inventário
+## Category-ruRU: Предметы
+## Category-zhCN: 物品栏
+## Category-zhTW: 物品欄
 
 libs\LibStub\LibStub.lua
 libs\CallbackHandler-1.0\CallbackHandler-1.0.xml

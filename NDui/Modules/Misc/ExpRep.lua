@@ -126,7 +126,7 @@ function M:ExpBar_UpdateTooltip()
 		if factionID and C_Reputation.IsMajorFaction(factionID) then
 			local majorFactionData = C_MajorFactions.GetMajorFactionData(factionID)
 			name = majorFactionData.name
-			standingtext = RENOWN_LEVEL_LABEL..majorFactionData.renownLevel
+			standingtext = format(RENOWN_LEVEL_LABEL, majorFactionData.renownLevel)
 
 			local isMaxRenown = C_MajorFactions.HasMaximumRenown(factionID)
 			if isMaxRenown then
