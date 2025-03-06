@@ -1681,6 +1681,10 @@ if not db.activate.HideMapNote then
                 minimap[2213][57574582] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. SLASH_EQUIP_SET1, type = "PvPVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
             end
 
+            if self.db.profile.showMiniMapAuctioneer then
+                minimap[2346][24554476] = { name = "", dnID = BLACK_MARKET_AUCTION_HOUSE, type = "BlackMarket", showInZone = false, showOnContinent = false, showOnMinimap = true }
+            end
+
         end
 
         end

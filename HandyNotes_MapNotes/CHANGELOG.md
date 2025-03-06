@@ -1,13 +1,5 @@
 # MapNote
-## [2.6.7](https://github.com/Ssesmar/MapNote) (2025-02-25)
-- Note:
-
-Retail
-    update for 11.1.0
-
-Classic
-    add first aid profession trainer icons
-
+## [2.6.8](https://github.com/Ssesmar/MapNote) (2025-03-03)
     
 - Description:
 

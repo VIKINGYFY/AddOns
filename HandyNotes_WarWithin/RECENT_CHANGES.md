@@ -1,6 +1,4 @@
-## Changed in v78
+## Chagned in v79
 
-* Show data on Skyrocketing and Breaknecking races in Undermine
-* Show the vendor Ditty Fuzeboy in Undermine
-* Don't interfere with race data from [Continental Racing](https://curseforge.com/wow/addons/continental-racing) if it's present
+* Undermine: added new loot for rares, consolidated the Steamboil / Handcrank parts
 

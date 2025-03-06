@@ -2,6 +2,20 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "ruRU")
 if not L then return end
 
+L["Profession detection"] = "Определение профессии"
+L["Automatically detects your professions and activates the corresponding professions icons on this map"] = "Автоматически определяет ваши профессии и активирует соответствующие значки профессий на этой карте"
+--classes
+L["Class detection"] = "Обнаружение класса"
+L["Automatically detects your class and activates the corresponding class trainer icons on this map"] = "Автоматически определяет ваш класс и активирует соответствующие значки тренеров класса на этой карте"
+L["Druid"] = "Друид"
+L["Hunter"] = "Охотник"
+L["Mage"] = "Mar"
+L["Paladin"] = "Паладин"
+L["Priest"] = "Жрец"
+L["Rogue"] = "Разбойник"
+L["Shaman"] = "Шаман"
+L["Warlock"] = "Чернокнижник"
+L["Warrior"] = "Воин"
 --0.08
 L["Has not been unlocked yet"] = "Еще не разблокирован"
 L["Displays location symbols on the Azeroth / Continent map for Horde and Alliance capitals with additional information about what is within that capital at MapNotes associated symbols"] = "Отображает символы местоположения на карте Азерота/Континента для столиц Орды и Альянса с дополнительной информацией о том, что находится в этой столице, в связанных символах MapNotes"

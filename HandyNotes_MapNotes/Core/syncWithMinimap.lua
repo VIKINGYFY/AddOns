@@ -16,6 +16,9 @@ local db = ns.Addon.db.profile
         --General Scale/Alpha
         db.MinimapCapitalsGeneralScale = db.CapitalsGeneralScale
         db.MinimapCapitalsGeneralAlpha = db.CapitalsGeneralAlpha
+        --Classes Scale/Alpha
+        db.MinimapCapitalsClassesScale = db.CapitalsClassesScale
+        db.MinimapCapitalsClassesAlpha = db.CapitalsClassesAlpha
     end
 
     if db.activate.SyncZoneAndMinimap then
@@ -58,6 +61,7 @@ local db = ns.Addon.db.profile
         db.activate.MinimapCapitalsTransporting = db.activate.CapitalsTransporting
         db.activate.MinimapCapitalsProfessions = db.activate.CapitalsProfessions
         db.activate.MinimapCapitalsGeneral = db.activate.CapitalsGeneral
+        db.activate.MinimapCapitalsClasses = db.activate.CapitalsClasses
         -- Capitals Capitals
         self.db.profile.showMinimapCapitalsOrgrimmar = self.db.profile.showCapitalsOrgrimmar
         self.db.profile.showMinimapCapitalsThunderBluff = self.db.profile.showCapitalsThunderBluff
@@ -96,6 +100,7 @@ local db = ns.Addon.db.profile
         -- Capitals Professions    
         self.db.profile.activate.MinimapCapitalsProfessions = self.db.profile.activate.CapitalsProfessions
         self.db.profile.showMinimapCapitalsProfessionOrders = self.db.profile.showCapitalsProfessionOrders
+        self.db.profile.showMinimapCapitalsProfessionDetection = self.db.profile.showCapitalsProfessionDetection
         self.db.profile.showMinimapCapitalsAlchemy = self.db.profile.showCapitalsAlchemy
         self.db.profile.showMinimapCapitalsLeatherworking = self.db.profile.showCapitalsLeatherworking
         self.db.profile.showMinimapCapitalsEngineer = self.db.profile.showCapitalsEngineer
@@ -127,6 +132,17 @@ local db = ns.Addon.db.profile
         self.db.profile.showMinimapCapitalsCatalyst = self.db.profile.showCapitalsCatalyst
         self.db.profile.showMinimapCapitalsStablemaster = self.db.profile.showCapitalsStablemaster
         self.db.profile.showMinimapCapitalsTradingPost = self.db.profile.showCapitalsTradingPost
+        -- Capital Classes
+        self.db.profile.showMinimapCapitalsClassAutomatically = self.db.profile.showCapitalsClassAutomatically
+        self.db.profile.showMinimapCapitalsClassDruid = self.db.profile.showCapitalsClassDruid
+        self.db.profile.showMinimapCapitalsClassHunter = self.db.profile.showCapitalsClassHunter
+        self.db.profile.showMinimapCapitalsClassMage = self.db.profile.showCapitalsClassMage
+        self.db.profile.showMinimapCapitalsClassPaladin = self.db.profile.showCapitalsClassPaladin
+        self.db.profile.showMinimapCapitalsClassPriest = self.db.profile.showCapitalsClassPriest
+        self.db.profile.showMinimapCapitalsClassRogue = self.db.profile.showCapitalsClassRogue
+        self.db.profile.showMinimapCapitalsClassShaman = self.db.profile.showCapitalsClassShaman
+        self.db.profile.showMinimapCapitalsClassWarlock = self.db.profile.showCapitalsClassWarlock
+        self.db.profile.showMinimapCapitalsClassWarrior = self.db.profile.showCapitalsClassWarrior
     end
 
     if db.activate.SyncZoneAndMinimap then

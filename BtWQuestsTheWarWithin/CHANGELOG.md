@@ -1,3 +1,7 @@
+# v7.1
+
+- Fixed an issue preventing uploads to Wago.io
+
 # v7.0
 
 - Updated for 11.1

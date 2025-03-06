@@ -1730,6 +1730,10 @@ if not db.activate.HideMapNote then
                 nodes[2214][72018315] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. MINIMAP_TRACKING_STABLEMASTER, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
+            if self.db.profile.showZoneAuctioneer then
+                nodes[2346][24554476] = { name = "", dnID = BLACK_MARKET_AUCTION_HOUSE, type = "BlackMarket", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            end
+
         end
 
         end

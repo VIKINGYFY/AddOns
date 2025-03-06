@@ -2,6 +2,20 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "zhTW")
 if not L then return end
 
+L["Profession detection"] = "專業檢測"
+L["Automatically detects your professions and activates the corresponding professions icons on this map"] = "自動偵測您的職業並啟動該地圖上對應的職業圖標S"
+--classes
+L["Class detection"] = "類別檢測"
+L["Automatically detects your class and activates the corresponding class trainer icons on this map"] = "自動偵測您的班級並啟動此地圖上對應的班級教練圖標"
+L["Druid"] = "德鲁伊"
+L["Hunter"] = "猎人"
+L["Mage"] = "法师"
+L["Paladin"] = "圣骑士"
+L["Priest"] = "牧师"
+L["Rogue"] = "潜行者"
+L["Shaman"] = "萨满祭司"
+L["Warlock"] = "术士"
+L["Warrior"] = "战士"
 --0.08
 L["Has not been unlocked yet"] = "尚未解鎖"
 L["Displays location symbols on the Azeroth / Continent map for Horde and Alliance capitals with additional information about what is within that capital at MapNotes associated symbols"] = "在艾澤拉斯/大陸地圖上顯示部落和聯盟首都的位置符號，並在 MapNotes 關聯符號中顯示有關該首都內內容的附加信息"

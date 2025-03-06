@@ -261,6 +261,16 @@ ns.icons = {
 ["GilneanF"] = "interface/characterframe/temporaryportrait-female-gilnean",
 ["KulM"] = "interface/characterframe/temporaryportrait-male-kultiran",
 ["DwarfF"] = "interface/characterframe/temporaryportrait-female-dwarf",
+--classes
+["Druid"] = "interface/icons/classicon_druid",
+["Hunter"] = "interface/icons/classicon_hunter",
+["Mage"] = "interface/icons/classicon_mage",
+["Paladin"] = "interface/icons/classicon_paladin",
+["Priest"] = "interface/icons/classicon_priest",
+["Rogue"] = "interface/icons/classicon_rogue",
+["Shaman"] = "interface/icons/classicon_shaman",
+["Warlock"] = "interface/icons/classicon_warlock",
+["Warrior"] = "interface/icons/classicon_warrior",
 }
 
 -- 1 number --self.IconFileX = IconFileX or 0    -- the total X (horizontal) pixels in the image file - not just the icon we want
@@ -483,3 +493,13 @@ TextIconGilneanF = TextIcon("interface/characterframe/temporaryportrait-female-g
 TextIconB11M = TextIcon"interface/characterframe/temporaryportrait-male-bloodelf"
 TextIconOrcF = TextIcon("Interface/CharacterFrame/TemporaryPortrait-Female-Orc")
 TextIconUndeadF = TextIcon("interface/characterframe/temporaryportrait-female-scourge")
+--classes
+TextIconClassDruid = TextIcon("interface/icons/classicon_druid")
+TextIconClassHunter = TextIcon("interface/icons/classicon_hunter")
+TextIconClassMage = TextIcon("interface/icons/classicon_mage")
+TextIconClassPaladin = TextIcon("interface/icons/classicon_paladin")
+TextIconClassPriest = TextIcon("interface/icons/classicon_priest")
+TextIconClassRogue = TextIcon("interface/icons/classicon_rogue")
+TextIconClassShaman = TextIcon("interface/icons/classicon_shaman")
+TextIconClassWarlock = TextIcon("interface/icons/classicon_warlock")
+TextIconClassWarrior = TextIcon("interface/icons/classicon_warrior")

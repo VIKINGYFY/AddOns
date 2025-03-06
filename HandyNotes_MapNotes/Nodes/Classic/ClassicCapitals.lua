@@ -131,6 +131,40 @@ if not db.activate.HideMapNote then
 
                 end
 
+            --ClassTrainers Orgrimmar
+                if self.db.profile.activate.CapitalsClasses then
+
+                    if self.db.profile.showCapitalsClassHunter then
+                        nodes[1454][66601480] = { dnID = L["Hunter"] .. " " .. PET_TYPE_PET .. " " .. TALENT_TRAINER, name = "", type = "Hunter", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                        nodes[1454][67071863] = { dnID = L["Hunter"] .. " " .. TALENT_TRAINER, name = "", type = "Hunter", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassMage then
+                        nodes[1454][38608580] = { dnID = L["Mage"] .. " " .. L["Portal"] .. " " .. TUTORIAL_TITLE14 .. "\n" .. L["Mage"] .. " " .. TALENT_TRAINER, name = "", type = "Mage", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassPriest then
+                        nodes[1454][35608760] = { dnID = L["Priest"] .. " " .. TALENT_TRAINER, name = "", type = "Priest", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassRogue then
+                        nodes[1454][43485290] = { dnID = L["Rogue"] .. " " .. TALENT_TRAINER, name = "", type = "Rogue", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassShaman then
+                        nodes[1454][37733617] = { dnID = L["Shaman"] .. " " .. TALENT_TRAINER, name = "", type = "Shaman", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassWarlock then
+                        nodes[1454][48184663] = { dnID = L["Warlock"] .. " " .. TALENT_TRAINER, name = "", type = "Warlock", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassWarrior then
+                        nodes[1454][79603160] = { dnID = L["Warrior"] .. " " .. TALENT_TRAINER, name = "", type = "Warrior", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                end
+
             end
         end
 
@@ -231,6 +265,38 @@ if not db.activate.HideMapNote then
 
                     if self.db.profile.showCapitalsMailbox then
                         nodes[1456][45505980] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                end
+
+            --ClassTrainers Thunder Bluff
+                if self.db.profile.activate.CapitalsClasses then
+
+                    if self.db.profile.showCapitalsClassDruid then
+                        nodes[1456][76962833] = { dnID = L["Druid"] .. " " .. TALENT_TRAINER, name = "", type = "Druid", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassHunter then
+                        nodes[1456][58178706] = { dnID = L["Hunter"] .. " " .. TALENT_TRAINER, name = "", type = "Hunter", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassMage then
+                        nodes[1456][22421684] = { dnID = L["Mage"] .. " " .. L["Portal"] .. " " .. TUTORIAL_TITLE14, name = "", type = "Mage", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                        nodes[1456][25731418] = { dnID = L["Mage"] .. " " .. TALENT_TRAINER, name = "", type = "Mage", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                        nodes[1456][30243002] = { dnID = L["Entrance"] .. " " .. L["Mage"] .. " " .. TALENT_TRAINER, name = "", type = "Mage", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassPriest then
+                        nodes[1456][25601560] = { dnID = L["Priest"] .. " " .. TALENT_TRAINER, name = "", type = "Priest", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                        nodes[1456][30243002] = { dnID = L["Entrance"] .. " " .. L["Priest"] .. " " .. TALENT_TRAINER, name = "", type = "Priest", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassShaman then
+                        nodes[1456][22621953] = { dnID = L["Shaman"] .. " " .. TALENT_TRAINER, name = "", type = "Shaman", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassWarrior then
+                        nodes[1456][58178706] = { dnID = L["Warrior"] .. " " .. TALENT_TRAINER, name = "", type = "Warrior", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     end
 
                 end
@@ -352,6 +418,34 @@ if not db.activate.HideMapNote then
 
                 end
 
+            --ClassTrainers Undercity
+                if self.db.profile.activate.CapitalsClasses then
+
+                    if self.db.profile.showCapitalsClassMage then
+                        nodes[1458][84201557] = { dnID = L["Mage"] .. " " .. L["Portal"] .. " " .. TUTORIAL_TITLE14, name = "", type = "Mage", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                        nodes[1458][85111005] = { dnID = L["Mage"] .. " " .. TALENT_TRAINER, name = "", type = "Mage", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                        nodes[1458][86081427] = { dnID = L["Mage"] .. " " .. TALENT_TRAINER, name = "", type = "Mage", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassPriest then
+                        nodes[1458][49151857] = { dnID = L["Priest"] .. " " .. TALENT_TRAINER, name = "", type = "Priest", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassRogue then
+                        nodes[1458][84527248] = { dnID = L["Rogue"] .. " " .. TALENT_TRAINER, name = "", type = "Rogue", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassWarlock then
+                        nodes[1458][88921582] = { dnID = L["Warlock"] .. " " .. TALENT_TRAINER, name = "", type = "Warlock", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                        nodes[1458][86081427] = { dnID = L["Warlock"] .. " " .. TALENT_TRAINER, name = "", type = "Warlock", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassWarrior then
+                        nodes[1458][47391591] = { dnID = L["Warrior"] .. " " .. TALENT_TRAINER, name = "", type = "Warrior", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                end
+
             end
 
         end
@@ -442,7 +536,7 @@ if not db.activate.HideMapNote then
                         nodes[1453][43116374] = { name = L["Enchanting"], type = "Enchanting", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
                     end
 
-                    if self.db.profile.showMinimapCapitalsFirstAid then
+                    if self.db.profile.showCapitalsFirstAid then
                         nodes[1453][42802660] = { name = PROFESSIONS_FIRST_AID, type = "FirstAid", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
                     end
                 end
@@ -471,6 +565,47 @@ if not db.activate.HideMapNote then
                         nodes[1453][40008420] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = true, showOnContinent = false, showOnMinimap = false }
                         nodes[1453][54506650] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = true, showOnContinent = false, showOnMinimap = false }
                         nodes[1453][71004050] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                end
+
+            --ClassTrainers Stormwind
+                if self.db.profile.activate.CapitalsClasses then
+
+                    if self.db.profile.showCapitalsClassDruid then
+                        nodes[1453][19805280] = { dnID = L["Druid"] .. " " .. TALENT_TRAINER, name = "", type = "Druid", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                        nodes[1453][21005560] = { dnID = L["Druid"] .. " " .. TALENT_TRAINER, name = "", type = "Druid", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                        nodes[1453][21605140] = { dnID = L["Druid"] .. " " .. TALENT_TRAINER, name = "", type = "Druid", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassHunter then
+                        nodes[1453][61771539] = { dnID = L["Hunter"] .. " " .. PET_TYPE_PET .. " " .. TALENT_TRAINER .. "\n" .. L["Hunter"] .. " " .. TALENT_TRAINER, name = "", type = "Hunter", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassMage then
+                        nodes[1453][38178075] = { dnID = L["Mage"] .. " " .. L["Portal"] .. " " .. TUTORIAL_TITLE14 .. "\n" .. L["Mage"] .. " " .. TALENT_TRAINER, name = "", type = "Mage", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassPaladin then
+                        nodes[1453][37703260] = { dnID = L["Paladin"] .. " " .. L["Portal"] .. " " .. TUTORIAL_TITLE14, name = "", type = "Paladin", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassPriest then
+                        nodes[1453][20685009] = { dnID = L["Priest"] .. " " .. TALENT_TRAINER, name = "", type = "Priest", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                        nodes[1453][38712647] = { dnID = L["Priest"] .. " " .. TALENT_TRAINER, name = "", type = "Priest", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassRogue then
+                        nodes[1453][74605277] = { dnID = L["Rogue"] .. " " .. TALENT_TRAINER, name = "", type = "Rogue", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                        nodes[1453][78325708] = { dnID = L["Rogue"] .. " " .. TALENT_TRAINER, name = "", type = "Rogue", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassWarlock then
+                        nodes[1453][27487634] = { dnID = L["Passage"] .. " " .. L["Warlock"] .. " " .. TALENT_TRAINER, name = "", type = "Warlock", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassWarrior then
+                        nodes[1453][78404661] = { dnID = L["Warrior"] .. " " .. TALENT_TRAINER .. "\n" .. "(" .. DUNGEON_FLOOR_GILNEAS3 .. ")", name = "", type = "Warrior", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     end
 
                 end
@@ -583,6 +718,39 @@ if not db.activate.HideMapNote then
 
                 end
 
+            --ClassTrainers Ironforge
+                if self.db.profile.activate.CapitalsClasses then
+
+                    if self.db.profile.showCapitalsClassHunter then
+                        nodes[1455][70558432] = { dnID = L["Hunter"] .. " " .. PET_TYPE_PET .. " " .. TALENT_TRAINER .. "\n" .. L["Hunter"] .. " " .. TALENT_TRAINER, name = "", type = "Hunter", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassMage then
+                        nodes[1455][26360773] = { dnID = L["Mage"] .. " " .. L["Portal"] .. " " .. TUTORIAL_TITLE14 .. "\n" .. L["Mage"] .. " " .. TALENT_TRAINER, name = "", type = "Mage", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassPaladin then
+                        nodes[1455][23890551] = { dnID = L["Paladin"] .. " " .. TALENT_TRAINER, name = "", type = "Paladin", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassPriest then
+                        nodes[1455][24830983] = { dnID = L["Priest"] .. " " .. TALENT_TRAINER, name = "", type = "Priest", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassRogue then
+                        nodes[1455][51951533] = { dnID = L["Rogue"] .. " " .. TALENT_TRAINER, name = "", type = "Rogue", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassWarlock then
+                        nodes[1455][50480666] = { dnID = L["Warlock"] .. " " .. TALENT_TRAINER, name = "", type = "Warlock", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassWarrior then
+                        nodes[1455][66668907] = { dnID = L["Warrior"] .. " " .. TALENT_TRAINER, name = "", type = "Warrior", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+                    
+                end
+
             end
 
         end
@@ -685,6 +853,36 @@ if not db.activate.HideMapNote then
                     if self.db.profile.showMinimapCapitalsFirstAid then
                         nodes[1457][51601360] = { name = PROFESSIONS_FIRST_AID, type = "FirstAid", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
                     end
+                end
+
+            --ClassTrainers Darnassus
+                if self.db.profile.activate.CapitalsClasses then
+
+                    if self.db.profile.showCapitalsClassDruid then
+                        nodes[1457][34260862] = { dnID = L["Druid"] .. " " .. TALENT_TRAINER, name = "", type = "Druid", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassHunter then
+                        nodes[1457][42390804] = { dnID = L["Hunter"] .. " " .. PET_TYPE_PET .. " " .. TALENT_TRAINER .. "\n" .. L["Hunter"] .. " " .. TALENT_TRAINER, name = "", type = "Hunter", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                        nodes[1457][40370855] = { dnID = L["Hunter"] .. " " .. TALENT_TRAINER, name = "", type = "Hunter", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassMage then
+                        nodes[1457][40608210] = { dnID = L["Mage"] .. " " .. L["Portal"] .. " " .. TUTORIAL_TITLE14, name = "", type = "Mage", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassPriest then
+                        nodes[1457][37928271] = { dnID = L["Priest"] .. " " .. TALENT_TRAINER, name = "", type = "Priest", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassRogue then
+                        nodes[1457][32411635] = { dnID = L["Entrance"] .. " " .. L["Rogue"] .. " " .. TALENT_TRAINER, name = "", type = "Rogue", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsClassWarrior then
+                        nodes[1457][58613511] = { dnID = L["Warrior"] .. " " .. TALENT_TRAINER, name = "", type = "Warrior", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+                    
                 end
 
             end

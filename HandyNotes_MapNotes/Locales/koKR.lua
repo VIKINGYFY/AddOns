@@ -2,6 +2,20 @@
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "koKR")
 if not L then return end
 
+L["Profession detection"] = "직업 감지"
+L["Automatically detects your professions and activates the corresponding professions icons on this map"] = "자동으로 귀하의 직업을 감지하고 이 지도에서 해당 직업 아이콘을 활성화합니다"
+--classes
+L["Class detection"] = "클래스 감지"
+L["Automatically detects your class and activates the corresponding class trainer icons on this map"] = "자동으로 클래스를 감지하고 이 맵에서 해당 클래스 트레이너 아이콘을 활성화합니다"
+L["Druid"] = "드루이드"
+L["Hunter"] = "사냥꾼"
+L["Mage"] = "마법사"
+L["Paladin"] = "성기사"
+L["Priest"] = "사제"
+L["Rogue"] = "도적"
+L["Shaman"] = "주술사"
+L["Warlock"] = "흑마법사"
+L["Warrior"] = "전사"
 --0.08
 L["Has not been unlocked yet"] = "아직 잠금이 해제되지 않았습니다"
 L["Displays location symbols on the Azeroth / Continent map for Horde and Alliance capitals with additional information about what is within that capital at MapNotes associated symbols"] = "MapNotes 관련 기호에서 해당 수도 내에 무엇이 있는지에 대한 추가 정보와 함께 호드 및 얼라이언스 수도의 아제로스/대륙 지도에 위치 기호를 표시합니다"

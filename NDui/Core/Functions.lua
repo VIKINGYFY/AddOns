@@ -1489,6 +1489,7 @@ do
 		for _, frame in ipairs(list) do
 			frame.Border:SetTexture("")
 			frame.Portrait:SetTexture("")
+
 			if not frame.bg then
 				frame.bg = B.ReskinIcon(frame.Portrait)
 			end
@@ -1499,6 +1500,8 @@ do
 				local _, _, filedataid = C_ChallengeMode.GetAffixInfo(frame.affixID)
 				frame.Portrait:SetTexture(filedataid)
 			end
+
+			frame.bg:SetShown(frame.Portrait:GetTexture() ~= nil)
 		end
 	end
 
