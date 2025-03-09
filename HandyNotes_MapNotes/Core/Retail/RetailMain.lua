@@ -1625,6 +1625,12 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
   Addon:RegisterEvent("ZONE_CHANGED")
   Addon:RegisterEvent("ZONE_CHANGED_INDOORS")
 
+  -- Check for Class
+  ns.AutomaticClassDetectionCapital()
+
+  -- Check for Professions
+  ns.AutomaticProfessionDetection()
+
   -- Check if Blizz Instance entrances is true then remove Blizzard Pins
   if ns.Addon.db.profile.activate.RemoveBlizzInstances then
     SetCVar("showDungeonEntrancesOnMap", 0)
@@ -1730,7 +1736,6 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
   WorldMapFrame:HookScript("OnShow", function()
     ns.RemoveBlizzPOIs()
   end)
-
 
 end
 

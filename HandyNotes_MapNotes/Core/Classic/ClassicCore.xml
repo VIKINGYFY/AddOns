@@ -5,6 +5,4 @@
     <Script file="ClassicMmb.lua"/>
     <Script file="ClassicWmb.lua"/>
     <Script file="ClassicFogOfWar.lua"/>
-    <Script file="ClassicClasses.lua"/>
-    <Script file="ClassicProfessions.lua"/>
 </Ui>

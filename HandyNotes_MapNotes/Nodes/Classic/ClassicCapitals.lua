@@ -56,7 +56,7 @@ if not db.activate.HideMapNote then
 
                     if self.db.profile.showCapitalsBlacksmith then
                         nodes[1454][80762367] = { name = L["Blacksmithing"], type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-                        nodes[1454][81661943] = { name = L["Blacksmithing"] , type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION .. " " .. AUCTION_CATEGORY_WEAPONS}
+                        --nodes[1454][81661943] = { name = L["Blacksmithing"] , type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION .. " " .. AUCTION_CATEGORY_WEAPONS}
                     end
 
                     if self.db.profile.showCapitalsMining then
@@ -127,6 +127,10 @@ if not db.activate.HideMapNote then
                     if self.db.profile.showCapitalsMailbox then
                         nodes[1454][50707037] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = true, showOnContinent = false, showOnMinimap = false }
                         nodes[1454][62504020] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsWeaponMasters then
+                        nodes[1454][81601940] = { dnID = L["Weapon Master"] .. "\n" .. "\n" .. "• " .. L["Bows"] .. "\n" .. "• " .. L["Daggers"] .. "\n" .. "• " .. L["One-Handed Axes"] .. "\n" .. "• " .. L["Fist Weapons"] .. "\n" .. "• " .. L["Thrown"] .. "\n" .. "• " .. L["Two-Handed Axes"] .. "\n" .. "• " .. L["Staves"], name = "", type = "PvPVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     end
 
                 end
@@ -265,6 +269,10 @@ if not db.activate.HideMapNote then
 
                     if self.db.profile.showCapitalsMailbox then
                         nodes[1456][45505980] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsWeaponMasters then
+                        nodes[1456][41006220] = { dnID = L["Weapon Master"] .. "\n" .. "\n" .. "• " .. L["One-Handed Maces"] .. "\n" .. "• " .. L["Guns"] .. "\n" .. "• " .. L["Staves"] .. "\n" .. "• " .. L["Two-Handed Maces"], name = "", type = "PvPVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     end
 
                 end
@@ -414,6 +422,10 @@ if not db.activate.HideMapNote then
 
                     if self.db.profile.showCapitalsMailbox then
                         nodes[1458][67903850] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsWeaponMasters then
+                        nodes[1458][57803160] = { dnID = L["Weapon Master"] .. "\n" .. "\n" .. "• " .. L["Crossbows"] .. "\n" .. "• " .. L["Daggers"] .. "\n" .. "• " .. L["One-Handed Swords"] .. "\n" .. "• " .. L["Polearms"] .. "\n" .. "• " .. L["Two-Handed Swords"], name = "", type = "PvPVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     end
 
                 end
@@ -567,6 +579,10 @@ if not db.activate.HideMapNote then
                         nodes[1453][71004050] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     end
 
+                    if self.db.profile.showCapitalsWeaponMasters then
+                        nodes[1453][57005760] = { dnID = L["Weapon Master"] .. "\n" .. "\n" .. "• " .. L["Crossbows"] .. "\n" .. "• " .. L["Daggers"] .. "\n" .. "• " .. L["One-Handed Swords"] .. "\n" .. "• " .. L["Staves"] .. "\n" .. "• " .. L["Polearms"] .. "\n" .. "• " .. L["Two-Handed Swords"], name = "", type = "PvPVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
                 end
 
             --ClassTrainers Stormwind
@@ -716,6 +732,10 @@ if not db.activate.HideMapNote then
                         nodes[1455][72504960] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     end
 
+                    if self.db.profile.showCapitalsWeaponMasters then
+                        nodes[1455][61608920] = { dnID = L["Weapon Master"] .. "\n" .. "\n" .. "• " .. L["One-Handed Maces"] .. "\n" .. "• " .. L["One-Handed Axes"] .. "\n" .. "• " .. L["Fist Weapons"] .. "\n" .. "• " .. L["Guns"] .. "\n" .. "• " .. L["Two-Handed Maces"] .. "\n" .. "• " .. L["Two-Handed Axes"] .. "\n" .. "• " .. L["Crossbows"] .. "\n" .. "• " .. L["Daggers"] .. "\n" .. "• " .. L["Thrown"], name = "", type = "PvPVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
                 end
 
             --ClassTrainers Ironforge
@@ -802,6 +822,10 @@ if not db.activate.HideMapNote then
 
                     if self.db.profile.showCapitalsMailbox then
                         nodes[1457][41904140] = { dnID = MINIMAP_TRACKING_MAILBOX, name = "", type = "Mailbox", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    end
+
+                    if self.db.profile.showCapitalsWeaponMasters then
+                        nodes[1457][57604660] = { dnID = L["Weapon Master"] .. "\n" .. "\n" .. "• " .. L["Bows"] .. "\n" .. "• " .. L["Daggers"] .. "\n" .. "• " .. L["Fist Weapons"] .. "\n" .. "• " .. L["Staves"] .. "\n" .. "• " .. L["Thrown"], name = "", type = "PvPVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     end
 
                 end

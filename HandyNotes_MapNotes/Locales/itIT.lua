@@ -2,6 +2,23 @@
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "itIT")
 if not L then return end
 
+-- weapon types
+L["Bows"] = "Bows"
+L["Crossbows"] = "Crossbows"
+L["Daggers"] = "Daggers"
+L["Fist Weapons"] = "Fist Weapons"
+L["Guns"] = "Guns"
+L["One-Handed Axes"] = "One-Handed Axes"
+L["One-Handed Maces"] = "One-Handed Maces"
+L["One-Handed Swords"] = "One-Handed Swords"
+L["Polearms"] = "Polearms"
+L["Staves"] = "Staves"
+L["Thrown"] = "Thrown"
+L["Two-Handed Axes"] = "Two-Handed Axes"
+L["Two-Handed Maces"] = "Two-Handed Maces"
+L["Two-Handed Swords"] = "Two-Handed Swords"
+L["Wands"] = "Wands"
+--professions
 L["Profession detection"] = "Rilevamento della professione"
 L["Automatically detects your professions and activates the corresponding professions icons on this map"] = "Rileva automaticamente le tue professioni e attiva le icone delle professioni corrispondenti su questa mappa"
 --classes
@@ -16,6 +33,7 @@ L["Rogue"] = "Ladro"
 L["Shaman"] = "Sciamano"
 L["Warlock"] = "Stregone"
 L["Warrior"] = "Guerriero"
+L["Weapon Master"] = "Maestro d'armi"
 --0.08
 L["Has not been unlocked yet"] = "Non è stato ancora sbloccato"
 L["Displays location symbols on the Azeroth / Continent map for Horde and Alliance capitals with additional information about what is within that capital at MapNotes associated symbols"] = "Visualizza i simboli di posizione sulla mappa Azeroth/Continente per le capitali dell'Orda e dell'Alleanza con informazioni aggiuntive su cosa si trova all'interno di quella capitale nei simboli associati a MapNotes"
@@ -479,6 +497,7 @@ L["Bilgewater Cartel"] = "Cartello degli Acqualorda"
 L["Blackwater Cartel"] = "Cartello degli Acquanera"
 L["Steamwheedle Cartel"] = "Cartello degli Spargifumo"
 L["Venture Company"] = "S.P.R. & Co."
+L["Darkfuse Solutions"] = "Soluzioni Micciascura"
 -- 14
 L["Displays zone icons on a specific continent"] = "Visualizza icone della zona in un continente specifico"
 L["Zidormi"] = "Zidormi"

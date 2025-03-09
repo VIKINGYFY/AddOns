@@ -132,6 +132,7 @@ local db = ns.Addon.db.profile
         self.db.profile.showMinimapCapitalsCatalyst = self.db.profile.showCapitalsCatalyst
         self.db.profile.showMinimapCapitalsStablemaster = self.db.profile.showCapitalsStablemaster
         self.db.profile.showMinimapCapitalsTradingPost = self.db.profile.showCapitalsTradingPost
+        self.db.profile.showMinimapCapitalsWeaponMasters = self.db.profile.showCapitalsWeaponMasters
         -- Capital Classes
         self.db.profile.showMinimapCapitalsClassAutomatically = self.db.profile.showCapitalsClassAutomatically
         self.db.profile.showMinimapCapitalsClassDruid = self.db.profile.showCapitalsClassDruid
@@ -191,6 +192,7 @@ local db = ns.Addon.db.profile
         -- Zone Professions    
         self.db.profile.activate.MiniMapProfessions = self.db.profile.activate.ZoneProfessions
         self.db.profile.showMiniMapProfessionOrders = self.db.profile.showZoneProfessionOrders
+        self.db.profile.showMiniMapProfessionDetection = self.db.profile.showZoneProfessionDetection
         self.db.profile.showMiniMapAlchemy = self.db.profile.showZoneAlchemy
         self.db.profile.showMiniMapLeatherworking = self.db.profile.showZoneLeatherworking
         self.db.profile.showMiniMapEngineer = self.db.profile.showZoneEngineer

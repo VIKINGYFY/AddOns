@@ -2,6 +2,23 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "ruRU")
 if not L then return end
 
+-- weapon types
+L["Bows"] = "Луки"
+L["Crossbows"] = "Арбалеты"
+L["Daggers"] = "Кинжалы"
+L["Fist Weapons"] = "Кистевое оружие"
+L["Guns"] = "Ружья"
+L["One-Handed Axes"] = "Одноручные топоры"
+L["One-Handed Maces"] = "Одноручное ударное оружие"
+L["One-Handed Swords"] = "Одноручные мечи"
+L["Polearms"] = "Древковое оружие"
+L["Staves"] = "Посохи"
+L["Thrown"] = "Бросок"
+L["Two-Handed Axes"] = "Двуручные топоры"
+L["Two-Handed Maces"] = "Двуручное ударное оружие"
+L["Two-Handed Swords"] = "Двуручные мечи"
+L["Wands"] = "Жезлы"
+--professions
 L["Profession detection"] = "Определение профессии"
 L["Automatically detects your professions and activates the corresponding professions icons on this map"] = "Автоматически определяет ваши профессии и активирует соответствующие значки профессий на этой карте"
 --classes
@@ -16,6 +33,7 @@ L["Rogue"] = "Разбойник"
 L["Shaman"] = "Шаман"
 L["Warlock"] = "Чернокнижник"
 L["Warrior"] = "Воин"
+L["Weapon Master"] = "Эксперт по оружию"
 --0.08
 L["Has not been unlocked yet"] = "Еще не разблокирован"
 L["Displays location symbols on the Azeroth / Continent map for Horde and Alliance capitals with additional information about what is within that capital at MapNotes associated symbols"] = "Отображает символы местоположения на карте Азерота/Континента для столиц Орды и Альянса с дополнительной информацией о том, что находится в этой столице, в связанных символах MapNotes"
@@ -479,6 +497,7 @@ L["Bilgewater Cartel"] = "Картель Трюмных Вод"
 L["Blackwater Cartel"] = "Картель Черноводья"
 L["Steamwheedle Cartel"] = "Картель Хитрой Шестеренки"
 L["Venture Company"] = "Торговая компания"
+L["Darkfuse Solutions"] = "Мрачные Решалы"
 -- 14
 L["Displays zone icons on a specific continent"] = "Отображает значки зон на определенном континенте"
 L["Zidormi"] = "Зидорми"

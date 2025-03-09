@@ -2,6 +2,23 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "zhTW")
 if not L then return end
 
+-- weapon types
+L["Bows"] = "弓"
+L["Crossbows"] = "弩"
+L["Daggers"] = "投掷"
+L["Fist Weapons"] = "拳套"
+L["Guns"] = "枪械"
+L["One-Handed Axes"] = "单手斧"
+L["One-Handed Maces"] = "单手锤"
+L["One-Handed Swords"] = "单手剑"
+L["Polearms"] = "长柄武器"
+L["Staves"] = "法杖"
+L["Thrown"] = "投掷"
+L["Two-Handed Axes"] = "双手斧"
+L["Two-Handed Maces"] = "双手锤"
+L["Two-Handed Swords"] = "双手剑"
+L["Wands"] = "魔杖"
+--professions
 L["Profession detection"] = "專業檢測"
 L["Automatically detects your professions and activates the corresponding professions icons on this map"] = "自動偵測您的職業並啟動該地圖上對應的職業圖標S"
 --classes
@@ -16,6 +33,7 @@ L["Rogue"] = "潜行者"
 L["Shaman"] = "萨满祭司"
 L["Warlock"] = "术士"
 L["Warrior"] = "战士"
+L["Weapon Master"] = "武器大师"
 --0.08
 L["Has not been unlocked yet"] = "尚未解鎖"
 L["Displays location symbols on the Azeroth / Continent map for Horde and Alliance capitals with additional information about what is within that capital at MapNotes associated symbols"] = "在艾澤拉斯/大陸地圖上顯示部落和聯盟首都的位置符號，並在 MapNotes 關聯符號中顯示有關該首都內內容的附加信息"
@@ -479,6 +497,7 @@ L["Bilgewater Cartel"] = "污水企業聯"
 L["Blackwater Cartel"] = "黑水集團"
 L["Steamwheedle Cartel"] = "熱砂企業"
 L["Venture Company"] = "風險投資公"
+L["Darkfuse Solutions"] = "暗索处理服务"
 -- 14
 L["Displays zone icons on a specific continent"] = "在特定大陸上顯示區域圖示"
 L["Zidormi"] = "希多尔米"

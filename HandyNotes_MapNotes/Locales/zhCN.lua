@@ -2,6 +2,23 @@
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "zhCN")
 if not L then return end
 
+-- weapon types
+L["Bows"] = "弓"
+L["Crossbows"] = "弩"
+L["Daggers"] = "投掷"
+L["Fist Weapons"] = "拳套"
+L["Guns"] = "枪械"
+L["One-Handed Axes"] = "单手斧"
+L["One-Handed Maces"] = "单手锤"
+L["One-Handed Swords"] = "单手剑"
+L["Polearms"] = "长柄武器"
+L["Staves"] = "法杖"
+L["Thrown"] = "投掷"
+L["Two-Handed Axes"] = "双手斧"
+L["Two-Handed Maces"] = "双手锤"
+L["Two-Handed Swords"] = "双手剑"
+L["Wands"] = "魔杖"
+--professions
 L["Profession detection"] = "专业检测"
 L["Automatically detects your professions and activates the corresponding professions icons on this map"] = "自动检测您的职业并激活此地图上相应的职业图标"
 --classes
@@ -16,6 +33,7 @@ L["Rogue"] = "潜行者"
 L["Shaman"] = "萨满祭司"
 L["Warlock"] = "术士"
 L["Warrior"] = "战士"
+L["Weapon Master"] = "武器大师"
 --0.08
 L["Has not been unlocked yet"] = "尚未解锁"
 L["Displays location symbols on the Azeroth / Continent map for Horde and Alliance capitals with additional information about what is within that capital at MapNotes associated symbols"] = "在艾泽拉斯/大陆地图上显示部落和联盟首都的位置符号，并在 MapNotes 关联符号中显示有关该首都内内容的附加信息"
@@ -478,7 +496,8 @@ L["Siren Isle"] = "塞壬岛"
 L["Bilgewater Cartel"] = "锈水财阀"
 L["Blackwater Cartel"] = "黑水财阀"
 L["Steamwheedle Cartel"] = "热砂港"
-L["Venture Company"] = "风险投资公司"
+L["Venture Company"] = "风险投资公司S"
+L["Darkfuse Solutions"] = "暗索处理服务"
 -- 14
 L["Displays zone icons on a specific continent"] = "在特定大陆上显示区域图标"
 L["Zidormi"] = "希多尔米"

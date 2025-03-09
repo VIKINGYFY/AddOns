@@ -2,6 +2,23 @@
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "koKR")
 if not L then return end
 
+-- weapon types
+L["Bows"] = "활"
+L["Crossbows"] = "석궁"
+L["Daggers"] = "단검"
+L["Fist Weapons"] = "장착 무기류"
+L["Guns"] = "총"
+L["One-Handed Axes"] = "한손 도끼"
+L["One-Handed Maces"] = "한손 철퇴"
+L["One-Handed Swords"] = "한손 검"
+L["Polearms"] = "장창류"
+L["Staves"] = "지팡이"
+L["Thrown"] = "투척"
+L["Two-Handed Axes"] = "양손 도끼"
+L["Two-Handed Maces"] = "양손 철퇴"
+L["Two-Handed Swords"] = "양손 검"
+L["Wands"] = "마법봉"
+--professions
 L["Profession detection"] = "직업 감지"
 L["Automatically detects your professions and activates the corresponding professions icons on this map"] = "자동으로 귀하의 직업을 감지하고 이 지도에서 해당 직업 아이콘을 활성화합니다"
 --classes
@@ -16,6 +33,7 @@ L["Rogue"] = "도적"
 L["Shaman"] = "주술사"
 L["Warlock"] = "흑마법사"
 L["Warrior"] = "전사"
+L["Weapon Master"] = "무기 전문가"
 --0.08
 L["Has not been unlocked yet"] = "아직 잠금이 해제되지 않았습니다"
 L["Displays location symbols on the Azeroth / Continent map for Horde and Alliance capitals with additional information about what is within that capital at MapNotes associated symbols"] = "MapNotes 관련 기호에서 해당 수도 내에 무엇이 있는지에 대한 추가 정보와 함께 호드 및 얼라이언스 수도의 아제로스/대륙 지도에 위치 기호를 표시합니다"
@@ -479,6 +497,7 @@ L["Bilgewater Cartel"] = "빌지워터 무역회사"
 L["Blackwater Cartel"] = "블랙워터 무역회사 "
 L["Steamwheedle Cartel"] = "스팀휘들 무역회사"
 L["Venture Company"] = "투자개발회사"
+L["Darkfuse Solutions"] = "다크퓨즈 흥신사무소"
 -- 14
 L["Displays zone icons on a specific continent"] = "특정 대륙에 영역 아이콘을 표시합니다"
 L["Zidormi"] = "지도르미"

@@ -1,8 +1,9 @@
 local ADDON_NAME, ns = ...
 
+function ns.AutomaticClassDetectionCapital()
+
 local playerClass, englishClass, classIndex = UnitClass("player");
 
-function ns.AutomaticClassDetectionCapital()
     if ns.Addon.db.profile.activate.CapitalsClasses then
         if ns.Addon.db.profile.showCapitalsClassDetection then
             if englishClass == "DRUID" then
@@ -108,11 +109,6 @@ function ns.AutomaticClassDetectionCapital()
         end
     end
 
-    ns.Addon:FullUpdate()
-    HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-end
-
-function ns.AutomaticClassDetectionCapitalMinimap()
     if ns.Addon.db.profile.activate.MinimapCapitalsClasses then
         if ns.Addon.db.profile.showMinimapCapitalsClassDetection then
             if englishClass == "DRUID" then

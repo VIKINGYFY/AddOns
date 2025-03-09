@@ -2,6 +2,22 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "enUS", true)
 
 
+-- weapon types
+L["Bows"] = true
+L["Crossbows"] = true
+L["Daggers"] = true
+L["Fist Weapons"] = true
+L["Guns"] = true
+L["One-Handed Axes"] = true
+L["One-Handed Maces"] = true
+L["One-Handed Swords"] = true
+L["Polearms"] = true
+L["Staves"] = true
+L["Thrown"] = true
+L["Two-Handed Axes"] = true
+L["Two-Handed Maces"] = true
+L["Two-Handed Swords"] = true
+L["Wands"] = true
 --professions
 L["Profession detection"] = true
 L["Automatically detects your professions and activates the corresponding professions icons on this map"] = true
@@ -17,6 +33,7 @@ L["Rogue"] = true
 L["Shaman"] = true
 L["Warlock"] = true
 L["Warrior"] = true
+L["Weapon Master"] = true
 --0.08
 L["Has not been unlocked yet"] = true
 L["Displays location symbols on the Azeroth / Continent map for Horde and Alliance capitals with additional information about what is within that capital at MapNotes associated symbols"] = true
@@ -481,6 +498,7 @@ L["Bilgewater Cartel"] = true
 L["Blackwater Cartel"] = true
 L["Steamwheedle Cartel"] = true
 L["Venture Company"] = true
+L["Darkfuse Solutions"] = true
 -- 14
 L["Displays zone icons on a specific continent"] = true
 L["Zidormi"] = true

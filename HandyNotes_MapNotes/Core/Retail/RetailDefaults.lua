@@ -219,6 +219,7 @@ ns.defaults = {
     -- MiniMap Professions
       MiniMapProfessionsScale = 1.5,
       MiniMapProfessionsAlpha = 1,
+      showMiniMapProfessionDetection = false,
       showMiniMapProfessionOrders = true,
       showMiniMapAlchemy = true,
       showMiniMapEngineer = true,
@@ -292,6 +293,7 @@ ns.defaults = {
       ZoneProfessionsScale = 1.5,
       ZoneProfessionsAlpha = 1,
       ZoneProfessionsMixed = true,
+      showZoneProfessionDetection = false,
       showZoneProfessionOrders = true,
       showZoneAlchemy = true,
       showZoneEngineer = true,
@@ -453,6 +455,7 @@ ns.defaults = {
     -- Capital Professions
       CapitalsProfessionsScale = 1.5,
       CapitalsProfessionsAlpha = 1,
+      showCapitalsProfessionDetection = false,
       showCapitalsProfessionsMixed = true,
       showCapitalsProfessionOrders = true,
       showCapitalsAlchemy = true,
@@ -469,6 +472,7 @@ ns.defaults = {
       showCapitalsHerbalism = true,
       showCapitalsInscription = true,
       showCapitalsEnchanting = true,
+      showCapitalsFirstAid = true,
 
     --Capital General
       CapitalsGeneralScale = 1.5,
@@ -536,6 +540,7 @@ ns.defaults = {
     -- Capital Minimap Professions
       MinimapCapitalsProfessionsScale = 1.5,
       MinimapCapitalsProfessionsAlpha = 1,
+      showMinimapCapitalsProfessionDetection = false,
       showMinimapCapitalsProfessionsMixed = true,
       showMinimapCapitalsProfessionOrders = true,
       showMinimapCapitalsAlchemy = true,
@@ -552,6 +557,7 @@ ns.defaults = {
       showMinimapCapitalsHerbalism = true,
       showMinimapCapitalsInscription = true,
       showMinimapCapitalsEnchanting = true,
+      showMinimapCapitalsFirstAid = true,
 
     --Capital Minimap General
       MinimapCapitalsGeneralScale = 1.5,

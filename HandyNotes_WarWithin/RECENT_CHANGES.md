@@ -1,4 +1,5 @@
-## Chagned in v79
+## Changed in v81
 
-* Undermine: added new loot for rares, consolidated the Steamboil / Handcrank parts
+* Undermine: add quest for Gallagio Garbage and move it to the side of the map
+* World bosses: add the Gobfather
 
