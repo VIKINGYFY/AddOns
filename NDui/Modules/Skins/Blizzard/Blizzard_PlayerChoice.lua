@@ -70,9 +70,9 @@ C.OnLoadThemes["Blizzard_PlayerChoice"] = function()
 			if optionFrame.BackgroundContainer then B.StripTextures(optionFrame.BackgroundContainer) end
 
 			local optionButtonsContainer = optionFrame.OptionButtonsContainer
-			if optionButtonsContainer and optionButtonsContainer.buttonPool then
-				for button in optionButtonsContainer.buttonPool:EnumerateActive() do
-					ReskinOptionButton(button)
+			if optionButtonsContainer and optionButtonsContainer.buttonFramePool then
+				for frame in optionButtonsContainer.buttonFramePool:EnumerateActive() do
+					ReskinOptionButton(frame.Button)
 				end
 			end
 
