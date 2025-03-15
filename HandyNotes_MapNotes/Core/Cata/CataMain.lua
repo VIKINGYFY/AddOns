@@ -17,6 +17,7 @@ local lfgIDs = { }
 local extraInformations = { }
 
 ns.RestoreStaticPopUps()
+ns.CreateAndCopyLink()
 
 function MapNotesMiniButton:OnInitialize() --mmb.lua
   self.db = LibStub("AceDB-3.0"):New("MNMiniMapButtonCataDB", { profile = { minimap = { hide = false, }, }, }) 
@@ -818,6 +819,9 @@ function Addon:PLAYER_LOGIN()
   Addon:RegisterEvent("ZONE_CHANGED_NEW_AREA")
   Addon:RegisterEvent("ZONE_CHANGED")
   Addon:RegisterEvent("ZONE_CHANGED_INDOORS")
+
+  -- Check for Professions
+  ns.AutomaticProfessionDetection()
 
   if ns.Addon.db.profile.activate.HideMMB then -- minimap button
     MNMMBIcon:Hide("MNMiniMapButton")

@@ -2,6 +2,13 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "zhTW")
 if not L then return end
 
+-- create and copy links
+L["Use CTRL + C to copy the link"] = "使用 CTRL + C 複製鏈接"
+L["If the link or email address is colored blue in the chat, the link is ready to be copied"] = "如果連結或電子郵件地址在聊天中以藍色突出顯示，則可以複製該連結"
+L["Links are only generated after the feature is activated. Links or email addresses created before activation will not be recognized retroactively"] = "僅在啟動該功能後才會產生連結。啟動之前創建的連結或電子郵件地址將不會被追溯識別"
+L["Enables you to copy links and email addresses from the chat"] = "使您能夠從聊天中複製連結和電子郵件地址"
+L["Clicking a link in the chat opens a separate window"] = "點擊聊天中的連結會打開一個單獨的窗口"
+L["The window closes automatically after copying"] = "複製後視窗自動關閉"
 -- weapon types
 L["Bows"] = "弓"
 L["Crossbows"] = "弩"
@@ -56,7 +63,7 @@ L["< Shift + Right Click add TomTom waypoint >"] = "< Shift +右鍵單擊TomTom 
 L["< Alt + Right click to delete this icon >"] = "< alt +右鍵單擊以刪除此圖標 >"
 L["This applies to the following tabs"] = "這適用於以下選項卡"
 L["Middle mouse button to post the link in the chat"] = "滑鼠中鍵可在聊天中發布連結"
-L["Use the addon 'Prat', 'Chat Copy Paste' for example to then copy this link from the chat"] = "例如，使用外掛程式“Prat”、“聊天複製貼上”從聊天中複製此鏈接"
+L["Activate the „Link“ function from MapNotes in the General tab to create clickable links and email addresses in the chat"] = "在「常規」標籤中啟動 MapNotes 中的「連結」功能，以在聊天中建立可點擊的連結和電子郵件地址"
 L["This will immediately abort and end the current instance run!"] = "這將立即中止並結束當前實例運行！"
 L["With Alt + right click it is now possible to remove any MapNotes icon"] = "使用 Alt + 右鍵單擊現在可以刪除任何 MapNotes 圖示"
 L["If 'Tooltip' is activated, an additional tooltip will be added to the icons showing how to interact with this feature"] = "如果啟動“工具提示”，圖示中將添加額外的工具提示，顯示如何與此功能交互"
@@ -371,6 +378,7 @@ L["Boralus, Tiragarde Sound"] = "伯拉勒斯，提拉加德海峽"
 L["Valdrakken"] = "瓦德拉肯"
 L["Badlands"] = "荒蕪之地"
 L["Oribos"] = "奧睿博斯"
+L["Maldraxxus"] = "玛卓克萨斯"
 L["Azsuna"] = "艾蘇納"
 L["Uldum"] = "奧丹姆"
 L["Dazar'alor"] = "達薩羅"
@@ -498,6 +506,8 @@ L["Blackwater Cartel"] = "黑水集團"
 L["Steamwheedle Cartel"] = "熱砂企業"
 L["Venture Company"] = "風險投資公"
 L["Darkfuse Solutions"] = "暗索处理服务"
+L["The Cartels of Undermine"] = "安德麦财阀"
+L["S.C.R.A.P. Exchange"] = "S.C.R.A.P.交易"
 -- 14
 L["Displays zone icons on a specific continent"] = "在特定大陸上顯示區域圖示"
 L["Zidormi"] = "希多尔米"

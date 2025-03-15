@@ -745,7 +745,7 @@ if not db.activate.HideMapNote then
               minimap[2256][43559029] = { id = 1273, type = "Raid", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Nerub-ar Palace
               minimap[2213][35047242] = { id = 1273, type = "Raid", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Nerub-ar Palace              
               minimap[2216][35047242] = { id = 1273, type = "Raid", dnID = DUNGEON_FLOOR_GILNEAS3, showInZone = false, showOnContinent = false, showOnMinimap = true } -- Nerub-ar Palace
-              minimap[2346][41554877] = { id = 1296, type = "Raid", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Liberation of Undermine
+              minimap[2346][42045031] = { id = 1296, type = "Raid", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Liberation of Undermine
             end
 
           -- Khaz Algar Delves

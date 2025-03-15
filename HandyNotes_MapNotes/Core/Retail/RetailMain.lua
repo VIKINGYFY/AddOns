@@ -20,6 +20,7 @@ local lfgIDs = { }
 local extraInformations = { }
 
 ns.RestoreStaticPopUpsRetail()
+ns.CreateAndCopyLink()
 
 function MapNotesMiniButton:OnInitialize() --mmb.lua
   self.db = LibStub("AceDB-3.0"):New("MNMiniMapButtonRetailDB", { profile = { minimap = { hide = false, }, }, }) 
@@ -198,7 +199,7 @@ ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
           tooltip:AddDoubleLine("|cffffffff" .. nodeData.wwwLink, nil, nil, false)
           tooltip:AddLine("\n" .. L["Has not been unlocked yet"] .. "\n" .. "\n", 1, 0, 0)
           if ns.Addon.db.profile.ExtraTooltip then
-            tooltip:AddDoubleLine("|cff00ff00".. "< " .. L["Middle mouse button to post the link in the chat"] .. " >" .. "\n" .. "< " .. L["Use the addon 'Prat', 'Chat Copy Paste' for example to then copy this link from the chat"] .. " >", nil, nil, false)
+            tooltip:AddDoubleLine("|cff00ff00".. "< " .. L["Middle mouse button to post the link in the chat"] .. " >" .. "\n" .. "< " .. L["Activate the „Link“ function from MapNotes in the General tab to create clickable links and email addresses in the chat"] .. " >", nil, nil, false)
           end
         end
       end
@@ -1276,6 +1277,9 @@ local wwwLink = nodes[uiMapId][coord].wwwLink
 local questID = nodes[uiMapId][coord].questID
 local achievementID = nodes[uiMapId][coord].achievementID
 
+ns.achievementID = nodes[uiMapId][coord].achievementID
+ns.questID = nodes[uiMapId][coord].questID
+
 local mapInfo = C_Map.GetMapInfo(uiMapId)
 local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() == 87  or WorldMapFrame:GetMapID() == 89 or WorldMapFrame:GetMapID() == 103 or WorldMapFrame:GetMapID() == 85
                 or WorldMapFrame:GetMapID() == 90 or WorldMapFrame:GetMapID() == 86 or WorldMapFrame:GetMapID() == 88 or WorldMapFrame:GetMapID() == 110  or WorldMapFrame:GetMapID() == 111
@@ -1285,7 +1289,6 @@ local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() ==
                 or WorldMapFrame:GetMapID() == 1161 or WorldMapFrame:GetMapID() == 1163 or WorldMapFrame:GetMapID() == 1164 or WorldMapFrame:GetMapID() == 1165 or WorldMapFrame:GetMapID() == 1670
                 or WorldMapFrame:GetMapID() == 1671 or WorldMapFrame:GetMapID() == 1672 or WorldMapFrame:GetMapID() == 1673 or WorldMapFrame:GetMapID() == 2112 or WorldMapFrame:GetMapID() == 2339
                 or WorldMapFrame:GetMapID() == 503 or WorldMapFrame:GetMapID() == 2266
-
 
   StaticPopupDialogs["Delete_Icon?"] = {
     text = TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. ": " .. L["Delete this icon"] .. " ? " .. TextIconMNL4:GetIconString(),
@@ -1364,12 +1367,14 @@ local CapitalIDs = WorldMapFrame:GetMapID() == 84 or WorldMapFrame:GetMapID() ==
     end
 
     if (button == "MiddleButton") then
-      if wwwLink and not (achievementID or questID) then
+      if wwwLink and not (ns.achievementID or ns.questID) then
         print(wwwLink)
-      elseif questID then
-        print("wowhead.com/quest=" .. questID)
-      elseif achievementID then
-        print("wowhead.com/achievement=" .. achievementID)
+      elseif ns.questID then
+        --SendChatMessage("www.wowhead.com/quest=" .. questID, "WHISPER", "Common", GetUnitName("PLAYER"));
+        print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_QUEST, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/quest=" .. ns.questID)
+      elseif ns.achievementID then
+        print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/achievement=" .. ns.achievementID)
+        --SendChatMessage("MapNotes: https://www.wowhead.com/achievement=" .. achievementID, "WHISPER", "Common", GetUnitName("PLAYER"));
       end
     end
 

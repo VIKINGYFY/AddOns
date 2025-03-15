@@ -21,6 +21,7 @@ ns.defaults = {
       assignedgray = true,
       graymultipleID = true,
       ChatMassage = false,
+      CreateAndCopyLinks = true,
       RestoreZoneDeletedIcons = false,
       RestoreContinentDeletedIcons = false,
       RestoreAzerothDeletedIcons = false,

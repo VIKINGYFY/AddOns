@@ -2,6 +2,13 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "ruRU")
 if not L then return end
 
+-- create and copy links
+L["Use CTRL + C to copy the link"] = "Используйте CTRL + C, чтобы скопировать ссылку"
+L["If the link or email address is colored blue in the chat, the link is ready to be copied"] = "Если ссылка или адрес электронной почты выделены синим цветом в чате, ссылку можно скопировать"
+L["Links are only generated after the feature is activated. Links or email addresses created before activation will not be recognized retroactively"] = "Ссылки генерируются только после активации функции. Ссылки или адреса электронной почты, созданные до активации, не будут распознаны задним числом"
+L["Enables you to copy links and email addresses from the chat"] = "Позволяет копировать ссылки и адреса электронной почты из чата"
+L["Clicking a link in the chat opens a separate window"] = "Нажатие ссылки в чате открывает отдельное окно"
+L["The window closes automatically after copying"] = "Окно автоматически закрывается после копирования"
 -- weapon types
 L["Bows"] = "Луки"
 L["Crossbows"] = "Арбалеты"
@@ -56,7 +63,7 @@ L["< Shift + Right Click add TomTom waypoint >"] = "< Shift + Щелкните �
 L["< Alt + Right click to delete this icon >"] = "< ALT + щелкните правой кнопкой мыши, чтобы удалить этот значок >"
 L["This applies to the following tabs"] = "Это относится к следующим вкладкам"
 L["Middle mouse button to post the link in the chat"] = "Средняя кнопка мыши, чтобы опубликовать ссылку в чате"
-L["Use the addon 'Prat', 'Chat Copy Paste' for example to then copy this link from the chat"] = "Используйте, например, аддон «Prat», «Chat Copy Paste», чтобы затем скопировать эту ссылку из чата"
+L["Activate the „Link“ function from MapNotes in the General tab to create clickable links and email addresses in the chat"] = "Активируйте функцию «Ссылка» из MapNotes на вкладке «Общие», чтобы создавать кликабельные ссылки и адреса электронной почты в чате"
 L["This will immediately abort and end the current instance run!"] = "Это немедленно прервет и завершит текущий запуск экземпляра!"
 L["With Alt + right click it is now possible to remove any MapNotes icon"] = "С помощью Alt + щелчок правой кнопкой мыши теперь можно удалить любой значок MapNotes"
 L["If 'Tooltip' is activated, an additional tooltip will be added to the icons showing how to interact with this feature"] = "Если активирована «Подсказка», к значкам будет добавлена ​​дополнительная подсказка, показывающая, как взаимодействовать с этой функцией"
@@ -371,6 +378,7 @@ L["Boralus, Tiragarde Sound"] = "Боралус, Тирагардское пом
 L["Valdrakken"] = "Вальдраккен"
 L["Badlands"] = "Бесплодные земли"
 L["Oribos"] = "Орибос"
+L["Maldraxxus"] = "Малдраксус"
 L["Azsuna"] = "Азсуна"
 L["Uldum"] = "Ульдум"
 L["Dazar'alor"] = "Дазар'алор"
@@ -498,6 +506,8 @@ L["Blackwater Cartel"] = "Картель Черноводья"
 L["Steamwheedle Cartel"] = "Картель Хитрой Шестеренки"
 L["Venture Company"] = "Торговая компания"
 L["Darkfuse Solutions"] = "Мрачные Решалы"
+L["The Cartels of Undermine"] = "Картели Нижней Шахты"
+L["S.C.R.A.P. Exchange"] = "Обмен ХЛАМа"
 -- 14
 L["Displays zone icons on a specific continent"] = "Отображает значки зон на определенном континенте"
 L["Zidormi"] = "Зидорми"

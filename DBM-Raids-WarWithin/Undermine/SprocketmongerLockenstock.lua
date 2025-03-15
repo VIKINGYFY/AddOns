@@ -2,7 +2,7 @@ if DBM:GetTOC() < 110100 then return end
 local mod	= DBM:NewMod(2653, "DBM-Raids-WarWithin", 1, 1296)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250307060041")
+mod:SetRevision("20250312033145")
 mod:SetCreatureID(230583)
 mod:SetEncounterID(3013)
 mod:SetHotfixNoticeRev(20250209000000)
@@ -114,17 +114,17 @@ local savedDifficulty = "normal"
 local allTimers = {
 	["mythic"] = {
 		--Foot Blasters
-		[1217231] = {12.1, 33.0, 30.0, 30.0},
+		[1217231] = {12.0, 33.9, 30.0},
 		--Wire Transfer
-		[1218418] = {0, 40.9, 69.9},
+		[1218418] = {0, 41.9, 59.9},
 		--Screw Up
-		[1216508] = {18.0, 30.0, 32.0, 27.0},
+		[1216508] = {18.0, 33.9, 33.0},
 		--Sonic Boom
-		[465232] = {8.9, 25.0, 27.0, 31.9, 17.9},
+		[465232] = {9.0, 25.0, 27.0, 27.0, 21.0},
 		--Pyro Party Pack
-		[1214872] = {23.0, 33.0, 30.0},
+		[1214872] = {21.0, 46.0, 46.0},
 		--Polarization
-		[1217355] = {4, 66.9, 46.0},
+		[1217355] = {4, 67.0, 46.0},
 	},
 	["heroic"] = {
 		--Foot Blasters
@@ -434,16 +434,16 @@ function mod:SPELL_AURA_REMOVED(args)
 		self.vb.sonicBoomCount = 0
 		self.vb.wireTransferCount = 0
 		--Restart timers
-		timerSonicBoomCD:Start(allTimers[savedDifficulty][465232][1], 1)
+		timerSonicBoomCD:Start(allTimers[savedDifficulty][465232][1] - 2, 1)
 		if self:IsHard() then
-			timerFootBlastersCD:Start(allTimers[savedDifficulty][1217231][1], 1)
+			timerFootBlastersCD:Start(allTimers[savedDifficulty][1217231][1] - 2, 1)
 			if self:IsMythic() then
-				timerPolarizationGeneratorCD:Start(allTimers[savedDifficulty][1217355][1], 1)
+				timerPolarizationGeneratorCD:Start(allTimers[savedDifficulty][1217355][1] - 2, 1)
 			end
 		end
-		timerPyroPartyPackCD:Start(allTimers[savedDifficulty][1214872][1], 1)
+		timerPyroPartyPackCD:Start(allTimers[savedDifficulty][1214872][1] - 2, 1)
 		timerActivateInventionsCD:Start(30, 1)
-		timerScrewUpCD:Start(allTimers[savedDifficulty][1216508][1], 1)
+		timerScrewUpCD:Start(allTimers[savedDifficulty][1216508][1] - 2, 1)
 
 		if self.vb.betaCount == 2 then
 			timerGigaDeathCD:Start(120)

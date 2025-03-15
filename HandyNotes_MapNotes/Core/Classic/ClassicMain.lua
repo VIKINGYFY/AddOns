@@ -17,6 +17,7 @@ local lfgIDs = { }
 local extraInformations = { }
 
 ns.RestoreStaticPopUps()
+ns.CreateAndCopyLink()
 
 function MapNotesMiniButton:OnInitialize() --mmb.lua
   self.db = LibStub("AceDB-3.0"):New("MNMiniMapButtonClassicDB", { profile = { minimap = { hide = false, }, }, }) 

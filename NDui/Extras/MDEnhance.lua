@@ -154,7 +154,7 @@ function EX:TButton_OnLeave(parent)
 end
 
 function EX:MDEnhance_UpdateEnhance(parent, spellIDs)
-	if not parent or not spellIDs then return end
+	if not parent then return end
 
 	local spellID = self:MDEnhance_SelectSpellID(spellIDs)
 	parent.TButton:SetAttribute("type", "spell")

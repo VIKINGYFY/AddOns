@@ -130,7 +130,7 @@ function ns.AutomaticProfessionDetection()
     local cooking = IsSpellKnown(818) -- Cooking fire 
             or IsSpellKnown(2550) -- Vanilla
 
-    local firstAid = IsSpellKnown(3273) or IsSpellKnown(3274) or IsSpellKnown(7924) or IsSpellKnown(10846)
+    local firstAid = IsSpellKnown(3273) or IsSpellKnown(3274) or IsSpellKnown(7924) or IsSpellKnown(10846) or IsSpellKnown(27028) or IsSpellKnown(45542)
 
     local fishing = IsSpellKnown(7620) or IsSpellKnown(7731) or IsSpellKnown(7732) or IsSpellKnown(18248) or IsSpellKnown(131474)
             or IsSpellKnown(271990) -- Vanilla
