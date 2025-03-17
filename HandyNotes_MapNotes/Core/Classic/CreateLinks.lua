@@ -37,8 +37,8 @@ function ns.CreateAndCopyLink()
                       "CHANNEL10" 
                       }
 
+-- only Classic and Cataclysm
   local DefaultSetItemRef = SetItemRef
-
   function SetItemRef(link, ...)
     local type, value = link:match("(%a+):(.+)")
     if (type == "url") then

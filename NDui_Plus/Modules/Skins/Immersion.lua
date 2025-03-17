@@ -75,6 +75,9 @@ function S:Immersion()
 	local ModelBG = B.CreateBDFrame(MainFrame.Model, 0)
 	ModelBG:SetFrameLevel(MainFrame.Model:GetFrameLevel() + 1)
 
+	local ProgressionBar = TalkBox.ProgressionBar
+	B.ReskinStatusBar(ProgressionBar, true)
+
 	local ReputationBar = TalkBox.ReputationBar
 	ReputationBar.icon:SetPoint("TOPLEFT", -30, 6)
 	B.StripTextures(ReputationBar)

@@ -7,7 +7,6 @@
     <Script file="ClassicImages.lua"/>
     <Script file="ClassesDetection.lua"/>
     <Script file="ProfessionDetection.lua"/>
-    <Script file="CreateLinks.lua"/>
     <Include file="wmb-template.xml"/>
     <Include file="Retail\RetailCore.xml"/>
 </Ui>

@@ -20,7 +20,6 @@ local lfgIDs = { }
 local extraInformations = { }
 
 ns.RestoreStaticPopUpsRetail()
-ns.CreateAndCopyLink()
 
 function MapNotesMiniButton:OnInitialize() --mmb.lua
   self.db = LibStub("AceDB-3.0"):New("MNMiniMapButtonRetailDB", { profile = { minimap = { hide = false, }, }, }) 
@@ -1629,6 +1628,9 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
   Addon:RegisterEvent("ZONE_CHANGED_NEW_AREA")
   Addon:RegisterEvent("ZONE_CHANGED")
   Addon:RegisterEvent("ZONE_CHANGED_INDOORS")
+
+  -- Check for Links
+  ns.CreateAndCopyLink()
 
   -- Check for Class
   ns.AutomaticClassDetectionCapital()
