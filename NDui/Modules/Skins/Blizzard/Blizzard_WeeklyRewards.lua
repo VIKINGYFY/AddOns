@@ -81,7 +81,7 @@ local function Reskin_SelectReward(self)
 		end
 
 		local alsoItemsFrame = confirmFrame.AlsoItemsFrame
-		if alsoItemsFrame then
+		if alsoItemsFrame and alsoItemsFrame.pool then
 			for frame in alsoItemsFrame.pool:EnumerateActive() do
 				Reskin_Reward(frame)
 			end

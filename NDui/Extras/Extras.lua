@@ -18,7 +18,8 @@ function EX:OnLogin()
 	end
 
 	self:ActionBarGlow()
-	self:AutoSetFilter()
+	self:DisableCPUStats()
+	self:DisableGuildFilter()
 	self:InstanceAutoMarke()
 	self:InstanceDifficulty()
 	self:InstanceReset()
@@ -40,8 +41,14 @@ function EX:AutoHideName()
 	SetCVar("UnitNameFriendlyTotemName", 0)
 end
 
--- 自动关掉公会过滤，防止卡屏
-function EX:AutoSetFilter()
+-- 禁用插件列表CPU统计，防止卡屏
+function EX:DisableCPUStats()
+	C_CVar.RegisterCVar("addonProfilerEnabled", "1")
+	C_CVar.SetCVar("addonProfilerEnabled", "0")
+end
+
+-- 禁用公会过滤，防止卡屏
+function EX:DisableGuildFilter()
 	for i=1, 9 do
 		SetGuildNewsFilter(i, 0)
 	end
