@@ -15,6 +15,6 @@ C.OnLoadThemes["Blizzard_ChromieTimeUI"] = function()
 	header.Text:SetFontObject(SystemFont_Huge1)
 	B.CreateBDFrame(header, .25)
 
-	frame.CurrentlySelectedExpansionInfoFrame.Name:SetTextColor(1, .8, 0)
+	frame.CurrentlySelectedExpansionInfoFrame.Name:SetTextColor(1, 1, 0)
 	frame.CurrentlySelectedExpansionInfoFrame.Description:SetTextColor(1, 1, 1)
 end

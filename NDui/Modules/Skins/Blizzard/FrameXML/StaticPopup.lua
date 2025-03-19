@@ -14,7 +14,7 @@ end
 
 local function updateMinorButtonState(button)
 	if button:GetChecked() then
-		button.bg:SetBackdropColor(1, .8, 0, .25)
+		button.bg:SetBackdropColor(1, 1, 0, .25)
 	else
 		button.bg:SetBackdropColor(0, 0, 0, .25)
 	end

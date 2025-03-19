@@ -122,7 +122,7 @@ local function ReskinMissionComplete(self)
 	local missionComplete = self.MissionComplete
 	local bonusRewards = missionComplete.BonusRewards
 	if bonusRewards then
-		select(11, bonusRewards:GetRegions()):SetTextColor(1, .8, 0)
+		select(11, bonusRewards:GetRegions()):SetTextColor(1, 1, 0)
 		B.StripTextures(bonusRewards.Saturated)
 		for i = 1, 9 do
 			select(i, bonusRewards:GetRegions()):SetAlpha(0)
@@ -300,7 +300,7 @@ local function ReskinMissionFrame(self)
 	if self.ClassHallIcon then self.ClassHallIcon:Hide() end
 	if self.TitleScroll then
 		B.StripTextures(self.TitleScroll)
-		select(4, self.TitleScroll:GetRegions()):SetTextColor(1, .8, 0)
+		select(4, self.TitleScroll:GetRegions()):SetTextColor(1, 1, 0)
 	end
 	if self.MapTab then self.MapTab.ScrollContainer.Child.TiledBackground:Hide() end
 
@@ -468,7 +468,7 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 	B.CreateBDFrame(townHallBox, .25)
 	B.ReskinButton(infoBox.UpgradeButton)
 	B.ReskinButton(townHallBox.UpgradeButton)
-	GarrisonBuildingFrame.MapFrame.TownHall.TownHallName:SetTextColor(1, .8, 0)
+	GarrisonBuildingFrame.MapFrame.TownHall.TownHallName:SetTextColor(1, 1, 0)
 
 	local followerPortrait = infoBox.FollowerPortrait
 	B.ReskinGarrisonPortrait(followerPortrait)
@@ -884,7 +884,7 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 	GarrisonShipyardFrame.MissionCompleteBackground:GetRegions():Hide()
 	GarrisonShipyardFrame.MissionTab.MissionList.CompleteDialog:GetRegions():Hide()
 	B.ReskinButton(GarrisonShipyardFrame.MissionTab.MissionList.CompleteDialog.BorderFrame.ViewButton)
-	select(11, GarrisonShipyardFrame.MissionComplete.BonusRewards:GetRegions()):SetTextColor(1, .8, 0)
+	select(11, GarrisonShipyardFrame.MissionComplete.BonusRewards:GetRegions()):SetTextColor(1, 1, 0)
 	B.ReskinButton(GarrisonShipyardFrame.MissionComplete.NextMissionButton)
 
 	-- Orderhall UI
@@ -985,7 +985,7 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 						for j = 1, #groups do
 							local group = groups[j]
 							B.ReskinButton(group)
-							reskinWidgetFont(group.Features, 1, .8, 0)
+							reskinWidgetFont(group.Features, 1, 1, 0)
 						end
 					end
 
@@ -1002,7 +1002,7 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 			B.SetBD(WarPlanFrame)
 			B.StripTextures(WarPlanFrame.ArtFrame)
 			B.ReskinClose(WarPlanFrame.ArtFrame.CloseButton)
-			reskinWidgetFont(WarPlanFrame.ArtFrame.TitleText, 1, .8, 0)
+			reskinWidgetFont(WarPlanFrame.ArtFrame.TitleText, 1, 1, 0)
 
 			reskinWarPlanMissions(WarPlanFrame)
 			WarPlanFrame:HookScript("OnShow", reskinWarPlanMissions)
@@ -1132,16 +1132,16 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 					reskinWidgetFont(peek("enemyHP"), 1, 1, 1)
 					reskinWidgetFont(peek("enemyATK"), 1, 1, 1)
 					reskinWidgetFont(peek("animaCost"), 0, 1, 1)
-					reskinWidgetFont(peek("duration"), 1, .8, 0)
-					reskinWidgetFont(widget.CDTDisplay:GetFontString(), 1, .8, 0)
+					reskinWidgetFont(peek("duration"), 1, 1, 0)
+					reskinWidgetFont(widget.CDTDisplay:GetFontString(), 1, 1, 0)
 				elseif otype == "CopyBoxUI" then
 					B.ReskinButton(widget.ResetButton)
 					B.ReskinClose(widget.CloseButton2)
 					reskinWidgetFont(widget.Intro, 1, 1, 1)
 					B.ReskinInput(widget.FirstInputBox)
-					reskinWidgetFont(widget.FirstInputBoxLabel, 1, .8, 0)
+					reskinWidgetFont(widget.FirstInputBoxLabel, 1, 1, 0)
 					B.ReskinInput(widget.SecondInputBox)
-					reskinWidgetFont(widget.SecondInputBoxLabel, 1, .8, 0)
+					reskinWidgetFont(widget.SecondInputBoxLabel, 1, 1, 0)
 					reskinWidgetFont(widget.VersionText, 1, 1, 1)
 				elseif otype == "MissionList" then
 					B.StripTextures(widget)
@@ -1264,7 +1264,7 @@ local atlasToColor = {
 	["none"] = {0, 0, 0},
 	["orderhalltalents-spellborder"] = {0, 0, 0},
 	["orderhalltalents-spellborder-green"] = {.08, .7, 0},
-	["orderhalltalents-spellborder-yellow"] = {1, .8, 0},
+	["orderhalltalents-spellborder-yellow"] = {1, 1, 0},
 }
 
 local function updateTalentBorder(bu, atlas)

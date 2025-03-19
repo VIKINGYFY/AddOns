@@ -52,13 +52,13 @@ function S:RematchInput()
 end
 
 local function scrollEndOnLeave(self)
-	self.__texture:SetVertexColor(1, .8, 0)
+	self.__texture:SetVertexColor(1, 1, 0)
 end
 
 function S:ReskinScrollEnd(direction)
 	B.ReskinArrow(self, direction)
 	self:SetSize(18, 18)
-	self.__texture:SetVertexColor(1, .8, 0)
+	self.__texture:SetVertexColor(1, 1, 0)
 	self:HookScript("OnLeave", scrollEndOnLeave)
 end
 
@@ -230,7 +230,7 @@ function S:ReskinRematchElements()
 
 	B.StripTextures(loadoutPanel)
 	local bg = B.CreateBDFrame(loadoutPanel)
-	bg:SetBackdropColor(1, .8, 0, .1)
+	bg:SetBackdropColor(1, 1, 0, .1)
 	bg:SetPoint("TOPLEFT", -C.mult, -C.mult)
 	bg:SetPoint("BOTTOMRIGHT", C.mult, C.mult)
 

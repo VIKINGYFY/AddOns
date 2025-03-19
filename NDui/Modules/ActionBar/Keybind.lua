@@ -48,8 +48,8 @@ function Bar:Bind_Create()
 	frame:EnableKeyboard(true)
 	frame:EnableMouseWheel(true)
 	B.CreateBD(frame, 1)
-	frame:SetBackdropColor(1, .8, 0, .25)
-	frame:SetBackdropBorderColor(1, .8, 0)
+	frame:SetBackdropColor(1, 1, 0, .25)
+	frame:SetBackdropBorderColor(1, 1, 0)
 	frame:Hide()
 
 	frame:SetScript("OnEnter", function()
@@ -65,7 +65,7 @@ function Bar:Bind_Create()
 			for i = 1, #frame.bindings do
 				GameTooltip:AddDoubleLine(i, frame.bindings[i], 1,1,1, 0,1,0)
 			end
-			GameTooltip:AddLine(L["UnbindTip"], 1,.8,0, 1)
+			GameTooltip:AddLine(L["UnbindTip"], 1,1,0, 1)
 		end
 		GameTooltip:Show()
 	end)

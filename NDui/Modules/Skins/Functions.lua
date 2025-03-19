@@ -105,7 +105,7 @@ do
 				local child = select(i, self.ScrollTarget:GetChildren())
 				if child.Icon and not child.styled then
 					child:DisableDrawLayer("BACKGROUND")
-					child.SelectedTexture:SetColorTexture(1, .8, 0, .5)
+					child.SelectedTexture:SetColorTexture(1, 1, 0, .5)
 					child.SelectedTexture:SetAllPoints(child.Icon)
 					local hl = child:GetHighlightTexture()
 					hl:SetColorTexture(1, 1, 1, .25)

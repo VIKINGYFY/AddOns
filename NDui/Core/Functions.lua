@@ -595,7 +595,9 @@ do
 		if color and type(color) == "boolean" then
 			fs:SetTextColor(cr, cg, cb)
 		elseif color == "system" then
-			fs:SetTextColor(1, .8, 0)
+			fs:SetTextColor(1, 1, 0)
+		elseif color == "info" then
+			fs:SetTextColor(0, 1, 1)
 		end
 		if anchor and x and y then
 			fs:SetJustifyH(justifyList[anchor])
@@ -626,7 +628,7 @@ do
 			if self.color == "class" then
 				r, g, b = cr, cg, cb
 			elseif self.color == "system" then
-				r, g, b = 1, .8, 0
+				r, g, b = 1, 1, 0
 			elseif self.color == "info" then
 				r, g, b = 0, 1, 1
 			end
@@ -793,7 +795,7 @@ do
 			end
 		end
 
-		local bg = B.CreateBDFrame(self, .25, nil, -1) -- exclude from opacity control
+		local bg = B.CreateBDFrame(self, .25, nil, -1)
 		if shadow then B.CreateSD(bg) end
 
 		return bg
@@ -1208,6 +1210,7 @@ do
 
 	-- Handle editbox
 	function B:ReskinInput(height, width)
+		self:DisableDrawLayer("BACKGROUND")
 		B.CleanTextures(self)
 
 		if height then self:SetHeight(height) end
@@ -1365,7 +1368,7 @@ do
 
 		local bar = CreateFrame("StatusBar", nil, bg)
 		bar:SetStatusBarTexture(DB.normTex)
-		bar:SetStatusBarColor(1, .8, 0, .5)
+		bar:SetStatusBarColor(1, 1, 0, .5)
 		if vertical then
 			bar:SetPoint("BOTTOMLEFT", bg, C.mult, C.mult)
 			bar:SetPoint("BOTTOMRIGHT", bg, -C.mult, C.mult)
@@ -1401,7 +1404,7 @@ do
 		B.UpdateSize(bg, 10, -offset, -10, offset)
 		local bar = CreateFrame("StatusBar", nil, bg)
 		bar:SetStatusBarTexture(DB.normTex)
-		bar:SetStatusBarColor(1, .8, 0, .5)
+		bar:SetStatusBarColor(1, 1, 0, .5)
 		bar:SetPoint("TOPLEFT", bg, C.mult, -C.mult)
 		bar:SetPoint("BOTTOMLEFT", bg, C.mult, C.mult)
 		bar:SetPoint("RIGHT", thumb, "CENTER")
@@ -1500,8 +1503,6 @@ do
 				local _, _, filedataid = C_ChallengeMode.GetAffixInfo(frame.affixID)
 				frame.Portrait:SetTexture(filedataid)
 			end
-
-			frame.bg:SetShown(frame.Portrait:GetTexture() ~= nil)
 		end
 	end
 
@@ -1554,7 +1555,7 @@ do
 		B.ReskinCheck(cb)
 
 		if system then
-			cb.bg:SetBackdropBorderColor(1, .8, 0)
+			cb.bg:SetBackdropBorderColor(1, 1, 0)
 		end
 
 		cb.Type = "CheckBox"
@@ -1584,7 +1585,7 @@ do
 		local opt = self.__owner.options
 		for i = 1, #opt do
 			if self == opt[i] then
-				opt[i]:SetBackdropColor(1, .8, 0, .25)
+				opt[i]:SetBackdropColor(1, 1, 0, .25)
 				opt[i].selected = true
 			else
 				opt[i]:SetBackdropColor(0, 0, 0, .25)
@@ -1658,9 +1659,9 @@ do
 		list:SetSize(width, index*(height+2) + 6)
 
 		if system then
-			dd:SetBackdropBorderColor(1, .8, 0)
-			dd.button.__bg:SetBackdropBorderColor(1, .8, 0)
-			dd.button.__list:SetBackdropBorderColor(1, .8, 0)
+			dd:SetBackdropBorderColor(1, 1, 0)
+			dd.button.__bg:SetBackdropBorderColor(1, 1, 0)
+			dd.button.__list:SetBackdropBorderColor(1, 1, 0)
 		end
 
 		dd.Type = "DropDown"
@@ -1768,7 +1769,7 @@ do
 		slider.Text:ClearAllPoints()
 		slider.Text:SetPoint("CENTER", 0, 25)
 		slider.Text:SetText(name)
-		slider.Text:SetTextColor(1, .8, 0)
+		slider.Text:SetTextColor(1, 1, 0)
 		slider.value = B.CreateEditBox(slider, 50, 20)
 		slider.value:SetPoint("TOP", slider, "BOTTOM")
 		slider.value:SetJustifyH("CENTER")

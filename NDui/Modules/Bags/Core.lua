@@ -342,7 +342,7 @@ end
 
 local function updateDepositButtonStatus(bu)
 	if C.db["Bags"]["AutoDeposit"] then
-		bu.bg:SetBackdropBorderColor(1, .8, 0)
+		bu.bg:SetBackdropBorderColor(1, 1, 0)
 	else
 		B.SetBorderColor(bu.bg)
 	end
@@ -374,7 +374,7 @@ end
 
 local function updateAccountBankDeposit(bu)
 	if GetCVarBool("bankAutoDepositReagents") then
-		bu.bg:SetBackdropBorderColor(1, .8, 0)
+		bu.bg:SetBackdropBorderColor(1, 1, 0)
 	else
 		B.SetBorderColor(bu.bg)
 	end
@@ -403,7 +403,7 @@ local function ToggleBackpacks(self)
 	local parent = self.__owner
 	B:TogglePanel(parent.BagBar)
 	if parent.BagBar:IsShown() then
-		self.bg:SetBackdropBorderColor(1, .8, 0)
+		self.bg:SetBackdropBorderColor(1, 1, 0)
 		PlaySound(SOUNDKIT.IG_BACKPACK_OPEN)
 	else
 		B.SetBorderColor(self.bg)
@@ -579,7 +579,7 @@ function module:CreateSplitButton()
 		module:SelectToggleButton(1)
 		splitEnable = not splitEnable
 		if splitEnable then
-			self.bg:SetBackdropBorderColor(1, .8, 0)
+			self.bg:SetBackdropBorderColor(1, 1, 0)
 			self.text = enabledText
 			splitFrame:Show()
 			editbox:SetText(C.db["Bags"]["SplitCount"])
@@ -693,7 +693,7 @@ function module:CreateFavouriteButton()
 		module:SelectToggleButton(2)
 		favouriteEnable = not favouriteEnable
 		if favouriteEnable then
-			self.bg:SetBackdropBorderColor(1, .8, 0)
+			self.bg:SetBackdropBorderColor(1, 1, 0)
 			self.text = enabledText
 		else
 			self.__turnOff()
@@ -755,7 +755,7 @@ function module:CreateJunkButton()
 		module:SelectToggleButton(3)
 		customJunkEnable = not customJunkEnable
 		if customJunkEnable then
-			self.bg:SetBackdropBorderColor(1, .8, 0)
+			self.bg:SetBackdropBorderColor(1, 1, 0)
 			self.text = enabledText
 		else
 			bu.__turnOff()
@@ -805,7 +805,7 @@ function module:CreateDeleteButton()
 		module:SelectToggleButton(4)
 		deleteEnable = not deleteEnable
 		if deleteEnable then
-			self.bg:SetBackdropBorderColor(1, .8, 0)
+			self.bg:SetBackdropBorderColor(1, 1, 0)
 			self.text = enabledText
 		else
 			bu.__turnOff()
@@ -1155,7 +1155,7 @@ function module:OnLogin()
 		end
 
 		if item.questID or item.isQuestItem then
-			self:SetBackdropBorderColor(1, .8, 0)
+			self:SetBackdropBorderColor(1, 1, 0)
 		elseif item.quality and item.quality > -1 then
 			local color = DB.QualityColors[item.quality]
 			self:SetBackdropBorderColor(color.r, color.g, color.b)

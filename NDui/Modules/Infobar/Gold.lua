@@ -23,7 +23,7 @@ StaticPopupDialogs["RESETGOLD"] = {
 }
 
 local menuList = {
-	{text = B.HexRGB(1, .8, 0)..REMOVE_WORLD_MARKERS.."!!!", notCheckable = true, func = function() StaticPopup_Show("RESETGOLD") end},
+	{text = B.HexRGB(1, 1, 0)..REMOVE_WORLD_MARKERS.."!!!", notCheckable = true, func = function() StaticPopup_Show("RESETGOLD") end},
 }
 
 local function getClassIcon(class)

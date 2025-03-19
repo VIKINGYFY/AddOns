@@ -52,7 +52,7 @@ C.OnLoginThemes["DressUpFrames"] = function()
 			button.bg = B.ReskinIcon(button.Icon)
 			B.ReskinBorder(button.IconBorder, true, true)
 			button.BackgroundTexture:SetAlpha(0)
-			button.SelectedTexture:SetColorTexture(1, .8, 0, .25)
+			button.SelectedTexture:SetColorTexture(1, 1, 0, .25)
 			button.HighlightTexture:SetColorTexture(1, 1, 1, .25)
 			button.styled = true
 		end

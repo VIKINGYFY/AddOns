@@ -88,7 +88,7 @@ C.OnLoadThemes["Blizzard_Collections"] = function()
 		end
 
 		if button.DragButton.ActiveTexture:IsShown() then
-			button.icon.bg:SetBackdropBorderColor(1, .8, 0)
+			button.icon.bg:SetBackdropBorderColor(1, 1, 0)
 		else
 			B.SetBorderColor(button.icon.bg)
 		end
@@ -121,7 +121,7 @@ C.OnLoadThemes["Blizzard_Collections"] = function()
 		end
 
 		if button.dragButton.ActiveTexture:IsShown() then
-			button.icon.bg:SetBackdropBorderColor(1, .8, 0)
+			button.icon.bg:SetBackdropBorderColor(1, 1, 0)
 		else
 			B.SetBorderColor(button.icon.bg)
 		end
@@ -359,7 +359,7 @@ C.OnLoadThemes["Blizzard_Collections"] = function()
 
 	hooksecurefunc(HeirloomsJournal, "UpdateButton", function(_, button)
 		button.level:SetFontObject("GameFontWhiteSmall")
-		button.special:SetTextColor(1, .8, 0)
+		button.special:SetTextColor(1, 1, 0)
 	end)
 
 	-- Progress bar
@@ -398,7 +398,7 @@ C.OnLoadThemes["Blizzard_Collections"] = function()
 
 		if button.iconTexture:IsShown() then
 			button.name:SetTextColor(1, 1, 1)
-			button.bg:SetBackdropBorderColor(0, 1, 1)
+			button.bg:SetBackdropBorderColor(0, .8, 1)
 			button.newLevelBg:Show()
 		else
 			button.name:SetTextColor(.5, .5, .5)

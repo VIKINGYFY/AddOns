@@ -619,7 +619,7 @@ function UF:ShowUnitTargeted(self)
 	local count = B.CreateFS(self.Health, 22)
 	count:SetJustifyH("LEFT")
 	count:SetPoint("LEFT", tex, "RIGHT", 1, 0)
-	count:SetTextColor(1, .8, 0)
+	count:SetTextColor(1, 1, 0)
 
 	self.tarByTex = tex
 	self.tarBy = count

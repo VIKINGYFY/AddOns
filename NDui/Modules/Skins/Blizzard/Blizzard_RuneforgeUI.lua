@@ -4,7 +4,7 @@ local B, C, L, DB = unpack(ns)
 local function updateSelectedTexture(texture, shown)
 	local button = texture.__owner
 	if shown then
-		button.bg:SetBackdropBorderColor(1, .8, 0)
+		button.bg:SetBackdropBorderColor(1, 1, 0)
 	else
 		B.SetBorderColor(button.bg)
 	end

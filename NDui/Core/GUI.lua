@@ -561,6 +561,7 @@ G.AccountSettings = {
 	IgnoreNotes = {},
 	GlowMode = 3,
 	IgnoredRares = "",
+	AddOnProfiler = false,
 }
 
 -- Initial settings
@@ -1070,10 +1071,10 @@ local function AddNewTag(parent, anchor)
 end
 
 G.TabList = {
-	IsNew..L["Actionbar"],
+	L["Actionbar"],
 	L["Bags"],
-	IsNew..L["Unitframes"],
-	IsNew..L["RaidFrame"],
+	L["Unitframes"],
+	L["RaidFrame"],
 	L["Nameplate"],
 	L["PlayerPlate"],
 	L["Auras"],
@@ -1099,8 +1100,8 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{3, "Actionbar", "MmssTH", L["MmssThreshold"].."*", nil, {60, 600, 1}, nil, L["MmssThresholdTip"]},
 		{3, "Actionbar", "TenthTH", L["TenthThreshold"].."*", true, {0, 60, 1}, nil, L["TenthThresholdTip"]},
 		{},--blank
-		{1, "Actionbar", "KeyDown", IsNew..L["KeyDown"].."*", nil, nil, updateHotkeys, L["KeyDownTip"]},
-		{1, "Actionbar", "ButtonLock", IsNew..L["ButtonLock"].."*", true, nil, updateHotkeys, L["ButtonLockTip"]},
+		{1, "Actionbar", "KeyDown", L["KeyDown"].."*", nil, nil, updateHotkeys, L["KeyDownTip"]},
+		{1, "Actionbar", "ButtonLock", L["ButtonLock"].."*", true, nil, updateHotkeys, L["ButtonLockTip"]},
 		{1, "Actionbar", "Hotkeys", L["Actionbar Hotkey"].."*", nil, nil, updateHotkeys},
 		{1, "Actionbar", "SendActionCD", HeaderTag..L["SendActionCD"].."*", true, nil, nil, L["SendActionCDTip"]},
 		{1, "Actionbar", "Macro", L["Actionbar Macro"].."*", nil, nil, updateHotkeys},
@@ -1518,7 +1519,7 @@ local function updateDropdownSelection(self)
 	for i = 1, #dd.__options do
 		local option = dd.options[i]
 		if i == CheckUIOption(dd.__key, dd.__value) then
-			option:SetBackdropColor(1, .8, 0, .25)
+			option:SetBackdropColor(1, 1, 0, .25)
 			option.selected = true
 		else
 			option:SetBackdropColor(0, 0, 0, .25)
@@ -1876,7 +1877,7 @@ function G:OnLogin()
 	end
 
 	hooksecurefunc(GameMenuFrame, "InitButtons", function(self)
-		self:AddButton("|T"..DB.chatLogo..":12:24|t |cff0080ffNDui|r", toggleGUI)
+		self:AddButton("|T"..DB.chatLogo..":12:24|t |cff0080FFNDui|r", toggleGUI)
 
 		for button in self.buttonPool:EnumerateActive() do
 			if not button.resized then

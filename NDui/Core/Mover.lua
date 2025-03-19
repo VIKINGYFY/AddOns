@@ -176,7 +176,7 @@ end
 
 function M:Mover_OnEnter()
 	self.bg:SetBackdropBorderColor(cr, cg, cb)
-	self.text:SetTextColor(1, .8, 0)
+	self.text:SetTextColor(1, 1, 0)
 end
 
 function M:Mover_OnLeave()

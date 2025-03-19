@@ -173,7 +173,7 @@ local ignoreInstances = {
 	[1626] = true, -- 群星庭院
 }
 
-local QUEST_STRING = "cFF0000FF.-"..TRANSMOG_SOURCE_2
+local QUEST_STRING = "cff0000FF.-"..TRANSMOG_SOURCE_2
 
 QuickQuest:Register("GOSSIP_SHOW", function()
 	local npcID = GetNPCID()

@@ -484,7 +484,7 @@ function M:NVision_Create()
 		[1] = {
 			anchorF = "RIGHT", anchorT = "LEFT", offset = -3,
 			texture = 134110,
-			color = {1, .8, 0}, reverse = false, maxValue = 10,
+			color = {1, 1, 0}, reverse = false, maxValue = 10,
 		},
 		[2] = {
 			anchorF = "LEFT", anchorT = "RIGHT", offset = 3,
@@ -617,7 +617,7 @@ function M:CheckIncompatible()
 
 		local disable = B.CreateButton(frame, 150, 25, L["DisableIncompatibleAddon"])
 		disable:SetPoint("BOTTOM", 0, 10)
-		disable.text:SetTextColor(1, .8, 0)
+		disable.text:SetTextColor(1, 1, 0)
 		disable:SetScript("OnClick", function()
 			for _, addon in pairs(IncompatibleList) do
 				C_AddOns.DisableAddOn(addon)

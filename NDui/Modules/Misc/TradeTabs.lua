@@ -151,7 +151,7 @@ function M:TradeTabs_FilterIcons()
 			B.SetBorderColor(self.bg)
 		else
 			value[4](true)
-			self.bg:SetBackdropBorderColor(1, .8, 0)
+			self.bg:SetBackdropBorderColor(1, 1, 0)
 		end
 	end
 
@@ -171,7 +171,7 @@ function M:TradeTabs_FilterIcons()
 	local function updateFilterStatus()
 		for index, value in pairs(buttonList) do
 			if value[3]() then
-				buttons[index].bg:SetBackdropBorderColor(1, .8, 0)
+				buttons[index].bg:SetBackdropBorderColor(1, 1, 0)
 			else
 				B.SetBorderColor(buttons[index].bg)
 			end

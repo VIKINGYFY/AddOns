@@ -73,13 +73,13 @@ end
 
 local function HookTextColor_Yellow(self, r, g, b)
 	if r ~= 1 or g ~= .8 or b ~= 0 then
-		self:SetTextColor(1, .8, 0)
+		self:SetTextColor(1, 1, 0)
 	end
 end
 
 local function SetTextColor_Yellow(font)
 	font:SetShadowColor(0, 0, 0, 0)
-	font:SetTextColor(1, .8, 0)
+	font:SetTextColor(1, 1, 0)
 	hooksecurefunc(font, "SetTextColor", HookTextColor_Yellow)
 end
 

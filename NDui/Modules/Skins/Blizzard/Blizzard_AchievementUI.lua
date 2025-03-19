@@ -20,7 +20,7 @@ local function UpdateStringColors(button)
 			button.Description:SetTextColor(1, 1, 1)
 		end
 		if button.Reward then
-			button.Reward:SetTextColor(1, .8, 0)
+			button.Reward:SetTextColor(0, 1, 0)
 		end
 	else
 		if button.accountWide then
@@ -32,7 +32,7 @@ local function UpdateStringColors(button)
 			button.Description:SetTextColor(.5, .5, .5)
 		end
 		if button.Reward then
-			button.Reward:SetTextColor(.5, .4, 0)
+			button.Reward:SetTextColor(0, .5, 0)
 		end
 	end
 end

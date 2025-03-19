@@ -130,7 +130,7 @@ local function reskinOutputButtons(self)
 			local itemBG = itemContainer.bg
 			if itemBG then
 				if itemContainer.CritFrame:IsShown() then
-					itemBG:SetBackdropBorderColor(1, .8, 0)
+					itemBG:SetBackdropBorderColor(1, 1, 0)
 				else
 					B.SetBorderColor(itemBG)
 				end

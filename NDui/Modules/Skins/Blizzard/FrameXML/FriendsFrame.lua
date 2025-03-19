@@ -15,22 +15,16 @@ end
 
 local function reskinFriendButton(button)
 	if not button.styled then
-		local gameIcon = button.gameIcon
-		gameIcon:SetSize(22, 22)
 		button.background:Hide()
-		button:SetHighlightTexture(DB.bdTex)
-		button:GetHighlightTexture():SetVertexColor(.24, .56, 1, .25)
+		B.ReskinHLTex(button)
 
 		local travelPass = button.travelPassButton
 		travelPass:SetSize(22, 22)
-		travelPass:SetPoint("TOPRIGHT", -3, -6)
-		B.CreateBDFrame(travelPass, 1)
 		travelPass.NormalTexture:SetAlpha(0)
 		travelPass.PushedTexture:SetAlpha(0)
 		travelPass.DisabledTexture:SetAlpha(0)
-		travelPass.HighlightTexture:SetColorTexture(1, 1, 1, .25)
-		travelPass.HighlightTexture:SetAllPoints()
-		gameIcon:SetPoint("TOPRIGHT", travelPass, "TOPLEFT", -4, 0)
+		travelPass.HighlightTexture:SetAlpha(0)
+		B.UpdatePoint(travelPass, "RIGHT", button, "RIGHT", -3, 0)
 
 		local icon = travelPass:CreateTexture(nil, "ARTWORK")
 		icon:SetTexCoord(.1, .9, .1, .9)
@@ -39,15 +33,16 @@ local function reskinFriendButton(button)
 		travelPass.NormalTexture.ownerIcon = icon
 		hooksecurefunc(travelPass.NormalTexture, "SetAtlas", replaceInviteTex)
 
+		local gameIcon = button.gameIcon
+		gameIcon:SetSize(22, 22)
+		B.UpdatePoint(gameIcon, "RIGHT", travelPass, "LEFT", -3, 0)
+
 		button.styled = true
 	end
 end
 
 C.OnLoginThemes["FriendsFrame"] = function()
-
 	B.ReskinFrameTab(FriendsFrame, 4)
-	FriendsFrameIcon:Hide()
-	B.StripTextures(IgnoreListFrame)
 
 	local INVITE_RESTRICTION_NONE = 9
 	hooksecurefunc("FriendsFrame_UpdateFriendButton", function(button)
@@ -87,66 +82,67 @@ C.OnLoginThemes["FriendsFrame"] = function()
 	end)
 
 	-- FriendsFrameBattlenetFrame
+	local battlenetFrame = FriendsFrameBattlenetFrame
+	B.StripTextures(battlenetFrame)
+	B.UpdatePoint(battlenetFrame, "TOP", FriendsFrameTitleText, "BOTTOM", 0, -3)
 
-	FriendsFrameBattlenetFrame:GetRegions():Hide()
-	local bg = B.CreateBDFrame(FriendsFrameBattlenetFrame, .25)
-	bg:SetPoint("TOPLEFT", 0, -2)
-	bg:SetPoint("BOTTOMRIGHT", -2, 2)
-	bg:SetBackdropColor(0, 1, 1, .25)
+	local statusDropdown = FriendsFrameStatusDropdown
+	statusDropdown:SetWidth(58)
+	B.ReskinDropDown(statusDropdown)
+	B.UpdatePoint(statusDropdown, "RIGHT", battlenetFrame, "LEFT", -3, 0)
 
-	local broadcastButton = FriendsFrameBattlenetFrame.BroadcastButton
+	local bubg = B.CreateBDFrame(battlenetFrame, .25)
+	bubg:SetInside(nil, 2, 3)
+	bubg:SetBackdropColor(0, .8, 1, .25)
+
+	local broadcastButton = battlenetFrame.BroadcastButton
 	broadcastButton:SetSize(20, 20)
 	broadcastButton:GetNormalTexture():SetAlpha(0)
 	broadcastButton:GetPushedTexture():SetAlpha(0)
 	B.ReskinButton(broadcastButton)
+	B.UpdatePoint(broadcastButton, "LEFT", battlenetFrame, "RIGHT", 3, 0)
 	local newIcon = broadcastButton:CreateTexture(nil, "ARTWORK")
 	newIcon:SetAllPoints()
 	newIcon:SetTexture("Interface\\FriendsFrame\\BroadcastIcon")
 
-	local broadcastFrame = FriendsFrameBattlenetFrame.BroadcastFrame
-	B.StripTextures(broadcastFrame)
-	B.SetBD(broadcastFrame, 10)
-	broadcastFrame.EditBox:DisableDrawLayer("BACKGROUND")
-	local bg = B.CreateBDFrame(broadcastFrame.EditBox, 0, true)
-	bg:SetPoint("TOPLEFT", -2, -2)
-	bg:SetPoint("BOTTOMRIGHT", 2, 2)
+	local broadcastFrame = battlenetFrame.BroadcastFrame
+	B.ReskinFrame(broadcastFrame)
+	B.ReskinInput(broadcastFrame.EditBox)
 	B.ReskinButton(broadcastFrame.UpdateButton)
 	B.ReskinButton(broadcastFrame.CancelButton)
-	broadcastFrame:ClearAllPoints()
-	broadcastFrame:SetPoint("TOPLEFT", FriendsFrame, "TOPRIGHT", 3, 0)
+	B.UpdatePoint(broadcastFrame, "TOPLEFT", FriendsFrame, "TOPRIGHT", 3, 0)
 
-	local unavailableFrame = FriendsFrameBattlenetFrame.UnavailableInfoFrame
-	B.StripTextures(unavailableFrame)
-	B.SetBD(unavailableFrame)
+	local unavailableFrame = battlenetFrame.UnavailableInfoFrame
+	B.ReskinFrame(unavailableFrame)
 	unavailableFrame:SetPoint("TOPLEFT", FriendsFrame, "TOPRIGHT", 3, -18)
 
-	B.ReskinFrame(FriendsFrame)
-	B.ReskinButton(FriendsFrameAddFriendButton)
-	B.ReskinButton(FriendsFrameSendMessageButton)
-	B.ReskinButton(FriendsFrameIgnorePlayerButton)
-	B.ReskinButton(FriendsFrameUnsquelchButton)
-	B.ReskinScroll(FriendsListFrame.ScrollBar)
-	B.ReskinScroll(IgnoreListFrame.ScrollBar)
-	B.ReskinScroll(WhoFrame.ScrollBar)
-	B.ReskinScroll(FriendsFriendsFrame.ScrollBar)
-	B.ReskinDropDown(FriendsFrameStatusDropdown)
-	B.ReskinDropDown(WhoFrameDropdown)
-	B.ReskinDropDown(FriendsFriendsFrameDropdown)
-	FriendsFrameStatusDropdown:SetWidth(58)
-	B.ReskinButton(FriendsListFrameContinueButton)
-	B.ReskinInput(AddFriendNameEditBox)
-	B.StripTextures(AddFriendFrame)
-	B.SetBD(AddFriendFrame)
-	B.StripTextures(FriendsFriendsFrame)
-	B.SetBD(FriendsFriendsFrame)
-	B.ReskinButton(FriendsFriendsFrame.SendRequestButton)
-	B.ReskinButton(FriendsFriendsFrame.CloseButton)
-	B.ReskinButton(WhoFrameWhoButton)
-	B.ReskinButton(WhoFrameAddFriendButton)
-	B.ReskinButton(WhoFrameGroupInviteButton)
+	B.ReskinFrame(AddFriendFrame)
 	B.ReskinButton(AddFriendEntryFrameAcceptButton)
 	B.ReskinButton(AddFriendEntryFrameCancelButton)
 	B.ReskinButton(AddFriendInfoFrameContinueButton)
+	B.ReskinInput(AddFriendNameEditBox)
+
+	B.ReskinFrame(FriendsFrame)
+	B.ReskinButton(FriendsFrameAddFriendButton)
+	B.ReskinButton(FriendsFrameIgnorePlayerButton)
+	B.ReskinButton(FriendsFrameSendMessageButton)
+	B.ReskinButton(FriendsFrameUnsquelchButton)
+	B.ReskinScroll(FriendsListFrame.ScrollBar)
+
+	B.ReskinFrame(FriendsFriendsFrame)
+	B.ReskinButton(FriendsFriendsFrame.SendRequestButton)
+	B.ReskinButton(FriendsListFrameContinueButton)
+	B.ReskinDropDown(FriendsFriendsFrameDropdown)
+	B.ReskinScroll(FriendsFriendsFrame.ScrollBar)
+
+	B.StripTextures(IgnoreListFrame)
+	B.ReskinScroll(IgnoreListFrame.ScrollBar)
+
+	B.ReskinButton(WhoFrameAddFriendButton)
+	B.ReskinButton(WhoFrameGroupInviteButton)
+	B.ReskinButton(WhoFrameWhoButton)
+	B.ReskinDropDown(WhoFrameDropdown)
+	B.ReskinScroll(WhoFrame.ScrollBar)
 
 	for i = 1, 4 do
 		B.StripTextures(_G["WhoFrameColumnHeader"..i])
@@ -162,9 +158,8 @@ C.OnLoginThemes["FriendsFrame"] = function()
 		B.StripTextures(_G["FriendsTabHeaderTab"..i])
 	end
 
-	WhoFrameWhoButton:SetPoint("RIGHT", WhoFrameAddFriendButton, "LEFT", -1, 0)
 	WhoFrameAddFriendButton:SetPoint("RIGHT", WhoFrameGroupInviteButton, "LEFT", -1, 0)
-	FriendsFrameTitleText:SetPoint("TOP", FriendsFrame, "TOP", 0, -8)
+	WhoFrameWhoButton:SetPoint("RIGHT", WhoFrameAddFriendButton, "LEFT", -1, 0)
 
 	-- Recruite frame
 
@@ -181,9 +176,7 @@ C.OnLoginThemes["FriendsFrame"] = function()
 	B.ReskinScroll(recruitList.ScrollBar)
 
 	local recruitmentFrame = RecruitAFriendRecruitmentFrame
-	B.StripTextures(recruitmentFrame)
-	B.ReskinClose(recruitmentFrame.CloseButton)
-	B.SetBD(recruitmentFrame)
+	B.ReskinFrame(recruitmentFrame)
 	B.StripTextures(recruitmentFrame.EditBox)
 	local bg = B.CreateBDFrame(recruitmentFrame.EditBox, .25)
 	bg:SetPoint("TOPLEFT", -3, -3)
@@ -191,9 +184,7 @@ C.OnLoginThemes["FriendsFrame"] = function()
 	B.ReskinButton(recruitmentFrame.GenerateOrCopyLinkButton)
 
 	local rewardsFrame = RecruitAFriendRewardsFrame
-	B.StripTextures(rewardsFrame)
-	B.ReskinClose(rewardsFrame.CloseButton)
-	B.SetBD(rewardsFrame)
+	B.ReskinFrame(rewardsFrame)
 
 	rewardsFrame:HookScript("OnShow", function(self)
 		for i = 1, self:GetNumChildren() do

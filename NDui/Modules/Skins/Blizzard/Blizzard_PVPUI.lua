@@ -83,8 +83,8 @@ C.OnLoadThemes["Blizzard_PVPUI"] = function()
 
 	local popup = PVPQueueFrame.NewSeasonPopup
 	B.ReskinButton(popup.Leave)
-	popup.NewSeason:SetTextColor(1, .8, 0)
-	popup.SeasonRewardText:SetTextColor(1, .8, 0)
+	popup.NewSeason:SetTextColor(1, 1, 0)
+	popup.SeasonRewardText:SetTextColor(1, 1, 0)
 	popup.SeasonDescriptionHeader:SetTextColor(1, 1, 1)
 
 	popup:HookScript("OnShow", function(self)

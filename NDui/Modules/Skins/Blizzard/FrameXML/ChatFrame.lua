@@ -7,7 +7,7 @@ local function ReskinChatScroll(self)
 	B.StripTextures(self.ScrollToBottomButton)
 	local flash = self.ScrollToBottomButton.Flash
 	B.SetupArrow(flash, "bottom")
-	flash:SetVertexColor(1, .8, 0)
+	flash:SetVertexColor(1, 1, 0)
 end
 
 C.OnLoginThemes["ChatFrame"] = function()

@@ -44,7 +44,6 @@ function S:PostalSkin()
 	B.ReskinButton(PostalForwardButton)
 	B.ReskinArrow(Postal_ModuleMenuButton, "down")
 	B.ReskinArrow(Postal_OpenAllMenuButton, "down")
-	B.ReskinArrow(Postal_BlackBookButton, "down")
 	for i = 1, 7 do
 		local cb = _G["PostalInboxCB"..i]
 		if cb then
@@ -55,7 +54,11 @@ function S:PostalSkin()
 	Postal_ModuleMenuButton:ClearAllPoints()
 	Postal_ModuleMenuButton:SetPoint("RIGHT", MailFrame.CloseButton, "LEFT", -2, 0)
 	Postal_OpenAllMenuButton:SetPoint("LEFT", PostalOpenAllButton, "RIGHT", 2, 0)
-	Postal_BlackBookButton:SetPoint("LEFT", SendMailNameEditBox, "RIGHT", 2, 0)
+
+	if Postal_BlackBookButton then
+		B.ReskinArrow(Postal_BlackBookButton, "down")
+		Postal_BlackBookButton:SetPoint("LEFT", SendMailNameEditBox, "RIGHT", 2, 0)
+	end
 
 	for i = 1, 16 do
 		local button = _G["Postal_QuickAttachButton"..i]
@@ -292,7 +295,7 @@ function S:TrinketMenu()
 
 		button:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 		button:SetPushedTexture(DB.pushedTex)
-		button:GetCheckedTexture():SetColorTexture(1, .8, 0, .5)
+		button:GetCheckedTexture():SetColorTexture(1, 1, 0, .5)
 		_G[name.."NormalTexture"]:SetAlpha(0)
 		B.ReskinIcon(_G[name.."Icon"])
 

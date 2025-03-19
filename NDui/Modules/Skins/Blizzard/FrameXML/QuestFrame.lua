@@ -2,7 +2,7 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 local function Reskin_TitleTextColor(fontString)
-	B.ReskinText(fontString, 1, .8, 0)
+	B.ReskinText(fontString, 1, 1, 0)
 end
 
 local function Reskin_TextColor(fontString)

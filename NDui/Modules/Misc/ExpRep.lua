@@ -184,7 +184,7 @@ function M:ExpBar_UpdateTooltip()
 			local quantity = currencyInfo.quantity
 			local maxQuantity = currencyInfo.maxQuantity
 			local name = C_CurrencyInfo.GetCurrencyInfo(2777).name
-			GameTooltip:AddDoubleLine(name, GetCMPText(quantity, maxQuantity), .6,.8,1, 1,1,1)
+			GameTooltip:AddDoubleLine(name, GetCMPText(quantity, maxQuantity), 0,1,1, 1,1,1)
 		end
 	end
 

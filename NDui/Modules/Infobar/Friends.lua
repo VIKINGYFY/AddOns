@@ -365,15 +365,15 @@ local function buttonOnEnter(self)
 
 		if note and note ~= "" then
 			GameTooltip:AddLine(" ")
-			GameTooltip:AddLine(format(noteString, note), 1,.8,0)
+			GameTooltip:AddLine(format(noteString, note), 1,1,0)
 		end
 
 		if broadcastText and broadcastText ~= "" then
 			GameTooltip:AddLine(" ")
-			GameTooltip:AddLine(format(broadcastString, broadcastText, FriendsFrame_GetLastOnline(broadcastTime)), .3,.6,.8, 1)
+			GameTooltip:AddLine(format(broadcastString, broadcastText, FriendsFrame_GetLastOnline(broadcastTime)), 0,.8,1, 1)
 		end
 	else
-		GameTooltip:AddLine(L["WoW"], 1,.8,0)
+		GameTooltip:AddLine(L["WoW"], 1,1,0)
 		GameTooltip:AddLine(" ")
 		local name, level, class, area, _, note = unpack(self.data)
 		local classColor = B.HexRGB(B.ClassColor(class))
@@ -382,7 +382,7 @@ local function buttonOnEnter(self)
 
 		if note and note ~= "" then
 			GameTooltip:AddLine(" ")
-			GameTooltip:AddLine(format(noteString, note), 1,.8,0)
+			GameTooltip:AddLine(format(noteString, note), 1,1,0)
 		end
 	end
 	GameTooltip:Show()

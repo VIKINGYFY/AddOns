@@ -118,7 +118,7 @@ local function blockList_Show(self)
 	self.button:SetButtonState("NORMAL")
 	self.button:SetPushedTextOffset(1.25, -1)
 	self.button:SetButtonState("PUSHED", true)
-	self.__bg:SetBackdropBorderColor(1, .8, 0)
+	self.__bg:SetBackdropBorderColor(1, 1, 0)
 end
 
 local function blockList_Hide(self)
@@ -153,7 +153,7 @@ C.OnLoginThemes["ObjectiveTracker"] = function()
 	-- Minimize Button
 	local mainMinimize =mainHeader.MinimizeButton
 	reskinMinimizeButton(mainMinimize, mainHeader)
-	mainMinimize.bg:SetBackdropBorderColor(1, .8, 0)
+	mainMinimize.bg:SetBackdropBorderColor(1, 1, 0)
 
 	local trackers = {
 		ScenarioObjectiveTracker,

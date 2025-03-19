@@ -20,7 +20,7 @@ C.OnLoginThemes["LootFrame"] = function()
 	local function updatePushed(self)
 		local button = self.__owner
 		if button.PushedNameFrame:IsShown() then
-			button.bg:SetBackdropBorderColor(1, .8, 0)
+			button.bg:SetBackdropBorderColor(1, 1, 0)
 		else
 			B.SetBorderColor(button.bg)
 		end
@@ -60,7 +60,7 @@ C.OnLoginThemes["LootFrame"] = function()
 
 			local itemBG = item and item.bg
 			if itemBG and questTexture:IsShown() then
-				itemBG:SetBackdropBorderColor(1, .8, 0)
+				itemBG:SetBackdropBorderColor(1, 1, 0)
 			end
 		end
 	end)
@@ -100,7 +100,7 @@ C.OnLoginThemes["LootFrame"] = function()
 				B.ReskinBorder(frame.Border, true)
 
 				frame.Timer.Bar:SetTexture(DB.bdTex)
-				frame.Timer.Bar:SetVertexColor(1, .8, 0)
+				frame.Timer.Bar:SetVertexColor(1, 1, 0)
 				frame.Timer.Background:SetAlpha(0)
 				B.CreateBDFrame(frame.Timer, .25)
 

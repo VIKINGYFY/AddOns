@@ -130,7 +130,7 @@ function BagTab:UpdateButton()
 	if self.hidden then
 		B.SetBorderColor(self.bg)
 	else
-		self.bg:SetBackdropBorderColor(1, .8, 0)
+		self.bg:SetBackdropBorderColor(1, 1, 0)
 	end
 end
 

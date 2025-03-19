@@ -55,7 +55,7 @@ local function ReskinBagSlot(bu)
 
 	local hl = bu.SlotHighlightTexture
 	if hl then
-		hl:SetColorTexture(1, .8, 0, .5)
+		hl:SetColorTexture(1, 1, 0, .5)
 	end
 end
 

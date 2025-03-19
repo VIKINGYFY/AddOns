@@ -109,7 +109,7 @@ info.onLeave = function()
 	GameTooltip:Hide()
 end
 
-local zoneString = "|cffffff00|Hworldmap:%d+:%d+:%d+|h[|A:Waypoint-MapPin-ChatIcon:13:13:0:0|a %s: %s (%s) %s]|h|r"
+local zoneString = "|cffFFFF00|Hworldmap:%d+:%d+:%d+|h[|A:Waypoint-MapPin-ChatIcon:13:13:0:0|a %s: %s (%s) %s]|h|r"
 
 info.onMouseUp = function(_, btn)
 	if btn == "LeftButton" then

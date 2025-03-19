@@ -134,7 +134,7 @@ C.OnLoadThemes["Blizzard_PlayerSpells"] = function()
 			for _, frame in self:EnumerateFrames() do
 				if not frame.styled then
 					if frame.Text then
-						frame.Text:SetTextColor(1, .8, 0)
+						frame.Text:SetTextColor(1, 1, 0)
 					end
 					if frame.Name then
 						frame.Name:SetTextColor(1, 1, 1)

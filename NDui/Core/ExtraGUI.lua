@@ -120,10 +120,11 @@ function G:SetupRaidDebuffs(parent)
 		end
 	end
 	AddNewDungeon(dungeons, 1210) -- 暗焰裂口
-	AddNewDungeon(dungeons, 71) -- 格瑞姆巴托
-	AddNewDungeon(dungeons, 1023) -- 围攻伯拉勒斯
-	AddNewDungeon(dungeons, 1182) -- 通灵战潮
-	AddNewDungeon(dungeons, 1184) -- 塞兹仙林的迷雾
+	--AddNewDungeon(dungeons, 71) -- 格瑞姆巴托
+	--AddNewDungeon(dungeons, 1023) -- 围攻伯拉勒斯
+	--AddNewDungeon(dungeons, 1182) -- 通灵战潮
+	--AddNewDungeon(dungeons, 1184) -- 塞兹仙林的迷雾
+
 	AddNewDungeon(dungeons, 1298) -- 水闸行动
 	AddNewDungeon(dungeons, 1187) -- 伤逝剧场
 	AddNewDungeon(dungeons, 1178) -- 麦卡贡行动
@@ -396,7 +397,7 @@ function G:SetupClickCast(parent)
 	local function optionOnEnter(self)
 		GameTooltip:SetOwner(self, "ANCHOR_TOP")
 		GameTooltip:ClearLines()
-		GameTooltip:AddLine(keyToLocale[self.text], 1, .8, 0)
+		GameTooltip:AddLine(keyToLocale[self.text], 1, 1, 0)
 		GameTooltip:Show()
 	end
 
@@ -674,7 +675,7 @@ function G:SetupSpellsIndicator(parent)
 	local scroll = G:CreateScroll(frame, 240, 485)
 	scroll.box = B.CreateEditBox(frame, 50, 25)
 	scroll.box:SetPoint("TOPLEFT", 10, -10)
-	scroll.box:SetMaxLetters(6)
+	scroll.box:SetMaxLetters(8) -- might have 8 digits for spellID
 	B.AddTooltip(scroll.box, "ANCHOR_TOPRIGHT", L["ID Intro"], "info", true)
 
 	scroll.add = B.CreateButton(frame, 45, 25, ADD)
@@ -975,7 +976,7 @@ local function updateDropdownHighlight(self)
 	for i = 1, #dd.__options do
 		local option = dd.options[i]
 		if i == C.db[dd.__key][dd.__value] then
-			option:SetBackdropColor(1, .8, 0, .25)
+			option:SetBackdropColor(1, 1, 0, .25)
 			option.selected = true
 		else
 			option:SetBackdropColor(0, 0, 0, .25)

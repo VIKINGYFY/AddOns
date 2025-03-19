@@ -8,9 +8,9 @@ C.OnLoadThemes["Blizzard_AlliedRacesUI"] = function()
 
 	local scrollFrame = AlliedRacesFrame.RaceInfoFrame.ScrollFrame
 	B.ReskinScroll(scrollFrame.ScrollBar)
-	AlliedRacesFrame.RaceInfoFrame.AlliedRacesRaceName:SetTextColor(1, .8, 0)
+	AlliedRacesFrame.RaceInfoFrame.AlliedRacesRaceName:SetTextColor(1, 1, 0)
 	scrollFrame.Child.RaceDescriptionText:SetTextColor(1, 1, 1)
-	scrollFrame.Child.RacialTraitsLabel:SetTextColor(1, .8, 0)
+	scrollFrame.Child.RacialTraitsLabel:SetTextColor(1, 1, 0)
 
 	AlliedRacesFrame:HookScript("OnShow", function()
 		local parent = scrollFrame.Child

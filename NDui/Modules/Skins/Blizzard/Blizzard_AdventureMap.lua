@@ -25,8 +25,8 @@ C.OnLoadThemes["Blizzard_AdventureMap"] = function()
 				bubg:SetPoint("LEFT", icbg, "RIGHT", DB.margin, 0)
 			end
 		end
-		dialog.Details.Child.TitleHeader:SetTextColor(1, .8, 0)
-		dialog.Details.Child.ObjectivesHeader:SetTextColor(1, .8, 0)
+		dialog.Details.Child.TitleHeader:SetTextColor(1, 1, 0)
+		dialog.Details.Child.ObjectivesHeader:SetTextColor(1, 1, 0)
 
 		self.styled = true
 	end)

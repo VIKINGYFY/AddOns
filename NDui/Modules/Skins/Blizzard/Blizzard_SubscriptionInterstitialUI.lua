@@ -3,7 +3,7 @@ local B, C, L, DB = unpack(ns)
 
 local function reskinSubscribeButton(button)
 	B.CreateBDFrame(button, .25)
-	button.ButtonText:SetTextColor(1, .8, 0)
+	button.ButtonText:SetTextColor(1, 1, 0)
 end
 
 C.OnLoadThemes["Blizzard_SubscriptionInterstitialUI"] = function()

@@ -106,6 +106,7 @@ local list = {
 		{AuraID = 431286, UnitID = "player", Flash = true}, -- 守护巨龙之怒
 		{AuraID = 441076, UnitID = "player", Flash = true}, -- 越时战鼓
 		{AuraID = 444257, UnitID = "player", Flash = true}, -- 掣雷之鼓
+		{AuraID = 466904, UnitID = "player", Flash = true}, -- 鹞鹰尖啸
 		-- 团队增益或减伤
 		{AuraID =   1022, UnitID = "player"}, -- 圣骑士，保护祝福
 		{AuraID =   1044, UnitID = "player"}, -- 圣骑士，自由祝福
@@ -159,10 +160,7 @@ local list = {
 		{AuraID = 408556, UnitID = "player", Flash = true},	-- 缠绕
 		{AuraID = 408805, UnitID = "player", Flash = true},	-- 失衡
 		{AuraID = 409492, UnitID = "player", Flash = true},	-- 痛苦呼号
-		{AuraID = 461910, UnitID = "player", Flash = true},	-- 星宇飞升, 萨拉塔斯的交易
-		{AuraID = 462661, UnitID = "player", Flash = true},	-- 彼岸之赐, 萨拉塔斯的交易
-		{AuraID = 463767, UnitID = "player", Flash = true},	-- 虚空精华, 萨拉塔斯的交易
-		{AuraID = 465136, UnitID = "player", Flash = true},	-- 徘徊虚空, 萨拉塔斯的交易
+		{AuraID =1216943, UnitID = "player", Flash = true},	-- 萨拉塔斯的交易：脉冲
 		-- 5人
 		{AuraID = 395035, UnitID = "player", Flash = true},	-- 粉碎灵魂，阻击战
 		{AuraID = 386881, UnitID = "player"},	-- 冰霜炸弹，碧蓝魔馆
@@ -240,9 +238,6 @@ local list = {
 		-- 大米
 		{AuraID = 226510, UnitID = "target"},	-- 血池回血
 		{AuraID = 343502, UnitID = "target"},	-- 鼓舞光环
-		{AuraID = 440328, UnitID = "target"},	-- 萨拉塔斯的交易
-		{AuraID = 461904, UnitID = "target"},	-- 萨拉塔斯的交易
-		{AuraID = 462704, UnitID = "target"},	-- 萨拉塔斯的交易
 		{AuraID =1221061, UnitID = "target"},	-- 萨拉塔斯的赠礼
 		-- 5人
 		{AuraID = 372988, UnitID = "target", Value = true},	-- 寒冰壁垒，红玉
@@ -294,6 +289,7 @@ local list = {
 		{AuraID = 273721, UnitID = "target", Flash = true},	-- 围攻，1号易伤
 		{AuraID = 423588, UnitID = "target", Value = true},	-- 修道院，圣光屏障
 		{AuraID = 423839, UnitID = "target", Value = true},	-- 风暴复仇，驭雷栖巢
+		{AuraID = 445256, UnitID = "target", Value = true},	-- 虚空壳壁，驭雷栖巢
 		-- S1
 		{AuraID = 445409, UnitID = "target", Value = true},	-- 加固壳壁，斯卡莫拉克
 		-- S2
