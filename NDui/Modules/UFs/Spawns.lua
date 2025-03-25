@@ -105,6 +105,7 @@ end
 
 local function CreateBossStyle(self)
 	self.mystyle = "boss"
+	self.Range = UFRangeAlpha
 	SetUnitFrameSize(self, "Boss")
 
 	CreateMainStyle(self)

@@ -1,4 +1,4 @@
-﻿## Interface: 11505, 11506
+﻿## Interface: 11507, 11506
 ## Category: DBM
 
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Voicepack VV|r
@@ -7,7 +7,7 @@
 ## DefaultState: enabled
 ## RequiredDeps: DBM-Core
 ## Author: VV
-## Version: 10.3.7
+## Version: 10.3.8
 ## Notes: https://bbs.nga.cn/read.php?tid=13535724
 ## IconTexture: Interface\AddOns\DBM-VPVV\Icons\VV-dbm
 
