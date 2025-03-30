@@ -239,7 +239,6 @@ ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
 
     end
 
-
     -- Dungeons ,Raids and Multi
     if nodeData.type then
 
@@ -315,12 +314,6 @@ ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
       end
 
     end
-
-    -- ProfessionInfo neu test
-    --local prof1, prof2, archaeology, fishing, cooking = GetProfessions()
-    --if nodeData.prof1 then
-    --  tooltip:AddDoubleLine("|cffffffff" .. GetProfessionInfo(prof1) .. "\n" .. GetProfessionInfo(prof2), nil, nil, false)
-    --end
 
     -- Extra Tooltip
     if ns.Addon.db.profile.ExtraTooltip then
@@ -620,11 +613,6 @@ do
 				end
 			end
 
-      -- old assigned
-      --if (anyLocked and db.graymultipleID) or ((allLocked and not db.graymultipleID) and db.graySingleID) then   
-      --  icon = ns.icons["Gray"]
-      --end
-
       -- new assigned function single
       if anyLocked and db.graySingleID and allLocked then
         icon = ns.icons["Gray"]
@@ -733,7 +721,7 @@ do
           alpha = db.MiniMapAlphaShips
         end
 
-        if value.type == "Carriage" or value.type == "TravelM" or value.type == "TravelA" or value.type == "MoleMachine" then
+        if value.type == "Carriage" or value.type == "TravelM" or value.type == "TravelA" or value.type == "MoleMachine" or value.type == "RocketDrill" then
           scale = db.MiniMapScaleTransport
           alpha = db.MiniMapAlphaTransport
         end
@@ -980,7 +968,7 @@ do
           alpha = db.ZoneAlphaShips
         end
 
-        if value.type == "Carriage" or value.type == "TravelM" or value.type == "TravelA" or value.type == "MoleMachine" then
+        if value.type == "Carriage" or value.type == "TravelM" or value.type == "TravelA" or value.type == "MoleMachine" or value.type == "RocketDrill" then
           scale = db.ZoneScaleTransport
           alpha = db.ZoneAlphaTransport
         end

@@ -326,6 +326,7 @@ L["Portal"] = true
 L["Ship"] = true
 L["Zeppelin"] = true
 L["Mole Machine"] = true
+L["Rocket drill"] = true
 L["Portalroom"] = true
 L["The Dark Portal"] = true
 L["Captain Krooz"] = true

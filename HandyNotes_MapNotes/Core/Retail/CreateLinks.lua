@@ -88,10 +88,13 @@ function ns.CreateAndCopyLink()
   -- message filter
   local function AddMessage(self, text, ...)
       if ns.questID then
-        if ns.Addon.db.profile.CreateAndCopyLinks then  
-          text = text:gsub("https://www.wowhead.com/quest=" .. ns.questID, "|cff00ccff|Hurl:%1|h[%1]|h|r")
-        elseif ns.achievementID then
-          text = text:gsub("https://www.wowhead.com/achievement=" .. ns.achievementID, "|cff00ccff|Hurl:%1|h[%1]|h|r")
+        if ns.Addon.db.profile.CreateAndCopyLinks then
+          text = text:gsub("https://www.wowhead.com/quest=" .. ns.questID, "|cff00ccff|Hurl:%1|h%1|h|r")
+        end
+      end
+      if ns.achievementID then
+        if ns.Addon.db.profile.CreateAndCopyLinks then
+          text = text:gsub("https://www.wowhead.com/achievement=" .. ns.achievementID, "|cff00ccff|Hurl:%1|h%1|h|r")
         end
       end
     return self.DefaultAddMessage(self, text, ...)

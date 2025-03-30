@@ -70,6 +70,10 @@ local list = {
 		{AuraID = 455420, UnitID = "player"},	-- 探洞者的蜡烛残端
 		{AuraID = 455444, UnitID = "player"},	-- 探洞者的蜡烛
 		{AuraID = 455451, UnitID = "player"},	-- 迅芯烛台
+		{AuraID = 1214806, UnitID = "player"},	-- 机械核心增幅器
+		{AuraID = 1214810, UnitID = "player"},	-- 机械核心增幅器
+		{AuraID = 1216650, UnitID = "player"},	-- 可疑的能量饮料
+
 	},
 	["Raid Buff"] = {		-- 团队增益组
 		{AuraID =  54861, UnitID = "player"}, -- 火箭靴，工程
@@ -160,7 +164,10 @@ local list = {
 		{AuraID = 408556, UnitID = "player", Flash = true},	-- 缠绕
 		{AuraID = 408805, UnitID = "player", Flash = true},	-- 失衡
 		{AuraID = 409492, UnitID = "player", Flash = true},	-- 痛苦呼号
-		{AuraID =1216943, UnitID = "player", Flash = true},	-- 萨拉塔斯的交易：脉冲
+		{AuraID = 461910, UnitID = "player", Flash = true},	-- 萨拉塔斯的交易：星宇飞升
+		{AuraID = 462661, UnitID = "player", Flash = true},	-- 萨拉塔斯的交易：虚空束缚
+		{AuraID = 463767, UnitID = "player", Flash = true},	-- 萨拉塔斯的交易：虚空精华
+		{AuraID = 465136, UnitID = "player", Flash = true},	-- 萨拉塔斯的交易：裂隙精华
 		-- 5人
 		{AuraID = 395035, UnitID = "player", Flash = true},	-- 粉碎灵魂，阻击战
 		{AuraID = 386881, UnitID = "player"},	-- 冰霜炸弹，碧蓝魔馆

@@ -888,15 +888,25 @@ do
 		local atlasAbbr = atlas and string.match(atlas, "%-(%w+)$")
 		local quality = atlasAbbr and AtlasToQuality[atlasAbbr]
 		local color = DB.QualityColors[quality or 1]
+
 		border.__owner.bg:SetBackdropBorderColor(color.r, color.g, color.b)
+		if border.__owner.nf then
+			border.__owner.nf:SetBackdropBorderColor(color.r, color.g, color.b)
+		end
 	end
 	local function updateIconBorderColor(border, r, g, b)
 		border.__owner.bg:SetBackdropBorderColor(r, g, b)
+		if border.__owner.nf then
+			border.__owner.nf:SetBackdropBorderColor(r, g, b)
+		end
 		border:Hide(true) -- fix icon border
 	end
 	local function resetIconBorderColor(border, texture)
 		if not texture then
 			B.SetBorderColor(border.__owner.bg)
+			if border.__owner.nf then
+				B.SetBorderColor(border.__owner.nf)
+			end
 		end
 	end
 
@@ -2150,7 +2160,7 @@ do
 		end
 	end
 
-	function B:ReskinNameFrame(frame, offset, color)
+	function B:ReskinNameFrame(frame, offset)
 		local nf = B.GetObject(self, "NameFrame")
 		if nf then nf:Hide() end
 
@@ -2159,10 +2169,6 @@ do
 		bg:SetPoint("TOPLEFT", frame, "TOPRIGHT", DB.margin, 0)
 		bg:SetPoint("BOTTOMLEFT", frame, "BOTTOMRIGHT", DB.margin, 0)
 		bg:SetPoint("RIGHT", self, "RIGHT", offset or 0, 0)
-
-		if color then
-			bg:SetBackdropBorderColor(frame:GetBackdropBorderColor())
-		end
 
 		return bg
 	end
