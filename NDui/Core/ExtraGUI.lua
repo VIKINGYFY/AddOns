@@ -1148,7 +1148,7 @@ function G:SetupRaidFrame(parent)
 	local scroll = G:CreateScroll(panel, 260, 540)
 	local UF = B:GetModule("UnitFrames")
 
-	local defaultData = {80, 32, 2, 8, 1}
+	local defaultData = {80, 32, 2, 8, 1, 5}
 	local options = {}
 	for i = 1, 8 do
 		options[i] = UF.RaidDirections[i].name
@@ -1187,6 +1187,7 @@ function G:SetupRaidFrame(parent)
 	createOptionSlider(scroll.child, L["Power Height"], 0, 30, defaultData[3], -260, "RaidPowerHeight", resizeRaidFrame)
 	createOptionSlider(scroll.child, L["Num Groups"], 2, 8, defaultData[4], -340, "NumGroups", updateNumGroups)
 	createOptionSlider(scroll.child, L["RaidRows"], 1, 8, defaultData[5], -420, "RaidRows", updateNumGroups)
+	createOptionSlider(scroll.child, L["Spacing"], 0, 10, defaultData[6], -500, "RaidSpacing", updateNumGroups)
 end
 
 function G:SetupSimpleRaidFrame(parent)
@@ -1254,17 +1255,18 @@ function G:SetupPartyFrame(parent)
 		UF:UpdatePartyElements()
 	end
 
-	local defaultData = {100, 32, 2}
+	local defaultData = {100, 32, 2, 5}
 	local options = {}
 	for i = 1, 4 do
 		options[i] = UF.PartyDirections[i].name
 	end
 	createOptionCheck(scroll.child, -10, L["UFs PartyAltPower"], "UFs", "PartyAltPower", resizePartyFrame, L["PartyAltPowerTip"])
-	createOptionCheck(scroll.child, -40, L["DescRole"], "UFs", "DescRole", resizePartyFrame, L["DescRoleTip"])
+	createOptionCheck(scroll.child, -40, L["SortByRole"], "UFs", "SortByRole", resizePartyFrame)
 	createOptionDropdown(scroll.child, L["GrowthDirection"], -100, options, nil, "UFs", "PartyDirec", 1, resizePartyFrame)
 	createOptionSlider(scroll.child, L["Width"], 80, 200, defaultData[1], -180, "PartyWidth", resizePartyFrame)
 	createOptionSlider(scroll.child, L["Height"], 25, 60, defaultData[2], -260, "PartyHeight", resizePartyFrame)
 	createOptionSlider(scroll.child, L["Power Height"], 0, 30, defaultData[3], -340, "PartyPowerHeight", resizePartyFrame)
+	createOptionSlider(scroll.child, L["Spacing"], 0, 10, defaultData[4], -420, "PartySpacing", resizePartyFrame)
 end
 
 function G:SetupPartyPetFrame(parent)
