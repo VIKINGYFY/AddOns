@@ -5,7 +5,7 @@ local cr, cg, cb = DB.r, DB.g, DB.b
 
 local function Reset_Highlight()
 	for _, button in pairs(QuestInfoRewardsFrame.RewardButtons) do
-		button.bubg:SetBackdropColor(0, 0, 0, 0)
+		button.nf:SetBackdropColor(0, 0, 0, .25)
 	end
 end
 
@@ -14,7 +14,7 @@ local function Update_Highlight(self)
 
 	local _, frame = self:GetPoint()
 	if frame then
-		frame.bubg:SetBackdropColor(cr, cg, cb, .5)
+		frame.nf:SetBackdropColor(cr, cg, cb, .5)
 	end
 end
 

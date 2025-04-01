@@ -160,13 +160,14 @@ C.OnLoginThemes["QuestMapFrame"] = function()
 		end
 		B.ReskinScroll(mapLegend.ScrollFrame.ScrollBar)
 		B.StripTextures(mapLegend.ScrollFrame)
-		B.CreateBDFrame(mapLegend.ScrollFrame, .25)
+		B.CreateBDFrame(mapLegend.ScrollFrame, .25, nil, -2)
 	end
 
 	-- Events
 	local event = QuestMapFrame.EventsFrame
 	if event then
 		B.StripTextures(event)
+		B.CreateBDFrame(event, .25, nil, -2)
 		B.ReskinScroll(event.ScrollBar)
 		event.ScrollBox.Background:Hide()
 

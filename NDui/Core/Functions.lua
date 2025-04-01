@@ -2168,7 +2168,7 @@ do
 		bg:ClearAllPoints()
 		bg:SetPoint("TOPLEFT", frame, "TOPRIGHT", DB.margin, 0)
 		bg:SetPoint("BOTTOMLEFT", frame, "BOTTOMRIGHT", DB.margin, 0)
-		bg:SetPoint("RIGHT", self, "RIGHT", offset or 0, 0)
+		bg:SetPoint("RIGHT", self, "RIGHT", offset or -(DB.margin*2), 0)
 
 		return bg
 	end

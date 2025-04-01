@@ -58,6 +58,17 @@ ns.nodes[uiMapId][coord] = nodes[uiMapId][coord]
 ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
   local nodeData = nil
 
+--local Highlight = CreateFrame("Frame",nil, UIParent)
+--Highlight.tex = Highlight:CreateTexture()
+--Highlight.tex:SetAllPoints(Highlight)
+--Highlight.tex:SetColorTexture(0.5, 0.2, 1 , 0.5)
+--Highlight:SetSize(20,20)
+--Highlight:SetPoint("CENTER" , "Cursor")
+--Highlight:SetScript ("OnEnter", function(self) end)
+--Highlight:SetScript ("OnLeave", function(self) Highlight:Hide()  end)
+--Highlight:EnableMouse(true)
+--Highlight:SetMouseMotionEnabled(true)
+
   if (minimap[uiMapId] and minimap[uiMapId][coord]) then
     nodeData = minimap[uiMapId][coord]
   end
@@ -135,6 +146,10 @@ ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
     end
 
     if nodeData.TransportName and not nodeData.delveID and not nodeData.dnID then
+      --tooltip:AddDoubleLine(nodeData.TransportName, nil, nil, false)
+    end
+
+    if nodeData.TransportName and not nodeData.delveID then
       tooltip:AddDoubleLine(nodeData.TransportName, nil, nil, false)
     end
 

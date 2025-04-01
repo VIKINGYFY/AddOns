@@ -63,6 +63,8 @@ local list = {
 		{AuraID = 446887, UnitID = "player", Value = true},	-- 邪污巨兽的螯肢
 		{AuraID = 449275, UnitID = "player"},	-- 阿努布伊卡基强能水晶
 		{AuraID = 449947, UnitID = "player", Text = NPE_JUMP},	-- 奸邪发射机，跳3下
+		{AuraID = 1213433, UnitID = "player", Text = L["Crit"]},	-- 哈哈棱镜
+		{AuraID = 1213434, UnitID = "player", Text = L["Haste"]},	-- 哈哈棱镜
 		{AuraID = 449954, UnitID = "player"},	-- 奸邪发射机
 		{AuraID = 451011, UnitID = "player"},	-- 暴虐演说者的喉头
 		{AuraID = 451568, UnitID = "player", Value = true},	-- 折转侵攻模组
@@ -296,7 +298,7 @@ local list = {
 		{AuraID = 273721, UnitID = "target", Flash = true},	-- 围攻，1号易伤
 		{AuraID = 423588, UnitID = "target", Value = true},	-- 修道院，圣光屏障
 		{AuraID = 423839, UnitID = "target", Value = true},	-- 风暴复仇，驭雷栖巢
-		{AuraID = 445256, UnitID = "target", Value = true},	-- 虚空壳壁，驭雷栖巢
+		{AuraID = 445262, UnitID = "target", Value = true},	-- 虚空壳壁，驭雷栖巢
 		-- S1
 		{AuraID = 445409, UnitID = "target", Value = true},	-- 加固壳壁，斯卡莫拉克
 		-- S2
