@@ -212,19 +212,31 @@ ns.options = {
             HandyNotes:GetModule("FogOfWarButton"):Refresh()
             if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.FogOfWar then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00", L["Unexplored Areas"], "|cff00ff00" .. L["is deactivated"]) else
             if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.FogOfWar then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00", L["Unexplored Areas"], "|cffff0000" .. L["is activated"]) end end end,
-          },
-        FogOfWarAlphaReduce = {
-          disabled = function() return not ns.Addon.db.profile.activate.FogOfWar end,
+          }, 
+        MistOfTheUnexplored = {
+          disabled = function() return not ns.Addon.db.profile.activate.FogOfWar end,          
           type = "toggle",
           name = L["Mist of the Unexplored"],
           desc = L["Leaves the unexplored areas revealed but adds a slight fog so you can still see which ones you haven't explored yet"],
-          width = 1.2,
+          width = 1.17,
           order = 2.7,
-          get = function() return ns.Addon.db.profile.activate.FogOfWarAlphaReduce end,
-          set = function(info, v) ns.Addon.db.profile.activate.FogOfWarAlphaReduce = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+          get = function() return ns.Addon.db.profile.activate.MistOfTheUnexplored end,
+          set = function(info, v) ns.Addon.db.profile.activate.MistOfTheUnexplored = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
             HandyNotes:GetModule("FogOfWarButton"):Refresh()
-            if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.FogOfWarAlphaReduce then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00", L["Mist of the Unexplored"], "|cffff0000" .. L["is deactivated"]) else
-            if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.FogOfWarAlphaReduce then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00", L["Mist of the Unexplored"], "|cff00ff00" .. L["is activated"]) end end end,
+            if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.MistOfTheUnexplored then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00", L["Fog"], "|cffff0000" .. L["is deactivated"]) else
+            if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.MistOfTheUnexplored then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00", L["Fog"], "|cff00ff00" .. L["is activated"]) end end end,
+          }, 
+        FogOfWarColor = {
+          disabled = function() return not ns.Addon.db.profile.activate.FogOfWar or not ns.Addon.db.profile.activate.MistOfTheUnexplored end,
+          type = "color",
+          name = L["Fog"] .. " - " .. COLOR,
+          desc = L["Leaves the unexplored areas revealed but adds a slight fog so you can still see which ones you haven't explored yet"],
+          width = 0.80,
+          order = 2.8,
+					get = "GetFogOfWarColor",
+					set = "SetFogOfWarColor",
+          handler = ns.FogOfWar,
+					hasAlpha = true,
           }, 
         GeneralHeader = {
           type = "header",

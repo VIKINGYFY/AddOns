@@ -689,5 +689,4 @@ ns.defaults = {
           colorA_Reduce = 0.65,
       }
   },
-
 }

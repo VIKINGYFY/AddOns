@@ -1276,9 +1276,6 @@ local mnID = nodes[uiMapId][coord].mnID
 local mnID2 = nodes[uiMapId][coord].mnID2
 local mnID3 = nodes[uiMapId][coord].mnID3
 local wwwLink = nodes[uiMapId][coord].wwwLink
-local questID = nodes[uiMapId][coord].questID
-local achievementID = nodes[uiMapId][coord].achievementID
-
 ns.achievementID = nodes[uiMapId][coord].achievementID
 ns.questID = nodes[uiMapId][coord].questID
 

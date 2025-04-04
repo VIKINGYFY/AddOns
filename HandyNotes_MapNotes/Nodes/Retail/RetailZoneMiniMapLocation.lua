@@ -280,7 +280,7 @@ if not db.activate.HideMapNote then
             if self.db.profile.showMiniMapPortals then
 
               minimap[123][49111534] = { mnID = 125, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_DALARANCITY1  } -- LakeWintergrasp to Dalaran Portal 
-              minimap[127][15724250] = { mnID = 125, name = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_DALARANCITY1, questID = 12791, wwwLink = "https://www.wowhead.com/quest=12791", wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "The Magical Kingdom of Dalaran", type = "Portal", showWWW = true, showInZone = false, showOnContinent = false, showOnMinimap = true } -- LakeWintergrasp to Dalaran Portal 
+              minimap[127][15724250] = { mnID = 125, name = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_DALARANCITY1, questID = 12791, wwwLink = "https://www.wowhead.com/quest=12791", wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "The Magical Kingdom of Dalaran", type = "Portal", showWWW = true, showInZone = false, showOnContinent = false, showOnMinimap = true } -- LakeWintergrasp to Dalaran Portal  
               minimap[119][40328303] = { mnID = 78, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"] } -- Portal Sholazar to Unguro
 
               if self.faction == "Horde" or db.activate.MiniMapEnemyFaction then
