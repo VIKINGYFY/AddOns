@@ -231,7 +231,7 @@ function module:RemoveMapFog()
 	bu:SetPoint("BOTTOMLEFT", WorldMapFrameHomeButton, "TOPLEFT", -4, 0)
 	bu:SetSize(26, 26)
 	bu:SetChecked(C.db["Map"]["MapReveal"])
-	bu.text = B.CreateFS(bu, 14, L["Map Reveal"], false, "LEFT", 25, 0)
+	bu.text = B.CreateFS(bu, 14, L["Map Reveal"], "system", "LEFT", 25, 0)
 
 	for pin in WorldMapFrame:EnumeratePinsByTemplate("MapExplorationPinTemplate") do
 		hooksecurefunc(pin, "RefreshOverlays", module.MapData_RefreshOverlays)

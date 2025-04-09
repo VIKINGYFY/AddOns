@@ -129,9 +129,7 @@ do
 
 		if itemStat ~= "" then
 			hasStat = true
-		end
-
-		if itemType == PETS or itemType == MOUNTS then
+		elseif itemType and (itemType == TOY or itemType == PETS or itemType == MOUNTS) then
 			hasMisc = true
 		end
 

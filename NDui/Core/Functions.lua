@@ -428,6 +428,7 @@ do
 		"Portrait",
 		"PortraitContainer",
 		"PortraitOverlay",
+		"RecipientOverlay",
 		"Right",
 		"RightDisabled",
 		"RightHighlight",

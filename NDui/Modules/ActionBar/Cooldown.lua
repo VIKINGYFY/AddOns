@@ -117,6 +117,11 @@ function module:StartTimer(start, duration, modRate)
 			self:Hide()
 		end
 	end
+
+	-- Disable blizzard cooldown numbers
+	if DB.isNewPatch and self.SetHideCountdownNumbers then
+		self:SetHideCountdownNumbers(true)
+	end
 end
 
 function module:HideCooldownNumbers()
