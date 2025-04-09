@@ -50,19 +50,17 @@ local function UpdateProgressBars(frame)
 end
 
 C.OnLoadThemes["Blizzard_AchievementUI"] = function()
-	B.StripTextures(AchievementFrame)
-	B.SetBD(AchievementFrame)
+	B.ReskinFrame(AchievementFrame)
+	B.ReskinFrameTab(AchievementFrame, 3)
+
 	AchievementFrameWaterMark:SetAlpha(0)
 	B.StripTextures(AchievementFrame.Header)
 	AchievementFrame.Header.Title:Hide()
 	AchievementFrame.Header.Points:SetPoint("TOP", AchievementFrame, 0, -3)
 
-	B.ReskinFrameTab(AchievementFrame, 3)
-
 	B.ReskinFilterButton(AchievementFrameFilterDropdown)
 	AchievementFrameFilterDropdown:ClearAllPoints()
 	AchievementFrameFilterDropdown:SetPoint("TOPLEFT", 25, -5)
-	B.ReskinClose(AchievementFrameCloseButton)
 
 	-- Search box
 	B.ReskinInput(AchievementFrame.SearchBox)

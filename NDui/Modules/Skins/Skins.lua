@@ -17,11 +17,11 @@ function S:LoadSkins(name, func)
 
 			local isLoaded, isFinished = C_AddOns.IsAddOnLoaded(name)
 			if isLoaded and isFinished then
-				func()
+				xpcall(func, geterrorhandler())
 				B:UnregisterEvent("ADDON_LOADED", loadFunc)
 			end
 		elseif event == "ADDON_LOADED" and addon == name then
-			func()
+			xpcall(func, geterrorhandler())
 			B:UnregisterEvent(event, loadFunc)
 		end
 	end
@@ -38,7 +38,7 @@ function S:LoadAddOnSkins()
 		-- OnLogin Themes
 		for name, func in pairs(C.OnLoginThemes) do
 			if name and type(func) == "function" then
-				func()
+				xpcall(func, geterrorhandler())
 			end
 		end
 

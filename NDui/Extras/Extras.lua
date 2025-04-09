@@ -13,7 +13,7 @@ end
 function EX:OnLogin()
 	for name, func in pairs(EX_LIST) do
 		if name and type(func) == "function" then
-			func()
+			xpcall(func, geterrorhandler())
 		end
 	end
 

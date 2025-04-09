@@ -19,6 +19,15 @@ C.OnLoginThemes["TradeFrame"] = function()
 	B.ReskinButton(TradeFrameTradeButton)
 	B.ReskinButton(TradeFrameCancelButton)
 
+	if not TradePlayerInputMoneyFrame:IsForbidden() then
+		B.ReskinInput(TradePlayerInputMoneyFrameGold)
+		B.ReskinInput(TradePlayerInputMoneyFrameSilver)
+		B.ReskinInput(TradePlayerInputMoneyFrameCopper)
+
+		B.UpdatePoint(TradePlayerInputMoneyFrameSilver, "LEFT", TradePlayerInputMoneyFrameGold, "RIGHT", 1, 0)
+		B.UpdatePoint(TradePlayerInputMoneyFrameCopper, "LEFT", TradePlayerInputMoneyFrameSilver, "RIGHT", 1, 0)
+	end
+
 	local texts = {
 		TradeFramePlayerNameText,
 		TradeFrameRecipientNameText,
