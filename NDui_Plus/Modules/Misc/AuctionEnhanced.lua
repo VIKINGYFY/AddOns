@@ -6,8 +6,7 @@ local pairs = pairs
 local format = string.format
 
 local function CreateStatsText(self)
-	local fs = B.CreateFS(self, 12, "")
-	fs:SetTextColor(.12, 1, 0)
+	local fs = B.CreateFS(self, 12, "", "info")
 	fs:ClearAllPoints()
 
 	return fs
@@ -42,7 +41,7 @@ function M:Auction_ItemStats()
 	hooksecurefunc(_G.AuctionHouseTableExtraInfoMixin, "Populate", function(self, rowData)
 		if not self.stats then
 			self.stats = CreateStatsText(self)
-			self.stats:SetPoint("LEFT", self, "RIGHT")
+			self.stats:SetPoint("RIGHT", self, "LEFT")
 		end
 
 		local itemLink = rowData and rowData.itemLink

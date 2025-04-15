@@ -120,6 +120,9 @@ local questlist = {
 
 }
 
+local delvesKeys = {84736, 84737, 84738, 84739}
+local keyName = C_CurrencyInfo.GetCurrencyInfo(3028).name
+
 -- Check Invasion Status
 local region = GetCVar("portal")
 local legionZoneTime = {
@@ -281,8 +284,8 @@ local delveList = {
 	{uiMapID = 2255, delveID = 7790}, -- The Spiral Weave
 	{uiMapID = 2255, delveID = 7784}, -- Tak-Rethan Abyss
 	{uiMapID = 2255, delveID = 7786}, -- The Underkeep
-	{uiMapID = 2346, delveID = 8246},
-	{uiMapID = 2214, delveID = 8181},
+	{uiMapID = 2346, delveID = 8246}, -- Sidestree Sluice
+	{uiMapID = 2214, delveID = 8181}, -- Excavation Site 9
 }
 
 info.onEnter = function(self)
@@ -344,6 +347,17 @@ info.onEnter = function(self)
 				GameTooltip:AddDoubleLine((v.itemID and GetItemLink(v.itemID)) or (v.questName and QuestUtils_GetQuestName(v.id)) or v.name, QUEST_COMPLETE, 1,1,1, 1,0,0)
 			end
 		end
+	end
+	local currentKeys, maxKeys = 0, #delvesKeys
+	for _, questID in pairs(delvesKeys) do
+		if C_QuestLog.IsQuestFlaggedCompleted(questID) then
+			currentKeys = currentKeys + 1
+		end
+	end
+	if currentKeys > 0 then
+		addTitle(QUESTS_LABEL)
+		if currentKeys == maxKeys then r,g,b = 1,0,0 else r,g,b = 0,1,0 end
+		GameTooltip:AddDoubleLine(keyName, format("%d / %d", currentKeys, #delvesKeys), 1,1,1, r,g,b)
 	end
 
 	-- Delves

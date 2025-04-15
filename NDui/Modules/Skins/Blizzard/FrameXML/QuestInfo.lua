@@ -149,7 +149,9 @@ local function Reskin_SpecialReward()
 			if not followerReward.styled then
 				followerReward.BG:Hide()
 
-				local bubg = B.CreateBGFrame(followerReward, 0, -3, 2, 7)
+				local bubg = B.CreateBGFrame(followerReward, .25)
+				B.UpdateSize(bubg, 0, -3, 2, 7)
+
 				B.ReskinFollowerPortrait(portrait)
 				B.UpdatePoint(portrait, "LEFT", bubg, "LEFT", .5, .5)
 

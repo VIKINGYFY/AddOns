@@ -113,7 +113,7 @@ end
 local function HandleRaid(self)
 	self.BgTexture:SetAlpha(0)
 	self.icbg = B.ReskinIcon(self.BossIcon)
-	self.bubg = B.CreateBGFrame(self, self.icbg)
+	self.bubg = B.ReskinNameFrame(self, self.icbg)
 
 	for _, button in ipairs(self.itemFrames) do
 		HandleItemButton(button)

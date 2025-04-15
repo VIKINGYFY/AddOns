@@ -454,8 +454,8 @@ end
 
 function addon:SavePosition(f)
 	local orig, _, tar, x, y = f:GetPoint()
-	x = self:Round(x)
-	y = self:Round(y)
+	x = self:Round(x, 2)
+	y = self:Round(y, 2)
 
 	local db = self.db
 	local key = f.key or f:GetName()
