@@ -1496,7 +1496,7 @@ do
 		B.ReskinHLTex(self, bg, true)
 	end
 
-	function B:AffixesSetup()
+	function B:ReskinAffixes()
 		local list = self.AffixesContainer and self.AffixesContainer.Affixes or self.Affixes
 		if not list then return end
 
@@ -2182,6 +2182,7 @@ do
 		end
 	end
 
+	B.AffixesSetup = B.ReskinAffixes
 	B.Reskin = B.ReskinButton
 	B.ReskinEditBox = B.ReskinInput
 	B.ReskinIconBorder = B.ReskinBorder

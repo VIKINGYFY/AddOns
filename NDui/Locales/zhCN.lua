@@ -21,6 +21,7 @@ L["AutoConfirm"] = "自动确认出售可交易物品提示"
 L["PlateMargin"] = "姓名版各元素间隙"
 L["Highlight Color"] = "指向高亮边框"
 L["Target Color"] = "目标高亮边框"
+L["Warning Color"] = "危险目标染色"
 L["CustomNameColor"] = "名字颜色"
 L["CustomNameColorTip"] = "|n禁用该选项后，可点击 界面美化 页面的 名字颜色 进行自定义。"
 

@@ -76,6 +76,7 @@ local list = {
 		{AuraID = 1214806, UnitID = "player"},	-- 机械核心增幅器
 		{AuraID = 1214810, UnitID = "player"},	-- 机械核心增幅器
 		{AuraID = 1216650, UnitID = "player"},	-- 可疑的能量饮料
+		{AuraID = 1218713, UnitID = "player"},	-- 临时制作的爆盐起搏器
 
 	},
 	["Raid Buff"] = {		-- 团队增益组
@@ -248,7 +249,8 @@ local list = {
 		-- 大米
 		{AuraID = 226510, UnitID = "target"},	-- 血池回血
 		{AuraID = 343502, UnitID = "target"},	-- 鼓舞光环
-		{AuraID =1221061, UnitID = "target"},	-- 萨拉塔斯的赠礼
+		{AuraID =1221061, UnitID = "target"},	-- 萨拉塔斯的赠礼：虚缚
+		{AuraID =1221063, UnitID = "target"},	-- 萨拉塔斯的赠礼：扬升
 		-- 5人
 		{AuraID = 372988, UnitID = "target", Value = true},	-- 寒冰壁垒，红玉
 		{AuraID = 391050, UnitID = "target", Value = true},	-- 暴风骤雨之盾，红玉

@@ -165,6 +165,7 @@ function UF:UpdateColor(_, unit)
 	local isPlayer = self.isPlayer
 	local isFriendly = self.isFriendly
 	local isHasTheDot = self.Auras.hasTheDot
+	local isWarningUnit = C.WarningUnits[npcID]
 	local isCustomUnit = UF.CustomUnits[name] or UF.CustomUnits[npcID]
 
 	local isOffTank, status = UF:CheckThreatStatus(unit)
@@ -181,6 +182,7 @@ function UF:UpdateColor(_, unit)
 	local transColor = C.db["Nameplate"]["TransColor"]
 	local targetColor = C.db["Nameplate"]["TargetColor"]
 	local highlightColor = C.db["Nameplate"]["HighlightColor"]
+	local warningColor = C.db["Nameplate"]["WarningColor"]
 
 	local r, g, b
 
@@ -189,6 +191,8 @@ function UF:UpdateColor(_, unit)
 	else
 		if isCustomUnit then
 			r, g, b = customColor.r, customColor.g, customColor.b
+		elseif isWarningUnit then
+			r, g, b = warningColor.r, warningColor.g, warningColor.b
 		elseif isHasTheDot then
 			r, g, b = dotColor.r, dotColor.g, dotColor.b
 		elseif isPlayer and isFriendly then

@@ -78,6 +78,7 @@ local list = {
 		{AuraID = 458745, UnitID = "player"}, -- 骨化锋刺
 		{AuraID = 460049, UnitID = "player"}, -- 苦痛凌虐
 		{AuraID = 469169, UnitID = "player"}, -- 凄惨痛快
+		{AuraID = 460500, UnitID = "player"}, -- 染血利刃
 
 	},
 }
