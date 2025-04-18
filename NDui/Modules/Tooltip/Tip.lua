@@ -270,7 +270,7 @@ function TT:OnTooltipSetUnit()
 			self:AddLine(format(npcIDstring, "NpcID:", npcID))
 
 			local npcName = UnitName("mouseover") or UNKNOWN
-			print(format("[%s] = true,  -- %s", npcID, npcName))
+			print(format("[%s] = true, -- %s", npcID, npcName))
 		end
 	end
 
