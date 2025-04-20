@@ -11,8 +11,8 @@ do
 		local itemID, _, _, itemEquipLoc, _, itemClassID, itemSubClassID = C_Item.GetItemInfoInstant(itemInfo)
 		if not itemID then return end
 
+		local itemType, itemDate
 		if not typeCache[itemInfo] then
-			local itemType
 			if DB.EquipmentIDs[itemClassID] then
 				itemType = DB.EquipmentTypes[itemEquipLoc] or _G[itemEquipLoc]
 			elseif C_ArtifactUI.GetRelicInfoByItemID(itemID) then
@@ -33,7 +33,6 @@ do
 				itemType = DB.ProfessionTypes[itemSubClassID]
 			end
 
-			local itemDate
 			if bagID and slotID then
 				itemDate = C_TooltipInfo.GetBagItem(bagID, slotID)
 			else
@@ -90,8 +89,8 @@ do
 	-- Item Stat
 	local statCache = {}
 	function B.GetItemStat(itemInfo)
+		local itemStat = ""
 		if not statCache[itemInfo] then
-			local itemStat = ""
 			local stats = C_Item.GetItemStats(itemInfo)
 			if stats then
 				for stat, count in pairs(stats) do
@@ -101,8 +100,6 @@ do
 					if string.find(stat, "EMPTY_SOCKET_") then
 						itemStat = itemStat.."-"..L["Socket"]
 					end
-
-					break
 				end
 			end
 
@@ -115,8 +112,8 @@ do
 	-- Item Extra
 	local extraCache = {}
 	function B.GetItemExtra(itemInfo)
+		local itemExtra, hasStat, hasMisc
 		if not extraCache[itemInfo] then
-			local itemExtra, hasStat, hasMisc
 			local itemType = B.GetItemType(itemInfo)
 			local itemStat = B.GetItemStat(itemInfo)
 			local itemLevel = B.GetItemLevel(itemInfo)

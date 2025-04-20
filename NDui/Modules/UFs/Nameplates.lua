@@ -164,7 +164,8 @@ function UF:UpdateColor(_, unit)
 	local npcID = self.npcID
 	local isPlayer = self.isPlayer
 	local isFriendly = self.isFriendly
-	local isHasTheDot = self.Auras.hasTheDot
+	local isDoTUnit = self.Auras.hasTheDot
+	local isTrashUnit = C.TrashUnits[npcID]
 	local isWarningUnit = C.WarningUnits[npcID]
 	local isCustomUnit = UF.CustomUnits[name] or UF.CustomUnits[npcID]
 
@@ -193,7 +194,7 @@ function UF:UpdateColor(_, unit)
 			r, g, b = customColor.r, customColor.g, customColor.b
 		elseif isWarningUnit then
 			r, g, b = warningColor.r, warningColor.g, warningColor.b
-		elseif isHasTheDot then
+		elseif isDoTUnit then
 			r, g, b = dotColor.r, dotColor.g, dotColor.b
 		elseif isPlayer and isFriendly then
 			if friendlyCC then
@@ -205,23 +206,25 @@ function UF:UpdateColor(_, unit)
 			r, g, b = B.UnitColor(unit)
 		else
 			r, g, b = UnitSelectionColor(unit, true)
-			if status and status == 3 then
-				if DB.Role ~= "Tank" then
-					r, g, b = insecureColor.r, insecureColor.g, insecureColor.b
-				else
-					if isOffTank then
-						r, g, b = offTankColor.r, offTankColor.g, offTankColor.b
+			if status then
+				if status == 3 then
+					if DB.Role ~= "Tank" then
+						r, g, b = insecureColor.r, insecureColor.g, insecureColor.b
 					else
-						r, g, b = secureColor.r, secureColor.g, secureColor.b
+						if isOffTank then
+							r, g, b = offTankColor.r, offTankColor.g, offTankColor.b
+						else
+							r, g, b = secureColor.r, secureColor.g, secureColor.b
+						end
 					end
-				end
-			elseif status and (status == 2 or status == 1) then
-				r, g, b = transColor.r, transColor.g, transColor.b
-			elseif status and status == 0 then
-				if DB.Role ~= "Tank" then
-					r, g, b = secureColor.r, secureColor.g, secureColor.b
-				else
-					r, g, b = insecureColor.r, insecureColor.g, insecureColor.b
+				elseif status == 2 or status == 1 then
+					r, g, b = transColor.r, transColor.g, transColor.b
+				elseif status == 0 then
+					if DB.Role ~= "Tank" then
+						r, g, b = secureColor.r, secureColor.g, secureColor.b
+					else
+						r, g, b = insecureColor.r, insecureColor.g, insecureColor.b
+					end
 				end
 			end
 		end
@@ -232,7 +235,7 @@ function UF:UpdateColor(_, unit)
 	self.HighlightIndicator.Glow:SetBackdropBorderColor(highlightColor.r, highlightColor.g, highlightColor.b)
 
 	self.ThreatIndicator:Hide()
-	if isCustomUnit and status then
+	if (isCustomUnit or isWarningUnit or isDoTUnit or isTrashUnit) and status then
 		if status == 3 then
 			if DB.Role ~= "Tank" then
 				self.ThreatIndicator:SetBackdropBorderColor(insecureColor.r, insecureColor.g, insecureColor.b)
