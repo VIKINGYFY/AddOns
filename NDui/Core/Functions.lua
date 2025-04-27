@@ -888,7 +888,7 @@ do
 	local function updateIconBorderColorByAtlas(border, atlas)
 		local atlasAbbr = atlas and string.match(atlas, "%-(%w+)$")
 		local quality = atlasAbbr and AtlasToQuality[atlasAbbr]
-		local color = DB.QualityColors[quality or 1]
+		local color = DB.QualityColors[quality and quality or 1]
 
 		border.__owner.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 		if border.__owner.nf then
@@ -2041,7 +2041,7 @@ do
 			local link = data.guid and C_Item.GetItemLinkByGUID(data.guid) or data.hyperlink
 			if link then
 				local quality = select(3, C_Item.GetItemInfo(link))
-				local color = DB.QualityColors[quality or 1]
+				local color = DB.QualityColors[quality and quality or 1]
 				if color then
 					self.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 				end

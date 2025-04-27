@@ -1372,3 +1372,5 @@ ns.FogOfWarDataCataclysm = {
 		[487678236581888] = "462974,462978,462979,462980,462981,462982,462983,462984,462985,462975,462976,462977",
 	},
 }
+
+_G.FogOfWarDataCataclysmGlobal = ns.FogOfWarDataCataclysm

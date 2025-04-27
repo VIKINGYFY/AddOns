@@ -39,45 +39,48 @@ end
 
 function ns.DelveContinent:RefreshAllData()
     self:RemoveAllData()
+    
     local mapID = self:GetMap():GetMapID()
-	local mapInfo = C_Map.GetMapInfo(mapID)
+    local mapInfo = C_Map.GetMapInfo(mapID)
 
-	if not (mapInfo and mapInfo.mapType == 2) then
-		return
-	end
-
-    for _, mapInfo in ipairs(C_Map.GetMapChildrenInfo(mapID)) do
-		if mapInfo.mapType == 3 then
-            self:CoCDelves(mapID, mapInfo)
-        end
+    if not (mapInfo and mapInfo.mapType == 2) then
+        return
     end
 
-    local CoC = { [2274] = { 2346 } }
-    if CoC[mapID] then
-		for _, childID in ipairs(CoC[mapID]) do
-			self:CoCDelves(mapID, C_Map.GetMapInfo(childID))
-		end
-	end
+    for _, child in ipairs(C_Map.GetMapChildrenInfo(mapID, nil, true)) do
+        if child.mapType == 3 or (child.name and child.name:find("Delve")) then
+            self:CoCDelves(mapID, child)
+        end
+    end
+end
+
+
+function ns.DelveContinent:OnMapChanged()
+    self:RefreshAllData()
+end
+
+local function ConvertMapCoords(fromMapID, toMapID, x, y)
+    local minX, maxX, minY, maxY = C_Map.GetMapRectOnMap(fromMapID, toMapID)
+    if not minX then return x, y end
+    return Lerp(minX, maxX, x), Lerp(minY, maxY, y)
 end
 
 function ns.DelveContinent:CoCDelves(mapID, mapInfo)
     if not mapInfo then return end
-	for _, delveIDs in ipairs(C_AreaPoiInfo.GetDelvesForMap(mapInfo.mapID)) do
-		local info = C_AreaPoiInfo.GetAreaPOIInfo(mapInfo.mapID, delveIDs)    
-		local minX, maxX, minY, maxY = C_Map.GetMapRectOnMap(mapInfo.mapID, mapID)
-        -- https://warcraft.wiki.gg/wiki/API_C_Map.GetMapRectOnMap 
-		if info then
-			local x, y = info.position:GetXY()
-			local LerpX = Lerp(minX, maxX, x)
-			local LerpY = Lerp(minY, maxY, y)
-			info.position:SetXY(LerpX, LerpY)
-			info.dataProvider = self
-            if ns.Addon.db.profile.showContinentDelves and ns.Addon.db.profile.showContinentKhazAlgar then
-			    self:GetMap():AcquirePin("ContinentDelvePinTemplate", info)
+    if not (ns.Addon.db.profile.showContinentDelves and ns.Addon.db.profile.showContinentKhazAlgar) then return end
+    
+    for _, delveID in ipairs(C_AreaPoiInfo.GetDelvesForMap(mapInfo.mapID) or {}) do
+        local info = C_AreaPoiInfo.GetAreaPOIInfo(mapInfo.mapID, delveID)
+        if info and info.position then
+            local x, y = info.position:GetXY()
+            local newX, newY = ConvertMapCoords(mapInfo.mapID, mapID, x, y)
+            info.position:SetXY(newX, newY)
+            info.dataProvider = self
+            if newX >= 0 and newX <= 1 and newY >= 0 and newY <= 1 then
+                self:GetMap():AcquirePin("ContinentDelvePinTemplate", info)
             end
-		end
+        end
     end
-
 end
 
 function ns.DelveContinent:RemoveAllData()

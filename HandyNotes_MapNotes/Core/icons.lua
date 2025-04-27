@@ -283,6 +283,7 @@ ns.icons = {
 
 TextIcon = IconClass
 TextIconMNL4 = TextIcon(iconLink .. "MNL4", 50, 50, 1, 50, 1, 50)
+TextIconInfo = TextIcon("Interface\\FriendsFrame\\InformationIcon",50, 50, 1, 50, 1, 50)
 --General
 TextIconInnkeeper = TextIcon("interface/minimap/tracking/innkeeper.blpp", 50, 50, 1, 50, 1, 50)
 TextIconInnkeeperN = TextIcon(iconLink .. "InnkeeperN", 50, 50, 1, 50, 1, 50)
@@ -472,8 +473,9 @@ TextIconCheck = TextIcon("Interface/Buttons/UI-CheckBox-Up", 50, 50, 1, 50, 1, 5
 TextIconHorde = TextIcon("interface/pvprankbadges/pvprankhorde")
 TextIconAlliance = TextIcon("interface/pvprankbadges/pvprankalliance")
 TextIconTomTom = TextIcon(iconLink .."tomtompoint")
+TextIconWayPoint = TextIcon("interface/minimap/minimap-waypoint-mappin-untracked", 60, 60, 1, 50, 1, 50)
 TextIconJournal = TextIcon("interface/icons/inv_misc_book_09")
-TextIconKilledBosses = TextIcon("Interface/TargetingFrame/UI-RaidTargetingIcon_8")
+TextIconBosses = TextIcon("Interface/TargetingFrame/UI-RaidTargetingIcon_8")
 --expansions
 TextIconKalimdor = TextIcon("Interface/CharacterFrame/TemporaryPortrait-Female-Orc")
 TextIconEK = TextIcon("Interface/CharacterFrame/TemporaryPortrait-Female-Human")

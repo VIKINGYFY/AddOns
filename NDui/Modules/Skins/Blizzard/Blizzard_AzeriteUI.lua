@@ -16,23 +16,18 @@ local function updateEssenceButton(button)
 
 		if button.Icon then
 			B.ReskinIcon(button.Icon)
-		end
+			B.ReskinHLTex(button, bg, true)
 
-		if button.PendingGlow then
 			button.PendingGlow:SetTexture("")
+			button.Background:SetAlpha(0)
 		end
 
-		local hl = button:GetHighlightTexture()
-		if hl then
-			hl:SetColorTexture(cr, cg, cb, .25)
-			hl:SetInside(bg)
+		if button.ExpandedIcon then
+			button:DisableDrawLayer("BACKGROUND")
+			button:DisableDrawLayer("BORDER")
 		end
 
 		button.bg = bg
-	end
-
-	if button.Background then
-		button.Background:SetTexture("")
 	end
 
 	if button:IsShown() then

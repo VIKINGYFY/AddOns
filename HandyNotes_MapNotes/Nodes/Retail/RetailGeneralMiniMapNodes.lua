@@ -250,6 +250,10 @@ if not db.activate.HideMapNote then
         --Eastern Kingdom
         if self.db.profile.showMiniMapEasternKingdom then
 
+            if self.db.profile.showMiniMapPvEVendor then
+                minimap[122][47253072] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS .. "\n" .. AUCTION_CATEGORY_RECIPES, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+            end
+
             if self.db.profile.showMiniMapZidormi then
                 minimap[18][69456280] = { mnID = 2070, name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Tirisfal Glades"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[14][38249009] = { name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Arathi Highlands"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }

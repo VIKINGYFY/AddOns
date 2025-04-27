@@ -62,16 +62,16 @@ if not db.activate.HideMapNote then
             minimap[1527][69095283] = { id = 70, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Halls of Origination
             minimap[71][24619233] = { id = 70, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Halls of Origination
             minimap[1527][76708435] = { id = 68, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Vortex Pinnacle
-            minimap[69][76453593] = { id = 230, lfgid = 34, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dire Maul - Warpwood Quarter - East above Camp Mojache -- only Minimap
-            minimap[69][66773483] = { id = 230, lfgid = 34, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dire Maul - Warpwood Quarter - East above Camp Mojache -- only Minimap
+            minimap[69][76453593] = { id = 1276, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dire Maul - Warpwood Quarter - East above Camp Mojache -- only Minimap
+            minimap[69][66773483] = { id = 1276, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dire Maul - Warpwood Quarter - East above Camp Mojache -- only Minimap
 
           end
 
         -- Kalimdor Dungeons without ClassicIcons is activ
           if self.db.profile.showMiniMapDungeons and not db.activate.ClassicIcons then
-            minimap[69][60323015] = { id = 230, lfgid = 36, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dire Maul - Capital Gardens - West left Entrance 
-            minimap[69][60303130] = { id = 230, lfgid = 36, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dire Maul - Capital Gardens - West right Entrance 
-            minimap[69][62502490] = { id = 230, lfgid = 38, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dire Maul - Gordok Commons - North  
+            minimap[69][60323015] = { id = 230, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dire Maul - Capital Gardens - West left Entrance 
+            minimap[69][60303130] = { id = 230, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dire Maul - Capital Gardens - West right Entrance 
+            minimap[69][62502490] = { id = 1277, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dire Maul - Gordok Commons - North  
             minimap[67][78285518] = { id = 232, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Maraudon Foulspore Cavern 
             minimap[68][52152417] = { id = 232, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Maraudon Foulspore Cavern 
             minimap[68][44517669] = { id = 232, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Maraudon Foulspore Cavern first Entrance
@@ -110,8 +110,8 @@ if not db.activate.HideMapNote then
             minimap[10][38916921] = { mnID = 11, id = 240, TransportName = L["Way to the Instance Entrance"], name = "", type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Wailing Caverns 
             minimap[66][29226253] = { dnID = L["Way to the Instance Entrance"], id = 232, type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Maraudon Outside
             minimap[63][14161380] = { dnID = L["Way to the Instance Entrance"], id = 227, type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Blackfathom Deeps 
-            minimap[69][65503524] = { dnID = L["Way to the Instance Entrance"], id = 230, lfgid = 34, type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dire Maul - Warpwood Quarter - East above Camp Mojache   
-            minimap[69][77073692] = { dnID = L["Way to the Instance Entrance"], id = 230, lfgid = 34, type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dire Maul - Warpwood Quarter - East above Camp Mojache   
+            minimap[69][65503524] = { dnID = L["Way to the Instance Entrance"], id = 1276, type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dire Maul - Warpwood Quarter - East above Camp Mojache   
+            minimap[69][77073692] = { dnID = L["Way to the Instance Entrance"], id = 1276, type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dire Maul - Warpwood Quarter - East above Camp Mojache   
           end
 
 
@@ -228,7 +228,7 @@ if not db.activate.HideMapNote then
             minimap[36][20643322] = { mnID = 33, hideInfo = true, id = { 741, 742, 66, 228, 229, 559 }, name = L["Way to the Instance Entrance"], type = "PassageDungeonRaidMulti", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
             minimap[32][35268404] = { mnID = 33, name = "", type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
             minimap[15][58543698] = { dnID = L["Way to the Instance Entrance"], id = 239, name = "", type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Uldaman (Secondary Entrance) 
-            minimap[23][43251854] = { dnID = L["Way to the Instance Entrance"], id = 236, lfgid = 274, type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true }-- Stratholme Service Entrance 
+            minimap[23][43251854] = { dnID = L["Way to the Instance Entrance"], id = 1292, type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true }-- Stratholme Service Entrance 
             minimap[33][68635371] = { mnID = 34, hideInfo = true, id = { 66 }, name = L["Way to the Instance Entrance"], type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Blackrock Caverns
             minimap[33][65896169] = { mnID = 34, hideInfo = true, id = { 66 }, name = L["Way to the Instance Entrance"], type = "PassageDungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Blackrock Caverns
             minimap[33][45004700] = { mnID = 35, hideInfo = true, id = { 741, 228 }, name = L["Way to the Instance Entrance"], type = "PassageRaid", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Blackrock Depths

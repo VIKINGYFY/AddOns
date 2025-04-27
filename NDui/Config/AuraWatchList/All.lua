@@ -70,6 +70,7 @@ local list = {
 		{AuraID =  455420, UnitID = "player"},	-- 探洞者的蜡烛残端
 		{AuraID =  455444, UnitID = "player"},	-- 探洞者的蜡烛
 		{AuraID =  455451, UnitID = "player"},	-- 迅芯烛台
+		{AuraID =  466681, UnitID = "player"},	-- 纸牌屋
 		{AuraID =  470286, UnitID = "player"},	-- 托克的大红按钮
 		{AuraID = 1213433, UnitID = "player", Text = L["Crit"]},	-- 哈哈棱镜
 		{AuraID = 1213434, UnitID = "player", Text = L["Haste"]},	-- 哈哈棱镜

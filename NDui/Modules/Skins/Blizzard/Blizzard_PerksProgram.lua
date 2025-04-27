@@ -6,26 +6,79 @@ local function ReskinCustomizeButton(button)
 	button.__bg:SetInside(nil, 5, 5)
 end
 
-local function ReskinRewardButton(button)
-	if button.styled then return end
-
-	local container = button.ContentsContainer
-	if container then
-		B.ReskinIcon(container.Icon)
-		B.ReskinIcon(container.PriceIcon)
+local function ReskinCartToggle(button)
+	if not button.styled then
+		button:GetNormalTexture():SetAlpha(0)
+		button:GetPushedTexture():SetAlpha(0)
+		button:GetDisabledTexture():SetAlpha(0)
+		button:GetHighlightTexture():SetAlpha(0)
+		button.styled = true
 	end
-	button.styled = true
+	if not button.tex then
+		button.tex = button:CreateTexture()
+		button.tex:SetPoint("BOTTOMLEFT", 5, 5)
+		button.tex:SetSize(22, 22)
+		button.tex:SetAtlas("Perks-shoppingcart")
+		button.tex.isIgnored = true
+	end
+	if not button.state then
+		button.state = button:CreateFontString()
+		button.state:SetPoint("TOPRIGHT", -3, 0)
+		button.state:SetFontObject(Game20Font)
+	end
+	button.state:SetText(button.itemInCart and "|cffff0000-|r" or "|cff00ff00+|r")
+end
+
+local function ReskinRewardButton(button)
+	if not button.styled then
+		local container = button.ContentsContainer
+		if container then
+			B.ReskinIcon(container.Icon)
+			B.ReskinIcon(container.PriceIcon)
+			ReskinCartToggle(container.CartToggleButton)
+			hooksecurefunc(container.CartToggleButton, "UpdateCartState", ReskinCartToggle)
+		end
+
+		button.styled = true
+	end
 end
 
 local function SetupSetButton(button)
-	if button.bg then return end
-	button.bg = B.ReskinIcon(button.Icon)
-	B.ReskinBorder(button.IconBorder, true, true)
-	button.BackgroundTexture:SetAlpha(0)
-	button.SelectedTexture:SetColorTexture(1, 1, 0, .25)
-	button.SelectedTexture:SetInside(button.bg)
-	button.HighlightTexture:SetColorTexture(1, 1, 1, .25)
-	button.HighlightTexture:SetInside(button.bg)
+	if not button.bg then
+		button.IconMask:Hide()
+		button.bg = B.ReskinIcon(button.Icon)
+		button.IconBorder:SetAlpha(0)
+		button.BackgroundTexture:SetAlpha(0)
+
+		local bg = B.CreateBDFrame(button.BackgroundTexture, .25)
+		bg:SetInside(button.BackgroundTexture, 3, 3)
+		button.HighlightTexture:SetColorTexture(1, 1, 1, .25)
+		button.HighlightTexture:SetInside(bg)
+	end
+end
+
+local function SetupCartItem(button)
+	if not button.styled then
+		if button.Icon then
+			SetupSetButton(button)
+		end
+		if button.PriceIcon then
+			B.ReskinIcon(button.PriceIcon)
+		end
+		if button.RemoveFromCartItemButton then
+			B.ReskinFilterReset(button.RemoveFromCartItemButton.RemoveFromListButton)
+		end
+
+		button.styled = true
+	end
+end
+
+local function SetupFramBG(frame)
+	local bg = B.ReskinFrame(frame)
+	bg:SetFrameLevel(0)
+	if bg.__shadow then
+		bg.__shadow:SetFrameLevel(0)
+	end
 end
 
 C.OnLoadThemes["Blizzard_PerksProgram"] = function()
@@ -36,13 +89,20 @@ C.OnLoadThemes["Blizzard_PerksProgram"] = function()
 	if footerFrame then
 		ReskinCustomizeButton(footerFrame.LeaveButton)
 		ReskinCustomizeButton(footerFrame.PurchaseButton)
-		ReskinCustomizeButton(footerFrame.RefundButton) -- not seen yet, needs review
+		ReskinCustomizeButton(footerFrame.RefundButton)
+		ReskinCustomizeButton(footerFrame.AddToCartButton)
+		ReskinCustomizeButton(footerFrame.RemoveFromCartButton)
 		B.ReskinCheck(footerFrame.TogglePlayerPreview)
 		B.ReskinCheck(footerFrame.ToggleHideArmor)
 		B.ReskinCheck(footerFrame.ToggleAttackAnimation)
 		B.ReskinCheck(footerFrame.ToggleMountSpecial)
 		ReskinCustomizeButton(footerFrame.RotateButtonContainer.RotateLeftButton)
 		ReskinCustomizeButton(footerFrame.RotateButtonContainer.RotateRightButton)
+
+		ReskinCustomizeButton(footerFrame.ViewCartButton)
+		local tex = footerFrame.ViewCartButton:CreateTexture()
+		tex:SetInside(nil, 10, 10)
+		tex:SetAtlas("Perks-shoppingcart")
 
 		hooksecurefunc(GlowEmitterFactory, "Show", function(frame, target, show)
 			local button = footerFrame.PurchaseButton
@@ -56,22 +116,38 @@ C.OnLoadThemes["Blizzard_PerksProgram"] = function()
 	if productsFrame then
 		B.ReskinFilterButton(productsFrame.PerksProgramFilter)
 		B.ReskinIcon(productsFrame.PerksProgramCurrencyFrame.Icon)
-		B.StripTextures(productsFrame.PerksProgramProductDetailsContainerFrame)
-		B.SetBD(productsFrame.PerksProgramProductDetailsContainerFrame)
-		B.ReskinScroll(productsFrame.PerksProgramProductDetailsContainerFrame.SetDetailsScrollBoxContainer.ScrollBar)
 
+		SetupFramBG(productsFrame.PerksProgramProductDetailsContainerFrame)
+		B.ReskinScroll(productsFrame.PerksProgramProductDetailsContainerFrame.SetDetailsScrollBoxContainer.ScrollBar)
 		hooksecurefunc(productsFrame.PerksProgramProductDetailsContainerFrame.SetDetailsScrollBoxContainer.ScrollBox, "Update", function(self)
 			self:ForEachFrame(SetupSetButton)
 		end)
 
 		local productsContainer = productsFrame.ProductsScrollBoxContainer
-		B.StripTextures(productsContainer)
-		B.SetBD(productsContainer)
+		SetupFramBG(productsContainer)
 		B.ReskinScroll(productsContainer.ScrollBar)
 		B.StripTextures(productsContainer.PerksProgramHoldFrame)
+		B.CreateBDFrame(productsContainer.PerksProgramHoldFrame, .25):SetInside(nil, 3, 3)
 
 		hooksecurefunc(productsContainer.ScrollBox, "Update", function(self)
 			self:ForEachFrame(ReskinRewardButton)
 		end)
+
+		local cartFrame = productsFrame.PerksProgramShoppingCartFrame
+		if cartFrame then
+			B.ReskinFrame(cartFrame)
+			B.ReskinScroll(cartFrame.ItemList.ScrollBar)
+			ReskinCustomizeButton(cartFrame.PurchaseCartButton)
+			ReskinCustomizeButton(cartFrame.ClearCartButton)
+
+			local tex = cartFrame.ClearCartButton:CreateTexture()
+			tex:SetInside(nil, 10, 10)
+			tex:SetAtlas("common-icon-undo")
+			tex:SetVertexColor(1, 0, 0)
+
+			hooksecurefunc(cartFrame.ItemList.ScrollBox, "Update", function(self)
+				self:ForEachFrame(SetupCartItem)
+			end)
+		end
 	end
 end

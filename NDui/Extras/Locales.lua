@@ -2,8 +2,8 @@ local _, ns = ...
 local _, _, L = unpack(ns)
 if GetLocale() ~= "zhCN" then return end
 
-L["+2timeLimit"] = "加二时间 "
-L["+3timeLimit"] = "加三时间 "
+L["+2timeLimit"] = "加二 "
+L["+3timeLimit"] = "加三 "
 L["CastAlertInfo"] = "%s 开启了 %s，前往 %s ！"
 L["Instance Difficulty"] = "当前副本难度：%s"
 L["LM Message 1"] = "你好！请问%s有需求吗？没有的话能让给我吗？谢谢！"

@@ -66,13 +66,13 @@ local nodes = ns.nodes
 
                 if self.db.profile.activate.RemoveBlizzPOIs then
 
-                    if self.faction == "Alliance" or db.activate.EnemyFaction then
+                    if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
                         nodes[1438][31334778] = { mnID = 1457, name = "", type = "AIcon", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Darnassus"] .. " - " .. FACTION_ALLIANCE .. "\n" .. "\n" .. L["Portal"] .. "\n" .. " => " .. L["Blasted Lands"] }
                         nodes[1943][24734852] = { mnID = 1947, name = "", type = "AIcon", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Exodar"] .. " - " .. FACTION_ALLIANCE  .. "\n" .. "\n" .. L["Portal"] .. "\n" .. " => " .. L["Stormwind"] }
                         nodes[1943][34034427] = { mnID = 1947, name = "", type = "PassageLeftL", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Exodar"] .. " - " .. FACTION_ALLIANCE  .. "\n" .. "\n" .. L["Portal"] .. "\n" .. " => " .. L["Stormwind"] }
                     end
 
-                    if self.faction == "Horde" or db.activate.EnemyFaction then
+                    if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
                         nodes[1411][45600899] = { mnID = 1454, name = "", type = "HIcon", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = DUNGEON_FLOOR_ORGRIMMAR0 .. " - " .. FACTION_HORDE .. "\n" .. "\n" .. L["Portals"] .. "\n" .. " => " .. L["Blasted Lands"] .. "\n" .. " => " .. DUNGEON_FLOOR_TOLBARADWARLOCKSCENARIO0 .. "\n" .. " => " .. L["Uldum"] .. "\n" .. " => " .. L["Twilight Highlands"] .. "\n" .. " => " .. POSTMASTER_LETTER_HYJAL .. "\n" .. " => " .. ARTIFACT_SHAMAN_TITLECARD_DEEPHOLM .. "\n" .. " => " .. L["Vashj'ir"] .. "\n" .. "\n" .. L["Zeppelin"] .. "\n" .. " => " .. L["Grom'gol, Stranglethorn Vale"] .. "\n" .. " => " .. L["Tirisfal Glades"] .. " - " .. L["Undercity"] .. "\n" .. " => " .. POSTMASTER_LETTER_WARSONGHOLD .. "\n" .. " => " .. L["Thunder Bluff"] .. "\n" .. "\n" ..CALENDAR_TYPE_DUNGEON .. "\n" .. " => " .. DUNGEON_FLOOR_RAGEFIRE1 } 
                         nodes[1412][41112765] = { mnID = 1456, name = "", type = "HIcon", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Thunder Bluff"] .. " - " .. FACTION_HORDE .. "\n" .. "\n" .. L["Portal"] .. "\n" .. " => " .. L["Blasted Lands"] .. "\n" .. "\n" .. L["Zeppelin"] .. "\n" .. " => " .. DUNGEON_FLOOR_ORGRIMMAR0 } 
                     end
@@ -84,7 +84,7 @@ local nodes = ns.nodes
                 if self.db.profile.showZoneShips then
                     nodes[1413][70557332] = { mnID = 210, name = "", type = "Ship", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Ratchet"] .. " - " .. FACTION_NEUTRAL .. "\n" .. "\n" .. L["Ship"] .. "\n" .. " => " .. POSTMASTER_LETTER_STRANGLETHORNVALE } -- Ship from Booty Bay to Ratchet
                 
-                    if self.faction == "Alliance" or db.activate.EnemyFaction then
+                    if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
                         --nodes[1439][33263980] = { mnID = 1438, name = "", type = "AShip", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Ship"] .. "\n" .. " => " .. L["Teldrassil"] } -- Ship from Booty Bay to Ratchet
                         nodes[1438][51938943] = { mnID = 1943, name = "", type = "AShip", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Ship"] .. "\n" .. " => " .. L["Azuremyst Isle"] } -- Ship from Booty Bay to Ratchet
                         nodes[1438][54969385] = { mnID = 1453, name = "", type = "AShip", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Ship"] .. "\n" .. " => " .. L["Stormwind"] } -- Ship from Booty Bay to Ratchet
@@ -102,11 +102,11 @@ local nodes = ns.nodes
                     nodes[1438][54888788] = { mnID = 1457, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " => " .. L["Darnassus"] }
                     nodes[1438][27725076] = { mnID = 1457, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " => " .. L["Darnassus"] }
 
-                    if self.faction == "Horde" or db.activate.EnemyFaction then
+                    if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
                         nodes[198][63472444] = { mnID = 1454, name = "", type = "HPortalS", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " => " .. DUNGEON_FLOOR_ORGRIMMAR0 }
                     end
 
-                    if self.faction == "Alliance" or db.activate.EnemyFaction then
+                    if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
                         nodes[198][62592313] = { mnID = 1453, name = "", type = "APortalS", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " => " .. L["Stormwind"] }
                         nodes[1438][30935458] = { mnID = 1457, name = "", type = "APortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " => " .. L["Blasted Lands"] }
                     end
@@ -165,12 +165,12 @@ local nodes = ns.nodes
 
                 if self.db.profile.activate.RemoveBlizzPOIs then
 
-                    if self.faction == "Horde" or db.activate.EnemyFaction then
+                    if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
                         nodes[1941][56564002] = { mnID = 1954, name = "", type = "HIcon", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Silvermoon City"] .. " - " .. FACTION_HORDE  .. "\n" .. "\n" .. L["Portal"] .. "\n" .. " => " .. L["Undercity"] .. "\n" .. " => " .. L["Blasted Lands"] }
                         nodes[1420][61806939] = { mnID = 1458, name = "", type = "HIcon", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Undercity"] .. " - " .. FACTION_HORDE }
                     end
         
-                    if self.faction == "Alliance" or db.activate.EnemyFaction then
+                    if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
                         nodes[1426][59573083] = { mnID = 1455, name = "", type = "AIcon", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Ironforge"] .. " - " .. FACTION_ALLIANCE .. "\n" .. "\n" .. DUNGEON_FLOOR_DEEPRUNTRAM1 .. "\n" .. " => " .. L["Stormwind"] .. "\n" .. "\n" .. L["Portal"] .. "\n" .. " => " .. L["Blasted Lands"] } -- Transport to Ironforge Carriage 
                         nodes[1429][24793263] = { mnID = 1453, name = "", type = "AIcon", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Stormwind"] .. " - " .. FACTION_ALLIANCE .. "\n" .. "\n" .. DUNGEON_FLOOR_DEEPRUNTRAM1 .. "\n" .. " => " .. L["Ironforge"] .. "\n" .. "\n" .. L["Portals"] .. "\n" .. " => " .. POSTMASTER_LETTER_VALIANCEKEEP .. "\n" .. " => " .. L["Uldum"] .. "\n" .. " => " .. L["Vashj'ir"] .. "\n" .. " => " .. POSTMASTER_LETTER_HYJAL .. "\n" .. " => " .. ARTIFACT_SHAMAN_TITLECARD_DEEPHOLM .. "\n" .. " => " .. L["Twilight Highlands"] .. "\n" .. " => " .. DUNGEON_FLOOR_TOLBARADWARLOCKSCENARIO0 .. "\n" .. "\n" .. L["Ships"] .. "\n" .. " => " .. POSTMASTER_LETTER_VALIANCEKEEP .. "\n" .. " => " .. L["Rut'theran"] .. "\n" .. "\n" ..  CALENDAR_TYPE_DUNGEON .. "\n" .. " => " .. DUNGEON_FLOOR_THESTOCKADE1 }
                     end
@@ -190,7 +190,7 @@ local nodes = ns.nodes
             -- Zeppelin
                 if self.db.profile.showZoneZeppelins then   
 
-                    if self.faction == "Horde" or db.activate.EnemyFaction then
+                    if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
                         nodes[224][42073346] = { mnID = 1434, name = "", type = "HZeppelin", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Grom'gol, Stranglethorn Vale"] .. " - " .. FACTION_HORDE .. "\n" .. "\n" .. L["Zeppelin"] .. "\n" .. " => " .. DUNGEON_FLOOR_ORGRIMMAR0 .. "\n" .. " => " .. L["Tirisfal Glades"] .. " - " .. L["Undercity"]}
                         nodes[1420][58845864] = { mnID = 117, name = "", type = "HZeppelin", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Tirisfal Glades"] .. " - " .. FACTION_HORDE .. "\n" .. "\n" .. L["Zeppelin"] .. "\n" .. " => " .. L["Howling Fjord"] }
                         nodes[1420][60565871] = { mnID = 1411, name = "", type = "HZeppelin", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Tirisfal Glades"] .. " - " .. FACTION_HORDE .. "\n" .. "\n" .. L["Zeppelin"] .. "\n" .. " => " .. DUNGEON_FLOOR_ORGRIMMAR0 }
@@ -206,7 +206,7 @@ local nodes = ns.nodes
                     nodes[210][38556688] = { mnID = 1413, name = "", type = "Ship", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = POSTMASTER_LETTER_STRANGLETHORNVALE .. " - " .. FACTION_NEUTRAL .. "\n" .. "\n" .. L["Ship"] .. "\n" .. " => " .. L["Ratchet"] } -- Ship from Booty Bay to Ratchet
                     nodes[224][36427571] = { mnID = 1413, name = "", type = "Ship", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = POSTMASTER_LETTER_STRANGLETHORNVALE .. " - " .. FACTION_NEUTRAL .. "\n" .. "\n" .. L["Ship"] .. "\n" .. " => " .. L["Ratchet"] } -- Ship from Booty Bay to Ratchet
 
-                    if self.faction == "Alliance" or db.activate.EnemyFaction then
+                    if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
                         nodes[1437][04896341] = { mnID = 1445, name = "", type = "AShip", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = POSTMASTER_LETTER_WETLANDS .. " - " .. FACTION_ALLIANCE .. "\n" .. "\n" .. L["Ship"] .. "\n" .. " => " .. L["Theramore Isle"] } -- Ship from Menethil Harbor to Howling Fjord and Dustwallow Marsh
                         nodes[1437][04415697] = { mnID = 117, name = "", type = "AShip", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = POSTMASTER_LETTER_WETLANDS .. " - " .. FACTION_ALLIANCE .. "\n" .. "\n" .. L["Ship"] .. "\n" .. " => " .. L["Howling Fjord"] } -- Ship from Menethil Harbor to Howling Fjord and Dustwallow Marsh
                     end
@@ -219,7 +219,7 @@ local nodes = ns.nodes
 
                     nodes[1419][54885482] = { mnID = 1944, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = SPLASH_BASE_90_RIGHT_TITLE .. " => " .. L["Hellfire Peninsula"] }
 
-                    if self.faction == "Horde" or db.activate.EnemyFaction then
+                    if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
                         nodes[1420][59526699] = { mnID = 1954, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " => " .. L["Silvermoon City"] } -- Portal to Silvermoon from Tirisfal
                     end
 
@@ -268,12 +268,12 @@ local nodes = ns.nodes
                   if self.db.profile.showZonePortals then
                     nodes[1952][29602266] = { mnID = 1955, name = "", type = "Portal", TransportName = L["Shattrath City"] .. "\n" .. "\n" .. L["Portals"] .. "\n" .. " => " .. DUNGEON_FLOOR_ORGRIMMAR0  .. "\n" .. "\n" .. " => " .. L["Stormwind"] .. "\n" .. "\n" .. " => " .. L["Isle of Quel'Danas"], showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Shattrath to Orgrimmar
 
-                    if self.faction == "Horde" or db.activate.EnemyFaction then
+                    if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
                         nodes[1945][69025178] = { mnID = 1454, name = "", type = "HPortal", TransportName = L["Hellfire Peninsula"] .. " " .. L["Portal"] .. "\n" .. " => " .. DUNGEON_FLOOR_ORGRIMMAR0, showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Hellfire to Orgrimmar 
                         nodes[1944][88574770] = { mnID = 1454, name = "", type = "HPortal", TransportName = L["Hellfire Peninsula"] .. " " .. L["Portal"] .. "\n" .. " => " .. DUNGEON_FLOOR_ORGRIMMAR0, showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Hellfire to Orgrimmar 
                     end
             
-                    if self.faction == "Alliance" or db.activate.EnemyFaction then
+                    if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
                         nodes[1945][68905259] = { mnID = 1453,  name = "" , type = "APortal", TransportName = L["Hellfire Peninsula"] .. " " .. L["Portal"] .. "\n" .. " => " .. L["Stormwind"], showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Hellfire to Stormwind
                         nodes[1944][88615281] = { mnID = 1453,  name = "" , type = "APortal", TransportName = L["Hellfire Peninsula"] .. " " .. L["Portal"] .. "\n" .. " => " .. L["Stormwind"], showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Hellfire to Stormwind
                     end
@@ -330,7 +330,7 @@ local nodes = ns.nodes
                     nodes[123][49111534] = { mnID = 125, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " => " .. DUNGEON_FLOOR_DALARANCITY1  } -- LakeWintergrasp to Dalaran Portal 
                     nodes[127][15724250] = { mnID = 125, name = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_DALARANCITY1, questID = 12791, wwwLink = "https://www.wowhead.com/quest=12791", wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "The Magical Kingdom of Dalaran", type = "Portal", showWWW = true, showInZone = true, showOnContinent = false, showOnMinimap = false } -- LakeWintergrasp to Dalaran Portal  
         
-                    if self.faction == "Alliance" or db.activate.EnemyFaction then
+                    if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
                         nodes[114][59706926] = { mnID = 1453, name = "", type = "APortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " => " .. L["Stormwind"] } -- Portal to Stormwind from Borean Tundra
                     end
 
@@ -339,7 +339,7 @@ local nodes = ns.nodes
             -- Northrend Zeppelin
                 if self.db.profile.showZoneZeppelins then 
         
-                    if self.faction == "Horde" or db.activate.EnemyFaction then
+                    if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
                         nodes[117][77612820] = { mnID = 1420, name = "", type = "HZeppelin", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Zeppelin"] .. " => " .. L["Tirisfal Glades"] .. " - " .. L["Undercity"] }
                         nodes[114][41365356] = { mnID = 1411, name = "", type = "HZeppelin", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Zeppelin"] .. " => " .. DUNGEON_FLOOR_ORGRIMMAR0 } -- Zeppelin from Borean Tundra to Ogrimmar
                     end
@@ -352,7 +352,7 @@ local nodes = ns.nodes
                     nodes[115][47597897] = { mnID = 114, name = "", type = "Ship", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Ship"] .. " => " .. L["Borean Tundra"] } -- Ship from Moaki to Unu'pe
                     nodes[114][79075395] = { mnID = 115, name = "", type = "Ship", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Ship"] .. " => " .. POSTMASTER_LETTER_MOAKI } -- Ship from Unu'pe to Moaki
 
-                    if self.faction == "Alliance" or db.activate.EnemyFaction then
+                    if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
                         nodes[114][60056959] = { mnID = 1453, name = "", type = "AShip", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Ship"] .. " => " .. L["Stormwind"] } -- Ship to Stormwind from Borean Tundra
                         nodes[117][61366271] = { mnID = 1437, name = "", type = "AShip", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Ship"] .. " => " .. POSTMASTER_LETTER_WETLANDS } -- Ship to Wetlands from Borean Tundra
                     end

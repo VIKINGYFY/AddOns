@@ -41,7 +41,8 @@ function module:CreatePulse()
 end
 
 local function ToggleLandingPage(_, ...)
-	--if InCombatLockdown() then UIErrorsFrame:AddMessage(DB.InfoColor..ERR_NOT_IN_COMBAT) return end -- fix by LibShowUIPanel
+	if InCombatLockdown() then UIErrorsFrame:AddMessage(DB.InfoColor..ERR_NOT_IN_COMBAT) return end -- fix by LibShowUIPanel
+
 	if not C_Garrison.HasGarrison(...) then
 		UIErrorsFrame:AddMessage(DB.InfoColor..CONTRIBUTION_TOOLTIP_UNLOCKED_WHEN_ACTIVE)
 		return
@@ -202,8 +203,8 @@ function module:ReskinRegions()
 
 	Invt:SetScript("OnClick", function(_, btn)
 		Invt:Hide()
-		--if btn == "LeftButton" and not InCombatLockdown() then -- fix by LibShowUIPanel
-		if btn == "LeftButton" then
+		if btn == "LeftButton" and not InCombatLockdown() then -- fix by LibShowUIPanel
+		--if btn == "LeftButton" then
 			ToggleCalendar()
 		end
 		B:UnregisterEvent("CALENDAR_UPDATE_PENDING_INVITES", updateInviteVisibility)
@@ -590,8 +591,9 @@ function module:Minimap_OnMouseWheel(zoom)
 end
 
 function module:Minimap_OnMouseUp(btn)
+	if InCombatLockdown() then UIErrorsFrame:AddMessage(DB.InfoColor..ERR_NOT_IN_COMBAT) return end -- fix by LibShowUIPanel
+
 	if btn == "MiddleButton" then
-		--if InCombatLockdown() then UIErrorsFrame:AddMessage(DB.InfoColor..ERR_NOT_IN_COMBAT) return end -- fix by LibShowUIPanel
 		ToggleCalendar()
 	elseif btn == "RightButton" then
 		local button = MinimapCluster.Tracking.Button

@@ -1,14 +1,14 @@
 # BagSync
 
-## [v19.64](https://github.com/Xruptor/BagSync/tree/v19.64) (2025-03-03)
-[Full Changelog](https://github.com/Xruptor/BagSync/compare/v19.63...v19.64) [Previous Releases](https://github.com/Xruptor/BagSync/releases)
+## [v19.65](https://github.com/Xruptor/BagSync/tree/v19.65) (2025-04-23)
+[Full Changelog](https://github.com/Xruptor/BagSync/compare/v19.64...v19.65) [Previous Releases](https://github.com/Xruptor/BagSync/releases)
 
-- Another TOC Update  
-    * Hopefully this will be the last one for awhile.  
-- Merge pull request #404 from nanjuekaien1/patch-82  
+- TOC Version Update  
+    * TOC update to support latest patch.  
+- Merge pull request #409 from nanjuekaien1/patch-84  
+    Update BagSync.toc  
+    Thanks for the updating of the TOC :)  I'll push the update tomorrow  
+- Update BagSync.toc  
+- Merge pull request #406 from nanjuekaien1/patch-83  
     Update BagSync.toc  
 - Update BagSync.toc  
-- Merge pull request #403 from Zazou89/patch-1  
-    Add inventory category to TOC  
-- Add inventory category to TOC  
-    Since Patch 11.1, it is possible to categorize an addon and group them. More info: https://warcraft.wiki.gg/wiki/Patch\_11.1.0/API\_changes  

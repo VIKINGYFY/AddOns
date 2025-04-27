@@ -38,7 +38,7 @@ local AtlasToQuality = {
 local function updateIconBorderColorByAtlas(border, atlas)
 	local atlasAbbr = atlas and strmatch(atlas, "%-(%w+)$")
 	local quality = atlasAbbr and AtlasToQuality[atlasAbbr]
-	local color = DB.QualityColors[quality or 1]
+	local color = DB.QualityColors[quality and quality or 1]
 	border.__owner.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 end
 

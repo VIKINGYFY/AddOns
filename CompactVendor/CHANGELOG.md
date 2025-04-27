@@ -1,8 +1,10 @@
 # CompactVendor
 
-## [v11.0.7.250103](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.0.7.250103) (2025-01-03)
-[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.0.7.250103) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
+## [v11.1.0.250423](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.0.250423) (2025-04-23)
+[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.0.250423) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
 
+- TOC bump  
+- Added support for the new color in hyperlinks.  
 - TOC bump.  
 - Transmog API are unstable on Classic so added an override to avoid that situation as a fix for the addon.  
 - Changes to GetMerchantItemInfo had to have a method implemented to migrate between the old style and the new table return value.  
@@ -75,7 +77,3 @@
 - TOC bump  
 - - Added custom colors to support Spell related items in the merchant, like in Torghast. The quality filter will use the internal quality table when creating the dropdown options.  
     - Merchant update event will refresh items with limited availability, in case we purchased any of those.  
-- - Moved the filter IsCollected into the core addon as IsTransmogCollected.  
-    - Added more states for items like transmog and toys instead of tooltip scanning.  
-    - The merchant list and filters rely on this new infomation from the core itself.  
-- TOC bump  

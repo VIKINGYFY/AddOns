@@ -66,9 +66,9 @@ if not db.activate.HideMapNote then
 
         -- Kalimdor Dungeons without ClassicIcons is activ
           if self.db.profile.showZoneDungeons and not db.activate.ClassicIcons then
-            nodes[69][60323015] = { id = 230, lfgid = 36, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dire Maul - Capital Gardens - West left Entrance 
-            nodes[69][60303130] = { id = 230, lfgid = 36, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dire Maul - Capital Gardens - West right Entrance 
-            nodes[69][62502490] = { id = 230, lfgid = 38, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dire Maul - Gordok Commons - North  
+            nodes[69][60323015] = { id = 230, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dire Maul - Capital Gardens - West left Entrance 
+            nodes[69][60303130] = { id = 230, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dire Maul - Capital Gardens - West right Entrance 
+            nodes[69][62502490] = { id = 1277, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dire Maul - Gordok Commons - North  
             nodes[67][78285518] = { id = 232, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Maraudon Foulspore Cavern 
             nodes[68][52152417] = { id = 232, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Maraudon Foulspore Cavern 
             nodes[68][44517669] = { id = 232, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Maraudon Foulspore Cavern first Entrance
@@ -106,8 +106,8 @@ if not db.activate.HideMapNote then
             nodes[10][38916921] = { mnID = 11, id = 240, TransportName = L["Way to the Instance Entrance"], name = "", type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Wailing Caverns 
             nodes[66][29226253] = { dnID = L["Way to the Instance Entrance"], id = 232, type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Maraudon Outside
             nodes[63][14161380] = { dnID = L["Way to the Instance Entrance"], id = 227, type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackfathom Deeps 
-            nodes[69][65503524] = { dnID = L["Way to the Instance Entrance"], id = 230, lfgid = 34, type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dire Maul - Warpwood Quarter - East above Camp Mojache   
-            nodes[69][77073692] = { dnID = L["Way to the Instance Entrance"], id = 230, lfgid = 34, type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dire Maul - Warpwood Quarter - East above Camp Mojache   
+            nodes[69][65503524] = { dnID = L["Way to the Instance Entrance"], id = 1276, type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dire Maul - Warpwood Quarter - East above Camp Mojache   
+            nodes[69][77073692] = { dnID = L["Way to the Instance Entrance"], id = 1276, type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dire Maul - Warpwood Quarter - East above Camp Mojache   
           end
 
 
@@ -120,8 +120,8 @@ if not db.activate.HideMapNote then
               nodes[1527][71755222] = { dnID = L["Way to the Instance Entrance"], id = 70, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Halls of Origination
               nodes[63][14161380] = { dnID = L["Way to the Instance Entrance"], id = 227, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackfathom Deeps 
               nodes[66][29226253] = { dnID = L["Way to the Instance Entrance"], id = 232, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Maraudon Outside
-              --nodes[69][65503524] = { id = 230, lfgid = 34, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dire Maul - Warpwood Quarter - East above Camp Mojache   
-              --nodes[69][77073692] = { id = 230, lfgid = 34, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dire Maul - Warpwood Quarter - East above Camp Mojache   
+              --nodes[69][65503524] = { id = 1276, lfgid = 34, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dire Maul - Warpwood Quarter - East above Camp Mojache   
+              --nodes[69][77073692] = { id = 1276, lfgid = 34, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dire Maul - Warpwood Quarter - East above Camp Mojache   
             end
 
             if self.db.profile.showZoneMultiple then
@@ -225,7 +225,7 @@ if not db.activate.HideMapNote then
             nodes[36][20643322] = { mnID = 33, hideInfo = true, id = { 741, 742, 66, 228, 229, 559 }, name = L["Way to the Instance Entrance"], type = "PassageDungeonRaidMulti", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
             nodes[32][35268404] = { mnID = 33, name = "", type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
             nodes[15][58543698] = { dnID = L["Way to the Instance Entrance"], id = 239, name = "", type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Uldaman (Secondary Entrance) 
-            nodes[23][43251854] = { dnID = L["Way to the Instance Entrance"], id = 236, lfgid = 274, type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false }-- Stratholme Service Entrance 
+            nodes[23][43251854] = { dnID = L["Way to the Instance Entrance"], id = 1292, type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false }-- Stratholme Service Entrance 
             nodes[33][68635371] = { mnID = 34, hideInfo = true, id = { 66 }, name = L["Way to the Instance Entrance"], type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackrock Caverns
             nodes[33][65896169] = { mnID = 34, hideInfo = true, id = { 66 }, name = L["Way to the Instance Entrance"], type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackrock Caverns
             nodes[33][45004700] = { mnID = 35, hideInfo = true, id = { 741, 228 }, name = L["Way to the Instance Entrance"], type = "PassageRaid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackrock Depths

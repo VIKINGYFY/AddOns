@@ -565,7 +565,6 @@ G.AccountSettings = {
 	IgnoreNotes = {},
 	GlowMode = 3,
 	IgnoredRares = "",
-	AddOnProfiler = false,
 }
 
 -- Initial settings

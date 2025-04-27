@@ -121,7 +121,7 @@ local function UpdateLMFrame(self, event, ...)
 
 		local lootText, lootPlayer = ...
 		local itemLink
-		for link in string.gmatch(lootText, "|c%x+|Hitem:.-|h.-|h|r") do
+		for link in string.gmatch(lootText, "|c.-|h%[.-%]|h|r") do
 			if link then itemLink = link end
 		end
 
