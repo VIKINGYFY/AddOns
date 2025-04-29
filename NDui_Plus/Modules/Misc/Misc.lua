@@ -142,17 +142,35 @@ do
 	P:AddCallbackForAddon("Blizzard_Professions", M.ModifyProfessionsWidth)
 end
 
--- fix C_MountJournal.GetMountLink
+-- remove <Right click for Frame Settings>
 do
-	local GetMountLink = C_MountJournal.GetMountLink
-	C_MountJournal.GetMountLink = function(spellID)
-		local link = GetMountLink(spellID)
-		if not link then return end
-		local mountID = C_MountJournal.GetMountFromSpell(spellID)
-		local mountTypeID = mountID and select(5, C_MountJournal.GetMountInfoExtraByID(mountID))
-		if mountTypeID and mountTypeID == 402 then
-			return link
+	function UnitFrame_UpdateTooltip(self)
+		GameTooltip_SetDefaultAnchor(GameTooltip, self)
+		if GameTooltip:SetUnit(self.unit, self.hideStatusOnTooltip) then
+			self.UpdateTooltip = UnitFrame_UpdateTooltip
+		else
+			self.UpdateTooltip = nil
 		end
-		return gsub(link, "(|Hmount:%d+:%d+:).-(|h.-|h)", "%1%2")
 	end
+end
+
+-- Temporary fix for hyperlinks in BN whisper
+do
+	local function ReplaceColorString(quality, link)
+		local colorData = ITEM_QUALITY_COLORS[tonumber(quality)]
+		if colorData then
+			return colorData.color:WrapTextInColorCode(link)
+		end
+	end
+
+	hooksecurefunc("ChatEdit_InsertLink", function(link)
+		local editBox = ChatEdit_GetActiveWindow()
+		if editBox and editBox:GetAttribute("chatType") == "BN_WHISPER" then
+			local text = editBox:GetText()
+			local newText, count = gsub(text, "|cnIQ(%d):(|H%a+:.-|h.-|h)|r", ReplaceColorString)
+			if count > 0 then
+				editBox:SetText(newText)
+			end
+		end
+	end)
 end

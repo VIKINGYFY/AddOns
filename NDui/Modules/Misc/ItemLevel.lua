@@ -265,7 +265,7 @@ function M:ItemLevel_FlyoutUpdate(bag, slot, quality)
 		level = B.GetItemLevel(link, "player", slot)
 	end
 
-	local color = DB.QualityColors[quality and quality or 1]
+	local color = DB.QualityColors[(quality and quality) or 1]
 	self.iLvl:SetText(level)
 	self.iLvl:SetTextColor(color.r, color.g, color.b)
 end

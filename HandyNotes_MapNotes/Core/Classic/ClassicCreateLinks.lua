@@ -11,6 +11,18 @@ local CHAT_TYPES = {
     "CHANNEL4", "CHANNEL5", "CHANNEL6", "CHANNEL7", "CHANNEL8", "CHANNEL9", "CHANNEL10"
 }
 
+local DefaultSetItemRef = SetItemRef
+
+function SetItemRef(link, ...)
+  local type, value = link:match("(%a+):(.+)")
+  if (type == "url") then
+    local CaCLFrame = LAST_ACTIVE_CHAT_EDIT_BOX or ChatFrame1EditBox
+    if not CaCLFrame then return end
+  else
+    return DefaultSetItemRef(link, ...)
+  end
+end
+
 local function hasPotentialLink(text)
     return text:find("http") or text:find("www%.") or text:find("@") or text:find("%.")
 end

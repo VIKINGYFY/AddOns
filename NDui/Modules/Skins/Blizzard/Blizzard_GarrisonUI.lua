@@ -165,7 +165,7 @@ end
 
 local function UpdateFollowerQuality(self, followerInfo)
 	if followerInfo then
-		local color = DB.QualityColors[followerInfo.quality or 1]
+		local color = DB.QualityColors[(followerInfo.quality) or 1]
 		self.squareBG:SetBackdropBorderColor(color.r, color.g, color.b)
 	end
 end
@@ -341,7 +341,7 @@ end
 
 local function updateFollowerColorOnBoard(self, _, info)
 	if self.squareBG then
-		local color = DB.QualityColors[info.quality or 1]
+		local color = DB.QualityColors[(info.quality) or 1]
 		self.squareBG:SetBackdropBorderColor(color.r, color.g, color.b)
 	end
 end
@@ -902,7 +902,7 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 	B.ReskinGarrisonPortrait(allyPortrait)
 	OrderHallMissionFrame:HookScript("OnShow", function()
 		if allyPortrait:IsShown() then
-			local color = DB.QualityColors[allyPortrait.quality or 1]
+			local color = DB.QualityColors[(allyPortrait.quality) or 1]
 			allyPortrait.squareBG:SetBackdropBorderColor(color.r, color.g, color.b)
 		end
 		combatAlly.Available.AddFollowerButton.EmptyPortrait:SetAlpha(0)

@@ -487,9 +487,10 @@ function M:RaidTool_CreateMenu(parent)
 	}
 
 	local bu = {}
+	local offset = DB.margin*2
 	for i, j in pairs(buttons) do
 		bu[i] = B.CreateButton(frame, 84, 28, j[1], 12)
-		bu[i]:SetPoint(mod(i, 2) == 0 and "TOPRIGHT" or "TOPLEFT", mod(i, 2) == 0 and -5 or 5, i > 2 and -37 or -5)
+		bu[i]:SetPoint(mod(i, 2) == 0 and "TOPRIGHT" or "TOPLEFT", mod(i, 2) == 0 and -offset or offset, i > 2 and -(offset*6) or -offset)
 		bu[i]:SetScript("OnClick", j[2])
 	end
 

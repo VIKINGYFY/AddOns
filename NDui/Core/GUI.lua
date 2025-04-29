@@ -353,7 +353,7 @@ G.DefaultSettings = {
 		AuraFilter = 3,
 		FriendlyCC = false,
 		HostileCC = true,
-		TargetIndicator = 6,
+		TargetIndicator = 2,
 		InsideView = true,
 		ShowCustomUnits = true,
 		CustomColor = {r=0, g=.5, b=1},
@@ -1202,7 +1202,7 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{3, "Nameplate", "maxAuras", L["Max Auras"].."*", false, {10, 30, 1}, refreshNameplates},
 		{3, "Nameplate", "perRow", L["IconsPerRow"].."*", true, {5, 10, 1}, refreshNameplates},
 		{},--blank
-		{4, "Nameplate", "TargetIndicator", L["TargetIndicator"].."*", nil, {DISABLE, L["TopArrow"], L["RightArrow"], L["TargetGlow"], L["TopNGlow"], L["RightNGlow"]}, refreshNameplates},
+		{4, "Nameplate", "TargetIndicator", L["TargetIndicator"].."*", nil, {DISABLE, L["TargetGlow"]}, refreshNameplates},
 		{3, "Nameplate", "ExecuteRatio", L["ExecuteRatio"].."*", true, {0, 90, 1}, nil, L["ExecuteRatioTip"]},
 		{1, "Nameplate", "FriendlyCC", L["Friendly CC"].."*"},
 		{1, "Nameplate", "HostileCC", L["Hostile CC"].."*", true},

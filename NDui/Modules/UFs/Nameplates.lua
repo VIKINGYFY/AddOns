@@ -288,19 +288,11 @@ function UF:UpdateTargetChange()
 	if C.db["Nameplate"]["TargetIndicator"] ~= 1 then
 		if UnitIsUnit(unit, "target") and not UnitIsUnit(unit, "player") then
 			element:Show()
-			if element.Arrow:IsShown() and not element.ArrowAnimGroup:IsPlaying() then
-				element.ArrowAnimGroup:Play()
-			end
 		else
 			element:Hide()
-			if element.ArrowAnimGroup:IsPlaying() then
-				element.ArrowAnimGroup:Stop()
-			end
 		end
 	end
 end
-
-local points = {-15, -5, 0, 5, 0}
 
 function UF:UpdateTargetIndicator()
 	local element = self.TargetIndicator
@@ -311,65 +303,12 @@ function UF:UpdateTargetIndicator()
 	if style == 1 then
 		element:Hide()
 	else
-		if style == 2 then
-			element.Arrow:ClearAllPoints()
-			element.Arrow:SetPoint("BOTTOM", element, "TOP", 0, 20)
-			element.Arrow:SetRotation(0)
-			element.Arrow:Show()
-			for i = 1, 5 do
-				element.ArrowAnim.points[i]:SetOffset(0, points[i])
-			end
+		if isNameOnly then
 			element.Glow:Hide()
+			element.nameGlow:Show()
+		else
+			element.Glow:Show()
 			element.nameGlow:Hide()
-		elseif style == 3 then
-			element.Arrow:ClearAllPoints()
-			element.Arrow:SetPoint("LEFT", element, "RIGHT", 5, 0)
-			element.Arrow:SetRotation(math.rad(-90))
-			element.Arrow:Show()
-			for i = 1, 5 do
-				element.ArrowAnim.points[i]:SetOffset(points[i], 0)
-			end
-			element.Glow:Hide()
-			element.nameGlow:Hide()
-		elseif style == 4 then
-			element.Arrow:Hide()
-			if isNameOnly then
-				element.Glow:Hide()
-				element.nameGlow:Show()
-			else
-				element.Glow:Show()
-				element.nameGlow:Hide()
-			end
-		elseif style == 5 then
-			element.Arrow:ClearAllPoints()
-			element.Arrow:SetPoint("BOTTOM", element, "TOP", 0, 20)
-			element.Arrow:SetRotation(0)
-			element.Arrow:Show()
-			for i = 1, 5 do
-				element.ArrowAnim.points[i]:SetOffset(0, points[i])
-			end
-			if isNameOnly then
-				element.Glow:Hide()
-				element.nameGlow:Show()
-			else
-				element.Glow:Show()
-				element.nameGlow:Hide()
-			end
-		elseif style == 6 then
-			element.Arrow:ClearAllPoints()
-			element.Arrow:SetPoint("LEFT", element, "RIGHT", 5, 0)
-			element.Arrow:SetRotation(math.rad(-90))
-			element.Arrow:Show()
-			for i = 1, 5 do
-				element.ArrowAnim.points[i]:SetOffset(points[i], 0)
-			end
-			if isNameOnly then
-				element.Glow:Hide()
-				element.nameGlow:Show()
-			else
-				element.Glow:Show()
-				element.nameGlow:Hide()
-			end
 		end
 		element:Show()
 	end
@@ -381,22 +320,6 @@ function UF:AddTargetIndicator(self)
 	target:SetAllPoints()
 	target:SetFrameLevel(0)
 	target:Hide()
-
-	target.Arrow = target:CreateTexture(nil, "BACKGROUND")
-	target.Arrow:SetSize(50, 50)
-	target.Arrow:SetTexture(DB.targetTex)
-
-	local animGroup = target.Arrow:CreateAnimationGroup()
-	animGroup:SetLooping("REPEAT")
-	local anim = animGroup:CreateAnimation("Path")
-	anim:SetDuration(1)
-	anim.points = {}
-	for i = 1, 5 do
-		anim.points[i] = anim:CreateControlPoint()
-		anim.points[i]:SetOrder(i)
-	end
-	target.ArrowAnim = anim
-	target.ArrowAnimGroup = animGroup
 
 	target.Glow = B.CreateSD(target, 8, true)
 	target.Glow:SetOutside(self, 8+C.mult, 8+C.mult)

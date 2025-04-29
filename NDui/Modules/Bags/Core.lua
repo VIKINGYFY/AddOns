@@ -118,7 +118,7 @@ local BagSmartFilter = {
 
 function module:CreateInfoFrame()
 	local infoFrame = CreateFrame("Button", nil, self)
-	infoFrame:SetPoint("TOPLEFT", 10, 0)
+	infoFrame:SetPoint("TOPLEFT", 12, 0)
 	infoFrame:SetSize(140, 32)
 	local icon = infoFrame:CreateTexture(nil, "ARTWORK")
 	icon:SetAtlas("talents-search-match")
@@ -136,7 +136,7 @@ function module:CreateInfoFrame()
 	search:SetPoint("LEFT", 0, 5)
 	search:DisableDrawLayer("BACKGROUND")
 	local bg = B.CreateBDFrame(search, 0, true)
-	B.UpdateSize(bg, -5, -5, 5, 5)
+	B.UpdateSize(bg, -6, -6, 6, 6)
 	search.textFilters = BagSmartFilter
 
 	infoFrame.title = SEARCH
@@ -186,7 +186,7 @@ end
 
 local function updateBagBar(bar)
 	local spacing = DB.margin
-	local offset = 5
+	local offset = DB.margin*2
 	local width, height = bar:LayoutButtons("grid", bar.columns, spacing, offset, -offset)
 	bar:SetSize(width + offset*2, height + offset*2)
 end
@@ -1088,7 +1088,7 @@ function module:OnLogin()
 			self.IconOverlay:SetAtlas(atlas)
 			self.IconOverlay:Show()
 			if secondAtlas then
-				local color = DB.QualityColors[item.quality or 1]
+				local color = DB.QualityColors[(item.quality) or 1]
 				self.IconOverlay:SetVertexColor(color.r, color.g, color.b)
 				self.IconOverlay2:SetAtlas(secondAtlas)
 				self.IconOverlay2:Show()
@@ -1186,9 +1186,9 @@ function module:OnLogin()
 		self:SortButtons("bagSlot")
 
 		local columns = module:GetContainerColumns(self.Settings.BagType)
-		local offset = 37
+		local offset = 36
 		local spacing = DB.margin
-		local xOffset = 5
+		local xOffset = DB.margin*2
 		local yOffset = -offset + xOffset
 		local _, height = self:LayoutButtons("grid", columns, spacing, xOffset, yOffset)
 		local width = columns * (iconSize+spacing)-spacing
@@ -1258,7 +1258,7 @@ function module:OnLogin()
 			label = L["Special Container"]
 		end
 		if label then
-			self.label = B.CreateFS(self, 14, label, true, "TOPLEFT", 5, -8)
+			self.label = B.CreateFS(self, 14, label, true, "TOPLEFT", 5, -9)
 			return
 		end
 
@@ -1296,7 +1296,7 @@ function module:OnLogin()
 			local bu = buttons[i]
 			if not bu then break end
 			if i == 1 then
-				bu:SetPoint("TOPRIGHT", -5, -5)
+				bu:SetPoint("TOPRIGHT", -(DB.margin*2), -(DB.margin*2))
 			else
 				bu:SetPoint("RIGHT", buttons[i-1], "LEFT", -DB.margin, 0)
 			end

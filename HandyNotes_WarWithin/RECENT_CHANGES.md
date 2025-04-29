@@ -1,5 +1,5 @@
-## Changed in v82
+## Changed in v83
 
-* Undermine: add some missing loot, and a hidden shirt
-* Delves: story progress achievements weren't showing on the Undermine delve tooltips
+* Updated for 11.1.5
+* Undermine: added the Authentic Undermine Clam Chowder recipe
 
