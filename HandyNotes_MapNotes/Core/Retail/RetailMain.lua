@@ -72,7 +72,7 @@ local function ShowBossNames(instanceID, tooltip)
 
   EJ_SelectInstance(instanceID)
 
-  C_Timer.After(0.3, function()
+  C_Timer.After(0.5, function()
     local bosses = {}
     local i = 1
     while true do
@@ -161,13 +161,13 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
         --print("Dungeon/Raid is locked")
 	      for a,b in pairs(extraInformations[v]) do
           --tooltip:AddLine(v .. ": " .. a .. " " .. b, nil, nil, nil, false)
-	        tooltip:AddDoubleLine(v, a .. " " .. b, 1, 1, 1, 1, 1, 1)
+	        tooltip:AddDoubleLine(v, a .. " " .. b.progress .. "/" .. b.total, 1, 1, 1, 1, 1, 1)
  	      end
 	    end
       if (lfgIDs[v] and extraInformations[lfgIDs[v]]) then
         for a,b in pairs(extraInformations[lfgIDs[v]]) do
           --tooltip:AddLine(v .. ": " .. a .. " " .. b, nil, nil, nil, false)
-          tooltip:AddDoubleLine(v, a .. " " .. b, 1, 1, 1, 1, 1, 1)
+          tooltip:AddDoubleLine(v, a .. " " .. b.progress .. "/" .. b.total, 1, 1, 1, 1, 1, 1)
         end
       end
 	  else
@@ -311,7 +311,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
 
     end
 
-    if nodeData.type then
+    if nodeData.type and not ns.MapType0 then
       local dungeonTypes = {
         ["Dungeon"] = true,
         ["PassageDungeon"] = true,
@@ -320,7 +320,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
         ["MultiVInstanceD"] = true,
         ["MultipleD"] = true
       }
-
+    
       local raidTypes = {
         ["Raid"] = true,
         ["PassageRaid"] = true,
@@ -328,23 +328,22 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
         ["VInstanceR"] = true,
         ["MultipleR"] = true
       }
-
+    
       local mixedTypes = {
         ["MultiVInstanceR"] = true,
         ["MultiVInstance"] = true
       }
-
+    
       if (dungeonTypes[nodeData.type] and (nodeData.id or nodeData.mnID)) or
          (nodeData.type == "PassageDungeon" and nodeData.id and not nodeData.mnID) then
         tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_DUNGEON)
       end
-
+    
       if (raidTypes[nodeData.type] and (nodeData.id or nodeData.mnID)) or
-         (nodeData.type == "Raid" and not ns.MapType0) or
          (nodeData.type == "PassageRaid" and nodeData.id and not nodeData.mnID) then
         tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_RAID)
       end
-
+    
       if mixedTypes[nodeData.type] and nodeData.mnID then
         tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_RAID .. " & " .. CALENDAR_TYPE_DUNGEON)
       end
@@ -1189,6 +1188,7 @@ do
       -- X = 6 =	Orphan 	
 
       if t.uiMapId == 948 -- Mahlstrom Continent 
+        or t.uiMapId == 905 -- Argus Continent
         or (mapInfo.mapType == 0 and (ns.dbChar.AzerothDeletedIcons[t.uiMapId] and not ns.dbChar.AzerothDeletedIcons[t.uiMapId][state])) -- Cosmos
         or (mapInfo.mapType == 1 and (ns.dbChar.AzerothDeletedIcons[t.uiMapId] and not ns.dbChar.AzerothDeletedIcons[t.uiMapId][state])) -- Azeroth
         or (not ns.CapitalIDs and (mapInfo.mapType == 4 or mapInfo.mapType == 6) and (ns.dbChar.DungeonDeletedIcons[t.uiMapId] and not ns.dbChar.DungeonDeletedIcons[t.uiMapId][state])) -- Dungeon
@@ -2049,8 +2049,7 @@ function Addon:UpdateInstanceNames(node)
 end
 
 function Addon:ProcessTable()
-  table.wipe(lfgIDs)
-  ns.lfgIDs = lfgIDs
+  lfgIDs = ns.lfgIDs
 
   function Addon:UpdateAlter(id, name)
     if (lfgIDs[id]) then

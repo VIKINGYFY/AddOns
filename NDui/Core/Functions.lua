@@ -884,10 +884,12 @@ do
 		["orange"] = Enum.ItemQuality.Legendary,
 		["artifact"] = Enum.ItemQuality.Artifact,
 		["account"] = Enum.ItemQuality.Heirloom,
+		["epic"] = Enum.ItemQuality.Epic,
+		["legendary"] = Enum.ItemQuality.Legendary,
 	}
 	local function updateIconBorderColorByAtlas(border, atlas)
 		local atlasAbbr = atlas and string.match(atlas, "%-(%w+)$")
-		local quality = atlasAbbr and AtlasToQuality[atlasAbbr]
+		local quality = atlasAbbr and AtlasToQuality[string.lower(atlasAbbr)]
 		local color = DB.QualityColors[(quality and quality) or 1]
 
 		border.__owner.bg:SetBackdropBorderColor(color.r, color.g, color.b)

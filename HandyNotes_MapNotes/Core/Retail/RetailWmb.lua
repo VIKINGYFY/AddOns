@@ -147,7 +147,7 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
                     ns.Addon.db.profile.showContinentDraenor = true
                     print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], L["Draenor"], L["icons"], "|cff00ff00" .. L["are shown"])
                 end
-            elseif GetCurrentMapID == 619 then
+            elseif GetCurrentMapID == 619 or GetCurrentMapID == 905 then
                 if ns.Addon.db.profile.showContinentBrokenIsles then
                     ns.Addon.db.profile.showContinentBrokenIsles = false
                     if ns.Addon.db.profile.MmbWmbChatMessage then
@@ -363,8 +363,8 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
                 end
             --Broken Isles
             elseif (GetCurrentMapID == 630 or GetCurrentMapID == 634 or GetCurrentMapID == 641 or GetCurrentMapID == 646 or GetCurrentMapID == 650 or GetCurrentMapID == 652
-                or GetCurrentMapID == 750 or GetCurrentMapID == 680 or GetCurrentMapID == 830 or GetCurrentMapID == 882 or GetCurrentMapID == 885 or GetCurrentMapID == 905
-                or GetCurrentMapID == 941 or GetCurrentMapID == 790 or GetCurrentMapID == 971)
+                or GetCurrentMapID == 750 or GetCurrentMapID == 680 or GetCurrentMapID == 830 or GetCurrentMapID == 882 or GetCurrentMapID == 885 or GetCurrentMapID == 941 
+                or GetCurrentMapID == 790 or GetCurrentMapID == 971)
             then
                 if not ns.Addon.db.profile.showZoneBrokenIsles then
                     ns.Addon.db.profile.showZoneBrokenIsles = true
@@ -559,8 +559,8 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
                 end
             -- Broken Isles    
             elseif (GetCurrentMapID == 630 or GetCurrentMapID == 634 or GetCurrentMapID == 641 or GetCurrentMapID == 646 or GetCurrentMapID == 650 or GetCurrentMapID == 652
-                or GetCurrentMapID == 750 or GetCurrentMapID == 680 or GetCurrentMapID == 830 or GetCurrentMapID == 882 or GetCurrentMapID == 885 or GetCurrentMapID == 905
-                or GetCurrentMapID == 941 or GetCurrentMapID == 790 or GetCurrentMapID == 971) 
+                or GetCurrentMapID == 750 or GetCurrentMapID == 680 or GetCurrentMapID == 830 or GetCurrentMapID == 882 or GetCurrentMapID == 885 or GetCurrentMapID == 941 
+                or GetCurrentMapID == 790 or GetCurrentMapID == 971) 
             then
                 if not ns.Addon.db.profile.showZoneBrokenIsles then
                     ns.Addon.db.profile.showZoneBrokenIsles = true
@@ -750,7 +750,7 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
         elseif GetCurrentMapID == 572 then
             GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000" .. L["Continent map"] .. " " .. L["Draenor"] .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
             GameTooltip:Show()
-        elseif GetCurrentMapID == 619 then
+        elseif GetCurrentMapID == 619 or GetCurrentMapID == 905 then
             GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000" .. L["Continent map"] .. " " .. L["Broken Isles"] .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
             GameTooltip:Show()
         elseif GetCurrentMapID == 875 then
@@ -824,8 +824,8 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
             GameTooltip:Show()
         --Broken Isles
         elseif (GetCurrentMapID == 630 or GetCurrentMapID == 634 or GetCurrentMapID == 641 or GetCurrentMapID == 646 or GetCurrentMapID == 650 or GetCurrentMapID == 652
-            or GetCurrentMapID == 750 or GetCurrentMapID == 680 or GetCurrentMapID == 830 or GetCurrentMapID == 882 or GetCurrentMapID == 885 or GetCurrentMapID == 905
-            or GetCurrentMapID == 941 or GetCurrentMapID == 790 or GetCurrentMapID == 971)
+            or GetCurrentMapID == 750 or GetCurrentMapID == 680 or GetCurrentMapID == 830 or GetCurrentMapID == 882 or GetCurrentMapID == 885 or GetCurrentMapID == 941 
+            or GetCurrentMapID == 790 or GetCurrentMapID == 971)
         then
             GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["Broken Isles"] .. " " .. L["Zones"] .. "-" .. BRAWL_TOOLTIP_MAPS .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
             GameTooltip:Show()
@@ -912,8 +912,8 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
             GameTooltip:Show()
         --Broken Isles
         elseif (GetCurrentMapID == 630 or GetCurrentMapID == 634 or GetCurrentMapID == 641 or GetCurrentMapID == 646 or GetCurrentMapID == 650 or GetCurrentMapID == 652
-            or GetCurrentMapID == 750 or GetCurrentMapID == 680 or GetCurrentMapID == 830 or GetCurrentMapID == 882 or GetCurrentMapID == 885 or GetCurrentMapID == 905
-            or GetCurrentMapID == 941 or GetCurrentMapID == 790 or GetCurrentMapID == 971)
+            or GetCurrentMapID == 750 or GetCurrentMapID == 680 or GetCurrentMapID == 830 or GetCurrentMapID == 882 or GetCurrentMapID == 885 or GetCurrentMapID == 941 
+            or GetCurrentMapID == 790 or GetCurrentMapID == 971)
         then
             GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["synchronizes"] .. " " .. L["Broken Isles"] .. " " .. L["Zones"] .. " & " .. MINIMAP_LABEL .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
             GameTooltip:Show()

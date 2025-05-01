@@ -150,13 +150,13 @@ function ns.pluginHandler:OnEnter(uiMapId, coord)
         --print("Dungeon/Raid is locked")
 	      for a,b in pairs(extraInformations[v]) do
           --tooltip:AddLine(v .. ": " .. a .. " " .. b, nil, nil, nil, false)
-	        tooltip:AddDoubleLine(v, a .. " " .. b, 1, 1, 1, 1, 1, 1)
+	        tooltip:AddDoubleLine(v, a .. " " .. b.progress .. "/" .. b.total, 1, 1, 1, 1, 1, 1)
  	      end
 	    end
       if (lfgIDs[v] and extraInformations[lfgIDs[v]]) then
         for a,b in pairs(extraInformations[lfgIDs[v]]) do
           --tooltip:AddLine(v .. ": " .. a .. " " .. b, nil, nil, nil, false)
-          tooltip:AddDoubleLine(v, a .. " " .. b, 1, 1, 1, 1, 1, 1)
+          tooltip:AddDoubleLine(v, a .. " " .. b.progress .. "/" .. b.total, 1, 1, 1, 1, 1, 1)
         end
       end
 	  else
@@ -559,7 +559,7 @@ do
       -- X = 6 =	Orphan 	
 
       if t.uiMapId == 948 -- Mahlstrom Continent 
-        or GetCurrentMapID == 2274 -- PTR: Khaz Algar - The War Within. Continent Scale atm on Beta a Zone not a Continent!!
+        or t.uiMapId == 905 -- Argus Continent
         or (mapInfo.mapType == 0 and (ns.dbChar.AzerothDeletedIcons[t.uiMapId] and not ns.dbChar.AzerothDeletedIcons[t.uiMapId][state])) -- Cosmos
         or (mapInfo.mapType == 1 and (ns.dbChar.AzerothDeletedIcons[t.uiMapId] and not ns.dbChar.AzerothDeletedIcons[t.uiMapId][state])) -- Azeroth
         or (not ns.CapitalIDs and (mapInfo.mapType == 4 or mapInfo.mapType == 6) and (ns.dbChar.DungeonDeletedIcons[t.uiMapId] and not ns.dbChar.DungeonDeletedIcons[t.uiMapId][state])) -- Dungeon
@@ -1195,8 +1195,7 @@ function Addon:UpdateInstanceNames(node)
 end
 
 function Addon:ProcessTable()
-  table.wipe(lfgIDs)
-  ns.lfgIDs = lfgIDs
+  lfgIDs = ns.lfgIDs
 
   function Addon:UpdateAlter(id, name)
     if (lfgIDs[id]) then
