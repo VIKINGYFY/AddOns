@@ -484,7 +484,7 @@ function UF:UpdateMouseoverShown()
 end
 
 function UF:HighlightOnUpdate(elapsed)
-	self.elapsed = (self.elapsed or 0)+elapsed
+	self.elapsed = (self.elapsed or 0) + elapsed
 	if self.elapsed > .1 then
 		if not UF.IsMouseoverUnit(self.__owner) then
 			self:Hide()
@@ -880,7 +880,7 @@ function UF:OnUnitTargetChanged()
 			local memberTarget = member.."target"
 			if not UnitIsDeadOrGhost(member) and UnitExists(memberTarget) then
 				local unitGUID = UnitGUID(memberTarget)
-				targetedList[unitGUID] = (targetedList[unitGUID] or 0)+1
+				targetedList[unitGUID] = (targetedList[unitGUID] or 0) + 1
 			end
 		end
 	end
@@ -1001,6 +1001,12 @@ function UF:ResizePlayerPlate()
 				plate.lumos[i]:SetSize(iconSize, iconSize)
 			end
 		end
+		if plate.avada then
+			local iconSize = (barWidth+2*C.mult - 5*DB.margin)/6
+			for i = 1, 6 do
+				plate.avada[i]:SetSize(iconSize, iconSize)
+			end
+		end
 		if plate.dices then
 			local parent = C.db["Nameplate"]["TargetPower"] and plate.Health or plate.ClassPowerBar
 			local size = (barWidth - 10)/6
@@ -1026,6 +1032,7 @@ function UF:CreatePlayerPlate()
 	UF:CreatePrediction(self)
 	UF:CreateClassPower(self)
 	UF:StaggerBar(self)
+	UF:AvadaKedavra(self)
 	if C.db["Auras"]["ClassAuras"] then
 		local AURA = B:GetModule("Auras")
 		if AURA then

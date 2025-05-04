@@ -54,7 +54,9 @@ local function CreatePlayerStyle(self)
 		UF:ReskinMirrorBars()
 		UF:ReskinTimerTrakcer(self)
 	end
-	if C.db["Map"]["DisableMinimap"] or not C.db["Misc"]["ExpRep"] then UF:CreateExpRepBar(self) end
+	if C.db["Map"]["DisableMinimap"] or not C.db["Misc"]["ExpRep"] then
+		UF:CreateExpRepBar(self)
+	end
 end
 
 local function CreateTargetStyle(self)
@@ -114,6 +116,7 @@ local function CreateBossStyle(self)
 	UF:CreateBuffs(self)
 	UF:CreateDebuffs(self)
 	UF:CreateClickSets(self)
+	UF:CreatePrivateAuras(self)
 end
 
 local function CreateArenaStyle(self)
@@ -143,20 +146,24 @@ local function CreateRaidStyle(self)
 	UF:CreatePrediction(self)
 	UF:CreateClickSets(self)
 	UF:CreateThreatBorder(self)
+	UF:CreatePrivateAuras(self)
+
 	if self.raidType ~= "simple" then
 		UF:CreateRaidAuras(self)
 	end
-	UF:CreatePrivateAuras(self)
 end
 
 local function CreateSimpleRaidStyle(self)
 	self.raidType = "simple"
+
 	CreateRaidStyle(self)
 end
 
 local function CreatePartyStyle(self)
 	self.raidType = "party"
+
 	CreateRaidStyle(self)
+
 	UF:CreatePartyAltPower(self)
 end
 
@@ -359,7 +366,7 @@ function UF:OnLogin()
 		oUF:RegisterStyle("Boss", CreateBossStyle)
 		oUF:SetActiveStyle("Boss")
 		local boss = {}
-		for i = 1, 8 do -- MAX_BOSS_FRAMES, 8 in 9.2?
+		for i = 1, 10 do -- MAX_BOSS_FRAMES, 10 in 11.0?
 			boss[i] = oUF:Spawn("boss"..i, "oUF_Boss"..i)
 			local moverWidth, moverHeight = boss[i]:GetWidth(), boss[i]:GetHeight()+8
 			local title = i > 5 and "Boss"..i or L["BossFrame"]..i
