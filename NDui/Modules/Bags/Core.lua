@@ -901,7 +901,7 @@ function module:OnLogin()
 		AddNewContainer("Bag", 13, "BagCollection", filters.bagCollection)
 		AddNewContainer("Bag", 12, "BagBoN", filters.bagBoN)
 		AddNewContainer("Bag", 11, "BagConsumable", filters.bagConsumable)
-		AddNewContainer("Bag", 10, "BagAoE", filters.bagAoE)
+		AddNewContainer("Bag", 10, "BagAuE", filters.bagAuE)
 		AddNewContainer("Bag", 9, "BagLegendary", filters.bagLegendary)
 		AddNewContainer("Bag", 8, "BagEquipSet", filters.bagEquipSet)
 		AddNewContainer("Bag", 7, "BagEquipment", filters.bagEquipment)
@@ -920,7 +920,7 @@ function module:OnLogin()
 		AddNewContainer("Bank", 12, "BankCollection", filters.bankCollection)
 		AddNewContainer("Bank", 11, "BankBoN", filters.bankBoN)
 		AddNewContainer("Bank", 10, "BankConsumable", filters.bankConsumable)
-		AddNewContainer("Bank", 9, "BankAoE", filters.bankAoE)
+		AddNewContainer("Bank", 9, "BankAuE", filters.bankAuE)
 		AddNewContainer("Bank", 8, "BankLegendary", filters.bankLegendary)
 		AddNewContainer("Bank", 7, "BankEquipSet", filters.bankEquipSet)
 		AddNewContainer("Bank", 6, "BankEquipment", filters.bankEquipment)
@@ -944,7 +944,7 @@ function module:OnLogin()
 		AddNewContainer("Account", 12, "AccountCollection", filters.accountCollection)
 		AddNewContainer("Account", 11, "AccountBoN", filters.accountBoN)
 		AddNewContainer("Account", 10, "AccountConsumable", filters.accountConsumable)
-		AddNewContainer("Account", 9, "AccountAoE", filters.accountAoE)
+		AddNewContainer("Account", 9, "AccountAuE", filters.accountAuE)
 		AddNewContainer("Account", 8, "AccountLegendary", filters.accountLegendary)
 		AddNewContainer("Account", 7, "AccountEquipSet", filters.accountEquipSet)
 		AddNewContainer("Account", 6, "AccountEquipment", filters.accountEquipment)
@@ -1250,7 +1250,7 @@ function module:OnLogin()
 			label = GetCustomGroupTitle(settings.Index)
 		elseif string.match(name, "Feature") then
 			label = FEATURES_LABEL
-		elseif string.match(name, "AoE") then
+		elseif string.match(name, "AuE") then
 			label = ITEM_ACCOUNTBOUND_UNTIL_EQUIP
 		elseif string.match(name, "BoN") then
 			label = L["BoN Item"]

@@ -27,6 +27,12 @@ local ignoredTextureKit = {
 	["genericplayerchoice"] = true,
 }
 
+local toggleButtons = {
+	CypherPlayerChoiceToggleButton,
+	GenericPlayerChoiceToggleButton,
+	TorghastPlayerChoiceToggleButton,
+}
+
 C.OnLoadThemes["Blizzard_PlayerChoice"] = function()
 	hooksecurefunc(PlayerChoiceFrame, "TryShow", function(self)
 		B.StripTextures(self)
@@ -38,10 +44,16 @@ C.OnLoadThemes["Blizzard_PlayerChoice"] = function()
 
 			B.ReskinClose(self.CloseButton)
 			self.bg = B.SetBD(self)
+		end
 
-			if GenericPlayerChoiceToggleButton then
-				B.StripTextures(GenericPlayerChoiceToggleButton)
-				B.ReskinButton(GenericPlayerChoiceToggleButton)
+		for _, button in pairs(toggleButtons) do
+			if button then
+				B.StripTextures(button)
+
+				if not button.styled then
+					B.ReskinButton(button)
+					button.styled = true
+				end
 			end
 		end
 

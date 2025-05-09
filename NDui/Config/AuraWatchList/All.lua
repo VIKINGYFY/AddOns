@@ -78,6 +78,7 @@ local list = {
 		{AuraID = 1214810, UnitID = "player"},	-- 机械核心增幅器
 		{AuraID = 1216650, UnitID = "player"},	-- 可疑的能量饮料
 		{AuraID = 1218713, UnitID = "player"},	-- 临时制作的爆盐起搏器
+		{AuraID = 1219102, UnitID = "player", Value =  true},	-- 共鸣仪式泥浆
 
 	},
 	["Raid Buff"] = {		-- 团队增益组
@@ -159,20 +160,21 @@ local list = {
 		{AuraID = 306583, UnitID = "player"},	-- 灌铅脚步
 		{AuraID = 313698, UnitID = "player", Flash = true},	-- 泰坦之赐
 		-- 常驻词缀
-		{AuraID = 396364, UnitID = "player", Flash = true},	-- 狂风标记，DF S1
-		{AuraID = 396369, UnitID = "player", Flash = true},	-- 闪电标记，DF S1
-		{AuraID = 209858, UnitID = "player"},	-- 死疽溃烂
-		{AuraID = 240559, UnitID = "player"},	-- 重伤
-		{AuraID = 226512, UnitID = "player", Flash = true},	-- 血池
-		{AuraID = 240447, UnitID = "player", Flash = true},	-- 践踏
-		{AuraID = 240443, UnitID = "player", Flash = true},	-- 爆裂
-		{AuraID = 408556, UnitID = "player", Flash = true},	-- 缠绕
-		{AuraID = 408805, UnitID = "player", Flash = true},	-- 失衡
-		{AuraID = 409492, UnitID = "player", Flash = true},	-- 痛苦呼号
-		{AuraID = 461910, UnitID = "player", Flash = true},	-- 萨拉塔斯的交易：星宇飞升
-		{AuraID = 462661, UnitID = "player", Flash = true},	-- 萨拉塔斯的交易：虚空束缚
-		{AuraID = 463767, UnitID = "player", Flash = true},	-- 萨拉塔斯的交易：虚空精华
-		{AuraID = 465136, UnitID = "player", Flash = true},	-- 萨拉塔斯的交易：裂隙精华
+		{AuraID =  396364, UnitID = "player", Flash = true},	-- 狂风标记，DF S1
+		{AuraID =  396369, UnitID = "player", Flash = true},	-- 闪电标记，DF S1
+		{AuraID =  209858, UnitID = "player"},	-- 死疽溃烂
+		{AuraID =  240559, UnitID = "player"},	-- 重伤
+		{AuraID =  226512, UnitID = "player", Flash = true},	-- 血池
+		{AuraID =  240447, UnitID = "player", Flash = true},	-- 践踏
+		{AuraID =  240443, UnitID = "player", Flash = true},	-- 爆裂
+		{AuraID =  408556, UnitID = "player", Flash = true},	-- 缠绕
+		{AuraID =  408805, UnitID = "player", Flash = true},	-- 失衡
+		{AuraID =  409492, UnitID = "player", Flash = true},	-- 痛苦呼号
+		{AuraID =  461910, UnitID = "player", Flash = true},	-- 萨拉塔斯的交易：星宇飞升
+		{AuraID =  462661, UnitID = "player", Flash = true},	-- 萨拉塔斯的交易：虚空束缚
+		{AuraID =  465136, UnitID = "player", Flash = true},	-- 萨拉塔斯的交易：裂隙精华
+		{AuraID = 1216943, UnitID = "player", Flash = true},	-- 萨拉塔斯的交易：虚空脉冲星
+
 		-- 5人
 		{AuraID = 395035, UnitID = "player", Flash = true},	-- 粉碎灵魂，阻击战
 		{AuraID = 386881, UnitID = "player"},	-- 冰霜炸弹，碧蓝魔馆

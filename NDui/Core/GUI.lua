@@ -122,7 +122,7 @@ G.DefaultSettings = {
 		FilterFavourite = true,
 		FilterEquipSet = true,
 		FilterFeature = true,
-		FilterAoE = true,
+		FilterAuE = true,
 		FilterBoN = true,
 	},
 	Auras = {
@@ -568,6 +568,8 @@ G.AccountSettings = {
 	IgnoreNotes = {},
 	GlowMode = 3,
 	IgnoredRares = "",
+	AvadaIndex = {},
+	AvadaProfile = {},
 }
 
 -- Initial settings

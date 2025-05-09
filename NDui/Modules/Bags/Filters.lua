@@ -98,9 +98,9 @@ local function isItemFeature(item)
 	return item.link and (item.id and DB.PrimordialStone[item.id])
 end
 
-local function isItemAoE(item)
+local function isItemAuE(item)
 	if not C.db["Bags"]["ItemFilter"] then return end
-	if not C.db["Bags"]["FilterAoE"] then return end
+	if not C.db["Bags"]["FilterAuE"] then return end
 	return item.link and (item.bindOn and item.bindOn == "accountequip")
 end
 
@@ -119,7 +119,7 @@ function module:GetFilters()
 	filters.onlyReagent = function(item) return isItemInReagentBank(item) and not isEmptySlot(item) end
 	filters.accountbank = function(item) return isItemInAccountBank(item) and not isEmptySlot(item) end
 
-	filters.bagAoE = function(item) return isItemInBag(item) and isItemAoE(item) end
+	filters.bagAuE = function(item) return isItemInBag(item) and isItemAuE(item) end
 	filters.bagBoN = function(item) return isItemInBag(item) and isItemBoN(item) end
 	filters.bagCollection = function(item) return isItemInBag(item) and isItemCollection(item) end
 	filters.bagConsumable = function(item) return isItemInBag(item) and isItemConsumable(item) end
@@ -129,7 +129,7 @@ function module:GetFilters()
 	filters.bagJunk = function(item) return (isItemInBag(item) or isItemInBagReagent(item)) and isItemJunk(item) end
 	filters.bagLegendary = function(item) return isItemInBag(item) and isItemLegendary(item) end
 
-	filters.bankAoE = function(item) return isItemInBank(item) and isItemAoE(item) end
+	filters.bankAuE = function(item) return isItemInBank(item) and isItemAuE(item) end
 	filters.bankBoN = function(item) return isItemInBank(item) and isItemBoN(item) end
 	filters.bankCollection = function(item) return isItemInBank(item) and isItemCollection(item) end
 	filters.bankConsumable = function(item) return isItemInBank(item) and isItemConsumable(item) end
@@ -139,7 +139,7 @@ function module:GetFilters()
 	filters.bankJunk = function(item) return (isItemInBank(item) or isItemInReagentBank(item)) and isItemJunk(item) end
 	filters.bankLegendary = function(item) return isItemInBank(item) and isItemLegendary(item) end
 
-	filters.accountAoE = function(item) return isItemInAccountBank(item) and isItemAoE(item) end
+	filters.accountAuE = function(item) return isItemInAccountBank(item) and isItemAuE(item) end
 	filters.accountBoN = function(item) return isItemInAccountBank(item) and isItemBoN(item) end
 	filters.accountCollection = function(item) return isItemInAccountBank(item) and isItemCollection(item) end
 	filters.accountConsumable = function(item) return isItemInAccountBank(item) and isItemConsumable(item) end
