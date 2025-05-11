@@ -145,11 +145,11 @@ B:RegisterEvent("PLAYER_TALENT_UPDATE", CheckRole)
 -- Raidbuff Checklist
 DB.BuffList = {
 	[1] = {		-- 合剂
-		431971,	-- 淬火侵攻合剂
-		431972,	-- 淬火矫健合剂
-		431973,	-- 淬火全能合剂
-		431974,	-- 淬火精通合剂
-		432021,	-- 炼金混沌合剂
+		431971, -- 淬火侵攻合剂
+		431972, -- 淬火矫健合剂
+		431973, -- 淬火全能合剂
+		431974, -- 淬火精通合剂
+		432021, -- 炼金混沌合剂
 	},
 	[2] = {     -- 食物
 		104273, -- 进食充分
@@ -245,10 +245,10 @@ DB.ReminderBuffs = {
 	},
 	SHAMAN = {
 		{	spells = {
-				[192106] = true,	-- 闪电之盾
-				[974] = true,		-- 大地之盾
-				[383648] = true,	-- 大地之盾
-				[52127] = true,		-- 水之护盾
+				[192106] = true, -- 闪电之盾
+				[974] = true, -- 大地之盾
+				[383648] = true, -- 大地之盾
+				[52127] = true, -- 水之护盾
 			},
 			depend = 192106,
 			combat = true,
@@ -256,7 +256,7 @@ DB.ReminderBuffs = {
 			pvp = true,
 		},
 		{	spells = {
-				[33757] = true,		-- 风怒武器
+				[33757] = true, -- 风怒武器
 			},
 			depend = 33757,
 			combat = true,
@@ -266,7 +266,7 @@ DB.ReminderBuffs = {
 			spec = 2,
 		},
 		{	spells = {
-				[318038] = true,	-- 火舌武器
+				[318038] = true, -- 火舌武器
 			},
 			depend = 318038,
 			combat = true,
@@ -284,10 +284,10 @@ DB.ReminderBuffs = {
 	},
 	ROGUE = {
 		{	spells = {	-- 伤害类毒药
-				[2823] = true,		-- 致命药膏
-				[8679] = true,		-- 致伤药膏
-				[315584] = true,	-- 速效药膏
-				[381664] = true,	-- 增效药膏
+				[2823] = true, -- 致命药膏
+				[8679] = true, -- 致伤药膏
+				[315584] = true, -- 速效药膏
+				[381664] = true, -- 增效药膏
 			},
 			texture = 132273,
 			depend = 315584,
@@ -296,9 +296,9 @@ DB.ReminderBuffs = {
 			pvp = true,
 		},
 		{	spells = {	-- 效果类毒药
-				[3408] = true,		-- 减速药膏
-				[5761] = true,		-- 迟钝药膏
-				[381637] = true,	-- 萎缩药膏
+				[3408] = true, -- 减速药膏
+				[5761] = true, -- 迟钝药膏
+				[381637] = true, -- 萎缩药膏
 			},
 			depend = 3408,
 			pvp = true,
@@ -332,15 +332,15 @@ DB.ReminderBuffs = {
 
 -- Item Stats
 DB.ItemStats = {
-	--["ITEM_MOD_CRIT_RATING_SHORT"] = true,    -- 爆击
-	--["ITEM_MOD_HASTE_RATING_SHORT"] = true,   -- 急速
+	--["ITEM_MOD_CRIT_RATING_SHORT"] = true, -- 爆击
+	--["ITEM_MOD_HASTE_RATING_SHORT"] = true, -- 急速
 	--["ITEM_MOD_MASTERY_RATING_SHORT"] = true, -- 精通
-	--["ITEM_MOD_VERSATILITY"] = true,          -- 全能
+	--["ITEM_MOD_VERSATILITY"] = true, -- 全能
 
-	["ITEM_MOD_CR_AVOIDANCE_SHORT"] = true,     -- 闪避
-	["ITEM_MOD_CR_LIFESTEAL_SHORT"] = true,     -- 吸血
-	["ITEM_MOD_CR_SPEED_SHORT"] = true,         -- 加速
-	["ITEM_MOD_CR_STURDINESS_SHORT"] = true,    -- 永不磨损
+	["ITEM_MOD_CR_AVOIDANCE_SHORT"] = true, -- 闪避
+	["ITEM_MOD_CR_LIFESTEAL_SHORT"] = true, -- 吸血
+	["ITEM_MOD_CR_SPEED_SHORT"] = true, -- 加速
+	["ITEM_MOD_CR_STURDINESS_SHORT"] = true, -- 永不磨损
 }
 
 -- Item IDs

@@ -8,30 +8,30 @@ local oUF = ns.oUF
 
 local classList = {
 	["DRUID"] = {
-		combat = C_Spell.GetSpellName(20484),		-- 复生
-		oneres = C_Spell.GetSpellName(50769),		-- 起死回生
+		combat = C_Spell.GetSpellName(20484), -- 复生
+		oneres = C_Spell.GetSpellName(50769), -- 起死回生
 	},
 	["PALADIN"] = {
-		combat = C_Spell.GetSpellName(391054),		-- 代祷
-		oneres = C_Spell.GetSpellName(7328),		-- 救赎
+		combat = C_Spell.GetSpellName(391054), -- 代祷
+		oneres = C_Spell.GetSpellName(7328), -- 救赎
 	},
 	["DEATHKNIGHT"] = {
-		combat = C_Spell.GetSpellName(61999),		-- 复活盟友
+		combat = C_Spell.GetSpellName(61999), -- 复活盟友
 	},
 	["WARLOCK"] = {
-		combat = C_Spell.GetSpellName(20707),		-- 灵魂石
+		combat = C_Spell.GetSpellName(20707), -- 灵魂石
 	},
 	["EVOKER"] = {
-		oneres = C_Spell.GetSpellName(361227),		-- 生还
+		oneres = C_Spell.GetSpellName(361227), -- 生还
 	},
 	["MONK"] = {
-		oneres = C_Spell.GetSpellName(115178),		-- 轮回转世
+		oneres = C_Spell.GetSpellName(115178), -- 轮回转世
 	},
 	["PRIEST"] = {
-		oneres = C_Spell.GetSpellName(2006),		-- 复活术
+		oneres = C_Spell.GetSpellName(2006), -- 复活术
 	},
 	["SHAMAN"] = {
-		oneres = C_Spell.GetSpellName(2008),		-- 先祖之魂
+		oneres = C_Spell.GetSpellName(2008), -- 先祖之魂
 	},
 }
 

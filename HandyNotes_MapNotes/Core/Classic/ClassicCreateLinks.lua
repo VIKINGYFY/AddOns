@@ -11,16 +11,22 @@ local CHAT_TYPES = {
     "CHANNEL4", "CHANNEL5", "CHANNEL6", "CHANNEL7", "CHANNEL8", "CHANNEL9", "CHANNEL10"
 }
 
-local DefaultSetItemRef = SetItemRef
+if not SetItemRefHooked then
+    local originalSetItemRef = SetItemRef
 
-function SetItemRef(link, ...)
-  local type, value = link:match("(%a+):(.+)")
-  if (type == "url") then
-    local CaCLFrame = LAST_ACTIVE_CHAT_EDIT_BOX or ChatFrame1EditBox
-    if not CaCLFrame then return end
-  else
-    return DefaultSetItemRef(link, ...)
-  end
+    SetItemRef = function(link, text, button, chatFrame)
+        local linkType, linkValue = link:match("^(%a+):(.+)")
+        if linkType == "url" and ns.Addon.db.profile.CreateAndCopyLinks and CaCLFrame then
+            CaCLFrame:Show()
+            CaCLFrame.editBox:SetText(linkValue)
+            CaCLFrame.editBox:HighlightText()
+            return
+        end
+
+        return originalSetItemRef(link, text, button, chatFrame)
+    end
+
+    SetItemRefHooked = true
 end
 
 local function hasPotentialLink(text)

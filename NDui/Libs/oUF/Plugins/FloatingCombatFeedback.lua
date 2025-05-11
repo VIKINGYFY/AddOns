@@ -44,14 +44,14 @@ local colors = {
 }
 
 local schoolColors = {
-	[SCHOOL_MASK_NONE]		= {r = 1.00, g = 1.00, b = 1.00},	-- 0x00 or 0
-	[SCHOOL_MASK_PHYSICAL]	= {r = 1.00, g = 1.00, b = 0.00},	-- 0x01 or 1
-	[SCHOOL_MASK_HOLY]		= {r = 1.00, g = 0.90, b = 0.50},	-- 0x02 or 2
-	[SCHOOL_MASK_FIRE]		= {r = 1.00, g = 0.50, b = 0.00},	-- 0x04 or 4
-	[SCHOOL_MASK_NATURE]	= {r = 0.30, g = 1.00, b = 0.30},	-- 0x08 or 8
-	[SCHOOL_MASK_FROST]		= {r = 0.50, g = 1.00, b = 1.00},	-- 0x10 or 16
-	[SCHOOL_MASK_SHADOW]	= {r = 0.50, g = 0.50, b = 1.00},	-- 0x20 or 32
-	[SCHOOL_MASK_ARCANE]	= {r = 1.00, g = 0.50, b = 1.00},	-- 0x40 or 64
+	[SCHOOL_MASK_NONE]		= {r = 1.00, g = 1.00, b = 1.00}, -- 0x00 or 0
+	[SCHOOL_MASK_PHYSICAL]	= {r = 1.00, g = 1.00, b = 0.00}, -- 0x01 or 1
+	[SCHOOL_MASK_HOLY]		= {r = 1.00, g = 0.90, b = 0.50}, -- 0x02 or 2
+	[SCHOOL_MASK_FIRE]		= {r = 1.00, g = 0.50, b = 0.00}, -- 0x04 or 4
+	[SCHOOL_MASK_NATURE]	= {r = 0.30, g = 1.00, b = 0.30}, -- 0x08 or 8
+	[SCHOOL_MASK_FROST]		= {r = 0.50, g = 1.00, b = 1.00}, -- 0x10 or 16
+	[SCHOOL_MASK_SHADOW]	= {r = 0.50, g = 0.50, b = 1.00}, -- 0x20 or 32
+	[SCHOOL_MASK_ARCANE]	= {r = 1.00, g = 0.50, b = 1.00}, -- 0x40 or 64
 }
 
 local function removeString(self, i, string)

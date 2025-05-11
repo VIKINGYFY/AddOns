@@ -1101,26 +1101,37 @@ function Addon:PLAYER_LOGIN()
 
   --remove BlizzPOIs for MapNotes icons function
   function ns.RemoveBlizzPOIs()
-    if (not ns.Addon.db.profile.activate.RemoveBlizzPOIs or ns.Addon.db.profile.activate.HideMapNote) then return end
+    if (ns.Addon.db.profile.activate.HideMapNote) then return end
 
     for pin in WorldMapFrame:EnumeratePinsByTemplate("AreaPOIPinTemplate") do
-      for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
-        local poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
-        if (poi ~= nil and poi.areaPoiID == poiID) then
-            WorldMapFrame:RemovePin(pin)
+
+      if ns.Addon.db.profile.activate.RemoveBlizzPOIs then
+        if not ns.BlizzAreaPoisLookup then
+            ns.BlizzAreaPoisLookup = {}
+            for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
+                ns.BlizzAreaPoisLookup[poiID] = true
+            end
+        end
+
+        for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
+          local poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
+          if (poi ~= nil and poi.areaPoiID == poiID) then
+              WorldMapFrame:RemovePin(pin)
+          end
         end
       end
+
     end
+
   end
 
-  hooksecurefunc(WorldMapFrame, "OnMapChanged", function()
-    ns.RemoveBlizzPOIs()
-  end)
-
-  WorldMapFrame:HookScript("OnShow", function()
-    ns.RemoveBlizzPOIs()
-    HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-  end)
+  for dp in pairs(WorldMapFrame.dataProviders) do
+      if (not dp.GetPinTemplates and type(dp.GetPinTemplate) == "function") then
+          if (dp:GetPinTemplate() == "AreaPOIPinTemplate") then
+              hooksecurefunc(dp, "RefreshAllData", ns.RemoveBlizzPOIs)
+          end
+      end
+  end
 
 end
 

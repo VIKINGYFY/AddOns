@@ -183,7 +183,7 @@ C.OnLoginThemes["ObjectiveTracker"] = function()
 	end)
 
 	local isIgnoredTex = {
-		[6013778] = true,	-- 生命值图标
+		[6013778] = true, -- 生命值图标
 	}
 
 	hooksecurefunc(ScenarioObjectiveTracker.StageBlock, "UpdateWidgetRegistration", function(self)

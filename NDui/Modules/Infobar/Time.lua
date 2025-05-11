@@ -87,37 +87,23 @@ local function checkTexture(texture)
 end
 
 local questlist = {
-	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 83285, texture = 6006158},	-- Vanilla
-	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 40168, texture = 1129674},	-- TBC
-	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 40173, texture = 1129686},	-- WotLK
-	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 40786, texture = 1304688},	-- Cata
-	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 45563, texture = 1530590},	-- MoP
-	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 55499, texture = 1129683},	-- WoD
-	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 64710, texture = 1467047},	-- Legion
-	{name = "", id = 70893, questName = true},	-- 社区盛宴
-	{name = "", id = 79226, questName = true},	-- 盛大发掘：叛徒之眠
-	{name = "", id = 78319, questName = true},	-- 超然盛放
-	{name = "", id = 76586, questName = true},	-- 散布圣光
-	{name = "", id = 82946, questName = true},	-- 滚滚深邃都是蜡
-	{name = "", id = 83240, questName = true},	-- 剧场巡演
-	{name = "", id = 83333, questName = true},	-- 谨防麻烦
-	{name = "", id = 80670, questName = true},	-- 纺丝者之眼
-	{name = "", id = 80671, questName = true},	-- 将军之锋
-	{name = "", id = 80672, questName = true},	-- 宰相之手
-
-	{name = "", id = 81649, questName = true},	-- 特别任务：泰坦再兴
-	{name = "", id = 81691, questName = true},	-- 特别任务：阴影重重
-	{name = "", id = 82355, questName = true},	-- 特别任务：燧烬蜂狂
-	{name = "", id = 82414, questName = true},	-- 特别任务：些许治愈
-	{name = "", id = 82531, questName = true},	-- 特别任务：背后来弹
-	{name = "", id = 82787, questName = true},	-- 特别任务：巨兽崛起
-	{name = "", id = 82852, questName = true},	-- 特别任务：山猫救援
-	{name = "", id = 83229, questName = true},	-- 特别任务：无宁邃渊
-
-	{name = "周年庆 - 末日行者", id = 60214},	-- 周年庆：末日行者
-	{name = "周年庆 - 阿尔卡冯", id = 84256},	-- 周年庆：阿尔卡冯
-	{name = "周年庆 - 怒之煞", id = 84282},	-- 周年庆：怒之煞
-
+	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 83285, texture = 6006158}, -- Vanilla
+	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 40168, texture = 1129674}, -- TBC
+	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 40173, texture = 1129686}, -- WotLK
+	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 40786, texture = 1304688}, -- Cata
+	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 45563, texture = 1530590}, -- MoP
+	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 55499, texture = 1129683}, -- WoD
+	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 64710, texture = 1467047}, -- Legion
+	{name = "", id = 70893, questName = true}, -- 社区盛宴
+	{name = "", id = 79226, questName = true}, -- 盛大发掘：叛徒之眠
+	{name = "", id = 78319, questName = true}, -- 超然盛放
+	{name = "", id = 76586, questName = true}, -- 散布圣光
+	{name = "", id = 82946, questName = true}, -- 滚滚深邃都是蜡
+	{name = "", id = 83240, questName = true}, -- 剧场巡演
+	{name = "", id = 83333, questName = true}, -- 谨防麻烦
+	{name = "", id = 80670, questName = true}, -- 纺丝者之眼
+	{name = "", id = 80671, questName = true}, -- 将军之锋
+	{name = "", id = 80672, questName = true}, -- 宰相之手
 }
 
 local delvesKeys = {84736, 84737, 84738, 84739}

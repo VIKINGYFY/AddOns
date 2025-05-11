@@ -1857,80 +1857,47 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
     for pin in WorldMapFrame:EnumeratePinsByTemplate("AreaPOIPinTemplate") do
 
       if ns.Addon.db.profile.activate.RemoveBlizzPOIs then
-
-        for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
-
-          ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.poiInfo.areaPoiID)
-
-          if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
-              WorldMapFrame:RemovePin(pin)
-          end
-
+        if not ns.BlizzAreaPoisLookup then
+            ns.BlizzAreaPoisLookup = {}
+            for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
+                ns.BlizzAreaPoisLookup[poiID] = true
+            end
         end
 
+        local areaPoiID = pin.poiInfo.areaPoiID
+        if ns.BlizzAreaPoisLookup[areaPoiID] then
+            WorldMapFrame:RemovePin(pin)
+        end
       end
 
       if ns.Addon.db.profile.activate.RemoveBlizzPOIsZidormi then
-
-        for _, poiID in pairs(ns.BlizzAreaPoisInfoZidormi) do
-
-          ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.poiInfo.areaPoiID)
-
-          if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
-              WorldMapFrame:RemovePin(pin)
+          if not ns.BlizzAreaPoisLookupZidormi then
+              ns.BlizzAreaPoisLookupZidormi = {}
+              for _, poiID in pairs(ns.BlizzAreaPoisInfoZidormi) do
+                  ns.BlizzAreaPoisLookupZidormi[poiID] = true
+              end
           end
-
-        end
-
+        
+          local areaPoiID = pin.poiInfo.areaPoiID
+          if ns.BlizzAreaPoisLookupZidormi[areaPoiID] then
+              ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), areaPoiID)
+              if ns.poi ~= nil and ns.poi.areaPoiID == areaPoiID then
+                  WorldMapFrame:RemovePin(pin)
+              end
+          end
       end
 
     end
 
   end
 
-  hooksecurefunc(AreaPOIPinMixin, "OnMouseEnter", function()
-    if (ns.Addon.db.profile.activate.HideMapNote) then return end
-
-    for pin in WorldMapFrame:EnumeratePinsByTemplate("AreaPOIPinTemplate") do
-
-      if ns.Addon.db.profile.activate.RemoveBlizzPOIs then
-
-        for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
-
-          ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.poiInfo.areaPoiID)
-
-          if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
-            ns.RemoveBlizzPOIs()
+  for dp in pairs(WorldMapFrame.dataProviders) do
+      if (not dp.GetPinTemplates and type(dp.GetPinTemplate) == "function") then
+          if (dp:GetPinTemplate() == "AreaPOIPinTemplate") then
+              hooksecurefunc(dp, "RefreshAllData", ns.RemoveBlizzPOIs)
           end
-
-        end
-
       end
-
-      if ns.Addon.db.profile.activate.RemoveBlizzPOIsZidormi then
-
-        for _, poiID in pairs(ns.BlizzAreaPoisInfoZidormi) do
-
-          ns.poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.poiInfo.areaPoiID)
-
-          if (ns.poi ~= nil and ns.poi.areaPoiID == poiID) then
-            ns.RemoveBlizzPOIs()
-          end
-
-        end
-
-      end
-
-    end
-  end)
-
-  hooksecurefunc(WorldMapFrame,"OnMapChanged", function()
-   ns.RemoveBlizzPOIs()
-  end)
-
-  WorldMapFrame:HookScript("OnShow", function()
-    ns.RemoveBlizzPOIs()
-  end)
+  end
 
 end
 
@@ -1960,13 +1927,13 @@ function Addon:PopulateTable()
 
   ns.LoadMiniMapLocationinfo(self) -- load nodes\Retail\RetailMiniMapNodes.lua
   ns.LoadMiniMapDungeonLocationinfo(self) -- load nodes\Retail\RetailMiniMapDungeonNodes.lua
-  
+
   ns.LoadAzerothNodesLocationInfo(self) -- load nodes\Retail\RetailAzerothNodeslocation.lua
   ns.LoadContinentNodesLocationinfo(self) -- load nodes\Retail\RetailContinentNodesLocation.lua
 
   ns.LoadZoneMapNodesLocationinfo(self) -- load nodes\Retail\RetailZoneNodesLocation.lua
   ns.LoadZoneDungeonMapNodesLocationinfo(self) -- load OnlyZoneDungeonNodesLocation.lua
-   
+
   ns.LoadGeneralZoneLocationinfo(self) -- load nodes\Retail\RetailGeneralZoneNodes.lua
   ns.LoadGeneralMiniMapLocationinfo(self) -- load nodes\Retail\RetailGeneralMiniMapNodes.lua
 
