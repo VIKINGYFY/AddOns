@@ -170,10 +170,10 @@ local list = {
 		{AuraID =  408556, UnitID = "player", Flash = true}, -- 缠绕
 		{AuraID =  408805, UnitID = "player", Flash = true}, -- 失衡
 		{AuraID =  409492, UnitID = "player", Flash = true}, -- 痛苦呼号
-		{AuraID =  461910, UnitID = "player", Flash = true}, -- 萨拉塔斯的交易：星宇飞升
-		{AuraID =  462661, UnitID = "player", Flash = true}, -- 萨拉塔斯的交易：虚空束缚
-		{AuraID =  465136, UnitID = "player", Flash = true}, -- 萨拉塔斯的交易：裂隙精华
-		{AuraID = 1216943, UnitID = "player", Flash = true}, -- 萨拉塔斯的交易：虚空脉冲星
+		{AuraID =  461910, UnitID = "player", Flash = true}, -- 萨拉塔斯的交易：扬升
+		{AuraID =  462661, UnitID = "player", Flash = true}, -- 萨拉塔斯的交易：虚缚
+		{AuraID =  465136, UnitID = "player", Flash = true}, -- 萨拉塔斯的交易：吞噬
+		{AuraID = 1216943, UnitID = "player", Flash = true}, -- 萨拉塔斯的交易：脉冲
 
 		-- 5人
 		{AuraID =  153692, UnitID = "player", Flash = true}, -- 死疽沥青，影月墓地
@@ -387,9 +387,9 @@ local list = {
 		{IntID = 410232, Duration = 120}, -- 孢子披风冷却
 		{IntID = 451568, Duration = 60}, -- 折转侵攻模组
 
-		--{IntID = 240447, Duration = 20}, -- 大米，践踏
-		--{IntID = 316958, Duration = 30, OnSuccess = true, UnitID = "all"}, -- 红土
-		--{IntID = 353635, Duration = 27.5, OnSuccess = true, UnitID = "all"}, -- 坍缩之星自爆时间
+		-- {IntID = 240447, Duration = 20}, -- 大米，践踏
+		-- {IntID = 316958, Duration = 30, OnSuccess = true, UnitID = "all"}, -- 红土
+		-- {IntID = 353635, Duration = 27.5, OnSuccess = true, UnitID = "all"}, -- 坍缩之星自爆时间
 	},
 }
 

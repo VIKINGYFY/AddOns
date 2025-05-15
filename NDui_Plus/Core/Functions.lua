@@ -67,7 +67,22 @@ end
 
 -- UI widgets
 do
-	P.EasyMenu = CreateFrame("Frame", "NDuiPlus_EasyMenu", UIParent, "UIDropDownMenuTemplate")
+	local function EasyMenu_Initialize(_, level, menuList)
+		for index = 1, #menuList do
+			local value = menuList[index]
+			if value.text then
+				value.index = index
+				UIDropDownMenu_AddButton(value, level)
+			end
+		end
+	end
+
+	local MenuFrame = CreateFrame("Frame", "NDuiPlus_EasyMenu", UIParent, "UIDropDownMenuTemplate")
+
+	function P:EasyMenu(menuList, anchor, x, y)
+		UIDropDownMenu_Initialize(MenuFrame, EasyMenu_Initialize, "MENU", nil, menuList)
+		ToggleDropDownMenu(1, nil, MenuFrame, anchor or "cursor", x or 0, y or 0, menuList)
+	end
 
 	function P:SetupBackdrop()
 		Mixin(self, BackdropTemplateMixin)
@@ -407,8 +422,11 @@ do
 		return P.RIGHT_MOUSE_BUTTON .. text
 	end
 
-	local t, d = "|T%s%s|t", ""
 	function P.TextureString(texture, data)
-		return format(t, texture, data or d)
+		return format("|T%s:%s|t", texture, data or "16")
+	end
+
+	function P.AtlasString(atlas, data)
+		return format("|A:%s:%s|a", atlas, data or "16:16")
 	end
 end

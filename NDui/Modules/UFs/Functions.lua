@@ -208,9 +208,10 @@ function UF:UpdateFrameHealthTag()
 	local mystyle, hpval = self.mystyle, self.healthValue
 	if mystyle == "raid" or mystyle == "nameplate" then return end
 
-	local valueType
+	local valueType, showValue
 	if mystyle == "player" or mystyle == "target" then
 		valueType = UF.VariousTagIndex[C.db["UFs"]["PlayerHPTag"]]
+		showValue = C.db["UFs"]["PlayerAbsorb"] and "[curAbsorb] "
 	elseif mystyle == "focus" then
 		valueType = UF.VariousTagIndex[C.db["UFs"]["FocusHPTag"]]
 	elseif mystyle == "boss" or mystyle == "arena" then
@@ -219,8 +220,7 @@ function UF:UpdateFrameHealthTag()
 		valueType = UF.VariousTagIndex[C.db["UFs"]["PetHPTag"]]
 	end
 
-	local showValue = C.db["UFs"]["PlayerAbsorb"] and mystyle == "player" and "[curAbsorb] " or ""
-	self:Tag(hpval, showValue.."[VariousHP("..valueType..")]")
+	self:Tag(hpval, (showValue or "").."[VariousHP("..valueType..")]")
 	hpval:UpdateTag()
 end
 
@@ -1440,8 +1440,8 @@ end
 
 function UF:CreateAltPower(self)
 	local bar = B.CreateSB(self)
-	bar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, -DB.margin)
-	bar:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, -DB.margin)
+	bar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, DB.margin)
+	bar:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, DB.margin)
 	bar:SetHeight(2*DB.margin)
 
 	local text = B.CreateFS(bar, 14, "")
@@ -1467,8 +1467,8 @@ end
 
 function UF:CreateAddPower(self)
 	local bar = B.CreateSB(self, nil, true)
-	bar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, -DB.margin)
-	bar:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, -DB.margin)
+	bar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, DB.margin)
+	bar:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, DB.margin)
 	bar:SetHeight(2*DB.margin)
 	bar.colorPower = true
 
@@ -1496,8 +1496,8 @@ end
 
 function UF:CreateExpRepBar(self)
 	local bar = B.CreateSB(self, nil, nil, "NDuiExpRepBar")
-	bar:SetPoint("TOPRIGHT", self, "TOPLEFT", DB.margin, 0)
-	bar:SetPoint("BOTTOMRIGHT", self, "BOTTOLEFT", DB.margin, 0)
+	bar:SetPoint("TOPRIGHT", self, "TOPLEFT", -DB.margin, 0)
+	bar:SetPoint("BOTTOMRIGHT", self, "BOTTOMLEFT", -DB.margin, 0)
 	bar:SetWidth(2*DB.margin)
 	bar:SetOrientation("VERTICAL")
 

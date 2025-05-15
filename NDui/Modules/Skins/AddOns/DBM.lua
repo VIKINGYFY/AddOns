@@ -46,6 +46,7 @@ local function ApplyDBMStyle(self)
 	local spark = B.GetObject(frame, "BarSpark")
 	local timer = B.GetObject(frame, "BarTimer")
 	local texture = B.GetObject(frame, "BarTexture")
+	local variance = B.GetObject(frame, "BarVariance")
 
 	if self.enlarged then
 		frame:SetWidth(self.owner.Options.HugeWidth)
@@ -70,6 +71,9 @@ local function ApplyDBMStyle(self)
 	end
 	if texture then
 		texture:SetTexture(DB.normTex)
+	end
+	if variance then
+		variance:SetTexture("")
 	end
 
 	name:SetWordWrap(false)

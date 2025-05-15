@@ -1,8 +1,12 @@
 # CompactVendor
 
-## [v11.1.0.250423](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.0.250423) (2025-04-23)
-[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.0.250423) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
+## [v11.1.5.250513](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.5.250513) (2025-05-13)
+[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.5.250513) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
 
+- TOC bump  
+- Updated logic when merchant frame shows and loads items.  
+    The end result should be a smoother and more stable experience when opening a merchant that has items that the game has to load for the first time.  
+    Once ready the filters will also update themselves to ensure nothing is being incorrectly filtered.  
 - TOC bump  
 - Added support for the new color in hyperlinks.  
 - TOC bump.  
@@ -74,6 +78,3 @@
     - Commented out the GET\_ITEM\_INFO\_RECEIVED and ITEM\_DATA\_LOAD\_RESULT events as the MERCHANT\_UPDATE appears to also fire regardless, and it's good enough with the throttle method used to avoid too frequent updates.  
 - TOC bump  
 - Replaced old transmog collected code with a faster way to check if an appearance is collected or not.  
-- TOC bump  
-- - Added custom colors to support Spell related items in the merchant, like in Torghast. The quality filter will use the internal quality table when creating the dropdown options.  
-    - Merchant update event will refresh items with limited availability, in case we purchased any of those.  

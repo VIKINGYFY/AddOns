@@ -269,7 +269,7 @@ function module:MapFunc()
 	WorldMapFrame:SetAttribute("UIPanelLayout-area", nil)
 	WorldMapFrame:SetAttribute("UIPanelLayout-enabled", false)
 	WorldMapFrame:SetAttribute("UIPanelLayout-allowOtherPanels", true)
-	tinsert(UISpecialFrames, "WorldMapFrame")
+	table.insert(UISpecialFrames, "WorldMapFrame")
 	B:UnregisterEvent("PLAYER_ENTERING_WORLD", self.MapFunc)
 end
 

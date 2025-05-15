@@ -29,9 +29,9 @@ oUF.Tags.Methods["VariousHP"] = function(unit, _, arg1)
 
 	if not arg1 then return end
 	local cur, max = UnitHealth(unit), UnitHealthMax(unit)
-	local per = max == 0 and 0 or (cur/max * 100)
-	local loss = max == 0 and 0 or (cur - max)
-	local lossper = max == 0 and 0 or (loss/max * 100)
+	local per = (max == 0 and 0) or (cur/max * 100)
+	local loss = (max == 0 and 0) or (cur - max)
+	local lossper = (max == 0 and 0) or (loss/max * 100)
 	local absorb = UnitGetTotalAbsorbs(unit) or 0
 
 	if arg1 == "currentpercent" then
@@ -55,9 +55,9 @@ oUF.Tags.Events["VariousHP"] = "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION PLAYE
 oUF.Tags.Methods["VariousMP"] = function(unit, _, arg1)
 	if not arg1 then return end
 	local cur, max = UnitPower(unit), UnitPowerMax(unit)
-	local per = max == 0 and 0 or (cur/max * 100)
-	local loss = max == 0 and 0 or (cur - max)
-	local lossper = max == 0 and 0 or (loss/max * 100)
+	local per = (max == 0 and 0) or (cur/max * 100)
+	local loss = (max == 0 and 0) or (cur - max)
+	local lossper = (max == 0 and 0) or (loss/max * 100)
 
 	if arg1 == "currentpercent" then
 		return CurrentAndPercent(cur, per, true)
@@ -133,7 +133,7 @@ oUF.Tags.Methods["fulllevel"] = function(unit)
 	local color = B.HexRGB(GetCreatureDifficultyColor(level))
 	local str
 	if level > 0 then
-		local realTag = level ~= realLevel and "*" or ""
+		local realTag = (level ~= realLevel and "*") or ""
 		str = color..level..realTag.."|r"
 	else
 		str = "|cffFF0000??|r"
@@ -171,7 +171,7 @@ oUF.Tags.Events["raidhp"] = oUF.Tags.Events["VariousHP"].." UNIT_ABSORB_AMOUNT_C
 -- Nameplate tags
 oUF.Tags.Methods["nppower"] = function(unit)
 	local cur, max = UnitPower(unit), UnitPowerMax(unit)
-	local per = max == 0 and 0 or (cur/max * 100)
+	local per = (max == 0 and 0) or (cur/max * 100)
 
 	return B.ColorPerc(per, true)
 end
@@ -267,7 +267,7 @@ oUF.Tags.Events["altpower"] = "UNIT_POWER_UPDATE UNIT_MAXPOWER"
 oUF.Tags.Methods["stagger"] = function(unit)
 	if unit ~= "player" then return end
 	local cur, max = UnitStagger(unit), UnitHealthMax(unit)
-	local per = max == 0 and 0 or (cur/max * 100)
+	local per = (max == 0 and 0) or (cur/max * 100)
 
 	return B.ColorNumb(cur, max, true)..DB.Separator..B.ColorPerc(per, true)
 end

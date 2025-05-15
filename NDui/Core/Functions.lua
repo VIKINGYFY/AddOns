@@ -947,6 +947,7 @@ do
 	-- Handle statusbar
 	function B:CreateSB(spark, bg, name)
 		local bar = CreateFrame("StatusBar", name, self)
+		bar:SetFrameLevel(self:GetFrameLevel())
 		bar:SetStatusBarTexture(DB.normTex)
 		bar:SetStatusBarColor(cr, cg, cb)
 

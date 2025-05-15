@@ -1001,10 +1001,10 @@ function UF:ResizePlayerPlate()
 				plate.lumos[i]:SetSize(iconSize, iconSize)
 			end
 		end
-		if plate.avada then
+		if plate.Avada then
 			local iconSize = (barWidth+2*C.mult - 5*DB.margin)/6
 			for i = 1, 6 do
-				plate.avada[i]:SetSize(iconSize, iconSize)
+				plate.Avada[i]:SetSize(iconSize, iconSize)
 			end
 		end
 		if plate.dices then

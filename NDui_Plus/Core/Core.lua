@@ -143,6 +143,7 @@ P.DefaultSettings = {
 		ExtMacroUI =  false,
 		WormholeHelper = true,
 		TrainAll = true,
+		AutoRoll = 3,
 	},
 }
 

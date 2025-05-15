@@ -36,6 +36,10 @@ local function setupChatAutoShow()
 	G:SetupChatAutoShow(guiPage[3])
 end
 
+local function setupLootRoll()
+	G:SetupLootRoll(guiPage[6])
+end
+
 local function updateABFaderState()
 	local AB = P:GetModule("ActionBar")
 	if not AB.fadeParent then return end
@@ -76,10 +80,6 @@ local function hideLootRoll()
 	if _G.NDuiPlus_LootRoll then _G.NDuiPlus_LootRoll:Hide() end
 end
 
-local function updateLootRoll()
-	P:GetModule("LootRoll"):UpdateLootRollTest()
-end
-
 local function updateAFKMode()
 	P:GetModule("AFK"):Toggle()
 end
@@ -112,7 +112,14 @@ end
 
 -- Config
 local HeaderTag = "|cff00cc4c"
-local NewFeatureTag = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:0|t"
+local IsNew = "ISNEW"
+
+local function AddNewTag(parent, anchor, x, y)
+	local tag = CreateFrame("Frame", nil, parent, "NewFeatureLabelTemplate")
+	tag:SetPoint("LEFT", anchor or parent, x or -25, y or 10)
+	tag:SetScale(.9)
+	tag:Show()
+end
 
 G.TabList = {
 	L["Actionbar"],
@@ -120,7 +127,7 @@ G.TabList = {
 	L["Chat"],
 	L["Skins"],
 	L["Tooltip"],
-	L["Misc"],
+	IsNew..L["Misc"],
 }
 
 G.OptionList = { -- type, key, value, name, horizon, data, callback, tooltip, scripts
@@ -203,13 +210,9 @@ G.OptionList = { -- type, key, value, name, horizon, data, callback, tooltip, sc
 		{1, "Loot", "AnnounceTitle", L["Announce Target Name"].."*"},
 		{4, "Loot", "AnnounceRarity", L["Rarity Threshold"].."*", true, G.Quality},
 		{},
-		{1, "LootRoll", "Enable", HeaderTag..L["LootRoll"], nil, nil, nil, L["LootRollTip"], {OnHide = hideLootRoll}},
-		{1, "LootRoll", "ItemLevel", L["Item Level"].."*", nil, nil, updateLootRoll},
-		{1, "LootRoll", "ItemQuality", L["Item Quality"].."*", true, nil, updateLootRoll},
-		{4, "LootRoll", "Style", L["Style"], false, {L["Style 1"], L["Style 2"]}, updateLootRoll},
-		{4, "LootRoll", "Direction", L["Growth Direction"], true, {L["Up"], L["Down"]}},
-		{3, "LootRoll", "Width", L["Frame Width"], false, {200, 500, 1}, updateLootRoll},
-		{3, "LootRoll", "Height", L["Frame Height"], true, {20, 50, 1}, updateLootRoll},
+		{1, "LootRoll", "Enable", HeaderTag..L["LootRoll"], nil, setupLootRoll, nil, L["LootRollTip"], {OnHide = hideLootRoll}},
+		{1, "Misc", "LootSpecManager", HeaderTag..L["LootSpecManagerEnable"], nil, toggleLootSpecManager, nil, L["LootSpecManagerTip"]},
+		{4, "Misc", "AutoRoll", IsNew..L["Auto Roll"], true, {P.AtlasString("lootroll-toast-icon-need-up").." "..NEED, P.AtlasString("lootroll-toast-icon-pass-up").." "..PASS, DISABLE}},
 		{},
 		{1, "Misc", "QuestHelper", L["QuestHelper"], nil, nil, nil, L["QuestHelperTip"]},
 		{1, "Misc", "AuctionEnhanced", L["AuctionEnhanced"], true, nil, nil, L["AuctionEnhancedTip"]},
@@ -222,8 +225,6 @@ G.OptionList = { -- type, key, value, name, horizon, data, callback, tooltip, sc
 		{1, "Misc", "GuildBankItemLevel", L["GuildBankItemLevel"]},
 		{1, "Misc", "WormholeHelper", L["Wormhole Helper"], true},
 		{1, "Misc", "TrainAll", L["TrainAll"], nil, nil, nil, L["TrainAllTip"]},
-		{},
-		{1, "Misc", "LootSpecManager", HeaderTag..L["LootSpecManagerEnable"], nil, toggleLootSpecManager, nil, L["LootSpecManagerTip"]},
 		{},
 		{1, "Misc", "CopyMog", HeaderTag..L["CopyMogEnable"], nil, nil, nil, L["CopyMogTip"]},
 		{1, "Misc", "ShowHideVisual", L["ShowHideVisual"].."*"},
@@ -294,6 +295,12 @@ local function CreateOption(i)
 
 	for _, option in pairs(G.OptionList[i]) do
 		local optType, key, value, name, horizon, data, callback, tooltip, scripts = unpack(option)
+		local isNew
+		if name then
+			local rawName, hasNew = gsub(name, "ISNEW", "")
+			name = rawName
+			if hasNew > 0 then isNew = true end
+		end
 		-- Checkboxes
 		if optType == 1 then
 			local cb = B.CreateCheckBox(parent)
@@ -304,6 +311,7 @@ local function CreateOption(i)
 				offset = offset + 35
 			end
 			cb.name = B.CreateFS(cb, 14, name, false, "LEFT", 30, 0)
+			if isNew then AddNewTag(cb, cb.name) end
 			cb:SetChecked(G.Variable(key, value))
 			cb:SetScript("OnClick", function()
 				G.Variable(key, value, cb:GetChecked())
@@ -337,7 +345,8 @@ local function CreateOption(i)
 				if callback then callback() end
 			end)
 
-			B.CreateFS(eb, 14, name, "system", "CENTER", 0, 25)
+			local fs = B.CreateFS(eb, 14, name, "system", "CENTER", 0, 25)
+			if isNew then AddNewTag(eb, fs) end
 			eb.title = L["Tips"]
 			local tip = L["EditBox Tip"]
 			if tooltip then tip = tooltip.."|n"..tip end
@@ -353,6 +362,7 @@ local function CreateOption(i)
 				offset = offset + 70
 			end
 			local s = B.CreateSlider(parent, name, min, max, step, x, y)
+			if isNew then AddNewTag(s, s.Text) end
 			s.__default = G.GetDefaultSettings(key, value)
 			s:SetValue(G.Variable(key, value))
 			s:SetScript("OnValueChanged", function(_, v)
@@ -382,7 +392,9 @@ local function CreateOption(i)
 				dd:SetPoint("TOPLEFT", 25, -offset - 25)
 				offset = offset + 70
 			end
-			dd.Text:SetText(data[G.Variable(key, value)])
+			dd:HookScript("OnShow", function()
+				dd.Text:SetText(data[G.Variable(key, value)])
+			end)
 
 			local opt = dd.options
 			dd.button:HookScript("OnClick", function()
@@ -406,7 +418,8 @@ local function CreateOption(i)
 				end
 			end
 
-			B.CreateFS(dd, 14, name, "system", "CENTER", 0, 25)
+			local fs = B.CreateFS(dd, 14, name, "system", "CENTER", 0, 25)
+			if isNew then AddNewTag(dd, fs, -32, 12) end
 			if tooltip then
 				dd.title = L["Tips"]
 				B.AddTooltip(dd, "ANCHOR_RIGHT", tooltip, "info")
@@ -419,6 +432,7 @@ local function CreateOption(i)
 		-- Colorswatch
 		elseif optType == 5 then
 			local swatch = B.CreateColorSwatch(parent, name, G.Variable(key, value))
+			if isNew then AddNewTag(swatch) end
 			if horizon then
 				swatch:SetPoint("TOPLEFT", 254, -offset + 30)
 			else
@@ -493,7 +507,9 @@ function P:OpenGUI()
 	end)
 
 	for i, name in pairs(G.TabList) do
-		guiTab[i] = CreateTab(gui, i, name)
+		local rawName, isNew = gsub(name, "ISNEW", "")
+		guiTab[i] = CreateTab(gui, i, rawName)
+		if isNew > 0 then AddNewTag(guiTab[i]) end
 
 		guiPage[i] = CreateFrame("ScrollFrame", nil, gui, "UIPanelScrollFrameTemplate")
 		guiPage[i]:SetPoint("TOPLEFT", 110, -50)
