@@ -5,7 +5,7 @@ local UF = B:GetModule("UnitFrames")
 local EMPTY_TEXTURE = "Interface\\Icons\\INV_Misc_QuestionMark"
 local myFullName = DB.MyFullName
 
-UF.defaultStrings = {
+UF.DefaultAvada = {
 	[0] = "", -- None
 	-- HUNTER
 	[253] = "1ZplayerZcdZ34026N2ZplayerZcdZ217200N3ZpetZbuffZ272790N4ZplayerZbuffZ268877N5ZplayerZcdZ19574N6ZplayerZcdZ359844", -- Beast Mastery
@@ -28,37 +28,37 @@ UF.defaultStrings = {
 	[257] = "1ZplayerZcdZ34861N2ZplayerZcdZ2050N3ZplayerZcdZ64843N4ZplayerZcdZ64901N5ZplayerZcdZ47788N6ZplayerZcdZ10060N", -- Holy
 	[258] = "1ZtargetZdebuffZ589N2ZtargetZdebuffZ34914N3ZtargetZdebuffZ335467N4ZplayerZcdZ8092N5ZplayerZcdZ228260N6ZplayerZcdZ10060N", -- Shadow
 	-- ROGUE
-	[259] = "", -- Assassination
-	[260] = "", -- Outlaw
-	[261] = "", -- Subtlety
+	[259] = "1ZplayerZcdZ5938N2ZplayerZcdZ31224N3ZplayerZcdZ381623N4ZplayerZcdZ385627N5ZplayerZcdZ360194N6ZplayerZcdZ1856N", -- Assassination
+	[260] = "1ZplayerZcdZ13877N2ZplayerZcdZ315508N3ZplayerZcdZ13750N4ZplayerZcdZ196937N5ZplayerZcdZ31224N6ZplayerZcdZ1856N", -- Outlaw
+	[261] = "1ZplayerZcdZ212283N2ZplayerZcdZ121471N3ZplayerZcdZ384631N4ZplayerZcdZ185313N5ZplayerZcdZ31224N6ZplayerZcdZ1856N", -- Subtlety
 	-- SHAMAN
-	[262] = "", -- Elemental
-	[263] = "", -- Enhancement
-	[264] = "", -- Restoration
+	[262] = "1ZplayerZcdZ470411N2ZplayerZcdZ51505N3ZplayerZbuffZ191877N4ZplayerZcdZ192249N5ZplayerZcdZ114050N6ZplayerZcdZ108271N", -- Elemental
+	[263] = "1ZplayerZcdZ17364N2ZplayerZcdZ60103N3ZplayerZcdZ470411N4ZplayerZcdZ51533N5ZplayerZcdZ384352N6ZplayerZcdZ108271N", -- Enhancement
+	[264] = "1ZplayerZcdZ61295N2ZplayerZcdZ5394N3ZplayerZcdZ73920N4ZplayerZcdZ73685N5ZplayerZcdZ108280N6ZplayerZcdZ114052N", -- Restoration
 	-- DH
-	[577] = "1ZplayerZcdZ232893N2ZplayerZcdZ258920N3ZplayerZcdZ188499N4ZplayerZcdZ204596N5ZplayerZcdZ198013N6ZplayerZcdZ191427N", -- Havoc
-	[581] = "1ZplayerZcdZ263642N2ZplayerZcdZ258920N3ZplayerZcdZ204596N4ZplayerZcdZ212084N5ZplayerZcdZ204021N6ZplayerZcdZ187827N", -- Vengeance
+	[577] = "1ZplayerZcdZ258920N2ZplayerZcdZ232893N3ZplayerZcdZ188499N4ZplayerZcdZ198013N5ZplayerZcdZ204596N6ZplayerZcdZ191427N", -- Havoc
+	[581] = "1ZplayerZcdZ263642N2ZplayerZcdZ212084N3ZplayerZcdZ203720N4ZplayerZcdZ204021N5ZplayerZcdZ204596N6ZplayerZcdZ187827N", -- Vengeance
 	-- DRUID
-	[102] = "", -- Balance
-	[103] = "", -- Feral
-	[104] = "", -- Guardian
-	[105] = "", -- Restoration
+	[102] = "1ZplayerZbuffZ394050N2ZplayerZcdZ22812N3ZplayerZcdZ78675N4ZplayerZcdZ194223N5ZplayerZcdZ391528N6ZplayerZcdZ29166N", -- Balance
+	[103] = "1ZtargetZdebuffZ1079N2ZplayerZcdZ22812N3ZplayerZcdZ391888N4ZplayerZcdZ61336N5ZplayerZcdZ391528N6ZplayerZcdZ106951N", -- Feral
+	[104] = "1ZplayerZcdZ204066N2ZplayerZcdZ200851N3ZplayerZcdZ22812N4ZplayerZcdZ102558N5ZplayerZcdZ319454N6ZplayerZcdZ61336N", -- Guardian
+	[105] = "1ZplayerZbuffZ33763N2ZplayerZbuffZ428737N3ZplayerZcdZ102342N4ZplayerZcdZ197721N5ZplayerZcdZ740N6ZplayerZcdZ391528N", -- Restoration
 	-- WARLOCK
-	[265] = "", -- Affliction
-	[266] = "", -- Demonology
-	[267] = "", -- Destruction
+	[265] = "1ZtargetZdebuffZ316099N2ZtargetZdebuffZ980N3ZplayerZbuffZ264571N4ZplayerZcdZ48181N5ZplayerZcdZ205179N6ZplayerZcdZ386997N", -- Affliction
+	[266] = "1ZplayerZbuffZ264173N2ZplayerZcdZ104316N3ZplayerZcdZ111898N4ZplayerZcdZ455465N5ZplayerZcdZ265187N6ZplayerZcdZ333889N", -- Demonology
+	[267] = "1ZtargetZdebuffZ157736N2ZplayerZcdZ17962N3ZplayerZcdZ17877N4ZplayerZcdZ80240N5ZplayerZcdZ6353N6ZplayerZcdZ152108N", -- Destruction
 	-- WARRIOR
-	[71] = "", -- Arms
-	[72] = "", -- Fury
-	[73] = "", -- Protection
+	[71] = "1ZplayerZcdZ12294N2ZplayerZcdZ260708N3ZplayerZcdZ167105N4ZplayerZcdZ227847N5ZplayerZcdZ118038N6ZplayerZcdZ107574N", -- Arms
+	[72] = "1ZplayerZcdZ23881N2ZplayerZcdZ85288N3ZplayerZcdZ227847N4ZplayerZcdZ384318N5ZplayerZcdZ184364N6ZplayerZcdZ107574N", -- Fury
+	[73] = "1ZplayerZcdZ2565N2ZplayerZbuffZ190456N3ZplayerZcdZ228920N4ZplayerZcdZ871N5ZplayerZcdZ12975N6ZplayerZcdZ107574N", -- Protection
 	-- EVOKER
-	[1467] = "", -- Devastation
-	[1468] = "", -- Preservation
-	[1473] = "", -- Augmentation
+	[1467] = "1ZplayerZcdZ356995N2ZplayerZcdZ382266N3ZplayerZcdZ382411N4ZplayerZcdZ370452N5ZplayerZcdZ374348N6ZplayerZcdZ375087N", -- Devastation
+	[1468] = "1ZplayerZcdZ366155N2ZplayerZcdZ373861N3ZplayerZcdZ367226N4ZplayerZcdZ355936N5ZplayerZcdZ357208N6ZplayerZcdZ370553N", -- Preservation
+	[1473] = "1ZplayerZcdZ409311N2ZplayerZcdZ396286N3ZplayerZcdZ357208N4ZplayerZcdZ360827N5ZplayerZcdZ363916N6ZplayerZcdZ370553N", -- Augmentation
 	-- MONK
 	[268] = "1ZplayerZbuffZ325092N2ZplayerZcdZ322101N3ZplayerZbuffZ215479N4ZplayerZbuffZ322507N5ZplayerZcdZ122278N6ZplayerZcdZ115203N", -- Brewmaster
-	[269] = "1ZplayerZbuffZ119611N2ZplayerZcdZ107428N3ZplayerZcdZ322101N4ZplayerZcdZ388193N5ZplayerZcdZ115203N6ZplayerZcdZ325197N", -- Windwalker
-	[270] = "1ZplayerZcdZ107428N2ZplayerZcdZ113656N3ZplayerZcdZ137639N4ZplayerZcdZ123904N5ZplayerZcdZ115203N6ZplayerZcdZ122783N", -- Mistweaver
+	[269] = "1ZplayerZcdZ107428N2ZplayerZcdZ113656N3ZplayerZcdZ137639N4ZplayerZcdZ123904N5ZplayerZcdZ115203N6ZplayerZcdZ122783N", -- Windwalker
+	[270] = "1ZplayerZbuffZ119611N2ZplayerZcdZ107428N3ZplayerZcdZ322101N4ZplayerZcdZ388193N5ZplayerZcdZ115203N6ZplayerZcdZ325197N", -- Mistweaver
 }
 
 local replacedTexture = {
@@ -67,6 +67,10 @@ local replacedTexture = {
 
 UF.AvadaValueSpells = { -- 显示数值的法术
 	[77535] = true, -- 鲜血护盾
+}
+
+UF.AvadaGemini = { -- 自动转换的法术
+	[5394] = 157153, -- 治疗之泉图腾自动转暴雨图腾
 }
 
 local avadaButtons, auraData, avadaValue = {}, {}
@@ -98,7 +102,12 @@ local function stringParser(str)
 	for result in string.gmatch(str, "[^N]+") do
 		local iconIndex, unit, iconType, spellID = string.match(result, "(%d+)Z(%w+)Z(%w+)Z(%d+)")
 		iconIndex = tonumber(iconIndex)
-		auraData[iconIndex] = {index = iconIndex, unit = unit, type = iconType, spellID = tonumber(spellID)}
+		spellID = tonumber(spellID)
+		local geminiSpell = UF.AvadaGemini[spellID]
+		if geminiSpell and IsPlayerSpell(geminiSpell) then
+			spellID = geminiSpell
+		end
+		auraData[iconIndex] = {index = iconIndex, unit = unit, type = iconType, spellID = spellID}
 	end
 end
 
@@ -110,7 +119,7 @@ function UF:Avada_RefreshIcons()
 
 	table.wipe(auraData)
 	local profileIndex = NDuiADB["AvadaIndex"][myFullName] and NDuiADB["AvadaIndex"][myFullName][specID]
-	local classString = NDuiADB["AvadaProfile"][specID] and NDuiADB["AvadaProfile"][specID][profileIndex] or UF.defaultStrings[specID]
+	local classString = NDuiADB["AvadaProfile"][specID] and NDuiADB["AvadaProfile"][specID][profileIndex] or UF.DefaultAvada[specID]
 	if classString then
 		stringParser(classString)
 	end
@@ -188,16 +197,16 @@ function UF:Avada_UpdateCD(button, spellID)
 		button.CD:SetCooldown(chargeStart, chargeDuration)
 		button.CD:Show()
 		button.Icon:SetDesaturated(false)
-		button.Count:SetTextColor(0, 1, 0)
+		button.Count:SetTextColor(1, 1, 0)
 	elseif start and duration > 1.5 then
 		button.CD:SetCooldown(start, duration)
 		button.CD:Show()
 		button.Icon:SetDesaturated(true)
-		button.Count:SetTextColor(1, 1, 1)
+		button.Count:SetTextColor(1, 0, 0)
 	else
 		button.CD:Hide()
 		button.Icon:SetDesaturated(false)
-		if charges == maxCharges then button.Count:SetTextColor(1, 0, 0) end
+		if charges == maxCharges then button.Count:SetTextColor(0, 1, 0) end
 	end
 	button.CD:SetReverse(false)
 end
@@ -282,7 +291,7 @@ function UF:Avada_Toggle(frame)
 		frame:RegisterEvent("BAG_UPDATE_COOLDOWN", UF.Avada_OnEvent, true)
 
 		UF.Avada_RefreshAll(frame)
-		frame:RegisterEvent("PLAYER_TALENT_UPDATE", UF.Avada_RefreshAll, true)
+		frame:RegisterEvent("TRAIT_CONFIG_UPDATED", UF.Avada_RefreshAll, true)
 	else
 		for i = 1, 6 do frame.Avada[i]:Hide() end
 		B:UnregisterEvent("UNIT_AURA", UF.Avada_OnAura)
@@ -290,7 +299,7 @@ function UF:Avada_Toggle(frame)
 		frame:UnregisterEvent("SPELL_UPDATE_COOLDOWN", UF.Avada_OnEvent)
 		frame:UnregisterEvent("SPELL_UPDATE_CHARGES", UF.Avada_OnEvent)
 		frame:UnregisterEvent("BAG_UPDATE_COOLDOWN", UF.Avada_OnEvent)
-		frame:UnregisterEvent("PLAYER_TALENT_UPDATE", UF.Avada_RefreshAll, true)
+		frame:UnregisterEvent("TRAIT_CONFIG_UPDATED", UF.Avada_RefreshAll, true)
 	end
 end
 

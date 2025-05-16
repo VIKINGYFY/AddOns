@@ -2319,7 +2319,7 @@ function G:SetupAvada()
 
 		local str
 		if index == 1 then
-			str = UF.defaultStrings[currentSpecID]
+			str = UF.DefaultAvada[currentSpecID]
 		else
 			str = NDuiADB["AvadaProfile"][currentSpecID] and NDuiADB["AvadaProfile"][currentSpecID][index] or ""
 		end
@@ -2462,7 +2462,7 @@ function G:SetupAvada()
 		OnShow = function(self)
 			local text
 			if currentID == 1 then
-				text = UF.defaultStrings[currentSpecID]
+				text = UF.DefaultAvada[currentSpecID]
 			else
 				text = NDuiADB["AvadaProfile"][currentSpecID] and NDuiADB["AvadaProfile"][currentSpecID][currentID] or ""
 			end
@@ -2529,13 +2529,13 @@ function G:SetupAvada()
 		StaticPopup_Hide("NDUI_AVADA_IMPORT")
 	end)
 
-	local export = B.CreateButton(panel, 30, 30, true,  DB.arrowTex.."top")
+	local export = B.CreateButton(panel, 30, 30, true,  DB.arrowTex.."up")
 	export:SetPoint("LEFT", undo, "RIGHT", 5, 0)
 	export:SetScript("OnClick", exportAvadaStyle)
 	export.title = L["Export"]
 	B.AddTooltip(export, "ANCHOR_RIGHT")
 
-	local import = B.CreateButton(panel, 30, 30, true, DB.arrowTex.."bottom")
+	local import = B.CreateButton(panel, 30, 30, true, DB.arrowTex.."down")
 	import:SetPoint("LEFT", export, "RIGHT", 5, 0)
 	import:SetScript("OnClick", importAvadaStyle)
 	import.title = L["Import"]
@@ -2597,6 +2597,8 @@ function G:SetupAvada()
 			local itemID = GetCursorID()
 			if itemID then
 				ClearCursor()
+				button.spellID = itemID
+				button.spellType = "item"
 				button.Icon:SetTexture(C_Item.GetItemIconByID(itemID) or EMPTY_ICON)
 				button.options[1].Text:SetText("player")
 				button.options[2].Text:SetText("item")
@@ -2606,6 +2608,8 @@ function G:SetupAvada()
 			local spellID = GetCursorID()
 			if spellID then
 				ClearCursor()
+				button.spellID = spellID
+				button.spellType = "cd"
 				button.Icon:SetTexture(C_Spell.GetSpellTexture(spellID) or EMPTY_ICON)
 				button.options[1].Text:SetText("player")
 				button.options[2].Text:SetText("cd")

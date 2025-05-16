@@ -125,7 +125,9 @@ C.OnLoadThemes["Blizzard_PlayerSpells"] = function()
 		B.ReskinArrow(spellBook.PagedSpellsFrame.PagingControls.PrevPageButton, "left")
 		B.ReskinArrow(spellBook.PagedSpellsFrame.PagingControls.NextPageButton, "right")
 		spellBook.PagedSpellsFrame.PagingControls.PageText:SetTextColor(1, 1, 1)
-		B.ReskinCheck(spellBook.HidePassivesCheckButton.Button)
+		if not DB.isNewPatch then
+			B.ReskinCheck(spellBook.HidePassivesCheckButton.Button)
+		end
 		B.ReskinInput(spellBook.SearchBox)
 		spellBook.SearchBox.__bg:SetPoint("TOPLEFT", -5, -3)
 		spellBook.SearchBox.__bg:SetPoint("BOTTOMRIGHT", 2, 3)
@@ -147,5 +149,15 @@ C.OnLoadThemes["Blizzard_PlayerSpells"] = function()
 				end
 			end
 		end)
+
+		if DB.isNewPatch then
+			local button = spellBook.AssistedCombatRotationSpellFrame.Button
+			if button then
+				B.CleanTextures(button)
+
+				local bg = B.ReskinIcon(button.Icon)
+				B.ReskinHLTex(button, bg)
+			end
+		end
 	end
 end

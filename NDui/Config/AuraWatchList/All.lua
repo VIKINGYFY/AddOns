@@ -71,12 +71,14 @@ local list = {
 		{AuraID =  455444, UnitID = "player"}, -- 探洞者的蜡烛
 		{AuraID =  455451, UnitID = "player"}, -- 迅芯烛台
 		{AuraID =  466681, UnitID = "player"}, -- 纸牌屋
+		{AuraID =  466810, UnitID = "player", Value =  true}, -- 易燃铬武炸弹服
 		{AuraID =  470286, UnitID = "player"}, -- 托克的大红按钮
 		{AuraID = 1213433, UnitID = "player", Text = L["Crit"]}, -- 哈哈棱镜
 		{AuraID = 1213434, UnitID = "player", Text = L["Haste"]}, -- 哈哈棱镜
 		{AuraID = 1214806, UnitID = "player"}, -- 机械核心增幅器
 		{AuraID = 1214810, UnitID = "player"}, -- 机械核心增幅器
 		{AuraID = 1216650, UnitID = "player"}, -- 可疑的能量饮料
+		{AuraID = 1216921, UnitID = "player", Value =  true}, -- 不详污油残渣
 		{AuraID = 1218713, UnitID = "player"}, -- 临时制作的爆盐起搏器
 		{AuraID = 1219102, UnitID = "player", Value =  true}, -- 共鸣仪式泥浆
 
