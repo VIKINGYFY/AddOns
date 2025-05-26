@@ -253,6 +253,7 @@ function ns.rewards.Mount:Cache()
     if C_MountJournal and self:MountID() then C_MountJournal.GetMountInfoByID(self:MountID()) end
 end
 
+-- TODO: consolidate this with BattlePet a bit?
 ns.rewards.Pet = ns.rewards.Item:extends({classname="Pet"})
 function ns.rewards.Pet:init(id, petid, ...)
     self:super("init", id, ...)

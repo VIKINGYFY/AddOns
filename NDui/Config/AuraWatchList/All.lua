@@ -52,6 +52,7 @@ local list = {
 		{AuraID =   26297, UnitID = "player"}, -- 狂暴 巨魔
 		{AuraID =   33697, UnitID = "player"}, -- 血性狂怒 兽人
 		{AuraID =  292463, UnitID = "player"}, -- 帕库之拥 赞达拉
+		{AuraID = 431932, UnitID = "player"},	-- 淬火药水
 		-- 11.0 饰品
 		{AuraID =   91374, UnitID = "player"}, -- 卡德罗斯的印记
 		{AuraID =   92099, UnitID = "player"}, -- 灰鳞的优雅
@@ -254,8 +255,10 @@ local list = {
 		-- 大米
 		{AuraID =  226510, UnitID = "target"}, -- 血池回血
 		{AuraID =  343502, UnitID = "target"}, -- 鼓舞光环
+		{AuraID =  440328, UnitID = "target"}, -- 萨拉塔斯的赠礼：吞噬
 		{AuraID = 1221061, UnitID = "target"}, -- 萨拉塔斯的赠礼：虚缚
 		{AuraID = 1221063, UnitID = "target"}, -- 萨拉塔斯的赠礼：扬升
+
 		-- 5人
 		{AuraID =  113309, UnitID = "target", Flash = true}, -- 至高能量，青龙寺
 		{AuraID =  113315, UnitID = "target", Stack = 7, Flash = true}, -- 强烈，青龙寺

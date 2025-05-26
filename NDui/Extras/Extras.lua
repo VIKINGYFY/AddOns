@@ -18,6 +18,7 @@ function EX:OnLogin()
 	end
 
 	self:ActionBarGlow()
+	self:DisableAddOnProfiler()
 	self:DisableGuildFilter()
 	self:InstanceAutoMarke()
 	self:InstanceDifficulty()
@@ -45,6 +46,11 @@ function EX:DisableGuildFilter()
 	for i=1, 9 do
 		SetGuildNewsFilter(i, 0)
 	end
+end
+
+-- 禁用插件性能统计
+function EX:DisableAddOnProfiler()
+	C_AddOnProfiler.IsEnabled = function() return false end
 end
 
 -- 副本重置自动喊话

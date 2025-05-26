@@ -24,7 +24,9 @@ local function Update_ProgressItemQuality(self)
 	if objectType == "item" then
 		quality = select(4, GetQuestItemInfo(buttonType, index))
 	elseif objectType == "currency" then
-		quality = select(4, GetQuestCurrencyInfo(buttonType, index))
+		local info = C_QuestOffer.GetQuestRewardCurrencyInfo(buttonType, index)
+		quality = info and info.quality
+		print(quality or "nil")
 	end
 
 	local r, g, b = C_Item.GetItemQualityColor(quality)

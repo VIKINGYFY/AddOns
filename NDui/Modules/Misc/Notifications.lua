@@ -489,7 +489,7 @@ function M:NVision_Create()
 		[2] = {
 			anchorF = "LEFT", anchorT = "RIGHT", offset = 3,
 			texture = 2000861,
-			color = {.8, 0, 1}, reverse = true, maxValue = 12,
+			color = {1, 0, 1}, reverse = true, maxValue = 12,
 		}
 	}
 
@@ -505,12 +505,13 @@ function M:NVision_Create()
 		B.SmoothBar(bar)
 
 		local icon = CreateFrame("Frame", nil, bar)
-		icon:SetSize(22, 22)
+		icon:SetSize(20, 20)
 		icon:SetPoint(v.anchorF, bar, v.anchorT, v.offset, 0)
 		B.PixelIcon(icon, v.texture)
+		icon.bg:SetOutside()
 		B.CreateSD(icon.bg)
 
-		bar.text = B.CreateFS(bar, 16, "0/"..v.maxValue, nil, "CENTER", 0, 0)
+		bar.text = B.CreateFS(bar, 16, "0 / "..v.maxValue, nil, "CENTER", 0, 0)
 		bar.__max = v.maxValue
 		bar.count = 0
 

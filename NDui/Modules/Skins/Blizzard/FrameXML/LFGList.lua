@@ -144,7 +144,6 @@ C.OnLoginThemes["LFGList"] = function()
 
 		B.StripTextures(header)
 		B.SetFontSize(header.Label, 14)
-		header.Label:SetShadowColor(0, 0, 0, 0)
 		header:SetHighlightTexture(0)
 
 		local bg = B.CreateBDFrame(header, .25)

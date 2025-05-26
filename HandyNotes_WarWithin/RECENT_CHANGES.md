@@ -1,5 +1,6 @@
-## Changed in v83
+## Changed in v84
 
-* Updated for 11.1.5
-* Undermine: added the Authentic Undermine Clam Chowder recipe
+* Undermine:
+    * Added the quartermasters to the map
+    * Some rare quest updates (thanks ywi!)
 

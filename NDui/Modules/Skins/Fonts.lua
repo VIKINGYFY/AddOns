@@ -167,7 +167,7 @@ C.OnLoginThemes["Fonts"] = function()
 		if not frame.fontStyled then
 			local fontName, fontSize = frame.statusText:GetFont()
 			frame.statusText:SetFont(fontName, fontSize, "OUTLINE")
-			frame.statusText:SetTextColor(.7, .7, .7)
+			frame.statusText:SetTextColor(1, 1, 1)
 			frame.statusText:SetShadowColor(0, 0, 0, 0)
 			frame.fontStyled = true
 		end

@@ -28,7 +28,7 @@ function Details222.StartUp.StartMeUp()
 		Details:FillUserCustomSpells()
 	end)
 
-	Details.challengeModeMapId = C_ChallengeMode and C_ChallengeMode.GetActiveChallengeMapID()
+	Details.challengeModeMapId = C_ChallengeMode and C_ChallengeMode.GetActiveChallengeMapID and C_ChallengeMode.GetActiveChallengeMapID()
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --row single click, this determines what happen when the user click on a bar
@@ -102,6 +102,10 @@ function Details222.StartUp.StartMeUp()
 	Details:InitializeRunCodeWindow()
 	Details:InitializePlaterIntegrationWindow()
 	Details:InitializeMacrosWindow()
+
+	if (Details.InitializeEncounterSwapper) then
+		Details:InitializeEncounterSwapper()
+	end
 
 	Details222.CreateAllDisplaysFrame()
 
@@ -311,7 +315,7 @@ function Details222.StartUp.StartMeUp()
 
 		Details.listener:RegisterEvent("PLAYER_TARGET_CHANGED")
 
-		if (not DetailsFramework.IsTimewalkWoW()) then
+		if (not DetailsFramework.IsTimewalkWoW()) then --C_EventUtils.IsEventValid
 			Details.listener:RegisterEvent("PET_BATTLE_OPENING_START")
 			Details.listener:RegisterEvent("PET_BATTLE_CLOSE")
 			Details.listener:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")

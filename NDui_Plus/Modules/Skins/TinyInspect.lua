@@ -70,9 +70,6 @@ function S:TinyInspect()
 		if frame and not frame.styled then
 			B.StripTextures(frame)
 			B.SetBD(frame)
-			frame:ClearAllPoints()
-			frame:SetPoint("TOPLEFT", parent, "TOPRIGHT", C.mult, 0)
-			frame.SetPoint = B.Dummy
 
 			frame.styled = true
 		end

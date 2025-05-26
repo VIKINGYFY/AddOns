@@ -123,6 +123,7 @@ end
 local function Reskin_SpecialReward()
 	local rewardsFrame = QuestInfoFrame.rewardsFrame
 	local isQuestLog = QuestInfoFrame.questLog ~= nil
+	local questID = isQuestLog and C_QuestLog.GetSelectedQuest() or GetQuestID()
 	local numSpellRewards = C_QuestInfoSystem.GetQuestRewardSpells(questID) or {}
 
 	if #numSpellRewards > 0 then

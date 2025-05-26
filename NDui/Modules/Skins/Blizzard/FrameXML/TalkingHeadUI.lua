@@ -20,12 +20,10 @@ C.OnLoginThemes["TalkingHeadUI"] = function()
 	local name = TalkingHeadFrame.NameFrame.Name
 	name:SetTextColor(1, 1, 0)
 	name.SetTextColor = B.Dummy
-	name:SetShadowColor(0, 0, 0, 0)
 
 	local text = TalkingHeadFrame.TextFrame.Text
 	text:SetTextColor(1, 1, 1)
 	text.SetTextColor = B.Dummy
-	text:SetShadowColor(0, 0, 0, 0)
 
 	B.ReskinClose(TalkingHeadFrame.MainFrame.CloseButton, nil, -25, -25)
 end
