@@ -2154,7 +2154,10 @@ do
 		if not self then return end
 
 		self:SetTextColor(r, g, b, a or 1)
-		self:SetShadowColor(0, 0, 0, 0)
+
+		if self.SetShadowColor then
+			self:SetShadowColor(0, 0, 0, 0)
+		end
 
 		if size then
 			if tonumber(size) then

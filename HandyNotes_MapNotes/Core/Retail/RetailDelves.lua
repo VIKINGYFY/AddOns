@@ -77,14 +77,14 @@ function ns.DelveContinent:CoCDelves(mapID, mapInfo)
             info.position:SetXY(newX, newY)
             info.dataProvider = self
             if newX >= 0 and newX <= 1 and newY >= 0 and newY <= 1 then
-                self:GetMap():AcquirePin("ContinentDelvePinTemplate", info)
+                self:GetMap():AcquirePin("MapNotesContinentDelvePinTemplate", info)
             end
         end
     end
 end
 
 function ns.DelveContinent:RemoveAllData()
-	self:GetMap():RemoveAllPinsByTemplate("ContinentDelvePinTemplate")
+	self:GetMap():RemoveAllPinsByTemplate("MapNotesContinentDelvePinTemplate")
 end
 
 -- https://warcraft.wiki.gg/wiki/FrameXML_functions
