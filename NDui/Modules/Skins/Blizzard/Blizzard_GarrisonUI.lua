@@ -165,8 +165,8 @@ end
 
 local function UpdateFollowerQuality(self, followerInfo)
 	if followerInfo then
-		local color = DB.QualityColors[(followerInfo.quality) or 1]
-		self.squareBG:SetBackdropBorderColor(color.r, color.g, color.b)
+		local r, g, b = C_Item.GetItemQualityColor(followerInfo.quality)
+		self.squareBG:SetBackdropBorderColor(r, g, b)
 	end
 end
 
@@ -341,8 +341,8 @@ end
 
 local function updateFollowerColorOnBoard(self, _, info)
 	if self.squareBG then
-		local color = DB.QualityColors[(info.quality) or 1]
-		self.squareBG:SetBackdropBorderColor(color.r, color.g, color.b)
+		local r, g, b = C_Item.GetItemQualityColor(info.quality)
+		self.squareBG:SetBackdropBorderColor(r, g, b)
 	end
 end
 
@@ -670,8 +670,8 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 			portraitFrame.styled = true
 		end
 
-		local color = DB.QualityColors[followerInfo.quality]
-		portraitFrame.squareBG:SetBackdropBorderColor(color.r, color.g, color.b)
+		local r, g, b = C_Item.GetItemQualityColor(followerInfo.quality)
+		portraitFrame.squareBG:SetBackdropBorderColor(r, g, b)
 		portraitFrame.squareBG:Show()
 	end)
 
@@ -752,8 +752,8 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 
 				local quality = select(4, C_Garrison.GetFollowerMissionCompleteInfo(mission.followers[i]))
 				if quality then
-					local color = DB.QualityColors[quality]
-					frame.PortraitFrame.squareBG:SetBackdropBorderColor(color.r, color.g, color.b)
+					local r, g, b = C_Item.GetItemQualityColor(quality)
+					frame.PortraitFrame.squareBG:SetBackdropBorderColor(r, g, b)
 					frame.PortraitFrame.squareBG:Show()
 				end
 			end
@@ -902,8 +902,8 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 	B.ReskinGarrisonPortrait(allyPortrait)
 	OrderHallMissionFrame:HookScript("OnShow", function()
 		if allyPortrait:IsShown() then
-			local color = DB.QualityColors[(allyPortrait.quality) or 1]
-			allyPortrait.squareBG:SetBackdropBorderColor(color.r, color.g, color.b)
+			local r, g, b = C_Item.GetItemQualityColor(allyPortrait.quality)
+			allyPortrait.squareBG:SetBackdropBorderColor(r, g, b)
 		end
 		combatAlly.Available.AddFollowerButton.EmptyPortrait:SetAlpha(0)
 		combatAlly.Available.AddFollowerButton.PortraitHighlight:SetAlpha(0)

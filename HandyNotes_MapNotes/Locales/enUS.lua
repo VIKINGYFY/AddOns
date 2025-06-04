@@ -3,6 +3,9 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "enUS", true)
 
 
 -- new
+L["Unfortunately does not work in instances"] = true
+L["Minimap player arrow"] = true
+L["Displays the player arrow on the minimap layered above addon-created icons"] = true
 L["Coordinates"] = true
 L["Creates a window for displaying the coordinates"] = true
 L["Only visible when the world map is open"] = true

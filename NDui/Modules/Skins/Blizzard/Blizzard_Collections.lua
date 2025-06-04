@@ -534,8 +534,8 @@ C.OnLoadThemes["Blizzard_Collections"] = function()
 
 		if itemFrame.collected then
 			local quality = C_TransmogCollection.GetSourceInfo(itemFrame.sourceID).quality
-			local color = DB.QualityColors[(quality and quality) or 1]
-			ic.bg:SetBackdropBorderColor(color.r, color.g, color.b)
+			local r, g, b = C_Item.GetItemQualityColor(quality)
+			ic.bg:SetBackdropBorderColor(r, g, b)
 		else
 			B.SetBorderColor(ic.bg)
 		end

@@ -211,8 +211,8 @@ C.OnLoadThemes["Blizzard_PVPUI"] = function()
 			local icon = rewardFrame.Icon
 			icon:SetTexture(rewardTexture)
 			if icon.bg then
-				local color = DB.QualityColors[rewardQuaility]
-				icon.bg:SetBackdropBorderColor(color.r, color.g, color.b)
+				local r, g, b = C_Item.GetItemQualityColor(rewardQuaility)
+				icon.bg:SetBackdropBorderColor(r, g, b)
 			end
 		end
 	end)

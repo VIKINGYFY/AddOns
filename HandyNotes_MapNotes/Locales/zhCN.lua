@@ -3,6 +3,9 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "zhCN")
 if not L then return end
 
 -- new
+L["Unfortunately does not work in instances"] = "在副本中无法使用"
+L["Minimap player arrow"] = "小地图玩家箭头"
+L["Displays the player arrow on the minimap layered above addon-created icons"] = "在小地图上显示玩家箭头，位于插件创建的图标之上"
 L["Coordinates"] = "坐标"
 L["Creates a window for displaying the coordinates"] = "创建用于显示坐标的窗口"
 L["Only visible when the world map is open"] = "仅在世界地图打开时可见"

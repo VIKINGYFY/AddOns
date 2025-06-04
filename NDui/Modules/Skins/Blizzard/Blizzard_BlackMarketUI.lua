@@ -61,7 +61,7 @@ C.OnLoadThemes["Blizzard_BlackMarketUI"] = function()
 
 			if bu:IsShown() and bu.itemLink then
 				local _, _, quality = C_Item.GetItemInfo(bu.itemLink)
-				local r, g, b = C_Item.GetItemQualityColor(quality or 1)
+				local r, g, b = C_Item.GetItemQualityColor(quality)
 				bu.Name:SetTextColor(r, g, b)
 			end
 		end
@@ -71,7 +71,7 @@ C.OnLoadThemes["Blizzard_BlackMarketUI"] = function()
 		local hotDeal = self.HotDeal
 		if hotDeal:IsShown() and hotDeal.itemLink then
 			local _, _, quality = C_Item.GetItemInfo(hotDeal.itemLink)
-			local r, g, b = C_Item.GetItemQualityColor(quality or 1)
+			local r, g, b = C_Item.GetItemQualityColor(quality)
 			hotDeal.Name:SetTextColor(r, g, b)
 		end
 		hotDeal.Item.IconBorder:Hide()

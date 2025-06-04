@@ -44,8 +44,7 @@ for k, v in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do
 	DB.ClassList[v] = k
 end
 DB.ClassColors = {}
-local classColors = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
-for class, value in pairs(classColors) do
+for class, value in pairs(RAID_CLASS_COLORS) do
 	DB.ClassColors[class] = {}
 	DB.ClassColors[class] = {r = value.r, g = value.g, b = value.b, colorStr = value.colorStr}
 end
@@ -54,12 +53,11 @@ DB.MyColor = format("|cff%02x%02x%02x", DB.r*255, DB.g*255, DB.b*255)
 DB.InfoColor = "|cff00FFFF" --0,1,1
 DB.GreyColor = "|cff808080"
 DB.QualityColors = {}
-local qualityColors = ITEM_QUALITY_COLORS or BAG_ITEM_QUALITY_COLORS
-for index, value in pairs(qualityColors) do
+for index, value in pairs(ITEM_QUALITY_COLORS) do
 	DB.QualityColors[index] = {}
 	DB.QualityColors[index] = {r = value.r, g = value.g, b = value.b}
 end
-
+DB.QualityColors[99] = {r = 1, g = 0, b = 0}
 -- Other
 DB.margin = 3
 DB.alpha = .75

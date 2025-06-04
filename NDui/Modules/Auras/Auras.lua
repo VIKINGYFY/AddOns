@@ -141,8 +141,8 @@ function A:UpdateTempEnchant(button, index)
 	local expirationTime = select(button.enchantOffset, GetWeaponEnchantInfo())
 	if expirationTime then
 		local quality = GetInventoryItemQuality("player", index)
-		local color = DB.QualityColors[(quality and quality) or 1]
-		button:SetBackdropBorderColor(color.r, color.g, color.b)
+		local r, g, b = C_Item.GetItemQualityColor(quality)
+		button:SetBackdropBorderColor(r, g, b)
 		button.Icon:SetTexture(GetInventoryItemTexture("player", index))
 
 		button.expiration = expirationTime

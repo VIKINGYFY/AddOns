@@ -8,8 +8,8 @@ local iconLink = "Interface\\Addons\\" .. ADDON_NAME .. "\\Images\\"
 ns.icons = { 
 --Addon Logo
 ["MNL"] = iconLink .. "MNL4",
-["DarkMoon"] = iconLink .. "DarkMoon",
 --General
+["DarkMoon"] = iconLink .. "DarkMoon",
 ["Innkeeper"] = "interface/minimap/tracking/innkeeper.blp",
 ["InnkeeperN"] = iconLink .. "InnkeeperN",
 ["InnkeeperA"] = iconLink .. "InnkeeperA",

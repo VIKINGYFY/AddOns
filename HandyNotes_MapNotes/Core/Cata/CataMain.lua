@@ -23,6 +23,58 @@ function MapNotesMiniButton:OnInitialize() --mmb.lua
   MNMMBIcon:Register("MNMiniMapButton", ns.miniButton, self.db.profile.minimap)
 end
 
+function ns.MiniMapPlayerArrow()
+    if MMPA then return MMPA end
+
+    local scale = ns.Addon.db.profile.MinimapArrowScale or 1
+    local baseSize = 20
+    local size = baseSize * scale
+
+    MMPA = CreateFrame("Frame", "MMPA", Minimap)
+    MMPA:SetSize(size, size)
+    MMPA:SetFrameStrata("MEDIUM")
+    MMPA:SetPoint("CENTER", Minimap, "CENTER", 0, 0)
+    MMPA.texture = MMPA:CreateTexture(nil, "OVERLAY")
+    MMPA.texture:SetTexture("Interface\\Minimap\\MinimapArrow")
+    MMPA.texture:SetSize(size, size)
+    MMPA.texture:SetPoint("CENTER", MMPA, "CENTER", 0, 0)
+    MMPA.texture:SetTexelSnappingBias(0)
+    MMPA.texture:SetSnapToPixelGrid(false)
+    MMPA.elapsed = 0
+    MMPA.facing = nil
+    MMPA:SetScript("OnUpdate", function(self, elapsed)
+        self.elapsed = self.elapsed + elapsed
+        if self.elapsed < 0.05 then return end
+        self.elapsed = 0
+
+        local facing = GetPlayerFacing()
+        if facing and facing ~= self.facing then
+            self.facing = facing
+            self.texture:SetRotation(facing)
+        end
+    end)
+
+    MMPA:Show()
+    return MMPA
+end
+
+function ns.UpdateMinimapArrow()
+    local scale = ns.Addon.db.profile.MinimapArrowScale or 1
+    local baseSize = 20
+    local size = baseSize * scale
+
+    if MMPA and MMPA.texture then
+        MMPA:SetSize(size, size)
+        MMPA.texture:SetSize(size, size)
+
+        if ns.Addon.db.profile.activate.MinimapArrow then
+            MMPA:Show()
+        else
+            MMPA:Hide()
+        end
+    end
+end
+
 local function updateextraInformation()
   table.wipe(extraInformations)
 
@@ -927,7 +979,7 @@ end
 function Addon:ZONE_CHANGED_NEW_AREA()
   local mapID = C_Map.GetBestMapForUnit("player")
   if mapID then
-    if ns.Addon.db.profile.activate.ZoneChanged then
+    if ns.Addon.db.profile.ZoneChanged then
       print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Location"] .. ": ", "|cff00ff00" .. "==>  " .. C_Map.GetMapInfo(mapID).name .. "  <==")
     end
   end
@@ -935,7 +987,7 @@ end
 
 local subzone = GetSubZoneText()
 function Addon:ZONE_CHANGED_INDOORS()
-    if ns.Addon.db.profile.activate.ZoneChanged and ns.Addon.db.profile.activate.ZoneChangedDetail and not ns.CapitalMiniMapIDs then
+    if ns.Addon.db.profile.ZoneChanged and ns.Addon.db.profile.ZoneChangedDetail and not ns.CapitalMiniMapIDs then
       print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Location"] .. ": ", "|cff00ff00" .. "==>  " .. "|cff00ff00" .. GetZoneText() .. " " .. "|cff00ccff" .. GetSubZoneText().. "|cff00ff00" .. "  <==")
     end
 end
@@ -943,7 +995,7 @@ end
 function Addon:ZONE_CHANGED()
   local mapID = C_Map.GetBestMapForUnit("player")
   if mapID then
-    if ns.Addon.db.profile.activate.ZoneChanged and ns.Addon.db.profile.activate.ZoneChangedDetail and not ns.CapitalMiniMapIDs then
+    if ns.Addon.db.profile.ZoneChanged and ns.Addon.db.profile.ZoneChangedDetail and not ns.CapitalMiniMapIDs then
       print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Location"] .. ": ", "|cff00ff00" .. "==>  " .. GetZoneText() .. " " .. "|cff00ccff" .. GetSubZoneText() .. "|cff00ff00" .. "  <==")
     end
   end
@@ -956,6 +1008,7 @@ function Addon:OnProfileChanged(event, database, profileKeys)
 
   ns.ApplySavedCoords()
   ns.ReloadAreaMapSettings()
+  ns.UpdateMinimapArrow()
 
   if ns.SetAreaMapMenuVisibility then
     ns.SetAreaMapMenuVisibility(ns.Addon.db.profile.areaMap.showAreaMapDropDownMenu)
@@ -981,6 +1034,7 @@ function Addon:OnProfileReset(event, database, profileKeys)
   ns.DefaultMouseAlpha()
   ns.UpdateAreaMapFogOfWar()
   ns.ResetAreaMapToPlayerLocation()
+  ns.UpdateMinimapArrow()
 
   if ns.SetAreaMapMenuVisibility then
     ns.SetAreaMapMenuVisibility(ns.Addon.db.profile.areaMap.showAreaMapDropDownMenu)
@@ -1011,6 +1065,7 @@ function Addon:OnProfileCopied(event, database, profileKeys)
 
   ns.ApplySavedCoords()
   ns.ReloadAreaMapSettings()
+  ns.UpdateMinimapArrow()
 
   if ns.SetAreaMapMenuVisibility then
     ns.SetAreaMapMenuVisibility(ns.Addon.db.profile.areaMap.showAreaMapDropDownMenu)
@@ -1081,6 +1136,9 @@ function Addon:PLAYER_LOGIN()
   Addon:RegisterEvent("ZONE_CHANGED_NEW_AREA")
   Addon:RegisterEvent("ZONE_CHANGED")
   Addon:RegisterEvent("ZONE_CHANGED_INDOORS")
+
+  -- Check for PlayerArrow on Minimap
+  ns.MiniMapPlayerArrow()
 
   -- Check for Links
   ns.CreateAndCopyLink()

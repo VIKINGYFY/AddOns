@@ -3,6 +3,9 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "deDE")
 if not L then return end
 
 -- new
+L["Unfortunately does not work in instances"] = "Funktioniert leider nicht in Instanzen"
+L["Minimap player arrow"] = "Minikarte Spielerpfeil"
+L["Displays the player arrow on the minimap layered above addon-created icons"] = "Zeigt den Spielerpfeil auf der Minikarte über den vom Addons erstellten Symbolen an"
 L["Coordinates"] = "Koordinaten"
 L["Creates a window for displaying the coordinates"] = "Erstellt ein Fenster zur Anzeige der Koordinaten"
 L["Only visible when the world map is open"] = "Nur sichtbar, wenn die Weltkarte geöffnet ist"

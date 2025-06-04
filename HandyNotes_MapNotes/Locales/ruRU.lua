@@ -3,6 +3,9 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "ruRU")
 if not L then return end
 
 -- new
+L["Unfortunately does not work in instances"] = "К сожалению, не работает в подземельях"
+L["Minimap player arrow"] = "Стрелка игрока на мини-карте"
+L["Displays the player arrow on the minimap layered above addon-created icons"] = "Отображает стрелку игрока на мини-карте поверх значков, созданных аддонами"
 L["Coordinates"] = "Координаты"
 L["Creates a window for displaying the coordinates"] = "Создаёт окно для отображения координат"
 L["Only visible when the world map is open"] = "Отображается только при открытии карты мира"

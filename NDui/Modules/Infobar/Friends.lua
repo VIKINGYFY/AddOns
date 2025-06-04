@@ -454,8 +454,8 @@ function info:FriendsPanel_UpdateButton(button)
 		local zoneColor = inactiveZone
 		local name = inactiveZone..charName
 		if client == BNET_CLIENT_WOW then
-			local color = DB.ClassColors[class] or GetQuestDifficultyColor(1)
-			name = B.HexRGB(color)..charName
+			local classColor = DB.ClassColors[class] or GetQuestDifficultyColor(1)
+			name = B.HexRGB(classColor)..charName
 			zoneColor = GetRealZoneText() == infoText and activeZone or inactiveZone
 		end
 		button.name:SetText(format("%s%s|r (%s|r)", DB.InfoColor, accountName, name))

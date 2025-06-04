@@ -423,7 +423,7 @@ do
 			local name, _, quality, _, _, _, _, maxStack, _, texture = C_Item.GetItemInfo(itemLink)
 			if maxStack and maxStack > 1 then
 				if not cache[itemLink] then
-					local r, g, b = C_Item.GetItemQualityColor(quality or 1)
+					local r, g, b = C_Item.GetItemQualityColor(quality)
 					StaticPopup_Show("BUY_STACK", " ", " ", {["texture"] = texture, ["name"] = name, ["color"] = {r, g, b, 1}, ["link"] = itemLink, ["index"] = id, ["count"] = maxStack})
 				else
 					BuyMerchantItem(id, GetMerchantItemMaxStack(id))
@@ -732,14 +732,14 @@ function M:EnhancedPicker()
 
 	local count = 0
 	for class, name in pairs(LOCALIZED_CLASS_NAMES_MALE) do
-		local value = DB.ClassColors[class]
-		if value then
+		local color = DB.ClassColors[class]
+		if color then
 			local bu = B.CreateButton(colorBar, 22, 22, true)
-			bu.Icon:SetColorTexture(value.r, value.g, value.b)
+			bu.Icon:SetColorTexture(color.r, color.g, color.b)
 			bu:SetPoint("LEFT", count*22, 0)
-			bu.colorStr = value.colorStr
+			bu.colorStr = color.colorStr
 			bu:SetScript("OnClick", M.EnhancedPicker_UpdateColor)
-			B.AddTooltip(bu, "ANCHOR_TOP", "|c"..value.colorStr..name)
+			B.AddTooltip(bu, "ANCHOR_TOP", "|c"..color.colorStr..name)
 
 			count = count + 1
 		end

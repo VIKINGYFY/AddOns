@@ -4,13 +4,18 @@ ns.defaults = {
 
   profile = {
 
-    --0 General tab
+    -- 0 Advanced Options
+      MinimapArrowScale = 1.3,
+
+    -- 1 General tab
       journal = true,
       tomtom = true,
       KilledBosses = true,
       assignedgray = true,
       graymultipleID = true,
       ChatMassage = false,
+      ZoneChanged = false,
+      ZoneChangedDetail = false,
       CreateAndCopyLinks = false,
       RestoreZoneDeletedIcons = false,
       RestoreContinentDeletedIcons = false,
@@ -410,6 +415,7 @@ ns.defaults = {
         HideMMB = false,
         EnemyFaction = true,
         ShiftWorld = false,
+        MinimapArrow = true,
         ClassicIcons = false,
         ClassicPortals = true,
         ClassicShips = true,
@@ -421,8 +427,6 @@ ns.defaults = {
         MistOfTheUnexplored = true,
         SyncZoneAndMinimap = false,
         SyncCapitalsAndMinimap = false,
-        ZoneChanged = true,
-        ZoneChangedDetail = false,
       --Azeroth
         AzerothEnemyFaction = true,
       --Continent

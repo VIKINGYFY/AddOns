@@ -313,7 +313,7 @@ C.OnLoadThemes["Blizzard_EncounterJournal"] = function()
 	B.ReskinDropDown(lootJournal.ClassDropdown)
 	B.ReskinDropDown(lootJournal.RuneforgePowerDropdown)
 
-	local iconColor = DB.QualityColors[Enum.ItemQuality.Legendary or 5] -- legendary color
+	local r, g, b = C_Item.GetItemQualityColor(Enum.ItemQuality.Legendary or 5)
 	B.ReskinScroll(lootJournal.ScrollBar)
 
 	hooksecurefunc(lootJournal.ScrollBox, "Update", function(self)
@@ -326,7 +326,7 @@ C.OnLoadThemes["Blizzard_EncounterJournal"] = function()
 				child.UnavailableBackground:SetAlpha(0)
 				child.CircleMask:Hide()
 				child.bg = B.ReskinIcon(child.Icon)
-				child.bg:SetBackdropBorderColor(iconColor.r, iconColor.g, iconColor.b)
+				child.bg:SetBackdropBorderColor(r, g, b)
 
 				local bg = B.CreateBDFrame(child, .25)
 				bg:SetPoint("TOPLEFT", 3, 0)

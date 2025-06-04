@@ -3,6 +3,9 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "koKR")
 if not L then return end
 
 -- new
+L["Unfortunately does not work in instances"] = "인스턴스에서는 작동하지 않습니다"
+L["Minimap player arrow"] = "미니맵 플레이어 화살표"
+L["Displays the player arrow on the minimap layered above addon-created icons"] = "애드온에서 생성한 아이콘 위에 미니맵에 플레이어 화살표를 표시합니다"
 L["Coordinates"] = "좌표"
 L["Creates a window for displaying the coordinates"] = "좌표를 표시하는 창을 생성합니다"
 L["Only visible when the world map is open"] = "월드 맵이 열려 있을 때만 표시됩니다"

@@ -183,12 +183,12 @@ end
 
 function M:KeystoneInfo_Create()
 	local texture = C_Item.GetItemIconByID(158923) or 525134
-	local iconColor = DB.QualityColors[Enum.ItemQuality.Epic or 4]
+	local r, g, b = C_Item.GetItemQualityColor(Enum.ItemQuality.Epic or 4)
 	local button = CreateFrame("Frame", nil, ChallengesFrame.WeeklyInfo, "BackdropTemplate")
 	button:SetPoint("BOTTOMLEFT", 2, 67)
 	button:SetSize(32, 32)
 	B.PixelIcon(button, texture, true)
-	button.bg:SetBackdropBorderColor(iconColor.r, iconColor.g, iconColor.b)
+	button.bg:SetBackdropBorderColor(r, g, b)
 	button:SetScript("OnEnter", function(self)
 		GameTooltip:ClearLines()
 		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")

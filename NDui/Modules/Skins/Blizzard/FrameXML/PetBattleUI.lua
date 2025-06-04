@@ -145,8 +145,8 @@ C.OnLoginThemes["PetBattleUI"] = function()
 		if self.glow then self.glow:Hide() end
 		if self.Iconbg then
 			local quality = C_PetBattles.GetBreedQuality(self.petOwner, self.petIndex) or 1
-			local color = DB.QualityColors[quality]
-			self.Iconbg:SetBackdropBorderColor(color.r, color.g, color.b)
+			local r, g, b = C_Item.GetItemQualityColor(quality)
+			self.Iconbg:SetBackdropBorderColor(r, g, b)
 		end
 	end)
 

@@ -52,27 +52,24 @@ function ns.AreaMap()
   function ns.UpdateAreaMapIcons() 
     if not ns.AreaMapFrame or not ns.AreaMapFrame:IsShown() then return end
     if not ns.showAreaMapDropDownMenu then return end
-  
+
     local mapID = BattlefieldMapFrame:GetMapID()
     if not mapID or not ns.nodes[mapID] then return end
-  
-    -- Aktualisieren nur bei Mapwechsel
+
     if ns.lastAreaMapID == mapID and #ns.AreaMapIcons > 0 then return end
     ns.lastAreaMapID = mapID
-  
+
     local ScrollContainer, isChildMap = ns.AreaMapFrame.ScrollContainer.Child, tContains(ns.childMapIDs, mapID)
     local width, height = ScrollContainer:GetWidth(), ScrollContainer:GetHeight()
-  
+
     if width == 0 or height == 0 then
       C_Timer.After(0.2, ns.UpdateAreaMapIcons)
       return
     end
-  
-    -- Symbolgröße berechnen
+
     local scaleFactor = math.min(width, height)
     local size = (scaleFactor * 0.05) * (ns.areaMapScale or 1.0)
-  
-    -- Vorhandene Icons zurück in den Pool
+
     for _, pin in ipairs(ns.AreaMapIcons) do
       pin:Hide()
       table.insert(ns.AreaMapIconPool, pin)
@@ -628,7 +625,7 @@ function ns.ResetAreaMapToPlayerLocation()
   local mapID = C_Map.GetBestMapForUnit("player")
   if mapID then
     BattlefieldMapFrame:SetMapID(mapID)
-    C_Timer.After(0.2, ns.UpdateAreaMapIcons)
+    --C_Timer.After(0.2, ns.UpdateAreaMapIcons) removed in version 2.8.9 callback error
   end
 end
 

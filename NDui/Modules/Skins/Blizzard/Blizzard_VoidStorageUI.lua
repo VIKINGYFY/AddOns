@@ -25,8 +25,8 @@ C.OnLoadThemes["Blizzard_VoidStorageUI"] = function()
 			search:SetAllPoints(bu.bg)
 		end
 
-		local color = DB.QualityColors[(quality and quality) or 1]
-		bu.bg:SetBackdropBorderColor(color.r, color.g, color.b)
+		local r, g, b = C_Item.GetItemQualityColor(quality)
+		bu.bg:SetBackdropBorderColor(r, g, b)
 	end
 
 	local function hookItemsUpdate(doDeposit, doContents)

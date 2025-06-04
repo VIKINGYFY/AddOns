@@ -147,9 +147,9 @@ function M:ItemLevel_UpdateInfo(slotFrame, info, quality)
 	end
 
 	if level and level > 1 and quality and quality > 1 then
-		local color = DB.QualityColors[quality]
+		local r, g, b = C_Item.GetItemQualityColor(quality)
 		slotFrame.iLvlText:SetText(level)
-		slotFrame.iLvlText:SetTextColor(color.r, color.g, color.b)
+		slotFrame.iLvlText:SetTextColor(r, g, b)
 	end
 
 	if infoType == "table" then
@@ -265,9 +265,9 @@ function M:ItemLevel_FlyoutUpdate(bag, slot, quality)
 		level = B.GetItemLevel(link, "player", slot)
 	end
 
-	local color = DB.QualityColors[(quality and quality) or 1]
+	local r, g, b = C_Item.GetItemQualityColor(quality)
 	self.iLvl:SetText(level)
-	self.iLvl:SetTextColor(color.r, color.g, color.b)
+	self.iLvl:SetTextColor(r, g, b)
 end
 
 function M:ItemLevel_FlyoutSetup()
@@ -311,9 +311,9 @@ function M:ItemLevel_ScrappingUpdate()
 		quality = self.item:GetItemQuality()
 	end
 	local level = B.GetItemLevel(self.itemLink)
-	local color = DB.QualityColors[quality]
+	local r, g, b = C_Item.GetItemQualityColor(quality)
 	self.iLvl:SetText(level)
-	self.iLvl:SetTextColor(color.r, color.g, color.b)
+	self.iLvl:SetTextColor(r, g, b)
 end
 
 function M:ItemLevel_ScrappingSetup()
@@ -340,12 +340,13 @@ function M:ItemLevel_UpdateMerchant(link)
 	local quality = link and select(3, C_Item.GetItemInfo(link)) or nil
 	if quality and quality > 1 then
 		local level = B.GetItemLevel(link)
-		local color = DB.QualityColors[quality]
 		local slot = B.GetItemType(link)
+		local r, g, b = C_Item.GetItemQualityColor(quality)
+
 		self.iLvl:SetText(level)
-		self.iLvl:SetTextColor(color.r, color.g, color.b)
+		self.iLvl:SetTextColor(r, g, b)
 		self.iSlot:SetText(slot)
-		self.iSlot:SetTextColor(color.r, color.g, color.b)
+		self.iSlot:SetTextColor(r, g, b)
 	else
 		self.iLvl:SetText("")
 		self.iSlot:SetText("")
@@ -425,12 +426,13 @@ function M:ItemLevel_UpdateLoot()
 			local quality = select(5, GetLootSlotInfo(slotIndex))
 			if quality and quality > 1 then
 				local level = B.GetItemLevel(slotLink)
-				local color = DB.QualityColors[quality]
 				local slot = B.GetItemType(slotLink)
+				local r, g, b = C_Item.GetItemQualityColor(quality)
+
 				button.iLvl:SetText(level)
-				button.iLvl:SetTextColor(color.r, color.g, color.b)
+				button.iLvl:SetTextColor(r, g, b)
 				button.iSlot:SetText(slot)
-				button.iSlot:SetTextColor(color.r, color.g, color.b)
+				button.iSlot:SetTextColor(r, g, b)
 			else
 				button.iLvl:SetText("")
 				button.iSlot:SetText("")
@@ -453,12 +455,13 @@ function M:ItemLevel_UpdateBag()
 	local quality = info and info.quality
 	if quality and quality > 1 then
 		local level = B.GetItemLevel(link, bagID, slotID)
-		local color = DB.QualityColors[quality]
 		local slot = B.GetItemType(link, bagID, slotID)
+		local r, g, b = C_Item.GetItemQualityColor(quality)
+
 		button.iLvl:SetText(level)
-		button.iLvl:SetTextColor(color.r, color.g, color.b)
+		button.iLvl:SetTextColor(r, g, b)
 		button.iSlot:SetText(slot)
-		button.iSlot:SetTextColor(color.r, color.g, color.b)
+		button.iSlot:SetTextColor(r, g, b)
 	else
 		button.iLvl:SetText("")
 		button.iSlot:SetText("")

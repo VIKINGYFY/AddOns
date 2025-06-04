@@ -1099,8 +1099,8 @@ function module:OnLogin()
 			self.IconOverlay:SetAtlas(atlas)
 			self.IconOverlay:Show()
 			if secondAtlas then
-				local color = DB.QualityColors[(item.quality) or 1]
-				self.IconOverlay:SetVertexColor(color.r, color.g, color.b)
+				local r, g, b = C_Item.GetItemQualityColor(item.quality)
+				self.IconOverlay:SetVertexColor(r, g, b)
 				self.IconOverlay2:SetAtlas(secondAtlas)
 				self.IconOverlay2:Show()
 			end
@@ -1120,12 +1120,12 @@ function module:OnLogin()
 		self.iLvl:SetText("")
 		self.iSlot:SetText("")
 		if item.link and (item.quality and item.quality > 0) or (item.id and DB.SpecialJunk[item.id]) then
-			local color = DB.QualityColors[item.quality]
+			local r, g, b = C_Item.GetItemQualityColor(item.quality)
 			local level = item.level or item.ilvl
 			if not level then level = "" end
 
 			self.iLvl:SetText(level)
-			self.iLvl:SetTextColor(color.r, color.g, color.b)
+			self.iLvl:SetTextColor(r, g, b)
 
 			if C.db["Bags"]["BagsiSlot"] then
 				local slot = B.GetItemType(item.link, item.bagId ~= -1 and item.bagId, item.slotId)
@@ -1170,8 +1170,8 @@ function module:OnLogin()
 		if item.questID or item.isQuestItem then
 			self:SetBackdropBorderColor(1, 1, 0)
 		elseif item.quality and item.quality > -1 then
-			local color = DB.QualityColors[item.quality]
-			self:SetBackdropBorderColor(color.r, color.g, color.b)
+			local r, g, b = C_Item.GetItemQualityColor(item.quality)
+			self:SetBackdropBorderColor(r, g, b)
 		else
 			B.SetBorderColor(self)
 		end
@@ -1364,9 +1364,9 @@ function module:OnLogin()
 		if not id then return end
 		local _, _, quality, _, _, _, _, _, _, _, _, classID, subClassID = C_Item.GetItemInfo(id)
 		if not quality or quality == 1 then quality = 0 end
-		local color = DB.QualityColors[quality]
+		local r, g, b = C_Item.GetItemQualityColor(quality)
 		if not self.hidden and not self.notBought then
-			self:SetBackdropBorderColor(color.r, color.g, color.b)
+			self:SetBackdropBorderColor(r, g, b)
 		end
 
 		if classID == Enum.ItemClass.Container then

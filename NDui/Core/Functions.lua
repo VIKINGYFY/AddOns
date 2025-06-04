@@ -727,8 +727,10 @@ do
 		if C.db["Skins"]["CustomBD"] then
 			local color = C.db["Skins"]["CustomBDColor"]
 			self:SetBackdropBorderColor(color.r, color.g, color.b)
+			DB.QualityColors[-1] = {r = color.r, g = color.g, b = color.b}
 		else
 			self:SetBackdropBorderColor(0, 0, 0)
+			DB.QualityColors[-1] = {r = 0, g = 0, b = 0}
 		end
 	end
 
@@ -875,7 +877,7 @@ do
 
 	local AtlasToQuality = {
 		["error"] = 99,
-		["uncollected"] = Enum.ItemQuality.Poor,
+		["uncollected"] = 99,
 		["gray"] = Enum.ItemQuality.Poor,
 		["white"] = Enum.ItemQuality.Common,
 		["green"] = Enum.ItemQuality.Uncommon,
@@ -890,7 +892,7 @@ do
 	local function updateIconBorderColorByAtlas(border, atlas)
 		local atlasAbbr = atlas and string.match(atlas, "%-(%w+)$")
 		local quality = atlasAbbr and AtlasToQuality[string.lower(atlasAbbr)]
-		local color = DB.QualityColors[(quality and quality) or 1]
+		local color = DB.QualityColors[quality or -1]
 
 		border.__owner.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 		if border.__owner.nf then
@@ -2044,9 +2046,9 @@ do
 			local link = data.guid and C_Item.GetItemLinkByGUID(data.guid) or data.hyperlink
 			if link then
 				local quality = select(3, C_Item.GetItemInfo(link))
-				local color = DB.QualityColors[(quality and quality) or 1]
-				if color then
-					self.bg:SetBackdropBorderColor(color.r, color.g, color.b)
+				if quality then
+					local r, g, b = C_Item.GetItemQualityColor(quality)
+					self.bg:SetBackdropBorderColor(r, g, b)
 				end
 			end
 		end

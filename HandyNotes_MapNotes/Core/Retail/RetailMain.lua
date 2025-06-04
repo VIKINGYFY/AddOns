@@ -45,6 +45,68 @@ local function updateextraInformation()
   end
 end
 
+function ns.MiniMapPlayerArrow()
+    if MMPA then return MMPA end
+
+    MMPA = CreateFrame("Frame", "MMPA", Minimap)
+    MMPA:SetFrameStrata("MEDIUM")
+    MMPA:SetPoint("CENTER")
+    MMPA:SetSize(10, 10)
+    MMPA.texture = MMPA:CreateTexture(nil, "OVERLAY")
+    MMPA.texture:SetAtlas("UI-HUD-Minimap-Arrow-Player", true)
+    MMPA.texture:SetScale(ns.Addon.db.profile.MinimapArrowScale)
+    MMPA.texture:SetPoint("CENTER")
+    MMPA.texture:SetTexelSnappingBias(0)
+    MMPA.texture:SetSnapToPixelGrid(false)
+    MMPA.elapsed = 0
+
+    MMPA:SetScript("OnUpdate", function(self, elapsed)
+      self.elapsed = self.elapsed + elapsed
+      if self.elapsed < 0.05 then return end
+      self.elapsed = 0
+
+      if GetCVar("rotateMinimap") == "1" then
+        self.texture:SetRotation(0)
+        self.texture:Show()
+        return
+      end
+
+      local facing = GetPlayerFacing()
+      if not facing then
+        self.texture:Hide()
+        return
+      end
+
+      self.texture:Show()
+      if facing ~= self.facing then
+        self.facing = facing
+        self.texture:SetRotation(facing)
+      end
+
+    end)
+
+    if ns.Addon.db.profile.activate.MinimapArrow then
+        MMPA:Show()
+    else
+        MMPA:Hide()
+    end
+
+    return MMPA
+end
+
+function ns.UpdateMinimapArrow()
+  ns.Addon.db.profile.MinimapArrowScale = db.MinimapArrowScale
+  if MMPA and MMPA.texture then
+      MMPA.texture:SetScale(ns.Addon.db.profile.MinimapArrowScale)
+
+      if ns.Addon.db.profile.activate.MinimapArrow then
+          MMPA:Show()
+      else
+          MMPA:Hide()
+      end
+  end
+end
+
 local instanceInfoInitFrame = CreateFrame("Frame")
   instanceInfoInitFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
   instanceInfoInitFrame:SetScript("OnEvent", function()
@@ -818,8 +880,6 @@ do
           scale = db.MiniMapScaleTravel
           alpha = db.MiniMapAlphaTravel
         end
-
-        -- General icons
 
         -- General Icons
         if value.type == "MNL" then
@@ -1691,6 +1751,7 @@ function Addon:OnProfileChanged(event, database, profileKeys)
 
   ns.ApplySavedCoords()
   ns.ReloadAreaMapSettings()
+  ns.UpdateMinimapArrow()
 
   if ns.SetAreaMapMenuVisibility then
     ns.SetAreaMapMenuVisibility(ns.Addon.db.profile.areaMap.showAreaMapDropDownMenu)
@@ -1715,6 +1776,7 @@ function Addon:OnProfileReset(event, database, profileKeys)
   ns.DefaultMouseAlpha()
   ns.UpdateAreaMapFogOfWar()
   ns.ResetAreaMapToPlayerLocation()
+  ns.UpdateMinimapArrow()
 
   if ns.SetAreaMapMenuVisibility then
     ns.SetAreaMapMenuVisibility(ns.Addon.db.profile.areaMap.showAreaMapDropDownMenu)
@@ -1745,6 +1807,7 @@ function Addon:OnProfileCopied(event, database, profileKeys)
 
   ns.ApplySavedCoords()
   ns.ReloadAreaMapSettings()
+  ns.UpdateMinimapArrow()
 
   if ns.SetAreaMapMenuVisibility then
     ns.SetAreaMapMenuVisibility(ns.Addon.db.profile.areaMap.showAreaMapDropDownMenu)
@@ -1816,6 +1879,9 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
   Addon:RegisterEvent("ZONE_CHANGED_NEW_AREA")
   Addon:RegisterEvent("ZONE_CHANGED")
   Addon:RegisterEvent("ZONE_CHANGED_INDOORS")
+
+  -- Check for PlayerArrow on Minimap
+  ns.MiniMapPlayerArrow()
 
   -- Check for Links
   ns.CreateAndCopyLink()

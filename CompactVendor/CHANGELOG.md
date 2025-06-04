@@ -1,8 +1,17 @@
 # CompactVendor
 
-## [v11.1.5.250513](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.5.250513) (2025-05-13)
-[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.5.250513) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
+## [v11.1.5.250602](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.5.250602) (2025-06-02)
+[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.5.250602) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
 
+- Version bump.  
+- Placed the refresh and update merchant button behavior into `RefreshAndUpdateMerchantItemButton` for convenience.  
+    We call this when the merchant item button is being shown, or when an even fires, to ensure an up-to-date visual state.  
+- Merchant buttons listen for currency or bag item updates to refresh and update themselves.  
+    The refresh merchant item code might not be ideal there, so need to think about where to place it. The button update event on the other hand is fine as it related to the button visuals.  
+    Created a safer FrameUtil in case some event isn't available in the other client flavor. Might want to do specific research and cover those cases manually so everything keeps working as intended.  
+- Version bump.  
+- Cleaned up `CreateMerchantItemButton` since it always receives the widget button reference, didn't need the old code, except the update call.  
+    The merchant item refresh method had the quality and qualityColor assignment updated to always reflect the itemLink quality and to update both at the same time, to avoid odd de-sync behaviors that could previously occur.  
 - TOC bump  
 - Updated logic when merchant frame shows and loads items.  
     The end result should be a smoother and more stable experience when opening a merchant that has items that the game has to load for the first time.  
@@ -69,12 +78,3 @@
 - TOC bump  
 - - Added option slider for icon shape. Default is round.  
     - The GET\_ITEM\_INFO\_RECEIVED event does make sense, as once it fires we need to update a previously pending entry as done loading.  
-- Ensure that we only process tooltip data relevant to the merchant item itself.  
-- TOC bump  
-- - Clarified the state of the tooltip scanner return values. Booleans signify a pending request or not, in the events there is no direct item returned.  
-    - Adjusted code to reflect this change, and ensured to avoid requesting additional scans on pending scans.  
-    - The item refresh method will respect the pending scan and avoid duplicate scan requests. Once done, the callback will finalize the item and mark it as loaded.  
-    - Added UpdateMerchantThrottled as a lot of items on a vendor will cause multiple update events along with item loaded events to occur, we only need to track the merchant update event, and to update once at the end, not for every unique item.  
-    - Commented out the GET\_ITEM\_INFO\_RECEIVED and ITEM\_DATA\_LOAD\_RESULT events as the MERCHANT\_UPDATE appears to also fire regardless, and it's good enough with the throttle method used to avoid too frequent updates.  
-- TOC bump  
-- Replaced old transmog collected code with a faster way to check if an appearance is collected or not.  

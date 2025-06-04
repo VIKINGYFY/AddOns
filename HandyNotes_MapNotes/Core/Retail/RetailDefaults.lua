@@ -4,6 +4,9 @@ ns.defaults = {
 
   profile = {
 
+    -- Advanced Options
+      MinimapArrowScale = 0.8,
+      
     -- Instance single Zone icon scale and alpha
       ZoneInstanceScale = 2,
       ZoneInstanceAlpha = 1,
@@ -168,7 +171,7 @@ ns.defaults = {
       CoreChatMassage = true,
       MmbWmbChatMessage = true,
       ChatMassage = false,
-      ZoneChanged = true,
+      ZoneChanged = false,
       ZoneChangedDetail = false,
       TooltipInformations = true,
       DeleteIcons = false,
@@ -588,6 +591,7 @@ ns.defaults = {
         HideMMB = false,
         EnemyFaction = true,
         ShiftWorld = false,
+        MinimapArrow = true,
         ClassicIcons = false,
         ClassicPortals = true,
         ClassicShips = true,
