@@ -229,7 +229,7 @@ C.OnLoginThemes["QuestMapFrame"] = function()
 	end)
 
 	ShowMapButton:HookScript("OnLeave", function(self)
-		self.Text:SetTextColor(1, 1, 0)
+		self.Text:SetTextColor(1, .8, 0)
 	end)
 
 	-- Bottom buttons

@@ -40,7 +40,7 @@ C.OnLoadThemes["Blizzard_PlayerChoice"] = function()
 
 		if not self.bg then
 			B.StripTextures(self.Title)
-			B.ReskinText(self.Title.Text, 1, 1, 0, nil, SystemFont_Huge1)
+			B.ReskinText(self.Title.Text, 1, .8, 0, nil, SystemFont_Huge1)
 
 			B.ReskinClose(self.CloseButton)
 			self.bg = B.SetBD(self)
@@ -72,8 +72,8 @@ C.OnLoadThemes["Blizzard_PlayerChoice"] = function()
 			local header = optionFrame.Header
 			if header then
 				B.StripTextures(header)
-				B.ReskinText(header.Text, 1, 1, 0)
-				if header.Contents then B.ReskinText(header.Contents.Text, 1, 1, 0) end
+				B.ReskinText(header.Text, 1, .8, 0)
+				if header.Contents then B.ReskinText(header.Contents.Text, 1, .8, 0) end
 			end
 			B.ReskinText(optionFrame.OptionText, 1, 1, 1)
 			B.ReplaceIconString(optionFrame.OptionText.String)
@@ -93,7 +93,7 @@ C.OnLoadThemes["Blizzard_PlayerChoice"] = function()
 				for rewardFrame in rewards.rewardsPool:EnumerateActive() do
 					local text = rewardFrame.Name or rewardFrame.Text -- .Text for PlayerChoiceBaseOptionReputationRewardTemplate
 					if text then
-						B.ReskinText(text, 1, 1, 0)
+						B.ReskinText(text, 1, .8, 0)
 					end
 
 					if not rewardFrame.styled then

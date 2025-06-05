@@ -18,7 +18,7 @@ C.OnLoginThemes["TalkingHeadUI"] = function()
 	model.PortraitBg.SetAtlas = B.Dummy
 
 	local name = TalkingHeadFrame.NameFrame.Name
-	name:SetTextColor(1, 1, 0)
+	name:SetTextColor(1, .8, 0)
 	name.SetTextColor = B.Dummy
 
 	local text = TalkingHeadFrame.TextFrame.Text

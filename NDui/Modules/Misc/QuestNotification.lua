@@ -6,7 +6,6 @@ local soundKitID = SOUNDKIT.ALARM_CLOCK_WARNING_3
 local LE_QUEST_TAG_TYPE_PROFESSION = Enum.QuestTagType.Profession
 local LE_QUEST_FREQUENCY_DAILY = Enum.QuestFrequency.Daily
 
-local debugMode = false
 local completedQuest, initComplete = {}
 
 local function GetQuestLinkOrName(questID)
@@ -30,7 +29,7 @@ end
 local function sendQuestMsg(msg)
 	if C.db["Misc"]["OnlyCompleteRing"] then return end
 
-	if debugMode and DB.isDeveloper then
+	if DB.isDeveloper then
 		print(msg)
 	elseif (IsPartyLFG() or C_PartyInfo.IsPartyWalkIn()) then
 		SendChatMessage(msg, "INSTANCE_CHAT")

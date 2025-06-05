@@ -377,7 +377,7 @@ C.OnLoadThemes["Blizzard_Collections"] = function()
 
 	hooksecurefunc(HeirloomsJournal, "UpdateButton", function(_, button)
 		button.level:SetFontObject("GameFontWhiteSmall")
-		button.special:SetTextColor(1, 1, 0)
+		button.special:SetTextColor(1, .8, 0)
 	end)
 
 	-- Progress bar
@@ -534,8 +534,10 @@ C.OnLoadThemes["Blizzard_Collections"] = function()
 
 		if itemFrame.collected then
 			local quality = C_TransmogCollection.GetSourceInfo(itemFrame.sourceID).quality
-			local r, g, b = C_Item.GetItemQualityColor(quality)
-			ic.bg:SetBackdropBorderColor(r, g, b)
+			if quality then
+				local r, g, b = C_Item.GetItemQualityColor(quality)
+				ic.bg:SetBackdropBorderColor(r, g, b)
+			end
 		else
 			B.SetBorderColor(ic.bg)
 		end

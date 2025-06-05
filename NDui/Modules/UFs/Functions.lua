@@ -228,7 +228,7 @@ function UF:UpdateFrameNameTag()
 	local mystyle, name = self.mystyle, self.nameText
 	if mystyle == "nameplate" then return end
 
-	local nameColor = C.db["Skins"]["CustomNameColor"]
+	local nameColor = C.db["UFs"]["CustomNameColor"]
 	local value = mystyle == "raid" and "RCCName" or "CCName"
 	local colorTag = C.db["UFs"][value] and "[color]" or B.HexRGB(nameColor)
 

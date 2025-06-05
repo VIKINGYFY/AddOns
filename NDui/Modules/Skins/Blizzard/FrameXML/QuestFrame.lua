@@ -2,7 +2,7 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 local function Reskin_TitleTextColor(fontString)
-	B.ReskinText(fontString, 1, 1, 0)
+	B.ReskinText(fontString, 1, .8, 0)
 end
 
 local function Reskin_TextColor(fontString)
@@ -26,12 +26,13 @@ local function Update_ProgressItemQuality(self)
 	elseif objectType == "currency" then
 		local info = C_QuestOffer.GetQuestRewardCurrencyInfo(buttonType, index)
 		quality = info and info.quality
-		print(quality or "nil")
 	end
 
-	local r, g, b = C_Item.GetItemQualityColor(quality)
-	button.icbg:SetBackdropBorderColor(r, g, b)
-	button.bubg:SetBackdropBorderColor(r, g, b)
+	if quality then
+		local r, g, b = C_Item.GetItemQualityColor(quality)
+		button.icbg:SetBackdropBorderColor(r, g, b)
+		button.bubg:SetBackdropBorderColor(r, g, b)
+	end
 end
 
 C.OnLoginThemes["QuestFrame"] = function()

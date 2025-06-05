@@ -6,7 +6,7 @@ C.OnLoadThemes["Blizzard_Contribution"] = function()
 
 	hooksecurefunc(ContributionMixin, "Update", function(self)
 		if not self.styled then
-			B.ReskinText(self.Header.Text, 1, 1, 0)
+			B.ReskinText(self.Header.Text, 1, .8, 0)
 			B.ReskinButton(self.ContributeButton)
 			B.ReplaceIconString(self.ContributeButton)
 			hooksecurefunc(self.ContributeButton, "SetText", B.ReplaceIconString)

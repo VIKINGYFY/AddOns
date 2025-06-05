@@ -1149,6 +1149,7 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{1, "UFs", "ClassPower", L["UFs ClassPower"].."*", true, nil, toggleUFClassPower},
 		{1, "UFs", "Portrait", L["UFs Portrait"].."*", nil, nil, togglePortraits},
 		{1, "UFs", "CCName", L["ClassColor Name"].."*", true, nil, updateUFTextScale, L["CustomNameColorTip"]},
+		{5, "UFs", "CustomNameColor", L["CustomNameColor"], 3},
 		{1, "UFs", "PlayerAbsorb", L["PlayerAbsorb"].."*", nil, nil, togglePlayerAbsorb, L["PlayerAbsorbTip"]},
 		{1, "UFs", "AddPower", L["AddPower"].."*", true, nil, toggleAddPower, L["AddPowerTip"]},
 		{1, "UFs", "OverAbsorb", L["OverAbsorb"].."*", nil, nil, nil, L["OverAbsorbTip"]},
@@ -1357,13 +1358,12 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 	},
 	[11] = {
 		{1, "Skins", "BlizzardSkins", HeaderTag..L["BlizzardSkins"], nil, nil, nil, L["BlizzardSkinsTips"]},
-		{5, "Skins", "CustomNameColor", L["CustomNameColor"], 2},
-		{5, "Skins", "CustomBDColor", L["CustomBDColor"], 3},
 		{}, -- blank
 		{1, "Skins", "Shadow", L["Shadow"]},
 		{1, "Skins", "FontOutline", L["FontOutline"], true},
 		{1, "Skins", "BgTex", L["BgTex"]},
 		{1, "Skins", "CustomBD", L["CustomBD"], true, nil, nil, L["CustomBDColorTip"]},
+		{5, "Skins", "CustomBDColor", L["CustomBDColor"], 3},
 		{3, "Skins", "SkinAlpha", L["SkinAlpha"].."*", nil, {0, 1, .05}, updateSkinAlpha},
 		{3, "Skins", "FontScale", L["GlobalFontScale"], true, {.5, 1.5, .05}},
 		{}, -- blank

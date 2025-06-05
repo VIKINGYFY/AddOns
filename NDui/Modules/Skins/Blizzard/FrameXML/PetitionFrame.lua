@@ -8,7 +8,7 @@ C.OnLoginThemes["PetitionFrame"] = function()
 	B.ReskinButton(PetitionFrameRenameButton)
 	B.ReskinButton(PetitionFrameCancelButton)
 
-	B.ReskinText(PetitionFrameCharterTitle, 1, 1, 0)
-	B.ReskinText(PetitionFrameMasterTitle, 1, 1, 0)
-	B.ReskinText(PetitionFrameMemberTitle, 1, 1, 0)
+	B.ReskinText(PetitionFrameCharterTitle, 1, .8, 0)
+	B.ReskinText(PetitionFrameMasterTitle, 1, .8, 0)
+	B.ReskinText(PetitionFrameMemberTitle, 1, .8, 0)
 end

@@ -39,7 +39,7 @@ local function Reskin_ObjectivesText()
 		numVisibleObjectives = numVisibleObjectives + 1;
 		objective = objectivesTable[numVisibleObjectives]
 
-		B.ReskinText(objective, 1, 1, 0)
+		B.ReskinText(objective, 1, .8, 0)
 	end
 
 	for i = 1, GetNumQuestLeaderBoards() do

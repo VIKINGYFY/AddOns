@@ -194,9 +194,9 @@ C.OnLoadThemes["Blizzard_AuctionHouseUI"] = function()
 	B.ReskinFrame(gameTimeTutorial)
 	B.ReskinButton(gameTimeTutorial.RightDisplay.StoreButton)
 	gameTimeTutorial.LeftDisplay.Label:SetTextColor(1, 1, 1)
-	gameTimeTutorial.LeftDisplay.Tutorial1:SetTextColor(1, 1, 0)
+	gameTimeTutorial.LeftDisplay.Tutorial1:SetTextColor(1, .8, 0)
 	gameTimeTutorial.RightDisplay.Label:SetTextColor(1, 1, 1)
-	gameTimeTutorial.RightDisplay.Tutorial1:SetTextColor(1, 1, 0)
+	gameTimeTutorial.RightDisplay.Tutorial1:SetTextColor(1, .8, 0)
 
 	local woWTokenSellFrame = AuctionHouseFrame.WoWTokenSellFrame
 	B.StripTextures(woWTokenSellFrame)

@@ -82,10 +82,10 @@ C.OnLoadThemes["Blizzard_ChallengesUI"] = function()
 	-- New season
 	local noticeFrame = ChallengesFrame.SeasonChangeNoticeFrame
 	B.ReskinButton(noticeFrame.Leave)
-	B.ReskinText(noticeFrame.NewSeason, 1, 1, 0)
+	B.ReskinText(noticeFrame.NewSeason, 1, .8, 0)
 	B.ReskinText(noticeFrame.SeasonDescription, 1, 1, 1)
 	B.ReskinText(noticeFrame.SeasonDescription2, 1, 1, 1)
-	B.ReskinText(noticeFrame.SeasonDescription3, 1, 1, 0)
+	B.ReskinText(noticeFrame.SeasonDescription3, 1, .8, 0)
 
 	local affix = noticeFrame.Affix
 	B.StripTextures(affix)

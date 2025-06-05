@@ -256,9 +256,8 @@ function M:RaidTool_BuffChecker(parent)
 	local NoBuff, numGroups, numPlayer = {}, 6, 0
 	for i = 1, numGroups do NoBuff[i] = {} end
 
-	local debugMode = false
 	local function sendMsg(text)
-		if debugMode then
+		if DB.isDeveloper then
 			print(text)
 		else
 			SendChatMessage(text, B.GetMSGChannel())

@@ -1,90 +1,86 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-local function ResetToggleTexture(button, texture)
-	button:GetNormalTexture():SetTexCoord(unpack(DB.TexCoord))
-	button:GetNormalTexture():SetInside()
-	button:SetNormalTexture(texture)
-	button:GetPushedTexture():SetTexCoord(unpack(DB.TexCoord))
-	button:GetPushedTexture():SetInside()
-	button:SetPushedTexture(texture)
+local function Reset_ToggleOutfitDetailsButton(self, texture)
+	self:GetNormalTexture():SetTexCoord(unpack(DB.TexCoord))
+	self:GetNormalTexture():SetInside(self.__bg)
+	self:SetNormalTexture(texture)
+	self:GetPushedTexture():SetTexCoord(unpack(DB.TexCoord))
+	self:GetPushedTexture():SetInside(self.__bg)
+	self:SetPushedTexture(texture)
+end
+
+local function Refresh_OutfitDetailsPanel(self)
+	if self.slotPool then
+		for slot in self.slotPool:EnumerateActive() do
+			if not slot.bg then
+				slot.bg = B.ReskinIcon(slot.Icon)
+				B.ReskinBorder(slot.IconBorder, true, true)
+			end
+		end
+	end
+end
+
+local function Update_SetSelectionPanel(self)
+	if not self.bg then
+		self.bg = B.ReskinIcon(self.Icon)
+
+		B.ReskinBorder(self.IconBorder, true, true)
+		self.BackgroundTexture:SetAlpha(0)
+		self.SelectedTexture:SetColorTexture(1, 1, 0, .25)
+		self.HighlightTexture:SetColorTexture(1, 1, 1, .25)
+	end
 end
 
 C.OnLoginThemes["DressUpFrames"] = function()
-
 	-- Dressup Frame
 	B.ReskinFrame(DressUpFrame)
-	B.ReskinButton(DressUpFrameCancelButton)
-	B.ReskinButton(DressUpFrameResetButton)
-	B.ReskinMinMax(DressUpFrame.MaximizeMinimizeFrame)
-
 	B.ReskinButton(DressUpFrame.LinkButton)
 	B.ReskinButton(DressUpFrame.ToggleOutfitDetailsButton)
-	ResetToggleTexture(DressUpFrame.ToggleOutfitDetailsButton, 1392954) -- 70_professions_scroll_01
-
-	B.StripTextures(DressUpFrame.OutfitDetailsPanel)
-	local bg = B.SetBD(DressUpFrame.OutfitDetailsPanel)
-	bg:SetInside(nil, 11, 11)
-
-	hooksecurefunc(DressUpFrame.OutfitDetailsPanel, "Refresh", function(self)
-		if self.slotPool then
-			for slot in self.slotPool:EnumerateActive() do
-				if not slot.bg then
-					slot.bg = B.ReskinIcon(slot.Icon)
-					B.ReskinBorder(slot.IconBorder, true, true)
-				end
-			end
-		end
-	end)
-
-	DressUpFrameResetButton:SetPoint("RIGHT", DressUpFrameCancelButton, "LEFT", -1, 0)
-
+	B.ReskinButton(DressUpFrameCancelButton)
+	B.ReskinButton(DressUpFrameOutfitDropdown.SaveButton)
+	B.ReskinButton(DressUpFrameResetButton)
 	B.ReskinCheck(TransmogAndMountDressupFrame.ShowMountCheckButton)
+	B.ReskinDropDown(DressUpFrameOutfitDropdown)
+	B.ReskinMinMax(DressUpFrame.MaximizeMinimizeFrame)
 	B.ReskinModelControl(DressUpFrame.ModelScene)
+
+	Reset_ToggleOutfitDetailsButton(DressUpFrame.ToggleOutfitDetailsButton, 1392954) -- 70_professions_scroll_01
+	B.UpdatePoint(DressUpFrameResetButton, "RIGHT", DressUpFrameCancelButton, "LEFT", -1, 0)
+
+	local detailsPanel = DressUpFrame.OutfitDetailsPanel
+	B.ReskinFrame(detailsPanel)
+	detailsPanel:HookScript("OnShow", function(self)
+		B.UpdatePoint(self, "LEFT", DressUpFrame, "RIGHT", DB.margin, 0)
+	end)
+	hooksecurefunc(detailsPanel, "Refresh", function(self)
+		Refresh_OutfitDetailsPanel(self)
+	end)
 
 	local selectionPanel = DressUpFrame.SetSelectionPanel
 	if selectionPanel then
-		B.StripTextures(selectionPanel)
-		B.SetBD(selectionPanel, 9)
+		B.ReskinFrame(selectionPanel)
+		B.ReskinScroll(selectionPanel.ScrollBar)
+		B.UpdatePoint(selectionPanel, "LEFT", DressUpFrame, "RIGHT", DB.margin, 0)
 
-		local function SetupSetButton(button)
-			if button.styled then return end
-			button.bg = B.ReskinIcon(button.Icon)
-			B.ReskinBorder(button.IconBorder, true, true)
-			button.BackgroundTexture:SetAlpha(0)
-			button.SelectedTexture:SetColorTexture(1, 1, 0, .25)
-			button.HighlightTexture:SetColorTexture(1, 1, 1, .25)
-			button.styled = true
-		end
-
+		selectionPanel:HookScript("OnShow", function(self)
+			B.UpdatePoint(self, "LEFT", DressUpFrame, "RIGHT", DB.margin, 0)
+		end)
 		hooksecurefunc(selectionPanel.ScrollBox, "Update", function(self)
-			self:ForEachFrame(SetupSetButton)
+			self:ForEachFrame(Update_SetSelectionPanel)
 		end)
 	end
 
-	B.ReskinDropDown(DressUpFrameOutfitDropdown)
-	B.ReskinButton(DressUpFrameOutfitDropdown.SaveButton)
-
 	-- SideDressUp
-
-	B.StripTextures(SideDressUpFrame, 0)
-	B.SetBD(SideDressUpFrame)
+	B.ReskinFrame(SideDressUpFrame)
 	B.ReskinButton(SideDressUpFrame.ResetButton)
-	B.ReskinClose(SideDressUpFrameCloseButton)
-
 	SideDressUpFrame:HookScript("OnShow", function(self)
-		SideDressUpFrame:ClearAllPoints()
-		SideDressUpFrame:SetPoint("LEFT", self:GetParent(), "RIGHT", 3, 0)
+		B.UpdatePoint(self, "LEFT", self:GetParent(), "RIGHT", DB.margin, 0)
 	end)
 
 	-- Outfit frame
-
-	B.StripTextures(WardrobeOutfitEditFrame)
-	WardrobeOutfitEditFrame.EditBox:DisableDrawLayer("BACKGROUND")
-	B.SetBD(WardrobeOutfitEditFrame)
-	local bg = B.CreateBDFrame(WardrobeOutfitEditFrame.EditBox, 0, true)
-	bg:SetPoint("TOPLEFT", -5, -3)
-	bg:SetPoint("BOTTOMRIGHT", 5, 3)
+	B.ReskinFrame(WardrobeOutfitEditFrame)
+	B.ReskinInput(WardrobeOutfitEditFrame.EditBox)
 	B.ReskinButton(WardrobeOutfitEditFrame.AcceptButton)
 	B.ReskinButton(WardrobeOutfitEditFrame.CancelButton)
 	B.ReskinButton(WardrobeOutfitEditFrame.DeleteButton)

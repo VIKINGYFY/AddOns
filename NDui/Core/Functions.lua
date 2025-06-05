@@ -876,8 +876,9 @@ do
 	end
 
 	local AtlasToQuality = {
-		["error"] = 99,
-		["uncollected"] = 99,
+		["error"] = -2,
+		["uncollected"] = -3,
+		["illusion"] = -3,
 		["gray"] = Enum.ItemQuality.Poor,
 		["white"] = Enum.ItemQuality.Common,
 		["green"] = Enum.ItemQuality.Uncommon,
@@ -899,7 +900,7 @@ do
 			border.__owner.nf:SetBackdropBorderColor(color.r, color.g, color.b)
 		end
 	end
-	local function updateIconBorderColor(border, r, g, b)
+	local function updateIconBorderColorByVertex(border, r, g, b)
 		border.__owner.bg:SetBackdropBorderColor(r, g, b)
 		if border.__owner.nf then
 			border.__owner.nf:SetBackdropBorderColor(r, g, b)
@@ -931,7 +932,7 @@ do
 				self:SetTexture(self:GetTexture()) -- for border with color before hook
 			end
 		else
-			hooksecurefunc(self, "SetVertexColor", updateIconBorderColor)
+			hooksecurefunc(self, "SetVertexColor", updateIconBorderColorByVertex)
 			if needInit then
 				self:SetVertexColor(self:GetVertexColor()) -- for border with color before hook
 			end
@@ -940,7 +941,6 @@ do
 		hooksecurefunc(self, "SetShown", resetIconBorderColor)
 	end
 
-	local CLASS_ICON_TCOORDS = CLASS_ICON_TCOORDS
 	function B:ClassIconTexCoord(class)
 		local tcoords = CLASS_ICON_TCOORDS[class]
 		self:SetTexCoord(tcoords[1] + .022, tcoords[2] - .025, tcoords[3] + .022, tcoords[4] - .025)
@@ -1925,7 +1925,7 @@ do
 	function B.UpdateButton(f1, f2)
 		if not f1 then return end
 
-		local ic = B.GetObject(f1, "Icon") or B.GetObject(f1, "icon")
+		local ic = B.GetObject(f1, "Icon") or B.GetObject(f1, "icon") or f1
 		if ic then
 			ic:SetInside(f2)
 			ic:SetDrawLayer("ARTWORK")
@@ -2040,7 +2040,6 @@ do
 		B.SetBorderColor(self.bg)
 
 		if not C.db["Tooltip"]["ItemQuality"] then return end
-
 		local data = self.GetTooltipData and self:GetTooltipData()
 		if data then
 			local link = data.guid and C_Item.GetItemLinkByGUID(data.guid) or data.hyperlink

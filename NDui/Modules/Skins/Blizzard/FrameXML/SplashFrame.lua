@@ -5,5 +5,5 @@ C.OnLoginThemes["SplashFrame"] = function()
 
 	B.ReskinButton(SplashFrame.BottomCloseButton)
 	B.ReskinClose(SplashFrame.TopCloseButton, SplashFrame, -18, -18)
-	SplashFrame.Label:SetTextColor(1, 1, 0)
+	SplashFrame.Label:SetTextColor(1, .8, 0)
 end

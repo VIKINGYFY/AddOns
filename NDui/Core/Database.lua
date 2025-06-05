@@ -57,7 +57,10 @@ for index, value in pairs(ITEM_QUALITY_COLORS) do
 	DB.QualityColors[index] = {}
 	DB.QualityColors[index] = {r = value.r, g = value.g, b = value.b}
 end
-DB.QualityColors[99] = {r = 1, g = 0, b = 0}
+DB.QualityColors[-1] = {r = 0, g = 0, b = 0}
+DB.QualityColors[-2] = {r = 1, g = 0, b = 0}
+DB.QualityColors[-3] = {r = 1, g = .8, b = 0}
+
 -- Other
 DB.margin = 3
 DB.alpha = .75

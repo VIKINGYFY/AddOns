@@ -137,7 +137,7 @@ C.OnLoginThemes["UIWidgets"] = function()
 		if self:IsForbidden() then return end
 		ReskinWidgetStatusBar(self.Bar)
 		if self.Label then
-			self.Label:SetTextColor(1, 1, 0)
+			self.Label:SetTextColor(1, .8, 0)
 		end
 	end)
 

@@ -94,7 +94,7 @@ C.OnLoadThemes["Blizzard_WeeklyRewards"] = function()
 
 	local HeaderFrame = WeeklyRewardsFrame.HeaderFrame
 	B.StripTextures(HeaderFrame)
-	B.ReskinText(HeaderFrame.Text, 1, 1, 0, 1, SystemFont_Huge1)
+	B.ReskinText(HeaderFrame.Text, 1, .8, 0, 1, SystemFont_Huge1)
 
 	local SelectRewardButton = WeeklyRewardsFrame.SelectRewardButton
 	B.StripTextures(SelectRewardButton)

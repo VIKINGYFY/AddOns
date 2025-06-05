@@ -43,6 +43,8 @@ function M:GarrisonTabs_Create()
 		tab:SetSize(32, 32)
 		tab.__owner = _G.GarrisonLandingPage
 		tab:SetNormalTexture(data[3])
+		tab:SetCheckedTexture(DB.pushedTex)
+		tab:SetHighlightTexture(DB.bdTex)
 		tab:SetScript("OnClick", ToggleLandingPage)
 		tab:SetScript("OnEnter", GarrisonTab_OnEnter)
 		tab:SetScript("OnLeave", B.HideTooltip)
@@ -55,11 +57,12 @@ function M:GarrisonTabs_Create()
 		end
 
 		if C.db["Skins"]["BlizzardSkins"] then
-			tab:GetNormalTexture():SetTexCoord(unpack(DB.TexCoord))
-			tab:SetCheckedTexture(DB.pushedTex)
-			tab:SetHighlightTexture(DB.bdTex)
-			tab:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-			B.CreateBDFrame(tab)
+			local bg = B.SetBD(tab)
+			bg:SetFrameLevel(tab:GetFrameLevel() - 1)
+
+			B.ReskinCPTex(tab, bg)
+			B.ReskinHLTex(tab, bg)
+			B.UpdateButton(tab:GetNormalTexture(), bg)
 		end
 
 		tab.pageID = data[1]
