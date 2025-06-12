@@ -3,6 +3,8 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "ruRU")
 if not L then return end
 
 -- new
+L["The MapNotes player arrow disappears from the minimap for the set number of seconds when you hover over it"] = "Стрелка игрока MapNotes исчезает с миникарты на заданное количество секунд при наведении курсора мыши"
+L["This makes it easier for the player to see which other icon is currently under the player"] = "Это помогает игроку легче увидеть, какая иконка сейчас находится под игроком"
 L["Unfortunately does not work in instances"] = "К сожалению, не работает в подземельях"
 L["Minimap player arrow"] = "Стрелка игрока на мини-карте"
 L["Displays the player arrow on the minimap layered above addon-created icons"] = "Отображает стрелку игрока на мини-карте поверх значков, созданных аддонами"

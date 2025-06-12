@@ -3,6 +3,8 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "enUS", true)
 
 
 -- new
+L["The MapNotes player arrow disappears from the minimap for the set number of seconds when you hover over it"] = true
+L["This makes it easier for the player to see which other icon is currently under the player"] = true
 L["Unfortunately does not work in instances"] = true
 L["Minimap player arrow"] = true
 L["Displays the player arrow on the minimap layered above addon-created icons"] = true

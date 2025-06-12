@@ -254,20 +254,20 @@ function M:ItemLevel_FlyoutUpdate(bag, slot, quality)
 		self.iLvl = B.CreateFS(self, DB.Font[2]+1, "", false, "BOTTOMLEFT", 1, 0)
 	end
 
-	if quality and quality <= 1 then return end
+	if quality and quality > 1 then
+		local link, level
+		if bag then
+			link = C_Container.GetContainerItemLink(bag, slot)
+			level = B.GetItemLevel(link, bag, slot)
+		else
+			link = GetInventoryItemLink("player", slot)
+			level = B.GetItemLevel(link, "player", slot)
+		end
 
-	local link, level
-	if bag then
-		link = C_Container.GetContainerItemLink(bag, slot)
-		level = B.GetItemLevel(link, bag, slot)
-	else
-		link = GetInventoryItemLink("player", slot)
-		level = B.GetItemLevel(link, "player", slot)
+		local r, g, b = C_Item.GetItemQualityColor(quality)
+		self.iLvl:SetText(level)
+		self.iLvl:SetTextColor(r, g, b)
 	end
-
-	local r, g, b = C_Item.GetItemQualityColor(quality)
-	self.iLvl:SetText(level)
-	self.iLvl:SetTextColor(r, g, b)
 end
 
 function M:ItemLevel_FlyoutSetup()

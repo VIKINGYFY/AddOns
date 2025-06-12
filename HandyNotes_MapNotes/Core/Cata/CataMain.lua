@@ -42,6 +42,21 @@ function ns.MiniMapPlayerArrow()
     MMPA.texture:SetSnapToPixelGrid(false)
     MMPA.elapsed = 0
     MMPA.facing = nil
+
+    MMPA:SetScript("OnEnter", function(self)
+      if ns.Addon.db.profile.activate.MinimapArrowOnEnter and ns.Addon.db.profile.activate.MinimapArrow then
+        self:Hide()
+      end
+    end)
+
+    MMPA:SetScript("OnLeave", function(self)
+      if ns.Addon.db.profile.activate.MinimapArrowOnEnter and ns.Addon.db.profile.activate.MinimapArrow  then
+        C_Timer.After(ns.Addon.db.profile.activate.MinimapArrowOnEnterTime, function()
+          self:Show()
+        end)
+      end
+    end)
+
     MMPA:SetScript("OnUpdate", function(self, elapsed)
         self.elapsed = self.elapsed + elapsed
         if self.elapsed < 0.05 then return end

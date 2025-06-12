@@ -10,11 +10,11 @@ local function updateItemBorder(self)
 
 	if self.objectType == "item" then
 		local quality = select(4, GetQuestItemInfo(self.type, self:GetID()))
-		local color = DB.QualityColors[quality and quality or 1]
+		local color = DB.QualityColors[quality or -1]
 		self.bg:SetBackdropBorderColor(color.r, color.g, color.b)
-	elseif self.objectType == "currency" then
-		local quality = self.currencyInfo and self.currencyInfo.quality
-		local color = DB.QualityColors[quality and quality or 1]
+	elseif self.objectType == "currency" and self.currencyInfo then
+		local _, _, _, quality = CurrencyContainerUtil.GetCurrencyContainerInfo(self.currencyInfo.currencyID, self.currencyInfo.displayedAmount, self.currencyInfo.name, self.currencyInfo.texture, self.currencyInfo.quality)
+		local color = DB.QualityColors[quality or -1]
 		self.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 	else
 		B.SetBorderColor(self.bg)

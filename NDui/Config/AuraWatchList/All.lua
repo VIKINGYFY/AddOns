@@ -56,6 +56,7 @@ local list = {
 		-- 11.0 饰品
 		{AuraID =   91374, UnitID = "player"}, -- 卡德罗斯的印记
 		{AuraID =   92099, UnitID = "player"}, -- 灰鳞的优雅
+		{AuraID =  268439, UnitID = "player"}, -- 艾泽洛克的共鸣之心
 		{AuraID =  268769, UnitID = "player"}, -- 望远镜饰品
 		{AuraID =  435493, UnitID = "player"}, -- 制剂：死亡之吻
 		{AuraID =  443407, UnitID = "player"}, -- 斯卡莫拉克碎片

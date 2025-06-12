@@ -111,6 +111,7 @@ P.DefaultSettings = {
 		SimpleAddonManager = true,
 		tdBattlePetScript = true,
 		TinyInspect = false,
+		WeakAurasOptions = true,
 		WhisperPop = true,
 		WorldQuestTab = true,
 		HideToggle = true,

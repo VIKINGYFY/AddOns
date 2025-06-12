@@ -305,6 +305,8 @@ G.DefaultSettings = {
 		ToTAuraDirec = 1,
 		PetAuraDirec = 1,
 		FocusAuraDirec = 1,
+
+		CustomNameColor = {r=1, g=1, b=1},
 	},
 	Chat = {
 		Sticky = false,
@@ -439,7 +441,6 @@ G.DefaultSettings = {
 		CustomBD = true,
 		CustomBDColor = {r=.5, g=.5, b=.5},
 		FontScale = 1,
-		CustomNameColor = {r=1, g=1, b=1},
 	},
 	Tooltip = {
 		HideInCombat = 1,

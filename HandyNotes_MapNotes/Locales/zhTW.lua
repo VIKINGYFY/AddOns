@@ -3,6 +3,8 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "zhTW")
 if not L then return end
 
 -- new
+L["The MapNotes player arrow disappears from the minimap for the set number of seconds when you hover over it"] = "當你將滑鼠移到上面時，MapNotes 玩家箭頭會在設定的秒數內從小地圖上消失"
+L["This makes it easier for the player to see which other icon is currently under the player"] = "這讓玩家更容易看清目前位於玩家下方的其他圖示"
 L["Unfortunately does not work in instances"] = "無法在副本中運作"
 L["Minimap player arrow"] = "小地圖玩家箭頭"
 L["Displays the player arrow on the minimap layered above addon-created icons"] = "在小地圖上顯示玩家箭頭，位於插件創建的圖標之上"

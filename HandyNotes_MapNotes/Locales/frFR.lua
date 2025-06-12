@@ -3,6 +3,8 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "frFR")
 if not L then return end
 
 -- new
+L["The MapNotes player arrow disappears from the minimap for the set number of seconds when you hover over it"] = "La flèche du joueur de MapNotes disparaît de la mini-carte pendant le nombre de secondes défini lorsque vous la survolez avec la souris."
+L["This makes it easier for the player to see which other icon is currently under the player"] = "Cela facilite la tâche du joueur pour voir quelle autre icône se trouve actuellement sous le joueur"
 L["Unfortunately does not work in instances"] = "Malheureusement, cela ne fonctionne pas dans les instances"
 L["Minimap player arrow"] = "Flèche du joueur sur la mini-carte"
 L["Displays the player arrow on the minimap layered above addon-created icons"] = "Affiche la flèche du joueur sur la mini-carte, superposée aux icônes créées par les addons"

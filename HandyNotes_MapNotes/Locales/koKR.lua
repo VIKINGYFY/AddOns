@@ -3,6 +3,8 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "koKR")
 if not L then return end
 
 -- new
+L["The MapNotes player arrow disappears from the minimap for the set number of seconds when you hover over it"] = "마우스를 올리면 설정된 시간 동안 미니맵에서 MapNotes 플레이어 화살표가 사라집니다"
+L["This makes it easier for the player to see which other icon is currently under the player"] = "이를 통해 플레이어가 현재 플레이어 아래에 있는 다른 아이콘을 쉽게 볼 수 있습니다"
 L["Unfortunately does not work in instances"] = "인스턴스에서는 작동하지 않습니다"
 L["Minimap player arrow"] = "미니맵 플레이어 화살표"
 L["Displays the player arrow on the minimap layered above addon-created icons"] = "애드온에서 생성한 아이콘 위에 미니맵에 플레이어 화살표를 표시합니다"

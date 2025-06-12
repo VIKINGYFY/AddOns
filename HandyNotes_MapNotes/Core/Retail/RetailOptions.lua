@@ -172,7 +172,7 @@ ns.options = {
               name = L["Minimap player arrow"],
               desc = L["Displays the player arrow on the minimap layered above addon-created icons"] .. "\n" .. "\n" .. "|cFFFF0000" .. L["Unfortunately does not work in instances"],
               order = 1.6,
-              width = 1.20,
+              width = 1,
               get = function() return ns.Addon.db.profile.activate.MinimapArrow end,
               set = function(info, v) ns.Addon.db.profile.activate.MinimapArrow = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
                 if ns.MiniMapPlayerArrow then if ns.Addon.db.profile.activate.MinimapArrow then ns.MiniMapPlayerArrow():Show() else ns.MiniMapPlayerArrow():Hide() end end
@@ -190,6 +190,34 @@ ns.options = {
               set = function(info, v) ns.Addon.db.profile.MinimapArrowScale = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
                 if MMPA and MMPA.texture then MMPA.texture:SetScale(ns.Addon.db.profile.MinimapArrowScale) end end
               },
+            AdvancedHeader4 = {
+              type = "description",
+              name = "",
+              order = 1.8,
+              },    
+            MinimapArrowOnEnter = {
+              disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+              type = "toggle",
+              name = ADVANCED_OPTIONS,
+              desc = L["The MapNotes player arrow disappears from the minimap for the set number of seconds when you hover over it"] .. "\n" .. "\n" .. L["This makes it easier for the player to see which other icon is currently under the player"],
+              order = 1.9,
+              width = 1,
+              get = function() return ns.Addon.db.profile.activate.MinimapArrowOnEnter end,
+              set = function(info, v) ns.Addon.db.profile.activate.MinimapArrowOnEnter = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+                if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.MinimapArrowOnEnter then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Minimap player arrow"], ADVANCED_OPTIONS .. " " .. "|cffff0000" .. L["is deactivated"]) else
+                if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.MinimapArrowOnEnter then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Minimap player arrow"], ADVANCED_OPTIONS .. " " .. "|cff00ff00" .. L["is activated"]) end end end,
+              },
+            MinimapArrowOnEnterTime = {
+              disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+              type = "range",
+              name = SECONDS,
+              desc = "",
+              order = 2.0,
+              min = 1, max = 10, step = 1,
+              width = 0.70,
+              get = function() return ns.Addon.db.profile.activate.MinimapArrowOnEnterTime end,
+              set = function(info, v) ns.Addon.db.profile.activate.MinimapArrowOnEnterTime = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") end
+              },
             AdvancedHeader2 = {
               type = "header",
               name = BATTLENET_OPTIONS_LABEL .. " " .. DISABLE,
@@ -201,7 +229,7 @@ ns.options = {
               name = "POIs",
               desc = L["Points of interests"] .. "\n" .. "("  .. L["Portals"] .. ", " .. L["Ships"] .. ", " .. L["Capitals"] .. ")" .. "\n" .. "\n" .. L["Removes the Blizzard symbols only where MapNotes symbols and Blizzard symbols overlap, thereby making the tooltip and the function of the MapNote symbols usable again on the overlapping points"],
               order = 3.1,
-              width = 0.65,
+              width = 0.60,
               get = function() return ns.Addon.db.profile.activate.RemoveBlizzPOIs end,
               set = function(info, v) ns.Addon.db.profile.activate.RemoveBlizzPOIs = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
                 if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.RemoveBlizzPOIs then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. L["Points of interests"] .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
@@ -213,7 +241,7 @@ ns.options = {
               name = L["Zidormi"],
               desc = L["Points of interests"] .. "\n" .. "("  .. L["Zidormi"] .. ")" .. "\n" .. "\n" .. L["Removes the Blizzard symbols only where MapNotes symbols and Blizzard symbols overlap, thereby making the tooltip and the function of the MapNote symbols usable again on the overlapping points"],
               order = 3.2,
-              width = 0.65,
+              width = 0.60,
               get = function() return ns.Addon.db.profile.activate.RemoveBlizzPOIsZidormi end,
               set = function(info, v) ns.Addon.db.profile.activate.RemoveBlizzPOIsZidormi = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
                 ns.RemoveBlizzPOIs()
@@ -226,7 +254,7 @@ ns.options = {
               name = INSTANCE,
               desc = TextIconRaid:GetIconString() .. " " .. TextIconDungeon:GetIconString() .. " " ..  L["Disables the display of all Blizzard Dungeon and Raid icons on the zone map"],
               order = 3.3,
-              width = 0.65,
+              width = 0.60,
               get = function() return ns.Addon.db.profile.activate.RemoveBlizzInstances end,
               set = function(info, v) ns.Addon.db.profile.activate.RemoveBlizzInstances = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
                 if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.RemoveBlizzInstances then SetCVar("showDungeonEntrancesOnMap", 0) print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. DUNGEONS .. " / " .. RAIDS .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
@@ -240,7 +268,7 @@ ns.options = {
               name = DELVES_LABEL,
               desc = TextIconDelves:GetIconString().. " " .. L["Disables the display of all Blizzard Delves entrances on the zone map"] .. "\n" .. "\n" .. L["It is recommended not to activate this function if you generally want to see these symbols on the zone map. Since MapNotes didn't place its own Delve icons on the zone map, instead we attached our functions to the Blizzard Delve icons"],
               order = 3.4,
-              width = 0.65,
+              width = 0.60,
               get = function() return ns.Addon.db.profile.activate.ShowBlizzDelves end,
               set = function(info, v) ns.Addon.db.profile.activate.ShowBlizzDelves = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
                 if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.ShowBlizzDelves then SetCVar("showDelveEntrancesOnMap", 0) print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. DELVES_LABEL .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
