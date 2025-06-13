@@ -52,8 +52,14 @@ local list = {
 		{AuraID =   26297, UnitID = "player"}, -- 狂暴 巨魔
 		{AuraID =   33697, UnitID = "player"}, -- 血性狂怒 兽人
 		{AuraID =  292463, UnitID = "player"}, -- 帕库之拥 赞达拉
-		{AuraID = 431932, UnitID = "player"},	-- 淬火药水
-		-- 11.0 饰品
+		{AuraID =  431932, UnitID = "player"}, -- 淬火药水
+		-- 武器附魔
+		{AuraID =  448730, UnitID = "player"}, -- 灿能威权
+		{AuraID =  449091, UnitID = "player"}, -- 议会之诡
+		{AuraID =  449100, UnitID = "player"}, -- 驭雷者之怒
+		{AuraID =  449108, UnitID = "player"}, -- 石缚之艺
+		{AuraID =  449115, UnitID = "player"}, -- 圣誓之韧
+		-- 饰品
 		{AuraID =   91374, UnitID = "player"}, -- 卡德罗斯的印记
 		{AuraID =   92099, UnitID = "player"}, -- 灰鳞的优雅
 		{AuraID =  268439, UnitID = "player"}, -- 艾泽洛克的共鸣之心

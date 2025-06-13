@@ -187,96 +187,57 @@ function UF:UpdateColor(_, unit)
 
 	local r, g, b
 
-	if not UnitIsConnected(unit) or (not UnitPlayerControlled(unit) and UnitIsTapDenied(unit)) or C.TrashUnits[npcID] then
+	if not UnitIsConnected(unit) or (not UnitPlayerControlled(unit) and UnitIsTapDenied(unit)) or isTrashUnit then
 		r, g, b = .5, .5, .5
 	else
 		if isCustomUnit then
-			r, g, b = customColor.r, customColor.g, customColor.b
+			r, g, b = B.GetColor(customColor)
 		elseif isWarningUnit then
-			r, g, b = warningColor.r, warningColor.g, warningColor.b
+			r, g, b = B.GetColor(warningColor)
 		elseif isDoTUnit then
-			r, g, b = dotColor.r, dotColor.g, dotColor.b
-		elseif isPlayer and isFriendly then
-			if friendlyCC then
-				r, g, b = B.UnitColor(unit)
-			else
-				r, g, b = .1, .1, 1
-			end
-		elseif isPlayer and (not isFriendly) and hostileCC then
+			r, g, b = B.GetColor(dotColor)
+		elseif isPlayer and ((isFriendly and friendlyCC) or (not isFriendly and hostileCC)) then
 			r, g, b = B.UnitColor(unit)
 		else
 			r, g, b = UnitSelectionColor(unit, true)
-			if status then
-				if status == 3 then
-					if DB.Role ~= "Tank" then
-						r, g, b = insecureColor.r, insecureColor.g, insecureColor.b
-					else
-						if isOffTank then
-							r, g, b = offTankColor.r, offTankColor.g, offTankColor.b
-						else
-							r, g, b = secureColor.r, secureColor.g, secureColor.b
-						end
-					end
-				elseif status == 2 or status == 1 then
-					r, g, b = transColor.r, transColor.g, transColor.b
-				elseif status == 0 then
-					if DB.Role ~= "Tank" then
-						r, g, b = secureColor.r, secureColor.g, secureColor.b
-					else
-						r, g, b = insecureColor.r, insecureColor.g, insecureColor.b
-					end
+		end
+	end
+
+	if status then
+		if status == 3 then
+			if DB.Role == "Tank" then
+				if not (isCustomUnit or isWarningUnit or isDoTUnit or isTrashUnit) then
+					r, g, b = B.GetColor(secureColor)
+				end
+			else
+				if isOffTank then
+					r, g, b = B.GetColor(offTankColor)
+				else
+					r, g, b = B.GetColor(insecureColor)
+				end
+			end
+		elseif status == 2 or status == 1 then
+			r, g, b = B.GetColor(transColor)
+		elseif status == 0 then
+			if DB.Role == "Tank" then
+				r, g, b = B.GetColor(insecureColor)
+			else
+				if not (isCustomUnit or isWarningUnit or isDoTUnit or isTrashUnit) then
+					r, g, b = B.GetColor(secureColor)
 				end
 			end
 		end
 	end
 
 	self.Health:SetStatusBarColor(r, g, b)
-	self.TargetIndicator.Glow:SetBackdropBorderColor(targetColor.r, targetColor.g, targetColor.b)
-	self.HighlightIndicator.Glow:SetBackdropBorderColor(highlightColor.r, highlightColor.g, highlightColor.b)
-
-	self.ThreatIndicator:Hide()
-	if (isCustomUnit or isWarningUnit or isDoTUnit or isTrashUnit) and status then
-		if status == 3 then
-			if DB.Role ~= "Tank" then
-				self.ThreatIndicator:SetBackdropBorderColor(insecureColor.r, insecureColor.g, insecureColor.b)
-			else
-				self.ThreatIndicator:SetBackdropBorderColor(secureColor.r, secureColor.g, secureColor.b)
-			end
-			self.ThreatIndicator:Show()
-		elseif status == 2 or status == 1 then
-			self.ThreatIndicator:SetBackdropBorderColor(transColor.r, transColor.g, transColor.b)
-			self.ThreatIndicator:Show()
-		elseif status == 0 then
-			if DB.Role ~= "Tank" then
-				self.ThreatIndicator:SetBackdropBorderColor(secureColor.r, secureColor.g, secureColor.b)
-			else
-				self.ThreatIndicator:SetBackdropBorderColor(insecureColor.r, insecureColor.g, insecureColor.b)
-			end
-			self.ThreatIndicator:Show()
-		end
-	end
+	self.TargetIndicator.Glow:SetBackdropBorderColor(B.GetColor(targetColor))
+	self.HighlightIndicator.Glow:SetBackdropBorderColor(B.GetColor(highlightColor))
 
 	if executeRatio > 0 and healthPerc <= executeRatio then
 		self.nameText:SetTextColor(1, 0, 0)
 	else
 		self.nameText:SetTextColor(1, 1, 1)
 	end
-end
-
-function UF:UpdateThreatColor(_, unit)
-	if unit ~= self.unit then return end
-
-	UF.UpdateColor(self, _, unit)
-end
-
-function UF:CreateThreatColor(self)
-	local threatIndicator = B.CreateSD(self, 8, true)
-	threatIndicator:SetFrameLevel(self:GetFrameLevel() + 1)
-	threatIndicator:SetOutside(self, 8+C.mult, 8+C.mult)
-	threatIndicator:Hide()
-
-	self.ThreatIndicator = threatIndicator
-	self.ThreatIndicator.Override = UF.UpdateThreatColor
 end
 
 -- Target indicator
@@ -323,7 +284,7 @@ function UF:AddTargetIndicator(self)
 
 	target.Glow = B.CreateSD(target, 8, true)
 	target.Glow:SetOutside(self, 8+C.mult, 8+C.mult)
-	target.Glow:SetBackdropBorderColor(targetColor.r, targetColor.g, targetColor.b)
+	target.Glow:SetBackdropBorderColor(B.GetColor(targetColor))
 
 	target.nameGlow = target:CreateTexture(nil, "BACKGROUND")
 	target.nameGlow:SetSize(150, 80)
@@ -506,7 +467,7 @@ function UF:MouseoverIndicator(self)
 
 	highlight.Glow = B.CreateSD(highlight, 8, true)
 	highlight.Glow:SetOutside(self, 8+C.mult, 8+C.mult)
-	highlight.Glow:SetBackdropBorderColor(highlightColor.r, highlightColor.g, highlightColor.b)
+	highlight.Glow:SetBackdropBorderColor(B.GetColor(highlightColor))
 
 	self:RegisterEvent("UPDATE_MOUSEOVER_UNIT", UF.UpdateMouseoverShown, true)
 
@@ -580,7 +541,6 @@ function UF:CreatePlates()
 	UF:CreatePrediction(self)
 	UF:CreateAuras(self)
 	UF:CreatePVPClassify(self)
-	UF:CreateThreatColor(self)
 
 	self.Auras.showStealableBuffs = C.db["Nameplate"]["DispellMode"] == 1
 	self.Auras.alwaysShowStealable = C.db["Nameplate"]["DispellMode"] == 2
@@ -723,11 +683,15 @@ function UF:RefreshAllPlates()
 end
 
 local DisabledElements = {
-	"Health", "Castbar", "HealthPrediction", "PvPClassificationIndicator", "ThreatIndicator"
+	"Health",
+	"Castbar",
+	"HealthPrediction",
+	"PvPClassificationIndicator",
 }
 
 local SoftTargetBlockElements = {
-	"Auras", "RaidTargetIndicator",
+	"Auras",
+	"RaidTargetIndicator",
 }
 
 function UF:UpdatePlateByType()

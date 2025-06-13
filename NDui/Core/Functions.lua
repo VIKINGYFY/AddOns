@@ -142,14 +142,19 @@ do
 		end
 	end
 
+	function B.GetColor(colors)
+		return colors.r, colors.g, colors.b
+	end
+
 	function B.ClassColor(class)
 		local color = DB.ClassColors[class]
 		if not color then return .5, .5, .5 end
+
 		return color.r, color.g, color.b
 	end
 
 	function B.UnitColor(unit)
-		local r, g, b = 1, 1, 1
+		local r, g, b = .5, .5, .5
 		if UnitIsTapDenied(unit) then
 			r, g, b = .5, .5, .5
 		elseif UnitIsPlayer(unit) or UnitInPartyIsAI(unit) then

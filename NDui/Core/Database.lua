@@ -48,10 +48,8 @@ for class, value in pairs(RAID_CLASS_COLORS) do
 	DB.ClassColors[class] = {}
 	DB.ClassColors[class] = {r = value.r, g = value.g, b = value.b, colorStr = value.colorStr}
 end
-DB.r, DB.g, DB.b = DB.ClassColors[DB.MyClass].r, DB.ClassColors[DB.MyClass].g, DB.ClassColors[DB.MyClass].b
-DB.MyColor = format("|cff%02x%02x%02x", DB.r*255, DB.g*255, DB.b*255)
-DB.InfoColor = "|cff00FFFF" --0,1,1
-DB.GreyColor = "|cff808080"
+DB.ClassColors[NONE] = {r = .5, g = .5, b = .5}
+
 DB.QualityColors = {}
 for index, value in pairs(ITEM_QUALITY_COLORS) do
 	DB.QualityColors[index] = {}
@@ -60,6 +58,11 @@ end
 DB.QualityColors[-1] = {r = 0, g = 0, b = 0}
 DB.QualityColors[-2] = {r = 1, g = 0, b = 0}
 DB.QualityColors[-3] = {r = 1, g = .8, b = 0}
+
+DB.r, DB.g, DB.b = DB.ClassColors[DB.MyClass].r, DB.ClassColors[DB.MyClass].g, DB.ClassColors[DB.MyClass].b
+DB.MyColor = format("|cff%02x%02x%02x", DB.r*255, DB.g*255, DB.b*255)
+DB.InfoColor = "|cff00FFFF" --0,1,1
+DB.GreyColor = "|cff808080"
 
 -- Other
 DB.margin = 3
