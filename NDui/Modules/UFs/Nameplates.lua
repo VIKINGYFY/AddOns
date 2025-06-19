@@ -220,7 +220,11 @@ function UF:UpdateColor(_, unit)
 			r, g, b = B.GetColor(transColor)
 		elseif status == 0 then
 			if DB.Role == "Tank" then
-				r, g, b = B.GetColor(insecureColor)
+				if isOffTank then
+					r, g, b = B.GetColor(offTankColor)
+				else
+					r, g, b = B.GetColor(insecureColor)
+				end
 			else
 				if not (isCustomUnit or isWarningUnit or isDoTUnit or isTrashUnit) then
 					r, g, b = B.GetColor(secureColor)

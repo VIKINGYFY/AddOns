@@ -166,9 +166,11 @@ local list = {
 	},
 	["Raid Debuff"] = {		-- 团队减益组
 		-- 大幻象
-		{AuraID =  306583, UnitID = "player"}, -- 灌铅脚步
+		{AuraID =  306583, UnitID = "player"}, -- 灌铅脚步，幻象
 		{AuraID =  311390, UnitID = "player"}, -- 疯狂：昆虫恐惧症，幻象
-		{AuraID =  313698, UnitID = "player", Flash = true}, -- 泰坦之赐
+		{AuraID =  313698, UnitID = "player", Flash = true}, -- 泰坦之赐，幻象
+		{AuraID =  315385, UnitID = "player"}, -- 灼热跳跃，幻象
+
 		-- 常驻词缀
 		{AuraID =  209858, UnitID = "player"}, -- 死疽溃烂
 		{AuraID =  226512, UnitID = "player", Flash = true}, -- 血池

@@ -1,13 +1,13 @@
-## Interface: 110105
+## Interface: 110107
 ## Title: Angry Keystones
 ## Notes: Displays additional information for Mythic Keystone dungeons
 ## Author: Ermad
 ## SavedVariables: AngryKeystones_Config, AngryKeystones_Data
 ## SavedVariablesPerCharacter: AngryKeystones_CharacterConfig
 ## OptionalDeps: !KalielsTracker
-## X-Packaged-Version: v0.32.7
+## X-Packaged-Version: v0.32.8
 ## IconTexture: Interface\Icons\inv_relics_hourglass
-## Category-enUS: Dungeons & Raids
+## Category: Dungeons & Raids
 ## Category-deDE: Dungeons & Schlachtzüge
 ## Category-esES: Mazmorras y bandas
 ## Category-esMX: Calabozos y bandas

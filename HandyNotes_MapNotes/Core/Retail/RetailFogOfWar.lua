@@ -176,11 +176,11 @@ end
 
 ns.lastFogRefresh = 0
 
-function ns.FogOfWar:SetFogOfWarColor(info, r, g, b, a)
-	ns.FogOfWar.colorR, ns.FogOfWar.colorG, ns.FogOfWar.colorB, ns.FogOfWar.colorA = r, g, b, a
+function ns.FogOfWar:SetFogOfWarColor(info, FoWr, FoWg, FoWb, FoWa)
+	ns.FogOfWar.FogOfWarColorR, ns.FogOfWar.FogOfWarColorG, ns.FogOfWar.FogOfWarColorB, ns.FogOfWar.FogOfWarColorA = FoWr, FoWg, FoWb, FoWa
 
 	local now = GetTime()
-	if WorldMapFrame:IsShown() and self:IsEnabled() and (now - (ns.lastFogRefresh or 0) > 0.5) then
+	if WorldMapFrame:IsShown() and self:IsEnabled() and (now - (ns.lastFogRefresh or 0) > 0.1) then
 		self:Refresh()
 		ns.lastFogRefresh = now
 	end
@@ -193,6 +193,7 @@ function ns.FogOfWar:SetFogOfWarColor(info, r, g, b, a)
 		ns.StartFogOfWarColorSyncTicker()
 	end
 end
+
 
 -- remove data from global scope
 ns.FogOfWarDataRetail = nil

@@ -36,6 +36,7 @@ local VOLATILE_VALUES = {
   numFullFrames = 0,
   prevPerc = 0,
   prevSpeed = 0,
+  lastRandomColorIndex = 1,
 }
 
 local defaultPosition = {
@@ -62,6 +63,7 @@ local ART = {
   Silver = "VigorSilver",
   Sunrise = "VigorSunrise",
   Turquoise = "VigorTurquoise",
+  --Random = "Random",
 }
 
 local ART_OPTIONS = {}
@@ -193,11 +195,18 @@ LEM:AddFrameSettings(fixedSizeFrame, {
     set = function(layoutName, value)
       layoutName = Glider:ShouldUseGlobalSettings() or layoutName
       GliderAddOnDB.Settings[layoutName].style = value
-      Glider:SetAtlasForSwipe(Glider.VigorCharge, ART[value])
       Glider.VigorCharge:SetSwipeColor(1, 1, 1, 1)
-      if value == "Class" then
+      VOLATILE_VALUES.isRandomColor = false
+
+      if value == "Random" then
+        Glider:SetRandomColor()
+        VOLATILE_VALUES.isRandomColor = true
+      elseif value == "Class" then
         local classColor = PlayerUtil.GetClassColor() ---@diagnostic disable-line
         Glider.VigorCharge:SetSwipeColor(classColor:GetRGBA())
+        Glider:SetAtlasForSwipe(Glider.VigorCharge, ART[value])
+      else
+        Glider:SetAtlasForSwipe(Glider.VigorCharge, ART[value])
       end
     end,
     values = ART_OPTIONS,
@@ -300,6 +309,9 @@ function Glider:SetupLayout(layoutName)
   Glider.VigorCharge:SetSwipeColor(1, 1, 1, 1)
   if not ART[layout.style] then
     Glider:SetAtlasForSwipe(Glider.VigorCharge, ART["Blue"])
+  elseif ART[layout.style] == "Random" then
+    VOLATILE_VALUES.isRandomColor = true
+    Glider:SetRandomColor()
   else
     Glider:SetAtlasForSwipe(Glider.VigorCharge, ART[layout.style])
     if layout.style == "Class" then
@@ -346,20 +358,29 @@ function Glider:OnEvent(e, ...)
       UIWidgetPowerBarContainerFrame:Hide()
       C_Timer.After(5, function() UIWidgetPowerBarContainerFrame:Show() end)
     end
+  elseif e == "UNIT_AURA" and self:IsShown() then
+    VOLATILE_VALUES.isThrill = C_UnitAuras.GetPlayerAuraBySpellID(377234) and true or false
   end
 end
 
 function Glider:SetRandomColor()
   local timestamp = GetServerTime()
   local combinedValue = timestamp + 19204
-  local result = (combinedValue % 6) + 1
-  local count = 1
-  for _, value in pairs(ART) do
-    if count == result then
-      Glider:SetAtlasForSwipe(Glider.VigorCharge, value)
-      break
+  local numOptions = #ART_OPTIONS
+  local index = (combinedValue % numOptions) + 1
+
+  if index == VOLATILE_VALUES.lastRandomColorIndex then
+    index = index + 1
+    if index > numOptions then
+      index = 1
     end
-    count = count + 1
+  end
+
+  local colorName = ART_OPTIONS[index].text
+  Glider:SetAtlasForSwipe(Glider.VigorCharge, ART[colorName])
+  if colorName == "Class" then
+    local classColor = PlayerUtil.GetClassColor() ---@diagnostic disable-line
+    Glider.VigorCharge:SetSwipeColor(classColor:GetRGBA())
   end
 end
 
@@ -433,12 +454,16 @@ function Glider:HideAnim()
     self.animHide:Play()
     self:SetScript("OnUpdate", nil)
     VOLATILE_VALUES.isRefreshingVigor = false
+    VOLATILE_VALUES.isThrill = false
   end
 end
 
 function Glider:ShowAnim()
   if not (self:IsShown() or self.animShow:IsPlaying()) then
     VOLATILE_VALUES.justShown = true
+    if VOLATILE_VALUES.isRandomColor then
+      self:SetRandomColor()
+    end
     C_Timer.After(0.2, function() VOLATILE_VALUES.justShown = false end)
     self.animShow:Play()
   end
@@ -540,7 +565,7 @@ function Glider:Update(widget)
   self.SpeedDisplay:SetScript("OnUpdate", self.RefreshSpeedDisplay)
 
   VOLATILE_VALUES.getRidingAbroadPercent = self:GetRidingAbroadPercent()
-  VOLATILE_VALUES.isThrill = C_UnitAuras.GetPlayerAuraBySpellID(377234) and true or false
+  --VOLATILE_VALUES.isThrill = C_UnitAuras.GetPlayerAuraBySpellID(377234) and true or false
   if info.pulseFillingFrame then
     self.pulseAnim:Play()
   else
@@ -568,6 +593,7 @@ function Glider:OnLoad()
   self:SetScript("OnEvent", function(_, ...) self:OnEvent(...) end)
   self:RegisterEvent("UPDATE_UI_WIDGET")
   self:RegisterEvent("UPDATE_ALL_UI_WIDGETS")
+  self:RegisterEvent("UNIT_AURA")
   self.SpeedDisplay.Speed:SetRotation(-117 * (math.pi/180))
   self.VigorCharge.noCooldownCount = true
   self.SpeedDisplay.Speed.noCooldownCount = true

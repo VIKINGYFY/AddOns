@@ -1,12 +1,13 @@
-## Interface: 110105
+## Interface: 110105, 110107
 ## Title: |cff58C6FAGlider|r
 ## Author: Yuyuli
-## Version: 24
+## Version: 25
+
 ## IconTexture: 4640476
 ## SavedVariables: GliderAddOnDB
 
 # https://warcraft.wiki.gg/wiki/Addon_Categories
-## Category-enUS: User Interface
+## Category: User Interface
 ## Category-deDE: Benutzerinterface
 ## Category-esES: Interfaz de usuario
 ## Category-esMX: Interfaz de usuario
