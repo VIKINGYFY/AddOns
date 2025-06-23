@@ -251,6 +251,7 @@ local list = {
 		{AuraID =  291937, UnitID = "player", Flash = true}, -- 车间，垃圾掩体
 		{AuraID =  319637, UnitID = "player"}, -- 伤逝剧场，魂魄归体
 		{AuraID =  330725, UnitID = "player", Flash = true}, -- 伤逝剧场，暗影易伤
+		{AuraID =  458082, UnitID = "player", Flash = true}, -- 驭雷栖巢，驭雷者电荷
 		{AuraID =  333299, UnitID = "player"}, -- 伤逝剧场，荒芜诅咒
 		-- Raids
 		{AuraID =  464748, UnitID = "player", Flash = true}, -- 束缚之网，流丝

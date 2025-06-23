@@ -296,7 +296,7 @@ function A:CreateAuraIcon(button)
 	button.timer = B.CreateFS(button, fontSize, "")
 	B.UpdatePoint(button.timer, "TOP", button, "BOTTOM", 1, 2)
 
-	button:RegisterForClicks("RightButtonUp", "RightButtonDown")
+	--button:RegisterForClicks("RightButtonUp", "RightButtonDown")
 	button:SetScript("OnAttributeChanged", A.OnAttributeChanged)
 	button:HookScript("OnMouseDown", A.RemoveSpellFromIgnoreList)
 	button:SetScript("OnEnter", A.Button_OnEnter)

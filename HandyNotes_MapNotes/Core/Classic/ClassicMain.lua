@@ -56,15 +56,21 @@ function ns.MiniMapPlayerArrow()
     end)
 
     MMPA:SetScript("OnUpdate", function(self, elapsed)
-        self.elapsed = self.elapsed + elapsed
-        if self.elapsed < 0.05 then return end
-        self.elapsed = 0
+      self.elapsed = self.elapsed + elapsed
+      if self.elapsed < 0.05 then return end
+      self.elapsed = 0
 
-        local facing = GetPlayerFacing()
-        if facing and facing ~= self.facing then
-            self.facing = facing
-            self.texture:SetRotation(facing)
-        end
+      local facing = GetPlayerFacing()
+      if not facing then
+        self.texture:Hide()
+        return
+      end
+
+      self.texture:Show()
+      if facing ~= self.facing then
+        self.facing = facing
+        self.texture:SetRotation(facing)
+      end
     end)
 
     MMPA:Show()
