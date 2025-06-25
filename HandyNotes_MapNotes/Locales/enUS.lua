@@ -3,6 +3,15 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "enUS", true)
 
 
 -- new
+L["These icons disappear from the map after discovery"] = true
+L["However, they can be displayed again in the General tab under Advanced Options using the 'Races +' option"] = true
+L["Icons that have already been discovered will be marked with the suffix 'already learned'"] = true
+L["Icons that have not yet been discovered will be marked with the suffix 'not yet unlocked'"] = true
+L["Normally, special race icons are automatically hidden after being discovered. They are only visible once in the game and disappear after you interact with them"] = true
+L["This will redisplay the previously discovered icons of the race category on all maps"] = true
+L["Travel to this point and click on the mole machine on site to unlock it"] = true
+L["The icons are only visible if you belong to the corresponding race"] = true
+L["Otherwise, the icons in this category are not visible to you"] = true
 L["The MapNotes player arrow disappears from the minimap for the set number of seconds when you hover over it"] = true
 L["This makes it easier for the player to see which other icon is currently under the player"] = true
 L["Unfortunately does not work in instances"] = true

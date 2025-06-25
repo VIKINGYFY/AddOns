@@ -4,7 +4,7 @@ local S = P:GetModule("Skins")
 local AB = P:GetModule("ActionBar")
 
 local _G = getfenv(0)
-local margin = C.Bars.margin
+local margin = DB.margin
 
 local function reskinButton(self)
 	local bu = self.Widget

@@ -624,8 +624,9 @@ function ns.ResetAreaMapToPlayerLocation()
   ns._autoCorrected = false
   local mapID = C_Map.GetBestMapForUnit("player")
   if mapID then
-    BattlefieldMapFrame:SetMapID(mapID)
-    --C_Timer.After(0.2, ns.UpdateAreaMapIcons) removed in version 2.8.9 callback error
+    if BattlefieldMapFrame and BattlefieldMapFrame:IsShown() then
+      BattlefieldMapFrame:SetMapID(mapID)     
+    end
   end
 end
 

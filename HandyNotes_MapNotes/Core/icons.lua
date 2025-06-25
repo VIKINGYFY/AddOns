@@ -243,6 +243,7 @@ ns.icons = {
 ["TorghastUp"] = iconLink .. "TorghastUp",
 ["MoleMachine"] = iconLink .. "MoleMachine",
 ["RocketDrill"] = iconLink .. "RocketDrill",
+["MoleMachineDwarf"] = iconLink .. "MoleMachine",
 --travel
 ["TravelL"] = iconLink .. "travelL",
 ["TravelM"] = iconLink .. "travelm",

@@ -3,6 +3,15 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "zhTW")
 if not L then return end
 
 -- new
+L["These icons disappear from the map after discovery"] = "這些圖示在被發現後會從地圖上消失"
+L["However, they can be displayed again in the General tab under Advanced Options using the 'Races +' option"] = "不過你可以在一般頁籤的進階選項中透過 '種族 +' 功能重新顯示它們"
+L["Icons that have already been discovered will be marked with the suffix 'already learned'"] = "已發現的圖示將附加後綴 '已學會'"
+L["Icons that have not yet been discovered will be marked with the suffix 'not yet unlocked'"] = "尚未發現的圖示將附加後綴 '尚未解鎖'"
+L["Normally, special race icons are automatically hidden after being discovered. They are only visible once in the game and disappear after you interact with them"] = "特殊種族圖示在被發現後會自動隱藏。它們在遊戲中只會出現一次，並在互動後消失"
+L["This will redisplay the previously discovered icons of the race category on all maps"] = "這會在所有地圖上重新顯示先前發現的種族分類圖示"
+L["Travel to this point and click on the mole machine on site to unlock it"] = "前往此地點並點擊現場的鼴鼠機器以解鎖它"
+L["The icons are only visible if you belong to the corresponding race"] = "只有屬於對應種族時才會顯示圖示"
+L["Otherwise, the icons in this category are not visible to you"] = "否則，此分類中的圖示將不會對你顯示"
 L["The MapNotes player arrow disappears from the minimap for the set number of seconds when you hover over it"] = "當你將滑鼠移到上面時，MapNotes 玩家箭頭會在設定的秒數內從小地圖上消失"
 L["This makes it easier for the player to see which other icon is currently under the player"] = "這讓玩家更容易看清目前位於玩家下方的其他圖示"
 L["Unfortunately does not work in instances"] = "無法在副本中運作"

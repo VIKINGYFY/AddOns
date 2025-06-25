@@ -259,6 +259,7 @@ nodes[231] = { } -- Uldaman - Inside Dungeon Map
 nodes[232] = { } -- Molten Core
 nodes[242] = { } -- Blackwing Depths - Inside Dungeon Map
 nodes[243] = { } -- Blackrock Depths - Inside Dungeon Map
+nodes[1186] = { } -- Blackrock Depths - Inside Dungeon Map
 nodes[250] = { } -- Lower Blackrock Spire - Inside Dungeon Map
 nodes[251] = { } -- Lower Blackrock Spire - Inside Dungeon Map
 nodes[252] = { } -- Lower Blackrock Spire - Inside Dungeon Map

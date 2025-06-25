@@ -2,7 +2,7 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local Bar = B:GetModule("Actionbar")
 
-local padding = C.Bars.padding
+local padding = DB.padding
 
 function Bar:UpdateVehicleButton()
 	local frame = _G["NDui_ActionBarExit"]

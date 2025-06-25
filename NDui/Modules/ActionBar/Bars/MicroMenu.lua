@@ -144,7 +144,7 @@ function Bar:MicroMenu()
 
 	menubar = CreateFrame("Frame", nil, UIParent)
 	menubar:SetSize(323, 22)
-	menubar.mover = B.Mover(menubar, L["Menubar"], "Menubar", C.Skins.MicroMenuPos)
+	menubar.mover = B.Mover(menubar, L["Menubar"], "Menubar", C.Skins.MMPos)
 	Bar:MicroMenu_Lines(menubar)
 
 	-- Generate Buttons

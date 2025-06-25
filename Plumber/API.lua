@@ -155,6 +155,17 @@ do  -- String
         end
     end
     API.JoinText = JoinText;
+
+
+    function API.StringTrim(text)
+        if text then
+            text = gsub(text, "^(%s+)", "");
+            text = gsub(text, "(%s+)$", "");
+            if text ~= "" then
+                return text
+            end
+        end
+    end
 end
 
 do  -- DEBUG
@@ -574,7 +585,6 @@ do  -- Tooltip Parser
             return GetLineText(tooltipData.lines, 1);
         end
     end
-
     API.GetCreatureName = GetCreatureName;
 end
 
@@ -2189,13 +2199,12 @@ do  -- Quest
         local questName = C_TaskQuest.GetQuestInfoByQuestID(questID);
         if not questName then
             questName = C_QuestLog.GetTitleForQuestID(questID);
-            if questName and questName ~= "" then
-                return questName
-            else
-                C_QuestLog.RequestLoadQuestByID(questID);
-            end
         end
-        return questName
+        if questName and questName ~= "" then
+            return questName
+        else
+            C_QuestLog.RequestLoadQuestByID(questID);
+        end
     end
     API.GetQuestName = GetQuestName;
 
@@ -2658,6 +2667,8 @@ do  -- AsyncCallback
     AsyncCallback.WoWAPI_LoadItem = C_Item.RequestLoadItemDataByID;
     AsyncCallback.WoWAPI_LoadSpell = C_Spell.RequestLoadSpellData;
 
+    local CreatureNameCache = {};
+
     function AsyncCallback:RunAllCallbacks(list)
         for id, callbacks in pairs(list) do
             for _, callbackInfo in ipairs(callbacks) do
@@ -2727,6 +2738,26 @@ do  -- AsyncCallback
                 self:RunAllCallbacks(self.spellCallbacks);
                 self.spellCallbacks = nil;
             end
+
+            if self.creatureCallbacks then
+                for id, callbacks in pairs(self.creatureCallbacks) do
+                    local name = API.GetCreatureName(id);
+                    if name and name ~= "" then
+                        CreatureNameCache[id] = name;
+                    else
+                        name = nil;
+                    end
+                    if name then
+                        for _, callbackInfo in ipairs(callbacks) do
+                            if not callbackInfo.processed then
+                                callbackInfo.processed = true;
+                                callbackInfo.func(id, name);
+                            end
+                        end
+                    end
+                end
+                self.creatureCallbacks = nil;
+            end
         end
     end
 
@@ -2787,6 +2818,27 @@ do  -- AsyncCallback
         end
         AsyncCallback.t = 0;
         AsyncCallback:SetScript("OnUpdate", AsyncCallback.OnUpdate);
+    end
+
+    function CallbackRegistry:LoadCreature(id, callback)
+        --Usually used to get npc name
+        AsyncCallback:AddCallback("creatureCallbacks", id, callback);
+        AsyncCallback.t = 0;
+        AsyncCallback:SetScript("OnUpdate", AsyncCallback.OnUpdate);
+    end
+
+
+    function API.GetAndCacheCreatureName(creatureID)
+        if CreatureNameCache[creatureID] then
+            return CreatureNameCache[creatureID]
+        end
+        local name = API.GetCreatureName(creatureID);
+        if name and name ~= "" then
+            CreatureNameCache[creatureID] = name;
+        else
+            name = nil;
+        end
+        return name
     end
 end
 

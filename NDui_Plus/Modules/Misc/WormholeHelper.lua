@@ -3,7 +3,7 @@ local B, C, L, DB, P = unpack(ns)
 local M = P:GetModule("Misc")
 
 local WormholeGossipData = {
-	-- Wormhole Centrifuge (Draenor)
+	-- 虫洞离心机-德拉诺
 	[81205] = {
 		[42586] = 542,
 		[42587] = 535,
@@ -12,7 +12,7 @@ local WormholeGossipData = {
 		[42590] = 543,
 		[42591] = 525,
 	},
-	-- Wyrmhole Generator
+	-- 龙洞发生器-巨龙群岛
 	[195667] = {
 		[63907] = 1978,
 		[63911] = 2022,

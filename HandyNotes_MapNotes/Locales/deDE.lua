@@ -3,6 +3,15 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "deDE")
 if not L then return end
 
 -- new
+L["These icons disappear from the map after discovery"] = "Diese Symbole verschwinden nach der Entdeckung von der Karte"
+L["However, they can be displayed again in the General tab under Advanced Options using the 'Races +' option"] = "Sie können jedoch im Reiter Allgemein unter Erweiterte Optionen mit der Option 'Völker +' wieder angezeigt werden"
+L["Icons that have already been discovered will be marked with the suffix 'already learned'"] = "Bereits entdeckte Symbole werden mit dem Zusatz 'bereits erlernt' markiert"
+L["Icons that have not yet been discovered will be marked with the suffix 'not yet unlocked'"] = "Noch nicht entdeckte Symbole werden mit dem Zusatz 'noch nicht freigeschaltet' markiert"
+L["Normally, special race icons are automatically hidden after being discovered. They are only visible once in the game and disappear after you interact with them"] = "Normalerweise werden spezielle Völkersymbole nach ihrer Entdeckung im Spiel automatisch ausgeblendet. Sie sind im Spiel nur einmal sichtbar und verschwinden nach der Interaktion"
+L["This will redisplay the previously discovered icons of the race category on all maps"] = "Dies blendet zuvor entdeckte Symbole der Völkerkategorie auf allen Karten wieder ein"
+L["Travel to this point and click on the mole machine on site to unlock it"] = "Reise zu diesem Punkt und klicke vor Ort auf die Maulwurfmaschine, um sie freizuschalten"
+L["The icons are only visible if you belong to the corresponding race"] = "Die Symbole sind nur sichtbar, wenn du dem entsprechendem Volk angehörst"
+L["Otherwise, the icons in this category are not visible to you"] = "Andernfalls sind die Symbole dieser Kategorie für dich nicht sichtbar"
 L["The MapNotes player arrow disappears from the minimap for the set number of seconds when you hover over it"] = "Der MapNotes Spielerpfeil verschwindet für die eingestellte Sekundenanzahl von der Minikarte, wenn Sie mit der Maus darüber fahren"
 L["This makes it easier for the player to see which other icon is currently under the player"] = "Damit kann der Spieler leichter erkennen, welche anderen Symbole sich gerade unter dem Spieler befinden"
 L["Unfortunately does not work in instances"] = "Funktioniert leider nicht in Instanzen"

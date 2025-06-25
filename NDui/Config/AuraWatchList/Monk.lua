@@ -6,7 +6,7 @@ if DB.MyClass ~= "MONK" then return end
 
 -- 武僧的法术监控
 local list = {
-	["Player Aura"] = {		-- 玩家光环组
+	["Player Aura"] = { -- 玩家光环组
 		{AuraID =  119085, UnitID = "player"}, -- 真气突
 		{AuraID =  101643, UnitID = "player"}, -- 魂体双分
 		{AuraID =  202090, UnitID = "player"}, -- 禅院教诲
@@ -15,7 +15,7 @@ local list = {
 		{AuraID =  213177, UnitID = "player"}, -- 利涉大川
 		{AuraID =  199407, UnitID = "player"}, -- 脚步轻盈
 	},
-	["Target Aura"] = {		-- 目标光环组
+	["Target Aura"] = { -- 目标光环组
 		{AuraID =  115078, UnitID = "target", Caster = "player"}, -- 分筋错骨
 		{AuraID =  116189, UnitID = "target", Caster = "player"}, -- 豪镇八方
 		{AuraID =  115804, UnitID = "target", Caster = "player"}, -- 致死之伤
@@ -35,7 +35,7 @@ local list = {
 		{AuraID =  198909, UnitID = "target", Caster = "player"}, -- 赤精之歌
 		{AuraID =  124682, UnitID = "target", Caster = "player"}, -- 氤氲之雾
 	},
-	["Special Aura"] = {	-- 玩家重要光环组
+	["Special Aura"] = { -- 玩家重要光环组
 		{AuraID =  125174, UnitID = "player"}, -- 业报之触
 		{AuraID =  116768, UnitID = "player"}, -- 幻灭踢
 		{AuraID =  137639, UnitID = "player"}, -- 风火雷电

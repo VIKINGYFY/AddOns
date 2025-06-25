@@ -3,6 +3,15 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "itIT")
 if not L then return end
 
 -- new
+L["These icons disappear from the map after discovery"] = "Queste icone scompaiono dalla mappa dopo la scoperta"
+L["However, they can be displayed again in the General tab under Advanced Options using the 'Races +' option"] = "Tuttavia, possono essere visualizzate di nuovo nella scheda Generale sotto Opzioni Avanzate usando l'opzione 'Razze +'"
+L["Icons that have already been discovered will be marked with the suffix 'already learned'"] = "Le icone già scoperte saranno contrassegnate con il suffisso 'già appreso'"
+L["Icons that have not yet been discovered will be marked with the suffix 'not yet unlocked'"] = "Le icone non ancora scoperte saranno contrassegnate con il suffisso 'non ancora sbloccato'"
+L["Normally, special race icons are automatically hidden after being discovered. They are only visible once in the game and disappear after you interact with them"] = "Normalmente, le icone speciali delle razze vengono nascoste automaticamente dopo essere state scoperte. Sono visibili solo una volta e scompaiono dopo l'interazione"
+L["This will redisplay the previously discovered icons of the race category on all maps"] = "Questo farà riapparire le icone della categoria razza precedentemente scoperte su tutte le mappe"
+L["Travel to this point and click on the mole machine on site to unlock it"] = "Viaggia fino a questo punto e clicca sulla macchina talpa sul posto per sbloccarla"
+L["The icons are only visible if you belong to the corresponding race"] = "Le icone sono visibili solo se appartieni alla razza corrispondente"
+L["Otherwise, the icons in this category are not visible to you"] = "Altrimenti, le icone in questa categoria non saranno visibili per te"
 L["The MapNotes player arrow disappears from the minimap for the set number of seconds when you hover over it"] = "La freccia del giocatore di MapNotes scompare dalla minimappa per il numero di secondi impostato quando ci passi sopra con il mouse"
 L["This makes it easier for the player to see which other icon is currently under the player"] = "Questo rende più facile per il giocatore vedere quale altra icona si trova attualmente sotto il giocatore"
 L["Unfortunately does not work in instances"] = "Sfortunatamente non funziona nelle istanze"

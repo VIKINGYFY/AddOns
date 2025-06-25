@@ -260,6 +260,7 @@ minimap[231] = { } -- Uldaman - Inside Dungeon Map
 minimap[232] = { } -- Molten Core
 minimap[242] = { } -- Blackwing Depths - Inside Dungeon Map
 minimap[243] = { } -- Blackrock Depths - Inside Dungeon Map
+minimap[1186] = { } -- Blackrock Depths - Inside Dungeon Map
 minimap[250] = { } -- Lower Blackrock Spire - Inside Dungeon Map
 minimap[251] = { } -- Lower Blackrock Spire - Inside Dungeon Map
 minimap[252] = { } -- Lower Blackrock Spire - Inside Dungeon Map

@@ -6,14 +6,14 @@ if DB.MyClass ~= "WARLOCK" then return end
 
 -- 术士的法术监控
 local list = {
-	["Player Aura"] = {		-- 玩家光环组
+	["Player Aura"] = { -- 玩家光环组
 		{AuraID =    5697, UnitID = "player"}, -- 无尽呼吸
 		{AuraID =   48018, UnitID = "player"}, -- 恶魔法阵
 		{AuraID =  108366, UnitID = "player"}, -- 灵魂榨取
 		{AuraID =  119899, UnitID = "player"}, -- 灼烧主人
 		{AuraID =  196099, UnitID = "player"}, -- 牺牲魔典
 	},
-	["Target Aura"] = {		-- 目标光环组
+	["Target Aura"] = { -- 目标光环组
 		{AuraID =     603, UnitID = "target", Caster = "player"}, -- 末日降临
 		{AuraID =     980, UnitID = "target", Caster = "player"}, -- 痛楚
 		{AuraID =     710, UnitID = "target", Caster = "player"}, -- 放逐术
@@ -45,7 +45,7 @@ local list = {
 		{AuraID =  325640, UnitID = "target", Caster = "player"}, -- 灵魂腐化
 		{AuraID =  322170, UnitID = "target", Caster = "player"}, -- 灾祸降临
 	},
-	["Special Aura"] = {	-- 玩家重要光环组
+	["Special Aura"] = { -- 玩家重要光环组
 		{AuraID =   89751, UnitID = "pet"}, -- 魔刃风暴
 		{AuraID =  216695, UnitID = "player"}, -- 被折磨的灵魂
 		{AuraID =  104773, UnitID = "player"}, -- 不灭决心

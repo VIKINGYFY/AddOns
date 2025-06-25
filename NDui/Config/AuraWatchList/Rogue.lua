@@ -6,7 +6,7 @@ if DB.MyClass ~= "ROGUE" then return end
 
 -- 盗贼的法术监控
 local list = {
-	["Player Aura"] = {		-- 玩家光环组
+	["Player Aura"] = { -- 玩家光环组
 		{AuraID =    1784, UnitID = "player"}, -- 潜行
 		{AuraID =  115191, UnitID = "player"}, -- 潜行
 		{AuraID =    2983, UnitID = "player"}, -- 疾跑
@@ -14,7 +14,7 @@ local list = {
 		{AuraID =  197603, UnitID = "player"}, -- 黑暗之拥
 		{AuraID =  270070, UnitID = "player"}, -- 隐藏之刃
 	},
-	["Target Aura"] = {		-- 目标光环组
+	["Target Aura"] = { -- 目标光环组
 		{AuraID =     408, UnitID = "target", Caster = "player"}, -- 肾击
 		{AuraID =     703, UnitID = "target", Caster = "player"}, -- 锁喉
 		{AuraID =    1833, UnitID = "target", Caster = "player"}, -- 偷袭
@@ -44,7 +44,7 @@ local list = {
 		{AuraID =  324073, UnitID = "target", Caster = "player"}, -- 锯齿骨刺
 		{AuraID =  319504, UnitID = "target", Caster = "player"}, -- 毒刃
 	},
-	["Special Aura"] = {	-- 玩家重要光环组
+	["Special Aura"] = { -- 玩家重要光环组
 		{AuraID =    1966, UnitID = "player"}, -- 佯攻
 		{AuraID =    5171, UnitID = "player"}, -- 切割
 		{AuraID =    5277, UnitID = "player"}, -- 闪避

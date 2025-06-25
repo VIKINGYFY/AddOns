@@ -6,7 +6,7 @@ if DB.MyClass ~= "HUNTER" then return end
 
 -- 猎人的法术监控
 local list = {
-	["Player Aura"] = {		-- 玩家光环组
+	["Player Aura"] = { -- 玩家光环组
 		{AuraID =     136, UnitID = "pet"}, -- 治疗宠物
 		{AuraID =   19577, UnitID = "pet"}, -- 胁迫
 		{AuraID =  160058, UnitID = "pet"}, -- 厚皮
@@ -33,7 +33,7 @@ local list = {
 		{AuraID =  424571, UnitID = "player"}, -- 风行者的指引
 		{AuraID =  474293, UnitID = "player"}, -- 移动活靶
 	},
-	["Target Aura"] = {		-- 目标光环组
+	["Target Aura"] = { -- 目标光环组
 		{AuraID =    3355, UnitID = "target", Caster = "player"}, -- 冰冻陷阱
 		{AuraID =    5116, UnitID = "target", Caster = "player"}, -- 震荡射击
 		{AuraID =   19386, UnitID = "target", Caster = "player"}, -- 翼龙钉刺
@@ -73,7 +73,7 @@ local list = {
 
 		{AuraID =  410167, UnitID = "target", Caster = "player"}, -- 破甲，生存4T
 	},
-	["Special Aura"] = {	-- 玩家重要光环组
+	["Special Aura"] = { -- 玩家重要光环组
 		{AuraID =   19574, UnitID = "player"}, -- 狂野怒火
 		{AuraID =   54216, UnitID = "player"}, -- 主人的召唤
 		{AuraID =  186257, UnitID = "player"}, -- 猎豹守护

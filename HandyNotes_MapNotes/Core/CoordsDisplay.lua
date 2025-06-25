@@ -155,15 +155,14 @@ function ns.CreateMouseCoordsFrame()
 
   local function UpdateMouseCoords()
     if not WorldMapFrame:IsShown() then return end
-    local width = WorldMapFrame.ScrollContainer:GetWidth()
-    local height = WorldMapFrame.ScrollContainer:GetHeight()
-    local centerX, centerY = WorldMapFrame.ScrollContainer:GetCenter()
-    local scale = WorldMapFrame.ScrollContainer:GetEffectiveScale()
+
     local cursorX, cursorY = GetCursorPosition()
-  
-    local x = (cursorX / scale - (centerX - width / 2)) / width
-    local y = (centerY + height / 2 - cursorY / scale) / height
-  
+    local scale = UIParent:GetEffectiveScale()
+    cursorX = cursorX / scale
+    cursorY = cursorY / scale
+
+    local x, y = WorldMapFrame.ScrollContainer:NormalizeUIPosition(cursorX, cursorY)
+
     if x and y and x >= 0 and x <= 1 and y >= 0 and y <= 1 then
       local x2 = math.floor(x * 10000 + 0.5) / 100
       local y2 = math.floor(y * 10000 + 0.5) / 100

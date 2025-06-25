@@ -6,7 +6,7 @@ if DB.MyClass ~= "PALADIN" then return end
 
 -- 圣骑士的法术监控
 local list = {
-	["Player Aura"] = {		-- 玩家光环组
+	["Player Aura"] = { -- 玩家光环组
 		{AuraID =  188370, UnitID = "player"}, -- 奉献
 		{AuraID =  197561, UnitID = "player"}, -- 复仇者的勇气
 		{AuraID =  269571, UnitID = "player"}, -- 狂热
@@ -14,7 +14,7 @@ local list = {
 		{AuraID =  281178, UnitID = "player"}, -- 愤怒之剑
 		{AuraID =  182104, UnitID = "player"}, -- 闪耀之光
 	},
-	["Target Aura"] = {		-- 目标光环组
+	["Target Aura"] = { -- 目标光环组
 		{AuraID =     853, UnitID = "target", Caster = "player"}, -- 制裁之锤
 		{AuraID =   31935, UnitID = "target", Caster = "player"}, -- 复仇者之盾
 		{AuraID =   53563, UnitID = "target", Caster = "player"}, -- 圣光道标
@@ -33,7 +33,7 @@ local list = {
 		{AuraID =  204079, UnitID = "target", Caster = "player"}, -- 决一死战
 		{AuraID =  343527, UnitID = "target", Caster = "player"}, -- 处决审判
 	},
-	["Special Aura"] = {	-- 玩家重要光环组
+	["Special Aura"] = { -- 玩家重要光环组
 		{AuraID =     498, UnitID = "player"}, -- 圣佑术
 		{AuraID =     642, UnitID = "player"}, -- 圣盾术
 		{AuraID =   31821, UnitID = "player"}, -- 光环掌握

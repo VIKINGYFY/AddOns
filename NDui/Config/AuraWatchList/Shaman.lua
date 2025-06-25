@@ -6,7 +6,7 @@ if DB.MyClass ~= "SHAMAN" then return end
 
 -- 萨满的法术监控
 local list = {
-	["Player Aura"] = {		-- 玩家光环组
+	["Player Aura"] = { -- 玩家光环组
 		{AuraID =     546, UnitID = "player"}, -- 水上行走
 		{AuraID =  195222, UnitID = "player"}, -- 风暴之鞭
 		{AuraID =  198293, UnitID = "player"}, -- 疾风
@@ -14,7 +14,7 @@ local list = {
 		{AuraID =  260881, UnitID = "player"}, -- 幽灵狼
 		{AuraID =  192106, UnitID = "player", Timeless = true}, -- 闪电护盾
 	},
-	["Target Aura"] = {		-- 目标光环组
+	["Target Aura"] = { -- 目标光环组
 		{AuraID =   61295, UnitID = "target", Caster = "player"}, -- 激流
 		{AuraID =   51514, UnitID = "target", Caster = "player"}, -- 妖术
 		{AuraID =  210873, UnitID = "target", Caster = "player"}, -- 妖术
@@ -30,7 +30,7 @@ local list = {
 		{AuraID =  269808, UnitID = "target", Caster = "player"}, -- 元素外露
 		{AuraID =  334168, UnitID = "target", Caster = "player"}, -- 鞭笞烈焰
 	},
-	["Special Aura"] = {	-- 玩家重要光环组
+	["Special Aura"] = { -- 玩家重要光环组
 		{AuraID =   73920, UnitID = "player"}, -- 治疗之雨
 		{AuraID =   53390, UnitID = "player"}, -- 潮汐奔涌
 		{AuraID =   79206, UnitID = "player"}, -- 灵魂行者的恩赐

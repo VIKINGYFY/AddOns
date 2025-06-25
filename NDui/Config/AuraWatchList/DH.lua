@@ -6,10 +6,10 @@ if DB.MyClass ~= "DEMONHUNTER" then return end
 
 -- DH的法术监控
 local list = {
-	["Player Aura"] = {		-- 玩家光环组
+	["Player Aura"] = { -- 玩家光环组
 		{AuraID =  389847, UnitID = "player"}, -- 邪火疾速
 	},
-	["Target Aura"] = {		-- 目标光环组
+	["Target Aura"] = { -- 目标光环组
 		{AuraID =  179057, UnitID = "target", Caster = "player"}, -- 混乱新星
 		{AuraID =  185245, UnitID = "target", Caster = "player"}, -- 折磨
 		{AuraID =  204490, UnitID = "target", Caster = "player"}, -- 沉默咒符
@@ -28,7 +28,7 @@ local list = {
 		{AuraID =  462030, UnitID = "target", Caster = "player"}, -- 末日咒符
 
 	},
-	["Special Aura"] = {	-- 玩家重要光环组
+	["Special Aura"] = { -- 玩家重要光环组
 		{AuraID =  162264, UnitID = "player"}, -- 恶魔变形
 		{AuraID =  187827, UnitID = "player"}, -- 恶魔变形
 		{AuraID =  196555, UnitID = "player"}, -- 虚空行走

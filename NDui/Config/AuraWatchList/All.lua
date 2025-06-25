@@ -44,7 +44,7 @@ local module = B:GetModule("AurasTable")
 
 -- 全职业的相关监控
 local list = {
-	["Enchant Aura"] = {	-- 附魔及饰品组
+	["Enchant Aura"] = { -- 附魔及饰品组
 		{AuraID =  341260, UnitID = "player", Flash = true}, -- 学识爆发，传家宝套装
 		{AuraID =  354808, UnitID = "player"}, -- 棱彩之光，1万币的小宠物
 		-- 种族天赋
@@ -91,7 +91,7 @@ local list = {
 		{AuraID = 1219102, UnitID = "player", Value =  true}, -- 共鸣仪式泥浆
 
 	},
-	["Raid Buff"] = {		-- 团队增益组
+	["Raid Buff"] = { -- 团队增益组
 		{AuraID =   54861, UnitID = "player"}, -- 火箭靴，工程
 		-- 嗜血相关
 		{AuraID =    2825, UnitID = "player", Flash = true}, -- 嗜血
@@ -164,7 +164,7 @@ local list = {
 		{AuraID =  363534, UnitID = "player"}, -- 唤魔师，回溯
 		{AuraID =  374227, UnitID = "player"}, -- 唤魔师，微风
 	},
-	["Raid Debuff"] = {		-- 团队减益组
+	["Raid Debuff"] = { -- 团队减益组
 		-- 大幻象
 		{AuraID =  306583, UnitID = "player"}, -- 灌铅脚步，幻象
 		{AuraID =  311390, UnitID = "player"}, -- 疯狂：昆虫恐惧症，幻象
@@ -377,9 +377,9 @@ local list = {
 		{AuraID =  228323, UnitID = "target", Value = true}, -- 克罗塔的护盾
 		{AuraID =  247938, UnitID = "target"}, -- 混乱之刃
 	},
-	["Focus Aura"] = {	-- 焦点光环组
+	["Focus Aura"] = { -- 焦点光环组
 	},
-	["Spell Cooldown"] = {	-- 冷却计时组
+	["Spell Cooldown"] = { -- 冷却计时组
 		{SlotID =  1}, -- 头部
 		{SlotID =  2}, -- 颈部
 		{SlotID =  3}, -- 肩部

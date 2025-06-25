@@ -97,6 +97,7 @@ local db = ns.Addon.db.profile
         self.db.profile.showMinimapCapitalsOldVanilla = self.db.profile.showCapitalsOldVanilla
         self.db.profile.showMinimapCapitalsLFR = self.db.profile.showCapitalsLFR
         self.db.profile.showMinimapCapitalsFP = self.db.profile.showCapitalsFP
+        self.db.profile.showMinimapCapitalsRaces = self.db.profile.showCapitalsRaces
         -- Capitals Professions    
         self.db.profile.activate.MinimapCapitalsProfessions = self.db.profile.activate.CapitalsProfessions
         self.db.profile.showMinimapCapitalsProfessionOrders = self.db.profile.showCapitalsProfessionOrders
@@ -163,6 +164,7 @@ local db = ns.Addon.db.profile
         self.db.profile.showMiniMapDelves = self.db.profile.activate.ShowBlizzDelves
         self.db.profile.showMiniMapPortals = self.db.profile.showZonePortals
         self.db.profile.showMiniMapDarkmoon = self.db.profile.showZoneDarkmoon
+        self.db.profile.showMiniMapRaces = self.db.profile.showZoneRaces
         self.db.profile.showMiniMapZeppelins = self.db.profile.showZoneZeppelins
         self.db.profile.showMiniMapShips = self.db.profile.showZoneShips
         self.db.profile.showMiniMapTransport = self.db.profile.showZoneTransport

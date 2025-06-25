@@ -6,14 +6,14 @@ if DB.MyClass ~= "WARRIOR" then return end
 
 -- 战士的法术监控
 local list = {
-	["Player Aura"] = {		-- 玩家光环组
+	["Player Aura"] = { -- 玩家光环组
 		{AuraID =   32216, UnitID = "player"}, -- 胜利
 		{AuraID =  202602, UnitID = "player"}, -- 投入战斗
 		{AuraID =  200954, UnitID = "player"}, -- 战争疤痕
 		{AuraID =  202573, UnitID = "player"}, -- 报复
 		{AuraID =  202574, UnitID = "player"}, -- 报复
 	},
-	["Target Aura"] = {		-- 目标光环组
+	["Target Aura"] = { -- 目标光环组
 		{AuraID =     355, UnitID = "target", Caster = "player"}, -- 嘲讽
 		{AuraID =     772, UnitID = "target", Caster = "player"}, -- 撕裂
 		{AuraID =    1715, UnitID = "target", Caster = "player"}, -- 断筋
@@ -29,7 +29,7 @@ local list = {
 		{AuraID =  280773, UnitID = "target", Caster = "player"}, -- 破城者
 		{AuraID =  317491, UnitID = "target", Caster = "player", Value = true}, -- 有罪
 	},
-	["Special Aura"] = {	-- 玩家重要光环组
+	["Special Aura"] = { -- 玩家重要光环组
 		{AuraID =     871, UnitID = "player"}, -- 盾墙
 		{AuraID =    1719, UnitID = "player"}, -- 战吼
 		{AuraID =    7384, UnitID = "player", Stack = 2, Flash = true}, -- 压制

@@ -6,14 +6,14 @@ if DB.MyClass ~= "PRIEST" then return end
 
 -- 牧师的法术监控
 local list = {
-	["Player Aura"] = {		-- 玩家光环组
+	["Player Aura"] = { -- 玩家光环组
 		{AuraID =     586, UnitID = "player"}, -- 渐隐术
 		{AuraID =   45242, UnitID = "player"}, -- 专注意志
 		{AuraID =  121557, UnitID = "player"}, -- 天堂之羽
 		{AuraID =  194022, UnitID = "player"}, -- 意志坚定
 		{AuraID =  214121, UnitID = "player"}, -- 身心合一
 	},
-	["Target Aura"] = {		-- 目标光环组
+	["Target Aura"] = { -- 目标光环组
 		{AuraID =     139, UnitID = "target", Caster = "player"}, -- 恢复
 		{AuraID =     589, UnitID = "target", Caster = "player"}, -- 暗言术:痛
 		{AuraID =    8122, UnitID = "target", Caster = "player"}, -- 心灵尖啸
@@ -36,12 +36,12 @@ local list = {
 		{AuraID =  323673, UnitID = "target", Caster = "player"}, -- 控心术
 		{AuraID =  342132, UnitID = "target", Caster = "player"}, -- 盛怒法夜
 		{AuraID =  325203, UnitID = "target", Caster = "player"}, -- 邪恶灌注
-		{AuraID = 17, UnitID = "target", Caster = "player", Value = true}, -- 真言术：盾
+		{AuraID =      17, UnitID = "target", Caster = "player", Value = true}, -- 真言术：盾
 		{AuraID =  208772, UnitID = "target", Caster = "player", Value = true}, -- 惩击
 		{AuraID =  271466, UnitID = "target", Caster = "player", Value = true}, -- 微光屏障
 	},
-	["Special Aura"] = {	-- 玩家重要光环组
-		{AuraID = 17, UnitID = "player", Caster = "player"}, -- 真言术：盾
+	["Special Aura"] = { -- 玩家重要光环组
+		{AuraID =      17, UnitID = "player", Caster = "player"}, -- 真言术：盾
 		{AuraID =  194384, UnitID = "player", Caster = "player"}, -- 救赎
 		{AuraID =   27827, UnitID = "player"}, -- 救赎之魂
 		{AuraID =   47536, UnitID = "player"}, -- 全神贯注

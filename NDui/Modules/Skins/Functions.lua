@@ -214,6 +214,10 @@ do
 			if self.LevelBorder then self.LevelBorder:SetScale(.0001) end
 		end
 
+		if self.LevelDisplayFrame then
+			self.LevelDisplayFrame.LevelCircle:Hide()
+		end
+
 		self.squareBG = B.CreateBDFrame(self.Portrait, 1)
 
 		if self.PortraitRing then

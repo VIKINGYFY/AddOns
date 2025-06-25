@@ -6,7 +6,7 @@ if DB.MyClass ~= "DRUID" then return end
 
 -- 德鲁伊的法术监控
 local list = {
-	["Player Aura"] = {		-- 玩家光环组
+	["Player Aura"] = { -- 玩家光环组
 		{AuraID =    5215, UnitID = "player"}, -- 潜行
 		{AuraID =    1850, UnitID = "player"}, -- 急奔
 		{AuraID =  137452, UnitID = "player"}, -- 野性位移
@@ -19,8 +19,8 @@ local list = {
 		{AuraID =  102351, UnitID = "player", Caster = "player"}, -- 塞纳里奥结界
 		{AuraID =  155777, UnitID = "player", Caster = "player"}, -- 萌芽
 	},
-	["Target Aura"] = {		-- 目标光环组
-		{AuraID = 99, UnitID = "target", Caster = "player"}, -- 夺魂咆哮
+	["Target Aura"] = { -- 目标光环组
+		{AuraID =      99, UnitID = "target", Caster = "player"}, -- 夺魂咆哮
 		{AuraID =     339, UnitID = "target", Caster = "player"}, -- 纠缠根须
 		{AuraID =     774, UnitID = "target", Caster = "player"}, -- 回春术
 		{AuraID =    1079, UnitID = "target", Caster = "player"}, -- 割裂
@@ -50,7 +50,7 @@ local list = {
 		{AuraID =  102351, UnitID = "target", Caster = "player"}, -- 塞纳里奥结界
 		{AuraID =  200389, UnitID = "target", Caster = "player"}, -- 栽培
 	},
-	["Special Aura"] = {	-- 玩家重要光环组
+	["Special Aura"] = { -- 玩家重要光环组
 		{AuraID =    5217, UnitID = "player"}, -- 猛虎之怒
 		{AuraID =   48517, UnitID = "player"}, -- 日蚀
 		{AuraID =   48518, UnitID = "player"}, -- 月蚀

@@ -1,5 +1,5 @@
 local VERSION_TEXT = "v1.7.0";
-local VERSION_DATE = 1750300000;
+local VERSION_DATE = 1750700000;
 
 
 local addonName, addon = ...
@@ -144,6 +144,7 @@ local DefaultValues = {
     --New Expansion Landing Page
     NewExpansionLandingPage = true,
         LandingPage_Activity_HideCompleted = true,
+        LandingPage_Raid_CollapsedAchievement = false,
 
 
     --Custom Loot Window

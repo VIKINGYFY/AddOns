@@ -3,7 +3,7 @@ local B, C, L, DB = unpack(ns)
 
 -- 旧资料片数据 Auras for old expansions
 C.DeprecatedAuras = {
-	["Enchant Aura"] = {	-- 附魔及饰品组
+	["Enchant Aura"] = { -- 附魔及饰品组
 		-- SL S2，心能/统御碎片
 		{AuraID =  357852, UnitID = "player"}, -- 激励
 		{AuraID =  356364, UnitID = "player"}, -- 冰冷的心
@@ -199,7 +199,7 @@ C.DeprecatedAuras = {
 		{AuraID =  256828, UnitID = "player"}, -- 诺甘农的威能
 		{AuraID =  256836, UnitID = "player"}, -- 诺甘农的威能
 	},
-	["Raid Debuff"] = {		-- 团队减益组
+	["Raid Debuff"] = { -- 团队减益组
 		-- 9.0赛季词缀
 		{AuraID =  366288, UnitID = "player"}, -- 解构
 		{AuraID =  368239, UnitID = "player", Flash = true, Text = "CD"}, -- 减CD密文
@@ -890,7 +890,7 @@ C.DeprecatedAuras = {
 		{AuraID =  248396, UnitID = "player", Text = L["Get Out"]}, -- 灵魂凋零
 		{AuraID =  250669, UnitID = "player", Text = L["Get Out"]}, -- 灵魂爆发
 	},
-	["Warning"] = {			-- 目标重要光环组
+	["Warning"] = { -- 目标重要光环组
 	-- 9.0 词缀
 		{AuraID =  373724, UnitID = "target", Value = true}, -- S4，鲜血屏障
 		-- 5人本

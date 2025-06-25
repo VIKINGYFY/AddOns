@@ -6,7 +6,7 @@ if DB.MyClass ~= "DEATHKNIGHT" then return end
 
 -- DK的法术监控
 local list = {
-	["Player Aura"] = {		-- 玩家光环组
+	["Player Aura"] = { -- 玩家光环组
 		{AuraID =    3714, UnitID = "player"}, -- 冰霜之路
 		{AuraID =   47568, UnitID = "player"}, -- 符文武器增效
 		{AuraID =   48265, UnitID = "player"}, -- 死亡脚步
@@ -30,7 +30,7 @@ local list = {
 		{AuraID =  444347, UnitID = "player"}, -- 死亡冲锋
 
 	},
-	["Target Aura"] = {		-- 目标光环组
+	["Target Aura"] = { -- 目标光环组
 		{AuraID =   45524, UnitID = "target", Caster = "player"}, -- 寒冰锁链
 		{AuraID =   51714, UnitID = "target", Caster = "player"}, -- 锋锐之霜
 		{AuraID =   55078, UnitID = "target", Caster = "player"}, -- 血之疫病
@@ -50,7 +50,7 @@ local list = {
 		{AuraID =  458687, UnitID = "target", Caster = "player"}, -- 饮血者
 
 	},
-	["Special Aura"] = {	-- 玩家重要光环组
+	["Special Aura"] = { -- 玩家重要光环组
 		{AuraID =   51124, UnitID = "player"}, -- 杀戮机器
 		{AuraID =   51271, UnitID = "player"}, -- 冰霜之柱
 		{AuraID =   55233, UnitID = "player"}, -- 吸血鬼之血

@@ -356,7 +356,7 @@ function UF:OnLogin()
 
 		oUF:SetActiveStyle("Focus")
 		local focus = oUF:Spawn("focus", "oUF_Focus")
-		B.Mover(focus, L["FocusUF"], "FocusUF", C.UFs.FocusAuraPos)
+		B.Mover(focus, L["FocusUF"], "FocusUF", C.UFs.FocusPos)
 		UF.ToggleCastBar(focus, "Focus")
 
 		oUF:SetActiveStyle("FoT")

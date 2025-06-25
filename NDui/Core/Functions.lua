@@ -881,9 +881,9 @@ do
 	end
 
 	local AtlasToQuality = {
-		["error"] = -2,
-		["uncollected"] = -3,
-		["illusion"] = -3,
+		["error"] = -3,
+		["uncollected"] = -4,
+		["illusion"] = -4,
 		["gray"] = Enum.ItemQuality.Poor,
 		["white"] = Enum.ItemQuality.Common,
 		["green"] = Enum.ItemQuality.Uncommon,

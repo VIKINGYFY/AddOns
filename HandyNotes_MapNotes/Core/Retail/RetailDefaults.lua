@@ -22,6 +22,7 @@ ns.defaults = {
       ZoneAlphaOldVanilla = 1,
       ZoneScaleLFR = 2,
       ZoneAlphaLFR = 1,
+      
       -- Instance single MiniMap icon scale and alpha
       MiniMapInstanceScale = 2,
       MiniMapInstanceAlpha = 1,
@@ -59,6 +60,9 @@ ns.defaults = {
       ZoneAlphaTravel = 1,
       ZoneScaleDarkmoon = 1.5,
       ZoneAlphaDarkmoon = 1,
+      ZoneScaleRaces = 1.5,
+      ZoneAlphaRaces = 1,
+
       -- Transport single MiniMap icon scale and alpha 
       MiniMapTransportScale = 1.5,
       MiniMapTransportAlpha = 1,
@@ -80,6 +84,8 @@ ns.defaults = {
       MiniMapAlphaTravel = 1,
       MiniMapScaleDarkmoon = 1.5,
       MiniMapAlphaDarkmoon = 1,
+      MiniMapScaleRaces = 1.5,
+      MiniMapAlphaRaces = 1,
 
     -- General single Zone icon scale and alpha
       ZoneGeneralScale = 1.5,
@@ -222,6 +228,7 @@ ns.defaults = {
       showMiniMapMirror = true,
       showMiniMapTravel = true,
       showMiniMapDarkmoon = true,
+      showMiniMapRaces = true,
     -- MiniMap Professions
       MiniMapProfessionsScale = 1.5,
       MiniMapProfessionsAlpha = 1,
@@ -285,7 +292,6 @@ ns.defaults = {
       showZoneOldVanilla = true,
       showZoneLFR = true,
     -- Zone Transport
-
       showZonePortals = true,
       showZoneZeppelins = true,
       showZoneShips = true,
@@ -295,6 +301,7 @@ ns.defaults = {
       showZoneMirror = true,
       showZoneTravel = true,
       showZoneDarkmoon = true,
+      showZoneRaces = true,
       -- Zone Professions
       ZoneProfessionsScale = 1.5,
       ZoneProfessionsAlpha = 1,
@@ -351,6 +358,7 @@ ns.defaults = {
       showContinentProfessions = true,
       showContinentDelves = true,
       showContinentPaths = true,
+      showContinentRaces = true,
       showContinentFP = true, -- only Classic and Cataclym
       showContinentPvPandPvEVendor = true,
       showContinentKalimdor = true,
@@ -381,6 +389,7 @@ ns.defaults = {
       showAzerothOldVanilla = true,
       showAzerothLFR = true,
       showAzerothDelves = true,
+      showAzerothRaces = true,
       showAzerothFP = true, -- only classic +
       showAzerothKalimdor = true,
       showAzerothEasternKingdom = true,
@@ -438,6 +447,7 @@ ns.defaults = {
       showCapitalsValdrakken = true,
       showCapitalsDornogal = true,
       showCapitalsDarkmoon = true,
+      showCapitalsRaces = true,
 
     --Capital Instances
       CapitalsInstanceScale = 2,
@@ -523,6 +533,7 @@ ns.defaults = {
       showMinimapCapitalsValdrakken = true,
       showMinimapCapitalsDornogal = true,
       showMinimapCapitalsDarkmoon = true,
+      showMinimapCapitalsRaces = true,
 
     --Capital Minimap Instances
       MinimapCapitalsInstanceScale = 1.5,
@@ -591,6 +602,7 @@ ns.defaults = {
         HideMMB = false,
         EnemyFaction = true,
         ShiftWorld = false,
+        showRacesIconsDiscovered = false,
         MinimapArrow = true,
         MinimapArrowOnEnter = false,
         MinimapArrowOnEnterTime = 3,

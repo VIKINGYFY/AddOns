@@ -6,7 +6,7 @@ if DB.MyClass ~= "MAGE" then return end
 
 -- 法师的法术监控
 local list = {
-	["Player Aura"] = {		-- 玩家光环组
+	["Player Aura"] = { -- 玩家光环组
 		{AuraID =     130, UnitID = "player"}, -- 缓落
 		{AuraID =   32612, UnitID = "player"}, -- 隐形术
 		{AuraID =   87023, UnitID = "player"}, -- 灸灼
@@ -16,7 +16,7 @@ local list = {
 		{AuraID =  110960, UnitID = "player"}, -- 强化隐形术
 		{AuraID =  157644, UnitID = "player"}, -- 强化烟火之术
 	},
-	["Target Aura"] = {		-- 目标光环组
+	["Target Aura"] = { -- 目标光环组
 		{AuraID =     118, UnitID = "target", Caster = "player"}, -- 变形术
 		{AuraID =     122, UnitID = "target", Caster = "player"}, -- 冰霜新星
 		{AuraID =   12654, UnitID = "target", Caster = "player"}, -- 点燃
@@ -47,8 +47,8 @@ local list = {
 		{AuraID =  307443, UnitID = "target", Caster = "player"}, -- 摧残火花
 		{AuraID =  314793, UnitID = "target", Caster = "player"}, -- 折磨之镜
 	},
-	["Special Aura"] = {	-- 玩家重要光环组
-		{AuraID = 66, UnitID = "player"}, -- 隐形术
+	["Special Aura"] = { -- 玩家重要光环组
+		{AuraID =      66, UnitID = "player"}, -- 隐形术
 		{AuraID =   45438, UnitID = "player"}, -- 寒冰屏障
 		{AuraID =   36032, UnitID = "player"}, -- 奥术充能
 		{AuraID =   12042, UnitID = "player"}, -- 奥术强化

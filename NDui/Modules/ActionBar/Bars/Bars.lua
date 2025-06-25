@@ -3,7 +3,7 @@ local B, C, L, DB = unpack(ns)
 local Bar = B:RegisterModule("Actionbar")
 local LAB = LibStub("LibActionButton-1.0-NDui")
 
-local margin, padding = C.Bars.margin, C.Bars.padding
+local margin, padding = DB.margin, DB.padding
 
 function Bar:UpdateAllSize()
 	if not C.db["Actionbar"]["Enable"] then return end

@@ -348,7 +348,7 @@ function TT:GameTooltip_SetDefaultAnchor(parent)
 	self:SetOwner(parent, cursorIndex[mode])
 	if mode == 1 then
 		if not mover then
-			mover = B.Mover(self, L["Tooltip"], "GameTooltip", C.Tooltips.TipPos, 100, 100)
+			mover = B.Mover(self, L["Tooltip"], "GameTooltip", C.Tooltips.Pos, 100, 100)
 		end
 		self:ClearAllPoints()
 		self:SetPoint(anchorIndex[C.db["Tooltip"]["TipAnchor"]], mover)

@@ -3,6 +3,15 @@ local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "koKR")
 if not L then return end
 
 -- new
+L["These icons disappear from the map after discovery"] = "이 아이콘들은 발견 후 지도에서 사라집니다"
+L["However, they can be displayed again in the General tab under Advanced Options using the 'Races +' option"] = "그러나 일반 탭의 고급 옵션에서 '종족 +' 옵션을 사용하여 다시 표시할 수 있습니다"
+L["Icons that have already been discovered will be marked with the suffix 'already learned'"] = "이미 발견한 아이콘은 '이미 배움' 접미사로 표시됩니다"
+L["Icons that have not yet been discovered will be marked with the suffix 'not yet unlocked'"] = "아직 발견하지 않은 아이콘은 '아직 잠금 해제되지 않음' 접미사로 표시됩니다"
+L["Normally, special race icons are automatically hidden after being discovered. They are only visible once in the game and disappear after you interact with them"] = "특수 종족 아이콘은 발견되면 자동으로 숨겨집니다. 게임에서 한 번만 표시되며 상호작용 후 사라집니다"
+L["This will redisplay the previously discovered icons of the race category on all maps"] = "이 옵션은 이전에 발견한 종족 카테고리 아이콘을 모든 지도에 다시 표시합니다"
+L["Travel to this point and click on the mole machine on site to unlock it"] = "이 지점으로 이동하여 현장에서 두더지 기계를 클릭하여 잠금 해제하세요"
+L["The icons are only visible if you belong to the corresponding race"] = "해당 종족에 속한 경우에만 아이콘이 표시됩니다"
+L["Otherwise, the icons in this category are not visible to you"] = "그렇지 않으면 이 범주의 아이콘은 표시되지 않습니다"
 L["The MapNotes player arrow disappears from the minimap for the set number of seconds when you hover over it"] = "마우스를 올리면 설정된 시간 동안 미니맵에서 MapNotes 플레이어 화살표가 사라집니다"
 L["This makes it easier for the player to see which other icon is currently under the player"] = "이를 통해 플레이어가 현재 플레이어 아래에 있는 다른 아이콘을 쉽게 볼 수 있습니다"
 L["Unfortunately does not work in instances"] = "인스턴스에서는 작동하지 않습니다"
