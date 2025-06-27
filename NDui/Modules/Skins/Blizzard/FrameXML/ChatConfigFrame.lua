@@ -177,16 +177,17 @@ C.OnLoginThemes["ChatConfigFrame"] = function()
 
 	-- TextToSpeech
 	B.StripTextures(TextToSpeechButton, 5)
-
-	B.ReskinButton(TextToSpeechFramePlaySampleButton)
-	B.ReskinButton(TextToSpeechFramePlaySampleAlternateButton)
 	B.ReskinButton(TextToSpeechDefaultButton)
 	B.ReskinCheck(TextToSpeechCharacterSpecificButton)
 
-	B.ReskinDropDown(TextToSpeechFrameTtsVoiceDropdown)
-	B.ReskinDropDown(TextToSpeechFrameTtsVoiceAlternateDropdown)
-	B.ReskinSlider(TextToSpeechFrameAdjustRateSlider)
-	B.ReskinSlider(TextToSpeechFrameAdjustVolumeSlider)
+	if not DB.isNewPatch then
+		B.Reskin(TextToSpeechFramePlaySampleButton)
+		B.Reskin(TextToSpeechFramePlaySampleAlternateButton)
+		B.ReskinDropDown(TextToSpeechFrameTtsVoiceDropdown)
+		B.ReskinDropDown(TextToSpeechFrameTtsVoiceAlternateDropdown)
+		B.ReskinSlider(TextToSpeechFrameAdjustRateSlider)
+		B.ReskinSlider(TextToSpeechFrameAdjustVolumeSlider)
+	end
 
 	local checkboxes = {
 		"PlayActivitySoundWhenNotFocusedCheckButton",

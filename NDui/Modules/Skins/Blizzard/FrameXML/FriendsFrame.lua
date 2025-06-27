@@ -119,7 +119,6 @@ C.OnLoginThemes["FriendsFrame"] = function()
 	B.ReskinFrame(AddFriendFrame)
 	B.ReskinButton(AddFriendEntryFrameAcceptButton)
 	B.ReskinButton(AddFriendEntryFrameCancelButton)
-	B.ReskinButton(AddFriendInfoFrameContinueButton)
 	B.ReskinInput(AddFriendNameEditBox)
 
 	B.ReskinFrame(FriendsFrame)
@@ -149,10 +148,13 @@ C.OnLoginThemes["FriendsFrame"] = function()
 	end
 
 	B.StripTextures(WhoFrameListInset)
-	WhoFrameEditBoxInset:Hide()
-	local whoBg = B.CreateBDFrame(WhoFrameEditBox, 0, true)
-	whoBg:SetPoint("TOPLEFT", WhoFrameEditBoxInset)
-	whoBg:SetPoint("BOTTOMRIGHT", WhoFrameEditBoxInset, -1, 1)
+	if not DB.isNewPatch then
+		WhoFrameEditBoxInset:Hide()
+		local whoBg = B.CreateBDFrame(WhoFrameEditBox, 0, true)
+		whoBg:SetPoint("TOPLEFT", WhoFrameEditBoxInset)
+		whoBg:SetPoint("BOTTOMRIGHT", WhoFrameEditBoxInset, -1, 1)
+		B.ReskinButton(AddFriendInfoFrameContinueButton)
+	end
 
 	for i = 1, 3 do
 		B.StripTextures(_G["FriendsTabHeaderTab"..i])

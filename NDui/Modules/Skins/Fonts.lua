@@ -12,13 +12,45 @@ local function ReskinFont(font, size)
 	B.SetFontSize(font, size*C.db["Skins"]["FontScale"])
 end
 
+local function Fixed_UpdateStatusText(frame)
+	if frame:IsForbidden() then return end
+	if not frame.statusText then return end
+
+	local options = DefaultCompactMiniFrameSetUpOptions
+	frame.statusText:ClearAllPoints()
+	frame.statusText:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 3, options.height/3 - 5)
+	frame.statusText:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -3, options.height/3 - 5)
+
+	if not frame.fontStyled then
+		ReskinFont(frame.statusText)
+		B.ReskinText(frame.statusText, 1, 1, 1)
+
+		frame.fontStyled = true
+	end
+end
+
 C.OnLoginThemes["Fonts"] = function()
 	if not C.db["Skins"]["BlizzardSkins"] then return end
 
 	-- Text color
-	GameFontBlack:SetTextColor(1, 1, 1)
-	GameFontBlackMedium:SetTextColor(1, 1, 1)
-	CoreAbilityFont:SetTextColor(1, 1, 1)
+	local yellowList = {
+		InvoiceTextFontNormal,
+	}
+	for _, font in pairs(yellowList) do
+		B.ReskinText(font, 1, .8, 0)
+	end
+
+	local whiteList = {
+		CoreAbilityFont,
+		GameFontBlack,
+		GameFontBlackMedium,
+		InvoiceTextFontSmall,
+		MailTextFontNormal,
+		QuestFont,
+	}
+	for _, font in pairs(whiteList) do
+		B.ReskinText(font, 1, 1, 1)
+	end
 
 	if not C.db["Skins"]["FontOutline"] then return end
 
@@ -155,21 +187,5 @@ C.OnLoginThemes["Fonts"] = function()
 	end
 
 	-- Refont RaidFrame Health
-	hooksecurefunc("CompactUnitFrame_UpdateStatusText", function(frame)
-		if frame:IsForbidden() then return end
-		if not frame.statusText then return end
-
-		local options = DefaultCompactMiniFrameSetUpOptions
-		frame.statusText:ClearAllPoints()
-		frame.statusText:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 3, options.height/3 - 5)
-		frame.statusText:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -3, options.height/3 - 5)
-
-		if not frame.fontStyled then
-			local fontName, fontSize = frame.statusText:GetFont()
-			frame.statusText:SetFont(fontName, fontSize, "OUTLINE")
-			frame.statusText:SetTextColor(1, 1, 1)
-			frame.statusText:SetShadowColor(0, 0, 0, 0)
-			frame.fontStyled = true
-		end
-	end)
+	hooksecurefunc("CompactUnitFrame_UpdateStatusText", Fixed_UpdateStatusText)
 end

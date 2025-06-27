@@ -1,0 +1,34 @@
+lightweight tag 558e835f01cc033401ccf92140f7e36c4a853974 v2.6.0
+Author:	GitHub <noreply@github.com>
+Date:	Fri Jun 27 10:45:08 2025 +0100
+
+commit ef6aab0cdd191433fa5489f9844dc534f4dca1e5
+Author: Cameron Liddell <camyana65@gmail.com>
+Date:   Fri Jun 27 10:38:12 2025 +0100
+
+    mounts per row setting added.
+
+commit ef6aab0cdd191433fa5489f9844dc534f4dca1e5
+Author: Cameron Liddell <camyana65@gmail.com>
+Date:   Fri Jun 27 10:38:12 2025 +0100
+
+    mounts per row setting added.
+
+commit ef6aab0cdd191433fa5489f9844dc534f4dca1e5
+Author: Cameron Liddell <camyana65@gmail.com>
+Date:   Fri Jun 27 10:38:12 2025 +0100
+
+    mounts per row setting added.
+
+commit eaf4a84e956545e09a3cc1c2375135052c7297a9
+Author: Cameron Liddell <camyana65@gmail.com>
+Date:   Fri Jun 27 10:07:36 2025 +0100
+
+    v2.6.0
+
+commit 4dc1ad4c2a09e865665bc57e38ab03f626160953
+Author: Teddy Zhang <lostindark@gmail.com>
+Date:   Thu Jun 26 23:16:24 2025 -0700
+
+    Update zhTW translation
+
