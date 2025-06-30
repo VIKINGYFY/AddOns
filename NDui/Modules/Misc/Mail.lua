@@ -77,7 +77,6 @@ function M:ContactButton_Create(parent, index)
 
 	button.name = B.CreateFS(button, 13, "Name", false, "LEFT", 0, 0)
 	button.name:SetPoint("RIGHT", button, "LEFT", 155, 0)
-	button.name:SetJustifyH("LEFT")
 
 	button:RegisterForClicks("AnyDown")
 	button:SetScript("OnClick", M.ContactButton_OnClick)

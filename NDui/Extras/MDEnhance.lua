@@ -97,12 +97,12 @@ local MapList = {
 local SpellList = {}
 function EX:MDEnhance_UpdateList()
 	for mapID, spellIDs in pairs(MapList) do
-		local spellID = self:MDEnhance_SelectSpellID(spellIDs)
+		local spellID = self:MDEnhance_SelectID(spellIDs)
 		if spellID then SpellList[spellID] = mapID end
 	end
 end
 
-function EX:MDEnhance_SelectSpellID(spellIDs)
+function EX:MDEnhance_SelectID(spellIDs)
 	if #spellIDs > 1 then
 		for _, spellID in pairs(spellIDs) do
 			if IsSpellKnown(spellID) then
@@ -114,7 +114,7 @@ function EX:MDEnhance_SelectSpellID(spellIDs)
 	return spellIDs[1]
 end
 
-function EX:TButton_OnEnter(parent, spellID)
+local function Button_OnEnter(parent, spellID)
 	local dungeonIcon = parent:GetParent()
 	if not dungeonIcon then return end
 
@@ -122,8 +122,8 @@ function EX:TButton_OnEnter(parent, spellID)
 	if dungeonIcon_OnEnter then dungeonIcon_OnEnter(dungeonIcon) end
 
 	local _, _, timeLimit = C_ChallengeMode.GetMapUIInfo(dungeonIcon.mapID)
-	GameTooltip:AddLine(L["+2timeLimit"]..SecondsToClock(timeLimit*.8), 1, 1, 0)
-	GameTooltip:AddLine(L["+3timeLimit"]..SecondsToClock(timeLimit*.6), 0, 1, 0)
+	GameTooltip:AddLine("加二 "..SecondsToClock(timeLimit*.8), 1, 1, 0)
+	GameTooltip:AddLine("加三 "..SecondsToClock(timeLimit*.6), 0, 1, 0)
 	GameTooltip:AddLine(" ")
 
 	if spellID then
@@ -144,12 +144,12 @@ function EX:TButton_OnEnter(parent, spellID)
 	end
 
 	GameTooltip:AddLine(" ")
-	GameTooltip:AddLine(L["MapID"]..dungeonIcon.mapID, 1, 1, 1)
+	GameTooltip:AddLine("地图ID: "..dungeonIcon.mapID, 1, 1, 1)
 
 	GameTooltip:Show()
 end
 
-function EX:TButton_OnLeave(parent)
+local function Button_OnLeave(parent)
 	GameTooltip:Hide()
 end
 
@@ -157,11 +157,11 @@ function EX:MDEnhance_UpdateEnhance(parent, spellIDs)
 	if not parent then return end
 	parent.BScore:SetText("")
 
-	local spellID = self:MDEnhance_SelectSpellID(spellIDs)
+	local spellID = self:MDEnhance_SelectID(spellIDs)
 	parent.TButton:SetAttribute("type", "spell")
 	parent.TButton:SetAttribute("spell", spellID)
-	parent.TButton:SetScript("OnEnter", function(parent) EX:TButton_OnEnter(parent, spellID) end)
-	parent.TButton:SetScript("OnLeave", function(parent) EX:TButton_OnLeave(parent) end)
+	parent.TButton:SetScript("OnEnter", function(parent) Button_OnEnter(parent, spellID) end)
+	parent.TButton:SetScript("OnLeave", function(parent) Button_OnLeave(parent) end)
 
 	local affixScores, bestScore = C_MythicPlus.GetSeasonBestAffixScoreInfoForMap(parent.mapID)
 	if not affixScores or not bestScore then return end
@@ -212,7 +212,7 @@ end
 
 function EX:MDEnhance_Notification(unit, casterID, spellID)
 	if unit == "player" and SpellList[spellID] then
-		SendChatMessage(format(L["CastAlertInfo"], UnitName("player"), C_Spell.GetSpellLink(spellID) or C_Spell.GetSpellName(spellID), C_ChallengeMode.GetMapUIInfo(SpellList[spellID])), B.GetMSGChannel())
+		SendChatMessage(format("%s 开启 %s，前往 %s ！", UnitName("player"), C_Spell.GetSpellLink(spellID) or C_Spell.GetSpellName(spellID), C_ChallengeMode.GetMapUIInfo(SpellList[spellID])), B.GetMSGChannel())
 	end
 end
 

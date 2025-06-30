@@ -270,22 +270,23 @@ C.OnLoginThemes["CharacterFrame"] = function()
 		self:ForEachFrame(handleCurrencyIcon)
 	end)
 
-	B.ReskinFrame(CurrencyTransferMenu)
-	if not DB.isNewPatch then
-		B.CreateBDFrame(CurrencyTransferMenu.SourceSelector, .25)
-		CurrencyTransferMenu.SourceSelector.SourceLabel:SetWidth(56)
-		B.ReskinDropDown(CurrencyTransferMenu.SourceSelector.Dropdown)
-		B.ReskinIcon(CurrencyTransferMenu.SourceBalancePreview.BalanceInfo.CurrencyIcon)
-		B.ReskinIcon(CurrencyTransferMenu.PlayerBalancePreview.BalanceInfo.CurrencyIcon)
-		B.ReskinButton(CurrencyTransferMenu.ConfirmButton)
-		B.ReskinButton(CurrencyTransferMenu.CancelButton)
+	local transferMenu = CurrencyTransferMenu.Content or CurrencyTransferMenu -- isNewPatch
+	if transferMenu then
+		B.ReskinFrame(CurrencyTransferMenu)
+		B.CreateBDFrame(transferMenu.SourceSelector, .25)
+		transferMenu.SourceSelector.SourceLabel:SetWidth(56)
+		B.ReskinDropDown(transferMenu.SourceSelector.Dropdown)
+		B.ReskinIcon(transferMenu.SourceBalancePreview.BalanceInfo.CurrencyIcon)
+		B.ReskinIcon(transferMenu.PlayerBalancePreview.BalanceInfo.CurrencyIcon)
+		B.ReskinButton(transferMenu.ConfirmButton)
+		B.ReskinButton(transferMenu.CancelButton)
 
-		local amountSelector = CurrencyTransferMenu.AmountSelector
+		local amountSelector = transferMenu.AmountSelector
 		if amountSelector then
 			B.CreateBDFrame(amountSelector, .25)
 			B.ReskinButton(amountSelector.MaxQuantityButton)
 			B.ReskinInput(amountSelector.InputBox)
-			amountSelector.InputBox.__bg:SetInside(nil, 3, 3)
+			B.UpdateSize(amountSelector.InputBox.__bg, 3, -3, -9, 9)
 		end
 	end
 

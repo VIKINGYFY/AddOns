@@ -15,7 +15,6 @@ LightLoot:RegisterEvent("LOOT_CLOSED")
 LightLoot:RegisterEvent("OPEN_MASTER_LOOT_LIST")
 LightLoot:RegisterEvent("UPDATE_MASTER_LOOT_LIST")
 LightLoot:SetFrameStrata("HIGH")
-LightLoot:SetParent(UIParent)
 LightLoot:SetToplevel(true)
 LightLoot:Hide()
 
@@ -45,28 +44,24 @@ local function SetLootTooltip(self)
 	end
 end
 
-local function OnEnter(self)
+local function Button_OnEnter(self)
 	SetLootTooltip(self)
 	CursorUpdate(self)
-
-	self.glow:Show()
 end
 
-local function OnLeave(self)
+local function Button_OnLeave(self)
 	GameTooltip:Hide()
 	ResetCursor()
-
-	self.glow:Hide()
 end
 
-local function OnUpdate(self)
+local function Button_OnUpdate(self)
 	if GameTooltip:IsOwned(self) then
 		SetLootTooltip(self)
 		CursorOnUpdate(self)
 	end
 end
 
-local function OnClick(self)
+local function Button_OnClick(self)
 	_G.LootFrame.selectedItemName = self.name:GetText()
 	_G.LootFrame.selectedLootFrame = self:GetName()
 	_G.LootFrame.selectedQuality = self.quality
@@ -83,59 +78,98 @@ local function OnClick(self)
 end
 
 local function CreateSlot(index)
-	local button = CreateFrame("Button", "LightLootSlot"..index, LightLoot, "BackdropTemplate")
-	button:SetHeight(math.max(fontSize, iconSize))
-	button:SetPoint("LEFT", LightLoot, "LEFT", DB.margin, 0)
-	button:SetPoint("RIGHT", LightLoot, "RIGHT", -DB.margin, 0)
-	button:SetID(index)
+	if not LightLoot.slots[index] then
+		local button = CreateFrame("Button", "LightLootSlot"..index, LightLoot, "BackdropTemplate")
+		button:SetHighlightTexture(DB.bdTex)
+		button:SetHeight(math.max(fontSize, iconSize))
+		button:SetPoint("LEFT", LightLoot, "LEFT", DB.margin, 0)
+		button:SetPoint("RIGHT", LightLoot, "RIGHT", -DB.margin, 0)
+		button:SetID(index)
 
-	button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-	button:SetScript("OnEnter", OnEnter)
-	button:SetScript("OnLeave", OnLeave)
-	button:SetScript("OnClick", OnClick)
-	button:SetScript("OnUpdate", OnUpdate)
+		button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+		button:SetScript("OnEnter", Button_OnEnter)
+		button:SetScript("OnLeave", Button_OnLeave)
+		button:SetScript("OnClick", Button_OnClick)
+		button:SetScript("OnUpdate", Button_OnUpdate)
 
-	local border = CreateFrame("Frame", nil, button, "BackdropTemplate")
-	border:SetSize(iconSize, iconSize)
-	border:SetPoint("LEFT", button, "LEFT")
-	B.CreateBD(border, .25)
-	button.border = border
+		local border = CreateFrame("Frame", nil, button, "BackdropTemplate")
+		border:SetSize(iconSize, iconSize)
+		border:SetPoint("LEFT", button, "LEFT")
+		B.CreateBD(border, .25)
+		button.border = border
 
-	local icon = border:CreateTexture(nil, "ARTWORK")
-	icon:SetTexCoord(unpack(DB.TexCoord))
-	icon:SetInside(border)
-	icon:SetTexture("")
-	button.icon = icon
+		local icon = border:CreateTexture(nil, "ARTWORK")
+		icon:SetTexCoord(unpack(DB.TexCoord))
+		icon:SetInside(border)
+		icon:SetTexture("")
+		button.icon = icon
 
-	local tier = border:CreateTexture(nil, "OVERLAY")
-	tier:SetPoint("TOPLEFT", -3, 2)
-	tier:SetAtlas("")
-	button.tier = tier
+		local tier = border:CreateTexture(nil, "OVERLAY")
+		tier:SetPoint("TOPLEFT", -3, 2)
+		tier:SetAtlas("")
+		button.tier = tier
 
-	local glow = button:CreateTexture(nil, "HIGHLIGHT")
-	glow:SetAlpha(.5)
-	glow:SetPoint("TOPLEFT", border, "TOPRIGHT", DB.margin, 0)
-	glow:SetPoint("BOTTOMLEFT", border, "BOTTOMRIGHT", DB.margin, 0)
-	glow:SetPoint("RIGHT", button, "RIGHT")
-	glow:SetTexture(DB.bdTex)
-	glow:SetVertexColor(cr, cg, cb)
-	glow:Hide()
-	button.glow = glow
+		local glow = button:GetHighlightTexture()
+		glow:SetVertexColor(cr, cg, cb, .5)
+		glow:SetPoint("TOPLEFT", border, "TOPRIGHT", DB.margin, 0)
+		glow:SetPoint("BOTTOMLEFT", border, "BOTTOMRIGHT", DB.margin, 0)
+		glow:SetPoint("RIGHT", button, "RIGHT")
+		button.glow = glow
 
-	local name = B.CreateFS(border, 14, "")
-	name:SetJustifyH("LEFT")
-	name:SetNonSpaceWrap(true)
-	B.UpdatePoint(name, "LEFT", border, "RIGHT", DB.margin, 0)
-	button.name = name
+		local name = B.CreateFS(border, 14, "")
+		name:SetJustifyH("LEFT")
+		B.UpdatePoint(name, "LEFT", border, "RIGHT", DB.margin, 0)
+		button.name = name
 
-	local count = B.CreateFS(border, 12, "", false, "BOTTOMRIGHT", -1, 1)
-	button.count = count
+		local count = B.CreateFS(border, 12, "", false, "BOTTOMRIGHT", -1, 1)
+		button.count = count
 
-	local quest = B.CreateFS(border, 16, "", false, "LEFT", 3, 0)
-	button.quest = quest
+		local quest = B.CreateFS(border, 16, "", false, "LEFT", 3, 0)
+		button.quest = quest
 
-	LightLoot.slots[index] = button
-	return button
+		LightLoot.slots[index] = button
+	end
+
+	return LightLoot.slots[index]
+end
+
+local function UpdateSlot(slot, index)
+	local lootIcon, lootName, lootQuantity, currencyID, lootQuality, isLocked, isQuestItem, questID, isActive = GetLootSlotInfo(index)
+	local r, g, b = C_Item.GetItemQualityColor(lootQuality or 0)
+	local slotType = GetLootSlotType(index)
+	local slotLink = GetLootSlotLink(index)
+
+	if slotType == Enum.LootSlotType.Money then
+		lootName = lootName:gsub("\n", "，")
+	end
+
+	if questId or isQuestItem then
+		r, g, b = 1, 1, 0
+	end
+
+	local itemTier = slotLink and C_TradeSkillUI.GetItemReagentQualityByItemInfo(slotLink)
+	if itemTier then
+		slot.tier:SetAtlas(format("Professions-Icon-Quality-Tier%d-Inv", itemTier), true)
+	end
+
+	if lootQuantity and lootQuantity > 1 then
+		slot.count:SetText(B.Numb(lootQuantity))
+		slot.count:SetTextColor(r, g, b)
+	end
+
+	if questId and not isActive then
+		slot.quest:SetText("!")
+		slot.quest:SetTextColor(r, g, b)
+	end
+
+	slot.name:SetText(lootName)
+	slot.name:SetTextColor(r, g, b)
+	slot.icon:SetTexture(lootIcon)
+	slot.border:SetBackdropBorderColor(r, g, b)
+	slot.quality = lootQuality or 0
+
+	slot:Enable()
+	slot:Show()
 end
 
 local function ClearSlot(slot)
@@ -182,53 +216,12 @@ function LightLoot:UpdateSelf()
 	end
 end
 
-function LightLoot:UpdateSlot(index)
-	local slot = self.slots[index] or CreateSlot(index)
-
-	local lootIcon, lootName, lootQuantity, currencyID, lootQuality, isLocked, isQuestItem, questID, isActive = GetLootSlotInfo(index)
-	local r, g, b = C_Item.GetItemQualityColor(lootQuality or 0)
-	local slotType = GetLootSlotType(index)
-	local slotLink = GetLootSlotLink(index)
-
-	if slotType == Enum.LootSlotType.Money then
-		lootName = lootName:gsub("\n", "，")
-	end
-
-	if questId or isQuestItem then
-		r, g, b = 1, 1, 0
-	end
-
-	local itemTier = slotLink and C_TradeSkillUI.GetItemReagentQualityByItemInfo(slotLink)
-	if itemTier then
-		slot.tier:SetAtlas(format("Professions-Icon-Quality-Tier%d-Inv", itemTier), true)
-	end
-
-	if lootQuantity and lootQuantity > 1 then
-		slot.count:SetText(B.Numb(lootQuantity))
-		slot.count:SetTextColor(r, g, b)
-	end
-
-	if questId and not isActive then
-		slot.quest:SetText("!")
-		slot.quest:SetTextColor(r, g, b)
-	end
-
-	slot.name:SetText(lootName)
-	slot.name:SetTextColor(r, g, b)
-	slot.icon:SetTexture(lootIcon)
-	slot.border:SetBackdropBorderColor(r, g, b)
-	slot.quality = lootQuality or 0
-
-	slot:Enable()
-	slot:Show()
-end
-
 function LightLoot:PLAYER_LOGIN()
 	B.CreateMF(self)
 
-	self.Title = B.CreateFS(self, 18, "", false, "TOP", 0, 20)
-	self.Border = B.SetBD(self)
 	self.slots = {}
+	self.Border = B.SetBD(self)
+	self.Title = B.CreateFS(self, 18, "", false, "TOP", 0, 20)
 
 	_G.LootFrame:UnregisterAllEvents()
 	table.insert(_G.UISpecialFrames, "LightLoot")
@@ -267,7 +260,8 @@ function LightLoot:LOOT_OPENED(event, autoloot)
 	local items = GetNumLootItems()
 	if items > 0 then
 		for index = 1, items do
-			self:UpdateSlot(index)
+			local slot = self.slots[index] or CreateSlot(index)
+			UpdateSlot(slot, index)
 		end
 	end
 
@@ -286,7 +280,9 @@ end
 function LightLoot:LOOT_SLOT_CHANGED(event, index)
 	if not self:IsShown() then return end
 
-	self:UpdateSlot(index)
+	local slot = self.slots[index]
+	if slot then UpdateSlot(slot, index) end
+
 	self:UpdateSelf()
 end
 

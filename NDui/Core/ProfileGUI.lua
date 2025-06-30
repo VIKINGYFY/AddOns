@@ -332,7 +332,6 @@ function G:CreateProfileGUI(parent)
 	local description = B.CreateFS(parent, 14, L["Profile Description"], nil, "TOPLEFT", 10, -35)
 	description:SetPoint("TOPRIGHT", -10, -30)
 	description:SetWordWrap(true)
-	description:SetJustifyH("LEFT")
 
 	local delete = B.CreateEditBox(parent, 245, 24)
 	delete:SetPoint("BOTTOMLEFT", import, "TOPLEFT", 0, 2)

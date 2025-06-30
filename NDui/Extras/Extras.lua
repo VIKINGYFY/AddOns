@@ -17,12 +17,13 @@ function EX:OnLogin()
 		end
 	end
 
-	self:ActionBarGlow()
 	self:DisableAddOnProfiler()
 	self:DisableGuildFilter()
 	self:InstanceAutoMarke()
 	self:InstanceDifficulty()
 	self:InstanceReset()
+
+	self:ActionBarGlow()
 	self:MDEnhance()
 
 	if C.db["Misc"]["AutoConfirm"] then self:AutoConfirm() end
@@ -80,9 +81,9 @@ function EX.UpdateInstanceDifficulty()
 					difficultyName = difficultyName.."-"..C_ChallengeMode.GetActiveKeystoneInfo()
 				end
 				if not IsInGroup() then
-					UIErrorsFrame:AddMessage(format(DB.InfoColor..L["Instance Difficulty"], difficultyName))
+					UIErrorsFrame:AddMessage(format(DB.InfoColor.."当前副本难度：%s", difficultyName))
 				else
-					SendChatMessage(format(L["Instance Difficulty"], difficultyName), B.GetMSGChannel())
+					SendChatMessage(format("当前副本难度：%s", difficultyName), B.GetMSGChannel())
 				end
 			end
 		end

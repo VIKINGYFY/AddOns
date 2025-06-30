@@ -595,6 +595,7 @@ do
 		local fs = self:CreateFontString(nil, "OVERLAY")
 		fs:SetFont(DB.Font[1], size, DB.Font[3])
 		fs:SetShadowColor(0, 0, 0, 0)
+		fs:SetNonSpaceWrap(true)
 		fs:SetWordWrap(false)
 		fs:SetText(text)
 

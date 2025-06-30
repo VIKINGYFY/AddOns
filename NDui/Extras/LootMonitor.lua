@@ -1,22 +1,17 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-local Button_Height = 16
-local LMFrame_Width = 200
+local frameWidth, buttonHeight = 200, 16
+local maxLines, minQuality, inGroup = 20, 3, false
 
-local LMFrame_Report = {}
-local LMFrame_CFG = {
-	maxLines = 20,
-	minQuality = 3,
-	inGroup = false,
-}
+local LootMonitor = CreateFrame("Frame", "LootMonitor", UIParent, "BackdropTemplate")
+LootMonitor:SetFrameStrata("HIGH")
+LootMonitor:RegisterEvent("PLAYER_LOGIN")
+LootMonitor:RegisterEvent("CHAT_MSG_LOOT")
 
-local LM_Message_Info = {
-	L["LM Message 1"],
-	L["LM Message 2"],
-	L["LM Message 3"],
-	L["LM Message 4"],
-}
+LootMonitor:SetScript("OnEvent", function(self, event, ...)
+	self[event](self, event, ...)
+end)
 
 local function UnitClassColor(unit)
 	local r, g, b = B.UnitColor(unit)
@@ -28,48 +23,22 @@ local function isCollection(itemID, itemClassID, itemSubClassID)
 end
 
 local function isEquipment(itemID, itemQuality, itemClassID)
-	return ((itemID and (C_ArtifactUI.GetRelicInfoByItemID(itemID) or C_Soulbinds.IsItemConduitByItemInfo(itemID))) or (itemClassID and DB.EquipmentIDs[itemClassID])) and (itemQuality and itemQuality >= LMFrame_CFG["minQuality"])
-end
-
-local LMFrame = CreateFrame("Frame", "LootMonitor", UIParent)
-LMFrame:SetFrameStrata("HIGH")
-LMFrame:SetClampedToScreen(true)
-LMFrame:SetPoint("LEFT", 4, 0)
-
-local LMFrame_Title = B.CreateFS(LMFrame, Button_Height-2, L["LootMonitor Title"], true, "TOPLEFT", 10, -10)
-local LMFrame_Info = B.CreateFS(LMFrame, Button_Height-2, L["LootMonitor Info"], true, "BOTTOMRIGHT", -10, 10)
-
-local function CloseLMFrame()
-	table.wipe(LMFrame_Report)
-	for index = 1, LMFrame_CFG["maxLines"] do
-		LMFrame[index]:Hide()
-	end
-	LMFrame:SetSize(LMFrame_Width, Button_Height*4)
-	LMFrame:Hide()
-end
-
-local function CreateLMFrame()
-	B.SetBD(LMFrame)
-	B.CreateMF(LMFrame)
-
-	local LMFrame_Close = B.CreateButton(LMFrame, 18, 18, true, DB.closeTex)
-	LMFrame_Close:SetPoint("TOPRIGHT", -7, -7)
-	LMFrame_Close:SetScript("OnClick", function(self) CloseLMFrame() end)
+	return (itemQuality and itemQuality >= minQuality) and ((itemID and (C_ArtifactUI.GetRelicInfoByItemID(itemID) or C_Soulbinds.IsItemConduitByItemInfo(itemID))) or (itemClassID and DB.EquipmentIDs[itemClassID]))
 end
 
 local function Button_OnClick(self, button)
 	if button == "RightButton" then
-		SendChatMessage(string.format(LM_Message_Info[random(4)], LMFrame_Report[self.index]["link"]), "WHISPER", nil, LMFrame_Report[self.index]["name"])
+		SendChatMessage(string.format(LootMonitor.message[random(4)], LootMonitor.reports[self.index]["link"]), "WHISPER", nil, LootMonitor.reports[self.index]["player"])
 	else
 		local editBox = ChatEdit_ChooseBoxForSend()
 		ChatEdit_ActivateChat(editBox)
-		editBox:SetText(editBox:GetText()..LMFrame_Report[self.index]["link"])
+		editBox:SetText(editBox:GetText()..LootMonitor.reports[self.index]["link"])
 	end
 end
 
 local function Button_OnEnter(self)
 	GameTooltip:SetOwner(self, "ANCHOR_RIGHT", 10, 0)
-	GameTooltip:SetHyperlink(LMFrame_Report[self.index]["link"])
+	GameTooltip:SetHyperlink(LootMonitor.reports[self.index]["link"])
 end
 
 local function Button_OnLeave(self)
@@ -77,102 +46,128 @@ local function Button_OnLeave(self)
 end
 
 local function CreateLMButton(index)
-	local button = CreateFrame("Button", "LMFrame_Report"..index, LMFrame)
-	button:SetHighlightTexture(DB.bdTex)
-	button:SetHeight(Button_Height)
-	button:SetPoint("RIGHT", -10, 0)
+	if not LootMonitor.buttons[index] then
+		local button = CreateFrame("Button", "LootMonitorButton"..index, LootMonitor)
+		button:SetHighlightTexture(DB.bdTex)
+		button:SetHeight(buttonHeight)
+		button:SetPoint("RIGHT", LootMonitor, "RIGHT", -10, 0)
+		button:SetPoint("TOPLEFT", LootMonitor.Title, "BOTTOMLEFT", 0, -(DB.margin + (index - 1) * (buttonHeight + 1)))
 
-	local hl = button:GetHighlightTexture()
-	hl:SetVertexColor(1, 1, 1, .25)
-	button.hl = hl
+		button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+		button:SetScript("OnClick", Button_OnClick)
+		button:SetScript("OnEnter", Button_OnEnter)
+		button:SetScript("OnLeave", Button_OnLeave)
+		button.index = index
 
-	local text = B.CreateFS(button, Button_Height-2)
-	text:SetJustifyH("LEFT")
-	text:SetNonSpaceWrap(true)
-	text:SetPoint("LEFT", 0, 0)
-	button.text = text
+		local glow = button:GetHighlightTexture()
+		glow:SetVertexColor(1, 1, 1, .25)
+		button.glow = glow
 
-	button:RegisterForClicks("AnyDown")
-	button:SetScript("OnClick", Button_OnClick)
-	button:SetScript("OnEnter", Button_OnEnter)
-	button:SetScript("OnLeave", Button_OnLeave)
-	button.index = index
+		local text = B.CreateFS(button, buttonHeight-2, "", false, "LEFT", 0, 0)
+		button.text = text
 
-	if index == 1 then
-		button:SetPoint("TOPLEFT", LMFrame_Title, "BOTTOMLEFT", 0, -5)
-	else
-		button:SetPoint("TOPLEFT", LMFrame[index - 1], "BOTTOMLEFT", 0, -1)
+		LootMonitor.buttons[index] = button
 	end
 
-	LMFrame[index] = button
-	return button
+	return LootMonitor.buttons[index]
 end
 
-local function UpdateLMFrame(self, event, ...)
-	if event == "PLAYER_LOGIN" then
-		CreateLMFrame()
-		for index = 1, LMFrame_CFG["maxLines"] do
-			CreateLMButton(index)
+local function CloseLMFrame()
+	table.wipe(LootMonitor.reports)
+
+	for _, button in pairs(LootMonitor.buttons) do
+		button.text:SetText("")
+		button:Hide()
+	end
+
+	LootMonitor:SetSize(frameWidth, buttonHeight*4)
+	LootMonitor:Hide()
+end
+
+function LootMonitor:UpdateSelf()
+	local maxWidth = 0
+	local maxHeight = (buttonHeight + 1) * (#self.reports + 3) + DB.margin
+
+	for _, button in pairs(self.buttons) do
+		if button:IsShown() then
+			local textWidth = (button.text:GetStringWidth() + 20) or 0
+			maxWidth = math.max(maxWidth, textWidth)
 		end
-		CloseLMFrame()
-		LMFrame:UnregisterEvent(event)
-	elseif event == "CHAT_MSG_LOOT" then
-		if LMFrame_CFG["inGroup"] and not IsInGroup() then return end
+	end
 
-		local lootText, lootPlayer = ...
-		local itemLink
-		for link in string.gmatch(lootText, "|c.-|h%[.-%]|h|r") do
-			if link then itemLink = link end
-		end
+	self:SetSize(maxWidth, maxHeight)
 
-		if not itemLink or string.len(lootPlayer) < 1 then return end
-
-		local itemQuality = C_Item.GetItemQualityByID(itemLink)
-		local itemID, _, _, _, _, itemClassID, itemSubClassID = C_Item.GetItemInfoInstant(itemLink)
-
-		if isEquipment(itemID, itemQuality, itemClassID) or isCollection(itemID, itemClassID, itemSubClassID) then
-			local textWidth, maxWidth = 0, 0
-			local lootTime = DB.InfoColor..GameTime_GetGameTime(true).."|r"
-			local playerName = UnitClassColor(string.split("-", lootPlayer))
-
-			local itemExtra, hasStat, hasMisc = B.GetItemExtra(itemLink)
-			if hasStat then
-				itemExtra = "|cff00FF00"..itemExtra.."|r"
-			elseif hasMisc then
-				itemExtra = "|cff00FFFF"..itemExtra.."|r"
-			end
-
-			if #LMFrame_Report >= LMFrame_CFG["maxLines"] then table.remove(LMFrame_Report, 1) end
-
-			table.insert(LMFrame_Report, {time = lootTime, player = playerName, link = itemLink, info = itemExtra, name = lootPlayer})
-
-			local numButtons = #LMFrame_Report
-			for index = 1, numButtons do
-				LMFrame[index].text:SetFormattedText("%s %s %s %s", LMFrame_Report[index]["time"], LMFrame_Report[index]["player"], LMFrame_Report[index]["link"], LMFrame_Report[index]["info"])
-				LMFrame[index]:Show()
-				textWidth = math.floor(LMFrame[index].text:GetStringWidth() + 20.5)
-				maxWidth = math.max(textWidth, maxWidth)
-			end
-
-			LMFrame:SetWidth(maxWidth)
-			LMFrame:SetHeight((Button_Height+1)*(numButtons+3)+6)
-
-			if not LMFrame:IsShown() then
-				LMFrame:Show()
-			end
-		end
+	if not self:IsShown() then
+		self:Show()
 	end
 end
 
-LMFrame:RegisterEvent("CHAT_MSG_LOOT")
-LMFrame:RegisterEvent("PLAYER_LOGIN")
-LMFrame:SetScript("OnEvent", UpdateLMFrame)
+function LootMonitor:PLAYER_LOGIN()
+	local mover = B.Mover(self, "拾取监控", "LootMonitor", {"LEFT", UIParent, "LEFT", 4, 0}, frameWidth, buttonHeight*4)
+	self:ClearAllPoints()
+	self:SetPoint("CENTER", mover, "CENTER")
 
-SLASH_NDLM1 = "/ndlm"
-SlashCmdList["NDLM"] = function()
-	if not LMFrame:IsShown() then
-		LMFrame:Show()
-	else
-		LMFrame:Hide()
+	B.SetBD(self)
+	B.CreateMF(self)
+
+	self.buttons = {}
+	self.reports = {}
+	self.message = {
+		"你好！能让一下%s吗？谢谢！",
+		"你好！请问%s有需求吗？没有的话能让给我吗？谢谢！",
+		"老哥！求个%s啊，刷了很久了！谢谢！",
+		"老哥！求个%s！毕业的！谢谢！",
+	}
+
+	self.Close = B.CreateButton(self, 18, 18, true, DB.closeTex)
+	self.Close:SetPoint("TOPRIGHT", -7, -7)
+	self.Close:SetScript("OnClick", function(self) CloseLMFrame() end)
+
+	self.Title = B.CreateFS(self, buttonHeight-2, "拾取监控", true, "TOPLEFT", 10, -10)
+	self.Info = B.CreateFS(self, buttonHeight-2, "左键：贴出 右键：密语", true, "BOTTOMRIGHT", -10, 10)
+
+	for index = 1, maxLines do
+		CreateLMButton(index)
+	end
+
+	CloseLMFrame()
+end
+
+function LootMonitor:CHAT_MSG_LOOT(event, ...)
+	if inGroup and not IsInGroup() then return end
+
+	local lootText, lootPlayer = ...
+	local itemLink
+	for link in string.gmatch(lootText, "|c.-|h%[.-%]|h|r") do
+		if link then itemLink = link end
+	end
+
+	if not itemLink or string.len(lootPlayer) < 1 then return end
+
+	local itemQuality = C_Item.GetItemQualityByID(itemLink)
+	local itemID, _, _, _, _, itemClassID, itemSubClassID = C_Item.GetItemInfoInstant(itemLink)
+
+	if isEquipment(itemID, itemQuality, itemClassID) or isCollection(itemID, itemClassID, itemSubClassID) then
+		local textWidth, maxWidth = 0, 0
+		local lootTime = DB.InfoColor..GameTime_GetGameTime(true).."|r"
+		local lootName = UnitClassColor(string.split("-", lootPlayer))
+
+		local itemExtra, hasStat, hasMisc = B.GetItemExtra(itemLink)
+		if hasStat then
+			itemExtra = "|cff00FF00"..itemExtra.."|r"
+		elseif hasMisc then
+			itemExtra = "|cff00FFFF"..itemExtra.."|r"
+		end
+
+		if #self.reports >= maxLines then table.remove(self.reports, 1) end
+
+		table.insert(self.reports, {time = lootTime, name = lootName, link = itemLink, info = itemExtra, player = lootPlayer})
+
+		for index = 1, #self.reports do
+			self.buttons[index].text:SetFormattedText("%s %s %s %s", self.reports[index]["time"], self.reports[index]["name"], self.reports[index]["link"], self.reports[index]["info"])
+			self.buttons[index]:Show()
+		end
+
+		self:UpdateSelf()
 	end
 end

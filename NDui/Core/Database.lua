@@ -130,6 +130,7 @@ DB.RaidPetFlags = bit.bor(COMBATLOG_OBJECT_AFFILIATION_RAID, COMBATLOG_OBJECT_RE
 local function CheckRole()
 	local tree = GetSpecialization()
 	if not tree then return end
+
 	local _, _, _, _, role, stat = GetSpecializationInfo(tree)
 	if role == "TANK" then
 		DB.Role = "Tank"
@@ -141,6 +142,11 @@ local function CheckRole()
 		else
 			DB.Role = "Melee"
 		end
+	end
+
+	if stat then
+		DB.mainID = stat
+		DB.mainStat = _G["SPELL_STAT"..stat.."_NAME"]
 	end
 end
 B:RegisterEvent("PLAYER_LOGIN", CheckRole)

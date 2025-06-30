@@ -98,7 +98,7 @@ do
 						itemStat = itemStat.."-".._G[stat]
 					end
 					if string.find(stat, "EMPTY_SOCKET_") then
-						itemStat = itemStat.."-"..L["Socket"]
+						itemStat = itemStat.."-".."插槽"
 					end
 				end
 			end
@@ -145,9 +145,9 @@ do
 		return r, g, b
 	end
 
-	function B.ColorPerc(per, fullRed)
+	function B.ColorPerc(per, fullRed, max)
 		local var = format("%.1f%%", per)
-		local r, g, b = B.Color(math.abs(per), 100, fullRed)
+		local r, g, b = B.Color(math.abs(per), max or 100, fullRed)
 		return B.HexRGB(r, g, b, var)
 	end
 

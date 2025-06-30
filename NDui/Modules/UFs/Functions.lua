@@ -693,7 +693,6 @@ function UF:CreateCastBar(self)
 	local timer = B.CreateFS(cb, 12, "", false, "RIGHT", -3, 0)
 	local name = B.CreateFS(cb, 12, "", false, "LEFT", 3, 0)
 	name:SetPoint("RIGHT", timer, "LEFT", -3, 0)
-	name:SetJustifyH("LEFT")
 
 	if mystyle ~= "boss" and mystyle ~= "arena" then
 		cb.Icon = cb:CreateTexture(nil, "ARTWORK")

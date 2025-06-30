@@ -409,12 +409,10 @@ function info:FriendsPanel_CreateButton(parent, index)
 
 	button.name = B.CreateFS(button, 13, "Tag (name)", false, "LEFT", 25, 0)
 	button.name:SetPoint("RIGHT", button, "LEFT", 230, 0)
-	button.name:SetJustifyH("LEFT")
 	button.name:SetTextColor(.5, .7, 1)
 
 	button.zone = B.CreateFS(button, 13, "Zone", false, "RIGHT", -28, 0)
 	button.zone:SetPoint("LEFT", button, "RIGHT", -130, 0)
-	button.zone:SetJustifyH("RIGHT")
 
 	button.gameIcon = button:CreateTexture(nil, "ARTWORK")
 	button.gameIcon:SetPoint("RIGHT", button, -8, 0)

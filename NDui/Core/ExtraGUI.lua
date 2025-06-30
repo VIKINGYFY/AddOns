@@ -134,6 +134,12 @@ function G:SetupRaidDebuffs(parent)
 		[1] = EJ_GetInstanceInfo(1273), -- 尼鲁巴尔王宫
 		[2] = EJ_GetInstanceInfo(1296), -- Liberation of Undermine
 	}
+	if DB.isNewPatch then
+		AddNewDungeon(dungeons, 1303) -- 奥尔达尼生态圆顶
+		AddNewDungeon(dungeons, 1185) -- 赎罪大厅
+		AddNewDungeon(dungeons, 1194) -- 集市
+		raids[3] = EJ_GetInstanceInfo(1302) -- 法力熔炉：欧米伽
+	end
 
 	options[1] = G:CreateDropdown(frame, DUNGEONS.."*", 120, -30, dungeons, L["Dungeons Intro"], 130, 30)
 	options[1]:Hide()
@@ -234,7 +240,6 @@ function G:SetupRaidDebuffs(parent)
 
 		local spellName = B.CreateFS(bar, 14, "", false, "LEFT", 30, 0)
 		spellName:SetWidth(120)
-		spellName:SetJustifyH("LEFT")
 		bar.spellName = spellName
 
 		local prioBox = B.CreateEditBox(bar, 30, 24)
@@ -505,7 +510,6 @@ function G:SetupNameplateFilter(parent)
 
 		local spellName = B.CreateFS(bar, 14, name, false, "LEFT", 30, 0)
 		spellName:SetWidth(180)
-		spellName:SetJustifyH("LEFT")
 		if index == 2 then spellName:SetTextColor(1, 0, 0) end
 
 		sortBars(frameData[index].barList)
@@ -628,7 +632,6 @@ function G:SetupSpellsIndicator(parent)
 		name = L[anchor] or name
 		local text = B.CreateFS(bar, 14, name, false, "LEFT", 30, 0)
 		text:SetWidth(180)
-		text:SetJustifyH("LEFT")
 		if anchor then text:SetTextColor(r, g, b) end
 		if showAll then B.CreateFS(bar, 14, "ALL", false, "RIGHT", -30, 0) end
 
@@ -752,7 +755,6 @@ function G:SetupBuffsIndicator(parent)
 
 		local spellName = B.CreateFS(bar, 14, name, false, "LEFT", 30, 0)
 		spellName:SetWidth(180)
-		spellName:SetJustifyH("LEFT")
 		if isNew then spellName:SetTextColor(0, 1, 0) end
 
 		sortBars(barList)
@@ -862,7 +864,6 @@ function G:SetupDebuffsIndicator(parent)
 
 		local spellName = B.CreateFS(bar, 14, name, false, "LEFT", 30, 0)
 		spellName:SetWidth(180)
-		spellName:SetJustifyH("LEFT")
 		if isNew then spellName:SetTextColor(0, 1, 0) end
 
 		sortBars(barList)
@@ -1525,7 +1526,6 @@ function G:PlateCastbarGlow(parent)
 
 		local name = B.CreateFS(bar, 14, spellName, false, "LEFT", 30, 0)
 		name:SetWidth(120)
-		name:SetJustifyH("LEFT")
 
 		sortBars(barTable)
 	end
@@ -1591,7 +1591,7 @@ function G:SetupNameplateSize(parent)
 	createOptionSlider(scroll.child, L["NameTextSize"], 10, 50, 14, -310, "NameTextSize", UF.RefreshAllPlates, "Nameplate")
 	createOptionSlider(scroll.child, L["HealthTextSize"], 10, 50, 16, -380, "HealthTextSize", UF.RefreshAllPlates, "Nameplate")
 	createOptionSlider(scroll.child, L["CastbarTextSize"], 10, 50, 16, -450, "CastBarTextSize", UF.RefreshAllPlates, "Nameplate")
-	createOptionSlider(scroll.child, L["PlateMargin"], 0, 10, 5, -520, "PlateMargin", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["Plate Margin"], 0, 10, 5, -520, "PlateMargin", UF.RefreshAllPlates, "Nameplate")
 	createOptionSlider(scroll.child, L["RaidTargetX"], -200, 200, 0, -590, "RaidTargetX", UF.RefreshAllPlates, "Nameplate")
 	createOptionSlider(scroll.child, L["RaidTargetY"], -200, 200, 0, -660, "RaidTargetY", UF.RefreshAllPlates, "Nameplate")
 end
@@ -2007,7 +2007,6 @@ function G:NameplateColorDots(parent)
 
 		local name = B.CreateFS(bar, 14, spellName, false, "LEFT", 30, 0)
 		name:SetWidth(120)
-		name:SetJustifyH("LEFT")
 		if isNew then name:SetTextColor(0, 1, 0) end
 
 		sortBars(barTable)
@@ -2098,7 +2097,6 @@ function G:NameplateUnitFilter(parent)
 
 		local name = B.CreateFS(bar, 14, text, false, "LEFT", 30, 0)
 		name:SetWidth(190)
-		name:SetJustifyH("LEFT")
 		if isNew then name:SetTextColor(0, 1, 0) end
 		if npcID then
 			B.GetNPCName(npcID, function(npcName)
@@ -2200,7 +2198,6 @@ function G:NameplatePowerUnits(parent)
 
 		local name = B.CreateFS(bar, 14, text, false, "LEFT", 30, 0)
 		name:SetWidth(190)
-		name:SetJustifyH("LEFT")
 		if isNew then name:SetTextColor(0, 1, 0) end
 		if npcID then
 			B.GetNPCName(npcID, function(npcName)
