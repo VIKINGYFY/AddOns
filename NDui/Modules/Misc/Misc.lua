@@ -600,11 +600,7 @@ end
 
 function M:CustomMenu_CopyName(rootDescription, data, name)
 	rootDescription:CreateButton(DB.InfoColor..COPY_NAME, function()
-		local editBox = ChatEdit_ChooseBoxForSend()
-		local hasText = (editBox:GetText() ~= "")
-		ChatEdit_ActivateChat(editBox)
-		editBox:Insert(name or data.name)
-		if not hasText then editBox:HighlightText() end
+		ChatFrame_OpenChat(name or data.name)
 	end)
 end
 

@@ -17,11 +17,9 @@ function EX:OnLogin()
 		end
 	end
 
-	self:DisableAddOnProfiler()
-	self:DisableGuildFilter()
-	self:InstanceAutoMarke()
-	self:InstanceDifficulty()
-	self:InstanceReset()
+	self:DisableSomething()
+	self:InstanceSomething()
+	self:SystemSomething()
 
 	self:ActionBarGlow()
 	self:MDEnhance()
@@ -42,60 +40,39 @@ function EX:AutoHideName()
 	SetCVar("UnitNameFriendlyTotemName", 0)
 end
 
--- 禁用公会过滤，防止卡屏
-function EX:DisableGuildFilter()
+-- 禁用奇怪的东西
+function EX:DisableSomething()
+	-- 公会过滤
 	for i=1, 9 do
 		SetGuildNewsFilter(i, 0)
 	end
-end
 
--- 禁用插件性能统计
-function EX:DisableAddOnProfiler()
+	-- 插件性能统计
 	C_AddOnProfiler.IsEnabled = function() return false end
 end
 
--- 副本重置自动喊话
-function EX.UpdateInstanceReset(_, msg)
-	if not IsInInstance() then
-		if string.find(msg, "难度") or string.find(msg, "重置") then
+-- 系统信息通报
+local lastInfo
+function EX.UpdateSystemSomething(_, text)
+	if string.find(text, "难度") or string.find(text, "重置") or string.find(text, "掷出") then
+		if text ~= lastInfo then
 			if not IsInGroup() then
-				UIErrorsFrame:AddMessage(DB.InfoColor..msg)
+				UIErrorsFrame:AddMessage(DB.InfoColor..text)
 			else
-				SendChatMessage(msg, B.GetMSGChannel())
+				SendChatMessage(text, B.GetMSGChannel())
 			end
+
+			lastInfo = text -- 记录新内容
 		end
 	end
 end
 
-function EX:InstanceReset()
-	B:RegisterEvent("CHAT_MSG_SYSTEM", self.UpdateInstanceReset)
+function EX:SystemSomething()
+	B:RegisterEvent("CHAT_MSG_SYSTEM", self.UpdateSystemSomething)
 end
 
--- 副本难度自动喊话
-function EX.UpdateInstanceDifficulty()
-	C_Timer.After(1, function()
-		if IsInInstance() then
-			local _, instanceType, difficultyID, difficultyName = GetInstanceInfo()
-			if instanceType == "party" then
-				if difficultyID == 8 then
-					difficultyName = difficultyName.."-"..C_ChallengeMode.GetActiveKeystoneInfo()
-				end
-				if not IsInGroup() then
-					UIErrorsFrame:AddMessage(format(DB.InfoColor.."当前副本难度：%s", difficultyName))
-				else
-					SendChatMessage(format("当前副本难度：%s", difficultyName), B.GetMSGChannel())
-				end
-			end
-		end
-	end)
-end
-
-function EX:InstanceDifficulty()
-	B:RegisterEvent("PLAYER_ENTERING_WORLD", EX.UpdateInstanceDifficulty)
-end
-
--- 进本自动标记坦克和治疗
-function EX.UpdateInstanceAutoMarke()
+-- 副本自动标记坦克和治疗
+function EX.UpdateInstanceMarke()
 	if IsInInstance() and (UnitIsGroupLeader("player") or UnitIsGroupAssistant("player")) then
 		for i = 1, 5 do
 			local unit = (i == 5 and "player") or ("party"..i)
@@ -109,8 +86,8 @@ function EX.UpdateInstanceAutoMarke()
 	end
 end
 
-function EX:InstanceAutoMarke()
-	B:RegisterEvent("UPDATE_INSTANCE_INFO", self.UpdateInstanceAutoMarke)
+function EX:InstanceSomething()
+	B:RegisterEvent("PLAYER_ENTERING_WORLD", EX.UpdateInstanceMarke)
 end
 
 -- 自动确认出售可交易物品提示

@@ -639,7 +639,7 @@ do
 			elseif self.color == "info" then
 				r, g, b = 0, 1, 1
 			end
-			GameTooltip:AddLine(self.text, r, g, b, 1)
+			GameTooltip:AddLine(self.text, r,g,b, 1)
 		end
 		GameTooltip:Show()
 	end
@@ -826,7 +826,6 @@ do
 			end
 		end
 		if highlight and type(highlight) == "boolean" then
-			self:EnableMouse(true)
 			self.HL = self:CreateTexture(nil, "HIGHLIGHT")
 			self.HL:SetColorTexture(1, 1, 1, .25)
 			self.HL:SetInside(self.bg)

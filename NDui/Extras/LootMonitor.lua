@@ -30,9 +30,7 @@ local function Button_OnClick(self, button)
 	if button == "RightButton" then
 		SendChatMessage(string.format(LootMonitor.message[random(4)], LootMonitor.reports[self.index]["link"]), "WHISPER", nil, LootMonitor.reports[self.index]["player"])
 	else
-		local editBox = ChatEdit_ChooseBoxForSend()
-		ChatEdit_ActivateChat(editBox)
-		editBox:SetText(editBox:GetText()..LootMonitor.reports[self.index]["link"])
+		ChatFrame_OpenChat(LootMonitor.reports[self.index]["link"])
 	end
 end
 
@@ -120,7 +118,7 @@ function LootMonitor:PLAYER_LOGIN()
 	}
 
 	self.Close = B.CreateButton(self, 18, 18, true, DB.closeTex)
-	self.Close:SetPoint("TOPRIGHT", -7, -7)
+	self.Close:SetPoint("TOPRIGHT", -6, -6)
 	self.Close:SetScript("OnClick", function(self) CloseLMFrame() end)
 
 	self.Title = B.CreateFS(self, buttonHeight-2, "拾取监控", true, "TOPLEFT", 10, -10)

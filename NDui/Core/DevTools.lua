@@ -14,12 +14,11 @@ local B, C, L, DB = unpack(ns)
 ]]
 
 DB.Devs = {
-	["罗宁-青玉的烟火"] = true,
-	["格瑞姆巴托-青玉的烟火"] = true,
+	["青玉的烟火-罗宁"] = true,
+	["青玉的烟火-格瑞姆巴托"] = true,
 }
 local function isDeveloper()
-	local rawName = string.gsub(DB.MyFullName, "%s", "")
-	return DB.Devs[rawName]
+	return DB.Devs[DB.MyFullName]
 end
 DB.isDeveloper = isDeveloper()
 

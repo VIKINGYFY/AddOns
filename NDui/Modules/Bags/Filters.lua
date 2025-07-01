@@ -59,7 +59,7 @@ end
 local function isItemJunk(item)
 	if not C.db["Bags"]["ItemFilter"] then return end
 	if not C.db["Bags"]["FilterJunk"] then return end
-	return (not module:IsSpecialJunk(item.id)) and item.hasPrice and ((item.quality and item.quality <= Enum.ItemQuality.Poor) or isItemOutmoded(item) or isItemLowerLevel(item) or NDuiADB["CustomJunkList"][item.id])
+	return item.hasPrice and (not module:IsSpecialJunk(item.id)) and ((item.quality and item.quality <= Enum.ItemQuality.Poor) or isItemOutmoded(item) or isItemLowerLevel(item) or NDuiADB["CustomJunkList"][item.id])
 end
 
 local function isItemEquipSet(item)

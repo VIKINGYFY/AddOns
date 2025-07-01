@@ -1,10 +1,9 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local cr, cg, cb = DB.r, DB.g, DB.b
 
 local barWidth, barHeight = 150, 10
 local barData = {
-	{label = "主要", limit = 100000},
+	{label = DB.mainStat, limit = 100000},
 	{label = "爆击", limit = 100},
 	{label = "急速", limit = 100},
 	{label = "精通", limit = 100},
@@ -26,13 +25,22 @@ StatsMonitor:SetScript("OnEvent", function(self, event, ...)
 	self[event](self, event, ...)
 end)
 
+local function GetCurrentSpeed()
+	local isGliding, canGlide, forwardSpeed = C_PlayerInfo.GetGlidingInfo()
+	local isFlying, isSwimming = IsFlying("player"), IsSwimming("player")
+	local currentSpeed, runSpeed, flightSpeed, swimSpeed = GetUnitSpeed("player")
+	local speedBase = (isGliding and forwardSpeed) or (isFlying and flightSpeed) or (isSwimming and swimSpeed) or runSpeed
+
+	return speedBase / 7 * 100
+end
+
 local function SetupValue(bar, stat, isNumb)
 	if not bar then return end
 
 	local r, g, b = B.Color(stat, bar.limit, true)
+
 	bar:SetValue(stat)
 	bar:SetStatusBarColor(r, g, b)
-	--bar:SetStatusBarColor(r, g, b)
 	bar.value:SetText(isNumb and B.Numb(stat) or B.Perc(stat))
 	--bar.title:SetTextColor(r, g, b)
 	--bar.value:SetTextColor(r, g, b)
@@ -52,11 +60,6 @@ end
 function StatsMonitor:UpdateValue()
 	if not self.bars then return end
 
-	local isGliding, canGlide, forwardSpeed = C_PlayerInfo.GetGlidingInfo()
-	local isFlying, isSwimming = IsFlying("player"), IsSwimming("player")
-	local currentSpeed, runSpeed, flightSpeed, swimSpeed = GetUnitSpeed("player")
-	local speedBase = (isGliding and forwardSpeed) or (isFlying and flightSpeed) or (isSwimming and swimSpeed) or runSpeed
-
 	local main = UnitStat("player", DB.mainID)
 	SetupValue(self.bars[1], main, true)
 
@@ -72,7 +75,7 @@ function StatsMonitor:UpdateValue()
 	local versatility = GetCombatRatingBonus(29)
 	SetupValue(self.bars[5], versatility)
 
-	local speed = speedBase / 7 * 100
+	local speed = GetCurrentSpeed()
 	SetupValue(self.bars[6], speed)
 
 	local dodge = GetDodgeChance()
@@ -88,7 +91,6 @@ function StatsMonitor:PLAYER_LOGIN()
 	self:SetPoint("TOP", mover, "TOP")
 
 	self.bars = {}
-
 	for i, v in pairs(barData) do
 		local bar = B.CreateSB(self)
 		bar:SetPoint("TOP", self, "TOP", 0, -barHeight - (i - 1) * (barHeight*2))
@@ -98,8 +100,8 @@ function StatsMonitor:PLAYER_LOGIN()
 
 		B.SmoothBar(bar)
 
-		bar.title = B.CreateFS(bar, barHeight+4, v.label, false, "LEFT", 0, barHeight/2)
-		bar.value = B.CreateFS(bar, barHeight+4, "", false, "RIGHT", 0, barHeight/2)
+		bar.title = B.CreateFS(bar, barHeight+4, v.label, false, "LEFT", 2, barHeight/2)
+		bar.value = B.CreateFS(bar, barHeight+4, "", false, "RIGHT", -2, barHeight/2)
 		bar.limit = v.limit
 		bar.role = v.role
 

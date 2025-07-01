@@ -288,11 +288,7 @@ local function buttonOnClick(self, btn)
 					SendMailNameEditBox:SetText(name)
 					SendMailNameEditBox:HighlightText()
 				else
-					local editBox = ChatEdit_ChooseBoxForSend()
-					local hasText = (editBox:GetText() ~= "")
-					ChatEdit_ActivateChat(editBox)
-					editBox:Insert(name)
-					if not hasText then editBox:HighlightText() end
+					ChatFrame_OpenChat(name)
 				end
 			end
 		end
@@ -300,7 +296,7 @@ local function buttonOnClick(self, btn)
 		if self.isBNet then
 			ChatFrame_SendBNetTell(self.data[2])
 		else
-			ChatFrame_SendTell(self.data[1], SELECTED_DOCK_FRAME)
+			ChatFrame_SendTell(self.data[1])
 		end
 	end
 end

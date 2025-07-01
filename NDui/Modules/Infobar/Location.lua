@@ -16,56 +16,49 @@ local zoneInfo = {
 	sanctuary = {SANCTUARY_TERRITORY, {.41, .8, .94}},
 }
 
-local zone, zoneType, zoneCoord, currentZone, totalZone, coordX, coordY, r, g, b
+local function GetZoneInfo()
+	local mainZone, subZone = GetAreaText(), GetMinimapZoneText()
+	local fullZone = mainZone.." - "..subZone
+	local pvpType, _, faction = C_PvP.GetZonePVPInfo()
+	local zoneData = zoneInfo[pvpType or "neutral"]
+	local zoneType = format(zoneData[1], faction or FACTION_NEUTRAL)
+	local r, g, b = unpack(zoneData[2])
+
+	return mainZone, subZone, fullZone, zoneType, r, g, b
+end
+
+local function GetZoneCoords()
+	if IsInInstance() then
+		local _, instanceType, difficultyID, difficultyName = GetInstanceInfo()
+		if instanceType == "arena" then
+			return ARENA
+		elseif instanceType == "pvp" then
+			return BATTLEGROUND
+		elseif difficultyID == 8 then
+			local activeLevel = C_ChallengeMode.GetActiveKeystoneInfo()
+			return difficultyName.." - "..activeLevel
+		else
+			return difficultyName
+		end
+	else
+		local mapID = C_Map.GetBestMapForUnit("player")
+		if mapID then
+			local x, y = mapModule:GetPlayerMapPos(mapID)
+			if x and y then
+				return format("%.1f , %.1f", x * 100, y * 100), x, y, mapID
+			end
+		end
+	end
+	return "-- , --"
+end
 
 local function UpdateCoords(self, elapsed)
 	if not IsPlayerMoving() then return end
 
-	local uiMapID = C_Map.GetBestMapForUnit("player")
 	self.elapsed = (self.elapsed or 0) + elapsed
 	if self.elapsed > .1 then
-		coordX, coordY = mapModule:GetPlayerMapPos(uiMapID)
-
-		self:onEvent()
+		info:onEvent()
 		self.elapsed = 0
-	end
-end
-
-local function FormatZones()
-	local subZone = GetSubZoneText()
-	local pvpType, _, faction = C_PvP.GetZonePVPInfo()
-	local pvpType = pvpType or "neutral"
-	zone = GetZoneText()
-	r, g, b = unpack(zoneInfo[pvpType][2])
-	zoneType = format(zoneInfo[pvpType][1], faction or FACTION_NEUTRAL)
-
-	if subZone and subZone ~= "" and subZone ~= zone then
-		currentZone = subZone
-		totalZone = zone.." - "..subZone
-	else
-		currentZone = zone
-		totalZone = zone
-	end
-end
-
-local function FormatCoords()
-	if IsInInstance() then
-		local _, instanceType, difficultyID, difficultyName = GetInstanceInfo()
-		if instanceType == "arena" then
-			zoneCoord = ARENA
-		elseif instanceType == "pvp" then
-			zoneCoord = BATTLEGROUND
-		elseif difficultyID == 8 then
-			zoneCoord = difficultyName.."-"..C_ChallengeMode.GetActiveKeystoneInfo()
-		else
-			zoneCoord = difficultyName
-		end
-	else
-		if coordX and coordY then
-			zoneCoord = format("%.1f , %.1f", coordX * 100, coordY * 100)
-		else
-			zoneCoord = "-- , --"
-		end
 	end
 end
 
@@ -77,28 +70,36 @@ info.eventList = {
 	"PLAYER_DIFFICULTY_CHANGED",
 }
 
-info.onEvent = function(self, event)
+info.onEvent = function(self)
 	if IsInInstance() then
 		self:SetScript("OnUpdate", nil)
 	else
 		self:SetScript("OnUpdate", UpdateCoords)
 	end
 
-	FormatZones()
-	FormatCoords()
+	local mainZone, subZone, fullZone, zoneType, r, g, b = GetZoneInfo()
+	local coordText = GetZoneCoords()
 
-	self.text:SetFormattedText("%s <%s>", currentZone, zoneCoord)
+	self.text:SetFormattedText("%s <%s>", subZone, coordText)
 	self.text:SetTextColor(r, g, b)
+
+	self._mainZone = mainZone
+	self._subZone = subZone
+	self._fullZone = fullZone
+	self._zoneType = zoneType
+	self._coordText = coordText
+	self._zoneColor = {r, g, b}
 end
 
 info.onEnter = function(self)
+	local r, g, b = unpack(self._zoneColor)
 	local _, anchor, offset = module:GetTooltipAnchor(info)
+
 	GameTooltip:SetOwner(self, "ANCHOR_"..anchor, 0, offset)
 	GameTooltip:ClearLines()
 	GameTooltip:AddLine(ZONE, 0,1,1)
 	GameTooltip:AddLine(" ")
-
-	GameTooltip:AddDoubleLine(zone, zoneType, r,g,b, r,g,b)
+	GameTooltip:AddDoubleLine(self._mainZone, self._zoneType, r,g,b, r,g,b)
 	GameTooltip:AddDoubleLine(" ", DB.LineString)
 	GameTooltip:AddDoubleLine(" ", DB.LeftButton..L["WorldMap"].." ", 1,1,1, 0,1,1)
 	GameTooltip:AddDoubleLine(" ", DB.RightButton..L["Send My Pos"].." ", 1,1,1, 0,1,1)
@@ -109,20 +110,23 @@ info.onLeave = function()
 	GameTooltip:Hide()
 end
 
-local zoneString = "|cffFFFF00|Hworldmap:%d+:%d+:%d+|h[|A:Waypoint-MapPin-ChatIcon:13:13:0:0|a %s: %s (%s) %s]|h|r"
+local zoneString = "|cffFFFF00|Hworldmap:%d+:%d+:%d+|h[|A:Waypoint-MapPin-ChatIcon:13:13:0:0|a %s]|h|r"
 
-info.onMouseUp = function(_, btn)
+info.onMouseUp = function(self, btn)
 	if btn == "LeftButton" then
 		if InCombatLockdown() then UIErrorsFrame:AddMessage(DB.InfoColor..ERR_NOT_IN_COMBAT) return end -- fix by LibShowUIPanel
 		ToggleFrame(WorldMapFrame)
 	elseif btn == "RightButton" then
-		local mapID = C_Map.GetBestMapForUnit("player")
+		local coordText, x, y, mapID = GetZoneCoords()
+		if not (x and y and mapID) then return end
+
+		local fullZone = self._fullZone or "?"
 		local hasUnit = UnitExists("target") and not UnitIsPlayer("target")
-		local unitName = hasUnit and "<"..UnitName("target")..">" or ""
-		local pointLink = format(zoneString, mapID, coordX*10000, coordY*10000, L["My Position"], totalZone, zoneCoord, unitName)
-		local pointInfo = format("%s: %s <%s>%s", L["My Position"], totalZone, zoneCoord, unitName)
+		local unitName = hasUnit and " <"..UnitName("target")..">" or ""
+		local pointInfo = format("%s: %s <%s>%s", L["My Position"], fullZone, coordText, unitName)
+		local pointLink = format(zoneString, mapID, x * 10000, y * 10000, pointInfo)
 
 		print(pointLink)
-		ChatFrame_OpenChat(pointInfo, SELECTED_DOCK_FRAME)
+		ChatFrame_OpenChat(pointInfo)
 	end
 end

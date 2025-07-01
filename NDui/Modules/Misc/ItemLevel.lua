@@ -389,11 +389,7 @@ function M:GuildNewsButtonOnClick(btn)
 			SendMailNameEditBox:SetText(self.playerName)
 			SendMailNameEditBox:HighlightText()
 		else
-			local editBox = ChatEdit_ChooseBoxForSend()
-			local hasText = (editBox:GetText() ~= "")
-			ChatEdit_ActivateChat(editBox)
-			editBox:Insert(self.playerName)
-			if not hasText then editBox:HighlightText() end
+			ChatFrame_OpenChat(self.playerName)
 		end
 	end
 end

@@ -259,10 +259,7 @@ local function CreatePanel()
 		text = text and text ~= "" and ", Text = \""..text.."\"" or ""
 		local output = "{"..typeID..unitID..caster..stack..amount..timeless..combat..flash..text.."}"
 		bar:SetScript("OnMouseUp", function()
-			local editBox = ChatEdit_ChooseBoxForSend()
-			ChatEdit_ActivateChat(editBox)
-			editBox:SetText(output..",")
-			editBox:HighlightText()
+			ChatFrame_OpenChat(output..",")
 		end)
 
 		SortBars(index)

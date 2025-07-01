@@ -45,7 +45,7 @@ function M:InboxItem_OnEnter()
 				local itemName, _, itemQuality, _, _, _, _, _, _, itemTexture = C_Item.GetItemInfo(itemID)
 				if itemName then
 					local r, g, b = C_Item.GetItemQualityColor(itemQuality)
-					GameTooltip:AddDoubleLine(" |T"..itemTexture..":12:12:0:0:50:50:4:46:4:46|t "..itemName, count, r, g, b)
+					GameTooltip:AddDoubleLine(" |T"..itemTexture..":12:12:0:0:50:50:4:46:4:46|t "..itemName, count, r,g,b)
 				end
 			end
 			GameTooltip:Show()

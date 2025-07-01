@@ -402,7 +402,7 @@ function G:SetupClickCast(parent)
 	local function optionOnEnter(self)
 		GameTooltip:SetOwner(self, "ANCHOR_TOP")
 		GameTooltip:ClearLines()
-		GameTooltip:AddLine(keyToLocale[self.text], 1, 1, 0)
+		GameTooltip:AddLine(keyToLocale[self.text], 1,1,0)
 		GameTooltip:Show()
 	end
 
@@ -666,7 +666,7 @@ function G:SetupSpellsIndicator(parent)
 	local function optionOnEnter(self)
 		GameTooltip:SetOwner(self, "ANCHOR_TOP")
 		GameTooltip:ClearLines()
-		GameTooltip:AddLine(L[decodeAnchor[self.text]], 1, 1, 1)
+		GameTooltip:AddLine(L[decodeAnchor[self.text]], 1,1,1)
 		GameTooltip:Show()
 	end
 
@@ -1907,7 +1907,7 @@ function G:SetupActionbarStyle(parent)
 		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT")
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(self.title)
-		GameTooltip:AddLine(self.tip, 0,1,1,1)
+		GameTooltip:AddLine(self.tip, 0,1,1, 1)
 		GameTooltip:Show()
 	end
 

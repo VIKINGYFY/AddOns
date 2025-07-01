@@ -20,15 +20,11 @@ local function rosterButtonOnClick(self, btn)
 				SendMailNameEditBox:SetText(name)
 				SendMailNameEditBox:HighlightText()
 			else
-				local editBox = ChatEdit_ChooseBoxForSend()
-				local hasText = (editBox:GetText() ~= "")
-				ChatEdit_ActivateChat(editBox)
-				editBox:Insert(name)
-				if not hasText then editBox:HighlightText() end
+				ChatFrame_OpenChat(name)
 			end
 		end
 	else
-		ChatFrame_OpenChat("/w "..name.." ", SELECTED_DOCK_FRAME)
+		ChatFrame_SendTell(name)
 	end
 end
 

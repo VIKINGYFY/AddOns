@@ -53,18 +53,15 @@ function module:Chatbar()
 				ChatFrame_OpenChat("/s ", chatFrame)
 			end
 		end},
-		{1, .5, 1, WHISPER, function(_, btn)
+		{1, .5, 1, WHISPER.." / "..REPLY_MESSAGE, function(_, btn)
 			if btn == "RightButton" then
 				ChatFrame_ReplyTell(chatFrame)
-				if not editBox:IsVisible() or editBox:GetAttribute("chatType") ~= "WHISPER" then
-					ChatFrame_OpenChat("/w ", chatFrame)
-				end
 			else
 				if UnitExists("target") and UnitName("target") and UnitIsPlayer("target") and GetDefaultLanguage("player") == GetDefaultLanguage("target") then
 					local name = GetUnitName("target", true)
-					ChatFrame_OpenChat("/w "..name.." ", chatFrame)
+					ChatFrame_SendTell(name)
 				else
-					ChatFrame_OpenChat("/w ", chatFrame)
+					UIErrorsFrame:AddMessage(DB.InfoColor..ERR_GENERIC_NO_TARGET)
 				end
 			end
 		end},
@@ -87,7 +84,7 @@ function module:Chatbar()
 	for _, info in pairs(buttonInfo) do AddButton(unpack(info)) end
 
 	-- ROLL
-	local roll = AddButton(.8, 1, .6, LOOT_ROLL)
+	local roll = AddButton(.5, 1, .5, LOOT_ROLL)
 	roll:SetAttribute("type", "macro")
 	roll:SetAttribute("macrotext", "/roll")
 	roll:RegisterForClicks("AnyDown")
@@ -101,7 +98,7 @@ function module:Chatbar()
 	-- WORLD CHANNEL
 	if GetCVar("portal") == "CN" then
 		local channelName = "大脚世界频道"
-		local wcButton = AddButton(0, 1, 1, L["World Channel"])
+		local wcButton = AddButton(1, .75, .75, L["World Channel"])
 
 		local function updateChannelInfo()
 			local id = GetChannelName(channelName)
@@ -112,7 +109,7 @@ function module:Chatbar()
 			else
 				module.InWorldChannel = true
 				module.WorldChannelID = id
-				wcButton.Icon:SetVertexColor(0, 1, 1)
+				wcButton.Icon:SetVertexColor(1, .75, .75)
 			end
 		end
 
@@ -127,7 +124,7 @@ function module:Chatbar()
 			if module.InWorldChannel then
 				if btn == "RightButton" then
 					LeaveChannelByName(channelName)
-					print("|cffFF7F50"..QUIT.."|r "..DB.InfoColor..L["World Channel"])
+					print("|cffFF0000"..QUIT.."|r "..DB.InfoColor..L["World Channel"])
 					module.InWorldChannel = false
 				elseif module.WorldChannelID then
 					ChatFrame_OpenChat("/"..module.WorldChannelID, chatFrame)
@@ -135,7 +132,7 @@ function module:Chatbar()
 			else
 				JoinPermanentChannel(channelName, nil, 1)
 				ChatFrame_AddChannel(ChatFrame1, channelName)
-				print("|cff00C957"..JOIN.."|r "..DB.InfoColor..L["World Channel"])
+				print("|cff00FF00"..JOIN.."|r "..DB.InfoColor..L["World Channel"])
 				module.InWorldChannel = true
 			end
 		end)

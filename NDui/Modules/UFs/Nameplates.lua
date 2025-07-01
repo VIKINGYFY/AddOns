@@ -168,6 +168,7 @@ function UF:UpdateColor(_, unit)
 	local isTrashUnit = C.TrashUnits[npcID]
 	local isWarningUnit = C.WarningUnits[npcID]
 	local isCustomUnit = UF.CustomUnits[name] or UF.CustomUnits[npcID]
+	local isSpecialUnits = (isDoTUnit or isWarningUnit or isCustomUnit or isTrashUnit)
 
 	local isOffTank, status = UF:CheckThreatStatus(unit)
 	local healthPerc = UnitHealth(unit) / (UnitHealthMax(unit)+.0001) * 100
@@ -190,12 +191,12 @@ function UF:UpdateColor(_, unit)
 	if not UnitIsConnected(unit) or (not UnitPlayerControlled(unit) and UnitIsTapDenied(unit)) or isTrashUnit then
 		r, g, b = .5, .5, .5
 	else
-		if isCustomUnit then
-			r, g, b = B.GetColor(customColor)
+		if isDoTUnit then
+			r, g, b = B.GetColor(dotColor)
 		elseif isWarningUnit then
 			r, g, b = B.GetColor(warningColor)
-		elseif isDoTUnit then
-			r, g, b = B.GetColor(dotColor)
+		elseif isCustomUnit then
+			r, g, b = B.GetColor(customColor)
 		elseif isPlayer and ((isFriendly and friendlyCC) or (not isFriendly and hostileCC)) then
 			r, g, b = B.UnitColor(unit)
 		else
@@ -206,7 +207,7 @@ function UF:UpdateColor(_, unit)
 	if status then
 		if status == 3 then
 			if DB.Role == "Tank" then
-				if not (isCustomUnit or isWarningUnit or isDoTUnit or isTrashUnit) then
+				if not isSpecialUnits then
 					r, g, b = B.GetColor(secureColor)
 				end
 			else
@@ -226,7 +227,7 @@ function UF:UpdateColor(_, unit)
 					r, g, b = B.GetColor(insecureColor)
 				end
 			else
-				if not (isCustomUnit or isWarningUnit or isDoTUnit or isTrashUnit) then
+				if not isSpecialUnits then
 					r, g, b = B.GetColor(secureColor)
 				end
 			end

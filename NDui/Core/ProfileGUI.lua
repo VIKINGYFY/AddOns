@@ -169,7 +169,7 @@ function G:Icon_OnEnter()
 			else
 				r, g, b = B.ClassColor(class)
 			end
-			GameTooltip:AddLine(name, r, g, b)
+			GameTooltip:AddLine(name, r,g,b)
 		end
 	end
 	GameTooltip:Show()

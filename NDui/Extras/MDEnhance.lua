@@ -122,8 +122,8 @@ local function Button_OnEnter(parent, spellID)
 	if dungeonIcon_OnEnter then dungeonIcon_OnEnter(dungeonIcon) end
 
 	local _, _, timeLimit = C_ChallengeMode.GetMapUIInfo(dungeonIcon.mapID)
-	GameTooltip:AddLine("加二 "..SecondsToClock(timeLimit*.8), 1, 1, 0)
-	GameTooltip:AddLine("加三 "..SecondsToClock(timeLimit*.6), 0, 1, 0)
+	GameTooltip:AddLine("加二 "..SecondsToClock(timeLimit*.8), 1,1,0)
+	GameTooltip:AddLine("加三 "..SecondsToClock(timeLimit*.6), 0,1,0)
 	GameTooltip:AddLine(" ")
 
 	if spellID then
@@ -132,19 +132,19 @@ local function Button_OnEnter(parent, spellID)
 
 		if IsSpellKnown(spellID) and CDInfo then
 			if CDInfo.duration == 0 then
-				GameTooltip:AddLine(name, 0, 1, 0)
+				GameTooltip:AddLine(name, 0,1,0)
 			else
-				GameTooltip:AddLine(name, 1, 1, 0)
+				GameTooltip:AddLine(name, 1,1,0)
 			end
 		else
-			GameTooltip:AddLine(name, 1, 0, 0)
+			GameTooltip:AddLine(name, 1,0,0)
 		end
 	else
-		GameTooltip:AddLine(SPELL_FAILED_NOT_KNOWN, 1, 0, 0)
+		GameTooltip:AddLine(SPELL_FAILED_NOT_KNOWN, 1,0,0)
 	end
 
 	GameTooltip:AddLine(" ")
-	GameTooltip:AddLine("地图ID: "..dungeonIcon.mapID, 1, 1, 1)
+	GameTooltip:AddLine("地图ID: "..dungeonIcon.mapID, 1,1,1)
 
 	GameTooltip:Show()
 end
@@ -212,7 +212,7 @@ end
 
 function EX:MDEnhance_Notification(unit, casterID, spellID)
 	if unit == "player" and SpellList[spellID] then
-		SendChatMessage(format("%s 开启 %s，前往 %s ！", UnitName("player"), C_Spell.GetSpellLink(spellID) or C_Spell.GetSpellName(spellID), C_ChallengeMode.GetMapUIInfo(SpellList[spellID])), B.GetMSGChannel())
+		SendChatMessage(format("开启 %s，前往 %s ！", C_Spell.GetSpellLink(spellID) or C_Spell.GetSpellName(spellID), C_ChallengeMode.GetMapUIInfo(SpellList[spellID])), B.GetMSGChannel())
 	end
 end
 
