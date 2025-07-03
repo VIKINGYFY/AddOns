@@ -6,17 +6,22 @@ local ALTERNATE_POWER_INDEX = Enum.PowerType.Alternate or 10
 -- Add scantip back, due to issue on ColorMixin
 local scanTip = CreateFrame("GameTooltip", "NDui_ScanTooltip", nil, "GameTooltipTemplate")
 
+local HP_EVENTS = "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION UNIT_FLAGS PARTY_MEMBER_ENABLE PARTY_MEMBER_DISABLE UNIT_ABSORB_AMOUNT_CHANGED UNIT_HEAL_ABSORB_AMOUNT_CHANGED"
+local MP_EVENTS = "UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER"
+local LV_EVENTS = "UNIT_LEVEL PLAYER_LEVEL_CHANGED UNIT_CLASSIFICATION_CHANGED"
+local OT_EVENTS = "UNIT_NAME_UPDATE UNIT_CONNECTION UNIT_FLAGS UNIT_FACTION UNIT_CLASSIFICATION_CHANGED"
+
 local function CurrentAndPercent(cur, per, noColor)
 	if per < 100 then
-		return B.Numb(cur)..DB.Separator..(noColor and B.Perc(per) or B.ColorPerc(per))
+		return B.Numb(cur)..DB.Separator..(noColor and B.Perc(per) or B.ColorPerc(per, true))
 	else
 		return B.Numb(cur)
 	end
 end
 
-local function CurrentAndMax(cur, max, noColor)
+local function CurrentAndMaximum(cur, max, noColor)
 	if cur < max then
-		return (noColor and B.Numb(cur) or B.ColorNumb(cur, max))..DB.Separator..B.Numb(max)
+		return (noColor and B.Numb(cur) or B.ColorNumb(cur, max, true))..DB.Separator..B.Numb(max)
 	else
 		return B.Numb(cur)
 	end
@@ -36,21 +41,21 @@ oUF.Tags.Methods["VariousHP"] = function(unit, _, arg1)
 
 	if arg1 == "currentpercent" then
 		return CurrentAndPercent(cur, per)
-	elseif arg1 == "currentmax" then
-		return CurrentAndMax(cur, max)
+	elseif arg1 == "currentmaximum" then
+		return CurrentAndMaximum(cur, max)
 	elseif arg1 == "current" then
-		return B.ColorNumb(cur, max)
+		return B.ColorNumb(cur, max, true)
 	elseif arg1 == "percent" then
-		return B.ColorPerc(per)
+		return B.ColorPerc(per, true)
 	elseif arg1 == "loss" then
-		return B.ColorNumb(loss, max, true)
+		return B.ColorNumb(loss, max)
 	elseif arg1 == "losspercent" then
-		return B.ColorPerc(lossper, true)
+		return B.ColorPerc(lossper)
 	elseif arg1 == "absorb" then
-		return DB.InfoColor..B.Numb(cur+absorb).."|r"
+		return DB.InfoColor..B.Numb(cur + absorb).."|r"
 	end
 end
-oUF.Tags.Events["VariousHP"] = "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED PARTY_MEMBER_ENABLE PARTY_MEMBER_DISABLE"
+oUF.Tags.Events["VariousHP"] = HP_EVENTS
 
 oUF.Tags.Methods["VariousMP"] = function(unit, _, arg1)
 	if not arg1 then return end
@@ -61,8 +66,8 @@ oUF.Tags.Methods["VariousMP"] = function(unit, _, arg1)
 
 	if arg1 == "currentpercent" then
 		return CurrentAndPercent(cur, per, true)
-	elseif arg1 == "currentmax" then
-		return CurrentAndMax(cur, max, true)
+	elseif arg1 == "currentmaximum" then
+		return CurrentAndMaximum(cur, max, true)
 	elseif arg1 == "current" then
 		return B.Numb(cur)
 	elseif arg1 == "percent" then
@@ -73,13 +78,7 @@ oUF.Tags.Methods["VariousMP"] = function(unit, _, arg1)
 		return B.Perc(lossper)
 	end
 end
-oUF.Tags.Events["VariousMP"] = "UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER"
-
-oUF.Tags.Methods["curAbsorb"] = function(unit)
-	local value = UnitGetTotalAbsorbs(unit) or 0
-	return value > 0 and DB.InfoColor..B.Numb(value).."+|r"
-end
-oUF.Tags.Events["curAbsorb"] = "UNIT_ABSORB_AMOUNT_CHANGED UNIT_HEAL_ABSORB_AMOUNT_CHANGED"
+oUF.Tags.Events["VariousMP"] = MP_EVENTS
 
 oUF.Tags.Methods["color"] = function(unit)
 	local class = select(2, UnitClass(unit))
@@ -95,7 +94,7 @@ oUF.Tags.Methods["color"] = function(unit)
 		return B.HexRGB(1, 1, 1)
 	end
 end
-oUF.Tags.Events["color"] = "UNIT_HEALTH UNIT_MAXHEALTH UNIT_NAME_UPDATE UNIT_FACTION UNIT_CONNECTION PLAYER_FLAGS_CHANGED"
+oUF.Tags.Events["color"] = OT_EVENTS
 
 oUF.Tags.Methods["flags"] = function(unit)
 	if UnitIsAFK(unit) then
@@ -106,7 +105,7 @@ oUF.Tags.Methods["flags"] = function(unit)
 		return ""
 	end
 end
-oUF.Tags.Events["flags"] = "PLAYER_FLAGS_CHANGED"
+oUF.Tags.Events["flags"] = "UNIT_FLAGS PLAYER_FLAGS_CHANGED"
 
 oUF.Tags.Methods["status"] = function(unit)
 	if not UnitIsConnected(unit) then
@@ -119,7 +118,7 @@ oUF.Tags.Methods["status"] = function(unit)
 		return "|cffCCCCCC"..UNKNOWN.."|r"
 	end
 end
-oUF.Tags.Events["status"] = "UNIT_HEALTH UNIT_MAXHEALTH UNIT_NAME_UPDATE UNIT_CONNECTION PLAYER_FLAGS_CHANGED"
+oUF.Tags.Events["status"] = OT_EVENTS
 
 -- Level tags
 oUF.Tags.Methods["fulllevel"] = function(unit)
@@ -152,10 +151,11 @@ oUF.Tags.Methods["fulllevel"] = function(unit)
 
 	return str
 end
-oUF.Tags.Events["fulllevel"] = "UNIT_LEVEL PLAYER_LEVEL_UP UNIT_CLASSIFICATION_CHANGED"
+oUF.Tags.Events["fulllevel"] = LV_EVENTS
 
 -- RaidFrame tags
 local healthModeType = {
+	[1] = "",
 	[2] = "percent",
 	[3] = "current",
 	[4] = "loss",
@@ -166,16 +166,16 @@ oUF.Tags.Methods["raidhp"] = function(unit)
 	local healthType = healthModeType[C.db["UFs"]["RaidHPMode"]]
 	return oUF.Tags.Methods["VariousHP"](unit, _, healthType)
 end
-oUF.Tags.Events["raidhp"] = oUF.Tags.Events["VariousHP"].." UNIT_ABSORB_AMOUNT_CHANGED UNIT_HEAL_ABSORB_AMOUNT_CHANGED"
+oUF.Tags.Events["raidhp"] = HP_EVENTS
 
 -- Nameplate tags
 oUF.Tags.Methods["nppower"] = function(unit)
 	local cur, max = UnitPower(unit), UnitPowerMax(unit)
 	local per = (max == 0 and 0) or (cur/max * 100)
 
-	return B.ColorPerc(per, true)
+	return B.ColorPerc(per)
 end
-oUF.Tags.Events["nppower"] = "UNIT_POWER_FREQUENT UNIT_MAXPOWER"
+oUF.Tags.Events["nppower"] = MP_EVENTS
 
 oUF.Tags.Methods["nplevel"] = function(unit)
 	local level = UnitLevel(unit)
@@ -191,7 +191,7 @@ oUF.Tags.Methods["nplevel"] = function(unit)
 
 	return level
 end
-oUF.Tags.Events["nplevel"] = "UNIT_LEVEL PLAYER_LEVEL_UP"
+oUF.Tags.Events["nplevel"] = LV_EVENTS
 
 local NPClassifies = {
 	rare = "  ",
@@ -210,7 +210,7 @@ oUF.Tags.Methods["pppower"] = function(unit)
 
 	return DB.MyColor..B.Numb(cur).."|r"
 end
-oUF.Tags.Events["pppower"] = "UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER"
+oUF.Tags.Events["pppower"] = MP_EVENTS
 
 oUF.Tags.Methods["npctitle"] = function(unit)
 	local isPlayer = UnitIsPlayer(unit)
@@ -253,15 +253,15 @@ oUF.Tags.Methods["tarname"] = function(unit)
 		return B.HexRGB(oUF.colors.class[tarClass])..tarName
 	end
 end
-oUF.Tags.Events["tarname"] = "UNIT_NAME_UPDATE UNIT_THREAT_SITUATION_UPDATE UNIT_HEALTH"
+oUF.Tags.Events["tarname"] = "UNIT_NAME_UPDATE UNIT_THREAT_LIST_UPDATE UNIT_THREAT_SITUATION_UPDATE UNIT_TARGET UNIT_TARGETABLE_CHANGED"
 
 -- AltPower value tag
 oUF.Tags.Methods["altpower"] = function(unit)
 	local cur, max = UnitPower(unit, ALTERNATE_POWER_INDEX), UnitPowerMax(unit, ALTERNATE_POWER_INDEX)
 
-	return cur > 0 and B.ColorNumb(cur, max, true)
+	return cur > 0 and B.ColorNumb(cur, max)
 end
-oUF.Tags.Events["altpower"] = "UNIT_POWER_UPDATE UNIT_MAXPOWER"
+oUF.Tags.Events["altpower"] = MP_EVENTS
 
 -- Monk stagger
 oUF.Tags.Methods["stagger"] = function(unit)
@@ -269,6 +269,6 @@ oUF.Tags.Methods["stagger"] = function(unit)
 	local cur, max = UnitStagger(unit), UnitHealthMax(unit)
 	local per = (max == 0 and 0) or (cur/max * 100)
 
-	return B.ColorNumb(cur, max, true)..DB.Separator..B.ColorPerc(per, true)
+	return B.ColorNumb(cur, max)..DB.Separator..B.ColorPerc(per)
 end
 oUF.Tags.Events["stagger"] = "UNIT_MAXHEALTH UNIT_AURA"

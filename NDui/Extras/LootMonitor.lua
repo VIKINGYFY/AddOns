@@ -1,5 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
+local EX = B:GetModule("Extras")
 
 local frameWidth, buttonHeight = 200, 16
 local maxLines, minQuality, inGroup = 20, 3, false
@@ -16,14 +17,6 @@ end)
 local function UnitClassColor(unit)
 	local r, g, b = B.UnitColor(unit)
 	return B.HexRGB(r, g, b, unit)
-end
-
-local function isCollection(itemID, itemClassID, itemSubClassID)
-	return (itemID and C_ToyBox.GetToyInfo(itemID)) or (DB.MiscellaneousIDs[itemClassID] and DB.CollectionIDs[itemSubClassID])
-end
-
-local function isEquipment(itemID, itemQuality, itemClassID)
-	return (itemQuality and itemQuality >= minQuality) and ((itemID and (C_ArtifactUI.GetRelicInfoByItemID(itemID) or C_Soulbinds.IsItemConduitByItemInfo(itemID))) or (itemClassID and DB.EquipmentIDs[itemClassID]))
 end
 
 local function Button_OnClick(self, button)
@@ -73,7 +66,7 @@ end
 local function CloseLMFrame()
 	table.wipe(LootMonitor.reports)
 
-	for _, button in pairs(LootMonitor.buttons) do
+	for _, button in ipairs(LootMonitor.buttons) do
 		button.text:SetText("")
 		button:Hide()
 	end
@@ -86,7 +79,7 @@ function LootMonitor:UpdateSelf()
 	local maxWidth = 0
 	local maxHeight = (buttonHeight + 1) * (#self.reports + 3) + DB.margin
 
-	for _, button in pairs(self.buttons) do
+	for _, button in ipairs(self.buttons) do
 		if button:IsShown() then
 			local textWidth = (button.text:GetStringWidth() + 20) or 0
 			maxWidth = math.max(maxWidth, textWidth)
@@ -101,9 +94,9 @@ function LootMonitor:UpdateSelf()
 end
 
 function LootMonitor:PLAYER_LOGIN()
-	local mover = B.Mover(self, "拾取监控", "LootMonitor", {"LEFT", UIParent, "LEFT", 4, 0}, frameWidth, buttonHeight*4)
+	self.mover = B.Mover(self, "拾取监控", "LootMonitor", {"LEFT", UIParent, "LEFT", DB.margin*2, 0}, frameWidth, buttonHeight*4)
 	self:ClearAllPoints()
-	self:SetPoint("CENTER", mover, "CENTER")
+	self:SetPoint("LEFT", self.mover, "LEFT")
 
 	B.SetBD(self)
 	B.CreateMF(self)
@@ -145,7 +138,7 @@ function LootMonitor:CHAT_MSG_LOOT(event, ...)
 	local itemQuality = C_Item.GetItemQualityByID(itemLink)
 	local itemID, _, _, _, _, itemClassID, itemSubClassID = C_Item.GetItemInfoInstant(itemLink)
 
-	if isEquipment(itemID, itemQuality, itemClassID) or isCollection(itemID, itemClassID, itemSubClassID) then
+	if EX.isCollection(itemID, itemClassID, itemSubClassID) or (EX.isEquipment(itemID, itemClassID) and itemQuality >= minQuality) then
 		local textWidth, maxWidth = 0, 0
 		local lootTime = DB.InfoColor..GameTime_GetGameTime(true).."|r"
 		local lootName = UnitClassColor(string.split("-", lootPlayer))

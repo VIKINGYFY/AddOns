@@ -92,7 +92,7 @@ function Bar:StyleActionButton(button)
 	local spellHighlight = B.GetObject(button, "SpellHighlightTexture")
 	if spellHighlight then
 		B.ReskinBGBorder(spellHighlight, button.__bg)
-		spellHighlight:SetColorTexture(1, 1, 1)
+		spellHighlight:SetColorTexture(1, 1, 0)
 	end
 
 	local hotkey = B.GetObject(button, "HotKey")
@@ -103,7 +103,7 @@ function Bar:StyleActionButton(button)
 
 	local autoCast = B.GetObject(button, "AutoCastOverlay")
 	if autoCast then
-		autoCast:SetAllPoints(button.__bg)
+		autoCast:SetInside(button.__bg)
 	end
 
 	local cooldown = B.GetObject(button, "Cooldown")

@@ -40,8 +40,9 @@ do
 		end
 	end
 
-	function B.Perc(p)
-		return format("%.1f%%", p)
+	function B.Perc(p, idp)
+		idp = idp or 1
+		return format("%."..idp.."f%%", p)
 	end
 
 	function B:Round(number, idp)

@@ -1084,7 +1084,7 @@ function module:OnLogin()
 
 	function MyButton:OnUpdateButton(item)
 		if self.JunkIcon then
-			if (MerchantFrame:IsShown() or customJunkEnable) and (item.quality == Enum.ItemQuality.Poor or NDuiADB["CustomJunkList"][item.id]) and item.hasPrice then
+			if item.hasPrice and (item.quality == Enum.ItemQuality.Poor or NDuiADB["CustomJunkList"][item.id]) then
 				self.JunkIcon:Show()
 			else
 				self.JunkIcon:Hide()
@@ -1119,24 +1119,23 @@ function module:OnLogin()
 
 		self.iLvl:SetText("")
 		self.iSlot:SetText("")
+		self.iLvl:SetTextColor(1, 1, 1)
+		self.iSlot:SetTextColor(1, 1, 1)
 		if item.link and (item.quality and item.quality > 0) or (item.id and DB.SpecialJunk[item.id]) then
 			local r, g, b = C_Item.GetItemQualityColor(item.quality)
+			local slot = B.GetItemType(item.link, item.bagId ~= -1 and item.bagId, item.slotId)
 			local level = item.level or item.ilvl
 			if not level then level = "" end
 
 			self.iLvl:SetText(level)
-			self.iLvl:SetTextColor(r, g, b)
+			self.iSlot:SetText(slot)
 
-			if C.db["Bags"]["BagsiSlot"] then
-				local slot = B.GetItemType(item.link, item.bagId ~= -1 and item.bagId, item.slotId)
-				self.iSlot:SetText(slot)
-				if DB.SpecialJunk[item.id] then
-					self.iSlot:SetTextColor(cr, cg, cb)
-				elseif NDuiADB["CustomJunkList"][item.id] then
-					self.iSlot:SetTextColor(.5, .5, .5)
-				else
-					self.iSlot:SetTextColor(1, 1, 1)
-				end
+			if DB.SpecialJunk[item.id] then
+				self.iLvl:SetTextColor(cr, cg, cb)
+				self.iSlot:SetTextColor(cr, cg, cb)
+			elseif NDuiADB["CustomJunkList"][item.id] then
+				self.iLvl:SetTextColor(.5, .5, .5)
+				self.iSlot:SetTextColor(.5, .5, .5)
 			end
 		end
 

@@ -103,6 +103,17 @@ function EX:AutoConfirm()
 	B:RegisterEvent("MERCHANT_SHOW", EX.UpdateAutoConfirm)
 end
 
+-- 自定义API
+do
+	function EX.isCollection(itemID, itemClassID, itemSubClassID)
+		return (itemID and C_ToyBox.GetToyInfo(itemID)) or (DB.MiscellaneousIDs[itemClassID] and DB.CollectionIDs[itemSubClassID])
+	end
+
+	function EX.isEquipment(itemID, itemClassID)
+		return (itemID and (C_ArtifactUI.GetRelicInfoByItemID(itemID) or C_Soulbinds.IsItemConduitByItemInfo(itemID))) or (itemClassID and DB.EquipmentIDs[itemClassID])
+	end
+end
+
 -- 宏界面扩展和修复
 do
 	local AddSelectHeight = 100

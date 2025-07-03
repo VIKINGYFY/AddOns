@@ -21,6 +21,14 @@ if addon.IsToCVersionEqualOrNewerThan(110200) then
     tinsert(JournalInstanceIDs, 1, 1302);   --Manaforge Omega   --debug
 end
 
+if addon.IS_MOP then
+    JournalInstanceIDs = {
+        317,    --Mogu'shan Vaults
+        330,    --Heart of Fear
+        320,    --Terrace of Endless Spring
+    };
+end
+
 
 local RaidTab, LootContainer;
 local EncounterList = {};
@@ -40,6 +48,15 @@ local function GetPlayerClassName(playerClassID, markYourClass)
     end
 
    return name
+end
+
+
+local function IsRaidCollapsed(mapID)
+    return addon.GetDBBool("LandingPage_Raid_CollapsedRaid_"..mapID)
+end
+
+local function SetRaidCollapsed(mapID, isCollapsed)
+    return addon.SetDBValue("LandingPage_Raid_CollapsedRaid_"..mapID, isCollapsed, true)
 end
 
 
@@ -75,6 +92,7 @@ do
         if self.dataIndex and EncounterList[self.dataIndex] then
             local isCollapsed = not EncounterList[self.dataIndex].isCollapsed;
             EncounterList[self.dataIndex].isCollapsed = isCollapsed;
+            SetRaidCollapsed(EncounterList[self.dataIndex].mapID, isCollapsed);
             RaidTab:RefreshList();
             return isCollapsed
         end
@@ -107,6 +125,7 @@ do
         self.Light2:Hide();
         self.Light3:Hide();
         self.Light4:Hide();
+        self.Light5:Hide();
     end
 
     function ListButtonMixin:UpdateProgress()
@@ -147,7 +166,7 @@ do
         f:SetScript("OnLeave", f.OnLeave);
         f:SetScript("OnClick", f.OnClick);
 
-        for i = 1, 4 do
+        for i = 1, 5 do
             local texture = f:CreateTexture(nil, "OVERLAY");
             f["Light"..i] = texture;
             texture:SetSize(24, 24);
@@ -274,51 +293,106 @@ do
         tooltip:Show();
     end
 
-    function AchievementButtonMixin:IsAchievementTracked()
-        local id = self.achievementID;
-        local trackType = Enum.ContentTrackingType.Achievement;
-        local trackedIDs = C_ContentTracking.GetTrackedIDs(trackType) or {};
+    if C_ContentTracking then
+        --Retail
+        function AchievementButtonMixin:IsAchievementTracked()
+            local id = self.achievementID;
+            local trackType = Enum.ContentTrackingType.Achievement;
+            local trackedIDs = C_ContentTracking.GetTrackedIDs(trackType) or {};
 
-        for _, _id in ipairs(trackedIDs) do
-            if id == _id then
+            for _, _id in ipairs(trackedIDs) do
+                if id == _id then
+                    return true
+                end
+            end
+
+            return false
+        end
+
+        function AchievementButtonMixin:ToggleTracking()
+            local id = self.achievementID;
+            local trackType = Enum.ContentTrackingType.Achievement;
+
+            local trackedIDs = C_ContentTracking.GetTrackedIDs(trackType) or {};
+
+            for _, _id in ipairs(trackedIDs) do
+                if id == _id then
+                    C_ContentTracking.StopTracking(trackType, id, Enum.ContentTrackingStopType.Manual);
+                    return false
+                end
+            end
+
+            if #trackedIDs >= Constants.ContentTrackingConsts.MaxTrackedAchievements then
+                UIErrorsFrame:AddMessage(format(ACHIEVEMENT_WATCH_TOO_MANY, Constants.ContentTrackingConsts.MaxTrackedAchievements), 1.0, 0.1, 0.1, 1.0);
+                return
+            end
+
+            local _, _, _, completed, _, _, _, _, _, _, _, isGuild, wasEarnedByMe = GetAchievementInfo(id)
+            if (completed and isGuild) or wasEarnedByMe then
+                UIErrorsFrame:AddMessage(ERR_ACHIEVEMENT_WATCH_COMPLETED, 1.0, 0.1, 0.1, 1.0);
+                return
+            end
+
+            local trackingError = C_ContentTracking.StartTracking(trackType, id);
+            if trackingError then
+                ContentTrackingUtil.DisplayTrackingError(trackingError);
+            else
                 return true
             end
         end
+    else
+        --Classic
+        function AchievementButtonMixin:IsAchievementTracked()
+            local id = self.achievementID;
+            local trackedIDs = {GetTrackedAchievements()};
 
-        return false
-    end
-
-    function AchievementButtonMixin:ToggleTracking()
-        local id = self.achievementID;
-        local trackType = Enum.ContentTrackingType.Achievement;
-
-        local trackedIDs = C_ContentTracking.GetTrackedIDs(trackType) or {};
-
-        for _, _id in ipairs(trackedIDs) do
-            if id == _id then
-                C_ContentTracking.StopTracking(trackType, id, Enum.ContentTrackingStopType.Manual);
-                return false
+            for _, _id in ipairs(trackedIDs) do
+                if id == _id then
+                    return true
+                end
             end
+
+            return false
         end
 
-        if #trackedIDs >= Constants.ContentTrackingConsts.MaxTrackedAchievements then
-            UIErrorsFrame:AddMessage(format(ACHIEVEMENT_WATCH_TOO_MANY, Constants.ContentTrackingConsts.MaxTrackedAchievements), 1.0, 0.1, 0.1, 1.0);
-            return
-        end
+        function AchievementButtonMixin:ToggleTracking()
+            local id = self.achievementID;
+            local trackedIDs = {GetTrackedAchievements()}
+            local result;
 
-        local _, _, _, completed, _, _, _, _, _, _, _, isGuild, wasEarnedByMe = GetAchievementInfo(id)
-        if (completed and isGuild) or wasEarnedByMe then
-            UIErrorsFrame:AddMessage(ERR_ACHIEVEMENT_WATCH_COMPLETED, 1.0, 0.1, 0.1, 1.0);
-            return
-        end
+            for _, _id in ipairs(trackedIDs) do
+                if id == _id then
+                    RemoveTrackedAchievement(id);
+                    result = false;
+                end
+            end
 
-        local trackingError = C_ContentTracking.StartTracking(trackType, id);
-        if trackingError then
-            ContentTrackingUtil.DisplayTrackingError(trackingError);
-        else
-            return true
+            if result == nil then
+                if #trackedIDs >= Constants.ContentTrackingConsts.MaxTrackedAchievements then
+                    UIErrorsFrame:AddMessage(format(ACHIEVEMENT_WATCH_TOO_MANY, Constants.ContentTrackingConsts.MaxTrackedAchievements), 1.0, 0.1, 0.1, 1.0);
+                    return
+                end
+
+                local _, _, _, completed, _, _, _, _, _, _, _, isGuild, wasEarnedByMe = GetAchievementInfo(id)
+                if (completed and isGuild) or wasEarnedByMe then
+                    UIErrorsFrame:AddMessage(ERR_ACHIEVEMENT_WATCH_COMPLETED, 1.0, 0.1, 0.1, 1.0);
+                    return
+                end
+
+                AddTrackedAchievement(id);
+                result = true;
+            end
+
+            if not InCombatLockdown() then
+                --This is not event-driven in Classic
+                WatchFrame_Update();
+            end
+
+            return result
         end
     end
+
+
 
 
     local AchievementContainerMixin = {};
@@ -557,7 +631,7 @@ do
         local difficultyID = self.difficultyID or LandingPageUtil:GetDefaultRaidDifficulty();
         self.difficultyID = difficultyID;
         EJ_SetDifficulty(difficultyID);
-        self.DifficultyDropdown:SetText(DifficultyUtil.GetDifficultyName(difficultyID));
+        self.DifficultyDropdown:SetText(LandingPageUtil.GetDifficultyName(difficultyID));
 
         local playerClassID = self.playerClassID or LandingPageUtil:GetDefaultPlayerClassID();
         self.playerClassID = playerClassID;
@@ -708,7 +782,7 @@ do
         for i, difficultyID in ipairs(LandingPageUtil.RaidDifficulties) do
             widgets[i] = {
                 type = "Radio",
-                text = DifficultyUtil.GetDifficultyName(difficultyID),
+                text = LandingPageUtil.GetDifficultyName(difficultyID),
                 selected = difficultyID == LootContainer.difficultyID,
                 closeAfterClick = true,
                 onClickFunc = function()
@@ -848,9 +922,14 @@ do
         "UPDATE_INSTANCE_INFO",
         "BOSS_KILL",
         "ACHIEVEMENT_EARNED",
-        "CONTENT_TRACKING_UPDATE",
         --"EJ_LOOT_DATA_RECIEVED",
     };
+
+    if C_EventUtils.IsEventValid("CONTENT_TRACKING_UPDATE") then
+        table.insert(DynamicEvents, "CONTENT_TRACKING_UPDATE");
+    else
+        table.insert(DynamicEvents, "TRACKED_ACHIEVEMENT_LIST_CHANGED");
+    end
 
     function RaidTabMixin:OnShow()
         API.RegisterFrameForEvents(self, DynamicEvents);
@@ -869,26 +948,30 @@ do
             RequestRaidInfo();
         elseif event == "ACHIEVEMENT_EARNED" then
             self:UpdateAchievements();
-        elseif event == "CONTENT_TRACKING_UPDATE" then
+        elseif event == "CONTENT_TRACKING_UPDATE" or event == "TRACKED_ACHIEVEMENT_LIST_CHANGED" then
             self.AchievementContainer:UpdateTooltip();
         end
     end
 
-    function RaidTabMixin:GetInstanceData(instanceID)
+    function RaidTabMixin:GetInstanceData(journalInstanceID)
         --journalInstanceID
         --EJ_DIFFICULTIES
 
-        local name, _, _, _, _, _, _, _, _, mapID = EJ_GetInstanceInfo(instanceID);
+        local name, _, _, _, _, _, _, _, _, mapID = EJ_GetInstanceInfo(journalInstanceID);
         if not name then return end;
 
-        local difficultyID = DifficultyUtil.ID.PrimaryRaidNormal;
+        local difficultyID = LandingPageUtil.GetBaseRaidDifficulty();
         EJ_SetDifficulty(difficultyID);   --This is essential otherwise "EJ_GetEncounterInfoByIndex" returns nil
 
         local encounters = {};
         local i = 1;
-        local bossName, description, journalEncounterID, _, _, _, dungeonEncounterID = EJ_GetEncounterInfoByIndex(i, instanceID);
+        local bossName, description, journalEncounterID, _, _, _, dungeonEncounterID = EJ_GetEncounterInfoByIndex(i, journalInstanceID);    --No dungeonEncounterID in Classic
 
         while journalEncounterID do
+            if not dungeonEncounterID then
+                dungeonEncounterID = LandingPageUtil.GetDungeonEncounteID(journalEncounterID);
+            end
+
             encounters[i] = {
                 name = bossName,
                 id = journalEncounterID,
@@ -896,12 +979,12 @@ do
                 dungeonEncounterID = dungeonEncounterID,
             };
             i = i + 1;
-            bossName, description, journalEncounterID, _, _, _, dungeonEncounterID = EJ_GetEncounterInfoByIndex(i, instanceID);
+            bossName, description, journalEncounterID, _, _, _, dungeonEncounterID = EJ_GetEncounterInfoByIndex(i, journalInstanceID);
         end
 
         local data = {
             name = name,
-            instanceID = instanceID,
+            instanceID = journalInstanceID,
             mapID = mapID,
             encounters = encounters,
         };
@@ -922,7 +1005,7 @@ do
             if data then
                 local mapID = data.mapID;
                 n = n + 1;
-                EncounterList[n] = {dataIndex = n, name = data.name, isCollapsed = false, isHeader = true, journalInstanceID = journalInstanceID};
+                EncounterList[n] = {dataIndex = n, name = data.name, isCollapsed = IsRaidCollapsed(mapID), isHeader = true, journalInstanceID = journalInstanceID, mapID = mapID};
                 for _, encounterInfo in ipairs(data.encounters) do
                     n = n + 1;
                     EncounterList[n] = {dataIndex = n, name = encounterInfo.name, journalEncounterID = encounterInfo.id, dungeonEncounterID = encounterInfo.dungeonEncounterID, mapID = mapID, journalInstanceID = journalInstanceID, };
@@ -1001,7 +1084,9 @@ do
     end
 
     function RaidTabMixin:UpdateAchievements()
-        self.AchievementContainer:Update();
+        if self.AchievementContainer then
+            self.AchievementContainer:Update();
+        end
     end
 
     function RaidTabMixin:SelectEncounterByDataIndex(dataIndex)

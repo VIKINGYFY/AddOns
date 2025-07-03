@@ -123,7 +123,7 @@ info.onEnter = function(self)
 			if C_AddOns.IsAddOnLoaded(data[1]) then
 				numEnabled = numEnabled + 1
 				if numEnabled <= maxShown then
-					local r, g, b = B.Color(data[3], totalMemory, true)
+					local r, g, b = B.Color(data[3], totalMemory)
 					GameTooltip:AddDoubleLine(data[2], formatMemory(data[3]), 1,1,1, r,g,b)
 				end
 			end
@@ -147,7 +147,7 @@ info.onEnter = function(self)
 			if C_AddOns.IsAddOnLoaded(data[1]) then
 				numEnabled = numEnabled + 1
 				if numEnabled <= maxShown then
-					local r, g, b = B.Color(data[4], totalCPU, true)
+					local r, g, b = B.Color(data[4], totalCPU)
 					GameTooltip:AddDoubleLine(data[2], format(usageString, data[4] / passedTime), 1,1,1, r,g,b)
 				end
 			end

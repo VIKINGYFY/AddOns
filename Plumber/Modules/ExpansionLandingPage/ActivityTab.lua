@@ -8,7 +8,7 @@ local TooltipUpdator = LandingPageUtil.TooltipUpdator;
 
 
 local ipairs = ipairs;
-local ReadyForTurnIn = C_QuestLog.ReadyForTurnIn;
+local ReadyForTurnIn = C_QuestLog.ReadyForTurnIn or IsQuestComplete;
 
 
 local ActivityTab;
@@ -122,28 +122,57 @@ do  --Checklist Button
         self:UpdateVisual();
     end
 
-    function ChecklistButtonMixin:SetQuest(questID)
-        self.type = "Quest";
-        self.id = questID;
+    if addon.IS_MOP then
+        --Classic
+        local DailyUtil = addon.DailyUtil;
 
-        self.Text1:SetText(nil);
+        function ChecklistButtonMixin:SetQuest(questID)
+            self.type = "Quest";
+            self.id = questID;
 
-        local name, isLocalized = ActivityUtil.GetActivityName(self.dataIndex);
-        self.Name:SetText(name);
-        if not isLocalized then
-            CallbackRegistry:LoadQuest(questID, function(_questID)
-                if questID == self.id then
-                    local name = API.GetQuestName(_questID);
-                    ActivityUtil.StoreQuestActivityName( _questID, name);
-                    self.Name:SetText(name);
-                    self:UpdateProgress();
-                    if self:IsMouseMotionFocus() then
-                        self:OnEnter();
+            self.Text1:SetText(nil);
+
+            local name = DailyUtil.GetQuestTitle(questID) or ActivityUtil.GetActivityName(self.dataIndex);
+            self.Name:SetText(name);
+            if not name then
+                CallbackRegistry:LoadQuest(questID, function(_questID)
+                    if questID == self.id then
+                        local name = DailyUtil.GetQuestTitle(_questID);
+                        self.Name:SetText(name);
+                        self:UpdateProgress();
+                        if self:IsMouseMotionFocus() then
+                            self:OnEnter();
+                        end
                     end
-                end
-            end);
+                end);
+            end
+        end
+    else
+        --Retail
+        function ChecklistButtonMixin:SetQuest(questID)
+            self.type = "Quest";
+            self.id = questID;
+
+            self.Text1:SetText(nil);
+
+            local name, isLocalized = ActivityUtil.GetActivityName(self.dataIndex);
+            self.Name:SetText(name);
+            if not isLocalized then
+                CallbackRegistry:LoadQuest(questID, function(_questID)
+                    if questID == self.id then
+                        local name = API.GetQuestName(_questID);
+                        ActivityUtil.StoreQuestActivityName( _questID, name);
+                        self.Name:SetText(name);
+                        self:UpdateProgress();
+                        if self:IsMouseMotionFocus() then
+                            self:OnEnter();
+                        end
+                    end
+                end);
+            end
         end
     end
+
 
     function ChecklistButtonMixin:SetItem(itemID)
         self.type = "Item";
@@ -203,6 +232,7 @@ do  --Checklist Button
                 end
 
                 TooltipUpdator:RequestTooltipLines(tooltipLines);
+                TooltipUpdator:RequestTooltipSetter(data.tooltipSetter);
             end
         end
     end
@@ -232,10 +262,20 @@ do
         "QUEST_REMOVED",
         "QUEST_ACCEPTED",
         "QUEST_TURNED_IN",
-        "QUESTLINE_UPDATE",
         --"LOOT_CLOSED",       --Looting some items triggers hidden quest flag, but the quest events don't fire
         "ZONE_CHANGED_NEW_AREA",
     };
+
+    local OptionalEvents = {
+        --For Classic
+        "QUESTLINE_UPDATE",
+    };
+
+    for _, event in ipairs(OptionalEvents) do
+        if C_EventUtils.IsEventValid(event) then
+            table.insert(DynamicEvents, event);
+        end
+    end
 
     function ActivityTabMixin:FullUpdate()
         self.fullUpdate = nil;
@@ -348,10 +388,16 @@ do
         local WeeklyResetTimer = LandingPageUtil.CreateTimerFrame(self);
         self.WeeklyResetTimer = WeeklyResetTimer;
         WeeklyResetTimer:SetPoint("TOPLEFT", self, "TOPLEFT", 58, headerWidgetOffsetY);
-        WeeklyResetTimer:SetTimeGetter(C_DateAndTime.GetSecondsUntilWeeklyReset);
-        WeeklyResetTimer:SetTimeTextFormat(L["Weeky Reset Format"]);
+        if addon.IS_MOP then
+            WeeklyResetTimer:SetTimeGetter(C_DateAndTime.GetSecondsUntilDailyReset);
+            WeeklyResetTimer:SetTimeTextFormat(L["Daily Reset Format"]);
+            WeeklyResetTimer:SetLowThresholdAndColor(2*3600, "ffe24c45");
+        else
+            WeeklyResetTimer:SetTimeGetter(C_DateAndTime.GetSecondsUntilWeeklyReset);
+            WeeklyResetTimer:SetTimeTextFormat(L["Weeky Reset Format"]);
+            WeeklyResetTimer:SetLowThresholdAndColor(6*3600, "ffe24c45");
+        end
         WeeklyResetTimer:SetDisplayStyle("FormattedText");
-        WeeklyResetTimer:SetLowThresholdAndColor(6*3600, "ffe24c45");
         WeeklyResetTimer:SetAutoStart(true);
         WeeklyResetTimer:SetShownThreshold(86400);
         WeeklyResetTimer:OnShow();
@@ -372,6 +418,10 @@ do
         end
 
         ScrollView:AddTemplate("ChecklistButton", ChecklistButton_Create, ChecklistButton_OnAcquired, ChecklistButton_OnRemoved);
+
+
+        CallbackRegistry:Register("Classic.QuestLogged", self.RequestFullUpdateIfShown, self);
+        CallbackRegistry:Register("activeAugustCelestial", self.RequestFullUpdateIfShown, self);
     end
 
     function ActivityTabMixin:UpdateScrollViewContent()
@@ -385,6 +435,12 @@ do
         self:SetScript("OnUpdate", self.OnUpdate);
         if fullUpdate then
             self.fullUpdate = true;
+        end
+    end
+
+    function ActivityTabMixin:RequestFullUpdateIfShown()
+        if self:IsVisible() then
+            self:RequestUpdate(true);
         end
     end
 

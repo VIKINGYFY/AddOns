@@ -266,9 +266,9 @@ local list = {
 		{AuraID =  226510, UnitID = "target"}, -- 血池回血
 		{AuraID =  343502, UnitID = "target"}, -- 鼓舞光环
 		{AuraID =  440328, UnitID = "target"}, -- 萨拉塔斯的赠礼：吞噬
+		{AuraID = 1216944, UnitID = "target"}, -- 萨拉塔斯的赠礼：脉冲
 		{AuraID = 1221061, UnitID = "target"}, -- 萨拉塔斯的赠礼：虚缚
 		{AuraID = 1221063, UnitID = "target"}, -- 萨拉塔斯的赠礼：扬升
-
 		-- 5人
 		{AuraID =  113309, UnitID = "target", Flash = true}, -- 至高能量，青龙寺
 		{AuraID =  113315, UnitID = "target", Stack = 7, Flash = true}, -- 强烈，青龙寺

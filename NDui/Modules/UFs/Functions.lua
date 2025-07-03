@@ -197,21 +197,21 @@ end
 UF.VariousTagIndex = {
 	[1] = "",
 	[2] = "currentpercent",
-	[3] = "currentmax",
+	[3] = "currentmaximum",
 	[4] = "current",
 	[5] = "percent",
 	[6] = "loss",
 	[7] = "losspercent",
+	[8] = "absorb",
 }
 
 function UF:UpdateFrameHealthTag()
 	local mystyle, hpval = self.mystyle, self.healthValue
 	if mystyle == "raid" or mystyle == "nameplate" then return end
 
-	local valueType, showValue
+	local valueType
 	if mystyle == "player" or mystyle == "target" then
 		valueType = UF.VariousTagIndex[C.db["UFs"]["PlayerHPTag"]]
-		showValue = C.db["UFs"]["PlayerAbsorb"] and "[curAbsorb] "
 	elseif mystyle == "focus" then
 		valueType = UF.VariousTagIndex[C.db["UFs"]["FocusHPTag"]]
 	elseif mystyle == "boss" or mystyle == "arena" then
@@ -220,7 +220,7 @@ function UF:UpdateFrameHealthTag()
 		valueType = UF.VariousTagIndex[C.db["UFs"]["PetHPTag"]]
 	end
 
-	self:Tag(hpval, (showValue or "").."[VariousHP("..valueType..")]")
+	self:Tag(hpval, "[VariousHP("..valueType..")]")
 	hpval:UpdateTag()
 end
 
@@ -1432,8 +1432,7 @@ end
 
 function UF.PostUpdateAltPower(element, _, cur, _, max)
 	if cur and max then
-		local r, g, b = B.Color(cur, max, true)
-		element:SetStatusBarColor(r, g, b)
+		element:SetStatusBarColor(B.Color(cur, max))
 	end
 end
 
@@ -1455,12 +1454,8 @@ end
 function UF.PostUpdateAddPower(element, cur, max)
 	if element.Text and max > 0 then
 		local perc = cur/max * 100
-		if perc < 100 then
-			element:SetAlpha(1)
-		else
-			element:SetAlpha(0)
-		end
-		element.Text:SetText(B.ColorPerc(perc))
+		element:SetAlpha((perc < 100) and 1 or 0)
+		element.Text:SetText(B.ColorPerc(perc, true))
 	end
 end
 

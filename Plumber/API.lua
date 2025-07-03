@@ -535,6 +535,7 @@ do  -- Item
     local C_Item = C_Item;
     local GetItemSpell = GetItemSpell;
 
+
     local function ColorizeTextByQuality(text, quality, allowColorBlind)
         if not (text and quality) then
             return text
@@ -550,6 +551,7 @@ do  -- Item
     end
     API.ColorizeTextByQuality = ColorizeTextByQuality;
 
+
     local function GetColorizedItemName(itemID)
         local name = C_Item.GetItemNameByID(itemID);
         local quality = C_Item.GetItemQualityByID(itemID);
@@ -558,14 +560,26 @@ do  -- Item
     end
     API.GetColorizedItemName = GetColorizedItemName;
 
+
     local function GetItemSpellID(item)
         local spellName, spellID = GetItemSpell(item);
         return spellID
     end
     API.GetItemSpellID = GetItemSpellID;
 
+
     function API.IsToyItem(item)
        return C_ToyBox.GetToyInfo(item) ~= nil
+    end
+
+
+    function API.GetItemSellPrice(item)
+        if item then
+            local sellPrice = select(11, C_Item.GetItemInfo(item));
+            if sellPrice and sellPrice > 0 then
+                return sellPrice
+            end
+        end
     end
 end
 
@@ -1624,10 +1638,29 @@ do  -- Reputation
     local C_MajorFactions = C_MajorFactions;
     local GetFriendshipReputation = C_GossipInfo.GetFriendshipReputation;
     local GetFriendshipReputationRanks = C_GossipInfo.GetFriendshipReputationRanks;
-    local GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo;
-    local GetFactionInfoByID = C_Reputation.GetFactionDataByID;
+    local GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo or Nop;
     local UnitSex = UnitSex;
     local GetText = GetText;
+
+    local GetFactionDataByID;
+    if C_Reputation.GetFactionDataByID then
+        GetFactionDataByID = C_Reputation.GetFactionDataByID;
+    else    --Classic
+        function GetFactionDataByID(factionID)
+            local name, description, standingID, barMin, barMax, barValue = GetFactionInfoByID(factionID);
+            if name then
+                local tbl = {
+                    name = name,
+                    factionID = factionID,
+                    reaction = standingID,
+                    currentStanding = barValue,
+                    currentReactionThreshold = barMin,
+                    nextReactionThreshold = barMax,
+                }
+                return tbl
+            end
+        end
+    end
 
     local function GetReputationProgress(factionID)
         if not factionID then return end;
@@ -1659,7 +1692,7 @@ do  -- Reputation
             isFull = level >= rankInfo.maxLevel;
         end
 
-        if C_Reputation.IsMajorFaction(factionID) then
+        if C_Reputation.IsMajorFaction and C_Reputation.IsMajorFaction(factionID) then
             local majorFactionData = C_MajorFactions.GetMajorFactionData(factionID);
             if majorFactionData then
                 reputationType = 3;
@@ -1673,11 +1706,12 @@ do  -- Reputation
         end
 
         if not reputationType then
-            repInfo = GetFactionInfoByID(factionID);
+            repInfo = GetFactionDataByID(factionID);
             if repInfo then
                 reputationType = 1;
                 name = repInfo.name;
                 isUnlocked = true;
+
                 if repInfo.currentReactionThreshold then
                     currentValue = repInfo.currentStanding - repInfo.currentReactionThreshold;
                     maxValue = repInfo.nextReactionThreshold - repInfo.currentReactionThreshold;
@@ -1697,7 +1731,7 @@ do  -- Reputation
             end
         end
 
-        if C_Reputation.IsFactionParagon(factionID) then
+        if C_Reputation.IsFactionParagon and C_Reputation.IsFactionParagon(factionID) then
             isFull = true;
             if paragonRepEarned and paragonThreshold and paragonThreshold ~= 0 then
                 local paragonLevel = floor(paragonRepEarned / paragonThreshold);
@@ -1739,6 +1773,10 @@ do  -- Reputation
 
 
     local function GetReputationStandingText(reaction)
+        if type(reaction) == "string" then
+            --Friendship
+            return reaction
+        end
         local gender = UnitSex("player");
         local reputationStandingtext = GetText("FACTION_STANDING_LABEL"..reaction, gender);    --GetText: Game API that returns localized texts
         return reputationStandingtext
@@ -1749,7 +1787,7 @@ do  -- Reputation
     local function GetFactionStatusText(factionID)
         --Derived from Blizzard ReputationFrame_InitReputationRow in ReputationFrame.lua
         if not factionID then return end;
-        local p1, description, standingID, barMin, barMax, barValue = GetFactionInfoByID(factionID);
+        local p1, description, standingID, barMin, barMax, barValue = GetFactionDataByID(factionID);
 
         if type(p1) == "table" then
             standingID = p1.reaction;
@@ -1758,8 +1796,8 @@ do  -- Reputation
             barValue = p1.currentStanding;
         end
 
-        local isParagon = C_Reputation.IsFactionParagon(factionID);
-        local isMajorFaction = C_Reputation.IsMajorFaction(factionID);
+        local isParagon = C_Reputation.IsFactionParagon and C_Reputation.IsFactionParagon(factionID);
+        local isMajorFaction = C_Reputation.IsMajorFaction and C_Reputation.IsMajorFaction(factionID);
         local repInfo = GetFriendshipReputation(factionID);
 
         local isCapped;
@@ -2044,12 +2082,18 @@ do  -- Player
     end
     API.GetPlayerMaxLevel = GetPlayerMaxLevel;
 
+
     local function IsPlayerAtMaxLevel()
         local maxLevel = GetPlayerMaxLevel();
         local playerLevel = UnitLevel("player");
         return playerLevel >= maxLevel
     end
     API.IsPlayerAtMaxLevel = IsPlayerAtMaxLevel;
+
+
+    function API.IsGreatVaultFeatureAvailable()
+        return IsPlayerAtMaxLevel() and C_WeeklyRewards ~= nil;
+    end
 end
 
 do  -- Scenario
@@ -2195,15 +2239,19 @@ do  -- Transmog
 end
 
 do  -- Quest
+    local GetRegularQuestTitle = C_QuestLog.GetTitleForQuestID or C_QuestLog.GetQuestInfo;
+    local RequestLoadQuest = C_QuestLog.RequestLoadQuestByID or Nop;
+    local GetLogIndexForQuestID = C_QuestLog.GetLogIndexForQuestID or GetQuestLogIndexByID or Nop;
+
     local function GetQuestName(questID)
         local questName = C_TaskQuest.GetQuestInfoByQuestID(questID);
         if not questName then
-            questName = C_QuestLog.GetTitleForQuestID(questID);
+            questName = GetRegularQuestTitle(questID);
         end
         if questName and questName ~= "" then
             return questName
         else
-            C_QuestLog.RequestLoadQuestByID(questID);
+            RequestLoadQuest(questID);
         end
     end
     API.GetQuestName = GetQuestName;
@@ -2228,79 +2276,64 @@ do  -- Quest
         end
     end
 
-    function API.GetQuestProgressPercent(questID, asText)
-        --Unify progression text and bar
-        --C_QuestLog.GetNumQuestObjectives
+    if addon.IS_CLASSIC then
+        --Classic
+        function API.GetQuestProgressPercent(questID, asText)
+            local value, max = 0, 0;
+            local questLogIndex = questID and GetLogIndexForQuestID(questID);
 
-        local value, max = 0, 0;
-        local questLogIndex = questID and C_QuestLog.GetLogIndexForQuestID(questID);
-
-        if questLogIndex then
-            local numObjectives = GetNumQuestLeaderBoards(questLogIndex);
-            local text, objectiveType, finished, fulfilled, required;
-            for objectiveIndex = 1, numObjectives do
-                text, objectiveType, finished, fulfilled, required = GetQuestObjectiveInfo(questID, objectiveIndex, false);
-                --print(questID, GetQuestName(questID), numObjectives, finished, fulfilled, required)
-                if fulfilled > required then
-                    fulfilled = required;
-                end
-
-                if objectiveType == "progressbar" then
-                    fulfilled = 0.01 * GetQuestProgressBarPercent(questID);
-                    required = 1;
-                else
-                    if not finished then
-                        if fulfilled == required then
-                            --"Complete the scenario Nightfall" fulfilled = required = 1 when accepting the quest
+            if questLogIndex and questLogIndex ~= 0 then
+                local numObjectives = GetNumQuestLeaderBoards(questLogIndex);
+                local text, objectiveType, finished, fulfilled, required;
+                for objectiveIndex = 1, numObjectives do
+                    text, objectiveType, finished = GetQuestLogLeaderBoard(objectiveIndex, questLogIndex);
+                    --print(questID, GetQuestName(questID), numObjectives, finished, fulfilled, required)
+                    if objectiveType ~= "spell" and objectiveType ~= "log" then
+                        fulfilled, required = match(text, "(%d+)/(%d+)");
+                        if not (fulfilled and required) then
                             fulfilled = 0;
+                            required = 1;
                         end
+                        if fulfilled > required then
+                            fulfilled = required;
+                        end
+                        value = value + fulfilled;
+                        max = max + required;
                     end
                 end
-                value = value + fulfilled;
-                max = max + required;
-            end
-        else
-            return
-        end
-
-        if max == 0 then
-            value = 0;
-            max = 1;
-        end
-
-        if asText then
-            return floor(100 * value / max).."%"
-        else
-            return value / max
-        end
-    end
-
-    function API.GetQuestProgressTexts(questID, hideFinishedObjectives)
-        local questLogIndex = questID and C_QuestLog.GetLogIndexForQuestID(questID);
-
-        if questLogIndex then
-            local texts = {};
-            if C_QuestLog.ReadyForTurnIn(questID) then
-                texts[1] = QUEST_PROGRESS_TOOLTIP_QUEST_READY_FOR_TURN_IN;
-                return texts
+            else
+                return
             end
 
-            local numObjectives = GetNumQuestLeaderBoards(questLogIndex);
-            local text, objectiveType, finished, fulfilled, required;
+            if max == 0 then
+                value = 0;
+                max = 1;
+            end
 
-            for objectiveIndex = 1, numObjectives do
-                text, objectiveType, finished, fulfilled, required = GetQuestObjectiveInfo(questID, objectiveIndex, false);
-                text = text or "";
-                if (not finished) or not hideFinishedObjectives then
-                    if objectiveType == "progressbar" then
-                        fulfilled = GetQuestProgressBarPercent(questID);
-                        fulfilled = floor(fulfilled);
-                        if finished then
-                            tinsert(texts, format("|cff808080- %s%% %s|r", fulfilled, text));
-                        else
-                            tinsert(texts, format("- %s", text));
-                        end
-                    else
+            if asText then
+                return floor(100 * value / max).."%"
+            else
+                return value / max
+            end
+        end
+
+        function API.GetQuestProgressTexts(questID, hideFinishedObjectives)
+            local questLogIndex = questID and GetLogIndexForQuestID(questID);
+
+            if questLogIndex and questLogIndex ~= 0 then
+                local texts = {};
+                if IsQuestComplete(questID) then
+                    texts[1] = QUEST_PROGRESS_TOOLTIP_QUEST_READY_FOR_TURN_IN or ("|cff20ff20"..L["Ready To Turn In Tooltip"].."|r");
+                    return texts
+                end
+
+                local numObjectives = GetNumQuestLeaderBoards(questLogIndex);
+                local text, objectiveType, finished, fulfilled, required;
+
+                for objectiveIndex = 1, numObjectives do
+                    text, objectiveType, finished = GetQuestLogLeaderBoard(objectiveIndex, questLogIndex);
+                    text = text or "";
+                    if (objectiveType ~= "spell" and objectiveType ~= "log") and ((not finished) or not hideFinishedObjectives) then
                         if finished then
                             tinsert(texts, format("|cff808080- %s|r", text));
                         else
@@ -2308,28 +2341,133 @@ do  -- Quest
                         end
                     end
                 end
+
+                return texts
+            else
+                if not C_QuestLog.IsOnQuest(questID) then
+                    local texts = {};
+
+                    if C_QuestLog.IsQuestFlaggedCompleted(questID) then
+                        texts[1] = format("|cff808080%s|r", QUEST_COMPLETE);
+                    else
+                        texts[1] = format("|cffff2020%s|r", L["Not On Quest"]);
+                        local description = API.GetDescriptionFromTooltip(questID);
+                        if description and description ~= QUEST_TOOLTIP_REQUIREMENTS then
+                            tinsert(texts, " ");
+                            tinsert(texts, description);
+                        end
+                    end
+
+                    return texts;
+                end
+            end
+        end
+    else
+        --Retail
+        function API.GetQuestProgressPercent(questID, asText)
+            --Unify progression text and bar
+            --C_QuestLog.GetNumQuestObjectives
+
+            local value, max = 0, 0;
+            local questLogIndex = questID and GetLogIndexForQuestID(questID);
+
+            if questLogIndex and questLogIndex ~= 0 then
+                local numObjectives = GetNumQuestLeaderBoards(questLogIndex);
+                local text, objectiveType, finished, fulfilled, required;
+                for objectiveIndex = 1, numObjectives do
+                    text, objectiveType, finished, fulfilled, required = GetQuestObjectiveInfo(questID, objectiveIndex, false);
+                    --print(questID, GetQuestName(questID), numObjectives, finished, fulfilled, required)
+                    if fulfilled > required then
+                        fulfilled = required;
+                    end
+
+                    if objectiveType == "progressbar" then
+                        fulfilled = 0.01 * GetQuestProgressBarPercent(questID);
+                        required = 1;
+                    else
+                        if not finished then
+                            if fulfilled == required then
+                                --"Complete the scenario Nightfall" fulfilled = required = 1 when accepting the quest
+                                fulfilled = 0;
+                            end
+                        end
+                    end
+                    value = value + fulfilled;
+                    max = max + required;
+                end
+            else
+                return
             end
 
-            return texts
-        else
-            if not C_QuestLog.IsOnQuest(questID) then
-                local texts = {};
+            if max == 0 then
+                value = 0;
+                max = 1;
+            end
 
-                if C_QuestLog.IsQuestFlaggedCompleted(questID) then
-                    texts[1] = format("|cff808080%s|r", QUEST_COMPLETE);
-                else
-                    texts[1] = format("|cffff2020%s|r", L["Not On Quest"]);
-                    local description = API.GetDescriptionFromTooltip(questID);
-                    if description and description ~= QUEST_TOOLTIP_REQUIREMENTS then
-                        tinsert(texts, " ");
-                        tinsert(texts, description);
+            if asText then
+                return floor(100 * value / max).."%"
+            else
+                return value / max
+            end
+        end
+
+        function API.GetQuestProgressTexts(questID, hideFinishedObjectives)
+            local questLogIndex = questID and GetLogIndexForQuestID(questID);
+
+            if questLogIndex and questLogIndex ~= 0 then
+                local texts = {};
+                if C_QuestLog.ReadyForTurnIn(questID) then
+                    texts[1] = QUEST_PROGRESS_TOOLTIP_QUEST_READY_FOR_TURN_IN;
+                    return texts
+                end
+
+                local numObjectives = GetNumQuestLeaderBoards(questLogIndex);
+                local text, objectiveType, finished, fulfilled, required;
+
+                for objectiveIndex = 1, numObjectives do
+                    text, objectiveType, finished, fulfilled, required = GetQuestObjectiveInfo(questID, objectiveIndex, false);
+                    text = text or "";
+                    if (not finished) or not hideFinishedObjectives then
+                        if objectiveType == "progressbar" then
+                            fulfilled = GetQuestProgressBarPercent(questID);
+                            fulfilled = floor(fulfilled);
+                            if finished then
+                                tinsert(texts, format("|cff808080- %s%% %s|r", fulfilled, text));
+                            else
+                                tinsert(texts, format("- %s", text));
+                            end
+                        else
+                            if finished then
+                                tinsert(texts, format("|cff808080- %s|r", text));
+                            else
+                                tinsert(texts, format("- %s", text));
+                            end
+                        end
                     end
                 end
 
-                return texts;
+                return texts
+            else
+                if not C_QuestLog.IsOnQuest(questID) then
+                    local texts = {};
+
+                    if C_QuestLog.IsQuestFlaggedCompleted(questID) then
+                        texts[1] = format("|cff808080%s|r", QUEST_COMPLETE);
+                    else
+                        texts[1] = format("|cffff2020%s|r", L["Not On Quest"]);
+                        local description = API.GetDescriptionFromTooltip(questID);
+                        if description and description ~= QUEST_TOOLTIP_REQUIREMENTS then
+                            tinsert(texts, " ");
+                            tinsert(texts, description);
+                        end
+                    end
+
+                    return texts;
+                end
             end
         end
     end
+
 
     function API.GetQuestRewards(questID)
         --Ignore XP, Money     --GetQuestLogRewardXP()
@@ -2353,7 +2491,7 @@ do  -- Quest
             return true
         end
 
-        if C_QuestInfoSystem.HasQuestRewardCurrencies(questID) then
+        if C_QuestLog.GetQuestRewardCurrencies and C_QuestInfoSystem.HasQuestRewardCurrencies(questID) then
             local currencies = {};
             local currencyRewards = C_QuestLog.GetQuestRewardCurrencies(questID);
             local currencyID, quality;
@@ -2383,9 +2521,40 @@ do  -- Quest
             if #currencyRewards == 0 then
                 missingData = true;
             end
+        elseif GetQuestLogRewardCurrencyInfo then
+            local numCurrencies = GetNumQuestLogRewardCurrencies(questID) or 0;
+            local name, texture, quantity, currencyID, quality;
+            local currencies;
+            for i = 1, numCurrencies do
+                name, texture, quantity, currencyID, quality = GetQuestLogRewardCurrencyInfo(i, questID);
+                if name then
+                    if not currencies then
+                        currencies = {};
+                    end
+                    local info = {
+                        name = name,
+                        texture = texture,
+                        quantity = quantity,
+                        id = currencyID,
+                        questRewardContextFlags = 0,
+                        quality = quality,
+                    };
+                    tinsert(currencies, info);
+                else
+                    missingData = true;
+                end
+            end
+
+            if currencies then
+                table.sort(currencies, SortFunc_QualityID);
+                if not rewards then
+                    rewards = {};
+                end
+                rewards.currencies = currencies;
+            end
         end
 
-        if C_QuestInfoSystem.HasQuestRewardSpells(questID) then
+        if C_QuestInfoSystem.GetQuestRewardSpells and C_QuestInfoSystem.HasQuestRewardSpells(questID) then
             local spells = {};
             local spellRewards = C_QuestInfoSystem.GetQuestRewardSpells(questID);
             local info;

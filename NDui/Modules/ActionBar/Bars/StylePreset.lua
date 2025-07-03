@@ -56,15 +56,14 @@ local optionValues = {
 local moverValues = {
 	[1] = "Bar1",
 	[2] = "Bar2",
-	[3] = "Bar3L",
-	[4] = "Bar3R",
-	[5] = "Bar4",
-	[6] = "Bar5",
-	[7] = "Bar6",
-	[8] = "Bar7",
-	[9] = "Bar8",
-	[10] = "PetBar",
-	[11] = "StanceBar",
+	[3] = "Bar3",
+	[4] = "Bar4",
+	[5] = "Bar5",
+	[6] = "Bar6",
+	[7] = "Bar7",
+	[8] = "Bar8",
+	[9] = "PetBar",
+	[10] = "StanceBar",
 }
 
 local abbrToAnchor = {
@@ -124,11 +123,11 @@ end
 
 function Bar:ExportActionbarStyle()
 	local styleStr = "NAB"
-	for _, value in ipairs(optionValues) do
+	for _, value in pairs(optionValues) do
 		styleStr = styleStr..":"..C.db["Actionbar"][value]
 	end
 
-	for _, mover in ipairs(Bar.movers) do
+	for _, mover in pairs(Bar.movers) do
 		local x, y, point = M:CalculateMoverPoints(mover)
 		styleStr = styleStr..":"..x..anchorToAbbr[point]..y
 	end

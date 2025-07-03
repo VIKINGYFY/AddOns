@@ -3,6 +3,7 @@ local API = addon.API;
 local L = addon.L;
 local CallbackRegistry = addon.CallbackRegistry;
 local LandingPageUtil = addon.LandingPageUtil;
+local IS_MOP = addon.IS_MOP;
 
 
 local MainFrame;
@@ -134,11 +135,15 @@ do
 
         NineSlice = LandingPageUtil.CreateExpansionThemeFrame(self.RightSection, 10);
         self.RightSection.NineSlice = NineSlice;
-        NineSlice.Background:SetAtlas("thewarwithin-landingpage-background", false);
+
         NineSlice:ShowCloseButton(true);
         NineSlice:SetCloseButtonOwner(self);
-        local a = 0.25;
-        NineSlice.Background:SetVertexColor(a, a, a);
+
+        if not IS_MOP then
+            NineSlice.Background:SetAtlas("thewarwithin-landingpage-background", false);
+            local a = 0.25;
+            NineSlice.Background:SetVertexColor(a, a, a);
+        end
 
         local Divider = LandingPageUtil.CreateMajorDivider(self.RightSection.Header);
         Divider:SetPoint("LEFT", self.RightSection.Header, "BOTTOMLEFT", 32, 0);
@@ -169,10 +174,14 @@ do
     function PlumberExpansionLandingPageMixin:OnShow()
         self:UpdateTabs();    --The selected tab will be created here
         LandingPageUtil.PlayUISound("LandingPageOpen");
+        if not self:IsUserPlaced() then
+            self:ResetPosition();
+        end
     end
 
     function PlumberExpansionLandingPageMixin:OnHide()
         LandingPageUtil.PlayUISound("LandingPageClose");
+        LandingPageUtil.MainContextMenu:HideMenu();
     end
 
     function PlumberExpansionLandingPageMixin:InitTabButtons()
@@ -241,7 +250,7 @@ do
 
     function PlumberExpansionLandingPageMixin:InitLeftSection()
         local categories = {
-            {name = L["Great Vault"], frameGetter = LandingPageUtil.CreateGreatVaultFrame, validate = API.IsPlayerAtMaxLevel},
+            {name = L["Great Vault"], frameGetter = LandingPageUtil.CreateGreatVaultFrame, validate = API.IsGreatVaultFeatureAvailable},
             {name = L["Item Upgrade"], frameGetter = LandingPageUtil.CreateItemUpgradeFrame},
             {name = L["Resources"], frameGetter = LandingPageUtil.CreateCurrencyList},
         };
@@ -283,6 +292,13 @@ do
     end
 
     function PlumberExpansionLandingPageMixin:DimBackground(state)
+        if IS_MOP then
+            self.LeftSection.NineSlice.Background:SetAlpha(0.8);
+            self.RightSection.NineSlice.Background:SetAlpha(0.8);
+            self:EnableMouse(false);
+            --self:EnableDynamicTransparency(true);
+            return
+        end
         local a = state and 0.25 or 0.4;
         self.RightSection.NineSlice.Background:SetVertexColor(a, a, a);
     end
@@ -296,6 +312,67 @@ do
 
     function PlumberExpansionLandingPageMixin:ResetPosition()
         self:ClearAllPoints();
-        self:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 64, -150);
+        if IS_MOP then
+            self:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 16, -116);
+        else
+            self:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 64, -150);
+        end
+    end
+
+    function PlumberExpansionLandingPageMixin:EnableDynamicTransparency(state)
+        local events = {
+            "PLAYER_STARTED_LOOKING",
+            "PLAYER_STARTED_MOVING",
+            "PLAYER_STARTED_TURNING",
+            "PLAYER_STOPPED_LOOKING",
+            "PLAYER_STOPPED_MOVING",
+            "PLAYER_STOPPED_TURNING",
+        };
+
+        if state and not self.TransparencyListener then
+            local f = CreateFrame("Frame", nil, self);
+            self.TransparencyListener = f;
+            f:Hide();
+            f.t = 0;
+
+            f:SetScript("OnShow", function()
+                API.RegisterFrameForEvents(f, events);
+            end);
+
+            f:SetScript("OnHide", function()
+                API.UnregisterFrameForEvents(f, events);
+            end);
+
+            f:SetScript("OnEvent", function(_, event, ...)
+                local alpha;
+                if IsMouselooking() or IsPlayerMoving() then
+                    alpha = 0.2;
+                else
+                    alpha = 0.8;
+                end
+                self.RightSection.NineSlice.Background:SetAlpha(alpha);
+            end);
+
+            f:SetScript("OnUpdate", function(_, elapsed)
+                f.t = f.t + elapsed;
+                if f.t > 0.25 then
+                    f.t = 0;
+                    f._isMouseOver = self:IsMouseOver();
+                    if f.isMouseOver ~= f._isMouseOver then
+                        f.isMouseOver = f._isMouseOver;
+                    end
+                end
+            end);
+        end
+
+        if state then
+            self.TransparencyListener:Show();
+        else
+            if self.TransparencyListener then
+                self.TransparencyListener:Hide();
+            end
+        end
+
+        self:EnableMouse(false);
     end
 end

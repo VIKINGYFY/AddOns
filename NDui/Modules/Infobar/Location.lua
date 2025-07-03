@@ -18,7 +18,7 @@ local zoneInfo = {
 
 local function GetZoneInfo()
 	local mainZone, subZone = GetAreaText(), GetMinimapZoneText()
-	local fullZone = mainZone.." - "..subZone
+	local fullZone = (mainZone ~= subZone) and (mainZone.." - "..subZone) or subZone
 	local pvpType, _, faction = C_PvP.GetZonePVPInfo()
 	local zoneData = zoneInfo[pvpType or "neutral"]
 	local zoneType = format(zoneData[1], faction or FACTION_NEUTRAL)
@@ -49,12 +49,11 @@ local function GetZoneCoords()
 			end
 		end
 	end
+
 	return "-- , --"
 end
 
 local function UpdateCoords(self, elapsed)
-	if not IsPlayerMoving() then return end
-
 	self.elapsed = (self.elapsed or 0) + elapsed
 	if self.elapsed > .1 then
 		info:onEvent()
@@ -67,18 +66,18 @@ info.eventList = {
 	"ZONE_CHANGED_INDOORS",
 	"ZONE_CHANGED_NEW_AREA",
 	"PLAYER_ENTERING_WORLD",
-	"PLAYER_DIFFICULTY_CHANGED",
+	"PLAYER_STARTED_MOVING",
 }
 
 info.onEvent = function(self)
-	if IsInInstance() then
+	if IsInInstance() or not IsPlayerMoving() then
 		self:SetScript("OnUpdate", nil)
 	else
 		self:SetScript("OnUpdate", UpdateCoords)
 	end
 
 	local mainZone, subZone, fullZone, zoneType, r, g, b = GetZoneInfo()
-	local coordText = GetZoneCoords()
+	local coordText, x, y, mapID = GetZoneCoords()
 
 	self.text:SetFormattedText("%s <%s>", subZone, coordText)
 	self.text:SetTextColor(r, g, b)
@@ -89,6 +88,7 @@ info.onEvent = function(self)
 	self._zoneType = zoneType
 	self._coordText = coordText
 	self._zoneColor = {r, g, b}
+	self._x, self._y, self._mapID = x, y, mapID
 end
 
 info.onEnter = function(self)
@@ -117,16 +117,14 @@ info.onMouseUp = function(self, btn)
 		if InCombatLockdown() then UIErrorsFrame:AddMessage(DB.InfoColor..ERR_NOT_IN_COMBAT) return end -- fix by LibShowUIPanel
 		ToggleFrame(WorldMapFrame)
 	elseif btn == "RightButton" then
-		local coordText, x, y, mapID = GetZoneCoords()
-		if not (x and y and mapID) then return end
-
-		local fullZone = self._fullZone or "?"
 		local hasUnit = UnitExists("target") and not UnitIsPlayer("target")
 		local unitName = hasUnit and " <"..UnitName("target")..">" or ""
-		local pointInfo = format("%s: %s <%s>%s", L["My Position"], fullZone, coordText, unitName)
-		local pointLink = format(zoneString, mapID, x * 10000, y * 10000, pointInfo)
-
-		print(pointLink)
+		local pointInfo = format("%s: %s <%s>%s", L["My Position"], self._fullZone, self._coordText, unitName)
 		ChatFrame_OpenChat(pointInfo)
+
+		if not IsInInstance() then
+			local pointLink = format(zoneString, self._mapID, self._x * 10000, self._y * 10000, pointInfo)
+			print(pointLink)
+		end
 	end
 end

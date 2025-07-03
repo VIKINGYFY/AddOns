@@ -86,7 +86,7 @@ info.onEvent = function(self, event)
 		self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
 	else
 		if UpdateAllSlots() > 0 then
-			self.text:SetFormattedText("%s%s", B.ColorPerc(localSlots[1][3]), DURABILITY)
+			self.text:SetFormattedText("%s%s", B.ColorPerc(localSlots[1][3], true), DURABILITY)
 		else
 			self.text:SetFormattedText("%s%s", DB.MyColor..NONE.."|r", DURABILITY)
 		end
@@ -128,7 +128,7 @@ info.onEnter = function(self)
 	local totalCost = 0
 	for i = 1, 10 do
 		if localSlots[i][3] ~= 1000 then
-			local r, g, b = B.Color(localSlots[i][3], 100)
+			local r, g, b = B.Color(localSlots[i][3], 100, true)
 			GameTooltip:AddDoubleLine(localSlots[i][4]..localSlots[i][2], format("%.1f%%", localSlots[i][3]), 1,1,1, r,g,b)
 
 			local slot = localSlots[i][1]

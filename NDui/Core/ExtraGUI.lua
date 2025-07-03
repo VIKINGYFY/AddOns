@@ -1623,9 +1623,9 @@ function G:SetupActionBar(parent)
 	local Bar = B:GetModule("Actionbar")
 	local defaultData = {
 		-- defaultSize, minButtons, maxButtons, defaultButtons, defaultPerRow, flyoutDirec
-		["Bar1"] = {34, 6, 12, 12, 12, "UP"},
+		["Bar1"] = {34, 1, 12, 12, 12, "UP"},
 		["Bar2"] = {34, 1, 12, 12, 12, "UP"},
-		["Bar3"] = {32, 0, 12, 0, 12, "UP"},
+		["Bar3"] = {34, 1, 12, 12, 12, "UP"},
 		["Bar4"] = {32, 1, 12, 12, 1, "LEFT"},
 		["Bar5"] = {32, 1, 12, 12, 1, "LEFT"},
 		["Bar6"] = {34, 1, 12, 12, 12, "UP"},
@@ -1808,7 +1808,7 @@ function G:SetupUFAuras(parent)
 end
 
 function G:SetupActionbarStyle(parent)
-	local maxButtons = 6
+	local maxButtons = 3
 	local size, padding = 30, DB.padding
 
 	local frame = CreateFrame("Frame", "NDuiActionbarStyleFrame", parent.child)
@@ -1819,22 +1819,16 @@ function G:SetupActionbarStyle(parent)
 	local Bar = B:GetModule("Actionbar")
 
 	local styleString = {
-		[1] = "NAB:34:12:12:12:34:12:12:12:32:12:0:12:32:12:12:1:32:12:12:1:34:12:12:12:34:12:12:12:34:12:12:12:26:12:10:30:12:10:0B24:0B60:-273B26:273B26:-1TR-278:-35TR-278:0T-400:0T-436:0T-472:0B98:-202B100",
-		[2] = "NAB:34:12:12:12:34:12:12:12:34:12:12:12:32:12:12:1:32:12:12:1:34:12:12:12:34:12:12:12:34:12:12:12:26:12:10:30:12:10:0B24:0B60:0B96:0B96:-1TR-278:-35TR-278:0T-400:0T-436:0T-472:0B134:-202B136",
-		[3] = "NAB:34:12:12:12:34:12:12:12:34:12:12:6:32:12:12:1:32:12:12:1:34:12:12:12:34:12:12:12:34:12:12:12:26:12:10:30:12:10:-108B24:-108B60:224B24:216B24:-1TR-278:-35TR-278:0T-400:0T-436:0T-472:0B98:585BL100",
-		[4] = "NAB:34:12:12:12:34:12:12:12:32:12:12:6:32:12:12:6:32:12:12:1:34:12:12:12:34:12:12:12:34:12:12:12:26:12:10:30:12:10:0B24:0B60:478BL26:485BL26:-485BR26:-1BR278:0T-400:0T-436:0T-472:0B98:-202B100",
+		[1] = "NAB:12:12:10:12:12:34:12:12:12:12:12:12:1:1:12:12:12:26:32:34:34:34:12:34:12:32:12:12:12:12:12:30:12:10:34:12:12:12:0B24:0B60:0B96:-35.1TR-278:-1TR-278:-35TR-278:0T-400:0T-436:0T-472:0B134",
 	}
 	local styleName = {
 		[1] = _G.DEFAULT,
-		[2] = "3X12",
-		[3] = "2X18",
-		[4] = "12+24+12",
-		[5] = L["Export"],
-		[6] = L["Import"],
+		[2] = L["Export"],
+		[3] = L["Import"],
 	}
 	local tooltips = {
-		[5] = L["ExportActionbarStyle"],
-		[6] = L["ImportActionbarStyle"],
+		[2] = L["ExportActionbarStyle"],
+		[3] = L["ImportActionbarStyle"],
 	}
 
 	local function applyBarStyle(self)
@@ -1912,9 +1906,9 @@ function G:SetupActionbarStyle(parent)
 	end
 
 	local function GetButtonText(i)
-		if i == 5 then
+		if i == 2 then
 			return "|T"..DB.arrowTex.."up:18|t"
-		elseif i == 6 then
+		elseif i == 3 then
 			return "|T"..DB.arrowTex.."down:18|t"
 		else
 			return i
@@ -1927,9 +1921,9 @@ function G:SetupActionbarStyle(parent)
 		bu.index = i
 		bu.title = styleName[i]
 		bu.tip = tooltips[i] or L["ApplyBarStyle"]
-		if i == 5 then
+		if i == 2 then
 			bu:SetScript("OnClick", exportBarStyle)
-		elseif i == 6 then
+		elseif i == 3 then
 			bu:SetScript("OnClick", importBarStyle)
 		else
 			bu:SetScript("OnClick", applyBarStyle)

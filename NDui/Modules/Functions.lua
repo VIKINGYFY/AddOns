@@ -138,22 +138,22 @@ do
 		return extraCache[itemInfo], hasStat, hasMisc
 	end
 
-	local rtgColor = {1, 0, 0, 1, 1, 0, 0, 1, 0}
-	local gtrColor = {0, 1, 0, 1, 1, 0, 1, 0, 0}
-	function B.Color(cur, max, fullRed)
-		local r, g, b = oUF:RGBColorGradient(cur, max, unpack(fullRed and gtrColor or rtgColor))
+	local rtgColor = {1,0,0, 1,1,0, 0,1,0}
+	local gtrColor = {0,1,0, 1,1,0, 1,0,0}
+	function B.Color(cur, max, fullGreen)
+		local r, g, b = oUF:RGBColorGradient(cur, max, unpack(fullGreen and rtgColor or gtrColor))
 		return r, g, b
 	end
 
-	function B.ColorPerc(per, fullRed, max)
+	function B.ColorPerc(per, fullGreen, max)
 		local var = format("%.1f%%", per)
-		local r, g, b = B.Color(math.abs(per), max or 100, fullRed)
+		local r, g, b = B.Color(math.abs(per), max or 100, fullGreen)
 		return B.HexRGB(r, g, b, var)
 	end
 
-	function B.ColorNumb(cur, max, fullRed)
+	function B.ColorNumb(cur, max, fullGreen)
 		local num = B.Numb(cur)
-		local r, g, b = B.Color(math.abs(cur), max, fullRed)
+		local r, g, b = B.Color(math.abs(cur), max, fullGreen)
 		return B.HexRGB(r, g, b, num)
 	end
 end

@@ -22,7 +22,7 @@ function module:Chatbar()
 
 	local chatFrame = SELECTED_DOCK_FRAME
 	local editBox = chatFrame.editBox
-	local width, height, padding, buttonList = 40, 8, 5, {}
+	local width, height, padding, buttonList = 40, 8, DB.margin*2, {}
 
 	local Chatbar = CreateFrame("Frame", "NDui_ChatBar", UIParent)
 	Chatbar:SetSize(width, height)
@@ -148,10 +148,10 @@ function module:Chatbar()
 	end
 
 	-- Mover
-	local width = (#buttonList-1)*(padding+width) + width
-	local mover = B.Mover(Chatbar, L["Chatbar"], "Chatbar", {"BOTTOMLEFT", UIParent, "BOTTOMLEFT", 0, 3}, width, 20)
+	local width = #buttonList * (width + padding) - padding
+	local mover = B.Mover(Chatbar, L["Chatbar"], "Chatbar", {"BOTTOMLEFT", UIParent, "BOTTOMLEFT", padding, 3}, width, height*2)
 	Chatbar:ClearAllPoints()
-	Chatbar:SetPoint("BOTTOMLEFT", mover, 5, 5)
+	Chatbar:SetPoint("LEFT", mover, "LEFT")
 
 	module:ChatBarBackground()
 end
@@ -168,7 +168,7 @@ function module:ChatBarBackground()
 	local parent = _G["NDui_ChatBar"]
 	local width, height = 450, 18
 	local frame = CreateFrame("Frame", nil, parent)
-	frame:SetPoint("LEFT", parent, "LEFT", -5, 0)
+	frame:SetPoint("LEFT", parent, "LEFT", -DB.margin*2, 0)
 	frame:SetSize(width, height)
 
 	local tex = B.SetGradient(frame, "H", 0, 0, 0, DB.alpha, 0, width, height)

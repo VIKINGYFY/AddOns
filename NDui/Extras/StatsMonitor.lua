@@ -8,9 +8,10 @@ local barData = {
 	{label = "急速", limit = 100},
 	{label = "精通", limit = 100},
 	{label = "全能", limit = 100},
-	{label = "移速", limit = 600},
-	{label = "闪避", limit = 100, role = "Tank"},
+	{label = "移速", limit = 500},
+	{label = "躲闪", limit = 100, role = "Tank"},
 	{label = "招架", limit = 100, role = "Tank"},
+	{label = "格挡", limit = 100, role = "Tank", hide = 0},
 }
 
 local StatsMonitor = CreateFrame("Frame", "StatsMonitor", UIParent, "BackdropTemplate")
@@ -37,7 +38,7 @@ end
 local function SetupValue(bar, stat, isNumb)
 	if not bar then return end
 
-	local r, g, b = B.Color(stat, bar.limit, true)
+	local r, g, b = B.Color(stat, bar.limit)
 
 	bar:SetValue(stat)
 	bar:SetStatusBarColor(r, g, b)
@@ -46,15 +47,27 @@ local function SetupValue(bar, stat, isNumb)
 	--bar.value:SetTextColor(r, g, b)
 end
 
-function StatsMonitor:UpdateBars()
+function StatsMonitor:UpdateSelf()
 	if not self.bars then return end
 
 	self.bars[1].title:SetText(DB.mainStat)
-	for _, bar in pairs(self.bars) do
-		if bar.role then
-			bar:SetShown(bar.role == DB.Role)
+
+	local hideCount = 0
+	for _, bar in ipairs(self.bars) do
+		if bar.hide and GetBlockChance() <= bar.hide then
+			bar:Hide()
+			hideCount = hideCount + 1
+		elseif bar.role and DB.Role ~= bar.role then
+			bar:Hide()
+			hideCount = hideCount + 1
+		else
+			bar:Show()
 		end
 	end
+
+	self:SetSize(barWidth, barHeight * (#self.bars - hideCount) * 2)
+	self:ClearAllPoints()
+	self:SetPoint("BOTTOM", self.mover, "BOTTOM")
 end
 
 function StatsMonitor:UpdateValue()
@@ -83,15 +96,16 @@ function StatsMonitor:UpdateValue()
 
 	local parry = GetParryChance()
 	SetupValue(self.bars[8], parry)
+
+	local block = GetBlockChance()
+	SetupValue(self.bars[9], block)
 end
 
 function StatsMonitor:PLAYER_LOGIN()
-	local mover = B.Mover(self, "属性监控", "StatsMonitor", {"BOTTOMRIGHT", UIParent, "BOTTOM", -300, 220}, barWidth, barHeight)
-	self:ClearAllPoints()
-	self:SetPoint("TOP", mover, "TOP")
+	self.mover = B.Mover(self, "属性监控", "StatsMonitor", {"BOTTOMRIGHT", UIParent, "BOTTOM", -300, 80}, barWidth, barHeight*2)
 
 	self.bars = {}
-	for i, v in pairs(barData) do
+	for i, v in ipairs(barData) do
 		local bar = B.CreateSB(self)
 		bar:SetPoint("TOP", self, "TOP", 0, -barHeight - (i - 1) * (barHeight*2))
 		bar:SetMinMaxValues(0, v.limit)
@@ -104,21 +118,22 @@ function StatsMonitor:PLAYER_LOGIN()
 		bar.value = B.CreateFS(bar, barHeight+4, "", false, "RIGHT", -2, barHeight/2)
 		bar.limit = v.limit
 		bar.role = v.role
+		bar.hide = v.hide
 
 		self.bars[i] = bar
 	end
 
-	self:UpdateBars()
+	self:UpdateSelf()
 	self:UpdateValue()
 end
 
 function StatsMonitor:PLAYER_ENTERING_WORLD()
-	self:UpdateBars()
+	self:UpdateSelf()
 	self:UpdateValue()
 end
 
 function StatsMonitor:PLAYER_TALENT_UPDATE()
-	self:UpdateBars()
+	self:UpdateSelf()
 	self:UpdateValue()
 end
 

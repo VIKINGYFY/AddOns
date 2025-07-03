@@ -1,6 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local cr, cg, cb = DB.r, DB.g, DB.b
+local EX = B:GetModule("Extras")
 
 local iconSize = 32
 local fontSize = math.floor(select(2, GameFontWhite:GetFont()) + .5)
@@ -110,7 +110,7 @@ local function CreateSlot(index)
 		button.tier = tier
 
 		local glow = button:GetHighlightTexture()
-		glow:SetVertexColor(cr, cg, cb, .5)
+		glow:SetVertexColor(DB.r, DB.g, DB.b, .5)
 		glow:SetPoint("TOPLEFT", border, "TOPRIGHT", DB.margin, 0)
 		glow:SetPoint("BOTTOMLEFT", border, "BOTTOMRIGHT", DB.margin, 0)
 		glow:SetPoint("RIGHT", button, "RIGHT")
@@ -121,8 +121,8 @@ local function CreateSlot(index)
 		B.UpdatePoint(name, "LEFT", border, "RIGHT", DB.margin, 0)
 		button.name = name
 
-		local count = B.CreateFS(border, 12, "", false, "BOTTOMRIGHT", -1, 1)
-		button.count = count
+		local text = B.CreateFS(border, 12, "", false, "BOTTOMRIGHT", -1, 1)
+		button.text = text
 
 		local quest = B.CreateFS(border, 16, "", false, "LEFT", 3, 0)
 		button.quest = quest
@@ -139,6 +139,20 @@ local function UpdateSlot(slot, index)
 	local slotType = GetLootSlotType(index)
 	local slotLink = GetLootSlotLink(index)
 
+	local itemTier, itemText
+	if slotLink then
+		itemTier = C_TradeSkillUI.GetItemReagentQualityByItemInfo(slotLink)
+
+		local itemID, _, _, _, _, itemClassID, itemSubClassID = C_Item.GetItemInfoInstant(slotLink)
+		if EX.isCollection(itemID, itemClassID, itemSubClassID) then
+			itemText = B.GetItemType(slotLink)
+		elseif EX.isEquipment(itemID, itemClassID) then
+			itemText = B.GetItemLevel(slotLink)
+		elseif lootQuantity and lootQuantity > 1 then
+			itemText = B.Numb(lootQuantity)
+		end
+	end
+
 	if slotType == Enum.LootSlotType.Money then
 		lootName = lootName:gsub("\n", "，")
 	end
@@ -147,14 +161,13 @@ local function UpdateSlot(slot, index)
 		r, g, b = 1, 1, 0
 	end
 
-	local itemTier = slotLink and C_TradeSkillUI.GetItemReagentQualityByItemInfo(slotLink)
 	if itemTier then
 		slot.tier:SetAtlas(format("Professions-Icon-Quality-Tier%d-Inv", itemTier), true)
 	end
 
-	if lootQuantity and lootQuantity > 1 then
-		slot.count:SetText(B.Numb(lootQuantity))
-		slot.count:SetTextColor(r, g, b)
+	if itemText then
+		slot.text:SetText(itemText)
+		slot.text:SetTextColor(r, g, b)
 	end
 
 	if questId and not isActive then
@@ -175,11 +188,11 @@ end
 local function ClearSlot(slot)
 	local r, g, b = C_Item.GetItemQualityColor(0)
 	slot.name:SetText("")
-	slot.count:SetText("")
+	slot.text:SetText("")
 	slot.quest:SetText("")
 	slot.tier:SetAtlas("")
 	slot.icon:SetTexture("")
-	slot.count:SetTextColor(r, g, b)
+	slot.text:SetTextColor(r, g, b)
 	slot.quest:SetTextColor(r, g, b)
 	slot.border:SetBackdropBorderColor(r, g, b)
 	slot.quality = 0
@@ -191,7 +204,7 @@ end
 function LightLoot:UpdateSelf()
 	local maxWidth, maxQuality, shownSlot = 0, 0, 0
 
-	for _, slot in pairs(self.slots) do
+	for _, slot in ipairs(self.slots) do
 		if slot:IsShown() then
 			local nameWidth = slot.name:GetStringWidth() or 0
 			maxWidth = math.max(maxWidth, nameWidth)
@@ -290,7 +303,7 @@ function LightLoot:LOOT_CLOSED()
 	StaticPopup_Hide("LOOT_BIND")
 	self:Hide()
 
-	for _, slot in pairs(self.slots) do
+	for _, slot in ipairs(self.slots) do
 		ClearSlot(slot)
 	end
 end

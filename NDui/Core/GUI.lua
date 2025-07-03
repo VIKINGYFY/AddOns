@@ -46,9 +46,9 @@ G.DefaultSettings = {
 		Bar2PerRow = 12,
 		Bar3 = true,
 		Bar3Flyout = 1,
-		Bar3Size = 32,
+		Bar3Size = 34,
 		Bar3Font = 12,
-		Bar3Num = 0,
+		Bar3Num = 12,
 		Bar3PerRow = 12,
 		Bar4 = false,
 		Bar4Flyout = 3,
@@ -99,7 +99,6 @@ G.DefaultSettings = {
 		BagsWidth = 14,
 		BankWidth = 14,
 		AccountWidth = 20,
-		BagsiSlot = true,
 		BagSortMode = 1,
 		ItemFilter = true,
 		CustomItems = {},
@@ -229,7 +228,6 @@ G.DefaultSettings = {
 		HideTip = false,
 		SortByRole = true,
 		SortAscending = false,
-		PlayerAbsorb = false,
 		AutoBuffs = false,
 		ShowRoleMode = 1,
 		OverAbsorb = true,
@@ -907,12 +905,6 @@ local function updateUFTextScale()
 	B:GetModule("UnitFrames"):UpdateTextScale()
 end
 
-local function togglePlayerAbsorb()
-	if _G.oUF_Player then
-		B:GetModule("UnitFrames").UpdateFrameHealthTag(_G.oUF_Player)
-	end
-end
-
 local function toggleAddPower()
 	B:GetModule("UnitFrames"):ToggleAddPower()
 end
@@ -1078,7 +1070,7 @@ end
 -- Config
 local HeaderTag = "|cff00FF00"
 local IsNew = "ISNEW"
-G.HealthValues = {DISABLE, L["ShowHealthDefault"], L["ShowHealthCurMax"], L["ShowHealthCurrent"], L["ShowHealthPercent"], L["ShowHealthLoss"], L["ShowHealthLossPercent"]}
+G.HealthValues = {DISABLE, L["ShowHealthDefault"], L["ShowHealthCurMax"], L["ShowHealthCurrent"], L["ShowHealthPercent"], L["ShowHealthLoss"], L["ShowHealthLossPercent"], L["ShowHealthAbsorb"]}
 
 local function AddNewTag(parent, anchor)
 	local tag = CreateFrame("Frame", nil, parent, "NewFeatureLabelTemplate")
@@ -1126,11 +1118,10 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 	},
 	[2] = {
 		{1, "Bags", "Enable", HeaderTag..L["Enable Bags"]},
+		{1, "Bags", "ItemFilter", L["Bags ItemFilter"].."*", true, setupBagFilter, updateBagStatus},
 		{}, -- blank
-		{1, "Bags", "ItemFilter", L["Bags ItemFilter"].."*", nil, setupBagFilter, updateBagStatus},
-		{1, "Bags", "SpecialJunk", L["SpecialJunk"], true, nil, nil, L["SpecialJunkTip"]},
 		{1, "Bags", "GatherEmpty", L["Bags GatherEmpty"].."*", nil, nil, updateBagStatus},
-		{1, "Bags", "BagsiSlot", L["Bags ItemSlot"].."*", nil, nil, updateBagStatus},
+		{1, "Bags", "SpecialJunk", L["SpecialJunk"], nil, nil, nil, L["SpecialJunkTip"]},
 		{4, "Bags", "BagSortMode", L["BagSortMode"].."*", true, {L["Forward"], L["Backward"]}, updateBagSortOrder, L["BagSortTip"]},
 		{3, "Bags", "iLvlToShow", L["iLvlToShow"].."*", nil, {1, 1000, 1}, nil, L["iLvlToShowTip"]},
 		{3, "Bags", "iExpToShow", L["iExpToShow"].."*", true, {0, 10, 1}, nil, L["iExpToShowTip"]},
@@ -1149,11 +1140,10 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{1, "UFs", "ShowAuras", L["ShowAuras"].."*", nil, setupUFAuras, toggleAllAuras},
 		{1, "UFs", "ClassPower", L["UFs ClassPower"].."*", true, nil, toggleUFClassPower},
 		{1, "UFs", "Portrait", L["UFs Portrait"].."*", nil, nil, togglePortraits},
-		{1, "UFs", "CCName", L["ClassColor Name"].."*", true, nil, updateUFTextScale, L["CustomNameColorTip"]},
-		{5, "UFs", "CustomNameColor", L["CustomNameColor"], 3},
-		{1, "UFs", "PlayerAbsorb", L["PlayerAbsorb"].."*", nil, nil, togglePlayerAbsorb, L["PlayerAbsorbTip"]},
 		{1, "UFs", "AddPower", L["AddPower"].."*", true, nil, toggleAddPower, L["AddPowerTip"]},
 		{1, "UFs", "OverAbsorb", L["OverAbsorb"].."*", nil, nil, nil, L["OverAbsorbTip"]},
+		{1, "UFs", "CCName", L["ClassColor Name"].."*", true, nil, updateUFTextScale, L["CustomNameColorTip"]},
+		{5, "UFs", "CustomNameColor", L["CustomNameColor"], 3},
 		{3, "UFs", "UFTextScale", L["UFTextScale"].."*", nil, {.8, 1.5, .05}, updateUFTextScale},
 		{4, "UFs", "HealthColor", L["HealthColor"].."*", true, {L["Default Dark"], L["ClassColorHP"], L["GradientHP"], L["ClearHealth"], L["ClearClass"]}, updateUFTextScale},
 		{}, -- blank
