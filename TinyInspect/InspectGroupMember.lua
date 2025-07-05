@@ -8,6 +8,7 @@ local LibEvent = LibStub:GetLibrary("LibEvent.7000")
 local LibSchedule = LibStub:GetLibrary("LibSchedule.7000")
 
 local members, numMembers = {}, 0
+local membersList = {}
 
 --是否觀察完畢
 local function InspectDone()
@@ -181,8 +182,6 @@ end)
 -- 界面處理
 ----------------
 
-local membersList = {}
-
 local frame = CreateFrame("Frame", "TinyInspectiLvlFrame", UIParent)
 frame:SetPoint("TOP", 0, -100)
 frame:SetClampedToScreen(true)
@@ -257,9 +256,8 @@ local function GetButton(parent, index)
 			local ilvl = self.ilvl:GetText()
 			local name = self.name:GetText()
 			local spec = self.spec:GetText()
-			if (ilvl and tonumber(ilvl)) then
-				ChatEdit_ActivateChat(ChatEdit_ChooseBoxForSend())
-				ChatEdit_InsertLink(ilvl.." "..name.." "..spec)
+			if ilvl then
+				ChatFrame_OpenChat(ilvl.." "..name.." "..spec)
 			end
 		end)
 		parent["button"..index] = button
@@ -293,7 +291,7 @@ local function ShowMembersList()
 	local button, r, g, b
 	local role = select(5, GetSpecializationInfo(GetSpecialization()))
 	for _, v in pairs(membersList) do
-		r, g, b = GetClassColor(v.class)
+		r, g, b = B.ClassColor(v.class)
 
 		button = GetButton(frame.panel, i)
 		button.guid = v.guid
@@ -325,7 +323,7 @@ end
 --團友列表
 frame.panel = CreateFrame("Frame", nil, frame)
 frame.panel:SetScript("OnShow", function(self) SortAndShowMembersList() end)
-frame.panel:SetPoint("TOP", frame, "BOTTOM", 0, -3)
+frame.panel:SetPoint("TOP", frame, "BOTTOM", 0, -DB.margin)
 frame.panel:SetSize(240, 110)
 frame.panel:Hide()
 
@@ -364,4 +362,7 @@ LibEvent:attachEvent("PLAYER_LOGIN", function()
 		spec = select(2, GetSpecializationInfo(GetSpecialization())),
 		role = select(5, GetSpecializationInfo(GetSpecialization())),
 	}
+
+	MakeMembersList()
+	SortAndShowMembersList()
 end)

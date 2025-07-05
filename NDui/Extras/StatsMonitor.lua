@@ -11,7 +11,7 @@ local barData = {
 	{label = "移速", limit = 500},
 	{label = "躲闪", limit = 100, role = "Tank"},
 	{label = "招架", limit = 100, role = "Tank"},
-	{label = "格挡", limit = 100, role = "Tank", hide = 0},
+	{label = "格挡", limit = 100, hide = 0},
 }
 
 local StatsMonitor = CreateFrame("Frame", "StatsMonitor", UIParent, "BackdropTemplate")
@@ -54,10 +54,7 @@ function StatsMonitor:UpdateSelf()
 
 	local hideCount = 0
 	for _, bar in ipairs(self.bars) do
-		if bar.hide and GetBlockChance() <= bar.hide then
-			bar:Hide()
-			hideCount = hideCount + 1
-		elseif bar.role and DB.Role ~= bar.role then
+		if (bar.role and bar.role ~= DB.Role) or (bar.hide and bar.hide >= GetBlockChance()) then
 			bar:Hide()
 			hideCount = hideCount + 1
 		else

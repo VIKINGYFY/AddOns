@@ -37,17 +37,17 @@ local function CreateIconFrame(frame, index)
 	icon:Hide()
 	icon:SetSize(16, 16)
 	icon:SetScript("OnEnter", function(self)
-		if (self.itemLink) then
+		if (self.link) then
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-			GameTooltip:SetHyperlink(self.itemLink)
+			GameTooltip:SetHyperlink(self.link)
 			GameTooltip:Show()
 		elseif (self.spellID) then
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 			GameTooltip:SetSpellByID(self.spellID)
 			GameTooltip:Show()
-		elseif (self.title) then
+		elseif (self.name) then
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-			GameTooltip:SetText(self.title)
+			GameTooltip:SetText(self.name)
 			GameTooltip:Show()
 		else
 			GameTooltip:Hide()
@@ -57,9 +57,8 @@ local function CreateIconFrame(frame, index)
 		GameTooltip:Hide()
 	end)
 	icon:SetScript("OnDoubleClick", function(self)
-		if (self.itemLink or self.title) then
-			ChatEdit_ActivateChat(ChatEdit_ChooseBoxForSend())
-			ChatEdit_InsertLink(self.itemLink or self.title)
+		if (self.link or self.name) then
+			ChatFrame_OpenChat(self.link or self.name)
 		end
 	end)
 	icon.bg = icon:CreateTexture(nil, "BACKGROUND")
@@ -78,8 +77,8 @@ end
 local function HideAllIconFrame(frame)
 	local index = 1
 	while (frame["xicon"..index]) do
-		frame["xicon"..index].title = nil
-		frame["xicon"..index].itemLink = nil
+		frame["xicon"..index].name = nil
+		frame["xicon"..index].link = nil
 		frame["xicon"..index].spellID = nil
 		frame["xicon"..index]:Hide()
 		index = index + 1
@@ -100,14 +99,14 @@ end
 
 -- Credit: ElvUI_WindTools
 local function UpdateIconTexture(type, icon, data)
-	if type == "itemId" then
+	if type == "itemID" then
 		local item = Item:CreateFromItemID(data)
 		item:ContinueOnItemLoad(
 			function()
 				local qualityColor = item:GetItemQualityColor()
 				icon.bg:SetVertexColor(qualityColor.r, qualityColor.g, qualityColor.b)
 				icon.texture:SetTexture(item:GetItemIcon())
-				icon.itemLink = item:GetItemLink()
+				icon.link = item:GetItemLink()
 			end
 		)
 	elseif type == "itemLink" then
@@ -117,10 +116,10 @@ local function UpdateIconTexture(type, icon, data)
 				local qualityColor = item:GetItemQualityColor()
 				icon.bg:SetVertexColor(qualityColor.r, qualityColor.g, qualityColor.b)
 				icon.texture:SetTexture(item:GetItemIcon())
-				icon.itemLink = item:GetItemLink()
+				icon.link = item:GetItemLink()
 			end
 		)
-	elseif type == "spellId" then
+	elseif type == "spellID" then
 		local spell = Spell:CreateFromSpellID(data)
 		spell:ContinueOnSpellLoad(
 			function()
@@ -131,89 +130,92 @@ local function UpdateIconTexture(type, icon, data)
 	end
 end
 
+local function UpdateIconPoint(icon, anchor, index)
+	icon:ClearAllPoints()
+	icon:SetPoint("LEFT", anchor, "RIGHT", index == 1 and DB.margin or 1, 0)
+end
+
 --讀取並顯示圖標
-local function ShowGemAndEnchant(frame, ItemLink, anchorFrame, itemframe)
-	if (not ItemLink) then return 0 end
-	local num, info, qty = LibItemGem:GetItemGemInfo(ItemLink)
+local function ShowGemAndEnchant(frame, itemFrame)
+	local itemlink = itemFrame.link
+	if not itemlink then return 0 end
+
+	local total, info, quality = LibItemGem:GetItemGemInfo(itemlink)
+	local anchorframe = itemFrame.itemInfo
 	local icon
 	for i, v in ipairs(info) do
 		icon = GetIconFrame(frame)
-		if (v.link) then
+		if v.link then
 			UpdateIconTexture("itemLink", icon, v.link)
 		else
 			icon.bg:SetVertexColor(1, 1, 0)
 			icon.texture:SetTexture("Interface\\Cursor\\Quest")
 		end
-		icon.title = v.name
-		icon.itemLink = v.link
-		icon:ClearAllPoints()
-		icon:SetPoint("LEFT", anchorFrame, "RIGHT", 1, i == 1 and 1 or 0)
+		icon.name = v.name
+		icon.link = v.link
+		UpdateIconPoint(icon, anchorframe, i)
 		icon:Show()
-		anchorFrame = icon
+		anchorframe = icon
 	end
-	local enchantItemID, enchantID = LibItemEnchant:GetEnchantItemID(ItemLink)
-	local enchantSpellID = LibItemEnchant:GetEnchantSpellID(ItemLink)
+	local enchantItemID, enchantID = LibItemEnchant:GetEnchantItemID(itemlink)
+	local enchantSpellID = LibItemEnchant:GetEnchantSpellID(itemlink)
 	if (enchantItemID) then
-		num = num + 1
+		total = total + 1
 		icon = GetIconFrame(frame)
-		UpdateIconTexture("itemId", icon, enchantItemID)
-		icon:ClearAllPoints()
-		icon:SetPoint("LEFT", anchorFrame, "RIGHT", 1, num == 1 and 1 or 0)
+		UpdateIconTexture("itemID", icon, enchantItemID)
+		UpdateIconPoint(icon, anchorframe, total)
 		icon:Show()
-		anchorFrame = icon
+		anchorframe = icon
 	elseif (enchantSpellID) then
-		num = num + 1
+		total = total + 1
 		icon = GetIconFrame(frame)
 		icon.bg:SetVertexColor(1,0.8,0)
-		UpdateIconTexture("spellId", icon, enchantSpellID)
-		icon:ClearAllPoints()
-		icon:SetPoint("LEFT", anchorFrame, "RIGHT", 1, num == 1 and 1 or 0)
+		UpdateIconTexture("spellID", icon, enchantSpellID)
+		UpdateIconPoint(icon, anchorframe, total)
 		icon:Show()
-		anchorFrame = icon
+		anchorframe = icon
 	elseif (enchantID) then
-		num = num + 1
+		total = total + 1
 		icon = GetIconFrame(frame)
-		icon.title = "#" .. enchantID
+		icon.name = "#" .. enchantID
 		icon.bg:SetVertexColor(0.1, 0.1, 0.1)
 		icon.texture:SetTexture("Interface\\FriendsFrame\\InformationIcon")
-		icon:ClearAllPoints()
-		icon:SetPoint("LEFT", anchorFrame, "RIGHT", 1, num == 1 and 1 or 0)
+		UpdateIconPoint(icon, anchorframe, total)
 		icon:Show()
-		anchorFrame = icon
-	elseif (not enchantID and EnchantParts[itemframe.index] and EnchantParts[itemframe.index][1]) then
-		local classID = select(12, C_Item.GetItemInfo(ItemLink))
-		if not (qty == 6 and (itemframe.index==2 or itemframe.index==16 or itemframe.index==17)) and ((itemframe.index ~= INVSLOT_OFFHAND) or (classID == Enum.ItemClass.Weapon)) then
-			num = num + 1
+		anchorframe = icon
+	elseif (not enchantID and EnchantParts[itemFrame.index] and EnchantParts[itemFrame.index][1]) then
+		local classID = select(12, C_Item.GetItemInfo(itemlink))
+		if not (quality == 6 and (itemFrame.index==2 or itemFrame.index==16 or itemFrame.index==17)) and ((itemFrame.index ~= INVSLOT_OFFHAND) or (classID == Enum.ItemClass.Weapon)) then
+			total = total + 1
 			icon = GetIconFrame(frame)
-			icon.title = ENCHANTS .. ": " .. (_G[EnchantParts[itemframe.index][2]] or EnchantParts[itemframe.index][2])
+			icon.name = ENCHANTS .. ": " .. (_G[EnchantParts[itemFrame.index][2]] or EnchantParts[itemFrame.index][2])
 			icon.bg:SetVertexColor(0, 1, 1)
 			icon.texture:SetTexture("Interface\\Cursor\\Quest") --QuestRepeatable
-			icon:ClearAllPoints()
-			icon:SetPoint("LEFT", anchorFrame, "RIGHT", 1, num == 1 and 1 or 0)
+			UpdateIconPoint(icon, anchorframe, total)
 			icon:Show()
-			anchorFrame = icon
+			anchorframe = icon
 		end
 	end
-	return num * 18
+
+	return total * (16 + 1)
 end
 
 --功能附着
-hooksecurefunc("ShowInspectItemListFrame", function(unit, parent, itemLevel, maxLevel)
+hooksecurefunc("ShowInspectItemListFrame", function(unit, parent)
 	local frame = parent.inspectFrame
-	if (not frame) then return end
+	if not frame then return end
+
 	local i = 1
-	local itemframe
-	local width, iconWidth = frame:GetWidth(), 0
+	local itemFrame
+	local frameWidth, iconWidth = 0, 0
 	HideAllIconFrame(frame)
 	while (frame["item"..i]) do
-		itemframe = frame["item"..i]
-		iconWidth = ShowGemAndEnchant(frame, itemframe.link, itemframe.nameString, itemframe)
-		if (width < itemframe.width + iconWidth + 34) then
-			width = itemframe.width + iconWidth + 34
-		end
+		itemFrame = frame["item"..i]
+		iconWidth = ShowGemAndEnchant(frame, itemFrame)
+		frameWidth = math.max(frameWidth, itemFrame.width + iconWidth + DB.margin)
+
 		i = i + 1
 	end
-	if (width > frame:GetWidth()) then
-		frame:SetWidth(width)
-	end
+
+	frame:SetWidth(frameWidth + 32)
 end)

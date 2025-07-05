@@ -45,35 +45,33 @@ end
 
 LibEvent:attachTrigger("INSPECT_FRAME_CREATED", function(this, frame, parent)
 	local i = 1
-	local itemframe
-	while(frame["item"..i]) do
-		itemframe = frame["item"..i]
-		itemframe.label:SetBackdrop({})
-		itemframe.label.text:SetText("")
-		itemframe.label:SetWidth(68)
+	local itemFrame
+	while (frame["item"..i]) do
+		itemFrame = frame["item"..i]
 		local j = 1
 		for k, v in pairs(shownStats) do
-			itemframe[k] = CreateFrame("Frame", nil, itemframe, "BackdropTemplate")
-			itemframe[k]:SetSize(15, 15)
-			itemframe[k]:SetPoint("LEFT", (j-1)*17, 0)
-			itemframe[k].text= B.CreateFS(itemframe[k], 12, "")
-			itemframe[k].text:SetText(strsub_utf8(_G[k] or k, 1, 1))
-			itemframe[k].text:SetTextColor(v.r, v.g, v.b)
+			itemFrame[k] = CreateFrame("Frame", nil, itemFrame, "BackdropTemplate")
+			itemFrame[k]:SetSize(16, 16)
+			itemFrame[k]:SetPoint("LEFT", (j-1)*(16+DB.margin), 0)
+			itemFrame[k].text= B.CreateFS(itemFrame[k], 14, "")
+			itemFrame[k].text:SetText(strsub_utf8(_G[k] or k, 1, 1))
+			itemFrame[k].text:SetTextColor(v.r, v.g, v.b)
 			j = j + 1
 		end
+		itemFrame.itemLabel:SetWidth((j-1)*(16+DB.margin))
 		i = i + 1
 	end
 end)
 
-LibEvent:attachTrigger("INSPECT_ITEMFRAME_UPDATED", function(this, itemframe)
+LibEvent:attachTrigger("INSPECT_ITEMFRAME_UPDATED", function(this, itemFrame)
 	for k in pairs(shownStats) do
-		if (itemframe[k]) then itemframe[k]:SetAlpha(.1) end
+		if (itemFrame[k]) then itemFrame[k]:SetAlpha(.1) end
 	end
-	if (itemframe.link) then
-		local stats = C_Item.GetItemStats(itemframe.link)
+	if (itemFrame.link) then
+		local stats = C_Item.GetItemStats(itemFrame.link)
 		for k in pairs(stats) do
-			if (shownStats[k] and itemframe[k]) then
-				itemframe[k]:SetAlpha(1)
+			if (shownStats[k] and itemFrame[k]) then
+				itemFrame[k]:SetAlpha(1)
 			end
 		end
 	end

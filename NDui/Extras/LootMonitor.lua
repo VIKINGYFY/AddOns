@@ -81,7 +81,7 @@ function LootMonitor:UpdateSelf()
 
 	for _, button in ipairs(self.buttons) do
 		if button:IsShown() then
-			local textWidth = (button.text:GetStringWidth() + 20) or 0
+			local textWidth = (button.text:GetWidth() + 20) or 0
 			maxWidth = math.max(maxWidth, textWidth)
 		end
 	end

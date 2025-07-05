@@ -206,7 +206,7 @@ function LightLoot:UpdateSelf()
 
 	for _, slot in ipairs(self.slots) do
 		if slot:IsShown() then
-			local nameWidth = slot.name:GetStringWidth() or 0
+			local nameWidth = slot.name:GetWidth() or 0
 			maxWidth = math.max(maxWidth, nameWidth)
 
 			local lootQuality = slot.quality or 0
@@ -217,8 +217,8 @@ function LightLoot:UpdateSelf()
 		end
 	end
 
-	self:SetWidth(math.max(maxWidth + iconSize + DB.margin*3, self.Title:GetStringWidth()))
-	self:SetHeight(math.max(shownSlot * iconSize + DB.margin*2 + (shownSlot - 1) * DB.margin , iconSize))
+	self:SetWidth(math.max(maxWidth + iconSize + DB.margin*3, self.Title:GetWidth()))
+	self:SetHeight(math.max(shownSlot * iconSize + (shownSlot - 1) * DB.margin + DB.margin*2, iconSize))
 
 	local r, g, b = C_Item.GetItemQualityColor(maxQuality)
 	self.Border:SetBackdropBorderColor(r, g, b)
