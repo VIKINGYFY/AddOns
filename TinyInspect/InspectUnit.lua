@@ -96,11 +96,8 @@ local function GetInspectItemListFrame(parent)
 			LibEvent:trigger("INSPECT_ITEMFRAME_CREATED", itemFrame)
 		end
 
-		frame.closeButton = CreateFrame("Button", nil, frame)
-		frame.closeButton:SetSize(12, 12)
-		frame.closeButton:SetPoint("BOTTOMLEFT", 5, 5)
-		frame.closeButton:SetNormalTexture("Interface\\Cursor\\Item")
-		frame.closeButton:GetNormalTexture():SetTexCoord(0, 12/32, 12/32, 0)
+		frame.closeButton = B.CreateButton(frame, 18, 18, true, DB.closeTex)
+		frame.closeButton:SetPoint("TOPRIGHT", -6, -6)
 		frame.closeButton:SetScript("OnClick", function(self) self:GetParent():Hide() end)
 
 		frame.bg = B.SetBD(frame)
@@ -173,15 +170,14 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 			itemFrame.itemName:SetText("")
 			itemFrame.itemInfo:SetText("")
 			itemFrame.itemInfo:SetTextColor(1, 1, 1)
-			levelWidth = itemFrame.itemLevel:GetStringWidth()
 
 			itemFrame:Hide()
 		end
 
 		levelWidth = math.max(levelWidth, itemFrame.itemLevel:GetStringWidth())
-		itemFrame.itemLevel:SetWidth(levelWidth)
+		itemFrame.itemLevel:SetWidth(math.ceil(levelWidth))
 
-		itemFrame.width = (itemFrame.itemLabel:GetWidth() + itemFrame.itemLevel:GetWidth() + itemFrame.itemName:GetWidth() + itemFrame.itemInfo:GetWidth() + DB.margin*3)
+		itemFrame.width = math.ceil(itemFrame.itemLabel:GetWidth() + itemFrame.itemLevel:GetWidth() + itemFrame.itemName:GetWidth() + itemFrame.itemInfo:GetWidth() + DB.margin*3)
 		itemFrame:SetWidth(itemFrame.width)
 		frameWidth = math.max(frameWidth, itemFrame.width)
 
@@ -199,14 +195,14 @@ end
 
 --裝備變更時
 LibEvent:attachEvent("UNIT_INVENTORY_CHANGED", function(self, unit)
-	if InspectFrame and InspectFrame.unit == unit then
+	if InspectFrame and InspectFrame.unit and InspectFrame.unit == unit then
 		ReInspect(unit)
 	end
 end)
 
 --@see InspectCore.lua
 LibEvent:attachTrigger("UNIT_INSPECT_READY, UNIT_REINSPECT_READY", function(self, data)
-	if InspectFrame and UnitGUID(InspectFrame.unit) == data.guid then
+	if InspectFrame and InspectFrame.unit and UnitGUID(InspectFrame.unit) == data.guid then
 		local frame = ShowInspectItemListFrame(InspectFrame.unit, InspectFrame, data.ilevel)
 		LibEvent:trigger("INSPECT_FRAME_COMPARE", frame)
 	end
