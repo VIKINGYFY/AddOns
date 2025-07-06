@@ -521,7 +521,7 @@ end
 function M:JerryWay()
 	if hash_SlashCmdList["/WAY"] then return end -- disable this when other addons use Tomtom command
 
-	local pointString = DB.InfoColor.."|Hworldmap:%d+:%d+:%d+|h[|A:Waypoint-MapPin-ChatIcon:13:13:0:0|a%s (%s, %s)%s]|h|r"
+	local pointString = DB.InfoColor.."|Hworldmap:%d+:%d+:%d+|h[|A:Waypoint-MapPin-ChatIcon:13:13:0:0|a%s <%s, %s>%s]|h|r"
 
 	local function GetCorrectCoord(x)
 		x = tonumber(x)
@@ -536,23 +536,29 @@ function M:JerryWay()
 	end
 
 	SlashCmdList["NDUI_JERRY_WAY"] = function(msg)
-		msg = string.gsub(msg, "(%d)[%.,] (%d)", "%1 %2")
-		local x, y, z = string.match(msg, "(%S+)%s(%S+)(.*)")
-		if x and y then
-			local mapID = C_Map.GetBestMapForUnit("player")
-			if mapID then
-				local mapInfo = C_Map.GetMapInfo(mapID)
-				local mapName = mapInfo and mapInfo.name
-				if mapName then
-					x = GetCorrectCoord(x)
-					y = GetCorrectCoord(y)
-					if x and y then
-						print(format(pointString, mapID, x*100, y*100, mapName, x, y, z or ""))
-						C_Map.SetUserWaypoint(UiMapPoint.CreateFromCoordinates(mapID, x/100, y/100))
-						C_SuperTrack.SetSuperTrackedUserWaypoint(true)
-					end
+		-- 尝试解析 mapID、x、y、z
+		local mapID, x, y, z = string.match(msg, "^#(%d+)%s+(%S+)%s+(%S+)(.*)")
+
+		if not mapID then
+			mapID = C_Map.GetBestMapForUnit("player")
+			x, y, z = string.match(msg, "(%S+)%s+(%S+)(.*)")
+		end
+
+		if tonumber(mapID) and tonumber(x) and tonumber(y) then
+			local mapInfo = C_Map.GetMapInfo(mapID)
+			local mapName = mapInfo and mapInfo.name
+			if mapName then
+				x = GetCorrectCoord(x)
+				y = GetCorrectCoord(y)
+				if x and y then
+					print(format(pointString, mapID, x*100, y*100, mapName, x, y, z or ""))
+					C_Map.SetUserWaypoint(UiMapPoint.CreateFromCoordinates(mapID, x/100, y/100))
+					C_SuperTrack.SetSuperTrackedUserWaypoint(true)
+					C_Map.OpenWorldMap(mapID)
 				end
 			end
+		else
+			UIErrorsFrame:AddMessage(DB.InfoColor..ERR_CANT_USE_PROFANITY)
 		end
 	end
 	SLASH_NDUI_JERRY_WAY1 = "/way"

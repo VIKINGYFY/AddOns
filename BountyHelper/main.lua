@@ -1,45 +1,45 @@
-local instanceToMap = {
-    [249] = 760, --"Onyxia's Lair"
-    [329] = 1292, --"Stratholme"
-    [532] = 745, --"Karazhan"
-    [550] = 749, --"Tempest Keep"
-    [556] = 252, --"Sethekk Halls"
-    [575] = 286, --"Utgarde Pinnacle"
-    [585] = 249, --"Magisters' Terrace"
-    [603] = 759, --"Ulduar"
-    [616] = 756, --"The Eye of Eternity"
-    [624] = 753, --"Vault of Archavon"
-    [631] = 758, --"Icecrown Citadel"
-    [657] = 68, --"The Vortex Pinnacle"
-    [720] = 78, --"Firelands"
-    [725] = 67, --"The Stonecore"
-    [754] = 74, --"Throne of the Four Winds"
-    [859] = 76, --"Zul'Gurub"
-    [967] = 187, --"Dragon Soul"
-    [1008] = 317, --"Mogu'shan Vaults"
-    [1098] = 362, --"Throne of Thunder"
-    [1136] = 369, --"Siege of Orgrimmar"
-    [1205] = 457, --"Blackrock Foundry"
-    [1448] = 669, --"Hellfire Citadel"
-    [1530] = 786, --"The Nighthold"
-    [1651] = 860, --"Return to Karazhan"
-    [1676] = 875, --"Tomb of Sargeras"
-    [1712] = 946, --"Antorus, the Burning Throne"
-    [1754] = 1001, --"Freehold"
-    [1762] = 1041, --"Kings' Rest"
-    [1841] = 1022, --"The Underrot"
-    [2070] = 1176, --"Battle of Dazar'alor"
-    [2217] = 1180, --"Ny'alotha, the Waking City"
-    [2286] = 1182, --"The Necrotic Wake"
-    [2441] = 1194, --"Tazavesh, the Veiled Market"
-    [2450] = 1193, --"Sanctum of Domination"
-    [2481] = 1195, --"Sepulcher of the First Ones"
-}
-
+local instanceToMap = {}
 local instanceOrderList = {
     249, 329, 532, 550, 556, 575, 585, 603, 616, 624, 631, 657, 720, 725,
     754, 859, 967, 1008, 1098, 1136, 1205, 1448, 1530, 1651, 1676, 1712,
     1754, 1762, 1841, 2070, 2217, 2286, 2441, 2450, 2481
+}
+local waypoints = {
+    [249] = {point = {70, 0.5217, 0.7595}},
+    [329] = {point = {23, 0.4361, 0.1756}},
+    [532] = {point = {42, 0.4715, 0.7494}},
+    [550] = {point = {109, 0.7329, 0.6386}},
+    [556] = {point = {108, 0.4455, 0.6549}},
+    [575] = {point = {117, 0.572, 0.4652}},
+    [585] = {point = {122, 0.6082, 0.3077}},
+    [603] = {point = {120, 0.4179, 0.1754}},
+    [616] = {point = {114, 0.2756, 0.2677}},
+    [624] = {point = {123, 0.5008, 0.1189}},
+    [631] = {point = {118, 0.5391, 0.8729}},
+    [657] = {point = {249, 0.7665, 0.8433}},
+    [720] = {point = {198, 0.4647, 0.7812}},
+    [725] = {point = {207, 0.4743, 0.5254}},
+    [754] = {point = {249, 0.3712, 0.8162}},
+    [859] = {point = {50, 0.7219, 0.3284}},
+    [967] = {point = {75, 0.6103, 0.2105}},
+    [1008] = {point = {379, 0.5967, 0.3963}},
+    [1098] = {point = {504, 0.6379, 0.3220}},
+    [1136] = {point = {390, 0.7421, 0.4202}},
+    [1205] = {point = {543, 0.5146, 0.2710}},
+    [1448] = {point = {534, 0.4689, 0.5213}},
+    [1530] = {point = {680, 0.4349, 0.5707}},
+    [1651] = {point = {42, 0.4715, 0.7494}},
+    [1676] = {point = {646, 0.6397, 0.2138}},
+    [1712] = {point = {885, 0.5486, 0.6256}},
+    [1754] = {point = {895, 0.843, 0.7836}},
+    [1762] = {point = {862, 0.3712, 0.3938}},
+    [1841] = {point = {863, 0.5125, 0.6472}},
+    [2070] = {point = {{895, 0.7444, 0.2853}, {862, 0.5421, 0.2991}}},
+    --[2217] = {point = {0, 0, 0}}, TODO Ny'alotha
+    [2286] = {point = {1533, 0.4017, 0.5516}},
+    [2441] = {point = {1550, 0.3154, 0.7609, 2016}},
+    [2450] = {point = {1543, 0.6974, 0.322}},
+    [2481] = {point = {1970, 0.8026, 0.5302}}
 }
 
 local instanceOrderMap = {}
@@ -51,253 +51,253 @@ local faction
 local bossData = {
     [1] = { --difficultyID (1) Normal Dungeon
         [329] = { --instanceID
-            {bossName = "Lord Aurius Rivendare", encounterID = 6, killed = false, mountID = 13335, journalMountID = 69, chance = 0.9, zoneID = 23, coordX = 0.4361, coordY = 0.1756},
+            {bossName = "Lord Aurius Rivendare", encounterID = 6, killed = false, mountID = 13335, journalMountID = 69, chance = 0.9},
         },
         [657] = { --instanceID
-            {bossName = "Altairus", encounterID = 2, killed = false, mountID = 63040, journalMountID = 395, chance = 0.7, zoneID = 249, coordX = 0.7665, coordY = 0.8433},
+            {bossName = "Altairus", encounterID = 2, killed = false, mountID = 63040, journalMountID = 395, chance = 0.7},
         },
         [725] = { --instanceID
-            {bossName = "Slabhide", encounterID = 2, killed = false, mountID = 63043, journalMountID = 397, chance = 0.7, zoneID = 207, coordX = 0.4743, coordY = 0.5254},
+            {bossName = "Slabhide", encounterID = 2, killed = false, mountID = 63043, journalMountID = 397, chance = 0.7},
         },
     },
     [2] = { --difficultyID (2) Heroic Dungeon
         [556] = { --instanceID
-            {bossName = "Anzu", encounterID = 2, killed = false, mountID = 32768, journalMountID = 185, chance = 1.6, zoneID = 108, coordX = 0.4455, coordY = 0.6549},
+            {bossName = "Anzu", encounterID = 2, killed = false, mountID = 32768, journalMountID = 185, chance = 1.6},
         },
         [585] = { --instanceID
-            {bossName = "Kael'thas Sunstrider", encounterID = 4, killed = false, mountID = 35513, journalMountID = 213, chance = 4.0, zoneID = 122, coordX = 0.6082, coordY = 0.3077},
+            {bossName = "Kael'thas Sunstrider", encounterID = 4, killed = false, mountID = 35513, journalMountID = 213, chance = 4.0},
         },
         [575] = { --instanceID
-            {bossName = "Skadi the Ruthless", encounterID = 3, killed = false, mountID = 44151, journalMountID = 264, chance = 0.8, zoneID = 117, coordX = 0.572, coordY = 0.4652},
+            {bossName = "Skadi the Ruthless", encounterID = 3, killed = false, mountID = 44151, journalMountID = 264, chance = 0.8},
         },
         [657] = { --instanceID
-            {bossName = "Altairus", encounterID = 2, killed = false, mountID = 63040, journalMountID = 395, chance = 0.7, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Altairus", encounterID = 2, killed = false, mountID = 63040, journalMountID = 395, chance = 0.7},
         },
         [725] = { --instanceID
-            {bossName = "Slabhide", encounterID = 2, killed = false, mountID = 63043, journalMountID = 397, chance = 0.7, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Slabhide", encounterID = 2, killed = false, mountID = 63043, journalMountID = 397, chance = 0.7},
         },
         [859] = { --instanceID
-            {bossName = "Bloodlord Mandokir", encounterID = 2, killed = false, mountID = 68823, journalMountID = 410, chance = 0.7, zoneID = 50, coordX = 0.7219, coordY = 0.3284},
-            {bossName = "High Priestess Kilnara", encounterID = 7, killed = false, mountID = 68824, journalMountID = 411, chance = 0.9, zoneID = 50, coordX = 0.7219, coordY = 0.3284},
+            {bossName = "Bloodlord Mandokir", encounterID = 2, killed = false, mountID = 68823, journalMountID = 410, chance = 0.7},
+            {bossName = "High Priestess Kilnara", encounterID = 7, killed = false, mountID = 68824, journalMountID = 411, chance = 0.9},
         },
         [2441] = { --instanceID
-            {bossName = "So'leah", encounterID = 8, killed = false, mountID = 186638, journalMountID = 1481, chance = 2.0, zoneID = 1550, coordX = 0.3154, coordY = 0.7609},
+            {bossName = "So'leah", encounterID = 8, killed = false, mountID = 186638, journalMountID = 1481, chance = 2.0},
         },
     },
     [3] = { --difficultyID (3) (10) Normal Raid
         [532] = { --instanceID
-            {bossName = "Attumen the Huntsman", encounterID = 2, killed = false, mountID = 30480, journalMountID = 168, chance = 1.1, zoneID = 42, coordX = 0.4715, coordY = 0.7494},
+            {bossName = "Attumen the Huntsman", encounterID = 2, killed = false, mountID = 30480, journalMountID = 168, chance = 1.1},
         },
         [616] = { --instanceID
-            {bossName = "Malygos", encounterID = 1, killed = false, mountID = 43952, journalMountID = 246, chance = 3.0, zoneID = 114, coordX = 0.2756, coordY = 0.2677},
-            {bossName = "Malygos", encounterID = 1, killed = false, mountID = 43953, journalMountID = 247, chance = 4.0, zoneID = 114, coordX = 0.2756, coordY = 0.2677},
+            {bossName = "Malygos", encounterID = 1, killed = false, mountID = 43952, journalMountID = 246, chance = 3.0},
+            {bossName = "Malygos", encounterID = 1, killed = false, mountID = 43953, journalMountID = 247, chance = 4.0},
         },
         [624] = { --instanceID
-            {bossName = "Archavon the Stone Watcher", encounterID = 1, killed = false, mountID = 43959, journalMountID = 286, chance = 1.1, zoneID = 0, coordX = 0, coordY = 0},
-            {bossName = "Emalon the Storm Watcher", encounterID = 2, killed = false, mountID = 43959, journalMountID = 286, chance = 1.0, zoneID = 0, coordX = 0, coordY = 0},
-            {bossName = "Koralon the Flame Watcher", encounterID = 3, killed = false, mountID = 43959, journalMountID = 286, chance = 1.0, zoneID = 0, coordX = 0, coordY = 0},
-            {bossName = "Toravon the Ice Watcher", encounterID = 4, killed = false, mountID = 43959, journalMountID = 286, chance = 0.8, zoneID = 123, coordX = 0.5008, coordY = 0.1189},
+            {bossName = "Archavon the Stone Watcher", encounterID = 1, killed = false, mountID = 43959, journalMountID = 286, chance = 1.1},
+            {bossName = "Emalon the Storm Watcher", encounterID = 2, killed = false, mountID = 43959, journalMountID = 286, chance = 1.0},
+            {bossName = "Koralon the Flame Watcher", encounterID = 3, killed = false, mountID = 43959, journalMountID = 286, chance = 1.0},
+            {bossName = "Toravon the Ice Watcher", encounterID = 4, killed = false, mountID = 43959, journalMountID = 286, chance = 0.8},
         },
         [249] = { --instanceID
-            {bossName = "Onyxia", encounterID = 1, killed = false, mountID = 49636, journalMountID = 349, chance = 1.5, zoneID = 70, coordX = 0.5217, coordY = 0.7595},
+            {bossName = "Onyxia", encounterID = 1, killed = false, mountID = 49636, journalMountID = 349, chance = 1.5},
         },
         [754] = { --instanceID
-            {bossName = "Al'Akir", encounterID = 2, killed = false, mountID = 63041, journalMountID = 396, chance = 2.0, zoneID = 249, coordX = 0.3712, coordY = 0.8162},
+            {bossName = "Al'Akir", encounterID = 2, killed = false, mountID = 63041, journalMountID = 396, chance = 2.0},
         },
         [967] = { --instanceID
-            {bossName = "Ultraxion", encounterID = 5, killed = false, mountID = 78919, journalMountID = 445, chance = 1.2, zoneID = 75, coordX = 0.6103, coordY = 0.2105},
-            {bossName = "Madness of Deathwing", encounterID = 8, killed = false, mountID = 77067, journalMountID = 442, chance = 3.0, zoneID = 75, coordX = 0.6103, coordY = 0.2105},
+            {bossName = "Ultraxion", encounterID = 5, killed = false, mountID = 78919, journalMountID = 445, chance = 1.2},
+            {bossName = "Madness of Deathwing", encounterID = 8, killed = false, mountID = 77067, journalMountID = 442, chance = 3.0},
         },
         [1008] = { --instanceID
-            {bossName = "Elegon", encounterID = 5, killed = false, mountID = 87777, journalMountID = 478, chance = 4.0, zoneID = 379, coordX = 0.5967, coordY = 0.3963},
+            {bossName = "Elegon", encounterID = 5, killed = false, mountID = 87777, journalMountID = 478, chance = 4.0},
         },
         [1098] = { --instanceID
-            {bossName = "Horridon", encounterID = 2, killed = false, mountID = 93666, journalMountID = 531, chance = 2.0, zoneID = 504, coordX = 0.6379, coordY = 0.3220},
-            {bossName = "Ji-Kun", encounterID = 6, killed = false, mountID = 95059, journalMountID = 543, chance = 2.0, zoneID = 504, coordX = 0.6379, coordY = 0.3220},
+            {bossName = "Horridon", encounterID = 2, killed = false, mountID = 93666, journalMountID = 531, chance = 2.0},
+            {bossName = "Ji-Kun", encounterID = 6, killed = false, mountID = 95059, journalMountID = 543, chance = 2.0},
         },
     },
     [4] = { --difficultyID (4) (25) Normal Raid
         [550] = { --instanceID
-            {bossName = "Kael'thas Sunstrider", encounterID = 4, killed = false, mountID = 32458, journalMountID = 183, chance = 1.7, zoneID = 109, coordX = 0.7329, coordY = 0.6386},
+            {bossName = "Kael'thas Sunstrider", encounterID = 4, killed = false, mountID = 32458, journalMountID = 183, chance = 1.7},
         },
         [616] = { --instanceID
-            {bossName = "Malygos", encounterID = 1, killed = false, mountID = 43952, journalMountID = 246, chance = 3.0, zoneID = 0, coordX = 0, coordY = 0},
-            {bossName = "Malygos", encounterID = 1, killed = false, mountID = 43953, journalMountID = 247, chance = 4.0, zoneID = 0, coordY = 0},
+            {bossName = "Malygos", encounterID = 1, killed = false, mountID = 43952, journalMountID = 246, chance = 3.0},
+            {bossName = "Malygos", encounterID = 1, killed = false, mountID = 43953, journalMountID = 247, chance = 4.0},
         },
         [624] = { --instanceID
-            {bossName = "Archavon the Stone Watcher", encounterID = 1, killed = false, mountID = 43959, journalMountID = 286, chance = 1.1, zoneID = 0, coordX = 0, coordY = 0},
-            {bossName = "Emalon the Storm Watcher", encounterID = 2, killed = false, mountID = 43959, journalMountID = 286, chance = 1.0, zoneID = 0, coordX = 0, coordY = 0},
-            {bossName = "Koralon the Flame Watcher", encounterID = 3, killed = false, mountID = 43959, journalMountID = 286, chance = 1.0, zoneID = 0, coordX = 0, coordY = 0},
-            {bossName = "Toravon the Ice Watcher", encounterID = 4, killed = false, mountID = 43959, journalMountID = 286, chance = 0.8, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Archavon the Stone Watcher", encounterID = 1, killed = false, mountID = 43959, journalMountID = 286, chance = 1.1},
+            {bossName = "Emalon the Storm Watcher", encounterID = 2, killed = false, mountID = 43959, journalMountID = 286, chance = 1.0},
+            {bossName = "Koralon the Flame Watcher", encounterID = 3, killed = false, mountID = 43959, journalMountID = 286, chance = 1.0},
+            {bossName = "Toravon the Ice Watcher", encounterID = 4, killed = false, mountID = 43959, journalMountID = 286, chance = 0.8},
         },
         [249] = { --instanceID
-            {bossName = "Onyxia", encounterID = 1, killed = false, mountID = 49636, journalMountID = 349, chance = 1.5, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Onyxia", encounterID = 1, killed = false, mountID = 49636, journalMountID = 349, chance = 1.5},
         },
         [754] = { --instanceID
-            {bossName = "Al'Akir", encounterID = 2, killed = false, mountID = 63041, journalMountID = 396, chance = 2.0, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Al'Akir", encounterID = 2, killed = false, mountID = 63041, journalMountID = 396, chance = 2.0},
         },
         [967] = { --instanceID
-            {bossName = "Ultraxion", encounterID = 5, killed = false, mountID = 78919, journalMountID = 445, chance = 1.2, zoneID = 75, coordX = 0.6103, coordY = 0.2105},
-            {bossName = "Madness of Deathwing", encounterID = 8, killed = false, mountID = 77067, journalMountID = 442, chance = 3.0, zoneID = 75, coordX = 0.6103, coordY = 0.2105},
-            {bossName = "Madness of Deathwing", encounterID = 8, killed = false, mountID = 77069, journalMountID = 444, chance = 1.8, zoneID = 75, coordX = 0.6103, coordY = 0.2105},
+            {bossName = "Ultraxion", encounterID = 5, killed = false, mountID = 78919, journalMountID = 445, chance = 1.2},
+            {bossName = "Madness of Deathwing", encounterID = 8, killed = false, mountID = 77067, journalMountID = 442, chance = 3.0},
+            {bossName = "Madness of Deathwing", encounterID = 8, killed = false, mountID = 77069, journalMountID = 444, chance = 1.8},
         },
         [1008] = { --instanceID
-            {bossName = "Elegon", encounterID = 5, killed = false, mountID = 87777, journalMountID = 478, chance = 4.0, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Elegon", encounterID = 5, killed = false, mountID = 87777, journalMountID = 478, chance = 4.0},
         },
         [1098] = { --instanceID
-            {bossName = "Horridon", encounterID = 2, killed = false, mountID = 93666, journalMountID = 531, chance = 2.0, zoneID = 0, coordX = 0, coordY = 0},
-            {bossName = "Ji-Kun", encounterID = 6, killed = false, mountID = 95059, journalMountID = 543, chance = 2.0, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Horridon", encounterID = 2, killed = false, mountID = 93666, journalMountID = 531, chance = 2.0},
+            {bossName = "Ji-Kun", encounterID = 6, killed = false, mountID = 95059, journalMountID = 543, chance = 2.0},
         },
     },
     [5] = { --difficultyID (5) (10) Heroic Raid
         [754] = { --instanceID
-            {bossName = "Al'Akir", encounterID = 2, killed = false, mountID = 63041, journalMountID = 396, chance = 2.0, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Al'Akir", encounterID = 2, killed = false, mountID = 63041, journalMountID = 396, chance = 2.0},
         },
         [967] = { --instanceID
-            {bossName = "Ultraxion", encounterID = 5, killed = false, mountID = 78919, journalMountID = 445, chance = 1.2, zoneID = 0, coordX = 0, coordY = 0},
-            {bossName = "Madness of Deathwing", encounterID = 8, killed = false, mountID = 77067, journalMountID = 442, chance = 3.0, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Ultraxion", encounterID = 5, killed = false, mountID = 78919, journalMountID = 445, chance = 1.2},
+            {bossName = "Madness of Deathwing", encounterID = 8, killed = false, mountID = 77067, journalMountID = 442, chance = 3.0},
         },
         [1008] = { --instanceID
-            {bossName = "Elegon", encounterID = 5, killed = false, mountID = 87777, journalMountID = 478, chance = 4.0, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Elegon", encounterID = 5, killed = false, mountID = 87777, journalMountID = 478, chance = 4.0},
         },
         [1098] = { --instanceID
-            {bossName = "Horridon", encounterID = 2, killed = false, mountID = 93666, journalMountID = 531, chance = 2.0, zoneID = 0, coordX = 0, coordY = 0},
-            {bossName = "Ji-Kun", encounterID = 6, killed = false, mountID = 95059, journalMountID = 543, chance = 2.0, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Horridon", encounterID = 2, killed = false, mountID = 93666, journalMountID = 531, chance = 2.0},
+            {bossName = "Ji-Kun", encounterID = 6, killed = false, mountID = 95059, journalMountID = 543, chance = 2.0},
         },
     },
     [6] = { --difficultyID (6) (25) Heroic Raid
         [631] = { --instanceID
-            {bossName = "The Lich King", encounterID = 12, killed = false, mountID = 50818, journalMountID = 363, chance = 0.8, zoneID = 118, coordX = 0.5391, coordY = 0.8729},
+            {bossName = "The Lich King", encounterID = 12, killed = false, mountID = 50818, journalMountID = 363, chance = 0.8},
         },
         [754] = { --instanceID
-            {bossName = "Al'Akir", encounterID = 2, killed = false, mountID = 63041, journalMountID = 396, chance = 2.0, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Al'Akir", encounterID = 2, killed = false, mountID = 63041, journalMountID = 396, chance = 2.0},
         },
         [967] = { --instanceID
-            {bossName = "Ultraxion", encounterID = 5, killed = false, mountID = 78919, journalMountID = 445, chance = 1.2, zoneID = 71, coordX = 0.6528, coordY = 0.4815},
-            {bossName = "Madness of Deathwing", encounterID = 8, killed = false, mountID = 77067, journalMountID = 442, chance = 3.0, zoneID = 0, coordX = 0, coordY = 0},
-            {bossName = "Madness of Deathwing", encounterID = 8, killed = false, mountID = 77069, journalMountID = 444, chance = 1.8, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Ultraxion", encounterID = 5, killed = false, mountID = 78919, journalMountID = 445, chance = 1.2},
+            {bossName = "Madness of Deathwing", encounterID = 8, killed = false, mountID = 77067, journalMountID = 442, chance = 3.0},
+            {bossName = "Madness of Deathwing", encounterID = 8, killed = false, mountID = 77069, journalMountID = 444, chance = 1.8},
         },
         [1008] = { --instanceID
-            {bossName = "Elegon", encounterID = 5, killed = false, mountID = 87777, journalMountID = 478, chance = 4.0, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Elegon", encounterID = 5, killed = false, mountID = 87777, journalMountID = 478, chance = 4.0},
         },
         [1098] = { --instanceID
-            {bossName = "Horridon", encounterID = 2, killed = false, mountID = 93666, journalMountID = 531, chance = 2.0, zoneID = 10, coordX = 49, coordY = 49},
-            {bossName = "Ji-Kun", encounterID = 6, killed = false, mountID = 95059, journalMountID = 543, chance = 2.0, zoneID = 504, coordX = 0.6379, coordY = 0.3220},
+            {bossName = "Horridon", encounterID = 2, killed = false, mountID = 93666, journalMountID = 531, chance = 2.0},
+            {bossName = "Ji-Kun", encounterID = 6, killed = false, mountID = 95059, journalMountID = 543, chance = 2.0},
         },
     },
     [14] = { --difficultyID (14) Normal Raid
         [603] = { --instanceID
-            {bossName = "Yogg-Saron", encounterID = 13, killed = false, mountID = 45693, journalMountID = 304, chance = 1.0, zoneID = 120, coordX = 0.4179, coordY = 0.1754},
+            {bossName = "Yogg-Saron", encounterID = 13, killed = false, mountID = 45693, journalMountID = 304, chance = 1.0},
         },
         [720] = { --instanceID
-            {bossName = "Alysrazor", encounterID = 3, killed = false, mountID = 71665, journalMountID = 425, chance = 2.0, zoneID = 198, coordX = 0.4647, coordY = 0.7812},
-            {bossName = "Ragnaros", encounterID = 7, killed = false, mountID = 69224, journalMountID = 415, chance = 1.7, zoneID = 198, coordX = 0.4647, coordY = 0.7812},
+            {bossName = "Alysrazor", encounterID = 3, killed = false, mountID = 71665, journalMountID = 425, chance = 2.0},
+            {bossName = "Ragnaros", encounterID = 7, killed = false, mountID = 69224, journalMountID = 415, chance = 1.7},
         },
         [1530] = { --instanceID
-            {bossName = "Gul'dan", encounterID = 10, killed = false, mountID = 137574, journalMountID = 791, chance = 0.5, zoneID = 680, coordX = 0.4349, coordY = 0.5707},
+            {bossName = "Gul'dan", encounterID = 10, killed = false, mountID = 137574, journalMountID = 791, chance = 0.5},
         },
         [1676] = { --instanceID
-            {bossName = "Mistress Sassz'ine", encounterID = 5, killed = false, mountID = 143643, journalMountID = 899, chance = 0.2, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Mistress Sassz'ine", encounterID = 5, killed = false, mountID = 143643, journalMountID = 899, chance = 0.2},
         },
         [1712] = { --instanceID
-            {bossName = "Felhounds of Sargeras", encounterID = 2, killed = false, mountID = 152816, journalMountID = 971, chance = 1.0, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Felhounds of Sargeras", encounterID = 2, killed = false, mountID = 152816, journalMountID = 971, chance = 1.0},
         },
         [2070] = { --instanceID
-            {bossName = "Mekkatorque", encounterID = 7, killed = false, mountID = 166518, journalMountID = 1217, chance = 2.0, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Mekkatorque", encounterID = 7, killed = false, mountID = 166518, journalMountID = 1217, chance = 2.0},
         },
         [2450] = { --instanceID
-            {bossName = "The Nine", encounterID = 3, killed = false, mountID = 186656, journalMountID = 1500, chance = 0.3, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "The Nine", encounterID = 3, killed = false, mountID = 186656, journalMountID = 1500, chance = 0.3},
         },
     },
     [15] = { --difficultyID (14) Heroic Raid
         [720] = { --instanceID
-            {bossName = "Alysrazor", encounterID = 3, killed = false, mountID = 71665, journalMountID = 425, chance = 2.0, zoneID = 0, coordX = 0, coordY = 0},
-            {bossName = "Ragnaros", encounterID = 7, killed = false, mountID = 69224, journalMountID = 415, chance = 1.7, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Alysrazor", encounterID = 3, killed = false, mountID = 71665, journalMountID = 425, chance = 2.0},
+            {bossName = "Ragnaros", encounterID = 7, killed = false, mountID = 69224, journalMountID = 415, chance = 1.7},
         },
         [1530] = { --instanceID
-            {bossName = "Gul'dan", encounterID = 10, killed = false, mountID = 137574, journalMountID = 791, chance = 0.5, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Gul'dan", encounterID = 10, killed = false, mountID = 137574, journalMountID = 791, chance = 0.5},
         },
         [1676] = { --instanceID
-            {bossName = "Mistress Sassz'ine", encounterID = 5, killed = false, mountID = 143643, journalMountID = 899, chance = 0.2, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Mistress Sassz'ine", encounterID = 5, killed = false, mountID = 143643, journalMountID = 899, chance = 0.2},
         },
         [1712] = { --instanceID
-            {bossName = "Felhounds of Sargeras", encounterID = 2, killed = false, mountID = 152816, journalMountID = 971, chance = 1.0, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Felhounds of Sargeras", encounterID = 2, killed = false, mountID = 152816, journalMountID = 971, chance = 1.0},
         },
         [2070] = { --instanceID
-            {bossName = "Mekkatorque", encounterID = 7, killed = false, mountID = 166518, journalMountID = 1217, chance = 2.0, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Mekkatorque", encounterID = 7, killed = false, mountID = 166518, journalMountID = 1217, chance = 2.0},
         },
         [2450] = { --instanceID
-            {bossName = "The Nine", encounterID = 3, killed = false, mountID = 186656, journalMountID = 1500, chance = 0.3, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "The Nine", encounterID = 3, killed = false, mountID = 186656, journalMountID = 1500, chance = 0.3},
         },
     },
     [16] = { --difficultyID (16) Mythic Raid
         [1136] = { --instanceID
-            {bossName = "Garrosh Hellscream", encounterID = 14, killed = false, mountID = 104253, journalMountID = 559, chance = 0.9, zoneID = 390, coordX = 0.7421, coordY = 0.4202},
+            {bossName = "Garrosh Hellscream", encounterID = 14, killed = false, mountID = 104253, journalMountID = 559, chance = 0.9},
         },
         [1205] = { --instanceID
-            {bossName = "Blackhand", encounterID = 10, killed = false, mountID = 116660, journalMountID = 613, chance = 2.0, zoneID = 543, coordX = 0.5146, coordY = 0.2710},
+            {bossName = "Blackhand", encounterID = 10, killed = false, mountID = 116660, journalMountID = 613, chance = 2.0},
         },
         [1448] = { --instanceID
-            {bossName = "Archimonde", encounterID = 13, killed = false, mountID = 123890, journalMountID = 751, chance = 4.0, zoneID = 534, coordX = 0.4689, coordY = 0.5213},
+            {bossName = "Archimonde", encounterID = 13, killed = false, mountID = 123890, journalMountID = 751, chance = 4.0},
         },
         [1530] = { --instanceID
-            {bossName = "Gul'dan", encounterID = 10, killed = false, mountID = 137574, journalMountID = 791, chance = 0.5, zoneID = 0, coordX = 0, coordY = 0},
-            {bossName = "Gul'dan", encounterID = 10, killed = false, mountID = 137575, journalMountID = 633, chance = 8.0, zoneID = 680, coordX = 0.4349, coordY = 0.5707},
+            {bossName = "Gul'dan", encounterID = 10, killed = false, mountID = 137574, journalMountID = 791, chance = 0.5},
+            {bossName = "Gul'dan", encounterID = 10, killed = false, mountID = 137575, journalMountID = 633, chance = 8.0},
         },
         [1676] = { --instanceID
-            {bossName = "Mistress Sassz'ine", encounterID = 5, killed = false, mountID = 143643, journalMountID = 899, chance = 0.2, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "Mistress Sassz'ine", encounterID = 5, killed = false, mountID = 143643, journalMountID = 899, chance = 0.2},
         },
         [1712] = { --instanceID
-            {bossName = "Felhounds of Sargeras", encounterID = 2, killed = false, mountID = 152816, journalMountID = 971, chance = 1.0, zoneID = 0, coordX = 0, coordY = 0},
-            {bossName = "Argus the Unmaker", encounterID = 11, killed = false, mountID = 152789, journalMountID = 954, chance = 0.8, zoneID = 885, coordX = 0.5486, coordY = 0.6256},
+            {bossName = "Felhounds of Sargeras", encounterID = 2, killed = false, mountID = 152816, journalMountID = 971, chance = 1.0},
+            {bossName = "Argus the Unmaker", encounterID = 11, killed = false, mountID = 152789, journalMountID = 954, chance = 0.8},
         },
         [2070] = { --instanceID
-            {bossName = "Mekkatorque", encounterID = 7, killed = false, mountID = 166518, journalMountID = 1217, chance = 2.0, zoneID = 0, coordX = 0, coordY = 0},
-            {bossName = "Lady Jaina Proudmoore", encounterID = 9, killed = false, mountID = 166705, journalMountID = 1219, chance = 0.6, zoneID = {895, 862}, coordX = {0.7444, 0.5421}, coordY = {0.2853, 0.2991}},
+            {bossName = "Mekkatorque", encounterID = 7, killed = false, mountID = 166518, journalMountID = 1217, chance = 2.0},
+            {bossName = "Lady Jaina Proudmoore", encounterID = 9, killed = false, mountID = 166705, journalMountID = 1219, chance = 0.6},
         },
         [2217] = { --instanceID
-            {bossName = "N'Zoth the Corruptor", encounterID = 12, killed = false, mountID = 174872, journalMountID = 1293, chance = 0.6, zoneID = 0, coordX = 0, coordY = 0},
+            {bossName = "N'Zoth the Corruptor", encounterID = 12, killed = false, mountID = 174872, journalMountID = 1293, chance = 0.6},
         },
         [2450] = { --instanceID
-            {bossName = "The Nine", encounterID = 3, killed = false, mountID = 186656, journalMountID = 1500, chance = 0.3, zoneID = 0, coordX = 0, coordY = 0},
-            {bossName = "Sylvanas Windrunner", encounterID = 10, killed = false, mountID = 186642, journalMountID = 1471, chance = 0.4, zoneID = 1543, coordX = 0.6974, coordY = 0.322},
+            {bossName = "The Nine", encounterID = 3, killed = false, mountID = 186656, journalMountID = 1500, chance = 0.3},
+            {bossName = "Sylvanas Windrunner", encounterID = 10, killed = false, mountID = 186642, journalMountID = 1471, chance = 0.4},
         },
         [2481] = { --instanceID
-            {bossName = "The Jailer", encounterID = 11, killed = false, mountID = 190768, journalMountID = 1587, chance = 0.5, zoneID = 1970, coordX = 0.8026, coordY = 0.5302},
+            {bossName = "The Jailer", encounterID = 11, killed = false, mountID = 190768, journalMountID = 1587, chance = 0.5},
         },
     },
     [23] = { --difficultyID (23) Mythic Dungeon
         [1651] = { --instanceID
-            {bossName = "Attumen the Huntsman", encounterID = 5, killed = false, mountID = 142236, journalMountID = 875, chance = 0.9, zoneID = 42, coordX = 0.4715, coordY = 0.7494},
+            {bossName = "Attumen the Huntsman", encounterID = 5, killed = false, mountID = 142236, journalMountID = 875, chance = 0.9},
         },
         [1754] = { --instanceID
-            {bossName = "Lord Harlan Sweete", encounterID = 4, killed = false, mountID = 159842, journalMountID = 995, chance = 0.8, zoneID = 895, coordX = 0.843, coordY = 0.7836},
+            {bossName = "Lord Harlan Sweete", encounterID = 4, killed = false, mountID = 159842, journalMountID = 995, chance = 0.8},
         },
         [1762] = { --instanceID
-            {bossName = "King Dazar", encounterID = 4, killed = false, mountID = 159921, journalMountID = 1040, chance = 0.7, zoneID = 862, coordX = 0.3712, coordY = 0.3938},
+            {bossName = "King Dazar", encounterID = 4, killed = false, mountID = 159921, journalMountID = 1040, chance = 0.7},
         },
         [1841] = { --instanceID
-            {bossName = "Unbound Abomination", encounterID = 4, killed = false, mountID = 160829, journalMountID = 1053, chance = 0.7, zoneID = 863, coordX = 0.5125, coordY = 0.6472},
+            {bossName = "Unbound Abomination", encounterID = 4, killed = false, mountID = 160829, journalMountID = 1053, chance = 0.7},
         },
         [2286] = { --instanceID
-            {bossName = "Nalthor the Rimebinder", encounterID = 4, killed = false, mountID = 181819, journalMountID = 1406, chance = 0.8, zoneID = 1533, coordX = 0.4017, coordY = 0.5516},
+            {bossName = "Nalthor the Rimebinder", encounterID = 4, killed = false, mountID = 181819, journalMountID = 1406, chance = 0.8},
         },
         [2441] = { --instanceID
-            {bossName = "So'leah", encounterID = 8, killed = false, mountID = 186638, journalMountID = 1481, chance = 2.0, zoneID = 1550, coordX = 0.3154, coordY = 0.7609},
+            {bossName = "So'leah", encounterID = 8, killed = false, mountID = 186638, journalMountID = 1481, chance = 2.0},
         },
     },
     [17] = { --difficultyID (17) LFR Raid
         [1676] = { --instanceID
-            {bossName = "Mistress Sassz'ine", encounterID = 5, killed = false, mountID = 143643, journalMountID = 899, chance = 0.2, zoneID = 646, coordX = 0.6397, coordY = 0.2138, lfr = {619, 0.4647, 0.6488, 627}},
+            {bossName = "Mistress Sassz'ine", encounterID = 5, killed = false, mountID = 143643, journalMountID = 899, chance = 0.2, lfr = {619, 0.4647, 0.6488, 627}},
         },
         [1712] = { --instanceID
-            {bossName = "Felhounds of Sargeras", encounterID = 2, killed = false, mountID = 152816, journalMountID = 971, chance = 1.0, zoneID = 885, coordX = 0.5486, coordY = 0.6256, lfr = {619, 0.4647, 0.6488, 627}},
+            {bossName = "Felhounds of Sargeras", encounterID = 2, killed = false, mountID = 152816, journalMountID = 971, chance = 1.0, lfr = {619, 0.4647, 0.6488, 627}},
         },
         [2070] = { --instanceID
-            {bossName = "Lady Jaina Proudmoore", encounterID = 9, killed = false, mountID = 166518, journalMountID = 1217, chance = 2.0, zoneID = {895, 862}, coordX = {0.7444, 0.5421}, coordY = {0.2853, 0.2991}, lfr = {{1161, 0.7418, 0.135}, {1164, 0.6859, 0.3042}}},
+            {bossName = "Lady Jaina Proudmoore", encounterID = 9, killed = false, mountID = 166518, journalMountID = 1217, chance = 2.0, lfr = {{1161, 0.7418, 0.135}, {1164, 0.6859, 0.3042}}},
         },
         [2450] = { --instanceID
-            {bossName = "The Nine", encounterID = 3, killed = false, mountID = 186656, journalMountID = 1500, chance = 0.3, zoneID = 1543, coordX = 0.6974, coordY = 0.322, lfr = {1670, 0.4163, 0.711}},
+            {bossName = "The Nine", encounterID = 3, killed = false, mountID = 186656, journalMountID = 1500, chance = 0.3, lfr = {1670, 0.4163, 0.711}},
         },
     },
 }
@@ -364,17 +364,17 @@ local function sharedDifficulty(difficultyID, bossData, instanceID, encounterID)
 end
 
 local difficultyInfo = {
-    [1] = {name = "普通地下城", expanded = false},
-    [2] = {name = "英雄地下城", expanded = false},
-    [3] = {name = "普通10人团队", expanded = false},
-    [4] = {name = "普通25人团队", expanded = false},
-    [5] = {name = "英雄10人团队", expanded = false},
-    [6] = {name = "英雄25人团队", expanded = false},
-    [14] = {name = "普通团队", expanded = false},
-    [15] = {name = "英雄团队", expanded = false},
-    [16] = {name = "史诗团队", expanded = false},
-    [17] = {name = "随机团队", expanded = false},
-    [23] = {name = "史诗地下城", expanded = false},
+    [1] = {name = "Normal Dungeons", expanded = false},
+    [2] = { name = "Heroic Dungeons", expanded = false},
+    [3] = {name = "Normal (10) Raids", expanded = false},
+    [4] = {name = "Normal (25) Raids", expanded = false},
+    [5] = {name = "Heroic (10) Raids", expanded = false},
+    [6] = {name = "Heroic (25) Raids", expanded = false},
+    [14] = {name = "Normal Raids", expanded = false},
+    [15] = {name = "Heroic Raids", expanded = false},
+    [16] = {name = "Mythic Raids", expanded = false},
+    [17] = {name = "LFR Raids", expanded = false},
+    [23] = {name = "Mythic Dungeons", expanded = false},
     order = {17, 3, 4, 14, 5, 6, 15, 16, 1, 2, 23}
 }
 
@@ -424,7 +424,7 @@ function MyMountTracker:CreateUI()
 
     local toMountViewButton = CreateFrame("Button", "MyMountTrackerToMountViewButton", f, "UIPanelButtonTemplate")
     toMountViewButton:SetPoint("TOPRIGHT", -45, -6)
-    toMountViewButton:SetText("按坐骑排序")
+    toMountViewButton:SetText("Sort by Mount")
     toMountViewButton:SetSize(120, 22)
     toMountViewButton:SetScale(1.2)
     toMountViewButton:SetScript("OnClick", function() MyMountTracker:ShowMountView() end)
@@ -432,7 +432,7 @@ function MyMountTracker:CreateUI()
 
     local toDifficultyViewButton = CreateFrame("Button", "MyMountTrackerToDifficultyViewButton", f, "UIPanelButtonTemplate")
     toDifficultyViewButton:SetPoint("TOPRIGHT", -45, -6)
-    toDifficultyViewButton:SetText("按难度排序")
+    toDifficultyViewButton:SetText("Sort by Difficulty")
     toDifficultyViewButton:SetSize(120, 22)
     toDifficultyViewButton:SetScale(1.2)
     toDifficultyViewButton:SetScript("OnClick", function() MyMountTracker:ShowDifficultyView() end)
@@ -480,7 +480,7 @@ function MyMountTracker:CreateUI()
 
     scaleSlider:SetScript("OnValueChanged", function(self, value)
         local roundedValue = tonumber(string.format("%.2f", value))
-        MyMountTracker.Frames.ScaleValueText:SetText(string.format("UI缩放: %.2f", roundedValue))
+        MyMountTracker.Frames.ScaleValueText:SetText(string.format("UI Scale: %.2f", roundedValue))
     end)
 
     scaleSlider:SetScript("OnMouseUp", function(self)
@@ -491,11 +491,11 @@ function MyMountTracker:CreateUI()
     end)
 
     local hideButtonCheckbox = CreateFrame("CheckButton", "MyMountTrackerHideButtonCheckbox", f, "UICheckButtonTemplate")
-    hideButtonCheckbox:SetPoint("LEFT", scaleSlider, "RIGHT", 100, 0)
+    hideButtonCheckbox:SetPoint("LEFT", scaleSlider, "RIGHT", 117, 0)
     hideButtonCheckbox.text = hideButtonCheckbox:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     hideButtonCheckbox.text:SetFont(STANDARD_TEXT_FONT, 14)
     hideButtonCheckbox.text:SetPoint("LEFT", hideButtonCheckbox, "RIGHT", 0, 1)
-    hideButtonCheckbox.text:SetText("隐藏小地图图标")
+    hideButtonCheckbox.text:SetText("Hide Button")
     hideButtonCheckbox:SetScript("OnClick", function(self)
         hideButton = self:GetChecked()
         buttonBH:SetShown(not hideButton)
@@ -509,7 +509,7 @@ function MyMountTracker:CreateUI()
     hideOwnedCheckbox.text = hideOwnedCheckbox:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     hideOwnedCheckbox.text:SetFont(STANDARD_TEXT_FONT, 14)
     hideOwnedCheckbox.text:SetPoint("LEFT", hideOwnedCheckbox, "RIGHT", 0, 1)
-    hideOwnedCheckbox.text:SetText("隐藏已拥有")
+    hideOwnedCheckbox.text:SetText("Hide Owned")
     hideOwnedCheckbox:SetScript("OnClick", function(self)
         hideOwned = self:GetChecked()
         MyMountTracker:UpdateVisibleFrame()
@@ -521,7 +521,7 @@ function MyMountTracker:CreateUI()
     hideKilledCheckbox.text = hideKilledCheckbox:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     hideKilledCheckbox.text:SetFont(STANDARD_TEXT_FONT, 14)
     hideKilledCheckbox.text:SetPoint("LEFT", hideKilledCheckbox, "RIGHT", 0, 1)
-    hideKilledCheckbox.text:SetText("隐藏已击杀")
+    hideKilledCheckbox.text:SetText("Hide Killed")
     hideKilledCheckbox:SetScript("OnClick", function(self)
         hideKilled = self:GetChecked()
         MyMountTracker:UpdateVisibleFrame()
@@ -566,7 +566,7 @@ function MyMountTracker:CreateBossRow(parent, bossData, header, instanceID)
     row.bossData = bossData
     row.headerFrame = header
     local data = bossData
-    local mapName = instanceToMap[instanceID] or "Unknown Map"
+    local mapName = instanceToMap[instanceID].mapName or "Unknown Map"
 
     local icon = CreateFrame("Button", nil, row)
     icon:SetSize(48, 48)
@@ -601,7 +601,8 @@ function MyMountTracker:CreateBossRow(parent, bossData, header, instanceID)
     mapNameText:EnableMouse(true)
     mapNameText:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
-        GameTooltip:SetText(mapName)
+        local waypoint = waypoints[instanceID]
+        GameTooltip:SetText(mapName .. (waypoint and ("\nZone: " .. waypoint.name) or ""))
         GameTooltip:Show()
     end)
     mapNameText:SetScript("OnLeave", GameTooltip_Hide)
@@ -616,7 +617,7 @@ function MyMountTracker:CreateBossRow(parent, bossData, header, instanceID)
     chanceText:SetPoint("RIGHT", -15, 0)
     chanceText:SetFont(STANDARD_TEXT_FONT, 14)
     chanceText:SetJustifyH("RIGHT")
-    chanceText:SetFormattedText( "掉率: %s%s|r -> %s%.2f%%|r", COLORS.GREY, (data.chance == 0) and "unknown" or string.format("%.2f%%", data.chance), COLORS.GREEN, data.chance + 5.0)
+    chanceText:SetFormattedText( "Chance: %s%s|r -> %s%.2f%%|r", COLORS.GREY, (data.chance == 0) and "unknown" or string.format("%.2f%%", data.chance), COLORS.GREEN, data.chance + 5.0)
     
     return row
 end
@@ -673,6 +674,7 @@ function MyMountTracker:UpdateLayout()
         if frame.isHeader then
             local info = difficultyInfo[frame.difficultyID]
             frame.expander:SetText(info.expanded and "-" or "+")
+            frame.childCount = 0
         else
             local data = frame.bossData
             local header = frame.headerFrame
@@ -682,22 +684,27 @@ function MyMountTracker:UpdateLayout()
             local isOwned = data.journalMountID and C_MountJournal.GetMountInfoByID(data.journalMountID) and select(11, C_MountJournal.GetMountInfoByID(data.journalMountID))
 
             if isVisible and hideOwned and isOwned then
-                isVisible = false
+                isVisible = false;
             end
             if isVisible and hideKilled and data.killed and not isOwned then
-                isVisible = false
+                isVisible = false;
+            end
+
+            if not ((hideKilled and data.killed) or (hideOwned and isOwned)) then
+                header.childCount = header.childCount + 1
             end
 
             if isOwned then
-                frame.statusText:SetText(COLORS.GREEN .. "[已拥有] ✓")
+                frame.statusText:SetText(COLORS.GOLD .. "Owned")
             else
-                frame.statusText:SetText(data.killed and (COLORS.GREEN .. "已击杀") or (COLORS.RED .. "未击杀"))
+                frame.statusText:SetText(data.killed and (COLORS.GREEN .. "Killed") or (COLORS.RED .. "Not Killed"))
             end
         end
         frame:SetShown(isVisible)
     end
 
     for _, frame in ipairs(MyMountTracker.ContentFrames) do
+        if frame.isHeader and frame.childCount == 0 then frame:Hide() end
         if frame:IsShown() then
             frame:ClearAllPoints()
             if not lastVisibleFrame then
@@ -848,12 +855,13 @@ function MyMountTracker:_BuildMountViewUI()
         
         if mountGroup.sources and #mountGroup.sources > 0 then
             local primarySource = mountGroup.sources[1].originalData
+            local instanceID = mountGroup.sources[1].instanceID
             local mountLink = select(2, GetItemInfo(mountID)) or tostring(mountID)
 
             headerRow:SetScript("OnEnter", function(self)
                 if self.border then self.border:Show() end
                 GameTooltip:SetOwner(self, "ANCHOR_CURSOR");
-                GameTooltip:SetText(COLORS.GREEN .. "<左键点击以添加地图标记>");
+                GameTooltip:SetText(COLORS.GREEN .. "<Left Click to add Map Pin>");
                 GameTooltip:Show()
             end)
             headerRow:SetScript("OnLeave", function(self)
@@ -863,20 +871,12 @@ function MyMountTracker:_BuildMountViewUI()
             headerRow:SetScript("OnClick", function(self, button)
                 if IsControlKeyDown() and mountGroup.journalMountID then
                     DressUpMount(mountGroup.journalMountID)
-                elseif primarySource.zoneID and primarySource.zoneID ~= 0 then
-                    if type(primarySource.zoneID) == "table" then
-                        primarySource.zoneID = primarySource.zoneID[faction]
-                        primarySource.coordX = primarySource.coordX[faction]
-                        primarySource.coordY = primarySource.coordY[faction]
-                    end
-                    local waypoint = UiMapPoint.CreateFromCoordinates(primarySource.zoneID, primarySource.coordX, primarySource.coordY)
+                elseif waypoints[instanceID] then
+                    local waypoint = UiMapPoint.CreateFromCoordinates(unpack(waypoints[instanceID].point))
                     C_Map.SetUserWaypoint(waypoint)
                     C_SuperTrack.SetSuperTrackedUserWaypoint(true)
-                    if primarySource.zoneID == 1550 then
-                        OpenWorldMap(2016)
-                    else
-                        OpenWorldMap(primarySource.zoneID)
-                    end
+                    C_Map.OpenWorldMap(waypoints[instanceID].point[4] or waypoints[instanceID].point[1])
+
                     print(string.format("%sBounty Helper:|r Waypoint set for %s", COLORS.GOLD, mountLink))
                 else
                     print(string.format("%sBounty Helper:|r No location data available for %s", COLORS.GOLD, mountLink))
@@ -941,7 +941,7 @@ function MyMountTracker:CreateMountHeaderRow(parent, mountID, journalMountID, mo
     chanceText:SetPoint("RIGHT", -15, 0)
     chanceText:SetFont(STANDARD_TEXT_FONT, 14)
     chanceText:SetJustifyH("RIGHT")
-    chanceText:SetFormattedText( "掉率: %s%s|r -> %s%.2f%%|r", COLORS.GREY, (chance == 0) and "unknown" or string.format("%.2f%%", chance), COLORS.GREEN, chance + 5.0)
+    chanceText:SetFormattedText( "Chance: %s%s|r -> %s%.2f%%|r", COLORS.GREY, (chance == 0) and "unknown" or string.format("%.2f%%", chance), COLORS.GREEN, chance + 5.0)
 
     return row
 end
@@ -951,7 +951,7 @@ function MyMountTracker:CreateMountSourceRow(parent, sourceData)
     row:SetSize(parent:GetWidth() - 20, 30)
     row.sourceData = sourceData
     local data = sourceData.originalData
-    local mapName = instanceToMap[sourceData.instanceID] or "Unknown Map"
+    local mapName = instanceToMap[sourceData.instanceID].mapName or "Unknown Map"
 
     local nameText = row:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     nameText:SetPoint("LEFT", 10, 0)
@@ -982,7 +982,8 @@ function MyMountTracker:CreateMountSourceRow(parent, sourceData)
     mapNameText:EnableMouse(true)
     mapNameText:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
-        GameTooltip:SetText(mapName)
+        local waypoint = waypoints[sourceData.instanceID]
+        GameTooltip:SetText(mapName .. (waypoint and ("\nZone: " .. waypoint.name) or ""))
         GameTooltip:Show()
     end)
     mapNameText:SetScript("OnLeave", GameTooltip_Hide)
@@ -1013,7 +1014,7 @@ function MyMountTracker:CreateMountSourceRow(parent, sourceData)
         arrow.texture:SetAllPoints()
         arrow:SetScript("OnEnter", function(self)
             GameTooltip:SetOwner(self, "ANCHOR_LEFT");
-            GameTooltip:SetText(COLORS.GREEN .. "<点击添加地图标记>");
+            GameTooltip:SetText(COLORS.GREEN .. "<Left Click to add Map Pin>");
             GameTooltip:Show()
             arrow.texture:SetVertexColor(1, 1, 1)
         end)
@@ -1052,9 +1053,9 @@ function MyMountTracker:UpdateMountViewLayout()
                 local sourceIsVisible = true
 
                 if isOwned then
-                    sourceRow.statusText:SetText(COLORS.GREEN .. "已拥有")
+                    sourceRow.statusText:SetText(COLORS.GOLD .. "Owned")
                 else
-                    sourceRow.statusText:SetText(data.killed and (COLORS.GREEN .. "已击杀") or (COLORS.RED .. "未击杀"))
+                    sourceRow.statusText:SetText(data.killed and (COLORS.GREEN .. "Killed") or (COLORS.RED .. "Not Killed"))
                 end
 
                 if hideOwned and isOwned then
@@ -1202,23 +1203,38 @@ eventHandlerFrame:SetScript("OnEvent", function(self, event, ...)
     elseif event == "FIRST_FRAME_RENDERED" then
         faction = (UnitFactionGroup("player") == "Alliance") and 1 or 2
 
+        for _, wp in pairs(waypoints) do
+            if type(wp.point[1]) == "table" then
+                wp.point = wp.point[faction]
+            end
+            wp.name = C_Map.GetMapInfo(wp.point[1]).name
+        end
+
+        local journalOverrides = {
+            [329] = 1292
+        }
+        for _, id in ipairs(instanceOrderList) do
+            local journalID = journalOverrides[id] or C_EncounterJournal.GetInstanceForGameMap(id)
+            local mapName = EJ_GetInstanceInfo(journalID)
+            instanceToMap[id] = {
+                journalID = journalID,
+                mapName = mapName
+            }
+        end
+
         for difficultyID, instances in pairs(bossData) do
             for instanceID, bosses in pairs(instances) do
                 for i, boss in ipairs(bosses) do
-                    EJ_SelectInstance(instanceToMap[instanceID])
+                    EJ_SelectInstance(instanceToMap[instanceID].journalID)
                     boss.bossName, _, _, _, _, _, boss.encounterID = EJ_GetEncounterInfoByIndex(boss.encounterID)
                 end
             end
         end
 
-        for i, id in pairs(instanceToMap) do
-            instanceToMap[i] = EJ_GetInstanceInfo(id)
-        end
-
         MyMountTracker:Initialize()
         MyMountTracker.Frames.Main:SetScale(currentScale)
         MyMountTracker.Frames.ScaleSlider:SetValue(currentScale)
-        MyMountTracker.Frames.ScaleValueText:SetText(string.format("UI缩放: %.2f", currentScale))
+        MyMountTracker.Frames.ScaleValueText:SetText(string.format("UI Scale: %.2f", currentScale))
         
         checkSaved()
         self:UnregisterEvent("FIRST_FRAME_RENDERED")

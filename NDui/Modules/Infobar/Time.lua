@@ -318,9 +318,9 @@ info.onEnter = function(self)
 		if isRaid and (locked or extended) then
 			addTitle(RAID_INFO)
 			if extended then r,g,b = 1,0,0 elseif locked then r,g,b = 0,1,0 end
-			local progressColor = (numBosses == progress) and "ff0000" or "00ff00"
+			local progressColor = B.HexRGB(B.Color(progress, numBosses, true))
 			local difficultyColor = DIFFICULTY_COLOR[diffID]
-			GameTooltip:AddDoubleLine(format("%s |cff%s%s|r |cff%s%s / %s|r", name, difficultyColor, diffName, progressColor, progress, numBosses), SecondsToTime(reset, true, nil, 3), 1,1,1, r,g,b)
+			GameTooltip:AddDoubleLine(format("%s |cff%s%s|r %s%s / %s|r", name, difficultyColor, diffName, progressColor, progress, numBosses), SecondsToTime(reset, true, nil, 3), 1,1,1, r,g,b)
 		end
 	end
 

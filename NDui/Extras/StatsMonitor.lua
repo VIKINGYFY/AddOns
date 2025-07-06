@@ -28,9 +28,10 @@ end)
 
 local function GetCurrentSpeed()
 	local isGliding, canGlide, forwardSpeed = C_PlayerInfo.GetGlidingInfo()
-	local isFlying, isSwimming = IsFlying("player"), IsSwimming("player")
+	local isFlying, isSwimming, isOnTaxi = IsFlying("player"), IsSwimming("player"), UnitOnTaxi("player")
 	local currentSpeed, runSpeed, flightSpeed, swimSpeed = GetUnitSpeed("player")
-	local speedBase = (isGliding and forwardSpeed) or (isFlying and flightSpeed) or (isSwimming and swimSpeed) or runSpeed
+	local speedBase = (isGliding and forwardSpeed) or (isFlying and flightSpeed) or (isSwimming and swimSpeed) or (isOnTaxi and currentSpeed) or runSpeed
+	--local speedBase = (isGliding and forwardSpeed) or currentSpeed
 
 	return speedBase / 7 * 100
 end

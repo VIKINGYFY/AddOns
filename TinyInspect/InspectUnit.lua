@@ -153,6 +153,11 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 		itemFrame.quality = quality
 		itemFrame.width = 0
 
+		itemFrame.itemLevel:SetText("")
+		itemFrame.itemName:SetText("")
+		itemFrame.itemInfo:SetText("")
+		itemFrame.itemInfo:SetTextColor(1, 1, 1)
+
 		if link and level then
 			itemFrame.itemLevel:SetText(level)
 			itemFrame.itemName:SetText(link)
@@ -166,11 +171,6 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 
 			itemFrame:Show()
 		else
-			itemFrame.itemLevel:SetText("")
-			itemFrame.itemName:SetText("")
-			itemFrame.itemInfo:SetText("")
-			itemFrame.itemInfo:SetTextColor(1, 1, 1)
-
 			itemFrame:Hide()
 		end
 
@@ -216,20 +216,9 @@ end)
 --自己裝備列表
 LibEvent:attachTrigger("INSPECT_FRAME_COMPARE", function(self, frame)
 	if (not frame) then return end
-	local _, ilevel, _, _, _, maxLevel = LibItemInfo:GetUnitItemLevel("player")
-	local playerFrame = ShowInspectItemListFrame("player", frame, ilevel)
-	if (frame.statsFrame) then
-		frame.statsFrame:SetParent(playerFrame)
-	end
-end)
 
-----------------
---   Player   --
-----------------
-
-PaperDollFrame:HookScript("OnShow", function(self)
 	local _, ilevel = LibItemInfo:GetUnitItemLevel("player")
-	ShowInspectItemListFrame("player", self, ilevel)
+	ShowInspectItemListFrame("player", frame, ilevel)
 end)
 
 LibEvent:attachEvent("PLAYER_EQUIPMENT_CHANGED", function(self)
@@ -237,4 +226,9 @@ LibEvent:attachEvent("PLAYER_EQUIPMENT_CHANGED", function(self)
 		local _, ilevel = LibItemInfo:GetUnitItemLevel("player")
 		ShowInspectItemListFrame("player", PaperDollFrame, ilevel)
 	end
+end)
+
+PaperDollFrame:HookScript("OnShow", function(self)
+	local _, ilevel = LibItemInfo:GetUnitItemLevel("player")
+	ShowInspectItemListFrame("player", self, ilevel)
 end)

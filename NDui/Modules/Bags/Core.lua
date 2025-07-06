@@ -1084,7 +1084,7 @@ function module:OnLogin()
 
 	function MyButton:OnUpdateButton(item)
 		if self.JunkIcon then
-			if item.hasPrice and (item.quality == Enum.ItemQuality.Poor or NDuiADB["CustomJunkList"][item.id]) then
+			if item.hasPrice and not module:IsSpecialJunk(item.id) and (item.quality == Enum.ItemQuality.Poor or NDuiADB["CustomJunkList"][item.id]) then
 				self.JunkIcon:Show()
 			else
 				self.JunkIcon:Hide()
@@ -1130,7 +1130,7 @@ function module:OnLogin()
 			self.iLvl:SetText(level)
 			self.iSlot:SetText(slot)
 
-			if DB.SpecialJunk[item.id] then
+			if module:IsSpecialJunk(item.id) then
 				self.iLvl:SetTextColor(cr, cg, cb)
 				self.iSlot:SetTextColor(cr, cg, cb)
 			elseif NDuiADB["CustomJunkList"][item.id] then

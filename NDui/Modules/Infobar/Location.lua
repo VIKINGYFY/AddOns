@@ -55,6 +55,7 @@ end
 
 local function UpdateCoords(self, elapsed)
 	self.elapsed = (self.elapsed or 0) + elapsed
+
 	if self.elapsed > .1 then
 		info:onEvent()
 		self.elapsed = 0
@@ -70,10 +71,10 @@ info.eventList = {
 }
 
 info.onEvent = function(self)
-	if IsInInstance() or not IsPlayerMoving() then
-		self:SetScript("OnUpdate", nil)
-	else
+	if not IsInInstance() and (IsPlayerMoving() or UnitOnTaxi("player")) then
 		self:SetScript("OnUpdate", UpdateCoords)
+	else
+		self:SetScript("OnUpdate", nil)
 	end
 
 	local mainZone, subZone, fullZone, zoneType, r, g, b = GetZoneInfo()

@@ -67,14 +67,9 @@ function EX:ActionBarGlow_OnEvent()
 	end
 end
 
-function EX:ActionBarGlow_OnUpdate(button)
-	EX.ActionBarGlow_Update(button)
-end
-
 function EX:ActionBarGlow()
 	EX.ActionBars = ActionBarSpells[DB.MyClass]
 	if not EX.ActionBars then return end
 
 	B:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN", EX.ActionBarGlow_OnEvent)
-	LAB:RegisterCallback("OnButtonUpdate", EX.ActionBarGlow_OnUpdate)
 end

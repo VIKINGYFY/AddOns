@@ -109,7 +109,7 @@ function templates.ShowPlayerInfo(data, texture, fontString, forceRealm)
 		texture:SetTexture("Interface\\ChatFrame\\UI-ChatIcon-Blizz")
 		texture:SetTexCoord(0.18, 0.82, 0, 1)
 	elseif data.class == "BN" then
-		texture:SetTexture("Interface\\FriendsFrame\\PlusManz-BattleNet")
+		texture:SetTexture("Interface\\AddOns\\WhisperPop\\Media\\Textures\\BattleNet.png")
 		texture:SetTexCoord(0, 1, 0, 1)
 	else
 		local coords = CLASS_ICON_TCOORDS[data.class]

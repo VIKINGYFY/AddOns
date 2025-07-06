@@ -48,11 +48,11 @@ function module:UpdateCoords(elapsed)
 		if not currentMapID then
 			playerCoords:SetFormattedText("<%s> %s", "-- , --", DB.MyColor..PLAYER.."|r")
 		else
-			local x, y = module:GetPlayerMapPos(currentMapID)
-			if not x or (x == 0 and y == 0) then
-				playerCoords:SetFormattedText("<%s> %s", "-- , --", DB.MyColor..PLAYER.."|r")
+			local playerX, playerY = module:GetPlayerMapPos(currentMapID)
+			if playerX and playerY then
+				playerCoords:SetFormattedText("<%.1f , %.1f> %s", 100 * playerX, 100 * playerY, DB.MyColor..PLAYER.."|r")
 			else
-				playerCoords:SetFormattedText("<%.1f , %.1f> %s", 100 * x, 100 * y, DB.MyColor..PLAYER.."|r")
+				playerCoords:SetFormattedText("<%s> %s", "-- , --", DB.MyColor..PLAYER.."|r")
 			end
 		end
 
@@ -228,7 +228,7 @@ end
 
 function module:RemoveMapFog()
 	local bu = B.CreateCheckBox(WorldMapFrame.BorderFrame.TitleContainer, true)
-	bu:SetPoint("BOTTOMLEFT", WorldMapFrameHomeButton, "TOPLEFT", -4, 0)
+	bu:SetPoint("BOTTOMLEFT", WorldMapFrameHomeButton, "TOPLEFT", -3, 0)
 	bu:SetSize(26, 26)
 	bu:SetChecked(C.db["Map"]["MapReveal"])
 	bu.text = B.CreateFS(bu, 14, L["Map Reveal"], "system", "LEFT", 25, 0)
