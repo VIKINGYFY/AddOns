@@ -7,9 +7,9 @@ local currentMapID, playerCoords, cursorCoords
 function module:GetPlayerMapCoords(mapID)
 	if not mapID then return end
 
-	local info = C_Map.GetPlayerMapPosition(mapID, "player")
-	if info and info.x and info.y then
-		return info.x, info.y
+	local position = C_Map.GetPlayerMapPosition(mapID, "player")
+	if position then
+		return position.x, position.y
 	end
 end
 

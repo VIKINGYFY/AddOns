@@ -33,23 +33,25 @@ hooksecurefunc(WorldMapFrame, "OnFrameSizeChanged", MapLine_Update)
 hooksecurefunc(WorldMapFrame, "OnMapChanged", MapLine_Update)
 
 local function MapLine_OnUpdate(self, elapsed)
-	local playerX, playerY = C_Map.GetPlayerMapPosition(mapID, "player"):GetXY()
-	local playerD = GetPlayerFacing()
+	if not mapID then Line:Hide() return end
 
-	if not (mapID or playerX or playerY or playerD) then
+	local position = C_Map.GetPlayerMapPosition(mapID, "player")
+	if position then
+		local playerX, playerY = position.x, position.y
+		local playerD = GetPlayerFacing()
+
+		local startX = playerX * mapWidth
+		local startY = -playerY * mapHeight
+		local endX = startX + (-math.sin(playerD) * lineLength)
+		local endY = startY - (-math.cos(playerD) * lineLength)
+
+		B.UpdatePoint(StartPoint, "CENTER", MapCanvas, "TOPLEFT", startX, startY)
+		B.UpdatePoint(EndPoint, "CENTER", MapCanvas, "TOPLEFT", endX, endY)
+
+		if not Line:IsShown() then Line:Show() end
+	else
 		Line:Hide()
-		return
 	end
-
-	local startX = playerX * mapWidth
-	local startY = -playerY * mapHeight
-	local endX = startX + (-math.sin(playerD) * lineLength)
-	local endY = startY - (-math.cos(playerD) * lineLength)
-
-	B.UpdatePoint(StartPoint, "CENTER", MapCanvas, "TOPLEFT", startX, startY)
-	B.UpdatePoint(EndPoint, "CENTER", MapCanvas, "TOPLEFT", endX, endY)
-
-	Line:Show()
 end
 
 local function MapLine_OnShow()
@@ -58,12 +60,11 @@ local function MapLine_OnShow()
 
 	if not IsInInstance() and (IsPlayerMoving() or UnitOnTaxi("player")) then
 		LineFrame:SetScript("OnUpdate", MapLine_OnUpdate)
-	else
-		LineFrame:SetScript("OnUpdate", nil)
 	end
 end
 
 local function MapLine_OnHide()
+	LineFrame:SetScript("OnUpdate", nil)
 	Line:Hide()
 end
 
