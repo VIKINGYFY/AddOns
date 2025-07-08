@@ -46,9 +46,9 @@ function EX:ActionBarGlow_Update()
 
 	if buffID then
 		if InCombatLockdown() and isUsable and spellID and spellCD < 2 then
-			local isBuffID = type(buffID) == "number"
-			local hasBuffID = isBuffID and C_UnitAuras.GetPlayerAuraBySpellID(math.abs(buffID))
-			if (not isBuffID) or (isBuffID and buffID > 0 and hasBuffID) or (isBuffID and buffID < 0 and not hasBuffID) then
+			local isBuffID = tonumber(buffID)
+			local hasBuffID = isBuffID and C_UnitAuras.GetPlayerAuraBySpellID(math.abs(isBuffID))
+			if (not isBuffID) or (isBuffID and isBuffID > 0 and hasBuffID) or (isBuffID and isBuffID < 0 and not hasBuffID) then
 				B.ShowOverlayGlow(self)
 			else
 				B.HideOverlayGlow(self)
@@ -72,4 +72,5 @@ function EX:ActionBarGlow()
 	if not EX.ActionBars then return end
 
 	B:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN", EX.ActionBarGlow_OnEvent)
+	B:RegisterEvent("PLAYER_REGEN_ENABLED", EX.ActionBarGlow_OnEvent)
 end

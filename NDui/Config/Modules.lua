@@ -42,8 +42,8 @@ C.Minimap = {
 
 -- 美化及皮肤
 C.Skins = {
-	MMPos = {"BOTTOM", UIParent, "BOTTOM", 0, 2.5}, -- 微型菜单默认坐标
-	RMPos = {"TOP", UIParent, "TOP", 0, -2}, -- 团队工具默认坐标
+	MMPos = {"BOTTOM", UIParent, "BOTTOM", 0, 3}, -- 微型菜单默认坐标
+	RMPos = {"TOP", UIParent, "TOP", 0, -3}, -- 团队工具默认坐标
 }
 
 -- 鼠标提示框

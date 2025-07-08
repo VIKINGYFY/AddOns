@@ -3,6 +3,12 @@ local ADDON_NAME, ns = ...
 function ns.LoadMapNotesNodesInfo()
 local nodes = ns.nodes
 
+--################################
+--####### Classic MoP Nodes ######
+--################################
+
+nodes[1467] = { } -- Outland
+nodes[998] = { } -- Undercity
 
 --############################
 --####### Classic Nodes ######
@@ -69,11 +75,11 @@ nodes[1436] = { } -- Westfall
 nodes[1437] = { } -- Wettlands
 nodes[1453] = { } -- Stormwind City   
 nodes[1458] = { } -- Undercity Old Version
-nodes[1941] = { } -- Immersang Forrest
+nodes[1941] = { } -- Eversong Woods
 nodes[1942] = { } -- Ghostlands
 nodes[1943] = { } -- Azurmythosinsel
 nodes[1947] = { } -- Exodar
-nodes[1954] = { } -- Sivermoon City
+nodes[1954] = { } -- Silvermoon City
 nodes[1957] = { } -- Isle of Quel'Danas
 
 --####################
@@ -84,7 +90,7 @@ nodes[1944] = { } -- Hellfire
 nodes[1945] = { } -- Outland
 nodes[1946] = { } -- Zangarmarsh
 nodes[1948] = { } -- ShadowmoonValley
-nodes[1949] = { } -- Schergrat
+nodes[1949] = { } -- BladesEdgeMountains
 nodes[1951] = { } -- Nagrand
 nodes[1952] = { } -- TerokkarForest
 nodes[1953] = { } -- Netherstorm
@@ -134,7 +140,7 @@ nodes[85] = { } -- Orgrimmar
 nodes[86] = { } -- Ragefire -- of Shadow
 nodes[87] = { } -- Ironforge
 nodes[88] = { } -- Thunder Bluff
-nodes[89] = { } -- Teldrassil
+nodes[89] = { } -- Teldrassil / Darnassus
 nodes[97] = { } -- Azurmythosinsel
 nodes[103] = { } -- Exodar
 nodes[106] = { } -- Blutmythosinsel
@@ -142,7 +148,7 @@ nodes[199] = { } -- Southern Barrens
 nodes[327] = { } -- AhnQiraj The Fallen Kingdom 
 nodes[460] = { } -- Shadowglen
 nodes[461] = { } -- Valley of Trials
-nodes[462] = { } --Camp Narache
+nodes[462] = { } -- Camp Narache
 nodes[468] = { } -- Am'Mental
 nodes[503] = { } -- Shlae'gararena
 -- Dungeon map nodes
@@ -221,7 +227,7 @@ nodes[42] = { } -- DeadwindPass
 nodes[47] = { } -- Duskwood
 nodes[48] = { } -- Loch Modan
 nodes[49] = { } -- Redridge Mountains
-nodes[50] = { } -- StranglethornJungle
+nodes[50] = { } -- Jungle
 nodes[51] = { } -- SwampOfSorrows
 nodes[52] = { } -- Westfall    
 nodes[55] = { } -- The Deadmines Caverns

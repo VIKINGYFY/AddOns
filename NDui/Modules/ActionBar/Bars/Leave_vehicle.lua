@@ -2,14 +2,12 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local Bar = B:GetModule("Actionbar")
 
-local padding = DB.padding
-
 function Bar:UpdateVehicleButton()
 	local frame = _G["NDui_ActionBarExit"]
 	if not frame then return end
 
 	local size = C.db["Actionbar"]["VehButtonSize"]
-	local framSize = size + 2*padding
+	local framSize = size + 2*DB.margin
 	frame.buttons[1]:SetSize(size, size)
 	frame:SetSize(framSize, framSize)
 	frame.mover:SetSize(framSize, framSize)
@@ -19,16 +17,14 @@ function Bar:CreateLeaveVehicle()
 	local buttonList = {}
 
 	local frame = CreateFrame("Frame", "NDui_ActionBarExit", UIParent, "SecureHandlerStateTemplate")
-	frame.mover = B.Mover(frame, L["LeaveVehicle"], "LeaveVehicle", {"BOTTOM", UIParent, "BOTTOM", 320, 100})
+	frame.mover = B.Mover(frame, L["LeaveVehicle"], "LeaveVehicle", {"LEFT", _G.NDui_ActionBarExtra, "RIGHT", -DB.margin, 0})
 
 	local button = CreateFrame("CheckButton", "NDui_LeaveVehicleButton", frame, "ActionButtonTemplate, SecureHandlerClickTemplate")
 	table.insert(buttonList, button)
-	button:SetPoint("BOTTOMLEFT", frame, padding, padding)
+	button:ClearAllPoints()
+	button:SetPoint("CENTER", frame)
 	button:RegisterForClicks("AnyDown", "AnyUp")
-	button.icon:SetTexture("INTERFACE\\VEHICLES\\UI-Vehicles-Button-Exit-Up")
-	button.icon:SetTexCoord(.216, .784, .216, .784)
-	button.icon:SetDrawLayer("ARTWORK")
-	button.icon.__lockdown = true
+	button.icon:SetTexture("INTERFACE\\ICONS\\UI-Vehicles-Button-Exit-Down-Icon")
 	if button.Arrow then button.Arrow:SetAlpha(0) end
 
 	button:SetScript("OnEnter", MainMenuBarVehicleLeaveButton.OnEnter)

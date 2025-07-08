@@ -63,7 +63,7 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
         -- Continent Maps
         if info.mapType == 2 then 
 
-            if GetCurrentMapID == 1414 or GetCurrentMapID == 948 then
+            if GetCurrentMapID == 12 or GetCurrentMapID == 948 then
                 if ns.Addon.db.profile.showContinentKalimdor then
                     ns.Addon.db.profile.showContinentKalimdor = false
                     print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], L["Kalimdor"], L["icons"], "|cffff0000" .. L["are hidden"])
@@ -71,7 +71,7 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
                     ns.Addon.db.profile.showContinentKalimdor = true
                     print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], L["Kalimdor"], L["icons"], "|cff00ff00" .. L["are shown"])
                 end
-            elseif GetCurrentMapID == 1415 then
+            elseif GetCurrentMapID == 13 then
                 if ns.Addon.db.profile.showContinentEasternKingdom then
                     ns.Addon.db.profile.showContinentEasternKingdom = false
                     print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], L["Eastern Kingdom"], L["icons"], "|cffff0000" .. L["are hidden"])
@@ -79,7 +79,7 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
                     ns.Addon.db.profile.showContinentEasternKingdom = true
                     print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], L["Eastern Kingdom"], L["icons"], "|cff00ff00" .. L["are shown"])
                 end
-            elseif GetCurrentMapID == 1945 then
+            elseif GetCurrentMapID == 1467 then
                 if ns.Addon.db.profile.showContinentOutland then
                     ns.Addon.db.profile.showContinentOutland = false
                     print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], L["Outland"], L["icons"], "|cffff0000" .. L["are hidden"])
@@ -95,15 +95,29 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
                     ns.Addon.db.profile.showContinentNorthrend = true
                     print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], L["Northrend"], L["icons"], "|cff00ff00" .. L["are shown"])
                 end
+            elseif GetCurrentMapID == 424 then
+                if ns.Addon.db.profile.showContinentPandaria then
+                    ns.Addon.db.profile.showContinentPandaria = false
+                    if ns.Addon.db.profile.MmbWmbChatMessage then
+                        print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], L["Pandaria"], L["icons"], "|cffff0000" .. L["are hidden"])
+                    end
+                else
+                    ns.Addon.db.profile.showContinentPandaria = true
+                    if ns.Addon.db.profile.MmbWmbChatMessage then
+                        print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], L["Pandaria"], L["icons"], "|cff00ff00" .. L["are shown"])
+                    end
+                end
             end
 
         end
 
         -- Dungeon Maps
         if info.mapType == 4 and not 
-            (GetCurrentMapID == 1454 or GetCurrentMapID == 1456 or GetCurrentMapID == 1458 or GetCurrentMapID == 1954
-            or GetCurrentMapID == 1947 or GetCurrentMapID == 1457 or GetCurrentMapID == 1453 or GetCurrentMapID == 1455
-            or GetCurrentMapID == 1955 or GetCurrentMapID == 86 or GetCurrentMapID == 125 or GetCurrentMapID == 126 )
+            (GetCurrentMapID == 85 or GetCurrentMapID == 88 or GetCurrentMapID == 998 or GetCurrentMapID == 110
+            or GetCurrentMapID == 103 or GetCurrentMapID == 89 or GetCurrentMapID == 84 or GetCurrentMapID == 87
+            or GetCurrentMapID == 111 or GetCurrentMapID == 86 or GetCurrentMapID == 125 or GetCurrentMapID == 126 
+            or GetCurrentMapID == 391 or GetCurrentMapID  == 392 or GetCurrentMapID  == 393 or GetCurrentMapID  == 394 
+            or GetCurrentMapID  == 407)
         then
         
             if not ns.Addon.db.profile.activate.DungeonMap then
@@ -118,9 +132,12 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
 
         --Zones without Sync function
         if not ns.Addon.db.profile.activate.SyncZoneAndMinimap and (info.mapType == 3 or info.mapType == 5 or info.mapType == 6 or GetCurrentMapID == 327) and not 
-            (GetCurrentMapID == 1454 or GetCurrentMapID == 1456 or GetCurrentMapID == 1458 or GetCurrentMapID == 1954
-            or GetCurrentMapID == 1947 or GetCurrentMapID == 1457 or GetCurrentMapID == 1453 or GetCurrentMapID == 1455
-            or GetCurrentMapID == 1955 or GetCurrentMapID == 86 or GetCurrentMapID == 125 or GetCurrentMapID == 126) then
+            (GetCurrentMapID == 85 or GetCurrentMapID == 88 or GetCurrentMapID == 998 or GetCurrentMapID == 110
+            or GetCurrentMapID == 103 or GetCurrentMapID == 89 or GetCurrentMapID == 84 or GetCurrentMapID == 87
+            or GetCurrentMapID == 111 or GetCurrentMapID == 86 or GetCurrentMapID == 125 or GetCurrentMapID == 126 
+            or GetCurrentMapID == 391 or GetCurrentMapID  == 392 or GetCurrentMapID  == 393 or GetCurrentMapID  == 394 
+            or GetCurrentMapID  == 407)
+        then
         
             if not ns.Addon.db.profile.activate.ZoneMap then
                 ns.Addon.db.profile.activate.ZoneMap = true
@@ -134,9 +151,12 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
 
         --Zones Sync function
         if ns.Addon.db.profile.activate.SyncZoneAndMinimap and (info.mapType == 3 or info.mapType == 5 or info.mapType == 6 or GetCurrentMapID == 327) and not 
-            (GetCurrentMapID == 1454 or GetCurrentMapID == 1456 or GetCurrentMapID == 1458 or GetCurrentMapID == 1954
-            or GetCurrentMapID == 1947 or GetCurrentMapID == 1457 or GetCurrentMapID == 1453 or GetCurrentMapID == 1455
-            or GetCurrentMapID == 1955 or GetCurrentMapID == 86 or GetCurrentMapID == 125 or GetCurrentMapID == 126) then
+            (GetCurrentMapID == 85 or GetCurrentMapID == 88 or GetCurrentMapID == 998 or GetCurrentMapID == 110
+            or GetCurrentMapID == 103 or GetCurrentMapID == 89 or GetCurrentMapID == 84 or GetCurrentMapID == 87
+            or GetCurrentMapID == 111 or GetCurrentMapID == 86 or GetCurrentMapID == 125 or GetCurrentMapID == 126 
+            or GetCurrentMapID == 391 or GetCurrentMapID  == 392 or GetCurrentMapID  == 393 or GetCurrentMapID  == 394 
+            or GetCurrentMapID  == 407)
+        then
         
             if not ns.Addon.db.profile.activate.ZoneMap then
                 ns.Addon.db.profile.activate.ZoneMap = true
@@ -150,9 +170,12 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
 
         --Capitals without Sync function
         if not ns.Addon.db.profile.activate.SyncCapitalsAndMinimap and 
-            (GetCurrentMapID == 1454 or GetCurrentMapID == 1456 or GetCurrentMapID == 1458 or GetCurrentMapID == 1954
-            or GetCurrentMapID == 1947 or GetCurrentMapID == 1457 or GetCurrentMapID == 1453 or GetCurrentMapID == 1455
-            or GetCurrentMapID == 1955 or GetCurrentMapID == 86 or GetCurrentMapID == 125 or GetCurrentMapID == 126) then
+            (GetCurrentMapID == 85 or GetCurrentMapID == 88 or GetCurrentMapID == 998 or GetCurrentMapID == 110
+            or GetCurrentMapID == 103 or GetCurrentMapID == 89 or GetCurrentMapID == 84 or GetCurrentMapID == 87
+            or GetCurrentMapID == 111 or GetCurrentMapID == 86 or GetCurrentMapID == 125 or GetCurrentMapID == 126 
+            or GetCurrentMapID == 391 or GetCurrentMapID  == 392 or GetCurrentMapID  == 393 or GetCurrentMapID  == 394 
+            or GetCurrentMapID  == 407)
+        then
         
             if not ns.Addon.db.profile.activate.Capitals then
                 ns.Addon.db.profile.activate.Capitals = true
@@ -166,9 +189,12 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
 
         --Capitals Sync function
         if ns.Addon.db.profile.activate.SyncCapitalsAndMinimap and 
-            (GetCurrentMapID == 1454 or GetCurrentMapID == 1456 or GetCurrentMapID == 1458 or GetCurrentMapID == 1954
-            or GetCurrentMapID == 1947 or GetCurrentMapID == 1457 or GetCurrentMapID == 1453 or GetCurrentMapID == 1455
-            or GetCurrentMapID == 1955 or GetCurrentMapID == 86 or GetCurrentMapID == 125 or GetCurrentMapID == 126) then
+            (GetCurrentMapID == 85 or GetCurrentMapID == 88 or GetCurrentMapID == 998 or GetCurrentMapID == 110
+            or GetCurrentMapID == 103 or GetCurrentMapID == 89 or GetCurrentMapID == 84 or GetCurrentMapID == 87
+            or GetCurrentMapID == 111 or GetCurrentMapID == 86 or GetCurrentMapID == 125 or GetCurrentMapID == 126 
+            or GetCurrentMapID == 391 or GetCurrentMapID  == 392 or GetCurrentMapID  == 393 or GetCurrentMapID  == 394 
+            or GetCurrentMapID  == 407)
+        then
         
             if not ns.Addon.db.profile.activate.Capitals then
                 ns.Addon.db.profile.activate.Capitals = true
@@ -221,17 +247,20 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
     -- Continent Maps
     if info.mapType == 2 then 
 
-        if GetCurrentMapID == 1414 or GetCurrentMapID == 948 then
+        if GetCurrentMapID == 12 or GetCurrentMapID == 948 then
             GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000" .. L["Continent map"] .. " " .. L["Kalimdor"] .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
             GameTooltip:Show()
-        elseif GetCurrentMapID == 1415 then
+        elseif GetCurrentMapID == 13 then
             GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000" .. L["Continent map"] .. " " .. L["Eastern Kingdom"] .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
             GameTooltip:Show()
-        elseif GetCurrentMapID == 1945 then
+        elseif GetCurrentMapID == 1467 then
             GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000" .. L["Continent map"] .. " " .. L["Outland"] .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
             GameTooltip:Show()
         elseif GetCurrentMapID == 113 then
             GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000" .. L["Continent map"] .. " " .. L["Northrend"] .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
+            GameTooltip:Show()
+        elseif GetCurrentMapID == 424 then
+            GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000" .. L["Continent map"] .. " " .. L["Pandaria"] .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
             GameTooltip:Show()
         end
 
@@ -239,9 +268,11 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
 
     --Zones without Sync function
     if not ns.Addon.db.profile.activate.SyncZoneAndMinimap and (info.mapType == 3 or info.mapType == 5 or info.mapType == 6 or GetCurrentMapID == 327) and not 
-        (GetCurrentMapID == 1454 or GetCurrentMapID == 1456 or GetCurrentMapID == 1458 or GetCurrentMapID == 1954
-        or GetCurrentMapID == 1947 or GetCurrentMapID == 1457 or GetCurrentMapID == 1453 or GetCurrentMapID == 1455
-        or GetCurrentMapID == 1955 or GetCurrentMapID == 86 or GetCurrentMapID == 125 or GetCurrentMapID == 126)
+        (GetCurrentMapID == 85 or GetCurrentMapID == 88 or GetCurrentMapID == 998 or GetCurrentMapID == 110
+        or GetCurrentMapID == 103 or GetCurrentMapID == 89 or GetCurrentMapID == 84 or GetCurrentMapID == 87
+        or GetCurrentMapID == 111 or GetCurrentMapID == 86 or GetCurrentMapID == 125 or GetCurrentMapID == 126 
+        or GetCurrentMapID == 391 or GetCurrentMapID  == 392 or GetCurrentMapID  == 393 or GetCurrentMapID  == 394 
+        or GetCurrentMapID  == 407)
     then
         GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["Zone map"] .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
         GameTooltip:Show()
@@ -249,18 +280,22 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
 
     --Zones Sync function
     if ns.Addon.db.profile.activate.SyncZoneAndMinimap and (info.mapType == 3 or info.mapType == 5 or info.mapType == 6 or GetCurrentMapID == 327) and not 
-        (GetCurrentMapID == 1454 or GetCurrentMapID == 1456 or GetCurrentMapID == 1458 or GetCurrentMapID == 1954
-        or GetCurrentMapID == 1947 or GetCurrentMapID == 1457 or GetCurrentMapID == 1453 or GetCurrentMapID == 1455
-        or GetCurrentMapID == 1955 or GetCurrentMapID == 86 or GetCurrentMapID == 125 or GetCurrentMapID == 126)
+        (GetCurrentMapID == 85 or GetCurrentMapID == 88 or GetCurrentMapID == 998 or GetCurrentMapID == 110
+        or GetCurrentMapID == 103 or GetCurrentMapID == 89 or GetCurrentMapID == 84 or GetCurrentMapID == 87
+        or GetCurrentMapID == 111 or GetCurrentMapID == 86 or GetCurrentMapID == 125 or GetCurrentMapID == 126 
+        or GetCurrentMapID == 391 or GetCurrentMapID  == 392 or GetCurrentMapID  == 393 or GetCurrentMapID  == 394 
+        or GetCurrentMapID  == 407)
     then
         GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["Zones"] .. " & " .. MINIMAP_LABEL .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
         GameTooltip:Show()
     end
 
     if info.mapType == 4 and not --Dungeon Maps
-        (GetCurrentMapID == 1454 or GetCurrentMapID == 1456 or GetCurrentMapID == 1458 or GetCurrentMapID == 1954
-        or GetCurrentMapID == 1947 or GetCurrentMapID == 1457 or GetCurrentMapID == 1453 or GetCurrentMapID == 1455
-        or GetCurrentMapID == 1955 or GetCurrentMapID == 86 or GetCurrentMapID == 125 or GetCurrentMapID == 126)
+        (GetCurrentMapID == 85 or GetCurrentMapID == 88 or GetCurrentMapID == 998 or GetCurrentMapID == 110
+        or GetCurrentMapID == 103 or GetCurrentMapID == 89 or GetCurrentMapID == 84 or GetCurrentMapID == 87
+        or GetCurrentMapID == 111 or GetCurrentMapID == 86 or GetCurrentMapID == 125 or GetCurrentMapID == 126 
+        or GetCurrentMapID == 391 or GetCurrentMapID  == 392 or GetCurrentMapID  == 393 or GetCurrentMapID  == 394 
+        or GetCurrentMapID  == 407)
     then
         GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. DUNGEONS .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
         GameTooltip:Show()
@@ -268,9 +303,11 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
 
     -- Capitals without Sync function
     if not ns.Addon.db.profile.activate.SyncCapitalsAndMinimap and 
-        (GetCurrentMapID == 1454 or GetCurrentMapID == 1456 or GetCurrentMapID == 1458 or GetCurrentMapID == 1954
-        or GetCurrentMapID == 1947 or GetCurrentMapID == 1457 or GetCurrentMapID == 1453 or GetCurrentMapID == 1455
-        or GetCurrentMapID == 1955 or GetCurrentMapID == 86 or GetCurrentMapID == 125 or GetCurrentMapID == 126)
+        (GetCurrentMapID == 85 or GetCurrentMapID == 88 or GetCurrentMapID == 998 or GetCurrentMapID == 110
+        or GetCurrentMapID == 103 or GetCurrentMapID == 89 or GetCurrentMapID == 84 or GetCurrentMapID == 87
+        or GetCurrentMapID == 111 or GetCurrentMapID == 86 or GetCurrentMapID == 125 or GetCurrentMapID == 126 
+        or GetCurrentMapID == 391 or GetCurrentMapID  == 392 or GetCurrentMapID  == 393 or GetCurrentMapID  == 394 
+        or GetCurrentMapID  == 407)
     then
         GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["Capitals"] .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
         GameTooltip:Show()
@@ -278,9 +315,11 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
 
     -- Capitals Sync function
     if ns.Addon.db.profile.activate.SyncCapitalsAndMinimap and 
-        (GetCurrentMapID == 1454 or GetCurrentMapID == 1456 or GetCurrentMapID == 1458 or GetCurrentMapID == 1954
-        or GetCurrentMapID == 1947 or GetCurrentMapID == 1457 or GetCurrentMapID == 1453 or GetCurrentMapID == 1455
-        or GetCurrentMapID == 1955 or GetCurrentMapID == 86 or GetCurrentMapID == 125 or GetCurrentMapID == 126)
+        (GetCurrentMapID == 85 or GetCurrentMapID == 88 or GetCurrentMapID == 998 or GetCurrentMapID == 110
+        or GetCurrentMapID == 103 or GetCurrentMapID == 89 or GetCurrentMapID == 84 or GetCurrentMapID == 87
+        or GetCurrentMapID == 111 or GetCurrentMapID == 86 or GetCurrentMapID == 125 or GetCurrentMapID == 126 
+        or GetCurrentMapID == 391 or GetCurrentMapID  == 392 or GetCurrentMapID  == 393 or GetCurrentMapID  == 394 
+        or GetCurrentMapID  == 407)
     then
         GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["Capitals"] .. " & " ..  L["Capitals"] .. " - " .. MINIMAP_LABEL .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
         GameTooltip:Show()

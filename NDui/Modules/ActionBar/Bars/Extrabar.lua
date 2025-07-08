@@ -2,17 +2,15 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local Bar = B:GetModule("Actionbar")
 
-local padding = DB.padding
-
 function Bar:CreateExtrabar()
 	local buttonList = {}
 	local size = 52
+	local framSize = size + 2*DB.margin
 
 	-- ExtraActionButton
 	local frame = CreateFrame("Frame", "NDui_ActionBarExtra", UIParent, "SecureHandlerStateTemplate")
-	frame:SetWidth(size + 2*padding)
-	frame:SetHeight(size + 2*padding)
-	frame.mover = B.Mover(frame, L["Extrabar"], "Extrabar", {"BOTTOM", UIParent, "BOTTOM", 250, 100})
+	frame:SetSize(framSize, framSize)
+	frame.mover = B.Mover(frame, L["Extrabar"], "Extrabar", {"LEFT", _G.NDui_ActionBar3Button12, "TOPRIGHT", 0, 0})
 
 	ExtraAbilityContainer:SetScript("OnShow", nil)
 	ExtraAbilityContainer:SetScript("OnUpdate", nil)
@@ -37,9 +35,8 @@ function Bar:CreateExtrabar()
 
 	-- ZoneAbility
 	local zoneFrame = CreateFrame("Frame", "NDui_ActionBarZone", UIParent)
-	zoneFrame:SetWidth(size + 2*padding)
-	zoneFrame:SetHeight(size + 2*padding)
-	zoneFrame.mover = B.Mover(zoneFrame, L["Zone Ability"], "ZoneAbility", {"BOTTOM", UIParent, "BOTTOM", -250, 100})
+	frame:SetSize(framSize, framSize)
+	zoneFrame.mover = B.Mover(zoneFrame, L["Zone Ability"], "ZoneAbility", {"RIGHT", _G.NDui_ActionBar3Button1, "TOPLEFT", 0, 0})
 
 	ZoneAbilityFrame:SetParent(zoneFrame)
 	ZoneAbilityFrame:ClearAllPoints()
@@ -73,7 +70,7 @@ function Bar:CreateExtrabar()
 	hooksecurefunc("ActionButton_UpdateRangeIndicator", function(self, checksRange, inRange)
 		if not self.action then return end
 		if checksRange and not inRange then
-			self.icon:SetVertexColor(.8, .1, .1)
+			self.icon:SetVertexColor(1, .1, .1)
 		else
 			local isUsable, notEnoughMana = IsUsableAction(self.action)
 			if isUsable then
@@ -81,7 +78,7 @@ function Bar:CreateExtrabar()
 			elseif notEnoughMana then
 				self.icon:SetVertexColor(.5, .5, 1)
 			else
-				self.icon:SetVertexColor(.4, .4, .4)
+				self.icon:SetVertexColor(.5, .5, .5)
 			end
 		end
 	end)

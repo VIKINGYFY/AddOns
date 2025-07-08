@@ -2,42 +2,30 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local module = B:RegisterModule("Maps")
 
-local mapRects = {}
-local tempVec2D = CreateVector2D(0, 0)
 local currentMapID, playerCoords, cursorCoords
 
-function module:GetPlayerMapPos(mapID)
+function module:GetPlayerMapCoords(mapID)
 	if not mapID then return end
-	tempVec2D.x, tempVec2D.y = UnitPosition("player")
-	if not tempVec2D.x then return end
 
-	local mapRect = mapRects[mapID]
-	if not mapRect then
-		local pos1 = select(2, C_Map.GetWorldPosFromMapPos(mapID, CreateVector2D(0, 0)))
-		local pos2 = select(2, C_Map.GetWorldPosFromMapPos(mapID, CreateVector2D(1, 1)))
-		if not pos1 or not pos2 then return end
-		mapRect = {pos1, pos2}
-		mapRect[2]:Subtract(mapRect[1])
-
-		mapRects[mapID] = mapRect
+	local info = C_Map.GetPlayerMapPosition(mapID, "player")
+	if info and info.x and info.y then
+		return info.x, info.y
 	end
-	tempVec2D:Subtract(mapRect[1])
-
-	return tempVec2D.y/mapRect[2].y, tempVec2D.x/mapRect[2].x
 end
 
-function module:GetCursorCoords()
+function module:GetCursorMapCoords()
 	if not WorldMapFrame.ScrollContainer:IsMouseOver() then return end
 
 	local cursorX, cursorY = WorldMapFrame.ScrollContainer:GetNormalizedCursorPosition()
-	if cursorX < 0 or cursorX > 1 or cursorY < 0 or cursorY > 1 then return end
-	return cursorX, cursorY
+	if cursorX and cursorY then
+		return cursorX, cursorY
+	end
 end
 
 function module:UpdateCoords(elapsed)
 	self.elapsed = (self.elapsed or 0) + elapsed
 	if self.elapsed > .1 then
-		local cursorX, cursorY = module:GetCursorCoords()
+		local cursorX, cursorY = module:GetCursorMapCoords()
 		if cursorX and cursorY then
 			cursorCoords:SetFormattedText("<%.1f , %.1f> %s", 100 * cursorX, 100 * cursorY, DB.MyColor..MOUSE_LABEL.."|r")
 			cursorCoords:Show()
@@ -45,15 +33,11 @@ function module:UpdateCoords(elapsed)
 			cursorCoords:Hide()
 		end
 
-		if not currentMapID then
-			playerCoords:SetFormattedText("<%s> %s", "-- , --", DB.MyColor..PLAYER.."|r")
+		local playerX, playerY = module:GetPlayerMapCoords(currentMapID)
+		if playerX and playerY then
+			playerCoords:SetFormattedText("<%.1f , %.1f> %s", 100 * playerX, 100 * playerY, DB.MyColor..PLAYER.."|r")
 		else
-			local playerX, playerY = module:GetPlayerMapPos(currentMapID)
-			if playerX and playerY then
-				playerCoords:SetFormattedText("<%.1f , %.1f> %s", 100 * playerX, 100 * playerY, DB.MyColor..PLAYER.."|r")
-			else
-				playerCoords:SetFormattedText("<%s> %s", "-- , --", DB.MyColor..PLAYER.."|r")
-			end
+			playerCoords:SetFormattedText("<%s> %s", "-- , --", DB.MyColor..PLAYER.."|r")
 		end
 
 		self.elapsed = 0
@@ -61,11 +45,7 @@ function module:UpdateCoords(elapsed)
 end
 
 function module:UpdateMapID()
-	if self:GetMapID() == C_Map.GetBestMapForUnit("player") then
-		currentMapID = self:GetMapID()
-	else
-		currentMapID = nil
-	end
+	currentMapID = self:GetMapID()
 end
 
 function module:SetupCoords()

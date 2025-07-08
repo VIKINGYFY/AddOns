@@ -1,7 +1,7 @@
 local ADDON_NAME, ns = ...
 local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 
-function ns.LoadCataInsideDungeonNodesLocationInfo(self)
+function ns.LoadMoPInsideDungeonNodesLocationInfo(self)
 local db = ns.Addon.db.profile
 local nodes = ns.nodes
 
@@ -27,98 +27,98 @@ if not db.activate.HideMapNote then
         --#############################
         --#### Kalimdor Exit Notes ####
         --#############################
-            nodes[280][62402795] = { mnID = 1443, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Maraudon Caverns of Maraudon Orange Crystal
-            nodes[280][78676842] = { mnID = 1443, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Maraudon Caverns of Maraudon Purple Crystal 
+            nodes[280][62402795] = { mnID = 66, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Maraudon Caverns of Maraudon Orange Crystal
+            nodes[280][78676842] = { mnID = 66, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Maraudon Caverns of Maraudon Purple Crystal 
             nodes[324][54089545] = { mnID = 207, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- The Stonecore
             nodes[325][54241642] = { mnID = 249, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- The Vortex Pinnacle
             nodes[297][50009404] = { mnID = 249, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Halls of Orientation
             nodes[277][32581995] = { mnID = 249, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Lost City of the Tol'vir
             nodes[328][47177426] = { mnID = 249, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Throne of the Four Winds
-            nodes[247][61141177] = { mnID = 1451, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Ruins of Ahn'Qiraj
-            nodes[320][52352694] = { mnID = 1451, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Temple of Ahn'Qiraj
-            nodes[219][56288980] = { mnID = 1446, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Zul'Farrak
-            nodes[409][49698368] = { mnID = 1446, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Dragon Soul
-            nodes[130][86417097] = { mnID = 1446, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- The Culling of Stratholme
-            nodes[273][49531493] = { mnID = 1446, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- The Black Morass
-            nodes[274][27084695] = { mnID = 1446, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Old Hillsbrad Foothills
-            nodes[401][82964460] = { mnID = 1446, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- End Time
-            nodes[398][28456261] = { mnID = 1446, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Well of Eternity
-            nodes[399][48001952] = { mnID = 1446, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Hour of Twilight
-            nodes[248][33992035] = { mnID = 1445, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Onyxia Lair
-            nodes[300][23471893] = { mnID = 1441, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Razorfen Downs
+            nodes[247][61141177] = { mnID = 81, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Ruins of Ahn'Qiraj
+            nodes[320][52352694] = { mnID = 81, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Temple of Ahn'Qiraj
+            nodes[219][56288980] = { mnID = 71, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Zul'Farrak
+            nodes[409][49698368] = { mnID = 71, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Dragon Soul
+            nodes[130][86417097] = { mnID = 71, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- The Culling of Stratholme
+            nodes[273][49531493] = { mnID = 71, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- The Black Morass
+            nodes[274][27084695] = { mnID = 71, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Old Hillsbrad Foothills
+            nodes[401][82964460] = { mnID = 71, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- End Time
+            nodes[398][28456261] = { mnID = 71, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Well of Eternity
+            nodes[399][48001952] = { mnID = 71, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Hour of Twilight
+            nodes[248][33992035] = { mnID = 70, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Onyxia Lair
+            nodes[300][23471893] = { mnID = 64, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Razorfen Downs
             nodes[301][71358352] = { mnID = 199, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Razorfen Kraul
-            nodes[240][28185543] = { mnID = 1444, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Dire Maul Warpwood Quarter 
-            nodes[235][71829239] = { mnID = 1444, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Dire Maul Gordok Commons
-            nodes[236][93635048] = { mnID = 1444, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Dire Maul Capital Gardens
-            nodes[236][93637191] = { mnID = 1444, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Dire Maul Capital Gardens
-            nodes[239][26778493] = { mnID = 1444, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Dire Maul Warpwood Quarter
-            nodes[239][92544766] = { mnID = 1444, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Dire Maul Warpwood Quarter
-            nodes[279][46235920] = { mnID = 1413, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Wailing Caverns
+            nodes[240][28185543] = { mnID = 69, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Dire Maul Warpwood Quarter 
+            nodes[235][71829239] = { mnID = 69, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Dire Maul Gordok Commons
+            nodes[236][93635048] = { mnID = 69, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Dire Maul Capital Gardens
+            nodes[236][93637191] = { mnID = 69, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Dire Maul Capital Gardens
+            nodes[239][26778493] = { mnID = 69, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Dire Maul Warpwood Quarter
+            nodes[239][92544766] = { mnID = 69, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Dire Maul Warpwood Quarter
+            nodes[279][46235920] = { mnID = 10, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Wailing Caverns
             nodes[213][60990723] = { mnID = 86, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Ragefire Chasm
-            nodes[221][45131069] = { mnID = 1440, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Blackfathom Deeps
+            nodes[221][45131069] = { mnID = 63, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Blackfathom Deeps
             nodes[367][24579004] = { mnID = 198, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Firelands
         --####################################
         --#### Eastern Kingdom Exit Notes ####
         --####################################
-            nodes[220][49841022] = { mnID = 1435, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Tempel of Atal'hakkar
-            nodes[225][50008109] = { mnID = 1453, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- The Stockade  
-            nodes[226][64132741] = { mnID = 1426, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Gnomeregan          
-            nodes[230][28506908] = { mnID = 1418, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Uldaman
-            nodes[230][67897238] = { mnID = 1418, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Uldaman
-            nodes[232][25832277] = { mnID = 1427, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Molten Core
-            nodes[242][33207928] = { mnID = 1427, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Blackwing Depths
-            nodes[253][36814201] = { mnID = 1428, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Lower Blackrock Spire
-            nodes[252][37854109] = { mnID = 1428, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Lower Blackrock Spire
+            nodes[220][49841022] = { mnID = 51, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Tempel of Atal'hakkar
+            nodes[225][50008109] = { mnID = 84, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- The Stockade  
+            nodes[226][64132741] = { mnID = 27, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Gnomeregan          
+            nodes[230][28506908] = { mnID = 15, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Uldaman
+            nodes[230][67897238] = { mnID = 15, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Uldaman
+            nodes[232][25832277] = { mnID = 32, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Molten Core
+            nodes[242][33207928] = { mnID = 32, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Blackwing Depths
+            nodes[253][36814201] = { mnID = 36, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Lower Blackrock Spire
+            nodes[252][37854109] = { mnID = 36, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Lower Blackrock Spire
             nodes[282][47969035] = { mnID = 244, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Baradin Hold
             nodes[283][31016916] = { mnID = 34, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Blackwing Caverns      
             nodes[285][46866374] = { mnID = 36, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Blackwing Descent
             nodes[287][52518345] = { mnID = 33, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Blackwing Lair
-            nodes[291][29751328] = { mnID = 1436, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Deadmines
+            nodes[291][29751328] = { mnID = 52, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Deadmines
             nodes[293][07935708] = { mnID = 241, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Grim Batol
             nodes[294][39335449] = { mnID = 241, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- The Bastion of Twilight
-            nodes[302][83118250] = { mnID = 1420, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Old Scarlet Monastery - Graveyard
-            nodes[303][13112473] = { mnID = 1420, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Old Scarlet Monastery - Library
-            nodes[304][60849535] = { mnID = 1420, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Old Scarlet Monastery - Armory
-            nodes[305][61999199] = { mnID = 1420, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Old Scarlet Monastery - Cathedral              
-            nodes[306][39146031] = { mnID = 1422, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Old Scholomance  
-            nodes[310][70406108] = { mnID = 1421, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Shadowfang Keep  
-            nodes[317][68798791] = { mnID = 1423, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Stratholme - Main Gate
-            nodes[317][63888791] = { mnID = 1423, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Stratholme - Main Gate
-            nodes[318][65859058] = { mnID = 1423, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Stratholme Service Entrance
+            nodes[302][83118250] = { mnID = 18, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Old Scarlet Monastery - Graveyard
+            nodes[303][13112473] = { mnID = 18, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Old Scarlet Monastery - Library
+            nodes[304][60849535] = { mnID = 18, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Old Scarlet Monastery - Armory
+            nodes[305][61999199] = { mnID = 18, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Old Scarlet Monastery - Cathedral              
+            nodes[306][39146031] = { mnID = 22, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Old Scholomance  
+            nodes[310][70406108] = { mnID = 21, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Shadowfang Keep  
+            nodes[317][68798791] = { mnID = 23, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Stratholme - Main Gate
+            nodes[317][63888791] = { mnID = 23, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Stratholme - Main Gate
+            nodes[318][65859058] = { mnID = 23, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Stratholme Service Entrance
             nodes[322][49849388] = { mnID = 203, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Throne of the Tides      
-            nodes[333][09195307] = { mnID = 1942, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Zul'Aman
-            nodes[335][30853659] = { mnID = 1957, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Sunwell Plateau
-            nodes[337][29124867] = { mnID = 1434, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Zul'Gurub
-            nodes[349][42629380] = { mnID = 1957, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Magisters'Terrace      
-            nodes[350][61778163] = { mnID = 1430, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Karazhan
-            nodes[355][64416079] = { mnID = 1430, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Karazhan
-            nodes[431][33998886] = { mnID = 1420, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Scarlet Halls
-            nodes[435][79354554] = { mnID = 1420, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Scarlet Monastery
-            nodes[476][17827050] = { mnID = 1422, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Scholomance      
-            nodes[616][37293212] = { mnID = 1428, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Upper Blackrock Spire
-            nodes[809][61778163] = { mnID = 1430, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Return to Karazhan
-            nodes[814][64286068] = { mnID = 1430, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Return to Karazhan
+            nodes[333][09195307] = { mnID = 95, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Zul'Aman
+            nodes[335][30853659] = { mnID = 122, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Sunwell Plateau
+            nodes[337][29124867] = { mnID = 50, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Zul'Gurub
+            nodes[349][42629380] = { mnID = 122, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Magisters'Terrace      
+            nodes[350][61778163] = { mnID = 42, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Karazhan
+            nodes[355][64416079] = { mnID = 42, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Karazhan
+            nodes[431][33998886] = { mnID = 18, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Scarlet Halls
+            nodes[435][79354554] = { mnID = 18, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Scarlet Monastery
+            nodes[476][17827050] = { mnID = 22, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Scholomance      
+            nodes[616][37293212] = { mnID = 36, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Upper Blackrock Spire
+            nodes[809][61778163] = { mnID = 42, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Return to Karazhan
+            nodes[814][64286068] = { mnID = 42, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Return to Karazhan
         --#############################
         --#### Outland Exit Notes #####
         --#############################
-            nodes[340][21756343] = { mnID = 1948, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Black Temple exit
-            nodes[334][50168768] = { mnID = 1953, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- The Eye
-            nodes[330][81397732] = { mnID = 1949, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Gruul
-            nodes[331][60991776] = { mnID = 1944, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Magtheridons
-            nodes[332][13436343] = { mnID = 1946, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Serpentshrine Cavern
-            nodes[266][90343942] = { mnID = 1953, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Botanica
-            nodes[267][49378580] = { mnID = 1953, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Mechanar
-            nodes[269][41378627] = { mnID = 1953, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Arcatraz
-            nodes[265][21121328] = { mnID = 1946, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Slave Pens
-            nodes[263][17353047] = { mnID = 1946, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Steamvault
-            nodes[347][52207097] = { mnID = 1944, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Hellfire Ramparts
-            nodes[262][28027003] = { mnID = 1946, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- The Underbog
-            nodes[261][48439051] = { mnID = 1944, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Blood Furnace
-            nodes[260][21750952] = { mnID = 1952, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Shadow Labyrinth
-            nodes[246][61929285] = { mnID = 1944, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Shattered Halls
-            nodes[258][73393824] = { mnID = 1952, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Sethekk Halls
-            nodes[272][33361564] = { mnID = 1952, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Mana Tombs
-            nodes[256][44197716] = { mnID = 1952, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Auchenai Crypts
+            nodes[340][21756343] = { mnID = 104, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Black Temple exit
+            nodes[334][50168768] = { mnID = 109, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- The Eye
+            nodes[330][81397732] = { mnID = 105, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Gruul
+            nodes[331][60991776] = { mnID = 100, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Magtheridons
+            nodes[332][13436343] = { mnID = 102, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Serpentshrine Cavern
+            nodes[266][90343942] = { mnID = 109, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Botanica
+            nodes[267][49378580] = { mnID = 109, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Mechanar
+            nodes[269][41378627] = { mnID = 109, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Arcatraz
+            nodes[265][21121328] = { mnID = 102, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Slave Pens
+            nodes[263][17353047] = { mnID = 102, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Steamvault
+            nodes[347][52207097] = { mnID = 100, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Hellfire Ramparts
+            nodes[262][28027003] = { mnID = 102, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- The Underbog
+            nodes[261][48439051] = { mnID = 100, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Blood Furnace
+            nodes[260][21750952] = { mnID = 108, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Shadow Labyrinth
+            nodes[246][61929285] = { mnID = 100, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Shattered Halls
+            nodes[258][73393824] = { mnID = 108, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Sethekk Halls
+            nodes[272][33361564] = { mnID = 108, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Mana Tombs
+            nodes[256][44197716] = { mnID = 108, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Auchenai Crypts
         --#############################
         --#### Northrend Exit Notes ####
         --#############################

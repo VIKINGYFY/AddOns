@@ -449,6 +449,7 @@ do
 		"ScrollFrameBorder",
 		"ScrollUpBorder",
 		"ShadowOverlay",
+		"SlotArt",
 		"SlotBackground",
 		"Spark",
 		"SparkGlow",

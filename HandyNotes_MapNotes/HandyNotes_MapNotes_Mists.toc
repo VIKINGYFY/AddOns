@@ -1,5 +1,5 @@
-## Interface: 40402, 50500
-## Version: 2.9.5
+## Interface: 50500
+## Version: 2.9.6
 ## Title: HandyNotes: |cffff0000Map|r|cff00ccffNotes|r
 ## Title-esES: HandyNotes: |cffff0000Mapa |r|cff00ccffNotas|r
 ## Title-esMX: HandyNotes: |cffff0000Mapa |r|cff00ccffNotas|r
@@ -28,10 +28,10 @@
 ## OptionalDeps: TomTom
 ## X-Curse-Project-ID: 912524
 ## X-Localizations: enUS, enGB, deDE, esES, esMX, frFR, ruRU, itIT, ptBR, koKR, zhCN, zhTW
-## SavedVariables: HandyNotes_MapNotesCataclysmDB, MNMiniMapButtonCataDB
+## SavedVariables: HandyNotes_MapNotesMistsDB, MNMiniMapButtonMoPDB
 
 
 ExternalLibs\ExternalLibs.xml
 Locales\Locales.xml
-Nodes\NodesCata.xml
-Core\CoreCata.xml
+Nodes\NodesMoP.xml
+Core\CoreMoP.xml

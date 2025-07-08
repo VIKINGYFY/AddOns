@@ -20,9 +20,11 @@ OnTooltipShow = function(tooltip)
 
       ---- Zone without Sync function
       if not ns.Addon.db.profile.activate.SyncZoneAndMinimap and not 
-        (GetBestMapForUnit == 1454 or GetBestMapForUnit == 1456 or GetBestMapForUnit == 1458 or GetBestMapForUnit == 1954
-        or GetBestMapForUnit == 1947 or GetBestMapForUnit == 1457 or GetBestMapForUnit == 1453 or GetBestMapForUnit == 1455
-        or GetBestMapForUnit == 1955 or GetBestMapForUnit == 86 or GetBestMapForUnit == 125 or GetBestMapForUnit == 126) 
+        (GetBestMapForUnit == 85 or GetBestMapForUnit == 88 or GetBestMapForUnit == 998 or GetBestMapForUnit == 110
+        or GetBestMapForUnit == 103 or GetBestMapForUnit == 89 or GetBestMapForUnit == 84 or GetBestMapForUnit == 87
+        or GetBestMapForUnit == 111 or GetBestMapForUnit == 86 or GetBestMapForUnit == 125 or GetBestMapForUnit == 126 
+        or GetBestMapForUnit == 391 or GetBestMapForUnit  == 392 or GetBestMapForUnit  == 393 or GetBestMapForUnit  == 394 
+        or GetBestMapForUnit  == 407)
       then
         tooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. MINIMAP_LABEL .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
         tooltip:Show()
@@ -30,9 +32,11 @@ OnTooltipShow = function(tooltip)
 
     -- Zone Sync function
     if ns.Addon.db.profile.activate.SyncZoneAndMinimap and not
-      (GetBestMapForUnit == 1454 or GetBestMapForUnit == 1456 or GetBestMapForUnit == 1458 or GetBestMapForUnit == 1954
-      or GetBestMapForUnit == 1947 or GetBestMapForUnit == 1457 or GetBestMapForUnit == 1453 or GetBestMapForUnit == 1455
-      or GetBestMapForUnit == 1955 or GetBestMapForUnit == 86 or GetBestMapForUnit == 125 or GetBestMapForUnit == 126)  
+      (GetBestMapForUnit == 85 or GetBestMapForUnit == 88 or GetBestMapForUnit == 998 or GetBestMapForUnit == 110
+      or GetBestMapForUnit == 103 or GetBestMapForUnit == 89 or GetBestMapForUnit == 84 or GetBestMapForUnit == 87
+      or GetBestMapForUnit == 111 or GetBestMapForUnit == 86 or GetBestMapForUnit == 125 or GetBestMapForUnit == 126 
+      or GetBestMapForUnit == 391 or GetBestMapForUnit  == 392 or GetBestMapForUnit  == 393 or GetBestMapForUnit  == 394 
+      or GetBestMapForUnit  == 407)  
     then
       tooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["Zones"] .. " & " .. MINIMAP_LABEL .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
       tooltip:Show()
@@ -40,9 +44,11 @@ OnTooltipShow = function(tooltip)
 
       -- Capital without Synch function
       if not ns.Addon.db.profile.activate.SyncCapitalsAndMinimap and
-        (GetBestMapForUnit == 1454 or GetBestMapForUnit == 1456 or GetBestMapForUnit == 1458 or GetBestMapForUnit == 1954
-        or GetBestMapForUnit == 1947 or GetBestMapForUnit == 1457 or GetBestMapForUnit == 1453 or GetBestMapForUnit == 1455
-        or GetBestMapForUnit == 1955 or GetBestMapForUnit == 86 or GetBestMapForUnit == 125 or GetBestMapForUnit == 126)
+        (GetBestMapForUnit == 85 or GetBestMapForUnit == 88 or GetBestMapForUnit == 998 or GetBestMapForUnit == 110
+        or GetBestMapForUnit == 103 or GetBestMapForUnit == 89 or GetBestMapForUnit == 84 or GetBestMapForUnit == 87
+        or GetBestMapForUnit == 111 or GetBestMapForUnit == 86 or GetBestMapForUnit == 125 or GetBestMapForUnit == 126 
+        or GetBestMapForUnit == 391 or GetBestMapForUnit  == 392 or GetBestMapForUnit  == 393 or GetBestMapForUnit  == 394 
+        or GetBestMapForUnit  == 407)
       then
         tooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["Capitals"] .. " " .. MINIMAP_LABEL .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
         tooltip:Show()
@@ -50,9 +56,11 @@ OnTooltipShow = function(tooltip)
 
     -- Capital Synch function
     if ns.Addon.db.profile.activate.SyncCapitalsAndMinimap and
-      (GetBestMapForUnit == 1454 or GetBestMapForUnit == 1456 or GetBestMapForUnit == 1458 or GetBestMapForUnit == 1954
-      or GetBestMapForUnit == 1947 or GetBestMapForUnit == 1457 or GetBestMapForUnit == 1453 or GetBestMapForUnit == 1455
-      or GetBestMapForUnit == 1955 or GetBestMapForUnit == 86 or GetBestMapForUnit == 125 or GetBestMapForUnit == 126) 
+      (GetBestMapForUnit == 85 or GetBestMapForUnit == 88 or GetBestMapForUnit == 998 or GetBestMapForUnit == 110
+      or GetBestMapForUnit == 103 or GetBestMapForUnit == 89 or GetBestMapForUnit == 84 or GetBestMapForUnit == 87
+      or GetBestMapForUnit == 111 or GetBestMapForUnit == 86 or GetBestMapForUnit == 125 or GetBestMapForUnit == 126 
+      or GetBestMapForUnit == 391 or GetBestMapForUnit  == 392 or GetBestMapForUnit  == 393 or GetBestMapForUnit  == 394 
+      or GetBestMapForUnit  == 407) 
     then
       tooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["Capitals"] .. " & " .. L["Capitals"] .. " " .. MINIMAP_LABEL .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
       tooltip:Show()
@@ -64,9 +72,11 @@ OnClick = function(self, button)
   
   -- Zone without Sync function 
   if button == "RightButton" and not IsShiftKeyDown() and not 
-    (GetBestMapForUnit == 1454 or GetBestMapForUnit == 1456 or GetBestMapForUnit == 1458 or GetBestMapForUnit == 1954 
-    or GetBestMapForUnit == 1947 or GetBestMapForUnit == 1457 or GetBestMapForUnit == 1453 or GetBestMapForUnit == 1455
-    or GetBestMapForUnit == 1955 or GetBestMapForUnit == 86 or GetBestMapForUnit == 125 or GetBestMapForUnit == 126)
+    (GetBestMapForUnit == 85 or GetBestMapForUnit == 88 or GetBestMapForUnit == 998 or GetBestMapForUnit == 110 
+    or GetBestMapForUnit == 103 or GetBestMapForUnit == 89 or GetBestMapForUnit == 84 or GetBestMapForUnit == 87
+    or GetBestMapForUnit == 111 or GetBestMapForUnit == 86 or GetBestMapForUnit == 125 or GetBestMapForUnit == 126 
+    or GetBestMapForUnit == 391 or GetBestMapForUnit  == 392 or GetBestMapForUnit  == 393 or GetBestMapForUnit  == 394 
+    or GetBestMapForUnit  == 407)
   then
     if not ns.Addon.db.profile.activate.MiniMap and not ns.Addon.db.profile.activate.SyncZoneAndMinimap then
       ns.Addon.db.profile.activate.MiniMap = true
@@ -79,9 +89,11 @@ OnClick = function(self, button)
 
   -- Zone Sync function
   if button == "RightButton" and ns.Addon.db.profile.activate.SyncZoneAndMinimap and not IsShiftKeyDown() and not
-    (GetBestMapForUnit == 1454 or GetBestMapForUnit == 1456 or GetBestMapForUnit == 1458 or GetBestMapForUnit == 1954
-    or GetBestMapForUnit == 1947 or GetBestMapForUnit == 1457 or GetBestMapForUnit == 1453 or GetBestMapForUnit == 1455
-    or GetBestMapForUnit == 1955 or GetBestMapForUnit == 86 or GetBestMapForUnit == 125 or GetBestMapForUnit == 126)
+    (GetBestMapForUnit == 85 or GetBestMapForUnit == 88 or GetBestMapForUnit == 998 or GetBestMapForUnit == 110
+    or GetBestMapForUnit == 103 or GetBestMapForUnit == 89 or GetBestMapForUnit == 84 or GetBestMapForUnit == 87
+    or GetBestMapForUnit == 111 or GetBestMapForUnit == 86 or GetBestMapForUnit == 125 or GetBestMapForUnit == 126 
+    or GetBestMapForUnit == 391 or GetBestMapForUnit  == 392 or GetBestMapForUnit  == 393 or GetBestMapForUnit  == 394 
+    or GetBestMapForUnit  == 407)
   then
     if not ns.Addon.db.profile.activate.ZoneMap then
       ns.Addon.db.profile.activate.ZoneMap = true
@@ -94,9 +106,11 @@ OnClick = function(self, button)
 
   -- CapitalsMinimap without Sync function
   if button == "RightButton" and not IsShiftKeyDown() and
-    (GetBestMapForUnit == 1454 or GetBestMapForUnit == 1456 or GetBestMapForUnit == 1458 or GetBestMapForUnit == 1954
-    or GetBestMapForUnit == 1947 or GetBestMapForUnit == 1457 or GetBestMapForUnit == 1453 or GetBestMapForUnit == 1455
-    or GetBestMapForUnit == 1955 or GetBestMapForUnit == 86 or GetBestMapForUnit == 125 or GetBestMapForUnit == 126)
+    (GetBestMapForUnit == 85 or GetBestMapForUnit == 88 or GetBestMapForUnit == 998 or GetBestMapForUnit == 110
+    or GetBestMapForUnit == 103 or GetBestMapForUnit == 89 or GetBestMapForUnit == 84 or GetBestMapForUnit == 87
+    or GetBestMapForUnit == 111 or GetBestMapForUnit == 86 or GetBestMapForUnit == 125 or GetBestMapForUnit == 126 
+    or GetBestMapForUnit == 391 or GetBestMapForUnit  == 392 or GetBestMapForUnit  == 393 or GetBestMapForUnit  == 394 
+    or GetBestMapForUnit  == 407)
   then
     if not ns.Addon.db.profile.activate.MinimapCapitals and not ns.Addon.db.profile.activate.SyncCapitalsAndMinimap then
       ns.Addon.db.profile.activate.MinimapCapitals = true
@@ -109,9 +123,11 @@ OnClick = function(self, button)
     
   -- Capital Synch function
   if button == "RightButton" and ns.Addon.db.profile.activate.SyncCapitalsAndMinimap and not IsShiftKeyDown() and
-    (GetBestMapForUnit == 1454 or GetBestMapForUnit == 1456 or GetBestMapForUnit == 1458 or GetBestMapForUnit == 1954
-    or GetBestMapForUnit == 1947 or GetBestMapForUnit == 1457 or GetBestMapForUnit == 1453 or GetBestMapForUnit == 1455
-    or GetBestMapForUnit == 1955 or GetBestMapForUnit == 86 or GetBestMapForUnit == 125 or GetBestMapForUnit == 126)
+    (GetBestMapForUnit == 85 or GetBestMapForUnit == 88 or GetBestMapForUnit == 998 or GetBestMapForUnit == 110
+    or GetBestMapForUnit == 103 or GetBestMapForUnit == 89 or GetBestMapForUnit == 84 or GetBestMapForUnit == 87
+    or GetBestMapForUnit == 111 or GetBestMapForUnit == 86 or GetBestMapForUnit == 125 or GetBestMapForUnit == 126 
+    or GetBestMapForUnit == 391 or GetBestMapForUnit  == 392 or GetBestMapForUnit  == 393 or GetBestMapForUnit  == 394 
+    or GetBestMapForUnit  == 407)
   then
     if not ns.Addon.db.profile.activate.Capitals then
       ns.Addon.db.profile.activate.Capitals = true

@@ -6,7 +6,7 @@
 
 local ADDON_NAME, ns = ...
 local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
-ns.FogOfWarDataCataclysm = ns.FogOfWarDataCataclysm or _G.FogOfWarDataCataclysmGlobal
+ns.FogOfWarDataMists = ns.FogOfWarDataMists or _G.FogOfWarDataMistsGlobal
 
 function ns.AreaMap()
   if not ns.Addon.db.profile.areaMap.showAreaMapDropDownMenu then return end
@@ -404,7 +404,7 @@ function ns.UpdateAreaMapFogOfWar()
   if not mapID then return end
 
   local artID = C_Map.GetMapArtID(mapID)
-  local mapData = ns.FogOfWarDataCataclysm
+  local mapData = ns.FogOfWarDataMists
   if not artID or not mapData or not mapData[artID] then return end
 
   local TILE_SIZE_WIDTH = 256
@@ -660,8 +660,9 @@ function ns.ResetAreaMapToPlayerLocation()
   ns._autoCorrected = false
   local mapID = C_Map.GetBestMapForUnit("player")
   if mapID then
-    BattlefieldMapFrame:SetMapID(mapID)
-    C_Timer.After(0.2, ns.UpdateAreaMapIcons)
+    if BattlefieldMapFrame and BattlefieldMapFrame:IsShown() then
+      BattlefieldMapFrame:SetMapID(mapID)     
+    end
   end
 end
 

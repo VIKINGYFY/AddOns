@@ -31,7 +31,7 @@ function ns.FogOfWar:Refresh()
 	end
 end
 
-local mapData = ns.FogOfWarDataCataclysm or {}
+local mapData = ns.FogOfWarDataMists or {}
 function ns.FogOfWar:MapExplorationPin_RefreshOverlays(pin, fullUpdate)
 
 	-- remove color tint from active overlays

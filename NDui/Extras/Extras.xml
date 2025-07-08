@@ -5,4 +5,5 @@
 	<Script file="LootMonitor.lua"/>
 	<Script file="MDEnhance.lua"/>
 	<Script file="StatsMonitor.lua"/>
+	<Script file="WorldMapLine.lua"/>
 </Ui>

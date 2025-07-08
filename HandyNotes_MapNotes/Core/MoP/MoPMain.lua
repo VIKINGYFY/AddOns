@@ -19,7 +19,7 @@ local extraInformations = { }
 ns.RestoreStaticPopUps()
 
 function MapNotesMiniButton:OnInitialize() --mmb.lua
-  self.db = LibStub("AceDB-3.0"):New("MNMiniMapButtonCataDB", { profile = { minimap = { hide = false, }, }, }) 
+  self.db = LibStub("AceDB-3.0"):New("MNMiniMapButtonMoPDB", { profile = { minimap = { hide = false, }, }, }) 
   MNMMBIcon:Register("MNMiniMapButton", ns.miniButton, self.db.profile.minimap)
 end
 
@@ -472,37 +472,37 @@ do
 
       ns.capitalgenerals = value.type == "Exit" or value.type == "PassageUpL" or value.type == "PassageDownL" or value.type == "PassageRightL" or value.type == "PassageLeftL" or value.type == "Innkeeper" or value.type == "Auctioneer" or value.type == "Bank" or value.type == "MNL" or value.type == "Barber" or value.type == "Transmogger" or value.type == "ItemUpgrade" or value.type == "PvPVendor" or value.type == "PvEVendor" or value.type == "MNL" or value.type == "DragonFlyTransmog" or value.type == "Catalyst" or value.type == "PathO" or value.type == "PathRO" or value.type == "PathLO" or value.type == "PathU" or value.type == "PathLU" or value.type == "PathRU" or value.type == "PathL" or value.type == "PathR" or value.type == "BlackMarket" or value.type == "Mailbox"
 
-      ns.CapitalIDs =
-        --Cataclysm
-        GetCurrentMapID == 1454 or -- Orgrimmar
-        GetCurrentMapID == 1456 or -- Thunder Bluff
-        GetCurrentMapID == 1458 or -- Undercity
-        GetCurrentMapID == 1954 or -- Silvermoon
-        GetCurrentMapID == 1947 or -- Exodar
-        GetCurrentMapID == 1457 or -- Darnassus
-        GetCurrentMapID == 1453 or -- Stormwind
-        GetCurrentMapID == 1455 or -- Ironforge
-        GetCurrentMapID == 1955 or -- Shattrath
-        --Retail & Cataclysm
-        GetCurrentMapID == 86 or -- Ragefire Chasmn
-        GetCurrentMapID == 125 or  -- Dalaran Northrend
-        GetCurrentMapID == 126   -- Dalaran Northrend Basement
+      ns.CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentMapID == 89 or GetCurrentMapID == 103 or GetCurrentMapID == 85 or GetCurrentMapID == 90 
+                      or GetCurrentMapID == 86 or GetCurrentMapID == 88 or GetCurrentMapID == 110 or GetCurrentMapID == 111 or GetCurrentMapID == 125 or GetCurrentMapID == 126 
+                      or GetCurrentMapID == 391 or GetCurrentMapID == 392 or GetCurrentMapID == 393 or GetCurrentMapID == 394 or GetCurrentMapID == 407 or GetCurrentMapID == 503 
+                      or GetCurrentMapID == 582 or GetCurrentMapID == 590 or GetCurrentMapID == 622 or GetCurrentMapID == 624 or GetCurrentMapID == 626 or GetCurrentMapID == 627 
+                      or GetCurrentMapID == 628 or GetCurrentMapID == 629 or GetCurrentMapID == 1161 or GetCurrentMapID == 1163 or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 
+                      or GetCurrentMapID == 1670 or GetCurrentMapID == 1671 or GetCurrentMapID == 1672 or GetCurrentMapID == 1673 or GetCurrentMapID == 2112 or GetCurrentMapID == 2339
+                      or GetCurrentMapID == 499 or GetCurrentMapID == 500 or GetCurrentMapID == 2266
 
-      ns.CapitalMiniMapIDs =
-        --Cataclysm
-        GetBestMapForUnit == 1454 or -- Orgrimmar
-        GetBestMapForUnit == 1456 or -- Thunder Bluff
-        GetBestMapForUnit == 1458 or -- Undercity
-        GetBestMapForUnit == 1954 or -- Silvermoon
-        GetBestMapForUnit == 1947 or -- Exodar
-        GetBestMapForUnit == 1457 or -- Darnassus
-        GetBestMapForUnit == 1453 or -- Stormwind
-        GetBestMapForUnit == 1455 or -- Ironforge
-        GetBestMapForUnit == 1955 or -- Shattrath
-        --Retail & Cataclysm
-        GetBestMapForUnit == 86 or -- Ragefire Chasmn
-        GetBestMapForUnit == 125 or  -- Dalaran Northrend
-        GetBestMapForUnit == 126   -- Dalaran Northrend Basement
+      ns.CapitalMiniMapIDs = GetBestMapForUnit == 84 or GetBestMapForUnit == 87 or GetBestMapForUnit == 89 or GetBestMapForUnit == 103 or GetBestMapForUnit == 85 or GetBestMapForUnit == 90 
+                      or GetBestMapForUnit == 86 or GetBestMapForUnit == 88 or GetBestMapForUnit == 110 or GetBestMapForUnit == 111 or GetBestMapForUnit == 125 or GetBestMapForUnit == 126 
+                      or GetBestMapForUnit == 391 or GetBestMapForUnit == 392 or GetBestMapForUnit == 393 or GetBestMapForUnit == 394 or GetBestMapForUnit == 407 or GetBestMapForUnit == 503 
+                      or GetBestMapForUnit == 582 or GetBestMapForUnit == 590 or GetBestMapForUnit == 622 or GetBestMapForUnit == 624 or GetBestMapForUnit == 626 or GetBestMapForUnit == 627 
+                      or GetBestMapForUnit == 628 or GetBestMapForUnit == 629 or GetBestMapForUnit == 1161 or GetBestMapForUnit == 1163 or GetBestMapForUnit == 1164 or GetBestMapForUnit == 1165 
+                      or GetBestMapForUnit == 1670 or GetBestMapForUnit == 1671 or GetBestMapForUnit == 1672 or GetBestMapForUnit == 1673 or GetBestMapForUnit == 2112 or GetBestMapForUnit == 2339
+                      or GetBestMapForUnit == 499 or GetBestMapForUnit == 500 or GetBestMapForUnit == 2266
+
+      ns.ContinentIDs = GetCurrentMapID == 12 -- Kalimdor
+                      or GetCurrentMapID == 13 -- Eastern Kingdom
+                      or GetCurrentMapID == 1467 -- Outland Classic+
+                      or GetCurrentMapID == 101 -- Outland Retail
+                      or GetCurrentMapID == 113 -- Nordend
+                      or GetCurrentMapID == 948 -- The Maelstrom
+                      or GetCurrentMapID == 424 -- Pandaria
+                      or GetCurrentMapID == 619 -- Broken Isles
+                      or GetCurrentMapID == 875 -- Zandalar
+                      or GetCurrentMapID == 876 -- Kul'Tiras
+                      or GetCurrentMapID == 905 -- Argus
+                      or GetCurrentMapID == 572 -- Draenor
+                      or GetCurrentMapID == 1550 -- Shadowlands
+                      or GetCurrentMapID == 1978 -- Dragon Isles                      
+                      or GetCurrentMapID == 2274 -- Khaz Algar
 
 
 			if value.name == nil then value.name = value.id or value.mnID end
@@ -642,6 +642,10 @@ do
         or (not ns.CapitalIDs and mapInfo.mapType == 3 and ns.dbChar.MinimapZoneDeletedIcons[t.minimapId] and not ns.dbChar.MinimapZoneDeletedIcons[t.minimapId][state] and value.showOnMinimap) -- Minimap Zones
       then
         return state, nil, icon, scale, alpha
+      end
+
+      if (ns.ContinentIDs and mapInfo.mapType == 2 and value.showOnContinent) then
+        return state, nil, icon, db.continentScale, db.continentAlpha
       end
 
 			state, value = next(data, state)
@@ -1130,7 +1134,7 @@ function Addon:PLAYER_LOGIN()
   ns.Addon = Addon
 
   -- Register Database Profile
-  self.db = LibStub("AceDB-3.0"):New("HandyNotes_MapNotesCataclysmDB", ns.defaults)
+  self.db = LibStub("AceDB-3.0"):New("HandyNotes_MapNotesMistsDB", ns.defaults)
   self.db.RegisterCallback(self, "OnProfileChanged", "OnProfileChanged")
 	self.db.RegisterCallback(self, "OnProfileCopied", "OnProfileCopied")
 	self.db.RegisterCallback(self, "OnProfileReset", "OnProfileReset")
@@ -1178,37 +1182,39 @@ function Addon:PLAYER_LOGIN()
     else ns.WorldMapButton:Show()
   end
 
-  --remove BlizzPOIs for MapNotes icons function
+  -- Remove Blizzard POIs for MapNotes icons function
   function ns.RemoveBlizzPOIs()
-    if (ns.Addon.db.profile.activate.HideMapNote) then return end
-
-    for pin in WorldMapFrame:EnumeratePinsByTemplate("AreaPOIPinTemplate") do
-
-      if ns.Addon.db.profile.activate.RemoveBlizzPOIs then
-        if not ns.BlizzAreaPoisLookup then
-            ns.BlizzAreaPoisLookup = {}
-            for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
-                ns.BlizzAreaPoisLookup[poiID] = true
-            end
-        end
-
-        for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
-          local poi = C_AreaPoiInfo.GetAreaPOIInfo(WorldMapFrame:GetMapID(), pin.areaPoiID)
-          if (poi ~= nil and poi.areaPoiID == poiID) then
+      if ns.Addon.db.profile.activate.HideMapNote then return end
+  
+      if ns.Addon.db.profile.activate.RemoveBlizzPOIs and not ns.BlizzAreaPoisLookup then
+          ns.BlizzAreaPoisLookup = {}
+          for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
+              ns.BlizzAreaPoisLookup[poiID] = true
+          end
+      end
+    
+      if ns.Addon.db.profile.activate.RemoveBlizzPOIsCities and not ns.BlizzAreaPoisLookupCities then
+          ns.BlizzAreaPoisLookupCities = {}
+          for _, poiID in pairs(ns.BlizzAreaPoisInfoCities) do
+              ns.BlizzAreaPoisLookupCities[poiID] = true
+          end
+      end
+    
+      for pin in WorldMapFrame:EnumeratePinsByTemplate("AreaPOIPinTemplate") do
+          local areaPoiID = pin.areaPoiID
+      
+          if ns.Addon.db.profile.activate.RemoveBlizzPOIs and ns.BlizzAreaPoisLookup[areaPoiID] then
+              WorldMapFrame:RemovePin(pin)
+          
+          elseif ns.Addon.db.profile.activate.RemoveBlizzPOIsCities and ns.BlizzAreaPoisLookupCities[areaPoiID] then
               WorldMapFrame:RemovePin(pin)
           end
-        end
       end
-
-    end
-
   end
-
+  
   for dp in pairs(WorldMapFrame.dataProviders) do
-      if (not dp.GetPinTemplates and type(dp.GetPinTemplate) == "function") then
-          if (dp:GetPinTemplate() == "AreaPOIPinTemplate") then
-              hooksecurefunc(dp, "RefreshAllData", ns.RemoveBlizzPOIs)
-          end
+      if type(dp.GetPinTemplate) == "function" and dp:GetPinTemplate() == "AreaPOIPinTemplate" then
+          hooksecurefunc(dp, "RefreshAllData", ns.RemoveBlizzPOIs)
       end
   end
 
@@ -1238,25 +1244,25 @@ function Addon:PopulateTable()
   ns.LoadMapNotesNodesInfo() -- load nodes\MapNotesNodesInfo.lua
   ns.LoadMapNotesMinimapInfo() -- load nodes\MapNotesMinimapNodesInfo.lua
 
-  ns.LoadCataMiniMapInfo(self) -- load nodes\Cata\CataMiniMapInfo.lua
-  ns.LoadCataZoneInfo(self) -- load nodes\Cata\CataWorldMapInfo.lua
-  ns.LoadCataContinentInfo(self) -- load nodes\Cata\CataContinentInfo.lua
-  ns.LoadCataWorldMapInfo(self) -- load nodes\Cata\CataWorldMapInfo.lua
-  ns.LoadCataZoneFPInfo(self) -- load nodes\Cata\CataZoneFPInfo.lua
-  ns.LoadCataMinimapFPInfo(self) -- load nodes\Cata\CataMinimapFPInfo.lua
-  ns.LoadCataZoneGhostInfo(self) -- load nodes\Cata\CataZoneGhostInfo.lua
-  ns.LoadCataMinimapGhostInfo(self) -- load nodes\CataCataMinimapGhostInfo.lua
+  ns.LoadMoPMiniMapInfo(self) -- load nodes\MoP\MoPMiniMapInfo.lua
+  ns.LoadMoPZoneInfo(self) -- load nodes\MoP\MoPWorldMapInfo.lua
+  ns.LoadMoPContinentInfo(self) -- load nodes\MoP\MoPContinentInfo.lua
+  ns.LoadMoPWorldMapInfo(self) -- load nodes\MoP\MoPWorldMapInfo.lua
+  ns.LoadMoPZoneFPInfo(self) -- load nodes\MoP\MoPZoneFPInfo.lua
+  ns.LoadMoPMinimapFPInfo(self) -- load nodes\MoP\MoPMinimapFPInfo.lua
+  ns.LoadMoPZoneGhostInfo(self) -- load nodes\MoP\MoPZoneGhostInfo.lua
+  ns.LoadMoPMinimapGhostInfo(self) -- load nodes\MoP\MoPMinimapGhostInfo.lua
 
-  ns.LoadGeneralZoneLocationinfo(self) -- load nodes\Cata\CataGeneralZoneNodes.lua
-  ns.LoadGeneralMiniMapLocationinfo(self) -- load nodes\Cata\CataGeneralMiniMapNodes.lua
+  ns.LoadGeneralZoneLocationinfo(self) -- load nodes\MoP\MoPGeneralZoneNodes.lua
+  ns.LoadGeneralMiniMapLocationinfo(self) -- load nodes\MoP\MoPGeneralMiniMapNodes.lua
 
   ns.LoadPathsZoneLocationinfo(self)
   ns.LoadPathsMiniMapLocationinfo(self)
 
-  ns.LoadCataInsideDungeonNodesLocationInfo(self) -- load nodes\CataInsideDungeonNodesLocation.lua
+  ns.LoadMoPInsideDungeonNodesLocationInfo(self) -- load nodes\MoPInsideDungeonNodesLocation.lua
 
-  ns.LoadCataCapitalsLocationinfo(self) -- load nodes\Cata\CataCapitals.lua
-  ns.LoadCataMinimapCapitalsLocationinfo(self) -- load nodes\Cata\CataMinimapCapitals.lua
+  ns.LoadMoPCapitalsLocationinfo(self) -- load nodes\MoP\MoPCapitals.lua
+  ns.LoadMoPMinimapCapitalsLocationinfo(self) -- load nodes\MoP\MoPMinimapCapitals.lua
 end
 
 function Addon:UpdateInstanceNames(node)

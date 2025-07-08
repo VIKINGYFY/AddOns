@@ -3,8 +3,6 @@ local B, C, L, DB = unpack(ns)
 local Bar = B:RegisterModule("Actionbar")
 local LAB = LibStub("LibActionButton-1.0-NDui")
 
-local margin, padding = DB.margin, DB.padding
-
 function Bar:UpdateAllSize()
 	if not C.db["Actionbar"]["Enable"] then return end
 	Bar:UpdateActionSize("Bar1")
@@ -39,19 +37,19 @@ function Bar:UpdateActionSize(name)
 	if num == 0 then
 		local column = 3
 		local rows = 2
-		frame:SetWidth(3*size + (column-1)*margin + 2*padding)
-		frame:SetHeight(size*rows + (rows-1)*margin + 2*padding)
+		frame:SetWidth(3*size + (column-1)*DB.margin + 2*DB.margin)
+		frame:SetHeight(size*rows + (rows-1)*DB.margin + 2*DB.margin)
 		frame.mover:SetSize(frame:GetSize())
 		for i = 1, 12 do
 			local button = frame.buttons[i]
 			button:SetSize(size, size)
 			button:ClearAllPoints()
 			if i == 1 then
-				button:SetPoint("TOPLEFT", frame, padding, -padding)
+				button:SetPoint("TOPLEFT", frame, DB.margin, -DB.margin)
 			elseif mod(i-1, 3) == 0 then
-				button:SetPoint("TOP", frame.buttons[i-3], "BOTTOM", 0, -margin)
+				button:SetPoint("TOP", frame.buttons[i-3], "BOTTOM", 0, -DB.margin)
 			else
-				button:SetPoint("LEFT", frame.buttons[i-1], "RIGHT", margin, 0)
+				button:SetPoint("LEFT", frame.buttons[i-1], "RIGHT", DB.margin, 0)
 			end
 			button:Show()
 			Bar:UpdateFontSize(button, fontSize)
@@ -62,11 +60,11 @@ function Bar:UpdateActionSize(name)
 			button:SetSize(size, size)
 			button:ClearAllPoints()
 			if i == 1 then
-				button:SetPoint("TOPLEFT", frame, padding, -padding)
+				button:SetPoint("TOPLEFT", frame, DB.margin, -DB.margin)
 			elseif mod(i-1, perRow) == 0 then
-				button:SetPoint("TOP", frame.buttons[i-perRow], "BOTTOM", 0, -margin)
+				button:SetPoint("TOP", frame.buttons[i-perRow], "BOTTOM", 0, -DB.margin)
 			else
-				button:SetPoint("LEFT", frame.buttons[i-1], "RIGHT", margin, 0)
+				button:SetPoint("LEFT", frame.buttons[i-1], "RIGHT", DB.margin, 0)
 			end
 			button:Show()
 			Bar:UpdateFontSize(button, fontSize)
@@ -80,8 +78,8 @@ function Bar:UpdateActionSize(name)
 
 		local column = math.min(num, perRow)
 		local rows = math.ceil(num/perRow)
-		frame:SetWidth(column*size + (column-1)*margin + 2*padding)
-		frame:SetHeight(size*rows + (rows-1)*margin + 2*padding)
+		frame:SetWidth(column*size + (column-1)*DB.margin + 2*DB.margin)
+		frame:SetHeight(size*rows + (rows-1)*DB.margin + 2*DB.margin)
 		frame.mover:SetSize(frame:GetSize())
 	end
 end
@@ -187,7 +185,7 @@ function Bar:ReassignBindings()
 		local frame = Bar.headers[index]
 		if frame then
 			ClearOverrideBindings(frame)
-	
+
 			for _, button in next, frame.buttons do
 				for _, key in next, {GetBindingKey(button.keyBoundTarget)} do
 					if key and key ~= "" then
@@ -216,12 +214,13 @@ function Bar:CreateBars()
 		Bar.headers[index] = CreateFrame("Frame", "NDui_ActionBar"..index, UIParent, "SecureHandlerStateTemplate")
 	end
 
+	local baseY = C.db["Actionbar"]["MBSize"] + DB.margin
 	local BAR_DATA = {
-		[1] = {page = 1, bindName = "ACTIONBUTTON", anchor = {"BOTTOM", UIParent, "BOTTOM", 0, 24}},
-		[2] = {page = 6, bindName = "MULTIACTIONBAR1BUTTON", anchor = {"BOTTOM", _G.NDui_ActionBar1, "TOP", 0, -margin}},
-		[3] = {page = 5, bindName = "MULTIACTIONBAR2BUTTON", anchor = {"BOTTOM", _G.NDui_ActionBar2, "TOP", 0, -margin}},
-		[4] = {page = 3, bindName = "MULTIACTIONBAR3BUTTON", anchor = {"RIGHT", UIParent, "RIGHT", -margin, 0}},
-		[5] = {page = 4, bindName = "MULTIACTIONBAR4BUTTON", anchor = {"RIGHT", _G.NDui_ActionBar4, "LEFT", margin, 0}},
+		[1] = {page = 1, bindName = "ACTIONBUTTON", anchor = {"BOTTOM", UIParent, "BOTTOM", 0, baseY}},
+		[2] = {page = 6, bindName = "MULTIACTIONBAR1BUTTON", anchor = {"BOTTOM", _G.NDui_ActionBar1, "TOP", 0, -DB.margin}},
+		[3] = {page = 5, bindName = "MULTIACTIONBAR2BUTTON", anchor = {"BOTTOM", _G.NDui_ActionBar2, "TOP", 0, -DB.margin}},
+		[4] = {page = 3, bindName = "MULTIACTIONBAR3BUTTON", anchor = {"RIGHT", UIParent, "RIGHT", -DB.margin, 0}},
+		[5] = {page = 4, bindName = "MULTIACTIONBAR4BUTTON", anchor = {"RIGHT", _G.NDui_ActionBar4, "LEFT", DB.margin, 0}},
 		[6] = {page = 13, bindName = "MULTIACTIONBAR5BUTTON", anchor = {"CENTER", UIParent, "CENTER", 0, 0}},
 		[7] = {page = 14, bindName = "MULTIACTIONBAR6BUTTON", anchor = {"CENTER", UIParent, "CENTER", 0, 40}},
 		[8] = {page = 15, bindName = "MULTIACTIONBAR7BUTTON", anchor = {"CENTER", UIParent, "CENTER", 0, 80}},

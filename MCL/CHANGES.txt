@@ -1,22 +1,10 @@
-lightweight tag 1f70c1286b72f9de1de84d36b0bfc7e1c661451d v2.6.1
+lightweight tag 0fd2d940b0bcf1a5d42b08009d0f60df7411b535 v2.6.3
 Author:	Cameron Liddell <camyana65@gmail.com>
-Date:	Sun Jul 6 11:04:08 2025 +0100
+Date:	Sun Jul 6 19:14:14 2025 +0100
 
-commit 1f70c1286b72f9de1de84d36b0bfc7e1c661451d
+commit 0fd2d940b0bcf1a5d42b08009d0f60df7411b535
 Author: Cameron Liddell <camyana65@gmail.com>
-Date:   Sun Jul 6 11:04:08 2025 +0100
+Date:   Sun Jul 6 19:14:14 2025 +0100
 
-    Pinned mount instructions.
-
-commit 12f95544c7e4b2a8172f83e5bc91a24b12fb6f82
-Author: KeiraMetz <zcy532@163.com>
-Date:   Fri Jul 4 21:25:33 2025 +0800
-
-    Bug fixes
-
-commit 12f95544c7e4b2a8172f83e5bc91a24b12fb6f82
-Author: KeiraMetz <zcy532@163.com>
-Date:   Fri Jul 4 21:25:33 2025 +0800
-
-    Bug fixes
+    v2.6.3
 

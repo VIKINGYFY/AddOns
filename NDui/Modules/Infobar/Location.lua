@@ -43,7 +43,7 @@ local function GetZoneCoords()
 	else
 		local mapID = C_Map.GetBestMapForUnit("player")
 		if mapID then
-			local x, y = mapModule:GetPlayerMapPos(mapID)
+			local x, y = mapModule:GetPlayerMapCoords(mapID)
 			if x and y then
 				return format("%.1f , %.1f", x * 100, y * 100), x, y, mapID
 			end

@@ -326,7 +326,7 @@ if not db.activate.HideMapNote then
             nodes[100][46575283] = { id = 747, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Magtheridon's Lair
             nodes[105][69062414] = { id = 746, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Gruul's Lair
             nodes[109][06895168] = { id = 746, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Gruul's Lair
-            nodes[109][73596372] = { id = 746, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Eye
+            nodes[109][73596372] = { id = 749, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Eye
           end
         end
 

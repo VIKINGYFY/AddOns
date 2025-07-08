@@ -209,7 +209,7 @@ LibEvent:attachTrigger("UNIT_INSPECT_READY, UNIT_REINSPECT_READY", function(self
 end)
 
 --設置邊框
-LibEvent:attachTrigger("INSPECT_FRAME_SHOWN", function(self, frame, parent, ilevel)
+LibEvent:attachTrigger("INSPECT_FRAME_SHOWN", function(self, frame, parent)
 	B.UpdatePoint(frame, "LEFT", parent, "RIGHT", DB.margin, 0)
 end)
 

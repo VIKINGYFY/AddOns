@@ -153,30 +153,57 @@ function ns.CreateMouseCoordsFrame()
   mouseFrame.text:SetText(ns.COLORED_ADDON_NAME)
   mouseFrame.text:SetDrawLayer("OVERLAY", 7)
 
-  local function UpdateMouseCoords()
-    if not WorldMapFrame:IsShown() then return end
+local function UpdateMouseCoords()
+  if not WorldMapFrame or not WorldMapFrame:IsShown() then return end
 
+  local x, y
+
+  -- === RETAIL (ab BfA/Legion, Dragonflight etc.) ===
+  if WorldMapFrame.ScrollContainer and WorldMapFrame.ScrollContainer.GetNormalizedCursorPosition then
+    x, y = WorldMapFrame.ScrollContainer:GetNormalizedCursorPosition()
+
+  -- === CLASSIC / CATA (kein GetNormalizedCursorPosition) ===
+  else
     local cursorX, cursorY = GetCursorPosition()
-    local scale = UIParent:GetEffectiveScale()
+    local scale = WorldMapFrame:GetEffectiveScale()
     cursorX = cursorX / scale
     cursorY = cursorY / scale
 
-    local x, y = WorldMapFrame.ScrollContainer:NormalizeUIPosition(cursorX, cursorY)
+    -- Versuch 1: Exakter Kartenbereich (WorldMapDetailFrame – nur Classic/Cata)
+    if WorldMapDetailFrame and WorldMapDetailFrame:IsVisible() then
+      local left = WorldMapDetailFrame:GetLeft()
+      local top = WorldMapDetailFrame:GetTop()
+      local width = WorldMapDetailFrame:GetWidth()
+      local height = WorldMapDetailFrame:GetHeight()
 
-    if x and y and x >= 0 and x <= 1 and y >= 0 and y <= 1 then
-      local x2 = math.floor(x * 10000 + 0.5) / 100
-      local y2 = math.floor(y * 10000 + 0.5) / 100
-      if x2 ~= MouseCoordsFrame.lastX or y2 ~= MouseCoordsFrame.lastY then
-        MouseCoordsFrame.text:SetFormattedText(MOUSE_LABEL .. ": |cffff0000%.2f|r |cff00ccff%.2f|r", x2, y2)
-        MouseCoordsFrame.lastX, MouseCoordsFrame.lastY = x2, y2
-      end
-    else
-      if MouseCoordsFrame.lastX ~= 0 or MouseCoordsFrame.lastY ~= 0 then
-        MouseCoordsFrame.text:SetText(ns.COLORED_ADDON_NAME)
-        MouseCoordsFrame.lastX, MouseCoordsFrame.lastY = 0, 0
+      if left and top and width and height then
+        x = (cursorX - left) / width
+        y = (top - cursorY) / height
       end
     end
+
+    -- Fallback Versuch 2: NormalizeUIPosition() (wenn exakte Map fehlt)
+    if (not x or not y) and WorldMapFrame.ScrollContainer and WorldMapFrame.ScrollContainer.NormalizeUIPosition then
+      x, y = WorldMapFrame.ScrollContainer:NormalizeUIPosition(cursorX, cursorY)
+    end
   end
+
+  -- === Anzeige, wenn gültig (nur wenn in sichtbarem Bereich) ===
+  if x and y and x >= 0 and x <= 1 and y >= 0 and y <= 1 then
+    local x2 = math.floor(x * 10000 + 0.5) / 100
+    local y2 = math.floor(y * 10000 + 0.5) / 100
+
+    if x2 ~= MouseCoordsFrame.lastX or y2 ~= MouseCoordsFrame.lastY then
+      MouseCoordsFrame.text:SetFormattedText(MOUSE_LABEL .. ": |cffff0000%.2f|r |cff00ccff%.2f|r", x2, y2)
+      MouseCoordsFrame.lastX, MouseCoordsFrame.lastY = x2, y2
+    end
+  else
+    if MouseCoordsFrame.lastX ~= 0 or MouseCoordsFrame.lastY ~= 0 then
+      MouseCoordsFrame.text:SetText(ns.COLORED_ADDON_NAME)
+      MouseCoordsFrame.lastX, MouseCoordsFrame.lastY = 0, 0
+    end
+  end
+end
 
   mouseFrame:SetScript("OnUpdate", function(self, elapsed)
     if not WorldMapFrame:IsShown() then return end
@@ -236,18 +263,26 @@ end)
 WorldMapFrame:HookScript("OnShow", function()
   if ns.Addon and ns.Addon.db and ns.Addon.db.profile.displayCoords.showMouseCoords then
     C_Timer.After(0.1, function()
-      if not MouseCoordsFrame then
-        ns.CreateMouseCoordsFrame()
-      else
-        local pos = ns.Addon.db.profile.displayCoords.mouse
-        local anchor = _G[pos.relativeTo]
-        if not anchor or not anchor:IsVisible() then anchor = UIParent end
+if not MouseCoordsFrame then
+  ns.CreateMouseCoordsFrame()
+else
+  local pos = ns.Addon.db.profile.displayCoords.mouse
+  if pos then
+    local anchor = _G[pos.relativeTo]
+    if not anchor or not anchor:IsVisible() then anchor = UIParent end
 
-        MouseCoordsFrame:ClearAllPoints()
-        MouseCoordsFrame:SetPoint(pos.point, anchor, pos.relativePoint, pos.x, pos.y)
-        MouseCoordsFrame:SetScale(pos.scale or 1.0)
-        MouseCoordsFrame:Show()
-      end
+    MouseCoordsFrame:ClearAllPoints()
+    MouseCoordsFrame:SetPoint(pos.point, anchor, pos.relativePoint, pos.x, pos.y)
+    MouseCoordsFrame:SetScale(pos.scale or 1.0)
+    MouseCoordsFrame:Show()
+  else
+    MouseCoordsFrame:ClearAllPoints()
+    MouseCoordsFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 100, -100)
+    MouseCoordsFrame:SetScale(1.0)
+    MouseCoordsFrame:Show()
+  end
+end
+
     end)
   end
 end)

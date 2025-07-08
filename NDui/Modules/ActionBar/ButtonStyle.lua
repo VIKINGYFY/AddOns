@@ -66,10 +66,7 @@ function Bar:StyleActionButton(button)
 	if icon then
 		icon:SetInside(button.__bg)
 		icon:SetDrawLayer("ARTWORK")
-
-		if not icon.__lockdown then
-			icon:SetTexCoord(unpack(DB.TexCoord))
-		end
+		icon:SetTexCoord(unpack(DB.TexCoord))
 	end
 
 	local pushed = B.GetObject(button, "PushedTexture")

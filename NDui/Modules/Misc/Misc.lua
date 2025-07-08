@@ -536,7 +536,6 @@ function M:JerryWay()
 	end
 
 	SlashCmdList["NDUI_JERRY_WAY"] = function(msg)
-		-- 尝试解析 mapID、x、y、z
 		local mapID, x, y, z = string.match(msg, "^#(%d+)%s+(%S+)%s+(%S+)(.*)")
 
 		if not mapID then
@@ -561,6 +560,7 @@ function M:JerryWay()
 			UIErrorsFrame:AddMessage(DB.InfoColor..ERR_CANT_USE_PROFANITY)
 		end
 	end
+
 	SLASH_NDUI_JERRY_WAY1 = "/way"
 end
 

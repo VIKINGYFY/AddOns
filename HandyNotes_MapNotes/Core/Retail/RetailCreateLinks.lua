@@ -2,8 +2,6 @@ local ADDON_NAME, ns = ...
 local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 
 local CaCLFrame
-local linkPatterns
-local CountryCode
 local CHAT_TYPES = {
     "SYSTEM", "SAY", "PARTY", "RAID", "RAID_LEADER", "GUILD", "OFFICER", "YELL", "WHISPER", 
     "WHISPER_INFORM", "BN_WHISPER", "REPLY", "EMOTE", "TEXT_EMOTE", "CHANNEL", "AFK", "DND",
@@ -12,35 +10,56 @@ local CHAT_TYPES = {
 }
 
 local function hasPotentialLink(text)
-    return text:find("http") or text:find("www%.") or text:find("@") or text:find("%.")
+    return text:find("http[%w]*://") or text:find("www%.") or text:find("%S+@%S+%.%a%a") or text:find("%f[%a%d][%w_.%-]+%.%a%a")
 end
 
 local function formatURL(url)
     return "|cff00ccff|Hurl:" .. url .. "|h" .. url .. "|h|r"
 end
 
-local function FindLinksInText(text)
-    local links = {}
-    if not hasPotentialLink(text) then return links end
-    for _, entry in ipairs(linkPatterns) do
-        for link in text:gmatch(entry.pattern) do
-            table.insert(links, link)
+local function processMessage(text)
+    local result = ""
+    local pos = 1
+    local textLen = #text
+
+    while pos <= textLen do
+        local s, e, link
+
+        s, e, link = text:find("(%a[%w+.-]+://%S+)", pos) -- protocol
+
+        if not s then
+            s, e, link = text:find("(www%S+)", pos) -- www
+        end
+
+        if not s then
+            s, e, link = text:find("(%S+@[%w_.%-]+%.%a%a+)", pos) -- email
+        end        
+
+        if not s then
+            s, e, link = text:find("([-%w_%.]+%.%a%a+%S*)", pos) -- short
+        end
+
+        if s then
+            result = result .. text:sub(pos, s - 1) .. formatURL(link)
+            pos = e + 1
+        else
+            result = result .. text:sub(pos)
+            break
         end
     end
-    return links
+
+    return result
 end
 
 local function makeClickable(self, event, msg, sender, languageName, channelName, ...)
     if channelName and channelName:lower():find("dienste") then
         return false, msg, sender, languageName, channelName, ...
     end
+
     if ns.Addon.db.profile.CreateAndCopyLinks and hasPotentialLink(msg) then
-        for _, link in ipairs(FindLinksInText(msg)) do
-            if not msg:find("|Hurl:" .. link, 1, true) then
-                msg = msg:gsub(link, formatURL(link), 1)
-            end
-        end
+        msg = processMessage(msg)
     end
+
     return false, msg, sender, languageName, channelName, ...
 end
 
@@ -73,13 +92,6 @@ end
 
 function ns.CreateAndCopyLink()
     if ns._CreateAndCopyLinkEnabled then return end
-
-    linkPatterns = {
-        { pattern = "(%a[%w+.-]+://[%w_%%%-%.~/?#=&]+)", type = "protocol" },
-        { pattern = "(www%.[%w_.%-]+%.%a%a+[%w/_.%-]*)", type = "www" },
-        { pattern = "(%S+@[%w_.-]+%.%a%a)", type = "email" },
-        { pattern = "(%f[%a%d][%w_.%-]+%.%a%a+[%w/_.%-]*)", type = "short" },
-    }
 
     CaCLFrame = CreateFrame("Frame", "CaCLFrame", UIParent, "DialogBoxFrame")
     CaCLFrame:SetSize(400, 130)

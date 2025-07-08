@@ -1708,7 +1708,6 @@ function G:SetupMicroMenu(parent)
 	createOptionTitle(parent, L["Menubar"], offset)
 	createOptionSlider(parent, L["ButtonSize"], 20, 40, 22, offset-60, "MBSize", Bar.MicroMenu_Setup, "Actionbar")
 	createOptionSlider(parent, L["ButtonsPerRow"], 1, 12, 12, offset-130, "MBPerRow", Bar.MicroMenu_Setup, "Actionbar")
-	createOptionSlider(parent, L["Spacing"], -10, 10, 5, offset-200, "MBSpacing", Bar.MicroMenu_Setup, "Actionbar")
 end
 
 function G:SetupStanceBar(parent)
@@ -1905,18 +1904,14 @@ function G:SetupActionbarStyle(parent)
 		GameTooltip:Show()
 	end
 
-	local function GetButtonText(i)
-		if i == 2 then
-			return "|T"..DB.arrowTex.."up:18|t"
-		elseif i == 3 then
-			return "|T"..DB.arrowTex.."down:18|t"
-		else
-			return i
-		end
-	end
+	local ButtonIcon = {
+		[1] = "|T"..DB.closeTex..":18|t",
+		[2] = "|T"..DB.arrowTex.."max:18|t",
+		[3] = "|T"..DB.arrowTex.."min:18|t",
+	}
 
 	for i = 1, maxButtons do
-		local bu = B.CreateButton(frame, size, size, GetButtonText(i))
+		local bu = B.CreateButton(frame, size, size, ButtonIcon[i])
 		bu:SetPoint("LEFT", (i-1)*(size + padding) + padding, 0)
 		bu.index = i
 		bu.title = styleName[i]

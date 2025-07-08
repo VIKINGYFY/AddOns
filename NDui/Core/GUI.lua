@@ -90,7 +90,6 @@ G.DefaultSettings = {
 		VehButtonSize = 34,
 		MBSize = 22,
 		MBPerRow = 12,
-		MBSpacing = 5,
 	},
 	Bags = {
 		Enable = true,

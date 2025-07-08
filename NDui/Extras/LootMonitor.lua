@@ -71,13 +71,14 @@ local function CloseLMFrame()
 		button:Hide()
 	end
 
+	LootMonitor.Count:SetText("")
 	LootMonitor:SetSize(frameWidth, buttonHeight*4)
 	LootMonitor:Hide()
 end
 
 function LootMonitor:UpdateSelf()
-	local maxWidth = 0
-	local maxHeight = (buttonHeight + 1) * (#self.reports + 3) + DB.margin
+	local maxWidth, maxReport = 0, #self.reports
+	local maxHeight = (buttonHeight + 1) * (maxReport + 3) + DB.margin
 
 	for _, button in ipairs(self.buttons) do
 		if button:IsShown() then
@@ -87,6 +88,7 @@ function LootMonitor:UpdateSelf()
 	end
 
 	self:SetSize(maxWidth, maxHeight)
+	self.Count:SetFormattedText(maxReport)
 
 	if not self:IsShown() then
 		self:Show()
@@ -116,6 +118,9 @@ function LootMonitor:PLAYER_LOGIN()
 
 	self.Title = B.CreateFS(self, buttonHeight-2, "拾取监控", true, "TOPLEFT", 10, -10)
 	self.Info = B.CreateFS(self, buttonHeight-2, "左键：贴出 右键：密语", true, "BOTTOMRIGHT", -10, 10)
+	self.Count = B.CreateFS(self, buttonHeight-2, "", "info")
+
+	B.UpdatePoint(self.Count, "LEFT", self.Title, "RIGHT", DB.margin, 0)
 
 	for index = 1, maxLines do
 		CreateLMButton(index)

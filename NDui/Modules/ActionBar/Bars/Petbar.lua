@@ -2,8 +2,6 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local Bar = B:GetModule("Actionbar")
 
-local margin = DB.margin
-
 local function hasPetActionHighlightMark(index)
 	return PET_ACTION_HIGHLIGHT_MARKS[index];
 end
@@ -138,7 +136,7 @@ function Bar:CreatePetbar()
 	local buttonList = {}
 
 	local frame = CreateFrame("Frame", "NDui_ActionBarPet", UIParent, "SecureHandlerStateTemplate")
-	frame.mover = B.Mover(frame, L["Pet Actionbar"], "PetBar", {"BOTTOM", _G.NDui_ActionBar3, "TOP", 0, -margin})
+	frame.mover = B.Mover(frame, L["Pet Actionbar"], "PetBar", {"BOTTOM", _G.NDui_ActionBar3, "TOP", 0, -DB.margin})
 	Bar.movers[9] = frame.mover
 
 	for i = 1, num do

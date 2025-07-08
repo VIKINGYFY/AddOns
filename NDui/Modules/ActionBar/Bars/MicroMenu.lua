@@ -111,7 +111,7 @@ function Bar:MicroMenu_Setup()
 
 	local size = C.db["Actionbar"]["MBSize"]
 	local perRow = C.db["Actionbar"]["MBPerRow"]
-	local margin = C.db["Actionbar"]["MBSpacing"]
+	local margin = DB.margin*2
 
 	for i = 1, #buttonList do
 		local button = buttonList[i]

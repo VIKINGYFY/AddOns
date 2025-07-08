@@ -3,9 +3,16 @@ local ADDON_NAME, ns = ...
 function ns.LoadMapNotesMinimapInfo()
 local minimap = ns.minimap
 
---############################
+--##################################
+--####### Classic MoP minimap ######
+--##################################
+
+minimap[1467] = { } -- Outland
+minimap[998] = { } -- Undercity
+
+--##############################
 --####### Classic minimap ######
---############################
+--##############################
 
 --############################
 --######### Kalimdor #########
@@ -68,11 +75,11 @@ minimap[1436] = { } -- Westfall
 minimap[1437] = { } -- Wettlands
 minimap[1453] = { } -- Stormwind City   
 minimap[1458] = { } -- Undercity Old Version
-minimap[1941] = { } -- Immersang Forrest
+minimap[1941] = { } -- Eversong Woods
 minimap[1942] = { } -- Ghostlands
 minimap[1943] = { } -- Azurmythosinsel
 minimap[1947] = { } -- Exodar
-minimap[1954] = { } -- Sivermoon City
+minimap[1954] = { } -- Silvermoon City
 minimap[1957] = { } -- Isle of Quel'Danas
 
 
@@ -135,7 +142,7 @@ minimap[85] = { } -- Orgrimmar
 minimap[86] = { } -- Ragefire -- of Shadow
 minimap[87] = { } -- Ironforge
 minimap[88] = { } -- Thunder Bluff
-minimap[89] = { } -- Teldrassil
+minimap[89] = { } -- Teldrassil / Darnassus
 minimap[97] = { } -- Azurmythosinsel
 minimap[103] = { } -- Exodar
 minimap[106] = { } -- Blutmythosinsel
