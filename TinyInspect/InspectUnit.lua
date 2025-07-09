@@ -116,7 +116,6 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 	if not parent:IsShown() then return end
 
 	local frame = GetInspectItemListFrame(parent)
-	local r, g, b = B.UnitColor(unit)
 	frame.unit = unit
 
 	local _, specID, specName, specIcon
@@ -138,6 +137,7 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 		frame.iconBG:Hide()
 	end
 
+	local r, g, b = B.UnitColor(unit)
 	frame.title:SetFormattedText("%s（%d）", UnitName(unit), UnitLevel(unit))
 	frame.title:SetTextColor(r, g, b)
 	frame.level:SetFormattedText("%s：%.1f", STAT_AVERAGE_ITEM_LEVEL, ilevel)

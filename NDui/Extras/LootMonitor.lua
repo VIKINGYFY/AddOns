@@ -144,20 +144,19 @@ function LootMonitor:CHAT_MSG_LOOT(event, ...)
 	local itemID, _, _, _, _, itemClassID, itemSubClassID = C_Item.GetItemInfoInstant(itemLink)
 
 	if EX.isCollection(itemID, itemClassID, itemSubClassID) or (EX.isEquipment(itemID, itemClassID) and itemQuality >= minQuality) then
-		local textWidth, maxWidth = 0, 0
 		local lootTime = DB.InfoColor..GameTime_GetGameTime(true).."|r"
 		local lootName = UnitClassColor(string.split("-", lootPlayer))
 
-		local itemExtra, hasStat, hasMisc = B.GetItemExtra(itemLink)
+		local itemInfo, hasStat, hasMisc = B.GetItemExtra(itemLink)
 		if hasStat then
-			itemExtra = "|cff00FF00"..itemExtra.."|r"
+			itemInfo = "|cff00FF00"..itemInfo.."|r"
 		elseif hasMisc then
-			itemExtra = "|cff00FFFF"..itemExtra.."|r"
+			itemInfo = "|cff00FFFF"..itemInfo.."|r"
 		end
 
 		if #self.reports >= maxLines then table.remove(self.reports, 1) end
 
-		table.insert(self.reports, {time = lootTime, name = lootName, link = itemLink, info = itemExtra, player = lootPlayer})
+		table.insert(self.reports, {time = lootTime, name = lootName, link = itemLink, info = itemInfo, player = lootPlayer})
 
 		for index = 1, #self.reports do
 			self.buttons[index].text:SetFormattedText("%s %s %s %s", self.reports[index]["time"], self.reports[index]["name"], self.reports[index]["link"], self.reports[index]["info"])

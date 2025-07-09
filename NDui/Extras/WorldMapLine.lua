@@ -1,9 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-local lineLength = 1000
-local mapID, mapWidth, mapHeight
-
 local MapCanvas = WorldMapFrame:GetCanvas()
 
 local StartPoint = CreateFrame("Frame", nil, MapCanvas)
@@ -23,16 +20,14 @@ Line:SetThickness(DB.margin)
 Line:SetStartPoint("CENTER", StartPoint, "CENTER", 0, 0)
 Line:SetEndPoint("CENTER", EndPoint, "CENTER", 0, 0)
 
-local function MapLine_Update(self)
-	mapID = self:GetMapID()
+local mapID, mapWidth, mapHeight
+local function MapLine_Update()
+	mapID = WorldMapFrame:GetMapID()
 	mapWidth, mapHeight = MapCanvas:GetSize()
 	Line:SetThickness(DB.margin / MapCanvas:GetScale())
 end
 
-hooksecurefunc(WorldMapFrame, "OnFrameSizeChanged", MapLine_Update)
-hooksecurefunc(WorldMapFrame, "OnMapChanged", MapLine_Update)
-
-local function MapLine_OnUpdate(self, elapsed)
+local function MapLine_OnUpdate()
 	if not mapID then Line:Hide() return end
 
 	local position = C_Map.GetPlayerMapPosition(mapID, "player")
@@ -42,8 +37,8 @@ local function MapLine_OnUpdate(self, elapsed)
 
 		local startX = playerX * mapWidth
 		local startY = -playerY * mapHeight
-		local endX = startX + (-math.sin(playerD) * lineLength)
-		local endY = startY - (-math.cos(playerD) * lineLength)
+		local endX = startX + (-math.sin(playerD) * (mapHeight / 2))
+		local endY = startY - (-math.cos(playerD) * (mapHeight / 2))
 
 		B.UpdatePoint(StartPoint, "CENTER", MapCanvas, "TOPLEFT", startX, startY)
 		B.UpdatePoint(EndPoint, "CENTER", MapCanvas, "TOPLEFT", endX, endY)
@@ -55,8 +50,7 @@ local function MapLine_OnUpdate(self, elapsed)
 end
 
 local function MapLine_OnShow()
-	mapID = WorldMapFrame:GetMapID()
-	mapWidth, mapHeight = MapCanvas:GetSize()
+	MapLine_Update()
 
 	if not IsInInstance() and (IsPlayerMoving() or UnitOnTaxi("player")) then
 		LineFrame:SetScript("OnUpdate", MapLine_OnUpdate)
@@ -67,6 +61,9 @@ local function MapLine_OnHide()
 	LineFrame:SetScript("OnUpdate", nil)
 	Line:Hide()
 end
+
+hooksecurefunc(WorldMapFrame, "OnFrameSizeChanged", MapLine_Update)
+hooksecurefunc(WorldMapFrame, "OnMapChanged", MapLine_Update)
 
 WorldMapFrame:HookScript("OnShow", MapLine_OnShow)
 WorldMapFrame:HookScript("OnHide", MapLine_OnHide)

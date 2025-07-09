@@ -1,6 +1,5 @@
-## Changed in v84
+## Changed in v85
 
-* Undermine:
-    * Added the quartermasters to the map
-    * Some rare quest updates (thanks ywi!)
+* Updated for 11.1.7
+* Undermine: fixed the Gobfather's questid so loot will show again
 

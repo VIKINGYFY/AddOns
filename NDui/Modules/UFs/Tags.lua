@@ -259,7 +259,7 @@ oUF.Tags.Events["tarname"] = "UNIT_NAME_UPDATE UNIT_THREAT_LIST_UPDATE UNIT_THRE
 oUF.Tags.Methods["altpower"] = function(unit)
 	local cur, max = UnitPower(unit, ALTERNATE_POWER_INDEX), UnitPowerMax(unit, ALTERNATE_POWER_INDEX)
 
-	return cur > 0 and B.ColorNumb(cur, max)
+	return cur > 0 and B.ColorNumb(cur, max, true)
 end
 oUF.Tags.Events["altpower"] = MP_EVENTS
 

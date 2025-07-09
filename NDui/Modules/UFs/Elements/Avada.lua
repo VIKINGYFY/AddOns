@@ -284,7 +284,7 @@ function UF:Avada_Toggle(frame)
 
 	if C.db["Avada"]["Enable"] then
 		for i = 1, 6 do frame.Avada[i]:Show() end
-		B:RegisterEvent("UNIT_AURA", UF.Avada_OnAura)
+		B:RegisterEvent("UNIT_AURA", UF.Avada_OnAura, "player", "target")
 		frame:RegisterEvent("PLAYER_TARGET_CHANGED", UF.Avada_OnEvent, true)
 		frame:RegisterEvent("SPELL_UPDATE_COOLDOWN", UF.Avada_OnEvent, true)
 		frame:RegisterEvent("SPELL_UPDATE_CHARGES", UF.Avada_OnEvent, true)
