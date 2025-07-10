@@ -12,7 +12,7 @@ permissions: write-all
 
 jobs:
   cleanup:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Delete old Releases and Workflows
         uses: ophub/delete-releases-workflows@main
@@ -38,7 +38,7 @@ jobs:
           zip -r "71_AddOns-${GITHUB_REF#refs/tags/}.zip" . -x "*.git*"
 
       - name: Release AddOns
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@master
         with:
           tag_name: ${{env.TAG_NAME}}
           files: ./*.zip
