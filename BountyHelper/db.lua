@@ -140,7 +140,7 @@ db.bossData = {
     },
     [2070] = { -- Battle of Dazar'alor
         { name = "Mekkatorque", encounterID = 7, killedAtDiff = { [14] = false, [15] = false, [16] = false } },
-        { name = "Lady Jaina Proudmoore", encounterID = 9, killedAtDiff = { [17] = false } },
+        { name = "Lady Jaina Proudmoore", encounterID = 9, killedAtDiff = { [16] = false, [17] = false } },
     },
     [2217] = { -- Ny'alotha, the Waking City
         { name = "N'Zoth the Corruptor", encounterID = 12, killedAtDiff = { [16] = false } },
@@ -277,14 +277,14 @@ db.mountData = {
         { instanceID = 1651, diff = 23, index = 1, chance = 0.9 },
     }},
     [143643] = { journalMountID = 899, dropsBy = {
-        { instanceID = 1676, diff = 17, index = 1, chance = 0.2, lfr = {619, 0.4647, 0.6488, 627}}, { instanceID = 1676, diff = 14, index = 1, chance = 0.2 },
+        { instanceID = 1676, diff = 17, index = 1, chance = 0.2, lfr = {619, 0.4647, 0.6488, 627}, wing = 1494}, { instanceID = 1676, diff = 14, index = 1, chance = 0.2 },
         { instanceID = 1676, diff = 15, index = 1, chance = 0.2 }, { instanceID = 1676, diff = 16, index = 1, chance = 0.2 }
     }},
     [152789] = { journalMountID = 954, dropsBy = {
         { instanceID = 1712, diff = 16, index = 2, chance = 0.8 },
     }},
     [152816] = { journalMountID = 971, dropsBy = {
-        { instanceID = 1712, diff = 17, index = 1, chance = 1.0, lfr = {619, 0.4647, 0.6488, 627}}, { instanceID = 1712, diff = 14, index = 1, chance = 1.0 },
+        { instanceID = 1712, diff = 17, index = 1, chance = 1.0, lfr = {619, 0.4647, 0.6488, 627}, wing = 1610}, { instanceID = 1712, diff = 14, index = 1, chance = 1.0 },
         { instanceID = 1712, diff = 15, index = 1, chance = 1.0 }, { instanceID = 1712, diff = 16, index = 1, chance = 1.0 }
     }},
     [159842] = { journalMountID = 995, dropsBy = {
@@ -297,7 +297,7 @@ db.mountData = {
         { instanceID = 1841, diff = 23, index = 1, chance = 0.7 },
     }},
     [166518] = { journalMountID = 1217, dropsBy = {
-        { instanceID = 2070, diff = 17, index = 2, chance = 2.0, lfr = {{1161, 0.7418, 0.135}, {1164, 0.6859, 0.3042}}}, { instanceID = 2070, diff = 14, index = 1, chance = 2.0 },
+        { instanceID = 2070, diff = 17, index = 2, chance = 2.0, lfr = {{1161, 0.7418, 0.135}, {1164, 0.6859, 0.3042}}, wing = {1947, 1950}}, { instanceID = 2070, diff = 14, index = 1, chance = 2.0 },
         { instanceID = 2070, diff = 15, index = 1, chance = 2.0 }, { instanceID = 2070, diff = 16, index = 1, chance = 2.0 }
     }},
     [166705] = { journalMountID = 1219, dropsBy = {
@@ -317,7 +317,7 @@ db.mountData = {
         { instanceID = 2450, diff = 16, index = 2, chance = 0.4 },
     }},
     [186656] = { journalMountID = 1500, dropsBy = {
-        { instanceID = 2450, diff = 17, index = 1, chance = 0.3, lfr = {1670, 0.4163, 0.711}}, { instanceID = 2450, diff = 14, index = 1, chance = 0.3 },
+        { instanceID = 2450, diff = 17, index = 1, chance = 0.3, lfr = {1670, 0.4163, 0.711}, wing = 2221}, { instanceID = 2450, diff = 14, index = 1, chance = 0.3 },
         { instanceID = 2450, diff = 15, index = 1, chance = 0.3 }, { instanceID = 2450, diff = 16, index = 1, chance = 0.3 }
     }},
     [190768] = { journalMountID = 1587, dropsBy = {

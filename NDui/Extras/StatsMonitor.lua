@@ -104,6 +104,8 @@ function StatsMonitor:PLAYER_LOGIN()
 
 	self.bars = {}
 	for i, v in ipairs(barData) do
+		if self.bars[i] then return end
+
 		local bar = B.CreateSB(self)
 		bar:SetPoint("TOP", self, "TOP", 0, -barHeight - (i - 1) * (barHeight*2))
 		bar:SetMinMaxValues(0, v.limit)

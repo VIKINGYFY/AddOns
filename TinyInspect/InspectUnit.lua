@@ -42,14 +42,11 @@ local function GetInspectItemListFrame(parent)
 		frame.specIcon:SetPoint("TOPLEFT", 16, -16)
 		frame.iconBG = B.ReskinIcon(frame.specIcon)
 
-		frame.specText = B.CreateFS(frame, 14)
-		B.UpdatePoint(frame.specText, "BOTTOM", frame.specIcon, "BOTTOM", 1, 2)
+		frame.name = B.CreateFS(frame, 18)
+		B.UpdatePoint(frame.name, "BOTTOMLEFT", frame.specIcon, "RIGHT", 4, -2)
 
-		frame.title = B.CreateFS(frame, 18)
-		B.UpdatePoint(frame.title, "BOTTOMLEFT", frame.specIcon, "RIGHT", 4, -2)
-
-		frame.level = B.CreateFS(frame, 14)
-		B.UpdatePoint(frame.level, "TOPLEFT", frame.specIcon, "RIGHT", 5, -5)
+		frame.info = B.CreateFS(frame, 14)
+		B.UpdatePoint(frame.info, "TOPLEFT", frame.specIcon, "RIGHT", 5, -5)
 
 		local itemFrame
 		for i, v in ipairs(slots) do
@@ -96,9 +93,9 @@ local function GetInspectItemListFrame(parent)
 			LibEvent:trigger("INSPECT_ITEMFRAME_CREATED", itemFrame)
 		end
 
-		frame.closeButton = B.CreateButton(frame, 18, 18, true, DB.closeTex)
-		frame.closeButton:SetPoint("TOPRIGHT", -6, -6)
-		frame.closeButton:SetScript("OnClick", function(self) self:GetParent():Hide() end)
+		frame.close = B.CreateButton(frame, 18, 18, true, DB.closeTex)
+		frame.close:SetPoint("TOPRIGHT", -6, -6)
+		frame.close:SetScript("OnClick", function(self) self:GetParent():Hide() end)
 
 		frame.bg = B.SetBD(frame)
 
@@ -127,21 +124,20 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 		_, specName, _, specIcon = GetSpecializationInfoByID(specID)
 	end
 	if specIcon then
-		frame.specText:SetText(specName)
 		frame.specIcon:SetTexture(specIcon)
 		frame.specIcon:Show()
 		frame.iconBG:Show()
 	else
-		frame.specText:SetText("")
+		frame.specIcon:SetTexture("")
 		frame.specIcon:Hide()
 		frame.iconBG:Hide()
 	end
 
 	local r, g, b = B.UnitColor(unit)
-	frame.title:SetFormattedText("%s（%d）", UnitName(unit), UnitLevel(unit))
-	frame.title:SetTextColor(r, g, b)
-	frame.level:SetFormattedText("%s：%.1f", STAT_AVERAGE_ITEM_LEVEL, ilevel)
-	frame.level:SetTextColor(1, 1, 0)
+	frame.name:SetFormattedText("%s", UnitName(unit), UnitLevel(unit))
+	frame.name:SetTextColor(r, g, b)
+	frame.info:SetFormattedText("%s - %s - %.1f", specName, UnitLevel(unit), ilevel)
+	frame.info:SetTextColor(1, 1, 0)
 
 	for i, v in ipairs(slots) do
 		local _, level, name, link, quality = LibItemInfo:GetUnitItemInfo(unit, v.index)

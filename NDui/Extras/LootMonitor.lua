@@ -162,7 +162,7 @@ function LootMonitor:CHAT_MSG_LOOT(event, ...)
 			self.buttons[index].text:SetFormattedText("%s %s %s %s", self.reports[index]["time"], self.reports[index]["name"], self.reports[index]["link"], self.reports[index]["info"])
 			self.buttons[index]:Show()
 		end
-
-		self:UpdateSelf()
 	end
+
+	self:UpdateSelf()
 end
