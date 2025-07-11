@@ -35,7 +35,7 @@ jobs:
         run: |
           echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
-          zip -r "71_AddOns-${GITHUB_REF#refs/tags/}.zip" . -x "*.git*"
+          zip -r "71-AddOns-${GITHUB_REF#refs/tags/}.zip" . -x "*.git*"
 
       - name: Release AddOns
         uses: softprops/action-gh-release@master
