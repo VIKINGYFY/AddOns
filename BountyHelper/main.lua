@@ -964,14 +964,9 @@ eventHandlerFrame:SetScript("OnEvent", function(self, event, ...)
         end
 
         for instanceID, bosses in pairs(db.bossData) do
-            EJ_SelectInstance(instanceToMap[instanceID].journalID)
-            if instanceToMap[instanceID].difficultyID then
-                EJ_SetDifficulty(instanceToMap[instanceID].difficultyID)
-                --print(instanceToMap[instanceID].difficultyID)
-            end
             for _, boss in ipairs(bosses) do
                 local ejIndex = boss.encounterID
-                boss.name, _, _, _, _, _, boss.encounterID = EJ_GetEncounterInfoByIndex(ejIndex)
+                boss.name, _, _, _, _, _, boss.encounterID = EJ_GetEncounterInfo(ejIndex)
             end
         end
 

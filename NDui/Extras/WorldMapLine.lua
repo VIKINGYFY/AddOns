@@ -1,7 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-local MapCanvas = WorldMapFrame:GetCanvas()
+local MapCanvas = _G.WorldMapFrame:GetCanvas()
 
 local StartPoint = CreateFrame("Frame", nil, MapCanvas)
 StartPoint:SetSize(1, 1)
@@ -20,11 +20,12 @@ Line:SetThickness(DB.margin)
 Line:SetStartPoint("CENTER", StartPoint, "CENTER", 0, 0)
 Line:SetEndPoint("CENTER", EndPoint, "CENTER", 0, 0)
 
-local mapID, mapWidth, mapHeight
+local mapID, mapWidth, mapHeight, mapScale
 local function MapLine_Update()
-	mapID = WorldMapFrame:GetMapID()
+	mapID = _G.WorldMapFrame:GetMapID()
+	mapScale = MapCanvas:GetScale()
 	mapWidth, mapHeight = MapCanvas:GetSize()
-	Line:SetThickness(DB.margin / MapCanvas:GetScale())
+	Line:SetThickness(DB.margin / mapScale)
 end
 
 local function MapLine_OnUpdate()
@@ -62,8 +63,8 @@ local function MapLine_OnHide()
 	Line:Hide()
 end
 
-hooksecurefunc(WorldMapFrame, "OnFrameSizeChanged", MapLine_Update)
-hooksecurefunc(WorldMapFrame, "OnMapChanged", MapLine_Update)
+hooksecurefunc(_G.WorldMapFrame, "OnCanvasScaleChanged", MapLine_Update)
+hooksecurefunc(_G.WorldMapFrame, "OnMapChanged", MapLine_Update)
 
-WorldMapFrame:HookScript("OnShow", MapLine_OnShow)
-WorldMapFrame:HookScript("OnHide", MapLine_OnHide)
+_G.WorldMapFrame:HookScript("OnShow", MapLine_OnShow)
+_G.WorldMapFrame:HookScript("OnHide", MapLine_OnHide)

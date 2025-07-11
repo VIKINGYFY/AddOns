@@ -72,5 +72,4 @@ function EX:ActionBarGlow()
 	if not EX.ActionBars then return end
 
 	B:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN", EX.ActionBarGlow_OnEvent)
-	B:RegisterEvent("PLAYER_REGEN_ENABLED", EX.ActionBarGlow_OnEvent)
 end

@@ -263,12 +263,12 @@ function M:ItemLevel_FlyoutUpdate(bag, slot, quality)
 	if not self.iLvl then
 		self.iLvl = B.CreateFS(self, DB.Font[2]+1, "", false, "BOTTOM", 0, 0)
 		self.iSlot = B.CreateFS(self, DB.Font[2]+1, "", false, "TOP", 1, -1)
+	else
+		self.iLvl:SetText("")
+		self.iSlot:SetText("")
+		self.iLvl:SetTextColor(1, 1, 1)
+		self.iSlot:SetTextColor(1, 1, 1)
 	end
-
-	self.iLvl:SetText("")
-	self.iSlot:SetText("")
-	self.iLvl:SetTextColor(1, 1, 1)
-	self.iSlot:SetTextColor(1, 1, 1)
 
 	if quality and quality > 1 then
 		local link, level
@@ -279,7 +279,7 @@ function M:ItemLevel_FlyoutUpdate(bag, slot, quality)
 			link = GetInventoryItemLink("player", slot)
 			level = B.GetItemLevel(link, "player", slot)
 		end
-		
+
 		self.iLvl:SetText(level)
 
 		if link then
@@ -297,6 +297,16 @@ end
 function M:ItemLevel_FlyoutSetup()
 	local location = self.location
 	if not location then return end
+
+	if self.iLvl then
+		self.iLvl:SetText("")
+		self.iLvl:SetTextColor(1, 1, 1)
+	end
+
+	if self.iSlot then
+		self.iSlot:SetText("")
+		self.iSlot:SetTextColor(1, 1, 1)
+	end
 
 	if tonumber(location) then
 		if location >= EQUIPMENTFLYOUT_FIRST_SPECIAL_LOCATION then return end
@@ -326,6 +336,9 @@ function M:ItemLevel_ScrappingUpdate()
 	if not self.iLvl then
 		self.iLvl = B.CreateFS(self, DB.Font[2]+1, "", false, "BOTTOMLEFT", 1, 0)
 		self.iSlot = B.CreateFS(self, DB.Font[2]+1, "", false, "TOPRIGHT", 0, -2)
+	else
+		self.iLvl:SetText("")
+		self.iSlot:SetText("")
 	end
 
 	local quality = 1
@@ -338,9 +351,6 @@ function M:ItemLevel_ScrappingUpdate()
 
 		self.iLvl:SetText(level)
 		self.iSlot:SetText(slot)
-	else
-		self.iLvl:SetText("")
-		self.iSlot:SetText("")
 	end
 end
 
@@ -364,6 +374,9 @@ function M:ItemLevel_UpdateMerchant(link)
 	if not self.iLvl then
 		self.iLvl = B.CreateFS(_G[self:GetName().."ItemButton"], DB.Font[2]+1, "", false, "BOTTOMLEFT", 1, 0)
 		self.iSlot = B.CreateFS(_G[self:GetName().."ItemButton"], DB.Font[2]+1, "", false, "TOPRIGHT", 0, -2)
+	else
+		self.iLvl:SetText("")
+		self.iSlot:SetText("")
 	end
 
 	local quality = link and select(3, C_Item.GetItemInfo(link)) or nil
@@ -373,9 +386,6 @@ function M:ItemLevel_UpdateMerchant(link)
 
 		self.iLvl:SetText(level)
 		self.iSlot:SetText(slot)
-	else
-		self.iLvl:SetText("")
-		self.iSlot:SetText("")
 	end
 end
 
@@ -442,7 +452,11 @@ function M:ItemLevel_UpdateLoot()
 			if not button.iLvl then
 				button.iLvl = B.CreateFS(button.Item, DB.Font[2]+1, "", false, "BOTTOMLEFT", 1, 0)
 				button.iSlot = B.CreateFS(button.Item, DB.Font[2]+1, "", false, "TOPRIGHT", 0, -2)
+			else
+				button.iLvl:SetText("")
+				button.iSlot:SetText("")
 			end
+
 			local slotIndex = button:GetSlotIndex()
 			local slotLink = GetLootSlotLink(slotIndex)
 			local quality = select(5, GetLootSlotInfo(slotIndex))
@@ -452,9 +466,6 @@ function M:ItemLevel_UpdateLoot()
 
 				button.iLvl:SetText(level)
 				button.iSlot:SetText(slot)
-			else
-				button.iLvl:SetText("")
-				button.iSlot:SetText("")
 			end
 		end
 	end
@@ -465,6 +476,9 @@ function M:ItemLevel_UpdateBag()
 	if not button.iLvl then
 		button.iLvl = B.CreateFS(button, DB.Font[2]+1, "", false, "BOTTOMLEFT", 1, 0)
 		button.iSlot = B.CreateFS(button, DB.Font[2]+1, "", false, "TOPRIGHT", 0, -2)
+	else
+		button.iLvl:SetText("")
+		button.iSlot:SetText("")
 	end
 
 	local bagID = button.GetBankTabID and button:GetBankTabID() or button:GetBagID()
@@ -478,9 +492,6 @@ function M:ItemLevel_UpdateBag()
 
 		button.iLvl:SetText(level)
 		button.iSlot:SetText(slot)
-	else
-		button.iLvl:SetText("")
-		button.iSlot:SetText("")
 	end
 end
 
