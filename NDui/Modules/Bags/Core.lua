@@ -339,6 +339,7 @@ end
 
 function module:CreateBankButton(f)
 	local bu = B.CreateButton(self, 22, 22, true, 134422)
+	bu:RegisterForClicks("AnyUp")
 	bu:SetScript("OnClick", function()
 		if not C_Bank.CanViewBank(CHAR_BANK_TYPE) then return end
 
@@ -1013,11 +1014,7 @@ function module:OnLogin()
 		B.CreateBD(self, .25)
 		B.ReskinHLTex(self, self)
 
-		local parentFrame = CreateFrame("Frame", nil, self)
-		parentFrame:SetAllPoints()
-		parentFrame:SetFrameLevel(5)
-
-		self.Favourite = parentFrame:CreateTexture(nil, "ARTWORK")
+		self.Favourite = self:CreateTexture(nil, "OVERLAY")
 		self.Favourite:SetAtlas("collections-icon-favorites")
 		self.Favourite:SetSize(30, 30)
 		self.Favourite:SetPoint("TOPLEFT", -12, 9)
@@ -1030,7 +1027,7 @@ function module:OnLogin()
 		self:HookScript("OnClick", module.ButtonOnClick)
 
 		if hasCanIMogIt then
-			self.canIMogIt = parentFrame:CreateTexture(nil, "OVERLAY")
+			self.canIMogIt = self:CreateTexture(nil, "OVERLAY")
 			self.canIMogIt:SetSize(13, 13)
 			self.canIMogIt:SetPoint(unpack(CanIMogIt.ICON_LOCATIONS[CanIMogItOptions["iconLocation"]]))
 		end

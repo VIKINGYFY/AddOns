@@ -1123,7 +1123,6 @@ function G:SetupUnitFrame(parent)
 	}
 
 	local dd = G:CreateDropdown(scroll.child, "", 40, -15, options, nil, 180, 28, true)
-	dd:SetFrameLevel(20)
 	dd.Text:SetText(options[1])
 	dd.panels = {}
 
@@ -1671,7 +1670,6 @@ function G:SetupActionBar(parent)
 	table.insert(options, L["LeaveVehicle"]) -- 10
 
 	local dd = G:CreateDropdown(scroll.child, "", 40, -15, options, nil, 180, 28, true)
-	dd:SetFrameLevel(20)
 	dd.Text:SetText(options[1])
 	dd.panels = {}
 
@@ -1789,7 +1787,6 @@ function G:SetupUFAuras(parent)
 	}
 
 	local dd = G:CreateDropdown(scroll.child, "", 40, -15, options, nil, 180, 28, true)
-	dd:SetFrameLevel(20)
 	dd.Text:SetText(options[1])
 	dd.panels = {}
 
@@ -2371,7 +2368,7 @@ function G:SetupAvada()
 		local bu = B.CreateButton(panel, 30, 30, true)
 		bu:SetPoint("TOPLEFT", 5 + (i-1)*35, -5)
 		bu:SetID(i)
-		B.CreateFS(bu, 20, i, "info")
+		B.CreateFS(bu, 20, i, "info", "CENTER", 0, -1)
 		bu:SetScript("OnClick", buttonSelected)
 		bu:SetScript("OnEnter", showCurrentSpells)
 		bu:SetScript("OnLeave", B.HideTooltip)
@@ -2379,14 +2376,13 @@ function G:SetupAvada()
 		profileButtons[i] = bu
 	end
 
-	local close = B.CreateButton(panel, 30, 30, true, "Interface\\RAIDFRAME\\ReadyCheck-NotReady")
+	local close = B.CreateButton(panel, 30, 30, true, DB.closeTex)
 	close:SetPoint("TOPRIGHT", -5, -5)
 	close:SetScript("OnClick", function()
 		panel:Hide()
 	end)
 
-	local load = B.CreateButton(panel, 30, 30, true, "Atlas:streamcinematic-downloadicon")
-	load.Icon:SetTexCoord(.27, .73, .27, .73)
+	local load = B.CreateButton(panel, 30, 30, true, "Atlas:Garr_Building-AddFollowerPlus")
 	load:SetPoint("LEFT", profileButtons[10], "RIGHT", 5, 0)
 	load.title = L["LoadProfile"]
 	B.AddTooltip(load, "ANCHOR_RIGHT", L["LoadProfileTip"], "info")
@@ -2402,7 +2398,7 @@ function G:SetupAvada()
 		updateProfileButtons()
 	end)
 
-	local save = B.CreateButton(panel, 30, 30, true, "Interface\\RAIDFRAME\\ReadyCheck-Ready")
+	local save = B.CreateButton(panel, 30, 30, true, "Atlas:common-icon-checkmark")
 	save:SetPoint("LEFT", load, "RIGHT", 5, 0)
 	save.title = L["SaveProfile"]
 	B.AddTooltip(save, "ANCHOR_RIGHT", L["SaveProfileTip"], "info")
@@ -2424,9 +2420,8 @@ function G:SetupAvada()
 		NDuiADB["AvadaProfile"][currentSpecID][currentID] = str ~= "" and str or nil
 	end)
 
-	local undo = B.CreateButton(panel, 30, 30, true, "Atlas:common-icon-undo")
+	local undo = B.CreateButton(panel, 30, 30, true, "Atlas:common-icon-redx")
 	undo:SetPoint("LEFT", save, "RIGHT", 5, 0)
-	undo.Icon:SetInside(undo, 2, 2)
 	undo.title = L["ClearProfile"]
 	B.AddTooltip(undo, "ANCHOR_RIGHT", L["ClearProfileTip"], "info")
 	undo:SetScript("OnClick", function()
@@ -2515,13 +2510,13 @@ function G:SetupAvada()
 		StaticPopup_Hide("NDUI_AVADA_IMPORT")
 	end)
 
-	local export = B.CreateButton(panel, 30, 30, true,  DB.arrowTex.."up")
+	local export = B.CreateButton(panel, 30, 30, true,  DB.arrowTex.."max")
 	export:SetPoint("LEFT", undo, "RIGHT", 5, 0)
 	export:SetScript("OnClick", exportAvadaStyle)
 	export.title = L["Export"]
 	B.AddTooltip(export, "ANCHOR_RIGHT")
 
-	local import = B.CreateButton(panel, 30, 30, true, DB.arrowTex.."down")
+	local import = B.CreateButton(panel, 30, 30, true, DB.arrowTex.."min")
 	import:SetPoint("LEFT", export, "RIGHT", 5, 0)
 	import:SetScript("OnClick", importAvadaStyle)
 	import.title = L["Import"]
@@ -2551,13 +2546,11 @@ function G:SetupAvada()
 		parent.options = {}
 
 		local unitOption = G:CreateDropdown(parent, L["Unit*"], 1, 1, unitOptions, L["AvadaUnitOptionTip"], 88, 28)
-		unitOption:SetFrameLevel(20)
 		unitOption:ClearAllPoints()
 		unitOption:SetPoint("TOP", parent, "BOTTOM", 0, -30)
 		parent.options[1] = unitOption
 
 		local typeOption = G:CreateDropdown(parent, L["Type*"], 1, 1, typeOptions, L["AvadaTypeOptionTip"], 88, 28)
-		typeOption:SetFrameLevel(20)
 		typeOption:ClearAllPoints()
 		typeOption:SetPoint("TOP", parent, "BOTTOM", 0, -90)
 		parent.options[2] = typeOption

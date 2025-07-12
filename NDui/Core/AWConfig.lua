@@ -120,14 +120,13 @@ local function CreatePanel()
 
 	-- Structure
 	f = CreateFrame("Frame", "NDui_AWConfig", UIParent)
+	f:SetFrameStrata("HIGH")
 	f:SetPoint("CENTER")
 	f:SetSize(800, 500)
 	B.SetBD(f)
 	B.CreateMF(f)
 	B.CreateFS(f, 17, L["AWConfig Title"], true, "TOP", 0, -10)
 	B.CreateFS(f, 15, L["Groups"], true, "TOPLEFT", 30, -50)
-	f:SetFrameStrata("HIGH")
-	f:SetFrameLevel(5)
 	table.insert(UISpecialFrames, "NDui_AWConfig")
 
 	local helpInfo = B.CreateHelpInfo(f, L["AWConfigTips"])

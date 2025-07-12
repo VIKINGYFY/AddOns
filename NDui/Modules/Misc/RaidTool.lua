@@ -13,7 +13,6 @@ end
 function M:RaidTool_Header()
 	local frame = CreateFrame("Button", nil, UIParent)
 	frame:SetSize(120, 28)
-	frame:SetFrameLevel(2)
 	B.ReskinMenuButton(frame)
 	B.Mover(frame, L["Raid Tool"], "RaidManager", C.Skins.RMPos)
 

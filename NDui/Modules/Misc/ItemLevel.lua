@@ -43,7 +43,6 @@ function M:CreateItemTexture(slot, relF, x, y)
 	icon:SetSize(14, 14)
 	icon:SetTexCoord(unpack(DB.TexCoord))
 	icon.bg = B.ReskinIcon(icon)
-	icon.bg:SetFrameLevel(3)
 	icon.bg:Hide()
 
 	return icon
@@ -174,8 +173,6 @@ function M:ItemLevel_UpdateInfo(slotFrame, info, upgradeInfo, quality)
 				texture:SetTexture(gem)
 				if color then
 					bg:SetBackdropBorderColor(color.r, color.g, color.b)
-				else
-					B.SetBorderColor(bg)
 				end
 				bg:Show()
 
@@ -186,8 +183,6 @@ function M:ItemLevel_UpdateInfo(slotFrame, info, upgradeInfo, quality)
 				local b = essence[6]
 				if r and g and b then
 					bg:SetBackdropBorderColor(r, g, b)
-				else
-					B.SetBorderColor(bg)
 				end
 
 				local selected = essence[1]
@@ -225,6 +220,7 @@ function M:ItemLevel_SetupLevel(frame, strType, unit)
 			slotFrame.iSlotText:SetTextColor(1, 1, 1)
 			for i = 1, 10 do
 				local texture = slotFrame["textureIcon"..i]
+				B.SetBorderColor(texture.bg)
 				texture:SetTexture(nil)
 				texture.bg:Hide()
 			end

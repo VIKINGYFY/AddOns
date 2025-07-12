@@ -1643,19 +1643,22 @@ do
 		dd:SetSize(width, height)
 		B.CreateBD(dd, 0)
 		B.CreateGradient(dd)
+
 		dd.Text = B.CreateFS(dd, 14, "", false, "LEFT", 5, 0)
 		dd.Text:SetPoint("RIGHT", -5, 0)
 		dd.options = {}
 
 		local bu = CreateFrame("Button", nil, dd)
 		bu:SetPoint("RIGHT", -5, 0)
-		B.ReskinArrow(bu, "down")
 		bu:SetSize(18, 18)
+		B.ReskinArrow(bu, "down")
+
 		local list = CreateFrame("Frame", nil, dd, "BackdropTemplate")
 		list:SetPoint("TOP", dd, "BOTTOM", 0, -2)
-		RaiseFrameLevel(list)
-		B.CreateBD(list, 1)
+		list:SetFrameLevel(dd:GetFrameLevel() + 3)
 		list:Hide()
+		B.CreateBD(list, 1)
+
 		bu.__list = list
 		bu:SetScript("OnShow", buttonOnShow)
 		bu:SetScript("OnClick", buttonOnClick)

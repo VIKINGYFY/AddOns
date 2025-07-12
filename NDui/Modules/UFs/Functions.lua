@@ -669,15 +669,12 @@ function UF:CreateCastBar(self)
 	cb.castTicks = {}
 
 	if mystyle == "player" then
-		cb:SetFrameLevel(10)
 		cb:SetSize(C.db["UFs"]["PlayerCBWidth"], C.db["UFs"]["PlayerCBHeight"])
 		createBarMover(cb, L["Player Castbar"], "PlayerCB", C.UFs.PlayerCB)
 	elseif mystyle == "target" then
-		cb:SetFrameLevel(10)
 		cb:SetSize(C.db["UFs"]["TargetCBWidth"], C.db["UFs"]["TargetCBHeight"])
 		createBarMover(cb, L["Target Castbar"], "TargetCB", C.UFs.TargetCB)
 	elseif mystyle == "focus" then
-		cb:SetFrameLevel(10)
 		cb:SetSize(C.db["UFs"]["FocusCBWidth"], C.db["UFs"]["FocusCBHeight"])
 		createBarMover(cb, L["Focus Castbar"], "FocusCB", C.UFs.FocusCB)
 	elseif mystyle == "boss" or mystyle == "arena" then
@@ -707,7 +704,6 @@ function UF:CreateCastBar(self)
 		safeZone:SetVertexColor(1, 0, 0, .5)
 		safeZone:SetPoint("TOPRIGHT")
 		safeZone:SetPoint("BOTTOMRIGHT")
-		cb:SetFrameLevel(10)
 		cb.SafeZone = safeZone
 
 		UF:ToggleCastBarLatency(self)
@@ -1687,8 +1683,7 @@ end
 function UF:CreateFCT(self)
 	if not C.db["UFs"]["CombatText"] then return end
 
-	local parentFrame = CreateFrame("Frame", nil, UIParent)
-	local fcf = CreateFrame("Frame", "$parentCombatTextFrame", parentFrame)
+	local fcf = CreateFrame("Frame", "$parentCombatTextFrame", UIParent)
 	fcf:SetSize(32, 32)
 	if self.mystyle == "player" then
 		B.Mover(fcf, L["CombatText"], "PlayerCombatText", {"BOTTOM", self, "TOPLEFT", 0, 120})
@@ -1697,10 +1692,10 @@ function UF:CreateFCT(self)
 	end
 
 	for i = 1, 36 do
-		fcf[i] = B.CreateFS(parentFrame, C.db["UFs"]["FCTFontSize"], "")
+		fcf[i] = B.CreateFS(fcf, C.db["UFs"]["FCTFontSize"], "")
 	end
 
-	local scrolling = CreateFrame("ScrollingMessageFrame", "$parentCombatTextScrollingFrame", parentFrame)
+	local scrolling = CreateFrame("ScrollingMessageFrame", "$parentCombatTextScrollingFrame", fcf)
 	scrolling:SetSpacing(3)
 	scrolling:SetMaxLines(20)
 	scrolling:SetFadeDuration(.2)

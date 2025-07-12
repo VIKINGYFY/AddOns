@@ -107,7 +107,7 @@ function module:ReskinRegions()
 	QueueStatusButton:SetParent(Minimap)
 	QueueStatusButton:ClearAllPoints()
 	QueueStatusButton:SetPoint("BOTTOMLEFT", Minimap, "BOTTOMLEFT", -5, -5)
-	QueueStatusButton:SetFrameLevel(999)
+	QueueStatusButton:SetFrameStrata("HIGH")
 	QueueStatusButton:SetSize(33, 33)
 	QueueStatusButtonIcon:SetAlpha(0)
 	QueueStatusFrame:ClearAllPoints()
@@ -175,7 +175,7 @@ function module:ReskinRegions()
 	if indicatorFrame then
 		updateMapAnchor(indicatorFrame)
 		hooksecurefunc(indicatorFrame, "SetPoint", updateMapAnchor)
-		indicatorFrame:SetFrameLevel(11)
+		indicatorFrame:SetFrameStrata("HIGH")
 	end
 
 	-- Invites Icon
@@ -219,7 +219,7 @@ function module:BlizzardACF()
 	else
 		frame:ClearAllPoints()
 		frame:SetPoint("BOTTOMRIGHT", Minimap, -26, 2)
-		frame:SetFrameLevel(999)
+		frame:SetFrameStrata("HIGH")
 		B.StripTextures(frame)
 		B.SetBD(frame)
 	end
@@ -257,7 +257,7 @@ function module:RecycleBin()
 	bu.Icon:SetTexture(DB.binTex)
 	bu:SetHighlightTexture(DB.binTex)
 	bu.title = DB.InfoColor..L["Minimap RecycleBin"]
-	bu:SetFrameLevel(999)
+	bu:SetFrameStrata("HIGH")
 	B.AddTooltip(bu, "ANCHOR_LEFT")
 	updateRecycleTip(bu)
 
@@ -505,7 +505,7 @@ function module:ShowMinimapClock()
 			TimeManagerClockButton:DisableDrawLayer("BORDER")
 			TimeManagerClockButton:ClearAllPoints()
 			TimeManagerClockButton:SetPoint("BOTTOM", Minimap, "BOTTOM", 0, -2)
-			TimeManagerClockButton:SetFrameLevel(10)
+			TimeManagerClockButton:SetFrameStrata("HIGH")
 			TimeManagerClockTicker:SetFont(unpack(DB.Font))
 			TimeManagerClockTicker:SetTextColor(1, 1, 1)
 
@@ -551,7 +551,7 @@ function module:SoundVolume()
 
 	local f = CreateFrame("Frame", nil, Minimap)
 	f:SetAllPoints()
-	f:SetFrameLevel(999)
+	f:SetFrameStrata("HIGH")
 	local text = B.CreateFS(f, 30)
 
 	local anim = f:CreateAnimationGroup()
@@ -642,7 +642,7 @@ function module:SetupMinimap()
 	if C.db["Map"]["DisableMinimap"] then return end
 
 	-- Shape and Position
-	Minimap:SetFrameLevel(10)
+	Minimap:SetFrameStrata("HIGH")
 	Minimap:SetMaskTexture("Interface\\Buttons\\WHITE8X8")
 	DropDownList1:SetClampedToScreen(true)
 

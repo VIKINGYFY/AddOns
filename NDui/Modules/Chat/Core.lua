@@ -54,8 +54,8 @@ end
 
 local function GradientBackground(self)
 	local frame = CreateFrame("Frame", nil, self)
-	frame:SetOutside(self.Background)
 	frame:SetFrameLevel(0)
+	frame:SetOutside(self.Background)
 	frame:SetShown(C.db["Chat"]["ChatBGType"] == 3)
 
 	local tex = B.SetGradient(frame, "H", 0, 0, 0, DB.alpha, 0)

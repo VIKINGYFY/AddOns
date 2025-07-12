@@ -186,7 +186,7 @@ function Bar:MicroMenu()
 		QueueStatusButton:SetParent(Minimap)
 		QueueStatusButton:ClearAllPoints()
 		QueueStatusButton:SetPoint("BOTTOMLEFT", Minimap, "BOTTOMLEFT", 30, -10)
-		QueueStatusButton:SetFrameLevel(5)
+		QueueStatusButton:SetFrameStrata("HIGH")
 		QueueStatusButton:SetScale(.9)
 	end
 

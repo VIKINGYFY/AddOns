@@ -49,21 +49,19 @@ function module:UpdateMapID()
 end
 
 function module:SetupCoords()
-	local textParent = CreateFrame("Frame", nil, WorldMapFrame)
-	textParent:SetPoint("BOTTOMRIGHT", WorldMapFrame.ScrollContainer, "BOTTOMRIGHT", -30, 8)
-	textParent:SetSize(1, 18)
-	textParent:SetFrameLevel(5)
-	B.SetGradient(textParent, "H", 0, 0, 0, 0, DB.alpha, 350, 18):SetPoint("RIGHT")
+	local parentFrame = CreateFrame("Frame", nil, WorldMapFrame)
+	parentFrame:SetPoint("BOTTOMRIGHT", WorldMapFrame.ScrollContainer, "BOTTOMRIGHT", -30, 8)
+	parentFrame:SetFrameStrata("HIGH")
+	parentFrame:SetSize(1, 18)
+	B.SetGradient(parentFrame, "H", 0, 0, 0, 0, DB.alpha, 350, 18):SetPoint("RIGHT")
 
-	playerCoords = B.CreateFS(textParent, 14, "", false, "RIGHT", -10, 0)
-	cursorCoords = B.CreateFS(textParent, 14, "", false, "RIGHT", -185, 0)
-	WorldMapFrame.BorderFrame.Tutorial:SetPoint("TOPLEFT", WorldMapFrame, "TOPLEFT", -12, -12)
+	playerCoords = B.CreateFS(parentFrame, 14, "", false, "RIGHT", -10, 0)
+	cursorCoords = B.CreateFS(parentFrame, 14, "", false, "RIGHT", -185, 0)
 
 	hooksecurefunc(WorldMapFrame, "OnFrameSizeChanged", module.UpdateMapID)
 	hooksecurefunc(WorldMapFrame, "OnMapChanged", module.UpdateMapID)
 
-	local CoordsUpdater = CreateFrame("Frame", nil, WorldMapFrame.BorderFrame)
-	CoordsUpdater:SetScript("OnUpdate", module.UpdateCoords)
+	parentFrame:SetScript("OnUpdate", module.UpdateCoords)
 end
 
 function module:UpdateMapScale()
@@ -239,6 +237,9 @@ function module:SetupWorldMap()
 	WorldMapFrame.BlackoutFrame:SetAlpha(0)
 	WorldMapFrame.BlackoutFrame:EnableMouse(false)
 	--QuestMapFrame:SetScript("OnHide", nil) -- fix map toggle taint -- fix by LibShowUIPanel
+
+	WorldMapFrame.BorderFrame.Tutorial:ClearAllPoints()
+	WorldMapFrame.BorderFrame.Tutorial:SetPoint("TOPLEFT", WorldMapFrame, "TOPLEFT", -12, -12)
 
 	self:WorldMapScale()
 	self:SetupCoords()
