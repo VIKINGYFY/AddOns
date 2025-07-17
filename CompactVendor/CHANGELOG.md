@@ -1,8 +1,15 @@
 # CompactVendor
 
-## [v11.1.7.250716](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.7.250716) (2025-07-16)
-[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.7.250716) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
+## [v11.1.7.250717](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.7.250717) (2025-07-17)
+[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.7.250717) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
 
+- The merchant filter event is too costly, so we do like the default UI does it, just queue a full update to occur later once the events settle.  
+    This primarily affects merchants with a lot of items, like renown quartermasters, timewalking vendor, etc. And it only occurs the first time the merchant frame is opened, as the client caches the data until you properly logout and back in again.  
+- TOC bump  
+- Merchant filter needs to track the updatesd on a per-item basis and not just as "the last one gets updated" like it previously was.  
+    This wasn't really noticeable as long a full update was performed, which often happens once filter events settle, but still it could lead to some oddities.  
+    Added a loading spinner when the frame shows until it is done loading data. Would only affect the frame when initially shown as the server needs a bit of time to send data to the client.  
+    Added status text when the vendor has no items to sell, or is filtered by the filter system, so the user knows it's empty and not that it's waiting to load data (though the spinner now helps cover the loading aspect).  
 - TOC updates  
 - Minor doc updates.  
     Updated the stat filter to accumulate multiple checks so that all items matching all the checked boxes appear in the list.  
@@ -75,6 +82,3 @@
 - Even with no tooltip scanning we can still show the data, even in Classic. Need to implement scanning for proper filtering support.  
 - Added TOC files for the other clients.  
 - Added classic era fixes. Tooltip scanning is currently not functional.  
-- TOC bump  
-- Added 10.1 adjustments.  
-- TOC bump and small fix for 10.1  
