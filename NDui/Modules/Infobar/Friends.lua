@@ -13,7 +13,7 @@ local CLIENT_WOW_DIFF = "WoV" -- for sorting
 
 local infoFrame, updateRequest, prevTime
 local friendTable, bnetTable = {}, {}
-local activeZone, inactiveZone = "|cff4CFF4C", DB.GreyColor
+local activeZone, inactiveZone = DB.GreenColor, DB.GreyColor
 local noteString = "|T"..DB.copyTex..":12|t %s"
 local broadcastString = "|TInterface\\FriendsFrame\\BroadcastIcon:12|t %s (%s)"
 local onlineString = string.gsub(ERR_FRIEND_ONLINE_SS, ".+h", "")
@@ -431,7 +431,7 @@ function info:FriendsPanel_UpdateButton(button)
 	if index <= onlineFriends then
 		local name, level, class, area, status = unpack(friendTable[index])
 		button.status:SetTexture(status)
-		local zoneColor = GetRealZoneText() == area and activeZone or inactiveZone
+		local zoneColor = GetAreaText() == area and activeZone or inactiveZone
 		local levelColor = B.HexRGB(GetQuestDifficultyColor(level))
 		local classColor = DB.ClassColors[class] or levelColor
 		button.name:SetText(format("%s%s|r %s%s", levelColor, level, B.HexRGB(classColor), name))
@@ -450,7 +450,7 @@ function info:FriendsPanel_UpdateButton(button)
 		if client == BNET_CLIENT_WOW then
 			local classColor = DB.ClassColors[class] or GetQuestDifficultyColor(1)
 			name = B.HexRGB(classColor)..charName
-			zoneColor = GetRealZoneText() == infoText and activeZone or inactiveZone
+			zoneColor = GetAreaText() == infoText and activeZone or inactiveZone
 		end
 		button.name:SetText(format("%s%s|r (%s|r)", DB.InfoColor, accountName, name))
 		button.zone:SetText(format("%s%s", zoneColor, infoText))
@@ -519,19 +519,18 @@ function info:FriendsPanel_Refresh()
 end
 
 info.eventList = {
-	"BN_FRIEND_ACCOUNT_ONLINE",
+	"BN_CONNECTED",
+	"BN_DISCONNECTED",
 	"BN_FRIEND_ACCOUNT_OFFLINE",
+	"BN_FRIEND_ACCOUNT_ONLINE",
 	"BN_FRIEND_INFO_CHANGED",
+	"BN_INFO_CHANGED",
+	"BN_REQUEST_FOF_SUCCEEDED",
+	"CHAT_MSG_BN",
 	"FRIENDLIST_UPDATE",
-	"PLAYER_ENTERING_WORLD",
-	"CHAT_MSG_SYSTEM",
 }
 
 info.onEvent = function(self, event, arg1)
-	if event == "CHAT_MSG_SYSTEM" then
-		if not string.find(arg1, onlineString) and not string.find(arg1, offlineString) then return end
-	end
-
 	info:FriendsPanel_Refresh()
 	self.text:SetFormattedText("%s: %s", FRIENDS, DB.MyColor..info.totalOnline)
 

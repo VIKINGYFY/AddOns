@@ -1143,44 +1143,33 @@ if not db.activate.HideMapNote then
     
           -- Khaz Algar Dungeons
             if self.db.profile.showContinentDungeons then
-              nodes[2274][57814889] = { id = 1210, type = "Dungeon", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Darkflame Cleft
-              nodes[2274][35095289] = { id = 1267, type = "Dungeon", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Priory of the Sacred Flame
-              nodes[2274][40465803] = { id = 1270, type = "Dungeon", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Dawnbreaker
-              nodes[2274][53004397] = { id = 1269, type = "Dungeon", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Stonevault
-              nodes[2274][52715561] = { id = 1298, type = "Dungeon", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Operation: Floodgate
-              nodes[2274][70301908] = { id = 1268, type = "Dungeon", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Rookery
-              nodes[2274][84362059] = { id = 1272, type = "Dungeon", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Cinderbrew Meadery
-              nodes[2274][43337984] = { id = 1274, type = "Dungeon", showOnContinent = true, showInZone = true, showOnMinimap = false } -- City of Threads
-              nodes[2274][44338372] = { id = 1271, type = "Dungeon", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Ara-Kara, City of Echoes
+              nodes[2274][57814889] = { id = 1210, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Darkflame Cleft
+              nodes[2274][35095289] = { id = 1267, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Priory of the Sacred Flame
+              nodes[2274][40465803] = { id = 1270, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- The Dawnbreaker
+              nodes[2274][53004397] = { id = 1269, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- The Stonevault
+              nodes[2274][52715561] = { id = 1298, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Operation: Floodgate
+              nodes[2274][70301908] = { id = 1268, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- The Rookery
+              nodes[2274][84362059] = { id = 1272, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Cinderbrew Meadery
+              nodes[2274][43337984] = { id = 1274, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- City of Threads
+              nodes[2274][44338372] = { id = 1271, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Ara-Kara, City of Echoes
+
+              if ns.version == "11.2.0" then -- PTR
+              nodes[2274][24392389] = { id = 1303, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Eco-Dome Al'dani
+              nodes[2274][24391549] = { id = 1194, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Tazavesh, the Veiled Market
+              end
             end
       
           -- Khaz Algar Raids
             if self.db.profile.showContinentRaids then
               nodes[2274][42188673] = { id = 1273, type = "Raid"}  -- Nerub-ar Palace
               nodes[2274][41469096] = { id = 1273, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Nerub-ar Palace     
-              nodes[2274][82217245] = { id = 1296, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Liberation of Undermine   
-            end
+              nodes[2274][82217245] = { id = 1296, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Liberation of Undermine  
 
-          -- Khaz Algar Delves
-            --if self.db.profile.showContinentDelves then
-            --  -- Azj-Kathet
-            --  nodes[2274][46088109] = { name = "", TransportName = DELVE_LABEL, delveID = 2259, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Tak-Rethan-Abyss
-            --  nodes[2274][45458627] = { name = "", TransportName = DELVE_LABEL, delveID = 2299, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Underkeep
-            --  nodes[2274][38868203] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Zekvir's Lair
-            --  nodes[2274][42946320] = { name = "", TransportName = DELVE_LABEL, delveID = 2347, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Spiral Weave
-            --  -- Hallowfall
-            --  nodes[2274][47174554] = { name = "", TransportName = DELVE_LABEL, delveID = 2312, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Mycomancer Cavern
-            --  nodes[2274][44825825] = { name = "", TransportName = DELVE_LABEL, delveID = 2310, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Skittering Breach
-            --  nodes[2274][39015449] = { name = "", TransportName = DELVE_LABEL, delveID = 2301, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Sinkhole
-            --  nodes[2274][32425213] = { name = "", TransportName = DELVE_LABEL, delveID = 2277, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Nightfall Sanctum
-            --  -- The Ringing Deeps
-            --  nodes[2274][52355778] = { name = "", TransportName = DELVE_LABEL, delveID = 2251, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Waterworks
-            --  nodes[2274][61935331] = { name = "", TransportName = DELVE_LABEL, delveID = 2302, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- The Dread Pit
-            --  -- Isle of Dorn
-            --  nodes[2274][67273401] = { name = "", TransportName = DELVE_LABEL, delveID = 2269, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Earthcrawl Mines
-            --  nodes[2274][73383036] = { name = "", TransportName = DELVE_LABEL, delveID = 2249, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Fungal Folly
-            --  nodes[2274][77712035] = { name = "", TransportName = DELVE_LABEL, delveID = 2250, type = "Delves", showOnContinent = true, showInZone = true, showOnMinimap = false } -- Kriegval's Rest
-            --end
+              if ns.version == "11.2.0" then -- PTR
+                nodes[2274][17931205] = { id = 1302, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Manaforge Omega
+              end
+
+            end
 
           -- Khaz Algar MapNotesIcons
             if self.db.profile.showContinentMapNotes then
@@ -1194,7 +1183,6 @@ if not db.activate.HideMapNote then
               
               end
             end
-      
       
           -- Khaz Algar Portals
             if self.db.profile.showContinentPortals then

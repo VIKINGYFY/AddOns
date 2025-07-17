@@ -41,11 +41,8 @@ function TT:UpdateFactionLine(lineData)
 	if linetext == PVP then
 		return true
 	elseif FACTION_COLORS[linetext] then
-		if C.db["Tooltip"]["FactionIcon"] then
-			return true
-		else
-			lineData.leftText = format(FACTION_COLORS[linetext], linetext)
-		end
+		return true
+		--lineData.leftText = format(FACTION_COLORS[linetext], linetext)
 	elseif unitClass and string.find(linetext, unitClass) then
 		lineData.leftText = string.gsub(linetext, "(.-)%S+$", replaceSpecInfo)
 	elseif unitCreature and linetext == unitCreature then
@@ -73,34 +70,23 @@ function TT:GetTarget(unit)
 end
 
 function TT:InsertFactionFrame(faction)
-	if not self.factionFrame then
+	if not self.factionLogo then
 		local f = self:CreateTexture(nil, "OVERLAY")
 		f:SetPoint("RIGHT", self, "RIGHT", 25, 0)
 		f:SetBlendMode("ADD")
 		f:SetScale(.4)
 		f:SetAlpha(.6)
-		self.factionFrame = f
+		self.factionLogo = f
 	end
-	self.factionFrame:SetTexture("Interface\\Timer\\"..faction.."-Logo")
-	self.factionFrame:Show()
-end
-
-function TT:InsertRoleFrame(role)
-	if not self.roleFrame then
-		local f = self:CreateTexture(nil, "OVERLAY")
-		f:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -6, 6)
-		f:SetSize(24, 24)
-		self.roleFrame = f
-	end
-	B.ReskinSmallRole(self.roleFrame, role)
-	self.roleFrame:Show()
+	self.factionLogo:SetTexture("Interface\\Timer\\"..faction.."-Logo")
+	self.factionLogo:Show()
 end
 
 function TT:OnTooltipCleared()
 	if self:IsForbidden() then return end
 
-	if self.factionFrame and self.factionFrame:IsShown() then
-		self.factionFrame:Hide()
+	if self.factionLogo and self.factionLogo:IsShown() then
+		self.factionLogo:Hide()
 	end
 	if self.roleFrame and self.roleFrame:IsShown() then
 		self.roleFrame:Hide()
@@ -163,18 +149,19 @@ function TT:OnTooltipSetUnit()
 	if isPlayer then
 		local name, realm = UnitName(unit)
 		unitFullName = name.."-"..(realm or DB.MyRealm)
+
 		local pvpName = UnitPVPName(unit)
-		local relationship = UnitRealmRelationship(unit)
-		if not C.db["Tooltip"]["HideTitle"] and pvpName and pvpName ~= "" then
+		if pvpName and pvpName ~= "" then
 			name = pvpName
 		end
+
+		local relationship = UnitRealmRelationship(unit)
 		if realm and realm ~= "" then
-			if isShiftKeyDown or not C.db["Tooltip"]["HideRealm"] then
-				name = name.."-"..realm
-			elseif relationship == LE_REALM_RELATION_COALESCED then
-				name = name..FOREIGN_SERVER_LABEL
+			name = name.."-"..realm
+			if relationship == LE_REALM_RELATION_COALESCED then
+				name = name..DB.InfoColor..FOREIGN_SERVER_LABEL.."|r"
 			elseif relationship == LE_REALM_RELATION_VIRTUAL then
-				name = name..INTERACTIVE_SERVER_LABEL
+				name = name..DB.GreenColor..INTERACTIVE_SERVER_LABEL.."|r"
 			end
 		end
 
@@ -184,39 +171,34 @@ function TT:OnTooltipSetUnit()
 		end
 		GameTooltipTextLeft1:SetFormattedText("%s", name..(status or ""))
 
-		if C.db["Tooltip"]["FactionIcon"] then
-			local faction = UnitFactionGroup(unit)
-			if faction and faction ~= "Neutral" then
-				TT.InsertFactionFrame(self, faction)
-			end
+		local faction = UnitFactionGroup(unit)
+		if faction and faction ~= "Neutral" then
+			TT.InsertFactionFrame(self, faction)
 		end
 
-		if C.db["Tooltip"]["LFDRole"] then
-			local role = UnitGroupRolesAssigned(unit)
-			if role ~= "NONE" then
-				TT.InsertRoleFrame(self, role)
-			end
-		end
-
+		local guildInfo
 		local guildName, rank, rankIndex, guildRealm = GetGuildInfo(unit)
 		local hasText = GameTooltipTextLeft2:GetText()
 		if guildName and hasText then
 			local myGuild, _, _, myGuildRealm = GetGuildInfo("player")
 			if IsInGuild() and guildName == myGuild and guildRealm == myGuildRealm then
-				GameTooltipTextLeft2:SetTextColor(.25, 1, .25)
+				GameTooltipTextLeft2:SetTextColor(0, 1, 0)
 			else
 				GameTooltipTextLeft2:SetTextColor(0, 1, 1)
 			end
 
+			if guildRealm then
+				guildName = guildName.." - "..guildRealm
+			end
+
 			rankIndex = rankIndex + 1
-			if C.db["Tooltip"]["HideRank"] then rank = "" end
-			if guildRealm and isShiftKeyDown then
-				guildName = guildName.."-"..guildRealm
+			guildInfo = format("<%s> %s(%s)", guildName, rank, rankIndex)
+
+			if string.len(guildInfo) > 64 then
+				guildInfo = L["Hold Shift"]..GUILD_INFORMATION
 			end
-			if C.db["Tooltip"]["HideJunkGuild"] and not isShiftKeyDown then
-				if string.len(guildName) > 31 then guildName = "..." end
-			end
-			GameTooltipTextLeft2:SetText("<"..guildName.."> "..rank.."("..rankIndex..")")
+
+			GameTooltipTextLeft2:SetText(guildInfo)
 		end
 	end
 

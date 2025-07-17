@@ -205,6 +205,7 @@ if not db.activate.HideMapNote then
             nodes[761][05476847] = { mnID = 680, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Court of Stars
             nodes[761][41877597] = { mnID = 680, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Court of Stars
             nodes[764][25518846] = { mnID = 680, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- The Nighthold
+            nodes[765][34772536] = { mnID = 680, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- The Nighthold
             nodes[777][42315825] = { mnID = 641, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- The Emerald Nightmare
             nodes[807][51570575] = { mnID = 634, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Trial of Valor
             nodes[845][46639166] = { mnID = 646, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Cathedral of Eternal Night
@@ -249,7 +250,7 @@ if not db.activate.HideMapNote then
             nodes[1692][40586445] = { mnID = 1533, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Spires of Ascension
             nodes[1735][34468069] = { mnID = 1525, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Castle Nathria
             nodes[1998][29478607] = { mnID = 1543, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Sanctum of Domination
-            nodes[1989][90914372] = { mnID = 2016, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Tazavesh, the Veiled Market
+            nodes[1989][90914372] = { mnID = 2472, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Tazavesh, the Veiled Market
             nodes[2047][07465150] = { mnID = 1970, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Sepulcher of the First Ones
             nodes[2051][61467473] = { mnID = 1970, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Sepulcher of the First Ones
 
@@ -301,7 +302,9 @@ if not db.activate.HideMapNote then
             nodes[2250][31962673] = { mnID = 2248, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Kriegval's Rest
             -- Undermine
             nodes[2423][48926758] = { mnID = 2346, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Sidestreet Sluice
-
+            -- K'aresh
+            nodes[2460][76760961] = { mnID = 2371, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Manaforge Omega
+            nodes[2449][81785036] = { mnID = 2371, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Bio Al'dani
           end
     
     

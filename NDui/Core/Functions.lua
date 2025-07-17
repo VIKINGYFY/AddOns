@@ -2055,7 +2055,6 @@ do
 
 		B.SetBorderColor(self.bg)
 
-		if not C.db["Tooltip"]["ItemQuality"] then return end
 		local data = self.GetTooltipData and self:GetTooltipData()
 		if data then
 			local link = data.guid and C_Item.GetItemLinkByGUID(data.guid) or data.hyperlink

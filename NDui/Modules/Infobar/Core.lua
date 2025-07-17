@@ -2,33 +2,18 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local INFO = B:RegisterModule("Infobar")
 
-local GOLD_AMOUNT_SYMBOL = format("|cffFFD700%s|r", GOLD_AMOUNT_SYMBOL)
-local SILVER_AMOUNT_SYMBOL = format("|cffD0D0D0%s|r", SILVER_AMOUNT_SYMBOL)
-local COPPER_AMOUNT_SYMBOL = format("|cffC77050%s|r", COPPER_AMOUNT_SYMBOL)
-
 INFO.modules = {}
 INFO.leftModules, INFO.rightModules = {}, {}
 
 function INFO:GetMoneyString(money, formatted)
 	if money > 0 then
 		if formatted then
-			return format("%s%s", B.Numb(money / 1e4), GOLD_AMOUNT_SYMBOL)
+			return format("%s|cffFFD700%s|r", B.Numb(money / 1e4), GOLD_AMOUNT_SYMBOL)
 		else
-			local moneyString = ""
-			local gold, silver, copper = floor(money/1e4), floor(money/100) % 100, money % 100
-			if gold > 0 then
-				moneyString = " "..gold..GOLD_AMOUNT_SYMBOL
-			end
-			if silver > 0 then
-				moneyString = moneyString.." "..silver..SILVER_AMOUNT_SYMBOL
-			end
-			if copper > 0 then
-				moneyString = moneyString.." "..copper..COPPER_AMOUNT_SYMBOL
-			end
-			return moneyString
+			return GetMoneyString(money, true)
 		end
 	else
-		return " 0"..COPPER_AMOUNT_SYMBOL
+		return GetMoneyString(0, true)
 	end
 end
 
@@ -63,6 +48,7 @@ function INFO:LoadInfobar(info)
 		for _, event in pairs(info.eventList) do
 			info:RegisterEvent(event)
 		end
+		info:RegisterEvent("PLAYER_ENTERING_WORLD")
 		info:SetScript("OnEvent", info_OnEvent)
 	end
 	if info.onEnter then

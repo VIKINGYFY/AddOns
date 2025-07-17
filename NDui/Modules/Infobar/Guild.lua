@@ -70,8 +70,8 @@ function info:GuildPanel_UpdateButton(button)
 	local zonecolor = DB.GreyColor
 	if UnitInRaid(name) or UnitInParty(name) then
 		zonecolor = DB.InfoColor
-	elseif GetRealZoneText() == zone then
-		zonecolor = "|cff4CFF4C"
+	elseif GetAreaText() == zone then
+		zonecolor = DB.GreenColor
 	end
 	button.zone:SetText(zonecolor..zone)
 end
@@ -289,7 +289,6 @@ function info:GuildPanel_Refresh()
 end
 
 info.eventList = {
-	"PLAYER_ENTERING_WORLD",
 	"GUILD_ROSTER_UPDATE",
 	"PLAYER_GUILD_UPDATE",
 }

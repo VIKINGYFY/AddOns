@@ -578,7 +578,7 @@ function module:Minimap_OnMouseWheel(zoom)
 
 		SetCVar("Sound_MasterVolume", tostring(value/100))
 		module.VolumeText:SetText(value)
-		module.VolumeText:SetTextColor(B.Color(value, 100))
+		module.VolumeText:SetTextColor(B.SmoothColor(value, 100))
 		module.VolumeAnim:Stop()
 		module.VolumeAnim:Play()
 	else

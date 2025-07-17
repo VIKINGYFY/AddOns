@@ -29,7 +29,7 @@ local menuList = {
 local function getClassIcon(class)
 	local c1, c2, c3, c4 = unpack(CLASS_ICON_TCOORDS[class])
 	c1, c2, c3, c4 = (c1+.03)*50, (c2-.03)*50, (c3+.03)*50, (c4-.03)*50
-	local classStr = "|TInterface\\Glues\\CharacterCreate\\UI-CharacterCreate-Classes:13:15:0:-1:50:50:"..c1..":"..c2..":"..c3..":"..c4.."|t "
+	local classStr = "|TInterface\\Glues\\CharacterCreate\\UI-CharacterCreate-Classes:13:15:0:1:50:50:"..c1..":"..c2..":"..c3..":"..c4.."|t "
 	return classStr or ""
 end
 
@@ -43,12 +43,13 @@ local function getSlotString()
 end
 
 info.eventList = {
+	"ACCOUNT_MONEY",
+	"CHAT_MSG_MONEY",
 	"PLAYER_MONEY",
-	"SEND_MAIL_MONEY_CHANGED",
-	"SEND_MAIL_COD_CHANGED",
 	"PLAYER_TRADE_MONEY",
+	"SEND_MAIL_COD_CHANGED",
+	"SEND_MAIL_MONEY_CHANGED",
 	"TRADE_MONEY_CHANGED",
-	"PLAYER_ENTERING_WORLD",
 }
 
 info.onEvent = function(self, event, arg1)
@@ -201,8 +202,9 @@ info.onEnter = function(self)
 			GameTooltip:AddLine(CURRENCY..":", 0,1,1)
 			title = true
 		end
-		local iconTexture = " |T"..chargeInfo.iconFileID..":13:15:0:0:50:50:4:46:4:46|t"
-		GameTooltip:AddDoubleLine(chargeInfo.name, chargeInfo.quantity.." / "..chargeInfo.maxQuantity..iconTexture, 1,1,1, 1,1,1)
+		local r, g, b = B.SmoothColor(chargeInfo.quantity, chargeInfo.maxQuantity)
+		local iconTexture = " |T"..chargeInfo.iconFileID..":13:15:0:1:50:50:4:46:4:46|t"
+		GameTooltip:AddDoubleLine(chargeInfo.name, chargeInfo.quantity.." / "..chargeInfo.maxQuantity..iconTexture, 1,1,1, r,g,b)
 	end
 
 	for i = 1, 10 do -- seems unlimit, but use 10 for now, needs review
@@ -216,9 +218,10 @@ info.onEnter = function(self)
 				title = true
 			end
 			local total = C_CurrencyInfo.GetCurrencyInfo(currencyID).maxQuantity
-			local iconTexture = " |T"..icon..":13:15:0:0:50:50:4:46:4:46|t"
+			local iconTexture = " |T"..icon..":13:15:0:1:50:50:4:46:4:46|t"
 			if total > 0 then
-				GameTooltip:AddDoubleLine(name, count.." / "..total..iconTexture, 1,1,1, 1,1,1)
+				local r, g, b = B.SmoothColor(count, total)
+				GameTooltip:AddDoubleLine(name, count.." / "..total..iconTexture, 1,1,1, r,g,b)
 			else
 				GameTooltip:AddDoubleLine(name, count..iconTexture, 1,1,1, 1,1,1)
 			end

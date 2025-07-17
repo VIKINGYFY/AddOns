@@ -3221,6 +3221,10 @@ if not db.activate.HideMapNote then
                     nodes[2339][29775967] = { mnID = 2367, name = L["Portal"], dnID = "", showWWW = true, achievementID = 40725, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=40725", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Kammer der Erinnerung
                     nodes[2339][52465047] = { mnID = 2346, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/quest=86535/test-run", questID = 86535, type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Dornogal to Undermine
 
+                    if ns.version == "11.2.0" then -- PTR
+                        nodes[2339][40312267] = { mnID = 2472, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/quest=84957/return-to-the-veiled-market", questID = 84957, type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Dornogal to Tazavesh
+                    end
+
                     if self.faction == "Horde" or db.activate.CapitalsEnemyFaction then
                         nodes[2339][38192724] = { mnID = 85, name = L["Portal"], dnID = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dornogal to Orgrimmar
                     end

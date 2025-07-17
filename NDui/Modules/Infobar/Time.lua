@@ -8,25 +8,25 @@ local info = module:RegisterInfobar("Time", C.Infobar.TimePos)
 local HORRIFIC_VISION = SPLASH_BATTLEFORAZEROTH_8_3_0_FEATURE1_TITLE
 local COMMUNITY_FEAST = C_Spell.GetSpellName(388961)
 local DIFFICULTY_COLOR = {
-	[ 7] = "1eff00",
-	[17] = "1eff00",
+	[ 7] = {0.1, 1.0, 0.0},
+	[17] = {0.1, 1.0, 0.0},
 
-	[ 1] = "0070dd",
-	[ 3] = "0070dd",
-	[ 4] = "0070dd",
-	[14] = "0070dd",
+	[ 1] = {0.0, 0.4, 0.9},
+	[ 3] = {0.0, 0.4, 0.9},
+	[ 4] = {0.0, 0.4, 0.9},
+	[14] = {0.0, 0.4, 0.9},
 
-	[ 2] = "a335ee",
-	[ 5] = "a335ee",
-	[ 6] = "a335ee",
-	[15] = "a335ee",
+	[ 2] = {0.6, 0.2, 0.9},
+	[ 5] = {0.6, 0.2, 0.9},
+	[ 6] = {0.6, 0.2, 0.9},
+	[15] = {0.6, 0.2, 0.9},
 
-	[ 9] = "ff8000",
-	[16] = "ff8000",
-	[23] = "ff8000",
+	[ 9] = {1.0, 0.5, 0.0},
+	[16] = {1.0, 0.5, 0.0},
+	[23] = {1.0, 0.5, 0.0},
 
-	[24] = "e6cc80",
-	[33] = "e6cc80",
+	[24] = {0.9, 0.8, 0.5},
+	[33] = {0.9, 0.8, 0.5},
 }
 
 local function updateTimerFormat(color, hour, minute)
@@ -56,54 +56,31 @@ info.onUpdate = function(self, elapsed)
 	end
 end
 
--- Data
-local isTimeWalker, walkerTexture
-local function checkTimeWalker(event)
-	local date = C_DateAndTime.GetCurrentCalendarTime()
-	C_Calendar.SetAbsMonth(date.month, date.year)
-	C_Calendar.OpenCalendar()
-
-	local today = date.monthDay
-	local numEvents = C_Calendar.GetNumDayEvents(0, today)
-	if numEvents <= 0 then return end
-
-	for i = 1, numEvents do
-		local info = C_Calendar.GetDayEvent(0, today, i)
-		if info and string.find(info.title, PLAYER_DIFFICULTY_TIMEWALKER) and info.sequenceType ~= "END" then
-			isTimeWalker = true
-			walkerTexture = info.iconTexture
-			break
-		end
-	end
-	B:UnregisterEvent(event, checkTimeWalker)
-end
-B:RegisterEvent("PLAYER_ENTERING_WORLD", checkTimeWalker)
-
-local function checkTexture(texture)
-	if not walkerTexture then return end
-	if walkerTexture == texture or walkerTexture == texture - 1 then
-		return true
-	end
+local function GetTimeWalkerName(id)
+	return _G["PLAYER_DIFFICULTY_TIMEWALKER"].." - ".._G["EXPANSION_NAME"..id]
 end
 
-local questlist = {
-	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 83285, texture = 6006158}, -- Vanilla
-	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 40168, texture = 1129674}, -- TBC
-	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 40173, texture = 1129686}, -- WotLK
-	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 40786, texture = 1304688}, -- Cata
-	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 45563, texture = 1530590}, -- MoP
-	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 55499, texture = 1129683}, -- WoD
-	{name = PLAYER_DIFFICULTY_TIMEWALKER, id = 64710, texture = 1467047}, -- Legion
-	{name = "", id = 70893, questName = true}, -- 社区盛宴
-	{name = "", id = 79226, questName = true}, -- 盛大发掘：叛徒之眠
-	{name = "", id = 78319, questName = true}, -- 超然盛放
+local questList = {
+	{name = GetTimeWalkerName(0), id = 83285}, -- 经典旧世
+	{name = GetTimeWalkerName(1), id = 40168}, -- 燃烧的远征
+	{name = GetTimeWalkerName(2), id = 40173}, -- 巫妖王之怒
+	{name = GetTimeWalkerName(3), id = 40786}, -- 大地的裂变
+	{name = GetTimeWalkerName(4), id = 45563}, -- 熊猫人之谜
+	{name = GetTimeWalkerName(5), id = 55498}, -- 德拉诺之王
+	{name = GetTimeWalkerName(6), id = 64710}, -- 军团再临
+
+	{name = "", id = 47523, questName = true}, -- 干扰检测-黑暗神殿
+	{name = "", id = 50316, questName = true}, -- 干扰检测-奥杜尔
+	{name = "", id = 57637, questName = true}, -- 干扰检测-火焰之地
+	{name = "", id = 82817, questName = true}, -- 干扰检测-黑石深渊
+
 	{name = "", id = 76586, questName = true}, -- 散布圣光
-	{name = "", id = 82946, questName = true}, -- 滚滚深邃都是蜡
-	{name = "", id = 83240, questName = true}, -- 剧场巡演
-	{name = "", id = 83333, questName = true}, -- 谨防麻烦
 	{name = "", id = 80670, questName = true}, -- 纺丝者之眼
 	{name = "", id = 80671, questName = true}, -- 将军之锋
 	{name = "", id = 80672, questName = true}, -- 宰相之手
+	{name = "", id = 83240, questName = true}, -- 剧场巡演
+	{name = "", id = 83333, questName = true}, -- 谨防麻烦
+	{name = "", id = 91173, questName = true}, -- 圣焰永明耀
 }
 
 local delvesKeys = {84736, 84737, 84738, 84739}
@@ -235,10 +212,16 @@ local function GetItemLink(itemID)
 end
 
 local title
-local function addTitle(text)
+local function addTitle(text1, text2)
 	if not title then
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddLine(text..":", 0,1,1)
+
+		if text2 then
+			GameTooltip:AddDoubleLine(text1..":", text2, 0,1,1, 1,1,1)
+		else
+			GameTooltip:AddLine(text1..":", 0,1,1)
+		end
+
 		title = true
 	end
 end
@@ -258,20 +241,20 @@ local communityFeastTime = {
 }
 
 local delveList = {
-	{uiMapID = 2248, delveID = 7787}, -- Earthcrawl Mines
-	{uiMapID = 2248, delveID = 7781}, -- Kriegval's Rest
-	{uiMapID = 2248, delveID = 7779}, -- Fungal Folly
-	{uiMapID = 2215, delveID = 7789}, -- Skittering Breach
-	{uiMapID = 2215, delveID = 7785}, -- Nightfall Sanctum
-	{uiMapID = 2215, delveID = 7783}, -- The Sinkhole
-	{uiMapID = 2215, delveID = 7780}, -- Mycomancer Cavern
 	{uiMapID = 2214, delveID = 7782}, -- The Waterworks
 	{uiMapID = 2214, delveID = 7788}, -- The Dread Pit
-	{uiMapID = 2255, delveID = 7790}, -- The Spiral Weave
+	{uiMapID = 2214, delveID = 8181}, -- Excavation Site 9
+	{uiMapID = 2215, delveID = 7780}, -- Mycomancer Cavern
+	{uiMapID = 2215, delveID = 7783}, -- The Sinkhole
+	{uiMapID = 2215, delveID = 7785}, -- Nightfall Sanctum
+	{uiMapID = 2215, delveID = 7789}, -- Skittering Breach
+	{uiMapID = 2248, delveID = 7779}, -- Fungal Folly
+	{uiMapID = 2248, delveID = 7781}, -- Kriegval's Rest
+	{uiMapID = 2248, delveID = 7787}, -- Earthcrawl Mines
 	{uiMapID = 2255, delveID = 7784}, -- Tak-Rethan Abyss
 	{uiMapID = 2255, delveID = 7786}, -- The Underkeep
+	{uiMapID = 2255, delveID = 7790}, -- The Spiral Weave
 	{uiMapID = 2346, delveID = 8246}, -- Sidestree Sluice
-	{uiMapID = 2214, delveID = 8181}, -- Excavation Site 9
 }
 
 info.onEnter = function(self)
@@ -296,44 +279,41 @@ info.onEnter = function(self)
 		local name, id, reset = GetSavedWorldBossInfo(i)
 		if not (id == 11 or id == 12 or id == 13) then
 			addTitle(RAID_INFO_WORLD_BOSS)
-			GameTooltip:AddDoubleLine(name, SecondsToTime(reset, true, nil, 3), 1,1,1, 1,1,1)
+			GameTooltip:AddDoubleLine(name, SecondsToTime(reset, true, true, 3), 1,1,1, 1,1,1)
 		end
 	end
 
-	-- Mythic Dungeons
+	-- Dungeons
 	title = false
 	for i = 1, GetNumSavedInstances() do
-		local name, _, reset, diff, locked, extended = GetSavedInstanceInfo(i)
-		if diff == 23 and (locked or extended) then
-			addTitle(DUNGEON_DIFFICULTY3..DUNGEONS)
-			if extended then r,g,b = 1,0,0 elseif locked then r,g,b = 0,1,0 end
-			GameTooltip:AddDoubleLine(name, SecondsToTime(reset, true, nil, 3), 1,1,1, r,g,b)
+		local name, _, reset, diffID, locked, extended, _, _, _, diffName, bossTotal, bossCurrent = GetSavedInstanceInfo(i)
+		if diffID == 23 and (locked or extended) then
+			addTitle(MYTHIC_DUNGEONS, SecondsToTime(reset, true, true, 3))
+			local pR, pG, pB = B.SmoothColor(bossCurrent, bossTotal)
+			GameTooltip:AddDoubleLine(name, format("%s %s / %s", diffName, bossCurrent, bossTotal), 1,1,1, pR,pG,pB)
 		end
 	end
 
 	-- Raids
 	title = false
 	for i = 1, GetNumSavedInstances() do
-		local name, _, reset, diffID, locked, extended, _, isRaid, _, diffName, numBosses, progress = GetSavedInstanceInfo(i)
+		local name, _, reset, diffID, locked, extended, _, isRaid, _, diffName, bossTotal, bossCurrent = GetSavedInstanceInfo(i)
 		if isRaid and (locked or extended) then
-			addTitle(RAID_INFO)
-			if extended then r,g,b = 1,0,0 elseif locked then r,g,b = 0,1,0 end
-			local progressColor = B.HexRGB(B.Color(progress, numBosses, true))
-			local difficultyColor = DIFFICULTY_COLOR[diffID]
-			GameTooltip:AddDoubleLine(format("%s |cff%s%s|r %s%s / %s|r", name, difficultyColor, diffName, progressColor, progress, numBosses), SecondsToTime(reset, true, nil, 3), 1,1,1, r,g,b)
+			addTitle(RAIDS, SecondsToTime(reset, true, true, 3))
+			local dR, dG, dB = unpack(DIFFICULTY_COLOR[diffID])
+			GameTooltip:AddDoubleLine(name, format("%s %s / %s", diffName, bossCurrent, bossTotal), 1,1,1, dR,dG,dB)
 		end
 	end
 
 	-- Quests
 	title = false
-	for _, v in pairs(questlist) do
+	for _, v in pairs(questList) do
 		if v.id and C_QuestLog.IsQuestFlaggedCompleted(v.id) then
-			if v.name == PLAYER_DIFFICULTY_TIMEWALKER and isTimeWalker and checkTexture(v.texture) or v.name ~= PLAYER_DIFFICULTY_TIMEWALKER then
-				addTitle(QUESTS_LABEL)
-				GameTooltip:AddDoubleLine((v.itemID and GetItemLink(v.itemID)) or (v.questName and QuestUtils_GetQuestName(v.id)) or v.name, QUEST_COMPLETE, 1,1,1, 1,0,0)
-			end
+			addTitle(QUESTS_LABEL)
+			GameTooltip:AddDoubleLine((v.itemID and GetItemLink(v.itemID)) or (v.questName and QuestUtils_GetQuestName(v.id)) or v.name, QUEST_COMPLETE, 1,1,1, 1,0,0)
 		end
 	end
+
 	local currentKeys, maxKeys = 0, #delvesKeys
 	for _, questID in pairs(delvesKeys) do
 		if C_QuestLog.IsQuestFlaggedCompleted(questID) then
@@ -342,8 +322,8 @@ info.onEnter = function(self)
 	end
 	if currentKeys > 0 then
 		addTitle(QUESTS_LABEL)
-		if currentKeys == maxKeys then r,g,b = 1,0,0 else r,g,b = 0,1,0 end
-		GameTooltip:AddDoubleLine(keyName, format("%d / %d", currentKeys, #delvesKeys), 1,1,1, r,g,b)
+		r, g, b = B.SmoothColor(currentKeys, maxKeys)
+		GameTooltip:AddDoubleLine(keyName, format("%d / %d", currentKeys, maxKeys), 1,1,1, r,g,b)
 	end
 
 	-- Delves
@@ -353,7 +333,7 @@ info.onEnter = function(self)
 		if delveInfo then
 			addTitle(delveInfo.description)
 			local mapInfo = C_Map.GetMapInfo(v.uiMapID)
-			GameTooltip:AddDoubleLine(mapInfo.name.." - "..delveInfo.name, SecondsToTime(GetQuestResetTime(), true, nil, 3), 1,1,1, 0,1,0)
+			GameTooltip:AddDoubleLine(mapInfo.name.." - "..delveInfo.name, SecondsToTime(GetQuestResetTime(), true, true, 3), 1,1,1, 0,1,0)
 		end
 	end
 

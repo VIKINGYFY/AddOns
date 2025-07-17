@@ -437,7 +437,7 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
                 end
             --Khaz Algar
             elseif (GetCurrentMapID == 2248 or GetCurrentMapID == 2214 or GetCurrentMapID == 2215 or GetCurrentMapID == 2255 or GetCurrentMapID == 2256 or GetCurrentMapID == 2213 
-                or GetCurrentMapID == 2216 or GetCurrentMapID == 2369 or GetCurrentMapID == 2322 or GetCurrentMapID == 2346)
+                or GetCurrentMapID == 2216 or GetCurrentMapID == 2369 or GetCurrentMapID == 2322 or GetCurrentMapID == 2346 or GetCurrentMapID == 2371 or GetCurrentMapID == 2472)
             then
                 if not ns.Addon.db.profile.showZoneKhazAlgar then
                     ns.Addon.db.profile.showZoneKhazAlgar = true
@@ -633,7 +633,7 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
                 end
             -- Khaz Algar    
             elseif (GetCurrentMapID == 2248 or GetCurrentMapID == 2214 or GetCurrentMapID == 2215 or GetCurrentMapID == 2255 or GetCurrentMapID == 2256 or GetCurrentMapID == 2213
-                or GetCurrentMapID == 2216 or GetCurrentMapID == 2369 or GetCurrentMapID == 2322 or GetCurrentMapID == 2346) 
+                or GetCurrentMapID == 2216 or GetCurrentMapID == 2369 or GetCurrentMapID == 2322 or GetCurrentMapID == 2346 or GetCurrentMapID == 2371 or GetCurrentMapID == 2472) 
             then
                 if not ns.Addon.db.profile.showZoneKhazAlgar then
                     ns.Addon.db.profile.showZoneKhazAlgar = true
@@ -853,7 +853,7 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
             GameTooltip:Show()
         --Khaz Algar
         elseif (GetCurrentMapID == 2248 or GetCurrentMapID == 2214 or GetCurrentMapID == 2215 or GetCurrentMapID == 2255 or GetCurrentMapID == 2256 or GetCurrentMapID == 2213 
-            or GetCurrentMapID == 2216 or GetCurrentMapID == 2369 or GetCurrentMapID == 2322 or GetCurrentMapID == 2346)
+            or GetCurrentMapID == 2216 or GetCurrentMapID == 2369 or GetCurrentMapID == 2322 or GetCurrentMapID == 2346 or GetCurrentMapID == 2371 or GetCurrentMapID == 2472)
         then
             GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["Khaz Algar"] .. " " .. L["Zones"] .. "-" .. BRAWL_TOOLTIP_MAPS .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
             GameTooltip:Show()
@@ -941,7 +941,7 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
             GameTooltip:Show()
         --Khaz Algar
         elseif (GetCurrentMapID == 2248 or GetCurrentMapID == 2214 or GetCurrentMapID == 2215 or GetCurrentMapID == 2255 or GetCurrentMapID == 2256 or GetCurrentMapID == 2213 
-            or GetCurrentMapID == 2216 or GetCurrentMapID == 2369 or GetCurrentMapID == 2322 or GetCurrentMapID == 2346)
+            or GetCurrentMapID == 2216 or GetCurrentMapID == 2369 or GetCurrentMapID == 2322 or GetCurrentMapID == 2346 or GetCurrentMapID == 2371 or GetCurrentMapID == 2472)
         then
             GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["synchronizes"] .. " " .. L["Khaz Algar"] .. " " .. L["Zones"] .. " & " .. MINIMAP_LABEL .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
             GameTooltip:Show()

@@ -1603,6 +1603,21 @@ if not db.activate.HideMapNote then
                 minimap[2214][58024604] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2214][54476559] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2214][72008316] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+
+                if ns.version == "11.2.0" then -- PTR
+                minimap[2371][60522835] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2371][50325919] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                end
+
+            end
+
+            if self.db.profile.showMiniMapTransmogger then
+
+                if ns.version == "11.2.0" then -- PTR
+                minimap[2371][49713807] = { name = "", dnID = MINIMAP_TRACKING_TRANSMOGRIFIER .. " - " .. FACTION_NEUTRAL, type = "Transmogger", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
+                minimap[2371][53836389] = { name = "", dnID = MINIMAP_TRACKING_TRANSMOGRIFIER .. " - " .. FACTION_NEUTRAL, type = "Transmogger", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
+                end
+
             end
 
             if self.db.profile.showMiniMapMailbox then
@@ -1637,6 +1652,14 @@ if not db.activate.HideMapNote then
                 minimap[2346][32055742] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Undermine
                 minimap[2346][24515749] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Undermine
                 minimap[2346][36485725] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Undermine
+
+                if ns.version == "11.2.0" then -- PTR
+                minimap[2371][48853809] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
+                minimap[2371][60642773] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
+                minimap[2371][76663453] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
+                minimap[2371][54066370] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
+                minimap[2371][49995968] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
+                end
             end
 
             if self.db.profile.showMiniMapInnkeeper then
@@ -1667,6 +1690,13 @@ if not db.activate.HideMapNote then
                 minimap[2346][43515168] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2346][36814750] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2346][39346861] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "My-hole-in-the-wall", wwwLink = "https://www.wowhead.com/quest=86408/my-hole-in-the-wall#", questID = 86408, showInZone = false, showOnContinent = false, showOnMinimap = true }
+            
+                if ns.version == "11.2.0" then -- PTR
+                minimap[2371][48693845] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
+                minimap[2371][60722763] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
+                minimap[2371][76733443] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
+                minimap[2371][49985947] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
+                end
             end
 
             if self.db.profile.showMiniMapPvEVendor then

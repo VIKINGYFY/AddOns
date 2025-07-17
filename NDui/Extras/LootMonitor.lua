@@ -117,7 +117,7 @@ function LootMonitor:PLAYER_LOGIN()
 	self.Close:SetScript("OnClick", function(self) CloseLMFrame() end)
 
 	self.Title = B.CreateFS(self, buttonHeight-2, "拾取监控", true, "TOPLEFT", 10, -10)
-	self.Info = B.CreateFS(self, buttonHeight-2, "左键：贴出 右键：密语", true, "BOTTOMRIGHT", -10, 10)
+	self.Info = B.CreateFS(self, buttonHeight-2, DB.LeftButton.."发送"..DB.RightButton.."密语", true, "BOTTOMRIGHT", -10, 10)
 	self.Count = B.CreateFS(self, buttonHeight-2, "", "info")
 
 	B.UpdatePoint(self.Count, "LEFT", self.Title, "RIGHT", DB.margin, 0)

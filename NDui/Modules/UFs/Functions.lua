@@ -50,27 +50,24 @@ local function UF_OnEnter(self)
 	if not self.disableTooltip then
 		UnitFrame_OnEnter(self)
 	end
-	self.Highlight:Show()
 end
 
 local function UF_OnLeave(self)
 	if not self.disableTooltip then
 		UnitFrame_OnLeave(self)
 	end
-	self.Highlight:Hide()
 end
 
 function UF:CreateHeader(self, onKeyDown)
-	local hl = self:CreateTexture(nil, "OVERLAY")
+	local hl = self:CreateTexture(nil, "HIGHLIGHT")
 	hl:SetAllPoints()
 	hl:SetTexture("Interface\\PETBATTLES\\PetBattle-SelectedPetGlow")
 	hl:SetTexCoord(0, 1, .5, 1)
 	hl:SetVertexColor(.5, .5, .5)
 	hl:SetBlendMode("ADD")
-	hl:Hide()
-	self.Highlight = hl
+	self.hl = hl
 
-	self:RegisterForClicks(onKeyDown and "AnyDown" or "AnyUp")
+	self:RegisterForClicks("AnyUp")
 	self:HookScript("OnEnter", UF_OnEnter)
 	self:HookScript("OnLeave", UF_OnLeave)
 end
@@ -1428,7 +1425,7 @@ end
 
 function UF.PostUpdateAltPower(element, _, cur, _, max)
 	if cur and max then
-		element:SetStatusBarColor(B.Color(cur, max))
+		element:SetStatusBarColor(B.SmoothColor(cur, max))
 	end
 end
 

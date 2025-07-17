@@ -72,7 +72,6 @@ local function isLowDurability()
 end
 
 info.eventList = {
-	"PLAYER_ENTERING_WORLD",
 	"UPDATE_INVENTORY_DURABILITY",
 }
 
@@ -128,7 +127,7 @@ info.onEnter = function(self)
 	local totalCost = 0
 	for i = 1, 10 do
 		if localSlots[i][3] ~= 1000 then
-			local r, g, b = B.Color(localSlots[i][3], 100, true)
+			local r, g, b = B.SmoothColor(localSlots[i][3], 100, true)
 			GameTooltip:AddDoubleLine(localSlots[i][4]..localSlots[i][2], format("%.1f%%", localSlots[i][3]), 1,1,1, r,g,b)
 
 			local slot = localSlots[i][1]

@@ -160,7 +160,7 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 
 			local upgradeInfo = C_Item.GetItemUpgradeInfo(link)
 			if upgradeInfo and upgradeInfo.trackString then
-				local r, g, b = B.Color(upgradeInfo.currentLevel, upgradeInfo.maxLevel, true)
+				local r, g, b = B.SmoothColor(upgradeInfo.currentLevel, upgradeInfo.maxLevel, true)
 				itemFrame.itemInfo:SetText(format("[%s %s/%s]", upgradeInfo.trackString, upgradeInfo.currentLevel, upgradeInfo.maxLevel))
 				itemFrame.itemInfo:SetTextColor(r, g, b)
 			end

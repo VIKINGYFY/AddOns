@@ -1,8 +1,11 @@
 # CompactVendor
 
-## [v11.1.5.250602](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.5.250602) (2025-06-02)
-[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.5.250602) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
+## [v11.1.7.250716](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.7.250716) (2025-07-16)
+[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.7.250716) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
 
+- TOC updates  
+- Minor doc updates.  
+    Updated the stat filter to accumulate multiple checks so that all items matching all the checked boxes appear in the list.  
 - Version bump.  
 - Placed the refresh and update merchant button behavior into `RefreshAndUpdateMerchantItemButton` for convenience.  
     We call this when the merchant item button is being shown, or when an even fires, to ensure an up-to-date visual state.  
@@ -75,6 +78,3 @@
 - TOC bump  
 - Added 10.1 adjustments.  
 - TOC bump and small fix for 10.1  
-- TOC bump  
-- - Added option slider for icon shape. Default is round.  
-    - The GET\_ITEM\_INFO\_RECEIVED event does make sense, as once it fires we need to update a previously pending entry as done loading.  

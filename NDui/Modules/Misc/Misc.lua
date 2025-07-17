@@ -162,7 +162,7 @@ end
 function M:UIWidgetFrameMover()
 	local frame1 = CreateFrame("Frame", "NDuiUIWidgetMover", UIParent)
 	frame1:SetSize(200, 50)
-	B.Mover(frame1, L["UIWidgetFrame"], "UIWidgetFrame", {"TOPRIGHT", Minimap, "BOTTOMRIGHT", 0, -20})
+	B.Mover(frame1, L["UIWidgetFrame"], "UIWidgetFrame", {"TOPRIGHT", Minimap, "BOTTOMRIGHT", 0, -40})
 
 	hooksecurefunc(UIWidgetBelowMinimapContainerFrame, "SetPoint", function(self, _, parent)
 		if parent ~= frame1 then

@@ -8,16 +8,16 @@ local info = module:RegisterInfobar("Spec", C.Infobar.SpecPos)
 local STARTER_BUILD = Constants.TraitConsts.STARTER_BUILD_TRAIT_CONFIG_ID
 
 local function addIcon(texture)
-	texture = texture and "|T"..texture..":12:16:0:0:50:50:4:46:4:46|t" or ""
+	texture = texture and "|T"..texture..":12:16:0:1:50:50:4:46:4:46|t" or ""
 	return texture
 end
 
 local pvpTalents, currentSpecIndex, currentLootIndex, newMenu, numSpecs, numLocal
 
 info.eventList = {
-	"PLAYER_ENTERING_WORLD",
-	"PLAYER_LOOT_SPEC_UPDATED",
 	"ACTIVE_PLAYER_SPECIALIZATION_CHANGED",
+	"PLAYER_LOOT_SPEC_UPDATED",
+	"PLAYER_SPECIALIZATION_CHANGED",
 }
 
 info.onEvent = function(self)

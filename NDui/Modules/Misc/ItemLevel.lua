@@ -150,7 +150,7 @@ function M:ItemLevel_UpdateInfo(slotFrame, info, upgradeInfo, quality)
 	end
 
 	if upgradeInfo and upgradeInfo.trackString then
-		local r, g, b = B.Color(upgradeInfo.currentLevel, upgradeInfo.maxLevel, true)
+		local r, g, b = B.SmoothColor(upgradeInfo.currentLevel, upgradeInfo.maxLevel, true)
 		slotFrame.iSlotText:SetText(upgradeInfo.trackString)
 		slotFrame.iSlotText:SetTextColor(r, g, b)
 		slotFrame.iLvlText:SetTextColor(r, g, b)
@@ -281,7 +281,7 @@ function M:ItemLevel_FlyoutUpdate(bag, slot, quality)
 		if link then
 			local upgradeInfo = C_Item.GetItemUpgradeInfo(link)
 			if upgradeInfo and upgradeInfo.trackString then
-				local r, g, b = B.Color(upgradeInfo.currentLevel, upgradeInfo.maxLevel, true)
+				local r, g, b = B.SmoothColor(upgradeInfo.currentLevel, upgradeInfo.maxLevel, true)
 				self.iSlot:SetText(upgradeInfo.trackString)
 				self.iSlot:SetTextColor(r, g, b)
 				self.iLvl:SetTextColor(r, g, b)

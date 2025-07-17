@@ -753,7 +753,7 @@ do
                       or GetCurrentMapID == 2151 or GetCurrentMapID == 2200 or GetCurrentMapID == 2239
           
       ns.KhazAlgar = GetCurrentMapID == 2248 or GetCurrentMapID == 2214 or GetCurrentMapID == 2215 or GetCurrentMapID == 2255 or  GetCurrentMapID == 2256 or GetCurrentMapID == 2213 
-                      or GetCurrentMapID == 2216 or GetCurrentMapID == 2369 or GetCurrentMapID == 2346
+                      or GetCurrentMapID == 2216 or GetCurrentMapID == 2369 or GetCurrentMapID == 2346 or GetCurrentMapID == 2371 or GetCurrentMapID == 2472
 
       ns.ZoneIDs = GetCurrentMapID == 750 or GetCurrentMapID == 652 or GetCurrentMapID == 2266 or GetCurrentMapID == 2322
 

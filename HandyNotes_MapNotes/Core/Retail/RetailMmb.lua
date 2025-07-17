@@ -113,7 +113,7 @@ local GetBestMapForUnit = C_Map.GetBestMapForUnit("player")
       tooltip:Show()
     --Khaz Algar
     elseif (GetBestMapForUnit == 2248 or GetBestMapForUnit == 2214 or GetBestMapForUnit == 2215 or GetBestMapForUnit == 2255 or GetBestMapForUnit == 2256 or GetBestMapForUnit == 2213 
-      or GetBestMapForUnit == 2216 or GetBestMapForUnit == 2369 or GetBestMapForUnit == 2322 or GetBestMapForUnit == 2346)
+      or GetBestMapForUnit == 2216 or GetBestMapForUnit == 2369 or GetBestMapForUnit == 2322 or GetBestMapForUnit == 2346 or GetBestMapForUnit == 2371 or GetBestMapForUnit == 2472)
     then
       tooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["Khaz Algar"] .. " " .. MINIMAP_LABEL .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
       tooltip:Show()
@@ -453,7 +453,7 @@ local GetBestMapForUnit = C_Map.GetBestMapForUnit("player")
         end
       --Khaz Algar
       elseif (GetBestMapForUnit == 2248 or GetBestMapForUnit == 2214 or GetBestMapForUnit == 2215 or GetBestMapForUnit == 2255 or GetBestMapForUnit == 2256 or GetBestMapForUnit == 2213 
-        or GetBestMapForUnit == 2216 or GetBestMapForUnit == 2369 or GetBestMapForUnit == 2322 or GetBestMapForUnit == 2346)
+        or GetBestMapForUnit == 2216 or GetBestMapForUnit == 2369 or GetBestMapForUnit == 2322 or GetBestMapForUnit == 2346 or GetBestMapForUnit == 2371 or GetBestMapForUnit == 2472)
       then
         if not ns.Addon.db.profile.showMiniMapKhazAlgar then
           ns.Addon.db.profile.showMiniMapKhazAlgar = true
@@ -660,7 +660,7 @@ local GetBestMapForUnit = C_Map.GetBestMapForUnit("player")
         end
        --Khaz Algar
       elseif (GetBestMapForUnit == 2248 or GetBestMapForUnit == 2214 or GetBestMapForUnit == 2215 or GetBestMapForUnit == 2255 or GetBestMapForUnit == 2256 or GetBestMapForUnit == 2213 
-        or GetBestMapForUnit == 2216 or GetBestMapForUnit == 2369 or GetBestMapForUnit == 2322 or GetBestMapForUnit == 2346)
+        or GetBestMapForUnit == 2216 or GetBestMapForUnit == 2369 or GetBestMapForUnit == 2322 or GetBestMapForUnit == 2346 or GetBestMapForUnit == 2371 or GetBestMapForUnit == 2472)
       then
         if not ns.Addon.db.profile.showZoneKhazAlgar then
           ns.Addon.db.profile.showZoneKhazAlgar = true

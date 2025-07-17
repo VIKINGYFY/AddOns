@@ -110,6 +110,7 @@ do
 	end
 
 	-- Item Extra
+	local miscList = {[TOY] = true, [PETS] = true, [MOUNTS] = true}
 	local extraCache = {}
 	function B.GetItemExtra(itemInfo)
 		local itemExtra, hasStat, hasMisc
@@ -128,7 +129,7 @@ do
 
 			if itemStat ~= "" then
 				hasStat = true
-			elseif itemType and (itemType == TOY or itemType == PETS or itemType == MOUNTS) then
+			elseif itemType and miscList[itemType] then
 				hasMisc = true
 			end
 
@@ -140,20 +141,20 @@ do
 
 	local rtgColor = {1,0,0, 1,1,0, 0,1,0}
 	local gtrColor = {0,1,0, 1,1,0, 1,0,0}
-	function B.Color(cur, max, fullGreen)
+	function B.SmoothColor(cur, max, fullGreen)
 		local r, g, b = oUF:RGBColorGradient(cur, max, unpack(fullGreen and rtgColor or gtrColor))
 		return r, g, b
 	end
 
 	function B.ColorPerc(per, fullGreen, max)
 		local var = format("%.1f%%", per)
-		local r, g, b = B.Color(math.abs(per), max or 100, fullGreen)
+		local r, g, b = B.SmoothColor(math.abs(per), max or 100, fullGreen)
 		return B.HexRGB(r, g, b, var)
 	end
 
 	function B.ColorNumb(cur, max, fullGreen)
 		local num = B.Numb(cur)
-		local r, g, b = B.Color(math.abs(cur), max, fullGreen)
+		local r, g, b = B.SmoothColor(math.abs(cur), max, fullGreen)
 		return B.HexRGB(r, g, b, num)
 	end
 end

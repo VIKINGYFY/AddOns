@@ -62,8 +62,9 @@ DB.QualityColors[-4] = {r = 1, g = .8, b = 0}
 
 DB.r, DB.g, DB.b = DB.ClassColors[DB.MyClass].r, DB.ClassColors[DB.MyClass].g, DB.ClassColors[DB.MyClass].b
 DB.MyColor = format("|cff%02x%02x%02x", DB.r*255, DB.g*255, DB.b*255)
-DB.InfoColor = "|cff00FFFF" --0,1,1
+DB.InfoColor = "|cff00FFFF"
 DB.GreyColor = "|cff808080"
+DB.GreenColor = "|cff00FF00"
 
 -- Other
 DB.margin = 3
@@ -113,9 +114,9 @@ DB.creditTex = "Interface\\HelpFrame\\HelpIcon-KnowledgeBase"
 DB.newItemFlash = "Interface\\Cooldown\\star4"
 DB.sparkTex = "Interface\\CastingBar\\UI-CastingBar-Spark"
 DB.TexCoord = {.08, .92, .08, .92}
-DB.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:230:307|t "
-DB.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:410|t "
-DB.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t "
+DB.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:1:512:512:12:66:230:307|t "
+DB.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:1:512:512:12:66:333:410|t "
+DB.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:1:512:512:12:66:127:204|t "
 DB.AFKTex = "|T"..FRIENDS_TEXTURE_AFK..":14:14:0:0:16:16:1:15:1:15|t"
 DB.DNDTex = "|T"..FRIENDS_TEXTURE_DND..":14:14:0:0:16:16:1:15:1:15|t"
 

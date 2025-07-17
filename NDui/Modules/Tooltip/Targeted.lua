@@ -5,9 +5,7 @@ local TT = B:GetModule("Tooltip")
 local targetTable = {}
 
 function TT:ScanTargets(unit)
-	if not C.db["Tooltip"]["TargetBy"] then return end
-	if not IsInGroup() then return end
-	if not UnitExists(unit) then return end
+	if not IsInGroup() or not UnitExists(unit) then return end
 
 	table.wipe(targetTable)
 

@@ -1804,11 +1804,10 @@ function G:SetupUFAuras(parent)
 end
 
 function G:SetupActionbarStyle(parent)
-	local maxButtons = 3
-	local size, padding = 30, DB.padding
+	local maxButtons, size = 3, 30
 
 	local frame = CreateFrame("Frame", "NDuiActionbarStyleFrame", parent.child)
-	frame:SetSize((size+padding)*maxButtons + padding, size + 2*padding)
+	frame:SetSize((size+DB.margin)*maxButtons + DB.margin, size + 2*DB.margin)
 	frame:SetPoint("TOPRIGHT", -85, -15)
 	B.CreateBDFrame(frame, .25)
 
@@ -1909,7 +1908,7 @@ function G:SetupActionbarStyle(parent)
 
 	for i = 1, maxButtons do
 		local bu = B.CreateButton(frame, size, size, ButtonIcon[i])
-		bu:SetPoint("LEFT", (i-1)*(size + padding) + padding, 0)
+		bu:SetPoint("LEFT", (i-1)*(size + DB.margin) + DB.margin, 0)
 		bu.index = i
 		bu.title = styleName[i]
 		bu.tip = tooltips[i] or L["ApplyBarStyle"]

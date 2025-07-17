@@ -639,6 +639,7 @@ nodes[749] = { } -- The Arcway
 nodes[751] = { } -- Black Rook Hold
 nodes[761] = { } -- Court of Stars
 nodes[764] = { } -- The Nighthold
+nodes[765] = { } -- The Nighthold
 nodes[777] = { } -- The Emerald Nightmare
 nodes[807] = { } -- Trial of Valor
 nodes[845] = { } -- Cathedral of Eternal Night
@@ -766,6 +767,8 @@ nodes[2367] = { } -- Chamber of Memory
 nodes[2369] = { } -- Siren Isle
 nodes[2322] = { } -- Hall of Awakening
 nodes[2346] = { } -- Undermine
+nodes[2371] = { } -- K'aresh
+nodes[2472] = { } -- Tazavesh
 -- Dungeon map nodes
 nodes[2315] = { } -- The Rookery - Inside Dungeon Map
 nodes[2335] = { } -- The Cinderbrew Meadery - Inside Dungeon Map
@@ -777,6 +780,8 @@ nodes[2357] = { } -- Ara-Kara, City of Echoes - Inside Dungeon Map
 nodes[2343] = { } -- City of Threads - Inside Dungeon Map
 nodes[2387] = { } -- Operation: Floodgate - Inside Dungeon Map
 nodes[2292] = { } -- Nerub-ar Palace - Inside Dungeon Map
+nodes[2449] = { } -- Eco-Dome Al'dani - Inside Dungeon Map
+nodes[2460] = { } -- Manaforge Omega - Inside Dungeon Map
 -- Delves map nodes
 nodes[2259] = { } -- Tak-Rethan-Abyss - Inside Dungeon Map
 nodes[2299] = { } -- The Underkeep - Inside Dungeon Map

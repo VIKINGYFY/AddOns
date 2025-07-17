@@ -734,6 +734,14 @@ if not db.activate.HideMapNote then
               minimap[2216][49538100] = { id = 1271, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Ara-Kara, City of Echoes
               minimap[2213][49538100] = { id = 1271, type = "Dungeon", dnID = DUNGEON_FLOOR_GILNEAS2, showInZone = false, showOnContinent = false, showOnMinimap = true } -- Ara-Kara, City of Echoes
               minimap[2213][44191124] = { id = 1274, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- City of Threads
+            
+              if ns.version == "11.2.0" then -- PTR
+              minimap[2371][65286801] = { id = 1303, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Eco-Dome Al'dani
+              minimap[2371][63416973] = { id = 1194, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tazavesh, the Veiled Market
+              minimap[2472][43840407] = { id = 1303, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Eco-Dome Al'dani
+              minimap[2472][36481206] = { id = 1194, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tazavesh, the Veiled Market
+              end
+
             end
 
 
@@ -746,6 +754,10 @@ if not db.activate.HideMapNote then
               minimap[2213][35047242] = { id = 1273, type = "Raid", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Nerub-ar Palace              
               minimap[2216][35047242] = { id = 1273, type = "Raid", dnID = DUNGEON_FLOOR_GILNEAS3, showInZone = false, showOnContinent = false, showOnMinimap = true } -- Nerub-ar Palace
               minimap[2346][42045031] = { id = 1296, type = "Raid", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Liberation of Undermine
+
+              if ns.version == "11.2.0" then -- PTR
+                minimap[2371][41872152] = { id = 1302, type = "Raid", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Manaforge Omega
+              end
             end
 
           -- Khaz Algar Delves

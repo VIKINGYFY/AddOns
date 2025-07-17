@@ -1,6 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local EX = B:RegisterModule("Extras")
+local S = B:GetModule("Skins")
 
 local EX_LIST = {}
 
@@ -102,6 +103,21 @@ end
 function EX:AutoConfirm()
 	B:RegisterEvent("MERCHANT_SHOW", EX.UpdateAutoConfirm)
 end
+
+-- 宏界面扩展
+function EX.ExtMacroUI()
+	_G.MacroFrame:SetHeight(624)
+	_G.MacroFrameScrollFrame:SetHeight(185)
+	_G.MacroFrameText:SetHeight(185)
+	_G.MacroFrameTextButton:SetHeight(185)
+	_G.MacroFrameTextBackground:SetHeight(195)
+	_G.MacroFrame.MacroSelector:SetHeight(246)
+
+	_G.MacroHorizontalBarLeft:SetPoint("TOPLEFT", 2, -310)
+	_G.MacroFrameTextBackground:SetPoint("TOPLEFT", 6, -389)
+	_G.MacroFrameSelectedMacroBackground:SetPoint("TOPLEFT", 2, -318)
+end
+S:LoadSkins("Blizzard_MacroUI", EX.ExtMacroUI)
 
 -- 自定义API
 do

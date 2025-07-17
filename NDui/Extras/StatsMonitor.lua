@@ -39,7 +39,7 @@ end
 local function SetupValue(bar, stat, isNumb)
 	if not bar then return end
 
-	local r, g, b = B.Color(stat, bar.limit)
+	local r, g, b = B.SmoothColor(stat, bar.limit)
 
 	bar:SetValue(stat)
 	bar:SetStatusBarColor(r, g, b)
