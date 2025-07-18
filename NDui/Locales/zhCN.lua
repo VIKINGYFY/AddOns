@@ -27,13 +27,11 @@ L["iExpToShowTip"] = "|n低于设置阈值的 部分非装备 将自动归类在
 
 L["From"] = "来自"
 L["Tell"] = "告诉"
-L["Ghost"] = "灵魂"
 L["Skip"] = "跳过"
 L["Sort"] = "整理"
 L["Chat Copy"] = "%s复制|n%s菜单"
 L["Attach List"] = "附件清单:"
 L["Arch Count"] = "各种族考古统计"
-L["Rare"] = "稀有"
 L["Stack Cap"] = "堆叠上限"
 L["Lack"] = "缺少"
 L["Flask"] = "合剂"

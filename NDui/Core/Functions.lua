@@ -169,6 +169,7 @@ do
 				local color = FACTION_BAR_COLORS[reaction]
 				r, g, b = color.r, color.g, color.b
 			end
+			--r, g, b = UnitSelectionColor(unit, true)
 		end
 
 		return r, g, b
@@ -2006,9 +2007,9 @@ do
 	function B:ReskinStatusBar(noCC, isOutside)
 		B.StripTextures(self)
 		if isOutside then
-			B.SetBD(self)
+			self.bg = B.SetBD(self)
 		else
-			B.CreateBDFrame(self, .25, nil, -1)
+			self.bg = B.CreateBDFrame(self, .25, nil, -1)
 		end
 
 		self:SetStatusBarTexture(DB.normTex)
@@ -2039,7 +2040,6 @@ do
 			self:HideBackdrop()
 			self:DisableDrawLayer("BACKGROUND")
 			self.bg = B.SetBD(self)
-			B.SetBorderColor(self.bg)
 
 			if self.StatusBar then
 				self.StatusBar:ClearAllPoints()
@@ -2054,15 +2054,28 @@ do
 		end
 
 		B.SetBorderColor(self.bg)
+		if self.StatusBar and self.StatusBar.bg then
+			B.SetBorderColor(self.StatusBar.bg)
+		end
 
 		local data = self.GetTooltipData and self:GetTooltipData()
 		if data then
 			local link = data.guid and C_Item.GetItemLinkByGUID(data.guid) or data.hyperlink
 			if link then
-				local quality = select(3, C_Item.GetItemInfo(link))
+				local quality = C_Item.GetItemQualityByID(link)
 				if quality then
 					local r, g, b = C_Item.GetItemQualityColor(quality)
 					self.bg:SetBackdropBorderColor(r, g, b)
+				end
+			end
+
+			local unit = data.guid and UnitTokenFromGUID(data.guid)
+			if unit then
+				local r, g, b = B.UnitColor(unit)
+				self.bg:SetBackdropBorderColor(r, g, b)
+
+				if self.StatusBar and self.StatusBar.bg then
+					self.StatusBar.bg:SetBackdropBorderColor(r, g, b)
 				end
 			end
 		end

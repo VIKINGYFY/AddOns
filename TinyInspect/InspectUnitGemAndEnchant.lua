@@ -9,7 +9,6 @@ local B, C, L, DB = unpack(NDui)
 local addon, ns = ...
 
 local LibItemGem = LibStub:GetLibrary("LibItemGem.7000")
-local LibSchedule = LibStub:GetLibrary("LibSchedule.7000")
 local LibItemEnchant = LibStub:GetLibrary("LibItemEnchant.7000")
 
 --0:optional
@@ -29,6 +28,52 @@ local EnchantParts = {
 	[16] = {1, MAINHANDSLOT},		-- 主手
 	[17] = {1, SECONDARYHANDSLOT},	-- 副手
 }
+
+local INVSLOT_SOCKET_ITEMS = {
+	[INVSLOT_NECK] = { 213777, 213777 },
+	[INVSLOT_FINGER1] = { 213777, 213777 },
+	[INVSLOT_FINGER2] = { 213777, 213777 }
+}
+
+local PvpItemLevelPattern = gsub(PVP_ITEM_LEVEL_TOOLTIP, "%%d", "(%%d+)")
+
+local function GetPvpItemLevel(link)
+	local tooltipData = C_TooltipInfo.GetHyperlink(link, nil, nil, true)
+	if not tooltipData then
+		return
+	end
+
+	local text, level
+	for _, lineData in ipairs(tooltipData.lines) do
+		text = lineData.leftText
+		level = text and string.match(text, PvpItemLevelPattern)
+		if (level) then break end
+	end
+	return tonumber(level)
+end
+
+local function GetItemAddableSockets(link, slot, itemLevel)
+	local socketItems = INVSLOT_SOCKET_ITEMS[slot]
+	if not socketItems then
+		return
+	end
+
+	if itemLevel < 584 then
+		return
+	end
+
+	local pvpItemLevel = GetPvpItemLevel(link)
+	if pvpItemLevel and pvpItemLevel > 0 then
+		return
+	end
+
+	local items = {}
+	local numSockets = C_Item.GetItemNumSockets(link)
+	for i = numSockets + 1, #socketItems do
+		tinsert(items, socketItems[i])
+	end
+	return items
+end
 
 --創建圖標框架
 local function CreateIconFrame(frame, index)
@@ -157,6 +202,26 @@ local function ShowGemAndEnchant(frame, itemFrame)
 		icon:Show()
 		anchorframe = icon
 	end
+
+	local socketItems = GetItemAddableSockets(itemlink, itemFrame.index, itemFrame.level)
+	if socketItems then
+		for _, socketItemId in ipairs(socketItems) do
+			total = total + 1
+			icon = GetIconFrame(frame)
+			icon.bg:SetVertexColor(1, 1, 0)
+			icon.texture:SetTexture("Interface\\Cursor\\Quest")
+			local item = Item:CreateFromItemID(socketItemId)
+			item:ContinueOnItemLoad(
+				function()
+					icon.link = item:GetItemLink()
+				end
+			)
+			UpdateIconPoint(icon, anchorframe, i)
+			icon:Show()
+			anchorframe = icon
+		end
+	end
+
 	local enchantItemID, enchantID = LibItemEnchant:GetEnchantItemID(itemlink)
 	local enchantSpellID = LibItemEnchant:GetEnchantSpellID(itemlink)
 	if (enchantItemID) then

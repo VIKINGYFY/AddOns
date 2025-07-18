@@ -304,7 +304,7 @@ C.OnLoadThemes["Blizzard_Collections"] = function()
 		local itemID = bu.itemID
 
 		if PlayerHasToy(itemID) then
-			local quality = select(3, C_Item.GetItemInfo(itemID))
+			local quality = C_Item.GetItemQualityByID(itemID)
 			if quality then
 				local r, g, b = C_Item.GetItemQualityColor(quality)
 				text:SetTextColor(r, g, b)

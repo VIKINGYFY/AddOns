@@ -90,8 +90,6 @@ oUF.Tags.Methods["color"] = function(unit)
 		return B.HexRGB(oUF.colors.class[class])
 	elseif reaction then
 		return B.HexRGB(oUF.colors.reaction[reaction])
-	else
-		return B.HexRGB(1, 1, 1)
 	end
 end
 oUF.Tags.Events["color"] = OT_EVENTS
@@ -101,8 +99,6 @@ oUF.Tags.Methods["flags"] = function(unit)
 		return "|cffCCCCCC <"..AFK..">|r"
 	elseif UnitIsDND(unit) then
 		return "|cffCCCCCC <"..DND..">|r"
-	else
-		return ""
 	end
 end
 oUF.Tags.Events["flags"] = "UNIT_FLAGS PLAYER_FLAGS_CHANGED"
@@ -110,10 +106,8 @@ oUF.Tags.Events["flags"] = "UNIT_FLAGS PLAYER_FLAGS_CHANGED"
 oUF.Tags.Methods["status"] = function(unit)
 	if not UnitIsConnected(unit) then
 		return "|cffCCCCCC"..PLAYER_OFFLINE.."|r"
-	elseif UnitIsDead(unit) then
+	elseif UnitIsDeadOrGhost(unit) then
 		return "|cffCCCCCC"..DEAD.."|r"
-	elseif UnitIsGhost(unit) then
-		return "|cffCCCCCC"..L["Ghost"].."|r"
 	elseif GetNumArenaOpponentSpecs() == 0 then
 		return "|cffCCCCCC"..UNKNOWN.."|r"
 	end
@@ -142,11 +136,11 @@ oUF.Tags.Methods["fulllevel"] = function(unit)
 	if class == "worldboss" then
 		str = " |cffFF0000B|r"
 	elseif class == "rareelite" then
-		str = str.." |cff00FFFFRE|r"
+		str = str.." |cffFF00FFRE|r"
 	elseif class == "elite" then
 		str = str.." |cffFFFF00E|r"
 	elseif class == "rare" then
-		str = str.." |cff00FF00R|r"
+		str = str.." |cff00FFFFR|r"
 	end
 
 	return str
@@ -179,9 +173,10 @@ oUF.Tags.Events["nppower"] = MP_EVENTS
 
 oUF.Tags.Methods["nplevel"] = function(unit)
 	local level = UnitLevel(unit)
+	local color = B.HexRGB(GetCreatureDifficultyColor(level))
 	if level and level ~= UnitLevel("player") then
 		if level > 0 then
-			level = B.HexRGB(GetCreatureDifficultyColor(level))..level.."|r "
+			level = color..level.."|r "
 		else
 			level = "|cffFF0000??|r "
 		end
@@ -248,7 +243,7 @@ oUF.Tags.Methods["tarname"] = function(unit)
 	local tarUnit = unit.."target"
 	if UnitExists(tarUnit) then
 		local tarClass = select(2, UnitClass(tarUnit))
-		local tarName = UnitName(tarUnit) or ""
+		local tarName = UnitName(tarUnit)
 
 		return B.HexRGB(oUF.colors.class[tarClass])..tarName
 	end

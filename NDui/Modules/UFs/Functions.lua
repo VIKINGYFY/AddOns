@@ -129,13 +129,18 @@ function UF.HealthPostUpdate(element, unit, cur, max)
 		element.bg:SetVertexColor(self:ColorGradient(cur or 1, max or 1, 1,0,0, 1,1,0, 0,1,0))
 	end
 	if useGradientClass then
+		local class = select(2, UnitClass(unit))
+		local reaction = UnitReaction(unit, "player")
+
 		local color
-		if UnitIsPlayer(unit) or UnitInPartyIsAI(unit) then
-			local _, class = UnitClass(unit)
+		if UnitIsTapDenied(unit) then
+			color = self.colors.tapped
+		elseif UnitIsPlayer(unit) or UnitInPartyIsAI(unit) then
 			color = self.colors.class[class]
-		elseif UnitReaction(unit, "player") then
-			color = self.colors.reaction[UnitReaction(unit, "player")]
+		elseif reaction then
+			color = self.colors.reaction[reaction]
 		end
+
 		if color then
 			element:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(color[1], color[2], color[3], 1), CreateColor(0, 0, 0, 0))
 		end
@@ -1315,8 +1320,8 @@ function UF:CreateClassPower(self)
 			bars[i].timer = B.CreateFS(bars[i], 12, "")
 		else
 			local chargeStar = bar:CreateTexture(nil, "OVERLAY")
-			chargeStar:SetTexture(DB.starTex)
-			chargeStar:SetSize(12, 12)
+			chargeStar:SetAtlas(DB.starTex)
+			chargeStar:SetSize(14, 14)
 			chargeStar:SetPoint("CENTER", bars[i])
 			chargeStar:Hide()
 			bars[i].chargeStar = chargeStar

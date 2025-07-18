@@ -21,6 +21,7 @@ function EX:OnLogin()
 	self:DisableSomething()
 	self:InstanceSomething()
 	self:SystemSomething()
+	self:LFGActivityInfo()
 
 	self:ActionBarGlow()
 	self:MDEnhance()
@@ -104,6 +105,27 @@ function EX:AutoConfirm()
 	B:RegisterEvent("MERCHANT_SHOW", EX.UpdateAutoConfirm)
 end
 
+-- 打印申请加入的活动
+function EX.UpdateLFGActivityInfo(event, resultID, newStatus, oldStatus, groupName)
+	if not resultID or newStatus ~= "inviteaccepted" then return end
+
+	local info = C_LFGList.GetSearchResultInfo(resultID)
+	if info and info.activityIDs and #info.activityIDs > 0 then
+		local activityID = info.activityIDs[1]
+		local name = C_LFGList.GetActivityFullName(activityID)
+		local text = format("%s: %s - %s", CLUB_FINDER_ACCEPTED, name or UNKNOWN, groupName or UNKNOWN)
+		if not IsInGroup() then
+			UIErrorsFrame:AddMessage(DB.InfoColor..text)
+		else
+			SendChatMessage(text, B.GetMSGChannel())
+		end
+	end
+end
+
+function EX:LFGActivityInfo()
+	B:RegisterEvent("LFG_LIST_APPLICATION_STATUS_UPDATED", EX.UpdateLFGActivityInfo)
+end
+
 -- 宏界面扩展
 function EX.ExtMacroUI()
 	_G.MacroFrame:SetHeight(624)
@@ -127,5 +149,62 @@ do
 
 	function EX.isEquipment(itemID, itemClassID)
 		return (itemID and (C_ArtifactUI.GetRelicInfoByItemID(itemID) or C_Soulbinds.IsItemConduitByItemInfo(itemID))) or (itemClassID and DB.EquipmentIDs[itemClassID])
+	end
+end
+
+do
+	local texs = {
+"Interface\\ContainerFrame\\UI-BackpackBackground.blp",
+"Interface\\Cursor\\vehichleCursor.blp",
+"Interface\\DialogFrame\\UI-DialogBox-Background.blp",
+"Interface\\DialogFrame\\UI-DialogBox-Border.blp",
+"Interface\\FriendsFrame\\UI-ChannelFrame-BotLeft.blp",
+"Interface\\FriendsFrame\\UI-ChannelFrame-BotRight.blp",
+"Interface\\FriendsFrame\\WhoFrame-BotLeft.blp",
+"Interface\\FriendsFrame\\WhoFrame-BotRight.blp",
+"Interface\\TargetingFrame\\UI-PVP-Horde.blp",
+"Interface\\WorldMap\\UI-WorldMap-Bottom1.blp",
+"Interface\\WorldMap\\UI-WorldMap-Bottom2.blp",
+"Interface\\WorldMap\\UI-WorldMap-Bottom3.blp",
+"Interface\\WorldMap\\UI-WorldMap-Bottom4.blp",
+"Interface\\WorldMap\\UI-WorldMap-Middle1.blp",
+"Interface\\WorldMap\\UI-WorldMap-Middle2.blp",
+"Interface\\WorldMap\\UI-WorldMap-Middle3.blp",
+"Interface\\WorldMap\\UI-WorldMap-Middle4.blp",
+"Interface\\WorldMap\\UI-WorldMap-Top1.blp",
+"Interface\\WorldMap\\UI-WorldMap-Top2.blp",
+"Interface\\WorldMap\\UI-WorldMap-Top3.blp",
+"Interface\\WorldMap\\UI-WorldMap-Top4.blp",
+"Interface\\Buttons\\Button-Backpack-Up.blp",
+	}
+
+	local TTF
+	local function CreateTexturePreview()
+		if not TTF then
+			TTF = CreateFrame("Frame", "TestTexturesFrame", UIParent)
+			TTF:SetSize(64, 64 * #texs)
+			TTF:SetPoint("LEFT")
+
+			TTF.TTT = {}
+		end
+
+		for index, path in ipairs(texs) do
+			if TTF.TTT[index] then return end
+
+			local tex = TTF:CreateTexture(nil, "ARTWORK")
+			tex:SetSize(64, 64)
+			tex:SetPoint("LEFT", TTF, "LEFT", (index - 1) * 68, 0)
+			tex:SetTexture(path)
+
+			tex.text = B.CreateFS(TTF, 14, index)
+			B.UpdatePoint(tex.text, "TOP", tex, "BOTTOM", 0, 0)
+
+			TTF.TTT[index] = tex
+		end
+	end
+
+	SLASH_TESTTEXTURES1 = "/testtex"
+	SlashCmdList["TESTTEXTURES"] = function()
+		CreateTexturePreview()
 	end
 end

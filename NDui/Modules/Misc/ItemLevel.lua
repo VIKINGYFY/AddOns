@@ -197,7 +197,7 @@ end
 
 function M:ItemLevel_RefreshInfo(link, unit, index, slotFrame)
 	C_Timer.After(.1, function()
-		local quality = select(3, C_Item.GetItemInfo(link))
+		local quality = C_Item.GetItemQualityByID(link)
 		local info = B.GetItemLevel(link, unit, index, C.db["Misc"]["GemNEnchant"])
 		if info == "tooSoon" then return end
 		M:ItemLevel_UpdateInfo(slotFrame, info, upgradeInfo, quality)
@@ -228,7 +228,7 @@ function M:ItemLevel_SetupLevel(frame, strType, unit)
 			local link = GetInventoryItemLink(unit, index)
 			if link then
 				local upgradeInfo = C_Item.GetItemUpgradeInfo(link)
-				local quality = select(3, C_Item.GetItemInfo(link))
+				local quality = C_Item.GetItemQualityByID(link)
 				local info = B.GetItemLevel(link, unit, index, C.db["Misc"]["GemNEnchant"])
 				if info == "tooSoon" then
 					M:ItemLevel_RefreshInfo(link, unit, index, slotFrame)
@@ -375,7 +375,7 @@ function M:ItemLevel_UpdateMerchant(link)
 		self.iSlot:SetText("")
 	end
 
-	local quality = link and select(3, C_Item.GetItemInfo(link)) or nil
+	local quality = link and C_Item.GetItemQualityByID(link) or nil
 	if quality and quality > 1 then
 		local level = B.GetItemLevel(link)
 		local slot = B.GetItemType(link)

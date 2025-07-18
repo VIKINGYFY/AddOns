@@ -74,7 +74,7 @@ end
 
 -- Init
 local function GetBestScale()
-	local scale = math.max(.4, math.min(1.15, 768 / DB.ScreenHeight))
+	local scale = (768 / DB.ScreenHeight) * 1.5
 	return B:Round(scale, 2)
 end
 
@@ -85,6 +85,7 @@ function B:SetupUIScale(init)
 		local pixel = 1
 		local ratio = 768 / DB.ScreenHeight
 		C.mult = (pixel / scale) - ((pixel - ratio) / scale)
+		if DB.ScreenHeight >= 2160 then C.mult = C.mult * 2 end
 	elseif not InCombatLockdown() then
 		UIParent:SetScale(scale)
 	end

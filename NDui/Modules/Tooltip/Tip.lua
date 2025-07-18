@@ -4,14 +4,11 @@ local cr, cg, cb = DB.r, DB.g, DB.b
 local TT = B:RegisterModule("Tooltip")
 
 local classification = {
-	elite = " |cffCC8800"..ELITE.."|r",
-	rare = " |cffFF99CC"..L["Rare"].."|r",
-	rareelite = " |cffFF99CC"..L["Rare"].."|r ".."|cffCC8800"..ELITE.."|r",
+	elite = " |cffFFFF00"..ELITE.."|r",
+	rare = " |cff00FFFF"..MAP_LEGEND_RARE.."|r",
+	rareelite = " |cffFF00FF"..MAP_LEGEND_RAREELITE.."|r",
 	worldboss = " |cffFF0000"..BOSS.."|r",
 }
-local npcIDstring = "%s "..DB.InfoColor.."%s"
-local ignoreString = "|cffFF0000"..IGNORED..":|r %s"
-local specPrefix = "|cffFFCC00"..REFORGE_CURRENT..SPECIALIZATION..":|r "
 
 function TT:GetUnit()
 	local data = self:GetTooltipData()
@@ -26,7 +23,7 @@ local FACTION_COLORS = {
 }
 
 local function replaceSpecInfo(str)
-	return string.find(str, "%s") and specPrefix..str or str
+	return string.find(str, "%s") and "|cffFFCC00"..REFORGE_CURRENT..SPECIALIZATION..":|r "..str or str
 end
 
 function TT:UpdateFactionLine(lineData)
@@ -63,7 +60,7 @@ end
 
 function TT:GetTarget(unit)
 	if UnitIsUnit(unit, "player") then
-		return format("|cffFF0000%s|r", ">"..string.upper(YOU).."<")
+		return format("|cffFF0000>%s<|r", string.upper(YOU))
 	else
 		return B.HexRGB(B.UnitColor(unit))..UnitName(unit).."|r"
 	end
@@ -157,7 +154,7 @@ function TT:OnTooltipSetUnit()
 
 		local relationship = UnitRealmRelationship(unit)
 		if realm and realm ~= "" then
-			name = name.."-"..realm
+			name = name.." - "..realm
 			if relationship == LE_REALM_RELATION_COALESCED then
 				name = name..DB.InfoColor..FOREIGN_SERVER_LABEL.."|r"
 			elseif relationship == LE_REALM_RELATION_VIRTUAL then
@@ -167,9 +164,10 @@ function TT:OnTooltipSetUnit()
 
 		local status = (UnitIsAFK(unit) and AFK) or (UnitIsDND(unit) and DND) or (not UnitIsConnected(unit) and PLAYER_OFFLINE)
 		if status then
-			status = format(" |cffFFCC00[%s]|r", status)
+			status = format(" |cffFFFF00[%s]|r", status)
 		end
-		GameTooltipTextLeft1:SetFormattedText("%s", name..(status or ""))
+
+		GameTooltipTextLeft1:SetFormattedText("%s%s", name, (status or ""))
 
 		local faction = UnitFactionGroup(unit)
 		if faction and faction ~= "Neutral" then
@@ -207,49 +205,48 @@ function TT:OnTooltipSetUnit()
 	local text = GameTooltipTextLeft1:GetText()
 	if text then
 		local ricon = GetRaidTargetIndex(unit)
-		if ricon and ricon > 8 then ricon = nil end
-		ricon = ricon and ICON_LIST[ricon].."18|t " or ""
-		GameTooltipTextLeft1:SetFormattedText(("%s%s%s"), ricon, hexColor, text)
+		GameTooltipTextLeft1:SetFormattedText("%s%s", (ricon and ICON_LIST[ricon].."18|t " or ""), hexColor..text.."|r")
 	end
 
-	local alive = not UnitIsDeadOrGhost(unit)
-	local level
-	if UnitIsWildBattlePet(unit) or UnitIsBattlePetCompanion(unit) then
-		level = UnitBattlePetLevel(unit)
-	else
-		level = UnitLevel(unit)
-	end
-
-	if level then
-		local boss
-		if level == -1 then boss = "|cffFF0000??|r" end
-
-		local diff = GetCreatureDifficultyColor(level)
-		local classify = UnitClassification(unit)
-		local textLevel = format("%s%s%s|r", B.HexRGB(diff), boss or format("%d", level), classification[classify] or "")
-		local tiptextLevel = TT.GetLevelLine(self)
-		if tiptextLevel then
-			local reaction = UnitReaction(unit, "player")
-			local standingText = not isPlayer and reaction and hexColor.._G["FACTION_STANDING_LABEL"..reaction].."|r " or ""
-
-			local pvpFlag = isPlayer and UnitIsPVP(unit) and format(" |cffFF0000%s|r", PVP) or ""
-			local unitClass = isPlayer and format("%s %s", UnitRace(unit) or "", hexColor..(UnitClass(unit) or "").."|r") or UnitCreatureType(unit) or ""
-
-			tiptextLevel:SetFormattedText(("%s%s %s %s"), textLevel, pvpFlag, standingText..unitClass, (not alive and "|cffCCCCCC"..DEAD.."|r" or ""))
+	local tiptextLevel = TT.GetLevelLine(self)
+	if tiptextLevel then
+		local level
+		if UnitIsWildBattlePet(unit) or UnitIsBattlePetCompanion(unit) then
+			level = UnitBattlePetLevel(unit)
+		else
+			level = UnitLevel(unit)
 		end
+
+		local boss
+		if level < 0 then boss = "|cffFF0000??|r" end
+
+		local diffColor = GetCreatureDifficultyColor(level)
+		local unitLevel = format("%s%s|r", B.HexRGB(diffColor), (boss or level))
+		local unitStatus = UnitIsDeadOrGhost(unit) and " |cffFF0000"..DEAD.."|r" or ""
+
+		local pvpFlag = isPlayer and (UnitIsPVP(unit) and " |cffFF0000"..PVP.."|r" or "")
+		local unitClass = isPlayer and (hexColor..UnitClass(unit).."|r" or "")
+		local unitRace = isPlayer and (UnitRace(unit) or "")
+
+		local classify = UnitClassification(unit)
+		local reaction = UnitReaction(unit, "player")
+		local classifyText = not isPlayer and (classify and classification[classify] or "")
+		local standingText = not isPlayer and (reaction and hexColor.._G["FACTION_STANDING_LABEL"..reaction].."|r" or "")
+		local unitType = not isPlayer and (UnitCreatureType(unit) or "")
+
+		tiptextLevel:SetFormattedText("%s%s %s %s%s", unitLevel, pvpFlag or classifyText, unitClass or standingText, unitRace or unitType, unitStatus)
 	end
 
 	if UnitExists(unit.."target") then
 		local tarRicon = GetRaidTargetIndex(unit.."target")
-		if tarRicon and tarRicon > 8 then tarRicon = nil end
 		local tar = format("%s%s", (tarRicon and ICON_LIST[tarRicon].."10|t") or "", TT:GetTarget(unit.."target"))
-		self:AddLine(TARGET..": "..tar)
+		self:AddLine(format("%s: %s", REFORGE_CURRENT..TARGET, tar))
 	end
 
 	if not isPlayer and isShiftKeyDown then
 		local npcID = B.GetNPCID(guid)
 		if npcID then
-			self:AddLine(format(npcIDstring, "NpcID:", npcID))
+			self:AddLine(format("NpcID: |cff00FFFF%s|r", npcID))
 
 			local npcName = UnitName("mouseover") or UNKNOWN
 			print(format("[%s] = true, -- %s", npcID, npcName))
@@ -266,7 +263,7 @@ function TT:OnTooltipSetUnit()
 	-- Ignore note
 	local ignoreNote = unitFullName and NDuiADB["IgnoreNotes"][unitFullName]
 	if ignoreNote then
-		self:AddLine(format(ignoreString, ignoreNote), 1,1,1, 1)
+		self:AddLine(format("|cffFF0000%s:|r %s", IGNORED, ignoreNote), 1,1,1, 1)
 	end
 end
 

@@ -393,16 +393,16 @@ end
 
 -- Unit classification
 local NPClassifies = {
-	rare = {1, 1, 1, true},
-	elite = {1, 1, 1},
-	rareelite = {1, .1, .1},
-	worldboss = {0, 1, 0},
+	rare = {0, 1, 1},
+	elite = {1, 1, 0},
+	rareelite = {1, 0, 1},
+	worldboss = {1, 0, 0},
 }
 
 function UF:AddCreatureIcon(self)
 	local icon = self.Health:CreateTexture(nil, "ARTWORK")
-	icon:SetTexture(DB.starTex)
-	icon:SetPoint("RIGHT", self.nameText, "LEFT", 10, 0)
+	icon:SetAtlas(DB.starTex)
+	icon:SetPoint("RIGHT", self.nameText, "LEFT", 8, 1)
 	icon:SetSize(18, 18)
 	icon:Hide()
 
@@ -419,9 +419,9 @@ function UF:UpdateUnitClassify(unit)
 		local class = UnitClassification(unit)
 		local classify = class and NPClassifies[class]
 		if classify then
-			local r, g, b, desature = unpack(classify)
+			local r, g, b = unpack(classify)
 			self.ClassifyIndicator:SetVertexColor(r, g, b)
-			self.ClassifyIndicator:SetDesaturated(desature)
+			self.ClassifyIndicator:SetDesaturated(true)
 			self.ClassifyIndicator:Show()
 		end
 	end
