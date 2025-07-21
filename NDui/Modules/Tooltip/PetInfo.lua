@@ -33,5 +33,5 @@ function TT:PetInfo_Setup(unit)
 
 	-- Pet ID
 	local speciesID = UnitBattlePetSpeciesID(unit)
-	self:AddDoubleLine(PET..ID..":", speciesID and (DB.InfoColor..speciesID.."|r") or (DB.GreyColor..UNKNOWN.."|r"))
+	self:AddDoubleLine(PET.."ID:", speciesID or UNKNOWN, nil,nil,nil, 0,1,1)
 end

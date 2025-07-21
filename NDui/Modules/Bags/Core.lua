@@ -140,7 +140,7 @@ function module:CreateInfoFrame()
 	search.textFilters = BagSmartFilter
 
 	infoFrame.title = SEARCH
-	B.AddTooltip(infoFrame, "ANCHOR_TOPLEFT", DB.InfoColor..L["BagSearchTip"])
+	B.AddTooltip(infoFrame, "ANCHOR_TOPLEFT", L["BagSearchTip"], "info")
 end
 
 local function ToggleWidgetButtons(self)
@@ -378,7 +378,7 @@ function module:CreateDepositButton()
 		end
 	end)
 	bu.title = REAGENTBANK_DEPOSIT
-	B.AddTooltip(bu, "ANCHOR_TOP", DB.InfoColor..L["AutoDepositTip"])
+	B.AddTooltip(bu, "ANCHOR_TOP", L["AutoDepositTip"], "info")
 	updateDepositButtonStatus(bu)
 
 	return bu
@@ -405,7 +405,7 @@ function module:CreateAccountBankDeposit()
 		end
 	end)
 	bu.title = ACCOUNT_BANK_DEPOSIT_BUTTON_LABEL
-	B.AddTooltip(bu, "ANCHOR_TOP", DB.InfoColor..L["DepositTradeGoodsTip"])
+	B.AddTooltip(bu, "ANCHOR_TOP", L["DepositTradeGoodsTip"], "info")
 	updateAccountBankDeposit(bu)
 
 	return bu

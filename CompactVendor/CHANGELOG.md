@@ -1,8 +1,31 @@
 # CompactVendor
 
-## [v11.1.7.250717](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.7.250717) (2025-07-17)
-[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.7.250717) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
+## [v11.1.7.250721](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.7.250721) (2025-07-20)
+[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.7.250721) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
 
+- - TOC bump  
+    - Fixed the item stats filter  
+- If it wasn't for the tooltip scanning delay the requirements filter dropdown itself functions as expected.  
+    But there is some wonky behavior when swapping the filter between "All" and "All Specializations" which cause some wonky loading behavior, the provider doesn't always fully return all items, some pending once might get locked waiting, etc.  
+    This appears to be caused due to tooltip scanning of too many things at once adds more delay and potential failure, so need to re-think the tooltip scanning code and making it more robust to avoid this from happening.  
+    Need to revisit the events called from the bottom up, so we properly subscribe to callbacks relevant to each step, so that the filter button on top properly refreshes when it has to.  
+    After some cleaning up it is better, but not good enough to simply enable the full tooltip scanning behavior on all items, so keeping it on recipes and pets for now.  
+- Renamed the old `CanLean` method to a universal `HasRequirements` method which will scan and extract the various requirements, the old method did the same logic just worse and used an older naming convention which is now corrected.  
+    Requirements are scanned from the bottom up, and will stop scanning as soon a non-requirement is encountered after any requirements that were found.  
+    This is to avoid embed issues, where the tooltip contained data from an embeded item, but we couldn't know where it ends and the regular tooltip continues.  
+    Updated the stats filter and the requirements filter, it had to be adjusted to consider the checked options/values, so only those were taken into account when deciding if to show or hide the item in question.  
+    There are still some oddities with the requirements, will need to do more testing.  
+- Marked all items as scannable, since we don't know in advance if an item has or doesn't have any requirement lines in its tooltip.  
+    This flags all items for tooltip scanning, thus allowing the `CanLearn` method to extract all sort of requirements, not only for recipes, pets, cosmetics, etc.  
+    Need to profile performance on large vendors, like renown quartermasters and other quartermasters with a lot of items.  
+- Fixed a bit of docs and a bit of filter code. Added a TODO on the requirements filter, right now it won't work to toggle the filters, they are properly detected, but we need to change the filter dropdown to reflect the contents of the actual requirements.  
+- Created `MerchantItem:CanAfford()` and using it where suitable instead of the prop directly.  
+    Created `MerchantItem:GetLearnRequirements(predicate?)` and `MerchantItem:GetLearnRequirementsForRedProfessions()` methods and using these instead of a loop and logic in the `UpdateMerchantItemButton` function.  
+    This way it's a bit more clear what the purpose is, and reusable if I need similar checks elsewhere.  
+- No need to try to purchase something we can't afford. This avoids the confirmation popup for items we can't buy either way.  
+- Fixed tooltip scanning issues around profession scanning of requirements.  
+    An item can have multiple requirements, and we mostly care about the profession one for coloring, and the dropdown filters care for all of them combined.  
+    There is more work to be done to confirm the other kind of requirements: level, rating, achievement, guild, reputation, specialization, renown, and check for other kinds that we should add to the filter and scanning code.  
 - The merchant filter event is too costly, so we do like the default UI does it, just queue a full update to occur later once the events settle.  
     This primarily affects merchants with a lot of items, like renown quartermasters, timewalking vendor, etc. And it only occurs the first time the merchant frame is opened, as the client caches the data until you properly logout and back in again.  
 - TOC bump  
@@ -66,19 +89,5 @@
     Update libraries to newest available version.  
 - libs: ItemSearch-1.3: update to 881f914  
 - libs: C\_Everywhere: update to 907e535  
-- libs: CustomSearch-1.0: update to 98167ba  
-- libs: update Unfit-1.0 to d7531db  
 - Update release.yml  
 - Slug changed and broke workflow.  
-- - Fixed a stats filter bug with a deprecated (soon to be) API.  
-    - TOC bump.  
-- Added crafting quality stars to items where its relevant.  
-    TooltipUtil.SurfaceArgs will be removed in 11.0 so preparing for that ever so slowly.  
-    Free items are properly assigned the appropriate CostType.  
-- Patch 11.0 preparations.  
-- Fixed a minor bug with undefined API usage.  
-    TOC bump and re-release.  
-- Using the "retrieving item info" text when the item data is pending.  
-- Even with no tooltip scanning we can still show the data, even in Classic. Need to implement scanning for proper filtering support.  
-- Added TOC files for the other clients.  
-- Added classic era fixes. Tooltip scanning is currently not functional.  

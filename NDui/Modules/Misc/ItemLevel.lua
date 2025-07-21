@@ -66,10 +66,9 @@ function M:CreateItemString(frame, strType)
 			slotFrame.iSlotText = B.CreateFS(slotFrame, DB.Font[2]+1, "", false, "TOP", 1, -1)
 
 			local relF, x, y = M:GetSlotAnchor(index)
-			slotFrame.enchantText = B.CreateFS(slotFrame, DB.Font[2]+1)
+			slotFrame.enchantText = B.CreateFS(slotFrame, DB.Font[2]+1, "", "green")
 			slotFrame.enchantText:ClearAllPoints()
 			slotFrame.enchantText:SetPoint(relF, slotFrame, x, y)
-			slotFrame.enchantText:SetTextColor(0, 1, 0)
 
 			slotFrame.enchantText:SetJustifyH(string.sub(relF, 7))
 			slotFrame.enchantText:SetWidth(100)

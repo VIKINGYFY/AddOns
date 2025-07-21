@@ -59,11 +59,12 @@ local function updateCommunitiesSelection(texture, show)
 	end
 end
 
-local function updateNameFrame(self)
+local function updateColumns(self)
 	if not self.expanded then return end
 	if not self.bg then
 		self.bg = B.CreateBDFrame(self.Class)
 	end
+
 	local memberInfo = self:GetMemberInfo()
 	if memberInfo and memberInfo.classID then
 		local classInfo = C_CreatureInfo.GetClassInfo(memberInfo.classID)
@@ -332,7 +333,7 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 		for i = 1, self.ScrollTarget:GetNumChildren() do
 			local child = select(i, self.ScrollTarget:GetChildren())
 			if not child.styled then
-				hooksecurefunc(child, "RefreshExpandedColumns", updateNameFrame)
+				hooksecurefunc(child, "RefreshExpandedColumns", updateColumns)
 				child.styled = true
 			end
 

@@ -455,7 +455,7 @@ local function UnitQuickQuestStatus(self)
 		frame:SetSize(100, 14)
 		frame:SetPoint("TOP", self, "BOTTOM", 0, -2)
 		B.AddTooltip(frame, "ANCHOR_RIGHT", L["AutoQuestIgnoreTip"], "info", true)
-		B.CreateFS(frame, 14, IGNORED):SetTextColor(1, 0, 0)
+		B.CreateFS(frame, 14, IGNORED, "red")
 
 		self.__ignore = frame
 

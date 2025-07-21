@@ -99,6 +99,7 @@ do
 					end
 					if string.find(stat, "EMPTY_SOCKET_") then
 						itemStat = itemStat.."-".."插槽"
+						break
 					end
 				end
 			end
@@ -114,7 +115,9 @@ do
 	local extraCache = {}
 	function B.GetItemExtra(itemInfo)
 		local itemExtra, hasStat, hasMisc
-		if not extraCache[itemInfo] then
+
+		local cacheData = extraCache[itemInfo]
+		if not cacheData then
 			local itemType = B.GetItemType(itemInfo)
 			local itemStat = B.GetItemStat(itemInfo)
 			local itemLevel = B.GetItemLevel(itemInfo)
@@ -125,18 +128,21 @@ do
 				itemExtra = "<"..itemLevel..itemStat..">"
 			elseif itemType then
 				itemExtra = "<"..itemType..itemStat..">"
+			else
+				itemExtra = ""
 			end
 
-			if itemStat ~= "" then
-				hasStat = true
-			elseif itemType and miscList[itemType] then
-				hasMisc = true
-			end
+			hasStat = (itemStat and itemStat ~= "")
+			hasMisc = (itemType and miscList[itemType])
 
-			extraCache[itemInfo] = itemExtra
+			cacheData = {
+				itemExtra = itemExtra,
+				hasStat = hasStat,
+				hasMisc = hasMisc,
+			}
 		end
 
-		return extraCache[itemInfo], hasStat, hasMisc
+		return cacheData.itemExtra, cacheData.hasStat, cacheData.hasMisc
 	end
 
 	local rtgColor = {1,0,0, 1,1,0, 0,1,0}

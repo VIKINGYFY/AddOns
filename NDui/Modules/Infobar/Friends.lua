@@ -175,13 +175,12 @@ function info:FriendsPanel_Init()
 		self:SetScript("OnUpdate", isPanelCanHide)
 	end)
 
-	B.CreateFS(infoFrame, 16, DB.InfoColor..FRIENDS_LIST, nil, "TOPLEFT", 15, -10)
-	infoFrame.friendCountText = B.CreateFS(infoFrame, 14, "-/-", nil, "TOPRIGHT", -15, -12)
-	infoFrame.friendCountText:SetTextColor(0, 1, 1)
+	B.CreateFS(infoFrame, 16, FRIENDS_LIST, "info", "TOPLEFT", 15, -10)
+	infoFrame.friendCountText = B.CreateFS(infoFrame, 14, "-/-", "info", "TOPRIGHT", -15, -12)
 
 	local scrollFrame = CreateFrame("ScrollFrame", "NDuiFriendsInfobarScrollFrame", infoFrame, "HybridScrollFrameTemplate")
 	scrollFrame:SetSize(370, 400)
-	scrollFrame:SetPoint("TOPLEFT", 10, -35)
+	scrollFrame:SetPoint("TOPLEFT", 5, -35)
 	infoFrame.scrollFrame = scrollFrame
 
 	local scrollBar = CreateFrame("Slider", "$parentScrollBar", scrollFrame, "HybridScrollBarTemplate")
@@ -208,10 +207,8 @@ function info:FriendsPanel_Init()
 	scrollBar:SetValue(0)
 
 	B.CreateFS(infoFrame, 13, DB.LineString, false, "BOTTOMRIGHT", -12, 42)
-	local whspInfo = DB.InfoColor..DB.RightButton..L["Whisper"]
-	B.CreateFS(infoFrame, 13, whspInfo, false, "BOTTOMRIGHT", -15, 26)
-	local invtInfo = DB.InfoColor.."ALT +"..DB.LeftButton..L["Invite"]
-	B.CreateFS(infoFrame, 13, invtInfo, false, "BOTTOMRIGHT", -15, 10)
+	B.CreateFS(infoFrame, 13, DB.RightButton..L["Whisper"], "info", "BOTTOMRIGHT", -15, 26)
+	B.CreateFS(infoFrame, 13, "ALT +"..DB.LeftButton..L["Invite"], "info", "BOTTOMRIGHT", -15, 10)
 end
 
 local function inviteFunc(_, bnetIDGameAccount, guid)
@@ -403,9 +400,8 @@ function info:FriendsPanel_CreateButton(parent, index)
 	button.status:SetPoint("LEFT", button, 5, 0)
 	button.status:SetSize(16, 16)
 
-	button.name = B.CreateFS(button, 13, "Tag (name)", false, "LEFT", 25, 0)
+	button.name = B.CreateFS(button, 13, "Tag (name)", "info", "LEFT", 25, 0)
 	button.name:SetPoint("RIGHT", button, "LEFT", 230, 0)
-	button.name:SetTextColor(.5, .7, 1)
 
 	button.zone = B.CreateFS(button, 13, "Zone", false, "RIGHT", -28, 0)
 	button.zone:SetPoint("LEFT", button, "RIGHT", -130, 0)
@@ -432,10 +428,10 @@ function info:FriendsPanel_UpdateButton(button)
 		local name, level, class, area, status = unpack(friendTable[index])
 		button.status:SetTexture(status)
 		local zoneColor = GetAreaText() == area and activeZone or inactiveZone
-		local levelColor = B.HexRGB(GetQuestDifficultyColor(level))
+		local levelColor = B.HexRGB(GetCreatureDifficultyColor(level))
 		local classColor = DB.ClassColors[class] or levelColor
-		button.name:SetText(format("%s%s|r %s%s", levelColor, level, B.HexRGB(classColor), name))
-		button.zone:SetText(format("%s%s", zoneColor, area))
+		button.name:SetFormattedText("%s%s|r %s%s|r", levelColor, level, B.HexRGB(classColor), name)
+		button.zone:SetFormattedText("%s%s|r", zoneColor, area)
 		C_Texture.SetTitleIconTexture(button.gameIcon, BNET_CLIENT_WOW, Enum.TitleIconVersion.Medium)
 
 		button.isBNet = nil
@@ -448,12 +444,12 @@ function info:FriendsPanel_UpdateButton(button)
 		local zoneColor = inactiveZone
 		local name = inactiveZone..charName
 		if client == BNET_CLIENT_WOW then
-			local classColor = DB.ClassColors[class] or GetQuestDifficultyColor(1)
+			local classColor = DB.ClassColors[class] or GetCreatureDifficultyColor(1)
 			name = B.HexRGB(classColor)..charName
 			zoneColor = GetAreaText() == infoText and activeZone or inactiveZone
 		end
-		button.name:SetText(format("%s%s|r (%s|r)", DB.InfoColor, accountName, name))
-		button.zone:SetText(format("%s%s", zoneColor, infoText))
+		button.name:SetFormattedText("%s (%s|r)", accountName, name)
+		button.zone:SetFormattedText("%s%s|r", zoneColor, infoText)
 
 		if client == CLIENT_WOW_DIFF then
 			C_Texture.SetTitleIconTexture(button.gameIcon, BNET_CLIENT_WOW, Enum.TitleIconVersion.Medium)
@@ -575,7 +571,7 @@ info.onEnter = function(self)
 
 	info:FriendsPanel_Init()
 	info:FriendsPanel_Update()
-	infoFrame.friendCountText:SetText(format("%s: %s / %s", GUILD_ONLINE_LABEL, totalOnline, totalFriends))
+	infoFrame.friendCountText:SetFormattedText("%s: %s / %s", GUILD_ONLINE_LABEL, totalOnline, totalFriends)
 end
 
 local function delayLeave()

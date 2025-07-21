@@ -60,7 +60,7 @@ end
 
 function TT:GetTarget(unit)
 	if UnitIsUnit(unit, "player") then
-		return format("|cffFF0000>%s<|r", string.upper(YOU))
+		return format("|cffFF0000> %s <|r", string.upper(YOU))
 	else
 		return B.HexRGB(B.UnitColor(unit))..UnitName(unit).."|r"
 	end

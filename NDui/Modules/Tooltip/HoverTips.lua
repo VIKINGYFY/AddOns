@@ -1,6 +1,7 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local TT = B:GetModule("Tooltip")
+local S = B:GetModule("Skins")
 
 local orig1, orig2, sectionInfo = {}, {}, {}
 local linkTypes = {
@@ -55,10 +56,10 @@ function TT:HyperLink_SetJournal(link)
 	if not name then return end
 
 	GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", -3, 5)
-	GameTooltip:AddDoubleLine(name, GetDifficultyInfo(diffID))
+	GameTooltip:AddDoubleLine(name, GetDifficultyInfo(diffID), nil,nil,nil, 0,1,1)
 	GameTooltip:AddLine(description, 1,1,1, 1)
 	GameTooltip:AddLine(" ")
-	GameTooltip:AddDoubleLine(idString, DB.InfoColor..id)
+	GameTooltip:AddDoubleLine(idString, id, nil,nil,nil, 0,1,1)
 	GameTooltip:Show()
 end
 
@@ -104,14 +105,4 @@ local function hookMessageFrame()
 	CommunitiesFrame.Chat.MessageFrame:SetScript("OnHyperlinkEnter", TT.HyperLink_OnEnter)
 	CommunitiesFrame.Chat.MessageFrame:SetScript("OnHyperlinkLeave", TT.HyperLink_OnLeave)
 end
-local function hookCommunitiesFrame(event, addon)
-	if addon == "Blizzard_Communities" then
-		hookMessageFrame()
-		B:UnregisterEvent(event, hookCommunitiesFrame)
-	end
-end
-if C_AddOns.IsAddOnLoaded("Blizzard_Communities") then
-	hookMessageFrame()
-else
-	B:RegisterEvent("ADDON_LOADED", hookCommunitiesFrame)
-end
+S:LoadSkins("Blizzard_Communities", hookMessageFrame)

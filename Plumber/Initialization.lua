@@ -1,5 +1,5 @@
-local VERSION_TEXT = "v1.7.1";
-local VERSION_DATE = 1751900000;
+local VERSION_TEXT = "v1.7.2";
+local VERSION_DATE = 1753100000;
 
 
 local addonName, addon = ...
@@ -139,6 +139,12 @@ local DefaultValues = {
     TooltipProfessionKnowledge = true,  --Show unspent points on GameTooltip
     EditModeShowPlumberUI = true,
     LandingPageSwitch = true,           --Right click on ExpansionLandingPageMinimapButton to open a menu to access mission report
+
+
+    --Reduction
+    BossBanner_MasterSwitch = false,
+        BossBanner_HideLootWhenSolo = true,
+        BossBanner_ValuableItemOnly = true,
 
 
     --New Expansion Landing Page

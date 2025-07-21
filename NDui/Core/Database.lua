@@ -46,7 +46,7 @@ end
 DB.ClassColors = {}
 for class, value in pairs(RAID_CLASS_COLORS) do
 	DB.ClassColors[class] = {}
-	DB.ClassColors[class] = {r = value.r, g = value.g, b = value.b, colorStr = value.colorStr}
+	DB.ClassColors[class] = {r = value.r, g = value.g, b = value.b, colorStr = "|c"..value.colorStr}
 end
 DB.ClassColors[NONE] = {r = .5, g = .5, b = .5}
 
@@ -73,7 +73,7 @@ DB.alpha = .75
 
 -- Fonts
 DB.Font = {STANDARD_TEXT_FONT, 12, "OUTLINE"}
-DB.LineString = DB.GreyColor.."---------------"
+DB.LineString = DB.MyColor.."---------------|r"
 DB.NDuiString = "|cff0080FFNDui:|r"
 DB.Separator = DB.MyColor.." | |r"
 DB.EnableString = "|cff00FF00"..VIDEO_OPTIONS_ENABLED.."|r"

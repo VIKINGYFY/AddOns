@@ -672,6 +672,26 @@ end
 local CreateTooltipItem
 local IsTooltipTextPending do
 
+    ---@alias TooltipDataType Enum.TooltipDataType
+    local TooltipDataType = Enum.TooltipDataType
+
+    ---@alias TooltipDataLineType Enum.TooltipDataLineType
+    local TooltipDataLineType = Enum.TooltipDataLineType
+
+    ---@type table<TooltipDataLineType, true?>
+    local TooltipDataLineTypeIsTextMap = {
+        [TooltipDataLineType.None] = true,
+        [TooltipDataLineType.RestrictedRaceClass] = true,
+        [TooltipDataLineType.RestrictedFaction] = true,
+        [TooltipDataLineType.RestrictedSkill] = true,
+        [TooltipDataLineType.RestrictedPvPMedal] = true,
+        [TooltipDataLineType.RestrictedReputation] = true,
+        [TooltipDataLineType.RestrictedSpellKnown] = true,
+        [TooltipDataLineType.RestrictedLevel] = true,
+        -- [TooltipDataLineType.RestrictedArena] = true,
+        -- [TooltipDataLineType.RestrictedBg] = true,
+    }
+
     ---@class TooltipItem
     ---@field public tooltipData TooltipDataArgs
     ---@field public index? number
@@ -688,14 +708,14 @@ local IsTooltipTextPending do
 
     ---@class TooltipDataArgs : TooltipData
     ---@field public lines TooltipItemLine[]
-    ---@field public type TooltipDataArgsType
+    ---@field public type TooltipDataType
     ---@field public hyperlink? string
     ---@field public id? number
     ---@field public guid? string
     ---@field public healthGUID? string
 
     ---@class TooltipDataLineArgs : TooltipDataLine
-    ---@field public type TooltipDataLineArgsType
+    ---@field public type TooltipDataLineType
     ---@field public leftText string
     ---@field public leftColor TooltipSimpleColor
     ---@field public rightText? string
@@ -705,22 +725,7 @@ local IsTooltipTextPending do
     ---@field public price? number
     ---@field public wrapText? boolean
     ---@field public tooltipID? number
-    ---@field public tooltipType? TooltipDataArgsType
-
-    ---@enum TooltipDataArgsType
-    local TooltipDataArgsType = {
-        Item = 0,
-    }
-
-    ---@enum TooltipDataLineArgsType
-    local TooltipDataLineArgsType = {
-        Text = 0,
-        Padding = 1,
-        Price = 11,
-        Embed = 19,
-        Bonding = 20,
-        Known = 26,
-    }
+    ---@field public tooltipType? TooltipDataType
 
     ---@class TooltipItemLine : TooltipDataLineArgs
     local TooltipItemLine = {}
@@ -731,23 +736,33 @@ local IsTooltipTextPending do
 
     function TooltipItemLine:IsTypeText()
         local type = self:GetType()
-        return type == TooltipDataLineArgsType.Text or type == TooltipDataLineArgsType.Known
+        return TooltipDataLineTypeIsTextMap[type]
     end
 
     function TooltipItemLine:IsTypePadding()
-        return self:GetType() == TooltipDataLineArgsType.Padding
+        return self:GetType() == TooltipDataLineType.Blank
     end
 
     function TooltipItemLine:IsTypePrice()
-        return self:GetType() == TooltipDataLineArgsType.Price
+        return self:GetType() == TooltipDataLineType.SellPrice
     end
 
     function TooltipItemLine:IsTypeEmbed()
-        return self:GetType() == TooltipDataLineArgsType.Embed
+        return self:GetType() == TooltipDataLineType.NestedBlock
     end
 
     function TooltipItemLine:IsTypeBonding()
-        return self:GetType() == TooltipDataLineArgsType.Bonding
+        return self:GetType() == TooltipDataLineType.ItemBinding
+    end
+
+    function TooltipItemLine:GetEmbedItemID()
+        if not self:IsTypeEmbed() then
+            return
+        end
+        if self.tooltipType ~= Enum.TooltipDataType.Item then
+            return
+        end
+        return self.tooltipID
     end
 
     function TooltipItemLine:GetLeftText()
@@ -809,13 +824,13 @@ local IsTooltipTextPending do
         return self.tooltipData
     end
 
-    ---@return TooltipDataArgsType type
+    ---@return TooltipDataType type
     function TooltipItem:GetType()
         return self.tooltipData.type
     end
 
     function TooltipItem:IsTypeItem()
-        return self:GetType() == TooltipDataArgsType.Item
+        return self:GetType() == TooltipDataType.Item
     end
 
     ---@return number|string|nil idOrGUID
@@ -833,9 +848,23 @@ local IsTooltipTextPending do
         return not text or text == "" or text == " " or text == RETRIEVING_ITEM_INFO
     end
 
+    function TooltipItem:IsPendingEmbed()
+        for _, line in ipairs(self.tooltipData.lines) do
+            if line:IsTypeEmbed() then
+                local embedItemID = line:GetEmbedItemID()
+                if embedItemID then
+                    local name = line:GetLeftText()
+                    return IsTooltipTextPending(name)
+                end
+            end
+        end
+        return false
+    end
+
     function TooltipItem:IsPending()
         local name = self:GetName()
-        return IsTooltipTextPending(name)
+        local isPending = IsTooltipTextPending(name)
+        return isPending -- or self:IsPendingEmbed()
     end
 
     ---@enum ItemRequirementType
@@ -850,9 +879,10 @@ local IsTooltipTextPending do
         Renown = 8,
     }
 
-    ---@class ItemRequirement : table
+    ---@class ItemRequirementInfo
     ---@field public raw string
     ---@field public type ItemRequirementType
+    ---@field public isRed? boolean
     ---@field public requires? string
     ---@field public amount? number
     ---@field public level? number
@@ -866,17 +896,18 @@ local IsTooltipTextPending do
 
     local ItemRequirementFieldCount = 2
 
+    ---@type { [1]: string, [2]: ItemRequirementType, [3]: string, [4]: string }[]
     local ItemRequirements = {
         { "Requires Renown Rank %d with the %s by a character on this account.", ItemRequirementType.Renown, "rank", "renown" }, -- TODO: localization
-        { ITEM_MIN_SKILL, ItemRequirementType.Profession, "requires", "amount" },
-        { ITEM_REQ_SKILL, ItemRequirementType.Profession, "requires" },
-        { ITEM_MIN_LEVEL, ItemRequirementType.Level, "level" },
         { ITEM_REQ_ARENA_RATING, ItemRequirementType.Rating, "rating" },
         { ITEM_REQ_PURCHASE_ACHIEVEMENT, ItemRequirementType.Achievement, "achievement" },
         { ITEM_REQ_PURCHASE_GUILD, ItemRequirementType.Guild, "guild" },
         { ITEM_REQ_PURCHASE_GUILD_LEVEL, ItemRequirementType.Guild, "guild", "level" },
         { ITEM_REQ_REPUTATION, ItemRequirementType.Reputation, "reputation", "rank" },
+        { ITEM_MIN_SKILL, ItemRequirementType.Profession, "requires", "amount" },
+        { ITEM_MIN_LEVEL, ItemRequirementType.Level, "level" },
         { ITEM_REQ_SPECIALIZATION, ItemRequirementType.Specialization, "specialization" },
+        { ITEM_REQ_SKILL, ItemRequirementType.Profession, "requires" },
     }
 
     for _, requirement in ipairs(ItemRequirements) do
@@ -884,8 +915,8 @@ local IsTooltipTextPending do
     end
 
     ---@param text string
-    ---@return ItemRequirement? itemRequirement
-    local function GetItemRequirement(text)
+    ---@return ItemRequirementInfo? requirementInfo
+    local function GetItemRequirementInfo(text)
         for _, requirement in ipairs(ItemRequirements) do
             local pattern = requirement[1]
             local requirementType = requirement[2]
@@ -909,27 +940,107 @@ local IsTooltipTextPending do
         return r > 250 and g < 40 and b < 40 -- 255 32 32
     end
 
-    ---@return boolean? canLearn, ItemRequirement? itemRequirement
-    function TooltipItem:CanLearn()
-        for _, line in ipairs(self.tooltipData.lines) do
-            if line:IsTypeText() then
-                local text = line:GetLeftText()
-                local itemRequirement = GetItemRequirement(text)
-                if itemRequirement then
-                    local color = line:GetLeftColor()
-                    local canLearn = true
-                    if color then
-                        canLearn = not ColorIsRed(color)
-                    end
-                    return canLearn, itemRequirement
+    ---@param requirementsInfo? ItemRequirementInfo[]
+    ---@param hyperlink? string
+    local function AppendPlayerLevelRequirement(requirementsInfo, hyperlink)
+        if not hyperlink then
+            return requirementsInfo
+        end
+        local found = false
+        if requirementsInfo then
+            for _, requirementInfo in ipairs(requirementsInfo) do
+                if requirementInfo.type == ItemRequirementType.Level then
+                    found = true
+                    break
                 end
             end
         end
+        if found then
+            return requirementsInfo
+        end
+        local _, _, _, _, itemMinLevel = C_Item.GetItemInfo(hyperlink)
+        if not itemMinLevel or itemMinLevel < 2 then
+            return requirementsInfo
+        end
+        if not requirementsInfo then
+            requirementsInfo = {}
+        end
+        requirementsInfo[#requirementsInfo + 1] = {
+            type = ItemRequirementType.Level,
+            raw = format(ITEM_MIN_LEVEL, itemMinLevel),
+            level = itemMinLevel,
+        }
+        return requirementsInfo
+    end
+
+    ---@param requirementsInfo? ItemRequirementInfo[]
+    local function CleanupClutterRequirements(requirementsInfo)
+        if not requirementsInfo then
+            return
+        end
+        local playerLevel = UnitLevel("player") or 1
+        local temp ---@type ItemRequirementInfo[]?
+        local index = 0
+        for _, requirementInfo in ipairs(requirementsInfo) do
+            local add = true
+            local infoType = requirementInfo.type
+            if infoType == ItemRequirementType.Level then
+                local reqLevel = tonumber(requirementInfo.level) or 0
+                if playerLevel > reqLevel then
+                    add = false
+                end
+            end
+            if add then
+                if not temp then
+                    temp = {}
+                end
+                index = index + 1
+                temp[index] = requirementInfo
+            end
+        end
+        return temp
+    end
+
+    ---@return boolean hasRedRequirements, ItemRequirementInfo[]? requirementsInfo
+    function TooltipItem:HasRequirements()
+        local hasRedRequirements = false
+        local requirementsInfo ---@type ItemRequirementInfo[]?
+        local index = 0
+        local lines = self.tooltipData.lines
+        for i = #lines, 2, -1 do
+            local line = lines[i]
+            if line:IsTypeText() then
+                local text = line:GetLeftText()
+                local requirementInfo = GetItemRequirementInfo(text)
+                if requirementInfo then
+                    local color = line:GetLeftColor()
+                    if color then
+                        local isRed = ColorIsRed(color)
+                        requirementInfo.isRed = isRed
+                        if isRed then
+                            hasRedRequirements = true
+                        end
+                    end
+                    if not requirementsInfo then
+                        requirementsInfo = {}
+                    end
+                    index = index + 1
+                    requirementsInfo[index] = requirementInfo
+                elseif requirementsInfo then
+                    break
+                end
+            end
+        end
+        requirementsInfo = AppendPlayerLevelRequirement(requirementsInfo, self.hyperlink)
+        requirementsInfo = CleanupClutterRequirements(requirementsInfo)
+        return hasRedRequirements, requirementsInfo
     end
 
     ---@return boolean? isLearned
     function TooltipItem:IsLearned()
-        for _, line in ipairs(self.tooltipData.lines) do
+        local lines = self.tooltipData.lines
+        for i = #lines, 2, -1 do
+            local line = lines[i]
             if line:IsTypeText() then
                 local text = line:GetLeftText()
                 if text == ITEM_SPELL_KNOWN or text == ERR_COSMETIC_KNOWN then
@@ -954,7 +1065,9 @@ local IsTooltipTextPending do
 
     ---@return boolean? isCollected, number? numCollected, number? numCollectable
     function TooltipItem:IsCollected()
-        for _, line in ipairs(self.tooltipData.lines) do
+        local lines = self.tooltipData.lines
+        for i = #lines, 2, -1 do
+            local line = lines[i]
             if line:IsTypeText() then
                 local text = line:GetLeftText()
                 local numCollected, numCollectable = GetItemCollected(text)
@@ -1019,18 +1132,24 @@ local TooltipScanner do
         throttleHandle = nil
     end
 
-    ---@param rawData TooltipData
+    ---@param tooltipData TooltipData
     ---@return boolean? isPending
-    local function IsPending(rawData)
-        local args = rawData.lines[1].args ---@diagnostic disable-line: undefined-field
-        if not args then
-            return
+    local function IsPending(tooltipData)
+        local lines = tooltipData.lines
+        if not lines or #lines == 0 then
+            return true
         end
-        for _, arg in ipairs(args) do
-            if arg.field == "leftText" then
-                return IsTooltipTextPending(arg.stringVal)
-            end
-        end
+        local text = lines[1].leftText
+        return IsTooltipTextPending(text)
+        -- for index, line in ipairs(lines) do
+        --     local text = line.leftText
+        --     if index == 1 or line.type == Enum.TooltipDataLineType.NestedBlock then
+        --         if IsTooltipTextPending(text) then
+        --             return true
+        --         end
+        --     end
+        -- end
+        -- return false
     end
 
     ---@param itemData TooltipItem
@@ -1112,34 +1231,49 @@ local TooltipScanner do
     end
 
     ---@param tooltipData TooltipData
+    local function surfaceArgs(tooltipData)
+        if not TooltipUtil or not TooltipUtil.SurfaceArgs then
+            return
+        end
+        TooltipUtil.SurfaceArgs(tooltipData)
+        for _, line in ipairs(tooltipData.lines) do
+            TooltipUtil.SurfaceArgs(line)
+        end
+    end
+
+    ---@param tooltipData TooltipData
     ---@param hyperlinkOrIndex string|number
     ---@param optionalArg1? number
     ---@param optionalArg2? number
     ---@param hideVendorPrice? boolean
     ---@return TooltipItem itemData
     function TooltipScanner:ConvertToTooltipItem(tooltipData, hyperlinkOrIndex, optionalArg1, optionalArg2, hideVendorPrice)
-        if TooltipUtil and TooltipUtil.SurfaceArgs then
-            TooltipUtil.SurfaceArgs(tooltipData)
-            for _, line in ipairs(tooltipData.lines) do
-                TooltipUtil.SurfaceArgs(line)
-            end
-        end
+        surfaceArgs(tooltipData)
         ---@type TooltipDataArgs
         local tooltipDataArgs = tooltipData ---@diagnostic disable-line: assign-type-mismatch
         return CreateTooltipItem(tooltipDataArgs, hyperlinkOrIndex, optionalArg1, optionalArg2, hideVendorPrice)
     end
 
+    ---@param tooltipItem TooltipItem
+    ---@return number? embedItemID
+    function TooltipScanner:GetEmbedItemID(tooltipItem)
+        local tooltipData = tooltipItem.tooltipData
+        for _, line in ipairs(tooltipData.lines) do
+            if line.tooltipType == Enum.TooltipDataType.Item then
+                return line.tooltipID
+            end
+        end
+    end
+
     ---@param raw string|number
     ---@return string
     function TooltipScanner:SanitizeHyperlink(raw)
-        if type(raw) == "string" then
-            local id = raw:match("item:(%d+)")
-            raw = id and tonumber(id) or raw
-        end
         if type(raw) == "number" then
             return format("|cffffffff|Hitem:%d::::::::::::::::::|h[]|h|r", raw)
         end
-        return raw
+        ---@type string, string
+        local id, params = raw:match("item:(%d+):(.-)|h")
+        return format("|cffffffff|Hitem:%s:%s|h[]|h|r", id, params)
     end
 
     ---@param hyperlinkOrItemID string|number
@@ -1554,10 +1688,11 @@ local RefreshAndUpdateMerchantItemButton do
     ---@field public isToy? boolean
     ---@field public isToyCollected? boolean
     ---@field public isLearnable? boolean
+    ---@field public tooltipRequirementsScannable? boolean
     ---@field public tooltipScannable? boolean
     ---@field public tooltipData TooltipItem|true|nil
-    ---@field public canLearn? boolean
-    ---@field public canLearnRequirement? ItemRequirement
+    ---@field public hasRedRequirements? boolean
+    ---@field public hasRequirementsInfo? ItemRequirementInfo[]
     ---@field public isLearned? boolean
     ---@field public isCollected? boolean
     ---@field public isCollectedNum? number
@@ -1604,7 +1739,7 @@ local RefreshAndUpdateMerchantItemButton do
         self.index = 0
         self.qualityColor = nil
         self.tooltipData = nil
-        self.canLearnRequirement = nil
+        self.hasRequirementsInfo = nil
         self.extendedCostCount = 0
     end
 
@@ -1761,7 +1896,8 @@ local RefreshAndUpdateMerchantItemButton do
         self.isToy = self.merchantItemID and C_ToyBox and C_ToyBox.GetToyInfo(self.merchantItemID) and true
         self.isToyCollected = self.merchantItemID and PlayerHasToy and PlayerHasToy(self.merchantItemID)
         self.isLearnable = self.isCosmetic or self.isCosmeticBundle or self:IsLearnable()
-        self.tooltipScannable = self.isLearnable
+        self.tooltipRequirementsScannable = self:IsRequirementScannable()
+        self.tooltipScannable = self.isLearnable or self.tooltipRequirementsScannable
         if self.isCosmeticBundle then
             self.isCollected = self.isCosmeticBundleCollected
             self.isCollectedNum = self.isCosmeticBundleNum
@@ -1779,20 +1915,21 @@ local RefreshAndUpdateMerchantItemButton do
             if not tooltipData or tooltipData == true then
                 return
             end
-            if not self.isLearnable then
-                return
+            if self.tooltipRequirementsScannable then
+                if self.hasRedRequirements == nil then
+                    self.hasRedRequirements,
+                    self.hasRequirementsInfo = tooltipData:HasRequirements()
+                end
             end
-            if self.canLearn == nil then
-                self.canLearn,
-                self.canLearnRequirement = tooltipData:CanLearn()
-            end
-            if self.isLearned == nil then
-                self.isLearned = tooltipData:IsLearned()
-            end
-            if self.isCollected == nil then
-                self.isCollected,
-                self.isCollectedNum,
-                self.isCollectedNumMax = tooltipData:IsCollected()
+            if self.isLearnable then
+                if self.isLearned == nil then
+                    self.isLearned = tooltipData:IsLearned()
+                end
+                if self.isCollected == nil then
+                    self.isCollected,
+                    self.isCollectedNum,
+                    self.isCollectedNumMax = tooltipData:IsCollected()
+                end
             end
         end
         if self.tooltipData then
@@ -1801,13 +1938,13 @@ local RefreshAndUpdateMerchantItemButton do
         end
         ---@param data TooltipItem
         local function HandleTooltipData(data)
-            if not self.merchantItemID or self.merchantItemID ~= data:GetID() then
+            if self.index ~= data.index then
                 return
             end
             self.tooltipData = data
             ProcessTooltipData()
         end
-        self.tooltipData = TooltipDataProvider:ScanHyperlink(self.itemLinkOrID, HandleTooltipData)
+        self.tooltipData = TooltipDataProvider:ScanHyperlink(self.itemLink, HandleTooltipData)
         -- self.tooltipData = TooltipDataProvider:ScanMerchantItem(index, HandleTooltipData) -- TODO: WIP
     end
 
@@ -1852,6 +1989,10 @@ local RefreshAndUpdateMerchantItemButton do
 
     function MerchantItem:IsAvailabilityAvailableAndUsable()
         return self:IsAvailability(MerchantItemAvailabilityType.AvailableAndUsable)
+    end
+
+    function MerchantItem:CanAfford()
+        return self.canAfford
     end
 
     function MerchantItem:CanSpecifyQuantity()
@@ -1906,6 +2047,56 @@ local RefreshAndUpdateMerchantItemButton do
         return false
     end
 
+    function MerchantItem:IsRequirementScannable()
+        return false -- TODO: the tooltip scanning and delay is a bit wonky, combined with filter toggling and full reloading more work needs to be done so the UX is better (for now turning this back off again)
+    end
+
+    ---@param predicate? fun(requirementInfo: ItemRequirementInfo): boolean?
+    ---@return ItemRequirementInfo[]? requirements
+    function MerchantItem:GetRequirements(predicate)
+        local requirementsInfo = self.hasRequirementsInfo
+        if not requirementsInfo then
+            return
+        end
+        if not predicate then
+            return requirementsInfo
+        end
+        local results ---@type ItemRequirementInfo[]?
+        local index = 0
+        for _, requirementInfo in ipairs(requirementsInfo) do
+            if predicate(requirementInfo) then
+                if not results then
+                    results = {}
+                end
+                index = index + 1
+                results[index] = requirementInfo
+            end
+        end
+        return results
+    end
+
+    ---@param requirementInfo ItemRequirementInfo
+    ---@return boolean?
+    local function getRequirementsForRedProfessionPredicate(requirementInfo)
+        return requirementInfo.isRed and requirementInfo.type == 1 -- Profession
+    end
+
+    -- Get the first red profession (prioritize any with an `amount` value).
+    ---@return ItemRequirementInfo? requirement
+    function MerchantItem:GetRequirementsForRedProfession()
+        local requirementsInfo = self:GetRequirements(getRequirementsForRedProfessionPredicate)
+        if not requirementsInfo then
+            return
+        end
+        for i = #requirementsInfo, 1, -1 do
+            local requirementInfo = requirementsInfo[i]
+            if requirementInfo.amount then
+                return requirementInfo
+            end
+        end
+        return requirementsInfo[1]
+    end
+
     ---@param parent MerchantScanner
     ---@return MerchantItem itemData
     function CreateMerchantItem(parent)
@@ -1949,8 +2140,8 @@ local RefreshAndUpdateMerchantItemButton do
         -- local isCosmeticBundle = merchantItem.isCosmeticBundle
         local isCosmeticBundleCollected = merchantItem.isCosmeticBundleCollected
         local isToyCollected = merchantItem.isToyCollected
-        -- local canLearn = merchantItem.canLearn
-        local canLearnRequirement = merchantItem.canLearnRequirement
+        -- local hasRedRequirements = merchantItem.hasRedRequirements
+        local hasRequirementsInfo = merchantItem.hasRequirementsInfo
         local isLearned = merchantItem.isLearned
         local isCollected = merchantItem.isCollected
         -- local isCollectedNum = merchantItem.isCollectedNum
@@ -1961,19 +2152,18 @@ local RefreshAndUpdateMerchantItemButton do
         if isCosmeticBundleCollected or isToyCollected or isLearned or isCollected then
             backgroundColor = BackgroundColorPreset.None
             textColor = ColorPreset.Gray
-        elseif canLearnRequirement and canLearnRequirement.type == 1 then -- Profession
-            if canLearnRequirement.amount then
-                backgroundColor = BackgroundColorPreset.Yellow
-            else
-                backgroundColor = BackgroundColorPreset.Orange
+        elseif hasRequirementsInfo then
+            local requirementInfo = merchantItem:GetRequirementsForRedProfession()
+            if requirementInfo then
+                if requirementInfo.amount then
+                    backgroundColor = BackgroundColorPreset.Yellow
+                else
+                    backgroundColor = BackgroundColorPreset.Orange
+                end
             end
         end
-        if backgroundColor then
-            button:SetBackgroundColor(backgroundColor)
-        end
-        if textColor then
-            button:SetTextColor(textColor)
-        end
+        button:SetBackgroundColor(backgroundColor)
+        button:SetTextColor(textColor)
         local canSelectQuantity = merchantItem:CanSpecifyQuantity()
         button.Quantity:SetShown(canSelectQuantity)
     end
@@ -2217,13 +2407,16 @@ local MerchantScanner do
     ---@param predicate? fun(itemData: MerchantItem): boolean?
     function MerchantScanner:UpdateMerchant(isFullUpdate, predicate)
         local merchantExists = self:UpdateMerchantInfo()
-        if not merchantExists then
+        if isFullUpdate == true or not merchantExists then
             self.itemPool:ReleaseAll()
-            self:UpdateCollection(true)
-            return
-        end
-        if isFullUpdate == true then
-            self.itemPool:ReleaseAll()
+            self.isReady = false
+            if not merchantExists then
+                self:UpdateCollection(true)
+                self:TriggerEvent(self.Event.OnHide)
+                return
+            else
+                self:TriggerEvent(self.Event.OnShow)
+            end
         end
         local numMerchantItems = GetMerchantNumItems()
         local activeItems = GetActiveItems(numMerchantItems)
@@ -2875,9 +3068,19 @@ local Frame do
             return visibleItems == 0
         end
 
-        local function onShow()
-            self.Loading:Show()
-            self.NoItems:Hide()
+        ---@param isReady? boolean
+        local function updateLoading(isReady)
+            if not isReady then
+                self.Loading:Show()
+                self.NoItems:Hide()
+                return
+            end
+            self.Loading:Hide()
+            self.NoItems:SetShown(hasNoItems())
+        end
+
+        local function OnShow()
+            updateLoading()
         end
 
         local function OnPreUpdate()
@@ -2889,10 +3092,7 @@ local Frame do
 
         ---@param isReady boolean
         local function OnPostUpdate(_, isReady)
-            if isReady then
-                self.Loading:Hide()
-                self.NoItems:SetShown(hasNoItems())
-            end
+            updateLoading(isReady)
             if not scrollPercentage then
                 return
             end
@@ -2900,7 +3100,7 @@ local Frame do
             scrollPercentage = nil
         end
 
-        MerchantDataProvider:RegisterCallback(MerchantDataProvider.Event.OnShow, onShow)
+        MerchantDataProvider:RegisterCallback(MerchantDataProvider.Event.OnShow, OnShow)
         MerchantDataProvider:RegisterCallback(MerchantDataProvider.Event.OnPreUpdate, OnPreUpdate)
         MerchantDataProvider:RegisterCallback(MerchantDataProvider.Event.OnPostUpdate, OnPostUpdate)
 
@@ -3051,13 +3251,6 @@ local Frame do
 
         frame:OnLoad()
         frame:SetScript("OnEvent", frame.OnEvent)
-
-        local function refreshFilters()
-            frame:Refresh()
-        end
-
-        MerchantDataProvider:RegisterCallback(MerchantDataProvider.Event.OnShow, refreshFilters)
-        MerchantDataProvider:RegisterCallback(MerchantDataProvider.Event.OnPostUpdate, refreshFilters)
 
     end
 
@@ -4113,7 +4306,7 @@ local CompactVendorFrameMerchantButtonTemplate do
         end
         if IsModifiedClick("DRESSUP") then
             ShowInspectCursor()
-        elseif not merchantItem.canAfford then
+        elseif not merchantItem:CanAfford() then
             SetCursor("BUY_ERROR_CURSOR")
         else
             SetCursor("BUY_CURSOR")
@@ -4145,6 +4338,9 @@ local CompactVendorFrameMerchantButtonTemplate do
                 end
             end
         elseif button == "RightButton" then
+            if not merchantItem:CanAfford() then
+                return
+            end
             if IsModifiedClick("ALT") then
                 self:Purchase(merchantItem.maxStackCount)
             else
@@ -4155,12 +4351,20 @@ local CompactVendorFrameMerchantButtonTemplate do
 
     ---@param color number[]
     function CompactVendorFrameMerchantButtonTemplate:SetBackgroundColor(color)
+        if self.backgroundColor == color then
+            return
+        end
         self.backgroundColor = color
-        self.Bg:SetGradient("HORIZONTAL", CreateColor(color[1], color[2], color[3], color[4]), CreateColor(color[5], color[6], color[7], color[8]))
+        local minColor = CreateColor(color[1], color[2], color[3], color[4])
+        local maxColor = CreateColor(color[5], color[6], color[7], color[8])
+        self.Bg:SetGradient("HORIZONTAL", minColor, maxColor)
     end
 
     ---@param color SimpleColor
     function CompactVendorFrameMerchantButtonTemplate:SetTextColor(color)
+        if self.textColor == color then
+            return
+        end
         self.textColor = color
         self.Name:SetTextColor(color.r, color.g, color.b)
     end

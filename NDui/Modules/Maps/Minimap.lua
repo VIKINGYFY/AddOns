@@ -188,7 +188,7 @@ function module:ReskinRegions()
 	Invt:SetSize(250, 80)
 	Invt:Hide()
 	B.SetBD(Invt)
-	B.CreateFS(Invt, 16, DB.InfoColor..GAMETIME_TOOLTIP_CALENDAR_INVITES)
+	B.CreateFS(Invt, 16, GAMETIME_TOOLTIP_CALENDAR_INVITES, "info")
 
 	local lastInv = 0
 	local function updateInviteVisibility()
@@ -245,7 +245,8 @@ function module:RecycleBin()
 	}
 
 	local function updateRecycleTip(bu)
-		bu.text = DB.RightButton..L["AutoHide"]..": "..(NDuiADB["AutoRecycle"] and DB.EnableString or DB.DisableString)
+		bu.title = DB.InfoColor..L["Minimap RecycleBin"]
+		bu.text = DB.RightButton..SELF_CAST_AUTO..HIDE..": "..(NDuiADB["AutoRecycle"] and DB.EnableString or DB.DisableString)
 	end
 
 	local bu = CreateFrame("Button", "RecycleBinToggleButton", Minimap)
@@ -256,8 +257,8 @@ function module:RecycleBin()
 	bu.Icon:SetAllPoints()
 	bu.Icon:SetTexture(DB.binTex)
 	bu:SetHighlightTexture(DB.binTex)
-	bu.title = DB.InfoColor..L["Minimap RecycleBin"]
 	bu:SetFrameStrata("HIGH")
+
 	B.AddTooltip(bu, "ANCHOR_LEFT")
 	updateRecycleTip(bu)
 

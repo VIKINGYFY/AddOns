@@ -556,8 +556,7 @@ function UF:CreateRestingIndicator(self)
 		local textFrame = CreateFrame("Frame", nil, frame)
 		textFrame:SetAllPoints()
 		textFrame:SetFrameLevel(i+5)
-		local text = B.CreateFS(textFrame, (7+i*3), "z", nil, "CENTER", offsets[i][1], offsets[i][2])
-		text:SetTextColor(0, 1, 1)
+		local text = B.CreateFS(textFrame, (7+i*3), "z", "info", "CENTER", offsets[i][1], offsets[i][2])
 		frame.str[i] = text
 	end
 
@@ -1735,7 +1734,7 @@ end
 
 function UF:CreateQuestSync(self)
 	local sync = self:CreateTexture(nil, "OVERLAY")
-	sync:SetPoint("CENTER", self, "BOTTOMLEFT", 16, 0)
+	sync:SetPoint("CENTER", self, "BOTTOM", 0, 0)
 	sync:SetSize(28, 28)
 	sync:SetAtlas("QuestSharing-DialogIcon")
 	sync:Hide()

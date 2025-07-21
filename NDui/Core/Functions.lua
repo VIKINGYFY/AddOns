@@ -594,6 +594,15 @@ do
 		["BOTTOM"] = "CENTER",
 	}
 
+	local colorList = {
+		["class"] = {cr, cg, cb},
+		["system"] = {1, 1, 0},
+		["info"] = {0, 1, 1},
+		["red"] = {1, 0, 0},
+		["green"] = {0, 1, 0},
+		["blue"] = {0, 0, 1},
+	}
+
 	function B:CreateFS(size, text, color, anchor, x, y)
 		local fs = self:CreateFontString(nil, "OVERLAY")
 		fs:SetFont(DB.Font[1], size, DB.Font[3])
@@ -604,10 +613,8 @@ do
 
 		if color and type(color) == "boolean" then
 			fs:SetTextColor(cr, cg, cb)
-		elseif color == "system" then
-			fs:SetTextColor(1, 1, 0)
-		elseif color == "info" then
-			fs:SetTextColor(0, 1, 1)
+		elseif color then
+			fs:SetTextColor(unpack(colorList[color]))
 		end
 		if anchor and x and y then
 			fs:SetJustifyH(justifyList[anchor])
@@ -635,12 +642,8 @@ do
 			GameTooltip:SetSpellByID(self.text)
 		elseif self.text then
 			local r, g, b = 1, 1, 1
-			if self.color == "class" then
-				r, g, b = cr, cg, cb
-			elseif self.color == "system" then
-				r, g, b = 1, 1, 0
-			elseif self.color == "info" then
-				r, g, b = 0, 1, 1
+			if self.color then
+				r, g, b = unpack(colorList[self.color])
 			end
 			GameTooltip:AddLine(self.text, r,g,b, 1)
 		end

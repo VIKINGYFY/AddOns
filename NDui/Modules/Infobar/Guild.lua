@@ -39,7 +39,7 @@ function info:GuildPanel_CreateButton(parent, index)
 	button.level = B.CreateFS(button, 13, "Level", false)
 	button.level:SetPoint("TOP", button, "TOPLEFT", 16, -4)
 	button.class = button:CreateTexture(nil, "ARTWORK")
-	button.class:SetPoint("LEFT", 35, 0)
+	button.class:SetPoint("LEFT", 36, 0)
 	button.class:SetSize(16, 16)
 	button.class:SetTexture("Interface\\GLUES\\CHARACTERCREATE\\UI-CHARACTERCREATE-CLASSES")
 	button.name = B.CreateFS(button, 13, "Name", false, "LEFT", 65, 0)
@@ -57,15 +57,15 @@ function info:GuildPanel_UpdateButton(button)
 	local index = button.index
 	local level, class, name, zone, status, guid = unpack(info.guildTable[index])
 
-	local levelcolor = B.HexRGB(GetQuestDifficultyColor(level))
-	button.level:SetText(levelcolor..level)
+	local levelcolor = B.HexRGB(GetCreatureDifficultyColor(level))
+	button.level:SetFormattedText("%s%s|r", levelcolor, level)
 
 	B.ClassIconTexCoord(button.class, class)
 
 	local namecolor = B.HexRGB(B.ClassColor(class))
 	local isTimerunning = guid and C_ChatInfo.IsTimerunningPlayer(guid)
 	local playerName = isTimerunning and TimerunningUtil.AddSmallIcon(name) or name
-	button.name:SetText(namecolor..playerName..status)
+	button.name:SetFormattedText("%s%s%s|r", namecolor, playerName, status)
 
 	local zonecolor = DB.GreyColor
 	if UnitInRaid(name) or UnitInParty(name) then
@@ -73,7 +73,7 @@ function info:GuildPanel_UpdateButton(button)
 	elseif GetAreaText() == zone then
 		zonecolor = DB.GreenColor
 	end
-	button.zone:SetText(zonecolor..zone)
+	button.zone:SetFormattedText("%s%s|r", zonecolor, zone)
 end
 
 function info:GuildPanel_Update()
@@ -168,19 +168,19 @@ function info:GuildPanel_Init()
 		self:SetScript("OnUpdate", isPanelCanHide)
 	end)
 
-	gName = B.CreateFS(infoFrame, 16, "Guild", true, "TOPLEFT", 15, -10)
-	gOnline = B.CreateFS(infoFrame, 13, "Online", false, "TOPLEFT", 15, -35)
-	gRank = B.CreateFS(infoFrame, 13, "Rank", false, "TOPLEFT", 15, -51)
+	gName = B.CreateFS(infoFrame, 16, "Guild", "info", "TOPLEFT", 15, -10)
+	gRank = B.CreateFS(infoFrame, 14, "Rank", "info", "TOPLEFT", 15, -40)
+	gOnline = B.CreateFS(infoFrame, 14, "Online", "info", "TOPRIGHT", -15, -40)
 
 	local bu = {}
-	local width = {30, 35, 126, 126}
+	local width = {30, 36, 126, 126}
 	for i = 1, 4 do
 		bu[i] = CreateFrame("Button", nil, infoFrame)
 		bu[i]:SetSize(width[i], 22)
 		if i == 1 then
-			bu[i]:SetPoint("TOPLEFT", 12, -75)
+			bu[i]:SetPoint("TOPLEFT", gRank, "BOTTOMLEFT", -10, -10)
 		else
-			bu[i]:SetPoint("LEFT", bu[i-1], "RIGHT", -2, 0)
+			bu[i]:SetPoint("LEFT", bu[i-1], "RIGHT", -3, 0)
 		end
 		bu[i].HL = bu[i]:CreateTexture(nil, "HIGHLIGHT")
 		bu[i].HL:SetAllPoints(bu[i])
@@ -194,16 +194,13 @@ function info:GuildPanel_Init()
 	B.CreateFS(bu[4], 13, ZONE, false, "RIGHT", -5, 0)
 
 	B.CreateFS(infoFrame, 13, DB.LineString, false, "BOTTOMRIGHT", -12, 58)
-	local whspInfo = DB.InfoColor..DB.RightButton..L["Whisper"]
-	B.CreateFS(infoFrame, 13, whspInfo, false, "BOTTOMRIGHT", -15, 42)
-	local invtInfo = DB.InfoColor.."ALT +"..DB.LeftButton..L["Invite"]
-	B.CreateFS(infoFrame, 13, invtInfo, false, "BOTTOMRIGHT", -15, 26)
-	local copyInfo = DB.InfoColor.."SHIFT +"..DB.LeftButton..L["Copy Name"]
-	B.CreateFS(infoFrame, 13, copyInfo, false, "BOTTOMRIGHT", -15, 10)
+	B.CreateFS(infoFrame, 13, DB.RightButton..L["Whisper"], "info", "BOTTOMRIGHT", -15, 42)
+	B.CreateFS(infoFrame, 13, "ALT +"..DB.LeftButton..L["Invite"], "info", "BOTTOMRIGHT", -15, 26)
+	B.CreateFS(infoFrame, 13, "SHIFT +"..DB.LeftButton..L["Copy Name"], "info", "BOTTOMRIGHT", -15, 10)
 
 	local scrollFrame = CreateFrame("ScrollFrame", "NDuiGuildInfobarScrollFrame", infoFrame, "HybridScrollFrameTemplate")
-	scrollFrame:SetSize(305, 320)
-	scrollFrame:SetPoint("TOPLEFT", 10, -100)
+	scrollFrame:SetSize(305, 330)
+	scrollFrame:SetPoint("TOPLEFT", bu[1], "BOTTOMLEFT", 1, -3)
 	infoFrame.scrollFrame = scrollFrame
 
 	local scrollBar = CreateFrame("Slider", "$parentScrollBar", scrollFrame, "HybridScrollBarTemplate")
@@ -246,9 +243,9 @@ function info:GuildPanel_Refresh()
 	local total, numOnline, allOnline = GetNumGuildMembers()
 	local guildName, guildRank = GetGuildInfo("player")
 
-	gName:SetText(DB.InfoColor.."<"..(guildName or "")..">")
-	gOnline:SetText(format(DB.InfoColor.."%s: %d / %d", GUILD_ONLINE_LABEL, (allOnline or numOnline), total))
-	gRank:SetText(DB.InfoColor..RANK..": "..(guildRank or ""))
+	gName:SetFormattedText("<%s>", guildName)
+	gOnline:SetFormattedText("%s: %d / %d", GUILD_ONLINE_LABEL, (allOnline or numOnline), total)
+	gRank:SetFormattedText("%s: %s", RANK, (guildRank or ""))
 
 	for i = 1, total do
 		local name, _, _, level, _, zone, _, _, connected, status, class, _, _, mobile, _, _, guid = GetGuildRosterInfo(i)

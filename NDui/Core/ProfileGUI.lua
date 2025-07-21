@@ -102,7 +102,7 @@ StaticPopupDialogs["NDUI_DELETE_UNIT_PROFILE"] = {
 		else
 			r, g, b = B.ClassColor(class)
 		end
-		self.text:SetText(format(L["Delete unit profile?"], B.HexRGB(r, g, b), self.text.text_arg1))
+		self.text:SetFormattedText(L["Delete unit profile?"], B.HexRGB(r, g, b), self.text.text_arg1)
 	end,
 	whileDead = 1,
 }

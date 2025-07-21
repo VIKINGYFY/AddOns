@@ -36,21 +36,21 @@ function TT:AddLineForID(id, linkType, noadd)
 		local bankCount = C_Item.GetItemCount(id, true, nil, true, true) - bagCount
 		local itemStackCount = select(8, C_Item.GetItemInfo(id))
 		if bankCount > 0 then
-			self:AddDoubleLine(BAGSLOT.." / "..BANK..":", DB.InfoColor..bagCount.." / "..bankCount)
+			self:AddDoubleLine(BAGSLOT.." / "..BANK..":", bagCount.." / "..bankCount, nil,nil,nil, 0,1,1)
 		elseif bagCount > 0 then
-			self:AddDoubleLine(BAGSLOT..":", DB.InfoColor..bagCount)
+			self:AddDoubleLine(BAGSLOT..":", bagCount, nil,nil,nil, 0,1,1)
 		end
 		if itemStackCount and itemStackCount > 1 then
-			self:AddDoubleLine(AUCTION_STACK_SIZE..":", DB.InfoColor..itemStackCount)
+			self:AddDoubleLine(AUCTION_STACK_SIZE..":", itemStackCount, nil,nil,nil, 0,1,1)
 		end
 
 		local expacID = select(15, C_Item.GetItemInfo(id))
 		if expacID then
-			self:AddDoubleLine(L["Expansion Version"]..":", DB.InfoColor.._G["EXPANSION_NAME"..expacID])
+			self:AddDoubleLine(EXPANSION_FILTER_TEXT..":", _G["EXPANSION_NAME"..expacID], nil,nil,nil, 0,1,1)
 		end
 	end
 
-	self:AddDoubleLine(linkType, format(DB.InfoColor.."%s|r", id))
+	self:AddDoubleLine(linkType, id, nil,nil,nil, 0,1,1)
 	self:Show()
 end
 
@@ -76,6 +76,23 @@ function TT:SetHyperLinkID(link)
 	end
 end
 
+local function SetupSpellCaster(self, auraData)
+	if not auraData then return end
+
+	local id = auraData.spellId
+	if id then
+		TT.AddLineForID(self, id, types.spell)
+	end
+
+	local caster = auraData.sourceUnit
+	if caster then
+		local name = GetUnitName(caster, true)
+		local r, g, b = B.UnitColor(caster)
+		self:AddDoubleLine(SPELL_TARGET_CENTER_CASTER..":", name, nil,nil,nil, r,g,b)
+		self:Show()
+	end
+end
+
 function TT:SetupTooltipID()
 	if C.db["Tooltip"]["HideAllID"] then return end
 
@@ -88,33 +105,15 @@ function TT:SetupTooltipID()
 		if self:IsForbidden() then return end
 		local auraData = C_UnitAuras.GetAuraDataByIndex(...)
 		if not auraData then return end
-		local caster = auraData.sourceUnit
-		local id = auraData.spellId
-		if id then
-			TT.AddLineForID(self, id, types.spell)
-		end
-		if caster then
-			local name = GetUnitName(caster, true)
-			local hexColor = B.HexRGB(B.UnitColor(caster))
-			self:AddDoubleLine(SPELL_TARGET_CENTER_CASTER..":", hexColor..name)
-			self:Show()
-		end
+
+		SetupSpellCaster(self, auraData)
 	end)
 
 	local function UpdateAuraTip(self, unit, auraInstanceID)
 		local data = C_UnitAuras.GetAuraDataByAuraInstanceID(unit, auraInstanceID)
 		if not data then return end
 
-		local id, caster = data.spellId, data.sourceUnit
-		if id then
-			TT.AddLineForID(self, id, types.spell)
-		end
-		if caster then
-			local name = GetUnitName(caster, true)
-			local hexColor = B.HexRGB(B.UnitColor(caster))
-			self:AddDoubleLine(SPELL_TARGET_CENTER_CASTER..":", hexColor..name)
-			self:Show()
-		end
+		SetupSpellCaster(self, auraData)
 	end
 	hooksecurefunc(GameTooltip, "SetUnitBuffByAuraInstanceID", UpdateAuraTip)
 	hooksecurefunc(GameTooltip, "SetUnitDebuffByAuraInstanceID", UpdateAuraTip)

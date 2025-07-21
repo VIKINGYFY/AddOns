@@ -1,10 +1,17 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
+local S = B:GetModule("Skins")
 local oUF = ns.oUF
+
 ----------------------------
 -- yClassColors, by yleaf
 -- NDui MOD
 ----------------------------
+
+local playerArea = GetAreaText()
+local playerRace = UnitRace("player")
+local playerGuild, playerRank = GetGuildInfo("player")
+
 local function classColor(class, showRGB)
 	local color = DB.ClassColors[DB.ClassList[class] or class]
 	if not color then color = DB.ClassColors["PRIEST"] end
@@ -12,90 +19,52 @@ local function classColor(class, showRGB)
 	if showRGB then
 		return color.r, color.g, color.b
 	else
-		return "|c"..color.colorStr
+		return color.colorStr
 	end
 end
 
 local function diffColor(level)
-	return B.HexRGB(GetQuestDifficultyColor(level))
+	return B.HexRGB(GetCreatureDifficultyColor(level))
 end
 
-local rankColor = {
-	1, 0, 0,
-	1, 1, 0,
-	0, 1, 0
-}
+-- Communities
+local function updateColumns(self)
+	if not self.expanded then return end
 
-local repColor = {
-	1, 0, 0,
-	1, 1, 0,
-	0, 1, 0,
-	0, 1, 1,
-	0, 0, 1,
-}
+	local memberInfo = self:GetMemberInfo()
+	if memberInfo then
+		local level = memberInfo.level
+		if level then
+			self.Level:SetText(diffColor(level)..level.."|r")
+		end
 
-local function smoothColor(cur, max, color)
-	local r, g, b = oUF:RGBColorGradient(cur, max, unpack(color))
-	return B.HexRGB(r, g, b)
-end
+		local zone = memberInfo.zone
+		if zone and zone == playerArea then
+			self.Zone:SetText("|cff00FF00"..zone.."|r")
+		end
 
--- Guild
-local currentView
-local function setView(view)
-	currentView = view
-end
-
-local function updateGuildView()
-	currentView = currentView or GetCVar("guildRosterView")
-
-	local playerArea = GetAreaText()
-	local buttons = GuildRosterContainer.buttons
-
-	for _, button in ipairs(buttons) do
-		if button:IsShown() and button.online and button.guildIndex then
-			if currentView == "tradeskill" then
-				local _, _, _, headerName, _, _, _, _, _, _, _, zone = GetGuildTradeSkillInfo(button.guildIndex)
-				if not headerName and zone == playerArea then
-					button.string2:SetText("|cff00FF00"..zone)
-				end
-			else
-				local _, rank, rankIndex, level, _, zone, _, _, _, _, _, _, _, _, _, repStanding = GetGuildRosterInfo(button.guildIndex)
-				if currentView == "playerStatus" then
-					button.string1:SetText(diffColor(level)..level)
-					if zone == playerArea then
-						button.string3:SetText("|cff00FF00"..zone)
-					end
-				elseif currentView == "guildStatus" then
-					if rankIndex and rank then
-						button.string2:SetText(smoothColor(rankIndex, 10, rankColor)..rank)
-					end
-				elseif currentView == "achievement" then
-					button.string1:SetText(diffColor(level)..level)
-				elseif currentView == "reputation" then
-					button.string1:SetText(diffColor(level)..level)
-					if repStanding then
-						button.string3:SetText(smoothColor(repStanding-4, 5, repColor).._G["FACTION_STANDING_LABEL"..repStanding])
-					end
-				end
-			end
+		local rank = memberInfo.guildRank
+		if rank and rank == playerRank then
+			self.Rank:SetText("|cff00FF00"..rank.."|r")
 		end
 	end
 end
 
-local function updateGuildUI(event, addon)
-	if addon ~= "Blizzard_GuildUI" then return end
-	hooksecurefunc("GuildRoster_SetView", setView)
-	hooksecurefunc("GuildRoster_Update", updateGuildView)
-	hooksecurefunc(GuildRosterContainer, "update", updateGuildView)
+local function updateCommunities()
+	hooksecurefunc(CommunitiesFrame.MemberList.ScrollBox, "Update", function(self)
+		for i = 1, self.ScrollTarget:GetNumChildren() do
+			local child = select(i, self.ScrollTarget:GetChildren())
+			if not child.hooked then
+				hooksecurefunc(child, "RefreshExpandedColumns", updateColumns)
 
-	B:UnregisterEvent(event, updateGuildUI)
+				child.hooked = true
+			end
+		end
+	end)
 end
-B:RegisterEvent("ADDON_LOADED", updateGuildUI)
+S:LoadSkins("Blizzard_Communities", updateCommunities)
 
 -- Friends
-local FRIENDS_LEVEL_TEMPLATE = FRIENDS_LEVEL_TEMPLATE:gsub("%%d", "%%s")
-FRIENDS_LEVEL_TEMPLATE = FRIENDS_LEVEL_TEMPLATE:gsub("%$d", "%$s")
-
 hooksecurefunc(FriendsListFrame.ScrollBox, "Update", function(self)
 	for i = 1, self.ScrollTarget:GetNumChildren() do
 		local button = select(i, self.ScrollTarget:GetChildren())
@@ -104,7 +73,7 @@ hooksecurefunc(FriendsListFrame.ScrollBox, "Update", function(self)
 			if button.buttonType == FRIENDS_BUTTON_TYPE_WOW then
 				local info = C_FriendList.GetFriendInfoByIndex(button.id)
 				if info and info.connected then
-					nameText = classColor(info.className)..info.name.."|r, "..format(FRIENDS_LEVEL_TEMPLATE, diffColor(info.level)..info.level.."|r", info.className)
+					nameText = format("%s - %s", classColor(info.className)..info.name.."|r", diffColor(info.level)..info.level.."|r")
 					if info.area == playerArea then
 						infoText = format("|cff00FF00%s|r", info.area)
 					end
@@ -115,14 +84,13 @@ hooksecurefunc(FriendsListFrame.ScrollBox, "Update", function(self)
 					local accountName = accountInfo.accountName
 					local gameAccountInfo = accountInfo.gameAccountInfo
 					if gameAccountInfo.isOnline and gameAccountInfo.clientProgram == BNET_CLIENT_WOW then
-						local charName = gameAccountInfo.characterName
-						local faction = gameAccountInfo.factionName
+						local name = gameAccountInfo.characterName
 						local class = gameAccountInfo.className or UNKNOWN
-						local zoneName = gameAccountInfo.areaName or UNKNOWN
-						if accountName and charName and class then
-							nameText = accountName.." "..FRIENDS_WOW_NAME_COLOR_CODE.."("..classColor(class)..charName..FRIENDS_WOW_NAME_COLOR_CODE..")"
-							if zoneName == playerArea then
-								infoText = format("|cff00FF00%s|r", zoneName)
+						local area = gameAccountInfo.areaName or UNKNOWN
+						if accountName and name and class then
+							nameText = format("%s (%s)", accountName, classColor(class)..name.."|r")
+							if area == playerArea then
+								infoText = format("|cff00FF00%s|r", area)
 							end
 						end
 					end
@@ -148,10 +116,6 @@ hooksecurefunc(C_FriendList, "SortWho", function(sortType)
 end)
 
 hooksecurefunc(WhoFrame.ScrollBox, "Update", function(self)
-	local playerZone = GetAreaText()
-	local playerGuild = GetGuildInfo("player")
-	local playerRace = UnitRace("player")
-
 	for i = 1, self.ScrollTarget:GetNumChildren() do
 		local button = select(i, self.ScrollTarget:GetChildren())
 
@@ -162,9 +126,9 @@ hooksecurefunc(WhoFrame.ScrollBox, "Update", function(self)
 		local info = C_FriendList.GetWhoInfo(button.index)
 		if info then
 			local guild, level, race, zone, class = info.fullGuildName, info.level, info.raceStr, info.area, info.filename
-			if zone == playerZone then zone = "|cff00FF00"..zone end
-			if guild == playerGuild then guild = "|cff00FF00"..guild end
-			if race == playerRace then race = "|cff00FF00"..race end
+			if zone == playerZone then zone = "|cff00FF00"..zone.."|r" end
+			if guild == playerGuild then guild = "|cff00FF00"..guild.."|r" end
+			if race == playerRace then race = "|cff00FF00"..race.."|r" end
 
 			columnTable.zone = zone or ""
 			columnTable.guild = guild or ""

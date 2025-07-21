@@ -124,7 +124,7 @@ local function UpdateSpellTarget(self, unit)
 	if unitTarget and UnitExists(unitTarget) then
 		local nameString
 		if UnitIsUnit(unitTarget, "player") then
-			nameString = format("|cffFF0000%s|r", ">"..string.upper(YOU).."<")
+			nameString = format("|cffFF0000> %s <|r", string.upper(YOU))
 		else
 			nameString = B.HexRGB(B.UnitColor(unitTarget))..UnitName(unitTarget)
 		end

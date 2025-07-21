@@ -286,7 +286,7 @@ info.onEnter = function(self)
 	-- Dungeons
 	title = false
 	for i = 1, GetNumSavedInstances() do
-		local name, _, reset, diffID, locked, extended, _, _, _, diffName, bossTotal, bossCurrent = GetSavedInstanceInfo(i)
+		local name, _, reset, diffID, locked, extended, _, isRaid, _, diffName, bossTotal, bossCurrent = GetSavedInstanceInfo(i)
 		if diffID == 23 and (locked or extended) then
 			addTitle(MYTHIC_DUNGEONS, SecondsToTime(reset, true, true, 3))
 			local pR, pG, pB = B.SmoothColor(bossCurrent, bossTotal)

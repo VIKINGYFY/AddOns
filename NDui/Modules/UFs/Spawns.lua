@@ -647,8 +647,7 @@ function UF:OnLogin()
 				local direc = C.db["UFs"]["RaidDirec"]
 				local parent = _G[header:GetName().."UnitButton1"]
 				if parent and not parent.teamIndex then
-					local teamIndex = B.CreateFS(parent, 14, header.index)
-					teamIndex:SetTextColor(0, 1, 1)
+					local teamIndex = B.CreateFS(parent, 14, header.index, "info")
 					teamIndex.__owner = parent
 					UpdateTeamIndex(teamIndex, showIndex, direc)
 					teamIndexes[header.index] = teamIndex

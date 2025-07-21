@@ -1,21 +1,15 @@
 # DBM - Core
 
-## [11.2.2](https://github.com/DeadlyBossMods/DeadlyBossMods/tree/11.2.2) (2025-07-09)
-[Full Changelog](https://github.com/DeadlyBossMods/DeadlyBossMods/compare/11.2.1...11.2.2) [Previous Releases](https://github.com/DeadlyBossMods/DeadlyBossMods/releases)
+## [11.2.4](https://github.com/DeadlyBossMods/DeadlyBossMods/tree/11.2.4) (2025-07-20)
+[Full Changelog](https://github.com/DeadlyBossMods/DeadlyBossMods/compare/11.2.3...11.2.4) [Previous Releases](https://github.com/DeadlyBossMods/DeadlyBossMods/releases)
 
-- Update localization.tw.lua (#1691)  
-- Fix up fractillus from normal/heroic testing.  
-- Fix another timer bug  
-- Fix two timer errors  
-- Update localization.ru.lua (#1688)  
-- Completely rework araz phasing and timers handling  
-- Remove icon flict checker, closes https://github.com/DeadlyBossMods/DeadlyBossMods/issues/1689  
-- ^^  
-- add localization  
-- Update koKR (#1686)  
-    Co-authored-by: Adam <MysticalOS@users.noreply.github.com>  
-- Update RU locales (#1685)  
-- Update koKR (#1684)  
-    Co-authored-by: Adam <MysticalOS@users.noreply.github.com>  
-- udpate for package restructure  
+- prep new tag and bump force update to force library updates (so users avoid deprecated errors if other addons update library first. although caveat, this means users of OTHER addons will get deprecated errors from those addons until they update. but better to be first than last)  
+- update version check  
+- SendChatMessage future proofing  
+- LibSpec updates.  
+- More fixes  
+- change placement to fit load order  
+- Handle upcoming IsSpellKnown api changes  
+- Tests: Fix bad non-deterministic sorting of some timers with no spell id (#1694)  
+- Tests: Fix anonymizing names in RAID\_BOSS\_WHISPER messages (#1693)  
 - bump alpha  

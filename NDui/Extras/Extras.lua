@@ -20,8 +20,8 @@ function EX:OnLogin()
 
 	self:DisableSomething()
 	self:InstanceSomething()
-	self:SystemSomething()
-	self:LFGActivityInfo()
+	self:LFGActivityNotices()
+	self:SystemNotices()
 
 	self:ActionBarGlow()
 	self:MDEnhance()
@@ -55,7 +55,7 @@ end
 
 -- 系统信息通报
 local lastInfo
-function EX.UpdateSystemSomething(_, text)
+function EX.UpdateSystemNotices(_, text)
 	if string.find(text, "难度") or string.find(text, "重置") or string.find(text, "掷出") then
 		if text ~= lastInfo then
 			if not IsInGroup() then
@@ -69,27 +69,58 @@ function EX.UpdateSystemSomething(_, text)
 	end
 end
 
-function EX:SystemSomething()
-	B:RegisterEvent("CHAT_MSG_SYSTEM", self.UpdateSystemSomething)
+function EX:SystemNotices()
+	B:RegisterEvent("CHAT_MSG_SYSTEM", self.UpdateSystemNotices)
 end
 
 -- 副本自动标记坦克和治疗
-function EX.UpdateInstanceMarke()
-	if IsInInstance() and (UnitIsGroupLeader("player") or UnitIsGroupAssistant("player")) then
-		for i = 1, 5 do
-			local unit = (i == 5 and "player") or ("party"..i)
-			local role = UnitGroupRolesAssigned(unit)
-			if role == "TANK" then
-				SetRaidTarget(unit, 6)
-			elseif role == "HEALER" then
-				SetRaidTarget(unit, 5)
+function EX.UpdateInstanceMarker()
+	C_Timer.After(1, function()
+		if IsInInstance() and (UnitIsGroupLeader("player") or UnitIsGroupAssistant("player")) then
+			for i = 1, 5 do
+				local unit = (i == 5 and "player") or ("party"..i)
+				local role = UnitGroupRolesAssigned(unit)
+				if role == "TANK" then
+					SetRaidTarget(unit, 6)
+				elseif role == "HEALER" then
+					SetRaidTarget(unit, 5)
+				end
 			end
 		end
-	end
+	end)
+end
+
+-- 副本难度通报
+local instCache = {}
+function EX.UpdateInstanceNotices()
+	C_Timer.After(1, function()
+		if IsInInstance() then
+			local _, _, diffID, diffName, _, _, _, instID = GetInstanceInfo()
+			if not instCache[instID] or instCache[instID] ~= diffID then
+				local text = format("当前难度：%s", diffName)
+				if diffID == 8 then
+					local activeLevel = C_ChallengeMode.GetActiveKeystoneInfo()
+					text = format("当前难度：%s - %s", diffName, activeLevel)
+				end
+
+				if not IsInGroup() then
+					UIErrorsFrame:AddMessage(DB.InfoColor..text)
+				else
+					SendChatMessage(text, B.GetMSGChannel())
+				end
+
+				instCache[instID] = diffID
+			end
+		end
+	end)
 end
 
 function EX:InstanceSomething()
-	B:RegisterEvent("PLAYER_ENTERING_WORLD", EX.UpdateInstanceMarke)
+	B:RegisterEvent("UPDATE_INSTANCE_INFO", EX.UpdateInstanceMarker)
+	B:RegisterEvent("PLAYER_DIFFICULTY_CHANGED", EX.UpdateInstanceMarker)
+
+	B:RegisterEvent("UPDATE_INSTANCE_INFO", EX.UpdateInstanceNotices)
+	B:RegisterEvent("PLAYER_DIFFICULTY_CHANGED", EX.UpdateInstanceNotices)
 end
 
 -- 自动确认出售可交易物品提示
@@ -106,7 +137,7 @@ function EX:AutoConfirm()
 end
 
 -- 打印申请加入的活动
-function EX.UpdateLFGActivityInfo(event, resultID, newStatus, oldStatus, groupName)
+function EX.UpdateLFGActivityNotices(event, resultID, newStatus, oldStatus, groupName)
 	if not resultID or newStatus ~= "inviteaccepted" then return end
 
 	local info = C_LFGList.GetSearchResultInfo(resultID)
@@ -114,16 +145,13 @@ function EX.UpdateLFGActivityInfo(event, resultID, newStatus, oldStatus, groupNa
 		local activityID = info.activityIDs[1]
 		local name = C_LFGList.GetActivityFullName(activityID)
 		local text = format("%s: %s - %s", CLUB_FINDER_ACCEPTED, name or UNKNOWN, groupName or UNKNOWN)
-		if not IsInGroup() then
-			UIErrorsFrame:AddMessage(DB.InfoColor..text)
-		else
-			SendChatMessage(text, B.GetMSGChannel())
-		end
+
+		UIErrorsFrame:AddMessage(DB.InfoColor..text)
 	end
 end
 
-function EX:LFGActivityInfo()
-	B:RegisterEvent("LFG_LIST_APPLICATION_STATUS_UPDATED", EX.UpdateLFGActivityInfo)
+function EX:LFGActivityNotices()
+	B:RegisterEvent("LFG_LIST_APPLICATION_STATUS_UPDATED", EX.UpdateLFGActivityNotices)
 end
 
 -- 宏界面扩展

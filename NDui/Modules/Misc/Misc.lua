@@ -304,7 +304,7 @@ do
 	local function CalculateArches(self)
 		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT")
 		GameTooltip:ClearLines()
-		GameTooltip:AddLine("|cff00FF00"..L["Arch Count"]..":")
+		GameTooltip:AddLine(STATISTICS, 0,1,1)
 		GameTooltip:AddLine(" ")
 		local total = 0
 		for i = 1, GetNumArchaeologyRaces() do
@@ -316,12 +316,12 @@ do
 			end
 			local name = GetArchaeologyRaceInfo(i)
 			if numArtifacts > 1 then
-				GameTooltip:AddDoubleLine(name..":", DB.InfoColor..count)
+				GameTooltip:AddDoubleLine(name..":", count, nil,nil,nil, 0,1,0)
 				total = total + count
 			end
 		end
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddDoubleLine("|cff00FF00"..TOTAL..":", "|cffFF0000"..total)
+		GameTooltip:AddDoubleLine(TOTAL..":", total, 0,1,1, 0,1,0)
 		GameTooltip:Show()
 	end
 
@@ -741,7 +741,7 @@ function M:EnhancedPicker()
 			bu:SetPoint("LEFT", count*22, 0)
 			bu.colorStr = color.colorStr
 			bu:SetScript("OnClick", M.EnhancedPicker_UpdateColor)
-			B.AddTooltip(bu, "ANCHOR_TOP", "|c"..color.colorStr..name)
+			B.AddTooltip(bu, "ANCHOR_TOP", color.colorStr..name)
 
 			count = count + 1
 		end

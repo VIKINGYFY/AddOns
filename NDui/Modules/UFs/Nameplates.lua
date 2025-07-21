@@ -381,10 +381,9 @@ function UF:AddQuestIcon(self)
 	qicon:SetSize(30, 30)
 	qicon:SetAtlas(DB.questTex)
 	qicon:Hide()
-	local count = B.CreateFS(self.Health, 20)
+	local count = B.CreateFS(self.Health, 20, "", "info")
 	count:SetJustifyH("LEFT")
 	count:SetPoint("LEFT", qicon, "RIGHT", -4, 0)
-	count:SetTextColor(0, 1, 1)
 
 	self.questIcon = qicon
 	self.questCount = count
@@ -512,10 +511,9 @@ function UF:ShowUnitTargeted(self)
 	tex:SetAtlas("target")
 	tex:Hide()
 
-	local count = B.CreateFS(self.Health, 22)
+	local count = B.CreateFS(self.Health, 22, "", "system")
 	count:SetJustifyH("LEFT")
 	count:SetPoint("LEFT", tex, "RIGHT", 1, 0)
-	count:SetTextColor(1, 1, 0)
 
 	self.tarByTex = tex
 	self.tarBy = count

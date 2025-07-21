@@ -385,11 +385,9 @@ function G:SetupClickCast(parent)
 			sortBars(barTable)
 		end)
 
-		local key1 = B.CreateFS(bar, 14, keyToLocale[key], false, "LEFT", 30, 0)
-		key1:SetTextColor(0, 1, 1)
+		local key1 = B.CreateFS(bar, 14, keyToLocale[key], "info", "LEFT", 30, 0)
 		if modKey then
-			local key2 = B.CreateFS(bar, 14, modKey, false, "RIGHT", -25, 0)
-			key2:SetTextColor(0, 1, 0)
+			local key2 = B.CreateFS(bar, 14, modKey, "green", "RIGHT", -25, 0)
 		end
 
 		sortBars(barTable)

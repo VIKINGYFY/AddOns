@@ -25,36 +25,32 @@ function M:SoloInfo_Create()
 	soloInfo:SetSize(150, 70)
 	B.SetBD(soloInfo)
 
-	soloInfo.Text = B.CreateFS(soloInfo, 14, "")
+	soloInfo.Text = B.CreateFS(soloInfo, 14, "", "info")
 	soloInfo.Text:SetWordWrap(true)
 	soloInfo:SetScript("OnMouseUp", function() soloInfo:Hide() end)
 end
 
 function M:SoloInfo_Update()
-	local name, instType, diffID, diffName, _, _, _, instID = GetInstanceInfo()
-	if diffID == 8 then return end -- don't alert in mythic+
+	C_Timer.After(1, function()
+		if IsInInstance() then
+			local instName, _, diffID, diffName, _, _, _, instID = GetInstanceInfo()
+			if (diffID == 8) or (diffID == 24) then return end -- don't alert in mythic+ or timewalking
 
-	if (diffName and diffName ~= "") and instType ~= "none" and diffID ~= 24 and instList[instID] and instList[instID] ~= diffID then
-		M:SoloInfo_Create()
-		soloInfo.Text:SetText(DB.InfoColor..name..DB.MyColor.."\n( "..diffName.." )\n\n"..DB.InfoColor..L["Wrong Difficulty"])
-	else
-		if soloInfo then soloInfo:Hide() end
-	end
-end
-
-function M:SoloInfo_DelayCheck()
-	C_Timer.After(3, M.SoloInfo_Update)
+			if instList[instID] and instList[instID] ~= diffID then
+				M:SoloInfo_Create()
+				soloInfo.Text:SetFormattedText("%s %s|n|n%s", instName, DB.MyColor..diffName.."|r", L["Wrong Difficulty"])
+			else
+				if soloInfo then soloInfo:Hide() end
+			end
+		end
+	end)
 end
 
 function M:SoloInfo()
 	if C.db["Misc"]["SoloInfo"] then
-		M:SoloInfo_Update()
-		B:RegisterEvent("PLAYER_ENTERING_WORLD", M.SoloInfo_DelayCheck)
-		B:RegisterEvent("PLAYER_DIFFICULTY_CHANGED", M.SoloInfo_DelayCheck)
+		B:RegisterEvent("UPDATE_INSTANCE_INFO", M.SoloInfo_Update)
 	else
-		if soloInfo then soloInfo:Hide() end
-		B:UnregisterEvent("PLAYER_ENTERING_WORLD", M.SoloInfo_DelayCheck)
-		B:UnregisterEvent("PLAYER_DIFFICULTY_CHANGED", M.SoloInfo_DelayCheck)
+		B:UnregisterEvent("UPDATE_INSTANCE_INFO", M.SoloInfo_Update)
 	end
 end
 
@@ -76,8 +72,7 @@ local defaultList = {
 }
 local isIgnoredIDs = {}
 
-local function isUsefulAtlas(info)
-	local atlas = info.atlasName
+local function isUsefulAtlas(atlas)
 	if atlas then
 		return string.find(atlas, "[Vv]ignette") or (atlas == "nazjatar-nagaevent")
 	end
@@ -91,31 +86,32 @@ function M:RareAlert_UpdateIgnored()
 	end
 end
 
+local rareString = "|Hworldmap:%d+:%d+:%d+|h[%s(%s) <%.1f, %.1f>]|h|r"
 function M:RareAlert_Update(id)
 	if id and not cache[id] then
 		local info = C_VignetteInfo.GetVignetteInfo(id)
-		if not info or not isUsefulAtlas(info) or isIgnoredIDs[info.vignetteID] then return end
+		if not info or not isUsefulAtlas(info.atlasName) or isIgnoredIDs[info.vignetteID] then return end
 
 		local atlasInfo = C_Texture.GetAtlasInfo(info.atlasName)
 		if not atlasInfo then return end
+
 		local tex = B:GetTextureStrByAtlas(atlasInfo)
 		if not tex then return end
 
-		UIErrorsFrame:AddMessage(DB.InfoColor..L["Rare Found"]..tex..(info.name or ""))
+		UIErrorsFrame:AddMessage(DB.InfoColor..tex..(info.name or ""))
 
-		if C.db["Misc"]["RarePrint"] then
-			local currrentTime = NDuiADB["TimestampFormat"] == 1 and "|cff00FF00["..date("%H:%M:%S").."]|r" or ""
-			local nameString
-			local mapID = C_Map.GetBestMapForUnit("player")
-			local position = mapID and C_VignetteInfo.GetVignettePosition(info.vignetteGUID, mapID)
-			if position then
-				local x, y = position:GetXY()
-				nameString = format(M.RareString, mapID, x*10000, y*10000, info.name, x*100, y*100, "ID:"..info.vignetteID)
-			end
-			print(currrentTime.." -> "..tex..DB.InfoColor..(nameString or info.name or ""))
+		local nameString
+		local currrentTime = NDuiADB["TimestampFormat"] == 1 and "|cff00FF00["..date("%H:%M:%S").."]|r" or ""
+		local mapID = C_Map.GetBestMapForUnit("player")
+		local position = mapID and C_VignetteInfo.GetVignettePosition(info.vignetteGUID, mapID)
+		if position then
+			local x, y = position:GetXY()
+			nameString = format(rareString, mapID, x*10000, y*10000, info.name, info.vignetteID, x*100, y*100)
 		end
 
-		if not C.db["Misc"]["RareAlertInWild"] or M.RareInstType == "none" then
+		print(currrentTime.." -> "..tex..DB.InfoColor..(nameString or info.name or ""))
+
+		if C.db["Misc"]["RareAlertInWild"] and not IsInInstance() then
 			PlaySound(23404, "master")
 		end
 
@@ -125,27 +121,13 @@ function M:RareAlert_Update(id)
 	if #cache > 666 then table.wipe(cache) end
 end
 
-function M:RareAlert_CheckInstance()
-	local _, instanceType, _, _, maxPlayers, _, _, instID = GetInstanceInfo()
-	if (instID and isIgnoredZone[instID]) or (instanceType == "scenario" and (maxPlayers == 3 or maxPlayers == 6)) then
-		B:UnregisterEvent("VIGNETTE_MINIMAP_UPDATED", M.RareAlert_Update)
-	else
-		B:RegisterEvent("VIGNETTE_MINIMAP_UPDATED", M.RareAlert_Update)
-	end
-	M.RareInstType = instanceType
-end
-
 function M:RareAlert()
-	M.RareString = "|Hworldmap:%d+:%d+:%d+|h[%s (%.1f, %.1f) %s]|h|r"
-
 	if C.db["Misc"]["RareAlerter"] then
 		M:RareAlert_UpdateIgnored()
-		M:RareAlert_CheckInstance()
-		B:RegisterEvent("UPDATE_INSTANCE_INFO", M.RareAlert_CheckInstance)
+		B:RegisterEvent("VIGNETTE_MINIMAP_UPDATED", M.RareAlert_Update)
 	else
 		table.wipe(cache)
 		B:UnregisterEvent("VIGNETTE_MINIMAP_UPDATED", M.RareAlert_Update)
-		B:UnregisterEvent("UPDATE_INSTANCE_INFO", M.RareAlert_CheckInstance)
 	end
 end
 

@@ -13,13 +13,12 @@ function TT:ScanTargets(unit)
 	for i = 1, GetNumGroupMembers() do
 		local member = (isInRaid and "raid"..i or "party"..i)
 		if UnitIsUnit(unit, member.."target") and not UnitIsUnit("player", member) and not UnitIsDeadOrGhost(member) then
-			local color = B.HexRGB(B.UnitColor(member))
-			local name = color..UnitName(member).."|r"
+			local name = B.HexRGB(B.UnitColor(member))..UnitName(member).."|r"
 			table.insert(targetTable, name)
 		end
 	end
 
 	if #targetTable > 0 then
-		GameTooltip:AddLine(L["Targeted By"]..DB.InfoColor.."("..#targetTable..")|r "..table.concat(targetTable, ", "), nil, nil, nil, 1)
+		GameTooltip:AddLine(format("%s |cff00FFFF<%s>|r %s", L["Targeted By"], #targetTable, table.concat(targetTable, ", ")), nil,nil,nil, 1)
 	end
 end

@@ -459,7 +459,6 @@ G.DefaultSettings = {
 		MissingStats = true,
 		SoloInfo = true,
 		RareAlerter = true,
-		RarePrint = true,
 		Focuser = true,
 		ExpRep = true,
 		Screenshot = true,
@@ -1285,7 +1284,6 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{1, "Misc", "SoloInfo", L["SoloInfo"].."*", true, nil, updateSoloInfo},
 		{}, -- blank
 		{1, "Misc", "RareAlerter", HeaderTag..L["Rare Alert"].."*", nil, nil, updateRareAlert},
-		{1, "Misc", "RarePrint", L["Alert In Chat"].."*"},
 		{1, "Misc", "RareAlertInWild", L["RareAlertInWild"].."*"},
 		{2, "ACCOUNT", "IgnoredRares", IsNew..L["IgnoredRares"].."*", true, nil, updateIgnoredRares, L["IgnoredRaresTip"]},
 	},
