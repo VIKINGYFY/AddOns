@@ -708,13 +708,12 @@ function UF:CreateCastBar(self)
 		cb.SafeZone = safeZone
 
 		UF:ToggleCastBarLatency(self)
-
 	elseif mystyle == "nameplate" then
 		name:SetPoint("LEFT", cb, "LEFT", 0, 0)
 		timer:SetPoint("RIGHT", cb, "RIGHT", 0, 0)
 
 		local shield = cb:CreateTexture(nil, "OVERLAY")
-		shield:SetAtlas("nameplates-InterruptShield")
+		shield:SetAtlas("Quest-Campaign-Available")
 		shield:SetSize(18, 18)
 		shield:SetPoint("CENTER", cb, "CENTER", 0, 0)
 		cb.Shield = shield
@@ -906,7 +905,7 @@ function UF.PostUpdateButton(element, button, unit, data)
 		B.SetBorderColor(button.icbg)
 	end
 
-	if element.alwaysShowStealable and dispellType[debuffType] and not UnitIsPlayer(unit) and (not button.isHarmful) then
+	if element.alwaysShowStealable and dispellType[debuffType] and not UnitIsPlayer(unit) and not button.isHarmful then
 		button.Stealable:Show()
 	end
 
@@ -988,7 +987,7 @@ function UF.CustomFilter(element, unit, data)
 			return UF.NameplateWhite[spellID]
 		elseif UF.NameplateBlack[spellID] then
 			return false
-		elseif (element.showStealableBuffs and isStealable or element.alwaysShowStealable and dispellType[debuffType]) and not UnitIsPlayer(unit) and (not data.isHarmful) then
+		elseif ((element.showStealableBuffs and isStealable) or (element.alwaysShowStealable and dispellType[debuffType])) and not UnitIsPlayer(unit) and not data.isHarmful then
 			return true
 		elseif UF.NameplateWhite[spellID] then
 			return true

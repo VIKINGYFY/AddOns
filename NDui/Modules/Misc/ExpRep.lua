@@ -109,7 +109,7 @@ function M:ExpBar_UpdateTooltip()
 			GameTooltip:AddDoubleLine(EXPERIENCE_COLON, GetCMPText(xp, mxp), 0,1,1, 1,1,1)
 			GameTooltip:AddDoubleLine(NEXT_RANK_COLON, GetCMPText(mxp-xp, mxp), 0,1,1, 1,1,1)
 		if rxp then
-			GameTooltip:AddDoubleLine(TUTORIAL_TITLE26.."：", GetCMPText(rxp, mxp), 0,1,1, 1,1,1)
+			GameTooltip:AddDoubleLine(TUTORIAL_TITLE26..":", GetCMPText(rxp, mxp), 0,1,1, 1,1,1)
 		end
 		if IsXPUserDisabled() then GameTooltip:AddLine("|cffFF0000"..XP..GLYPH_LOCKED) end
 	end

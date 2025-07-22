@@ -299,22 +299,23 @@ local nodes = ns.nodes
             nodes[947][49107617] = { id = 312, mnID = 379, type = "Dungeon", showInZone = true } -- Shado-Pan Monastery
             nodes[947][44328242] = { id = 324, mnID = 388, type = "Dungeon", showInZone = true } -- Siege of Niuzao Temple
             nodes[947][49968463] = { id = 303, mnID = 390, type = "Dungeon", showInZone = true } -- Gate of the Setting Sun
+            nodes[947][52658297] = { id = 321, mnID = 390, type = "Dungeon", showInZone = true } -- Mogu'shan Palace
           end
     
     
         -- Azeroth Pandaria Raids
           if self.db.profile.showAzerothRaids then
-            nodes[947][51807525] = { mnID = 379, type = "Raid", name = "", dnID = "Moghu'shan Vaults", showInZone = true } -- Mogu'shan Vaults
-            nodes[947][46288591] = { mnID = 422, type = "Raid", name = "", dnID = DUNGEON_FLOOR_HEARTOFFEAR2, showInZone = true } -- Heart of Fear
-            nodes[947][44087028] = { mnID = 504, type = "Raid", name = "", dnID = "Throne of Thunder", showInZone = true } -- Throne of Thunder
-            nodes[947][54138389] = { mnID = 433, type = "Raid", name = "", dnID = DUNGEON_FLOOR_TERRACEOFENDLESSSPRING0,showInZone = true } -- Terrace of Endless Spring 
-            --nodes[947][47348150] = { mnID = 390, type = "Raid", showInZone = true, dnID = L["Instance Entrance"] .. " " .. L["switches weekly between"] .. " " .. L["Uldum"] .. " (" .. L["Kalimdor"] ..")" .. " & " .. L["Vale of Eternal Blossoms"] .. " (" .. L["Pandaria"] .. ")"} -- Ny'Alotha, The Waking City
-          end
+            nodes[947][47857509] = { id = 317, mnID = 379, type = "Raid", showInZone = true } -- Mogu'shan Vaults
+            nodes[947][43598371] = { id = 330, mnID = 422, type = "Raid", showInZone = true } -- Heart of Fear
+            --nodes[947][41077005] = { id = 362, mnID = 504, type = "Raid", showInZone = true } -- Throne of Thunder
+            nodes[947][49858198] = { id = 320, mnID = 433, type = "Raid", showInZone = true } -- Terrace of Endless Spring 
+            --nodes[947][47348150] = { id = 1180, mnID = 390, type = "Raid", showInZone = true, dnID = L["Instance Entrance"] .. " " .. L["switches weekly between"] .. " " .. L["Uldum"] .. " (" .. L["Kalimdor"] ..")" .. " & " .. L["Vale of Eternal Blossoms"] .. " (" .. L["Pandaria"] .. ")"} -- Ny'Alotha, The Waking City
+        end
     
     
         -- Azeroth Pandaria Multiple
           if self.db.profile.showAzerothMultiple then
-            nodes[947][52658297] = { mnID = 390, hideInfo = true, id = {369, 321 }, type = "MultipleM", showInZone = true } -- Siege of Orgrimmar, Mogu'shan Palace
+            --nodes[947][52658297] = { mnID = 390, hideInfo = true, id = {369, 321 }, type = "MultipleM", showInZone = true } -- Siege of Orgrimmar, Mogu'shan Palace
           end
     
     

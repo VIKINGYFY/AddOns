@@ -1,8 +1,25 @@
 # CompactVendor
 
-## [v11.1.7.250721](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.7.250721) (2025-07-20)
-[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.7.250721) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
+## [v11.1.7.250722](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.7.250722) (2025-07-22)
+[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.7.250722) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
 
+- TOC bump.  
+- The merchant item has awareness on which button is using it.  
+    Moved the cleanup of button code in a view factory resetter handler.  
+    The tooltip scan will ensure the results still match the expected merchant item ID, and abort if not. (This could happen if a response is delayed and the frame reused for another item in the meantime.)  
+    When the view assigns a button it also assigns that buttons merchant item object, and the parentButton on said object. (And during resetting this is cleaned up.)  
+    The update merchant routine will, when possible, call the `UpdateMerchantItemButton` method as data is refreshed so the visuals match the backend state.  
+    Previously this only occured when the button is displayed, or when specific events related to bags occured. This would sometimes lead to state missmatch, but hopefully not anymore.  
+- Tooltip scanning can be delayed, and when it is, we need to call the `UpdateMerchantItemByID` method. We only wish to do that when there is a delay, meaning there was no tail-call that instantly resolved `tooltipData`.  
+- Multiple requirements on the same item should yield results if one of them is checked.  
+    This way the list fills up with appropriate checked results, even if just partial.  
+- Removed the old tooltip scanning code, and replaced it with the new one.  
+    Added polyfill for the pre 10 clients by implementing a local `C_TooltipInfo` for our purpose.  
+    Can consider implementing the `ScanMerchantItem` equivalent, considering some tooltips contain requirements specific to that way of rendering tooltips.  
+- Fixed minor filter refreshing behavior issues. Setting filters and changing the merchant filters, should properly reset them as intended.  
+    Added new tooltip scanning code and trying it out by overloading the `TooltipScanner.ScanHyperlink` method.  
+    The new method will simply replace the old loading system, the new one should be better. After enough testing, I will remove the old code that is no longer needed if this is the case in practice.  
+    Setting `MerchantItem:IsRequirementScannable()` to `true` while doing these tests, so as many tooltips get scanned so I can inspect stability and accuracy.  
 - - TOC bump  
     - Fixed the item stats filter  
 - If it wasn't for the tooltip scanning delay the requirements filter dropdown itself functions as expected.  
@@ -80,14 +97,3 @@
 - Adjusted collection bundle filter and "collected" detection.  
     TOC bump.  
 - TOC bump  
-- Added support for checking learnable collection bundles.  
-    These kind of items are considered "learnable" and collectable, like battle pets, toys, etc. Collections contain a set of multiple items, and if all are collected, the collection is considered complete and the item grayed out as "Already known" to make it easier to filter and see in the list.  
-    The "Learnable" and "Learnable: Collected" filters will consider these kind of bundles.  
-- TOC bump  
-- Lightweight search system until the external library gets updated. Sorry for the inconvenience.  
-- Merge pull request #20 from bloerwald/2024-02-update\_libs  
-    Update libraries to newest available version.  
-- libs: ItemSearch-1.3: update to 881f914  
-- libs: C\_Everywhere: update to 907e535  
-- Update release.yml  
-- Slug changed and broke workflow.  

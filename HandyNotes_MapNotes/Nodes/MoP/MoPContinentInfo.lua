@@ -344,11 +344,11 @@ local nodes = ns.nodes
 
         -- Pandaria Raids
           if self.db.profile.showContinentRaids then
-            nodes[424][49152606] = { mnID = 379, type = "Raid", name = "", dnID = "Moghu'shan Vaults", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Mogu'shan Vaults 
-            nodes[424][52355265] = { mnID = 390, type = "Raid", name = "", dnID = "Siege of Orgrimmar", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Siege of Orgrimmar 
-            nodes[424][30076296] = { mnID = 422, type = "Raid", name = "", dnID = DUNGEON_FLOOR_HEARTOFFEAR2, showOnContinent = true, showInZone = false, showOnMinimap = false } -- Heart of Fear 
-            nodes[424][23100860] = { mnID = 504, type = "Raid", name = "", dnID = "Throne of Thunder", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Throne of Thunder
-            nodes[424][56685529] = { mnID = 433, type = "Raid", name = "", dnID = DUNGEON_FLOOR_TERRACEOFENDLESSSPRING0, showOnContinent = true, showInZone = false, showOnMinimap = false } -- Terrace of Endless Spring  
+            nodes[424][49152606] = { id = 317, mnID = 379, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Mogu'shan Vaults 
+            --nodes[424][52355265] = { id = 369, mnID = 390, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Siege of Orgrimmar 
+            nodes[424][30076296] = { id = 330, mnID = 422, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Heart of Fear 
+            --nodes[424][23100860] = { id = 362, mnID = 504, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Throne of Thunder
+            nodes[424][56685529] = { id = 320, mnID = 433, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Terrace of Endless Spring  
           end
 
 

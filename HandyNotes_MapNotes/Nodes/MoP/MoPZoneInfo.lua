@@ -387,14 +387,14 @@ local nodes = ns.nodes
           if self.db.profile.showZoneRaids then
 
           -- Raid Nodes above Blizzards Icons to make it Clickable for maximized Maps
-            nodes[371][21595793] = { mnID = 433, type = "Raid", name = "", dnID = DUNGEON_FLOOR_TERRACEOFENDLESSSPRING0, showInZone = true, showOnContinent = false, showOnMinimap = false } -- Terrace of Endless Spring
-            nodes[376][69680536] = { mnID = 433, type = "Raid", name = "", dnID = DUNGEON_FLOOR_TERRACEOFENDLESSSPRING0, showInZone = true, showOnContinent = false, showOnMinimap = false } -- Terrace of Endless Spring
-            nodes[433][48456145] = { mnID = 433, type = "Raid", name = "", dnID = DUNGEON_FLOOR_TERRACEOFENDLESSSPRING0, showInZone = true, showOnContinent = false, showOnMinimap = false } -- Terrace of Endless Spring
-            nodes[371][12005202] = { mnID = 390, type = "Raid", name = "", dnID = "Siege of Orgrimmar", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Siege of Orgrimmar
-            nodes[422][38923499] = { mnID = 422, type = "Raid", name = "", dnID = DUNGEON_FLOOR_HEARTOFFEAR2, showInZone = true, showOnContinent = false, showOnMinimap = false } -- Heart of Fear
-            nodes[379][59603917] = { mnID = 379, type = "Raid", name = "", dnID = "Moghu'shan Vaults", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Mogu'Shan Vaults
-            nodes[504][63833203] = { mnID = 504, type = "Raid", name = "", dnID = "Throne of Thunder", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Throne of Thunder
-            nodes[390][73714248] = { mnID = 390, type = "Raid", name = "", dnID = "Siege of Orgrimmar", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Siege of Orgrimmar
+            nodes[371][21595793] = { id = 320, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Terrace of Endless Spring
+            nodes[376][69680536] = { id = 320, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Terrace of Endless Spring
+            nodes[433][48456145] = { id = 320, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Terrace of Endless Spring
+            --nodes[371][12005202] = { id = 369, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Siege of Orgrimmar
+            nodes[422][38923499] = { id = 330, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Heart of Fear            
+            nodes[379][59603917] = { id = 317, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Mogu'Shan Vaults
+            --nodes[504][63833203] = { id = 362, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Throne of Thunder
+            --nodes[390][73714248] = { id = 369, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Siege of Orgrimmar
           end
 
 

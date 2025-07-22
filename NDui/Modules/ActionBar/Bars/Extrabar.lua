@@ -15,7 +15,7 @@ local function UpdateAbilityFrame(fame, newFrame)
 
 	-- Fix button visibility
 	hooksecurefunc(fame, "SetParent", function(self, parent)
-		if parent == ExtraAbilityContainer then
+		if parent ~= newFrame then
 			self:SetParent(newFrame)
 		end
 	end)

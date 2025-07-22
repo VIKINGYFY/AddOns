@@ -69,14 +69,27 @@ function ns.MiniMapPlayerArrow()
       end
 
       self.texture:Show()
-      if facing ~= self.facing then
+      if facing and facing ~= self.facing and facing > 0 then
         self.facing = facing
         self.texture:SetRotation(facing)
       end
     end)
 
-    MMPA:Show()
-    return MMPA
+    if ns.Addon.db.profile.activate.MinimapArrow then
+      MMPA:Show()
+    else
+      MMPA:Hide()
+    end
+
+    C_Timer.After(1, function()
+      local facing = GetPlayerFacing()
+      if facing and MMPA and MMPA.texture then
+        MMPA.facing = facing
+        MMPA.texture:SetRotation(facing)
+      end
+    end)
+
+  return MMPA
 end
 
 function ns.UpdateMinimapArrow()

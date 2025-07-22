@@ -402,7 +402,7 @@ if not db.activate.HideMapNote then
 
                     if self.db.profile.showCapitalsPortals then
                         nodes[110][49401484] = { mnID = 998, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " => " .. L["Undercity"] } -- Portal to Undercity
-                        nodes[110][58412106] = { mnID = 998, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " => " .. L["Blasted Lands"] } -- Portal from TB
+                        nodes[110][58412106] = { mnID = 17, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " => " .. L["Blasted Lands"] } -- Portal from TB
                     end
 
                 end
@@ -694,7 +694,7 @@ if not db.activate.HideMapNote then
                         nodes[84][76211869] = { mnID = 198, name = "", type = "APortalS", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " => " .. POSTMASTER_LETTER_HYJAL } -- Portal to Hyjal
                         nodes[84][73171966] = { mnID = 207, name = "", type = "APortalS", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " => " .. ARTIFACT_SHAMAN_TITLECARD_DEEPHOLM } -- Portal to Deepholm
                         nodes[84][73301687] = { mnID = 203, name = "", type = "APortalS", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " => " .. L["Vashj'ir"] } -- Portal to Vashjir
-                        nodes[84][48838705] = { mnID = 998, name = "", type = "APortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " => " .. L["Blasted Lands"] } 
+                        nodes[84][48838705] = { mnID = 17, name = "", type = "APortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " => " .. L["Blasted Lands"] } 
                         nodes[84][18142463] = { mnID = 203, name = "", type = "APortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " => " .. L["Vashj'ir"] } -- Portal to Vashjir
                     end
    
@@ -834,7 +834,7 @@ if not db.activate.HideMapNote then
                     end
 
                     if self.db.profile.showCapitalsPortals then
-                        nodes[87][27030696] = { mnID = 998, name = "", type = "APortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " => " .. L["Blasted Lands"] } 
+                        nodes[87][27030696] = { mnID = 17, name = "", type = "APortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " => " .. L["Blasted Lands"] } 
                     end
 
                     if self.db.profile.showCapitalsFP then

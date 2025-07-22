@@ -107,12 +107,10 @@ DB.objectTex = "Warfronts-BaseMapIcons-Horde-Barracks-Minimap"
 
 DB.mailTex = "Interface\\Minimap\\Tracking\\Mailbox"
 DB.gearTex = "Interface\\WorldMap\\Gear_64"
-DB.eyeTex = "Interface\\Minimap\\Raid_Icon"		-- blue: \\Dungeon_Icon
 DB.garrTex = "Interface\\HelpFrame\\HelpIcon-ReportLag"
 DB.copyTex = "Interface\\Buttons\\UI-GuildButton-PublicNote-Up"
 DB.binTex = "Interface\\HelpFrame\\ReportLagIcon-Loot"
 DB.creditTex = "Interface\\HelpFrame\\HelpIcon-KnowledgeBase"
-DB.newItemFlash = "Interface\\Cooldown\\star4"
 DB.sparkTex = "Interface\\CastingBar\\UI-CastingBar-Spark"
 DB.TexCoord = {.08, .92, .08, .92}
 DB.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:1:512:512:12:66:230:307|t "
