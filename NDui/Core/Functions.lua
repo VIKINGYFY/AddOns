@@ -179,7 +179,6 @@ end
 -- Scan tooltip
 do
 	local iLvlDB = {}
-	local itemLevelString = "^"..string.gsub(ITEM_LEVEL, "%%d", "")
 	local enchantString = string.gsub(ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
 	local isUnknownString = {
 		[TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN] = true,
@@ -201,11 +200,8 @@ do
 			for i = 2, #data.lines do
 				local lineData = data.lines[i]
 				if not slotData.iLvl then
-					local text = lineData.leftText
-					local found = text and string.find(text, itemLevelString)
-					if found then
-						local level = string.match(text, "(%d+)%)?$")
-						slotData.iLvl = tonumber(level) or 0
+					if lineData.itemLevel then
+						slotData.iLvl = lineData.itemLevel
 					end
 				elseif data.id == 158075 then -- heart of azeroth
 					if lineData.essenceIcon then
@@ -228,29 +224,26 @@ do
 
 			return slotData
 		else
-			if iLvlDB[link] then return iLvlDB[link] end
+			if not iLvlDB[link] then
+				local data
+				if arg1 and type(arg1) == "string" then
+					data = C_TooltipInfo.GetInventoryItem(arg1, arg2)
+				elseif arg1 and type(arg1) == "number" then
+					data = C_TooltipInfo.GetBagItem(arg1, arg2)
+				else
+					data = C_TooltipInfo.GetHyperlink(link, nil, nil, true)
+				end
+				if not data then return end
 
-			local data
-			if arg1 and type(arg1) == "string" then
-				data = C_TooltipInfo.GetInventoryItem(arg1, arg2)
-			elseif arg1 and type(arg1) == "number" then
-				data = C_TooltipInfo.GetBagItem(arg1, arg2)
-			else
-				data = C_TooltipInfo.GetHyperlink(link, nil, nil, true)
-			end
-			if not data then return end
-
-			for i = 2, 5 do
-				local lineData = data.lines[i]
-				if not lineData then break end
-				local text = lineData.leftText
-				local found = text and string.find(text, itemLevelString)
-				if found then
-					local level = string.match(text, "(%d+)%)?$")
-					iLvlDB[link] = tonumber(level)
-					break
+				for i = 2, 5 do
+					local lineData = data.lines[i]
+					if lineData and lineData.itemLevel then
+						iLvlDB[link] = lineData.itemLevel
+						break
+					end
 				end
 			end
+
 			return iLvlDB[link]
 		end
 	end

@@ -6,7 +6,7 @@ local module = B:GetModule("Infobar")
 local info = module:RegisterInfobar("Dura", C.Infobar.DurabilityPos)
 
 local repairCostString = string.gsub(REPAIR_COST, HEADER_COLON, ":")
-local lowDurabilityCap = .25
+local lowDurabilityCap = 25
 local needToRepair
 
 local localSlots = {
@@ -49,13 +49,13 @@ local function UpdateAllSlots()
 		localSlots[i][3] = 1000
 		local index = localSlots[i][1]
 		if GetInventoryItemLink("player", index) then
-			local current, max = GetInventoryItemDurability(index)
+			local current, maximum = GetInventoryItemDurability(index)
 			if current then
-				localSlots[i][3] = tonumber(current/max*100)
+				localSlots[i][3] = tonumber(current/maximum*100)
 				numSlots = numSlots + 1
 			end
 			local iconTexture = GetInventoryItemTexture("player", index) or 134400
-			localSlots[i][4] = "|T"..iconTexture..":13:15:0:0:50:50:4:46:4:46|t " or ""
+			localSlots[i][4] = "|T"..iconTexture..":13:15:0:1:50:50:4:46:4:46|t " or ""
 		end
 	end
 	table.sort(localSlots, sortSlots)
@@ -76,19 +76,10 @@ info.eventList = {
 }
 
 info.onEvent = function(self, event)
-	if event == "PLAYER_ENTERING_WORLD" then
-		self:UnregisterEvent(event)
-	end
-
-	if event == "PLAYER_REGEN_ENABLED" then
-		self:UnregisterEvent(event)
-		self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
+	if UpdateAllSlots() > 0 then
+		self.text:SetFormattedText("%s%s", B.ColorPerc(localSlots[1][3], true), DURABILITY)
 	else
-		if UpdateAllSlots() > 0 then
-			self.text:SetFormattedText("%s%s", B.ColorPerc(localSlots[1][3], true), DURABILITY)
-		else
-			self.text:SetFormattedText("%s%s", DB.MyColor..NONE.."|r", DURABILITY)
-		end
+		self.text:SetFormattedText("%s%s", DB.MyColor..NONE.."|r", DURABILITY)
 	end
 
 	if isLowDurability() then
@@ -126,9 +117,9 @@ info.onEnter = function(self)
 
 	local totalCost = 0
 	for i = 1, 10 do
-		if localSlots[i][3] ~= 1000 then
+		if localSlots[i][3] < 1000 then
 			local r, g, b = B.SmoothColor(localSlots[i][3], 100, true)
-			GameTooltip:AddDoubleLine(localSlots[i][4]..localSlots[i][2], format("%.1f%%", localSlots[i][3]), 1,1,1, r,g,b)
+			GameTooltip:AddDoubleLine(localSlots[i][4]..localSlots[i][2], B.Perc(localSlots[i][3]), 1,1,1, r,g,b)
 
 			local slot = localSlots[i][1]
 			local data = C_TooltipInfo.GetInventoryItem("player", slot)

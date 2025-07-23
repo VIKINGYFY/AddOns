@@ -4,8 +4,8 @@
 -------------------------------------
 local B, C, L, DB = unpack(NDui)
 
-local LibEvent = LibStub:GetLibrary("LibEvent.7000")
-local LibSchedule = LibStub:GetLibrary("LibSchedule.7000")
+local LibEvent = LibStub:GetLibrary("LibEvent-NDui-MOD")
+local LibSchedule = LibStub:GetLibrary("LibSchedule-NDui-MOD")
 
 local members, numMembers = {}, 0
 local membersList = {}

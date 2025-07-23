@@ -11,8 +11,9 @@ do
 		local itemID, _, _, itemEquipLoc, _, itemClassID, itemSubClassID = C_Item.GetItemInfoInstant(itemInfo)
 		if not itemID then return end
 
-		local itemType, itemDate
 		if not typeCache[itemInfo] then
+			local itemType, itemDate
+
 			if DB.EquipmentIDs[itemClassID] then
 				itemType = DB.EquipmentTypes[itemEquipLoc] or _G[itemEquipLoc]
 			elseif C_ArtifactUI.GetRelicInfoByItemID(itemID) then
@@ -39,7 +40,7 @@ do
 				itemDate = C_TooltipInfo.GetHyperlink(itemInfo, nil, nil, true)
 			end
 			if itemDate then
-				for i = 2, 8 do
+				for i = 2, #itemDate.lines do
 					local lineData = itemDate.lines[i]
 					if not lineData then break end
 
@@ -89,8 +90,8 @@ do
 	-- Item Stat
 	local statCache = {}
 	function B.GetItemStat(itemInfo)
-		local itemStat = ""
 		if not statCache[itemInfo] then
+			local itemStat = ""
 			local stats = C_Item.GetItemStats(itemInfo)
 			if stats then
 				for stat, count in pairs(stats) do
@@ -114,35 +115,31 @@ do
 	local miscList = {[TOY] = true, [PETS] = true, [MOUNTS] = true}
 	local extraCache = {}
 	function B.GetItemExtra(itemInfo)
-		local itemExtra, hasStat, hasMisc
-
-		local cacheData = extraCache[itemInfo]
-		if not cacheData then
+		if not extraCache[itemInfo] then
 			local itemType = B.GetItemType(itemInfo)
 			local itemStat = B.GetItemStat(itemInfo)
 			local itemLevel = B.GetItemLevel(itemInfo)
 
+			local itemExtra = ""
 			if itemLevel and itemType then
 				itemExtra = "<"..itemLevel.."-"..itemType..itemStat..">"
 			elseif itemLevel then
 				itemExtra = "<"..itemLevel..itemStat..">"
 			elseif itemType then
 				itemExtra = "<"..itemType..itemStat..">"
-			else
-				itemExtra = ""
 			end
 
-			hasStat = (itemStat and itemStat ~= "")
-			hasMisc = (itemType and miscList[itemType])
+			local hasStat = (itemStat and itemStat ~= "")
+			local hasMisc = (itemType and miscList[itemType])
 
-			cacheData = {
+			extraCache[itemInfo] = {
 				itemExtra = itemExtra,
 				hasStat = hasStat,
 				hasMisc = hasMisc,
 			}
 		end
 
-		return cacheData.itemExtra, cacheData.hasStat, cacheData.hasMisc
+		return extraCache[itemInfo].itemExtra, extraCache[itemInfo].hasStat, extraCache[itemInfo].hasMisc
 	end
 
 	local rtgColor = {1,0,0, 1,1,0, 0,1,0}

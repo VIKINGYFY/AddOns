@@ -73,9 +73,9 @@ function M:CreateItemString(frame, strType)
 			slotFrame.enchantText:SetJustifyH(string.sub(relF, 7))
 			slotFrame.enchantText:SetWidth(100)
 			slotFrame.enchantText:EnableMouse(true)
+			slotFrame.enchantText:HookScript("OnShow", M.ItemString_Collapse)
 			slotFrame.enchantText:HookScript("OnEnter", M.ItemString_Expand)
 			slotFrame.enchantText:HookScript("OnLeave", M.ItemString_Collapse)
-			slotFrame.enchantText:HookScript("OnShow", M.ItemString_Collapse)
 
 			for i = 1, 10 do
 				local offset = (i-1)*18 + 5

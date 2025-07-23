@@ -3,7 +3,7 @@
 -- 計劃任務庫 Author: M
 ---------------------------------
 
-local MAJOR, MINOR = "LibSchedule.7000", 1
+local MAJOR, MINOR = "LibSchedule-NDui-MOD", 1
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
 
 if not lib then return end

@@ -3,7 +3,7 @@
 -- 事件 Author: M
 ---------------------------------
 
-local MAJOR, MINOR = "LibEvent.7000", 1
+local MAJOR, MINOR = "LibEvent-NDui-MOD", 1
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
 
 if not lib then return end

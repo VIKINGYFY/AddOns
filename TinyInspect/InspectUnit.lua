@@ -5,8 +5,8 @@
 -------------------------------------
 local B, C, L, DB = unpack(NDui)
 
-local LibEvent = LibStub:GetLibrary("LibEvent.7000")
-local LibItemInfo = LibStub:GetLibrary("LibItemInfo.7000")
+local LibEvent = LibStub:GetLibrary("LibEvent-NDui-MOD")
+local LibUnitInfo = LibStub:GetLibrary("LibUnitInfo-NDui-MOD")
 local frameWidth, levelWidth = 160, 0
 
 --裝備清單
@@ -140,7 +140,7 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 	frame.info:SetTextColor(1, 1, 0)
 
 	for i, v in ipairs(slots) do
-		local _, level, name, link, quality = LibItemInfo:GetUnitItemInfo(unit, v.index)
+		local level, name, link, quality = LibUnitInfo:GetUnitItemInfo(unit, v.index)
 		local itemFrame = frame["item"..i]
 		itemFrame:SetWidth(0)
 		itemFrame.name = name
@@ -211,20 +211,20 @@ end)
 
 --自己裝備列表
 LibEvent:attachTrigger("INSPECT_FRAME_COMPARE", function(self, frame)
-	if (not frame) then return end
+	if not frame then return end
 
-	local _, ilevel = LibItemInfo:GetUnitItemLevel("player")
+	local ilevel = LibUnitInfo:GetUnitItemLevel("player")
 	ShowInspectItemListFrame("player", frame, ilevel)
 end)
 
 LibEvent:attachEvent("PLAYER_EQUIPMENT_CHANGED", function(self)
 	if CharacterFrame:IsShown() then
-		local _, ilevel = LibItemInfo:GetUnitItemLevel("player")
+		local ilevel = LibUnitInfo:GetUnitItemLevel("player")
 		ShowInspectItemListFrame("player", PaperDollFrame, ilevel)
 	end
 end)
 
 PaperDollFrame:HookScript("OnShow", function(self)
-	local _, ilevel = LibItemInfo:GetUnitItemLevel("player")
+	local ilevel = LibUnitInfo:GetUnitItemLevel("player")
 	ShowInspectItemListFrame("player", self, ilevel)
 end)

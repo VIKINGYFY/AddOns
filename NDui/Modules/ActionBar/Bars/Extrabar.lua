@@ -12,13 +12,6 @@ local function UpdateAbilityFrame(fame, newFrame)
 	fame:SetScale(UIParent:GetScale())
 
 	if fame.Style then fame.Style:Hide() end
-
-	-- Fix button visibility
-	hooksecurefunc(fame, "SetParent", function(self, parent)
-		if parent ~= newFrame then
-			self:SetParent(newFrame)
-		end
-	end)
 end
 
 function Bar:CreateExtrabar()

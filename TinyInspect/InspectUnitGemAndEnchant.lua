@@ -6,71 +6,58 @@
 -------------------------------------
 local B, C, L, DB = unpack(NDui)
 
-local addon, ns = ...
+local LibItemInfo = LibStub:GetLibrary("LibItemInfo-NDui-MOD")
 
-local LibItemGem = LibStub:GetLibrary("LibItemGem.7000")
-local LibItemEnchant = LibStub:GetLibrary("LibItemEnchant.7000")
-
---0:optional
 local EnchantParts = {
---	[1]  = {1, HEADSLOT},			-- 头部
---	[2]  = {1, NECKSLOT},			-- 颈部
---	[3]  = {1, SHOULDERSLOT},		-- 肩部
-	[5]  = {1, CHESTSLOT},			-- 胸部
---	[6]  = {1, WAISTSLOT},			-- 腰部
-	[7]  = {1, LEGSSLOT},			-- 腿部
-	[8]  = {1, FEETSLOT},			-- 脚部
-	[9]  = {1, WRISTSLOT},			-- 腕部
---	[10] = {1, HANDSSLOT},			-- 手部
-	[11] = {1, FINGER0SLOT},		-- 手指1
-	[12] = {1, FINGER1SLOT},		-- 手指2
-	[15] = {1, BACKSLOT},			-- 背部
-	[16] = {1, MAINHANDSLOT},		-- 主手
-	[17] = {1, SECONDARYHANDSLOT},	-- 副手
+--	[ 1] = HEADSLOT, -- 头部
+--	[ 2] = NECKSLOT, -- 颈部
+--	[ 3] = SHOULDERSLOT, -- 肩部
+	[ 5] = CHESTSLOT, -- 胸部
+--	[ 6] = WAISTSLOT, -- 腰部
+	[ 7] = LEGSSLOT, -- 腿部
+	[ 8] = FEETSLOT, -- 脚部
+	[ 9] = WRISTSLOT, -- 腕部
+--	[10] = HANDSSLOT, -- 手部
+	[11] = FINGER0SLOT, -- 手指1
+	[12] = FINGER1SLOT, -- 手指2
+	[15] = BACKSLOT, -- 背部
+	[16] = MAINHANDSLOT, -- 主手
+	[17] = SECONDARYHANDSLOT, -- 副手
 }
 
 local INVSLOT_SOCKET_ITEMS = {
 	[INVSLOT_NECK] = { 213777, 213777 },
 	[INVSLOT_FINGER1] = { 213777, 213777 },
-	[INVSLOT_FINGER2] = { 213777, 213777 }
+	[INVSLOT_FINGER2] = { 213777, 213777 },
 }
 
-local PvpItemLevelPattern = gsub(PVP_ITEM_LEVEL_TOOLTIP, "%%d", "(%%d+)")
-
-local function GetPvpItemLevel(link)
+local pvpMarker = gsub(PVP_ITEM_LEVEL_TOOLTIP, "%%d", "(.+)")
+local function IsPVPEquipment(link)
 	local tooltipData = C_TooltipInfo.GetHyperlink(link, nil, nil, true)
-	if not tooltipData then
-		return
-	end
+	if not tooltipData then return end
 
-	local text, level
 	for _, lineData in ipairs(tooltipData.lines) do
-		text = lineData.leftText
-		level = text and string.match(text, PvpItemLevelPattern)
-		if (level) then break end
+		if lineData and lineData.leftText then
+			if string.find(lineData.leftText, pvpMarker) then
+				return true
+			end
+		end
 	end
-	return tonumber(level)
+	return false
 end
 
 local function GetItemAddableSockets(link, slot, itemLevel)
+	if itemLevel < 584 then return end
+
 	local socketItems = INVSLOT_SOCKET_ITEMS[slot]
-	if not socketItems then
-		return
-	end
+	local isPVPItem = IsPVPEquipment(link)
 
-	if itemLevel < 584 then
-		return
-	end
-
-	local pvpItemLevel = GetPvpItemLevel(link)
-	if pvpItemLevel and pvpItemLevel > 0 then
-		return
-	end
+	if isPVPItem or not socketItems then return end
 
 	local items = {}
 	local numSockets = C_Item.GetItemNumSockets(link)
 	for i = numSockets + 1, #socketItems do
-		tinsert(items, socketItems[i])
+		table.insert(items, socketItems[i])
 	end
 	return items
 end
@@ -110,11 +97,14 @@ local function CreateIconFrame(frame, index)
 	icon.bg:SetSize(16, 16)
 	icon.bg:SetPoint("CENTER")
 	icon.bg:SetTexture("Interface\\Masks\\CircleMaskScalable")
+
 	icon.texture = icon:CreateTexture(nil, "BORDER")
 	icon.texture:SetSize(12, 12)
 	icon.texture:SetPoint("CENTER")
 	icon.texture:SetMask("Interface\\Masks\\CircleMaskScalable")
+
 	frame["xicon"..index] = icon
+
 	return frame["xicon"..index]
 end
 
@@ -144,7 +134,12 @@ end
 
 -- Credit: ElvUI_WindTools
 local function UpdateIconTexture(type, icon, data)
-	if type == "itemID" then
+	icon.bg:SetVertexColor(1, 1, 0)
+	icon.texture:SetTexture("Interface\\Cursor\\Quest")
+
+	if type == "itemName" then
+		icon.name = data
+	elseif type == "itemID" then
 		local item = Item:CreateFromItemID(data)
 		item:ContinueOnItemLoad(
 			function()
@@ -185,19 +180,12 @@ local function ShowGemAndEnchant(frame, itemFrame)
 	local itemlink = itemFrame.link
 	if not itemlink then return 0 end
 
-	local total, info, quality = LibItemGem:GetItemGemInfo(itemlink)
+	local total, info = LibItemInfo:GetItemGemInfo(itemlink)
 	local anchorframe = itemFrame.itemInfo
 	local icon
 	for i, v in ipairs(info) do
 		icon = GetIconFrame(frame)
-		if v.link then
-			UpdateIconTexture("itemLink", icon, v.link)
-		else
-			icon.bg:SetVertexColor(1, 1, 0)
-			icon.texture:SetTexture("Interface\\Cursor\\Quest")
-		end
-		icon.name = v.name
-		icon.link = v.link
+		UpdateIconTexture(v.link and "itemLink" or "itemName", icon, v.link or v.name)
 		UpdateIconPoint(icon, anchorframe, i)
 		icon:Show()
 		anchorframe = icon
@@ -208,22 +196,15 @@ local function ShowGemAndEnchant(frame, itemFrame)
 		for _, socketItemId in ipairs(socketItems) do
 			total = total + 1
 			icon = GetIconFrame(frame)
-			icon.bg:SetVertexColor(1, 1, 0)
-			icon.texture:SetTexture("Interface\\Cursor\\Quest")
-			local item = Item:CreateFromItemID(socketItemId)
-			item:ContinueOnItemLoad(
-				function()
-					icon.link = item:GetItemLink()
-				end
-			)
+			UpdateIconTexture("itemID", icon, socketItemId)
 			UpdateIconPoint(icon, anchorframe, i)
 			icon:Show()
 			anchorframe = icon
 		end
 	end
 
-	local enchantItemID, enchantID = LibItemEnchant:GetEnchantItemID(itemlink)
-	local enchantSpellID = LibItemEnchant:GetEnchantSpellID(itemlink)
+	local enchantID, enchantItemID, enchantSpellID = LibItemInfo:GetItemEnchantInfo(itemlink)
+	local enchantParts = EnchantParts[itemFrame.index]
 	if (enchantItemID) then
 		total = total + 1
 		icon = GetIconFrame(frame)
@@ -234,7 +215,6 @@ local function ShowGemAndEnchant(frame, itemFrame)
 	elseif (enchantSpellID) then
 		total = total + 1
 		icon = GetIconFrame(frame)
-		icon.bg:SetVertexColor(1,0.8,0)
 		UpdateIconTexture("spellID", icon, enchantSpellID)
 		UpdateIconPoint(icon, anchorframe, total)
 		icon:Show()
@@ -242,24 +222,21 @@ local function ShowGemAndEnchant(frame, itemFrame)
 	elseif (enchantID) then
 		total = total + 1
 		icon = GetIconFrame(frame)
-		icon.name = "#" .. enchantID
-		icon.bg:SetVertexColor(0.1, 0.1, 0.1)
+		icon.name = "# " .. enchantID
+		icon.bg:SetVertexColor(0, 1, 1)
 		icon.texture:SetTexture("Interface\\FriendsFrame\\InformationIcon")
 		UpdateIconPoint(icon, anchorframe, total)
 		icon:Show()
 		anchorframe = icon
-	elseif (not enchantID and EnchantParts[itemFrame.index] and EnchantParts[itemFrame.index][1]) then
-		local classID = select(12, C_Item.GetItemInfo(itemlink))
-		if not (quality == 6 and (itemFrame.index==2 or itemFrame.index==16 or itemFrame.index==17)) and ((itemFrame.index ~= INVSLOT_OFFHAND) or (classID == Enum.ItemClass.Weapon)) then
-			total = total + 1
-			icon = GetIconFrame(frame)
-			icon.name = ENCHANTS .. ": " .. (_G[EnchantParts[itemFrame.index][2]] or EnchantParts[itemFrame.index][2])
-			icon.bg:SetVertexColor(0, 1, 1)
-			icon.texture:SetTexture("Interface\\Cursor\\Quest") --QuestRepeatable
-			UpdateIconPoint(icon, anchorframe, total)
-			icon:Show()
-			anchorframe = icon
-		end
+	elseif (not enchantID and enchantParts) then
+		total = total + 1
+		icon = GetIconFrame(frame)
+		icon.name = ENCHANTS .. ": " .. enchantParts
+		icon.bg:SetVertexColor(0, 1, 1)
+		icon.texture:SetTexture("Interface\\Cursor\\Quest")
+		UpdateIconPoint(icon, anchorframe, total)
+		icon:Show()
+		anchorframe = icon
 	end
 
 	return total * (16 + 1)
@@ -270,10 +247,11 @@ hooksecurefunc("ShowInspectItemListFrame", function(unit, parent)
 	local frame = parent.inspectFrame
 	if not frame then return end
 
+	HideAllIconFrame(frame)
+
 	local i = 1
 	local itemFrame
 	local frameWidth, iconWidth = 0, 0
-	HideAllIconFrame(frame)
 	while (frame["item"..i]) do
 		itemFrame = frame["item"..i]
 		iconWidth = ShowGemAndEnchant(frame, itemFrame)

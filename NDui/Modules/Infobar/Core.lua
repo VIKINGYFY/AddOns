@@ -138,7 +138,6 @@ function INFO:Infobar_UpdateAnchor()
 		previousLeft = info
 
 		info:Show()
-		if info.onEvent then info:onEvent("PLAYER_ENTERING_WORLD") end
 	end
 
 	local previousRight
@@ -154,7 +153,6 @@ function INFO:Infobar_UpdateAnchor()
 		previousRight = info
 
 		info:Show()
-		if info.onEvent then info:onEvent("PLAYER_ENTERING_WORLD") end
 	end
 end
 
