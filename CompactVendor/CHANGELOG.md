@@ -1,8 +1,24 @@
 # CompactVendor
 
-## [v11.1.7.250722](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.7.250722) (2025-07-22)
-[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.7.250722) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
+## [v11.1.7.250724](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.7.250724) (2025-07-24)
+[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.7.250724) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
 
+- Version bump  
+- The stat filter can miss some stat names due the global space not containing the localization as expected.  
+    Created a simple mapping table to redirect the key findings to an existing localized stat name.  
+    This needs to be checked on classic era and mist clients, but for mainline it works well.  
+    The `ReMapStatTable` func was implemented to override duplicate entries that appeared for some reason, into one filter value to avoid duplication.  
+    This was specific to the resistances, so I used the `statTextMap` to find the keys and map them to the values like with the translations.  
+    This fixed the filter and deduped the dropdown options.  
+- The merchant index also has a `hasIndex` boolean for easy checking.  
+    Most places where the index was used, also now check if it's valid. This only applies to situations where the merchant is still loading data.  
+    The rows that display this rare loading state won't appear like items, it will hide all other behavior, and simply show "Loading..." until the data is available for it to display itself.  
+- Version bump  
+- Tooltip scanning will store callbacks and re-use existing ongoing requests, instead of making new duplicates. This way we simply respond to all callbacks interested in the same item hyperlink when it's ready.  
+- Split up the `tooltipData` into additional props to track state and data and the unique scanner ID (for response tracking).  
+    Moved the response handling and callbacks to their own methods `RefreshTooltipData` and `OnTooltipScanResponse` which are called when appropriate.  
+    This simplified the code in the `Refresh` routine to simply use the `tooltipData` when available, otherwise start a scan task and assign the relevant fields and provide the callbacks needed to update the correct item once the response returns.  
+    The `TooltipScanner` is now specifically containing the relevant methods we need for its purpose.  
 - TOC bump.  
 - The merchant item has awareness on which button is using it.  
     Moved the cleanup of button code in a view factory resetter handler.  
@@ -88,12 +104,3 @@
 - TOC bump  
 - Fixed minor issue with `Learnable: Collected` detection and classification.  
 - TOC bump.  
-- Minor layout adjustments for 11.  
-- Minor 11 changes.  
-- TOC bump  
-- The "Learnable: Collected" filter was changed to be more than just Yes/No, it will now also support "Some" for cosmetic bundles that contain many items.  
-    This way you can differentiate between "Yes" (fully collected), "Some" (partially collected) and "No".  
-    The gray color indicates that you have all the unique slots collected, so this filter helps further differentiate between Yes and Some.  
-- Adjusted collection bundle filter and "collected" detection.  
-    TOC bump.  
-- TOC bump  

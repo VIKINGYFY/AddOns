@@ -764,11 +764,13 @@ do
 		local bg = CreateFrame("Frame", nil, frame, "BackdropTemplate")
 		bg:SetFrameLevel(frame:GetFrameLevel())
 
-		local value = offset and math.abs(offset) * C.mult or 0
-		if (offset and offset <= 0) or (not offset) then
+		local value = offset and math.abs(offset) * C.mult
+		if offset and offset < 0 then
 			bg:SetOutside(self, value, value)
-		elseif (offset and offset >= 0) or (not offset) then
+		elseif offset and offset > 0 then
 			bg:SetInside(self, value, value)
+		else
+			bg:SetAllPoints(self)
 		end
 
 		B.CreateBD(bg, alpha)
@@ -1419,7 +1421,7 @@ do
 		thumb:SetBlendMode("ADD")
 		thumb:SetSize(20, 30)
 
-		local offset = minimal and 10 or 13
+		local offset = minimal and 10 or 14
 		local bg = B.CreateBDFrame(self.Slider, 0, true)
 		B.UpdateSize(bg, 10, -offset, -10, offset)
 		local bar = CreateFrame("StatusBar", nil, bg)

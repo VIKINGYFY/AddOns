@@ -95,7 +95,7 @@ function M:RareAlert_Update(id)
 		local atlasInfo = C_Texture.GetAtlasInfo(info.atlasName)
 		if not atlasInfo then return end
 
-		local tex = B:GetTextureStrByAtlas(atlasInfo)
+		local tex = B:GetTextureStrByAtlas(atlasInfo, 16, 16)
 		if not tex then return end
 
 		UIErrorsFrame:AddMessage(DB.InfoColor..tex..(info.name or ""))

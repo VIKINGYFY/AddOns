@@ -72,8 +72,8 @@ C.OnLoginThemes["QuestMapFrame"] = function()
 		local tab = QuestMapFrame[name]
 		B.StripTextures(tab, 2)
 
-		local bg = B.SetBD(tab, 1, -4, -5, 4)
-		B.ReskinHLTex(tab.SelectedTexture, bg, true)
+		tab.bg = B.SetBD(tab, 1, -4, -5, 4)
+		B.ReskinHLTex(tab.SelectedTexture, tab.bg, true)
 	end
 
 	-- Quest details

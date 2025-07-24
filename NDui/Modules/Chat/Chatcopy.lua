@@ -39,14 +39,10 @@ end
 function module:ChatCopy_OnClick(btn)
 	if btn == "LeftButton" then
 		if not frame:IsShown() then
-			local chatframe = _G.SELECTED_DOCK_FRAME
-			local _, fontSize = chatframe:GetFont()
-			FCF_SetChatWindowFontSize(chatframe, chatframe, .01)
 			frame:Show()
 
-			local lineCt = module.GetChatLines(chatframe)
+			local lineCt = module.GetChatLines(_G.SELECTED_DOCK_FRAME)
 			local text = table.concat(lines, "\n", 1, lineCt)
-			FCF_SetChatWindowFontSize(chatframe, chatframe, fontSize)
 			editBox:SetText(text)
 		else
 			frame:Hide()
@@ -64,14 +60,14 @@ end
 function module:ChatCopy_CreateMenu()
 	menu = CreateFrame("Frame", nil, UIParent)
 	menu:SetSize(25, 100)
-	menu:SetPoint("TOPLEFT", _G.ChatFrame1, "TOPRIGHT", 15, 0)
+	menu:SetPoint("TOPLEFT", _G.ChatFrame1.Background, "TOPRIGHT", 0, 0)
 	menu:SetShown(C.db["Chat"]["ChatMenu"])
 
 	_G.ChatFrameMenuButton:ClearAllPoints()
 	_G.ChatFrameMenuButton:SetPoint("TOP", menu)
 	_G.ChatFrameMenuButton:SetParent(menu)
 	_G.ChatFrameChannelButton:ClearAllPoints()
-	_G.ChatFrameChannelButton:SetPoint("TOP", _G.ChatFrameMenuButton, "BOTTOM", 0, -2)
+	_G.ChatFrameChannelButton:SetPoint("TOP", _G.ChatFrameMenuButton, "BOTTOM", 0, -DB.margin)
 	_G.ChatFrameChannelButton:SetParent(menu)
 	_G.ChatFrameToggleVoiceDeafenButton:SetParent(menu)
 	_G.ChatFrameToggleVoiceMuteButton:SetParent(menu)
@@ -87,7 +83,7 @@ function module:ChatCopy_Create()
 	frame = CreateFrame("Frame", "NDuiChatCopy", UIParent)
 	frame:SetFrameStrata("DIALOG")
 	frame:SetPoint("CENTER")
-	frame:SetSize(700, 400)
+	frame:SetSize(800, 400)
 	frame:Hide()
 
 	frame.close = CreateFrame("Button", nil, frame, "UIPanelCloseButton")
@@ -95,7 +91,7 @@ function module:ChatCopy_Create()
 
 	local scrollArea = CreateFrame("ScrollFrame", "ChatCopyScrollFrame", frame, "UIPanelScrollFrameTemplate, BackdropTemplate")
 	scrollArea:SetPoint("TOPLEFT", 10, -30)
-	scrollArea:SetPoint("BOTTOMRIGHT", -28, 10)
+	scrollArea:SetPoint("BOTTOMRIGHT", -30, 10)
 
 	editBox = CreateFrame("EditBox", nil, frame)
 	editBox:SetMultiLine(true)
@@ -117,8 +113,8 @@ function module:ChatCopy_Create()
 	scrollArea:SetScrollChild(editBox)
 
 	local copy = CreateFrame("Button", "NDuiChatCopyButton", UIParent)
-	copy:SetPoint("BOTTOMRIGHT", _G.ChatFrame1, 15, -6)
-	copy:SetSize(20, 14)
+	copy:SetPoint("BOTTOMLEFT", _G.ChatFrame1.Background, "BOTTOMRIGHT", DB.margin, DB.margin)
+	copy:SetSize(16, 16)
 	copy:SetAlpha(.5)
 	copy.Icon = copy:CreateTexture(nil, "ARTWORK")
 	copy.Icon:SetAllPoints()

@@ -6,21 +6,27 @@ local function HandleRewards(button)
 	for index = 1, 4 do
 		local reward = button.Rewards["Reward"..index]
 		if reward then
+			reward.BorderMask:Hide()
 			reward.bg = B.ReskinIcon(reward.Icon)
-			B.ReskinIconBorder(reward.IconBorder)
+			B.ReskinIconBorder(reward.QualityColor)
+
+			local Amount = reward.Amount
+			Amount:SetJustifyH("CENTER")
+			Amount:ClearAllPoints()
+			Amount:SetPoint("BOTTOM", reward, "BOTTOM", 0, 0)
 		end
 	end
 end
 
 local function HandleOptionDropDown(option)
-	B.Reskin(option.Dropdown)
-	B.Reskin(option.DecrementButton)
-	B.Reskin(option.IncrementButton)
+	B.ReskinButton(option.Dropdown)
+	B.ReskinButton(option.DecrementButton)
+	B.ReskinButton(option.IncrementButton)
 end
 
 local function ReskinCategory(category)
 	B.StripTextures(category)
-	B.Reskin(category)
+	B.ReskinButton(category)
 
 	for _, setting in ipairs(category.settings) do
 
@@ -30,8 +36,8 @@ local function ReskinCategory(category)
 			B.ReskinDropDown(setting.Dropdown)
 		end
 
-		if setting.SettingSlider then
-			B.ReskinStepperSlider(setting.SettingSlider)
+		if setting.SliderWithSteppers then
+			B.ReskinStepperSlider(setting.SliderWithSteppers)
 		end
 
 		if setting.TextBox then
@@ -39,7 +45,7 @@ local function ReskinCategory(category)
 		end
 
 		if setting.Button then
-			B.Reskin(setting.Button)
+			B.ReskinButton(setting.Button)
 		end
 
 		if setting.CheckBox then
@@ -47,11 +53,11 @@ local function ReskinCategory(category)
 		end
 
 		if setting.ResetButton then
-			B.Reskin(setting.ResetButton)
+			B.ReskinButton(setting.ResetButton)
 		end
 
 		if setting.Picker then
-			B.Reskin(setting.Picker)
+			B.ReskinButton(setting.Picker)
 			setting.Picker.Color:SetAllPoints(setting.Picker.__bg)
 		end
 	end
@@ -63,40 +69,36 @@ function S:WorldQuestTab()
 	local frame = _G.WQT_WorldQuestFrame
 	if not frame then return end
 
-	S:Proxy("ReskinFilterButton", frame.FilterButton)
-	S:Proxy("ReskinDropDown", frame.SortDropdown)
-
 	local ScrollFrame = frame.ScrollFrame
 	if ScrollFrame then
-		if ScrollFrame.Background then
-			ScrollFrame.Background:Hide()
-		end
+		ScrollFrame.Background:Hide()
+		B.CreateBDFrame(ScrollFrame, .25, nil, -2)
+
 		S:Proxy("StripTextures", ScrollFrame.BorderFrame)
 		S:Proxy("ReskinTrimScroll", ScrollFrame.ScrollBar)
+		S:Proxy("ReskinFilterButton", ScrollFrame.FilterDropdown)
+		S:Proxy("ReskinDropDown", ScrollFrame.SortDropdown)
 	end
 
-	local Blocker = frame.Blocker
-	if Blocker then
-		B.StripTextures(Blocker)
-		Blocker.CloseButton:Hide()
-		S:Proxy("StripTextures", Blocker.DetailFrame)
-		S:Proxy("StripTextures", Blocker.BorderFrame)
+	local QuestMapTab = _G.WQT_QuestMapTab
+	if QuestMapTab then
+		B.StripTextures(QuestMapTab, 2)
+
+		QuestMapTab.bg = B.SetBD(QuestMapTab, 1, -4, -5, 4)
+		B.ReskinHLTex(QuestMapTab.SelectedTexture, QuestMapTab.bg, true)
 	end
 
-	if _G.WQT_ListButtonMixin then
-		hooksecurefunc(_G.WQT_ListButtonMixin, "OnLoad", function(self)
+	local ListButtonMixin = _G.WQT_ListButtonMixin
+	if ListButtonMixin then
+		hooksecurefunc(ListButtonMixin, "OnLoad", function(self)
 			HandleRewards(self)
-
-			local Faction = self.Faction
-			Faction.Ring:Hide()
 
 			local Title = self.Title
 			Title:ClearAllPoints()
-			Title:SetPoint("BOTTOMLEFT", Faction, "RIGHT", 0, 0)
+			Title:SetPoint("BOTTOMLEFT", self.Type, "RIGHT", 0, 0)
+			Title:SetPoint("RIGHT", self.Rewards, "LEFT", 0, 0)
 
-			local Time = self.Time
-			Time:ClearAllPoints()
-			Time:SetPoint("TOPLEFT", Faction, "RIGHT", 5, 0)
+			self.Time:SetPoint("BOTTOM", self, "BOTTOM", 0, 3)
 
 			local Highlight = self.Highlight
 			B.StripTextures(Highlight)
@@ -107,9 +109,18 @@ function S:WorldQuestTab()
 		end)
 	end
 
+	local WhatsNewFrame = _G.WQT_WhatsNewFrame
+	if WhatsNewFrame then
+		B.StripTextures(WhatsNewFrame)
+		B.CreateBDFrame(WhatsNewFrame, .25, nil, -2)
+		S:Proxy("ReskinTrimScroll", WhatsNewFrame.ScrollBar)
+	end
+
 	local SettingsFrame = _G.WQT_SettingsFrame
 	if SettingsFrame then
-		S:Proxy("ReskinTrimScroll", SettingsFrame.ScrollFrame and SettingsFrame.ScrollFrame.ScrollBar)
+		B.StripTextures(SettingsFrame)
+		B.CreateBDFrame(SettingsFrame, .25, nil, -2)
+		S:Proxy("ReskinTrimScroll", SettingsFrame.ScrollBar)
 
 		P:Delay(1, function()
 			for _, category in ipairs(SettingsFrame.categories) do

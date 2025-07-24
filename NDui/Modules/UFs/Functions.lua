@@ -714,6 +714,7 @@ function UF:CreateCastBar(self)
 
 		local shield = cb:CreateTexture(nil, "OVERLAY")
 		shield:SetAtlas("Quest-Campaign-Available")
+		shield:SetDesaturated(true)
 		shield:SetSize(18, 18)
 		shield:SetPoint("CENTER", cb, "CENTER", 0, 0)
 		cb.Shield = shield

@@ -8,10 +8,6 @@ local oUF = ns.oUF
 -- NDui MOD
 ----------------------------
 
-local playerArea = GetAreaText()
-local playerRace = UnitRace("player")
-local playerGuild, playerRank = GetGuildInfo("player")
-
 local function classColor(class, showRGB)
 	local color = DB.ClassColors[DB.ClassList[class] or class]
 	if not color then color = DB.ClassColors["PRIEST"] end
@@ -30,6 +26,9 @@ end
 -- Communities
 local function updateColumns(self)
 	if not self.expanded then return end
+
+	local playerArea = GetAreaText()
+	local playerGuild, playerRank = GetGuildInfo("player")
 
 	local memberInfo = self:GetMemberInfo()
 	if memberInfo then
@@ -66,6 +65,8 @@ S:LoadSkins("Blizzard_Communities", updateCommunities)
 
 -- Friends
 hooksecurefunc(FriendsListFrame.ScrollBox, "Update", function(self)
+	local playerArea = GetAreaText()
+
 	for i = 1, self.ScrollTarget:GetNumChildren() do
 		local button = select(i, self.ScrollTarget:GetChildren())
 		local nameText, infoText
@@ -116,6 +117,10 @@ hooksecurefunc(C_FriendList, "SortWho", function(sortType)
 end)
 
 hooksecurefunc(WhoFrame.ScrollBox, "Update", function(self)
+	local playerArea = GetAreaText()
+	local playerRace = UnitRace("player")
+	local playerGuild, playerRank = GetGuildInfo("player")
+
 	for i = 1, self.ScrollTarget:GetNumChildren() do
 		local button = select(i, self.ScrollTarget:GetChildren())
 

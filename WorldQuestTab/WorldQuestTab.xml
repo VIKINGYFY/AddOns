@@ -1,0 +1,915 @@
+ <Ui xmlns="http://www.blizzard.com/wow/ui/"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ../../FrameXML/UI.xsd">
+
+	<Script file="Libs\LibStub\LibStub.lua"/>
+	<Include file="libs\AceAddon-3.0\AceAddon-3.0.xml"/>
+	<Include file="libs\AceDB-3.0\AceDB-3.0.xml"/>
+	<Include file="libs\Krowi_WorldMapButtons-1.4.8\Krowi_WorldMapButtons-1.4.xml"/>
+	
+	<Include file="Loca/Loca.xml"/>
+	
+	<Script file="Data.lua"/>
+	<Script file="Profiles.lua"/>
+	<Include file="Templates.xml"/>
+	<Script file="Dataprovider.lua"/>
+	<Script file="WorldQuestTab.lua"/>
+	<Include file="MapPinProvider.xml"/>
+	
+	<include file="Callings\CallingsBoard.xml"/>
+
+	<Include file="Debug.xml"/>
+
+	<Frame name="WQT_RewardTemplate" parentArray="rewardFrames" virtual="true">
+		<Size x="32" y="32" />
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="QualityColor" file="Interface\Addons\WorldQuestTab\Images\QualityCornerMask">
+					<Anchors>
+						<Anchor point="TOPRIGHT" x="1" y="1"/>
+						<Anchor point="BOTTOMLEFT"/>
+					</Anchors>
+					<TexCoords left="1.0" right="0.0" top="1.0" bottom="0.0"/>
+				</Texture>
+
+				<Texture parentKey="Icon" file="Interface\ICONS\INV_Misc_QuestionMark" alpha="0.95">
+					<Anchors>
+						<Anchor point="TOPLEFT"/>
+						<Anchor point="BOTTOMRIGHT"/>
+					</Anchors>
+					<TexCoords left="0.05" right="0.95" top="0.05" bottom="0.95"/>
+				</Texture>
+				<MaskTexture parentKey="BorderMask" file="Interface\Addons\WorldQuestTab\Images\RewardMask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
+					<MaskedTextures>
+						<MaskedTexture childKey="Icon" />
+					</MaskedTextures>
+				</MaskTexture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<FontString parentKey="Amount" inherits="GameFontNormalSmall" maxLines="1" justifyH="RIGHT">
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT" x="-2" y="0"/>
+					</Anchors>
+					<Color r="1" g="1" b="1"/>
+				</FontString>
+			</Layer>
+
+			<Layer level="BACKGROUND" textureSubLevel="1">
+				<Texture parentKey="AmountBG" atlas="MapCornerShadow-Left" alpha="1">
+					<Anchors>
+						<Anchor point="LEFT"/>
+						<Anchor point="RIGHT"/>
+						<Anchor point="TOP" relativeKey="$parent.Amount" y="6"/>
+						<Anchor point="BOTTOM" relativeKey="$parent.Amount"/>
+					</Anchors>
+					<TexCoords left="1.0" right="0.0" top="0.0" bottom="1.0"/>
+					<Color r="0" g="0" b="0"/>
+				</Texture>
+			</Layer>
+		</Layers>
+	</Frame>
+	
+	<Frame name="WQT_RewardDisplayTemplate" mixin="WQT_RewardDisplayMixin" virtual="true">
+		<Size x="32" y="32" />
+		<Frames>
+			<Frame parentKey="Reward1" inherits="WQT_RewardTemplate" >
+				<Anchors>
+					<Anchor point="RIGHT"/>
+				</Anchors>
+			</Frame>
+			<Frame parentKey="Reward3" inherits="WQT_RewardTemplate" >
+				<Size x="16" y="16"/>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Reward1" relativePoint="BOTTOMLEFT" x="-1"/>
+				</Anchors>
+				<KeyValues>
+					<KeyValue key="isMinor" type="bool" value="true" />
+				</KeyValues>
+			</Frame>
+			<Frame parentKey="Reward2" inherits="WQT_RewardTemplate" >
+				<Size x="16" y="16"/>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativeKey="$parent.Reward3" relativePoint="TOPLEFT" x="0" />
+				</Anchors>
+				<KeyValues>
+					<KeyValue key="isMinor" type="bool" value="true" />
+				</KeyValues>
+			</Frame>
+			<Frame parentKey="Reward4" inherits="WQT_RewardTemplate" >
+				<Size x="16" y="16"/>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Reward3" relativePoint="BOTTOMLEFT" x="0"/>
+				</Anchors>
+				<KeyValues>
+					<KeyValue key="isMinor" type="bool" value="true" />
+				</KeyValues>
+			</Frame>
+			
+		</Frames>
+		
+		<Scripts>
+			<OnLoad method="OnLoad"/>
+		</Scripts>
+	</Frame>
+	 
+	<Button name="WQT_QuestTemplate" mixin="WQT_ListButtonMixin" hidden="true" virtual="true" registerForClicks="LeftButtonUp, RightButtonUp" >
+		<Size y="38"/>
+		<Anchors>
+			<Anchor point="LEFT" x="0" y="0" />
+			<Anchor point="RIGHT" x="0" y="0" />
+		</Anchors>
+		<Frames>
+			<Frame parentKey="Faction">
+				<Size x="34" y="34" />
+				<HitRectInsets left="-2" right="0" top="-3" bottom="-3"/>
+				<Anchors>
+					<Anchor point="RIGHT" x="-2"/>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<Texture parentKey="Icon" alpha="0.65" >
+							<Anchors>
+								<Anchor point="TOPLEFT" x="0" y="0"/>
+								<Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+							</Anchors>
+							<TexCoords left="0.02" right="0.98" top="0.05" bottom="0.98"/>
+						</Texture>
+						<MaskTexture parentKey="IconMask" file="Interface\Addons\WorldQuestTab\Images\FactionMask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
+							<Anchors>
+								<Anchor point="TOPLEFT" x="1" y="-1" relativeKey="$parent.Icon"/>
+								<Anchor point="BOTTOMRIGHT" x="-1" y="1" relativeKey="$parent.Icon"/>
+							</Anchors>
+							<MaskedTextures>
+								<MaskedTexture childKey="Icon"/>
+							</MaskedTextures>
+						</MaskTexture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnEnter>
+						self:GetParent():FactionOnEnter(self);
+					</OnEnter>
+					<OnLeave>
+						self:GetParent().Highlight:Hide();
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Frame>
+
+			<Frame parentKey="Type" hidden="true">
+				<Size x="28" y="28" />
+				<Anchors>
+					<Anchor point="LEFT" x="8" y="0"/>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND" textureSubLevel="-1">
+						<Texture parentKey="Elite" atlas="worldquest-questmarker-dragon"/>
+					</Layer>
+					<Layer level="BACKGROUND" textureSubLevel="-1">
+						<Texture parentKey="CriteriaGlow">
+							<Size x="32" y="32" />
+							<Anchors>
+								<Anchor point="CENTER"/>
+							</Anchors>
+						</Texture>
+					</Layer>
+					<Layer level="BACKGROUND">
+						<Texture parentKey="Bg">
+							<Anchors>
+								<Anchor point="CENTER"/>
+							</Anchors>
+						</Texture>
+					</Layer>
+					<Layer level="ARTWORK">
+						<Texture parentKey="Texture">
+							<Anchors>
+								<Anchor point="CENTER"/>
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
+			</Frame>
+
+			<Frame parentKey="Rewards" inherits="WQT_RewardDisplayTemplate" hidden="false" alpha="1">
+				<Anchors>
+					<Anchor point="RIGHT" relativeKey="$parent.Faction" relativePoint="LEFT" x="0" y="0"/>
+				</Anchors>
+			</Frame>
+			
+			<Frame parentKey="TrackedBorder" hidden="true" alpha="0.6" >
+				<Anchors>
+					<Anchor point="TOPLEFT" x="1"/>
+					<Anchor point="BOTTOMRIGHT" x="-1"/>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<Texture parentKey="hlLeft" file="Interface\PETBATTLES\PETJOURNAL">
+							<Anchors>
+								<Anchor point="TOPLEFT"/>
+								<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" x="30"/>
+							</Anchors>
+							<TexCoords left="0.498046875" right="0.591796875" top="0.222" bottom="0.265625"/>
+						</Texture>
+						<Texture parentKey="hlRight" file="Interface\PETBATTLES\PETJOURNAL">
+							<Anchors>
+								<Anchor point="TOPRIGHT"/>
+								<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="-30"/>
+							</Anchors>
+							<TexCoords left="0.814453125" right="0.90625" top="0.222" bottom="0.265625"/>
+						</Texture>
+						<Texture parentKey="hlCenter" file="Interface\PETBATTLES\PETJOURNAL">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeKey="$parent.hlLeft" relativePoint="TOPRIGHT"/>
+								<Anchor point="BOTTOMRIGHT" relativeKey="$parent.hlRight" relativePoint="BOTTOMLEFT"/>
+							</Anchors>
+							<TexCoords left="0.591796875" right="0.814453125" top="0.222" bottom="0.265625"/>
+						</Texture>
+					</Layer>
+				</Layers>
+			</Frame>
+			
+			<Frame parentKey="Highlight" hidden="true" alpha="0.75" >
+				<Anchors>
+					<Anchor point="TOPLEFT" x="1" />
+					<Anchor point="BOTTOMRIGHT" x="-1"/>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<Texture parentKey="hlLeft" file="Interface\PETBATTLES\PETJOURNAL">
+							<Anchors>
+								<Anchor point="TOPLEFT"/>
+								<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" x="30"/>
+							</Anchors>
+							<TexCoords left="0.498046875" right="0.591796875" top="0.1748046875" bottom="0.2197265625"/>
+						</Texture>
+						<Texture parentKey="hlRight" file="Interface\PETBATTLES\PETJOURNAL">
+							<Anchors>
+								<Anchor point="TOPRIGHT"/>
+								<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="-30"/>
+							</Anchors>
+							<TexCoords left="0.814453125" right="0.90625" top="0.1748046875" bottom="0.2197265625"/>
+						</Texture>
+						<Texture parentKey="hlCenter" file="Interface\PETBATTLES\PETJOURNAL">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeKey="$parent.hlLeft" relativePoint="TOPRIGHT"/>
+								<Anchor point="BOTTOMRIGHT" relativeKey="$parent.hlRight" relativePoint="BOTTOMLEFT"/>
+							</Anchors>
+							<TexCoords left="0.591796875" right="0.814453125" top="0.1748046875" bottom="0.2197265625"/>
+						</Texture>
+					</Layer>
+				</Layers>
+			</Frame>
+			
+		</Frames>
+		
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="Bg" file="Interface\QUESTFRAME\UI-QuestLogTitleHighlight" alpha="0.05" alphaMode="ADD">
+					<Anchors>
+						<Anchor point="TOPLEFT" y="-1"/>
+						<Anchor point="BOTTOMRIGHT" y="1"/>
+					</Anchors>
+					<TexCoords left="0.25" right="0.75" top="0.0" bottom="1.0"/>
+				</Texture>
+				<Texture parentKey="QualityBg" file="interface/covenantrenown/covenantrenownscrollmask" alpha="0.15" alphaMode="ADD" hidden="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" y="-1"/>
+						<Anchor point="BOTTOMRIGHT" x="0" y="1"/>
+					</Anchors>
+					<TexCoords left="0.5" right="0.9" top="0.18" bottom="0.79"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<FontString parentKey="Title" inherits="GameFontNormal" maxLines="1" justifyH="LEFT" justifyV="TOP">
+					<Size x="150" y="0"/>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" relativekey="$parent.Type" relativePoint="RIGHT" x="8" y="2"/>
+						<Anchor point="RIGHT" relativeKey="$parent.Rewards" relativePoint="LEFT" x="-5"/>
+					</Anchors>
+				</FontString>
+
+				<FontString parentKey="Time" inherits="GameFontNormalSmall" maxLines="1" justifyH="LEFT">
+					<Size x="0" y="0"/>
+					<Anchors>
+						<Anchor point="LEFT" relativeKey="$parent.Title"/>
+						<Anchor point="BOTTOM" y="6"/>
+					</Anchors>
+					<Color r="0.75" g="0.61" b="0"/>
+				</FontString>
+				<FontString parentKey="Extra" inherits="GameFontNormalSmall" maxLines="1" justifyH="LEFT" justifyV="BOTTOM" alpha="0">
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" relativeKey="$parent.Time" relativePoint="BOTTOMRIGHT" x="0"/>
+						<Anchor point="RIGHT" relativeKey="$parent.Rewards" relativePoint="LEFT" x="-5"/>
+					</Anchors>
+					<Color r="0.7" g="0.7" b="0.7"/>
+				</FontString>
+			</Layer>
+		</Layers>
+
+		<Scripts>
+			<OnClick method="OnClick" />
+			<OnLoad method="OnLoad"/>
+			<OnUpdate method="OnUpdate" />
+			<OnEnter method="OnEnter" />
+			<OnLeave method="OnLeave" />
+		</Scripts>
+	</Button>
+	
+	<Frame name="WQT_BountyCounterTemplate" virtual="true" hidden="false">
+		<Size x="11" y="11"/>
+		<Layers>		
+			<Layer level="ARTWORK">
+				<Texture parentKey="icon" file="Interface\COMMON\ReputationStar" setAllPoints="true">
+					<TexCoords left="0" right="0.5" top="0.5" bottom="1"/>
+				</Texture>
+			</Layer>
+		</Layers>
+	</Frame>
+	
+	<Frame name="WQT_PoISelectTemplate" hidden="true" flattenRenderLayers="true" virtual="true">
+		<Size x="40" y="40"/>
+		<Layers>
+			<Layer level="BACKGROUND" textureSubLevel="-10">
+				<Texture parentKey="PingStatic" file="Interface\Addons\WorldQuestTab\Images\PoIPing" alpha="1">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="-15" y="16"/>
+						<Anchor point="BOTTOMRIGHT" x="15" y="-14"/>
+					</Anchors>
+				</Texture>
+				<Texture parentKey="Ping" file="Interface\Addons\WorldQuestTab\Images\PoIPing" alpha="0">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="-15" y="16"/>
+						<Anchor point="BOTTOMRIGHT" x="15" y="-14"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Animations>
+			<AnimationGroup parentKey="ringAnim" looPing="REPEAT">
+				<Alpha parentKey="Ping" childKey="Ping" fromAlpha="0.8" toAlpha="0" smoothing="IN" Duration="1.2" order="1"  startDelay=".6" endDelay="0"/>
+				<Scale parentKey="Ping" childKey="Ping" fromScaleX="1" toScaleX="1.7" smoothing="OUT" fromScaleY="1" toScaleY="1.7" Duration="1" startDelay=".6" order="1" endDelay=".2"/>
+			</AnimationGroup>
+			<AnimationGroup parentKey="ringAnim2" looPing="NONE">
+				<Scale parentKey="PingStatic" childKey="PingStatic" fromScaleX="1.2" toScaleX="1" smoothing="IN" fromScaleY="1.2" toScaleY="1" Duration=".4" order="0"/>
+				<Alpha parentKey="PingStatic" childKey="PingStatic" fromAlpha="0.5" toAlpha="1"  Duration="0.2" order="0"/>
+			</AnimationGroup>
+		</Animations>
+		<Scripts>
+			<OnShow>
+				self.ringAnim:Stop();
+				self.ringAnim:Play();
+				self.ringAnim2:Stop();
+				self.ringAnim2:Play();
+			</OnShow>
+			<OnHide>
+				self.ringAnim:Stop();
+				self.ringAnim2:Stop();
+			</OnHide>
+		</Scripts>
+	</Frame>
+
+	<Button Name="WQT_PanelCloseButtonTemplate" virtual="True">
+		<Size x="15" y="15" />
+		<Anchors>
+			<Anchor point="TOPRIGHT" x="19" y="25" />
+		</Anchors>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture atlas="common-search-clearbutton" alpha="0.5" parentKey="texture" />
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				self:SetFrameLevel(self:GetParent():GetFrameLevel() + 20);
+			</OnLoad>
+			<OnClick>
+				WQT_WorldQuestFrame:ChangePanel(WQT_PanelID.Quests);
+				PlaySound(MenuVariants.GetDropdownCloseSoundKit());
+			</OnClick>
+			<OnEnter>
+				self.texture:SetAlpha(1.0);
+			</OnEnter>
+			<OnLeave>
+				self.texture:SetAlpha(0.5);
+			</OnLeave>
+			<OnMouseDown>
+				if self:IsEnabled() then
+				self.texture:SetPoint("TOPLEFT", self, "TOPLEFT", 1, -1);
+				end
+			</OnMouseDown>
+			<OnMouseUp>
+				self.texture:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0);
+			</OnMouseUp>
+		</Scripts>
+	</Button>
+
+	
+	<Frame name="WQT_OldTaxiMapContainer" inherits="WQT_ContainerTemplate" hidden="true" parent="TaxiFrame">
+		<Anchors>
+			<Anchor point="BOTTOMLEFT" relativeTo="TaxiFrame" relativePoint="BOTTOMRIGHT" x="-6" y="0"/>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="Background" file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="2" y="-2"/>
+						<Anchor point="BOTTOMRIGHT" x="-2" y="2"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				self:SetFrameLevel(TaxiFrame:GetFrameLevel()-1);
+			</OnLoad>
+		</Scripts>
+	</Frame>
+	
+	<Frame name="WQT_FlightMapContainer" inherits="WQT_ContainerTemplate" hidden="true" />
+	
+	<Frame name="WQT_WorldMapContainer" inherits="WQT_ContainerTemplate" mixin="WQT_ConstrainedChildMixin" parent="WorldMapFrame" hidden="false" enableMouse="true" movable="true">
+		<Frames>
+			<Frame parentKey="DragFrame" enableMouse="true" movable="true">
+				<HitRectInsets bottom="0" />
+				<Anchors>
+					<Anchor point="TOPLEFT" x="5" y="-3"/>
+					<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" x="-3" y="-20"/>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						self:RegisterForDrag("LeftButton")
+					</OnLoad>
+					<OnDragStart>
+						self:GetParent():OnDragStart();
+						GameTooltip:Hide();
+					</OnDragStart>
+					<OnDragStop>
+						self:GetParent():OnDragStop();
+					</OnDragStop>
+					<OnUpdate>
+						self:GetParent():OnUpdate();
+					</OnUpdate>
+					<OnEnter>
+						GameTooltip:SetOwner(self, "ANCHOR_CURSOR_RIGHT");
+						GameTooltip:SetText(WQT_CONTAINER_DRAG, 1, 1, 1, true);
+						GameTooltip:AddLine(WQT_CONTAINER_DRAG_TT, nil, nil, nil, true);
+						GameTooltip:Show();
+					</OnEnter>	
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+				
+			</Frame>
+		</Frames>
+		
+		<Scripts>
+			<OnLoad>
+				self:SetParent(WorldMapFrame.ScrollContainer);
+				self:SetPoint("BOTTOMLEFT", WorldMapFrame.ScrollContainer, 0, 0);
+				self:OnLoad();
+				self.Bg:SetAlpha(0.65);
+			</OnLoad>
+			<OnShow>
+				WQT_ListContainer:DisplayQuestList(UpdateBackground);
+			</OnShow>
+		</Scripts>
+	</Frame>
+	
+	<Button name="WQT_OldTaxiMapContainerButton" inherits="WQT_ContainerButtonTemplate" hidden="false" parent="TaxiFrame">
+		<Anchors>
+			<Anchor point="BOTTOMRIGHT" relativeTo="TaxiFrame" relativePoint="BOTTOMRIGHT" x="-8" y="8"/>
+		</Anchors>
+		<Scripts>
+			<OnLoad>
+				self.container = WQT_OldTaxiMapContainer;
+			</OnLoad>
+		</Scripts>
+	</Button>
+	
+	<Button name="WQT_FlightMapContainerButton" mixin="WQT_ContainerButtonMixin" hidden="false">
+		<Size x="48" y="40"/> 
+		<HitRectInsets left="5" right="5" top="3" bottom="5"/>
+		<KeyValues>
+			<KeyValue key="container" value="WQT_FlightMapContainer" type="global" />
+		</KeyValues>
+		<NormalTexture atlas="common-button-tertiary-normal" />
+		<PushedTexture atlas="common-button-tertiary-pressed" />
+		<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD" alpha=".5" />
+
+		<Layers>
+			<Layer level="OVERLAY">
+				<Texture parentKey="Icon" atlas="Worldquest-icon" parentArray="Icons">
+					<Size x="20" y="20"/> 
+					<Anchors>
+						<Anchor point="RIGHT" x="-9" y="0"/>
+					</Anchors>
+				</Texture>
+				<Texture parentKey="Arrow" atlas="common-icon-forwardarrow" parentArray="Icons">
+					<Size x="10" y="14"/> 
+					<Anchors>
+						<Anchor point="LEFT" x="9" y="0"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnClick method="OnClick"/>
+			<OnEnter method="OnEnter"/>
+			<OnLeave method="OnLeave"/>
+			<OnMouseDown method="OnMouseDown"/>
+			<OnMouseUp method="OnMouseUp"/>
+		</Scripts>
+	</Button>
+	
+	<Button name="WQT_WorldMapButtonTemplate" mixin="WQT_WorldMapContainerButtonMixin" frameStrata="HIGH" virtual="true">
+		<Size x="32" y="32"/>
+		<KeyValues>
+			<KeyValue key="container" value="WQT_WorldMapContainer" type="global" />
+			<KeyValue key="pressOffset" value="1" type="number" />
+		</KeyValues>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="Background" file="Interface\Minimap\UI-Minimap-Background">
+					<Size x="25" y="25"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-4"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY" textureSubLevel="1">
+				<Texture parentKey="Icon" atlas="Worldquest-icon" parentArray="Icons">
+					<Size x="18" y="18"/> 
+					<Anchors>
+						<Anchor point="Center" x="1" y="0"/>
+					</Anchors>
+				</Texture>
+				<Texture parentKey="Border" file="Interface\Minimap\MiniMap-TrackingBorder">
+					<Size x="54" y="54"/>
+					<Anchors>
+						<Anchor point="TOPLEFT"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY" textureSubLevel="2">
+				<Texture parentKey="ActiveTexture" file="Interface\Minimap\UI-Minimap-ZoomButton-Toggle" alphaMode="ADD" hidden="true">
+					<Size x="37" y="37"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.Border" x="-2" y="1"/>
+					</Anchors>					
+				</Texture>
+			</Layer>			
+		</Layers>
+		<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
+		<Scripts>
+			<OnClick method="OnClick"/>
+			<OnEnter method="OnEnter"/>
+			<OnLeave method="OnLeave"/>
+			<OnMouseDown method="OnMouseDown"/>
+			<OnMouseUp method="OnMouseUp"/>
+		</Scripts>
+	</Button>
+	
+	<Frame name="WQT_QuestMapTab" parent="QuestMapFrame" inherits="QuestLogTabButtonTemplate">
+		<KeyValues>
+			<KeyValue key="displayMode" value="QuestLogDisplayMode.WQT" type="global" />
+			<KeyValue key="activeAtlas" value="Worldquest-icon" type="string" />
+			<KeyValue key="inactiveAtlas" value="Worldquest-icon" type="string" />
+			<KeyValue key="tooltipText" value="TRACKER_HEADER_WORLD_QUESTS" type="global" />
+		</KeyValues>
+		<Anchors>
+			<Anchor point="TOP" relativeKey="$parent.MapLegendTab" relativePoint="BOTTOM" x="0" y="-3"/>
+		</Anchors>
+		<Scripts>
+			<OnMouseUp>
+				QuestLogTabButtonMixin.OnMouseUp(self, button);
+				WQT_WorldQuestFrame:SelectTab(self, button);
+			</OnMouseUp>
+		</Scripts>
+	</Frame>	
+
+	<!--
+		Main frame
+	-->
+
+	<Frame name="WQT_WorldQuestFrame" mixin="WQT_CoreMixin" parent="QuestMapFrame" enableMouse="true" hidden="false">
+		<Size x="308" y="0" />
+		<Anchors>
+			<Anchor point="TOPLEFT" RelativeKey="$parent.ContentsAnchor" y="-29" />
+			<Anchor point="BOTTOMRIGHT" RelativeKey="$parent.ContentsAnchor" x="-22" />
+		</Anchors>
+		<Frames>
+			<!-- Quest panel -->
+			<Frame name="WQT_ListContainer" parentKey="ScrollFrame" mixin="WQT_ScrollListMixin" parentArray="panels" enableMouse="true" hidden="false">
+				<Size x="286" y="0" />
+				<Anchors>
+					<Anchor point="TOPLEFT" />
+					<Anchor point="BOTTOMRIGHT" />
+				</Anchors>
+				<KeyValues>
+					<!-- <KeyValue key="panelID" type="number" value="1" /> -->
+					<KeyValue key="panelID" value="WQT_PanelID.Quests" type="global"/>
+				</KeyValues>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture parentKey="Background" atlas="QuestLog-main-background"
+							useAtlasSize="true">
+							<Anchors>
+								<Anchor point="TOPLEFT" />
+								<Anchor point="BOTTOMRIGHT" />
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Cooldown parentKey="ProgressBar" hideCountdownNumbers="true" reverse="true">
+						<Size x="20" y="20" />
+						<Anchors>
+							<Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="2" y="8" />
+						</Anchors>
+						<SwipeTexture file="Interface\Addons\WorldQuestTab\Images\PoIRing">
+							<Color r="1" g="0.82" b="0" a="0.7" />
+						</SwipeTexture>
+						<Layers>
+							<Layer level="BACKGROUND">
+								<Texture parentKey="Background" file="Interface\Addons\WorldQuestTab\Images\PoIRing" setAllPoints="true">
+									<Anchors>
+										<Anchor point="TOPLEFT" />
+										<Anchor point="BOTTOMRIGHT" />
+									</Anchors>
+									<Color r="0" g="0" b="0" a="0.6" />
+								</Texture>
+							</Layer>
+						</Layers>
+					</Cooldown>
+
+					<DropdownButton parentKey="FilterDropdown" inherits="WowStyle1FilterDropdownTemplate">
+						<KeyValues>
+							<KeyValue key="menuRelativePoint" type="string" value="TOPRIGHT" />
+							<KeyValue key="menuPointX" type="number" value="-4" />
+							<KeyValue key="menuPointY" type="number" value="1" />
+							<KeyValue key="resizeToText" type="boolean" value="false" />
+						</KeyValues>
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" x="-28" y="8" />
+						</Anchors>
+					</DropdownButton>
+
+					<DropdownButton parentKey="SortDropdown" inherits="WowStyle1DropdownTemplate">
+						<Anchors>
+							<Anchor point="RIGHT" relativeKey="$parent.FilterDropdown" relativePoint="LEFT" x="-10" y="0" />
+						</Anchors>
+					</DropdownButton>
+
+					<DropdownButton parentKey="SettingsDropdown" mixin="WQT_QuestLogSettingsButtonMixin">
+						<Size x="15" y="16" />
+						<Anchors>
+							<Anchor point="TOPRIGHT" x="19" y="25" />
+						</Anchors>
+						<Layers>
+							<Layer level="ARTWORK">
+								<Texture parentKey="Icon" atlas="questlog-icon-setting" useAtlasSize="true">
+									<Anchors>
+										<Anchor point="CENTER" />
+									</Anchors>
+								</Texture>
+							</Layer>
+							<Layer level="HIGHLIGHT">
+								<Texture atlas="questlog-icon-setting" useAtlasSize="true" inherits="QuestLogHighlightTextureTemplate">
+									<Anchors>
+										<Anchor point="CENTER" relativeKey="$parent.Icon" />
+									</Anchors>
+								</Texture>
+							</Layer>
+						</Layers>
+						<Scripts>
+							<OnMouseDown method="OnMouseDown" />
+							<OnMouseUp method="OnMouseUp" />
+							<OnDisable method="OnDisable" />
+							<OnEnable method="OnEnable" />
+						</Scripts>
+					</DropdownButton>						
+
+					<Frame parentKey="BorderFrame" inherits="QuestLogBorderFrameTemplate" />
+					<Frame parentKey="FilterBar">
+						<Size x="259" y="0.1" />
+						<Anchors>
+							<Anchor point="TOPRIGHT" x="0" y="0" />
+							<Anchor point="TOPLEFT" x="0" y="0" />
+						</Anchors>
+						<Layers>
+							<Layer level="ARTWORK">
+								<Texture file="Interface\Buttons\UI-Listbox-Highlight2">
+									<Color r="0.6" g="0.75" b="1.0" a="0.5" />
+								</Texture>
+								<FontString parentKey="Text" inherits="GameFontHighlightSmall"
+									justifyH="LEFT">
+									<Anchors>
+										<Anchor point="TOPLEFT" x="15" y="0" />
+										<Anchor point="BOTTOMRIGHT" x="-30" y="0" />
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
+						<Frames>
+							<Button name="$parentClearButton" parentKey="ClearButton" hidden="true">
+								<Size x="17" y="17" />
+								<Anchors>
+									<Anchor point="RIGHT" x="-10"/>
+								</Anchors>
+								<Layers>
+									<Layer level="ARTWORK">
+										<Texture file="Interface\FriendsFrame\ClearBroadcastIcon"
+											alpha="0.5" parentKey="texture">
+											<Size>
+												<AbsDimension x="17" y="17" />
+											</Size>
+											<Anchors>
+												<Anchor point="TOPLEFT" x="0" y="0" />
+											</Anchors>
+										</Texture>
+									</Layer>
+								</Layers>
+								<Scripts>
+									<OnClick>
+										WQT_WorldQuestFrame:FilterClearButtonOnClick();
+									</OnClick>
+									<OnEnter>
+										self.texture:SetAlpha(1.0);
+									</OnEnter>
+									<OnLeave>
+										self.texture:SetAlpha(0.5);
+									</OnLeave>
+									<OnMouseDown>
+										if self:IsEnabled() then
+										self.texture:SetPoint("TOPLEFT", self, "TOPLEFT", 1, -1);
+										end
+									</OnMouseDown>
+									<OnMouseUp>
+										self.texture:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0);
+									</OnMouseUp>
+								</Scripts>
+							</Button>
+						</Frames>
+					</Frame>
+
+					
+					<Frame parentKey="QuestScrollBox" inherits="WowScrollBoxList" frameStrata="HIGH">
+						<Anchors>
+							<Anchor point="TOP" relativeKey="$parent.FilterBar" relativePoint="BOTTOM" />
+							<Anchor point="LEFT" />
+							<Anchor point="BOTTOMRIGHT"/>
+						</Anchors>
+					</Frame>
+					<EventFrame parentKey="ScrollBar" inherits="MinimalScrollBar" frameStrata="HIGH">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="8" y="2"/>
+							<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="8" y="-4"/>
+						</Anchors>
+					</EventFrame>
+				</Frames>
+				<Scripts>
+					<OnLoad method="OnLoad" />
+				</Scripts>
+			</Frame>
+
+			<!-- What's New -->
+			<Frame name="WQT_WhatsNewFrame" parentKey="WhatsNewFrame" parentArray="panels" hidden="true">
+				<Size x="286" y="0" />
+				<Anchors>
+					<Anchor point="TOPLEFT" />
+					<Anchor point="BOTTOMRIGHT" />
+				</Anchors>
+				<KeyValues>
+					<!-- <KeyValue key="panelID" type="number" value="2" /> -->
+					<KeyValue key="panelID" value="WQT_PanelID.WhatsNew" type="global"/>
+				</KeyValues>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture parentKey="Background" file="interface\professions\professionsminimizedview">
+							<TexCoords top="0.0009765625" right="0.787109375" bottom="0.533" left="0.001953125"/>
+							<Anchors>
+								<Anchor point="TOPLEFT" />
+								<Anchor point="BOTTOMRIGHT" />
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
+				<frames>
+					<Frame parentKey="BorderFrame" inherits="QuestLogBorderFrameTemplate" />
+
+					<Frame parentKey="ScrollBox" inherits="WowScrollBox" frameStrata="HIGH">
+						<Anchors>
+							<Anchor point="TOPLEFT" />
+							<Anchor point="BOTTOMRIGHT" />
+						</Anchors>
+						<KeyValues>
+							<KeyValue key="wheelPanScalar" type="number" value="0.1" />
+						</KeyValues>
+						<Frames>
+							<Frame parentKey="ScrollContent">
+								<Size x="268" y="400" />
+								<KeyValues>
+									<KeyValue key="scrollable" value="true" type="boolean" />
+								</KeyValues>
+								<Frames>
+									<SimpleHTML parentKey="Text">
+										<Size x="268" y="400" />
+										<Anchors>
+											<Anchor point="TOPLEFT" x="20" />
+											<Anchor point="BOTTOMRIGHT" x="-20" />
+										</Anchors>
+										<FontString inherits="GameFontNormal" spacing="2" wordwrap="true" />
+										<FontStringHeader1 inherits="Fancy24Font" spacing="5" />
+										<FontStringHeader2 inherits="Fancy16Font" spacing="4" />
+										<FontStringHeader3 inherits="GameFontNormalTiny" spacing="0" />
+
+									</SimpleHTML>
+								</Frames>
+								<Scripts>
+									<OnLoad>
+										<!-- Hate it. -->
+										self:SetWidth(WQT_WhatsNewFrame:GetWidth());
+									</OnLoad>
+								</Scripts>
+							</Frame>
+
+						</Frames>
+					</Frame>
+					<EventFrame parentKey="ScrollBar" inherits="MinimalScrollBar" frameStrata="HIGH">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="8" y="2"/>
+							<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="8" y="-4"/>
+						</Anchors>
+					</EventFrame>
+
+					<Button parentKey="CloseButton" inherits="WQT_PanelCloseButtonTemplate"/>
+				</frames>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString parentKey="TitleText" inherits="Game15Font_Shadow" wordwrap="false" text="MAP_LEGEND_FRAME_LABEL">
+							<Anchors>
+								<Anchor point="BOTTOM" relativeKey="$parent.BorderFrame" relativePoint="TOP" x="-1" y="3" />
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+			</Frame>
+
+			<!-- Settings frame in Settings.lua -->
+		</Frames>
+		<Scripts>
+			<OnLoad method="OnLoad"/>
+		</Scripts>
+	</Frame>
+	
+	<Frame name="WQT_PoISelectIndicator" inherits="WQT_PoISelectTemplate" />
+
+	<!-- This exists for tooltip scanning -->
+	<GameTooltip name="WQT_CompareScrapeTooltip1" clampedToScreen="true"  frameStrata="TOOLTIP" hidden="true" parent="UIParent" inherits="ShoppingTooltipTemplate"/>
+	<GameTooltip name="WQT_CompareScrapeTooltip2" clampedToScreen="true" frameStrata="TOOLTIP" hidden="true" parent="UIParent" inherits="ShoppingTooltipTemplate"/>
+	<GameTooltip name="WQT_ScrapeTooltip" frameStrata="TOOLTIP" hidden="true" parent="UIParent" inherits="GameTooltipTemplate">
+		<Frames>
+			<Frame parentKey="ItemTooltip" inherits="InternalEmbeddedItemTooltipTemplate" hidden="true">
+				<Size x="100" y="100"/>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMLEFT" x="10" y="13"/>
+				</Anchors>
+				<KeyValues>
+					<KeyValue key="yspacing" value="13" type="number"/>
+				</KeyValues>
+				<Scripts>
+					<OnLoad inherit="prepend">
+						self.Tooltip.shoppingTooltips = { WQT_CompareScrapeTooltip1, WQT_CompareScrapeTooltip2 };
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<Frame name="WQT_TooltipMoneyFrame1" inherits="TooltipMoneyFrameTemplate"/>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				GameTooltip_OnLoad(self);
+				self.shoppingTooltips = { WQT_CompareScrapeTooltip1, WQT_CompareScrapeTooltip2 };
+			</OnLoad>
+			<OnUpdate function="GameTooltip_OnUpdate"/>
+		</Scripts>
+	</GameTooltip>
+	
+	<Frame name="WQT_MapZoneHightlight" hidden="true">
+		<Size x="128" y="128"/>
+		<Anchors>
+			<Anchor point="CENTER"/>
+		</Anchors>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture parentKey="Texture" file="Interface/Worldmap/Azsuna/AzsunaHighlight" alphaMode="ADD">
+					<Anchors>
+						<Anchor point="TOPLEFT"/>
+						<Anchor point="BOTTOMRIGHT"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+	</Frame>
+ </Ui>
+ 

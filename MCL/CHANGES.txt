@@ -1,16 +1,10 @@
-lightweight tag 514722dcf8cf3baf46f289858c9c543cace13239 v2.6.5
+lightweight tag 84fb81abdee2c8c5785e35d3a56432087cf98fbb v2.6.7
 Author:	Cameron Liddell <camyana65@gmail.com>
-Date:	Mon Jul 21 17:25:18 2025 +0100
+Date:	Thu Jul 24 18:35:12 2025 +0100
 
-commit 514722dcf8cf3baf46f289858c9c543cace13239
+commit 84fb81abdee2c8c5785e35d3a56432087cf98fbb
 Author: Cameron Liddell <camyana65@gmail.com>
-Date:   Mon Jul 21 17:25:18 2025 +0100
+Date:   Thu Jul 24 18:35:12 2025 +0100
 
-    v2.6.5
-
-commit 4563eb45047ace6f88ef1aa09b1693e23175671f
-Author: Cameron Liddell <camyana65@gmail.com>
-Date:   Tue Jul 15 12:44:11 2025 +0100
-
-    new mounts added.
+    v2.6.7
 

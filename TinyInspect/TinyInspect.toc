@@ -14,4 +14,3 @@ InspectCore.lua
 InspectGroupMember.lua
 InspectUnit.lua
 InspectUnitGemAndEnchant.lua
-InspectUnitGreenState.lua

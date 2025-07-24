@@ -69,15 +69,15 @@ local function CreateIconFrame(frame, index)
 	icon:Hide()
 	icon:SetSize(16, 16)
 	icon:SetScript("OnEnter", function(self)
-		if (self.link) then
+		if self.link then
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 			GameTooltip:SetHyperlink(self.link)
 			GameTooltip:Show()
-		elseif (self.spellID) then
+		elseif self.spellID then
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 			GameTooltip:SetSpellByID(self.spellID)
 			GameTooltip:Show()
-		elseif (self.name) then
+		elseif self.name then
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 			GameTooltip:SetText(self.name)
 			GameTooltip:Show()
@@ -111,11 +111,12 @@ end
 --隱藏所有圖標框架
 local function HideAllIconFrame(frame)
 	local index = 1
-	while (frame["xicon"..index]) do
+	while frame["xicon"..index] do
 		frame["xicon"..index].name = nil
 		frame["xicon"..index].link = nil
 		frame["xicon"..index].spellID = nil
 		frame["xicon"..index]:Hide()
+
 		index = index + 1
 	end
 end
@@ -123,8 +124,8 @@ end
 --獲取可用的圖標框架
 local function GetIconFrame(frame)
 	local index = 1
-	while (frame["xicon"..index]) do
-		if (not frame["xicon"..index]:IsShown()) then
+	while frame["xicon"..index] do
+		if not frame["xicon"..index]:IsShown() then
 			return frame["xicon"..index]
 		end
 		index = index + 1
@@ -205,21 +206,21 @@ local function ShowGemAndEnchant(frame, itemFrame)
 
 	local enchantID, enchantItemID, enchantSpellID = LibItemInfo:GetItemEnchantInfo(itemlink)
 	local enchantParts = EnchantParts[itemFrame.index]
-	if (enchantItemID) then
+	if enchantItemID then
 		total = total + 1
 		icon = GetIconFrame(frame)
 		UpdateIconTexture("itemID", icon, enchantItemID)
 		UpdateIconPoint(icon, anchorframe, total)
 		icon:Show()
 		anchorframe = icon
-	elseif (enchantSpellID) then
+	elseif enchantSpellID then
 		total = total + 1
 		icon = GetIconFrame(frame)
 		UpdateIconTexture("spellID", icon, enchantSpellID)
 		UpdateIconPoint(icon, anchorframe, total)
 		icon:Show()
 		anchorframe = icon
-	elseif (enchantID) then
+	elseif enchantID then
 		total = total + 1
 		icon = GetIconFrame(frame)
 		icon.name = "# " .. enchantID
@@ -228,7 +229,7 @@ local function ShowGemAndEnchant(frame, itemFrame)
 		UpdateIconPoint(icon, anchorframe, total)
 		icon:Show()
 		anchorframe = icon
-	elseif (not enchantID and enchantParts) then
+	elseif not enchantID and enchantParts then
 		total = total + 1
 		icon = GetIconFrame(frame)
 		icon.name = ENCHANTS .. ": " .. enchantParts
@@ -252,7 +253,7 @@ hooksecurefunc("ShowInspectItemListFrame", function(unit, parent)
 	local i = 1
 	local itemFrame
 	local frameWidth, iconWidth = 0, 0
-	while (frame["item"..i]) do
+	while frame["item"..i] do
 		itemFrame = frame["item"..i]
 		iconWidth = ShowGemAndEnchant(frame, itemFrame)
 		frameWidth = math.max(frameWidth, itemFrame.width + iconWidth + DB.margin)

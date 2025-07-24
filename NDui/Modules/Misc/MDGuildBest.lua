@@ -58,7 +58,7 @@ function M:GuildBest_Create()
 	if SlashCmdList.KEYSTONE then -- Details key window
 		local button = CreateFrame("Button", nil, frame)
 		button:SetSize(20, 20)
-		button:SetPoint("TOPRIGHT", -12, -5)
+		button:SetPoint("TOPRIGHT", -12, -4)
 		button:SetScript("OnClick", function()
 			if DetailsKeystoneInfoFrame and DetailsKeystoneInfoFrame:IsShown() then
 				DetailsKeystoneInfoFrame:Hide()

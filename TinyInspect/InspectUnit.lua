@@ -11,22 +11,29 @@ local frameWidth, levelWidth = 160, 0
 
 --裝備清單
 local slots = {
-	{ index = 1, name = HEADSLOT, },
-	{ index = 2, name = NECKSLOT, },
-	{ index = 3, name = SHOULDERSLOT, },
-	{ index = 5, name = CHESTSLOT, },
-	{ index = 6, name = WAISTSLOT, },
-	{ index = 7, name = LEGSSLOT, },
-	{ index = 8, name = FEETSLOT, },
-	{ index = 9, name = WRISTSLOT, },
-	{ index = 10, name = HANDSSLOT, },
-	{ index = 11, name = FINGER0SLOT, },
-	{ index = 12, name = FINGER1SLOT, },
-	{ index = 13, name = TRINKET0SLOT, },
-	{ index = 14, name = TRINKET1SLOT, },
-	{ index = 15, name = BACKSLOT, },
-	{ index = 16, name = MAINHANDSLOT, },
-	{ index = 17, name = SECONDARYHANDSLOT, },
+	{ index = 1 },
+	{ index = 2 },
+	{ index = 3 },
+	{ index = 5 },
+	{ index = 6 },
+	{ index = 7 },
+	{ index = 8 },
+	{ index = 9 },
+	{ index = 10 },
+	{ index = 11 },
+	{ index = 12 },
+	{ index = 13 },
+	{ index = 14 },
+	{ index = 15 },
+	{ index = 16 },
+	{ index = 17 },
+}
+
+local stats = {
+	{ key = "ITEM_MOD_CRIT_RATING_SHORT",    label = "|cffFF0000爆|r" },
+	{ key = "ITEM_MOD_HASTE_RATING_SHORT",   label = "|cffFFFF00急|r" },
+	{ key = "ITEM_MOD_MASTERY_RATING_SHORT", label = "|cff00FF00精|r" },
+	{ key = "ITEM_MOD_VERSATILITY",          label = "|cff00FFFF全|r" },
 }
 
 --創建面板
@@ -58,20 +65,31 @@ local function GetInspectItemListFrame(parent)
 			else
 				itemFrame:SetPoint("TOPLEFT", frame["item"..(i-1)], "BOTTOMLEFT")
 			end
-			itemFrame.itemLabel = B.CreateFS(itemFrame, 16, "")
-			itemFrame.itemLabel:SetJustifyH("CENTER")
-			itemFrame.itemLabel:SetPoint("LEFT", itemFrame, "LEFT", 0, 0)
+
+			for index, stat in ipairs(stats) do
+				local statFrame = CreateFrame("Frame", nil, itemFrame, "BackdropTemplate")
+				statFrame:SetAlpha(.1)
+				statFrame:SetSize(16, 16)
+				statFrame:SetPoint("LEFT", (index-1)*(16+DB.margin), 0)
+				statFrame.text = B.CreateFS(statFrame, 14, stat.label)
+				statFrame.key = stat.key
+
+				itemFrame["itemStats"..index] = statFrame
+			end
 
 			itemFrame.itemLevel = B.CreateFS(itemFrame, 16, "")
 			itemFrame.itemLevel:SetJustifyH("CENTER")
-			itemFrame.itemLevel:SetPoint("LEFT", itemFrame.itemLabel, "RIGHT", DB.margin, 0)
+			itemFrame.itemLevel:ClearAllPoints()
+			itemFrame.itemLevel:SetPoint("LEFT", itemFrame.itemStats4, "RIGHT", DB.margin, 0)
 
 			itemFrame.itemName = B.CreateFS(itemFrame, 16, "")
 			itemFrame.itemName:SetJustifyH("LEFT")
+			itemFrame.itemName:ClearAllPoints()
 			itemFrame.itemName:SetPoint("LEFT", itemFrame.itemLevel, "RIGHT", DB.margin, 0)
 
 			itemFrame.itemInfo = B.CreateFS(itemFrame, 16, "")
 			itemFrame.itemInfo:SetJustifyH("LEFT")
+			itemFrame.itemInfo:ClearAllPoints()
 			itemFrame.itemInfo:SetPoint("LEFT", itemFrame.itemName, "RIGHT", DB.margin, 0)
 
 			itemFrame:SetScript("OnEnter", function(self)
@@ -154,6 +172,10 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 		itemFrame.itemInfo:SetText("")
 		itemFrame.itemInfo:SetTextColor(1, 1, 1)
 
+		for j = 1, 4 do
+			itemFrame["itemStats"..j]:SetAlpha(.1)
+		end
+
 		if link and level then
 			itemFrame.itemLevel:SetText(level)
 			itemFrame.itemName:SetText(link)
@@ -165,6 +187,16 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 				itemFrame.itemInfo:SetTextColor(r, g, b)
 			end
 
+			local stats = C_Item.GetItemStats(link)
+			if stats then
+				for s = 1, 4 do
+					--local itemStats = itemFrame["itemStats"..s]
+					if stats[itemFrame["itemStats"..s].key] then
+						itemFrame["itemStats"..s]:SetAlpha(1)
+					end
+				end
+			end
+
 			itemFrame:Show()
 		else
 			itemFrame:Hide()
@@ -173,7 +205,7 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 		levelWidth = math.max(levelWidth, itemFrame.itemLevel:GetStringWidth())
 		itemFrame.itemLevel:SetWidth(math.ceil(levelWidth))
 
-		itemFrame.width = math.ceil(itemFrame.itemLabel:GetWidth() + itemFrame.itemLevel:GetWidth() + itemFrame.itemName:GetWidth() + itemFrame.itemInfo:GetWidth() + DB.margin*3)
+		itemFrame.width = math.ceil(itemFrame.itemStats1:GetWidth() * 4 + itemFrame.itemLevel:GetWidth() + itemFrame.itemName:GetWidth() + itemFrame.itemInfo:GetWidth() + DB.margin*6)
 		itemFrame:SetWidth(itemFrame.width)
 		frameWidth = math.max(frameWidth, itemFrame.width)
 

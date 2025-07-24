@@ -46,7 +46,7 @@ end
 
 local function BlackBackground(self)
 	local frame = B.SetBD(self)
-	frame:SetOutside(self.Background)
+	frame:SetAllPoints(self.Background)
 	frame:SetShown(C.db["Chat"]["ChatBGType"] == 2)
 
 	return frame
@@ -55,14 +55,17 @@ end
 local function GradientBackground(self)
 	local frame = CreateFrame("Frame", nil, self)
 	frame:SetFrameLevel(0)
-	frame:SetOutside(self.Background)
+	frame:SetAllPoints(self.Background)
 	frame:SetShown(C.db["Chat"]["ChatBGType"] == 3)
 
 	local tex = B.SetGradient(frame, "H", 0, 0, 0, DB.alpha, 0)
-	tex:SetOutside()
-	local line = B.SetGradient(frame, "H", cr, cg, cb, DB.alpha, 0, nil, C.mult)
-	line:SetPoint("BOTTOMLEFT", frame, "TOPLEFT")
-	line:SetPoint("BOTTOMRIGHT", frame, "TOPRIGHT")
+	tex:SetAllPoints()
+	local topLine = B.SetGradient(frame, "H", cr, cg, cb, DB.alpha, 0, nil, C.mult)
+	topLine:SetPoint("BOTTOMLEFT", frame, "TOPLEFT")
+	topLine:SetPoint("BOTTOMRIGHT", frame, "TOPRIGHT")
+	local bottomLine = B.SetGradient(frame, "H", cr, cg, cb, DB.alpha, 0, nil, C.mult)
+	bottomLine:SetPoint("TOPLEFT", frame, "BOTTOMLEFT")
+	bottomLine:SetPoint("TOPRIGHT", frame, "BOTTOMRIGHT")
 
 	return frame
 end
