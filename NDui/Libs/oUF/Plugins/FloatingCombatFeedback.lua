@@ -40,17 +40,7 @@ local SCHOOL_MASK_CHAOS       = SCHOOL_FIRE + SCHOOL_NATURE + SCHOOL_FROST + SCH
 local SCHOOL_MASK_MAGICAL     = SCHOOL_HOLY + SCHOOL_FIRE + SCHOOL_NATURE + SCHOOL_FROST + SCHOOL_SHADOW + SCHOOL_ARCANE -- 0x7E or 126
 local SCHOOL_MASK_ALL         = SCHOOL_PHYSICAL + SCHOOL_HOLY + SCHOOL_FIRE + SCHOOL_NATURE + SCHOOL_FROST + SCHOOL_SHADOW + SCHOOL_ARCANE -- 0x7F or 127
 
-local function clamp(v)
-	if v > 1 then
-		return 1
-	elseif v < 0 then
-		return 0
-	end
-
-	return v
-end
-
-local colors = {
+local eventColors = {
 	COMBAT_IN  = {r = 1, g = 0, b = 0},
 	COMBAT_OUT = {r = 0, g = 1, b = 0},
 }
@@ -90,96 +80,6 @@ local schoolColors = {
 	[SCHOOL_MASK_ALL]         = { r = 1.00, g = 1.00, b = 1.00 }, -- 0x7F or 127 (ALL)
 }
 
-local function removeString(self, i, string)
-	table.remove(self.FeedbackToAnimate, i)
-	string:SetText("")
-	string:SetAlpha(0)
-	string:Hide()
-
-	return string
-end
-
-local function getAvailableString(self)
-	for i = 1, #self do
-		if not self[i]:IsShown() then
-			return self[i]
-		end
-	end
-
-	return removeString(self, 1, self.FeedbackToAnimate[1])
-end
-
-local animations = {
-	["fountain"] = function(self)
-		return self.x + self.xDirection * self.radius * (1 - math.cos(math.pi / 2 * self.progress)), self.y + self.yDirection * self.radius * math.sin(math.pi / 2 * self.progress)
-	end,
-	["vertical"] = function(self)
-		return self.x, self.y + self.yDirection * self.radius * self.progress
-	end,
-	["horizontal"] = function(self)
-		return self.x + self.xDirection * self.radius * self.progress, self.y
-	end,
-	["diagonal"] = function(self)
-		return self.x + self.xDirection * self.radius * self.progress, self.y + self.yDirection * self.radius * self.progress
-	end,
-	["static"] = function(self)
-		return self.x, self.y
-	end,
-	["random"] = function(self)
-		if self.elapsed == 0 then
-			self.x, self.y = math.random(-self.radius * 0.66, self.radius * 0.66), math.random(-self.radius * 0.66, self.radius * 0.66)
-		end
-
-		return self.x, self.y
-	end,
-}
-
-local xOffsetsByAnimation = {
-	["diagonal"  ] = 24,
-	["fountain"  ] = 24,
-	["horizontal"] = 8,
-	["random"    ] = 0,
-	["static"    ] = 0,
-	["vertical"  ] = 50,
-}
-
-local yOffsetsByAnimation = {
-	["diagonal"  ] = 8,
-	["fountain"  ] = 8,
-	["horizontal"] = 8,
-	["random"    ] = 0,
-	["static"    ] = 0,
-	["vertical"  ] = 8,
-}
-
-local function onUpdate(self, elapsed)
-	for index, string in next, self.FeedbackToAnimate do
-		if string.elapsed >= self.scrollTime then
-			removeString(self, index, string)
-		else
-			string.progress = string.elapsed / self.scrollTime
-			string:SetPoint("CENTER", self, "CENTER", string:GetXY())
-
-			string.elapsed = string.elapsed + elapsed
-			string:SetAlpha(clamp(1 - (string.elapsed - self.fadeTime) / (self.scrollTime - self.fadeTime)))
-		end
-	end
-
-	if #self.FeedbackToAnimate == 0 then
-		self:SetScript("OnUpdate", nil)
-	end
-end
-
-local function flush(self)
-	table.wipe(self.FeedbackToAnimate)
-
-	for i = 1, #self do
-		self[i]:SetText("")
-		self[i]:SetAlpha(0)
-		self[i]:Hide()
-	end
-end
-
 local eventFilter = {
 	["SWING_DAMAGE"] = {suffix = "DAMAGE", index = 10, iconType = "swing", autoAttack = true},
 	["RANGE_DAMAGE"] = {suffix = "DAMAGE", index = 13, iconType = "range", autoAttack = true},
@@ -209,32 +109,12 @@ local envTexture = {
 }
 
 local iconCache = {}
-local function getTexture(spellID)
+local function getSpellIcon(spellID)
 	if spellID and not iconCache[spellID] then
 		local texture = C_Spell.GetSpellTexture(spellID)
 		iconCache[spellID] = texture
 	end
 	return iconCache[spellID]
-end
-
-local function getFloatingIconTexture(iconType, spellID, isPet)
-	local texture
-	if iconType == "spell" then
-		texture = getTexture(spellID)
-	elseif iconType == "swing" then
-		if isPet then
-			texture = 132152
-		else
-			texture = 132147
-		end
-	elseif iconType == "range" then
-		texture = 132369
-	elseif iconType == "env" then
-		texture = envTexture[spellID] or "trade_engineering"
-		texture = "Interface\\Icons\\"..texture
-	end
-
-	return texture
 end
 
 local missCache = {}
@@ -245,28 +125,35 @@ local function getMissText(missType)
 	return missCache[missType]
 end
 
-local function formatNumber(self, amount)
-	local element = self.FloatingCombatFeedback
-
-	if element.abbreviateNumbers then
-		return B.Numb(amount)
-	else
-		return BreakUpLargeNumbers(amount)
+local function getCombatTexture(iconType, spellID, isPet)
+	local texture
+	if iconType == "spell" then
+		texture = getSpellIcon(spellID)
+	elseif iconType == "swing" then
+		if isPet then
+			texture = 132152
+		else
+			texture = 132147
+		end
+	elseif iconType == "range" then
+		texture = 132369
+	elseif iconType == "env" then
+		texture = "Interface\\Icons\\"..(envTexture[spellID] or "trade_engineering")
 	end
+
+	return texture
 end
 
 local playerGUID = UnitGUID("player")
-
 local function Update(self, event, ...)
 	local element = self.FloatingCombatFeedback
 	local unit = self.unit
 
 	local unitGUID = UnitGUID(unit)
 	if unitGUID ~= element.unitGUID then
-		flush(element)
 		element.unitGUID = unitGUID
 	end
-	local multiplier = 1
+
 	local text, color, texture, critMark
 
 	if eventFilter[event] then
@@ -280,42 +167,37 @@ local function Update(self, event, ...)
 			if not value then return end
 
 			if value.suffix == "DAMAGE" then
-				if value.autoAttack and not C.db["UFs"]["AutoAttack"] then return end
-				if value.isPeriod and not C.db["UFs"]["HotsDots"] then return end
-
 				local amount, _, _, _, _, _, critical, _, crushing = select(value.index, ...)
-				texture = getFloatingIconTexture(value.iconType, spellID, (isPet and not isPlayer))
-				text = "-"..formatNumber(self, amount)
+				texture = getCombatTexture(value.iconType, spellID, (isPet and not isPlayer))
+				text = "-"..B.Numb(amount)
 
 				if critical or crushing then
-					multiplier = 1.25
 					critMark = true
 				end
 			elseif value.suffix == "HEAL" then
-				if value.isPeriod and not C.db["UFs"]["HotsDots"] then return end
-
 				local amount, overhealing, _, critical = select(value.index, ...)
-				texture = getFloatingIconTexture(value.iconType, spellID)
+				texture = getCombatTexture(value.iconType, spellID)
+
 				local overhealText = ""
 				if overhealing > 0 then
 					amount = amount - overhealing
-					overhealText = " ("..formatNumber(self, overhealing)..")"
+					overhealText = " ("..B.Numb(overhealing)..")"
 				end
-				if amount == 0 and not C.db["UFs"]["FCTOverHealing"] then return end
-				text = "+"..formatNumber(self, amount)..overhealText
+
+				if amount == 0 then return end
+				text = "+"..B.Numb(amount)..overhealText
 
 				if critical then
-					multiplier = 1.25
 					critMark = true
 				end
 			elseif value.suffix == "MISS" then
 				local missType = select(value.index, ...)
-				texture = getFloatingIconTexture(value.iconType, spellID, isPet)
+				texture = getCombatTexture(value.iconType, spellID, isPet)
 				text = getMissText(missType)
 			elseif value.suffix == "ENVIRONMENT" then
 				local envType, amount = select(value.index, ...)
-				texture = getFloatingIconTexture(value.iconType, envType)
-				text = "-"..formatNumber(self, amount)
+				texture = getCombatTexture(value.iconType, envType)
+				text = "-"..B.Numb(amount)
 			end
 
 			color = schoolColors[school] or schoolColors[0]
@@ -323,45 +205,17 @@ local function Update(self, event, ...)
 	elseif event == "PLAYER_REGEN_DISABLED" then
 		texture = ""
 		text = ENTERING_COMBAT
-		color = colors.COMBAT_IN
-		multiplier = 1.25
+		color = eventColors.COMBAT_IN
 		critMark = true
 	elseif event == "PLAYER_REGEN_ENABLED" then
 		texture = ""
 		text = LEAVING_COMBAT
-		color = colors.COMBAT_OUT
-		multiplier = 1.25
+		color = eventColors.COMBAT_OUT
 		critMark = true
 	end
 
 	if text and texture then
-		local animation = element.defaultMode
-		if C.db["UFs"]["ScrollingCT"] then
-			element.Scrolling:AddMessage(format(element.format, texture, B.HexRGB(color)..(critMark and "*" or "")..text))
-		else
-			local string = getAvailableString(element)
-
-			string:SetFont(element.font, C.db["UFs"]["FCTFontSize"] * multiplier, element.fontFlags)
-			string:SetFormattedText(element.format, texture, (critMark and "*" or "")..text)
-			string:SetTextColor(color.r, color.g, color.b)
-			string.elapsed = 0
-			string.GetXY = animations[animation]
-			string.radius = element.radius
-			string.scrollTime = element.scrollTime
-			string.xDirection = element.xDirection
-			string.yDirection = element.yDirection
-			string.x = element.xDirection * xOffsetsByAnimation[animation] * (critMark and -1 or 1)
-			string.y = element.yDirection * yOffsetsByAnimation[animation]
-			string:SetPoint("CENTER", element, "CENTER", string.x, string.y)
-			string:SetAlpha(0)
-			string:Show()
-
-			table.insert(element.FeedbackToAnimate, string)
-
-			if not element:GetScript("OnUpdate") then
-				element:SetScript("OnUpdate", onUpdate)
-			end
-		end
+		element.Scrolling:AddMessage(format("|T%s:12:18:-2:-4:64:64:5:59:16:48|t%s", texture, B.HexRGB(color)..text..(critMark and "*" or "").."|r"))
 	end
 end
 
@@ -379,31 +233,12 @@ local function Enable(self, unit)
 
 	element.__owner = self
 	element.ForceUpdate = ForceUpdate
-	element.defaultMode = "vertical"
-	element.format = "|T%s:18:18:-2:-4:64:64:5:59:5:59|t%s"
-	element.xDirection = 1
-	element.yDirection = element.yDirection or 1
-	element.scrollTime = element.scrollTime or 2
-	element.radius = element.radius or 100
-	element.fadeTime = element.scrollTime / 3
-	element.fontHeight = element.fontHeight or 18
-	element.abbreviateNumbers = element.abbreviateNumbers
-	element.FeedbackToAnimate = {}
-
-	for i = 1, #element do
-		element[i]:SetFont(element.font, element.fontHeight, element.fontFlags)
-		element[i]:Hide()
-	end
-
-	element:SetScript("OnHide", flush)
-	element:SetScript("OnShow", flush)
 
 	for event in pairs(eventFilter) do
 		self:RegisterCombatEvent(event, Path)
 	end
 
 	if unit == "player" then
-		element.xDirection = -1
 		self:RegisterEvent("PLAYER_REGEN_DISABLED", Path, true)
 		self:RegisterEvent("PLAYER_REGEN_ENABLED", Path, true)
 	end
@@ -415,14 +250,10 @@ local function Disable(self)
 	local element = self.FloatingCombatFeedback
 
 	if element then
-		flush(element)
-		element:SetScript("OnHide", nil)
-		element:SetScript("OnShow", nil)
-		element:SetScript("OnUpdate", nil)
-
 		for event in pairs(eventFilter) do
 			self:UnregisterCombatEvent(event, Path)
 		end
+
 		self:UnregisterEvent("PLAYER_REGEN_DISABLED", Path)
 		self:UnregisterEvent("PLAYER_REGEN_ENABLED", Path)
 	end

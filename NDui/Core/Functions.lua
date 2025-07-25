@@ -948,8 +948,8 @@ do
 	end
 
 	function B:ClassIconTexCoord(class)
-		local tcoords = CLASS_ICON_TCOORDS[class]
-		self:SetTexCoord(tcoords[1] + .022, tcoords[2] - .025, tcoords[3] + .022, tcoords[4] - .025)
+		local tL, tR, tT, tB = unpack(CLASS_ICON_TCOORDS[class])
+		self:SetTexCoord(tL + .025, tR - .025, tT + .025, tB - .025)
 	end
 
 	-- Handle statusbar

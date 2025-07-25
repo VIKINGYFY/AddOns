@@ -116,7 +116,7 @@ local function CreateSlot(index)
 		glow:SetPoint("RIGHT", button, "RIGHT")
 		button.glow = glow
 
-		local name = B.CreateFS(border, 14, "")
+		local name = B.CreateFS(border, 14)
 		name:SetJustifyH("LEFT")
 		B.UpdatePoint(name, "LEFT", border, "RIGHT", DB.margin, 0)
 		button.name = name

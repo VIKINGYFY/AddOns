@@ -71,23 +71,23 @@ local function GetInspectItemListFrame(parent)
 				statFrame:SetAlpha(.1)
 				statFrame:SetSize(16, 16)
 				statFrame:SetPoint("LEFT", (index-1)*(16+DB.margin), 0)
-				statFrame.text = B.CreateFS(statFrame, 14, stat.label)
+				statFrame.label = B.CreateFS(statFrame, 14, stat.label)
 				statFrame.key = stat.key
 
 				itemFrame["itemStats"..index] = statFrame
 			end
 
-			itemFrame.itemLevel = B.CreateFS(itemFrame, 16, "")
+			itemFrame.itemLevel = B.CreateFS(itemFrame, 16)
 			itemFrame.itemLevel:SetJustifyH("CENTER")
 			itemFrame.itemLevel:ClearAllPoints()
 			itemFrame.itemLevel:SetPoint("LEFT", itemFrame.itemStats4, "RIGHT", DB.margin, 0)
 
-			itemFrame.itemName = B.CreateFS(itemFrame, 16, "")
+			itemFrame.itemName = B.CreateFS(itemFrame, 16)
 			itemFrame.itemName:SetJustifyH("LEFT")
 			itemFrame.itemName:ClearAllPoints()
 			itemFrame.itemName:SetPoint("LEFT", itemFrame.itemLevel, "RIGHT", DB.margin, 0)
 
-			itemFrame.itemInfo = B.CreateFS(itemFrame, 16, "")
+			itemFrame.itemInfo = B.CreateFS(itemFrame, 16)
 			itemFrame.itemInfo:SetJustifyH("LEFT")
 			itemFrame.itemInfo:ClearAllPoints()
 			itemFrame.itemInfo:SetPoint("LEFT", itemFrame.itemName, "RIGHT", DB.margin, 0)
@@ -133,8 +133,17 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 	local frame = GetInspectItemListFrame(parent)
 	frame.unit = unit
 
+	frame.name:SetText("")
+	frame.name:SetTextColor(1, 1, 1)
+	frame.info:SetText("")
+	frame.info:SetTextColor(1, 1, 1)
+
+	frame.specIcon:SetTexture("")
+	frame.specIcon:Hide()
+	frame.iconBG:Hide()
+
 	local _, specID, specName, specIcon
-	if (unit == "player") then
+	if unit == "player" then
 		specID = GetSpecialization()
 		_, specName, _, specIcon = GetSpecializationInfo(specID)
 	else
@@ -145,10 +154,6 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 		frame.specIcon:SetTexture(specIcon)
 		frame.specIcon:Show()
 		frame.iconBG:Show()
-	else
-		frame.specIcon:SetTexture("")
-		frame.specIcon:Hide()
-		frame.iconBG:Hide()
 	end
 
 	local r, g, b = B.UnitColor(unit)
@@ -190,7 +195,6 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 			local stats = C_Item.GetItemStats(link)
 			if stats then
 				for s = 1, 4 do
-					--local itemStats = itemFrame["itemStats"..s]
 					if stats[itemFrame["itemStats"..s].key] then
 						itemFrame["itemStats"..s]:SetAlpha(1)
 					end

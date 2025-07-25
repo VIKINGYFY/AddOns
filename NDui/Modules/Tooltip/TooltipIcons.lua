@@ -2,13 +2,11 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local TT = B:GetModule("Tooltip")
 
-local newString = "0:0:64:64:5:59:5:59"
-
 function TT:SetupTooltipIcon(icon)
 	local title = icon and _G[self:GetName().."TextLeft1"]
 	local titleText = title and title:GetText()
 	if titleText and not string.find(titleText, ":20:20:") then
-		title:SetFormattedText("|T%s:20:20:"..newString..":%d|t %s", icon, 20, titleText)
+		title:SetFormattedText("|T%s:20:20:0:0:64:64:5:59:5:59:%d|t %s", icon, 20, titleText)
 	end
 
 	for i = 2, self:NumLines() do
@@ -16,7 +14,7 @@ function TT:SetupTooltipIcon(icon)
 		if not line then break end
 		local text = line:GetText()
 		if text and text ~= " " then
-			local newText, count = string.gsub(text, "|T([^:]-):[%d+:]+|t", "|T%1:14:14:"..newString.."|t")
+			local newText, count = string.gsub(text, "|T([^:]-):[%d+:]+|t", "|T%1:14:14:0:0:64:64:5:59:5:59|t")
 			if count > 0 then line:SetText(newText) end
 		end
 	end

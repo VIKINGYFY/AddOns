@@ -256,7 +256,7 @@ end
 
 -- TradeFrame hook
 function M:TradeTargetInfo()
-	local infoText = B.CreateFS(TradeFrame, 16, "")
+	local infoText = B.CreateFS(TradeFrame, 16)
 	infoText:ClearAllPoints()
 	infoText:SetPoint("TOP", TradeFrameRecipientNameText, "BOTTOM", 0, -5)
 

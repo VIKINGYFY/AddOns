@@ -8,7 +8,7 @@ local info = module:RegisterInfobar("Spec", C.Infobar.SpecPos)
 local STARTER_BUILD = Constants.TraitConsts.STARTER_BUILD_TRAIT_CONFIG_ID
 
 local function addIcon(texture)
-	texture = texture and "|T"..texture..":12:16:0:1:50:50:4:46:4:46|t" or ""
+	texture = texture and "|T"..texture..":12:18:0:1:64:64:5:59:16:48|t" or ""
 	return texture
 end
 

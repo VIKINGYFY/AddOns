@@ -713,10 +713,10 @@ function UF:CreateCastBar(self)
 		timer:SetPoint("RIGHT", cb, "RIGHT", 0, 0)
 
 		local shield = cb:CreateTexture(nil, "OVERLAY")
-		shield:SetAtlas("Quest-Campaign-Available")
+		shield:SetAtlas("UI-QuestPoiImportant-QuestBang")
 		shield:SetDesaturated(true)
-		shield:SetSize(18, 18)
-		shield:SetPoint("CENTER", cb, "CENTER", 0, 0)
+		shield:SetSize(24, 24)
+		shield:SetPoint("CENTER", cb, "CENTER", 0, 1)
 		cb.Shield = shield
 
 		local iconSize = self:GetHeight()*2 + DB.margin
@@ -837,7 +837,7 @@ function UF.PostCreateButton(element, button)
 	local fontSize = element.fontSize or element.size*.6
 
 	button.Count = B.CreateFS(button, fontSize, "", false, "BOTTOMRIGHT", 6, -3)
-	button.timer = B.CreateFS(button, fontSize, "")
+	button.timer = B.CreateFS(button, fontSize)
 	button.icbg = B.ReskinIcon(button.Icon, true)
 
 	button.HL = button:CreateTexture(nil, "HIGHLIGHT")
@@ -1316,7 +1316,7 @@ function UF:CreateClassPower(self)
 		end
 
 		if isDK then
-			bars[i].timer = B.CreateFS(bars[i], 12, "")
+			bars[i].timer = B.CreateFS(bars[i], 12)
 		else
 			local chargeStar = bar:CreateTexture(nil, "OVERLAY")
 			chargeStar:SetAtlas(DB.starTex)
@@ -1354,7 +1354,7 @@ function UF:StaggerBar(self)
 	bar:SetSize(barWidth, barHeight)
 	bar:SetPoint(unpack(barPoint))
 
-	local text = B.CreateFS(bar, 14, "")
+	local text = B.CreateFS(bar, 14)
 	self:Tag(text, "[stagger]")
 
 	B.SmoothBar(bar)
@@ -1439,7 +1439,7 @@ function UF:CreateAltPower(self)
 	bar:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, DB.margin)
 	bar:SetHeight(2*DB.margin)
 
-	local text = B.CreateFS(bar, 14, "")
+	local text = B.CreateFS(bar, 14)
 	self:Tag(text, "[altpower]")
 
 	B.SmoothBar(bar)
@@ -1463,7 +1463,7 @@ function UF:CreateAddPower(self)
 	bar:SetHeight(2*DB.margin)
 	bar.colorPower = true
 
-	local text = B.CreateFS(bar, 12, "")
+	local text = B.CreateFS(bar, 12)
 
 	B.SmoothBar(bar)
 
@@ -1658,11 +1658,11 @@ function UF:CreateSwing(self)
 		B.UpdatePoint(off, "TOP", bar, "BOTTOM", 0, -DB.margin)
 	end
 
-	bar.Text = B.CreateFS(bar, 12, "")
+	bar.Text = B.CreateFS(bar, 12)
 	bar.Text:SetShown(C.db["UFs"]["SwingTimer"])
-	bar.TextMH = B.CreateFS(main, 12, "")
+	bar.TextMH = B.CreateFS(main, 12)
 	bar.TextMH:SetShown(C.db["UFs"]["SwingTimer"])
-	bar.TextOH = B.CreateFS(off, 12, "")
+	bar.TextOH = B.CreateFS(off, 12)
 	bar.TextOH:SetShown(C.db["UFs"]["SwingTimer"])
 
 	self.Swing = bar
@@ -1675,9 +1675,10 @@ end
 local scrolls = {}
 function UF:UpdateScrollingFont()
 	local fontSize = C.db["UFs"]["FCTFontSize"]
+	local frameSize = 10 * (fontSize + DB.margin) - DB.margin
 	for _, scroll in pairs(scrolls) do
 		B.SetFontSize(scroll, fontSize)
-		scroll:SetSize(10*fontSize, 10*fontSize)
+		scroll:SetSize(frameSize, frameSize)
 	end
 end
 
@@ -1692,12 +1693,8 @@ function UF:CreateFCT(self)
 		B.Mover(fcf, L["CombatText"], "TargetCombatText", {"BOTTOM", self, "TOPRIGHT", 0, 120})
 	end
 
-	for i = 1, 36 do
-		fcf[i] = B.CreateFS(fcf, C.db["UFs"]["FCTFontSize"], "")
-	end
-
 	local scrolling = CreateFrame("ScrollingMessageFrame", "$parentCombatTextScrollingFrame", fcf)
-	scrolling:SetSpacing(3)
+	scrolling:SetSpacing(DB.margin)
 	scrolling:SetMaxLines(20)
 	scrolling:SetFadeDuration(.2)
 	scrolling:SetTimeVisible(3)
@@ -1706,9 +1703,6 @@ function UF:CreateFCT(self)
 	fcf.Scrolling = scrolling
 	table.insert(scrolls, scrolling)
 
-	fcf.font = DB.Font[1]
-	fcf.fontFlags = DB.Font[3]
-	fcf.abbreviateNumbers = true
 	self.FloatingCombatFeedback = fcf
 
 	-- Default CombatText

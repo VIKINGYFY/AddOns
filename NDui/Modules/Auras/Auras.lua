@@ -290,10 +290,10 @@ function A:CreateAuraIcon(button)
 
 	B.AuraIcon(button, true, true)
 
-	button.count = B.CreateFS(button, fontSize, "")
+	button.count = B.CreateFS(button, fontSize)
 	B.UpdatePoint(button.count, "TOPRIGHT", button, "TOPRIGHT", -1, -3)
 
-	button.timer = B.CreateFS(button, fontSize, "")
+	button.timer = B.CreateFS(button, fontSize)
 	B.UpdatePoint(button.timer, "TOP", button, "BOTTOM", 1, 2)
 
 	--button:RegisterForClicks("RightButtonUp", "RightButtonDown")

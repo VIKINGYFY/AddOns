@@ -4,12 +4,11 @@ local TT = B:GetModule("Tooltip")
 
 local tipList, powerList, powerCache, tierCache = {}, {}, {}, {}
 
-local iconString = "|T%s:18:22:0:0:64:64:5:59:5:59"
 local function getIconString(icon, known)
 	if known then
-		return format(iconString..":255:255:255|t", icon)
+		return format("|T%s:16:24:0:0:64:64:5:59:16:48:255:255:255|t", icon)
 	else
-		return format(iconString..":120:120:120|t", icon)
+		return format("|T%s:16:24:0:0:64:64:5:59:16:48:128:128:128|t", icon)
 	end
 end
 

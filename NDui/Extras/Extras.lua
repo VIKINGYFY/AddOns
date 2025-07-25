@@ -115,12 +115,26 @@ function EX.UpdateInstanceNotices()
 	end)
 end
 
-function EX:InstanceSomething()
-	B:RegisterEvent("UPDATE_INSTANCE_INFO", EX.UpdateInstanceMarker)
-	B:RegisterEvent("PLAYER_DIFFICULTY_CHANGED", EX.UpdateInstanceMarker)
+-- 大米结束以后提示洗钥匙和重置副本
+function EX.UpdateInstanceReset(event)
+	if event == "CHALLENGE_MODE_COMPLETED" then
+		SendChatMessage("各位辛苦了，记得 洗钥匙 ！！", B.GetMSGChannel())
+	elseif event == "UPDATE_INSTANCE_INFO" and not IsInInstance() then
+		C_Timer.After(5, function()
+			if not IsInGroup() or (IsInGroup() and (UnitIsGroupLeader("player") or UnitIsGroupAssistant("player"))) then
+				ResetInstances()
+			end
+		end)
+	end
+end
 
-	B:RegisterEvent("UPDATE_INSTANCE_INFO", EX.UpdateInstanceNotices)
+function EX:InstanceSomething()
+	B:RegisterEvent("CHALLENGE_MODE_COMPLETED", EX.UpdateInstanceReset)
+	B:RegisterEvent("PLAYER_DIFFICULTY_CHANGED", EX.UpdateInstanceMarker)
 	B:RegisterEvent("PLAYER_DIFFICULTY_CHANGED", EX.UpdateInstanceNotices)
+	B:RegisterEvent("UPDATE_INSTANCE_INFO", EX.UpdateInstanceMarker)
+	B:RegisterEvent("UPDATE_INSTANCE_INFO", EX.UpdateInstanceNotices)
+	B:RegisterEvent("UPDATE_INSTANCE_INFO", EX.UpdateInstanceReset)
 end
 
 -- 自动确认出售可交易物品提示
@@ -177,62 +191,5 @@ do
 
 	function EX.isEquipment(itemID, itemClassID)
 		return (itemID and (C_ArtifactUI.GetRelicInfoByItemID(itemID) or C_Soulbinds.IsItemConduitByItemInfo(itemID))) or (itemClassID and DB.EquipmentIDs[itemClassID])
-	end
-end
-
-do
-	local texs = {
-"Interface\\ContainerFrame\\UI-BackpackBackground.blp",
-"Interface\\Cursor\\vehichleCursor.blp",
-"Interface\\DialogFrame\\UI-DialogBox-Background.blp",
-"Interface\\DialogFrame\\UI-DialogBox-Border.blp",
-"Interface\\FriendsFrame\\UI-ChannelFrame-BotLeft.blp",
-"Interface\\FriendsFrame\\UI-ChannelFrame-BotRight.blp",
-"Interface\\FriendsFrame\\WhoFrame-BotLeft.blp",
-"Interface\\FriendsFrame\\WhoFrame-BotRight.blp",
-"Interface\\TargetingFrame\\UI-PVP-Horde.blp",
-"Interface\\WorldMap\\UI-WorldMap-Bottom1.blp",
-"Interface\\WorldMap\\UI-WorldMap-Bottom2.blp",
-"Interface\\WorldMap\\UI-WorldMap-Bottom3.blp",
-"Interface\\WorldMap\\UI-WorldMap-Bottom4.blp",
-"Interface\\WorldMap\\UI-WorldMap-Middle1.blp",
-"Interface\\WorldMap\\UI-WorldMap-Middle2.blp",
-"Interface\\WorldMap\\UI-WorldMap-Middle3.blp",
-"Interface\\WorldMap\\UI-WorldMap-Middle4.blp",
-"Interface\\WorldMap\\UI-WorldMap-Top1.blp",
-"Interface\\WorldMap\\UI-WorldMap-Top2.blp",
-"Interface\\WorldMap\\UI-WorldMap-Top3.blp",
-"Interface\\WorldMap\\UI-WorldMap-Top4.blp",
-"Interface\\Buttons\\Button-Backpack-Up.blp",
-	}
-
-	local TTF
-	local function CreateTexturePreview()
-		if not TTF then
-			TTF = CreateFrame("Frame", "TestTexturesFrame", UIParent)
-			TTF:SetSize(64, 64 * #texs)
-			TTF:SetPoint("LEFT")
-
-			TTF.TTT = {}
-		end
-
-		for index, path in ipairs(texs) do
-			if TTF.TTT[index] then return end
-
-			local tex = TTF:CreateTexture(nil, "ARTWORK")
-			tex:SetSize(64, 64)
-			tex:SetPoint("LEFT", TTF, "LEFT", (index - 1) * 68, 0)
-			tex:SetTexture(path)
-
-			tex.text = B.CreateFS(TTF, 14, index)
-			B.UpdatePoint(tex.text, "TOP", tex, "BOTTOM", 0, 0)
-
-			TTF.TTT[index] = tex
-		end
-	end
-
-	SLASH_TESTTEXTURES1 = "/testtex"
-	SlashCmdList["TESTTEXTURES"] = function()
-		CreateTexturePreview()
 	end
 end

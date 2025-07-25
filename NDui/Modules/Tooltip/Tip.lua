@@ -269,7 +269,7 @@ end
 
 function TT:RefreshStatusBar(value)
 	if not self.text then
-		self.text = B.CreateFS(self, 12, "")
+		self.text = B.CreateFS(self, 12)
 	end
 	local unit = self.guid and UnitTokenFromGUID(self.guid)
 	local unitHealthMax = unit and UnitHealthMax(unit)

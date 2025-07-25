@@ -27,9 +27,9 @@ local menuList = {
 }
 
 local function getClassIcon(class)
-	local c1, c2, c3, c4 = unpack(CLASS_ICON_TCOORDS[class])
-	c1, c2, c3, c4 = (c1+.03)*50, (c2-.03)*50, (c3+.03)*50, (c4-.03)*50
-	local classStr = "|TInterface\\Glues\\CharacterCreate\\UI-CharacterCreate-Classes:13:15:0:1:50:50:"..c1..":"..c2..":"..c3..":"..c4.."|t "
+	local tL, tR, tT, tB = unpack(CLASS_ICON_TCOORDS[class])
+	tL, tR, tT, tB = math.floor((tL+.025)*64), math.ceil((tR-.025)*64), math.floor((tT+.025+0.025)*64), math.ceil((tB-.025-0.025)*64)
+	local classStr = "|TInterface\\Glues\\CharacterCreate\\UI-CharacterCreate-Classes:12:18:0:1:64:64:"..tL..":"..tR..":"..tT..":"..tB.."|t "
 	return classStr or ""
 end
 
@@ -203,7 +203,7 @@ info.onEnter = function(self)
 			title = true
 		end
 		local r, g, b = B.SmoothColor(chargeInfo.quantity, chargeInfo.maxQuantity)
-		local iconTexture = " |T"..chargeInfo.iconFileID..":13:15:0:1:50:50:4:46:4:46|t"
+		local iconTexture = " |T"..chargeInfo.iconFileID..":12:18:0:1:64:64:5:59:16:48|t"
 		GameTooltip:AddDoubleLine(chargeInfo.name, chargeInfo.quantity.." / "..chargeInfo.maxQuantity..iconTexture, 1,1,1, r,g,b)
 	end
 
@@ -218,7 +218,7 @@ info.onEnter = function(self)
 				title = true
 			end
 			local total = C_CurrencyInfo.GetCurrencyInfo(currencyID).maxQuantity
-			local iconTexture = " |T"..icon..":13:15:0:1:50:50:4:46:4:46|t"
+			local iconTexture = " |T"..icon..":12:18:0:1:64:64:5:59:16:48|t"
 			if total > 0 then
 				local r, g, b = B.SmoothColor(count, total)
 				GameTooltip:AddDoubleLine(name, count.." / "..total..iconTexture, 1,1,1, r,g,b)

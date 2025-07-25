@@ -50,7 +50,7 @@ function TT:HyperLink_SetJournal(link)
 	elseif idType == "2" then
 		local info = TT:HyperLink_GetSectionInfo(id)
 		name, description, icon = info.title, info.description, info.abilityIcon
-		name = icon and "|T"..icon..":20:20:0:0:64:64:5:59:5:59:20|t "..name or name
+		name = icon and "|T"..icon..":20:20:0:0:64:64:5:59:5:59|t "..name or name
 		idString = L["Section"].."ID:"
 	end
 	if not name then return end

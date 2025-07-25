@@ -215,7 +215,7 @@ local function UpdateAltPowerAnchor(element)
 end
 
 function UF:CreatePartyAltPower(self)
-	local altPower = B.CreateFS(self, 16, "")
+	local altPower = B.CreateFS(self, 16)
 	self:Tag(altPower, "[altpower]")
 	altPower.__owner = self
 	UpdateAltPowerAnchor(altPower)

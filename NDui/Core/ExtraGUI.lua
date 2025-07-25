@@ -2259,7 +2259,7 @@ function G:SetupAvada()
 
 	local UF = B:GetModule("UnitFrames")
 	local profileButtons = {}
-	local iconString = "|T%s:18:22:0:0:64:64:5:59:5:59:255:255:255|t"
+	local iconString = "|T%s:20:20:0:0:64:64:5:59:5:59|t"
 	local EMPTY_ICON = "Interface\\Icons\\INV_Misc_QuestionMark"
 	if not NDuiADB["AvadaIndex"][myFullName] then
 		NDuiADB["AvadaIndex"][myFullName] = {}

@@ -63,7 +63,7 @@ function module:OnCreate()
 	timer:Hide()
 	scaler.timer = timer
 
-	timer.text = B.CreateFS(timer, FONT_SIZE, "")
+	timer.text = B.CreateFS(timer, FONT_SIZE)
 
 	module.OnSizeChanged(timer, scaler:GetSize())
 	scaler:SetScript("OnSizeChanged", module.ScalerOnSizeChanged)

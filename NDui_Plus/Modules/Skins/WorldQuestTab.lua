@@ -2,7 +2,7 @@ local _, ns = ...
 local B, C, L, DB, P = unpack(ns)
 local S = P:GetModule("Skins")
 
-local function HandleRewards(button)
+local function HandleListButton(button)
 	for index = 1, 4 do
 		local reward = button.Rewards["Reward"..index]
 		if reward then
@@ -13,26 +13,32 @@ local function HandleRewards(button)
 			local Amount = reward.Amount
 			Amount:SetJustifyH("CENTER")
 			Amount:ClearAllPoints()
-			Amount:SetPoint("BOTTOM", reward, "BOTTOM", 0, 0)
+			Amount:SetPoint("BOTTOM", reward, "BOTTOM", 1, 0)
 		end
 	end
+
+	local Title = button.Title
+	Title:ClearAllPoints()
+	Title:SetPoint("BOTTOMLEFT", button.Type, "RIGHT", 0, 0)
+	Title:SetPoint("RIGHT", button.Rewards, "LEFT", 0, 0)
+
+	button.Time:SetPoint("BOTTOM", button, "BOTTOM", 0, 3)
 end
 
-local function HandleOptionDropDown(option)
-	B.ReskinButton(option.Dropdown)
-	B.ReskinButton(option.DecrementButton)
-	B.ReskinButton(option.IncrementButton)
-end
+local buttonList = {"Button", "ButtonConfirm", "ButtonDecline", "Picker", "ResetButton"}
 
 local function ReskinCategory(category)
 	B.StripTextures(category)
 	B.ReskinButton(category)
 
 	for _, setting in ipairs(category.settings) do
+		for _, button in ipairs(buttonList) do
+			if setting[button] then
+				B.ReskinButton(setting[button])
+			end
+		end
 
-		if setting.Container and setting.isSpecial then
-			HandleOptionDropDown(setting.Container)
-		elseif setting.Dropdown then
+		if setting.Dropdown then
 			B.ReskinDropDown(setting.Dropdown)
 		end
 
@@ -44,20 +50,11 @@ local function ReskinCategory(category)
 			B.ReskinInput(setting.TextBox)
 		end
 
-		if setting.Button then
-			B.ReskinButton(setting.Button)
-		end
-
 		if setting.CheckBox then
 			B.ReskinCheck(setting.CheckBox)
 		end
 
-		if setting.ResetButton then
-			B.ReskinButton(setting.ResetButton)
-		end
-
 		if setting.Picker then
-			B.ReskinButton(setting.Picker)
 			setting.Picker.Color:SetAllPoints(setting.Picker.__bg)
 		end
 	end
@@ -76,8 +73,8 @@ function S:WorldQuestTab()
 
 		S:Proxy("StripTextures", ScrollFrame.BorderFrame)
 		S:Proxy("ReskinTrimScroll", ScrollFrame.ScrollBar)
-		S:Proxy("ReskinFilterButton", ScrollFrame.FilterDropdown)
 		S:Proxy("ReskinDropDown", ScrollFrame.SortDropdown)
+		S:Proxy("ReskinFilterButton", ScrollFrame.FilterDropdown)
 	end
 
 	local QuestMapTab = _G.WQT_QuestMapTab
@@ -91,14 +88,7 @@ function S:WorldQuestTab()
 	local ListButtonMixin = _G.WQT_ListButtonMixin
 	if ListButtonMixin then
 		hooksecurefunc(ListButtonMixin, "OnLoad", function(self)
-			HandleRewards(self)
-
-			local Title = self.Title
-			Title:ClearAllPoints()
-			Title:SetPoint("BOTTOMLEFT", self.Type, "RIGHT", 0, 0)
-			Title:SetPoint("RIGHT", self.Rewards, "LEFT", 0, 0)
-
-			self.Time:SetPoint("BOTTOM", self, "BOTTOM", 0, 3)
+			HandleListButton(self)
 
 			local Highlight = self.Highlight
 			B.StripTextures(Highlight)
@@ -133,12 +123,13 @@ function S:WorldQuestTab()
 		end)
 	end
 
-	if _G.WQT_SettingsQuestListPreview then
-		HandleRewards(_G.WQT_SettingsQuestListPreview.Preview)
+	if _G.WQT_FlightMapContainer then
+		B.ReskinFrame(_G.WQT_FlightMapContainer)
+		B.ReskinButton(_G.WQT_FlightMapContainerButton)
 	end
 
-	if _G.WQT_VersionFrame then
-		S:Proxy("ReskinTrimScroll", _G.WQT_VersionFrame.ScrollBar)
+	if _G.WQT_SettingsQuestListPreview then
+		HandleListButton(_G.WQT_SettingsQuestListPreview.Preview)
 	end
 end
 
