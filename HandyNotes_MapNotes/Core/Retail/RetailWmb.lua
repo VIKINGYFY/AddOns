@@ -714,7 +714,7 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
     GameTooltip_SetTitle(GameTooltip, ns.COLORED_ADDON_NAME)
     GameTooltip:AddLine(L["Left-click => Open/Close"] .. "|cffffcc00" .. " " .. ns.COLORED_ADDON_NAME,1,1,1)
     GameTooltip:AddLine(" ",1,1,1)
-    GameTooltip:AddLine(L["Middle-Mouse-Button => Open/Close"] .. " => " .. "|cffffcc00" .. L["Disable MapNotes, all icons will be hidden on each map and all categories will be disabled"] .. " " .. SHOW .. " / " .. HIDE,1,1,1,1)
+    GameTooltip:AddLine(KEY_BUTTON3 .. " => " .. "|cffffcc00" .. L["Disable MapNotes, all icons will be hidden on each map and all categories will be disabled"] .. " " .. SHOW .. " / " .. HIDE,1,1,1,1)
     GameTooltip:AddLine(" ",1,1,1)
     
     -- Cosmos Map

@@ -304,9 +304,11 @@ function UF:AddTargetIndicator(self)
 end
 
 -- Quest progress
-local isInInstance
+local isInInstance, isInGroup, isInRaid
 local function CheckInstanceStatus()
 	isInInstance = IsInInstance()
+	isInGroup = IsInGroup()
+	isInRaid = IsInRaid()
 end
 
 function UF:QuestIconCheck()
@@ -511,7 +513,7 @@ function UF:ShowUnitTargeted(self)
 	tex:SetAtlas("target")
 	tex:Hide()
 
-	local count = B.CreateFS(self.Health, 22, "", "system")
+	local count = B.CreateFS(self.Health, 22, "", "info")
 	count:SetJustifyH("LEFT")
 	count:SetPoint("LEFT", tex, "RIGHT", 1, 0)
 
@@ -823,37 +825,22 @@ function UF:OnUnitSoftTargetChanged(previousTarget, currentTarget)
 end
 
 local targetedList = {}
-
-local function GetGroupUnit(index, maxGroups, isInRaid)
-	if isInRaid then
-		return "raid"..index
-	elseif index == maxGroups then
-		return "player"
-	else
-		return "party"..index
-	end
-end
-
 function UF:OnUnitTargetChanged()
-	if not isInInstance then return end
+	if not (isInInstance and isInGroup) then return end
 
 	table.wipe(targetedList)
 
-	local maxGroups = GetNumGroupMembers()
-	if maxGroups > 1 then
-		local isInRaid = IsInRaid()
-		for i = 1, maxGroups do
-			local member = GetGroupUnit(i, maxGroups, isInRaid)
-			local memberTarget = member.."target"
-			if not UnitIsDeadOrGhost(member) and UnitExists(memberTarget) then
-				local unitGUID = UnitGUID(memberTarget)
-				targetedList[unitGUID] = (targetedList[unitGUID] or 0) + 1
-			end
+	for i = 1, GetNumGroupMembers() do
+		local member = B.GetGroupUnit(i, isInRaid)
+		local memberTarget = member.."target"
+		if not UnitIsDeadOrGhost(member) and UnitExists(memberTarget) then
+			local unitGUID = UnitGUID(memberTarget)
+			targetedList[unitGUID] = (targetedList[unitGUID] or 0) + 1
 		end
 	end
 
 	for nameplate in pairs(platesList) do
-		nameplate.tarBy:SetText(targetedList[nameplate.unitGUID] or "")
+		nameplate.tarBy:SetText(targetedList[nameplate.unitGUID])
 		nameplate.tarByTex:SetShown(targetedList[nameplate.unitGUID])
 	end
 end
@@ -865,14 +852,12 @@ function UF:RefreshPlateByEvents()
 	if C.db["Nameplate"]["UnitTargeted"] then
 		UF:OnUnitTargetChanged()
 		B:RegisterEvent("UNIT_TARGET", UF.OnUnitTargetChanged)
-		B:RegisterEvent("PLAYER_TARGET_CHANGED", UF.OnUnitTargetChanged)
 	else
 		for nameplate in pairs(platesList) do
 			nameplate.tarBy:SetText("")
 			nameplate.tarByTex:Hide()
 		end
 		B:UnregisterEvent("UNIT_TARGET", UF.OnUnitTargetChanged)
-		B:UnregisterEvent("PLAYER_TARGET_CHANGED", UF.OnUnitTargetChanged)
 	end
 end
 

@@ -164,7 +164,11 @@ end
 
 do
 	-- 频道选择
-	function B.GetMSGChannel()
+	function B.GetCurrentChannel()
 		return ((IsPartyLFG() or C_PartyInfo.IsPartyWalkIn()) and "INSTANCE_CHAT") or (IsInRaid() and "RAID") or "PARTY"
+	end
+
+	function B.GetGroupUnit(index, isInRaid)
+		return isInRaid and "raid"..index or "party"..index
 	end
 end

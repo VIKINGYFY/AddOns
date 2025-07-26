@@ -61,7 +61,7 @@ function EX.UpdateSystemNotices(_, text)
 			if not IsInGroup() then
 				UIErrorsFrame:AddMessage(DB.InfoColor..text)
 			else
-				SendChatMessage(text, B.GetMSGChannel())
+				SendChatMessage(text, B.GetCurrentChannel())
 			end
 
 			lastInfo = text -- 记录新内容
@@ -73,28 +73,15 @@ function EX:SystemNotices()
 	B:RegisterEvent("CHAT_MSG_SYSTEM", self.UpdateSystemNotices)
 end
 
--- 副本自动标记坦克和治疗
-function EX.UpdateInstanceMarker()
-	C_Timer.After(1, function()
-		if IsInInstance() and (UnitIsGroupLeader("player") or UnitIsGroupAssistant("player")) then
-			for i = 1, 5 do
-				local unit = (i == 5 and "player") or ("party"..i)
-				local role = UnitGroupRolesAssigned(unit)
-				if role == "TANK" then
-					SetRaidTarget(unit, 6)
-				elseif role == "HEALER" then
-					SetRaidTarget(unit, 5)
-				end
-			end
-		end
-	end)
-end
-
--- 副本难度通报
+-- 副本工具箱：
+-- 1、进本通报难度。
+-- 2、进本自动标记坦克治疗（需队长权限）。
+-- 3、出本自动重置副本（在队伍里需要队长权限）。
 local instCache = {}
-function EX.UpdateInstanceNotices()
-	C_Timer.After(1, function()
-		if IsInInstance() then
+local isChallengeModeCompleted
+function EX.UpdateInstanceTools()
+	if IsInInstance() then
+		C_Timer.After(1, function()
 			local _, _, diffID, diffName, _, _, _, instID = GetInstanceInfo()
 			if not instCache[instID] or instCache[instID] ~= diffID then
 				local text = format("当前难度：%s", diffName)
@@ -106,35 +93,45 @@ function EX.UpdateInstanceNotices()
 				if not IsInGroup() then
 					UIErrorsFrame:AddMessage(DB.InfoColor..text)
 				else
-					SendChatMessage(text, B.GetMSGChannel())
+					SendChatMessage(text, B.GetCurrentChannel())
 				end
 
 				instCache[instID] = diffID
 			end
-		end
-	end)
-end
 
--- 大米结束以后提示洗钥匙和重置副本
-function EX.UpdateInstanceReset(event)
-	if event == "CHALLENGE_MODE_COMPLETED" then
-		SendChatMessage("各位辛苦了，记得 洗钥匙 ！！", B.GetMSGChannel())
-	elseif event == "UPDATE_INSTANCE_INFO" and not IsInInstance() then
+			if UnitIsGroupLeader("player") or UnitIsGroupAssistant("player") then
+				for i = 1, 5 do
+					local unit = (i == 5 and "player") or ("party"..i)
+					local role = UnitGroupRolesAssigned(unit)
+					if role == "TANK" then
+						SetRaidTarget(unit, 6)
+					elseif role == "HEALER" then
+						SetRaidTarget(unit, 5)
+					end
+				end
+			end
+		end)
+	else
 		C_Timer.After(5, function()
-			if not IsInGroup() or (IsInGroup() and (UnitIsGroupLeader("player") or UnitIsGroupAssistant("player"))) then
+			if isChallengeModeCompleted and (not IsInGroup() or (IsInGroup() and (UnitIsGroupLeader("player") or UnitIsGroupAssistant("player")))) then
 				ResetInstances()
+				isChallengeModeCompleted = false
 			end
 		end)
 	end
 end
 
+-- 大米结束以后提示洗钥匙
+function EX.UpdateChallengeModeNotices()
+	SendChatMessage("各位辛苦了，记得 洗钥匙 ！！", B.GetCurrentChannel())
+	isChallengeModeCompleted = true
+end
+
 function EX:InstanceSomething()
-	B:RegisterEvent("CHALLENGE_MODE_COMPLETED", EX.UpdateInstanceReset)
-	B:RegisterEvent("PLAYER_DIFFICULTY_CHANGED", EX.UpdateInstanceMarker)
-	B:RegisterEvent("PLAYER_DIFFICULTY_CHANGED", EX.UpdateInstanceNotices)
-	B:RegisterEvent("UPDATE_INSTANCE_INFO", EX.UpdateInstanceMarker)
-	B:RegisterEvent("UPDATE_INSTANCE_INFO", EX.UpdateInstanceNotices)
-	B:RegisterEvent("UPDATE_INSTANCE_INFO", EX.UpdateInstanceReset)
+	B:RegisterEvent("CHALLENGE_MODE_COMPLETED", EX.UpdateChallengeModeNotices)
+
+	B:RegisterEvent("PLAYER_DIFFICULTY_CHANGED", EX.UpdateInstanceTools)
+	B:RegisterEvent("PLAYER_ENTERING_WORLD", EX.UpdateInstanceTools)
 end
 
 -- 自动确认出售可交易物品提示
@@ -161,6 +158,7 @@ function EX.UpdateLFGActivityNotices(event, resultID, newStatus, oldStatus, grou
 		local text = format("%s: %s - %s", CLUB_FINDER_ACCEPTED, name or UNKNOWN, groupName or UNKNOWN)
 
 		UIErrorsFrame:AddMessage(DB.InfoColor..text)
+		print(DB.InfoColor..text)
 	end
 end
 

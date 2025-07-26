@@ -38,7 +38,7 @@ function M:RaidTool_Header()
 				self.buttons[2].text:SetText(IsInRaid() and CONVERT_TO_PARTY or CONVERT_TO_RAID)
 			end
 		else
-			SendChatMessage(format(L["BR Text"], self.resFrame.Count:GetText(), self.resFrame.Timer:GetText()), B.GetMSGChannel())
+			SendChatMessage(format(L["BR Text"], self.resFrame.Count:GetText(), self.resFrame.Timer:GetText()), B.GetCurrentChannel())
 		end
 	end)
 	frame:SetScript("OnDoubleClick", function(_, btn)
@@ -259,7 +259,7 @@ function M:RaidTool_BuffChecker(parent)
 		if DB.isDeveloper then
 			print(text)
 		else
-			SendChatMessage(text, B.GetMSGChannel())
+			SendChatMessage(text, B.GetCurrentChannel())
 		end
 	end
 

@@ -148,6 +148,20 @@ if not db.activate.HideMapNote then
             nodes[185][47338069] = { mnID = 118, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Halls of Reflection
             nodes[186][38860982] = { mnID = 118, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- IcecrownGlacier
             nodes[200][49532819] = { mnID = 115, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Sanctum of Ruby
+        --#############################
+        --#### Pandaria Exit Notes ####
+        --#############################
+            nodes[429][29594366] = { mnID = 371, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- The Temple of the Jade Serpent
+            nodes[456][92544884] = { mnID = 433, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Terrace of Endless Spring
+            nodes[557][94264530] = { mnID = 390, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Siege of Orgrimmar
+            nodes[453][28181995] = { mnID = 390, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Mogu'shan Palace
+            nodes[437][61618815] = { mnID = 390, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Gate of the Setting Sun
+            nodes[439][80293902] = { mnID = 376, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Stormstout Brewery
+            nodes[474][34159074] = { mnID = 422, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Heart of Fear
+            nodes[458][65228587] = { mnID = 388, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Siege of Niuzao Temple
+            nodes[444][86415833] = { mnID = 579, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Shado-Pan Monastery
+            nodes[471][75437521] = { mnID = 379, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Mogu'shan Vaults
+            nodes[508][29592553] = { mnID = 504, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Throne of Thunder
           end
     
     
@@ -454,6 +468,85 @@ if not db.activate.HideMapNote then
             nodes[145][46237198] = { mnID = 146, TransportName = L["Passage"] .. "\n" .. " => ".. DUNGEON_FLOOR_NEXUS803, name = "", type = "PassageUpL", showInZone = true }
             nodes[145][52677198] = { mnID = 144, TransportName = L["Passage"] .. "\n" .. " => ".. DUNGEON_FLOOR_NEXUS804, name = "", type = "PassageDownL", showInZone = true }
             nodes[146][47647339] = { mnID = 145, TransportName = L["Passage"] .. "\n" .. " => ".. DUNGEON_FLOOR_NEXUS804, name = "", type = "PassageDownL", showInZone = true }
+        --##########################
+        --#### Pandaria Passage ####
+        --##########################
+          --Temple of the Jade Serpent
+            nodes[429][26586218] = { mnID = 430, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_EASTTEMPLE2, name = "", type = "PassageLeftL", showInZone = true }
+            nodes[429][25856779] = { mnID = 430, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_EASTTEMPLE2, name = "", type = "PassageRightL", showInZone = true }
+            nodes[430][44512435] = { mnID = 429, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_EASTTEMPLE1, name = "", type = "PassageRightL", showInZone = true }
+            nodes[430][40903871] = { mnID = 429, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_EASTTEMPLE1, name = "", type = "PassageLeftL", showInZone = true }
+          --Mogu'shan Palace
+            nodes[453][49786821] = { mnID = 454, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_MOGUSHANPALACE2, name = "", type = "PassageDownL", showInZone = true }
+            nodes[454][59572701] = { mnID = 453, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_MOGUSHANPALACE1, name = "", type = "PassageDownL", showInZone = true }
+            nodes[454][71587640] = { mnID = 455, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_MOGUSHANPALACE3, name = "", type = "PassageUpL", showInZone = true }
+            nodes[455][58982436] = { mnID = 454, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_MOGUSHANPALACE2, name = "", type = "PassageDownL", showInZone = true }
+          --Gate of the Setting Sun
+            nodes[437][46153314] = { mnID = 438, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_THEGREATWALL2, name = "", type = "PassageUpL", showInZone = true }
+            nodes[438][49015147] = { mnID = 437, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_THEGREATWALL1, name = "", type = "PassageDownL", showInZone = true }
+          --Siege of Orgrimmar  
+            nodes[557][11546798] = { mnID = 556, name = "", type = "PassageDownL", showInZone = true }
+            nodes[556][42307149] = { mnID = 558, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_ORGRIMMARRAID1, name = "", type = "PassageLeftL", showInZone = true }
+            nodes[558][49786821] = { mnID = 556, name = "", type = "PassageRightL", showInZone = true }
+            nodes[559][30233311] = { mnID = 560, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_ORGRIMMARRAID4, name = "", type = "PassageUpL", showInZone = true }
+            nodes[560][51577834] = { mnID = 559, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_ORGRIMMARRAID3, name = "", type = "PassageDownL", showInZone = true }
+            nodes[560][55962819] = { mnID = 561, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_ORGRIMMARRAID5, name = "", type = "PassageLeftL", showInZone = true }
+            nodes[561][77471383] = { mnID = 560, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_ORGRIMMARRAID4, name = "", type = "PassageRightL", showInZone = true }
+            nodes[561][69464914] = { mnID = 562, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_ORGRIMMARRAID6, name = "", type = "PassageRightL", showInZone = true }
+            nodes[562][30852035] = { mnID = 561, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_ORGRIMMARRAID5, name = "", type = "PassageLeftL", showInZone = true }
+            nodes[562][75906108] = { mnID = 563, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_ORGRIMMARRAID7, name = "", type = "PassageDownL", showInZone = true }
+            nodes[563][12498658] = { mnID = 562, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_ORGRIMMARRAID6, name = "", type = "PassageUpL", showInZone = true }
+            nodes[563][78727363] = { mnID = 564, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_ORGRIMMARRAID8, name = "", type = "PassageLeftL", showInZone = true }
+            nodes[563][90656186] = { mnID = 565, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_ORGRIMMARRAID9, name = "", type = "PassageRightL", showInZone = true }
+            nodes[563][87987528] = { mnID = 566, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_ORGRIMMARRAID10, name = "", type = "PassageDownL", showInZone = true }
+            nodes[564][64751634] = { mnID = 563, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_ORGRIMMARRAID7, name = "", type = "PassageRightL", showInZone = true }
+            nodes[565][24738038] = { mnID = 563, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_ORGRIMMARRAID7, name = "", type = "PassageLeftL", showInZone = true }
+            nodes[566][32421493] = { mnID = 563, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_ORGRIMMARRAID7, name = "", type = "PassageUpL", showInZone = true }
+            nodes[566][65229192] = { mnID = 567, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_ORGRIMMARRAID11, name = "", type = "PassageDownL", showInZone = true }
+            nodes[567][53611241] = { mnID = 566, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_ORGRIMMARRAID10, name = "", type = "PassageUpL", showInZone = true }
+          --Stormstout Brewery
+            nodes[439][28026061] = { mnID = 440, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_STORMSTOUTBREWERY2, name = "", type = "PassageRightL", showInZone = true }
+            nodes[440][31015997] = { mnID = 439, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_STORMSTOUTBREWERY1, name = "", type = "PassageLeftL", showInZone = true }
+            nodes[440][81395880] = { mnID = 441, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_STORMSTOUTBREWERY3, name = "", type = "PassageLeftL", showInZone = true }
+            nodes[441][29754907] = { mnID = 440, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_STORMSTOUTBREWERY2, name = "", type = "PassageLeftL", showInZone = true }
+            nodes[441][74803353] = { mnID = 442, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_STORMSTOUTBREWERY4, name = "", type = "PassageLeftL", showInZone = true }
+            nodes[442][60672934] = { mnID = 441, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_STORMSTOUTBREWERY3, name = "", type = "PassageRightL", showInZone = true }
+          --Mogu'shan Vaults
+            nodes[471][31951288] = { mnID = 472, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_MOGUSHANVAULTS2, name = "", type = "PassageUpL", showInZone = true }
+            nodes[472][77628345] = { mnID = 471, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_MOGUSHANVAULTS1, name = "", type = "PassageUpL", showInZone = true }
+            nodes[472][29945168] = { mnID = 473, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_MOGUSHANVAULTS3, name = "", type = "PassageLeftL", showInZone = true }
+            nodes[473][64601022] = { mnID = 472, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_MOGUSHANVAULTS2, name = "", type = "PassageRightL", showInZone = true }
+          --Shado-Pan Monastery
+            nodes[444][25418244] = { mnID = 443, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_SHADOWPANHIDEOUT0, name = "", type = "PassageLeftL", showInZone = true }
+            nodes[443][56288651] = { mnID = 444, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_SHADOWPANHIDEOUT1, name = "", type = "PassageRightL", showInZone = true }
+            nodes[443][36037991] = { mnID = 445, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_SHADOWPANHIDEOUT2, name = "", type = "PassageLeftL", showInZone = true }
+            nodes[443][24576696] = { mnID = 445, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_SHADOWPANHIDEOUT2, name = "", type = "PassageRightL", showInZone = true }
+            nodes[443][31633424] = { mnID = 446, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_SHADOWPANHIDEOUT3, name = "", type = "PassageRightL", showInZone = true }
+            nodes[443][44353801] = { mnID = 446, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_SHADOWPANHIDEOUT3, name = "", type = "PassageUpL", showInZone = true }
+            nodes[445][71357575] = { mnID = 443, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_SHADOWPANHIDEOUT0, name = "", type = "PassageRightL", showInZone = true }
+            nodes[445][18291877] = { mnID = 443, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_SHADOWPANHIDEOUT0, name = "", type = "PassageLeftL", showInZone = true }
+            nodes[446][19557104] = { mnID = 443, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_SHADOWPANHIDEOUT0, name = "", type = "PassageLeftL", showInZone = true }
+            nodes[446][51418046] = { mnID = 443, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_SHADOWPANHIDEOUT0, name = "", type = "PassageDownL", showInZone = true }
+          --Heart of Fear  
+            nodes[474][31951540] = { mnID = 475, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_HEARTOFFEAR2, name = "", type = "PassageUpL", showInZone = true }
+            nodes[475][66432526] = { mnID = 474, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_HEARTOFFEAR1, name = "", type = "PassageDownL", showInZone = true }
+          --Siege of Niuzao Temple
+            nodes[458][53618109] = { mnID = 459, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_SIEGEOFNIUZAOTEMPLE2, name = "", type = "PassageRightL", showInZone = true }
+            nodes[459][55967881] = { mnID = 458, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_SIEGEOFNIUZAOTEMPLE1, name = "", type = "PassageLeftL", showInZone = true }
+            nodes[459][22065244] = { mnID = 457, name = "", type = "PassageRightL", showInZone = true }
+            nodes[457][48827254] = { mnID = 459, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_SIEGEOFNIUZAOTEMPLE2, name = "", type = "PassageRightL", showInZone = true }
+          --Throne of Thunder
+            nodes[508][84067924] = { mnID = 509, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_THUNDERKINGRAID2, name = "", type = "PassageRightL", showInZone = true }
+            nodes[509][17127885] = { mnID = 508, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_THUNDERKINGRAID1, name = "", type = "PassageLeftL", showInZone = true }
+            nodes[509][64541905] = { mnID = 510, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_THUNDERKINGRAID3, name = "", type = "PassageDownL", showInZone = true }
+            nodes[510][74605616] = { mnID = 511, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_THUNDERKINGRAID4, name = "", type = "PassageDownL", showInZone = true }
+            nodes[511][21281924] = { mnID = 510, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_THUNDERKINGRAID3, name = "", type = "PassageUpL", showInZone = true }
+            nodes[511][33725525] = { mnID = 512, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_THUNDERKINGRAID5, name = "", type = "PassageLeftL", showInZone = true }
+            nodes[512][77150834] = { mnID = 511, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_THUNDERKINGRAID4, name = "", type = "PassageRightL", showInZone = true }
+            nodes[512][46702011] = { mnID = 513, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_THUNDERKINGRAID6, name = "", type = "PassageUpL", showInZone = true }
+            nodes[513][88457598] = { mnID = 512, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_THUNDERKINGRAID7, name = "", type = "PassageRightL", showInZone = true }
+            nodes[513][20497033] = { mnID = 514, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_THUNDERKINGRAID5, name = "", type = "PassageDownL", showInZone = true }
+            nodes[514][46391022] = { mnID = 513, TransportName = L["Passage"] .. "\n" .. " ==> ".. DUNGEON_FLOOR_THUNDERKINGRAID6, name = "", type = "PassageLeftL", showInZone = true }
           end
 
 
@@ -489,6 +582,12 @@ if not db.activate.HideMapNote then
             --Icecrown Citadel
               nodes[189][25693280] = { mnID = 190, dnID = DUNGEON_FLOOR_ICECROWNCITADEL5, name = "", type = "Tport2", showInZone = true }
               nodes[190][51717343] = { dnID = "•" .. DUNGEON_FLOOR_ICECROWNCITADEL1 .. "\n" .. "•" .. DUNGEON_FLOOR_ICECROWNCITADEL2 .. "\n" .. "•" ..DUNGEON_FLOOR_ICECROWNCITADEL3 .. "\n" .. "•" ..DUNGEON_FLOOR_ICECROWNCITADEL4, name = "", type = "Tport2", showInZone = true }
+          --####################################
+          --#### Pandaria Dungeon Transport ####
+          --####################################
+  
+            --Siege of Orgrimmar
+              nodes[556][28150948] = { mnID = 557, dnID = DUNGEON_FLOOR_ORGRIMMARRAID1, name = "", type = "TravelM", showInZone = true }
             end
   
           --################################
@@ -531,6 +630,13 @@ if not db.activate.HideMapNote then
             --Icecrown Citadel
               nodes[186][33692342] = { mnID = 125, name = "", type = "Portal", showInZone = true } -- Portal Dalaran
               nodes[192][56087032] = { mnID = 186, dnID = DUNGEON_FLOOR_ICECROWNCITADEL1, name = "", type = "Portal", showInZone = true } -- IcecrownGlacier
+
+          --###################################
+          --#### Pandaria Dungeon Portals #####
+          --###################################
+            --Siege of Orgrimmar
+              nodes[558][22988189] = { mnID = 559, dnID = DUNGEON_FLOOR_ICECROWNCITADEL3, name = "", type = "Portal", showInZone = true }
+              nodes[558][19465757] = { mnID = 559, dnID = DUNGEON_FLOOR_ICECROWNCITADEL3, name = "", type = "Portal", showInZone = true }
 
           end
         end

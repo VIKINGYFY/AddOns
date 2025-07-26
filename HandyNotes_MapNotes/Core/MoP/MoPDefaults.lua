@@ -9,7 +9,7 @@ ns.defaults = {
 
     -- 1 General tab
       journal = true,
-      tomtom = true,
+      WayPoints = true,
       KilledBosses = true,
       BossNames = true,
       assignedgray = true,
@@ -420,7 +420,6 @@ ns.defaults = {
         HideMapNote = false,
         HideMMB = false,
         EnemyFaction = true,
-        ShiftWorld = false,
         MinimapArrow = true,
         MinimapArrowOnEnter = false,
         MinimapArrowOnEnterTime = 3,

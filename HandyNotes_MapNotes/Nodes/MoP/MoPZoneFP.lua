@@ -379,6 +379,67 @@ local nodes = ns.nodes
 
             end
 
+
+            --####################
+            --##### Pandaria #####
+            --####################
+
+            if self.db.profile.showZonePandaria then
+
+                if self.db.profile.showZoneFP then
+                    nodes[371][43006840] = { mnID = 371, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- TheJadeForest
+                    nodes[371][54606160] = { mnID = 371, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- TheJadeForest
+                    nodes[371][47004620] = { mnID = 371, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- TheJadeForest
+                    nodes[371][57004400] = { mnID = 371, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- TheJadeForest
+                    nodes[371][43602460] = { mnID = 371, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- TheJadeForest
+                    nodes[371][50802680] = { mnID = 371, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- TheJadeForest
+                    nodes[371][55402360] = { mnID = 371, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- TheJadeForest
+                    nodes[433][56607580] = { mnID = 433, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Veiles Stairs
+                    nodes[418][76800840] = { mnID = 418, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Krasarang Wilds
+                    nodes[418][31206320] = { mnID = 418, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Krasarang Wilds
+                    nodes[418][52407660] = { mnID = 418, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Krasarang Wilds
+                    nodes[379][72409400] = { mnID = 379, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- KunLaiSummit
+                    nodes[379][62403020] = { mnID = 379, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- KunLaiSummit
+                    nodes[379][43808960] = { mnID = 379, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- KunLaiSummit
+                    nodes[379][42806960] = { mnID = 379, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- KunLaiSummit
+                    nodes[379][66205060] = { mnID = 379, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- KunLaiSummit
+                    nodes[379][57605980] = { mnID = 379, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- KunLaiSummit
+                    nodes[379][34605900] = { mnID = 379, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- KunLaiSummit
+                    nodes[379][63204020] = { mnID = 379, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- KunLaiSummit
+                    nodes[422][50201220] = { mnID = 422, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- DreadWastes
+                    nodes[422][42605560] = { mnID = 422, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- DreadWastes
+                    nodes[422][55803480] = { mnID = 422, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- DreadWastes
+                    nodes[422][56007020] = { mnID = 422, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- DreadWastes
+                    nodes[390][14227927] = { mnID = 390, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- ValeofEternalBlossoms
+                    nodes[376][56405020] = { mnID = 376, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- ValleyoftheFourWinds
+                    nodes[376][70802420] = { mnID = 376, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- ValleyoftheFourWinds
+                    nodes[376][20205860] = { mnID = 376, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- ValleyoftheFourWinds
+                    nodes[388][50007200] = { mnID = 388, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- TownlongWastes
+                    nodes[388][74408160] = { mnID = 388, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- TownlongWastes
+                    nodes[388][54207900] = { mnID = 388, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- TownlongWastes
+                    nodes[388][71005720] = { mnID = 388, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_NEUTRAL, type = "TravelL", showInZone = true, showOnContinent = false, showOnMinimap = false } -- TownlongWastes
+
+                    if self.faction == "Horde" or db.activate.EnemyFaction then
+                        nodes[371][28001560] = { mnID = 371, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_HORDE, type = "TravelH", showInZone = true, showOnContinent = false, showOnMinimap = false } -- TheJadeForest
+                        nodes[418][59202460] = { mnID = 418, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_HORDE, type = "TravelH", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Krasarang Wilds
+                        nodes[418][29005040] = { mnID = 418, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_HORDE, type = "TravelH", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Krasarang Wilds
+                        nodes[379][62408060] = { mnID = 379, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_HORDE, type = "TravelH", showInZone = true, showOnContinent = false, showOnMinimap = false } -- KunLaiSummit
+                        nodes[379][36008360] = { mnID = 379, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_HORDE, type = "TravelH", showInZone = true, showOnContinent = false, showOnMinimap = false } -- KunLaiSummit
+                        nodes[390][63111917] = { mnID = 390, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_HORDE, type = "TravelH", showInZone = true, showOnContinent = false, showOnMinimap = false } -- ValeofEternalBlossoms fehlt noch
+                    end
+
+                    if self.faction == "Alliance" or db.activate.EnemyFaction then
+                        nodes[371][46008500] = { mnID = 371, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_ALLIANCE, type = "TravelA", showInZone = true, showOnContinent = false, showOnMinimap = false } -- TheJadeForest
+                        nodes[418][67603260] = { mnID = 418, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_ALLIANCE, type = "TravelA", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Krasarang Wilds
+                        nodes[418][25203360] = { mnID = 418, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_ALLIANCE, type = "TravelA", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Krasarang Wilds
+                        nodes[379][54008420] = { mnID = 379, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_ALLIANCE, type = "TravelA", showInZone = true, showOnContinent = false, showOnMinimap = false } -- KunLaiSummit
+                        nodes[390][84636242] = { mnID = 390, name = MINIMAP_TRACKING_FLIGHTMASTER .. " - " .. FACTION_ALLIANCE, type = "TravelA", showInZone = true, showOnContinent = false, showOnMinimap = false } -- ValeofEternalBlossoms fehlt noch
+                    end
+
+                end
+
+            end
+
         end
 
     end

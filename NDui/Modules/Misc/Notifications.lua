@@ -210,7 +210,7 @@ function M:InterruptAlert_Update(...)
 			end
 
 			if sourceSpellID and destSpellID then
-				SendChatMessage(format(infoText, sourceName..C_Spell.GetSpellLink(sourceSpellID), destName..C_Spell.GetSpellLink(destSpellID)), B.GetMSGChannel())
+				SendChatMessage(format(infoText, sourceName..C_Spell.GetSpellLink(sourceSpellID), destName..C_Spell.GetSpellLink(destSpellID)), B.GetCurrentChannel())
 			end
 		end
 	end
@@ -317,7 +317,7 @@ end
 
 function M:VersionCheck_UpdateGroup()
 	if not IsInGroup() then return end
-	M:VersionCheck_Send(B.GetMSGChannel())
+	M:VersionCheck_Send(B.GetCurrentChannel())
 end
 
 function M:VersionCheck()
@@ -402,7 +402,7 @@ function M:ItemAlert_Update(unit, castID, spellID)
 	if C.db["Misc"]["LeaderOnly"] and not (UnitIsGroupAssistant("player") or UnitIsGroupLeader("player")) then return end -- only alert for leader, needs review
 
 	if groupUnits[unit] and spellList[spellID] and (spellList[spellID] ~= castID) then
-		SendChatMessage(format(L["SpellItemAlertStr"], UnitName(unit), C_Spell.GetSpellLink(spellID) or C_Spell.GetSpellName(spellID)), B.GetMSGChannel())
+		SendChatMessage(format(L["SpellItemAlertStr"], UnitName(unit), C_Spell.GetSpellLink(spellID) or C_Spell.GetSpellName(spellID)), B.GetCurrentChannel())
 		spellList[spellID] = castID
 	end
 end
@@ -420,7 +420,7 @@ function M:CheckBloodlustStatus(...)
 
 	local _, eventType, _, sourceGUID, _, _, _, _, _, _, _, spellID = ...
 	if eventType == "SPELL_AURA_REMOVED" and bloodLustDebuffs[spellID] and sourceGUID == myGUID then
-		SendChatMessage(format(L["BloodlustStr"], C_Spell.GetSpellLink(spellID), M.factionSpell), B.GetMSGChannel())
+		SendChatMessage(format(L["BloodlustStr"], C_Spell.GetSpellLink(spellID), M.factionSpell), B.GetCurrentChannel())
 	end
 end
 

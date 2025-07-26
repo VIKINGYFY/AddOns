@@ -23,9 +23,9 @@ function Bar:SendCurrentSpell(thisTime, spellID)
 	if charges and maxCharges then
 		if charges ~= maxCharges then
 			local remain = chargeStart + chargeDuration - thisTime
-			SendChatMessage(format(L["ChargesRemaining"], spellLink, charges, maxCharges, GetRemainTime(remain)), B.GetMSGChannel())
+			SendChatMessage(format(L["ChargesRemaining"], spellLink, charges, maxCharges, GetRemainTime(remain)), B.GetCurrentChannel())
 		else
-			SendChatMessage(format(L["ChargesCompleted"], spellLink, charges, maxCharges), B.GetMSGChannel())
+			SendChatMessage(format(L["ChargesCompleted"], spellLink, charges, maxCharges), B.GetCurrentChannel())
 		end
 	else
 		local cooldownInfo = C_Spell.GetSpellCooldown(spellID)
@@ -34,9 +34,9 @@ function Bar:SendCurrentSpell(thisTime, spellID)
 
 		if start and duration > 0 then
 			local remain = start + duration - thisTime
-			SendChatMessage(format(L["CooldownRemaining"], spellLink, GetRemainTime(remain)), B.GetMSGChannel())
+			SendChatMessage(format(L["CooldownRemaining"], spellLink, GetRemainTime(remain)), B.GetCurrentChannel())
 		else
-			SendChatMessage(format(L["CooldownCompleted"], spellLink), B.GetMSGChannel())
+			SendChatMessage(format(L["CooldownCompleted"], spellLink), B.GetCurrentChannel())
 		end
 	end
 end
@@ -45,9 +45,9 @@ function Bar:SendCurrentItem(thisTime, itemID, itemLink, itemCount)
 	local start, duration = C_Item.GetItemCooldown(itemID)
 	if start and duration > 0 then
 		local remain = start + duration - thisTime
-		SendChatMessage(format(L["CooldownRemaining"], itemLink.." x"..itemCount, GetRemainTime(remain)), B.GetMSGChannel())
+		SendChatMessage(format(L["CooldownRemaining"], itemLink.." x"..itemCount, GetRemainTime(remain)), B.GetCurrentChannel())
 	else
-		SendChatMessage(format(L["CooldownCompleted"], itemLink.." x"..itemCount), B.GetMSGChannel())
+		SendChatMessage(format(L["CooldownCompleted"], itemLink.." x"..itemCount), B.GetCurrentChannel())
 	end
 end
 

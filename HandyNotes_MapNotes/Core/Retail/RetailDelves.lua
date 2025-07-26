@@ -6,13 +6,7 @@ ns.DelveContinent = CreateFromMixins(AreaPOIDataProviderMixin)
 
 function ns.BlizzardDelvesAddTT()
     hooksecurefunc(DelveEntrancePinMixin, "OnMouseEnter", function(self)
-        if not ns.Addon.db.profile.activate.ShiftWorld then 
-            GameTooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. " " .. "|cff00ff00" .. "< " .. KEY_BUTTON3 .. " " .. L["to show delve map"] .. " > " .. TextIconMNL4:GetIconString(), nil, nil, false)
-        end
-
-        if ns.Addon.db.profile.activate.ShiftWorld then 
-            GameTooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. " " .. "|cff00ff00" .. "< " .. SHIFT_KEY_TEXT .. " + " .. KEY_BUTTON3 .. " " .. L["to show delve map"] .. " > " .. TextIconMNL4:GetIconString(), nil, nil, false)
-        end
+        GameTooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. " " .. "|cff00ff00" .. "< " .. KEY_BUTTON3 .. " " .. L["to show delve map"] .. " > " .. TextIconMNL4:GetIconString(), nil, nil, false)
         GameTooltip:Show()
     end)
 end
@@ -22,13 +16,7 @@ function ns.BlizzardDelvesAddFunction()
 
     ns.BlizzDelveIDs = ns.BlizzDelveAreaPoisInfoIDs[self.poiInfo.areaPoiID] or ns.BlizzBountifulDelveAreaPoisInfoIDs[self.poiInfo.areaPoiID]
 
-    if button == "MiddleButton" and not ns.Addon.db.profile.activate.ShiftWorld then
-        if ns.BlizzDelveIDs then
-            WorldMapFrame:SetMapID(ns.BlizzDelveIDs)
-        end
-    end
-
-    if button == "MiddleButton" and IsShiftKeyDown() and ns.Addon.db.profile.activate.ShiftWorld then
+    if button == "MiddleButton" then
         if ns.BlizzDelveIDs then
             WorldMapFrame:SetMapID(ns.BlizzDelveIDs)
         end

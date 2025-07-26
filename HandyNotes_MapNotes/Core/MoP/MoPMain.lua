@@ -870,7 +870,7 @@ local CapitalIDs = GetCurrentMapID == 1454 or GetCurrentMapID == 1456 or GetCurr
 
   if (not pressed) then return end
 
-  if (button == "RightButton" and db.tomtom and TomTom and IsShiftKeyDown()) then
+  if (button == "RightButton" and ns.Addon.db.profile.WayPoints and IsShiftKeyDown()) then
       setWaypoint(uiMapId, coord)
       return
   end
@@ -892,116 +892,59 @@ local CapitalIDs = GetCurrentMapID == 1454 or GetCurrentMapID == 1456 or GetCurr
   end
 
 
-  if not ns.Addon.db.profile.activate.ShiftWorld then
+  if (not pressed) then return end
 
-    if (not pressed) then return end
-
-    if (button == "MiddleButton") then
-      if wwwLink and not (ns.achievementID or ns.questID) then
-        print(wwwLink)
-      elseif ns.questID then
-        --SendChatMessage("www.wowhead.com/quest=" .. questID, "WHISPER", "Common", GetUnitName("PLAYER"));
-        print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_QUEST, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/quest=" .. ns.questID)
-      elseif ns.achievementID then
-        print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/achievement=" .. ns.achievementID)
-        --SendChatMessage("MapNotes: https://www.wowhead.com/achievement=" .. achievementID, "WHISPER", "Common", GetUnitName("PLAYER"));
-      end
-    end
-
-    if (button == "LeftButton" and db.journal and not IsAltKeyDown()) then
-
-      if mnID then
-        WorldMapFrame:SetMapID(mnID)
-      if (not EncounterJournal_OpenJournal) then 
-        UIParentLoadAddOn('Blizzard_EncounterJournal')
-      end
-        _G.EncounterJournal:SetScript("OnShow", nil)
-        return
-      end
-
-      if nodes[uiMapId][coord].mnID and nodes[uiMapId][coord].id then
-        mnID = nodes[uiMapId][coord].mnID[1] --change id function to mnID function
-      else
-        mnID = nodes[uiMapId][coord].mnID --single coords function
-      end
-
-      local dungeonID
-      if (type(nodes[uiMapId][coord].id) == "table") then
-        dungeonID = nodes[uiMapId][coord].id[1] --multi coords journal function
-      else
-        dungeonID = nodes[uiMapId][coord].id --single coords function
-      end
-
-      if (not dungeonID) then return end
-
-      local name, _, _, _, _, _, _, link = EJ_GetInstanceInfo(dungeonID)
-      if not link then return end
-      local difficulty = string.match(link, 'journal:.-:.-:(.-)|h') 
-      if (not dungeonID or not difficulty) then return end
-
-      if (not EncounterJournal_OpenJournal) then 
-        UIParentLoadAddOn('Blizzard_EncounterJournal')
-      end
-      if WorldMapFrame:IsMaximized() then 
-        WorldMapFrame:Minimize() 
-      end
-      EncounterJournal_OpenJournal(difficulty, dungeonID)
-      _G.EncounterJournal:SetScript("OnShow", nil)
-    end
-
-  end
-
-  if ns.Addon.db.profile.activate.ShiftWorld then
-
-    if (not pressed) then return end
-
-    if IsShiftKeyDown() and (button == "MiddleButton") then
-      local www = nodes[uiMapId][coord].www
-      if www then
-        print(www)
-      end
-    end
-
-    if IsShiftKeyDown() and (button == "LeftButton" and db.journal) then
-
-      if mnID then
-         WorldMapFrame:SetMapID(mnID)
-      if (not EncounterJournal_OpenJournal) then 
-        UIParentLoadAddOn('Blizzard_EncounterJournal')
-      end
-        _G.EncounterJournal:SetScript("OnShow", nil)
-        return
-      end
-      
-      if nodes[uiMapId][coord].mnID and nodes[uiMapId][coord].id then
-        mnID = nodes[uiMapId][coord].mnID[1] --change id function to mnID function
-      else
-        mnID = nodes[uiMapId][coord].mnID --single coords function
-      end
-
-      local dungeonID
-      if (type(nodes[uiMapId][coord].id) == "table") then
-        dungeonID = nodes[uiMapId][coord].id[1] --multi coords journal function
-      else
-        dungeonID = nodes[uiMapId][coord].id --single coords journal function
-      end
-
-      if (not dungeonID) then return end
-
-      local name, _, _, _, _, _, _, link = EJ_GetInstanceInfo(dungeonID)
-      if not link then return end
-      local difficulty = string.match(link, 'journal:.-:.-:(.-)|h') 
-      if (not dungeonID or not difficulty) then return end
-      if (not EncounterJournal_OpenJournal) then 
-        UIParentLoadAddOn('Blizzard_EncounterJournal')
-      end
-      if WorldMapFrame:IsMaximized() then 
-        WorldMapFrame:Minimize() 
-      end
-      EncounterJournal_OpenJournal(difficulty, dungeonID)
-      _G.EncounterJournal:SetScript("OnShow", nil)
+  if (button == "MiddleButton") then
+    if wwwLink and not (ns.achievementID or ns.questID) then
+      print(wwwLink)
+    elseif ns.questID then
+      print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_QUEST, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/quest=" .. ns.questID)
+    elseif ns.achievementID then
+      print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/achievement=" .. ns.achievementID)
     end
   end
+
+  if (button == "LeftButton" and db.journal and not IsAltKeyDown()) then
+
+    if mnID then
+      WorldMapFrame:SetMapID(mnID)
+    if (not EncounterJournal_OpenJournal) then 
+      UIParentLoadAddOn('Blizzard_EncounterJournal')
+    end
+      _G.EncounterJournal:SetScript("OnShow", nil)
+      return
+    end
+
+    if nodes[uiMapId][coord].mnID and nodes[uiMapId][coord].id then
+      mnID = nodes[uiMapId][coord].mnID[1] --change id function to mnID function
+    else
+      mnID = nodes[uiMapId][coord].mnID --single coords function
+    end
+
+    local dungeonID
+    if (type(nodes[uiMapId][coord].id) == "table") then
+      dungeonID = nodes[uiMapId][coord].id[1] --multi coords journal function
+    else
+      dungeonID = nodes[uiMapId][coord].id --single coords function
+    end
+
+    if (not dungeonID) then return end
+
+    local name, _, _, _, _, _, _, link = EJ_GetInstanceInfo(dungeonID)
+    if not link then return end
+    local difficulty = string.match(link, 'journal:.-:.-:(.-)|h') 
+    if (not dungeonID or not difficulty) then return end
+
+    if (not EncounterJournal_OpenJournal) then 
+      UIParentLoadAddOn('Blizzard_EncounterJournal')
+    end
+    if WorldMapFrame:IsMaximized() then 
+      WorldMapFrame:Minimize() 
+    end
+    EncounterJournal_OpenJournal(difficulty, dungeonID)
+    _G.EncounterJournal:SetScript("OnShow", nil)
+  end
+
 end
 
 local Addon = CreateFrame("Frame")

@@ -213,7 +213,7 @@ end
 
 function EX:MDEnhance_Notification(unit, casterID, spellID)
 	if unit == "player" and SpellList[spellID] then
-		SendChatMessage(format("开启 %s，前往 %s ！", C_Spell.GetSpellLink(spellID) or C_Spell.GetSpellName(spellID), C_ChallengeMode.GetMapUIInfo(SpellList[spellID])), B.GetMSGChannel())
+		SendChatMessage(format("开启 %s，前往 %s ！", C_Spell.GetSpellLink(spellID) or C_Spell.GetSpellName(spellID), C_ChallengeMode.GetMapUIInfo(SpellList[spellID])), B.GetCurrentChannel())
 	end
 end
 

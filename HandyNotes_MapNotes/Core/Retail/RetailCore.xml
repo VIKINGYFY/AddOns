@@ -9,6 +9,7 @@
     <Script file="RetailDelves.lua"/>
     <Script file="RetailScaleAlpha.lua"/>
     <Script file="RetailSyncSingleScaleAlpha.lua"/>
+    <Script file="RetailChangeLogInfo.lua"/>    
     <Script file="RetailMain.lua"/>
     <Script file="RetailAreaMap.lua"/>
 </Ui>

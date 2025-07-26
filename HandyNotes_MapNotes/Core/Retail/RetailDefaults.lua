@@ -170,6 +170,7 @@ ns.defaults = {
     --0 General tab
       journal = true,
       WayPoints = true,
+      WayPointsShift = true,
       KilledBosses = true,
       BossNames = true,
       graySingleID = true,
@@ -601,7 +602,7 @@ ns.defaults = {
         HideMapNote = false,
         HideMMB = false,
         EnemyFaction = true,
-        ShiftWorld = false,
+        SwapButtons = false,
         showRacesIconsDiscovered = false,
         MinimapArrow = true,
         MinimapArrowOnEnter = false,

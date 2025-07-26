@@ -148,19 +148,18 @@ local function ShowBossNames(instanceID, tooltip)
 
   EJ_SelectInstance(instanceID)
 
-  C_Timer.After(0.5, function()
-    local bosses = {}
-    local i = 1
-    while true do
-      local bossName = EJ_GetEncounterInfoByIndex(i)
-      if not bossName then break end
-      bosses[#bosses + 1] = bossName
-      tooltip:AddLine("• " .. bossName, 1, 1, 1)
-      i = i + 1
-    end
-    ns.bossNameCache[instanceID] = bosses
-    tooltip:Show()
-  end)
+  local bosses = {}
+  local i = 1
+  while true do
+    local bossName = EJ_GetEncounterInfoByIndex(i)
+    if not bossName then break end
+    bosses[#bosses + 1] = bossName
+    tooltip:AddLine("• " .. bossName, 1, 1, 1)
+    i = i + 1
+  end
+  ns.bossNameCache[instanceID] = bosses
+  tooltip:Show()
+
 end
 
 local pluginHandler = { }
@@ -296,24 +295,49 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
       end
     end
 
-    if nodeData.mnID and nodeData.mnID2 or nodeData.mnID3 then -- outputs the Zone or Dungeonmap name and displays it in the tooltip
-      local mnIDname = C_Map.GetMapInfo(nodeData.mnID).name
-      if mnIDname then
-        tooltip:AddDoubleLine("\n" .. KEY_BUTTON1 .. " ==> " .. mnIDname, nil, nil, false)
+    if not ns.Addon.db.profile.activate.SwapButtons then -- Original Buttons
+      if nodeData.mnID and nodeData.mnID2 or nodeData.mnID3 then -- outputs the Zone or Dungeonmap name and displays it in the tooltip
+        local mnIDname = C_Map.GetMapInfo(nodeData.mnID).name
+        if mnIDname then
+          tooltip:AddDoubleLine("\n" .. KEY_BUTTON1 .. " ==> " .. mnIDname, nil, nil, false)
+        end
+      end
+
+      if nodeData.mnID2 then
+        local mnID2name = C_Map.GetMapInfo(nodeData.mnID2).name
+        if mnID2name then 
+          tooltip:AddDoubleLine(KEY_BUTTON3 .. " ==> " .. mnID2name, nil, nil, false)
+        end
+      end
+
+      if nodeData.mnID3 then
+        local mnID3name = C_Map.GetMapInfo(nodeData.mnID3).name
+        if mnID3name then 
+          tooltip:AddDoubleLine(KEY_BUTTON3 .. " ==> " .. mnID3name, nil, nil, false)
+        end
       end
     end
 
-    if nodeData.mnID2 then
-      local mnID2name = C_Map.GetMapInfo(nodeData.mnID2).name
-      if mnID2name then 
-        tooltip:AddDoubleLine(KEY_BUTTON2 .. " ==> " .. mnID2name, nil, nil, false)
+    if ns.Addon.db.profile.activate.SwapButtons then -- SwapButtons
+      if nodeData.mnID and nodeData.mnID2 or nodeData.mnID3 then -- outputs the Zone or Dungeonmap name and displays it in the tooltip
+        local mnIDname = C_Map.GetMapInfo(nodeData.mnID).name
+        if mnIDname then
+          tooltip:AddDoubleLine("\n" .. KEY_BUTTON2 .. " ==> " .. mnIDname, nil, nil, false)
+        end
       end
-    end
 
-    if nodeData.mnID3 then
-      local mnID3name = C_Map.GetMapInfo(nodeData.mnID3).name
-      if mnID3name then 
-        tooltip:AddDoubleLine(KEY_BUTTON3 .. " ==> " .. mnID3name, nil, nil, false)
+      if nodeData.mnID2 then
+        local mnID2name = C_Map.GetMapInfo(nodeData.mnID2).name
+        if mnID2name then 
+          tooltip:AddDoubleLine(KEY_BUTTON3 .. " ==> " .. mnID2name, nil, nil, false)
+        end
+      end
+
+      if nodeData.mnID3 then
+        local mnID3name = C_Map.GetMapInfo(nodeData.mnID3).name
+        if mnID3name then 
+          tooltip:AddDoubleLine(KEY_BUTTON3 .. " ==> " .. mnID3name, nil, nil, false)
+        end
       end
     end
 
@@ -464,67 +488,104 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
 
       if nodeData.id and not nodeData.mnID then  -- instance entrances
         if ns.Addon.db.profile.journal and not ns.CapitalIDs then
-          tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click to open Adventure Guide >"], nil, nil, false) -- instance entrances into adventure guide
+          if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
+            tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click to open Adventure Guide >"], nil, nil, false) -- instance entrances into adventure guide
+          else -- -- Original Buttons
+            tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click to open Adventure Guide >"], nil, nil, false) -- instance entrances into adventure guide
+          end
         end
-
-        if ns.Addon.db.profile.tomtom and not ns.CapitalIDs then
-          tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["Shift + Right Click on a MapNotes icon adds a waypoint to it"], nil, nil, false) -- instance entrances tomtom
+        if ns.Addon.db.profile.WayPoints and not ns.CapitalIDs then
+          if ns.Addon.db.profile.WayPointsShift then -- Shift
+            if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
+              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift + Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+            else -- Original Buttons
+              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift + Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+            end
+          else
+            if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
+              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+            else -- Original Buttons
+              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+            end
+          end
         end
       end
 
       if nodeData.mnID or nodeData.delveID or nodeData.dnID then
 
-        if not ns.Addon.db.profile.activate.ShiftWorld then 
-          if not nodeData.hideInfo == true and not ns.MapType0 then
-            if nodeData.mnID then
+        if not nodeData.hideInfo == true and not ns.MapType0 then
+          if nodeData.mnID then
+            if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
+              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click to show map >"], nil, nil, false)
+            else -- Original Buttons
               tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click to show map >"], nil, nil, false)
             end
+          end
 
-            if nodeData.delveID then
+          if nodeData.delveID then
+            if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
               tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click to show delve map >"], nil, nil, false)
+            else -- Original Buttons
+              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click to show delve map >"], nil, nil, false)
             end
-
-            if not (ns.MapType1 or ns.MapType0 or ns.icons["Delves"]) then
-              if ns.Addon.db.profile.tomtom and not ns.CapitalIDs then
-                tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["Shift + Right Click on a MapNotes icon adds a waypoint to it"], nil, nil, false)
-              end
-            end
-
-          end
-        elseif ns.Addon.db.profile.activate.ShiftWorld then
-
-          if not nodeData.hideInfo == true and not ns.MapType0 then
-
-            if nodeData.mnID then
-              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift Left Click to show map >"], nil, nil, false)
-            end
-
-            if nodeData.delveID then
-              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift Left Click to show map >"], nil, nil, false)
-            end
-
-            if not (ns.MapType1 or ns.MapType0 or ns.icons["Delves"]) then
-              if ns.Addon.db.profile.tomtom and not ns.CapitalIDs then
-                tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["Shift + Right Click on a MapNotes icon adds a waypoint to it"], nil, nil, false)
-              end
-            end
-
           end
 
+          if not (ns.MapType1 or ns.MapType0 or ns.icons["Delves"]) then
+            if ns.Addon.db.profile.WayPoints and not ns.CapitalIDs then
+              if ns.Addon.db.profile.WayPointsShift then -- Shift
+                if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
+                  tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+                else
+                  tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+                end
+              else
+                if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
+                  tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+                else
+                  tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+                end
+              end
+            end
+          end
         end
+
 
         if not (ns.MapType1 or ns.MapType0 or ns.icons["Delves"]) then
-          if ns.Addon.db.profile.tomtom and not ns.CapitalIDs then
-            tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["Shift + Right Click on a MapNotes icon adds a waypoint to it"], nil, nil, false)
+          if ns.Addon.db.profile.WayPoints and not ns.CapitalIDs then
+            if ns.Addon.db.profile.WayPointsShift then -- Shift
+              if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
+                tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift + Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+              else
+                tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift + Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+              end
+            else
+              if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
+                tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+              else
+                tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+              end
+            end
           end
         end
 
-        if ns.Addon.db.profile.tomtom then
+        if ns.Addon.db.profile.WayPoints then
           if ns.AllZoneIDs or GetCurrentMapID == 12 or GetCurrentMapID == 13 or GetCurrentMapID == 101 or GetCurrentMapID == 113 or GetCurrentMapID == 424 or GetCurrentMapID == 619
           or GetCurrentMapID == 875 or GetCurrentMapID == 876 or GetCurrentMapID == 905 or GetCurrentMapID == 1978 or GetCurrentMapID == 1550 or GetCurrentMapID == 572
           or GetCurrentMapID == 2274 or GetCurrentMapID == 948 then
             if (not nodeData.hideInfo == true) then
-              tooltip:AddDoubleLine("|cff00ff00" .. L["Shift + Right Click on a MapNotes icon adds a waypoint to it"], nil, nil, false)
+              if ns.Addon.db.profile.WayPointsShift then -- Shift
+                if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
+                  tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift + Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+                else -- Original Buttons
+                  tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift + Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+                end
+              else
+                if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
+                  tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+                else -- Original Buttons
+                  tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+                end
+              end
             end
           end
         end
@@ -533,21 +594,31 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
 
       if nodeData.mnID and nodeData.leaveDelve and ns.icons["Delves"] then
 
-        if ns.Addon.db.profile.tomtom then
-          tooltip:AddDoubleLine("|cff00ff00" .. L["Shift + Right Click on a MapNotes icon adds a waypoint to it"], nil, nil, false)
+        if ns.Addon.db.profile.WayPoints then
+          if ns.Addon.db.profile.WayPointsShift then -- Shift
+            if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
+              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift + Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+            else
+              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift + Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+            end
+          else
+              if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
+              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+            else
+              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+            end
+          end
         end
 
-        if not ns.Addon.db.profile.activate.ShiftWorld then 
-          tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. "< " .. MIDDLE_BUTTON_STRING .. " " .. INSTANCE_LEAVE .. " (" .. DELVES_LABEL .. ") >", nil, nil, false)
-        elseif ns.Addon.db.profile.activate.ShiftWorld then
-          tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. "< " .. SHIFT_KEY .. " + " .. MIDDLE_BUTTON_STRING .. " " .. INSTANCE_LEAVE .. " (" .. DELVES_LABEL .. ") >", nil, nil, false)
-        end
+        tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. "< " .. MIDDLE_BUTTON_STRING .. " " .. INSTANCE_LEAVE .. " (" .. DELVES_LABEL .. ") >", nil, nil, false)
       end
     end
 
-    if ns.Addon.db.profile.ExtraTooltip and ns.Addon.db.profile.DeleteIcons then
-      if not nodeData.hideInfo == true and not ns.MapType0 then
-        tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cffff0000" .. L["< Alt + Right click to delete this icon >"], nil, nil, false)
+    if ns.Addon.db.profile.ExtraTooltip then
+      if ns.Addon.db.profile.DeleteIcons then
+        if not nodeData.hideInfo == true and not ns.MapType0 then
+          tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cffff0000" .. L["< Alt + Right click to delete this icon >"], nil, nil, false)
+        end
       end
     end
 
@@ -1570,22 +1641,104 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87  or GetCurrent
 
   if (not pressed) then return end
 
-  if (button == "RightButton" and db.WayPoints and IsShiftKeyDown()) then
-    if TomTom then
-          setWaypoint(uiMapId, coord)
-          return
-    elseif C_Map.GetMapInfo(uiMapId) then
-      local x, y = HandyNotes:getXY(coord)
-      local mapInfo = C_Map.GetMapInfo(uiMapId)
-        if mapInfo then
-            local point = UiMapPoint.CreateFromCoordinates(uiMapId, x, y)
-            if point then
-                C_Map.SetUserWaypoint(point)
-                C_SuperTrack.SetSuperTrackedUserWaypoint(true)
-            end
+  if ns.Addon.db.profile.activate.SwapButtons then -- New SwapButtons
+    if ns.Addon.db.profile.WayPointsShift then -- Shift
+      if (button == "LeftButton" and db.WayPoints and IsShiftKeyDown()) then
+        if GetCurrentMapID and GetCurrentMapID ~= 946 then
+          if TomTom then
+                setWaypoint(uiMapId, coord)
+                return
+          elseif C_Map.GetMapInfo(uiMapId) then
+            local x, y = HandyNotes:getXY(coord)
+            local mapInfo = C_Map.GetMapInfo(uiMapId)
+              if mapInfo then
+                  local point = UiMapPoint.CreateFromCoordinates(uiMapId, x, y)
+                  if point then
+                      C_Map.SetUserWaypoint(point)
+                      C_SuperTrack.SetSuperTrackedUserWaypoint(true)
+                  end
+              end
+            return
+          end
         end
-      return
+      end
+    else
+      if (button == "LeftButton" and db.WayPoints) then
+        if GetCurrentMapID and GetCurrentMapID ~= 946 then
+          if TomTom then
+                setWaypoint(uiMapId, coord)
+                return
+          elseif C_Map.GetMapInfo(uiMapId) then
+            local x, y = HandyNotes:getXY(coord)
+            local mapInfo = C_Map.GetMapInfo(uiMapId)
+              if mapInfo then
+                  local point = UiMapPoint.CreateFromCoordinates(uiMapId, x, y)
+                  if point then
+                      C_Map.SetUserWaypoint(point)
+                      C_SuperTrack.SetSuperTrackedUserWaypoint(true)
+                  end
+              end
+            return
+          end
+        end
+      end
     end
+
+    if (button == "RightButton" and mnID and mnID2 or mnID3 and not IsShiftKeyDown() and not IsAltKeyDown()) then -- original left
+      WorldMapFrame:SetMapID(mnID)
+    end
+  end
+
+  if not ns.Addon.db.profile.activate.SwapButtons then -- Original
+    if ns.Addon.db.profile.WayPointsShift then -- Shift
+      if (button == "RightButton" and db.WayPoints and IsShiftKeyDown()) then
+        if GetCurrentMapID and GetCurrentMapID ~= 946 then
+          if TomTom then
+                setWaypoint(uiMapId, coord)
+                return
+          elseif C_Map.GetMapInfo(uiMapId) then
+            local x, y = HandyNotes:getXY(coord)
+            local mapInfo = C_Map.GetMapInfo(uiMapId)
+              if mapInfo then
+                  local point = UiMapPoint.CreateFromCoordinates(uiMapId, x, y)
+                  if point then
+                      C_Map.SetUserWaypoint(point)
+                      C_SuperTrack.SetSuperTrackedUserWaypoint(true)
+                  end
+              end
+            return
+          end
+        end
+      end
+    else
+      if (button == "RightButton" and db.WayPoints) then
+        if GetCurrentMapID and GetCurrentMapID ~= 946 then
+          if TomTom then
+                setWaypoint(uiMapId, coord)
+                return
+          elseif C_Map.GetMapInfo(uiMapId) then
+            local x, y = HandyNotes:getXY(coord)
+            local mapInfo = C_Map.GetMapInfo(uiMapId)
+              if mapInfo then
+                  local point = UiMapPoint.CreateFromCoordinates(uiMapId, x, y)
+                  if point then
+                      C_Map.SetUserWaypoint(point)
+                      C_SuperTrack.SetSuperTrackedUserWaypoint(true)
+                  end
+              end
+            return
+          end
+        end
+      end
+    end
+
+    if (button == "LeftButton" and mnID and mnID2 or mnID3 and not IsShiftKeyDown() and not IsAltKeyDown()) then -- original left
+      WorldMapFrame:SetMapID(mnID)
+    end
+  end
+
+  if (button == "MiddleButton" and mnID2 and not IsShiftKeyDown() and not IsAltKeyDown()) then
+    WorldMapFrame:SetMapID(mnID2)
   end
 
   if (button == "RightButton") and IsAltKeyDown() then
@@ -1594,19 +1747,10 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87  or GetCurrent
     end
   end
 
-  if (button == "LeftButton" and mnID and mnID2 or mnID3 and not IsShiftKeyDown() and not IsAltKeyDown()) then
-    WorldMapFrame:SetMapID(mnID)
-  end
-
-  if (button == "RightButton" and mnID2 and not IsShiftKeyDown() and not IsAltKeyDown()) then
-    WorldMapFrame:SetMapID(mnID2)
-  end
-
   if (button == "MiddleButton" and mnID3 and not IsShiftKeyDown() and not IsAltKeyDown()) then
       WorldMapFrame:SetMapID(mnID3)
   end
 
-  if not ns.Addon.db.profile.activate.ShiftWorld then
 
     if (not pressed) then return end
 
@@ -1618,15 +1762,14 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87  or GetCurrent
       if wwwLink and not (ns.achievementID or ns.questID) then
         print(wwwLink)
       elseif ns.questID and not ns.hideLink then
-        --SendChatMessage("www.wowhead.com/quest=" .. questID, "WHISPER", "Common", GetUnitName("PLAYER"));
         print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_QUEST, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/quest=" .. ns.questID)
       elseif ns.achievementID then
         print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/achievement=" .. ns.achievementID)
-        --SendChatMessage("MapNotes: https://www.wowhead.com/achievement=" .. achievementID, "WHISPER", "Common", GetUnitName("PLAYER"));
       end
     end
 
-    if (button == "LeftButton" and not IsAltKeyDown()) then
+  if ns.Addon.db.profile.activate.SwapButtons then -- New SwapButtons
+    if (button == "RightButton" and not IsAltKeyDown()) then
 
       if mnID then
         WorldMapFrame:SetMapID(mnID)
@@ -1639,7 +1782,7 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87  or GetCurrent
       end
     end
 
-    if (button == "LeftButton" and db.journal and not IsAltKeyDown()) then
+    if (button == "RightButton" and db.journal and not IsAltKeyDown()) then
 
       if nodes[uiMapId][coord].mnID and nodes[uiMapId][coord].id then
         mnID = nodes[uiMapId][coord].mnID[1] --change id function to mnID function
@@ -1664,38 +1807,25 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87  or GetCurrent
 
       local name, _, _, _, _, _, _, link = EJ_GetInstanceInfo(dungeonID)
       if not link then return end
+
       local difficulty = string.match(link, "journal:.-:.-:(.-)|h") 
       if (not dungeonID or not difficulty) then return end
 
       if (not EncounterJournal_OpenJournal) then
         UIParentLoadAddOn("Blizzard_EncounterJournal")
       end
+
       if WorldMapFrame:IsMaximized() then
         WorldMapFrame:Minimize()
       end
+
       EncounterJournal_OpenJournal(difficulty, dungeonID)
       _G.EncounterJournal:SetScript("OnShow", nil)
     end
-
   end
 
-  if ns.Addon.db.profile.activate.ShiftWorld then
-
-    if (not pressed) then return end
-
-    if IsShiftKeyDown() and (button == "MiddleButton") and leaveDelve and ns.icons["Delves"] then
-      StaticPopup_Show("Leave_Delve?")
-    end
-
-    if IsShiftKeyDown() and (button == "MiddleButton") then
-      local wwwLink = nodes[uiMapId][coord].wwwLink
-      if wwwLink then
-        print(wwwLink)
-      end
-    end
-
-    if IsShiftKeyDown() and (button == "LeftButton" ) then
-
+  if not ns.Addon.db.profile.activate.SwapButtons then -- Original
+    if (button == "LeftButton" and not IsAltKeyDown()) then
       if mnID then
         WorldMapFrame:SetMapID(mnID)
         return
@@ -1707,37 +1837,47 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87  or GetCurrent
       end
     end
 
-    if IsShiftKeyDown() and (button == "LeftButton" and db.journal) then
-      
+    if (button == "LeftButton" and db.journal and not IsAltKeyDown()) then
       if nodes[uiMapId][coord].mnID and nodes[uiMapId][coord].id then
         mnID = nodes[uiMapId][coord].mnID[1] --change id function to mnID function
       else
         mnID = nodes[uiMapId][coord].mnID --single coords function
       end
 
+      if nodes[uiMapId][coord].delveIDs then
+        mnID = nodes[uiMapId][coord].delveIDs[1] --change id function to mnID function
+      else
+        mnID = nodes[uiMapId][coord].delveIDs --single coords function
+      end
+
       local dungeonID
       if (type(nodes[uiMapId][coord].id) == "table") then
         dungeonID = nodes[uiMapId][coord].id[1] --multi coords journal function
       else
-        dungeonID = nodes[uiMapId][coord].id --single coords journal function
+        dungeonID = nodes[uiMapId][coord].id --single coords function
       end
 
       if (not dungeonID) then return end
 
       local name, _, _, _, _, _, _, link = EJ_GetInstanceInfo(dungeonID)
       if not link then return end
+
       local difficulty = string.match(link, "journal:.-:.-:(.-)|h") 
       if (not dungeonID or not difficulty) then return end
-      if (not EncounterJournal_OpenJournal) then 
+
+      if (not EncounterJournal_OpenJournal) then
         UIParentLoadAddOn("Blizzard_EncounterJournal")
       end
-      if WorldMapFrame:IsMaximized() then 
-        WorldMapFrame:Minimize() 
+
+      if WorldMapFrame:IsMaximized() then
+        WorldMapFrame:Minimize()
       end
+
       EncounterJournal_OpenJournal(difficulty, dungeonID)
       _G.EncounterJournal:SetScript("OnShow", nil)
     end
   end
+
 end
 
 
@@ -2052,69 +2192,84 @@ end
 
 function Addon:UpdateInstanceNames(node)
   local dungeonInfo = EJ_GetInstanceInfo
-    local id = node.id
-      if (node.lfgid) then
-        dungeonInfo = GetLFGDungeonInfo
-        id = node.lfgid
-      end
+  local id = node.id
 
-      if (type(id) == "table") then
-        for i,v in pairs(node.id) do
-          local name = dungeonInfo(v)
-            self:UpdateAlter(v, name)
-            if (node.name) then
-              node.name = node.name .. "\n" .. name
-            else
-                node.name = name
-              if ns.Addon.db.profile.TooltipInformations then
+  if node.lfgid then
+    dungeonInfo = GetLFGDungeonInfo
+    id = node.lfgid
+  end
 
-                if not ns.Addon.db.profile.activate.ShiftWorld then 
+  if type(id) == "table" then
+    local nameList = {}
+    for _, v in ipairs(id) do
+      local name = dungeonInfo(v)
+      if not name or name == "" then name = "..." end
+      self:UpdateAlter(v, name)
+      table.insert(nameList, name)
+    end
+    node.name = table.concat(nameList, "\n")
 
-                  if not ns.Addon.db.profile.DeleteIcons and not ns.Addon.db.profile.tomtom then
-                    node.name = TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click to show map >"] .. "|r" .."\n" .. name
-                  end
+    if ns.Addon.db.profile.TooltipInformations then
+      local tooltipInfo = ""
 
-                  if ns.Addon.db.profile.DeleteIcons and ns.Addon.db.profile.tomtom then
-                    node.name = TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click to show map >"] .. "\n" .. TextIconInfo:GetIconString() .. " " .. "|cffff0000" .. L["< Alt + Right click to delete this icon >"] .. "|r" .. "\n" .. name
-                  end
-
-                  if ns.Addon.db.profile.DeleteIcons and not ns.Addon.db.profile.tomtom then
-                    node.name = TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click to show map >"] .. "\n" .. TextIconInfo:GetIconString() .. " " .. "|cffff0000" .. L["< Alt + Right click to delete this icon >"] .."|r" .."\n" .. name
-                  end
-
-                  if ns.Addon.db.profile.tomtom and not ns.Addon.db.profile.DeleteIcons then
-                      node.name = TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click to show map >"] .."\n" .. name
-                  end
-
-                elseif ns.Addon.db.profile.activate.ShiftWorld then 
-
-                  if not ns.Addon.db.profile.DeleteIcons and not ns.Addon.db.profile.tomtom then
-                    node.name = TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift Left Click to show map >"] .. "|r" .."\n" .. name
-                  end
-
-                  if ns.Addon.db.profile.DeleteIcons and ns.Addon.db.profile.tomtom then
-                    node.name = TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift Left Click to show map >"] .. "\n" .. TextIconInfo:GetIconString() .. " " .. "|cffff0000" .. L["< Alt + Right click to delete this icon >"] .. "|r" .. "\n" .. name
-                  end
-
-                  if ns.Addon.db.profile.DeleteIcons and not ns.Addon.db.profile.tomtom then
-                    node.name = TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift Left Click to show map >"] .. "\n" .. TextIconInfo:GetIconString() .. " " .. "|cffff0000" .. L["< Alt + Right click to delete this icon >"] .."|r" .."\n" .. name
-                  end
-
-                  if ns.Addon.db.profile.tomtom and not ns.Addon.db.profile.DeleteIcons then
-                      node.name = TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift Left Click to show map >"] .."\n" .. name
-                  end
-
-                end
-
-              end
-
+      local currentMapID = GetCurrentMapID
+      if currentMapID and currentMapID ~= 946 then
+        if ns.Addon.db.profile.WayPointsShift then -- Shift
+          if ns.Addon.db.profile.activate.SwapButtons then -- SwapButtons
+            if not ns.Addon.db.profile.DeleteIcons and not ns.Addon.db.profile.WayPoints then
+              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Right Click to show map >"]
+            elseif ns.Addon.db.profile.DeleteIcons and ns.Addon.db.profile.WayPoints then
+              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Shift + Left Click sets a waypoint on a MapNotes icon >"] .. " \n" .. TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click to show map >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cffff0000" .. L["< Alt + Right click to delete this icon >"]
+            elseif ns.Addon.db.profile.DeleteIcons then
+              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Right Click to show map >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cffff0000" .. L["< Alt + Right click to delete this icon >"]
+            elseif ns.Addon.db.profile.WayPoints then
+              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Shift + Left Click sets a waypoint on a MapNotes icon >"] .. " \n" .. TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Right Click to show map >"]
             end
+          else -- Original Buttons
+            if not ns.Addon.db.profile.DeleteIcons and not ns.Addon.db.profile.WayPoints then
+              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Left Click to show map >"]
+            elseif ns.Addon.db.profile.DeleteIcons and ns.Addon.db.profile.WayPoints then
+              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Shift + Right Click sets a waypoint on a MapNotes icon >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Left Click to show map >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cffff0000" .. L["< Alt + Right click to delete this icon >"]
+            elseif ns.Addon.db.profile.DeleteIcons then
+              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Left Click to show map >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cffff0000" .. L["< Alt + Right click to delete this icon >"]
+            elseif ns.Addon.db.profile.WayPoints then
+              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Shift + Right Click sets a waypoint on a MapNotes icon >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Left Click to show map >"]
+            end
+          end
+        else
+          if ns.Addon.db.profile.activate.SwapButtons then -- SwapButtons
+            if not ns.Addon.db.profile.DeleteIcons and not ns.Addon.db.profile.WayPoints then
+              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Right Click to show map >"]
+            elseif ns.Addon.db.profile.DeleteIcons and ns.Addon.db.profile.WayPoints then
+              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Left Click sets a waypoint on a MapNotes icon >"] .. " \n" .. TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click to show map >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cffff0000" .. L["< Alt + Right click to delete this icon >"]
+            elseif ns.Addon.db.profile.DeleteIcons then
+              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Right Click to show map >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cffff0000" .. L["< Alt + Right click to delete this icon >"]
+            elseif ns.Addon.db.profile.WayPoints then
+              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Left Click sets a waypoint on a MapNotes icon >"] .. " \n" .. TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Right Click to show map >"]
+            end
+          else -- Original Buttons
+            if not ns.Addon.db.profile.DeleteIcons and not ns.Addon.db.profile.WayPoints then
+              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Left Click to show map >"]
+            elseif ns.Addon.db.profile.DeleteIcons and ns.Addon.db.profile.WayPoints then
+              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Right Click sets a waypoint on a MapNotes icon >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Left Click to show map >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cffff0000" .. L["< Alt + Right click to delete this icon >"]
+            elseif ns.Addon.db.profile.DeleteIcons then
+              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Left Click to show map >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cffff0000" .. L["< Alt + Right click to delete this icon >"]
+            elseif ns.Addon.db.profile.WayPoints then
+              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Right Click sets a waypoint on a MapNotes icon >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Left Click to show map >"]
+            end
+          end
         end
-      elseif (id) then
-        node.name = dungeonInfo(id)
-        self:UpdateAlter(id, node.name)
       end
+
+      node.name = node.name .. "\n" .. tooltipInfo
+    end
+
+  elseif id then
+    node.name = dungeonInfo(id)
+    self:UpdateAlter(id, node.name)
+  end
 end
+
 
 function Addon:ProcessTable()
   lfgIDs = ns.lfgIDs

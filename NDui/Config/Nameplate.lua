@@ -214,6 +214,7 @@ C.WarningUnits = {
 C.ShowTargetNPCs = {
 	--[ 165251] = true, -- 仙林狐狸
 	[  40357] = true, -- 格瑞姆巴托火元素
+	[ 133482] = true, -- 蛛形地雷
 	[ 164702] = true, -- 食腐蛆虫
 	[ 174773] = true, -- 怨毒影魔
 }

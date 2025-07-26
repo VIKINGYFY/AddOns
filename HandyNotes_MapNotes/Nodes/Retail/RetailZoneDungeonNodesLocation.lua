@@ -759,10 +759,10 @@ if not db.activate.HideMapNote then
               nodes[2213][44191124] = { id = 1274, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- City of Threads
             
               if ns.version == "11.2.0" then -- PTR
-              nodes[2371][65286801] = { id = 1303, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Eco-Dome Al'dani
-              nodes[2371][63416973] = { id = 1194, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Tazavesh, the Veiled Market
-              nodes[2472][43840407] = { id = 1303, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Eco-Dome Al'dani
-              nodes[2472][36481206] = { id = 1194, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Tazavesh, the Veiled Market
+              nodes[2371][65246841] = { id = 1303, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Eco-Dome Al'dani
+              nodes[2371][63587021] = { id = 1194, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Tazavesh, the Veiled Market
+              nodes[2472][43860393] = { id = 1303, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Eco-Dome Al'dani
+              nodes[2472][36321209] = { id = 1194, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Tazavesh, the Veiled Market
               end
 
             end
@@ -778,7 +778,7 @@ if not db.activate.HideMapNote then
               nodes[2346][42045031] = { id = 1296, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Liberation of Undermine
               
               if ns.version == "11.2.0" then -- PTR
-                nodes[2371][41872152] = { id = 1302, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Manaforge Omega
+                nodes[2371][41662152] = { id = 1302, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Manaforge Omega
               end
             end
 

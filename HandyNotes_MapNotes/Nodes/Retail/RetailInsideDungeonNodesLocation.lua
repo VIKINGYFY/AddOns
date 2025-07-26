@@ -804,7 +804,7 @@ if not db.activate.HideMapNote then
               nodes[556][28150948] = { mnID = 557, dnID = DUNGEON_FLOOR_ORGRIMMARRAID1, name = "", type = "TravelM", showInZone = true }
   
           --####################################
-          --#### Pandaria Dungeon Transport ####
+          --#### Legion Dungeon Transport ####
           --####################################
   
             --Hellfire Citadel
@@ -856,7 +856,7 @@ if not db.activate.HideMapNote then
           --###################################
           --#### Pandaria Dungeon Portals #####
           --###################################
-            --Icecrown Citadel
+            --Siege of Orgrimmar
               nodes[558][22988189] = { mnID = 559, dnID = DUNGEON_FLOOR_ICECROWNCITADEL3, name = "", type = "Portal", showInZone = true }
               nodes[558][19465757] = { mnID = 559, dnID = DUNGEON_FLOOR_ICECROWNCITADEL3, name = "", type = "Portal", showInZone = true }
             
