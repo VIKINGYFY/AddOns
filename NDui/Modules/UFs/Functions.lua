@@ -288,7 +288,7 @@ function UF:CreateHealthText(self)
 	local hpval = B.CreateFS(self, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["HealthTextSize"]))
 	hpval:SetJustifyH("RIGHT")
 	hpval:ClearAllPoints()
-	hpval:SetPoint("RIGHT", health, "RIGHT", -3, 0)
+	hpval:SetPoint("RIGHT", health, "RIGHT", -DB.margin, 0)
 	self.healthValue = hpval
 
 	if mystyle == "raid" then
@@ -304,8 +304,8 @@ function UF:CreateHealthText(self)
 	local name = B.CreateFS(self, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["NameTextSize"]))
 	name:SetJustifyH("LEFT")
 	name:ClearAllPoints()
-	name:SetPoint("LEFT", health, "LEFT", 3, 0)
-	name:SetPoint("RIGHT", hpval, "LEFT", -3, 0)
+	name:SetPoint("LEFT", health, "LEFT", DB.margin, 0)
+	name:SetPoint("RIGHT", hpval, "LEFT", -DB.margin, 0)
 	self.nameText = name
 
 	if mystyle == "raid" then
@@ -437,7 +437,7 @@ function UF:CreatePowerText(self)
 	local ppval = B.CreateFS(self, retVal(self, 13, 12, 12, 12))
 	ppval:SetJustifyH("RIGHT")
 	ppval:ClearAllPoints()
-	ppval:SetPoint("RIGHT", power, "RIGHT", -3, 0)
+	ppval:SetPoint("RIGHT", power, "RIGHT", -DB.margin, 0)
 	self.powerText = ppval
 
 	if mystyle == "raid" then
@@ -588,7 +588,7 @@ function UF:CreateIcons(self)
 		local combat = self:CreateTexture(nil, "OVERLAY")
 		combat:SetPoint("CENTER", self, "BOTTOMLEFT")
 		combat:SetSize(28, 28)
-		combat:SetAtlas(DB.objectTex)
+		combat:SetAtlas(DB.combatTex)
 		self.CombatIndicator = combat
 	elseif mystyle == "target" then
 		local quest = self:CreateTexture(nil, "OVERLAY")
@@ -631,7 +631,7 @@ function UF:CreateRaidMark(self)
 
 	local ri = self:CreateTexture(nil, "OVERLAY")
 	if mystyle == "nameplate" then
-		ri:SetPoint("BOTTOMRIGHT", self, "TOPLEFT")
+		ri:SetPoint("BOTTOMLEFT", self, "TOPRIGHT")
 	else
 		ri:SetPoint("CENTER", self, "TOP")
 	end
@@ -660,9 +660,17 @@ function UF:ToggleCastBarLatency(frame)
 	frame:RegisterEvent("CURRENT_SPELL_CAST_CHANGED", UF.OnCastSent, true)
 end
 
+local styleValue = {
+	["player"] = true,
+	["target"] = true,
+	["focus"] = true,
+}
+
 function UF:CreateCastBar(self)
 	local mystyle = self.mystyle
 	if mystyle ~= "nameplate" and not C.db["UFs"]["Castbars"] then return end
+
+	local plateMargin = C.db["Nameplate"]["PlateMargin"]
 
 	local cb = B.CreateSB(self, true, nil, "oUF_Castbar"..mystyle)
 	cb:SetWidth(self:GetWidth() - (20 + DB.margin))
@@ -683,14 +691,15 @@ function UF:CreateCastBar(self)
 		cb:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -DB.margin)
 		cb:SetHeight(10)
 	elseif mystyle == "nameplate" then
-		cb:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -DB.margin)
-		cb:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -DB.margin)
+		cb:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -plateMargin)
+		cb:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -plateMargin)
 		cb:SetHeight(self:GetHeight())
 	end
 
-	local timer = B.CreateFS(cb, 12, "", false, "RIGHT", -3, 0)
-	local name = B.CreateFS(cb, 12, "", false, "LEFT", 3, 0)
-	name:SetPoint("RIGHT", timer, "LEFT", -3, 0)
+	local cbTextSize = styleValue[mystyle] and cb:GetHeight() - 6 or cb:GetHeight() + 2
+	local timer = B.CreateFS(cb, cbTextSize, "", false, "RIGHT", -DB.margin, 0)
+	local name = B.CreateFS(cb, cbTextSize, "", false, "LEFT", DB.margin, 0)
+	name:SetPoint("RIGHT", timer, "LEFT", -DB.margin, 0)
 
 	if mystyle ~= "boss" and mystyle ~= "arena" then
 		cb.Icon = cb:CreateTexture(nil, "ARTWORK")
@@ -712,21 +721,23 @@ function UF:CreateCastBar(self)
 		name:SetPoint("LEFT", cb, "LEFT", 0, 0)
 		timer:SetPoint("RIGHT", cb, "RIGHT", 0, 0)
 
+		local shieldSize = cb:GetHeight() * 2
 		local shield = cb:CreateTexture(nil, "OVERLAY")
-		shield:SetAtlas("UI-QuestPoiImportant-QuestBang")
+		shield:SetAtlas("UI-QuestPoiWrapper-QuestBang")
 		shield:SetDesaturated(true)
-		shield:SetSize(24, 24)
-		shield:SetPoint("CENTER", cb, "CENTER", 0, 1)
+		shield:SetSize(shieldSize, shieldSize)
+		shield:SetPoint("CENTER", cb, "CENTER", 0, 0)
 		cb.Shield = shield
 
-		local iconSize = self:GetHeight()*2 + DB.margin
+		local iconSize = self:GetHeight()*2 + plateMargin
 		cb.Icon:SetSize(iconSize, iconSize)
+		cb.Icon:SetPoint("BOTTOMRIGHT", cb, "BOTTOMLEFT", -plateMargin, 0)
 		cb.timeToHold = .5
 
 		cb.glowFrame = B.CreateGlowFrame(cb, iconSize)
 		cb.glowFrame:SetPoint("CENTER", cb.Icon)
 
-		local spellTarget = B.CreateFS(cb, C.db["Nameplate"]["NameTextSize"] + 3)
+		local spellTarget = B.CreateFS(cb, C.db["Nameplate"]["CastBarTextSize"] + 2)
 		spellTarget:ClearAllPoints()
 		spellTarget:SetJustifyH("LEFT")
 		spellTarget:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -DB.margin)
@@ -734,11 +745,6 @@ function UF:CreateCastBar(self)
 
 		self:RegisterEvent("UNIT_TARGET", updateSpellTarget)
 	end
-
-	local stage = B.CreateFS(cb, 22)
-	stage:ClearAllPoints()
-	stage:SetPoint("TOPLEFT", cb.Icon, -2, 2)
-	cb.stageString = stage
 
 	if mystyle == "nameplate" or mystyle == "boss" or mystyle == "arena" then
 		cb.decimal = "%.1f"
@@ -1409,12 +1415,11 @@ function UF:UpdateUFClassPower()
 	if not playerFrame then return end
 
 	local barWidth, barHeight = C.db["UFs"]["PlayerWidth"], C.db["UFs"]["PlayerPowerHeight"]
-	local xOffset, yOffset = 0, DB.margin
 	local bars = playerFrame.ClassPower or playerFrame.Runes
 	if bars then
 		local bar = playerFrame.ClassPowerBar
 		bar:SetSize(barWidth, barHeight)
-		bar:SetPoint("BOTTOMLEFT", playerFrame, "TOPLEFT", xOffset, yOffset)
+		bar:SetPoint("BOTTOMLEFT", playerFrame, "TOPLEFT", 0, DB.margin)
 		local max = bars.__max
 		for i = 1, max do
 			bars[i]:SetHeight(barHeight)

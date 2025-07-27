@@ -1351,8 +1351,8 @@ function G:SetupCastbar(parent)
 		B.AddTooltip(box, "ANCHOR_RIGHT", L["ToggleCastbarTip"], "info", true)
 
 		createOptionTitle(parent, title, offset)
-		createOptionSlider(parent, L["Width"], 100, 800, defaultData[value][1], offset-60, value.."CBWidth", func)
-		createOptionSlider(parent, L["Height"], 10, 50, defaultData[value][2], offset-130, value.."CBHeight", func)
+		createOptionSlider(parent, L["Width"], 100, 600, defaultData[value][1], offset-60, value.."CBWidth", func)
+		createOptionSlider(parent, L["Height"], 10, 30, defaultData[value][2], offset-130, value.."CBHeight", func)
 	end
 
 	local function updatePlayerCastbar()
@@ -1444,8 +1444,8 @@ function G:SetupSwingBars(parent)
 
 	createOptionCheck(parent, offset, L["UFs SwingTimer"], "UFs", "SwingTimer", configureSwingBars, L["SwingTimer Tip"])
 	createOptionCheck(parent, offset-35, L["OffhandOnTop"], "UFs", "OffOnTop", configureSwingBars)
-	createOptionSlider(parent, L["Width"], 50, 1000, 275, offset-105, "SwingWidth", configureSwingBars)
-	createOptionSlider(parent, L["Height"], 1, 50, 3, offset-175, "SwingHeight", configureSwingBars)
+	createOptionSlider(parent, L["Width"], 50, 300, 250, offset-105, "SwingWidth", configureSwingBars)
+	createOptionSlider(parent, L["Height"], 5, 30, 5, offset-175, "SwingHeight", configureSwingBars)
 
 	panel:HookScript("OnHide", function()
 		local mover = frame and frame.Swing and frame.Swing.mover
@@ -1581,16 +1581,14 @@ function G:SetupNameplateSize(parent)
 	local scroll = G:CreateScroll(panel, 260, 540)
 	local UF = B:GetModule("UnitFrames")
 
-	createOptionSlider(scroll.child, L["Width"], 50, 500, 200, -30, "PlateWidth", UF.RefreshAllPlates, "Nameplate")
-	createOptionSlider(scroll.child, L["Height"], 5, 50, 10, -100, "PlateHeight", UF.RefreshAllPlates, "Nameplate")
-	createOptionSlider(scroll.child, L["InteractWidth"], 50, 500, 200, -170, "InteractWidth", UF.RefreshAllPlates, "Nameplate")
-	createOptionSlider(scroll.child, L["InteractHeight"], 5, 50, 50, -240, "InteractHeight", UF.RefreshAllPlates, "Nameplate")
-	createOptionSlider(scroll.child, L["NameTextSize"], 10, 50, 14, -310, "NameTextSize", UF.RefreshAllPlates, "Nameplate")
-	createOptionSlider(scroll.child, L["HealthTextSize"], 10, 50, 16, -380, "HealthTextSize", UF.RefreshAllPlates, "Nameplate")
-	createOptionSlider(scroll.child, L["CastbarTextSize"], 10, 50, 16, -450, "CastBarTextSize", UF.RefreshAllPlates, "Nameplate")
-	createOptionSlider(scroll.child, L["Plate Margin"], 0, 10, 5, -520, "PlateMargin", UF.RefreshAllPlates, "Nameplate")
-	createOptionSlider(scroll.child, L["RaidTargetX"], -200, 200, 0, -590, "RaidTargetX", UF.RefreshAllPlates, "Nameplate")
-	createOptionSlider(scroll.child, L["RaidTargetY"], -200, 200, 0, -660, "RaidTargetY", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["Width"], 50, 300, 200, -30, "PlateWidth", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["Height"], 5, 30, 10, -100, "PlateHeight", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["NameTextSize"], 10, 30, 14, -170, "NameTextSize", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["HealthTextSize"], 10, 30, 16, -240, "HealthTextSize", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["CastbarTextSize"], 10, 30, 16, -310, "CastBarTextSize", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["Plate Margin"], 0, 10, 5, -380, "PlateMargin", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["RaidTargetX"], -200, 200, 0, -450, "RaidTargetX", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["RaidTargetY"], -200, 200, 0, -520, "RaidTargetY", UF.RefreshAllPlates, "Nameplate")
 end
 
 function G:SetupNameOnlySize(parent)

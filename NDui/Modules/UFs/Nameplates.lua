@@ -26,17 +26,11 @@ function UF:UpdateClickableSize()
 	if InCombatLockdown() then return end
 
 	local uiScale = NDuiADB["UIScale"]
-	local harmWidth, harmHeight = C.db["Nameplate"]["InteractWidth"], C.db["Nameplate"]["InteractHeight"]
+	local harmWidth = C.db["Nameplate"]["PlateWidth"] + C.db["Nameplate"]["PlateMargin"] * 2
+	local harmHeight = C.db["Nameplate"]["PlateHeight"] * 2 + C.db["Nameplate"]["PlateMargin"] * 3
 
 	C_NamePlate.SetNamePlateEnemySize(harmWidth*uiScale, harmHeight*uiScale)
 	C_NamePlate.SetNamePlateFriendlySize(harmWidth*uiScale, harmHeight*uiScale)
-end
-
-function UF:UpdatePlateClickThru()
-	if InCombatLockdown() then return end
-
-	C_NamePlate.SetNamePlateEnemyClickThrough(C.db["Nameplate"]["EnemyThru"])
-	C_NamePlate.SetNamePlateFriendlyClickThrough(C.db["Nameplate"]["FriendlyThru"])
 end
 
 function UF:SetupCVars()
@@ -54,11 +48,13 @@ function UF:SetupCVars()
 
 	SetCVar("nameplateShowSelf", 0)
 	SetCVar("nameplateResourceOnTarget", 0)
+	SetCVar("nameplatePlayerMaxDistance", 60)
+
+	C_NamePlate.SetNamePlateEnemyClickThrough(false)
+	C_NamePlate.SetNamePlateFriendlyClickThrough(false)
+
 	UF:UpdateClickableSize()
 	hooksecurefunc(NamePlateDriverFrame, "UpdateNamePlateOptions", UF.UpdateClickableSize)
-	UF:UpdatePlateClickThru()
-	-- fix blizz friendly plate visibility
-	SetCVar("nameplatePlayerMaxDistance", 60)
 end
 
 function UF:BlockAddons()
@@ -175,7 +171,6 @@ function UF:UpdateColor(_, unit)
 
 	local customColor = C.db["Nameplate"]["CustomColor"]
 	local dotColor = C.db["Nameplate"]["DotColor"]
-	local executeRatio = C.db["Nameplate"]["ExecuteRatio"]
 	local friendlyCC = C.db["Nameplate"]["FriendlyCC"]
 	local hostileCC = C.db["Nameplate"]["HostileCC"]
 	local insecureColor = C.db["Nameplate"]["InsecureColor"]
@@ -183,7 +178,7 @@ function UF:UpdateColor(_, unit)
 	local secureColor = C.db["Nameplate"]["SecureColor"]
 	local transColor = C.db["Nameplate"]["TransColor"]
 	local targetColor = C.db["Nameplate"]["TargetColor"]
-	local highlightColor = C.db["Nameplate"]["HighlightColor"]
+	local mouseoverColor = C.db["Nameplate"]["MouseoverColor"]
 	local warningColor = C.db["Nameplate"]["WarningColor"]
 
 	local r, g, b
@@ -236,95 +231,101 @@ function UF:UpdateColor(_, unit)
 
 	self.Health:SetStatusBarColor(r, g, b)
 	self.TargetIndicator.Glow:SetBackdropBorderColor(B.GetColor(targetColor))
-	self.HighlightIndicator.Glow:SetBackdropBorderColor(B.GetColor(highlightColor))
+	self.MouseoverIndicator.Glow:SetBackdropBorderColor(B.GetColor(mouseoverColor))
+end
 
-	if executeRatio > 0 and healthPerc <= executeRatio then
-		self.nameText:SetTextColor(1, 0, 0)
+function UF:UpdateNameplateIndicator()
+	local targetIndicator = self.TargetIndicator
+	local mouseoverIndicator = self.MouseoverIndicator
+
+	if not targetIndicator or not mouseoverIndicator then return end
+
+	local isNameOnly = self.plateType == "NameOnly"
+	if isNameOnly then
+		targetIndicator.Glow:Hide()
+		targetIndicator.nameGlow:Show()
+		mouseoverIndicator.Glow:Hide()
+		mouseoverIndicator.nameGlow:Show()
 	else
-		self.nameText:SetTextColor(1, 1, 1)
+		targetIndicator.Glow:Show()
+		targetIndicator.nameGlow:Hide()
+		mouseoverIndicator.Glow:Show()
+		mouseoverIndicator.nameGlow:Hide()
 	end
+end
+
+function UF:CreateNameplateIndicator()
+	local indicator = CreateFrame("Frame", nil, self.Health)
+	indicator:SetAllPoints()
+	indicator:SetFrameLevel(0)
+	indicator:Hide()
+
+	indicator.Glow = B.CreateSD(indicator, 8, true)
+	indicator.Glow:SetOutside(self, 8+C.mult, 8+C.mult)
+
+	indicator.nameGlow = indicator:CreateTexture(nil, "BACKGROUND")
+	indicator.nameGlow:SetSize(150, 80)
+	indicator.nameGlow:SetTexture("Interface\\GLUES\\Models\\UI_Draenei\\GenericGlow64")
+	indicator.nameGlow:SetBlendMode("ADD")
+	indicator.nameGlow:SetPoint("CENTER", self, "BOTTOM")
+
+	return indicator
 end
 
 -- Target indicator
 function UF:UpdateTargetChange()
 	local element = self.TargetIndicator
-	if not element then return end
-
-	local unit = self.unit
-	if C.db["Nameplate"]["TargetIndicator"] ~= 1 then
-		if UnitIsUnit(unit, "target") and not UnitIsUnit(unit, "player") then
-			element:Show()
-		else
-			element:Hide()
-		end
-	end
-end
-
-function UF:UpdateTargetIndicator()
-	local element = self.TargetIndicator
-	if not element then return end
-
-	local style = C.db["Nameplate"]["TargetIndicator"]
-	local isNameOnly = self.plateType == "NameOnly"
-	if style == 1 then
-		element:Hide()
-	else
-		if isNameOnly then
-			element.Glow:Hide()
-			element.nameGlow:Show()
-		else
-			element.Glow:Show()
-			element.nameGlow:Hide()
-		end
-		element:Show()
+	if element then
+		element:SetShown(UnitExists("target") and UnitIsUnit(self.unit, "target") and not UnitIsUnit(self.unit, "player"))
 	end
 end
 
 function UF:AddTargetIndicator(self)
 	local targetColor = C.db["Nameplate"]["TargetColor"]
-	local target = CreateFrame("Frame", nil, self.Health)
-	target:SetAllPoints()
-	target:SetFrameLevel(0)
-	target:Hide()
 
-	target.Glow = B.CreateSD(target, 8, true)
-	target.Glow:SetOutside(self, 8+C.mult, 8+C.mult)
+	local target = UF.CreateNameplateIndicator(self)
 	target.Glow:SetBackdropBorderColor(B.GetColor(targetColor))
-
-	target.nameGlow = target:CreateTexture(nil, "BACKGROUND")
-	target.nameGlow:SetSize(150, 80)
-	target.nameGlow:SetTexture("Interface\\GLUES\\Models\\UI_Draenei\\GenericGlow64")
-	target.nameGlow:SetVertexColor(0, 1, 1)
-	target.nameGlow:SetBlendMode("ADD")
-	target.nameGlow:SetPoint("CENTER", self, "BOTTOM")
+	target.nameGlow:SetVertexColor(B.GetColor(targetColor))
 
 	self.TargetIndicator = target
 	self:RegisterEvent("PLAYER_TARGET_CHANGED", UF.UpdateTargetChange, true)
-	UF.UpdateTargetIndicator(self)
+	UF.UpdateNameplateIndicator(self)
 end
 
--- Quest progress
+-- Mouseover indicator
+function UF:UpdateMouseoverChange()
+	local element = self.MouseoverIndicator
+	if element then
+		element:SetShown(UnitExists("mouseover") and UnitIsUnit(self.unit, "mouseover") and not UnitIsUnit(self.unit, "player"))
+	end
+end
+
+function UF:AddMouseoverIndicator(self)
+	local mouseoverColor = C.db["Nameplate"]["MouseoverColor"]
+
+	local mouseover = UF.CreateNameplateIndicator(self)
+	mouseover.Glow:SetBackdropBorderColor(B.GetColor(mouseoverColor))
+	mouseover.nameGlow:SetVertexColor(B.GetColor(mouseoverColor))
+
+	self.MouseoverIndicator = mouseover
+	self:RegisterEvent("UPDATE_MOUSEOVER_UNIT", UF.UpdateMouseoverChange, true)
+	UF.UpdateNameplateIndicator(self)
+end
+
+-- Player Status
 local isInInstance, isInGroup, isInRaid
-local function CheckInstanceStatus()
+local function checkPlayerStatus()
 	isInInstance = IsInInstance()
 	isInGroup = IsInGroup()
 	isInRaid = IsInRaid()
 end
 
-function UF:QuestIconCheck()
-	CheckInstanceStatus()
-	B:RegisterEvent("PLAYER_ENTERING_WORLD", CheckInstanceStatus)
-end
-
-local function isQuestTitle(textLine)
-	local r, g, b = textLine:GetTextColor()
-	if r > .99 and g > .8 and b == 0 then
-		return true
-	end
+function UF:CheckPlayerStatus()
+	checkPlayerStatus()
+	B:RegisterEvent("PLAYER_ENTERING_WORLD", checkPlayerStatus)
 end
 
 function UF:UpdateQuestUnit(_, unit)
-	if not C.db["Nameplate"]["QuestIndicator"] then return end
 	if isInInstance then
 		self.questIcon:Hide()
 		self.questCount:SetText("")
@@ -332,8 +333,7 @@ function UF:UpdateQuestUnit(_, unit)
 	end
 
 	unit = unit or self.unit
-	local startLooking, isLootQuest, questProgress -- FIXME: isLootQuest in old expansion
-	local prevDiff = 0
+	local prevDiff, questProgress = 0
 
 	local data = C_TooltipInfo.GetUnit(unit)
 	if data then
@@ -362,30 +362,23 @@ function UF:UpdateQuestUnit(_, unit)
 
 	if questProgress then
 		self.questCount:SetText(questProgress)
-		self.questIcon:SetAtlas(DB.objectTex)
 		self.questIcon:Show()
 	else
 		self.questCount:SetText("")
-		if isLootQuest then
-			self.questIcon:SetAtlas(DB.questTex)
-			self.questIcon:Show()
-		else
-			self.questIcon:Hide()
-		end
+		self.questIcon:Hide()
 	end
 end
 
 function UF:AddQuestIcon(self)
-	if not C.db["Nameplate"]["QuestIndicator"] then return end
-
 	local qicon = self.Health:CreateTexture(nil, "ARTWORK")
-	qicon:SetPoint("LEFT", self, "RIGHT", -1, 0)
-	qicon:SetSize(30, 30)
+	qicon:SetPoint("LEFT", self, "RIGHT", 3, 0)
 	qicon:SetAtlas(DB.questTex)
+	qicon:SetSize(30, 30)
 	qicon:Hide()
+
 	local count = B.CreateFS(self.Health, 20, "", "info")
 	count:SetJustifyH("LEFT")
-	count:SetPoint("LEFT", qicon, "RIGHT", -4, 0)
+	count:SetPoint("LEFT", qicon, "RIGHT", -3, 0)
 
 	self.questIcon = qicon
 	self.questCount = count
@@ -402,8 +395,8 @@ local NPClassifies = {
 
 function UF:AddCreatureIcon(self)
 	local icon = self.Health:CreateTexture(nil, "ARTWORK")
-	icon:SetAtlas(DB.starTex)
 	icon:SetPoint("RIGHT", self.nameText, "LEFT", 8, 1)
+	icon:SetAtlas(DB.starTex)
 	icon:SetSize(18, 18)
 	icon:Hide()
 
@@ -428,68 +421,8 @@ function UF:UpdateUnitClassify(unit)
 	end
 end
 
--- Mouseover indicator
-function UF:IsMouseoverUnit()
-	if not self or not self.unit then return end
-
-	if self:IsVisible() and UnitExists("mouseover") then
-		return UnitIsUnit("mouseover", self.unit)
-	end
-	return false
-end
-
-function UF:UpdateMouseoverShown()
-	if not self or not self.unit then return end
-
-	if self:IsShown() and UnitIsUnit("mouseover", self.unit) then
-		self.HighlightIndicator:Show()
-		self.HighlightUpdater:Show()
-	else
-		self.HighlightIndicator:Hide()
-		self.HighlightUpdater:Hide()
-	end
-end
-
-function UF:HighlightOnUpdate(elapsed)
-	self.elapsed = (self.elapsed or 0) + elapsed
-	if self.elapsed > .1 then
-		if not UF.IsMouseoverUnit(self.__owner) then
-			self:Hide()
-		end
-		self.elapsed = 0
-	end
-end
-
-function UF:HighlightOnHide()
-	self.__owner.HighlightIndicator:Hide()
-end
-
-function UF:MouseoverIndicator(self)
-	local highlightColor = C.db["Nameplate"]["HighlightColor"]
-	local highlight = CreateFrame("Frame", nil, self.Health)
-	highlight:SetAllPoints()
-	highlight:SetFrameLevel(0)
-	highlight:Hide()
-
-	highlight.Glow = B.CreateSD(highlight, 8, true)
-	highlight.Glow:SetOutside(self, 8+C.mult, 8+C.mult)
-	highlight.Glow:SetBackdropBorderColor(B.GetColor(highlightColor))
-
-	self:RegisterEvent("UPDATE_MOUSEOVER_UNIT", UF.UpdateMouseoverShown, true)
-
-	local updater = CreateFrame("Frame", nil, self)
-	updater.__owner = self
-	updater:SetScript("OnUpdate", UF.HighlightOnUpdate)
-	updater:HookScript("OnHide", UF.HighlightOnHide)
-
-	self.HighlightIndicator = highlight
-	self.HighlightUpdater = updater
-end
-
 -- Interrupt info on castbars
 function UF:UpdateSpellInterruptor(...)
-	if not C.db["Nameplate"]["Interruptor"] then return end
-
 	local _, _, sourceGUID, sourceName, _, _, destGUID = ...
 	if destGUID == self.unitGUID and sourceGUID and sourceName and sourceName ~= "" then
 		local _, class = GetPlayerInfoByGUID(sourceGUID)
@@ -507,18 +440,18 @@ function UF:SpellInterruptor(self)
 end
 
 function UF:ShowUnitTargeted(self)
-	local tex = self.Health:CreateTexture(nil, "ARTWORK")
-	tex:SetSize(20, 20)
-	tex:SetPoint("LEFT", self, "RIGHT", 5, 0)
-	tex:SetAtlas("target")
-	tex:Hide()
+	local ticon = self.Health:CreateTexture(nil, "ARTWORK")
+	ticon:SetPoint("LEFT", self, "RIGHT", 5, 0)
+	ticon:SetAtlas("target")
+	ticon:SetSize(20, 20)
+	ticon:Hide()
 
-	local count = B.CreateFS(self.Health, 22, "", "info")
+	local count = B.CreateFS(self.Health, 20, "", "info")
 	count:SetJustifyH("LEFT")
-	count:SetPoint("LEFT", tex, "RIGHT", 1, 0)
+	count:SetPoint("LEFT", ticon, "RIGHT", 0, 0)
 
-	self.tarByTex = tex
-	self.tarBy = count
+	self.targetIcon = ticon
+	self.targetCount = count
 end
 
 -- Create Nameplates
@@ -550,16 +483,16 @@ function UF:CreatePlates()
 	self.Auras.showStealableBuffs = C.db["Nameplate"]["DispellMode"] == 1
 	self.Auras.alwaysShowStealable = C.db["Nameplate"]["DispellMode"] == 2
 
-	local tarName = B.CreateFS(self, C.db["Nameplate"]["NameTextSize"]+4)
-	tarName:ClearAllPoints()
-	tarName:SetPoint("TOP", self.Castbar, "BOTTOM", 0, -DB.margin)
-	tarName:Hide()
-	self:Tag(tarName, "[tarname]")
-	self.tarName = tarName
+	local targetName = B.CreateFS(self, C.db["Nameplate"]["NameTextSize"]+4)
+	targetName:ClearAllPoints()
+	targetName:SetPoint("TOP", self.Castbar, "BOTTOM", 0, -DB.margin)
+	targetName:Hide()
+	self:Tag(targetName, "[tarname]")
+	self.targetName = targetName
 
 	local powerText = B.CreateFS(self, C.db["Nameplate"]["NameTextSize"]+2)
 	powerText:ClearAllPoints()
-	powerText:SetPoint("TOP", self.tarName, "BOTTOM", 0, -DB.margin)
+	powerText:SetPoint("TOP", self.targetName, "BOTTOM", 0, -DB.margin)
 	powerText:Hide()
 	self:Tag(powerText, "[nppower]")
 	self.powerText = powerText
@@ -571,7 +504,7 @@ function UF:CreatePlates()
 	self:Tag(title, "[npctitle]")
 	self.npcTitle = title
 
-	UF:MouseoverIndicator(self)
+	UF:AddMouseoverIndicator(self)
 	UF:AddTargetIndicator(self)
 	UF:AddCreatureIcon(self)
 	UF:AddQuestIcon(self)
@@ -643,10 +576,10 @@ function UF:UpdateNameplateSize()
 		self.__tagIndex = nameType
 
 		B.SetFontSize(self.nameText, nameTextSize)
-		B.SetFontSize(self.tarName, nameTextSize+4)
+		B.SetFontSize(self.targetName, nameTextSize+4)
 		B.SetFontSize(self.Castbar.Text, castbarTextSize)
 		B.SetFontSize(self.Castbar.Time, castbarTextSize)
-		B.SetFontSize(self.Castbar.spellTarget, castbarTextSize+3)
+		B.SetFontSize(self.Castbar.spellTarget, castbarTextSize+2)
 		B.SetFontSize(self.healthValue, healthTextSize)
 
 		self:SetSize(plateWidth, plateHeight)
@@ -654,14 +587,14 @@ function UF:UpdateNameplateSize()
 
 		self.Castbar.Icon:SetSize(iconSize, iconSize)
 		self.Castbar.glowFrame:SetSize(iconSize+8, iconSize+8)
-		self.Castbar.Shield:SetSize(castbarTextSize+4, castbarTextSize+4)
+		self.Castbar.Shield:SetSize(plateHeight*2, plateHeight*2)
 
 		self.nameText:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, plateMargin)
 		self.nameText:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, plateMargin)
 		self.Castbar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -plateMargin)
 		self.Castbar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -plateMargin)
 		self.Castbar.Icon:SetPoint("BOTTOMRIGHT", self.Castbar, "BOTTOMLEFT", -plateMargin, 0)
-		self.RaidTargetIndicator:SetPoint("BOTTOMRIGHT", self, "TOPLEFT", C.db["Nameplate"]["RaidTargetX"], C.db["Nameplate"]["RaidTargetY"])
+		self.RaidTargetIndicator:SetPoint("BOTTOMLEFT", self, "TOPRIGHT", C.db["Nameplate"]["RaidTargetX"], C.db["Nameplate"]["RaidTargetY"])
 
 		self:Tag(self.nameText, UF.PlateNameTags[nameType])
 		self:Tag(self.healthValue, "[VariousHP("..UF.VariousTagIndex[C.db["Nameplate"]["HealthType"]]..")]")
@@ -675,16 +608,17 @@ function UF:RefreshNameplats()
 		UF.UpdateNameplateSize(nameplate)
 		UF.UpdateUnitClassify(nameplate)
 		UF.UpdateNameplateAuras(nameplate)
-		UF.UpdateTargetIndicator(nameplate)
+		UF.UpdateNameplateIndicator(nameplate)
 		UF.UpdateTargetChange(nameplate)
+		UF.UpdateMouseoverChange(nameplate)
 	end
-	UF:UpdateClickableSize()
 end
 
 function UF:RefreshAllPlates()
 	UF:ResizePlayerPlate()
 	UF:RefreshNameplats()
 	UF:ResizeTargetPower()
+	UF:UpdateClickableSize()
 end
 
 local DisabledElements = {
@@ -700,13 +634,12 @@ local SoftTargetBlockElements = {
 }
 
 function UF:UpdatePlateByType()
-	local health = self.Health
-	local castbar = self.Castbar
 	local name = self.nameText
 	local hpval = self.healthValue
 	local title = self.npcTitle
-	local raidtarget = self.RaidTargetIndicator
 	local questIcon = self.questIcon
+	local raidTarget = self.RaidTargetIndicator
+	local widgetContainer = self.widgetContainer
 
 	if self.widgetsOnly then
 		name:Hide()
@@ -729,9 +662,6 @@ function UF:UpdatePlateByType()
 		end
 	end
 
-	name:ClearAllPoints()
-	raidtarget:ClearAllPoints()
-
 	if self.plateType == "NameOnly" then
 		for _, element in pairs(DisabledElements) do
 			if self:IsElementEnabled(element) then
@@ -739,20 +669,22 @@ function UF:UpdatePlateByType()
 			end
 		end
 
+		name:ClearAllPoints()
 		name:SetJustifyH("CENTER")
 		name:SetPoint("CENTER", self, "BOTTOM")
 		hpval:Hide()
 		title:Show()
 
-		raidtarget:SetPoint("BOTTOM", name, "TOP", 0, 0)
 		if questIcon then
-			questIcon:ClearAllPoints()
-			questIcon:SetPoint("LEFT", name, "RIGHT", 0, 0)
+			B.UpdatePoint(questIcon, "LEFT", name, "RIGHT", 3, 0)
 		end
 
-		if self.widgetContainer then
-			self.widgetContainer:ClearAllPoints()
-			self.widgetContainer:SetPoint("TOP", title, "BOTTOM", 0, 0)
+		if raidTarget then
+			B.UpdatePoint(raidTarget, "RIGHT", name, "LEFT", 0, 0)
+		end
+
+		if widgetContainer then
+			B.UpdatePoint(widgetContainer, "TOP", title, "BOTTOM", 0, 0)
 		end
 	else
 		for _, element in pairs(DisabledElements) do
@@ -761,26 +693,28 @@ function UF:UpdatePlateByType()
 			end
 		end
 
+		name:ClearAllPoints()
 		name:SetJustifyH("LEFT")
-		name:SetPoint("BOTTOMLEFT", health, "TOPLEFT", 0, DB.margin)
-		name:SetPoint("BOTTOMRIGHT", health, "TOPRIGHT", 0, DB.margin)
+		name:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, C.db["Nameplate"]["PlateMargin"])
+		name:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, C.db["Nameplate"]["PlateMargin"])
 		hpval:Show()
 		title:Hide()
 
-		raidtarget:SetPoint("BOTTOMRIGHT", self, "TOPLEFT", C.db["Nameplate"]["RaidTargetX"], C.db["Nameplate"]["RaidTargetY"])
 		if questIcon then
-			questIcon:ClearAllPoints()
-			questIcon:SetPoint("LEFT", self, "RIGHT", 0, 0)
+			B.UpdatePoint(questIcon, "LEFT", self, "RIGHT", 3, 0)
 		end
 
-		if self.widgetContainer then
-			self.widgetContainer:ClearAllPoints()
-			self.widgetContainer:SetPoint("TOP", castbar, "BOTTOM", 0, 0)
+		if raidTarget then
+			B.UpdatePoint(raidTarget, "BOTTOMLEFT", self, "TOPRIGHT", C.db["Nameplate"]["RaidTargetX"], C.db["Nameplate"]["RaidTargetY"])
+		end
+
+		if widgetContainer then
+			B.UpdatePoint(widgetContainer, "TOP", self.Castbar, "BOTTOM", 0, -DB.margin)
 		end
 	end
 
 	UF.UpdateNameplateSize(self)
-	UF.UpdateTargetIndicator(self)
+	UF.UpdateNameplateIndicator(self)
 	UF.ToggleNameplateAuras(self)
 end
 
@@ -820,6 +754,7 @@ function UF:OnUnitSoftTargetChanged(previousTarget, currentTarget)
 			unitFrame.previousType = nil
 			UF.RefreshPlateType(unitFrame, unitFrame.unit)
 			UF.UpdateTargetChange(unitFrame)
+			UF.UpdateMouseoverChange(unitFrame)
 		end
 	end
 end
@@ -840,25 +775,15 @@ function UF:OnUnitTargetChanged()
 	end
 
 	for nameplate in pairs(platesList) do
-		nameplate.tarBy:SetText(targetedList[nameplate.unitGUID])
-		nameplate.tarByTex:SetShown(targetedList[nameplate.unitGUID])
+		nameplate.targetCount:SetText(targetedList[nameplate.unitGUID])
+		nameplate.targetIcon:SetShown(targetedList[nameplate.unitGUID])
 	end
 end
 
 function UF:RefreshPlateByEvents()
-	B:RegisterEvent("UNIT_FACTION", UF.OnUnitFactionChanged)
 	B:RegisterEvent("PLAYER_SOFT_INTERACT_CHANGED", UF.OnUnitSoftTargetChanged)
-
-	if C.db["Nameplate"]["UnitTargeted"] then
-		UF:OnUnitTargetChanged()
-		B:RegisterEvent("UNIT_TARGET", UF.OnUnitTargetChanged)
-	else
-		for nameplate in pairs(platesList) do
-			nameplate.tarBy:SetText("")
-			nameplate.tarByTex:Hide()
-		end
-		B:UnregisterEvent("UNIT_TARGET", UF.OnUnitTargetChanged)
-	end
+	B:RegisterEvent("UNIT_FACTION", UF.OnUnitFactionChanged)
+	B:RegisterEvent("UNIT_TARGET", UF.OnUnitTargetChanged)
 end
 
 function UF:PostUpdatePlates(event, unit)
@@ -877,6 +802,19 @@ function UF:PostUpdatePlates(event, unit)
 			if self.widgetContainer then
 				--self.widgetContainer:SetParent(self)
 				self.widgetContainer:SetScale(1/NDuiADB["UIScale"])
+
+				if self.widgetContainer.widgetFrames then
+					for _, widgetFrame in pairs(self.widgetContainer.widgetFrames) do
+						local spell = widgetFrame and widgetFrame.Spell
+						if spell then
+							if not spell.bg then
+								spell.bg = B.ReskinIcon(spell.Icon)
+							end
+							spell.Border:Hide()
+							spell.IconMask:Hide()
+						end
+					end
+				end
 			end
 
 			self.softTargetFrame = blizzPlate.SoftTargetFrame
@@ -889,18 +827,19 @@ function UF:PostUpdatePlates(event, unit)
 		UF.RefreshPlateType(self, unit)
 	elseif event == "NAME_PLATE_UNIT_REMOVED" then
 		self.npcID = nil
-		self.tarBy:SetText("")
-		self.tarByTex:Hide()
+		self.targetCount:SetText("")
+		self.targetIcon:Hide()
 	end
 
 	if event ~= "NAME_PLATE_UNIT_REMOVED" then
 		UF.UpdateUnitPower(self)
 		UF.UpdateTargetChange(self)
+		UF.UpdateMouseoverChange(self)
 		UF.UpdateQuestUnit(self, event, unit)
 		UF.UpdateUnitClassify(self, unit)
 		UF:UpdateTargetClassPower()
 
-		self.tarName:SetShown(C.ShowTargetNPCs[self.npcID])
+		self.targetName:SetShown(C.ShowTargetNPCs[self.npcID])
 	end
 end
 
@@ -1045,7 +984,7 @@ function UF:UpdateTargetClassPower()
 	if nameplate then
 		bar:SetParent(nameplate.unitFrame)
 		bar:ClearAllPoints()
-		bar:SetPoint("BOTTOM", nameplate.unitFrame.nameText, "TOP", 0, 5)
+		bar:SetPoint("BOTTOM", nameplate.unitFrame.nameText, "TOP", 0, C.db["Nameplate"]["PlateMargin"])
 		bar:Show()
 	else
 		bar:Hide()

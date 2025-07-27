@@ -58,14 +58,6 @@ function TT:GetLevelLine()
 	end
 end
 
-function TT:GetTarget(unit)
-	if UnitIsUnit(unit, "player") then
-		return format("|cffFF0000> %s <|r", string.upper(YOU))
-	else
-		return B.HexRGB(B.UnitColor(unit))..UnitName(unit).."|r"
-	end
-end
-
 function TT:InsertFactionFrame(faction)
 	if not self.factionLogo then
 		local f = self:CreateTexture(nil, "OVERLAY")
@@ -239,7 +231,7 @@ function TT:OnTooltipSetUnit()
 
 	if UnitExists(unit.."target") then
 		local tarRicon = GetRaidTargetIndex(unit.."target")
-		local tar = format("%s%s", (tarRicon and ICON_LIST[tarRicon].."10|t") or "", TT:GetTarget(unit.."target"))
+		local tar = format("%s%s", (tarRicon and ICON_LIST[tarRicon].."10|t") or "", B.GetUnitTarget(unit.."target"))
 		self:AddLine(format("%s: %s", REFORGE_CURRENT..TARGET, tar))
 	end
 

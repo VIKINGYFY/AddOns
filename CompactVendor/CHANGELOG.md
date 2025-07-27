@@ -1,8 +1,14 @@
 # CompactVendor
 
-## [v11.1.7.250724](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.7.250724) (2025-07-24)
-[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.7.250724) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
+## [v11.1.7.250726](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.7.250726) (2025-07-26)
+[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.7.250726) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
 
+- Version bump.  
+- Improved search logic and accuracy.  
+    Updated the search help text to match supported syntax.  
+- Implemented merchant tooltip scanning, but the issue is additional async delays with the special requirement text. Not to mention the localization issue, most those texts have no globalstrings to use to pattern match.  
+    The hyperlink scan approach is still the active one, though the code supports to swap the logic to the merchant style when we get it to a usable state.  
+    Small improvements to the requirements filter and the renown presentation (from my tests, but there are probably many other kind of requirements).  
 - Version bump  
 - The stat filter can miss some stat names due the global space not containing the localization as expected.  
     Created a simple mapping table to redirect the key findings to an existing localized stat name.  
@@ -101,6 +107,3 @@
 - TOC bump.  
 - Use Yes/No instead of the collected texts.  
 - Adjusted item appearance collection status logic. Will display `Appearance` with Yes/No, and `Appearance: Collected` if we have collected the appearance or not, given that the first filter is properly set to show collectable items.  
-- TOC bump  
-- Fixed minor issue with `Learnable: Collected` detection and classification.  
-- TOC bump.  

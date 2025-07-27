@@ -171,4 +171,12 @@ do
 	function B.GetGroupUnit(index, isInRaid)
 		return isInRaid and "raid"..index or "party"..index
 	end
+
+	function B.GetUnitTarget(unit)
+		if UnitIsUnit(unit, "player") then
+			return format("|cffFF0000> %s <|r", string.upper(YOU))
+		else
+			return B.HexRGB(B.UnitColor(unit))..UnitName(unit).."|r"
+		end
+	end
 end

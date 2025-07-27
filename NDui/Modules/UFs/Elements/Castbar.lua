@@ -70,26 +70,6 @@ function UF:OnCastbarUpdate(elapsed)
 		self.duration = duration
 		self:SetValue(duration)
 		self.Spark:SetPoint("CENTER", self, "LEFT", (duration / self.max) * self:GetWidth(), 0)
-
-		if self.stageString then
-			self.stageString:SetText("")
-			if self.empowering then
-				for i = self.numStages, 1, -1 do
-					local pip = self.Pips[i]
-					if pip and duration > pip.duration then
-						self.stageString:SetText(i)
-
-						if self.curStage ~= i then
-							self.curStage = i
-							local nextStage = self.numStages == i and 1 or i+1
-							local nextPip = self.Pips[nextStage]
-							UIFrameFadeIn(nextPip.tex, .25, .3, 1)
-						end
-						break
-					end
-				end
-			end
-		end
 	elseif self.holdTime > 0 then
 		self.holdTime = self.holdTime - elapsed
 	else
@@ -117,18 +97,11 @@ local function ResetSpellTarget(self)
 end
 
 local function UpdateSpellTarget(self, unit)
-	if not C.db["Nameplate"]["CastTarget"] then return end
 	if not self.spellTarget then return end
 
 	local unitTarget = unit and unit.."target"
 	if unitTarget and UnitExists(unitTarget) then
-		local nameString
-		if UnitIsUnit(unitTarget, "player") then
-			nameString = format("|cffFF0000> %s <|r", string.upper(YOU))
-		else
-			nameString = B.HexRGB(B.UnitColor(unitTarget))..UnitName(unitTarget)
-		end
-		self.spellTarget:SetText(nameString)
+		self.spellTarget:SetText(B.GetUnitTarget(unitTarget))
 	else
 		ResetSpellTarget(self) -- when unit loses target
 	end

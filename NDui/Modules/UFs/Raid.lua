@@ -27,11 +27,7 @@ function UF:CreateRaidIcons(self)
 end
 
 function UF:UpdateTargetBorder()
-	if UnitIsUnit("target", self.unit) then
-		self.TargetBorder:Show()
-	else
-		self.TargetBorder:Hide()
-	end
+	self.TargetBorder:SetShown(UnitExists("target") and UnitIsUnit(self.unit, "target"))
 end
 
 function UF:CreateTargetBorder(self)

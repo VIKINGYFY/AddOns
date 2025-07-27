@@ -75,7 +75,7 @@ DB.alpha = .75
 DB.Font = {STANDARD_TEXT_FONT, 12, "OUTLINE"}
 DB.LineString = DB.MyColor.."---------------|r"
 DB.NDuiString = "|cff0080FFNDui:|r"
-DB.Separator = DB.MyColor.." | |r"
+DB.Separator = "|cff00FFFF | |r"
 DB.EnableString = "|cff00FF00"..VIDEO_OPTIONS_ENABLED.."|r"
 DB.DisableString = "|cffFF0000"..VIDEO_OPTIONS_DISABLED.."|r"
 
@@ -102,8 +102,8 @@ DB.boxTex = Media.."Hutu\\Box"
 DB.arrowTex = Media.."Arrow\\arrowTex_"
 
 DB.starTex = "Bonus-Objective-Star"
-DB.questTex = "adventureguide-microbutton-alert"
-DB.objectTex = "Warfronts-BaseMapIcons-Horde-Barracks-Minimap"
+DB.questTex = "UI-QuestPoiRecurring-QuestBang"
+DB.combatTex = "Warfronts-BaseMapIcons-Horde-Barracks-Minimap"
 
 DB.mailTex = "Interface\\Minimap\\Tracking\\Mailbox"
 DB.gearTex = "Interface\\WorldMap\\Gear_64"
