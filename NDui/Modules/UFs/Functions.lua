@@ -696,7 +696,7 @@ function UF:CreateCastBar(self)
 		cb:SetHeight(self:GetHeight())
 	end
 
-	local cbTextSize = styleValue[mystyle] and cb:GetHeight() - 6 or cb:GetHeight() + 2
+	local cbTextSize = styleValue[mystyle] and cb:GetHeight() * 0.6 or cb:GetHeight() * 1.2
 	local timer = B.CreateFS(cb, cbTextSize, "", false, "RIGHT", -DB.margin, 0)
 	local name = B.CreateFS(cb, cbTextSize, "", false, "LEFT", DB.margin, 0)
 	name:SetPoint("RIGHT", timer, "LEFT", -DB.margin, 0)
@@ -729,7 +729,7 @@ function UF:CreateCastBar(self)
 		shield:SetPoint("CENTER", cb, "CENTER", 0, 0)
 		cb.Shield = shield
 
-		local iconSize = self:GetHeight()*2 + plateMargin
+		local iconSize = self:GetHeight() * 2 + plateMargin
 		cb.Icon:SetSize(iconSize, iconSize)
 		cb.Icon:SetPoint("BOTTOMRIGHT", cb, "BOTTOMLEFT", -plateMargin, 0)
 		cb.timeToHold = .5

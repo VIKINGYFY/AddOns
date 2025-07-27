@@ -239,7 +239,7 @@ oUF.Tags.Methods["npctitle"] = function(unit)
 end
 oUF.Tags.Events["npctitle"] = "UNIT_NAME_UPDATE"
 
-oUF.Tags.Methods["tarname"] = function(unit)
+oUF.Tags.Methods["targetname"] = function(unit)
 	local tarUnit = unit.."target"
 	if UnitExists(tarUnit) then
 		local tarClass = select(2, UnitClass(tarUnit))
@@ -248,7 +248,7 @@ oUF.Tags.Methods["tarname"] = function(unit)
 		return B.HexRGB(oUF.colors.class[tarClass])..tarName
 	end
 end
-oUF.Tags.Events["tarname"] = "UNIT_NAME_UPDATE UNIT_THREAT_LIST_UPDATE UNIT_THREAT_SITUATION_UPDATE UNIT_TARGET UNIT_TARGETABLE_CHANGED"
+oUF.Tags.Events["targetname"] = "UNIT_AURA UNIT_NAME_UPDATE UNIT_THREAT_LIST_UPDATE UNIT_THREAT_SITUATION_UPDATE UNIT_TARGET UNIT_TARGETABLE_CHANGED"
 
 -- AltPower value tag
 oUF.Tags.Methods["altpower"] = function(unit)

@@ -168,8 +168,14 @@ do
 		return ((IsPartyLFG() or C_PartyInfo.IsPartyWalkIn()) and "INSTANCE_CHAT") or (IsInRaid() and "RAID") or "PARTY"
 	end
 
-	function B.GetGroupUnit(index, isInRaid)
-		return isInRaid and "raid"..index or "party"..index
+	function B.GetGroupUnit(index, maxMembers, isInRaid)
+		if isInRaid then
+			return "raid"..index
+		elseif index == maxMembers then
+			return "player"
+		else
+			return "party"..index
+		end
 	end
 
 	function B.GetUnitTarget(unit)

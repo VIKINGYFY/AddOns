@@ -1342,6 +1342,15 @@ function G:SetupCastbar(parent)
 		UF.ToggleCastBar(_G["oUF_"..self.__value], self.__value)
 	end
 
+	local function updateCastbar(castbar, width, height)
+		B.SetFontSize(castbar.Text, height * .6)
+		B.SetFontSize(castbar.Time, height * .6)
+		castbar:SetSize(width, height)
+		castbar.Icon:SetSize(height, height)
+		castbar.mover:Show()
+		castbar.mover:SetSize(width + height+ DB.margin, height)
+	end
+
 	local function createOptionGroup(parent, title, offset, value, func)
 		local box = B.CreateCheckBox(parent, true)
 		box:SetPoint("TOPLEFT", parent, 30, offset + 6)
@@ -1359,10 +1368,7 @@ function G:SetupCastbar(parent)
 		local castbar = _G.oUF_Player and _G.oUF_Player.Castbar
 		if castbar then
 			local width, height = C.db["UFs"]["PlayerCBWidth"], C.db["UFs"]["PlayerCBHeight"]
-			castbar:SetSize(width, height)
-			castbar.Icon:SetSize(height, height)
-			castbar.mover:Show()
-			castbar.mover:SetSize(width+height+5, height+5)
+			updateCastbar(castbar, width, height)
 		end
 	end
 	createOptionGroup(scroll.child, L["Player Castbar"], -120, "Player", updatePlayerCastbar)
@@ -1371,10 +1377,7 @@ function G:SetupCastbar(parent)
 		local castbar = _G.oUF_Target and _G.oUF_Target.Castbar
 		if castbar then
 			local width, height = C.db["UFs"]["TargetCBWidth"], C.db["UFs"]["TargetCBHeight"]
-			castbar:SetSize(width, height)
-			castbar.Icon:SetSize(height, height)
-			castbar.mover:Show()
-			castbar.mover:SetSize(width+height+5, height+5)
+			updateCastbar(castbar, width, height)
 		end
 	end
 	createOptionGroup(scroll.child, L["Target Castbar"], -320, "Target", updateTargetCastbar)
@@ -1383,10 +1386,7 @@ function G:SetupCastbar(parent)
 		local castbar = _G.oUF_Focus and _G.oUF_Focus.Castbar
 		if castbar then
 			local width, height = C.db["UFs"]["FocusCBWidth"], C.db["UFs"]["FocusCBHeight"]
-			castbar:SetSize(width, height)
-			castbar.Icon:SetSize(height, height)
-			castbar.mover:Show()
-			castbar.mover:SetSize(width+height+5, height+5)
+			updateCastbar(castbar, width, height)
 		end
 	end
 	createOptionGroup(scroll.child, L["Focus Castbar"], -520, "Focus", updateFocusCastbar)

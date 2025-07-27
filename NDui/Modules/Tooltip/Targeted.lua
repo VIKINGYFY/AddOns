@@ -10,8 +10,9 @@ function TT:ScanTargets(unit)
 	table.wipe(targetTable)
 
 	local isInRaid = IsInRaid()
-	for i = 1, GetNumGroupMembers() do
-		local member = B.GetGroupUnit(i, isInRaid)
+	local maxMembers = GetNumGroupMembers()
+	for index = 1, maxMembers do
+		local member = B.GetGroupUnit(index, maxMembers, isInRaid)
 		local memberTarget = member.."target"
 		if not UnitIsDeadOrGhost(member) and UnitIsUnit(unit, memberTarget) then
 			local name = B.HexRGB(B.UnitColor(member))..UnitName(member).."|r"

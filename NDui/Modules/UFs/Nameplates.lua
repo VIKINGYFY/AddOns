@@ -370,13 +370,13 @@ function UF:UpdateQuestUnit(_, unit)
 end
 
 function UF:AddQuestIcon(self)
-	local qicon = self.Health:CreateTexture(nil, "ARTWORK")
+	local qicon = self:CreateTexture(nil, "ARTWORK")
 	qicon:SetPoint("LEFT", self, "RIGHT", 3, 0)
 	qicon:SetAtlas(DB.questTex)
 	qicon:SetSize(30, 30)
 	qicon:Hide()
 
-	local count = B.CreateFS(self.Health, 20, "", "info")
+	local count = B.CreateFS(self, 20, "", "info")
 	count:SetJustifyH("LEFT")
 	count:SetPoint("LEFT", qicon, "RIGHT", -3, 0)
 
@@ -394,10 +394,11 @@ local NPClassifies = {
 }
 
 function UF:AddCreatureIcon(self)
-	local icon = self.Health:CreateTexture(nil, "ARTWORK")
+	local size = C.db["Nameplate"]["NameTextSize"] + 4
+	local icon = self:CreateTexture(nil, "ARTWORK")
 	icon:SetPoint("RIGHT", self.nameText, "LEFT", 8, 1)
 	icon:SetAtlas(DB.starTex)
-	icon:SetSize(18, 18)
+	icon:SetSize(size, size)
 	icon:Hide()
 
 	self.ClassifyIndicator = icon
@@ -440,13 +441,13 @@ function UF:SpellInterruptor(self)
 end
 
 function UF:ShowUnitTargeted(self)
-	local ticon = self.Health:CreateTexture(nil, "ARTWORK")
+	local ticon = self:CreateTexture(nil, "ARTWORK")
 	ticon:SetPoint("LEFT", self, "RIGHT", 5, 0)
 	ticon:SetAtlas("target")
 	ticon:SetSize(20, 20)
 	ticon:Hide()
 
-	local count = B.CreateFS(self.Health, 20, "", "info")
+	local count = B.CreateFS(self, 20, "", "info")
 	count:SetJustifyH("LEFT")
 	count:SetPoint("LEFT", ticon, "RIGHT", 0, 0)
 
@@ -487,7 +488,7 @@ function UF:CreatePlates()
 	targetName:ClearAllPoints()
 	targetName:SetPoint("TOP", self.Castbar, "BOTTOM", 0, -DB.margin)
 	targetName:Hide()
-	self:Tag(targetName, "[tarname]")
+	self:Tag(targetName, "[targetname]")
 	self.targetName = targetName
 
 	local powerText = B.CreateFS(self, C.db["Nameplate"]["NameTextSize"]+2)
@@ -584,6 +585,7 @@ function UF:UpdateNameplateSize()
 
 		self:SetSize(plateWidth, plateHeight)
 		self.Castbar:SetHeight(plateHeight)
+		self.ClassifyIndicator:SetSize(nameTextSize+4, nameTextSize+4)
 
 		self.Castbar.Icon:SetSize(iconSize, iconSize)
 		self.Castbar.glowFrame:SetSize(iconSize+8, iconSize+8)
@@ -765,8 +767,9 @@ function UF:OnUnitTargetChanged()
 
 	table.wipe(targetedList)
 
-	for i = 1, GetNumGroupMembers() do
-		local member = B.GetGroupUnit(i, isInRaid)
+	local maxMembers = GetNumGroupMembers()
+	for index = 1, maxMembers do
+		local member = B.GetGroupUnit(index, maxMembers, isInRaid)
 		local memberTarget = member.."target"
 		if not UnitIsDeadOrGhost(member) and UnitExists(memberTarget) then
 			local unitGUID = UnitGUID(memberTarget)
