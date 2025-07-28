@@ -43,7 +43,7 @@ local function AddLine(self, source, isCollectedText, type, noadd)
 	end
 	if not noadd then self:AddLine(" ") end
 	self:AddLine(type..isCollectedText)
-	self:AddLine(source, 1, 1, 1)
+	self:AddLine(source:gsub("|n|n$", ""), 1, 1, 1)
 	self:Show()
 end
 

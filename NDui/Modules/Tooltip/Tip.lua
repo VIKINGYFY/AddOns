@@ -77,9 +77,6 @@ function TT:OnTooltipCleared()
 	if self.factionLogo and self.factionLogo:IsShown() then
 		self.factionLogo:Hide()
 	end
-	if self.roleFrame and self.roleFrame:IsShown() then
-		self.roleFrame:Hide()
-	end
 
 	GameTooltip_ClearMoney(self)
 	GameTooltip_ClearStatusBars(self)
@@ -124,7 +121,7 @@ end
 function TT:OnTooltipSetUnit()
 	if self:IsForbidden() or self ~= GameTooltip then return end
 
-	if (not ShouldHideInCombat()) and InCombatLockdown() then
+	if not ShouldHideInCombat() and InCombatLockdown() then
 		self:Hide()
 		return
 	end
