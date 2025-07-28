@@ -1,8 +1,9 @@
 # CompactVendor
 
-## [v11.1.7.250726](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.7.250726) (2025-07-26)
-[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.7.250726) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
+## [v11.1.7.250727](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.7.250727) (2025-07-27)
+[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.7.250727) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
 
+- Temporarily disabled tooltip scanning in classic clients due to missing infrastructure, and my implementation wasn't robust enough. (This won't be noticeable, only affects tooltip scanning functionality.)  
 - Version bump.  
 - Improved search logic and accuracy.  
     Updated the search help text to match supported syntax.  
@@ -106,4 +107,3 @@
 - Updated GetItemCount to properly include reagent bank and the warbank when checking if you can afford something.  
 - TOC bump.  
 - Use Yes/No instead of the collected texts.  
-- Adjusted item appearance collection status logic. Will display `Appearance` with Yes/No, and `Appearance: Collected` if we have collected the appearance or not, given that the first filter is properly set to show collectable items.  

@@ -229,9 +229,10 @@ function TT:OnTooltipSetUnit()
 		tiptextLevel:SetFormattedText("%s%s %s %s%s", unitLevel, pvpFlag or classifyText, unitClass or standingText, unitRace or unitType, unitStatus)
 	end
 
-	if UnitExists(unit.."target") then
-		local tarRicon = GetRaidTargetIndex(unit.."target")
-		local tar = format("%s%s", (tarRicon and ICON_LIST[tarRicon].."10|t") or "", B.GetUnitTarget(unit.."target"))
+	local unitTarget = unit.."target"
+	if UnitExists(unitTarget) then
+		local tarRicon = GetRaidTargetIndex(unitTarget)
+		local tar = format("%s%s", (tarRicon and ICON_LIST[tarRicon].."10|t") or "", B.GetUnitTarget(unitTarget))
 		self:AddLine(format("%s: %s", REFORGE_CURRENT..TARGET, tar))
 	end
 

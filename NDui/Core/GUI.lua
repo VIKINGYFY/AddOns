@@ -370,7 +370,7 @@ G.DefaultSettings = {
 		InsecureColor = {r=1, g=.5, b=.5},
 		OffTankColor = {r=.5, g=.5, b=1},
 		MouseoverColor = {r=1, g=1, b=1},
-		TargetColor = {r=1, g=0, b=1},
+		TargetColor = {r=0, g=1, b=1},
 		WarningColor = {r=1, g=.5, b=0},
 		PPFadeout = true,
 		PPFadeoutAlpha = 0,

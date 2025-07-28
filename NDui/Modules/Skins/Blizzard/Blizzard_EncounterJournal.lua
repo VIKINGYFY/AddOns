@@ -17,6 +17,7 @@ local function reskinSectionHeader()
 	while true do
 		local header = _G["EncounterJournalInfoHeader"..index]
 		if not header then return end
+
 		if not header.styled then
 			reskinHeader(header)
 			header.button.icbg = B.ReskinIcon(header.button.abilityIcon)

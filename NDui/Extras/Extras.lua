@@ -25,6 +25,7 @@ function EX:OnLogin()
 
 	self:ActionBarGlow()
 	self:MDEnhance()
+	self:MountSource()
 
 	if C.db["Misc"]["AutoConfirm"] then self:AutoConfirm() end
 	if DB.isDeveloper then self:AutoHideName() end
@@ -115,6 +116,7 @@ function EX.UpdateInstanceTools()
 		C_Timer.After(5, function()
 			if isChallengeModeCompleted and (not IsInGroup() or (IsInGroup() and (UnitIsGroupLeader("player") or UnitIsGroupAssistant("player")))) then
 				ResetInstances()
+				print(DB.InfoColor..RESET..INSTANCE)
 				isChallengeModeCompleted = false
 			end
 		end)

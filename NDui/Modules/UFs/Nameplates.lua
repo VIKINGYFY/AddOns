@@ -231,14 +231,14 @@ function UF:UpdateColor(_, unit)
 
 	self.Health:SetStatusBarColor(r, g, b)
 	self.TargetIndicator.Glow:SetBackdropBorderColor(B.GetColor(targetColor))
+	self.TargetIndicator.nameGlow:SetVertexColor(B.GetColor(targetColor))
 	self.MouseoverIndicator.Glow:SetBackdropBorderColor(B.GetColor(mouseoverColor))
+	self.MouseoverIndicator.nameGlow:SetVertexColor(B.GetColor(mouseoverColor))
 end
 
 function UF:UpdateNameplateIndicator()
 	local targetIndicator = self.TargetIndicator
 	local mouseoverIndicator = self.MouseoverIndicator
-
-	if not targetIndicator or not mouseoverIndicator then return end
 
 	local isNameOnly = self.plateType == "NameOnly"
 	if isNameOnly then
@@ -255,7 +255,7 @@ function UF:UpdateNameplateIndicator()
 end
 
 function UF:CreateNameplateIndicator()
-	local indicator = CreateFrame("Frame", nil, self.Health)
+	local indicator = CreateFrame("Frame", nil, self)
 	indicator:SetAllPoints()
 	indicator:SetFrameLevel(0)
 	indicator:Hide()
@@ -276,7 +276,7 @@ end
 function UF:UpdateTargetChange()
 	local element = self.TargetIndicator
 	if element then
-		element:SetShown(UnitExists("target") and UnitIsUnit(self.unit, "target") and not UnitIsUnit(self.unit, "player"))
+		element:SetShown(UnitExists("target") and UnitIsUnit(self.unit, "target"))
 	end
 end
 
@@ -289,14 +289,13 @@ function UF:AddTargetIndicator(self)
 
 	self.TargetIndicator = target
 	self:RegisterEvent("PLAYER_TARGET_CHANGED", UF.UpdateTargetChange, true)
-	UF.UpdateNameplateIndicator(self)
 end
 
 -- Mouseover indicator
 function UF:UpdateMouseoverChange()
 	local element = self.MouseoverIndicator
 	if element then
-		element:SetShown(UnitExists("mouseover") and UnitIsUnit(self.unit, "mouseover") and not UnitIsUnit(self.unit, "player"))
+		element:SetShown(UnitExists("mouseover") and UnitIsUnit(self.unit, "mouseover"))
 	end
 end
 
@@ -309,7 +308,6 @@ function UF:AddMouseoverIndicator(self)
 
 	self.MouseoverIndicator = mouseover
 	self:RegisterEvent("UPDATE_MOUSEOVER_UNIT", UF.UpdateMouseoverChange, true)
-	UF.UpdateNameplateIndicator(self)
 end
 
 -- Player Status

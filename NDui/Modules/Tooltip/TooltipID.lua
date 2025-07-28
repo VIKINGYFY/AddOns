@@ -110,8 +110,8 @@ function TT:SetupTooltipID()
 	end)
 
 	local function UpdateAuraTip(self, unit, auraInstanceID)
-		local data = C_UnitAuras.GetAuraDataByAuraInstanceID(unit, auraInstanceID)
-		if not data then return end
+		local auraData = C_UnitAuras.GetAuraDataByAuraInstanceID(unit, auraInstanceID)
+		if not auraData then return end
 
 		SetupSpellCaster(self, auraData)
 	end

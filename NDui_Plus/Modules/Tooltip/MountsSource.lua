@@ -30,8 +30,8 @@ function T:GetOrCreateMountTable(spell)
 	return self.MountTable[spell]
 end
 
-local collected = "|cff00FF00"..COLLECTED.."|r"
-local not_collected = "|cffFF0000"..NOT_COLLECTED.."|r"
+local is_Collected = "|cff00FF00"..COLLECTED.."|r"
+local not_Collected = "|cffFF0000"..NOT_COLLECTED.."|r"
 
 local function AddLine(self, source, isCollectedText, type, noadd)
 	for i = 1, self:NumLines() do
@@ -56,7 +56,7 @@ function T:MountsSource()
 		local id = select(10, AuraUtil.UnpackAuraData(C_UnitAuras.GetAuraDataByIndex(...)))
 		local table = id and T:GetOrCreateMountTable(id)
 		if table then
-			AddLine(self, table.source, T:IsCollected(id) and collected or not_collected, SOURCE)
+			AddLine(self, table.source, T:IsCollected(id) and is_Collected or not_Collected, SOURCE)
 		end
 	end)
 
@@ -68,7 +68,7 @@ function T:MountsSource()
 
 		local table = data.spellId and T:GetOrCreateMountTable(data.spellId)
 		if table then
-			AddLine(self, table.source, T:IsCollected(data.spellId) and collected or not_collected, SOURCE)
+			AddLine(self, table.source, T:IsCollected(data.spellId) and is_Collected or not_Collected, SOURCE)
 		end
 	end)
 

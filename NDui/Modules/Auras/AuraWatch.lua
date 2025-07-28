@@ -494,7 +494,7 @@ function A:UpdateAuraWatchByFilter(unit, filter, inCombat)
 
 	while true do
 		local auraData = C_UnitAuras.GetAuraDataByIndex(unit, index, filter)
-		if not auraData then break end
+		if not auraData then return end
 		A:AuraWatch_UpdateAura(unit, index, filter, auraData.name, auraData.icon, auraData.applications, auraData.duration, auraData.expirationTime, auraData.sourceUnit, auraData.spellId, (auraData.points[1] == 0 and tonumber(auraData.points[2]) or tonumber(auraData.points[1])), inCombat)
 
 		index = index + 1
