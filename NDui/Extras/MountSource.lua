@@ -31,7 +31,7 @@ function EX:UpdateMountSource()
 
 			self:AddLine(" ")
 			self:AddLine(MOUNTS.."："..GetCollectText(text, isCollected), nil,nil,nil)
-			self:AddLine(source:gsub("|n|n$", ""), 1,1,1)
+			self:AddLine(source:gsub("|n%s*|n$", ""), 1,1,1)
 
 			return
 		end
