@@ -126,6 +126,7 @@ if not db.activate.HideMapNote then
                         minimap[85][41966110] = { mnID = 86, name = "", type = "PassageHPortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " => " .. L["Blasted Lands"] .. "\n" .. "(" .. DUNGEON_FLOOR_ORGRIMMAR1 .. ")" }
                         minimap[85][39725075] = { mnID = 198, name = "", type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " => " .. POSTMASTER_LETTER_HYJAL } -- Portal to Hyjal
                         minimap[85][35526913] = { mnID = 86, name = "", type = "PassageHPortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " => " .. L["Blasted Lands"] }
+                        minimap[85][68594068] = { mnID = 371, name = "", type = "HPortal", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/mop-classic/quest=29690/into-the-mists", questID = 29690, showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. L["Jade Forest"] } -- The Jade Forest 
                     end
 
                     if self.db.profile.showMinimapCapitalsZeppelins then
@@ -703,6 +704,7 @@ if not db.activate.HideMapNote then
                         minimap[84][73301687] = { mnID = 203, name = "", type = "APortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " => " .. L["Vashj'ir"] } -- Portal to Vashjir
                         minimap[84][48838705] = { mnID = 17, name = "", type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " => " .. L["Blasted Lands"] } 
                         minimap[84][18142463] = { mnID = 203, name = "", type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " => " .. L["Vashj'ir"] } -- Portal to Vashjir
+                        minimap[84][68791728] = { mnID = 371, name = "", type = "APortal", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/mop-classic/quest=29548/the-mission", questID = 29548, showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. L["Jade Forest"] } -- Portal to Jade Forest 
                     end
    
                     if self.db.profile.showMinimapCapitalsShips then

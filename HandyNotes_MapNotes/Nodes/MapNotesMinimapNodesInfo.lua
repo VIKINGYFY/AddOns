@@ -480,7 +480,8 @@ minimap[1527] = { } -- Uldum
 
 -- Azeroth/Continent map minimap
 minimap[371] = { } -- TheJadeForest
-minimap[376] = { } -- ValleyoftheFourWinds    
+minimap[376] = { } -- ValleyoftheFourWinds 
+minimap[378] = { } -- The Wandering Isle   
 minimap[379] = { } -- KunLaiSummit  
 minimap[388] = { } -- TownlongWastes    
 minimap[390] = { } -- ValeofEternalBlossoms  

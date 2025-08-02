@@ -123,15 +123,7 @@ function EX.UpdateInstanceTools()
 	end
 end
 
--- 大米结束以后提示洗钥匙
-function EX.UpdateChallengeModeNotices()
-	SendChatMessage("各位辛苦了，记得 洗钥匙 ！！", B.GetCurrentChannel())
-	isChallengeModeCompleted = true
-end
-
 function EX:InstanceSomething()
-	B:RegisterEvent("CHALLENGE_MODE_COMPLETED", EX.UpdateChallengeModeNotices)
-
 	B:RegisterEvent("PLAYER_DIFFICULTY_CHANGED", EX.UpdateInstanceTools)
 	B:RegisterEvent("PLAYER_ENTERING_WORLD", EX.UpdateInstanceTools)
 end

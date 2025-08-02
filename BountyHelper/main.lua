@@ -463,7 +463,7 @@ function bountyHelper:CreateBossRow(parent, bossData, header, instanceID)
     chanceText:SetPoint("RIGHT", -15, 0)
     chanceText:SetFont(STANDARD_TEXT_FONT, 14)
     chanceText:SetJustifyH("RIGHT")
-    chanceText:SetFormattedText( "Chance: %s%s|r -> %s%.2f%%|r", colors.grey, (data.chance == 0) and "unknown" or string.format("%.2f%%", data.chance), colors.green, data.chance + 5.0)
+    chanceText:SetFormattedText("Chance: %s%s", colors.green, string.format("%.1f%%", data.chance))
     
     return row
 end
@@ -644,7 +644,7 @@ function bountyHelper:GetUnsortedMountCentricData()
 end
 
 function bountyHelper:loadMountData(callback)
-    local pending = 45
+    local pending = 51
 
     for mountID, data in pairs(db.mountData) do
         local item = Item:CreateFromItemID(mountID)
@@ -749,7 +749,7 @@ function bountyHelper:createHeaderRow(mountID, journalMountID, name, chance)
     createText(panel, "GameFontNormalLarge", {"TOPLEFT", 48, -10}):SetText(name)
     local chanceText = createText(panel, "GameFontNormal", {"TOPRIGHT", -12, -10}, nil, {STANDARD_TEXT_FONT, 14})
     chanceText:SetJustifyH("RIGHT")
-    chanceText:SetFormattedText("Chance: %s%s|r > %s%.1f%%|r", colors.grey, (chance == 0) and "Unknown" or string.format("%.1f%%", chance), colors.green, chance + 5)
+    chanceText:SetFormattedText("Chance: %s%s", colors.green, string.format("%.1f%%", chance))
     
     local ignore = createButton(panel, {"TOPLEFT", 2, -38}, "ignore", colors.redRGB, function()
         ignoreList[mountID] = not ignoreList[mountID]
@@ -876,7 +876,8 @@ function bountyHelper:sortContent(sorting)
         68824, 69224, 71665, 77067, 77069, 78919, 87777, 93666,
         95059, 104253, 116660, 123890, 137574, 137575, 142236,
         143643, 152789, 152816, 159842, 159921, 160829, 166518,
-        166705, 174872, 181819, 186638, 186656, 186642, 190768
+        166705, 174872, 181819, 186638, 186656, 186642, 190768,
+        210061, 225548, 224147, 224151, 236960, 235626
     }
     local orderMap = {}
     for i, id in ipairs(defaultOrder) do orderMap[id] = i end

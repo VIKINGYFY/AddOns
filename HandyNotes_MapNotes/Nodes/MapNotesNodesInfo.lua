@@ -479,6 +479,7 @@ nodes[1527] = { } -- Uldum
 -- Azeroth/Continent map nodes
 nodes[371] = { } -- TheJadeForest
 nodes[376] = { } -- ValleyoftheFourWinds    
+nodes[378] = { } -- The Wandering Isle 
 nodes[379] = { } -- KunLaiSummit  
 nodes[388] = { } -- TownlongWastes    
 nodes[390] = { } -- ValeofEternalBlossoms  

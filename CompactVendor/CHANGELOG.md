@@ -1,8 +1,13 @@
 # CompactVendor
 
-## [v11.1.7.250727](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.7.250727) (2025-07-27)
-[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.7.250727) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
+## [v11.1.7.250728](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.7.250728) (2025-07-29)
+[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.7.250728) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
 
+- Vendoring an item (causing an update) won't reset the filters back to their default state with yesterdays change.  
+    Running a new release with that minor adjustment and testing since yesterday.  
+- Do not reset the filters when the merchant updates.  
+    This would cause some odd behavior when we sold/bought items.  
+    The downside is that when you change filter category using the Blizzard filters. It will remember your filter options in the addon, but that might also be desired sometimes.  
 - Temporarily disabled tooltip scanning in classic clients due to missing infrastructure, and my implementation wasn't robust enough. (This won't be noticeable, only affects tooltip scanning functionality.)  
 - Version bump.  
 - Improved search logic and accuracy.  
@@ -105,5 +110,3 @@
     The new Open/Close/IsOpen methods on the quantity button widget will use the API for BuyEmAll when available, otherwise fallback to default behavior.  
 - The wow token price check should only happen on mainline, as classic era and other flavors might not be properly handling the token pricing, as it can cause lua errors on those clients.  
 - Updated GetItemCount to properly include reagent bank and the warbank when checking if you can afford something.  
-- TOC bump.  
-- Use Yes/No instead of the collected texts.  

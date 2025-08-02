@@ -2,7 +2,8 @@ _,db = ...
 db.instanceOrderList = {
     249, 329, 532, 550, 556, 575, 585, 603, 616, 624, 631, 657, 720, 725,
     754, 859, 967, 1008, 1098, 1136, 1205, 1448, 1530, 1651, 1676, 1712,
-    1754, 1762, 1841, 2070, 2217, 2286, 2441, 2450, 2481
+    1754, 1762, 1841, 2070, 2217, 2286, 2441, 2450, 2481, 2549, 2651,
+    2657, 2769
 }
 db.waypoints = {
     [249] = {point = {70, 0.5217, 0.7595}},
@@ -39,7 +40,11 @@ db.waypoints = {
     [2286] = {point = {1533, 0.4017, 0.5516}},
     [2441] = {point = {1550, 0.3154, 0.7609, 2016}},
     [2450] = {point = {1543, 0.6974, 0.322}},
-    [2481] = {point = {1970, 0.8026, 0.5302}}
+    [2481] = {point = {1970, 0.8026, 0.5302}},
+    [2549] = {point = {2200, 0.2753, 0.3100}},
+    [2651] = {point = {2214, 0.4285, 0.0882}},
+    [2657] = {point = {2255, 0.4360, 0.8976}},
+    [2769] = {point = {2346, 0.4132, 0.4862}}
 }
 
 db.bossData = {
@@ -158,6 +163,18 @@ db.bossData = {
     [2481] = { -- Sepulcher of the First Ones
         { name = "The Jailer", encounterID = 2464, killedAtDiff = { [16] = false } },
     },
+    [2549] = { -- Amirdrassil, the Dream's Hope
+        { name = "Fyrakk the Blazing", encounterID = 2519, killedAtDiff = { [16] = false } }
+    },
+    [2651] = { -- Darkflame Cleft
+        { name = "The Darkness", encounterID = 2561, killedAtDiff = { [23] = false } }
+    },
+    [2657] = { -- Nerub-ar Palace
+        { name = "Queen Ansurek", encounterID = 2602, killedAtDiff = { [14] = false, [15] = false, [16] = false, [17] = false } }
+    },
+    [2769] = { -- Liberation of Undermine
+        { name = "Chrome King Gallywix", encounterID = 2646, killedAtDiff = { [14] = false, [15] = false, [16] = false, [17] = false } }
+    }
 }
 
 -- mountData is indexed by mountID.
@@ -271,7 +288,7 @@ db.mountData = {
         { instanceID = 1530, diff = 16, index = 1, chance = 0.5 },
     }},
     [137575] = { journalMountID = 633, dropsBy = {
-        { instanceID = 1530, diff = 16, index = 1, chance = 8.0 },
+        { instanceID = 1530, diff = 16, index = 1, chance = 1.0 },
     }},
     [142236] = { journalMountID = 875, dropsBy = {
         { instanceID = 1651, diff = 23, index = 1, chance = 0.9 },
@@ -323,4 +340,28 @@ db.mountData = {
     [190768] = { journalMountID = 1587, dropsBy = {
         { instanceID = 2481, diff = 16, index = 1, chance = 0.5 },
     }},
+    [210061] = { journalMountID = 1818, dropsBy = {
+        { instanceID = 2549, diff = 16, index = 1, chance = 1.0 },
+    }},
+    [225548] = { journalMountID = 2204, dropsBy = {
+        { instanceID = 2651, diff = 23, index = 1, chance = 3.0 },
+    }},
+    [224147] = { journalMountID = 2219, dropsBy = {
+        { instanceID = 2657, diff = 17, index = 1, chance = 0.7, lfr = {2255, 0.4360, 0.8976}, wing = 2651 },
+        { instanceID = 2657, diff = 14, index = 1, chance = 0.7 },
+        { instanceID = 2657, diff = 15, index = 1, chance = 0.7 },
+        { instanceID = 2657, diff = 16, index = 1, chance = 0.7 },
+    }},
+    [224151] = { journalMountID = 2223, dropsBy = {
+        { instanceID = 2657, diff = 16, index = 1, chance = 100.0 },
+    }},
+    [236960] = { journalMountID = 2507, dropsBy = {
+        { instanceID = 2769, diff = 17, index = 1, chance = 0.6, lfr = {2346, 0.4132, 0.4862}, wing = 2783 },
+        { instanceID = 2769, diff = 14, index = 1, chance = 0.6 },
+        { instanceID = 2769, diff = 15, index = 1, chance = 0.6 },
+        { instanceID = 2769, diff = 16, index = 1, chance = 0.6 },
+    }},
+    [235626] = { journalMountID = 2487, dropsBy = {
+        { instanceID = 2769, diff = 16, index = 1, chance = 100.0 }
+    }}
 }
