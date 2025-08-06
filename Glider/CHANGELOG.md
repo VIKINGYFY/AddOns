@@ -1,5 +1,8 @@
 # Changelog
 
+## 27
+- 3 New colors: Blight, Void, Random (everytime you mount up a random color is picked)
+
 ## 26
 - Version Update
 

@@ -1,5 +1,4 @@
-## Changed in v85
+## Changed in v87
 
-* Updated for 11.1.7
-* Undermine: fixed the Gobfather's questid so loot will show again
+* Azj-Kahet: showing the tooltip for some of the profession masters could cause an error
 

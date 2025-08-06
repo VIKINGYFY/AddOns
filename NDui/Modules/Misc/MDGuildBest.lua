@@ -137,14 +137,10 @@ function M:GuildBest_Update()
 	end
 end
 
-function M.GuildBest_OnLoad(event, addon)
-	if addon == "Blizzard_ChallengesUI" then
-		hooksecurefunc(ChallengesFrame, "Update", M.GuildBest_Update)
-		M:KeystoneInfo_Create()
-		ChallengesFrame.WeeklyInfo.Child.WeeklyChest:HookScript("OnEnter", M.KeystoneInfo_WeeklyRuns)
-
-		B:UnregisterEvent(event, M.GuildBest_OnLoad)
-	end
+function M.GuildBest_OnLoad()
+	hooksecurefunc(ChallengesFrame, "Update", M.GuildBest_Update)
+	M:KeystoneInfo_Create()
+	ChallengesFrame.WeeklyInfo.Child.WeeklyChest:HookScript("OnEnter", M.KeystoneInfo_WeeklyRuns)
 end
 
 local function sortHistory(entry1, entry2)
@@ -234,7 +230,7 @@ function M:GuildBest()
 	if not C.db["Misc"]["MDGuildBest"] then return end
 
 	hasAngryKeystones = C_AddOns.IsAddOnLoaded("AngryKeystones")
-	B:RegisterEvent("ADDON_LOADED", M.GuildBest_OnLoad)
+	B:LoadAddOns("Blizzard_ChallengesUI", M.GuildBest_OnLoad)
 
 	M:KeystoneInfo_Update()
 	B:RegisterEvent("BAG_UPDATE", M.KeystoneInfo_Update)

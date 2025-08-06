@@ -3,7 +3,7 @@ local B, C, L, DB = unpack(ns)
 
 local barWidth, barHeight = 150, 10
 local barData = {
-	{label = DB.mainStat, limit = 100000},
+	{label = DB.mainStat, limit = 150000},
 	{label = "爆击", limit = 100},
 	{label = "急速", limit = 100},
 	{label = "精通", limit = 100},

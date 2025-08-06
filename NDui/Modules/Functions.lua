@@ -160,6 +160,26 @@ do
 		local r, g, b = B.SmoothColor(math.abs(cur), max, fullGreen)
 		return B.HexRGB(r, g, b, num)
 	end
+
+	function B:LoadAddOns(name, func)
+		local function loadFunc(event, addon)
+			if event == "PLAYER_ENTERING_WORLD" then
+				B:UnregisterEvent(event, loadFunc)
+
+				local isLoaded, isFinished = C_AddOns.IsAddOnLoaded(name)
+				if isLoaded and isFinished then
+					xpcall(func, geterrorhandler())
+					B:UnregisterEvent("ADDON_LOADED", loadFunc)
+				end
+			elseif event == "ADDON_LOADED" and addon == name then
+				xpcall(func, geterrorhandler())
+				B:UnregisterEvent(event, loadFunc)
+			end
+		end
+
+		B:RegisterEvent("PLAYER_ENTERING_WORLD", loadFunc)
+		B:RegisterEvent("ADDON_LOADED", loadFunc)
+	end
 end
 
 do

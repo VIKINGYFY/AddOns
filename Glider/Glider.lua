@@ -1,7 +1,8 @@
-local addonName = ... ---@type string "Glider"
-local namespace = select(2,...) ---@class namespace
 
-local CONFIG_VALUES = {
+local addonName = ... ---@type string "Glider"
+local namespace = select(2,...) ---@class (partial) namespace
+
+local Configuration = {
   updateSpeedRate = 0.02,
   updateVigorRate = 0.01,
   vigorWidgetSetID = 283,
@@ -14,7 +15,7 @@ local CONFIG_VALUES = {
     [6] = 1.0
   },
   rotations = {
-    [1] = 0,
+    [1] = 0.0,
     [2] = 5.23598776,
     [3] = 4.18879021,
     [4] = 3.14159265,
@@ -23,7 +24,7 @@ local CONFIG_VALUES = {
   },
 }
 
-local VOLATILE_VALUES = {
+local MutableData = {
   lastFill = 100,
   lastNumFullFrames = 0,
   elapsedSpeed = 0,
@@ -36,7 +37,7 @@ local VOLATILE_VALUES = {
   numFullFrames = 0,
   prevPerc = 0,
   prevSpeed = 0,
-  lastRandomColorIndex = 1,
+  lastRandomColorName = "",
 }
 
 local defaultPosition = {
@@ -63,8 +64,15 @@ local ART = {
   Silver = "VigorSilver",
   Sunrise = "VigorSunrise",
   Turquoise = "VigorTurquoise",
-  --Random = "Random",
+  Void = "VigorVoid",
+  Blight = "VigorBlight",
+  Random = "Random",
 }
+
+Configuration.numOptions = 0
+for _ in pairs(ART) do
+  Configuration.numOptions = Configuration.numOptions + 1
+end
 
 local ART_OPTIONS = {}
 for name in next, ART do
@@ -74,15 +82,8 @@ for name in next, ART do
   })
 end
 
-local TEXTPOSITION = {
-  Top = "Top",
-  Bottom = "Bottom",
-  Left = "Left",
-  Right = "Right"
-}
-
 local TEXTPOSITION_OPTIONS = {}
-for name in next, TEXTPOSITION do
+for _, name in ipairs({"Top", "Bottom", "Left", "Right"}) do
   table.insert(TEXTPOSITION_OPTIONS, {
     text = name,
     isRadio = true,
@@ -94,14 +95,14 @@ table.sort(ART_OPTIONS, function(a, b) return a.text < b.text end)
 local FrameDeltaLerp = FrameDeltaLerp
 local GetGlidingInfo = C_PlayerInfo.GetGlidingInfo
 
----@class Glider : Frame
-local Glider = CreateFrame("Frame", "GliderAddOn", UIParent, "GliderAddOnTemplate")
+---@class Glider : GliderUI
+local Glider = namespace.GliderUI
 
 ---@class fixedSizeFrame : Frame
-local fixedSizeFrame = CreateFrame("Frame", nil, UIParent)
-fixedSizeFrame:SetSize(110, 110)
-fixedSizeFrame:SetPoint(defaultPosition.point, defaultPosition.x, defaultPosition.y)
-Glider:SetPoint("CENTER", fixedSizeFrame)
+local anchorFrame = CreateFrame("Frame", nil, UIParent)
+anchorFrame:SetSize(110, 110)
+anchorFrame:SetPoint(defaultPosition.point, defaultPosition.x, defaultPosition.y)
+Glider:SetPoint("CENTER", anchorFrame)
 
 function Glider:ShouldUseGlobalSettings()
   if GliderAddOnDB.globalSettingsEnabled then
@@ -133,10 +134,10 @@ function Glider:GetAddOnAtlasInfo(atlasName, returnTable)
 end
 
 function Glider:SetupTextures()
-  self.Background:SetTexCoord(self:GetAddOnAtlasInfo("Background"))
-  self.Pulse:SetTexCoord(self:GetAddOnAtlasInfo("Pulse"))
-  self.Flash:SetTexCoord(self:GetAddOnAtlasInfo("Flash"))
-  self.TextDisplay.TextBackground:SetTexCoord(self:GetAddOnAtlasInfo("TextBackground"))
+  self.Background:SetTexCoord(self:GetAddOnAtlasInfo("Background"))  ---@diagnostic disable-line
+  self.Pulse:SetTexCoord(self:GetAddOnAtlasInfo("Pulse"))  ---@diagnostic disable-line
+  self.Flash:SetTexCoord(self:GetAddOnAtlasInfo("Flash"))  ---@diagnostic disable-line
+  self.TextDisplay.TextBackground:SetTexCoord(self:GetAddOnAtlasInfo("TextBackground")) ---@diagnostic disable-line
 end
 
 function Glider:SetAtlasForSwipe(frame, atlasName)
@@ -147,10 +148,12 @@ function Glider:SetAtlasForSwipe(frame, atlasName)
   frame:SetTexCoordRange(lowTexCoords, highTexCoords);
 end
 
-fixedSizeFrame.editModeName = "Glider"
+anchorFrame.editModeName = "Glider"
 local LEM = LibStub('LibEditMode')
-LEM:AddFrame(fixedSizeFrame, onPositionChanged, defaultPosition)
-LEM:AddFrameSettings(fixedSizeFrame, {
+LEM:AddFrame(anchorFrame, onPositionChanged, defaultPosition)
+-- LEM.frameSelections[anchorFrame].system = {}
+-- LEM.frameSelections[anchorFrame].system.GetSystemName = function() return anchorFrame.editModeName end
+LEM:AddFrameSettings(anchorFrame, {
   {
     name = "Use Global Settings",
     kind = LEM.SettingType.Checkbox,
@@ -161,7 +164,7 @@ LEM:AddFrameSettings(fixedSizeFrame, {
     set = function(layoutName, value)
       GliderAddOnDB.globalSettingsEnabled = value
       Glider:SetupLayout(layoutName)
-      LEM.internal.dialog:Update(LEM.frameSelections[fixedSizeFrame])
+      LEM.internal.dialog:Update(LEM.frameSelections[anchorFrame])
     end,
   },
   {
@@ -196,11 +199,11 @@ LEM:AddFrameSettings(fixedSizeFrame, {
       layoutName = Glider:ShouldUseGlobalSettings() or layoutName
       GliderAddOnDB.Settings[layoutName].style = value
       Glider.VigorCharge:SetSwipeColor(1, 1, 1, 1)
-      VOLATILE_VALUES.isRandomColor = false
+      MutableData.isRandomColor = false
 
       if value == "Random" then
+        MutableData.isRandomColor = true
         Glider:SetRandomColor()
-        VOLATILE_VALUES.isRandomColor = true
       elseif value == "Class" then
         local classColor = PlayerUtil.GetClassColor() ---@diagnostic disable-line
         Glider.VigorCharge:SetSwipeColor(classColor:GetRGBA())
@@ -246,7 +249,7 @@ LEM:AddFrameSettings(fixedSizeFrame, {
     set = function(layoutName, value)
       layoutName = Glider:ShouldUseGlobalSettings() or layoutName
       GliderAddOnDB.Settings[layoutName].noDisplayText = value
-      VOLATILE_VALUES.noDisplayText = value
+      MutableData.noDisplayText = value
       if value then
         Glider.TextDisplay:Hide()
       end
@@ -274,6 +277,7 @@ LEM:AddFrameSettings(fixedSizeFrame, {
 
 LEM:RegisterCallback('enter', function()
   CooldownFrame_SetDisplayAsPercentage(Glider.VigorCharge, 1);
+  Glider.VigorCharge:SetAlpha(1)
   Glider:SetAlpha(1)
   Glider:Show()
 end)
@@ -294,29 +298,29 @@ function Glider:SetupLayout(layoutName)
   end
 
   local layout = GliderAddOnDB.Settings[layoutName]
-  fixedSizeFrame:ClearAllPoints()
+  anchorFrame:ClearAllPoints()
 --[[   local function CalculateOffset(offset)
     return Round(768.0 / (select(2, GetPhysicalScreenSize()) * Glider:GetEffectiveScale()) * offset)
   end
   fixedSizeFrame:SetPoint(layout.point, CalculateOffset(layout.x), CalculateOffset(layout.y)) ]]
-  fixedSizeFrame:SetPoint(layout.point, Round(layout.x), Round(layout.y))
+  anchorFrame:SetPoint(layout.point, Round(layout.x), Round(layout.y))
   if layout.scale then
     Glider:SetScale(layout.scale)
     Glider.VigorCharge:SetEdgeTexture(layout.scale > 1 and [[Interface\AddOns\Glider\Media\VigorEdge2x.tga]] or
-      [[Interface\AddOns\Glider\Media\VigorEdge.tga]])
+      [[Interface\AddOns\Glider\Media\VigorEdge.tga]]) ---@diagnostic disable-line
   end
 
   Glider.VigorCharge:SetSwipeColor(1, 1, 1, 1)
   if not ART[layout.style] then
     Glider:SetAtlasForSwipe(Glider.VigorCharge, ART["Blue"])
   elseif ART[layout.style] == "Random" then
-    VOLATILE_VALUES.isRandomColor = true
+    MutableData.isRandomColor = true
     Glider:SetRandomColor()
   else
     Glider:SetAtlasForSwipe(Glider.VigorCharge, ART[layout.style])
     if layout.style == "Class" then
       local classColor = PlayerUtil.GetClassColor() ---@diagnostic disable-line
-      Glider.VigorCharge:SetSwipeColor(classColor:GetRGB())
+      Glider.VigorCharge:SetSwipeColor(classColor:GetRGB()) ---@diagnostic disable-line
     end
   end
   layout.textPosition = layout.textPosition or "Bottom"
@@ -339,7 +343,7 @@ function Glider:SetupLayout(layoutName)
   if layout.loadDefaultVigor then
     layout.loadDefaultVigor = nil
   end
-  VOLATILE_VALUES.noDisplayText = layout.noDisplayText
+  MutableData.noDisplayText = layout.noDisplayText
 end
 
 LEM:RegisterCallback('layout', function(layoutName)
@@ -359,51 +363,51 @@ function Glider:OnEvent(e, ...)
       C_Timer.After(5, function() UIWidgetPowerBarContainerFrame:Show() end)
     end
   elseif e == "UNIT_AURA" and self:IsShown() then
-    VOLATILE_VALUES.isThrill = C_UnitAuras.GetPlayerAuraBySpellID(377234) and true or false
+    MutableData.isThrill = C_UnitAuras.GetPlayerAuraBySpellID(377234) and true or false
   end
 end
 
 function Glider:SetRandomColor()
-  local timestamp = GetServerTime()
-  local combinedValue = timestamp + 19204
-  local numOptions = #ART_OPTIONS
-  local index = (combinedValue % numOptions) + 1
+    local randomIndex = math.random(1, Configuration.numOptions)
+    local colorName = ART_OPTIONS[randomIndex].text
 
-  if index == VOLATILE_VALUES.lastRandomColorIndex then
-    index = index + 1
-    if index > numOptions then
-      index = 1
+    if (colorName == MutableData.lastRandomColorName or colorName == "Random") and Configuration.numOptions > 1 then
+        randomIndex = (randomIndex % Configuration.numOptions) + 1
+        colorName = ART_OPTIONS[randomIndex].text
     end
-  end
+    MutableData.lastRandomColorName = colorName
 
-  local colorName = ART_OPTIONS[index].text
-  Glider:SetAtlasForSwipe(Glider.VigorCharge, ART[colorName])
-  if colorName == "Class" then
-    local classColor = PlayerUtil.GetClassColor() ---@diagnostic disable-line
-    Glider.VigorCharge:SetSwipeColor(classColor:GetRGBA())
-  end
+    Glider:SetAtlasForSwipe(Glider.VigorCharge, ART[colorName])
+    Glider.VigorCharge:SetSwipeColor(1, 1, 1, 1)
+    if colorName == "Class" then
+      local classColor = PlayerUtil.GetClassColor() ---@diagnostic disable-line
+      Glider.VigorCharge:SetSwipeColor(classColor:GetRGBA()) ---@diagnostic disable-line
+    end
 end
 
 function Glider:RefreshVigor(elapsed)
-  VOLATILE_VALUES.elapsedVigor = VOLATILE_VALUES.elapsedVigor + elapsed
+  MutableData.elapsedVigor = MutableData.elapsedVigor + elapsed
 
-  if not (VOLATILE_VALUES.elapsedVigor > CONFIG_VALUES.updateVigorRate) then return end
-  VOLATILE_VALUES.elapsedVigor = 0
-  local prevPerc = VOLATILE_VALUES.prevPerc or VOLATILE_VALUES.adjustedPercentage
-  local newPerc = FrameDeltaLerp(prevPerc, VOLATILE_VALUES.adjustedPercentage, 0.2)
+  if (MutableData.elapsedVigor < Configuration.updateVigorRate) then return end
+  MutableData.elapsedVigor = 0
+  local prevPerc = MutableData.prevPerc or MutableData.adjustedPercentage
+  local newPerc = FrameDeltaLerp(prevPerc, MutableData.adjustedPercentage, 0.2)
   --if Volatile.numFullFrames ~= 6 then
-  CooldownFrame_SetDisplayAsPercentage(self.VigorCharge, newPerc);
+  self:SetCooldownPercentage(self.VigorCharge, newPerc);
+  self.VigorCharge:SetDrawEdge(newPerc ~= 1 and newPerc ~= 0)
   -- end
-  VOLATILE_VALUES.prevPerc = newPerc
+  MutableData.prevPerc = newPerc
   if newPerc > 0.99 then
-    CooldownFrame_SetDisplayAsPercentage(self.VigorCharge, 1);
-    VOLATILE_VALUES.isRefreshingVigor = false
+    self.VigorCharge:SetDrawEdge(false)
+    self:SetCooldownPercentage(self.VigorCharge, 1);
+    self:SetScript("OnUpdate", nil)
+    MutableData.isRefreshingVigor = false
   end
 end
 
 local textDisplayWidthHalf = Glider.TextDisplay:GetWidth() / 2
 function Glider:UpdateSpeedText(forwardSpeed)
-  if not VOLATILE_VALUES.noDisplayText then
+  if not MutableData.noDisplayText then
     local TextDisplay = self.TextDisplay
     if forwardSpeed <= 0 then
       if TextDisplay:IsShown() and not TextDisplay.textDisplayAnimHide:IsPlaying() then
@@ -423,28 +427,28 @@ function Glider:UpdateSpeedText(forwardSpeed)
 end
 
 function Glider:RefreshSpeedDisplay(elapsed)
-  VOLATILE_VALUES.elapsedSpeed = VOLATILE_VALUES.elapsedSpeed + elapsed
-  if not (VOLATILE_VALUES.elapsedSpeed > CONFIG_VALUES.updateSpeedRate) then return end
-  VOLATILE_VALUES.elapsedSpeed = 0
+  MutableData.elapsedSpeed = MutableData.elapsedSpeed + elapsed
+  if not (MutableData.elapsedSpeed > Configuration.updateSpeedRate) then return end
+  MutableData.elapsedSpeed = 0
 
   local _, _, forwardSpeed = GetGlidingInfo()
   Glider:UpdateSpeedText(forwardSpeed * 14.286)
 
-  local speed = forwardSpeed and VOLATILE_VALUES.getRidingAbroadPercent and forwardSpeed / VOLATILE_VALUES.getRidingAbroadPercent or
+  local speed = forwardSpeed and MutableData.getRidingAbroadPercent and forwardSpeed / MutableData.getRidingAbroadPercent or
       forwardSpeed / 100 --((base/100 * 240) / 360)
-  local prevSpeed = VOLATILE_VALUES.prevSpeed or speed
+  local prevSpeed = MutableData.prevSpeed or speed
   local newSpeed = FrameDeltaLerp(prevSpeed, speed, 0.2)
-  CooldownFrame_SetDisplayAsPercentage(self.Speed, newSpeed)
-  if VOLATILE_VALUES.isThrill then
-    self.Speed:SetSwipeColor(0.47, 0.97, 0.514, 1)   -- 0.47,0.97,0.514,1
+  CooldownFrame_SetDisplayAsPercentage(self.SpeedDisplay.Speed, newSpeed)
+  if MutableData.isThrill then
+    self.SpeedDisplay.Speed:SetSwipeColor(0.47, 0.97, 0.514, 1)   -- 0.47,0.97,0.514,1
   else
-    self.Speed:SetSwipeColor(0.894, 0.227, 0.278, 1) -- 0.902,0.376,0.388,1
+    self.SpeedDisplay.Speed:SetSwipeColor(0.894, 0.227, 0.278, 1) -- 0.902,0.376,0.388,1
   end
-  VOLATILE_VALUES.prevSpeed = newSpeed
+  MutableData.prevSpeed = newSpeed
   if newSpeed < 0.01 then
-    VOLATILE_VALUES.prevSpeed = 0
-    CooldownFrame_SetDisplayAsPercentage(self.Speed, 0)
-    self:SetScript("OnUpdate", nil)
+    MutableData.prevSpeed = 0
+    CooldownFrame_SetDisplayAsPercentage(self.SpeedDisplay.Speed, 0)
+    self.SpeedDisplay:SetScript("OnUpdate", nil)
   end
 end
 
@@ -453,18 +457,18 @@ function Glider:HideAnim()
     self.animShow:Stop()
     self.animHide:Play()
     self:SetScript("OnUpdate", nil)
-    VOLATILE_VALUES.isRefreshingVigor = false
-    VOLATILE_VALUES.isThrill = false
+    MutableData.isRefreshingVigor = false
+    MutableData.isThrill = false
   end
 end
 
 function Glider:ShowAnim()
   if not (self:IsShown() or self.animShow:IsPlaying()) then
-    VOLATILE_VALUES.justShown = true
-    if VOLATILE_VALUES.isRandomColor then
+    MutableData.justShown = true
+    if MutableData.isRandomColor then
       self:SetRandomColor()
     end
-    C_Timer.After(0.2, function() VOLATILE_VALUES.justShown = false end)
+    C_Timer.After(0.2, function() MutableData.justShown = false end)
     self.animShow:Play()
   end
 end
@@ -494,15 +498,25 @@ function Glider:GetRidingAbroadPercent()
   end
 end
 
-function Glider:RemoveWidgets()
+function Glider:ProcessWidgets()
+  local isShown = 0
   for _, widget in pairs(UIWidgetPowerBarContainerFrame.widgetFrames) do
     if widget then
       if widget.widgetType == 24 and widget.widgetSetID == 283 then
+      local info = C_UIWidgetManager.GetFillUpFramesWidgetVisualizationInfo(widget.widgetID)
+      if info then
+        isShown = bit.bor(isShown, info.shownState)
+      end
       widget:Hide()
-      widget = nil
       end
     end
   end
+  MutableData.isWidgetShown = isShown
+end
+
+function Glider:SetCooldownPercentage(frame, perc)
+  if LEM:IsInEditMode() then return end
+  CooldownFrame_SetDisplayAsPercentage(frame, perc);
 end
 
 function Glider:IsSkyriding()
@@ -518,18 +532,18 @@ function Glider:IsSkyriding()
 end
 
 function Glider:Update(widget)
-  if not widget or (widget.widgetSetID ~= CONFIG_VALUES.vigorWidgetSetID) then
+  if not widget or (widget.widgetSetID ~= Configuration.vigorWidgetSetID) then
     return
   end
 
-  self:RemoveWidgets()
-
-  if not self:IsSkyriding() then
-    self:HideAnim()
-    return
-  end
+  self:ProcessWidgets()
 
   if widget.widgetID ~= 4460 then
+    return
+  end
+
+  if not self:IsSkyriding() or not MutableData.isWidgetShown then
+    self:HideAnim()
     return
   end
 
@@ -539,34 +553,39 @@ function Glider:Update(widget)
     return
   end
 
+  MutableData.lastNumFullFrames = MutableData.lastNumFullFrames > info.numFullFrames and MutableData.lastNumFullFrames or info.numFullFrames
+
+  local fillValue = info.fillValue
+  if (MutableData.lastNumFullFrames + info.fillValue == 1 + MutableData.lastFill) then
+      fillValue = 0
+  end
+  MutableData.lastFill = MutableData.lastNumFullFrames + info.fillValue
+
+  local originalPercentage = (MutableData.lastNumFullFrames + fillValue / (info.fillMax + 1e-7)) / info.numTotalFrames
+  MutableData.adjustedPercentage = (Configuration.percentageMulti[info.numTotalFrames] or 0) * originalPercentage
+
   if not (self:IsShown() or self.animShow:IsPlaying()) and info.numTotalFrames > 0 then
-    VOLATILE_VALUES.lastNumFullFrames = info.numFullFrames
+    CooldownFrame_SetDisplayAsPercentage(self.VigorCharge, MutableData.adjustedPercentage);
     self:ShowAnim()
   end
 
-  -- Widget initially returns numFullFrames with old fillValue of previous numFullFrames
-  local fillValue = (info.numFullFrames + info.fillValue == 1 + VOLATILE_VALUES.lastFill) and 0 or info.fillValue
-  VOLATILE_VALUES.lastFill = info.numFullFrames + info.fillValue
 
-  VOLATILE_VALUES.lastNumFullFrames = VOLATILE_VALUES.lastNumFullFrames or info.numFullFrames
-  VOLATILE_VALUES.numFullFrames = info.numFullFrames
+  if info.numFullFrames == 0 then
+    MutableData.numFullFrames = MutableData.lastNumFullFrames
+  else
+    MutableData.numFullFrames = info.numFullFrames
+  end
 
-  local originalPercentage = info.numTotalFrames == 0 and 0 or
-      (info.numFullFrames + fillValue / (info.fillMax + 0.0000001)) / info.numTotalFrames
-
-  VOLATILE_VALUES.adjustedPercentage = (CONFIG_VALUES.percentageMulti[info.numTotalFrames] or 0) * originalPercentage
-  self.VigorCharge:SetDrawEdge(VOLATILE_VALUES.adjustedPercentage ~= 1 and VOLATILE_VALUES.adjustedPercentage ~= 0)
-
-  if not VOLATILE_VALUES.isRefreshingVigor then
-    VOLATILE_VALUES.isRefreshingVigor = true
+  if not MutableData.isRefreshingVigor then
+    MutableData.isRefreshingVigor = true
     self:SetScript("OnUpdate", self.RefreshVigor)
   end
 
-  self.SpeedDisplay:SetScript("OnUpdate", self.RefreshSpeedDisplay)
+  self.SpeedDisplay:SetScript("OnUpdate", function(_, elapsed) self:RefreshSpeedDisplay(elapsed) end)
 
-  VOLATILE_VALUES.getRidingAbroadPercent = self:GetRidingAbroadPercent()
+  MutableData.getRidingAbroadPercent = self:GetRidingAbroadPercent()
   --VOLATILE_VALUES.isThrill = C_UnitAuras.GetPlayerAuraBySpellID(377234) and true or false
-  if info.pulseFillingFrame then
+  if info.pulseFillingFrame and not self.pulseAnim:IsPlaying() then
     self.pulseAnim:Play()
   else
     -- Let the animation finish
@@ -575,17 +594,17 @@ function Glider:Update(widget)
 
   -- Widget API is returning garbage data when you first mount up after login for the first few updates
   -- so it would cause some frame to flash up
-  if VOLATILE_VALUES.justShown then
-    VOLATILE_VALUES.lastNumFullFrames = info.numFullFrames
+  if MutableData.justShown then
+    MutableData.lastNumFullFrames = info.numFullFrames
     return
   end
 
-  if info.numFullFrames > VOLATILE_VALUES.lastNumFullFrames then
-    self.Flash:SetRotation(CONFIG_VALUES.rotations[info.numFullFrames])
+  if info.numFullFrames > MutableData.lastNumFullFrames then
+    self.Flash:SetRotation(Configuration.rotations[info.numFullFrames] --[[@as number]])
     self.flashAnim:Restart()
   end
 
-  VOLATILE_VALUES.lastNumFullFrames = info.numFullFrames
+  MutableData.lastNumFullFrames = info.numFullFrames
 end
 
 function Glider:OnLoad()
@@ -597,17 +616,7 @@ function Glider:OnLoad()
   self.SpeedDisplay.Speed:SetRotation(-117 * (math.pi/180))
   self.VigorCharge.noCooldownCount = true
   self.SpeedDisplay.Speed.noCooldownCount = true
-
-  -- VSCode compatible version for color preview ^^ entirely pointless!
-  -- Initialize Alpha to 0
-  local function CreateRGBAFromHexString(hexColor)
-    assert(#hexColor == 8, "Use #AARRGGBB Format")
-    return tonumber(hexColor:sub(3, 4), 16) / 255,
-        tonumber(hexColor:sub(5, 6), 16) / 255,
-        tonumber(hexColor:sub(7, 8), 16) / 255,
-        0 --tonumber(hexColor:sub(1, 2), 16) / 255
-  end
-  self.Pulse:SetVertexColor(CreateRGBAFromHexString("FFFFD900"))
+  self.Pulse:SetVertexColor(1, 0.85, 0, 0)
 end
 Glider:OnLoad()
 

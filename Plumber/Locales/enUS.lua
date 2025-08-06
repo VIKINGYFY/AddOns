@@ -208,6 +208,7 @@ L["Num Items In Bank Format"] = (BANK or "Bank") ..": |cffffffff%d|r";
 L["Num Items In Bag Format"] = (HUD_EDIT_MODE_BAGS_LABEL or "Bags") ..": |cffffffff%d|r";
 L["Number Thousands"] = "K";    --15K  15,000
 L["Number Millions"] = "M";     --1.5M 1,500,000
+L["Questionable Item Count Tooltip"] = "The item count may be incorrect due to addon limitations.";
 
 
 --Landing Page (Expansion Summary Minimap)
@@ -514,6 +515,7 @@ L["Delve Chest 1 Rare"] = "Bountiful Coffer";   --We'll use the GameObjectID onc
 L["Season Maximum Colon"] = "Season Maximum:";  --CURRENCY_SEASON_TOTAL_MAXIMUM
 L["Item Changed"] = "was changed to";   --CHANGED_OWN_ITEM
 L["Completed CHETT List"] = "Completed C.H.E.T.T. List";
+L["Devourer Attack"] = "Devourer Attack";
 
 
 --Map Pin Filter Name (name should be plural)

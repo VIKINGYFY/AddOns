@@ -2,32 +2,13 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local S = B:GetModule("Skins")
 
+S.LoadSkins = B.LoadAddOns
 C.OnLoginThemes = {}
 C.OnLoadThemes = {}
 C.OtherThemes = {}
 
 function S:RegisterSkin(addonName, func)
 	C.OtherThemes[addonName] = func
-end
-
-function S:LoadSkins(name, func)
-	local function loadFunc(event, addon)
-		if event == "PLAYER_ENTERING_WORLD" then
-			B:UnregisterEvent(event, loadFunc)
-
-			local isLoaded, isFinished = C_AddOns.IsAddOnLoaded(name)
-			if isLoaded and isFinished then
-				xpcall(func, geterrorhandler())
-				B:UnregisterEvent("ADDON_LOADED", loadFunc)
-			end
-		elseif event == "ADDON_LOADED" and addon == name then
-			xpcall(func, geterrorhandler())
-			B:UnregisterEvent(event, loadFunc)
-		end
-	end
-
-	B:RegisterEvent("PLAYER_ENTERING_WORLD", loadFunc)
-	B:RegisterEvent("ADDON_LOADED", loadFunc)
 end
 
 function S:LoadAddOnSkins()

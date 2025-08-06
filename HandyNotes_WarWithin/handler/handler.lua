@@ -962,8 +962,8 @@ local function tooltip_achievement(tooltip, achievement, criteria)
         tooltip_criteria(tooltip, achievement, 1)
     end
 end
-local function tooltip_loot(tooltip, item)
-    if ns.db.tooltip_charloot and not IsShiftKeyDown() and not item:MightDrop() then
+local function tooltip_loot(tooltip, item, force)
+    if (ns.db.tooltip_charloot and not IsShiftKeyDown() and not item:MightDrop()) and not force then
         return true
     end
     item:AddToTooltip(tooltip)
@@ -1024,7 +1024,7 @@ local function handle_tooltip(tooltip, point, skip_label)
     if point.loot then
         local hidden
         for _, item in ipairs(point.loot) do
-            hidden = tooltip_loot(tooltip, item) or hidden
+            hidden = tooltip_loot(tooltip, item, point.showallloot) or hidden
         end
         if hidden then
             tooltip:AddLine("Items for other characters hidden", 0, 1, 1)

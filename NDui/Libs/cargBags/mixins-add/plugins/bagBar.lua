@@ -33,6 +33,7 @@ CALLBACKS
 ]]
 
 local addon, ns = ...
+local B, C, L, DB = unpack(ns)
 local cargBags = ns.cargBags
 local Implementation = cargBags.classes.Implementation
 
@@ -208,6 +209,7 @@ local disabled = {
 
 -- Register the plugin
 cargBags:RegisterPlugin("BagBar", function(self, bags)
+	if DB.isNewPatch then return end
 	if (cargBags.ParseBags) then
 		bags = cargBags:ParseBags(bags)
 	end

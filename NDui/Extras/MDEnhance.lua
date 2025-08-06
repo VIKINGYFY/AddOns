@@ -193,7 +193,7 @@ function EX:MDEnhance_CreateEnhance(parent)
 	--parent.TScore = B.CreateFS(parent, 16, "", false, "BOTTOMRIGHT", 0, 0)
 end
 
-function EX.MDEnhance_OnCreate()
+function EX.MDEnhance_OnUpdate()
 	if InCombatLockdown() or not ChallengesFrame or not ChallengesFrame.DungeonIcons then return end
 
 	for _, dungeonIcon in pairs(ChallengesFrame.DungeonIcons) do
@@ -204,11 +204,8 @@ function EX.MDEnhance_OnCreate()
 	end
 end
 
-function EX.MDEnhance_OnEvent(event, addon)
-	if addon == "Blizzard_ChallengesUI" then
-		hooksecurefunc(ChallengesFrame, "Update", EX.MDEnhance_OnCreate)
-		B:UnregisterEvent(event, EX.MDEnhance_OnEvent)
-	end
+function EX.MDEnhance_OnCreate()
+	hooksecurefunc(ChallengesFrame, "Update", EX.MDEnhance_OnUpdate)
 end
 
 function EX:MDEnhance_Notification(unit, casterID, spellID)
@@ -218,7 +215,7 @@ function EX:MDEnhance_Notification(unit, casterID, spellID)
 end
 
 function EX:MDEnhance_CheckGroup()
-	if IsInGroup() then
+	if IsInGroup() and not IsInInstance() then
 		B:RegisterEvent("UNIT_SPELLCAST_START", EX.MDEnhance_Notification)
 	else
 		B:UnregisterEvent("UNIT_SPELLCAST_START", EX.MDEnhance_Notification)
@@ -227,8 +224,8 @@ end
 
 function EX:MDEnhance()
 	EX:MDEnhance_UpdateList()
-	B:RegisterEvent("ADDON_LOADED", EX.MDEnhance_OnEvent)
-
 	EX:MDEnhance_CheckGroup()
+
+	B:LoadAddOns("Blizzard_ChallengesUI", EX.MDEnhance_OnCreate)
 	B:RegisterEvent("GROUP_ROSTER_UPDATE", EX.MDEnhance_CheckGroup)
 end

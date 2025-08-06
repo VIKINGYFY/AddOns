@@ -1,5 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
+if DB.isNewPatch then return end
 
 C.OnLoginThemes["LossOfControlFrame"] = function()
 

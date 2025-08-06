@@ -581,6 +581,12 @@ do  -- Item
             end
         end
     end
+
+
+    function API.IsMountCollected(mountID)
+        local isCollected = select(11, C_MountJournal.GetMountInfoByID(mountID));
+        return isCollected
+    end
 end
 
 do  -- Tooltip Parser
@@ -2920,6 +2926,39 @@ do  -- Tooltip
         info:AddBlankLine();
         return info
     end
+
+
+    local TextureInfoTable = {
+        width = 14,
+        height = 14,
+        margin = { left = 0, right = 4, top = 0, bottom = 0 },
+        texCoords = { left = 0.0625, right = 0.9375, top = 0.0625, bottom = 0.9375 },
+    };
+
+    function API.AddCraftingReagentToTooltip(tooltip, item, quantityRequired)
+        local name = C_Item.GetItemNameByID(item) or ("item:"..item);
+        local count = C_Item.GetItemCount(item, true, false, true, true);
+        local icon =  C_Item.GetItemIconByID(item);
+        local rightText;
+        local isRed;
+
+        if quantityRequired then
+            rightText = count.."/"..quantityRequired;
+            isRed = count < quantityRequired;
+        else
+            rightText = count;
+        end
+
+        if isRed then
+            tooltip:AddDoubleLine(name, rightText, 1, 0.125, 0.125, 1, 0.125, 0.125);
+        else
+            tooltip:AddDoubleLine(name, rightText, 1, 1, 1, 1, 1, 1);
+        end
+
+        tooltip:AddTexture(icon, TextureInfoTable);
+
+        return true
+    end
 end
 
 do  -- AsyncCallback
@@ -3131,31 +3170,6 @@ do  -- Container Item Processor
     local ITEM_OPENABLE = ITEM_OPENABLE or "<Right Click to Open>";
     local OPENABLE_ITEM = {};
 
-    local function IsItemOpenable(item)
-        local itemID, _, _, _, _, classID, subClassID = GetItemInfoInstant(item);
-        if OPENABLE_ITEM[itemID] ~= nil then
-            return OPENABLE_ITEM[itemID]
-        end
-
-        if classID == 15 and subClassID == 4 then
-            local bag, slot = GetItemBagPosition(itemID);
-            if bag and slot then
-                local tooltipData = GetBagItem(bag, slot);
-                if tooltipData then
-                    local lines = tooltipData.lines;
-                    local leftText = lines[#lines].leftText;
-                    if leftText and leftText == ITEM_OPENABLE then
-                        OPENABLE_ITEM[itemID] = true;
-                        return true
-                    else
-                        OPENABLE_ITEM[itemID] = false;
-                    end
-                end
-            end
-        end
-        return false
-    end
-
     function Processor:OnUpdate_Queue(elapsed)
         self.t = self.t + elapsed;
         if self.t > 0.1 then
@@ -3253,6 +3267,11 @@ do  -- Container Item Processor
     function API.DoesItemReallyExist(item)
         local a = item and GetItemInfoInstant(item);
         return a ~= nil
+    end
+
+    function API.IsItemContextToken(item)
+        local _, _, _, _, _, classID, subClassID = GetItemInfoInstant(item);
+        return classID == 5 and subClassID == 2
     end
 end
 
