@@ -144,8 +144,8 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 
 	local _, specID, specName, specIcon
 	if unit == "player" then
-		specID = GetSpecialization()
-		_, specName, _, specIcon = GetSpecializationInfo(specID)
+		specID = C_SpecializationInfo.GetSpecialization()
+		_, specName, _, specIcon = C_SpecializationInfo.GetSpecializationInfo(specID)
 	else
 		specID = GetInspectSpecialization(unit)
 		_, specName, _, specIcon = GetSpecializationInfoByID(specID)

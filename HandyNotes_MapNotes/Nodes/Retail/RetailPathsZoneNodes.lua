@@ -4,11 +4,12 @@ local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 function ns.LoadPathsZoneLocationinfo(self)
 local db = ns.Addon.db.profile
 local nodes = ns.nodes
+ns._currentSourceFile = "RetailPathsZoneNodes.lua"
 
 --#####################################################################################################
 --##########################        function to hide all nodes below         ##########################
 --#####################################################################################################
-if not db.activate.HideMapNote then
+    if not db.activate.HideMapNote then
 
 
     --#####################################################################################################
@@ -519,5 +520,6 @@ if not db.activate.HideMapNote then
 
         end
     end
-end
+    end
+
 end

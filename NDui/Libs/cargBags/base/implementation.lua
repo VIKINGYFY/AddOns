@@ -414,8 +414,14 @@ function Implementation:BAG_UPDATE(_, bagID, slotID)
 	elseif (bagID) then
 		self:UpdateBag(bagID)
 	else
-		for bagID = -3, 17 do
-			self:UpdateBag(bagID)
+		if DB.isNewPatch then
+			for bagID = 0, 16 do
+				self:UpdateBag(bagID)
+			end
+		else
+			for bagID = -3, 17 do
+				self:UpdateBag(bagID)
+			end
 		end
 	end
 end
@@ -474,11 +480,13 @@ end
 	@param slotID <number> [optional]
 ]]
 function Implementation:PLAYERBANKSLOTS_CHANGED(event, bagID, slotID)
-	if (bagID <= NUM_BANKGENERIC_SLOTS) then
+	if not DB.isNewPatch then
+	if(bagID <= NUM_BANKGENERIC_SLOTS) then
 		slotID = bagID
 		bagID = -1
 	else
 		bagID = bagID - NUM_BANKGENERIC_SLOTS
+	end
 	end
 
 	self:BAG_UPDATE(event, bagID, slotID)

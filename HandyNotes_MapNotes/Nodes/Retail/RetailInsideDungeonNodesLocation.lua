@@ -4,11 +4,12 @@ local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 function ns.LoadInsideDungeonNodesLocationInfo(self)
 local db = ns.Addon.db.profile
 local nodes = ns.nodes
+ns._currentSourceFile = "RetailInsideDungeonNodesLocation.lua"
 
 --#####################################################################################################
 --##########################        function to hide all nodes below         ##########################
 --#####################################################################################################
-if not db.activate.HideMapNote then
+  if not db.activate.HideMapNote then
 
     --#####################################################################################################
     --##################################           Dungeon Map           ##################################
@@ -280,6 +281,8 @@ if not db.activate.HideMapNote then
             nodes[2357][86577850] = { mnID = 2216, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Ara-Kara, City of Echoes
             nodes[2343][46460933] = { mnID = 2256, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- City of Threads
             nodes[2292][72131053] = { mnID = 2256, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", showInZone = true } -- Nerub-ar Palace
+            nodes[2460][76760961] = { mnID = 2371, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Manaforge Omega
+            nodes[2449][81785036] = { mnID = 2371, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Bio Al'dani            
           -- delves
           -- Azj-Kathet
             nodes[2259][52821359] = { mnID = 2255, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Tak-Rethan-Abyss
@@ -303,8 +306,8 @@ if not db.activate.HideMapNote then
             -- Undermine
             nodes[2423][48926758] = { mnID = 2346, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Sidestreet Sluice
             -- K'aresh
-            nodes[2460][76760961] = { mnID = 2371, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Manaforge Omega
-            nodes[2449][81785036] = { mnID = 2371, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Bio Al'dani
+            nodes[2484][53808881] = { mnID = 2472, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Voidscar Cavern
+            nodes[2452][39248845] = { mnID = 2371, name = BATTLEGROUND_INSTANCE .. "-" .. L["Exit"], type = "Exit", leaveDelve = true, showInZone = true } -- Archival Assault
           end
     
     
@@ -892,5 +895,6 @@ if not db.activate.HideMapNote then
 
           end
         end
-      end 
-    end
+  end 
+
+end

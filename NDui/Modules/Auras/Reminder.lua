@@ -30,7 +30,7 @@ function A:Reminder_Update(cfg)
 	end
 
 	if depend and not IsPlayerSpell(depend) then isPlayerSpell = false end
-	if spec and spec ~= GetSpecialization() then isRightSpec = false end
+	if spec and spec ~= C_SpecializationInfo.GetSpecialization() then isRightSpec = false end
 	if combat and InCombatLockdown() then isInCombat = true end
 	if instance and inInst and (instType == "scenario" or instType == "party" or instType == "raid") then isInInst = true end
 	if pvp and (instType == "arena" or instType == "pvp" or C_PvP.GetZonePVPInfo() == "combat") then isInPVP = true end

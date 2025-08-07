@@ -744,7 +744,7 @@ function UF:OnLogin()
 			local function UpdateSpecPos(event, ...)
 				local unit, _, spellID = ...
 				if (event == "UNIT_SPELLCAST_SUCCEEDED" and unit == "player" and spellID == 200749) or event == "ON_LOGIN" then
-					local specIndex = GetSpecialization()
+					local specIndex = C_SpecializationInfo.GetSpecialization()
 					if not specIndex then return end
 
 					if not C.db["Mover"]["RaidPos"..specIndex] then
@@ -769,7 +769,7 @@ function UF:OnLogin()
 
 			if raidMover then
 				local function updateRaidMover()
-					local specIndex = GetSpecialization()
+					local specIndex = C_SpecializationInfo.GetSpecialization()
 					if not specIndex then return end
 					C.db["Mover"]["RaidPos"..specIndex] = C.db["Mover"]["RaidFrame"]
 				end
@@ -778,7 +778,7 @@ function UF:OnLogin()
 			end
 			if partyMover then
 				local function updatePartyMover()
-					local specIndex = GetSpecialization()
+					local specIndex = C_SpecializationInfo.GetSpecialization()
 					if not specIndex then return end
 					C.db["Mover"]["PartyPos"..specIndex] = C.db["Mover"]["PartyFrame"]
 				end

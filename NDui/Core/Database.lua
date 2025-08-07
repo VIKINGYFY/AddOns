@@ -128,10 +128,10 @@ DB.RaidPetFlags = bit.bor(COMBATLOG_OBJECT_AFFILIATION_RAID, COMBATLOG_OBJECT_RE
 
 -- RoleUpdater
 local function CheckRole()
-	local tree = GetSpecialization()
+	local tree = C_SpecializationInfo.GetSpecialization()
 	if not tree then return end
 
-	local _, _, _, _, role, stat = GetSpecializationInfo(tree)
+	local _, _, _, _, role, stat = C_SpecializationInfo.GetSpecializationInfo(tree)
 	if role == "TANK" then
 		DB.Role = "Tank"
 	elseif role == "HEALER" then

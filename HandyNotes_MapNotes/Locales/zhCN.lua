@@ -2,6 +2,10 @@
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "zhCN")
 if not L then return end
 
+-- Npc
+L["NPC targeting"] = "NPC目标锁定"
+L["Clicking on a MapNotes symbol with an NPC name opens a confirmation window, which automatically targets this NPC after confirmation and marks it with an X"] = "点击带有NPC名字的MapNotes图标会打开确认窗口，确认后自动选中该NPC并用X标记"
+L["If you are not within range, you will receive the message in the chat"] = "如果你不在范围内，你将在聊天中收到消息"
 -- Changelog
 L["Changelog"] = "更新日志"
 L["Last Changelog"] = "最新更新日志"

@@ -644,7 +644,7 @@ function bountyHelper:GetUnsortedMountCentricData()
 end
 
 function bountyHelper:loadMountData(callback)
-    local pending = 51
+    local pending = 53
 
     for mountID, data in pairs(db.mountData) do
         local item = Item:CreateFromItemID(mountID)
@@ -877,7 +877,8 @@ function bountyHelper:sortContent(sorting)
         95059, 104253, 116660, 123890, 137574, 137575, 142236,
         143643, 152789, 152816, 159842, 159921, 160829, 166518,
         166705, 174872, 181819, 186638, 186656, 186642, 190768,
-        210061, 225548, 224147, 224151, 236960, 235626
+        210061, 225548, 224147, 224151, 236960, 235626, 246445,
+        243061
     }
     local orderMap = {}
     for i, id in ipairs(defaultOrder) do orderMap[id] = i end

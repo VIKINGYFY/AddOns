@@ -175,11 +175,12 @@ C.OnLoginThemes["Bags"] = function()
 	ReskinSortButton(BagItemAutoSortButton)
 
 	-- Combined bags
-	B.ReskinPortraitFrame(ContainerFrameCombinedBags)
-	createBagIcon(ContainerFrameCombinedBags, 1)
-	ContainerFrameCombinedBags.PortraitButton.Highlight:SetTexture("")
-	hooksecurefunc(ContainerFrameCombinedBags, "UpdateItemSlots", handleBagSlots)
-
+	local combinedBags = ContainerFrameCombinedBags
+	B.StripTextures(combinedBags)
+	B.SetBD(combinedBags)
+	B.ReskinClose(combinedBags.CloseButton)
+	createBagIcon(combinedBags, 1)
+	hooksecurefunc(combinedBags, "UpdateItemSlots", handleBagSlots)
 	-- [[ Bank ]]
 
 	if not DB.isNewPatch then
@@ -218,7 +219,7 @@ C.OnLoginThemes["Bags"] = function()
 		end
 	end
 
-	B.ReskinPortraitFrame(BankFrame)
+	B.ReskinFrame(BankFrame)
 	B.ReskinInput(BankItemSearchBox)
 
 	if DB.isNewPatch then return end

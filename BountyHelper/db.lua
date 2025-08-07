@@ -3,7 +3,7 @@ db.instanceOrderList = {
     249, 329, 532, 550, 556, 575, 585, 603, 616, 624, 631, 657, 720, 725,
     754, 859, 967, 1008, 1098, 1136, 1205, 1448, 1530, 1651, 1676, 1712,
     1754, 1762, 1841, 2070, 2217, 2286, 2441, 2450, 2481, 2549, 2651,
-    2657, 2769
+    2657, 2769, 2810
 }
 db.waypoints = {
     [249] = {point = {70, 0.5217, 0.7595}},
@@ -44,7 +44,8 @@ db.waypoints = {
     [2549] = {point = {2200, 0.2753, 0.3100}},
     [2651] = {point = {2214, 0.4285, 0.0882}},
     [2657] = {point = {2255, 0.4360, 0.8976}},
-    [2769] = {point = {2346, 0.4132, 0.4862}}
+    [2769] = {point = {2346, 0.4132, 0.4862}},
+    [2810] = {point = {2371, 0.4179, 0.2146}}
 }
 
 db.bossData = {
@@ -174,6 +175,9 @@ db.bossData = {
     },
     [2769] = { -- Liberation of Undermine
         { name = "Chrome King Gallywix", encounterID = 2646, killedAtDiff = { [14] = false, [15] = false, [16] = false, [17] = false } }
+    },
+    [2810] = { -- Manaforge Omega
+        { name = "Dimensius, the All-Devouring", encounterID = 2691, killedAtDiff = { [15] = false, [16] = false } }
     }
 }
 
@@ -363,5 +367,12 @@ db.mountData = {
     }},
     [235626] = { journalMountID = 2487, dropsBy = {
         { instanceID = 2769, diff = 16, index = 1, chance = 100.0 }
+    }},
+    [246445] = { journalMountID = 2606, dropsBy = {
+        { instanceID = 2810, diff = 15, index = 1, chance = 100.0 },
+        { instanceID = 2810, diff = 16, index = 1, chance = 100.0 }
+    }},
+    [243061] = { journalMountID = 2569, dropsBy = {
+        { instanceID = 2810, diff = 16, index = 1, chance = 100.0 }
     }}
 }

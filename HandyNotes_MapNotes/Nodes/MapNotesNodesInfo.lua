@@ -478,8 +478,8 @@ nodes[1527] = { } -- Uldum
 
 -- Azeroth/Continent map nodes
 nodes[371] = { } -- TheJadeForest
-nodes[376] = { } -- ValleyoftheFourWinds    
-nodes[378] = { } -- The Wandering Isle 
+nodes[376] = { } -- ValleyoftheFourWinds  
+nodes[378] = { } -- The Wandering Isle   
 nodes[379] = { } -- KunLaiSummit  
 nodes[388] = { } -- TownlongWastes    
 nodes[390] = { } -- ValeofEternalBlossoms  
@@ -624,6 +624,8 @@ nodes[680] = { } -- Suramar
 nodes[750] = { } -- Highmountain Thundertotem
 nodes[790] = { } -- Eye of Aszhara
 nodes[830] = { } -- Krokuun
+nodes[831] = { } -- Vindikaar upper deck
+nodes[832] = { } -- Vindikaar lower deck
 nodes[882] = { } -- Eredath
 nodes[885] = { } -- Antoran Wastes
 nodes[905] = { } -- Argus
@@ -800,4 +802,6 @@ nodes[2250] = { } -- Kriegval's Rest - Inside Dungeon Map
 nodes[2396] = { } -- Rowdy Rifts - Inside Dungeon Map
 nodes[2423] = { } -- Sidestreet Sluice - Inside Dungeon Map
 nodes[2420] = { } -- Sidestreet Sluice - The Pits - Inside Dungeon Map
+nodes[2452] = { } -- Archival Assault - Inside Dungeon Map
+nodes[2484] = { } -- Voidscar Cavern - Inside Dungeon Map
 end

@@ -62,7 +62,7 @@ function EX.UpdateSystemNotices(_, text)
 			if not IsInGroup() then
 				UIErrorsFrame:AddMessage(DB.InfoColor..text)
 			else
-				SendChatMessage(text, B.GetCurrentChannel())
+				C_ChatInfo.SendChatMessage(text, B.GetCurrentChannel())
 			end
 
 			lastInfo = text -- 记录新内容
@@ -94,7 +94,7 @@ function EX.UpdateInstanceTools()
 				if not IsInGroup() then
 					UIErrorsFrame:AddMessage(DB.InfoColor..text)
 				else
-					SendChatMessage(text, B.GetCurrentChannel())
+					C_ChatInfo.SendChatMessage(text, B.GetCurrentChannel())
 				end
 
 				instCache[instID] = diffID

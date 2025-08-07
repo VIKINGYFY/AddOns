@@ -1,6 +1,10 @@
 local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "enUS", true)
 
+-- Npc
+L["NPC targeting"] = true
+L["Clicking on a MapNotes symbol with an NPC name opens a confirmation window, which automatically targets this NPC after confirmation and marks it with an X"] = true
+L["If you are not within range, you will receive the message in the chat"] = true
 -- Changelog
 L["Changelog"] = true
 L["Last Changelog"] = true

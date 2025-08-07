@@ -2,6 +2,10 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "deDE")
 if not L then return end
 
+-- Npc
+L["NPC targeting"] = "NPC-Zielerfassung"
+L["Clicking on a MapNotes symbol with an NPC name opens a confirmation window, which automatically targets this NPC after confirmation and marks it with an X"] = "Durch Klicken auf ein MapNotes-Symbol mit einem NPC-Namen öffnet sich ein Bestätigungsfenster, das nach der Bestätigung automatisch diesen NPC anvisiert und mit einem X markiert"
+L["If you are not within range, you will receive the message in the chat"] = "Wenn Sie nicht in Reichweite sind, erhalten Sie die Nachricht im Chat"
 -- Changelog
 L["Changelog"] = "Änderungsprotokoll"
 L["Last Changelog"] = "Letztes Änderungsprotokoll"
@@ -336,7 +340,7 @@ L["Mole Machine"] = "Maulwurfmaschine"
 L["Rocket drill"] = "Raketenbohrer"
 L["Portalroom"] = "Portalraum"
 L["The Dark Portal"] = "Das dunkle Portal"
-L["Captain Krooz"] = "Kapitän Krooz"
+L["Captain Krooz"] = "Kapitän Kruuz"
 L["Thrallmar Mage"] = "Magier von Thrallmar"
 L["Honor Hold Mage"] = "Magier der Ehrenfeste"
 L["Use the Old Keyring"] = "Verwenden Sie den alten Schlüsselring"

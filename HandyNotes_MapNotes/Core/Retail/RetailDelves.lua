@@ -6,8 +6,10 @@ ns.DelveContinent = CreateFromMixins(AreaPOIDataProviderMixin)
 
 function ns.BlizzardDelvesAddTT()
     hooksecurefunc(DelveEntrancePinMixin, "OnMouseEnter", function(self)
-        GameTooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. " " .. "|cff00ff00" .. "< " .. KEY_BUTTON3 .. " " .. L["to show delve map"] .. " > " .. TextIconMNL4:GetIconString(), nil, nil, false)
-        GameTooltip:Show()
+        if ns.Addon.db.profile.TooltipInformations then
+            GameTooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. " " .. "|cff00ff00" .. "< " .. KEY_BUTTON3 .. " " .. L["to show delve map"] .. " > " .. TextIconMNL4:GetIconString(), nil, nil, false)
+            GameTooltip:Show()
+        end
     end)
 end
 
@@ -41,7 +43,6 @@ function ns.DelveContinent:RefreshAllData()
         end
     end
 end
-
 
 function ns.DelveContinent:OnMapChanged()
     self:RefreshAllData()

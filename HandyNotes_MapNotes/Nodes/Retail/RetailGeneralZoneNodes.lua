@@ -4,11 +4,12 @@ local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 function ns.LoadGeneralZoneLocationinfo(self)
 local db = ns.Addon.db.profile
 local nodes = ns.nodes
+ns._currentSourceFile = "RetailGeneralZoneNodes.lua"
 
 --#####################################################################################################
 --##########################        function to hide all nodes below         ##########################
 --#####################################################################################################
-if not db.activate.HideMapNote then
+    if not db.activate.HideMapNote then
 
 
     --#####################################################################################################
@@ -1591,20 +1592,14 @@ if not db.activate.HideMapNote then
         if self.db.profile.showZoneKhazAlgar then
 
             if self.db.profile.showZoneStablemaster then
-                if ns.version == "11.2.0" then -- PTR
-                nodes[2371][60522835] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2371][50325919] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-
-                end
+                nodes[2371][49333688] = { npcID = 245292, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2371][60522835] = { npcID = 238575, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2371][50325919] = { npcID = 245440, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneTransmogger then
-
-                if ns.version == "11.2.0" then -- PTR
-                nodes[2371][49713807] = { name = "", dnID = MINIMAP_TRACKING_TRANSMOGRIFIER .. " - " .. FACTION_NEUTRAL, type = "Transmogger", showInZone = true, showOnContinent = false, showOnMinimap = false } -- K'aresh
-                nodes[2371][53836389] = { name = "", dnID = MINIMAP_TRACKING_TRANSMOGRIFIER .. " - " .. FACTION_NEUTRAL, type = "Transmogger", showInZone = true, showOnContinent = false, showOnMinimap = false } -- K'aresh
-                end
-
+                nodes[2371][49713807] = { npcID = 245282, name = "", type = "Transmogger", showInZone = true, showOnContinent = false, showOnMinimap = false } -- K'aresh
+                nodes[2371][53836389] = { npcID = 247938, name = "", type = "Transmogger", showInZone = true, showOnContinent = false, showOnMinimap = false } -- K'aresh
             end
 
             if self.db.profile.showZoneMailbox then
@@ -1619,16 +1614,11 @@ if not db.activate.HideMapNote then
                 nodes[2346][32055742] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Undermine
                 nodes[2346][24515749] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Undermine
                 nodes[2346][36485725] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Undermine
-            
-                if ns.version == "11.2.0" then -- PTR
                 nodes[2371][48853809] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = true, showOnContinent = false, showOnMinimap = false } -- K'aresh
                 nodes[2371][60642773] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = true, showOnContinent = false, showOnMinimap = false } -- K'aresh
                 nodes[2371][76663453] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = true, showOnContinent = false, showOnMinimap = false } -- K'aresh
                 nodes[2371][54066370] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = true, showOnContinent = false, showOnMinimap = false } -- K'aresh
                 nodes[2371][49995968] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = true, showOnContinent = false, showOnMinimap = false } -- K'aresh
-
-                end
-
             end
 
             if self.db.profile.showZoneInnkeeper then
@@ -1640,15 +1630,10 @@ if not db.activate.HideMapNote then
                 nodes[2346][43515168] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2346][36814750] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2346][39346861] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "My-hole-in-the-wall", wwwLink = "https://www.wowhead.com/quest=86408/my-hole-in-the-wall#", questID = 86408, showInZone = true, showOnContinent = false, showOnMinimap = false }
-            
-                if ns.version == "11.2.0" then -- PTR
-                nodes[2371][48693845] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false } -- K'aresh
-                nodes[2371][60722763] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false } -- K'aresh
-                nodes[2371][76733443] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false } -- K'aresh
-                nodes[2371][49985947] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false } -- K'aresh
-
-                end
-
+                nodes[2371][48693845] = { npcID = 236097, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false } -- K'aresh
+                nodes[2371][60722763] = { npcID = 238572, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false } -- K'aresh
+                nodes[2371][76733443] = { npcID = 241507, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false } -- K'aresh
+                nodes[2371][49985947] = { npcID = 245405, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false } -- K'aresh
             end
 
             if self.db.profile.showZonePvEVendor and not self.db.profile.showZoneMapNotesIcons then
@@ -1782,6 +1767,6 @@ if not db.activate.HideMapNote then
 
     end
 
-end
+    end
 
 end

@@ -368,13 +368,13 @@ function UF:UpdateQuestUnit(_, unit)
 end
 
 function UF:AddQuestIcon(self)
-	local qicon = self:CreateTexture(nil, "ARTWORK")
+	local qicon = self.Health:CreateTexture(nil, "ARTWORK")
 	qicon:SetPoint("LEFT", self, "RIGHT", 3, 0)
 	qicon:SetAtlas(DB.questTex)
 	qicon:SetSize(30, 30)
 	qicon:Hide()
 
-	local count = B.CreateFS(self, 20, "", "info")
+	local count = B.CreateFS(self.Health, 20, "", "info")
 	count:SetJustifyH("LEFT")
 	count:SetPoint("LEFT", qicon, "RIGHT", -3, 0)
 
@@ -393,7 +393,7 @@ local NPClassifies = {
 
 function UF:AddCreatureIcon(self)
 	local size = C.db["Nameplate"]["NameTextSize"] + 4
-	local icon = self:CreateTexture(nil, "ARTWORK")
+	local icon = self.Health:CreateTexture(nil, "ARTWORK")
 	icon:SetPoint("RIGHT", self.nameText, "LEFT", 8, 1)
 	icon:SetAtlas(DB.starTex)
 	icon:SetSize(size, size)
@@ -439,13 +439,13 @@ function UF:SpellInterruptor(self)
 end
 
 function UF:ShowUnitTargeted(self)
-	local ticon = self:CreateTexture(nil, "ARTWORK")
+	local ticon = self.Health:CreateTexture(nil, "ARTWORK")
 	ticon:SetPoint("LEFT", self, "RIGHT", 5, 0)
 	ticon:SetAtlas("target")
 	ticon:SetSize(20, 20)
 	ticon:Hide()
 
-	local count = B.CreateFS(self, 20, "", "info")
+	local count = B.CreateFS(self.Health, 20, "", "info")
 	count:SetJustifyH("LEFT")
 	count:SetPoint("LEFT", ticon, "RIGHT", 0, 0)
 

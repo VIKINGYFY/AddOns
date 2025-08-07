@@ -21,7 +21,7 @@ end
 
 local function Button_OnClick(self, button)
 	if button == "RightButton" then
-		SendChatMessage(string.format(LootMonitor.message[random(4)], LootMonitor.reports[self.index]["link"]), "WHISPER", nil, LootMonitor.reports[self.index]["player"])
+		C_ChatInfo.SendChatMessage(string.format(LootMonitor.message[random(4)], LootMonitor.reports[self.index]["link"]), "WHISPER", nil, LootMonitor.reports[self.index]["player"])
 	else
 		ChatFrame_OpenChat(LootMonitor.reports[self.index]["link"])
 	end

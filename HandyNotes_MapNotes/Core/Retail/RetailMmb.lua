@@ -29,10 +29,10 @@ local GetBestMapForUnit = C_Map.GetBestMapForUnit("player")
     or GetBestMapForUnit == 90 or GetBestMapForUnit == 86 or GetBestMapForUnit == 88 or GetBestMapForUnit == 110 or GetBestMapForUnit == 111
     or GetBestMapForUnit == 125 or GetBestMapForUnit == 126 or GetBestMapForUnit == 391 or GetBestMapForUnit == 392 or GetBestMapForUnit == 393 
     or GetBestMapForUnit == 394 or GetBestMapForUnit == 582 or GetBestMapForUnit == 590 or GetBestMapForUnit == 622 or GetBestMapForUnit == 624 
-    or GetBestMapForUnit == 626 or GetBestMapForUnit == 627 or GetBestMapForUnit == 628 or GetBestMapForUnit == 629 or GetBestMapForUnit == 1161
-    or GetBestMapForUnit == 1163 or GetBestMapForUnit == 1164 or GetBestMapForUnit == 1165 or GetBestMapForUnit == 1670 or GetBestMapForUnit == 1671 
-    or GetBestMapForUnit == 1672 or GetBestMapForUnit == 1673 or GetBestMapForUnit == 2112 or GetBestMapForUnit == 407 or GetBestMapForUnit == 2339
-    or GetBestMapForUnit == 499 or GetBestMapForUnit == 500)
+    or GetBestMapForUnit == 626 or GetBestMapForUnit == 627 or GetBestMapForUnit == 628 or GetBestMapForUnit == 629 or GetBestMapForUnit == 831 or GetBestMapForUnit == 832
+    or GetBestMapForUnit == 1161 or GetBestMapForUnit == 1163 or GetBestMapForUnit == 1164 or GetBestMapForUnit == 1165 or GetBestMapForUnit == 1670 
+    or GetBestMapForUnit == 1671 or GetBestMapForUnit == 1672 or GetBestMapForUnit == 1673 or GetBestMapForUnit == 2112 or GetBestMapForUnit == 407 
+    or GetBestMapForUnit == 2339 or GetBestMapForUnit == 499 or GetBestMapForUnit == 500)
   then
     --Kalimdor
     if (GetBestMapForUnit == 1 or GetBestMapForUnit == 7 or GetBestMapForUnit == 10 or GetBestMapForUnit == 11 or GetBestMapForUnit == 57 or GetBestMapForUnit == 62 
@@ -51,7 +51,7 @@ local GetBestMapForUnit = C_Map.GetBestMapForUnit("player")
       or GetBestMapForUnit == 35 or GetBestMapForUnit == 36 or GetBestMapForUnit == 37 or GetBestMapForUnit == 42 or GetBestMapForUnit == 47 or GetBestMapForUnit == 48 
       or GetBestMapForUnit == 49 or GetBestMapForUnit == 50 or GetBestMapForUnit == 51 or GetBestMapForUnit == 52 or GetBestMapForUnit == 55 or GetBestMapForUnit == 56 
       or GetBestMapForUnit == 94 or GetBestMapForUnit == 210 or GetBestMapForUnit == 224 or GetBestMapForUnit == 245 or GetBestMapForUnit == 425 or GetBestMapForUnit == 427 
-      or GetBestMapForUnit == 465 or GetBestMapForUnit == 467 or GetBestMapForUnit == 469 or GetBestMapForUnit == 499 or GetBestMapForUnit == 500 or GetBestMapForUnit == 2070 
+      or GetBestMapForUnit == 465 or GetBestMapForUnit == 467 or GetBestMapForUnit == 469 or GetBestMapForUnit == 2070 
       or GetBestMapForUnit == 241 or GetBestMapForUnit == 203 or GetBestMapForUnit == 204 or GetBestMapForUnit == 205 or GetBestMapForUnit == 241 or GetBestMapForUnit == 244 
       or GetBestMapForUnit == 245 or GetBestMapForUnit == 201 or GetBestMapForUnit == 95 or GetBestMapForUnit == 122 or GetBestMapForUnit == 217  or GetBestMapForUnit == 226)
     then
@@ -128,10 +128,10 @@ local GetBestMapForUnit = C_Map.GetBestMapForUnit("player")
     or GetBestMapForUnit == 90 or GetBestMapForUnit == 86 or GetBestMapForUnit == 88 or GetBestMapForUnit == 110 or GetBestMapForUnit == 111
     or GetBestMapForUnit == 125 or GetBestMapForUnit == 126 or GetBestMapForUnit == 391 or GetBestMapForUnit == 392 or GetBestMapForUnit == 393 
     or GetBestMapForUnit == 394 or GetBestMapForUnit == 582 or GetBestMapForUnit == 590 or GetBestMapForUnit == 622 or GetBestMapForUnit == 624 
-    or GetBestMapForUnit == 626 or GetBestMapForUnit == 627 or GetBestMapForUnit == 628 or GetBestMapForUnit == 629 or GetBestMapForUnit == 1161
-    or GetBestMapForUnit == 1163 or GetBestMapForUnit == 1164 or GetBestMapForUnit == 1165 or GetBestMapForUnit == 1670 or GetBestMapForUnit == 1671 
-    or GetBestMapForUnit == 1672 or GetBestMapForUnit == 1673 or GetBestMapForUnit == 2112 or GetBestMapForUnit == 407 or GetBestMapForUnit == 2339
-    or GetBestMapForUnit == 499 or GetBestMapForUnit == 500)
+    or GetBestMapForUnit == 626 or GetBestMapForUnit == 627 or GetBestMapForUnit == 628 or GetBestMapForUnit == 629 or GetBestMapForUnit == 831 or GetBestMapForUnit == 832
+    or GetBestMapForUnit == 1161 or GetBestMapForUnit == 1163 or GetBestMapForUnit == 1164 or GetBestMapForUnit == 1165 or GetBestMapForUnit == 1670 
+    or GetBestMapForUnit == 1671 or GetBestMapForUnit == 1672 or GetBestMapForUnit == 1673 or GetBestMapForUnit == 2112 or GetBestMapForUnit == 407 
+    or GetBestMapForUnit == 2339 or GetBestMapForUnit == 499 or GetBestMapForUnit == 500)
   then
     --Kalimdor
     if (GetBestMapForUnit == 1 or GetBestMapForUnit == 7 or GetBestMapForUnit == 10 or GetBestMapForUnit == 11 or GetBestMapForUnit == 57 or GetBestMapForUnit == 62 
@@ -150,7 +150,7 @@ local GetBestMapForUnit = C_Map.GetBestMapForUnit("player")
       or GetBestMapForUnit == 35 or GetBestMapForUnit == 36 or GetBestMapForUnit == 37 or GetBestMapForUnit == 42 or GetBestMapForUnit == 47 or GetBestMapForUnit == 48 
       or GetBestMapForUnit == 49 or GetBestMapForUnit == 50 or GetBestMapForUnit == 51 or GetBestMapForUnit == 52 or GetBestMapForUnit == 55 or GetBestMapForUnit == 56 
       or GetBestMapForUnit == 94 or GetBestMapForUnit == 210 or GetBestMapForUnit == 224 or GetBestMapForUnit == 245 or GetBestMapForUnit == 425 or GetBestMapForUnit == 427 
-      or GetBestMapForUnit == 465 or GetBestMapForUnit == 467 or GetBestMapForUnit == 469 or GetBestMapForUnit == 499 or GetBestMapForUnit == 500 or GetBestMapForUnit == 2070 
+      or GetBestMapForUnit == 465 or GetBestMapForUnit == 467 or GetBestMapForUnit == 469 or GetBestMapForUnit == 2070 
       or GetBestMapForUnit == 241 or GetBestMapForUnit == 203 or GetBestMapForUnit == 204 or GetBestMapForUnit == 205 or GetBestMapForUnit == 241 or GetBestMapForUnit == 244 
       or GetBestMapForUnit == 245 or GetBestMapForUnit == 201 or GetBestMapForUnit == 95 or GetBestMapForUnit == 122 or GetBestMapForUnit == 217  or GetBestMapForUnit == 226)
     then
@@ -227,10 +227,10 @@ local GetBestMapForUnit = C_Map.GetBestMapForUnit("player")
     or GetBestMapForUnit == 90 or GetBestMapForUnit == 86 or GetBestMapForUnit == 88 or GetBestMapForUnit == 110 or GetBestMapForUnit == 111
     or GetBestMapForUnit == 125 or GetBestMapForUnit == 126 or GetBestMapForUnit == 391 or GetBestMapForUnit == 392 or GetBestMapForUnit == 393 
     or GetBestMapForUnit == 394 or GetBestMapForUnit == 582 or GetBestMapForUnit == 590 or GetBestMapForUnit == 622 or GetBestMapForUnit == 624 
-    or GetBestMapForUnit == 626 or GetBestMapForUnit == 627 or GetBestMapForUnit == 628 or GetBestMapForUnit == 629 or GetBestMapForUnit == 1161
-    or GetBestMapForUnit == 1163 or GetBestMapForUnit == 1164 or GetBestMapForUnit == 1165 or GetBestMapForUnit == 1670 or GetBestMapForUnit == 1671 
-    or GetBestMapForUnit == 1672 or GetBestMapForUnit == 1673 or GetBestMapForUnit == 2112 or GetBestMapForUnit == 407 or GetBestMapForUnit == 2339
-    or GetBestMapForUnit == 499 or GetBestMapForUnit == 500) 
+    or GetBestMapForUnit == 626 or GetBestMapForUnit == 627 or GetBestMapForUnit == 628 or GetBestMapForUnit == 629 or GetBestMapForUnit == 831 or GetBestMapForUnit == 832
+    or GetBestMapForUnit == 1161 or GetBestMapForUnit == 1163 or GetBestMapForUnit == 1164 or GetBestMapForUnit == 1165 or GetBestMapForUnit == 1670 
+    or GetBestMapForUnit == 1671 or GetBestMapForUnit == 1672 or GetBestMapForUnit == 1673 or GetBestMapForUnit == 2112 or GetBestMapForUnit == 407 
+    or GetBestMapForUnit == 2339 or GetBestMapForUnit == 499 or GetBestMapForUnit == 500)
   then
     tooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["Capitals"] .. " " .. MINIMAP_LABEL .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
     tooltip:Show()
@@ -244,10 +244,10 @@ local GetBestMapForUnit = C_Map.GetBestMapForUnit("player")
     or GetBestMapForUnit == 90 or GetBestMapForUnit == 86 or GetBestMapForUnit == 88 or GetBestMapForUnit == 110 or GetBestMapForUnit == 111
     or GetBestMapForUnit == 125 or GetBestMapForUnit == 126 or GetBestMapForUnit == 391 or GetBestMapForUnit == 392 or GetBestMapForUnit == 393 
     or GetBestMapForUnit == 394 or GetBestMapForUnit == 582 or GetBestMapForUnit == 590 or GetBestMapForUnit == 622 or GetBestMapForUnit == 624 
-    or GetBestMapForUnit == 626 or GetBestMapForUnit == 627 or GetBestMapForUnit == 628 or GetBestMapForUnit == 629 or GetBestMapForUnit == 1161
-    or GetBestMapForUnit == 1163 or GetBestMapForUnit == 1164 or GetBestMapForUnit == 1165 or GetBestMapForUnit == 1670 or GetBestMapForUnit == 1671 
-    or GetBestMapForUnit == 1672 or GetBestMapForUnit == 1673 or GetBestMapForUnit == 2112 or GetBestMapForUnit == 407 or GetBestMapForUnit == 2339
-    or GetBestMapForUnit == 499 or GetBestMapForUnit == 500) 
+    or GetBestMapForUnit == 626 or GetBestMapForUnit == 627 or GetBestMapForUnit == 628 or GetBestMapForUnit == 629 or GetBestMapForUnit == 831 or GetBestMapForUnit == 832
+    or GetBestMapForUnit == 1161 or GetBestMapForUnit == 1163 or GetBestMapForUnit == 1164 or GetBestMapForUnit == 1165 or GetBestMapForUnit == 1670 
+    or GetBestMapForUnit == 1671 or GetBestMapForUnit == 1672 or GetBestMapForUnit == 1673 or GetBestMapForUnit == 2112 or GetBestMapForUnit == 407 
+    or GetBestMapForUnit == 2339 or GetBestMapForUnit == 499 or GetBestMapForUnit == 500)
   then
     tooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["Capitals"] .. " & " .. L["Capitals"] .. " " .. MINIMAP_LABEL .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
     tooltip:Show()
@@ -270,10 +270,10 @@ local GetBestMapForUnit = C_Map.GetBestMapForUnit("player")
       or GetBestMapForUnit == 90 or GetBestMapForUnit == 86 or GetBestMapForUnit == 88 or GetBestMapForUnit == 110 or GetBestMapForUnit == 111
       or GetBestMapForUnit == 125 or GetBestMapForUnit == 126 or GetBestMapForUnit == 391 or GetBestMapForUnit == 392 or GetBestMapForUnit == 393 
       or GetBestMapForUnit == 394 or GetBestMapForUnit == 582 or GetBestMapForUnit == 590 or GetBestMapForUnit == 622 or GetBestMapForUnit == 624 
-      or GetBestMapForUnit == 626 or GetBestMapForUnit == 627 or GetBestMapForUnit == 628 or GetBestMapForUnit == 629 or GetBestMapForUnit == 1161
-      or GetBestMapForUnit == 1163 or GetBestMapForUnit == 1164 or GetBestMapForUnit == 1165 or GetBestMapForUnit == 1670 or GetBestMapForUnit == 1671 
-      or GetBestMapForUnit == 1672 or GetBestMapForUnit == 1673 or GetBestMapForUnit == 2112 or GetBestMapForUnit == 407 or GetBestMapForUnit == 2339
-      or GetBestMapForUnit == 499 or GetBestMapForUnit == 500)
+      or GetBestMapForUnit == 626 or GetBestMapForUnit == 627 or GetBestMapForUnit == 628 or GetBestMapForUnit == 629 or GetBestMapForUnit == 831 or GetBestMapForUnit == 832
+      or GetBestMapForUnit == 1161 or GetBestMapForUnit == 1163 or GetBestMapForUnit == 1164 or GetBestMapForUnit == 1165 or GetBestMapForUnit == 1670 
+      or GetBestMapForUnit == 1671 or GetBestMapForUnit == 1672 or GetBestMapForUnit == 1673 or GetBestMapForUnit == 2112 or GetBestMapForUnit == 407 
+      or GetBestMapForUnit == 2339 or GetBestMapForUnit == 499 or GetBestMapForUnit == 500)
     then
       --Kalimdor
       if (GetBestMapForUnit == 1 or GetBestMapForUnit == 7 or GetBestMapForUnit == 10 or GetBestMapForUnit == 11 or GetBestMapForUnit == 57 or GetBestMapForUnit == 62 
@@ -301,7 +301,7 @@ local GetBestMapForUnit = C_Map.GetBestMapForUnit("player")
         or GetBestMapForUnit == 35 or GetBestMapForUnit == 36 or GetBestMapForUnit == 37 or GetBestMapForUnit == 42 or GetBestMapForUnit == 47 or GetBestMapForUnit == 48 
         or GetBestMapForUnit == 49 or GetBestMapForUnit == 50 or GetBestMapForUnit == 51 or GetBestMapForUnit == 52 or GetBestMapForUnit == 55 or GetBestMapForUnit == 56 
         or GetBestMapForUnit == 94 or GetBestMapForUnit == 210 or GetBestMapForUnit == 224 or GetBestMapForUnit == 245 or GetBestMapForUnit == 425 or GetBestMapForUnit == 427 
-        or GetBestMapForUnit == 465 or GetBestMapForUnit == 467 or GetBestMapForUnit == 469 or GetBestMapForUnit == 499 or GetBestMapForUnit == 500 or GetBestMapForUnit == 2070 
+        or GetBestMapForUnit == 465 or GetBestMapForUnit == 467 or GetBestMapForUnit == 469 or GetBestMapForUnit == 2070 
         or GetBestMapForUnit == 241 or GetBestMapForUnit == 203 or GetBestMapForUnit == 204 or GetBestMapForUnit == 205 or GetBestMapForUnit == 241 or GetBestMapForUnit == 244 
         or GetBestMapForUnit == 245 or GetBestMapForUnit == 201 or GetBestMapForUnit == 95 or GetBestMapForUnit == 122 or GetBestMapForUnit == 217  or GetBestMapForUnit == 226)
       then
@@ -477,10 +477,10 @@ local GetBestMapForUnit = C_Map.GetBestMapForUnit("player")
       or GetBestMapForUnit == 90 or GetBestMapForUnit == 86 or GetBestMapForUnit == 88 or GetBestMapForUnit == 110 or GetBestMapForUnit == 111
       or GetBestMapForUnit == 125 or GetBestMapForUnit == 126 or GetBestMapForUnit == 391 or GetBestMapForUnit == 392 or GetBestMapForUnit == 393 
       or GetBestMapForUnit == 394 or GetBestMapForUnit == 582 or GetBestMapForUnit == 590 or GetBestMapForUnit == 622 or GetBestMapForUnit == 624 
-      or GetBestMapForUnit == 626 or GetBestMapForUnit == 627 or GetBestMapForUnit == 628 or GetBestMapForUnit == 629 or GetBestMapForUnit == 1161
-      or GetBestMapForUnit == 1163 or GetBestMapForUnit == 1164 or GetBestMapForUnit == 1165 or GetBestMapForUnit == 1670 or GetBestMapForUnit == 1671 
-      or GetBestMapForUnit == 1672 or GetBestMapForUnit == 1673 or GetBestMapForUnit == 2112 or GetBestMapForUnit == 407 or GetBestMapForUnit == 2339
-      or GetBestMapForUnit == 499 or GetBestMapForUnit == 500)
+      or GetBestMapForUnit == 626 or GetBestMapForUnit == 627 or GetBestMapForUnit == 628 or GetBestMapForUnit == 629 or GetBestMapForUnit == 831 or GetBestMapForUnit == 832
+      or GetBestMapForUnit == 1161 or GetBestMapForUnit == 1163 or GetBestMapForUnit == 1164 or GetBestMapForUnit == 1165 or GetBestMapForUnit == 1670 
+      or GetBestMapForUnit == 1671 or GetBestMapForUnit == 1672 or GetBestMapForUnit == 1673 or GetBestMapForUnit == 2112 or GetBestMapForUnit == 407 
+      or GetBestMapForUnit == 2339 or GetBestMapForUnit == 499 or GetBestMapForUnit == 500)
     then
       --Kalimdor
       if (GetBestMapForUnit == 1 or GetBestMapForUnit == 7 or GetBestMapForUnit == 10 or GetBestMapForUnit == 11 or GetBestMapForUnit == 57 or GetBestMapForUnit == 62 
@@ -508,7 +508,7 @@ local GetBestMapForUnit = C_Map.GetBestMapForUnit("player")
         or GetBestMapForUnit == 35 or GetBestMapForUnit == 36 or GetBestMapForUnit == 37 or GetBestMapForUnit == 42 or GetBestMapForUnit == 47 or GetBestMapForUnit == 48 
         or GetBestMapForUnit == 49 or GetBestMapForUnit == 50 or GetBestMapForUnit == 51 or GetBestMapForUnit == 52 or GetBestMapForUnit == 55 or GetBestMapForUnit == 56 
         or GetBestMapForUnit == 94 or GetBestMapForUnit == 210 or GetBestMapForUnit == 224 or GetBestMapForUnit == 245 or GetBestMapForUnit == 425 or GetBestMapForUnit == 427 
-        or GetBestMapForUnit == 465 or GetBestMapForUnit == 467 or GetBestMapForUnit == 469 or GetBestMapForUnit == 499 or GetBestMapForUnit == 500 or GetBestMapForUnit == 2070 
+        or GetBestMapForUnit == 465 or GetBestMapForUnit == 467 or GetBestMapForUnit == 469 or GetBestMapForUnit == 2070 
         or GetBestMapForUnit == 241 or GetBestMapForUnit == 203 or GetBestMapForUnit == 204 or GetBestMapForUnit == 205 or GetBestMapForUnit == 241 or GetBestMapForUnit == 244 
         or GetBestMapForUnit == 245 or GetBestMapForUnit == 201 or GetBestMapForUnit == 95 or GetBestMapForUnit == 122 or GetBestMapForUnit == 217  or GetBestMapForUnit == 226)
       then
@@ -684,10 +684,10 @@ local GetBestMapForUnit = C_Map.GetBestMapForUnit("player")
       or GetBestMapForUnit == 90 or GetBestMapForUnit == 86 or GetBestMapForUnit == 88 or GetBestMapForUnit == 110 or GetBestMapForUnit == 111
       or GetBestMapForUnit == 125 or GetBestMapForUnit == 126 or GetBestMapForUnit == 391 or GetBestMapForUnit == 392 or GetBestMapForUnit == 393 
       or GetBestMapForUnit == 394 or GetBestMapForUnit == 582 or GetBestMapForUnit == 590 or GetBestMapForUnit == 622 or GetBestMapForUnit == 624 
-      or GetBestMapForUnit == 626 or GetBestMapForUnit == 627 or GetBestMapForUnit == 628 or GetBestMapForUnit == 629 or GetBestMapForUnit == 1161
-      or GetBestMapForUnit == 1163 or GetBestMapForUnit == 1164 or GetBestMapForUnit == 1165 or GetBestMapForUnit == 1670 or GetBestMapForUnit == 1671 
-      or GetBestMapForUnit == 1672 or GetBestMapForUnit == 1673 or GetBestMapForUnit == 2112 or GetBestMapForUnit == 407 or GetBestMapForUnit == 2339
-      or GetBestMapForUnit == 499 or GetBestMapForUnit == 500) 
+      or GetBestMapForUnit == 626 or GetBestMapForUnit == 627 or GetBestMapForUnit == 628 or GetBestMapForUnit == 629 or GetBestMapForUnit == 831 or GetBestMapForUnit == 832
+      or GetBestMapForUnit == 1161 or GetBestMapForUnit == 1163 or GetBestMapForUnit == 1164 or GetBestMapForUnit == 1165 or GetBestMapForUnit == 1670 
+      or GetBestMapForUnit == 1671 or GetBestMapForUnit == 1672 or GetBestMapForUnit == 1673 or GetBestMapForUnit == 2112 or GetBestMapForUnit == 407 
+      or GetBestMapForUnit == 2339 or GetBestMapForUnit == 499 or GetBestMapForUnit == 500)
     then
       if not ns.Addon.db.profile.activate.MinimapCapitals then
         ns.Addon.db.profile.activate.MinimapCapitals = true
@@ -710,10 +710,10 @@ local GetBestMapForUnit = C_Map.GetBestMapForUnit("player")
       or GetBestMapForUnit == 90 or GetBestMapForUnit == 86 or GetBestMapForUnit == 88 or GetBestMapForUnit == 110 or GetBestMapForUnit == 111
       or GetBestMapForUnit == 125 or GetBestMapForUnit == 126 or GetBestMapForUnit == 391 or GetBestMapForUnit == 392 or GetBestMapForUnit == 393 
       or GetBestMapForUnit == 394 or GetBestMapForUnit == 582 or GetBestMapForUnit == 590 or GetBestMapForUnit == 622 or GetBestMapForUnit == 624 
-      or GetBestMapForUnit == 626 or GetBestMapForUnit == 627 or GetBestMapForUnit == 628 or GetBestMapForUnit == 629 or GetBestMapForUnit == 1161
-      or GetBestMapForUnit == 1163 or GetBestMapForUnit == 1164 or GetBestMapForUnit == 1165 or GetBestMapForUnit == 1670 or GetBestMapForUnit == 1671 
-      or GetBestMapForUnit == 1672 or GetBestMapForUnit == 1673 or GetBestMapForUnit == 2112 or GetBestMapForUnit == 407 or GetBestMapForUnit == 2339
-      or GetBestMapForUnit == 499 or GetBestMapForUnit == 500) 
+      or GetBestMapForUnit == 626 or GetBestMapForUnit == 627 or GetBestMapForUnit == 628 or GetBestMapForUnit == 629 or GetBestMapForUnit == 831 or GetBestMapForUnit == 832
+      or GetBestMapForUnit == 1161 or GetBestMapForUnit == 1163 or GetBestMapForUnit == 1164 or GetBestMapForUnit == 1165 or GetBestMapForUnit == 1670 
+      or GetBestMapForUnit == 1671 or GetBestMapForUnit == 1672 or GetBestMapForUnit == 1673 or GetBestMapForUnit == 2112 or GetBestMapForUnit == 407 
+      or GetBestMapForUnit == 2339 or GetBestMapForUnit == 499 or GetBestMapForUnit == 500)
     then
       if not ns.Addon.db.profile.activate.Capitals then
         ns.Addon.db.profile.activate.Capitals = true

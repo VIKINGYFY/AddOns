@@ -50,37 +50,38 @@ end
 
 C.OnLoginThemes["StaticPopup"] = function()
 	for i = 1, 4 do
-		local main = "StaticPopup"..i
-		B.ReskinFrame(_G[main])
+		local popup = "StaticPopup"..i
+		B.ReskinFrame(_G[popup])
 
 		for j = 1, 4 do
-			B.ReskinButton(_G[main.."Button"..j])
+			B.ReskinButton(_G[popup.."Button"..j])
 		end
 
-		local edit = _G[main.."EditBox"]
+		local edit = _G[popup.."EditBox"]
 		B.ReskinInput(edit, 20)
-
-		local item = _G[main.."ItemFrame"]
-		local icon = _G[main.."ItemFrameIconTexture"]
+--[[
+		local frame = _G[popup].insertedFrame
+		local item = frame.ItemFrame
+		local icon = frame.ItemFrameIconTexture
 		B.StripTextures(item)
 		item.bg = B.ReskinIcon(icon)
 		B.ReskinHLTex(item, item.bg)
 		B.ReskinBorder(item.IconBorder)
-
-		local name = _G[main.."ItemFrameNameFrame"]
+]]
+		local name = _G[popup.."ItemFrameNameFrame"]
 		if name then name:Hide() end
 
-		local extra = _G[main.."extraButton"]
+		local extra = _G[popup.."extraButton"]
 		if extra then B.ReskinButton(extra) end
 
-		local gold = _G[main.."MoneyInputFrameGold"]
+		local gold = _G[popup.."MoneyInputFrameGold"]
 		B.ReskinInput(gold)
 
-		local silver = _G[main.."MoneyInputFrameSilver"]
+		local silver = _G[popup.."MoneyInputFrameSilver"]
 		B.UpdatePoint(silver, "LEFT", gold, "RIGHT", 1, 0)
 		B.ReskinInput(silver)
 
-		local copper = _G[main.."MoneyInputFrameCopper"]
+		local copper = _G[popup.."MoneyInputFrameCopper"]
 		B.UpdatePoint(copper, "LEFT", silver, "RIGHT", 1, 0)
 		B.ReskinInput(copper)
 	end

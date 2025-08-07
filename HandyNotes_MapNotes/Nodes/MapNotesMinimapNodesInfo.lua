@@ -480,8 +480,8 @@ minimap[1527] = { } -- Uldum
 
 -- Azeroth/Continent map minimap
 minimap[371] = { } -- TheJadeForest
-minimap[376] = { } -- ValleyoftheFourWinds 
-minimap[378] = { } -- The Wandering Isle   
+minimap[376] = { } -- ValleyoftheFourWinds
+minimap[378] = { } -- The Wandering Isle 
 minimap[379] = { } -- KunLaiSummit  
 minimap[388] = { } -- TownlongWastes    
 minimap[390] = { } -- ValeofEternalBlossoms  
@@ -626,6 +626,8 @@ minimap[680] = { } -- Suramar
 minimap[750] = { } -- Highmountain Thundertotem
 minimap[790] = { } -- Eye of Aszhara
 minimap[830] = { } -- Krokuun
+minimap[831] = { } -- Vindikaar upper deck
+minimap[832] = { } -- Vindikaar lower deck
 minimap[882] = { } -- Eredath
 minimap[885] = { } -- Antoran Wastes
 minimap[905] = { } -- Argus
@@ -802,4 +804,6 @@ minimap[2250] = { } -- Kriegval's Rest - Inside Dungeon Map
 minimap[2396] = { } -- Rowdy Rifts - Inside Dungeon Map
 minimap[2423] = { } -- Sidestreet Sluice - Inside Dungeon Map
 minimap[2420] = { } -- Sidestreet Sluice - The Pits - Inside Dungeon Map
+minimap[2452] = { } -- Archival Assault - Inside Dungeon Map
+minimap[2484] = { } -- Voidscar Cavern - Inside Dungeon Map
 end

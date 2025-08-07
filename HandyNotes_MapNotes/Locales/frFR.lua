@@ -2,6 +2,10 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "frFR")
 if not L then return end
 
+-- Npc
+L["NPC targeting"] = "Ciblage de PNJ"
+L["Clicking on a MapNotes symbol with an NPC name opens a confirmation window, which automatically targets this NPC after confirmation and marks it with an X"] = "Cliquer sur un symbole MapNotes avec un nom de PNJ ouvre une fenêtre de confirmation, qui cible automatiquement ce PNJ après confirmation et le marque d’un X"
+L["If you are not within range, you will receive the message in the chat"] = "Si vous n’êtes pas à portée, vous recevrez un message dans le chat"
 -- Changelog
 L["Changelog"] = "Journal des modifications"
 L["Last Changelog"] = "Dernier journal des modifications"

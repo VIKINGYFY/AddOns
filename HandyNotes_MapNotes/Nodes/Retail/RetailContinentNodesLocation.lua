@@ -4,11 +4,12 @@ local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 function ns.LoadContinentNodesLocationinfo(self)
 local db = ns.Addon.db.profile
 local nodes = ns.nodes
+ns._currentSourceFile = "RetailContinentNodesLocation.lua"
 
 --#####################################################################################################
 --##########################        function to hide all nodes below         ##########################
 --#####################################################################################################
-if not db.activate.HideMapNote then
+  if not db.activate.HideMapNote then
  
     --#####################################################################################################
     --################################         Continent / Zone Map        ################################
@@ -1152,28 +1153,20 @@ if not db.activate.HideMapNote then
               nodes[2274][84362059] = { id = 1272, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Cinderbrew Meadery
               nodes[2274][43337984] = { id = 1274, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- City of Threads
               nodes[2274][44338372] = { id = 1271, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Ara-Kara, City of Echoes
-
-              if ns.version == "11.2.0" then -- PTR
               nodes[2274][24392389] = { id = 1303, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Eco-Dome Al'dani
               nodes[2274][24391549] = { id = 1194, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Tazavesh, the Veiled Market
-              end
             end
       
           -- Khaz Algar Raids
             if self.db.profile.showContinentRaids then
-              nodes[2274][42188673] = { id = 1273, type = "Raid"}  -- Nerub-ar Palace
               nodes[2274][41469096] = { id = 1273, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Nerub-ar Palace     
               nodes[2274][82217245] = { id = 1296, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Liberation of Undermine  
-
-              if ns.version == "11.2.0" then -- PTR
-                nodes[2274][17931205] = { id = 1302, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Manaforge Omega
-              end
-
+              nodes[2274][17931205] = { id = 1302, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Manaforge Omega
             end
 
           -- Khaz Algar MapNotesIcons
             if self.db.profile.showContinentMapNotes then
-              nodes[2274][72311951] = { mnID = 2339, name = "", type = "MNL", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Dornogal"] .. " - " .. FACTION_NEUTRAL .. "\n" .. "\n" .. L["Portals"] .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. STORMWIND .. "\n" .. "\n" .. L["The Timeways"] .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. SPLASH_BATTLEFORAZEROTH_8_2_0_FEATURE1_TITLE .. "\n" .. " ==> " .. L["Maldraxxus"] .. "\n" .. " ==> " .. L["Zuldazar"] .."\n" .. "\n" .. CALENDAR_TYPE_DUNGEON .. "\n" .. " ==> " .. "The Rookery" } -- Dornogal
+              nodes[2274][72311951] = { mnID = 2339, name = "", type = "MNL", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Dornogal"] .. " - " .. FACTION_NEUTRAL .. "\n" .. "\n" .. L["Portals"] .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. STORMWIND .. "\n" .. "\n" .. L["The Timeways"] .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. "Tazavesh" .. "\n" .. " ==> " .. "Revendreth" .."\n" .. "\n" .. CALENDAR_TYPE_DUNGEON .. "\n" .. " ==> " .. "The Rookery" } -- Dornogal
 
               if self.faction == "Horde" or db.activate.ContinentEnemyFaction then
 
@@ -1222,4 +1215,5 @@ if not db.activate.HideMapNote then
 
       end
   end
+
 end

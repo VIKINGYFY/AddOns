@@ -237,10 +237,11 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
             or GetCurrentMapID == 90 or GetCurrentMapID == 86 or GetCurrentMapID == 88 or GetCurrentMapID == 110 or GetCurrentMapID == 111
             or GetCurrentMapID == 125 or GetCurrentMapID == 126 or GetCurrentMapID == 391 or GetCurrentMapID == 392 or GetCurrentMapID == 393 
             or GetCurrentMapID == 394 or GetCurrentMapID == 582 or GetCurrentMapID == 590 or GetCurrentMapID == 622 or GetCurrentMapID == 624 
-            or GetCurrentMapID == 626 or GetCurrentMapID == 627 or GetCurrentMapID == 628 or GetCurrentMapID == 629 or GetCurrentMapID == 1161
-            or GetCurrentMapID == 1163 or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 or GetCurrentMapID == 1670 or GetCurrentMapID == 1671 
-            or GetCurrentMapID == 1672 or GetCurrentMapID == 1673 or GetCurrentMapID == 2112 or GetCurrentMapID == 407 or GetCurrentMapID == 2339 
-            or GetCurrentMapID == 503 or GetCurrentMapID == 499 or GetCurrentMapID == 500 or GetCurrentMapID == 2322 or GetCurrentMapID == 2346)
+            or GetCurrentMapID == 626 or GetCurrentMapID == 627 or GetCurrentMapID == 628 or GetCurrentMapID == 629 or GetCurrentMapID == 831 or GetCurrentMapID == 832 
+            or GetCurrentMapID == 1161 or GetCurrentMapID == 1163 or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 or GetCurrentMapID == 1670 
+            or GetCurrentMapID == 1671 or GetCurrentMapID == 1672 or GetCurrentMapID == 1673 or GetCurrentMapID == 2112 or GetCurrentMapID == 407 
+            or GetCurrentMapID == 2339 or GetCurrentMapID == 503 or GetCurrentMapID == 499 or GetCurrentMapID == 500 or GetCurrentMapID == 2322 
+            or GetCurrentMapID == 2346)
         then
         
             if not ns.Addon.db.profile.activate.DungeonMap then
@@ -285,7 +286,7 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
                 or GetCurrentMapID == 35 or GetCurrentMapID == 36 or GetCurrentMapID == 37 or GetCurrentMapID == 42 or GetCurrentMapID == 47 or GetCurrentMapID == 48 
                 or GetCurrentMapID == 49 or GetCurrentMapID == 50 or GetCurrentMapID == 51 or GetCurrentMapID == 52 or GetCurrentMapID == 55 or GetCurrentMapID == 56 
                 or GetCurrentMapID == 94 or GetCurrentMapID == 210 or GetCurrentMapID == 224 or GetCurrentMapID == 245 or GetCurrentMapID == 425 or GetCurrentMapID == 427 
-                or GetCurrentMapID == 465 or GetCurrentMapID == 467 or GetCurrentMapID == 469 or GetCurrentMapID == 499 or GetCurrentMapID == 500 or GetCurrentMapID == 2070 
+                or GetCurrentMapID == 465 or GetCurrentMapID == 467 or GetCurrentMapID == 469 or GetCurrentMapID == 2070 
                 or GetCurrentMapID == 241 or GetCurrentMapID == 203 or GetCurrentMapID == 204 or GetCurrentMapID == 205 or GetCurrentMapID == 241 or GetCurrentMapID == 244 
                 or GetCurrentMapID == 245 or GetCurrentMapID == 201 or GetCurrentMapID == 95 or GetCurrentMapID == 122 or GetCurrentMapID == 217  or GetCurrentMapID == 226)
             then
@@ -481,7 +482,7 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
                 or GetCurrentMapID == 35 or GetCurrentMapID == 36 or GetCurrentMapID == 37 or GetCurrentMapID == 42 or GetCurrentMapID == 47 or GetCurrentMapID == 48 
                 or GetCurrentMapID == 49 or GetCurrentMapID == 50 or GetCurrentMapID == 51 or GetCurrentMapID == 52 or GetCurrentMapID == 55 or GetCurrentMapID == 56 
                 or GetCurrentMapID == 94 or GetCurrentMapID == 210 or GetCurrentMapID == 224 or GetCurrentMapID == 245 or GetCurrentMapID == 425 or GetCurrentMapID == 427 
-                or GetCurrentMapID == 465 or GetCurrentMapID == 467 or GetCurrentMapID == 469 or GetCurrentMapID == 499 or GetCurrentMapID == 500 or GetCurrentMapID == 2070 
+                or GetCurrentMapID == 465 or GetCurrentMapID == 467 or GetCurrentMapID == 469 or GetCurrentMapID == 2070 
                 or GetCurrentMapID == 241 or GetCurrentMapID == 203 or GetCurrentMapID == 204 or GetCurrentMapID == 205 or GetCurrentMapID == 241 or GetCurrentMapID == 244 
                 or GetCurrentMapID == 245 or GetCurrentMapID == 201 or GetCurrentMapID == 95 or GetCurrentMapID == 122 or GetCurrentMapID == 217  or GetCurrentMapID == 226) 
             then
@@ -656,10 +657,11 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
             or GetCurrentMapID == 90 or GetCurrentMapID == 86 or GetCurrentMapID == 88 or GetCurrentMapID == 110 or GetCurrentMapID == 111
             or GetCurrentMapID == 125 or GetCurrentMapID == 126 or GetCurrentMapID == 391 or GetCurrentMapID == 392 or GetCurrentMapID == 393 
             or GetCurrentMapID == 394 or GetCurrentMapID == 582 or GetCurrentMapID == 590 or GetCurrentMapID == 622 or GetCurrentMapID == 624 
-            or GetCurrentMapID == 626 or GetCurrentMapID == 627 or GetCurrentMapID == 628 or GetCurrentMapID == 629 or GetCurrentMapID == 1161
-            or GetCurrentMapID == 1163 or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 or GetCurrentMapID == 1670 or GetCurrentMapID == 1671 
-            or GetCurrentMapID == 1672 or GetCurrentMapID == 1673 or GetCurrentMapID == 2112 or GetCurrentMapID == 407 or GetCurrentMapID == 2339 
-            or GetCurrentMapID == 503 or GetCurrentMapID == 499 or GetCurrentMapID == 500) 
+            or GetCurrentMapID == 626 or GetCurrentMapID == 627 or GetCurrentMapID == 628 or GetCurrentMapID == 629 or GetCurrentMapID == 831 or GetCurrentMapID == 832 
+            or GetCurrentMapID == 1161 or GetCurrentMapID == 1163 or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 or GetCurrentMapID == 1670 
+            or GetCurrentMapID == 1671 or GetCurrentMapID == 1672 or GetCurrentMapID == 1673 or GetCurrentMapID == 2112 or GetCurrentMapID == 407 
+            or GetCurrentMapID == 2339 or GetCurrentMapID == 503 or GetCurrentMapID == 499 or GetCurrentMapID == 500 or GetCurrentMapID == 2322 
+            or GetCurrentMapID == 2346)
         then
         
             if not ns.Addon.db.profile.activate.Capitals then
@@ -682,10 +684,12 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
             or GetCurrentMapID == 90 or GetCurrentMapID == 86 or GetCurrentMapID == 88 or GetCurrentMapID == 110 or GetCurrentMapID == 111
             or GetCurrentMapID == 125 or GetCurrentMapID == 126 or GetCurrentMapID == 391 or GetCurrentMapID == 392 or GetCurrentMapID == 393 
             or GetCurrentMapID == 394 or GetCurrentMapID == 582 or GetCurrentMapID == 590 or GetCurrentMapID == 622 or GetCurrentMapID == 624 
-            or GetCurrentMapID == 626 or GetCurrentMapID == 627 or GetCurrentMapID == 628 or GetCurrentMapID == 629 or GetCurrentMapID == 1161
-            or GetCurrentMapID == 1163 or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 or GetCurrentMapID == 1670 or GetCurrentMapID == 1671 
-            or GetCurrentMapID == 1672 or GetCurrentMapID == 1673 or GetCurrentMapID == 2112 or GetCurrentMapID == 407 or GetCurrentMapID == 2339 
-            or GetCurrentMapID == 503 or GetCurrentMapID == 499 or GetCurrentMapID == 500) then
+            or GetCurrentMapID == 626 or GetCurrentMapID == 627 or GetCurrentMapID == 628 or GetCurrentMapID == 629 or GetCurrentMapID == 831 or GetCurrentMapID == 832 
+            or GetCurrentMapID == 1161 or GetCurrentMapID == 1163 or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 or GetCurrentMapID == 1670 
+            or GetCurrentMapID == 1671 or GetCurrentMapID == 1672 or GetCurrentMapID == 1673 or GetCurrentMapID == 2112 or GetCurrentMapID == 407 
+            or GetCurrentMapID == 2339 or GetCurrentMapID == 503 or GetCurrentMapID == 499 or GetCurrentMapID == 500 or GetCurrentMapID == 2322 
+            or GetCurrentMapID == 2346) 
+        then
         
             if not ns.Addon.db.profile.activate.Capitals then
                 ns.Addon.db.profile.activate.Capitals = true
@@ -791,7 +795,7 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
             or GetCurrentMapID == 35 or GetCurrentMapID == 36 or GetCurrentMapID == 37 or GetCurrentMapID == 42 or GetCurrentMapID == 47 or GetCurrentMapID == 48 
             or GetCurrentMapID == 49 or GetCurrentMapID == 50 or GetCurrentMapID == 51 or GetCurrentMapID == 52 or GetCurrentMapID == 55 or GetCurrentMapID == 56 
             or GetCurrentMapID == 94 or GetCurrentMapID == 210 or GetCurrentMapID == 224 or GetCurrentMapID == 245 or GetCurrentMapID == 425 or GetCurrentMapID == 427 
-            or GetCurrentMapID == 465 or GetCurrentMapID == 467 or GetCurrentMapID == 469 or GetCurrentMapID == 499 or GetCurrentMapID == 500 or GetCurrentMapID == 2070 
+            or GetCurrentMapID == 465 or GetCurrentMapID == 467 or GetCurrentMapID == 469 or GetCurrentMapID == 2070 
             or GetCurrentMapID == 241 or GetCurrentMapID == 203 or GetCurrentMapID == 204 or GetCurrentMapID == 205 or GetCurrentMapID == 241 or GetCurrentMapID == 244 
             or GetCurrentMapID == 245 or GetCurrentMapID == 201 or GetCurrentMapID == 95 or GetCurrentMapID == 122 or GetCurrentMapID == 217  or GetCurrentMapID == 226)
         then
@@ -879,7 +883,7 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
             or GetCurrentMapID == 35 or GetCurrentMapID == 36 or GetCurrentMapID == 37 or GetCurrentMapID == 42 or GetCurrentMapID == 47 or GetCurrentMapID == 48 
             or GetCurrentMapID == 49 or GetCurrentMapID == 50 or GetCurrentMapID == 51 or GetCurrentMapID == 52 or GetCurrentMapID == 55 or GetCurrentMapID == 56 
             or GetCurrentMapID == 94 or GetCurrentMapID == 210 or GetCurrentMapID == 224 or GetCurrentMapID == 245 or GetCurrentMapID == 425 or GetCurrentMapID == 427 
-            or GetCurrentMapID == 465 or GetCurrentMapID == 467 or GetCurrentMapID == 469 or GetCurrentMapID == 499 or GetCurrentMapID == 500 or GetCurrentMapID == 2070 
+            or GetCurrentMapID == 465 or GetCurrentMapID == 467 or GetCurrentMapID == 469 or GetCurrentMapID == 2070 
             or GetCurrentMapID == 241 or GetCurrentMapID == 203 or GetCurrentMapID == 204 or GetCurrentMapID == 205 or GetCurrentMapID == 241 or GetCurrentMapID == 244 
             or GetCurrentMapID == 245 or GetCurrentMapID == 201 or GetCurrentMapID == 95 or GetCurrentMapID == 122 or GetCurrentMapID == 217  or GetCurrentMapID == 226)
         then
@@ -950,48 +954,53 @@ local GetCurrentMapID = WorldMapFrame:GetMapID()
 
     -- Dungeon Maps
     if info.mapType == 4 and not 
-        (GetCurrentMapID == 1454 or GetCurrentMapID == 1456 -- Cata nodes
-        or GetCurrentMapID == 2266 -- Millenias's Threshold
-        or GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentMapID == 89 or GetCurrentMapID == 103 or GetCurrentMapID == 85
-        or GetCurrentMapID == 90 or GetCurrentMapID == 86 or GetCurrentMapID == 88 or GetCurrentMapID == 110 or GetCurrentMapID == 111
-        or GetCurrentMapID == 125 or GetCurrentMapID == 126 or GetCurrentMapID == 391 or GetCurrentMapID == 392 or GetCurrentMapID == 393 
-        or GetCurrentMapID == 394 or GetCurrentMapID == 582 or GetCurrentMapID == 590 or GetCurrentMapID == 622 or GetCurrentMapID == 624 
-        or GetCurrentMapID == 626 or GetCurrentMapID == 627 or GetCurrentMapID == 628 or GetCurrentMapID == 629 or GetCurrentMapID == 1161
-        or GetCurrentMapID == 1163 or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 or GetCurrentMapID == 1670 or GetCurrentMapID == 1671 
-        or GetCurrentMapID == 1672 or GetCurrentMapID == 1673 or GetCurrentMapID == 2112 or GetCurrentMapID == 407 or GetCurrentMapID == 2339 
-        or GetCurrentMapID == 503 or GetCurrentMapID == 499 or GetCurrentMapID == 500 or GetCurrentMapID == 2322 or GetCurrentMapID == 2346) 
+            (GetCurrentMapID == 1454 or GetCurrentMapID == 1456 -- Cata nodes
+            or GetCurrentMapID == 2266 -- Millenias's Threshold
+            or GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentMapID == 89 or GetCurrentMapID == 103 or GetCurrentMapID == 85
+            or GetCurrentMapID == 90 or GetCurrentMapID == 86 or GetCurrentMapID == 88 or GetCurrentMapID == 110 or GetCurrentMapID == 111
+            or GetCurrentMapID == 125 or GetCurrentMapID == 126 or GetCurrentMapID == 391 or GetCurrentMapID == 392 or GetCurrentMapID == 393 
+            or GetCurrentMapID == 394 or GetCurrentMapID == 582 or GetCurrentMapID == 590 or GetCurrentMapID == 622 or GetCurrentMapID == 624 
+            or GetCurrentMapID == 626 or GetCurrentMapID == 627 or GetCurrentMapID == 628 or GetCurrentMapID == 629 or GetCurrentMapID == 831 or GetCurrentMapID == 832 
+            or GetCurrentMapID == 1161 or GetCurrentMapID == 1163 or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 or GetCurrentMapID == 1670 
+            or GetCurrentMapID == 1671 or GetCurrentMapID == 1672 or GetCurrentMapID == 1673 or GetCurrentMapID == 2112 or GetCurrentMapID == 407 
+            or GetCurrentMapID == 2339 or GetCurrentMapID == 503 or GetCurrentMapID == 499 or GetCurrentMapID == 500 or GetCurrentMapID == 2322 
+            or GetCurrentMapID == 2346)
     then
         GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. DUNGEONS .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
         GameTooltip:Show()
     end
 
     -- Capitals without Sync function
-    if not ns.Addon.db.profile.activate.SyncCapitalsAndMinimap and (GetCurrentMapID == 1454 or GetCurrentMapID == 1456 -- Cata nodes
-        or GetCurrentMapID == 2266 -- Millenia's Threshold
-        or GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentMapID == 89 or GetCurrentMapID == 103 or GetCurrentMapID == 85
-        or GetCurrentMapID == 90 or GetCurrentMapID == 86 or GetCurrentMapID == 88 or GetCurrentMapID == 110 or GetCurrentMapID == 111
-        or GetCurrentMapID == 125 or GetCurrentMapID == 126 or GetCurrentMapID == 391 or GetCurrentMapID == 392 or GetCurrentMapID == 393 
-        or GetCurrentMapID == 394 or GetCurrentMapID == 582 or GetCurrentMapID == 590 or GetCurrentMapID == 622 or GetCurrentMapID == 624 
-        or GetCurrentMapID == 626 or GetCurrentMapID == 627 or GetCurrentMapID == 628 or GetCurrentMapID == 629 or GetCurrentMapID == 1161
-        or GetCurrentMapID == 1163 or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 or GetCurrentMapID == 1670 or GetCurrentMapID == 1671 
-        or GetCurrentMapID == 1672 or GetCurrentMapID == 1673 or GetCurrentMapID == 2112 or GetCurrentMapID == 407 or GetCurrentMapID == 2339 
-        or GetCurrentMapID == 503 or GetCurrentMapID == 499 or GetCurrentMapID == 500) 
+    if not ns.Addon.db.profile.activate.SyncCapitalsAndMinimap and 
+            (GetCurrentMapID == 1454 or GetCurrentMapID == 1456 -- Cata nodes
+            or GetCurrentMapID == 2266 -- Millenia's Threshold
+            or GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentMapID == 89 or GetCurrentMapID == 103 or GetCurrentMapID == 85
+            or GetCurrentMapID == 90 or GetCurrentMapID == 86 or GetCurrentMapID == 88 or GetCurrentMapID == 110 or GetCurrentMapID == 111
+            or GetCurrentMapID == 125 or GetCurrentMapID == 126 or GetCurrentMapID == 391 or GetCurrentMapID == 392 or GetCurrentMapID == 393 
+            or GetCurrentMapID == 394 or GetCurrentMapID == 582 or GetCurrentMapID == 590 or GetCurrentMapID == 622 or GetCurrentMapID == 624 
+            or GetCurrentMapID == 626 or GetCurrentMapID == 627 or GetCurrentMapID == 628 or GetCurrentMapID == 629 or GetCurrentMapID == 831 or GetCurrentMapID == 832 
+            or GetCurrentMapID == 1161 or GetCurrentMapID == 1163 or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 or GetCurrentMapID == 1670 
+            or GetCurrentMapID == 1671 or GetCurrentMapID == 1672 or GetCurrentMapID == 1673 or GetCurrentMapID == 2112 or GetCurrentMapID == 407 
+            or GetCurrentMapID == 2339 or GetCurrentMapID == 503 or GetCurrentMapID == 499 or GetCurrentMapID == 500 or GetCurrentMapID == 2322 
+            or GetCurrentMapID == 2346)
     then
         GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["Capitals"] .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
         GameTooltip:Show()
     end
 
     -- Capitals Sync function
-    if ns.Addon.db.profile.activate.SyncCapitalsAndMinimap and (GetCurrentMapID == 1454 or GetCurrentMapID == 1456 -- Cata nodes
-        or GetCurrentMapID == 2266 -- Millenia's Threshold
-        or GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentMapID == 89 or GetCurrentMapID == 103 or GetCurrentMapID == 85
-        or GetCurrentMapID == 90 or GetCurrentMapID == 86 or GetCurrentMapID == 88 or GetCurrentMapID == 110 or GetCurrentMapID == 111
-        or GetCurrentMapID == 125 or GetCurrentMapID == 126 or GetCurrentMapID == 391 or GetCurrentMapID == 392 or GetCurrentMapID == 393 
-        or GetCurrentMapID == 394 or GetCurrentMapID == 582 or GetCurrentMapID == 590 or GetCurrentMapID == 622 or GetCurrentMapID == 624 
-        or GetCurrentMapID == 626 or GetCurrentMapID == 627 or GetCurrentMapID == 628 or GetCurrentMapID == 629 or GetCurrentMapID == 1161
-        or GetCurrentMapID == 1163 or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 or GetCurrentMapID == 1670 or GetCurrentMapID == 1671 
-        or GetCurrentMapID == 1672 or GetCurrentMapID == 1673 or GetCurrentMapID == 2112 or GetCurrentMapID == 407 or GetCurrentMapID == 2339 
-        or GetCurrentMapID == 503 or GetCurrentMapID == 499 or GetCurrentMapID == 500) 
+    if ns.Addon.db.profile.activate.SyncCapitalsAndMinimap and 
+            (GetCurrentMapID == 1454 or GetCurrentMapID == 1456 -- Cata nodes
+            or GetCurrentMapID == 2266 -- Millenia's Threshold
+            or GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentMapID == 89 or GetCurrentMapID == 103 or GetCurrentMapID == 85
+            or GetCurrentMapID == 90 or GetCurrentMapID == 86 or GetCurrentMapID == 88 or GetCurrentMapID == 110 or GetCurrentMapID == 111
+            or GetCurrentMapID == 125 or GetCurrentMapID == 126 or GetCurrentMapID == 391 or GetCurrentMapID == 392 or GetCurrentMapID == 393 
+            or GetCurrentMapID == 394 or GetCurrentMapID == 582 or GetCurrentMapID == 590 or GetCurrentMapID == 622 or GetCurrentMapID == 624 
+            or GetCurrentMapID == 626 or GetCurrentMapID == 627 or GetCurrentMapID == 628 or GetCurrentMapID == 629 or GetCurrentMapID == 831 or GetCurrentMapID == 832 
+            or GetCurrentMapID == 1161 or GetCurrentMapID == 1163 or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 or GetCurrentMapID == 1670 
+            or GetCurrentMapID == 1671 or GetCurrentMapID == 1672 or GetCurrentMapID == 1673 or GetCurrentMapID == 2112 or GetCurrentMapID == 407 
+            or GetCurrentMapID == 2339 or GetCurrentMapID == 503 or GetCurrentMapID == 499 or GetCurrentMapID == 500 or GetCurrentMapID == 2322 
+            or GetCurrentMapID == 2346)
     then
         GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["Capitals"] .. " & " ..  L["Capitals"] .. " - " .. MINIMAP_LABEL .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
         GameTooltip:Show()

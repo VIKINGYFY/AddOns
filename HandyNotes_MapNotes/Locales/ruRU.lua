@@ -2,6 +2,10 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "ruRU")
 if not L then return end
 
+-- Npc
+L["NPC targeting"] = "Выбор цели NPC"
+L["Clicking on a MapNotes symbol with an NPC name opens a confirmation window, which automatically targets this NPC after confirmation and marks it with an X"] = "Щелчок по значку MapNotes с именем NPC откроет окно подтверждения, после чего NPC будет автоматически выбран в цель и отмечен крестиком"
+L["If you are not within range, you will receive the message in the chat"] = "Если вы вне диапазона, вы получите сообщение в чате"
 -- Changelog
 L["Changelog"] = "Список изменений"
 L["Last Changelog"] = "Последний список изменений"

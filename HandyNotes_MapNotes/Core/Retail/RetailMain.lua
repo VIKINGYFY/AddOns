@@ -1,5 +1,4 @@
 local ADDON_NAME, ns = ...
-
 local buildVersion, buildNumber, buildDate, interfaceVersion, localizedVersion, buildInfo = GetBuildInfo()
 ns.version = buildVersion -- ns.version == "11.1.0"
 
@@ -44,6 +43,99 @@ local function updateextraInformation()
     end
   end
 end
+
+local alreadyWarned = {}
+function ns.ValidateNodeEntry(value, coord, uiMapID, sourceFile)
+
+  local warnKey = tostring(uiMapID) .. ":" .. tostring(coord)
+  if alreadyWarned[warnKey] then return end
+
+  local missing = {}
+  if not value.name and not value.id then
+    table.insert(missing, "'name =' or 'id ='")
+  end
+  if not value.type then
+    table.insert(missing, "'type ='")
+  end
+
+  local hideInAllViews = (value.showInZone == false or value.showInZone == nil) and (value.showOnContinent == false or value.showOnContinent == nil) and (value.showOnMinimap == false or value.showOnMinimap == nil)
+  local coordStr = coord and tostring(coord) or "?"
+  local source = sourceFile or ns._currentSourceFile or "?"
+  local dataSource = "?"
+  if ns.nodes and ns.nodes[uiMapID] then
+    dataSource = "nodes[" .. uiMapID .. "]"
+  elseif ns.minimap and ns.minimap[uiMapID] then
+    dataSource = "minimap[" .. uiMapID .. "]"
+  end
+
+  if #missing > 0 then
+    print("|cffff0000[MapNotes]|r Error: Missing entry: " .. table.concat(missing, " and ") .. "\n • type[mapID][coords]: " .. dataSource .. "[" .. coordStr .. "]" .. "\n • File: " .. source)
+    alreadyWarned[warnKey] = true
+    return nil
+  end
+
+  if hideInAllViews then
+    print("|cffff0000[MapNotes]|r Error: showInZone, showOnContinent, showOnMinimap are all set to false!" .. "\n • type[mapID][coords]: " .. dataSource .. "[" .. coordStr .. "]" .. "\n • File: " .. source)
+    alreadyWarned[warnKey] = true
+  end
+
+  local visibleEverywhere = value.showInZone and value.showOnContinent and value.showOnMinimap
+  if visibleEverywhere then
+    print("|cffffff00[MapNotes]|r Hinweis: Icon ist überall sichtbar!" .. "\n • type[mapID][coords]: " .. dataSource .. "[" .. coordStr .. "]" .. "\n • File: " .. source)
+    alreadyWarned[warnKey] = true
+  end
+end
+
+local function LoadAndCheck(loadFunc, self)
+
+  if type(loadFunc) == "function" then
+    loadFunc(self)
+  end
+
+  -- no DeveloperMode active
+  if not (ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode) then
+    return
+  end
+
+  local previousNodes = ns.nodes
+  local tempNodes = {}
+
+  setmetatable(tempNodes, {
+    __index = function(t, k)
+      local new = {}
+      rawset(t, k, new)
+      return new
+    end
+  })
+
+  ns.nodes = tempNodes
+
+  local previousSource = ns._currentSourceFile
+  ns._currentSourceFile = nil
+
+  loadFunc(self)
+
+  local currentSource = ns._currentSourceFile or previousSource or "?"
+
+  for mapID, mapNodes in pairs(tempNodes) do
+    for coord, value in pairs(mapNodes) do
+      ns.ValidateNodeEntry(value, coord, mapID, currentSource)
+    end
+  end
+
+  for mapID, mapNodes in pairs(tempNodes) do
+      previousNodes[mapID] = previousNodes[mapID] or {}
+      for coord, value in pairs(mapNodes) do
+          value.sourceFile = currentSource
+          previousNodes[mapID][coord] = value
+      end
+  end
+
+  ns.nodes = previousNodes
+  ns._currentSourceFile = previousSource
+end
+
+
 
 function ns.MiniMapPlayerArrow()
     if MMPA then return MMPA end
@@ -127,9 +219,9 @@ local instanceInfoInitFrame = CreateFrame("Frame")
   updateextraInformation()
 end)
 
-local function ExtraToolTip()
+local function ExtraToolTip() -- only show tooltips if worldmap is opend and hide it on all icons if worldmap is closed
   local show = ns.Addon.db.profile.TooltipInformations and WorldMapFrame:IsShown()
-  ns.Addon.db.profile.ExtraTooltip = show or false
+  ns.OnlyDisplayedIfTheWorldmapIsAlsoOpen = show or false
 end
 
 ns.bossNameCache = ns.bossNameCache or {}
@@ -165,11 +257,23 @@ end
 local pluginHandler = { }
 ns.pluginHandler = pluginHandler
 function ns.pluginHandler.OnEnter(self, uiMapId, coord)
-  ns.nodes[uiMapId][coord] = nodes[uiMapId][coord]
-  ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
 
   local nodeData = nil
   local GetCurrentMapID = WorldMapFrame:GetMapID()
+
+  ns.nodes[uiMapId][coord] = nodes[uiMapId][coord]
+  ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
+
+  if (minimap[uiMapId] and minimap[uiMapId][coord]) then
+    nodeData = minimap[uiMapId][coord]
+  end
+
+	if (nodes[uiMapId] and nodes[uiMapId][coord]) then
+	  nodeData = nodes[uiMapId][coord]
+	end
+
+	if (not nodeData) then return end
+
   -- Highlight 
   if not self.highlight then
     self.highlight = self:CreateTexture(nil, "OVERLAY")
@@ -194,16 +298,6 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
     self.texture:SetDrawLayer("OVERLAY", 5)
   end
 
-  if (minimap[uiMapId] and minimap[uiMapId][coord]) then
-    nodeData = minimap[uiMapId][coord]
-  end
-
-	if (nodes[uiMapId] and nodes[uiMapId][coord]) then
-	  nodeData = nodes[uiMapId][coord]
-	end
-
-	if (not nodeData) then return end
-
 	local tooltip = self:GetParent() == WorldMapButton and WorldMapTooltip or GameTooltip
 
 	if ( self:GetCenter() > UIParent:GetCenter() ) then -- compare X coordinate
@@ -219,7 +313,29 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
   ExtraToolTip()
 	updateextraInformation()
 
-  if ns.Addon.db.profile.BossNames then
+  if nodeData.type and not ns.MapType0 then -- multi tooltips for instances above id names
+
+    local mixedMultiTypes = {
+      ["PassageDungeonRaidMulti"] = true,
+      ["MultipleM"] = true,
+      ["MultiVInstance"] = true,
+    }
+
+    if nodeData.type == "MultipleR" or nodeData.type == "PassageRaidMulti" or nodeData.type == "MultiVInstanceR" then
+      tooltip:AddDoubleLine("|cffffffff" .. RAIDS .. "\n" .. " ")
+    end
+
+    if nodeData.type == "MultipleD" or nodeData.type == "PassageDungeonMulti" or nodeData.type == "MultiVInstanceD" then
+      tooltip:AddDoubleLine("|cffffffff" .. DUNGEONS .. "\n" .. " ")
+    end
+
+    if mixedMultiTypes[nodeData.type] and nodeData.mnID then
+      tooltip:AddDoubleLine("|cffffffff" .. RAIDS .. " & " .. DUNGEONS .. "\n" .. " ")
+    end
+  
+  end
+
+  if ns.Addon.db.profile.BossNames and nodeData.type ~= "LFR" and nodeData.type ~= "PassageLFR" then
     if nodeData.id and type(nodeData.id) == "table" then
       tooltip:AddLine(L["Multiple instances"])
       tooltip:AddLine(" ")
@@ -246,7 +362,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
       end
 	  else
 	    tooltip:AddLine(v, nil, nil, nil, false)
-      if ns.DeveloperMode == true then
+      if ns.Addon.db.profile.DeveloperMode then
         if nodeData.dnID then
           tooltip:AddLine("Type:  " .. nodeData.dnID, nil, nil, false)
         end
@@ -276,9 +392,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
       end
     end
 
-    if nodeData.TransportName and not nodeData.delveID and not nodeData.dnID then
-      --tooltip:AddDoubleLine(nodeData.TransportName, nil, nil, false)
-    end
+    ns.NpcTooltips(tooltip, nodeData) -- npc tooltips vn RetailNpC
 
     if nodeData.TransportName and not nodeData.delveID then
       tooltip:AddDoubleLine(nodeData.TransportName, nil, nil, false)
@@ -369,7 +483,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
         if nodeData.wwwLink and nodeData.showWWW == true then
           tooltip:AddDoubleLine("|cffffffff" .. nodeData.wwwLink, nil, nil, false)
           tooltip:AddLine("\n" .. L["Has not been unlocked yet"] .. "\n" .. "\n", 1, 0, 0)
-          if ns.Addon.db.profile.ExtraTooltip then
+          if ns.OnlyDisplayedIfTheWorldmapIsAlsoOpen then -- only show tooltips if worldmap is opend and hide it on all icons if worldmap is closed
             tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00".. "< " .. L["Activate the „Link“ function from MapNotes in the General tab to create clickable links and email addresses in the chat"] .. " >" .. "\n" .. TextIconInfo:GetIconString() .. " " .. "< " .. L["Middle mouse button to post the link in the chat"] .. " >", nil, nil, false)
           end
         end
@@ -401,7 +515,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
         if nodeData.wwwLink and nodeData.showWWW == true then
           tooltip:AddDoubleLine("|cffffffff" .. nodeData.wwwLink, nil, nil, false)
           tooltip:AddLine("\n" .. L["Has not been unlocked yet"], 1, 0, 0)
-          if ns.Addon.db.profile.ExtraTooltip then
+          if ns.OnlyDisplayedIfTheWorldmapIsAlsoOpen then -- only show tooltips if worldmap is opend and hide it on all icons if worldmap is closed
             tooltip:AddDoubleLine("\n" .. TextIconInfo:GetIconString() .. " " .. "|cff00ff00".. "< " .. L["Activate the 'Link' function in the MapNotes menu to generate a clickable web link"] .. " >" .. "\n" .. TextIconInfo:GetIconString() .. " " ..  "< " .. L["Middle mouse button to post the link in the chat"] .. " >", nil, nil, false)
           end
         end
@@ -416,42 +530,16 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
 
     end
 
-    if nodeData.type and not ns.MapType0 then
-      local dungeonTypes = {
-        ["Dungeon"] = true,
-        ["PassageDungeon"] = true,
-        ["PassageDungeonMulti"] = true,
-        ["VInstanceD"] = true,
-        ["MultiVInstanceD"] = true,
-        ["MultipleD"] = true
-      }
-    
-      local raidTypes = {
-        ["Raid"] = true,
-        ["PassageRaid"] = true,
-        ["PassageRaidMulti"] = true,
-        ["VInstanceR"] = true,
-        ["MultipleR"] = true
-      }
-    
-      local mixedTypes = {
-        ["MultiVInstanceR"] = true,
-        ["MultiVInstance"] = true
-      }
-    
-      if (dungeonTypes[nodeData.type] and (nodeData.id or nodeData.mnID)) or
-         (nodeData.type == "PassageDungeon" and nodeData.id and not nodeData.mnID) then
+    if nodeData.type and not ns.MapType0 then -- single tooltips for instances under id names
+
+      if nodeData.type == "Raid" or nodeData.type == "PassageRaid" or nodeData.type == "VInstanceR" then
+        tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_RAID)
+      end
+
+      if nodeData.type == "Dungeon" or nodeData.type == "PassageDungeon" or nodeData.type == "VInstanceD" then
         tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_DUNGEON)
       end
     
-      if (raidTypes[nodeData.type] and (nodeData.id or nodeData.mnID)) or
-         (nodeData.type == "PassageRaid" and nodeData.id and not nodeData.mnID) then
-        tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_RAID)
-      end
-    
-      if mixedTypes[nodeData.type] and nodeData.mnID then
-        tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_RAID .. " & " .. CALENDAR_TYPE_DUNGEON)
-      end
     end
 
     -- Boss names
@@ -484,7 +572,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
     end
 
     -- Extra Tooltip
-    if ns.Addon.db.profile.ExtraTooltip then
+    if ns.OnlyDisplayedIfTheWorldmapIsAlsoOpen then -- only show tooltips if worldmap is opend and hide it on all icons if worldmap is closed
 
       if nodeData.id and not nodeData.mnID then  -- instance entrances
         if ns.Addon.db.profile.journal and not ns.CapitalIDs then
@@ -614,7 +702,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
       end
     end
 
-    if ns.Addon.db.profile.ExtraTooltip then
+    if ns.OnlyDisplayedIfTheWorldmapIsAlsoOpen then -- only show tooltips if worldmap is opend and hide it on all icons if worldmap is closed
       if ns.Addon.db.profile.DeleteIcons then
         if not nodeData.hideInfo == true and not ns.MapType0 then
           tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cffff0000" .. L["< Alt + Right click to delete this icon >"], nil, nil, false)
@@ -626,17 +714,16 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
   end
 end
 
-SLASH_DeveloperMode1 = "/mndev";
+SLASH_DeveloperMode1 = "/mndevmode";
 function SlashCmdList.DeveloperMode(msg, editbox)
-  if ns.DeveloperMode == true then
-    ns.DeveloperMode = false
+  if ns.Addon.db.profile.DeveloperMode == true then
+    ns.Addon.db.profile.DeveloperMode = false
     print("MapNotes DeveloperMode = Off")
   else
-    ns.DeveloperMode = true 
+    ns.Addon.db.profile.DeveloperMode = true 
     print("MapNotes DeveloperMode = On")
   end
 end
-
 
 function ns.pluginHandler:OnLeave(uiMapId, coord)
   if self:GetParent() == WorldMapButton then
@@ -708,7 +795,7 @@ do
 
       ns.instanceIcons = value.type == "Dungeon" or value.type == "Raid" or value.type == "PassageDungeon" or value.type == "PassageDungeonRaidMulti" or value.type == "PassageRaid" or value.type == "VInstance" or value.type == "MultiVInstance" 
                           or value.type == "Multiple" or value.type == "LFR" or value.type == "Gray" or value.type == "VKey1" or value.type == "Delves" or value.type == "VInstanceD" or value.type == "VInstanceR" or value.type == "MultiVInstanceD" 
-                          or value.type == "MultiVInstanceR" or value.type == "DelvesPassage"
+                          or value.type == "MultiVInstanceR" or value.type == "DelvesPassage" or value.type == "PassageLFR"
 
       ns.transportIcons = value.type == "Portal" or value.type == "PortalS" or value.type == "HPortal" or value.type == "APortal" or value.type == "HPortalS" or value.type == "APortalS" or value.type == "PassageHPortal" 
                           or value.type == "PassageAPortal" or value.type == "PassagePortal" or value.type == "Zeppelin" or value.type == "HZeppelin" or value.type == "AZeppelin" or value.type == "Ship" or value.type == "TorghastUp"
@@ -726,7 +813,7 @@ do
                         or value.type == "PvEVendorH" or value.type == "PvEVendorA" or value.type == "MMInnkeeperH" or value.type == "MMInnkeeperA" or value.type == "MMStablemasterH" or value.type == "MMStablemasterA"
                         or value.type == "MMMailboxH" or value.type == "MMMailboxA" or value.type == "MMPvPVendorH" or value.type == "MMPvPVendorA" or value.type == "MMPvEVendorH" or value.type == "MMPvEVendorA" 
                         or value.type == "ZonePvEVendorH" or value.type == "ZonePvPVendorH" or value.type == "ZonePvEVendorA" or value.type == "ZonePvPVendorA" or value.type == "TradingPost" or value.type == "PassageCaveUp"
-                        or value.type == "PassageCaveDown"
+                        or value.type == "PassageCaveDown" or value.type == "MountMerchant"
 
       ns.AllZoneIDs = ns.KalimdorIDs
                       or ns.EasternKingdomIDs
@@ -757,27 +844,17 @@ do
                       or GetCurrentMapID == 86 or GetCurrentMapID == 88 or GetCurrentMapID == 110 or GetCurrentMapID == 111 or GetCurrentMapID == 125 or GetCurrentMapID == 126 
                       or GetCurrentMapID == 391 or GetCurrentMapID == 392 or GetCurrentMapID == 393 or GetCurrentMapID == 394 or GetCurrentMapID == 407 or GetCurrentMapID == 503 
                       or GetCurrentMapID == 582 or GetCurrentMapID == 590 or GetCurrentMapID == 622 or GetCurrentMapID == 624 or GetCurrentMapID == 626 or GetCurrentMapID == 627 
-                      or GetCurrentMapID == 628 or GetCurrentMapID == 629 or GetCurrentMapID == 1161 or GetCurrentMapID == 1163 or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 
-                      or GetCurrentMapID == 1670 or GetCurrentMapID == 1671 or GetCurrentMapID == 1672 or GetCurrentMapID == 1673 or GetCurrentMapID == 2112 or GetCurrentMapID == 2339
-                      or GetCurrentMapID == 499 or GetCurrentMapID == 500 or GetCurrentMapID == 2266
-
-      ns.AllianceCapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentMapID == 89 or GetCurrentMapID == 103 or GetCurrentMapID == 393 or GetCurrentMapID == 394
-                      or GetCurrentMapID == 1161 or GetCurrentMapID == 622 or GetCurrentMapID == 582
-
-      ns.HordeCapitalsIDs = GetCurrentMapID == 85 or GetCurrentMapID == 86 or GetCurrentMapID == 88 or GetCurrentMapID == 110 or GetCurrentMapID == 90 or GetCurrentMapID == 392
-                      or GetCurrentMapID == 391 or GetCurrentMapID == 1163 or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 or GetCurrentMapID == 624 or GetCurrentMapID == 590
-
-      ns.NeutralCapitalIDs = GetCurrentMapID == 2339 or GetCurrentMapID == 111 or GetCurrentMapID == 1670 or GetCurrentMapID == 1671 or GetCurrentMapID == 1673 or GetCurrentMapID == 1672
-                      or GetCurrentMapID == 125 or GetCurrentMapID == 126 or GetCurrentMapID == 627 or GetCurrentMapID == 626 or GetCurrentMapID == 628 or GetCurrentMapID == 269
-                      or GetCurrentMapID == 2112 or GetCurrentMapID == 407
+                      or GetCurrentMapID == 831 or GetCurrentMapID == 832 or GetCurrentMapID == 628 or GetCurrentMapID == 629 or GetCurrentMapID == 1161 or GetCurrentMapID == 1163 
+                      or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 or GetCurrentMapID == 1670 or GetCurrentMapID == 1671 or GetCurrentMapID == 1672 or GetCurrentMapID == 1673 
+                      or GetCurrentMapID == 2112 or GetCurrentMapID == 2339 or GetCurrentMapID == 499 or GetCurrentMapID == 500 or GetCurrentMapID == 2266 
 
       ns.CapitalMiniMapIDs = GetBestMapForUnit == 84 or GetBestMapForUnit == 87 or GetBestMapForUnit == 89 or GetBestMapForUnit == 103 or GetBestMapForUnit == 85 or GetBestMapForUnit == 90 
                       or GetBestMapForUnit == 86 or GetBestMapForUnit == 88 or GetBestMapForUnit == 110 or GetBestMapForUnit == 111 or GetBestMapForUnit == 125 or GetBestMapForUnit == 126 
                       or GetBestMapForUnit == 391 or GetBestMapForUnit == 392 or GetBestMapForUnit == 393 or GetBestMapForUnit == 394 or GetBestMapForUnit == 407 or GetBestMapForUnit == 503 
                       or GetBestMapForUnit == 582 or GetBestMapForUnit == 590 or GetBestMapForUnit == 622 or GetBestMapForUnit == 624 or GetBestMapForUnit == 626 or GetBestMapForUnit == 627 
-                      or GetBestMapForUnit == 628 or GetBestMapForUnit == 629 or GetBestMapForUnit == 1161 or GetBestMapForUnit == 1163 or GetBestMapForUnit == 1164 or GetBestMapForUnit == 1165 
-                      or GetBestMapForUnit == 1670 or GetBestMapForUnit == 1671 or GetBestMapForUnit == 1672 or GetBestMapForUnit == 1673 or GetBestMapForUnit == 2112 or GetBestMapForUnit == 2339
-                      or GetBestMapForUnit == 499 or GetBestMapForUnit == 500 or GetBestMapForUnit == 2266
+                      or GetBestMapForUnit == 628 or GetBestMapForUnit == 629 or GetCurrentMapID == 831 or GetCurrentMapID == 832 or GetBestMapForUnit == 1161 or GetBestMapForUnit == 1163 
+                      or GetBestMapForUnit == 1164 or GetBestMapForUnit == 1165 or GetBestMapForUnit == 1670 or GetBestMapForUnit == 1671 or GetBestMapForUnit == 1672 or GetBestMapForUnit == 1673 
+                      or GetBestMapForUnit == 2112 or GetBestMapForUnit == 2339 or GetBestMapForUnit == 499 or GetBestMapForUnit == 500 or GetBestMapForUnit == 2266
 
       ns.KalimdorIDs = GetCurrentMapID == 1 or GetCurrentMapID == 7 or GetCurrentMapID == 10 or GetCurrentMapID == 11 or GetCurrentMapID == 57 or GetCurrentMapID == 62 
                       or GetCurrentMapID == 63 or GetCurrentMapID == 64 or GetCurrentMapID == 65 or GetCurrentMapID == 66 or GetCurrentMapID == 67 or GetCurrentMapID == 68 
@@ -792,7 +869,7 @@ do
                       or GetCurrentMapID == 35 or GetCurrentMapID == 36 or GetCurrentMapID == 37 or GetCurrentMapID == 42 or GetCurrentMapID == 47 or GetCurrentMapID == 48 
                       or GetCurrentMapID == 49 or GetCurrentMapID == 50 or GetCurrentMapID == 51 or GetCurrentMapID == 52 or GetCurrentMapID == 55 or GetCurrentMapID == 56 
                       or GetCurrentMapID == 94 or GetCurrentMapID == 210 or GetCurrentMapID == 224 or GetCurrentMapID == 245 or GetCurrentMapID == 425 or GetCurrentMapID == 427 
-                      or GetCurrentMapID == 465 or GetCurrentMapID == 467 or GetCurrentMapID == 469 or GetCurrentMapID == 499 or GetCurrentMapID == 500 or GetCurrentMapID == 2070 
+                      or GetCurrentMapID == 465 or GetCurrentMapID == 467 or GetCurrentMapID == 469 or GetCurrentMapID == 2070 
                       or GetCurrentMapID == 241 or GetCurrentMapID == 203 or GetCurrentMapID == 204 or GetCurrentMapID == 205 or GetCurrentMapID == 241 or GetCurrentMapID == 244 
                       or GetCurrentMapID == 245 or GetCurrentMapID == 201 or GetCurrentMapID == 95 or GetCurrentMapID == 122 or GetCurrentMapID == 217 or GetCurrentMapID == 226
           
@@ -851,6 +928,10 @@ do
 
       if (value.type == "LFR") then
         icon = ns.icons["LFR"]
+      end
+
+      if (value.type == "PassageLFR") then
+        icon = ns.icons["PassageLFR"]
       end
 
       if (value.type == "HIcon") then
@@ -920,7 +1001,7 @@ do
           alpha = db.MiniMapAlphaOldVanilla
         end
 
-        if value.type == "LFR" then
+        if value.type == "LFR" or value.type == "PassageLFR" then
           scale = db.MiniMapScaleLFR
           alpha = db.MiniMapAlphaLFR
         end
@@ -1170,7 +1251,7 @@ do
           alpha = db.ZoneAlphaOldVanilla
         end
 
-        if value.type == "LFR" then
+        if value.type == "LFR" or value.type == "PassageLFR" then
           scale = db.ZoneScaleLFR
           alpha = db.ZoneAlphaLFR
         end
@@ -1406,7 +1487,7 @@ do
             icon = ns.icons["Gray"]
           end
 
-          if (value.type == "LFR") then
+          if (value.type == "LFR" or value.type == "PassageLFR") then
             icon = ns.icons["LFR"]
           end
     
@@ -1587,14 +1668,14 @@ ns.hideLink = nodes[uiMapId][coord].hideLink
 
 local mapInfo = C_Map.GetMapInfo(uiMapId)
 local GetCurrentMapID = WorldMapFrame:GetMapID()
-local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87  or GetCurrentMapID == 89 or GetCurrentMapID == 103 or GetCurrentMapID == 85
-                or GetCurrentMapID == 90 or GetCurrentMapID == 86 or GetCurrentMapID == 88 or GetCurrentMapID == 110  or GetCurrentMapID == 111
-                or GetCurrentMapID == 125  or GetCurrentMapID == 126  or GetCurrentMapID == 391  or GetCurrentMapID == 392  or GetCurrentMapID == 393
-                or GetCurrentMapID == 394  or GetCurrentMapID == 407  or GetCurrentMapID == 582  or GetCurrentMapID == 590  or GetCurrentMapID == 622
-                or GetCurrentMapID == 624  or GetCurrentMapID == 626  or GetCurrentMapID == 627  or GetCurrentMapID == 628  or GetCurrentMapID == 629
-                or GetCurrentMapID == 1161 or GetCurrentMapID == 1163 or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 or GetCurrentMapID == 1670
-                or GetCurrentMapID == 1671 or GetCurrentMapID == 1672 or GetCurrentMapID == 1673 or GetCurrentMapID == 2112 or GetCurrentMapID == 2339
-                or GetCurrentMapID == 503 or GetCurrentMapID == 2266
+local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentMapID == 89 or GetCurrentMapID == 103 or GetCurrentMapID == 85
+                or GetCurrentMapID == 90 or GetCurrentMapID == 86 or GetCurrentMapID == 88 or GetCurrentMapID == 110 or GetCurrentMapID == 111
+                or GetCurrentMapID == 125 or GetCurrentMapID == 126 or GetCurrentMapID == 391 or GetCurrentMapID == 392 or GetCurrentMapID == 393
+                or GetCurrentMapID == 394 or GetCurrentMapID == 407 or GetCurrentMapID == 582 or GetCurrentMapID == 590 or GetCurrentMapID == 622
+                or GetCurrentMapID == 624 or GetCurrentMapID == 626 or GetCurrentMapID == 627 or GetCurrentMapID == 628 or GetCurrentMapID == 629
+                or GetCurrentMapID == 831 or GetCurrentMapID == 832 or GetCurrentMapID == 1161 or GetCurrentMapID == 1163 or GetCurrentMapID == 1164 
+                or GetCurrentMapID == 1165 or GetCurrentMapID == 1670 or GetCurrentMapID == 1671 or GetCurrentMapID == 1672 or GetCurrentMapID == 1673 
+                or GetCurrentMapID == 2112 or GetCurrentMapID == 2339 or GetCurrentMapID == 503 or GetCurrentMapID == 2266
 
   StaticPopupDialogs["Delete_Icon?"] = {
     text = TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. ": " .. L["Delete this icon"] .. " ? " .. TextIconMNL4:GetIconString(),
@@ -1741,6 +1822,11 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87  or GetCurrent
     WorldMapFrame:SetMapID(mnID2)
   end
 
+  -- npc targeting & rangecheck
+  if ns.TryCreateTarget(uiMapId, coord, button) then
+    return
+  end
+
   if (button == "RightButton") and IsAltKeyDown() then
     if ns.Addon.db.profile.DeleteIcons then
       StaticPopup_Show("Delete_Icon?")
@@ -1752,21 +1838,21 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87  or GetCurrent
   end
 
 
-    if (not pressed) then return end
+  if (not pressed) then return end
 
-    if (button == "MiddleButton") and leaveDelve and ns.icons["Delves"] then
-      StaticPopup_Show("Leave_Delve?")
-    end
+  if (button == "MiddleButton") and leaveDelve and ns.icons["Delves"] then
+    StaticPopup_Show("Leave_Delve?")
+  end
 
-    if (button == "MiddleButton") then
-      if wwwLink and not (ns.achievementID or ns.questID) then
-        print(wwwLink)
-      elseif ns.questID and not ns.hideLink then
-        print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_QUEST, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/quest=" .. ns.questID)
-      elseif ns.achievementID then
-        print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/achievement=" .. ns.achievementID)
-      end
+  if (button == "MiddleButton") and not IsShiftKeyDown() then
+    if wwwLink and not (ns.achievementID or ns.questID) then
+      print(wwwLink)
+    elseif ns.questID and not ns.hideLink then
+      print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_QUEST, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/quest=" .. ns.questID)
+    elseif ns.achievementID then
+      print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/achievement=" .. ns.achievementID)
     end
+  end
 
   if ns.Addon.db.profile.activate.SwapButtons then -- New SwapButtons
     if (button == "RightButton" and not IsAltKeyDown()) then
@@ -2138,6 +2224,11 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
       end
   end
 
+  -- MapNotes DeveloperMode is active print line
+  if ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode then
+    print(ns.COLORED_ADDON_NAME .. " DeveloperMode is |cff00ff00active|r")
+  end
+
 end
 
 function Addon:PopulateMinimap()
@@ -2164,29 +2255,30 @@ function Addon:PopulateTable()
   ns.LoadMapNotesNodesInfo() -- load nodes\Retail\RetailMapNotesNodesInfo.lua
   ns.LoadMapNotesMinimapInfo() -- load nodes\Retail\RetailMapNotesMinimapNodesInfo.lua
 
-  ns.LoadMiniMapLocationinfo(self) -- load nodes\Retail\RetailMiniMapNodes.lua
-  ns.LoadMiniMapDungeonLocationinfo(self) -- load nodes\Retail\RetailMiniMapDungeonNodes.lua
+  LoadAndCheck(ns.LoadMiniMapLocationinfo,self) -- load nodes\Retail\RetailMiniMapNodes.lua
+  LoadAndCheck(ns.LoadMiniMapDungeonLocationinfo,self) -- load nodes\Retail\RetailMiniMapDungeonNodes.lua
 
-  ns.LoadAzerothNodesLocationInfo(self) -- load nodes\Retail\RetailAzerothNodeslocation.lua
-  ns.LoadContinentNodesLocationinfo(self) -- load nodes\Retail\RetailContinentNodesLocation.lua
+  LoadAndCheck(ns.LoadAzerothNodesLocationInfo,self) -- load nodes\Retail\RetailAzerothNodeslocation.lua
+  LoadAndCheck(ns.LoadContinentNodesLocationinfo,self) -- load nodes\Retail\RetailContinentNodesLocation.lua
 
-  ns.LoadZoneMapNodesLocationinfo(self) -- load nodes\Retail\RetailZoneNodesLocation.lua
-  ns.LoadZoneDungeonMapNodesLocationinfo(self) -- load OnlyZoneDungeonNodesLocation.lua
+  LoadAndCheck(ns.LoadZoneMapNodesLocationinfo, self) -- load nodes\Retail\RetailZoneNodesLocation.lua
+  LoadAndCheck(ns.LoadZoneDungeonMapNodesLocationinfo, self) -- load OnlyZoneDungeonNodesLocation.lua
 
-  ns.LoadGeneralZoneLocationinfo(self) -- load nodes\Retail\RetailGeneralZoneNodes.lua
-  ns.LoadGeneralMiniMapLocationinfo(self) -- load nodes\Retail\RetailGeneralMiniMapNodes.lua
+  LoadAndCheck(ns.LoadGeneralZoneLocationinfo,self) -- load nodes\Retail\RetailGeneralZoneNodes.lua
+  LoadAndCheck(ns.LoadGeneralMiniMapLocationinfo,self) -- load nodes\Retail\RetailGeneralMiniMapNodes.lua
 
-  ns.LoadPathsZoneLocationinfo(self) -- load nodes\Retail\RetailPathsZoneNodes.lua
-  ns.LoadPathsMiniMapLocationinfo(self) -- load nodes\Retail\RetailPathsMiniMapNodes.lua
+  LoadAndCheck(ns.LoadPathsZoneLocationinfo,self) -- load nodes\Retail\RetailPathsZoneNodes.lua
+  LoadAndCheck(ns.LoadPathsMiniMapLocationinfo,self) -- load nodes\Retail\RetailPathsMiniMapNodes.lua
 
-  ns.LoadInsideDungeonNodesLocationInfo(self) -- load nodes\Retail\RetailInsideDungeonNodesLocation.lua
+  LoadAndCheck(ns.LoadInsideDungeonNodesLocationInfo,self) -- load nodes\Retail\RetailInsideDungeonNodesLocation.lua
 
-  ns.LoadWorldNodesLocationInfo(self) -- load nodes\Retail\RetailWorldNodesLocation.lua
+  LoadAndCheck(ns.LoadWorldNodesLocationInfo, self) -- load nodes\Retail\RetailWorldNodesLocation.lua
+  --ns.LoadWorldNodesLocationInfo(self) -- load nodes\Retail\RetailWorldNodesLocation.lua
 
-  ns.LoadCapitalsLocationinfo(self) -- load nodes\Retail\RetailCapitals.lua
-  ns.LoadMinimapCapitalsLocationinfo(self) -- load nodes\Retail\RetailMinimapCapitals.lua
+  LoadAndCheck(ns.LoadCapitalsLocationinfo,self) -- load nodes\Retail\RetailCapitals.lua
+  LoadAndCheck(ns.LoadMinimapCapitalsLocationinfo,self) -- load nodes\Retail\RetailMinimapCapitals.lua
 
-  ns.LoadSpecialLocations(self)
+  LoadAndCheck(ns.LoadSpecialLocations,self)
 
 end
 
@@ -2207,7 +2299,12 @@ function Addon:UpdateInstanceNames(node)
       self:UpdateAlter(v, name)
       table.insert(nameList, name)
     end
-    node.name = table.concat(nameList, "\n")
+
+    if node.name then
+      node.name = node.name .. "\n" .. table.concat(nameList, "\n")
+    else
+      node.name = table.concat(nameList, "\n")
+    end
 
     if ns.Addon.db.profile.TooltipInformations then
       local tooltipInfo = ""

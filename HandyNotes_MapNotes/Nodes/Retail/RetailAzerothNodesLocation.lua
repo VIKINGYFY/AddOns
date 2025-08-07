@@ -4,12 +4,12 @@ local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 function ns.LoadAzerothNodesLocationInfo(self)
 local db = ns.Addon.db.profile
 local nodes = ns.nodes
-
+ns._currentSourceFile = "RetailAzerothNodesLocation.lua"
 
 --#####################################################################################################
 --##########################        function to hide all nodes below         ##########################
 --#####################################################################################################
-if not db.activate.HideMapNote then
+  if not db.activate.HideMapNote then
 
 
     --#####################################################################################################
@@ -389,13 +389,13 @@ if not db.activate.HideMapNote then
     
         -- Azeroth Northrend Multiple
           if self.db.profile.showAzerothMultiple then
-            nodes[947][47451709] = { hideInfo = true, id = {271, 272 }, mnID = 115, type = "MultipleD" } -- Ahn'kahet The Old Kingdom, Azjol-Nerub
-            nodes[947][57062211] = { hideInfo = true, id = {286, 285 }, mnID = 117, type = "MultipleD", showInZone = true } -- Utgarde Pinnacle, Utgarde Keep
-            nodes[947][47421290] = { hideInfo = true, id = {758, 276, 278, 280 }, mnID = 118, type = "MultipleM", showInZone = true } -- Icecrown Citadel, The Forge of Souls, Halls of Reflection, Pit of Saron
-            nodes[947][51880617] = { hideInfo = true, id = {759, 277, 275 },mnID = 120, type = "MultipleM", showInZone = true } -- Ulduar, Halls of Stone, Halls of Lightning
-            nodes[947][49290747] = { hideInfo = true, id = {757, 284 }, type = "MultipleM", showInZone = true } -- Trial of the Crusader, Trial of the Champion
-            nodes[947][40641671] = { hideInfo = true, id = {756, 282, 281 }, mnID = 114, type = "MultipleM", showInZone = true } -- The Eye of Eternity, The Nexus, The Oculus
-            nodes[947][50001736] = { hideInfo = true, id = {755, 761 }, mnID = 115, type = "MultipleR", showInZone = true } -- The Ruby Sanctum, The Obsidian Sanctum
+            nodes[947][47451709] = { hideInfo = true, id = { 271, 272 }, mnID = 115, type = "MultipleD", showInZone = true} -- Ahn'kahet The Old Kingdom, Azjol-Nerub
+            nodes[947][57062211] = { hideInfo = true, id = { 286, 285 }, mnID = 117, type = "MultipleD", showInZone = true } -- Utgarde Pinnacle, Utgarde Keep
+            nodes[947][47421290] = { hideInfo = true, id = { 758, 276, 278, 280 }, mnID = 118, type = "MultipleM", showInZone = true } -- Icecrown Citadel, The Forge of Souls, Halls of Reflection, Pit of Saron
+            nodes[947][51880617] = { hideInfo = true, id = { 759, 277, 275 },mnID = 120, type = "MultipleM", showInZone = true } -- Ulduar, Halls of Stone, Halls of Lightning
+            nodes[947][49290747] = { hideInfo = true, id = { 757, 284 }, type = "MultipleM", showInZone = true } -- Trial of the Crusader, Trial of the Champion
+            nodes[947][40641671] = { hideInfo = true, id = { 756, 282, 281 }, mnID = 114, type = "MultipleM", showInZone = true } -- The Eye of Eternity, The Nexus, The Oculus
+            nodes[947][50001736] = { hideInfo = true, id = { 755, 761 }, mnID = 115, type = "MultipleR", showInZone = true } -- The Ruby Sanctum, The Obsidian Sanctum
           end
     
           
@@ -789,11 +789,6 @@ if not db.activate.HideMapNote then
               nodes[947][31678252] = { id = 1272, mnID = 2248, type = "Dungeon", showInZone = true } -- Cinderbrew Meadery 
             end
       
-          -- Azeroth Khaz Algar Raids     
-            if self.db.profile.showAzerothRaids then
-              --nodes[947][24109419] = { id = 1273, mnID = 2274, type = "Raid", showInZone = true } -- Nerub-ar Palace
-            end
-
           -- Azeroth Khaz Algar Delves
             if self.db.profile.showAzerothDelves then
               nodes[947][23478352] = { name = DELVES_LABEL .. " " .. L["Entrance"], mnID = 2274, delveIDs = { 2259, 2299, 2348, 2347, 2312, 2310, 2301, 2277, 2251, 2302, 2269, 2249, 2250 }, type = "Delves", showInZone = true } -- Cinderbrew Meadery 
@@ -806,7 +801,7 @@ if not db.activate.HideMapNote then
 
           -- Khaz Algar MapNotesIcons
             if self.db.profile.showAzerothMapNotes then
-              nodes[947][29238221] = { mnID = 2339, name = "", type = "MNL", showInZone = false, TransportName = L["Dornogal"] .. " - " .. FACTION_NEUTRAL .. "\n" .. "\n" .. L["Portals"] .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. STORMWIND .. "\n" .. "\n" .. L["The Timeways"] .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. SPLASH_BATTLEFORAZEROTH_8_2_0_FEATURE1_TITLE .. "\n" .. " ==> " .. L["Maldraxxus"] .. "\n" .. " ==> " .. L["Zuldazar"] .."\n" .. "\n" .. CALENDAR_TYPE_DUNGEON .. "\n" .. " ==> " .. "The Rookery" } -- Dornogal
+              nodes[947][29238221] = { mnID = 2339, name = "", type = "MNL", TransportName = L["Dornogal"] .. " - " .. FACTION_NEUTRAL .. "\n" .. "\n" .. L["Portals"] .. "\n" .. " ==> " .. ORGRIMMAR .. "\n" .. " ==> " .. STORMWIND .. "\n" .. "\n" .. L["The Timeways"] .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. "Tazavesh" .. "\n" .. " ==> " .. "Revendreth" .."\n" .. "\n" .. CALENDAR_TYPE_DUNGEON .. "\n" .. " ==> " .. "The Rookery", showInZone = true } -- Dornogal
             end
 
           -- Khaz Algar not MapNotesIcons
@@ -822,5 +817,7 @@ if not db.activate.HideMapNote then
 
 
       end
-    end
+  end
+
+ns._currentSourceFile = nil 
 end

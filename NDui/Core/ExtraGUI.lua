@@ -2604,9 +2604,9 @@ function G:SetupAvada()
 	end
 
 	function refreshAllFrames()
-		local specIndex = GetSpecialization()
+		local specIndex = C_SpecializationInfo.GetSpecialization()
 		if specIndex > 4 then specIndex = 1 end -- use 1st spec for lower level
-		currentSpecID = GetSpecializationInfo(specIndex)
+		currentSpecID = C_SpecializationInfo.GetSpecializationInfo(specIndex)
 
 		if not panel:IsShown() then return end
 		updateProfileButtons()

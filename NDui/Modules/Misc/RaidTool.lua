@@ -38,7 +38,7 @@ function M:RaidTool_Header()
 				self.buttons[2].text:SetText(IsInRaid() and CONVERT_TO_PARTY or CONVERT_TO_RAID)
 			end
 		else
-			SendChatMessage(format(L["BR Text"], self.resFrame.Count:GetText(), self.resFrame.Timer:GetText()), B.GetCurrentChannel())
+			C_ChatInfo.SendChatMessage(format(L["BR Text"], self.resFrame.Count:GetText(), self.resFrame.Timer:GetText()), B.GetCurrentChannel())
 		end
 	end)
 	frame:SetScript("OnDoubleClick", function(_, btn)
@@ -259,7 +259,7 @@ function M:RaidTool_BuffChecker(parent)
 		if DB.isDeveloper then
 			print(text)
 		else
-			SendChatMessage(text, B.GetCurrentChannel())
+			C_ChatInfo.SendChatMessage(text, B.GetCurrentChannel())
 		end
 	end
 
@@ -425,7 +425,7 @@ function M:RaidTool_CreateMenu(parent)
 		OnAccept = function()
 			if InCombatLockdown() then UIErrorsFrame:AddMessage(DB.InfoColor..ERR_NOT_IN_COMBAT) return end
 			if IsInRaid() then
-				SendChatMessage(L["Disband Process"], "RAID")
+				C_ChatInfo.SendChatMessage(L["Disband Process"], "RAID")
 				for i = 1, GetNumGroupMembers() do
 					local name, _, _, _, _, _, _, online = GetRaidRosterInfo(i)
 					if online and name ~= DB.MyName then

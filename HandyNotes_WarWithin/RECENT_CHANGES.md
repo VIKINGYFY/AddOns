@@ -1,4 +1,9 @@
-## Changed in v87
+## Changed in v89
 
-* Azj-Kahet: showing the tooltip for some of the profession masters could cause an error
+* K'aresh:
+    * Change the icon for phase conduits
+    * Add Dangerous Prowlers of K'aresh
+    * Add the Delves and their loot
+    * Tweak how the nearby points for Heka'tamos are displayed
+* Undermine: the discovery achievement was missing from the delve tooltips
 

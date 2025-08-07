@@ -7,6 +7,7 @@ local nodes = ns.nodes
 local minimap = ns.minimap
 local raceName, raceFile, raceID = UnitRace("player")
 local DarkIronDwarf = C_CreatureInfo.GetRaceInfo(34).raceName
+ns._currentSourceFile = "RetailSpecialLocations.lua"
 
     if not db.activate.HideMapNote then
 
@@ -283,4 +284,5 @@ local DarkIronDwarf = C_CreatureInfo.GetRaceInfo(34).raceName
         end
 
     end
+
 end

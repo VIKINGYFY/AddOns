@@ -39,6 +39,7 @@ ns.icons = {
 ["StablemasterH"] = iconLink .. "StablemasterH",
 ["StablemasterA"] = iconLink .. "StablemasterA",
 ["TradingPost"] = iconLink .. "TradingPost",
+["MountMerchant"] = iconLink .. "MountMerchant",
 -- Icons if enemy faction is disabled for General zone icons
 ["OriginalInnkeeperA"] = iconLink .. "InnkeeperA",
 ["OriginalInnkeeperH"] = iconLink .. "InnkeeperH",
@@ -151,6 +152,7 @@ ns.icons = {
 ["PathLO"] = iconLink .. "PathLO",
 --instance
 ["LFR"] = iconLink .. "LFR",
+["PassageLFR"] = iconLink .. "PassageLFR",
 ["Dungeon"] = iconLink .. "Dungeon", 
 ["Raid"] = iconLink .. "Raid",
 ["Delves"] = iconLink .. "Delves",
@@ -315,6 +317,7 @@ TextIconStablemasterN = TextIcon(iconLink .. "StablemasterN", 50, 50, 1 ,50, 1, 
 TextIconStablemasterH = TextIcon(iconLink .. "StablemasterH", 50, 50, 1 ,50, 1, 50)
 TextIconStablemasterA = TextIcon(iconLink .. "StablemasterA", 50, 50, 1 ,50, 1, 50)
 TextIconTradingPost = TextIcon(iconLink .. "TradingPost", 50, 50, 1 ,50, 1, 50)
+TextIconMountMerchant = TextIcon(iconLink .. "MountMerchant", 50, 50, 1 ,50, 1, 50)
 --Cities
 TextIconOrgrimmar = TextIcon("interface/icons/spell_arcane_teleportorgrimmar.blp", 50, 50, 1, 50, 1, 50)
 TextIconThunderBluff = TextIcon("interface/icons/spell_arcane_teleportthunderbluff.blp", 50, 50, 1, 50, 1, 50)
@@ -409,6 +412,7 @@ TextIconPathU = TextIcon(iconLink .. "PathU", 50, 50, 1, 50, 1, 50)
 TextIconPathL = TextIcon(iconLink .. "PathL", 50, 50, 1, 50, 1, 50)
 --instance
 TextIconLFR = TextIcon(iconLink .. "LFR", 50, 50, 1, 50, 1, 50)
+TextIconPassageLFR = TextIcon(iconLink .. "PassageLFR", 50, 50, 1, 50, 1, 50)
 TextIconDungeon = TextIcon(iconLink .. "Dungeon", 50, 50, 1, 50, 1, 50)
 TextIconRaid = TextIcon(iconLink .. "Raid", 50, 50, 1, 50, 1, 50)
 TextIconDelves = TextIcon(iconLink .. "Delves", 50, 50, 1, 50, 1, 50)
@@ -477,6 +481,7 @@ TextIconTomTom = TextIcon(iconLink .."tomtompoint")
 TextIconWayPoint = TextIcon("interface/minimap/minimap-waypoint-mappin-untracked", 60, 60, 1, 50, 1, 50)
 TextIconJournal = TextIcon("interface/icons/inv_misc_book_09")
 TextIconBosses = TextIcon("Interface/TargetingFrame/UI-RaidTargetingIcon_8")
+TextIconTarget = TextIcon("Interface/TargetingFrame/UI-RaidTargetingIcon_7")
 --expansions
 TextIconKalimdor = TextIcon("Interface/CharacterFrame/TemporaryPortrait-Female-Orc")
 TextIconEK = TextIcon("Interface/CharacterFrame/TemporaryPortrait-Female-Human")

@@ -2,6 +2,10 @@
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "koKR")
 if not L then return end
 
+-- Npc
+L["NPC targeting"] = "NPC 타겟팅"
+L["Clicking on a MapNotes symbol with an NPC name opens a confirmation window, which automatically targets this NPC after confirmation and marks it with an X"] = "NPC 이름이 있는 MapNotes 기호를 클릭하면 확인 창이 열리며, 확인 후 자동으로 해당 NPC를 대상으로 지정하고 X로 표시합니다"
+L["If you are not within range, you will receive the message in the chat"] = "범위 내에 없으면 채팅창에 메시지가 표시됩니다"
 -- Changelog
 L["Changelog"] = "변경 사항"
 L["Last Changelog"] = "최근 변경 사항"

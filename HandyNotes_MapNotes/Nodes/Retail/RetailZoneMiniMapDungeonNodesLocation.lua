@@ -4,11 +4,12 @@ local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 function ns.LoadMiniMapDungeonLocationinfo(self)
 local db = ns.Addon.db.profile
 local minimap = ns.minimap
+ns._currentSourceFile = "RetailZoneMiniMapDungeonNodesLocation.lua"
 
 --#####################################################################################################
 --##########################        function to hide all minimap below         ##########################
 --#####################################################################################################
-if not db.activate.HideMapNote then
+  if not db.activate.HideMapNote then
 
 
     --#####################################################################################################
@@ -158,8 +159,6 @@ if not db.activate.HideMapNote then
 
         -- Eastern Kingdom Dungeons
           if self.db.profile.showMiniMapDungeons then
-            minimap[122][61303090] = { id = 249, type = "Dungeon", showOnContinent = false } -- Magisters' Terrace 
-            minimap[95][85206430] = { id = 77, type = "Dungeon", showOnContinent = false } -- Zul'Aman 
             minimap[16][36502765] = { id = 239, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Uldaman (inside cave) 
             minimap[42][46866979] = { id = 860, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Return to Karazhan 
             minimap[55][24735143] = { id = 63, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Deadmines
@@ -181,8 +180,6 @@ if not db.activate.HideMapNote then
             minimap[21][44926788] = { id = 64, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Shadowfang Keep
             minimap[18][85323227] = { id = 311, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Scarlet Halls
             minimap[18][84823043] = { id = 316, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Scarlet Monastery
-            minimap[18][85263295] = { id = 311, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Scarlet Halls
-            minimap[18][84542943] = { id = 316, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Scarlet Monastery
             minimap[19][79146119] = { id = 311, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Scarlet Halls
             minimap[19][68082061] = { id = 316, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Scarlet Monastery
             minimap[22][28811749] = { id = 311, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Scarlet Halls
@@ -734,14 +731,10 @@ if not db.activate.HideMapNote then
               minimap[2216][49538100] = { id = 1271, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Ara-Kara, City of Echoes
               minimap[2213][49538100] = { id = 1271, type = "Dungeon", dnID = DUNGEON_FLOOR_GILNEAS2, showInZone = false, showOnContinent = false, showOnMinimap = true } -- Ara-Kara, City of Echoes
               minimap[2213][44191124] = { id = 1274, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- City of Threads
-            
-              if ns.version == "11.2.0" then -- PTR
               minimap[2371][65246841] = { id = 1303, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Eco-Dome Al'dani
               minimap[2371][63587021] = { id = 1194, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tazavesh, the Veiled Market
               minimap[2472][43860393] = { id = 1303, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Eco-Dome Al'dani
               minimap[2472][36321209] = { id = 1194, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tazavesh, the Veiled Market
-              end
-
             end
 
 
@@ -754,10 +747,7 @@ if not db.activate.HideMapNote then
               minimap[2213][35047242] = { id = 1273, type = "Raid", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Nerub-ar Palace              
               minimap[2216][35047242] = { id = 1273, type = "Raid", dnID = DUNGEON_FLOOR_GILNEAS3, showInZone = false, showOnContinent = false, showOnMinimap = true } -- Nerub-ar Palace
               minimap[2346][42045031] = { id = 1296, type = "Raid", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Liberation of Undermine
-
-              if ns.version == "11.2.0" then -- PTR
-                minimap[2371][41662152] = { id = 1302, type = "Raid", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Manaforge Omega
-              end
+              minimap[2371][41662152] = { id = 1302, type = "Raid", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Manaforge Omega
             end
 
           -- Khaz Algar Delves
@@ -794,4 +784,5 @@ if not db.activate.HideMapNote then
 
       end
   end
+
 end

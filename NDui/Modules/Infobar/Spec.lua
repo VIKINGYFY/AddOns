@@ -21,11 +21,11 @@ info.eventList = {
 }
 
 info.onEvent = function(self)
-	currentSpecIndex = GetSpecialization()
+	currentSpecIndex = C_SpecializationInfo.GetSpecialization()
 	currentLootIndex = GetLootSpecialization()
 
 	if currentSpecIndex and currentSpecIndex < 5 then
-		local _, specName = GetSpecializationInfo(currentSpecIndex)
+		local _, specName = C_SpecializationInfo.GetSpecializationInfo(currentSpecIndex)
 		if not specName then return end
 
 		local _, lootName = GetSpecializationInfoByID(currentLootIndex)
@@ -46,7 +46,7 @@ info.onEnter = function(self)
 	GameTooltip:AddLine(TALENTS_BUTTON, 0,1,1)
 	GameTooltip:AddLine(" ")
 
-	local specID, specName, _, specIcon = GetSpecializationInfo(currentSpecIndex)
+	local specID, specName, _, specIcon = C_SpecializationInfo.GetSpecializationInfo(currentSpecIndex)
 	local _, lootName, _, lootIcon = GetSpecializationInfoByID(currentLootIndex)
 
 	if currentLootIndex == 0 then
@@ -111,7 +111,7 @@ end
 local function refreshDefaultLootSpec()
 	if not currentSpecIndex or currentSpecIndex == 5 then return end
 	local mult = 3 + numSpecs
-	newMenu[numLocal - mult].text = format(LOOT_SPECIALIZATION_DEFAULT, (select(2, GetSpecializationInfo(currentSpecIndex))) or NONE)
+	newMenu[numLocal - mult].text = format(LOOT_SPECIALIZATION_DEFAULT, (select(2, C_SpecializationInfo.GetSpecializationInfo(currentSpecIndex))) or NONE)
 end
 
 local function selectCurrentConfig(_, configID, specID)
@@ -122,7 +122,7 @@ local function selectCurrentConfig(_, configID, specID)
 		C_ClassTalents.LoadConfig(configID, true)
 		C_ClassTalents.SetStarterBuildActive(false)
 	end
-	C_ClassTalents.UpdateLastSelectedSavedConfigID(specID or GetSpecializationInfo(currentSpecIndex), configID)
+	C_ClassTalents.UpdateLastSelectedSavedConfigID(specID or C_SpecializationInfo.GetSpecializationInfo(currentSpecIndex), configID)
 end
 
 local function checkCurrentConfig(self)
@@ -131,7 +131,7 @@ end
 
 local function refreshAllTraits()
 	local numConfig = numLocal or 0
-	local specID = GetSpecializationInfo(currentSpecIndex)
+	local specID = C_SpecializationInfo.GetSpecializationInfo(currentSpecIndex)
 	local configIDs = specID and C_ClassTalents.GetConfigIDsBySpecID(specID)
 	if configIDs then
 		for i = 1, #configIDs do
@@ -182,7 +182,7 @@ local function BuildSpecMenu()
 	}
 
 	for i = 1, 4 do
-		local id, name = GetSpecializationInfo(i)
+		local id, name = C_SpecializationInfo.GetSpecializationInfo(i)
 		if id then
 			numSpecs = (numSpecs or 0) + 1
 			table.insert(newMenu, i+1, {text = name, arg1 = i, func = selectSpec, checked = checkSpec})

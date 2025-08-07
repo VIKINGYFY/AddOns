@@ -56,7 +56,7 @@ function Scanner:GetBagSlots(bagType)
 
 	elseif bagType == "bank" then
 		if BSYC.IsRetail then
-			return NUM_TOTAL_EQUIPPED_BAG_SLOTS + 1, NUM_TOTAL_EQUIPPED_BAG_SLOTS + NUM_BANKBAGSLOTS
+			return NUM_TOTAL_EQUIPPED_BAG_SLOTS + 1, NUM_TOTAL_EQUIPPED_BAG_SLOTS + (NUM_BANKBAGSLOTS or 7)
 		else
 			return NUM_BAG_SLOTS + 1, NUM_BAG_SLOTS + NUM_BANKBAGSLOTS
 		end

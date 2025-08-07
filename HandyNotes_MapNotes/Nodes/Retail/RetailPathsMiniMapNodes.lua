@@ -4,11 +4,12 @@ local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 function ns.LoadPathsMiniMapLocationinfo(self)
 local db = ns.Addon.db.profile
 local minimap = ns.minimap
+ns._currentSourceFile = "RetailPathsMiniMapNodes.lua"
 
 --#####################################################################################################
 --##########################        function to hide all minimap below         ##########################
 --#####################################################################################################
-if not db.activate.HideMapNote then
+    if not db.activate.HideMapNote then
 
 
     --#####################################################################################################
@@ -552,5 +553,6 @@ if not db.activate.HideMapNote then
 
         end
     end
-end
+    end
+
 end

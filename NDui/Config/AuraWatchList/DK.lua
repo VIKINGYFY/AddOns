@@ -58,17 +58,15 @@ local list = {
 		{AuraID =   77535, UnitID = "player", Value = true}, -- 鲜血护盾
 		{AuraID =   81256, UnitID = "player"}, -- 符文刃舞
 		{AuraID =  116888, UnitID = "player", Value = true, Flash = true}, -- 炼狱蔽体
-		{AuraID =  152279, UnitID = "player", Flash = true}, -- 冰龙吐息
 		{AuraID =  194844, UnitID = "player"}, -- 白骨风暴
 		{AuraID =  195181, UnitID = "player"}, -- 白骨之盾
-		{AuraID =  196770, UnitID = "player"}, -- 冷酷严冬
 		{AuraID =  211805, UnitID = "player"}, -- 风暴汇聚
 		{AuraID =  219809, UnitID = "player", Value = true}, -- 墓石
 		{AuraID =  273947, UnitID = "player"}, -- 鲜血禁闭
 		{AuraID =  274156, UnitID = "player"}, -- 吞噬
 		{AuraID =  377103, UnitID = "player"}, -- 断裂之痕
 		{AuraID =  377195, UnitID = "player"}, -- 历久弥坚
-		{AuraID =  377253, UnitID = "player"}, -- 冰霜雏龙之援
+		{AuraID =  377253, UnitID = "player"}, -- 冰霜统御
 		{AuraID =  391481, UnitID = "player"}, -- 凝血
 		{AuraID =  391527, UnitID = "player", Value = true}, -- 永恒脐带
 		{AuraID =  433925, UnitID = "player"}, -- 鲜血女王的精华
@@ -79,6 +77,8 @@ local list = {
 		{AuraID =  460049, UnitID = "player"}, -- 苦痛凌虐
 		{AuraID =  460500, UnitID = "player"}, -- 染血利刃
 		{AuraID =  469169, UnitID = "player"}, -- 凄惨痛快
+		{AuraID = 1233152, UnitID = "player"}, -- 冷酷严冬
+		{AuraID = 1249658, UnitID = "player", Flash = true}, -- 冰龙吐息
 
 	},
 }

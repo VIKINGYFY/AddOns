@@ -82,10 +82,10 @@ end
 
 --发送自己的信息
 local function SendPlayerInfo(channel)
-	local class = select(2,UnitClass("player")) or ""
+	local class = select(2, UnitClass("player")) or ""
 	local ilvl = select(2, GetAverageItemLevel()) or -1
-	local spec = select(2, GetSpecializationInfo(GetSpecialization())) or ""
-	local role = select(5, GetSpecializationInfo(GetSpecialization())) or ""
+	local spec = select(2, C_SpecializationInfo.GetSpecializationInfo(C_SpecializationInfo.GetSpecialization())) or ""
+	local role = select(5, C_SpecializationInfo.GetSpecializationInfo(C_SpecializationInfo.GetSpecialization())) or ""
 
 	C_ChatInfo.SendAddonMessage("TinyInspect", format("%s|%s|%s|%s|%s", "LV", class, ilvl, spec, role), channel)
 end
@@ -136,8 +136,8 @@ LibEvent:attachEvent("GROUP_ROSTER_UPDATE", function(self)
 			name = UnitName("player"),
 			class = select(2, UnitClass("player")),
 			ilvl = select(2, GetAverageItemLevel()),
-			spec = select(2, GetSpecializationInfo(GetSpecialization())),
-			role = select(5, GetSpecializationInfo(GetSpecialization())),
+			spec = select(2, C_SpecializationInfo.GetSpecializationInfo(C_SpecializationInfo.GetSpecialization())),
+			role = select(5, C_SpecializationInfo.GetSpecializationInfo(C_SpecializationInfo.GetSpecialization())),
 		}
 		GetMembers(numCurrent, unitPrefix)
 		SendPlayerInfo(unitPrefix)
@@ -289,7 +289,7 @@ local roles = {
 local function ShowMembersList()
 	local i = 1
 	local button, r, g, b
-	local role = select(5, GetSpecializationInfo(GetSpecialization()))
+	local role = select(5, C_SpecializationInfo.GetSpecializationInfo(C_SpecializationInfo.GetSpecialization()))
 	for _, v in pairs(membersList) do
 		r, g, b = B.ClassColor(v.class)
 
@@ -359,8 +359,8 @@ LibEvent:attachEvent("PLAYER_LOGIN", function()
 		name = UnitName("player"),
 		class = select(2, UnitClass("player")),
 		ilvl = select(2, GetAverageItemLevel()),
-		spec = select(2, GetSpecializationInfo(GetSpecialization())),
-		role = select(5, GetSpecializationInfo(GetSpecialization())),
+		spec = select(2, C_SpecializationInfo.GetSpecializationInfo(C_SpecializationInfo.GetSpecialization())),
+		role = select(5, C_SpecializationInfo.GetSpecializationInfo(C_SpecializationInfo.GetSpecialization())),
 	}
 
 	MakeMembersList()

@@ -294,9 +294,23 @@ ns.RegisterPoints(ns.KARESH_TAZAVESH, {
 	hide_before=PHASEDIVING,
 })
 
--- Things to find:
 -- Dangerous Prowlers of K'aresh (42729)
-
+local prowlers = ns.nodeMaker{
+	achievement=42729,
+	note=EMOTE410_CMD1,
+	texture=ns.atlas_texture("WildBattlePetCapturable", {r=1, g=0.4, b=1}),
+	minimap=true,
+}
+ns.RegisterPoints(ns.KARESH, {
+	[47916135] = {criteria=106220, npc=245387, note="Patrols"}, -- C.T.
+	[73172374] = {criteria=106225, npc=248062, note="Up on the ledge"}, -- Empurror
+	[70255423] = {criteria=106226, npc=248067, note="Phases in and out, up in the tree"}, -- K'aresh'ire
+	[50345921] = {criteria=106221, npc=248056, note="Phases in and out"}, -- Little Ms. Phaser
+	[47613738] = {criteria=106223, npc=248057, hide_before=PHASEDIVING}, -- The King in Silver
+}, prowlers{})
+ns.RegisterPoints(ns.KARESH_TAZAVESH, {
+	[61005551] = {criteria=106222, npc=237077,}, -- Mar
+}, prowlers{parent=true})
 
 -- Secrets of the K'areshi (60890)
 local secrets = ns.nodeMaker{
@@ -323,7 +337,7 @@ ns.RegisterPoints(ns.KARESH_TAZAVESH, {
 
 local conduit = {
 	label="{npc:249754:Phase Conduit}",
-	texture=ns.atlas_texture("teleportationnetwork-32x32", {r=1, g=1, b=1}),
+	texture=ns.atlas_texture("flightmaster_ancientwaygate-taxinode_neutral", {r=1, g=1, b=1}),
 	requires=ns.conditions.Achievement(42731), -- Become a Hero, Become a Phasediver!
 }
 ns.RegisterPoints(ns.KARESH, {
@@ -356,7 +370,7 @@ ns.RegisterPoints(ns.KARESH, {
 		loot={{245272, pet=true}}, -- Heka'Tarnos, Bringer of Discord
 		vignette=6981,
 		note="Gather {spell:1240235}, {spell:1240217}, {spell:1240233}, {spell:1240237} nearby",
-		nearby={76983175, 72023077, 72713330, 71783464, color={r=0,g=1,b=0}},
+		nearby={76983175, 72023077, 72713330, 71783464, 72582845, 72713472, color={r=0,g=1,b=0}, worldmap=false},
 	},
 	[54055884] = { -- Malek'ta
 		criteria=106336,
@@ -480,7 +494,7 @@ ns.RegisterPoints(ns.KARESH_TAZAVESH, {
 	},
 	[71245702] = { -- Grubber
 		criteria=106333,
-		quest=90698,
+		quest=90698, -- 90699
 		npc=238540,
 		vignette=6914, -- also 6774?
 		note="Complete {quest:87405:Warrant Grubber} to summon",
@@ -492,14 +506,37 @@ ns.RegisterPoints(ns.KARESH_TAZAVESH, {
 
 ns.RegisterPoints(ns.KARESH, {
 	[50555406] = { -- Miasmawrath
-		quest=86447,
+		quest=86447, -- 91287, 91310, 91434
 		npc=234970,
+		loot={
+			246240, -- Devoured Energy-Pod
+			{238663, quest=89061}, -- Crystallized Anima
+		},
 		vignette=6705, -- Devourer Attack: Eco-Dome Primus (not sure if multiples spawn?)
 	},
 	[49386418] = { -- The Harvester
-		quest=86464,
+		quest=86464, -- 91289, 91311, 91435
 		npc=235087, -- 246366
+		loot={
+			246240, -- Devoured Energy-Pod
+			{238664, quest=89062}, -- Crystallized Anima
+		},
 		vignette=6707, -- Devourer Attack: The Atrium
+	},
+	[42505755] = { -- Purple Peat
+		quest=90692, -- 90693 (90578 is on the vignette, but didn't trigger...)
+		npc=241920, -- 241919
+		vignette=6917, -- also 6891?
+		note="Complete {quest:87546:Warrant Purple Peat} to summon",
+	},
+	[71792823] = { -- Korgoth the Hungerer
+		quest=84993, -- 91286, 91309, 91433
+		npc=231229,
+		loot={
+			246240, -- Devoured Energy-Pod
+			{232467, quest=85722}, -- Crystalized Anima
+		},
+		vignette=6608, -- Devourer Attack: The Oasis
 	},
 	-- not yet vignette-coords:
 	--[[
@@ -519,12 +556,6 @@ ns.RegisterPoints(ns.KARESH, {
 		quest=86550,
 		npc=235422,
 		vignette=6727,
-	},
-	[0] = { -- Purple Peat
-		quest=90578,
-		npc=241920, -- 241919
-		vignette=6917, -- also 6891?
-		note="Complete {quest:87546:Warrant Purple Peat} to summon",
 	},
 	[0] = { -- Shatterpulse
 		quest=90577,
@@ -563,11 +594,6 @@ ns.RegisterPoints(ns.KARESH, {
 	[0] = { -- Great Devourer
 		quest=nil,
 		npc=244444,
-		--vignette=,
-	},
-	[0] = { -- Korgoth the Hungerer
-		quest=nil,
-		npc=231229,
 		--vignette=,
 	},
 	[0] = { -- Mercenary Acquisitionist

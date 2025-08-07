@@ -193,7 +193,5 @@ function ns.FogOfWar:SetFogOfWarColor(info, FoWr, FoWg, FoWb, FoWa)
 		ns.StartFogOfWarColorSyncTicker()
 	end
 end
-
-
 -- remove data from global scope
 ns.FogOfWarDataRetail = nil

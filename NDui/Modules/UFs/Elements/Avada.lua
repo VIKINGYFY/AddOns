@@ -112,9 +112,9 @@ local function stringParser(str)
 end
 
 function UF:Avada_RefreshIcons()
-	local specIndex = GetSpecialization()
+	local specIndex = C_SpecializationInfo.GetSpecialization()
 	if specIndex > 4 then specIndex = 1 end -- use 1st spec for lower level
-	local specID = GetSpecializationInfo(specIndex)
+	local specID = C_SpecializationInfo.GetSpecializationInfo(specIndex)
 	if not specID then return end
 
 	table.wipe(auraData)

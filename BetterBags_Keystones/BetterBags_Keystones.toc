@@ -1,0 +1,31 @@
+## Interface: 110107, 110200
+
+## Title: BetterBags - Keystones
+## Notes: Adds a Mythic+ Keystones filter to BetterBags.
+## Author: Avyiel
+## Version: v1.3.3
+## IconTexture: Interface\Icons\inv_relics_hourglass
+## Category-enUS: Inventory
+## Category-deDE: Inventar
+## Category-esES: Inventario
+## Category-esMX: Inventario
+## Category-frFR: Inventaire
+## Category-itIT: Inventario
+## Category-koKR: 소지품
+## Category-ptBR: Inventário
+## Category-ruRU: Предметы
+## Category-zhCN: 物品栏
+## Category-zhTW: 物品欄
+
+## DefaultState: Enabled
+## Dependencies: BetterBags
+
+## X-Date: 2025-08-06T05:30:22Z
+## X-Category: Bags & Inventory
+## X-License: MIT
+
+## X-Curse-Project-ID: 960362
+## X-Wago-ID: RNL92b6o
+
+main.lua
+
