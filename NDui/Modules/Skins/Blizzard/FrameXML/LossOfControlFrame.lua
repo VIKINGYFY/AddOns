@@ -1,11 +1,9 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-if DB.isNewPatch then return end
 
 C.OnLoginThemes["LossOfControlFrame"] = function()
-
 	local styled
-	hooksecurefunc("LossOfControlFrame_SetUpDisplay", function(self)
+	hooksecurefunc(LossOfControlFrame, "SetUpDisplay", function(self)
 		if not styled then
 			B.ReskinIcon(self.Icon, true)
 

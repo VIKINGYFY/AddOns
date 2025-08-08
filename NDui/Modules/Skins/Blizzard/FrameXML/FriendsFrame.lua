@@ -148,20 +148,14 @@ C.OnLoginThemes["FriendsFrame"] = function()
 	end
 
 	B.StripTextures(WhoFrameListInset)
-	if not DB.isNewPatch then
-		WhoFrameEditBoxInset:Hide()
-		local whoBg = B.CreateBDFrame(WhoFrameEditBox, 0, true)
-		whoBg:SetPoint("TOPLEFT", WhoFrameEditBoxInset)
-		whoBg:SetPoint("BOTTOMRIGHT", WhoFrameEditBoxInset, -1, 1)
-		B.ReskinButton(AddFriendInfoFrameContinueButton)
-	end
+	WhoFrameEditBox.Backdrop:Hide()
+	local whoBg = B.CreateBDFrame(WhoFrameEditBox, 0, true)
+	whoBg:SetPoint("TOPLEFT", WhoFrameEditBox, -3, -2)
+	whoBg:SetPoint("BOTTOMRIGHT", WhoFrameEditBox, -1, 2)
 
 	for i = 1, 3 do
 		B.StripTextures(_G["FriendsTabHeaderTab"..i])
 	end
-
-	WhoFrameAddFriendButton:SetPoint("RIGHT", WhoFrameGroupInviteButton, "LEFT", -1, 0)
-	WhoFrameWhoButton:SetPoint("RIGHT", WhoFrameAddFriendButton, "LEFT", -1, 0)
 
 	-- Recruite frame
 

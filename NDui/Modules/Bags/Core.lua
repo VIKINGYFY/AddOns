@@ -1,10 +1,11 @@
 ﻿local _, ns = ...
 local B, C, L, DB = unpack(ns)
+
 local module = B:RegisterModule("Bags")
 local cargBags = ns.cargBags
 local cr, cg, cb = DB.r, DB.g, DB.b
 
-local CHAR_BANK_TYPE = Enum.BankType.Character or 1
+local CHAR_BANK_TYPE = Enum.BankType.Character or 0
 local ACCOUNT_BANK_TYPE = Enum.BankType.Account or 2
 
 local sortCache = {}
@@ -192,7 +193,6 @@ local function updateBagBar(bar)
 end
 
 function module:CreateBagBar(settings, columns)
-	if DB.isNewPatch then return end
 	local bagBar = self:SpawnPlugin("BagBar", settings.Bags)
 	bagBar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -5)
 	B.SetBD(bagBar)
@@ -206,9 +206,8 @@ function module:CreateBagBar(settings, columns)
 	self.BagBar = bagBar
 end
 
-function module:CreateBagTab(settings, columns)
-	if DB.isNewPatch then return end
-	local bagTab = self:SpawnPlugin("BagTab", settings.Bags)
+function module:CreateBagTab(settings, columns, account)
+	local bagTab = self:SpawnPlugin("BagTab", settings.Bags, account)
 	bagTab:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -5)
 	B.SetBD(bagTab)
 	bagTab.highlightFunction = highlightFunction
@@ -217,16 +216,18 @@ function module:CreateBagTab(settings, columns)
 	bagTab.UpdateAnchor = updateBagBar
 	bagTab:UpdateAnchor()
 
-	local purchaseButton = CreateFrame("Button", "NDui_BankPurchaseButton", bagTab, "InsecureActionButtonTemplate")
-	purchaseButton:SetSize(120, 22)
-	purchaseButton:SetPoint("TOP", bagTab, "BOTTOM", 0, -5)
-	B.CreateFS(purchaseButton, 14, PURCHASE, "info")
-	B.ReskinButton(purchaseButton)
-	purchaseButton:Hide()
+	if account then
+		local purchaseButton = CreateFrame("Button", "NDui_BankPurchaseButton", bagTab, "InsecureActionButtonTemplate")
+		purchaseButton:SetSize(120, 22)
+		purchaseButton:SetPoint("TOP", bagTab, "BOTTOM", 0, -5)
+		B.CreateFS(purchaseButton, 14, PURCHASE, "info")
+		B.Reskin(purchaseButton)
+		purchaseButton:Hide()
 
-	purchaseButton:RegisterForClicks("AnyUp", "AnyDown")
-	purchaseButton:SetAttribute("type", "click")
-	purchaseButton:SetAttribute("clickbutton", _G.AccountBankPanel.PurchasePrompt.TabCostFrame.PurchaseButton)
+		purchaseButton:RegisterForClicks("AnyUp", "AnyDown")
+		purchaseButton:SetAttribute("type", "click")
+		purchaseButton:SetAttribute("clickbutton", _G.BankFrame.BankPanel.PurchasePrompt.TabCostFrame.PurchaseButton)
+	end
 
 	self.BagBar = bagTab
 end
@@ -235,18 +236,14 @@ local function CloseOrRestoreBags(self, btn)
 	if btn == "RightButton" then
 		local bag = self.__owner.main
 		local bank = self.__owner.bank
-		local reagent = self.__owner.reagent
 		local account = self.__owner.accountbank
 		C.db["TempAnchor"][bag:GetName()] = nil
 		C.db["TempAnchor"][bank:GetName()] = nil
-		C.db["TempAnchor"][reagent:GetName()] = nil
 		C.db["TempAnchor"][account:GetName()] = nil
 		bag:ClearAllPoints()
 		bag:SetPoint(unpack(bag.__anchor))
 		bank:ClearAllPoints()
 		bank:SetPoint(unpack(bank.__anchor))
-		reagent:ClearAllPoints()
-		reagent:SetPoint(unpack(bank.__anchor))
 		account:ClearAllPoints()
 		account:SetPoint(unpack(bank.__anchor))
 		PlaySound(SOUNDKIT.IG_MINIMAP_OPEN)
@@ -266,37 +263,17 @@ function module:CreateCloseButton(f)
 	return bu
 end
 
-function module:CreateReagentButton(f)
-	local bu = B.CreateButton(self, 22, 22, true, 134421)
-	bu:RegisterForClicks("AnyUp")
-	bu:SetScript("OnClick", function(_, btn)
-		if not C_Bank.CanViewBank(CHAR_BANK_TYPE) then return end
-
-		if not IsReagentBankUnlocked() then
-			StaticPopup_Show("CONFIRM_BUY_REAGENTBANK_TAB")
-		else
-			PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
-			BankFrame_ShowPanel("ReagentBankFrame") -- trigger context matching
-			if btn == "RightButton" then DepositReagentBank() end
-		end
-	end)
-	bu.title = REAGENT_BANK
-	B.AddTooltip(bu, "ANCHOR_TOP")
-
-	return bu
-end
-
 function module:CreateAccountBankButton(f)
-	local bu = B.CreateButton(self, 22, 22, true, 939373)
+	local bu = B.CreateButton(self, 22, 22, true, "Interface\\Icons\\Factionchange")
 	bu:RegisterForClicks("AnyUp")
 	bu:SetScript("OnClick", function(_, btn)
 		if not C_Bank.CanViewBank(ACCOUNT_BANK_TYPE) then return end
 
-		if AccountBankPanel:ShouldShowLockPrompt() then
+		if BankFrame.BankPanel:ShouldShowLockPrompt() then
 			UIErrorsFrame:AddMessage(DB.InfoColor..ACCOUNT_BANK_LOCKED_PROMPT)
 		else
 			PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
-			BankFrame_ShowPanel("AccountBankPanel") -- trigger context matching
+			BankFrame.BankPanel:SetBankType(ACCOUNT_BANK_TYPE)
 		end
 	end)
 	bu.title = ACCOUNT_BANK_PANEL_TITLE
@@ -340,48 +317,16 @@ function module:CreateAccountMoney()
 end
 
 function module:CreateBankButton(f)
-	local bu = B.CreateButton(self, 22, 22, true, 134422)
+	local bu = B.CreateButton(self, 22, 22, true, "Interface\\Icons\\Inv_Misc_Rune_09")
 	bu:RegisterForClicks("AnyUp")
 	bu:SetScript("OnClick", function()
 		if not C_Bank.CanViewBank(CHAR_BANK_TYPE) then return end
 
 		PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
-		BankFrame_ShowPanel("BankSlotsFrame") -- trigger context matching
+		BankFrame.BankPanel:SetBankType(CHAR_BANK_TYPE)
 	end)
 	bu.title = BANK
 	B.AddTooltip(bu, "ANCHOR_TOP")
-
-	return bu
-end
-
-local function updateDepositButtonStatus(bu)
-	if C.db["Bags"]["AutoDeposit"] then
-		bu.bg:SetBackdropBorderColor(1, 1, 0)
-	else
-		B.SetBorderColor(bu.bg)
-	end
-end
-
-function module:AutoDeposit()
-	if C.db["Bags"]["AutoDeposit"] and not IsShiftKeyDown() then
-		DepositReagentBank()
-	end
-end
-
-function module:CreateDepositButton()
-	local bu = B.CreateButton(self, 22, 22, true, 514607)
-	bu:RegisterForClicks("AnyUp")
-	bu:SetScript("OnClick", function(_, btn)
-		if btn == "RightButton" then
-			C.db["Bags"]["AutoDeposit"] = not C.db["Bags"]["AutoDeposit"]
-			updateDepositButtonStatus(bu)
-		else
-			DepositReagentBank()
-		end
-	end)
-	bu.title = REAGENTBANK_DEPOSIT
-	B.AddTooltip(bu, "ANCHOR_TOP", L["AutoDepositTip"], "info")
-	updateDepositButtonStatus(bu)
 
 	return bu
 end
@@ -395,7 +340,7 @@ local function updateAccountBankDeposit(bu)
 end
 
 function module:CreateAccountBankDeposit()
-	local bu = B.CreateButton(self, 22, 22, true, 514607)
+	local bu = B.CreateButton(self, 22, 22, true, "Interface\\Paperdollinfoframe\\Character-Plus")
 	bu:RegisterForClicks("AnyUp")
 	bu:SetScript("OnClick", function(_, btn)
 		if btn == "RightButton" then
@@ -440,12 +385,10 @@ function module:CreateBagToggle(click)
 end
 
 function module:CreateSortButton(name)
-	local bu = B.CreateButton(self, 22, 22, true, "Interface\\Icons\\INV_Pet_Broom")
+	local bu = B.CreateButton(self, 22, 22, true, "Interface\\Icons\\Inv_Pet_Broom")
 	bu:SetScript("OnClick", function()
 		if name == "Bank" then
 			C_Container.SortBankBags()
-		elseif name == "Reagent" then
-			C_Container.SortReagentBankBags()
 		elseif name == "Account" then
 			C_Container.SortAccountBankBags()
 		else
@@ -492,11 +435,6 @@ function module:GetEmptySlot(name)
 				return bagID, slotID
 			end
 		end
-	elseif name == "Reagent" then
-		local slotID = module:GetContainerEmptySlot(-3)
-		if slotID then
-			return -3, slotID
-		end
 	elseif name == "BagReagent" then
 		local slotID = module:GetContainerEmptySlot(5)
 		if slotID then
@@ -522,7 +460,6 @@ end
 local freeSlotContainer = {
 	["Bag"] = true,
 	["Bank"] = true,
-	["Reagent"] = true,
 	["BagReagent"] = true,
 	["Account"] = true,
 }
@@ -886,11 +823,6 @@ function module:OnLogin()
 	module.Bags = Backpack
 	module.BagsType = {}
 	module.BagsType[0] = 0	-- backpack
-	module.BagsType[-1] = 0	-- bank
-	module.BagsType[-3] = 0	-- reagent
-	for bagID = 13, 17 do
-		module.BagsType[bagID] = 0	-- accountbank
-	end
 
 	local f = {}
 	local filters = module:GetFilters()
@@ -942,11 +874,6 @@ function module:OnLogin()
 		f.bank:SetFilter(filters.onlyBank, true)
 		f.bank:Hide()
 
-		f.reagent = MyContainer:New("Reagent", {Bags = "bankreagent", BagType = "Bank"})
-		f.reagent:SetFilter(filters.onlyReagent, true)
-		f.reagent:SetPoint(unpack(f.bank.__anchor))
-		f.reagent:Hide()
-
 		for i = 1, 5 do
 			AddNewContainer("Account", i, "AccountCustom"..i, filters["accountCustom"..i])
 		end
@@ -980,7 +907,7 @@ function module:OnLogin()
 		self:GetContainer("Bank"):Show()
 
 		if not initBagType then
-			module:UpdateAllBags() -- Initialize bagType
+			--module:UpdateAllBags() -- Initialize bagType
 			module:UpdateBagSize()
 			initBagType = true
 		end
@@ -990,7 +917,6 @@ function module:OnLogin()
 		BankFrame.selectedTab = 1
 		BankFrame.activeTabIndex = 1
 		self:GetContainer("Bank"):Hide()
-		self:GetContainer("Reagent"):Hide()
 		self:GetContainer("Account"):Hide()
 	end
 
@@ -1261,7 +1187,7 @@ function module:OnLogin()
 		elseif string.match(name, "BoN") then
 			label = L["BoN Item"]
 		elseif string.match(name, "BagReagent") then
-			label = L["Special Container"]
+			label = SPECIAL..BAGSLOT
 		end
 		if label then
 			self.label = B.CreateFS(self, 14, label, true, "TOPLEFT", 5, -9)
@@ -1281,21 +1207,15 @@ function module:OnLogin()
 			buttons[6] = module.CreateJunkButton(self)
 			buttons[7] = module.CreateDeleteButton(self)
 		elseif name == "Bank" then
-			module.CreateBagBar(self, settings, 7)
+			module.CreateBagTab(self, settings, 6)
 			buttons[3] = module.CreateBagToggle(self)
-			buttons[4] = module.CreateReagentButton(self, f)
-			buttons[5] = module.CreateAccountBankButton(self, f)
-		elseif name == "Reagent" then
-			buttons[3] = module.CreateDepositButton(self)
-			buttons[4] = module.CreateBankButton(self, f)
-			buttons[5] = module.CreateAccountBankButton(self, f)
+			buttons[4] = module.CreateAccountBankButton(self, f)
 		elseif name == "Account" then
-			module.CreateBagTab(self, settings, 5)
+			module.CreateBagTab(self, settings, 5, "account")
 			buttons[3] = module.CreateBagToggle(self)
 			buttons[4] = module.CreateAccountBankDeposit(self)
 			buttons[5] = module.CreateBankButton(self, f)
-			buttons[6] = module.CreateReagentButton(self, f)
-			buttons[7] = module.CreateAccountMoney(self)
+			buttons[6] = module.CreateAccountMoney(self)
 		end
 
 		for i = 1, #buttons do
@@ -1384,7 +1304,6 @@ function module:OnLogin()
 
 	B:RegisterEvent("TRADE_SHOW", module.OpenBags)
 	B:RegisterEvent("TRADE_CLOSED", module.CloseBags)
-	B:RegisterEvent("BANKFRAME_OPENED", module.AutoDeposit)
 
 	-- Update infobar slots
 	local INFO = B:GetModule("Infobar")
@@ -1418,26 +1337,13 @@ function module:OnLogin()
 	SetCVar("professionAccessorySlotsExampleShown", 1)
 
 	-- Bank frame paging
-	if BankFrame_ShowPanel then
-		local bankNameIndex = {
-			["BankSlotsFrame"] = 1,
-			["ReagentBankFrame"] = 2,
-			["AccountBankPanel"] = 3,
-		}
-		hooksecurefunc("BankFrame_ShowPanel", function(sidePanelName)
-			local panelIndex = bankNameIndex[sidePanelName]
-			if panelIndex then
-				BankFrame.selectedTab = panelIndex
-				BankFrame.activeTabIndex = panelIndex
-				f.bank:SetShown(panelIndex == 1)
-				f.reagent:SetShown(panelIndex == 2)
-				f.accountbank:SetShown(panelIndex == 3)
-				if _G["NDui_BankPurchaseButton"] then
-					_G["NDui_BankPurchaseButton"]:SetShown(panelIndex == 3 and C_Bank.CanPurchaseBankTab(ACCOUNT_BANK_TYPE))
-				end
-			end
-		end)
-	end
+	hooksecurefunc(BankFrame.BankPanel, "SetBankType", function(self, bankType)
+		module.Bags:GetContainer("Bank"):SetShown(bankType == CHAR_BANK_TYPE)
+		module.Bags:GetContainer("Account"):SetShown(bankType == ACCOUNT_BANK_TYPE)
+		if _G["NDui_BankPurchaseButton"] then
+			_G["NDui_BankPurchaseButton"]:SetShown(bankType == ACCOUNT_BANK_TYPE and C_Bank.CanPurchaseBankTab(ACCOUNT_BANK_TYPE))
+		end
+	end)
 
 	-- Delay updates for data jam
 	local updater = CreateFrame("Frame", nil, f.main)

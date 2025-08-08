@@ -64,11 +64,7 @@ function M:OnLogin()
 	if deleteDialog.OnShow then
 		hooksecurefunc(deleteDialog, "OnShow", function(self)
 			if C.db["Misc"]["InstantDelete"] then
-				if DB.isNewPatch then
-					self.EditBox:SetText(DELETE_ITEM_CONFIRM_STRING)
-				else
-					self.editBox:SetText(DELETE_ITEM_CONFIRM_STRING)
-				end
+				self.EditBox:SetText(DELETE_ITEM_CONFIRM_STRING)
 			end
 		end)
 	end

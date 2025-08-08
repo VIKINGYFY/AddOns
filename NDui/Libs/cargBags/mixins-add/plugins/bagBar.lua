@@ -209,7 +209,6 @@ local disabled = {
 
 -- Register the plugin
 cargBags:RegisterPlugin("BagBar", function(self, bags)
-	if DB.isNewPatch then return end
 	if (cargBags.ParseBags) then
 		bags = cargBags:ParseBags(bags)
 	end
@@ -232,7 +231,6 @@ cargBags:RegisterPlugin("BagBar", function(self, bags)
 	end
 
 	self.implementation:RegisterEvent("BAG_UPDATE", bar, updater)
-	self.implementation:RegisterEvent("PLAYERBANKBAGSLOTS_CHANGED", bar, updater)
 	self.implementation:RegisterEvent("ITEM_LOCK_CHANGED", bar, onLock)
 
 	return bar

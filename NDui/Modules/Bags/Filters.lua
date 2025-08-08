@@ -15,10 +15,6 @@ local function isItemInBank(item)
 	return item.bagId > 5 and item.bagId < 12
 end
 
-local function isItemInReagentBank(item)
-	return item.bagId == -3
-end
-
 local function isItemInAccountBank(item)
 	return item.bagId > 11 and item.bagId < 17
 end
@@ -115,7 +111,6 @@ function module:GetFilters()
 	filters.onlyBags = function(item) return isItemInBag(item) and not isEmptySlot(item) end
 	filters.onlyBank = function(item) return isItemInBank(item) and not isEmptySlot(item) end
 	filters.onlyBagReagent = function(item) return isItemInBagReagent(item) and not isEmptySlot(item) end
-	filters.onlyReagent = function(item) return isItemInReagentBank(item) and not isEmptySlot(item) end
 	filters.accountbank = function(item) return isItemInAccountBank(item) and not isEmptySlot(item) end
 
 	filters.bagAuE = function(item) return isItemInBag(item) and isItemAuE(item) end
@@ -135,7 +130,7 @@ function module:GetFilters()
 	filters.bankEquipSet = function(item) return isItemInBank(item) and isItemEquipSet(item) end
 	filters.bankEquipment = function(item) return isItemInBank(item) and isItemEquipment(item) end
 	filters.bankFeature = function(item) return isItemInBank(item) and isItemFeature(item) end
-	filters.bankJunk = function(item) return (isItemInBank(item) or isItemInReagentBank(item)) and isItemJunk(item) end
+	filters.bankJunk = function(item) return isItemInBank(item) and isItemJunk(item) end
 	filters.bankLegendary = function(item) return isItemInBank(item) and isItemLegendary(item) end
 
 	filters.accountAuE = function(item) return isItemInAccountBank(item) and isItemAuE(item) end

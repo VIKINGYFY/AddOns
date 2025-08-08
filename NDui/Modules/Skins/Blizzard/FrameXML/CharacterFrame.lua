@@ -270,9 +270,9 @@ C.OnLoginThemes["CharacterFrame"] = function()
 		self:ForEachFrame(handleCurrencyIcon)
 	end)
 
-	local transferMenu = CurrencyTransferMenu.Content or CurrencyTransferMenu -- isNewPatch
-	if transferMenu then
-		B.ReskinFrame(CurrencyTransferMenu)
+	B.ReskinFrame(CurrencyTransferMenu)
+	local transferMenu = CurrencyTransferMenu.Content
+	if transferMenu then	
 		B.CreateBDFrame(transferMenu.SourceSelector, .25)
 		transferMenu.SourceSelector.SourceLabel:SetWidth(56)
 		B.ReskinDropDown(transferMenu.SourceSelector.Dropdown)

@@ -32,15 +32,15 @@ local _, ns = ...
 local cargBags = ns.cargBags
 
 local bagStrings = {
-	["backpack"]		= { 0 },
-	["bags"]			= { 1, 2, 3, 4, 5 },
-	["backpack+bags"]	= { 0, 1, 2, 3, 4, 5 },
-	["bankframe"]		= { -1 },
-	["bankframe+bank"]	= { -1, 6, 7, 8, 9, 10, 11, 12 },
-	["bankreagent"]		= { -3 },
-	["bank"]			= { 6, 7, 8, 9, 10, 11, 12 },
-	["keyring"]			= { -2 },
-	["accountbank"]		= { 13, 14, 15, 16, 17 },
+	["backpack"]       = { 0 },
+	["bags"]           = { 1, 2, 3, 4, 5 },
+	["backpack+bags"]  = { 0, 1, 2, 3, 4, 5 },
+	["bankframe"]      = { -1 },
+	["bankframe+bank"] = { -1, 6, 7, 8, 9, 10, 11, 12 },
+	["bankreagent"]    = { -3 },
+	["bank"]           = { 6, 7, 8, 9, 10, 11},
+	["keyring"]        = { -2 },
+	["accountbank"]    = { 12, 13, 14, 15, 16 },
 }
 --[=[
 -1 Character slots
@@ -49,10 +49,6 @@ local bagStrings = {
 6-11 Bank slots
 12-16 Account bank slots
 ]=]
-if NDui[4].isNewPatch then
-	bagStrings["bank"] = { 6, 7, 8, 9, 10, 11}
-	bagStrings["accountbank"] = { 12, 13, 14, 15, 16 }
-end
 cargBags.BagStrings = bagStrings
 
 --[[!
