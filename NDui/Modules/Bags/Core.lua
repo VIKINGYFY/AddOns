@@ -811,7 +811,7 @@ function module:UpdateAllBags()
 end
 
 function module:OpenBags()
-	self.Bags:Toggle(true)
+	OpenAllBags(true)
 end
 
 function module:CloseBags()
@@ -911,9 +911,10 @@ function module:OnLogin()
 	end
 
 	local initBagType
-	function Backpack:OnBankOpened(bankType)
+	function Backpack:OnBankOpened()
+		BankFrame:Show()
 		BankFrame.BankPanel:Show()
-		BankFrame.BankPanel:SetBankType(bankType)
+
 		if not initBagType then
 			module:UpdateBagSize()
 			initBagType = true
@@ -921,6 +922,9 @@ function module:OnLogin()
 	end
 
 	function Backpack:OnBankClosed()
+		BankFrame:Hide()
+		BankFrame.BankPanel:Hide()
+
 		self:GetContainer("Bank"):Hide()
 		self:GetContainer("Account"):Hide()
 	end
@@ -1325,6 +1329,7 @@ function module:OnLogin()
 		end
 	end
 
+	-- Fixes
 	local passedSystems = {
 		["TutorialReagentBag"] = true,
 	}

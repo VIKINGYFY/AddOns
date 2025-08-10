@@ -84,25 +84,14 @@ function cargBags:ReplaceBlizzard(name)
 	ToggleBag = toggleNoForce
 	ToggleBackpack = toggleNoForce
 
-	hooksecurefunc("OpenAllBags", toggleBag)
-	hooksecurefunc("OpenBackpack", toggleBag)
-	hooksecurefunc("OpenBag", toggleBag)
+	OpenAllBags = toggleBag	-- Name is misleading, Blizz-function actually toggles bags
+	OpenBackpack = toggleBag -- Blizz does not provide toggling here
+	OpenBag = toggleBag		-- fixed the loot won alert frame
 
-	hooksecurefunc("CloseAllBags", closeBag)
-	hooksecurefunc("CloseBackpack", closeBag)
+	CloseAllBags = closeBag
+	CloseBackpack = closeBag
 
-	local hidden = CreateFrame("Frame")
-	hidden:Hide()
-
-	ContainerFrameCombinedBags:SetParent(hidden)
-	for i = 1, NUM_CONTAINER_FRAMES do
-		_G["ContainerFrame" .. i]:SetParent(hidden)
-	end
-
-	BankFrame:SetParent(hidden)
-	BankFrame:SetScript("OnHide", nil)
-	BankFrame:SetScript("OnEvent", nil)
-	BankFrame:SetScript("OnShow", nil)
+	BankFrame:UnregisterAllEvents()
 end
 
 --- Flags the implementation to handle Blizzards Bag-Toggle-Functions
@@ -129,27 +118,18 @@ function cargBags:FireEvent(force, event, ...)
 	end
 end
 
-cargBags:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_SHOW")
-cargBags:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_HIDE")
+cargBags:RegisterEvent("BANKFRAME_OPENED")
+cargBags:RegisterEvent("BANKFRAME_CLOSED")
 
-local interactionToBankType = {
-	[Enum.PlayerInteractionType.Banker] = Enum.BankType.Character,
-	[Enum.PlayerInteractionType.CharacterBanker] = Enum.BankType.Character,
-	[Enum.PlayerInteractionType.AccountBanker] = Enum.BankType.Account,
-}
-
-cargBags:SetScript("OnEvent", function(self, event, ...)
-	if(not self.blizzard) then return end
+cargBags:SetScript("OnEvent", function(self, event)
+	if (not self.blizzard) then return end
 
 	local impl = self.blizzard
 
 	if (event == "PLAYER_LOGIN") then
 		self:ReplaceBlizzard(impl)
-	elseif (event == "PLAYER_INTERACTION_MANAGER_FRAME_SHOW") then
-		local interactType = ...
-		local bankType = interactionToBankType[interactType]
-		if bankType then
-			self.atBank = true
+	elseif (event == "BANKFRAME_OPENED") then
+		self.atBank = true
 
 		if (impl:IsShown()) then
 		--	impl:OnEvent("BAG_UPDATE") -- No need to update twice here, needs review
@@ -157,23 +137,18 @@ cargBags:SetScript("OnEvent", function(self, event, ...)
 			impl:Show()
 		end
 
-			if (impl.OnBankOpened) then
-				impl:OnBankOpened(bankType)
-			end
+		if (impl.OnBankOpened) then
+			impl:OnBankOpened()
 		end
-	elseif (event == "PLAYER_INTERACTION_MANAGER_FRAME_HIDE") then
-		local interactType = ...
-		local bankType = interactionToBankType[interactType]
-		if bankType then
-			self.atBank = nil
+	elseif (event == "BANKFRAME_CLOSED") then
+		self.atBank = nil
 
 		if (impl:IsShown()) then
 			impl:Hide()
 		end
 
-			if (impl.OnBankClosed) then
-				impl:OnBankClosed(bankType)
-			end
+		if (impl.OnBankClosed) then
+			impl:OnBankClosed()
 		end
 	end
 end)

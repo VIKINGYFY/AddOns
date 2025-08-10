@@ -489,6 +489,7 @@ function bountyHelper:GenerateDifficultyViewData()
                 journalMountID = mount.journalMountID,
                 chance = drop.chance,
                 lfr = drop.lfr,
+                repeatable = drop.repeatable or false
             }
             table.insert(result[diff][inst], entry)
         end
@@ -561,16 +562,18 @@ function bountyHelper:UpdateDiffLayout()
             if isVisible and hideOwned and isOwned then
                 isVisible = false;
             end
-            if isVisible and hideKilled and data.killed and not isOwned then
+            if isVisible and hideKilled and data.killed and not isOwned and not data.repeatable then
                 isVisible = false;
             end
 
-            if not ((hideKilled and data.killed and not isOwned) or (hideOwned and isOwned)) then
+            if not ((hideKilled and data.killed and not isOwned and not data.repeatable) or (hideOwned and isOwned)) then
                  header.childCount = header.childCount + 1
             end
 
             if isOwned then
                 frame.statusText:SetText(colors.gold .. "Owned")
+            elseif data.repeatable then
+                frame.statusText:SetText(colors.gold .. "Repeatable")
             else
                 frame.statusText:SetText(data.killed and (colors.green .. "Killed") or (colors.red .. "Not Killed"))
             end
@@ -644,7 +647,7 @@ function bountyHelper:GetUnsortedMountCentricData()
 end
 
 function bountyHelper:loadMountData(callback)
-    local pending = 53
+    local pending = 54
 
     for mountID, data in pairs(db.mountData) do
         local item = Item:CreateFromItemID(mountID)
@@ -876,7 +879,7 @@ function bountyHelper:sortContent(sorting)
         68824, 69224, 71665, 77067, 77069, 78919, 87777, 93666,
         95059, 104253, 116660, 123890, 137574, 137575, 142236,
         143643, 152789, 152816, 159842, 159921, 160829, 166518,
-        166705, 174872, 181819, 186638, 186656, 186642, 190768,
+        166705, 168826, 174872, 181819, 186638, 186656, 186642, 190768,
         210061, 225548, 224147, 224151, 236960, 235626, 246445,
         243061
     }
@@ -929,11 +932,13 @@ function bountyHelper:updateContent()
 
                 if isOwned then
                     sourceRow.statusText:SetText(colors.gold .. "Owned")
+                elseif source.repeatable then
+                    sourceRow.statusText:SetText(colors.gold .. "Repeatable")
                 else
                     sourceRow.statusText:SetText(killed and (colors.green .. "Killed") or (colors.red .. "Not Killed"))
                 end
 
-                local hide = (hideIgnored and ignoreList[frame.mountID]) or (hideOwned and isOwned) or (hideKilled and killed and not isOwned)
+                local hide = (hideIgnored and ignoreList[frame.mountID]) or (hideOwned and isOwned) or (hideKilled and killed and not isOwned and not source.repeatable)
                 if not hide then sourceCount = sourceCount + 1 end
                 sourceRow:SetShown(not hide)
             end

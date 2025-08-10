@@ -2,7 +2,7 @@ _,db = ...
 db.instanceOrderList = {
     249, 329, 532, 550, 556, 575, 585, 603, 616, 624, 631, 657, 720, 725,
     754, 859, 967, 1008, 1098, 1136, 1205, 1448, 1530, 1651, 1676, 1712,
-    1754, 1762, 1841, 2070, 2217, 2286, 2441, 2450, 2481, 2549, 2651,
+    1754, 1762, 1841, 2070, 2097, 2217, 2286, 2441, 2450, 2481, 2549, 2651,
     2657, 2769, 2810
 }
 db.waypoints = {
@@ -36,6 +36,7 @@ db.waypoints = {
     [1762] = {point = {862, 0.3712, 0.3938}},
     [1841] = {point = {863, 0.5125, 0.6472}},
     [2070] = {point = {{895, 0.7444, 0.2853}, {862, 0.5421, 0.2991}}},
+    [2097] = {point = {1462, 0.7302, 0.3652}},
     [2217] = {point = {{1527, 0.5519, 0.4398}, {1530, 0.3973, 0.4628}}},
     [2286] = {point = {1533, 0.4017, 0.5516}},
     [2441] = {point = {1550, 0.3154, 0.7609, 2016}},
@@ -148,6 +149,9 @@ db.bossData = {
         { name = "Mekkatorque", encounterID = 2334, killedAtDiff = { [14] = false, [15] = false, [16] = false } },
         { name = "Lady Jaina Proudmoore", encounterID = 2343, killedAtDiff = { [16] = false, [17] = false } },
     },
+    [2097] = { -- Operation: Mechagon
+        { name = "HK-8 Aerial Oppression Unit", encounterID = 2355, killedAtDiff = { [23] = false } },
+    },
     [2217] = { -- Ny'alotha, the Waking City
         { name = "N'Zoth the Corruptor", encounterID = 2375, killedAtDiff = { [16] = false } },
     },
@@ -186,7 +190,7 @@ db.bossData = {
 -- `index` refers to the boss's position in the `bossData[instanceID]` table above.
 db.mountData = {
     [13335] = { journalMountID = 69, dropsBy = {
-        { instanceID = 329, diff = 1, index = 1, chance = 0.9 },
+        { instanceID = 329, diff = 1, index = 1, chance = 0.9, repeatable = true },
     }},
     [30480] = { journalMountID = 168, dropsBy = {
         { instanceID = 532, diff = 3, index = 1, chance = 1.1 },
@@ -324,6 +328,9 @@ db.mountData = {
     [166705] = { journalMountID = 1219, dropsBy = {
         { instanceID = 2070, diff = 16, index = 2, chance = 0.6 },
     }},
+    [168826] = { journalMountID = 1252, dropsBy = {
+        { instanceID = 2097, diff = 23, index = 1, chance = 0.7 },
+    }},
     [174872] = { journalMountID = 1293, dropsBy = {
         { instanceID = 2217, diff = 16, index = 1, chance = 0.6 },
     }},
@@ -331,7 +338,7 @@ db.mountData = {
         { instanceID = 2286, diff = 23, index = 1, chance = 0.8 },
     }},
     [186638] = { journalMountID = 1481, dropsBy = {
-        { instanceID = 2441, diff = 2, index = 1, chance = 2.0 },
+        { instanceID = 2441, diff = 2, index = 1, chance = 2.0, repeatable = true },
         { instanceID = 2441, diff = 23, index = 1, chance = 2.0 },
     }},
     [186642] = { journalMountID = 1471, dropsBy = {
