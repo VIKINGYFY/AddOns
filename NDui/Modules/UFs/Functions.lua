@@ -1724,7 +1724,7 @@ end
 
 local function updatePartySync(self)
 	local hasJoined = C_QuestSession.HasJoined()
-	if (hasJoined) then
+	if hasJoined then
 		self.QuestSyncIndicator:Show()
 	else
 		self.QuestSyncIndicator:Hide()

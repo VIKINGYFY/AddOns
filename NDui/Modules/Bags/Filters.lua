@@ -66,13 +66,7 @@ end
 local function isItemEquipment(item)
 	if not C.db["Bags"]["ItemFilter"] then return end
 	if not C.db["Bags"]["FilterEquipment"] then return end
-	return item.link and DB.EquipmentIDs[item.classID] or (item.id and (C_ArtifactUI.GetRelicInfoByItemID(item.id) or C_Soulbinds.IsItemConduitByItemInfo(item.id)))
-end
-
-local function isItemConsumable(item)
-	if not C.db["Bags"]["ItemFilter"] then return end
-	if not C.db["Bags"]["FilterConsumable"] then return end
-	return item.link and (item.classID ~= Enum.ItemClass.Tradegoods) and ((item.stackCount and item.stackCount > 1) or (item.itemOn and item.itemOn == "openable"))
+	return item.link and (item.classID and DB.EquipmentIDs[item.classID]) or (item.id and (C_ArtifactUI.GetRelicInfoByItemID(item.id) or C_Soulbinds.IsItemConduitByItemInfo(item.id)))
 end
 
 local function isItemLegendary(item)
@@ -84,13 +78,25 @@ end
 local function isItemCollection(item)
 	if not C.db["Bags"]["ItemFilter"] then return end
 	if not C.db["Bags"]["FilterCollection"] then return end
-	return item.link and (DB.MiscellaneousIDs[item.classID] and DB.CollectionIDs[item.subClassID]) or (item.id and C_ToyBox.GetToyInfo(item.id))
+	return item.link and ((item.classID and DB.MiscellaneousIDs[item.classID]) and (item.subClassID and DB.CollectionIDs[item.subClassID])) or (item.id and C_ToyBox.GetToyInfo(item.id))
 end
 
 local function isItemFeature(item)
 	if not C.db["Bags"]["ItemFilter"] then return end
 	if not C.db["Bags"]["FilterFeature"] then return end
 	return item.link and (item.id and DB.PrimordialStone[item.id])
+end
+
+local function isItemConsumable(item)
+	if not C.db["Bags"]["ItemFilter"] then return end
+	if not C.db["Bags"]["FilterConsumable"] then return end
+	return item.link and (item.classID and item.classID ~= Enum.ItemClass.Tradegoods) and ((item.stackCount and item.stackCount > 1) or (item.itemOn and item.itemOn == "openable"))
+end
+
+local function isItemTradegoods(item)
+	if not C.db["Bags"]["ItemFilter"] then return end
+	if not C.db["Bags"]["FilterTradegoods"] then return end
+	return item.link and (item.classID and item.classID == Enum.ItemClass.Tradegoods)
 end
 
 local function isItemAuE(item)
@@ -102,7 +108,7 @@ end
 local function isItemBoN(item)
 	if not C.db["Bags"]["ItemFilter"] then return end
 	if not C.db["Bags"]["FilterBoN"] then return end
-	return item.link and (item.bindType and item.bindType == 0)
+	return item.link and (item.classID and item.classID ~= Enum.ItemClass.Tradegoods) and (item.bindType and item.bindType == 0)
 end
 
 function module:GetFilters()
@@ -132,6 +138,7 @@ function module:GetFilters()
 	filters.bankFeature = function(item) return isItemInBank(item) and isItemFeature(item) end
 	filters.bankJunk = function(item) return isItemInBank(item) and isItemJunk(item) end
 	filters.bankLegendary = function(item) return isItemInBank(item) and isItemLegendary(item) end
+	filters.bankTradegoods = function(item) return isItemInBank(item) and isItemTradegoods(item) end
 
 	filters.accountAuE = function(item) return isItemInAccountBank(item) and isItemAuE(item) end
 	filters.accountBoN = function(item) return isItemInAccountBank(item) and isItemBoN(item) end
@@ -142,6 +149,7 @@ function module:GetFilters()
 	filters.accountFeature = function(item) return isItemInAccountBank(item) and isItemFeature(item) end
 	filters.accountJunk = function(item) return isItemInAccountBank(item) and isItemJunk(item) end
 	filters.accountLegendary = function(item) return isItemInAccountBank(item) and isItemLegendary(item) end
+	filters.accountTradegoods = function(item) return isItemInAccountBank(item) and isItemTradegoods(item) end
 
 	for i = 1, 5 do
 		filters["bagCustom"..i] = function(item) return (isItemInBag(item) or isItemInBagReagent(item)) and isItemCustom(item, i) end

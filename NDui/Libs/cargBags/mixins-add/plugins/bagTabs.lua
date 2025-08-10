@@ -163,7 +163,7 @@ end
 local hooked
 
 cargBags:RegisterPlugin("BagTab", function(self, bags, account)
-	if(cargBags.ParseBags) then
+	if (cargBags.ParseBags) then
 		bags = cargBags:ParseBags(bags)
 	end
 

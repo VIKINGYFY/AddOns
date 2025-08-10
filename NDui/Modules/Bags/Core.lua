@@ -317,7 +317,7 @@ function module:CreateAccountMoney()
 end
 
 function module:CreateBankButton(f)
-	local bu = B.CreateButton(self, 22, 22, true, "Interface\\Icons\\Inv_Misc_Rune_09")
+	local bu = B.CreateButton(self, 22, 22, true, "Interface\\Icons\\Battleground_Strongbox_Gold_"..DB.MyFaction)
 	bu:RegisterForClicks("AnyUp")
 	bu:SetScript("OnClick", function()
 		if not C_Bank.CanViewBank(CHAR_BANK_TYPE) then return end
@@ -347,13 +347,27 @@ function module:CreateAccountBankDeposit()
 			local isOn = GetCVarBool("bankAutoDepositReagents")
 			SetCVar("bankAutoDepositReagents", isOn and 0 or 1)
 			updateAccountBankDeposit(bu)
-		else
+		elseif btn == "LeftButton" then
 			C_Bank.AutoDepositItemsIntoBank(ACCOUNT_BANK_TYPE)
 		end
 	end)
 	bu.title = ACCOUNT_BANK_DEPOSIT_BUTTON_LABEL
-	B.AddTooltip(bu, "ANCHOR_TOP", L["DepositTradeGoodsTip"], "info")
+	B.AddTooltip(bu, "ANCHOR_TOP", L["AccountDepositTip"], "info")
 	updateAccountBankDeposit(bu)
+
+	return bu
+end
+
+function module:CreateBankDeposit()
+	local bu = B.CreateButton(self, 22, 22, true, "Interface\\Paperdollinfoframe\\Character-Plus")
+	bu:RegisterForClicks("AnyUp")
+	bu:SetScript("OnClick", function(_, btn)
+		if btn == "LeftButton" then
+			C_Bank.AutoDepositItemsIntoBank(CHAR_BANK_TYPE)
+		end
+	end)
+	bu.title = CHARACTER_BANK_DEPOSIT_BUTTON_LABEL
+	B.AddTooltip(bu, "ANCHOR_TOP")
 
 	return bu
 end
@@ -577,7 +591,7 @@ StaticPopupDialogs["NDUI_RENAMECUSTOMGROUP"] = {
 	button2 = CANCEL,
 	OnAccept = function(self)
 		local index = module.selectGroupIndex
-		local text = self.editBox:GetText()
+		local text = self.EditBox:GetText()
 		C.db["Bags"]["CustomNames"][index] = text ~= "" and text or nil
 
 		module.CustomMenu[index+2].text = GetCustomGroupTitle(index)
@@ -797,7 +811,7 @@ function module:UpdateAllBags()
 end
 
 function module:OpenBags()
-	OpenAllBags(true)
+	self.Bags:Toggle(true)
 end
 
 function module:CloseBags()
@@ -835,12 +849,29 @@ function module:OnLogin()
 		module.ContainerGroups[bagType][index] = newContainer
 	end
 
+	local function AddBankFilter(bankType)
+		local bank = bankType:lower()
+		for i = 1, 5 do
+			AddNewContainer(bankType, i, bankType.."Custom"..i, filters[bank.."Custom"..i])
+		end
+		AddNewContainer(bankType, 15, bankType.."Junk", filters[bank.."Junk"])
+		AddNewContainer(bankType, 14, bankType.."Feature", filters[bank.."Feature"])
+		AddNewContainer(bankType, 13, bankType.."Collection", filters[bank.."Collection"])
+		AddNewContainer(bankType, 12, bankType.."BoN", filters[bank.."BoN"])
+		AddNewContainer(bankType, 11, bankType.."Consumable", filters[bank.."Consumable"])
+		AddNewContainer(bankType, 10, bankType.."Tradegoods", filters[bank.."Tradegoods"])
+		AddNewContainer(bankType, 9, bankType.."AuE", filters[bank.."AuE"])
+		AddNewContainer(bankType, 8, bankType.."Legendary", filters[bank.."Legendary"])
+		AddNewContainer(bankType, 7, bankType.."EquipSet", filters[bank.."EquipSet"])
+		AddNewContainer(bankType, 6, bankType.."Equipment", filters[bank.."Equipment"])
+	end
+
 	function Backpack:OnInit()
 		for i = 1, 5 do
 			AddNewContainer("Bag", i, "BagCustom"..i, filters["bagCustom"..i])
 		end
 		AddNewContainer("Bag", 15, "BagJunk", filters.bagJunk)
-		AddNewContainer("Bag", 14, "BagVersion", filters.bagFeature)
+		AddNewContainer("Bag", 14, "BagFeature", filters.bagFeature)
 		AddNewContainer("Bag", 13, "BagCollection", filters.bagCollection)
 		AddNewContainer("Bag", 12, "BagBoN", filters.bagBoN)
 		AddNewContainer("Bag", 11, "BagConsumable", filters.bagConsumable)
@@ -855,18 +886,7 @@ function module:OnLogin()
 		f.main:SetPoint(unpack(f.main.__anchor))
 		f.main:SetFilter(filters.onlyBags, true)
 
-		for i = 1, 5 do
-			AddNewContainer("Bank", i, "BankCustom"..i, filters["bankCustom"..i])
-		end
-		AddNewContainer("Bank", 14, "BankJunk", filters.bankJunk)
-		AddNewContainer("Bank", 13, "BankVersion", filters.bankFeature)
-		AddNewContainer("Bank", 12, "BankCollection", filters.bankCollection)
-		AddNewContainer("Bank", 11, "BankBoN", filters.bankBoN)
-		AddNewContainer("Bank", 10, "BankConsumable", filters.bankConsumable)
-		AddNewContainer("Bank", 9, "BankAuE", filters.bankAuE)
-		AddNewContainer("Bank", 8, "BankLegendary", filters.bankLegendary)
-		AddNewContainer("Bank", 7, "BankEquipSet", filters.bankEquipSet)
-		AddNewContainer("Bank", 6, "BankEquipment", filters.bankEquipment)
+		AddBankFilter("Bank")
 
 		f.bank = MyContainer:New("Bank", {Bags = "bank", BagType = "Bank"})
 		f.bank.__anchor = {"BOTTOMLEFT", 50, 100}
@@ -874,18 +894,7 @@ function module:OnLogin()
 		f.bank:SetFilter(filters.onlyBank, true)
 		f.bank:Hide()
 
-		for i = 1, 5 do
-			AddNewContainer("Account", i, "AccountCustom"..i, filters["accountCustom"..i])
-		end
-		AddNewContainer("Account", 14, "AccountJunk", filters.accountJunk)
-		AddNewContainer("Account", 13, "AccountVersion", filters.accountFeature)
-		AddNewContainer("Account", 12, "AccountCollection", filters.accountCollection)
-		AddNewContainer("Account", 11, "AccountBoN", filters.accountBoN)
-		AddNewContainer("Account", 10, "AccountConsumable", filters.accountConsumable)
-		AddNewContainer("Account", 9, "AccountAuE", filters.accountAuE)
-		AddNewContainer("Account", 8, "AccountLegendary", filters.accountLegendary)
-		AddNewContainer("Account", 7, "AccountEquipSet", filters.accountEquipSet)
-		AddNewContainer("Account", 6, "AccountEquipment", filters.accountEquipment)
+		AddBankFilter("Account")
 
 		f.accountbank = MyContainer:New("Account", {Bags = "accountbank", BagType = "Account"})
 		f.accountbank:SetFilter(filters.accountbank, true)
@@ -902,20 +911,16 @@ function module:OnLogin()
 	end
 
 	local initBagType
-	function Backpack:OnBankOpened()
-		BankFrame:Show()
-		self:GetContainer("Bank"):Show()
-
+	function Backpack:OnBankOpened(bankType)
+		BankFrame.BankPanel:Show()
+		BankFrame.BankPanel:SetBankType(bankType)
 		if not initBagType then
-			--module:UpdateAllBags() -- Initialize bagType
 			module:UpdateBagSize()
 			initBagType = true
 		end
 	end
 
 	function Backpack:OnBankClosed()
-		BankFrame.selectedTab = 1
-		BankFrame.activeTabIndex = 1
 		self:GetContainer("Bank"):Hide()
 		self:GetContainer("Account"):Hide()
 	end
@@ -1107,10 +1112,8 @@ function module:OnLogin()
 	function module:GetContainerColumns(bagType)
 		if bagType == "Bag" then
 			return C.db["Bags"]["BagsWidth"]
-		elseif bagType == "Bank" then
+		else
 			return C.db["Bags"]["BankWidth"]
-		elseif bagType == "Account" then
-			return C.db["Bags"]["AccountWidth"]
 		end
 	end
 
@@ -1174,6 +1177,8 @@ function module:OnLogin()
 			label = LOOT_JOURNAL_LEGENDARIES
 		elseif string.match(name, "Consumable") then
 			label = BAG_FILTER_CONSUMABLES
+		elseif string.match(name, "Tradegoods") then
+			label = BAG_FILTER_REAGENTS
 		elseif string.match(name, "Junk") then
 			label = BAG_FILTER_JUNK
 		elseif string.match(name, "Collection") then
@@ -1209,7 +1214,8 @@ function module:OnLogin()
 		elseif name == "Bank" then
 			module.CreateBagTab(self, settings, 6)
 			buttons[3] = module.CreateBagToggle(self)
-			buttons[4] = module.CreateAccountBankButton(self, f)
+			buttons[4] = module.CreateBankDeposit(self)
+			buttons[5] = module.CreateAccountBankButton(self, f)
 		elseif name == "Account" then
 			module.CreateBagTab(self, settings, 5, "account")
 			buttons[3] = module.CreateBagToggle(self)
@@ -1319,10 +1325,6 @@ function module:OnLogin()
 		end
 	end
 
-	-- Fixes
-	BankFrame.GetRight = function() return f.bank:GetRight() end
-	BankFrameItemButton_Update = B.Dummy
-
 	local passedSystems = {
 		["TutorialReagentBag"] = true,
 	}
@@ -1340,6 +1342,7 @@ function module:OnLogin()
 	hooksecurefunc(BankFrame.BankPanel, "SetBankType", function(self, bankType)
 		module.Bags:GetContainer("Bank"):SetShown(bankType == CHAR_BANK_TYPE)
 		module.Bags:GetContainer("Account"):SetShown(bankType == ACCOUNT_BANK_TYPE)
+		module:UpdateAllBags()
 		if _G["NDui_BankPurchaseButton"] then
 			_G["NDui_BankPurchaseButton"]:SetShown(bankType == ACCOUNT_BANK_TYPE and C_Bank.CanPurchaseBankTab(ACCOUNT_BANK_TYPE))
 		end

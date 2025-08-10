@@ -1,9 +1,4 @@
-## Changed in v89
+## Changed in v91
 
-* K'aresh:
-    * Change the icon for phase conduits
-    * Add Dangerous Prowlers of K'aresh
-    * Add the Delves and their loot
-    * Tweak how the nearby points for Heka'tamos are displayed
-* Undermine: the discovery achievement was missing from the delve tooltips
+* K'aresh: add loot to lots of rares now that data is out there for it
 

@@ -64,9 +64,9 @@ local function CreateItemKeys(item, keyName, keyList)
 	end
 end
 
-cargBags.itemKeys["bindOn"] = function(i)
-	return CreateItemKeys(i, bindOn, bindOnList)
+cargBags.itemKeys["bindOn"] = function(item)
+	return CreateItemKeys(item, bindOn, bindOnList)
 end
-cargBags.itemKeys["itemOn"] = function(i)
-	return CreateItemKeys(i, itemOn, itemOnList)
+cargBags.itemKeys["itemOn"] = function(item)
+	return CreateItemKeys(item, itemOn, itemOnList)
 end

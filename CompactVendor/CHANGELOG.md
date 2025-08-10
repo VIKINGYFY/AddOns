@@ -1,8 +1,10 @@
 # CompactVendor
 
-## [v11.1.7.250728](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.1.7.250728) (2025-07-29)
-[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.1.7.250728) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
+## [v11.2.0.250810](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.2.0.250810) (2025-08-09)
+[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.2.0.250810) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
 
+- TOC bump  
+- Updated non-refundable warning code for static popup to work with patch 11.2  
 - Vendoring an item (causing an update) won't reset the filters back to their default state with yesterdays change.  
     Running a new release with that minor adjustment and testing since yesterday.  
 - Do not reset the filters when the merchant updates.  
@@ -108,5 +110,3 @@
     Reply on this new boolean in `UpdateMerchantInfo` so that if we're not on a merchant we ensure to cleanup and answer properly, we can't be on a merchant if the event said we closed the interface.  
     Added BuyEmAll support, if the addon is loaded, it will be used for stack purchase instead of the built-in standard frame.  
     The new Open/Close/IsOpen methods on the quantity button widget will use the API for BuyEmAll when available, otherwise fallback to default behavior.  
-- The wow token price check should only happen on mainline, as classic era and other flavors might not be properly handling the token pricing, as it can cause lua errors on those clients.  
-- Updated GetItemCount to properly include reagent bank and the warbank when checking if you can afford something.  

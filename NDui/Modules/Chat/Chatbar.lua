@@ -21,7 +21,6 @@ function module:Chatbar()
 	if not C.db["Chat"]["Chatbar"] then return end
 
 	local chatFrame = SELECTED_DOCK_FRAME
-	local editBox = chatFrame.editBox
 	local width, height, padding, buttonList = 40, 8, DB.margin*2, {}
 
 	local Chatbar = CreateFrame("Frame", "NDui_ChatBar", UIParent)
