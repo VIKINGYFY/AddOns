@@ -1,9 +1,110 @@
 local ADDON_NAME, ns = ...
 local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
-ns.previousVersion = "3.0.2"
-ns.currentVersion = "3.0.3"
+ns.ChangelogPreviousVersion = "3.0.3"
+ns.ChangelogCurrentVersion = "3.0.4"
 
-ns.LOCALE_CHANGELOG = {
+ns.LOCALE_CHANGELOG_NEW = {
+  enUS = [[
+• Adjusted NPC names for all The War Within zones.
+
+• Adjusted NPC names for all Dragonflight zones.
+
+• Under "General" – "World Map", a new feature has been added.
+This allows you to automatically switch the world map to the map of the new
+area when you leave one zone and enter another.
+]],
+
+  deDE = [[
+• Es wurden die NPC-Namen für alle The War Within Zonen angepasst.
+
+• Es wurden die NPC-Namen für alle Dragonflight Zonen angepasst.
+
+• Unter „Allgemein“ – „Weltkarte“ wurde eine neue Funktion hinzugefügt.
+Dadurch können Sie nun die Weltkarte automatisch auf die Karte des neuen 
+Gebiets umschalten lassen, wenn Sie eine Zone verlassen und eine neue betreten.
+]],
+
+  frFR = [[
+• Les noms des PNJ ont été ajustés pour toutes les zones de The War Within.
+
+• Les noms des PNJ ont été ajustés pour toutes les zones de Dragonflight.
+
+• Dans « Général » – « Carte du monde », une nouvelle fonctionnalité a été ajoutée.
+Elle vous permet désormais de basculer automatiquement la carte du monde vers
+la carte de la nouvelle zone lorsque vous quittez une zone et en entrez une autre.
+]],
+
+  itIT = [[
+• Aggiornati i nomi degli PNG per tutte le zone di The War Within.
+
+• Aggiornati i nomi degli PNG per tutte le zone di Dragonflight.
+
+• In "Generale" – "Mappa del mondo" è stata aggiunta una nuova funzione.
+Ora è possibile far passare automaticamente la mappa del mondo alla mappa della
+nuova area quando si lascia una zona ed entra in un’altra.
+]],
+
+  esES = [[
+• Se han ajustado los nombres de los PNJ para todas las zonas de The War Within.
+
+• Se han ajustado los nombres de los PNJ para todas las zonas de Dragonflight.
+
+• En «General» – «Mapa del mundo» se ha añadido una nueva función.
+Ahora puedes hacer que el mapa del mundo cambie automáticamente al mapa de la
+nueva zona cuando salgas de una y entres en otra.
+]],
+
+  esMX = [[
+• Se ajustaron los nombres de los PNJ para todas las zonas de The War Within.
+
+• Se ajustaron los nombres de los PNJ para todas las zonas de Dragonflight.
+
+• En «General» – «Mapa del mundo» se añadió una nueva función.
+Ahora puedes hacer que el mapa del mundo cambie automáticamente al mapa de la
+nueva zona cuando salgas de una y entres en otra.
+]],
+
+  ruRU = [[
+• Были обновлены имена НИПов для всех зон The War Within.
+
+• Были обновлены имена НИПов для всех зон Dragonflight.
+
+• В разделе «Общее» – «Карта мира» была добавлена новая функция.
+Теперь карта мира может автоматически переключаться на карту новой области,
+когда вы покидаете одну зону и входите в другую.
+]],
+
+  ptBR = [[
+• Ajustados os nomes dos PNJs para todas as zonas de The War Within.
+
+• Ajustados os nomes dos PNJs para todas as zonas de Dragonflight.
+
+• Em "Geral" – "Mapa-múndi", foi adicionada uma nova função.
+Agora é possível fazer o mapa-múndi mudar automaticamente para o mapa da nova
+área quando você sair de uma zona e entrar em outra.
+]],
+
+  zhCN = [[
+• 已调整所有《地心之战》地区的 NPC 名称。
+
+• 已调整所有《巨龙时代》地区的 NPC 名称。
+
+• 在“常规” – “世界地图”下新增了一项功能。
+现在，当你离开一个区域并进入另一个区域时，可以让世界地图自动切换到新区域的地图。
+]],
+
+  zhTW = [[
+• 已調整所有《地心之戰》地區的 NPC 名稱。
+
+• 已調整所有《巨龍崛起》地區的 NPC 名稱。
+
+• 在「一般」–「世界地圖」中新增了一項功能。
+現在，當你離開一個區域並進入另一個區域時，可以讓世界地圖自動切換到新區域的地圖。
+]],
+}
+
+
+ns.LOCALE_CHANGELOG_OLD = {
   enUS = [[
 • Tooltip display for certain MapNotes symbols has been changed.
 Symbols targeting a specific NPC now show the NPC's name and their profession or title in the tooltip.
@@ -30,7 +131,7 @@ Symbols for the new zone have been added, and now include NPC names.
 ]],
 
   deDE = [[
-• Es wurden bei bestimmten MapNotes Symbole die Tooltip Anzeige geaendert.
+• Es wurden bei bestimmten MapNotes Symbole die Tooltip Anzeige geändert.
 Symbole mit einem bestimmten NPC als Ziel zeigen nun den Namen des NPCs
 und zusatzlich deren Beruf oder Titel im Tooltip.
 Beispiel: Gasthaustooltip in Dornogal
@@ -267,7 +368,6 @@ Shift + 中键点击带有一个或多个 NPC 名称的图标会弹出确认窗�
 ]],
 }
 
-
 function ns.ShowChangelogWindow()
     if MapNotesChangelogFrame and MapNotesChangelogFrame:IsShown() or MapNotesChangelogFrameMenu and MapNotesChangelogFrameMenu:IsShown() then return end
 
@@ -290,7 +390,7 @@ function ns.ShowChangelogWindow()
 
         LoginChangeLogFrame.fixedVersionText = LoginChangeLogFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
         LoginChangeLogFrame.fixedVersionText:SetPoint("TOPLEFT", 10, -5)
-        LoginChangeLogFrame.fixedVersionText:SetText("|cffffd700" .. GAME_VERSION_LABEL .. ":|r " .. "|cffff0000" .. ns.currentVersion)
+        LoginChangeLogFrame.fixedVersionText:SetText("|cffffd700" .. GAME_VERSION_LABEL .. ":|r " .. "|cffff0000" .. ns.ChangelogCurrentVersion)
         
         LoginChangeLogFrame.scrollFrame = CreateFrame("ScrollFrame", nil, LoginChangeLogFrame, "UIPanelScrollFrameTemplate")
         LoginChangeLogFrame.scrollFrame:SetPoint("TOPLEFT", 10, -40)
@@ -309,7 +409,7 @@ function ns.ShowChangelogWindow()
         LoginChangeLogFrame.editBox:SetPoint("RIGHT", content, "RIGHT", -padding, 0)
         LoginChangeLogFrame.editBox:SetAutoFocus(false)
 
-        local changelogText = ns.LOCALE_CHANGELOG[GetLocale()] or ns.LOCALE_CHANGELOG["enUS"]
+        local changelogText = ns.LOCALE_CHANGELOG_NEW[GetLocale()] or ns.LOCALE_CHANGELOG_NEW["enUS"]
         LoginChangeLogFrame.editBox:SetText("|cffffd700" .. changelogText)
         LoginChangeLogFrame.scrollFrame:SetScrollChild(content)
         LoginChangeLogFrame.checkbox = CreateFrame("CheckButton", nil, LoginChangeLogFrame, "ChatConfigCheckButtonTemplate")
@@ -321,14 +421,14 @@ function ns.ShowChangelogWindow()
         LoginChangeLogFrame.closeButton:SetText(CLOSE)
         LoginChangeLogFrame.closeButton:SetScript("OnClick", function()
             if LoginChangeLogFrame.checkbox:GetChecked() then
-                HandyNotes_MapNotesRetailChangelogDB.lastChangelogVersion = ns.currentVersion
+                HandyNotes_MapNotesRetailChangelogDB.lastChangelogVersion = ns.ChangelogCurrentVersion
             end
             LoginChangeLogFrame:Hide()
         end)
 
         LoginChangeLogFrame:SetScript("OnHide", function()
             if LoginChangeLogFrame.checkbox:GetChecked() then
-                HandyNotes_MapNotesRetailChangelogDB.lastChangelogVersion = ns.currentVersion
+                HandyNotes_MapNotesRetailChangelogDB.lastChangelogVersion = ns.ChangelogCurrentVersion
             end
         end)
     end)
@@ -336,8 +436,7 @@ function ns.ShowChangelogWindow()
     table.insert(UISpecialFrames, "MapNotesChangelogFrame")
 end
 
-
-function ns.ShowChangelogWindowMenu()
+function ns.ShowChangelogWindowMenuNew()
     if (MapNotesChangelogFrame and MapNotesChangelogFrame:IsShown()) or (MapNotesChangelogFrameMenu and MapNotesChangelogFrameMenu:IsShown()) then return end
 
     local ChangeLogFrameMenu = CreateFrame("Frame", "MapNotesChangelogFrameMenu", UIParent, "BasicFrameTemplateWithInset")
@@ -358,7 +457,7 @@ function ns.ShowChangelogWindowMenu()
 
     ChangeLogFrameMenu.fixedVersionText = ChangeLogFrameMenu:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
     ChangeLogFrameMenu.fixedVersionText:SetPoint("TOPLEFT", 10, -5)
-    ChangeLogFrameMenu.fixedVersionText:SetText("|cffffd700" .. GAME_VERSION_LABEL .. ":|r " .. "|cffff0000" .. ns.currentVersion)
+    ChangeLogFrameMenu.fixedVersionText:SetText("|cffffd700" .. GAME_VERSION_LABEL .. ":|r " .. "|cffff0000" .. ns.ChangelogCurrentVersion)
 
     ChangeLogFrameMenu.scrollFrame = CreateFrame("ScrollFrame", nil, ChangeLogFrameMenu, "UIPanelScrollFrameTemplate")
     ChangeLogFrameMenu.scrollFrame:SetPoint("TOPLEFT", 10, -40)
@@ -377,7 +476,7 @@ function ns.ShowChangelogWindowMenu()
     ChangeLogFrameMenu.editBox:SetPoint("RIGHT", content, "RIGHT", -padding, 0)
     ChangeLogFrameMenu.editBox:SetAutoFocus(false)
 
-    local changelogText = ns.LOCALE_CHANGELOG[GetLocale()] or ns.LOCALE_CHANGELOG["enUS"]
+    local changelogText = ns.LOCALE_CHANGELOG_NEW[GetLocale()] or ns.LOCALE_CHANGELOG_NEW["enUS"]
     ChangeLogFrameMenu.editBox:SetText("|cffffd700" .. changelogText)
     ChangeLogFrameMenu.scrollFrame:SetScrollChild(content)
     ChangeLogFrameMenu.closeButton = CreateFrame("Button", nil, ChangeLogFrameMenu, "GameMenuButtonTemplate")
@@ -396,6 +495,64 @@ function ns.ShowChangelogWindowMenu()
     table.insert(UISpecialFrames, "MapNotesChangelogFrameMenu")
 end
 
+function ns.ShowChangelogWindowMenuOld()
+    if (MapNotesChangelogFrame and MapNotesChangelogFrame:IsShown()) or (MapNotesChangelogFrameMenu and MapNotesChangelogFrameMenu:IsShown()) then return end
+
+    local ChangeLogFrameMenu = CreateFrame("Frame", "MapNotesChangelogFrameMenu", UIParent, "BasicFrameTemplateWithInset")
+    ChangeLogFrameMenu:SetSize(750, 400)
+    ChangeLogFrameMenu:SetPoint("CENTER")
+    ChangeLogFrameMenu:SetMovable(true)
+    ChangeLogFrameMenu:EnableMouse(true)
+    ChangeLogFrameMenu:RegisterForDrag("LeftButton")
+    ChangeLogFrameMenu:SetScript("OnDragStart", ChangeLogFrameMenu.StartMoving)
+    ChangeLogFrameMenu:SetScript("OnDragStop", ChangeLogFrameMenu.StopMovingOrSizing)
+    ChangeLogFrameMenu:SetFrameStrata("DIALOG")
+    ChangeLogFrameMenu:SetToplevel(true)
+    ChangeLogFrameMenu:SetClampedToScreen(true)
+
+    ChangeLogFrameMenu.title = ChangeLogFrameMenu:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+    ChangeLogFrameMenu.title:SetPoint("TOP", 0, -3)
+    ChangeLogFrameMenu.title:SetText(ns.COLORED_ADDON_NAME .. "|cffffd700 " .. L["Changelog"])
+
+    ChangeLogFrameMenu.fixedVersionText = ChangeLogFrameMenu:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    ChangeLogFrameMenu.fixedVersionText:SetPoint("TOPLEFT", 10, -5)
+    ChangeLogFrameMenu.fixedVersionText:SetText("|cffffd700" .. GAME_VERSION_LABEL .. ":|r " .. "|cffff0000" .. ns.ChangelogPreviousVersion)
+
+    ChangeLogFrameMenu.scrollFrame = CreateFrame("ScrollFrame", nil, ChangeLogFrameMenu, "UIPanelScrollFrameTemplate")
+    ChangeLogFrameMenu.scrollFrame:SetPoint("TOPLEFT", 10, -40)
+    ChangeLogFrameMenu.scrollFrame:SetPoint("BOTTOMRIGHT", -30, 50)
+
+    local content = CreateFrame("Frame", nil, ChangeLogFrameMenu.scrollFrame) -- EditBox with padding inside frame
+    content:SetSize(700, 1)
+
+    ChangeLogFrameMenu.editBox = CreateFrame("EditBox", nil, content)
+    ChangeLogFrameMenu.editBox:SetMultiLine(true)
+    ChangeLogFrameMenu.editBox:SetFontObject(GameFontHighlight)
+
+    local padding = 38 -- = 1cm left and right
+    ChangeLogFrameMenu.editBox:SetWidth(700 - padding * 2)
+    ChangeLogFrameMenu.editBox:SetPoint("TOPLEFT", padding, 0)
+    ChangeLogFrameMenu.editBox:SetPoint("RIGHT", content, "RIGHT", -padding, 0)
+    ChangeLogFrameMenu.editBox:SetAutoFocus(false)
+
+    local changelogText = ns.LOCALE_CHANGELOG_OLD[GetLocale()] or ns.LOCALE_CHANGELOG_OLD["enUS"]
+    ChangeLogFrameMenu.editBox:SetText("|cffffd700" .. changelogText)
+    ChangeLogFrameMenu.scrollFrame:SetScrollChild(content)
+    ChangeLogFrameMenu.closeButton = CreateFrame("Button", nil, ChangeLogFrameMenu, "GameMenuButtonTemplate")
+    ChangeLogFrameMenu.closeButton:SetPoint("BOTTOMRIGHT", -10, -10)
+    ChangeLogFrameMenu.closeButton:SetSize(100, 25)
+    ChangeLogFrameMenu.closeButton:SetText(CLOSE)
+    ChangeLogFrameMenu.closeButton:SetScript("OnClick", function()
+        ChangeLogFrameMenu:Hide()
+        LibStub("AceConfigDialog-3.0"):Open("MapNotes")
+    end)
+
+    ChangeLogFrameMenu:SetScript("OnHide", function()
+        LibStub("AceConfigDialog-3.0"):Open("MapNotes")
+    end)
+
+    table.insert(UISpecialFrames, "MapNotesChangelogFrameMenu")
+end
 
 local DBFrame = CreateFrame("Frame")
 DBFrame:RegisterEvent("ADDON_LOADED")
@@ -405,10 +562,10 @@ DBFrame:SetScript("OnEvent", function(_, event, addonName)
             HandyNotes_MapNotesRetailChangelogDB = {}
         end
         if not HandyNotes_MapNotesRetailChangelogDB.lastChangelogVersion then
-            HandyNotes_MapNotesRetailChangelogDB.lastChangelogVersion = ns.previousVersion
+            HandyNotes_MapNotesRetailChangelogDB.lastChangelogVersion = ns.ChangelogPreviousVersion
         end
 
-        if HandyNotes_MapNotesRetailChangelogDB.lastChangelogVersion ~= ns.currentVersion then
+        if HandyNotes_MapNotesRetailChangelogDB.lastChangelogVersion ~= ns.ChangelogCurrentVersion then
             ns.ShowChangelogWindow()
         end
     end

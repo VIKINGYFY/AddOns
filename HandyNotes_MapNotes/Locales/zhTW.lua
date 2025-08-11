@@ -2,8 +2,12 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "zhTW")
 if not L then return end
 
+-- Worldmap
+L["Change zone map"] = "切換區域地圖"
+L["This allows you to automatically switch the world map to the map of the new area when you leave one zone and enter a new one"] = "這會讓你在離開一個區域並進入新區域時，自動將世界地圖切換到新區域的地圖"
 -- Npc
-L["NPC targeting"] = "NPC目標鎖定"
+L["NPC database"] = "NPC 資料庫"
+L["NPC targeting"] = "NPC 目標鎖定"
 L["Clicking on a MapNotes symbol with an NPC name opens a confirmation window, which automatically targets this NPC after confirmation and marks it with an X"] = "點擊帶有NPC名稱的MapNotes圖示會打開一個確認視窗，確認後會自動將該NPC設為目標並標記為X"
 L["If you are not within range, you will receive the message in the chat"] = "如果不在範圍內，您將在聊天中收到訊息"
 -- Changelog

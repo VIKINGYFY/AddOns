@@ -2195,9 +2195,10 @@ do
 		end
 	end
 
-	function B:ReskinNameFrame(frame, offset)
-		local nf = B.GetObject(self, "NameFrame")
-		if nf then nf:Hide() end
+	function B:ReskinName(frame, offset)
+		if not self then return end
+
+		self:Hide()
 
 		local bg = B.CreateBDFrame(self, .25)
 		bg:ClearAllPoints()

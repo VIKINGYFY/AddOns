@@ -10,7 +10,7 @@
     <Script file="RetailScaleAlpha.lua"/>
     <Script file="RetailSyncSingleScaleAlpha.lua"/>
     <Script file="RetailNpc.lua"/>
-    <Script file="RetailChangeLog.lua"/>
+    <Script file="RetailChangeLog.lua"/>  
     <Script file="RetailMain.lua"/>
     <Script file="RetailAreaMap.lua"/>
 </Ui>

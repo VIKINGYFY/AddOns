@@ -2,7 +2,11 @@
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "itIT")
 if not L then return end
 
+-- Worldmap
+L["Change zone map"] = "Cambia mappa della zona"
+L["This allows you to automatically switch the world map to the map of the new area when you leave one zone and enter a new one"] = "Questo consente di passare automaticamente la mappa del mondo alla mappa della nuova area quando si lascia una zona ed entra in un'altra"
 -- Npc
+L["NPC database"] = "Database NPC"
 L["NPC targeting"] = "Puntamento NPC"
 L["Clicking on a MapNotes symbol with an NPC name opens a confirmation window, which automatically targets this NPC after confirmation and marks it with an X"] = "Facendo clic su un simbolo MapNotes con un nome NPC si apre una finestra di conferma, che dopo la conferma seleziona automaticamente l’NPC e lo contrassegna con una X"
 L["If you are not within range, you will receive the message in the chat"] = "Se non sei nel raggio d’azione, riceverai il messaggio nella chat"

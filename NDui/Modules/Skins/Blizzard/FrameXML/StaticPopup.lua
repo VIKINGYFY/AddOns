@@ -59,18 +59,19 @@ C.OnLoginThemes["StaticPopup"] = function()
 
 		local edit = _G[popup].EditBox
 		B.ReskinInput(edit, 20)
---[[
-		local frame = _G[popup].insertedFrame
-		local item = frame.ItemFrame
-		local icon = frame.ItemFrameIconTexture
-		B.StripTextures(item)
-		item.bg = B.ReskinIcon(icon)
-		B.ReskinHLTex(item, item.bg)
-		B.ReskinBorder(item.IconBorder)
 
-		local name = _G[popup.."ItemFrameNameFrame"]
-		if name then name:Hide() end
-]]
+		local frame = _G[popup].ItemFrame
+		local item = frame.Item
+		if item then
+			B.StripTextures(item)
+			item.bg = B.ReskinIcon(_G[popup.."IconTexture"])
+			B.ReskinHLTex(item, item.bg)
+			B.ReskinBorder(item.IconBorder)
+		end
+
+		local name = frame.NameFrame
+		if name then B.ReskinName(name, item.bg) end
+
 		local extra = _G[popup.."extraButton"]
 		if extra then B.ReskinButton(extra) end
 

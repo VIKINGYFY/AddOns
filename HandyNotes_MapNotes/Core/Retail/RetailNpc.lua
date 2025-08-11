@@ -5,8 +5,10 @@ ns.locale = GetLocale()
 local npcNameCache = {}
 local retryQueue = {}
 local retryTimer
-local maxRetries = 10 -- max try per id
-local retryInterval = 2 -- seconds
+local maxRetries = 10 -- try
+local retryInterval = 1 -- interval in seconds
+local maxPerTickBase = 20 -- max tick
+local timeBudgetMs = 6 -- per tick
 
 function ns.GetNpcInfo(npcID)
     if not npcID then return end
@@ -66,51 +68,67 @@ function ns.PrimeNpcNameCache()
         end
     end
 
-    local cachingTextDone = ns.LOCALE_CACHINGDONE[ns.locale] or ns.LOCALE_CACHINGDONE["enUS"] or "update database"
-
+    local cachingTextDone = ns.LOCALE_CACHING_DONE[ns.locale] or ns.LOCALE_CACHING_DONE["enUS"] or "update database"
     if ns.Addon.db.profile.DeveloperMode or ns._manualScanActive then
         print(("%s %s - %d found, %d missing"):format(ns.COLORED_ADDON_NAME, cachingTextDone, successCount, failCount))
     end
 
     if failCount > 0 then
-        ns.StartRetryQueue()
+      local cachingText = ns.LOCALE_RETRY[ns.locale] or ns.LOCALE_RETRY["enUS"]
+      print(ns.COLORED_ADDON_NAME .. " " .. cachingText .. " ...")
+      ns.StartRetryQueue()
     end
 end
 
 function ns.StartRetryQueue()
-    if retryTimer then return end
-    retryTimer = C_Timer.NewTicker(retryInterval, function()
-        local processed = 0
-        for npcID, data in pairs(retryQueue) do
-            local name = ns.GetNpcInfo(npcID)
-            if name then
-                retryQueue[npcID] = nil
-                if ns.Addon.db.profile.DeveloperMode then
-                    print(("%s Cached after retry: %d (mapID: %d, file: %s)"):format(ns.COLORED_ADDON_NAME, npcID, data.mapID, data.sourceFile))
-                end
-            else
-                data.attempts = data.attempts + 1
-                if data.attempts >= maxRetries then
-                    retryQueue[npcID] = nil
-                    if ns.Addon.db.profile.DeveloperMode then
-                        print(("%s Failed to cache: %d after %d tries (mapID: %d, coord: %.2f, file: %s)"):format(ns.COLORED_ADDON_NAME, npcID, maxRetries, data.mapID, data.coord, data.sourceFile))
-                    end
-                end
-            end
-            processed = processed + 1
-            if processed >= 5 then break end -- max 5 per tick
-        end
+  if retryTimer then return end
 
-        if next(retryQueue) == nil then
-            retryTimer:Cancel()
-            retryTimer = nil
-            if ns.Addon.db.profile.DeveloperMode then
-                print(("%s Retry queue completed"):format(ns.COLORED_ADDON_NAME))
-            end
+  retryTimer = C_Timer.NewTicker(retryInterval, function()
+    local processed = 0
+    local fps = GetFramerate() or 60
+    local scale
+    if     fps >= 120 then scale = 1.00
+    elseif fps >=  90 then scale = 0.85
+    elseif fps >=  60 then scale = 0.70
+    elseif fps >=  45 then scale = 0.55
+    elseif fps >=  30 then scale = 0.40
+    else                   scale = 0.25
+    end
+    local maxPerTick = math.max(3, math.floor(maxPerTickBase * scale))
+    local startMs = debugprofilestop()
+
+    for npcID, data in pairs(retryQueue) do
+      local name = ns.GetNpcInfo(npcID)
+      if name then
+        retryQueue[npcID] = nil
+        if ns.Addon.db.profile.DeveloperMode then
+          print(("%s Cached after retry: %d (mapID: %d, file: %s)"):format(
+            ns.COLORED_ADDON_NAME, npcID, data.mapID or 0, data.sourceFile or "?"))
         end
-    end)
+      else
+        data.attempts = (data.attempts or 0) + 1
+        if data.attempts >= maxRetries then
+          retryQueue[npcID] = nil
+          if ns.Addon.db.profile.DeveloperMode then
+            print(("%s Failed to cache: %d after %d tries (mapID: %d, coord: %.2f, file: %s)"):format(ns.COLORED_ADDON_NAME, npcID, maxRetries, data.mapID or 0, data.coord or 0, data.sourceFile or "?"))
+          end
+        end
+      end
+
+      processed = processed + 1
+      if processed >= maxPerTick or (debugprofilestop() - startMs) >= timeBudgetMs then
+        break
+      end
+    end
+
+    if next(retryQueue) == nil then
+      retryTimer:Cancel()
+      retryTimer = nil
+      local cachingText = ns.LOCALE_RETRY_DONE[ns.locale] or ns.LOCALE_RETRY_DONE["enUS"]
+      print(ns.COLORED_ADDON_NAME .. " " .. cachingText)
+    end
+  end)
 end
-
 
 function ns.NpcTooltips(tooltip, nodeData )
   if not nodeData then return end
@@ -125,222 +143,76 @@ function ns.NpcTooltips(tooltip, nodeData )
     end
   end
 
-  if nodeData.npcIDs1 then -- additional npcIDs
-    local npcName, npcTitle = ns.GetNpcInfo(nodeData.npcIDs1)
-    if nodeData.icon1 then
-      if npcName then 
-      tooltip:AddLine( (npcName or "???"))
+  for i = 1, 10 do
+    local id   = nodeData["npcIDs" .. i]
+    local icon = nodeData["icon"   .. i]
+    if id then
+      local npcName, npcTitle = ns.GetNpcInfo(id)
+      if icon then
+        if npcName then
+          tooltip:AddLine(npcName or "???")
+        end
+        if npcTitle and not npcTitle:match("%?%?+") then
+          tooltip:AddLine(icon .. " " .. npcTitle)
+        end
+      else
+        if npcName then
+          tooltip:AddLine("|cffffffff" .. npcName)
+        end
+        if npcTitle and not npcTitle:match("%?%?+") then
+          tooltip:AddLine(npcTitle)
+        end
       end
-      if npcTitle and not npcTitle:match("%?%?+") then 
-        tooltip:AddLine(nodeData.icon1 .. " " .. npcTitle)
+
+      if i < 10 and (nodeData["npcIDs" .. (i + 1)] or nodeData.dnID) then -- add a blank line if further IDs follow (except for 10)
+        tooltip:AddLine(" ")
       end
-    else
-      if npcName then 
-        tooltip:AddLine("|cffffffff" .. npcName)
-      end
-      if npcTitle and not npcTitle:match("%?%?+") then 
-        tooltip:AddLine(npcTitle) 
-      end
-    end
-    if nodeData.npcIDs2 or nodeData.dnID then
-      tooltip:AddLine(" ")
     end
   end
 
-  if nodeData.npcIDs2 then
-    local npcName, npcTitle = ns.GetNpcInfo(nodeData.npcIDs2)
-    if nodeData.icon2 then
-      if npcName then 
-        tooltip:AddLine((npcName or "???"))
-      end
-      if npcTitle and not npcTitle:match("%?%?+") then 
-        tooltip:AddLine(nodeData.icon2 .. " " .. npcTitle)
-      end
-    else
-      if npcName then
-        tooltip:AddLine("|cffffffff" .. npcName) 
-      end
-      if npcTitle and not npcTitle:match("%?%?+") then 
-        tooltip:AddLine(npcTitle)
-      end
-    end
-    if nodeData.npcIDs3 or nodeData.dnID then
-      tooltip:AddLine(" ")
-    end
-  end
+  -- old example npcIDs1-9
+  --if nodeData.npcIDs1 then -- additional npcIDs
+  --  local npcName, npcTitle = ns.GetNpcInfo(nodeData.npcIDs1)
+  --  if nodeData.icon1 then
+  --    if npcName then 
+  --    tooltip:AddLine( (npcName or "???"))
+  --    end
+  --    if npcTitle and not npcTitle:match("%?%?+") then 
+  --      tooltip:AddLine(nodeData.icon1 .. " " .. npcTitle)
+  --    end
+  --  else
+  --    if npcName then 
+  --      tooltip:AddLine("|cffffffff" .. npcName)
+  --    end
+  --    if npcTitle and not npcTitle:match("%?%?+") then 
+  --      tooltip:AddLine(npcTitle) 
+  --    end
+  --  end
+  --  if nodeData.npcIDs2 or nodeData.dnID then
+  --    tooltip:AddLine(" ")
+  --  end
+  --end
 
-  if nodeData.npcIDs3 then
-    local npcName, npcTitle = ns.GetNpcInfo(nodeData.npcIDs3)
-    if nodeData.icon3 then
-      if npcName then 
-        tooltip:AddLine((npcName or "???"))
-      end
-      if npcTitle and not npcTitle:match("%?%?+") then 
-        tooltip:AddLine(nodeData.icon3 .. " " .. npcTitle)
-      end
-    else
-      if npcName then
-        tooltip:AddLine("|cffffffff" .. npcName) 
-      end
-      if npcTitle and not npcTitle:match("%?%?+") then 
-        tooltip:AddLine(npcTitle)
-      end
-    end
-    if nodeData.npcIDs4 or nodeData.dnID then
-      tooltip:AddLine(" ")
-    end
-  end
+  -- old example npcIDs10 last NPC name without spacing
+  -- if nodeData.npcIDs10 then -- 
+  --  local npcName, npcTitle = ns.GetNpcInfo(nodeData.npcIDs10)
+  --  if nodeData.icon10 then
+  --    if npcName then 
+  --      tooltip:AddLine((npcName or "???"))
+  --    end
+  --    if npcTitle and not npcTitle:match("%?%?+") then 
+  --      tooltip:AddLine(nodeData.icon10 .. " " .. npcTitle)
+  --    end
+  --  else
+  --    if npcName then
+  --      tooltip:AddLine("|cffffffff" .. npcName) 
+  --    end
+  --    if npcTitle and not npcTitle:match("%?%?+") then 
+  --      tooltip:AddLine(npcTitle)
+  --    end
+  --  end
+  --end
 
-  if nodeData.npcIDs4 then
-    local npcName, npcTitle = ns.GetNpcInfo(nodeData.npcIDs4)
-    if nodeData.icon4 then
-      if npcName then 
-        tooltip:AddLine((npcName or "???"))
-      end
-      if npcTitle and not npcTitle:match("%?%?+") then 
-        tooltip:AddLine(nodeData.icon4 .. " " .. npcTitle)
-      end
-    else
-      if npcName then
-        tooltip:AddLine("|cffffffff" .. npcName) 
-      end
-      if npcTitle and not npcTitle:match("%?%?+") then 
-        tooltip:AddLine(npcTitle)
-      end
-    end
-    if nodeData.npcIDs5 or nodeData.dnID then
-      tooltip:AddLine(" ")
-    end
-  end
-
-  if nodeData.npcIDs5 then
-    local npcName, npcTitle = ns.GetNpcInfo(nodeData.npcIDs5)
-    if nodeData.icon5 then
-      if npcName then 
-        tooltip:AddLine((npcName or "???"))
-      end
-      if npcTitle and not npcTitle:match("%?%?+") then 
-        tooltip:AddLine(nodeData.icon5 .. " " .. npcTitle)
-      end
-    else
-      if npcName then
-        tooltip:AddLine("|cffffffff" .. npcName) 
-      end
-      if npcTitle and not npcTitle:match("%?%?+") then 
-        tooltip:AddLine(npcTitle)
-      end
-    end
-    if nodeData.npcIDs6 or nodeData.dnID then
-      tooltip:AddLine(" ")
-    end
-  end
-
-  if nodeData.npcIDs6 then
-    local npcName, npcTitle = ns.GetNpcInfo(nodeData.npcIDs6)
-    if nodeData.icon6 then
-      if npcName then 
-        tooltip:AddLine((npcName or "???"))
-      end
-      if npcTitle and not npcTitle:match("%?%?+") then 
-        tooltip:AddLine(nodeData.icon6 .. " " .. npcTitle)
-      end
-    else
-      if npcName then
-        tooltip:AddLine("|cffffffff" .. npcName) 
-      end
-      if npcTitle and not npcTitle:match("%?%?+") then 
-        tooltip:AddLine(npcTitle)
-      end
-    end
-    if nodeData.npcIDs7 or nodeData.dnID then
-      tooltip:AddLine(" ")
-    end
-  end
-
-  if nodeData.npcIDs7 then
-    local npcName, npcTitle = ns.GetNpcInfo(nodeData.npcIDs7)
-    if nodeData.icon7 then
-      if npcName then 
-        tooltip:AddLine((npcName or "???"))
-      end
-      if npcTitle and not npcTitle:match("%?%?+") then 
-        tooltip:AddLine(nodeData.icon7 .. " " .. npcTitle)
-      end
-    else
-      if npcName then
-        tooltip:AddLine("|cffffffff" .. npcName) 
-      end
-      if npcTitle and not npcTitle:match("%?%?+") then 
-        tooltip:AddLine(npcTitle)
-      end
-    end
-    if nodeData.npcIDs8 or nodeData.dnID then
-      tooltip:AddLine(" ")
-    end
-  end
-
-  if nodeData.npcIDs8 then
-    local npcName, npcTitle = ns.GetNpcInfo(nodeData.npcIDs8)
-    if nodeData.icon8 then
-      if npcName then 
-        tooltip:AddLine((npcName or "???"))
-      end
-      if npcTitle and not npcTitle:match("%?%?+") then 
-        tooltip:AddLine(nodeData.icon8 .. " " .. npcTitle)
-      end
-    else
-      if npcName then
-        tooltip:AddLine("|cffffffff" .. npcName) 
-      end
-      if npcTitle and not npcTitle:match("%?%?+") then 
-        tooltip:AddLine(npcTitle)
-      end
-    end
-    if nodeData.npcIDs9 or nodeData.dnID then
-      tooltip:AddLine(" ")
-    end
-  end
-
-  if nodeData.npcIDs9 then
-    local npcName, npcTitle = ns.GetNpcInfo(nodeData.npcIDs9)
-    if nodeData.icon9 then
-      if npcName then 
-        tooltip:AddLine((npcName or "???"))
-      end
-      if npcTitle and not npcTitle:match("%?%?+") then 
-        tooltip:AddLine(nodeData.icon9 .. " " .. npcTitle)
-      end
-    else
-      if npcName then
-        tooltip:AddLine("|cffffffff" .. npcName) 
-      end
-      if npcTitle and not npcTitle:match("%?%?+") then 
-        tooltip:AddLine(npcTitle)
-      end
-    end
-    if nodeData.npcIDs10 or nodeData.dnID then
-      tooltip:AddLine(" ")
-    end
-  end
-
-  if nodeData.npcIDs10 then -- last NPC name without spacing
-    local npcName, npcTitle = ns.GetNpcInfo(nodeData.npcIDs10)
-    if nodeData.icon10 then
-      if npcName then 
-        tooltip:AddLine((npcName or "???"))
-      end
-      if npcTitle and not npcTitle:match("%?%?+") then 
-        tooltip:AddLine(nodeData.icon10 .. " " .. npcTitle)
-      end
-    else
-      if npcName then
-        tooltip:AddLine("|cffffffff" .. npcName) 
-      end
-      if npcTitle and not npcTitle:match("%?%?+") then 
-        tooltip:AddLine(npcTitle)
-      end
-    end
-  end
 end
 
 local f = CreateFrame("Frame")
@@ -525,8 +397,22 @@ ns.LOCALE_CACHING = {
   zhTW = [[正在更新NPC名稱資料庫]],
 }
 
-ns.LOCALE_CACHINGDONE = {
-  enUS = [[update database completed]],
+ns.LOCALE_RETRY = {
+  enUS = [[Database is being updated, please wait]],
+  deDE = [[Datenbank wird aktualisiert, bitte warten]],
+  frFR = [[Mise à jour de la base de données, veuillez patienter]],
+  esES = [[La base de datos se está actualizando, por favor espere]],
+  esMX = [[La base de datos se está actualizando, por favor espere]],
+  itIT = [[Il database è in fase di aggiornamento, attendere prego]],
+  ptBR = [[O banco de dados está sendo atualizado, por favor aguarde]],
+  ruRU = [[База данных обновляется, пожалуйста, подождите]],
+  koKR = [[데이터베이스를 업데이트하는 중입니다. 잠시만 기다려주세요]],
+  zhCN = [[数据库正在更新，请稍候]],
+  zhTW = [[資料庫正在更新，請稍候]],
+}
+
+ns.LOCALE_RETRY_DONE = {
+  enUS = [[Database update completed]],
   deDE = [[Datenbankaktualisierung abgeschlossen]],
   frFR = [[Mise à jour de la base de données terminée]],
   esES = [[Actualización de la base de datos completada]],
@@ -537,6 +423,20 @@ ns.LOCALE_CACHINGDONE = {
   koKR = [[데이터베이스 업데이트 완료]],
   zhCN = [[数据库更新完成]],
   zhTW = [[資料庫更新完成]],
+}
+
+ns.LOCALE_CACHING_DONE = {
+  enUS = [[Database check completed]],
+  deDE = [[Datenbanküberprüfung abgeschlossen]],
+  frFR = [[Vérification de la base de données terminée]],
+  esES = [[Comprobación de la base de datos completada]],
+  esMX = [[Comprobación de la base de datos completada]],
+  itIT = [[Verifica del database completata]],
+  ptBR = [[Verificação do banco de dados concluída]],
+  ruRU = [[Проверка базы данных завершена]],
+  koKR = [[데이터베이스 확인 완료]],
+  zhCN = [[数据库检查完成]],
+  zhTW = [[資料庫檢查完成]],
 }
 
 ns.LOCALE_CACHINGFOUND = {

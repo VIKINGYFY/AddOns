@@ -1447,46 +1447,54 @@ ns._currentSourceFile = "RetailGeneralMiniMapNodes.lua"
         --Dragon Isles
         if self.db.profile.showMiniMapDragonIsles then
 
+            if self.db.profile.showMiniMapPvEVendor then
+                minimap[2022][47108258] = { npcID = 189226, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2133][51992569] = { npcIDs1 = 205675, npcIDs2 = 205676, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2133][56485566] = { npcID = 202468, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2200][50256162] = { npcID = 208156, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2024][13144927] = { npcID = 193006, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+            end
+
             if self.db.profile.showMiniMapCatalyst then
                 minimap[2025][60715371] = { dnID = L["Catalyst"], name = "",  type = "Catalyst", showInZone = false, showOnContinent = false, showOnMinimap = true }
             end
 
             if self.db.profile.showMiniMapItemUpgrade then
-                minimap[2133][56605600] = { dnID = ITEM_UPGRADE, name = "",  type = "ItemUpgrade", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2151][35605940] = { dnID = ITEM_UPGRADE, name = "",  type = "ItemUpgrade", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2200][57202740] = { dnID = ITEM_UPGRADE, name = "",  type = "ItemUpgrade", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2133][56555600] = { npcID = 203403, name = "", type = "ItemUpgrade", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2151][35605940] = { npcID = 203341, name = "", type = "ItemUpgrade", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2200][57352745] = { npcID = 211357, name = "", type = "ItemUpgrade", showInZone = false, showOnContinent = false, showOnMinimap = true }
             end
 
             if self.db.profile.showMiniMapStablemaster then
-                minimap[2133][57605780] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2133][43208180] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2022][62807120] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2022][24608340] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2022][73805440] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2022][25805540] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2022][43206720] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2022][65805880] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2022][54003840] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2023][85203580] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2023][62004180] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2023][45604060] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2023][80605800] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2023][83802580] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2023][41826019] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2024][63205840] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2024][65201620] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2024][47004040] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2024][38006080] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2024][19002400] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2024][13804960] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2025][50606780] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2025][60208040] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2025][60208180] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2025][59808140] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2025][51004300] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2200][69605380] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2200][53002420] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2200][50206180] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2133][57705785] = { npcID = 203294, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2133][43288198] = { npcID = 201102, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2022][62807120] = { npcID = 188107, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2022][24648348] = { npcID = 199701, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2022][73805440] = { npcID = 194605, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2022][25805540] = { npcID = 189202, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2022][43186724] = { npcID = 188445, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2022][65935888] = { npcID = 193021, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2022][54003840] = { npcID = 189738, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2023][85253585] = { npcID = 196291, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2023][62004180] = { npcID = 195524, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2023][45674055] = { npcID = 191815, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2023][65632457] = { npcID = 190058, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2023][80665805] = { npcID = 192002, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2023][83922588] = { npcID = 186183, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2023][72127881] = { npcID = 193008, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2023][41826019] = { npcID = 195471, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2024][63205840] = { npcID = 187020, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2024][65271620] = { npcID = 186860, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2024][46964052] = { npcID = 199688, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2024][38006080] = { npcID = 199691, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2024][19052397] = { npcID = 190892, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2024][13804960] = { npcID = 186462, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2025][50546798] = { npcID = 189025, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2025][60298191] = { npcID = 187024, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2025][51064315] = { npcID = 189353, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2200][69625391] = { npcID = 208302, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2200][53072425] = { npcID = 211355, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2200][50206180] = { npcID = 207760, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
             end
 
             if self.db.profile.showMiniMapMailbox then
@@ -1524,7 +1532,6 @@ ns._currentSourceFile = "RetailGeneralMiniMapNodes.lua"
                 minimap[2133][56305510] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2133][51602650] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2025][35307950] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2025][34806050] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2025][52306870] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2025][59808260] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2025][50504220] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true }
@@ -1537,54 +1544,55 @@ ns._currentSourceFile = "RetailGeneralMiniMapNodes.lua"
             end
 
             if self.db.profile.showMiniMapInnkeeper then
-                minimap[2133][52202620] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2133][56405580] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2022][47808320] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2022][46402720] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2022][81203180] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2022][25805520] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2022][24408220] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2022][76203560] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2022][53803920] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2022][76005460] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2022][65205800] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2022][58006760] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2026][33805900] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2024][12404940] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2024][18802440] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2024][46804020] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2024][65401620] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2024][62805780] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2024][37376243] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2025][50204260] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2025][35007920] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2025][58608260] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2025][52406960] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2025][52208160] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2023][81205920] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2023][28606040] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2023][85803520] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2023][62804060] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2023][59603880] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2023][41936052] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2023][62203580] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2023][72008040] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2023][57207660] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2023][46004060] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2023][66202440] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2023][85002600] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2151][33835906] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2200][36603260] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2200][69405320] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2200][52402520] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2200][49806160] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2133][52202620] = { npcID = 200892, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2133][56425584] = { npcID = 203293, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2022][47808320] = { npcIDs1 = 187399, npcIDs2 = 187408, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2022][46432726] = { npcID = 197849, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2022][81313190] = { npcID = 187412, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2022][25805520] = { npcID = 188351, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2022][24408220] = { npcID = 198190, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2022][76333562] = { npcID = 193393, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2022][53853921] = { npcID = 188284, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2022][76005460] = { npcID = 194432, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2022][43126656] = { npcID = 186317, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2022][65205800] = { npcID = 189400, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2022][58066762] = { npcID = 187389, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2026][33835906] = { npcID = 200560, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2024][12404940] = { npcID = 186448, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2024][18732448] = { npcID = 190315, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2024][46944034] = { npcID = 189147, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2024][65401620] = { npcID = 186744, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2024][62805780] = { npcID = 186851, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2024][37376243] = { npcID = 189460, name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2025][50224254] = { npcID = 186458, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2025][35117924] = { npcID = 194788, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2025][59848265] = { npcID = 186952, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2025][52466961] = { npcID = 188887, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2025][52138152] = { npcID = 203769, name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2023][81335930] = { npcID = 191391, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2023][28576051] = { npcID = 186502, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2023][85873524] = { npcID = 196161, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2023][62804060] = { npcID = 191269, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2023][59603880] = { npcID = 195395, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2023][41936052] = { npcID = 195104, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2023][62203580] = { npcID = 194928, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2023][72158049] = { npcID = 192878, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2023][57207660] = { npcID = 192113, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2023][46114062] = { npcID = 191813, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2023][66392438] = { npcID = 190087, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2023][85102602] = { npcID = 184636, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2151][33835906] = { npcID = 200560, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2200][36603260] = { npcID = 209430, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2200][69535324] = { npcID = 208286, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2200][52492529] = { npcID = 211352, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2200][49806160] = { npcID = 207627, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
 
                 if self.faction == "Horde" or db.activate.MiniMapEnemyFaction then
-                    minimap[2022][80402780] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "MMInnkeeperH", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                    minimap[2022][80402780] = { npcID = 187403, name = "", type = "MMInnkeeperH", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 end
 
                 if self.faction == "Alliance" or db.activate.MiniMapEnemyFaction then
-                    minimap[2239][48205400] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "MMInnkeeperA", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                    minimap[2239][48205400] = { npcID = 216280, name = "", type = "MMInnkeeperA", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 end
 
             end
@@ -1594,25 +1602,31 @@ ns._currentSourceFile = "RetailGeneralMiniMapNodes.lua"
         --Khaz Algar
         if self.db.profile.showMiniMapKhazAlgar then
 
+            if self.db.profile.showMiniMapItemUpgrade then
+                minimap[2472][41102964] = { npcID = 250320, name = "",  type = "ItemUpgrade", questID = 84967, wwwLink = "https://www.wowhead.com/quest=84967", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "The shadowguard shattered", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tazavesh
+            end
+
             if self.db.profile.showMiniMapStablemaster then
-                minimap[2248][59372796] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2215][42265654] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2255][77936461] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2255][58471923] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2256][77936461] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2256][58471923] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2215][69274392] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2214][58024604] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2214][54476559] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2214][72008316] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2248][59372796] = { npcID = 226813, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2215][42265654] = { npcID = 217990, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2255][77936461] = { npcID = 224510, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2255][58471923] = { npcID = 224069, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2256][77936461] = { npcID = 224510, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2256][58471923] = { npcID = 224069, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2215][69274392] = { npcID = 217645, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2214][58024604] = { npcID = 218416, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2214][54476559] = { npcID = 225220, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2214][72008316] = { npcID = 228136, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2371][49333688] = { npcID = 245292, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2371][60522835] = { npcID = 238575, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2371][50325919] = { npcID = 245440, name = "", type = "StablemasterN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2472][47432690] = { npcID = 235254, name = "", type = "StablemasterN", questID = 84967, wwwLink = "https://www.wowhead.com/quest=84967", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "The shadowguard shattered", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tazavesh
             end
 
             if self.db.profile.showMiniMapTransmogger then
                 minimap[2371][49713807] = { npcID = 245282, name = "", type = "Transmogger", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
                 minimap[2371][53836389] = { npcID = 247938, name = "", type = "Transmogger", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
+                minimap[2472][43042875] = { npcID = 245284, name = "", type = "Transmogger", questID = 84967, wwwLink = "https://www.wowhead.com/quest=84967", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "The shadowguard shattered", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tazavesh
             end
 
             if self.db.profile.showMiniMapMailbox then
@@ -1652,66 +1666,77 @@ ns._currentSourceFile = "RetailGeneralMiniMapNodes.lua"
                 minimap[2371][76663453] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
                 minimap[2371][54066370] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
                 minimap[2371][49995968] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
+                minimap[2472][45942202] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tazavesh
+                minimap[2472][47356225] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tazavesh
+                minimap[2472][41413960] = { name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tazavesh
+                minimap[2472][46056797] = { npcID = 235886, name = "", dnID = MINIMAP_TRACKING_MAILBOX, type = "MailboxN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tazavesh
             end
 
             if self.db.profile.showMiniMapInnkeeper then
-                minimap[2248][41947421] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2248][58402737] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2215][42805583] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2255][77866298] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2255][56953879] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2255][58931880] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2256][77866298] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2256][56953879] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2256][58931880] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2215][49163948] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2215][69294563] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2214][43843217] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2214][57614616] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2214][54886403] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2214][59197887] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2213][57053949] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2216][57053949] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2213][49752192] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2216][49752192] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2255][44796648] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2256][44796648] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2369][71443737] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2369][69014647] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2214][72088409] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2346][43515168] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2346][36814750] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2346][39346861] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "My-hole-in-the-wall", wwwLink = "https://www.wowhead.com/quest=86408/my-hole-in-the-wall#", questID = 86408, showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2248][41947421] = { npcID = 217440, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2248][58402737] = { npcID = 226507, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2215][42805583] = { npcID = 217642, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2255][77866298] = { npcID = 220760, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2255][56953879] = { npcID = 207476, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2255][58931880] = { npcID = 211722, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2256][77866298] = { npcID = 220760, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2256][56953879] = { npcID = 207476, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2256][58931880] = { npcID = 211722, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2215][49163948] = { npcID = 221776, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2215][69294563] = { npcID = 217611, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2214][43843217] = { npcID = 213840, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2214][57614616] = { npcID = 218390, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2214][54886403] = { npcID = 225018, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2214][59197887] = { npcID = 225067, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2213][57053949] = { npcID = 210055, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2216][57053949] = { npcID = 210055, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2213][49752192] = { npcID = 228134, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2216][49752192] = { npcID = 228134, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2255][44796648] = { npcID = 223355, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2256][44796648] = { npcID = 223355, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2369][71443737] = { npcID = 228106, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2369][69014647] = { npcID = 228390, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2214][72088409] = { npcID = 228092, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2346][43515168] = { npcID = 231045, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2346][36814750] = { npcID = 234461, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2346][39346861] = { npcID = 234778, name = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "My-hole-in-the-wall", wwwLink = "https://www.wowhead.com/quest=86408/my-hole-in-the-wall#", questID = 86408, showInZone = false, showOnContinent = false, showOnMinimap = true }
                 minimap[2371][48693845] = { npcID = 236097, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
                 minimap[2371][60722763] = { npcID = 238572, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
                 minimap[2371][76733443] = { npcID = 241507, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
                 minimap[2371][49985947] = { npcID = 245405, name = "", type = "InnkeeperN", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
+                minimap[2472][41132510] = { npcID = 235079, name = "", type = "InnkeeperN", questID = 84967, wwwLink = "https://www.wowhead.com/quest=84967", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "The shadowguard shattered", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tazavesh
             end
 
             if self.db.profile.showMiniMapPvEVendor then
-                minimap[2214][43143293] = { dnID = L["The Assembly of the Deeps"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2215][42355500] = { dnID = L["Hallowfall Arathi"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2255][55334121] = { dnID = L["The Severed Threads"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2256][55334121] = { dnID = L["The Severed Threads"], name = L["Merchant for Renown items"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2216][56784582] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. SLASH_EQUIP_SET1, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2213][56784582] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. SLASH_EQUIP_SET1, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2369][67314164] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2346][43934982] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2346][53147272] = { dnID = L["Venture Company"], name = L["Quartermaster"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2346][27137258] = { dnID = L["Steamwheedle Cartel"], name = L["Quartermaster"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2346][39152218] = { dnID = L["Bilgewater Cartel"], name = L["Quartermaster"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2346][63431672] = { dnID = L["Blackwater Cartel"], name = L["Quartermaster"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2346][30823891] = { dnID = L["Darkfuse Solutions"], name = L["Quartermaster"], type = "PvEVendor", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Diversified Investments", wwwLink = "https://www.wowhead.com/quest=86961/diversified-investments", questID = 86961, showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2346][25753812] = { dnID = L["The Cartels of Undermine"], name = L["S.C.R.A.P. Exchange"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2214][43143293] = { npcID = 221390, name = "", dnID = L["The Assembly of the Deeps"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2215][42355500] = { npcID = 213145, name = "", dnID = L["Hallowfall Arathi"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2255][55334121] = { npcID = 223750, name = "", type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2256][55334121] = { npcID = 223750, name = "", type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2216][56784582] = { npcID = 224270, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2213][56784582] = { npcID = 224270, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2369][67314164] = { npcIDs1 = 228093, npcIDs2 = 235407, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2369][70014846] = { npcID = 234390, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2369][70784027] = { npcID = 236045, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2346][43934982] = { npcID = 231824, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2346][53147272] = { npcID = 231407, name = "", type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2346][27137258] = { npcID = 231408, name = "", type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2346][39152218] = { npcID = 231406, name = "", type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2346][63431672] = { npcID = 231405, name = "", type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2346][30823891] = { npcID = 231396, name = "", type = "PvEVendor", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Diversified Investments", wwwLink = "https://www.wowhead.com/quest=86961/diversified-investments", questID = 86961, showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2346][25753812] = { npcID = 234776, name = "", type = "PvEVendor", dnID = L["The Cartels of Undermine"], showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2472][40272927] = { npcID = 235252, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, type = "PvEVendor", questID = 84967, wwwLink = "https://www.wowhead.com/quest=84967", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "The shadowguard shattered", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tazavesh
+                minimap[2472][54515519] = { npcIDs1 = 242306, npcIDs2 = 242307, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, type = "PvEVendor", questID = 84967, wwwLink = "https://www.wowhead.com/quest=84967", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "The shadowguard shattered", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tazavesh
+                minimap[2371][50353632] = { npcIDs1 = 241624, npcIDs2 = 241588, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
+                minimap[2371][42012225] = { npcIDs1 = 248304, npcIDs2 = 245348, npcIDs3 = 245349, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true } -- K'aresh
             end
 
             if self.db.profile.showMiniMapPvPVendor then
-                minimap[2216][57574582] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. SLASH_EQUIP_SET1, type = "PvPVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2213][57574582] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. SLASH_EQUIP_SET1, type = "PvPVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2216][57574582] = { npcID = 224267, name = TRANSMOG_SET_PVP .. " " .. MERCHANT, type = "PvPVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2213][57574582] = { npcID = 224267, name = TRANSMOG_SET_PVP .. " " .. MERCHANT, type = "PvPVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
             end
 
             if self.db.profile.showMiniMapAuctioneer then
-                minimap[2346][24554476] = { name = "", dnID = BLACK_MARKET_AUCTION_HOUSE, type = "BlackMarket", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2346][24554476] = { npcID = 239468, name = "", type = "BlackMarket", showInZone = false, showOnContinent = false, showOnMinimap = true }
             end
 
         end

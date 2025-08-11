@@ -44,6 +44,42 @@ local function updateextraInformation()
   end
 end
 
+function ns.ChangingMapToPlayerZone()
+  if ns._MapChangeInit then return end
+  ns._MapChangeInit = true
+
+  local function Update()
+    if not ns.Addon.db.profile.MapChanging then return end
+    if not WorldMapFrame or not WorldMapFrame:IsShown() then return end
+
+    local playerMapID = C_Map.GetBestMapForUnit("player")
+    if not playerMapID then return end
+
+    if WorldMapFrame:GetMapID() ~= playerMapID then
+      WorldMapFrame:SetMapID(playerMapID)
+    end
+  end
+
+  local f = CreateFrame("Frame")
+  f:RegisterEvent("ZONE_CHANGED_NEW_AREA") 
+  f:SetScript("OnEvent", function() Update() end)
+
+end
+
+function ns.ShowPlayersMap(targetType) -- Find the right maps for the activation options from the menu (zone/continent/dungeon)
+    local id = C_Map.GetBestMapForUnit("player")
+    if not id then return end
+
+    local info = C_Map.GetMapInfo(id)
+    while info and info.mapType and info.mapType > targetType and info.parentMapID do
+        info = C_Map.GetMapInfo(info.parentMapID)
+    end
+
+    if info and info.mapType == targetType then
+        WorldMapFrame:SetMapID(info.mapID)
+    end
+end
+
 local alreadyWarned = {}
 function ns.ValidateNodeEntry(value, coord, uiMapID, sourceFile)
 
@@ -371,6 +407,39 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
         end
         tooltip:AddDoubleLine("uiMapID:  " .. uiMapId, "Coord:  " .. coord, nil, nil, false)
         tooltip:AddDoubleLine("uiMapID:  " .. uiMapId, "==>   " .. C_Map.GetMapInfo(uiMapId).name, nil, nil, false)
+        if nodeData.npcID then
+          tooltip:AddDoubleLine("npcID:  " .. nodeData.npcID, C_Map.GetMapInfo(nodeData.npcID), nil, nil, false)
+        end
+        if nodeData.npcIDs1 then
+          tooltip:AddDoubleLine("npcIDs1:  " .. nodeData.npcIDs1, C_Map.GetMapInfo(nodeData.npcIDs1), nil, nil, false)
+        end
+        if nodeData.npcIDs2 then
+          tooltip:AddDoubleLine("npcIDs2:  " .. nodeData.npcIDs2, C_Map.GetMapInfo(nodeData.npcIDs2), nil, nil, false)
+        end
+        if nodeData.npcIDs3 then
+          tooltip:AddDoubleLine("npcIDs3:  " .. nodeData.npcIDs3, C_Map.GetMapInfo(nodeData.npcIDs3), nil, nil, false)
+        end
+        if nodeData.npcIDs4 then
+          tooltip:AddDoubleLine("npcIDs4:  " .. nodeData.npcIDs4, C_Map.GetMapInfo(nodeData.npcIDs4), nil, nil, false)
+        end
+        if nodeData.npcIDs5 then
+          tooltip:AddDoubleLine("npcIDs5:  " .. nodeData.npcIDs5, C_Map.GetMapInfo(nodeData.npcIDs5), nil, nil, false)
+        end
+        if nodeData.npcIDs6 then
+          tooltip:AddDoubleLine("npcIDs6:  " .. nodeData.npcIDs6, C_Map.GetMapInfo(nodeData.npcIDs6), nil, nil, false)
+        end
+        if nodeData.npcIDs7 then
+          tooltip:AddDoubleLine("npcIDs7:  " .. nodeData.npcIDs7, C_Map.GetMapInfo(nodeData.npcIDs7), nil, nil, false)
+        end
+        if nodeData.npcIDs8 then
+          tooltip:AddDoubleLine("npcIDs8:  " .. nodeData.npcIDs8, C_Map.GetMapInfo(nodeData.npcIDs8), nil, nil, false)
+        end
+        if nodeData.npcIDs9 then
+          tooltip:AddDoubleLine("npcIDs9:  " .. nodeData.npcIDs9, C_Map.GetMapInfo(nodeData.npcIDs9), nil, nil, false)
+        end
+        if nodeData.npcIDs10 then
+          tooltip:AddDoubleLine("npcIDs10:  " .. nodeData.npcIDs10, C_Map.GetMapInfo(nodeData.npcIDs10), nil, nil, false)
+        end
         if nodeData.mnID then
           tooltip:AddDoubleLine("mnID:  " .. nodeData.mnID,"==>   " .. C_Map.GetMapInfo(nodeData.mnID).name, nil, nil, false)
         end
@@ -483,9 +552,13 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
         if nodeData.wwwLink and nodeData.showWWW == true then
           tooltip:AddDoubleLine("|cffffffff" .. nodeData.wwwLink, nil, nil, false)
           tooltip:AddLine("\n" .. L["Has not been unlocked yet"] .. "\n" .. "\n", 1, 0, 0)
-          if ns.OnlyDisplayedIfTheWorldmapIsAlsoOpen then -- only show tooltips if worldmap is opend and hide it on all icons if worldmap is closed
-            tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00".. "< " .. L["Activate the „Link“ function from MapNotes in the General tab to create clickable links and email addresses in the chat"] .. " >" .. "\n" .. TextIconInfo:GetIconString() .. " " .. "< " .. L["Middle mouse button to post the link in the chat"] .. " >", nil, nil, false)
-          end
+          --if ns.OnlyDisplayedIfTheWorldmapIsAlsoOpen then -- only show tooltips if worldmap is opend and hide it on all icons if worldmap is closed
+            if ns.Addon.db.profile.CreateAndCopyLinks then
+              tooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. " " .. "|cff00ff00".. "< " .. L["Middle mouse button to post the link in the chat"] .. " > " .. TextIconMNL4:GetIconString(), nil, nil, false)
+            else
+              tooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. " " .. "|cff00ff00".. "< " .. L["Activate the „Link“ function from MapNotes in the General tab to create clickable links and email addresses in the chat"] .. " > " .. TextIconMNL4:GetIconString() , nil, nil, false)
+            end
+          --end
         end
 
       end
@@ -847,6 +920,16 @@ do
                       or GetCurrentMapID == 831 or GetCurrentMapID == 832 or GetCurrentMapID == 628 or GetCurrentMapID == 629 or GetCurrentMapID == 1161 or GetCurrentMapID == 1163 
                       or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 or GetCurrentMapID == 1670 or GetCurrentMapID == 1671 or GetCurrentMapID == 1672 or GetCurrentMapID == 1673 
                       or GetCurrentMapID == 2112 or GetCurrentMapID == 2339 or GetCurrentMapID == 499 or GetCurrentMapID == 500 or GetCurrentMapID == 2266 
+                            
+      ns.AllianceCapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentMapID == 89 or GetCurrentMapID == 103 or GetCurrentMapID == 393 or GetCurrentMapID == 394
+                      or GetCurrentMapID == 1161 or GetCurrentMapID == 622 or GetCurrentMapID == 582
+
+      ns.HordeCapitalsIDs = GetCurrentMapID == 85 or GetCurrentMapID == 86 or GetCurrentMapID == 88 or GetCurrentMapID == 110 or GetCurrentMapID == 90 or GetCurrentMapID == 392
+                      or GetCurrentMapID == 391 or GetCurrentMapID == 1163 or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 or GetCurrentMapID == 624 or GetCurrentMapID == 590
+
+      ns.NeutralCapitalIDs = GetCurrentMapID == 2339 or GetCurrentMapID == 111 or GetCurrentMapID == 1670 or GetCurrentMapID == 1671 or GetCurrentMapID == 1673 or GetCurrentMapID == 1672
+                      or GetCurrentMapID == 125 or GetCurrentMapID == 126 or GetCurrentMapID == 627 or GetCurrentMapID == 626 or GetCurrentMapID == 628 or GetCurrentMapID == 269
+                      or GetCurrentMapID == 2112 or GetCurrentMapID == 407
 
       ns.CapitalMiniMapIDs = GetBestMapForUnit == 84 or GetBestMapForUnit == 87 or GetBestMapForUnit == 89 or GetBestMapForUnit == 103 or GetBestMapForUnit == 85 or GetBestMapForUnit == 90 
                       or GetBestMapForUnit == 86 or GetBestMapForUnit == 88 or GetBestMapForUnit == 110 or GetBestMapForUnit == 111 or GetBestMapForUnit == 125 or GetBestMapForUnit == 126 
@@ -1845,12 +1928,14 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentM
   end
 
   if (button == "MiddleButton") and not IsShiftKeyDown() then
-    if wwwLink and not (ns.achievementID or ns.questID) then
-      print(wwwLink)
-    elseif ns.questID and not ns.hideLink then
-      print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_QUEST, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/quest=" .. ns.questID)
-    elseif ns.achievementID then
-      print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/achievement=" .. ns.achievementID)
+    if ns.Addon.db.profile.CreateAndCopyLinks then
+      if wwwLink and not (ns.achievementID or ns.questID) then
+        print(wwwLink)
+      elseif ns.questID and not ns.hideLink then
+        print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_QUEST, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/quest=" .. ns.questID)
+      elseif ns.achievementID then
+        print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/achievement=" .. ns.achievementID)
+      end
     end
   end
 
@@ -2107,6 +2192,7 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
   ns.LoadOptions(self)
   ns.BlizzardDelvesAddTT()
   ns.BlizzardDelvesAddFunction()
+  ns.ChangingMapToPlayerZone()
 
   -- Register Database Profile
   self.db = LibStub("AceDB-3.0"):New("HandyNotes_MapNotesRetailDB", ns.defaults)

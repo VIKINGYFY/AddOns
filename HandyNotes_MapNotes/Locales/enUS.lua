@@ -1,7 +1,12 @@
 local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "enUS", true)
 
+
+-- Worldmap
+L["Change zone map"] = true
+L["This allows you to automatically switch the world map to the map of the new area when you leave one zone and enter a new one"] = true
 -- Npc
+L["NPC database"] = true
 L["NPC targeting"] = true
 L["Clicking on a MapNotes symbol with an NPC name opens a confirmation window, which automatically targets this NPC after confirmation and marks it with an X"] = true
 L["If you are not within range, you will receive the message in the chat"] = true

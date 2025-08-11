@@ -845,17 +845,45 @@ ns.options = {
               },
             },
           },
-        About = {
+        WorldMapTab = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
           type = "group",
-          name = L["About MapNotes"],
+          name = WORLD_MAP,
+          desc = "",
+          order = 8,
+          args = {
+            AreaMapheader1 = {
+              type = "header",
+              name = WORLD_MAP,
+              order = 1.0,
+              },
+            MapChanging = {
+              disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+              type = "toggle",
+              name = L["Change zone map"],
+              desc = L["This allows you to automatically switch the world map to the map of the new area when you leave one zone and enter a new one"],
+              order = 1.1,
+              width = 2,
+              get = function() return ns.Addon.db.profile.MapChanging end,
+              set = function(info, v) ns.Addon.db.profile.MapChanging = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+                ns.ChangingMapToPlayerZone()
+                if ns.Addon.db.profile.MapChanging and WorldMapFrame:IsShown() then local id = C_Map.GetBestMapForUnit("player") if id then WorldMapFrame:SetMapID(id) end end
+                if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.MapChanging then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Change zone map"] .. " " .. "|cffff0000".. L["is deactivated"]) else
+                if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.MapChanging then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Change zone map"] .. " " .. "|cff00ff00"  .. L["is activated"]) end end end,
+              },
+            },
+          },
+        NpcDatabase = {
+          type = "group",
+          name = L["NPC database"],
           desc = "",
           order = 9,
           args = {
-            --AreaMapheader1 = {
-            --  type = "header",
-            --  name = L["About MapNotes"],
-            --  order = 1.0,
-            --  },
+            AreaMapheader1 = {
+              type = "header",
+              name = L["NPC database"],
+              order = 1.0,
+              },
             MNNpcScanmid = {
               type = "description",
               name = "",
@@ -864,7 +892,7 @@ ns.options = {
               },
             MNNpcScan = {
               type = "execute",
-              name = UPDATE .. " NPC " .. INFO,
+              name = UPDATE .. " NPC " .. NAME .. " " .. INFO,
               desc = "Update NPC name database",
               width = 2,
               order = 1.2,
@@ -873,43 +901,9 @@ ns.options = {
                 ns.PrimeNpcNameCache()
                 ns._manualScanActive = false
               end,
-            },
-            NewLineNpc = {
-              type = "description",
-              name = "",
-              width = "full",
-              order = 1.3,
-            },
-            MNChangeLogmid1 = {
-              type = "description",
-              name = "",
-              width = 0.30,
-              order = 1.4,
-              },
-            MNChangeLog = {
-              type = "execute",
-              name = L["Changelog"] .. " " .. SHOW,
-              desc = L["Show MapNotes Changelog again"],
-              width = 2,
-              order = 1.5,
-              func = function(info, v) self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-                ns.ShowChangelogWindowMenu() 
-                LibStub("AceConfigDialog-3.0"):Close("MapNotes")
-                end,
-              },
-            SupportTextheader = {
-              type = "header",
-              name = PING_TYPE_ASSIST,
-              width = 1,
-              order = 9.0,
-              },
-            SupportText = {
-              type = "description",
-              name = "|cffffd700" .. L["If you like this addon, feel free to support me via Paypal, Patreon or Ko-fi"] .. "\n\n" .. L["You can find the relevant links on:"] .. "\n\n" .. "https://www.curseforge.com/wow/addons/mapnotes" .. "\n" .. "https://www.curseforge.com/members/badboybarny".. "\n" .. "https://addons.wago.io/addons/mapnotes" .. "\n" .. "https://addons.wago.io/user/BadBoyBarny" .. "\n\n" .. L["Any support is greatly appreciated"] .. "\n\n" .. "            " .. L["Best regards"] .. "\n\n" .. "                        " .. "BadBoyBarny",
-              order = 9.1,
               },
             },
-          },
+          }, 
         },
       },
     CapitalsAndCapitalsMiniMapTab = {
@@ -945,12 +939,11 @@ ns.options = {
           order = 10.3,
           get = function() return ns.Addon.db.profile.activate.Capitals end,
           set = function(info, v) ns.Addon.db.profile.activate.Capitals = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-                if ns.Addon.db.profile.activate.Capitals and (not ns.NeutralCapitalIDs and not ns.HordeCapitalsIDs or not WorldMapFrame:IsShown()) and self.faction == "Horde" then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(85) else 
-                if not ns.Addon.db.profile.activate.Capitals and (not ns.NeutralCapitalIDs and not ns.HordeCapitalsIDs or not WorldMapFrame:IsShown()) and self.faction == "Horde" then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(85) else
-                if ns.Addon.db.profile.activate.Capitals and (not ns.NeutralCapitalIDs and not ns.AllianceCapitalIDs or not WorldMapFrame:IsShown()) and self.faction == "Alliance" then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(84) else 
-                if not ns.Addon.db.profile.activate.Capitals and (not ns.NeutralCapitalIDs and not ns.AllianceCapitalIDs or not WorldMapFrame:IsShown()) and self.faction == "Alliance" then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(84) else
+                if WorldMapFrame:IsShown() and ns.Addon.db.profile.activate.CapitalsEnemyFaction and not ns.CapitalIDs then WorldMapFrame:SetMapID(2339) end
+                if WorldMapFrame:IsShown() and not ns.Addon.db.profile.activate.CapitalsEnemyFaction and self.faction == "Alliance" and not ns.CapitalIDs then WorldMapFrame:SetMapID(84) end
+                if WorldMapFrame:IsShown() and not ns.Addon.db.profile.activate.CapitalsEnemyFaction and self.faction == "Horde" and not ns.CapitalIDs then WorldMapFrame:SetMapID(85) end
                 if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.Capitals then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Capitals"], L["icons"], "|cff00ff00" .. L["is activated"]) else 
-                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.Capitals then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Capitals"], L["icons"], "|cffff0000" .. L["is deactivated"]) end end end end end end end,
+                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.Capitals then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Capitals"], L["icons"], "|cffff0000" .. L["is deactivated"]) end end end,
           },
         CapitalEnemyFaction = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.Capitals end,
@@ -3117,12 +3110,11 @@ ns.options = {
           order = 21.1,
           get = function() return ns.Addon.db.profile.activate.ZoneMap end,
           set = function(info, v) ns.Addon.db.profile.activate.ZoneMap = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-                if ns.Addon.db.profile.activate.ZoneMap and (not ns.AllZoneIDs or not WorldMapFrame:IsShown()) and self.faction == "Horde" then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(1) else 
-                if not ns.Addon.db.profile.activate.ZoneMap and (not ns.AllZoneIDs or not WorldMapFrame:IsShown()) and self.faction == "Horde" then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(1) else
-                if ns.Addon.db.profile.activate.ZoneMap and (not ns.AllZoneIDs or not WorldMapFrame:IsShown()) and self.faction == "Alliance" then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(37) else 
-                if not ns.Addon.db.profile.activate.ZoneMap and (not ns.AllZoneIDs or not WorldMapFrame:IsShown()) and self.faction == "Alliance" then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(37) else
+                local mapID = WorldMapFrame:GetMapID()
+                local info = mapID and C_Map.GetMapInfo(mapID)
+                if WorldMapFrame:IsShown() and not (info and info.mapType == Enum.UIMapType.Zone) then ns.ShowPlayersMap(Enum.UIMapType.Zone) end
                 if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.ZoneMap then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Zone map"], L["icons"], "|cff00ff00" .. L["is activated"]) else 
-                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.ZoneMap then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Zone map"], L["icons"], "|cffff0000" .. L["is deactivated"]) end end end end end end end,
+                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.ZoneMap then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Zone map"], L["icons"], "|cffff0000" .. L["is deactivated"]) end end end,
               },
         ZoneEnemyFaction = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.ZoneMap end,
@@ -7005,20 +6997,11 @@ ns.options = {
           order = 30.6,
           get = function() return ns.Addon.db.profile.activate.Continent end,
           set = function(info, v) ns.Addon.db.profile.activate.Continent = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-                if (ns.Addon.db.profile.activate.Continent and self.faction == "Horde") and not WorldMapFrame:IsShown() or not (WorldMapFrame:GetMapID() == 12 or WorldMapFrame:GetMapID() == 13 or WorldMapFrame:GetMapID() == 101 or WorldMapFrame:GetMapID() == 113 or WorldMapFrame:GetMapID() == 424 or WorldMapFrame:GetMapID() == 619
-                or WorldMapFrame:GetMapID() == 875 or WorldMapFrame:GetMapID() == 876 or WorldMapFrame:GetMapID() == 905 or WorldMapFrame:GetMapID() == 1978 or WorldMapFrame:GetMapID() == 1550 or WorldMapFrame:GetMapID() == 572
-                or WorldMapFrame:GetMapID() == 2274 or WorldMapFrame:GetMapID() == 948) then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(12) else 
-                if (not ns.Addon.db.profile.activate.Continent and self.faction == "Horde") and not WorldMapFrame:IsShown() or not (WorldMapFrame:GetMapID() == 12 or WorldMapFrame:GetMapID() == 13 or WorldMapFrame:GetMapID() == 101 or WorldMapFrame:GetMapID() == 113 or WorldMapFrame:GetMapID() == 424 or WorldMapFrame:GetMapID() == 619
-                or WorldMapFrame:GetMapID() == 875 or WorldMapFrame:GetMapID() == 876 or WorldMapFrame:GetMapID() == 905 or WorldMapFrame:GetMapID() == 1978 or WorldMapFrame:GetMapID() == 1550 or WorldMapFrame:GetMapID() == 572
-                or WorldMapFrame:GetMapID() == 2274 or WorldMapFrame:GetMapID() == 948) then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(12) else
-                if (ns.Addon.db.profile.activate.Continent and self.faction == "Alliance") and not WorldMapFrame:IsShown() or not (WorldMapFrame:GetMapID() == 12 or WorldMapFrame:GetMapID() == 13 or WorldMapFrame:GetMapID() == 101 or WorldMapFrame:GetMapID() == 113 or WorldMapFrame:GetMapID() == 424 or WorldMapFrame:GetMapID() == 619
-                or WorldMapFrame:GetMapID() == 875 or WorldMapFrame:GetMapID() == 876 or WorldMapFrame:GetMapID() == 905 or WorldMapFrame:GetMapID() == 1978 or WorldMapFrame:GetMapID() == 1550 or WorldMapFrame:GetMapID() == 572
-                or WorldMapFrame:GetMapID() == 2274 or WorldMapFrame:GetMapID() == 948) then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(12) else 
-                if (not ns.Addon.db.profile.activate.Continent and self.faction == "Alliance") and not WorldMapFrame:IsShown() or not (WorldMapFrame:GetMapID() == 12 or WorldMapFrame:GetMapID() == 13 or WorldMapFrame:GetMapID() == 101 or WorldMapFrame:GetMapID() == 113 or WorldMapFrame:GetMapID() == 424 or WorldMapFrame:GetMapID() == 619
-                or WorldMapFrame:GetMapID() == 875 or WorldMapFrame:GetMapID() == 876 or WorldMapFrame:GetMapID() == 905 or WorldMapFrame:GetMapID() == 1978 or WorldMapFrame:GetMapID() == 1550 or WorldMapFrame:GetMapID() == 572
-                or WorldMapFrame:GetMapID() == 2274 or WorldMapFrame:GetMapID() == 948) then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(12) else
+                local mapID = WorldMapFrame:GetMapID()
+                local info = mapID and C_Map.GetMapInfo(mapID)
+                if WorldMapFrame:IsShown() and not (info and info.mapType == Enum.UIMapType.Continent) then ns.ShowPlayersMap(Enum.UIMapType.Continent) end
                 if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.Continent then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], L["icons"], "|cff00ff00" .. L["is activated"]) else 
-                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.Continent then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], L["icons"], "|cffff0000" .. L["is deactivated"]) end end end end end end end,
+                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.Continent then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], L["icons"], "|cffff0000" .. L["is deactivated"]) end end end,
               },
         ContinentEnemyFaction = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.Continent end,
@@ -7194,7 +7177,8 @@ ns.options = {
           desc = EXPANSION_NAME10 .. "\n" .. L["Entrance"],
           order = 33.3,
           set = function(info, v) ns.Addon.db.profile[info[#info]] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-                if WorldMapFrame:IsShown() and WorldMapFrame:GetMapID() == 2274 then WorldMapFrame:Hide() OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(2274) end
+                if ns.Addon.db.profile.showContinentDelves then ns.RefreshContinentDelvesPins() end
+                if not ns.Addon.db.profile.showContinentDelves then ns.RefreshContinentDelvesPins({ remove = true }) end
                 if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.showContinentDelves then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], DELVES_LABEL, "|cff00ff00" .. L["is activated"]) else 
                 if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.showContinentDelves then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Continent map"], DELVES_LABEL, "|cffff0000" ..  L["is deactivated"]) end end end,
           },
@@ -7382,10 +7366,10 @@ ns.options = {
           order = 40.6,
           get = function() return ns.Addon.db.profile.activate.Azeroth end,
           set = function(info, v) ns.Addon.db.profile.activate.Azeroth = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
-                if not ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.Azeroth then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(947) else 
-                if not ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.Azeroth then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(947)  else
-                if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.Azeroth then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(947) print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Azeroth map"], L["icons"], "|cff00ff00" .. L["is activated"]) else 
-                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.Azeroth then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(947) print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Azeroth map"], L["icons"], "|cffff0000" .. L["is deactivated"]) end end end end end,
+                if ns.Addon.db.profile.activate.Azeroth and WorldMapFrame:IsShown() then WorldMapFrame:SetMapID(947) else
+                if not ns.Addon.db.profile.activate.Azeroth and WorldMapFrame:IsShown() then WorldMapFrame:SetMapID(947) else
+                if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.Azeroth and WorldMapFrame:IsShown() then WorldMapFrame:SetMapID(947) print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Azeroth map"], L["icons"], "|cff00ff00" .. L["is activated"]) else 
+                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.Azeroth and WorldMapFrame:IsShown() then WorldMapFrame:SetMapID(947) print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Azeroth map"], L["icons"], "|cffff0000" .. L["is deactivated"]) end end end end end,
           },
         AzerothEnemyFaction = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.Azeroth end,
@@ -7685,10 +7669,10 @@ ns.options = {
           width = 1,
           get = function() return ns.Addon.db.profile.activate.CosmosMap end,
           set = function(info, v) ns.Addon.db.profile.activate.CosmosMap = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-                if not ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.CosmosMap then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(946) else
-                if not ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.CosmosMap then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(946) else
-                if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.CosmosMap then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(946) print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00", WORLDMAP_BUTTON, L["icons"], "|cff00ff00" .. L["is activated"]) else
-                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.CosmosMap then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(946) print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00", WORLDMAP_BUTTON, L["icons"], "|cffff0000" .. L["is deactivated"]) end end end end end,
+                if ns.Addon.db.profile.activate.CosmosMap and WorldMapFrame:IsShown() then WorldMapFrame:SetMapID(946) else
+                if not ns.Addon.db.profile.activate.CosmosMap and WorldMapFrame:IsShown() then WorldMapFrame:SetMapID(946) else
+                if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.CosmosMap and WorldMapFrame:IsShown() then WorldMapFrame:SetMapID(946) print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00", WORLDMAP_BUTTON, L["icons"], "|cff00ff00" .. L["is activated"]) else
+                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.CosmosMap and WorldMapFrame:IsShown() then WorldMapFrame:SetMapID(946) print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00", WORLDMAP_BUTTON, L["icons"], "|cffff0000" .. L["is deactivated"]) end end end end end,
           },  
         cosmosScale = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.CosmosMap end,
@@ -7855,10 +7839,13 @@ ns.options = {
           order = 1.3,
           get = function() return ns.Addon.db.profile.activate.DungeonMap end,
           set = function(info, v) ns.Addon.db.profile.activate.DungeonMap = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-                if not ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.DungeonMap and not WorldMapFrame:IsShown() then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(190) else 
-                if not ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.DungeonMap and not WorldMapFrame:IsShown() then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(190) else
-                if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.DungeonMap and not WorldMapFrame:IsShown()then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(190) print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Dungeon map"], L["icons"], "|cff00ff00" .. L["is activated"]) else 
-                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.DungeonMap and not WorldMapFrame:IsShown() then OpenWorldMap(uiMapID) WorldMapFrame:SetMapID(190) print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Dungeon map"], L["icons"], "|cffff0000" .. L["is deactivated"]) end end end end end,
+                if WorldMapFrame and WorldMapFrame:IsShown() then
+                  local curInfo = C_Map.GetMapInfo(WorldMapFrame:GetMapID())
+                  local afterInfo = C_Map.GetMapInfo(WorldMapFrame:GetMapID())
+                  if not (curInfo and curInfo.mapType == Enum.UIMapType.Dungeon) then ns.ShowPlayersMap(Enum.UIMapType.Dungeon)
+                  if not (afterInfo and afterInfo.mapType == Enum.UIMapType.Dungeon) then WorldMapFrame:SetMapID(190) end end end
+                if ns.Addon.db.profile.ChatMassage and ns.Addon.db.profile.activate.DungeonMap and WorldMapFrame:IsShown() then WorldMapFrame:SetMapID(190) print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Dungeon map"], L["icons"], "|cff00ff00" .. L["is activated"]) else 
+                if ns.Addon.db.profile.ChatMassage and not ns.Addon.db.profile.activate.DungeonMap and WorldMapFrame:IsShown() then WorldMapFrame:SetMapID(190) print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["Dungeon map"], L["icons"], "|cffff0000" .. L["is deactivated"]) end end end,
           },
         DungeonMapSyncScaleAlpha = {
           disabled = function() return ns.Addon.db.profile.activate.HideMapNote or not ns.Addon.db.profile.activate.DungeonMap end,
@@ -8097,6 +8084,75 @@ ns.options = {
           width = 0.80,
           order = 6.4,
           },
+        },
+      },
+    AboutTab = {
+      disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+      type = "group",
+      name = L["About MapNotes"],
+      desc = "",
+      order = 7,
+      args = {
+        NpcChangelog = {
+          type = "group",
+          name = L["Changelog"],
+          desc = "",
+          order = 1,
+          args = {
+            MNChangeLogheader1 = {
+              type = "header",
+              name = L["Changelog"],
+              order = 1.4,
+              },
+            MNChangeLogmid1 = {
+              type = "description",
+              name = "",
+              width = 0.30,
+              order = 1.5,
+              },
+            MNChangeLogNew = {
+              type = "execute",
+              name = GAME_VERSION_LABEL .. " " .. ns.ChangelogCurrentVersion,
+              desc = L["Show MapNotes Changelog again"],
+              width = 1,
+              order = 1.6,
+              func = function(info, v) self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+                ns.ShowChangelogWindowMenuNew() 
+                LibStub("AceConfigDialog-3.0"):Close("MapNotes")
+                end,
+              },
+            MNChangeLogOld = {
+              type = "execute",
+              name = GAME_VERSION_LABEL .. " " .. ns.ChangelogPreviousVersion,
+              desc = L["Show MapNotes Changelog again"],
+              width = 1,
+              order = 1.7,
+              func = function(info, v) self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+                ns.ShowChangelogWindowMenuOld() 
+                LibStub("AceConfigDialog-3.0"):Close("MapNotes")
+                end,
+              },
+            },
+          }, 
+        About = {
+          type = "group",
+          name = PING_TYPE_ASSIST,
+          desc = "",
+          order = 2,
+          args = {
+            SupportTextheader = {
+              type = "header",
+              name = PING_TYPE_ASSIST,
+              width = 1,
+              order = 9.0,
+              },
+            SupportText = {
+              type = "description",
+              name = "|cffffd700" .. L["If you like this addon, feel free to support me via Paypal, Patreon or Ko-fi"] .. "\n\n" .. L["You can find the relevant links on:"] .. "\n\n" .. "Ko-Fi:" .. "\n" .. "• https://ko-fi.com/badboybarny" .. "\n\n" .. "Paypal:" .. "\n" .. "• BBB.Support@sol.at" .. "\n\n" .. "Curseforge:" .. "\n" .. "• www.curseforge.com/wow/addons/mapnotes" .. "\n" .. "• www.curseforge.com/members/badboybarny".. "\n\n" .. "Wago.io:" .. "\n" .. "• https://addons.wago.io/addons/mapnotes" .. "\n" .. "• https://addons.wago.io/user/BadBoyBarny" .. "\n\n\n" .. L["Any support is greatly appreciated"] .. "\n\n" .. L["Best regards"] .. "\n" .. "                      BadBoyBarny",
+              order = 9.1,
+              },
+            },
+          }, 
         },
       },
     },

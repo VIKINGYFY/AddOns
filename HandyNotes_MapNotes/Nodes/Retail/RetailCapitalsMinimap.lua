@@ -2929,7 +2929,7 @@ ns._currentSourceFile = "RetailCapitalsMinimap.lua"
                 end
 
                 if self.db.profile.showMinimapCapitalsTradingPost then
-                    minimap[2339][44645607] = { dnID = BATTLE_PET_SOURCE_12, name = "",  type = "TradingPost", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                    minimap[2339][44645607] = { npcIDs1 = 219244, npcIDs2 = 219243, name = "", type = "TradingPost", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 end
 
             end
@@ -3283,7 +3283,7 @@ ns._currentSourceFile = "RetailCapitalsMinimap.lua"
                     minimap[2339][63615205] = { mnID = 2255, name = L["Portal"], dnID = "", achievementID = 19559, showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://www.wowhead.com/achievement=19559/azj-kahet#news", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Dornogal to Azj-Kahet if u finished the achievement=19559
                     minimap[2339][29775967] = { mnID = 2367, name = L["Portal"], dnID = "", achievementID = 40725, showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=40725", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Chamber of Memory
                     minimap[2339][52465047] = { mnID = 2346, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/quest=86535/test-run", questID = 86535, type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Dornogal to Undermine
-                    minimap[2339][40312267] = { mnID = 2472, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/quest=84957/return-to-the-veiled-market", questID = 84957, type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Dornogal to Tazavesh
+                    minimap[2339][40312267] = { mnID = 2472, name = L["Portal"], dnID = "", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/quest=84957/return-to-the-veiled-market", questID = 84957, type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Dornogal to Tazavesh
                     
                     if self.faction == "Horde" or db.activate.MinimapCapitalsEnemyFaction then
                         minimap[2339][38192724] = { mnID = 85, name = L["Portal"], dnID = "", type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dornogal to Orgrimmar

@@ -359,66 +359,66 @@ ns._currentSourceFile = "RetailZoneNodesLocation.lua"
         if self.db.profile.activate.ZoneProfessions then
 
           if self.db.profile.showZoneAlchemy then
-            nodes[422][55623530] = { name = L["Alchemy"], type = "Alchemy", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[422][55623530] = { name = L["Alchemy"], type = "Alchemy", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
       
           if self.db.profile.showZoneLeatherworking then
-            nodes[379][64606090] = { name = L["Leatherworking"], type = "Leatherworking", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[379][64606090] = { name = L["Leatherworking"], type = "Leatherworking", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneEngineer then
-            nodes[376][16068313] = { name = L["Engineer"], type = "Engineer", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[376][16068313] = { name = L["Engineer"], type = "Engineer", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneSkinning then
-            nodes[376][15925308] = { name = L["Skinning"], type = "Skinning", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[376][15925308] = { name = L["Skinning"], type = "Skinning", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneTailoring then
-            nodes[376][59706266] = { name = L["Tailoring"], type = "Tailoring", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[376][59706266] = { name = L["Tailoring"], type = "Tailoring", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneBlacksmith then
-            nodes[390][21827237] = { name = L["Blacksmithing"], type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[390][21827237] = { name = L["Blacksmithing"], type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneMining then
-            nodes[371][46062940] = { name = L["Mining"], type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[371][46062940] = { name = L["Mining"], type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneFishing then
-            nodes[418][68474349] = { name = PROFESSIONS_FISHING, type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[376][58904700] = { name = PROFESSIONS_FISHING, type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[418][68474349] = { name = PROFESSIONS_FISHING, type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[376][58904700] = { name = PROFESSIONS_FISHING, type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneCooking then
-            nodes[371][46304520] = { name = PROFESSIONS_COOKING, type = "Cooking", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[371][46304520] = { name = PROFESSIONS_COOKING, type = "Cooking", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneArchaeology then
-              nodes[390][83563122] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+              nodes[390][83563122] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showInZone = true, showOnContinent = false, showOnMinimap = false }
 
             if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
-              nodes[390][21101500] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-              --nodes[379][57207860] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-              nodes[504][33503380] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+              nodes[390][21101500] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              --nodes[379][57207860] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              nodes[504][33503380] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
           end
 
           if self.db.profile.showZoneHerbalism then            
             if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
-              nodes[371][46806060] = { name = L["Herbalism"], type = "Herbalism", wwwName = LFG_LIST_REQUIRE .. " " .. STORY_PROGRESS, questID = 29824, showWWW = true, wwwLink = "wowhead.com/quest=29824", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+              nodes[371][46806060] = { name = L["Herbalism"], type = "Herbalism", wwwName = LFG_LIST_REQUIRE .. " " .. STORY_PROGRESS, questID = 29824, showWWW = true, wwwLink = "wowhead.com/quest=29824", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
           end
 
           if self.db.profile.showZoneEnchanting then
-              nodes[371][46824287] = { name = L["Enchanting"], type = "Enchanting", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+              nodes[371][46824287] = { name = L["Enchanting"], type = "Enchanting", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneInscription then
-            nodes[390][81902863] = { name = INSCRIPTION, type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[371][55004500] = { name = INSCRIPTION, type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[390][81902863] = { name = INSCRIPTION, type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[371][55004500] = { name = INSCRIPTION, type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           -- not mixed
@@ -427,52 +427,52 @@ ns._currentSourceFile = "RetailZoneNodesLocation.lua"
             if self.db.profile.showZoneSkinning then
 
               if self.faction == "Horde" then
-                nodes[371][27791536] = { name = L["Skinning"], type = "Skinning", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+                nodes[371][27791536] = { name = L["Skinning"], type = "Skinning", showInZone = true, showOnContinent = false, showOnMinimap = false }
               end
 
               if self.faction == "Alliance" then
-                nodes[371][44848553] = { name = L["Skinning"], type = "Skinning", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+                nodes[371][44848553] = { name = L["Skinning"], type = "Skinning", showInZone = true, showOnContinent = false, showOnMinimap = false }
               end
 
             end
 
             if self.db.profile.showZoneInscription then
-              nodes[371][47603500] = { name = INSCRIPTION, type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-              nodes[379][50604230] = { name = INSCRIPTION, type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+              nodes[371][47603500] = { name = INSCRIPTION, type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              nodes[379][50604230] = { name = INSCRIPTION, type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneCooking then
-              nodes[376][52675166] = { name = PROFESSIONS_COOKING, type = "Cooking", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-              --nodes[379][50604180] = { name = PROFESSIONS_COOKING, type = "Cooking", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+              nodes[376][52675166] = { name = PROFESSIONS_COOKING, type = "Cooking", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              --nodes[379][50604180] = { name = PROFESSIONS_COOKING, type = "Cooking", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneLeatherworking then
-              --nodes[379][50604200] = { name = L["Leatherworking"], type = "Leatherworking", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+              --nodes[379][50604200] = { name = L["Leatherworking"], type = "Leatherworking", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneHerbalism then
-              nodes[376][53715129] = { name = L["Herbalism"], type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-              --nodes[379][50604230] = { name = L["Herbalism"], type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+              nodes[376][53715129] = { name = L["Herbalism"], type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              --nodes[379][50604230] = { name = L["Herbalism"], type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneJewelcrafting then
-              nodes[371][48073494] = { name = L["Jewelcrafting"], type = "Jewelcrafting", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+              nodes[371][48073494] = { name = L["Jewelcrafting"], type = "Jewelcrafting", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneBlacksmith then
-              --nodes[379][48604460] = { name = L["Blacksmithing"], type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-              nodes[371][48403690] = { name = L["Blacksmithing"], type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+              --nodes[379][48604460] = { name = L["Blacksmithing"], type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              nodes[371][48403690] = { name = L["Blacksmithing"], type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneMining then
-              --nodes[379][48604460] = { name = L["Mining"], type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+              --nodes[379][48604460] = { name = L["Mining"], type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false }
   
               if self.faction == "Horde" then
-                nodes[371][27801480] = { name = L["Mining"], type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+                nodes[371][27801480] = { name = L["Mining"], type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false }
               end
 
               if self.faction == "Alliance" then
-                nodes[371][45108590] = { name = L["Mining"], type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+                nodes[371][45108590] = { name = L["Mining"], type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false }
               end
 
             end
@@ -482,17 +482,17 @@ ns._currentSourceFile = "RetailZoneNodesLocation.lua"
             end
 
             if self.db.profile.showZoneFishing then
-              --nodes[379][51004020] = { name = PROFESSIONS_FISHING, type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+              --nodes[379][51004020] = { name = PROFESSIONS_FISHING, type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneHerbalism then
                 
               if self.faction == "Horde" then
-                nodes[371][27801563] = { name = L["Herbalism"], type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+                nodes[371][27801563] = { name = L["Herbalism"], type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false }
               end
 
               if self.faction == "Alliance" then
-                nodes[371][45608600] = { name = L["Herbalism"], type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+                nodes[371][45608600] = { name = L["Herbalism"], type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false }
               end
 
             end
@@ -829,8 +829,10 @@ ns._currentSourceFile = "RetailZoneNodesLocation.lua"
             nodes[2248][50554183] = { mnID = 2266, name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["The Timeways"] .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. "Tazavesh" .. "\n" .. " ==> " .. "Revendreth" } --  Portal from Dornogal to the Timeways
             nodes[2248][44634679] = { mnID = 2367, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=40725", achievementID = 40725, type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Chamber of Memory
             nodes[2346][27805398] = { mnID = 2339, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com//quest=86535/test-run", questID = 86535, type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Undermine to Dornogal
-            nodes[2472][62549423] = { mnID = 2339, name = L["Portal"], dnID = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Tazavesh to Dornogal
-            nodes[2371][69358829] = { mnID = 2339, name = L["Portal"], dnID = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Tazavesh to Dornogal
+            nodes[2472][62549423] = { mnID = 2339, name = L["Portal"], dnID = "", type = "Portal", questID = 84957, showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/quest=84957/return-to-the-veiled-market", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Tazavesh to Dornogal
+            nodes[2371][69358829] = { mnID = 2339, name = L["Portal"], dnID = "", type = "Portal", questID = 84957, showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/quest=84957/return-to-the-veiled-market", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Tazavesh to Dornogal
+            nodes[2371][66417176] = { mnID = 2339, name = L["Portal"], dnID = "", type = "Portal", questID = 84967, wwwLink = "https://www.wowhead.com/quest=84967", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "The shadowguard shattered", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal Tazavesh to Dornogal
+            nodes[2472][49441971] = { mnID = 2339, name = L["Portal"], dnID = "", type = "Portal", questID = 84967, wwwLink = "https://www.wowhead.com/quest=84967", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "The shadowguard shattered", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal Tazavesh to Dornogal
 
             if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
               nodes[2248][46913872] = { mnID = 2339, name = "", type = "HPortal", TransportName = L["Portal"] .. "\n" .. ORGRIMMAR, showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dornogal to Orgrimmar
@@ -847,16 +849,17 @@ ns._currentSourceFile = "RetailZoneNodesLocation.lua"
           if self.db.profile.showZoneTransport then
             nodes[2369][67613901] = { mnID = 2214, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Mole Machine from Sirene Isle to Deeps
             nodes[2214][41993030] = { mnID = 2369, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Mole Machine from Deeps to Sirene Isle
-            nodes[2214][72957320] = { mnID = 2346, name = L["Rocket drill"] .. " " .. L["Transport"], dnID = "", type = "RocketDrill", questID = 83151, wwwLink = "wowhead.com/quest=83151", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Down Undermine", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Mole Machine Deeps to Undermine
-            nodes[2346][17285075] = { mnID = 2214, name = L["Rocket drill"] .. " " .. L["Transport"], dnID = "", type = "RocketDrill", questID = 83151, wwwLink = "wowhead.com/quest=83151", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Down Undermine", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Mole Machine from Undermine to Deeps
-            nodes[2346][18795225] = { mnID = 862, name = L["Rocket drill"] .. " " .. L["Transport"], dnID = "", type = "RocketDrill", questID = 83933, wwwLink = "https://www.wowhead.com/quest=83933/the-kajacoast", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "The Kaja'Coast", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Mole Machine from Undermine to Zandalar
+            nodes[2214][72957320] = { npcID = 229022, mnID = 2346, name = L["Rocket drill"] .. " " .. L["Transport"], dnID = "", type = "RocketDrill", questID = 83151, wwwLink = "wowhead.com/quest=83151", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Down Undermine", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Mole Machine Deeps to Undermine
+            nodes[2346][17285075] = { npcID = 233626, mnID = 2214, name = L["Rocket drill"] .. " " .. L["Transport"], dnID = "", type = "RocketDrill", questID = 83151, wwwLink = "wowhead.com/quest=83151", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Down Undermine", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Mole Machine from Undermine to Deeps
+            nodes[2346][18795225] = { npcID = 233625, mnID = 862, name = L["Rocket drill"] .. " " .. L["Transport"], dnID = "", type = "RocketDrill", questID = 83933, wwwLink = "https://www.wowhead.com/quest=83933/the-kajacoast", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "The Kaja'Coast", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Mole Machine from Undermine to Zandalar
+            nodes[2472][34741004] = { npcID = 234692, mnID = 2472, name ="", type = "TravelM", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Tazavesh Flightmaster
           end
     
         -- Khaz Algar Zeppelin
           if self.db.profile.showZoneZeppelins then
 
-            nodes[2369][70725350] = { mnID = 2339, name = "", type = "Zeppelin", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Zeppelin"] .. " ==> " .. L["Dornogal"] } -- Zeppelin from Siren Isle to Dornogal
-            nodes[2248][55453363] = { mnID = 2369, name = "", type = "Zeppelin", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Zeppelin"] .. " ==> " .. L["Siren Isle"] } -- Zeppelin to Siren Isle from Dornogal
+            nodes[2369][70725350] = { npcID = 231541, mnID = 2339, name = "", type = "Zeppelin", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Zeppelin"] .. " ==> " .. L["Dornogal"] } -- Zeppelin from Siren Isle to Dornogal
+            nodes[2248][55453363] = { npcID = 231541, mnID = 2369, name = "", type = "Zeppelin", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Zeppelin"] .. " ==> " .. L["Siren Isle"] } -- Zeppelin to Siren Isle from Dornogal
 
             if self.faction == "Horde" or db.activate.ZoneEnemyFaction then 
               --nodes[2022][81632788] = { mnID = 85, name = "", type = "HZeppelin", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Zeppelin"] .. " ==> " .. ORGRIMMAR } -- Zeppelin from The Waking Shores to Orgrimmar 
@@ -877,79 +880,80 @@ ns._currentSourceFile = "RetailZoneNodesLocation.lua"
         if self.db.profile.activate.ZoneProfessions then
 
           if self.db.profile.showZoneAlchemy then
-            nodes[2216][45411357] = { name = L["Alchemy"], type = "Alchemy", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[2213][45411357] = { name = L["Alchemy"], type = "Alchemy", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[2216][67423141] = { name = L["Alchemy"], type = "Alchemy", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"], TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[2213][67423141] = { name = L["Alchemy"], type = "Alchemy", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"], TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[2255][54837585] = { name = L["Alchemy"], type = "Alchemy", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"], TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[2216][45411357] = { npcID = 218171, name = "", type = "Alchemy", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[2213][45411357] = { npcID = 218171, name = "", type = "Alchemy", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[2216][67423141] = { npcID = 225611, name = "", type = "Alchemy", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"] }
+            nodes[2213][67423141] = { npcID = 225611, name = "", type = "Alchemy", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"] }
+            nodes[2255][54837585] = { name = L["Alchemy"], type = "Alchemy", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"] }
           end
       
           if self.db.profile.showZoneLeatherworking then
-            nodes[2216][43771954] = { name = L["Leatherworking"], type = "Leatherworking", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[2213][43771954] = { name = L["Leatherworking"], type = "Leatherworking", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[2216][43771954] = { npcID = 218164, name = "", type = "Leatherworking", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[2213][43771954] = { npcID = 218164, name = "", type = "Leatherworking", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneEngineer then
-            nodes[2216][57503277] = { name = L["Engineer"], type = "Engineer", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[2213][57503277] = { name = L["Engineer"], type = "Engineer", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[2255][51387631] = { name = L["Engineer"], type = "Engineer", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[2216][57503277] = { npcID = 218186, name = "", type = "Engineer", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[2213][57503277] = { npcID = 218186, name = "", type = "Engineer", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[2255][51387631] = { npcID = 218186, name = "", type = "Engineer", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneSkinning then
-            nodes[2216][42602007] = { name = L["Skinning"], type = "Skinning", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[2213][42602007] = { name = L["Skinning"], type = "Skinning", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[2216][42602007] = { npcID = 218163, name = "", type = "Skinning", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[2213][42602007] = { npcID = 218163, name = "", type = "Skinning", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneTailoring then
-            nodes[2216][49711743] = { name = L["Tailoring"], type = "Tailoring", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[2213][49711743] = { name = L["Tailoring"], type = "Tailoring", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[2216][49711743] = { npcID = 218181, name = "", type = "Tailoring", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[2213][49711743] = { npcID = 218181, name = "", type = "Tailoring", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneBlacksmith then
-            nodes[2216][46002227] = { name = L["Blacksmithing"], type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = "( " .. ERR_USE_OBJECT_MOVING .. " )", TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[2213][46002227] = { name = L["Blacksmithing"], type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = "( " .. ERR_USE_OBJECT_MOVING .. " )", TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[2216][46002227] = { npcID = 218167, name = "", type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = "( " .. ERR_USE_OBJECT_MOVING .. " )" }
+            nodes[2213][46002227] = { npcID = 218167, name = "", type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = "( " .. ERR_USE_OBJECT_MOVING .. " )" }
           end
 
           if self.db.profile.showZoneMining then
-            nodes[2216][46842255] = { name = L["Mining"], type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[2213][46842255] = { name = L["Mining"], type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[2216][46842255] = { npcID = 218167, name = "", type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[2213][46842255] = { npcID = 218167, name = "", type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneFishing then
-            nodes[2216][51422519] = { name = PROFESSIONS_FISHING, type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[2213][51422519] = { name = PROFESSIONS_FISHING, type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[2216][51422519] = { npcID = 218175, name = "", type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[2213][51422519] = { npcID = 218175, name = "", type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false }
             nodes[2371][75503411] = { npcID = 244485, name = "", type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneCooking then
-            nodes[2216][47912464] = { name = PROFESSIONS_COOKING, type = "Cooking", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[2213][47912464] = { name = PROFESSIONS_COOKING, type = "Cooking", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[2216][47912464] = { npcID = 218173, name = "", type = "Cooking", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[2213][47912464] = { npcID = 218173, name = "", type = "Cooking", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[2472][46061826] = { npcID = 235253, name = "", type = "Cooking", questID = 84967, wwwLink = "https://www.wowhead.com/quest=84967", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "The shadowguard shattered", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Tazavesh
           end
 
           if self.db.profile.showZoneEnchanting then
-            nodes[2216][45573452] = { name = L["Enchanting"], type = "Enchanting", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"], TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[2213][45573452] = { name = L["Enchanting"], type = "Enchanting", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"], TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[2255][47207694] = { name = L["Enchanting"], type = "Enchanting", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"], TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[2216][45573452] = { npcID = 218177, name = "", type = "Enchanting", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"] }
+            nodes[2213][45573452] = { npcID = 218177, name = "", type = "Enchanting", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"] }
+            nodes[2255][47207694] = { npcID = 218177, name = "", type = "Enchanting", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"] }
           end
 
           if self.db.profile.showZoneJewelcrafting then
-            nodes[2216][47751925] = { name = L["Jewelcrafting"], type = "Jewelcrafting", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[2213][47751925] = { name = L["Jewelcrafting"], type = "Jewelcrafting", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[2216][47751925] = { npcID = 218180, name = "", type = "Jewelcrafting", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[2213][47751925] = { npcID = 218180, name = "", type = "Jewelcrafting", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneArchaeology then
-            nodes[390][83563122] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[390][83563122] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneHerbalism then            
-            nodes[2216][47271667] = { name = L["Herbalism"], type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[2213][47271667] = { name = L["Herbalism"], type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[2216][47271667] = { npcID = 218170, name = "", type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[2213][47271667] = { npcID = 218170, name = "", type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneInscription then
-            nodes[2216][41752650] = { name = INSCRIPTION, type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"], TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[2213][41752650] = { name = INSCRIPTION, type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"], TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
-            nodes[2255][45837409] = { name = INSCRIPTION, type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"], TransportName = MINIMAP_TRACKING_TRAINER_PROFESSION }
+            nodes[2216][41752650] = { npcID = 218178, name = "", type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"] }
+            nodes[2213][41752650] = { npcID = 218178, name = "", type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"] }
+            nodes[2255][45837409] = { npcID = 218178, name = "", type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"] }
           end
 
           if self.db.profile.ZoneProfessionsMixed and ( self.db.profile.showZoneAlchemy or self.db.profile.showZoneMining or self.db.profile.showZoneBlacksmith or self.db.profile.showZoneLeatherworking or self.db.profile.showZoneJewelcrafting or self.db.profile.showZoneHerbalism or self.db.profile.showZoneTailoring or self.db.profile.showZoneFishing or self.db.profile.showZoneCooking or self.db.profile.showZoneSkinning ) then

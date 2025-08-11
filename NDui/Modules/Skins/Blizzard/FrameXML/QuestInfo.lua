@@ -103,7 +103,7 @@ local function Reskin_RewardButton(self, isMapQuestInfo)
 		end
 
 		self.bg = B.ReskinIcon(self.Icon)
-		self.nf = B.ReskinNameFrame(self, self.bg)
+		self.nf = B.ReskinName(self.NameFrame, self.bg)
 		B.ReskinBorder(self.IconBorder)
 
 		B.UpdatePoint(self.Count, "BOTTOMRIGHT", self.bg, "BOTTOMRIGHT", 0, 1)

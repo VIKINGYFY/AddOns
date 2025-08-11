@@ -57,7 +57,7 @@ local function handleRewards(self)
 	if not self.bg then
 		self.bg = B.ReskinIcon(self.Icon)
 		B.ReskinBorder(self.IconBorder, true)
-		B.ReskinNameFrame(self, self.bg)
+		B.ReskinName(self.NameFrame, self.bg)
 	end
 end
 

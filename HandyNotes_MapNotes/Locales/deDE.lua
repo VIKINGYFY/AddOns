@@ -2,7 +2,11 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "deDE")
 if not L then return end
 
+-- Worldmap
+L["Change zone map"] = "Zonenkarte wechseln"
+L["This allows you to automatically switch the world map to the map of the new area when you leave one zone and enter a new one"] = "Hiermit können Sie die Weltkarte automatisch auf die Karte des neuen Gebiets umschalten lassen, wenn Sie eine Zone verlassen und eine neue betreten"
 -- Npc
+L["NPC database"] = "NPC Datenbank"
 L["NPC targeting"] = "NPC-Zielerfassung"
 L["Clicking on a MapNotes symbol with an NPC name opens a confirmation window, which automatically targets this NPC after confirmation and marks it with an X"] = "Durch Klicken auf ein MapNotes-Symbol mit einem NPC-Namen öffnet sich ein Bestätigungsfenster, das nach der Bestätigung automatisch diesen NPC anvisiert und mit einem X markiert"
 L["If you are not within range, you will receive the message in the chat"] = "Wenn Sie nicht in Reichweite sind, erhalten Sie die Nachricht im Chat"
@@ -528,4 +532,4 @@ L["About MapNotes"] = "Über MapNotes"
 L["If you like this addon, feel free to support me via Paypal, Patreon or Ko-fi"] = "Wenn dir dieses Addon gefällt, kannst du mich gerne über Paypal, Patreon oder Ko-fi unterstützen"
 L["You can find the relevant links on:"] = "Die entsprechenden Links findest du auf:"
 L["Any support is greatly appreciated"] = "Jede Unterstützung ist sehr willkommen"
-L["Best regards"] = "Mit freundlichen Grüßen"
+L["Best regards"] = "Beste Grüßen"
