@@ -3,6 +3,7 @@ local myname, ns = ...
 local PHASEDIVING = ns.conditions.AuraActive(1214374) -- Phase Diving
 -- Under Her Power (spell:1219699) also counts
 local TRAIT_WHATLIESBEYOND = ns.conditions.Trait(1115, 105870)
+local TRAIT_SECRETSOFTHEDEPTHS = ns.conditions.Trait(1115, 105872)
 
 --[[
 notes:
@@ -335,6 +336,90 @@ ns.RegisterPoints(ns.KARESH_TAZAVESH, {
 	[41683982] = {criteria=107314, quest=91648, vignette=7124}, -- Coins: An Oath We Exchange
 }, secrets{parent=true})
 
+-- Phase-Lost-and-Found (61017)
+local phaseorb = ns.nodeMaker{
+	achievement=61017, criteria=true,
+	atlas="Vehicle-TempleofKotmogu-PurpleBall", minimap=true,
+	hide_before=TRAIT_SECRETSOFTHEDEPTHS,
+}
+ns.RegisterPoints(ns.KARESH, {
+	[43162164] = {},
+	[43762556] = {},
+	[44231681] = {},
+	[45745153] = {},
+	[47171579] = {},
+	[47181578] = {},
+	[47733728] = {},
+	[47806085] = {},
+	[48603845] = {},
+	[48892670] = {},
+	[48985746] = {},
+	[49341897] = {},
+	[50113620] = {},
+	[50495412] = {},
+	[50573510] = {},
+	[50953671] = {},
+	[51026912] = {},
+	[51176774] = {},
+	[52176488] = {},
+	[53382057] = {},
+	[53392050] = {},
+	[53734838] = {},
+	[54326317] = {},
+	[54505016] = {},
+	[54916381] = {},
+	[55285545] = {},
+	[55942154] = {},
+	[56552093] = {},
+	[57902393] = {},
+	[58742099] = {},
+	[58935751] = {},
+	[59416044] = {},
+	[59842272] = {},
+	[60352841] = {},
+	[60514201] = {},
+	[60525549] = {},
+	[61082734] = {},
+	[61162324] = {},
+	[61203920] = {},
+	[62594165] = {},
+	[63003911] = {},
+	[63984597] = {},
+	[64865224] = {},
+	[64905495] = {},
+	[66054880] = {},
+	[68834777] = {},
+	[69755531] = {},
+	[70206061] = {},
+	[70263197] = {},
+	[72711232] = {},
+	[72791006] = {},
+	[73985749] = {},
+	[75713442] = {},
+	[75963255] = {},
+	[76035820] = {},
+	[78224889] = {},
+	[78762917] = {},
+	[80405123] = {},
+}, phaseorb{})
+ns.RegisterPoints(ns.KARESH_TAZAVESH, {
+	[35235775] = {},
+	[39613240] = {},
+	[40156823] = {},
+	[42835032] = {},
+	[44322686] = {},
+	[44323460] = {},
+	[44383470] = {},
+	[53226055] = {},
+	[53859605] = {},
+	[55813380] = {},
+	[56468671] = {},
+	[60485724] = {},
+	[61128910] = {},
+	[62132931] = {},
+	[66898969] = {},
+}, phaseorb{parent=true})
+
 -- Phase Conduits
 
 local conduit = {
@@ -376,7 +461,7 @@ ns.RegisterPoints(ns.KARESH, {
 		},
 		vignette=6981,
 		note="Gather {spell:1240235}, {spell:1240217}, {spell:1240233}, {spell:1240237} nearby",
-		nearby={76983175, 72023077, 72713330, 71783464, 72582845, 72713472, color={r=0,g=1,b=0}, worldmap=false},
+		nearby={75553340, 72853131, 76983175, 72023077, 72713330, 71783464, 72582845, 72713472, color={r=0,g=1,b=0}, worldmap=false},
 	},
 	[54055884] = { -- Malek'ta
 		criteria=106336,
@@ -396,7 +481,7 @@ ns.RegisterPoints(ns.KARESH, {
 ns.RegisterPoints(ns.KARESH, {
 	[74043254] = { -- Sthaarbs
 		criteria=106346,
-		quest=91293,
+		quest=91293, -- 91431
 		npc=234845, -- 234848
 		loot={
 			240171, -- Observer's Soul Fetters
@@ -653,7 +738,7 @@ ns.RegisterPoints(ns.KARESH, {
 		note="Complete {quest:87546:Warrant Purple Peat} to summon",
 	},
 	[71792823] = { -- Korgoth the Hungerer
-		quest=84993, -- 91286, 91309, 91433
+		quest=84993, -- 91286; these didn't trip after the Energy-Pod: 91309, 91433
 		npc=231229,
 		loot={
 			{246240, mount=2602, note="needs 20"}, -- Devoured Energy-Pod
@@ -750,8 +835,8 @@ ns.RegisterPoints(ns.KARESH_TAZAVESH, {
 		vignette=6772, -- also 6770?
 		note="Complete {quest:87345:Warrant Xy'vox the Twisted} to summon",
 	},
-	[25807120] = { -- The Wallbreaker
-		quest=nil,
+	[28587428] = { -- The Wallbreaker
+		quest=86465, -- 91436, 91312, 91290
 		npc=235104,
 		loot={
 			{246240, mount=2602, note="needs 20"}, -- Devoured Energy-Pod

@@ -310,6 +310,9 @@ L[ [=[Bounty stacks
 after this pull]=] ] = "После этого пулла награды стакаются"
 L[ [=[Bounty stacks 
 after this pull]=] ] = "После этого пулла награда стакается"
+--[[Translation missing --]]
+L[ [=[Bounty stacks
+after this pull]=] ] = ""
 L["Bracken Warscourge"] = "Бурая бичевательница"
 L["Brackenhide Shaper"] = "Бурошкур-заклинательница"
 L["brackenhideCage"] = "Склад мяса"
@@ -612,6 +615,8 @@ L["Devouring Ghoul"] = "Всепожирающий вурдалак"
 L["Devouring Maggot"] = "Прожорливая личинка"
 L["Devout Blood Priest"] = "Преданная жрица крови"
 L["Devout Priest"] = "Благочестивый жрец"
+--[[Translation missing --]]
+L["Dimension Portal"] = ""
 L["Dinomancer Kish'o"] = "Диномант Киш'о"
 L["Discarded Shield"] = "Брошенный щит"
 L["Discharged Anima"] = "Освобожденная анима"

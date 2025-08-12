@@ -51,10 +51,10 @@ local list = {
 
 	},
 	["Special Aura"] = { -- 玩家重要光环组
-		{AuraID =   51124, UnitID = "player"}, -- 杀戮机器
+		--{AuraID =   51124, UnitID = "player"}, -- 杀戮机器
 		{AuraID =   51271, UnitID = "player"}, -- 冰霜之柱
 		{AuraID =   55233, UnitID = "player"}, -- 吸血鬼之血
-		{AuraID =   59052, UnitID = "player"}, -- 白霜
+		--{AuraID =   59052, UnitID = "player"}, -- 白霜
 		{AuraID =   77535, UnitID = "player", Value = true}, -- 鲜血护盾
 		{AuraID =   81256, UnitID = "player"}, -- 符文刃舞
 		{AuraID =  116888, UnitID = "player", Value = true, Flash = true}, -- 炼狱蔽体

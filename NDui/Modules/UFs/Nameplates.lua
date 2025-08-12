@@ -110,27 +110,41 @@ function UF:UpdateUnitPower()
 	self.powerText:SetShown(shouldShowPower)
 end
 
+
+-- Player Status
+local isInInstance, isInGroup, isInRaid
+local function checkPlayerStatus()
+	isInInstance = IsInInstance()
+	isInGroup = IsInGroup()
+	isInRaid = IsInRaid()
+end
+
+function UF:UpdatePlayerStatus()
+	checkPlayerStatus()
+	B:RegisterEvent("PLAYER_ENTERING_WORLD", checkPlayerStatus)
+	B:RegisterEvent("PLAYER_DIFFICULTY_CHANGED", checkPlayerStatus)
+end
+
 -- Off-tank threat color
-local groupRoles, isInGroup = {}
+local groupRoles = {}
 local function refreshGroupRoles()
-	local isInRaid = IsInRaid()
-	isInGroup = isInRaid or IsInGroup()
+	isInGroup = IsInGroup()
+	isInRaid = IsInRaid()
 	table.wipe(groupRoles)
 
 	if isInGroup then
-		local numPlayers = (isInRaid and GetNumGroupMembers()) or GetNumSubgroupMembers()
-		local unit = (isInRaid and "raid") or "party"
-		for i = 1, numPlayers do
-			local index = unit..i
-			if UnitExists(index) then
-				groupRoles[UnitName(index)] = UnitGroupRolesAssigned(index)
+		local maxMembers = GetNumGroupMembers()
+		for index = 1, maxMembers do
+			local member = B.GetGroupUnit(index, maxMembers, isInRaid)
+			if UnitExists(member) then
+				groupRoles[UnitName(member)] = UnitGroupRolesAssigned(member)
 			end
 		end
 	end
 end
 
 local function resetGroupRoles()
-	isInGroup = IsInRaid() or IsInGroup()
+	isInGroup = IsInGroup()
 	table.wipe(groupRoles)
 end
 
@@ -308,19 +322,6 @@ function UF:AddMouseoverIndicator(self)
 
 	self.MouseoverIndicator = mouseover
 	self:RegisterEvent("UPDATE_MOUSEOVER_UNIT", UF.UpdateMouseoverChange, true)
-end
-
--- Player Status
-local isInInstance, isInGroup, isInRaid
-local function checkPlayerStatus()
-	isInInstance = IsInInstance()
-	isInGroup = IsInGroup()
-	isInRaid = IsInRaid()
-end
-
-function UF:CheckPlayerStatus()
-	checkPlayerStatus()
-	B:RegisterEvent("PLAYER_ENTERING_WORLD", checkPlayerStatus)
 end
 
 function UF:UpdateQuestUnit(_, unit)

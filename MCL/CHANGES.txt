@@ -1,16 +1,10 @@
-lightweight tag eeecea34741b67bb8740400ee1ad10135a0556e1 v2.7.4
+lightweight tag 1538baced8e9b5716f37b8647929f10feda813a1 v2.7.5
 Author:	Cameron Liddell <camyana65@gmail.com>
-Date:	Fri Aug 8 11:38:31 2025 +0100
+Date:	Tue Aug 12 15:28:20 2025 +0100
 
-commit eeecea34741b67bb8740400ee1ad10135a0556e1
+commit 1538baced8e9b5716f37b8647929f10feda813a1
 Author: Cameron Liddell <camyana65@gmail.com>
-Date:   Fri Aug 8 11:38:31 2025 +0100
+Date:   Tue Aug 12 15:28:20 2025 +0100
 
-    Settings update
-
-commit 9c6228105d1daac5b1c609b16c44e626ac5f0fbd
-Author: Cameron Liddell <camyana65@gmail.com>
-Date:   Fri Aug 8 10:41:41 2025 +0100
-
-    v2.7.4
+    v2.7.5
 

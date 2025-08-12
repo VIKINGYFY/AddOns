@@ -1,4 +1,5 @@
-## Changed in v91
+## Changed in v93
 
-* K'aresh: add loot to lots of rares now that data is out there for it
+* K'aresh: add the Phase-Lost-and-Found achievement, hidden by default
+* Fixed a typo
 

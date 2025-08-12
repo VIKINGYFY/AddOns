@@ -195,7 +195,7 @@ function ns.conditions.Trait:init(treeID, nodeID, rank)
     self.configID = C_Traits.GetConfigIDByTreeID(treeID)
 end
 function ns.conditions.Trait:Matched()
-    local nodeInfo = configID and C_Traits.GetNodeInfo(configID, nodeID)
+    local nodeInfo = self.configID and C_Traits.GetNodeInfo(self.configID, self.nodeID)
     return nodeInfo and nodeInfo.ID ~= 0 and nodeInfo.ranksPurchased > 0
 end
 

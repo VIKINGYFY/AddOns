@@ -264,7 +264,14 @@ function ns.RegisterPoints(zone, points, defaults)
             end
             local x, y = HandyNotes:getXY(coord)
             for tzone in pairs(translateTo) do
-                local tx, ty = HBD:TranslateZoneCoordinates(x, y, zone, tzone)
+                local minX, maxX, minY, maxY = C_Map.GetMapRectOnMap(zone, tzone)
+                if minX then
+                    tx = Lerp(minX, maxX, x)
+                    ty = Lerp(minY, maxY, y)
+                else 
+                    -- try a fallback
+                    tx, ty = HBD:TranslateZoneCoordinates(x, y, zone, tzone)
+                end
                 if tx and ty then
                     if not ns.points[tzone] then
                         ns.points[tzone] = {}

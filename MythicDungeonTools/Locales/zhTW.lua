@@ -309,6 +309,9 @@ after this pull]=] ] = [=[這波拉怪後
 L[ [=[Bounty stacks 
 after this pull]=] ] = [=[這波拉怪後
 連帶幾堆]=]
+--[[Translation missing --]]
+L[ [=[Bounty stacks
+after this pull]=] ] = ""
 L["Bracken Warscourge"] = "Bracken Warscourge"
 L["Brackenhide Shaper"] = "Brackenhide Shaper"
 L["brackenhideCage"] = "Meat Storage"
@@ -611,6 +614,8 @@ L["Devouring Ghoul"] = "Devouring Ghoul"
 L["Devouring Maggot"] = "贪吃的蛆虫"
 L["Devout Blood Priest"] = "虔诚鲜血祭司"
 L["Devout Priest"] = "虔誠的牧師"
+--[[Translation missing --]]
+L["Dimension Portal"] = ""
 L["Dinomancer Kish'o"] = "恐龙统领吉什奥"
 L["Discarded Shield"] = "Discarded Shield"
 L["Discharged Anima"] = "Discharged Anima"

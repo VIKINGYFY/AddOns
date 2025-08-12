@@ -1,11 +1,12 @@
 # BagSync
 
-## [v19.71](https://github.com/Xruptor/BagSync/tree/v19.71) (2025-08-09)
-[Full Changelog](https://github.com/Xruptor/BagSync/compare/v19.70...v19.71) [Previous Releases](https://github.com/Xruptor/BagSync/releases)
+## [v19.72](https://github.com/Xruptor/BagSync/tree/v19.72) (2025-08-11)
+[Full Changelog](https://github.com/Xruptor/BagSync/compare/v19.71...v19.72) [Previous Releases](https://github.com/Xruptor/BagSync/releases)
 
-- Fixed issues for patch 11.2  
-    * Fixed a number of errors associated with the new Bank Tabs system in 11.2 (Fixes #415)  
-    * Added checks to remove orphaned database entries for reagents and void storage due to patch 11.2 and the new bank tabs.  (Fixes #415)  
-    * Updated compatibility for Classic, Cata, WOTLK and MOP. (Fixes #415)  
-    * Removed the tracking options for reagent and void storage from the config if the server has Bank Tabs enabled.  (Fixes #415)  
-    * Added checks to remove any saved equipped bags for the bank if Bank Tabs is enabled. (Fixes #415)  
+- New Bank Tab Count and Fixes  
+    * Added a new option to display Bank Tab numbers in the tooltip for item counts.  This will only work if Bank Tabs are enabled on the server.  
+    * Added new color option for the newly implemented Bank Tabs feature.  
+    * Fixed an error in the config where Reagents and Void options were not appearing on servers that have it enabled.  
+    * Fixed several issues related to saving and displaying Equipped Bags on both Backpack and Bank on servers with Bank Tabs enabled.  They should no longer be parsed and displayed if Bank Tabs is enabled.  
+    * Updated the Guild Tabs, Warband and Bank Tabs display to properly sort numberically in ascending fashion.  
+    * Fixed various issues where Warband and Guild tabs were still being counted even if the feature was disabled.  
