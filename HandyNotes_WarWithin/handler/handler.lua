@@ -1298,7 +1298,7 @@ do
         local px, py = HBD:GetPlayerZonePosition()
         return getDistance(px, py, HandyNotes:getXY(lhs)) > getDistance(px, py, HandyNotes:getXY(rhs))
     end
-    function createWaypointForAll(button, uiMapID, coord)
+    function createWaypointForAll(uiMapID, coord)
         if not TomTom then return end
         local point = ns.points[uiMapID] and ns.points[uiMapID][coord]
         if not point then return end
