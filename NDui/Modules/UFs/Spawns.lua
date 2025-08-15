@@ -369,9 +369,9 @@ function UF:OnLogin()
 		for i = 1, 10 do -- MAX_BOSS_FRAMES, 10 in 11.0?
 			boss[i] = oUF:Spawn("boss"..i, "oUF_Boss"..i)
 			local moverWidth, moverHeight = boss[i]:GetWidth(), boss[i]:GetHeight()+8
-			local title = i > 5 and "Boss"..i or L["BossFrame"]..i
+			local title = i > 5 and BOSS..i or L["BossFrame"]..i
 			if i == 1 then
-				boss[i].mover = B.Mover(boss[i], title, "Boss1", {"RIGHT", UIParent, "RIGHT", -50, -150}, moverWidth, moverHeight)
+				boss[i].mover = B.Mover(boss[i], title, "Boss"..i, {"RIGHT", UIParent, "RIGHT", -50, -150}, moverWidth, moverHeight)
 			elseif i == 6 then
 				boss[i].mover = B.Mover(boss[i], title, "Boss"..i, {"BOTTOMRIGHT", boss[1].mover, "BOTTOMLEFT", -50, 0}, moverWidth, moverHeight)
 			else

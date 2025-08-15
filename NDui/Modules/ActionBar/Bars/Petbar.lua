@@ -136,7 +136,7 @@ function Bar:CreatePetbar()
 	local buttonList = {}
 
 	local frame = CreateFrame("Frame", "NDui_ActionBarPet", UIParent, "SecureHandlerStateTemplate")
-	frame.mover = B.Mover(frame, L["Pet Actionbar"], "PetBar", {"BOTTOM", _G.NDui_ActionBar3, "TOP", 0, -DB.margin})
+	frame.mover = B.Mover(frame, L["Pet Actionbar"], "PetBar", {"BOTTOM", _G.NDui_ActionBar3, "TOP", 0, DB.margin})
 	Bar.movers[9] = frame.mover
 
 	for i = 1, num do

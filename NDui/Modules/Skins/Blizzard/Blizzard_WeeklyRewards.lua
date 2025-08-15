@@ -10,7 +10,7 @@ local function Reskin_SetRewards(self)
 		local icbg = B.ReskinIcon(self.Icon)
 		icbg:SetBackdropBorderColor(r, g, b)
 
-		local bubg = B.ReskinName(self.NameFrame, icbg)
+		local bubg = B.ReskinNameFrame(self, icbg)
 		bubg:SetBackdropBorderColor(r, g, b)
 
 		self.styled = true

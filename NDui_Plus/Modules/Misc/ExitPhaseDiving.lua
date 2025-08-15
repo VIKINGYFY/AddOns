@@ -54,21 +54,17 @@ function M:ExitPhaseDiving()
 	button:SetSize(52, 52)
 	B.AddTooltip(button, "ANCHOR_RIGHT", 1250255)
 
+	button.bg = B.SetBD(button)
+
+	B.ReskinCPTex(button, button.bg)
+	B.ReskinHLTex(button, button.bg)
+
 	button.Icon = button:CreateTexture(nil, "ARTWORK")
 	button.Icon:SetTexture(4913234)
-	button.Icon:SetInside()
-	B.ReskinIcon(button.Icon, true)
+	button.Icon:SetTexCoord(unpack(DB.TexCoord))
+	button.Icon:SetInside(button.bg)
 
-	button.HL = button:CreateTexture(nil, "HIGHLIGHT")
-	button.HL:SetColorTexture(1, 1, 1, .25)
-	button.HL:SetInside()
-
-	button:SetPushedTexture(DB.pushedTex)
-	local push = button:GetPushedTexture()
-	push:SetBlendMode("ADD")
-	push:SetInside()
-
-	button.mover = B.Mover(button, L["ExitPhaseDivingButton"], "ExitPhaseDivingButton", { "BOTTOM", UIParent, "BOTTOM", 250, 100 })
+	button.mover = B.Mover(button, L["ExitPhaseDivingButton"], "ExitPhaseDivingButton", { "TOP", _G.NDui_ActionBarExtra, "BOTTOM", 0, -DB.margin })
 
 	M.ExitPhaseDivingButton = button
 	M:ExitPhaseDiving_Toggle()

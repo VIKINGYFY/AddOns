@@ -85,6 +85,7 @@ L["ModuleDescription GossipFrameMedal Format"] = "Replace the default icon %s wi
 --DruidModelFix (Disabled after 10.2.0)
 L["ModuleName DruidModelFix"] = "Druid Model Fix";
 L["ModuleDescription DruidModelFix"] = "Fix the Character UI model display issue caused by using Glyph of Stars\n\nThis bug will be fixed by Blizzard in 10.2.0 and this module will be removed.";
+L["Model Layout"] = "Model Layout";
 
 
 --PlayerChoiceFrameToken (PlayerChoiceFrame)
@@ -192,6 +193,11 @@ L["Color Applied"] = "This is the currently applied color.";
 L["ModuleName TooltipItemReagents"] = "Reagents";
 L["ModuleDescription TooltipItemReagents"] = "If an item can be used to combine into something new, display all \"reagents\" used in the process.\n\nPress and hold Shift to display the crafted item if supported.";
 L["Can Create Multiple Item Format"] = "You have the resources to create |cffffffff%d|r items.";
+
+
+--Tooltip DelvesItem
+L["ModuleName TooltipDelvesItem"] = "Delves Items";
+L["ModuleDescription TooltipDelvesItem"] = "Show how many Coffer Keys and Shards you have earned from weekly caches.";
 
 
 --Plunderstore
@@ -339,6 +345,11 @@ L["BossBanner Valuable Item Only"] = "Valuable Items Only";
 L["BossBanner Valuable Item Only Tooltip"] = "Only display mounts, class tokens, and items that are marked as Very Rare or Extremely Rare on the banner.";
 
 
+--AppearanceTab
+L["ModuleName AppearanceTab"] = "Appearances Tab";
+L["ModuleDescription AppearanceTab"] = "Modify the Appearances Tab in the Warband Collections:\n\n- Reduce GPU load by improving model loading sequence and changing the number of items shown per page. It can reduce the chance of graphics crash when opening this UI.\n\n- Remember the page you visit after changing slots.";
+
+
 --Loot UI
 L["ModuleName LootUI"] = HUD_EDIT_MODE_LOOT_FRAME_LABEL or "Loot Window";
 L["ModuleDescription LootUI"] = "Replace the default Loot Window and provide some optional features:\n\n- Loot items fast.\n\n- Fix Auto Loot failure bug.\n\n- Show a Take All button when looting manually.";
@@ -471,6 +482,10 @@ L["Delete"] = DELETE or "Delete";
 L["Visit Quest Hub To Log Quests"] = "Visit the quest hub and interact with the quest givers to log today's quests."
 L["Quest Hub Instruction Celestials"] = "Visit the August Celestials Quartermaster in Vale of Eternal Blossoms to find out which temple needs your assistance."
 L["Unavailable Klaxxi Paragons"] = "Unavailable Klaxxi Paragons:";
+L["Weekly Coffer Key Tooltip"] = "The first four weekly caches you earn each week contain a Restored Coffer Key.";
+L["Weekly Coffer Key Shards Tooltip"] = "The first four weekly caches you earn each week contain Coffer Key Shards.";
+L["Weekly Cap"] = "Weekly Cap";
+L["Weekly Cap Reached"] = "Weekly cap reached.";
 
 
 --Generic
@@ -516,6 +531,8 @@ L["Season Maximum Colon"] = "Season Maximum:";  --CURRENCY_SEASON_TOTAL_MAXIMUM
 L["Item Changed"] = "was changed to";   --CHANGED_OWN_ITEM
 L["Completed CHETT List"] = "Completed C.H.E.T.T. List";
 L["Devourer Attack"] = "Devourer Attack";
+L["Restored Coffer Key"] = "Restored Coffer Key";
+L["Coffer Key Shard"] = "Coffer Key Shard";
 
 
 --Map Pin Filter Name (name should be plural)

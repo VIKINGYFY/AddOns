@@ -52,9 +52,11 @@ local list = {
 	},
 	["Special Aura"] = { -- 玩家重要光环组
 		--{AuraID =   51124, UnitID = "player"}, -- 杀戮机器
+		--{AuraID =   59052, UnitID = "player"}, -- 白霜
+		--{AuraID =  456370, UnitID = "player"}, -- 低温冰冻
+		--{AuraID = 1230916, UnitID = "player"}, -- 血性大发
 		{AuraID =   51271, UnitID = "player"}, -- 冰霜之柱
 		{AuraID =   55233, UnitID = "player"}, -- 吸血鬼之血
-		--{AuraID =   59052, UnitID = "player"}, -- 白霜
 		{AuraID =   77535, UnitID = "player", Value = true}, -- 鲜血护盾
 		{AuraID =   81256, UnitID = "player"}, -- 符文刃舞
 		{AuraID =  116888, UnitID = "player", Value = true, Flash = true}, -- 炼狱蔽体
@@ -72,11 +74,11 @@ local list = {
 		{AuraID =  433925, UnitID = "player"}, -- 鲜血女王的精华
 		{AuraID =  441416, UnitID = "player"}, -- 破灭
 		{AuraID =  454871, UnitID = "player", Flash = true}, -- 抽血
-		{AuraID =  456370, UnitID = "player"}, -- 低温冰冻
 		{AuraID =  458745, UnitID = "player"}, -- 骨化锋刺
 		{AuraID =  460049, UnitID = "player"}, -- 苦痛凌虐
 		{AuraID =  460500, UnitID = "player"}, -- 染血利刃
 		{AuraID =  469169, UnitID = "player"}, -- 凄惨痛快
+		{AuraID = 1230273, UnitID = "player"}, -- 冷冽强袭
 		{AuraID = 1233152, UnitID = "player"}, -- 冷酷严冬
 		{AuraID = 1249658, UnitID = "player", Flash = true}, -- 冰龙吐息
 

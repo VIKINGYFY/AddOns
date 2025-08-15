@@ -377,7 +377,7 @@ local closed
 function Implementation:UpdateBag(bagID)
 	local numSlots
 	if (closed) then
-		numSlots, bagID = 0, closed
+		numSlots, closed = 0
 	else
 		numSlots = C_Container.GetContainerNumSlots(bagID)
 	end

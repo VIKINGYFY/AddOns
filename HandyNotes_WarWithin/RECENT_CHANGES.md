@@ -1,5 +1,4 @@
-## Changed in v94
+## Changed in v95
 
-* K'aresh: adjustments to a few coordinates
-* Fix creating waypoints for all related points from the right-click menu. Thanks to Taurenkey for this!
+* Fix an issue with points displaying across zones in Azj-Kahet
 

@@ -23,12 +23,13 @@ local function ResetButtonAnchor(button)
 	button:SetAllPoints()
 end
 
-function Bar:MicroButton_Create(parent, data)
+function Bar:MicroButton_Create(data)
+	if not menubar then return end
+
 	local texture, method, tooltip = unpack(data)
 
-	local bu = CreateFrame("Frame", nil, parent)
+	local bu = CreateFrame("Frame", nil, menubar)
 	table.insert(buttonList, bu)
-	bu:SetSize(22, 22)
 
 	local icon = bu:CreateTexture(nil, "ARTWORK")
 	Bar:MicroButton_SetupTexture(icon, texture)
@@ -83,25 +84,28 @@ function Bar:MicroButton_Create(parent, data)
 	end
 end
 
-function Bar:MicroMenu_Lines(parent)
+function Bar:MicroMenu_Lines()
 	if not C.db["Skins"]["MenuLine"] then return end
+	if not menubar then return end
 
-	local width, height = 200, 20
+	local width = menubar:GetWidth() / 2
+	local height = menubar:GetHeight()
+
 	local anchors = {
 		["LEFT"] = {DB.alpha, 0},
 		["RIGHT"] = {0, DB.alpha}
 	}
 	for anchor, v in pairs(anchors) do
-		local frame = CreateFrame("Frame", nil, parent)
-		frame:SetPoint(anchor, parent, "CENTER", 0, 0)
+		local frame = CreateFrame("Frame", nil, menubar)
+		frame:SetPoint(anchor, menubar, "CENTER", 0, 0)
 		frame:SetSize(width, height)
 		frame:SetFrameStrata("BACKGROUND")
 
 		local tex = B.SetGradient(frame, "H", 0, 0, 0, v[1], v[2], width, height)
 		tex:SetPoint("CENTER")
-		local bottomLine = B.SetGradient(frame, "H", r, g, b, v[1], v[2], width-25, C.mult)
+		local bottomLine = B.SetGradient(frame, "H", r, g, b, v[1], v[2], width, C.mult)
 		bottomLine:SetPoint("TOP"..anchor, frame, "BOTTOM"..anchor, 0, 0)
-		local topLine = B.SetGradient(frame, "H", r, g, b, v[1], v[2], width+25, C.mult)
+		local topLine = B.SetGradient(frame, "H", r, g, b, v[1], v[2], width, C.mult)
 		topLine:SetPoint("BOTTOM"..anchor, frame, "TOP"..anchor, 0, 0)
 	end
 end
@@ -111,7 +115,7 @@ function Bar:MicroMenu_Setup()
 
 	local size = C.db["Actionbar"]["MBSize"]
 	local perRow = C.db["Actionbar"]["MBPerRow"]
-	local margin = DB.margin*2
+	local margin = 2*DB.margin
 
 	for i = 1, #buttonList do
 		local button = buttonList[i]
@@ -128,10 +132,9 @@ function Bar:MicroMenu_Setup()
 
 	local column = math.min(12, perRow)
 	local rows = math.ceil(12/perRow)
-	local width = column*size + (column-1)*margin
-	local height = size*rows + (rows-1)*margin
-	menubar:SetSize(width, height)
-	menubar.mover:SetSize(width, height)
+	menubar:SetWidth(column*size + (column-1)*margin)
+	menubar:SetHeight(size*rows + (rows-1)*margin)
+	menubar.mover:SetSize(menubar:GetSize())
 end
 
 function Bar:MicroMenu()
@@ -142,10 +145,8 @@ function Bar:MicroMenu()
 		r, g, b = colors.r, colors.g, colors.b
 	end
 
-	menubar = CreateFrame("Frame", nil, UIParent)
-	menubar:SetSize(323, 22)
+	menubar = CreateFrame("Frame", "NDui_MicroMenu", UIParent)
 	menubar.mover = B.Mover(menubar, L["Menubar"], "Menubar", C.Skins.MMPos)
-	Bar:MicroMenu_Lines(menubar)
 
 	-- Generate Buttons
 	local buttonInfo = {
@@ -164,11 +165,12 @@ function Bar:MicroMenu()
 	}
 
 	for _, info in pairs(buttonInfo) do
-		Bar:MicroButton_Create(menubar, info)
+		Bar:MicroButton_Create(info)
 	end
 
 	-- Order Positions
 	Bar:MicroMenu_Setup()
+	Bar:MicroMenu_Lines()
 
 	-- Default elements
 	if MainMenuMicroButton.MainMenuBarPerformanceBar then

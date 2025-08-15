@@ -17,7 +17,6 @@ end
 function Bar:CreateExtrabar()
 	local buttonList = {}
 	local size = 52
-	local framSize = size + 2*DB.margin
 
 	ExtraAbilityContainer:SetScript("OnShow", nil)
 	ExtraAbilityContainer:SetScript("OnUpdate", nil)
@@ -27,8 +26,8 @@ function Bar:CreateExtrabar()
 
 	-- ExtraActionButton
 	local extraFrame = CreateFrame("Frame", "NDui_ActionBarExtra", UIParent, "SecureHandlerStateTemplate")
-	extraFrame:SetSize(framSize, framSize)
-	extraFrame.mover = B.Mover(extraFrame, L["Extrabar"], "Extrabar", {"LEFT", _G.NDui_ActionBar3Button12, "TOPRIGHT", 0, 0})
+	extraFrame:SetSize(size, size)
+	extraFrame.mover = B.Mover(extraFrame, L["Extrabar"], "Extrabar", {"LEFT", _G.NDui_ActionBar3Button12, "TOPRIGHT", DB.margin, 0})
 
 	UpdateAbilityFrame(ExtraActionBarFrame, extraFrame)
 
@@ -42,8 +41,8 @@ function Bar:CreateExtrabar()
 
 	-- ZoneAbility
 	local zoneFrame = CreateFrame("Frame", "NDui_ActionBarZone", UIParent)
-	zoneFrame:SetSize(framSize, framSize)
-	zoneFrame.mover = B.Mover(zoneFrame, L["Zone Ability"], "ZoneAbility", {"RIGHT", _G.NDui_ActionBar3Button1, "TOPLEFT", 0, 0})
+	zoneFrame:SetSize(size, size)
+	zoneFrame.mover = B.Mover(zoneFrame, L["Zone Ability"], "ZoneAbility", {"RIGHT", _G.NDui_ActionBar3Button1, "TOPLEFT", -DB.margin, 0})
 
 	UpdateAbilityFrame(ZoneAbilityFrame, zoneFrame)
 

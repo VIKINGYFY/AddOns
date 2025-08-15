@@ -258,6 +258,28 @@ end
 local cachedTypeData = {};
 local cachedZoneInfo = {};
 
+local function stringVersionToNumber(s)
+	local a, b, c = strmatch(s, "(%d+)%.(%d+)%.(%d+)");
+	if (not a) then return 0; end
+	return tonumber(a) * 10000 +  tonumber(b) * 100 +  tonumber(c);
+end
+
+function WQT_Utils:GetAddonVersion()
+	local version = C_AddOns.GetAddOnMetadata(addonName, "version");
+	return stringVersionToNumber(version);
+end
+
+function WQT_Utils:GetSettingsVersion()
+	local version = WQT.db.global.versionCheck or 0;
+
+	if (type(version) == "string") then
+		local number = stringVersionToNumber(version);
+		return number, version;
+	end
+
+	return version;
+end
+
 function WQT_Utils:GetSetting(...)
 	local settings =  WQT.settings;
 	local index = 1;
@@ -834,11 +856,29 @@ function WQT_Utils:RewardTypePassesFilter(rewardType)
 	return true;
 end
 
-function WQT_Utils:CalculateWarmodeAmount(rewardType, amount)
-	if (C_PvP.IsWarModeDesired() and _V["WARMODE_BONUS_REWARD_TYPES"][rewardType]) then
-		amount = amount + floor(amount * C_PvP.GetWarModeRewardBonus() / 100);
+function WQT_Utils:CalculateWarmodeAmount(rewardInfo)
+	if (not rewardInfo) then return 0; end
+
+	local amount = rewardInfo.amount or 1;
+
+	if (not C_PvP.IsWarModeDesired()) then
+		return amount;
 	end
-	return amount;
+
+	local isCurrencyType = rewardInfo.type == WQT_REWARDTYPE.currency or rewardInfo.type == WQT_REWARDTYPE.artifact;
+	local isWarmodeRewardType =	isCurrencyType or rewardInfo.type == WQT_REWARDTYPE.gold or rewardInfo.type == WQT_REWARDTYPE.currency;
+
+	if (not isWarmodeRewardType) then
+		return amount;
+	end
+
+	if (isCurrencyType
+		and (not C_CurrencyInfo.DoesWarModeBonusApply(rewardInfo.id)
+			or C_CurrencyInfo.GetFactionGrantedByCurrency(rewardInfo.id))) then
+		return amount;
+	end
+
+	return amount + floor(amount * C_PvP.GetWarModeRewardBonus() / 100);
 end
 
 function WQT_Utils:DeepWipeTable(t)

@@ -783,6 +783,7 @@ do
 
 	function B:SetBD(x1, y1, x2, y2)
 		local bg = B.CreateBDFrame(self)
+
 		if self:IsObjectType("StatusBar") then
 			B.UpdateSize(bg, -C.mult, C.mult, C.mult, -C.mult)
 		else
@@ -1913,7 +1914,7 @@ end
 -- 自定义
 do
 	function B:GetObject(key)
-		local frameName = self.GetDebugName and self:GetDebugName()
+		local frameName = (self.GetName and self:GetName()) or (self.GetDebugName and self:GetDebugName())
 		return self[key] or (frameName and _G[frameName..key])
 	end
 
@@ -2128,6 +2129,13 @@ do
 
 		self:ClearAllPoints()
 		self:SetAllPoints(relativeTo)
+
+		if not relativeTo.setted then
+			local parent = relativeTo:GetParent()
+			relativeTo:SetFrameLevel(parent:GetFrameLevel() - 1)
+
+			relativeTo.setted = true
+		end
 	end
 
 	function B:ReskinHLTex(relativeTo, classColor, isColorTex)
@@ -2164,16 +2172,20 @@ do
 	function B:ReskinCPTex(relativeTo)
 		if not self then return end
 
-		local checked = self.GetCheckedTexture and self:GetCheckedTexture()
-		if checked then
-			checked:SetVertexColor(0, 1, 1)
-			B.ReskinBGBorder(checked, relativeTo)
-		end
+		if self.SetPushedTexture then
+			self:SetPushedTexture(DB.bdTex)
 
-		local pushed = self.GetPushedTexture and self:GetPushedTexture()
-		if pushed then
+			local pushed = self:GetPushedTexture()
 			pushed:SetVertexColor(1, 1, 1)
 			B.ReskinBGBorder(pushed, relativeTo)
+		end
+
+		if self.SetCheckedTexture then
+			self:SetCheckedTexture(DB.bdTex)
+
+			local checked = self:GetCheckedTexture()
+			checked:SetVertexColor(0, 1, 1)
+			B.ReskinBGBorder(checked, relativeTo)
 		end
 	end
 
@@ -2195,16 +2207,17 @@ do
 		end
 	end
 
-	function B:ReskinName(frame, offset)
+	function B:ReskinNameFrame(frame, mult)
 		if not self then return end
 
-		self:Hide()
+		local nf = B.GetObject(self, "NameFrame")
+		if nf then nf:Hide() end
 
 		local bg = B.CreateBDFrame(self, .25)
 		bg:ClearAllPoints()
 		bg:SetPoint("TOPLEFT", frame, "TOPRIGHT", DB.margin, 0)
 		bg:SetPoint("BOTTOMLEFT", frame, "BOTTOMRIGHT", DB.margin, 0)
-		bg:SetPoint("RIGHT", self, "RIGHT", offset or -(DB.margin*2), 0)
+		bg:SetPoint("RIGHT", self, "RIGHT", DB.margin*(mult or -1), 0)
 
 		return bg
 	end

@@ -234,7 +234,6 @@ function ExtraQuestButton:PLAYER_LOGIN()
 	self:SetAttribute("_onattributechanged", onAttributeChanged)
 	self:SetAttribute("type", "item")
 
-	self:SetPushedTexture(DB.pushedTex)
 	self:SetSize(ExtraActionButton1:GetSize())
 	self:SetScale(ExtraActionButton1:GetScale())
 	self:SetScript("OnLeave", B.HideTooltip)

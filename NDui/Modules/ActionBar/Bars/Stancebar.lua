@@ -19,7 +19,7 @@ function Bar:UpdateStanceBar()
 		button:SetSize(size, size)
 		button:ClearAllPoints()
 		if i == 1 then
-			button:SetPoint("TOPLEFT", frame, DB.margin, -DB.margin)
+			button:SetPoint("TOPLEFT", frame, 0, 0)
 		elseif mod(i-1, perRow) == 0 then
 			button:SetPoint("TOP", frame.buttons[i-perRow], "BOTTOM", 0, -DB.margin)
 		else
@@ -30,9 +30,9 @@ function Bar:UpdateStanceBar()
 
 	local column = math.min(num, perRow)
 	local rows = math.ceil(num/perRow)
-	frame:SetWidth(column*size + (column-1)*DB.margin + 2*DB.margin)
-	frame:SetHeight(size*rows + (rows-1)*DB.margin + 2*DB.margin)
-	frame.mover:SetSize(size+2*DB.margin, size+2*DB.margin)
+	frame:SetWidth(column*size + (column-1)*DB.margin)
+	frame:SetHeight(size*rows + (rows-1)*DB.margin)
+	frame.mover:SetSize(frame:GetSize())
 end
 
 function Bar:UpdateStance()
@@ -83,7 +83,7 @@ end
 function Bar:CreateStancebar()
 	local buttonList = {}
 	local frame = CreateFrame("Frame", "NDui_ActionBarStance", UIParent, "SecureHandlerStateTemplate")
-	frame.mover = B.Mover(frame, L["StanceBar"], "StanceBar", {"BOTTOMLEFT", _G.NDui_ActionBar3, "TOPLEFT", 0, -DB.margin})
+	frame.mover = B.Mover(frame, L["StanceBar"], "StanceBar", {"BOTTOMLEFT", _G.NDui_ActionBar3, "TOPLEFT", 0, DB.margin})
 	Bar.movers[10] = frame.mover
 
 	-- StanceBar

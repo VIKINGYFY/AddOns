@@ -7,17 +7,16 @@ function Bar:UpdateVehicleButton()
 	if not frame then return end
 
 	local size = C.db["Actionbar"]["VehButtonSize"]
-	local framSize = size + 2*DB.margin
 	frame.buttons[1]:SetSize(size, size)
-	frame:SetSize(framSize, framSize)
-	frame.mover:SetSize(framSize, framSize)
+	frame:SetSize(size, size)
+	frame.mover:SetSize(size, size)
 end
 
 function Bar:CreateLeaveVehicle()
 	local buttonList = {}
 
 	local frame = CreateFrame("Frame", "NDui_ActionBarExit", UIParent, "SecureHandlerStateTemplate")
-	frame.mover = B.Mover(frame, L["LeaveVehicle"], "LeaveVehicle", {"LEFT", _G.NDui_ActionBarExtra, "RIGHT", -DB.margin, 0})
+	frame.mover = B.Mover(frame, L["LeaveVehicle"], "LeaveVehicle", {"LEFT", _G.NDui_ActionBarExtra, "RIGHT", DB.margin, 0})
 
 	local button = CreateFrame("CheckButton", "NDui_LeaveVehicleButton", frame, "ActionButtonTemplate, SecureHandlerClickTemplate")
 	table.insert(buttonList, button)

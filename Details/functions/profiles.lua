@@ -614,6 +614,8 @@ local default_profile = {
 		[1473] = {384/512, 448/512, 256/512, 320/512}, -- Augmentation
 	},
 
+	window2_data = {},
+
 	--class icons and colors
 	class_icons_small = [[Interface\AddOns\Details\images\classes_small]],
 	class_coords = {
@@ -1403,6 +1405,11 @@ local default_global_data = {
 		encounter_journal_cache = {}, --store a dump of the encounter journal
 		installed_skins_cache = {},
 		last_10days_cache_cleanup = 0,
+		recent_players = {},
+
+		slashk_dnd = false,
+		slashk_addon = "bigwigs",
+		slashk_addon_first = false,
 
 		auto_change_to_standard = true,
 

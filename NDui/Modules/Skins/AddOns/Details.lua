@@ -25,7 +25,7 @@ local function SetupInstance(instance)
 
 	local bg = B.SetBD(instance.baseframe)
 	bg:ClearAllPoints()
-	bg:SetPoint("TOPLEFT", instance.baseframe.titleBar, "TOPLEFT", -1, 3)
+	bg:SetPoint("TOPLEFT", instance.baseframe.titleBar, "TOPLEFT", -2*C.mult, 3)
 	bg:SetPoint("BOTTOMRIGHT", instance.baseframe, "BOTTOMRIGHT", 2*C.mult, 1)
 	instance.baseframe.bg = bg
 

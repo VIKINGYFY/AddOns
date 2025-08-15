@@ -58,8 +58,6 @@ function M:GarrisonTabs_Create()
 
 		if C.db["Skins"]["BlizzardSkins"] then
 			local bg = B.SetBD(tab)
-			bg:SetFrameLevel(tab:GetFrameLevel() - 1)
-
 			B.ReskinCPTex(tab, bg)
 			B.ReskinHLTex(tab, bg)
 			B.UpdateButton(tab:GetNormalTexture(), bg)

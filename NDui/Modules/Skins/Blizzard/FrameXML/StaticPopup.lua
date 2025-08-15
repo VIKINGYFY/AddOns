@@ -67,10 +67,8 @@ C.OnLoginThemes["StaticPopup"] = function()
 			item.bg = B.ReskinIcon(_G[popup.."IconTexture"])
 			B.ReskinHLTex(item, item.bg)
 			B.ReskinBorder(item.IconBorder)
+			B.ReskinNameFrame(frame, item.bg)
 		end
-
-		local name = frame.NameFrame
-		if name then B.ReskinName(name, item.bg) end
 
 		local extra = _G[popup.."extraButton"]
 		if extra then B.ReskinButton(extra) end
