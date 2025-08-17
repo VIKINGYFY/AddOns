@@ -18,6 +18,16 @@ local minimap = { }
 local lfgIDs = { }
 local extraInformations = { }
 
+ns.Debug = ns.Debug or { ForceQuestsUnlearned = false }
+
+function ns.IsQuestLearned(questIDs)
+  if ns.Addon.db.profile.DeveloperMode then 
+    if IsAltKeyDown() then return false end
+    if ns.Debug.ForceQuestsUnlearned then return false end
+  end
+  return C_QuestLog.IsQuestFlaggedCompleted(questIDs)
+end
+
 ns.RestoreStaticPopUpsRetail()
 
 function MapNotesMiniButton:OnInitialize() --mmb.lua
@@ -171,8 +181,6 @@ local function LoadAndCheck(loadFunc, self)
   ns._currentSourceFile = previousSource
 end
 
-
-
 function ns.MiniMapPlayerArrow()
     if MMPA then return MMPA end
 
@@ -274,7 +282,11 @@ local function ShowBossNames(instanceID, tooltip)
     LoadAddOn("Blizzard_EncounterJournal")
   end
 
-  EJ_SelectInstance(instanceID)
+  local BossData = pcall(EJ_SelectInstance, instanceID)
+  if not BossData then
+    tooltip:AddLine("|cffffffff" .. L["No boss data available for this instance"])
+    return
+  end
 
   local bosses = {}
   local i = 1
@@ -288,6 +300,89 @@ local function ShowBossNames(instanceID, tooltip)
   ns.bossNameCache[instanceID] = bosses
   tooltip:Show()
 
+end
+
+local function mnIDsANDquestIDsTooltip(tooltip, nodeData)
+  --local IsCompleted = C_QuestLog.IsQuestFlaggedCompleted
+
+  local ANYmnIDs = false
+  for i = 1, 10 do
+    local mnIDs = nodeData["mnIDs"..i]
+    local questIDs = nodeData["questIDs"..i]
+    if mnIDs then
+      local info = C_Map.GetMapInfo(mnIDs)
+      if info and info.name then
+        ANYmnIDs = true
+        local learned = questIDs and ns.IsQuestLearned(questIDs)
+        if learned == true then
+          tooltip:AddDoubleLine(" ==> " .. info.name, ALREADY_LEARNED, 1,1,1, 0,1,0)
+        elseif learned == false then
+          tooltip:AddDoubleLine(" ==> " .. info.name, L["Has not been unlocked yet"], 1,1,1, 1,0,0)
+        end
+      end
+    end
+  end
+
+  if ANYmnIDs then
+    tooltip:AddLine(" ")
+  end
+
+  local anyShown = false
+  local function showCopyHint()
+    if ns.Addon.db.profile.CreateAndCopyLinks then
+      tooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. "|cff00ff00 " .. L["Middle mouse button to post the link in the chat"] .. " " .. TextIconMNL4:GetIconString(), nil, nil, false)
+    else
+      tooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. "|cff00ff00  " .. L["Enable „Link“ in MapNotes („General“ - „Chat-Options“)"] .. "  " .. TextIconMNL4:GetIconString() .. "\n " .. TextIconMNL4:GetIconString() .. "|cff00ff00  " .. L["to create clickable quest or achievement links in chat"] .. "  " .. TextIconMNL4:GetIconString(), nil, nil, false)
+    end
+  end
+
+  local function showLink(wwwLinks)
+    tooltip:AddDoubleLine("|cffffffff" .. (wwwLinks or ""), nil, nil, false)
+    tooltip:AddLine(L["Has not been unlocked yet"], 1, 0, 0)
+    tooltip:AddLine(" ")
+    anyShown = true
+  end
+
+  if nodeData.questID then -- solo questID
+    local learned = ns.IsQuestLearned(nodeData.questID)
+    if not learned then
+      if nodeData.wwwName then
+        tooltip:AddDoubleLine("\n" .. nodeData.wwwName, nil, nil, false)
+      end
+      if nodeData.showWWW and (nodeData.wwwLink or nodeData.wwwLink1) then
+        showLink(nodeData.wwwLink or nodeData.wwwLink1, false)
+      end
+    elseif nodeData.hideLink == true then
+      tooltip:AddLine("\n" .. ALREADY_LEARNED .. "\n", 0, 1, 0)
+    end
+  end
+
+  for i = 1, 10 do -- questIDs 1-10
+    ns.questIDs  = nodeData["questIDs"..i]
+    ns.wwwLinks = nodeData["wwwLinks"..i]
+    ns.questNames = nodeData["wwwNames"..i]
+
+    if ns.questIDs then
+      local learned = ns.IsQuestLearned(ns.questIDs)
+      if not learned then
+        if nodeData.showWWW then
+          if ns.questNames then
+            tooltip:AddDoubleLine("|cffffff00" .. ns.questNames, nil, nil, false)
+          end
+          showLink(ns.wwwLinks or ("https://www.wowhead.com/quest=" .. ns.questIDs))
+        end
+      end
+    elseif ns.wwwLinks and nodeData.showWWW then
+      if ns.questNames then
+        tooltip:AddDoubleLine("|cffffff00" .. ns.questNames, nil, nil, false)
+      end
+      showLink(ns.wwwLinks)
+    end
+  end
+
+  if anyShown then
+    showCopyHint()
+  end
 end
 
 local pluginHandler = { }
@@ -380,7 +475,10 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
     end
   end
 
-	for i, v in pairs(instances) do
+  local isMulti = (nodeData.id and type(nodeData.id) == "table")
+  local total = isMulti and #instances or 1
+	for idx, v in pairs(instances) do
+    
     --print(i, v)
 	  if (db.KilledBosses and (extraInformations[v] or (lfgIDs[v] and extraInformations[lfgIDs[v]]))) then
  	    if (extraInformations[v]) then
@@ -533,46 +631,12 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
 
     if nodeData.mnID and not (nodeData.dnID or nodeData.id or nodeData.TransportName) then
       local mnIDname = C_Map.GetMapInfo(nodeData.mnID).name
-      local type = nodeData.typem
       if mnIDname then
         tooltip:AddDoubleLine(" ==> " .. mnIDname, nil, nil, false)
       end
     end
 
-    local IsQuestFlaggedCompleted = C_QuestLog.IsQuestFlaggedCompleted
-
-    if nodeData.questID then
-
-      if IsQuestFlaggedCompleted(nodeData.questID) == false then
-      
-        if nodeData.wwwName then
-          tooltip:AddDoubleLine("\n" .. nodeData.wwwName, nil, nil, false)
-        end
-
-        if nodeData.wwwLink and nodeData.showWWW == true then
-          tooltip:AddDoubleLine("|cffffffff" .. nodeData.wwwLink, nil, nil, false)
-          tooltip:AddLine("\n" .. L["Has not been unlocked yet"] .. "\n" .. "\n", 1, 0, 0)
-          --if ns.OnlyDisplayedIfTheWorldmapIsAlsoOpen then -- only show tooltips if worldmap is opend and hide it on all icons if worldmap is closed
-            if ns.Addon.db.profile.CreateAndCopyLinks then
-              tooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. " " .. "|cff00ff00".. "< " .. L["Middle mouse button to post the link in the chat"] .. " > " .. TextIconMNL4:GetIconString(), nil, nil, false)
-            else
-              tooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. " " .. "|cff00ff00".. "< " .. L["Activate the „Link“ function from MapNotes in the General tab to create clickable links and email addresses in the chat"] .. " > " .. TextIconMNL4:GetIconString() , nil, nil, false)
-            end
-          --end
-        end
-
-      end
-
-      if IsQuestFlaggedCompleted(nodeData.questID) == true and nodeData.hideLink == true then
-        tooltip:AddLine("\n" .. ALREADY_LEARNED .. "\n" .. "\n", 0, 1, 0)
-      end
-
-      if IsQuestFlaggedCompleted(nodeData.questID) then
-          nodeData.showWWW = false
-          nodeData.wwwName = false
-      end
-
-    end
+    mnIDsANDquestIDsTooltip(tooltip, nodeData)
 
     if nodeData.achievementID then
       local _, name, _, completed, _, _, _, description, _, _, _, _, wasEarnedByMe = GetAchievementInfo(nodeData.achievementID)
@@ -588,8 +652,10 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
         if nodeData.wwwLink and nodeData.showWWW == true then
           tooltip:AddDoubleLine("|cffffffff" .. nodeData.wwwLink, nil, nil, false)
           tooltip:AddLine("\n" .. L["Has not been unlocked yet"], 1, 0, 0)
-          if ns.OnlyDisplayedIfTheWorldmapIsAlsoOpen then -- only show tooltips if worldmap is opend and hide it on all icons if worldmap is closed
-            tooltip:AddDoubleLine("\n" .. TextIconInfo:GetIconString() .. " " .. "|cff00ff00".. "< " .. L["Activate the 'Link' function in the MapNotes menu to generate a clickable web link"] .. " >" .. "\n" .. TextIconInfo:GetIconString() .. " " ..  "< " .. L["Middle mouse button to post the link in the chat"] .. " >", nil, nil, false)
+          if ns.Addon.db.profile.CreateAndCopyLinks then
+            tooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. "|cff00ff00 " .. L["Middle mouse button to post the link in the chat"] .. " " .. TextIconMNL4:GetIconString(), nil, nil, false)
+          else
+            tooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. "|cff00ff00  " .. L["Enable „Link“ in MapNotes („General“ - „Chat-Options“)"] .. "  " .. TextIconMNL4:GetIconString() .. "\n " .. TextIconMNL4:GetIconString() .. "|cff00ff00  " .. L["to create clickable quest or achievement links in chat"] .. "  " .. TextIconMNL4:GetIconString(), nil, nil, false)
           end
         end
         
@@ -611,6 +677,10 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
 
       if nodeData.type == "Dungeon" or nodeData.type == "PassageDungeon" or nodeData.type == "VInstanceD" then
         tooltip:AddDoubleLine("|cffffffff" .. CALENDAR_TYPE_DUNGEON)
+      end
+
+      if nodeData.type == "PetBattleDungeon" then
+        tooltip:AddDoubleLine("|cffffffff" .. TOOLTIP_BATTLE_PET .. " " .. CALENDAR_TYPE_DUNGEON)
       end
     
     end
@@ -645,141 +715,51 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
     end
 
     -- Extra Tooltip
-    if ns.OnlyDisplayedIfTheWorldmapIsAlsoOpen then -- only show tooltips if worldmap is opend and hide it on all icons if worldmap is closed
+    if ns.OnlyDisplayedIfTheWorldmapIsAlsoOpen and (not isMulti or idx == total) then -- only show tooltips if worldmap is opend and hide it on all icons if worldmap is closed
+      local mapInfo = C_Map.GetMapInfo(uiMapId)
+      local isCosmicAndAzeroth = mapInfo and (mapInfo.mapType == 0 or mapInfo.mapType == 1) or false
+      local isCosmic = mapInfo and mapInfo.mapType == 0 or false
+      local isAzeroth  = mapInfo and mapInfo.mapType == 1 or false
 
-      if nodeData.id and not nodeData.mnID then  -- instance entrances
-        if ns.Addon.db.profile.journal and not ns.CapitalIDs then
+      if nodeData.mnID then -- show mnID map change information
+        if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
+          tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click to show map >"], nil, nil, false)
+        else -- Original Buttons
+          tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click to show map >"], nil, nil, false)
+        end
+      end
+    
+      if nodeData.id and not nodeData.mnID and ns.Addon.db.profile.journal then -- "id = " instance entrances
+        if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
+          tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click to open Adventure Guide >"], nil, nil, false) -- instance entrances into adventure guide
+        else -- -- Original Buttons
+          tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click to open Adventure Guide >"], nil, nil, false) -- instance entrances into adventure guide
+        end
+      end
+
+
+      if ns.Addon.db.profile.WayPoints and not isCosmicAndAzeroth then -- do not show on Cosmic 946 and Azeroth 947 map
+        if ns.Addon.db.profile.WayPointsShift then -- Shift
           if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
-            tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click to open Adventure Guide >"], nil, nil, false) -- instance entrances into adventure guide
-          else -- -- Original Buttons
-            tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click to open Adventure Guide >"], nil, nil, false) -- instance entrances into adventure guide
+            tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift + Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+          else -- Original Buttons
+            tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift + Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
           end
-        end
-        if ns.Addon.db.profile.WayPoints and not ns.CapitalIDs then
-          if ns.Addon.db.profile.WayPointsShift then -- Shift
-            if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
-              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift + Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
-            else -- Original Buttons
-              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift + Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
-            end
-          else
-            if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
-              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
-            else -- Original Buttons
-              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
-            end
+        else
+          if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
+            tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
+          else -- Original Buttons
+            tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
           end
         end
       end
 
-      if nodeData.mnID or nodeData.delveID or nodeData.dnID then
-
-        if not nodeData.hideInfo == true and not ns.MapType0 then
-          if nodeData.mnID then
-            if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
-              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click to show map >"], nil, nil, false)
-            else -- Original Buttons
-              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click to show map >"], nil, nil, false)
-            end
-          end
-
-          if nodeData.delveID then
-            if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
-              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click to show delve map >"], nil, nil, false)
-            else -- Original Buttons
-              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click to show delve map >"], nil, nil, false)
-            end
-          end
-
-          if not (ns.MapType1 or ns.MapType0 or ns.icons["Delves"]) then
-            if ns.Addon.db.profile.WayPoints and not ns.CapitalIDs then
-              if ns.Addon.db.profile.WayPointsShift then -- Shift
-                if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
-                  tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
-                else
-                  tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
-                end
-              else
-                if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
-                  tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
-                else
-                  tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
-                end
-              end
-            end
-          end
-        end
-
-
-        if not (ns.MapType1 or ns.MapType0 or ns.icons["Delves"]) then
-          if ns.Addon.db.profile.WayPoints and not ns.CapitalIDs then
-            if ns.Addon.db.profile.WayPointsShift then -- Shift
-              if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
-                tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift + Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
-              else
-                tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift + Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
-              end
-            else
-              if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
-                tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
-              else
-                tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
-              end
-            end
-          end
-        end
-
-        if ns.Addon.db.profile.WayPoints then
-          if ns.AllZoneIDs or GetCurrentMapID == 12 or GetCurrentMapID == 13 or GetCurrentMapID == 101 or GetCurrentMapID == 113 or GetCurrentMapID == 424 or GetCurrentMapID == 619
-          or GetCurrentMapID == 875 or GetCurrentMapID == 876 or GetCurrentMapID == 905 or GetCurrentMapID == 1978 or GetCurrentMapID == 1550 or GetCurrentMapID == 572
-          or GetCurrentMapID == 2274 or GetCurrentMapID == 948 then
-            if (not nodeData.hideInfo == true) then
-              if ns.Addon.db.profile.WayPointsShift then -- Shift
-                if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
-                  tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift + Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
-                else -- Original Buttons
-                  tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift + Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
-                end
-              else
-                if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
-                  tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
-                else -- Original Buttons
-                  tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
-                end
-              end
-            end
-          end
-        end
-
-      end
-
-      if nodeData.mnID and nodeData.leaveDelve and ns.icons["Delves"] then
-
-        if ns.Addon.db.profile.WayPoints then
-          if ns.Addon.db.profile.WayPointsShift then -- Shift
-            if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
-              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift + Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
-            else
-              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Shift + Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
-            end
-          else
-              if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
-              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
-            else
-              tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click sets a waypoint on a MapNotes icon >"], nil, nil, false)
-            end
-          end
-        end
-
+      if nodeData.mnID and nodeData.leaveDelve and ns.icons["Delves"] then -- inside delves to leave them
         tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. "< " .. MIDDLE_BUTTON_STRING .. " " .. INSTANCE_LEAVE .. " (" .. DELVES_LABEL .. ") >", nil, nil, false)
       end
-    end
 
-    if ns.OnlyDisplayedIfTheWorldmapIsAlsoOpen then -- only show tooltips if worldmap is opend and hide it on all icons if worldmap is closed
-      if ns.Addon.db.profile.DeleteIcons then
-        if not nodeData.hideInfo == true and not ns.MapType0 then
-          tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cffff0000" .. L["< Alt + Right click to delete this icon >"], nil, nil, false)
-        end
+      if ns.Addon.db.profile.DeleteIcons and not isCosmic then -- do not show on Cosmic 946 map
+        tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cffff0000" .. L["< Alt + Right click to delete this icon >"], nil, nil, false)
       end
     end
 
@@ -868,14 +848,14 @@ do
 
       ns.instanceIcons = value.type == "Dungeon" or value.type == "Raid" or value.type == "PassageDungeon" or value.type == "PassageDungeonRaidMulti" or value.type == "PassageRaid" or value.type == "VInstance" or value.type == "MultiVInstance" 
                           or value.type == "Multiple" or value.type == "LFR" or value.type == "Gray" or value.type == "VKey1" or value.type == "Delves" or value.type == "VInstanceD" or value.type == "VInstanceR" or value.type == "MultiVInstanceD" 
-                          or value.type == "MultiVInstanceR" or value.type == "DelvesPassage" or value.type == "PassageLFR"
+                          or value.type == "MultiVInstanceR" or value.type == "DelvesPassage" or value.type == "PassageLFR" or value.type == "PetBattleDungeon"
 
       ns.transportIcons = value.type == "Portal" or value.type == "PortalS" or value.type == "HPortal" or value.type == "APortal" or value.type == "HPortalS" or value.type == "APortalS" or value.type == "PassageHPortal" 
                           or value.type == "PassageAPortal" or value.type == "PassagePortal" or value.type == "Zeppelin" or value.type == "HZeppelin" or value.type == "AZeppelin" or value.type == "Ship" or value.type == "TorghastUp"
                           or value.type == "AShip" or value.type == "HShip" or value.type == "Carriage" or value.type == "TravelL" or value.type == "TravelH" or value.type == "TravelA" or value.type == "Tport2" 
                           or value.type == "OgreWaygate" or value.type == "WayGateGreen" or value.type == "Ghost" or value.type == "DarkMoon" or value.type == "Mirror" or value.type == "TravelM" or value.type == "B11M" 
                           or value.type == "MOrcF" or value.type == "UndeadF" or value.type == "GoblinF" or value.type == "GilneanF" or value.type == "KulM" or value.type == "DwarfF" or value.type == "OrcM" or value.type == "WayGateGolden"
-                          or value.type == "MoleMachineDwarf"
+                          or value.type == "MoleMachineDwarf" or value.type == "PortalPetBattleDungeon" or value.type == "PortalHPetBattleDungeon" or value.type == "PortalAPetBattleDungeon"
                           
       ns.generalIcons = value.type == "Exit" or value.type == "PassageUpL" or value.type == "PassageDownL" or value.type == "PassageRightL" or value.type == "PassageLeftL" or value.type == "Innkeeper" 
                         or value.type == "Auctioneer" or value.type == "Bank" or value.type == "MNL" or value.type == "Barber" or value.type == "Transmogger" or value.type == "ItemUpgrade" or value.type == "PvPVendor" 
@@ -1089,9 +1069,15 @@ do
           alpha = db.MiniMapAlphaLFR
         end
 
+        if value.type == "PetBattleDungeon" then
+          scale = db.MiniMapScalePetBattleDungeons
+          alpha = db.MiniMapAlphaPetBattleDungeons
+        end
+
         -- Transport Icons
         if value.type == "Portal" or value.type == "PortalS" or value.type == "HPortal" or value.type == "APortal" or value.type == "HPortalS" or value.type == "APortalS" or value.type == "PassageHPortal" 
-          or value.type == "PassageAPortal" or value.type == "WayGateGolden" or value.type == "WayGateGreen" or value.type == "DarkMoon" or value.type == "TorghastUp" then
+          or value.type == "PassageAPortal" or value.type == "WayGateGolden" or value.type == "WayGateGreen" or value.type == "DarkMoon" or value.type == "TorghastUp" or value.type == "PortalPetBattleDungeon"
+          or value.type == "PortalHPetBattleDungeon" or value.type == "PortalAPetBattleDungeon" then
           scale = db.MiniMapScalePortals
           alpha = db.MiniMapAlphaPortals
         end
@@ -1234,7 +1220,7 @@ do
         end
 
         if value.type == "Portal" or value.type == "PortalS" or value.type == "HPortal" or value.type == "APortal" or value.type == "HPortalS" or value.type == "APortalS" or value.type == "PassageHPortal" 
-          or value.type == "PassageAPortal" then
+          or value.type == "PassageAPortal" or value.type == "PortalPetBattleDungeon" or value.type == "PortalHPetBattleDungeon" or value.type == "PortalAPetBattleDungeon" then
           scale = db.DungeonMapScalePortal
           alpha = db.DungeonMapAlphaPortal
         end
@@ -1339,9 +1325,15 @@ do
           alpha = db.ZoneAlphaLFR
         end
 
+        if value.type == "PetBattleDungeon" then
+          scale = db.ZoneScalePetBattleDungeons
+          alpha = db.ZoneAlphaPetBattleDungeons
+        end
+
         -- Transport Icons
         if value.type == "Portal" or value.type == "PortalS" or value.type == "HPortal" or value.type == "APortal" or value.type == "HPortalS" or value.type == "APortalS" or value.type == "PassageHPortal" 
-          or value.type == "PassageAPortal" or value.type == "WayGateGolden" or value.type == "WayGateGreen" or value.type == "TorghastUp" then
+          or value.type == "PassageAPortal" or value.type == "WayGateGolden" or value.type == "WayGateGreen" or value.type == "TorghastUp" or value.type == "PortalPetBattleDungeon" 
+          or value.type == "PortalHPetBattleDungeon" or value.type == "PortalAPetBattleDungeon" then
           scale = db.ZoneScalePortals
           alpha = db.ZoneAlphaPortals
         end
@@ -1810,18 +1802,18 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentM
       if (button == "LeftButton" and db.WayPoints and IsShiftKeyDown()) then
         if GetCurrentMapID and GetCurrentMapID ~= 946 then
           if TomTom then
-                setWaypoint(uiMapId, coord)
-                return
+            setWaypoint(uiMapId, coord)
+            return
           elseif C_Map.GetMapInfo(uiMapId) then
             local x, y = HandyNotes:getXY(coord)
             local mapInfo = C_Map.GetMapInfo(uiMapId)
-              if mapInfo then
-                  local point = UiMapPoint.CreateFromCoordinates(uiMapId, x, y)
-                  if point then
-                      C_Map.SetUserWaypoint(point)
-                      C_SuperTrack.SetSuperTrackedUserWaypoint(true)
-                  end
+            if mapInfo then
+              local point = UiMapPoint.CreateFromCoordinates(uiMapId, x, y)
+              if point then
+                C_Map.SetUserWaypoint(point)
+                C_SuperTrack.SetSuperTrackedUserWaypoint(true)
               end
+            end
             return
           end
         end
@@ -1830,18 +1822,18 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentM
       if (button == "LeftButton" and db.WayPoints) then
         if GetCurrentMapID and GetCurrentMapID ~= 946 then
           if TomTom then
-                setWaypoint(uiMapId, coord)
-                return
+            setWaypoint(uiMapId, coord)
+            return
           elseif C_Map.GetMapInfo(uiMapId) then
             local x, y = HandyNotes:getXY(coord)
             local mapInfo = C_Map.GetMapInfo(uiMapId)
-              if mapInfo then
-                  local point = UiMapPoint.CreateFromCoordinates(uiMapId, x, y)
-                  if point then
-                      C_Map.SetUserWaypoint(point)
-                      C_SuperTrack.SetSuperTrackedUserWaypoint(true)
-                  end
+            if mapInfo then
+              local point = UiMapPoint.CreateFromCoordinates(uiMapId, x, y)
+              if point then
+                C_Map.SetUserWaypoint(point)
+                C_SuperTrack.SetSuperTrackedUserWaypoint(true)
               end
+            end
             return
           end
         end
@@ -1858,17 +1850,17 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentM
       if (button == "RightButton" and db.WayPoints and IsShiftKeyDown()) then
         if GetCurrentMapID and GetCurrentMapID ~= 946 then
           if TomTom then
-                setWaypoint(uiMapId, coord)
-                return
+              setWaypoint(uiMapId, coord)
+              return
           elseif C_Map.GetMapInfo(uiMapId) then
             local x, y = HandyNotes:getXY(coord)
             local mapInfo = C_Map.GetMapInfo(uiMapId)
               if mapInfo then
-                  local point = UiMapPoint.CreateFromCoordinates(uiMapId, x, y)
-                  if point then
-                      C_Map.SetUserWaypoint(point)
-                      C_SuperTrack.SetSuperTrackedUserWaypoint(true)
-                  end
+                local point = UiMapPoint.CreateFromCoordinates(uiMapId, x, y)
+                if point then
+                  C_Map.SetUserWaypoint(point)
+                  C_SuperTrack.SetSuperTrackedUserWaypoint(true)
+                end
               end
             return
           end
@@ -1878,18 +1870,18 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentM
       if (button == "RightButton" and db.WayPoints) then
         if GetCurrentMapID and GetCurrentMapID ~= 946 then
           if TomTom then
-                setWaypoint(uiMapId, coord)
-                return
+            setWaypoint(uiMapId, coord)
+            return
           elseif C_Map.GetMapInfo(uiMapId) then
             local x, y = HandyNotes:getXY(coord)
             local mapInfo = C_Map.GetMapInfo(uiMapId)
-              if mapInfo then
-                  local point = UiMapPoint.CreateFromCoordinates(uiMapId, x, y)
-                  if point then
-                      C_Map.SetUserWaypoint(point)
-                      C_SuperTrack.SetSuperTrackedUserWaypoint(true)
-                  end
+            if mapInfo then
+              local point = UiMapPoint.CreateFromCoordinates(uiMapId, x, y)
+              if point then
+                C_Map.SetUserWaypoint(point)
+                C_SuperTrack.SetSuperTrackedUserWaypoint(true)
               end
+            end
             return
           end
         end
@@ -1911,15 +1903,17 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentM
   end
 
   if (button == "RightButton") and IsAltKeyDown() then
-    if ns.Addon.db.profile.DeleteIcons then
-      StaticPopup_Show("Delete_Icon?")
+    local isCosmic = (mapInfo and mapInfo.mapType == 0) or false -- does not work on comsic map
+    if not isCosmic then
+      if ns.Addon.db.profile.DeleteIcons then
+        StaticPopup_Show("Delete_Icon?")
+      end
     end
   end
 
   if (button == "MiddleButton" and mnID3 and not IsShiftKeyDown() and not IsAltKeyDown()) then
-      WorldMapFrame:SetMapID(mnID3)
+    WorldMapFrame:SetMapID(mnID3)
   end
-
 
   if (not pressed) then return end
 
@@ -1927,21 +1921,68 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentM
     StaticPopup_Show("Leave_Delve?")
   end
 
-  if (button == "MiddleButton") and not IsShiftKeyDown() then
+  if (button == "MiddleButton") and not IsShiftKeyDown() then -- create links
     if ns.Addon.db.profile.CreateAndCopyLinks then
-      if wwwLink and not (ns.achievementID or ns.questID) then
+      local printed = false
+
+      for i = 1, 10 do
+        ns.wwwLinks = nodes[uiMapId][coord]["wwwLinks"..i]
+        ns.questIDs = nodes[uiMapId][coord]["questIDs"..i]
+        if ns.wwwLinks and not ns.questIDs then
+          print(ns.wwwLinks)
+          printed = true
+        end
+      end
+
+      local function getQuestNameFor(node, questID)
+      if node.questID == questID and node.wwwName then
+        return node.wwwName
+      end
+      for i = 1, 10 do
+        if node["questIDs" .. i] == questID then
+          return node["wwwNames" .. i] or C_QuestLog.GetTitleForQuestID(questID)
+        end
+      end
+      return C_QuestLog.GetTitleForQuestID(questID)
+    end
+
+    local function printQuest(questIDs, questNames) -- print questIDs and questNames
+      local suffix = questNames and (" (".. questNames ..")") or ""
+      print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_QUEST, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/quest=" .. questIDs .. suffix)
+    end
+
+    if not ns.hideLink then
+      if ns.questID and not ns.IsQuestLearned(ns.questID) then
+        ns.questIDs = ns.questID
+        printQuest(ns.questID, getQuestNameFor(nodes[uiMapId][coord], ns.questID))
+        printed = true
+      end
+
+      for i = 1, 10 do
+        local questIDs = nodes[uiMapId][coord]["questIDs" .. i]
+        if questIDs and not ns.IsQuestLearned(questIDs) then
+          ns.questIDs = questIDs -- important for url-replacer
+          local questNames = getQuestNameFor(nodes[uiMapId][coord], questIDs)
+          printQuest(questIDs, questNames)
+          printed = true
+        end
+      end
+    end
+
+      if not printed and wwwLink and not (ns.achievementID or ns.questID) then -- print wwwLink
         print(wwwLink)
-      elseif ns.questID and not ns.hideLink then
-        print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_QUEST, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/quest=" .. ns.questID)
-      elseif ns.achievementID then
+        printed = true
+      end
+
+      if ns.achievementID then -- print achievement
         print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/achievement=" .. ns.achievementID)
       end
     end
+
   end
 
   if ns.Addon.db.profile.activate.SwapButtons then -- New SwapButtons
     if (button == "RightButton" and not IsAltKeyDown()) then
-
       if mnID then
         WorldMapFrame:SetMapID(mnID)
         return
@@ -2050,7 +2091,6 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentM
   end
 
 end
-
 
 local Addon = CreateFrame("Frame")
 Addon:RegisterEvent("PLAYER_LOGIN")

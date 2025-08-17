@@ -65,6 +65,12 @@ ns._currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
             nodes[1527][76708435] = { id = 68, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Vortex Pinnacle
           end
 
+          -- Kalimdor PetBattleDungeons
+          if self.db.profile.showZonePetBattleDungeons then
+            nodes[10][38776816] = { npcID = 116781, name = "", mnID = 825, type = "PetBattleDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Wailing Caverns
+            nodes[11][23518124] = { npcID = 116781, name = "", mnID = 825, type = "PetBattleDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Wailing Caverns
+          end
+
         -- Kalimdor Dungeons without ClassicIcons is activ
           if self.db.profile.showZoneDungeons and not db.activate.ClassicIcons then
             nodes[69][60323015] = { id = 230, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dire Maul - Capital Gardens - West left Entrance 
@@ -93,8 +99,8 @@ ns._currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
           nodes[1527][07180499] = { id = 744, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Temple of Ahn'Qiraj
           nodes[1527][37008143] = { id = 74, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Throne of the Four Winds
           nodes[1527][38238069] = { dnID = L["Position of the real Instance Entrance"], id = 74, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Throne of the Four Winds
-          nodes[1527][55184395] = { dnID = L["Instance Entrance"] .. " " .. L["switches weekly between"] .. " " .. L["Uldum"] .. " (" .. L["Kalimdor"] ..")" .. " & " .. L["Vale of Eternal Blossoms"] .. " (" .. L["Pandaria"] .. ")", id = 1180, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Ny'alotha the Waking City
-          nodes[71][12668471] = { dnID = L["Instance Entrance"] .. " " .. L["switches weekly between"] .. " " .. L["Uldum"] .. " (" .. L["Kalimdor"] ..")" .. " & " .. L["Vale of Eternal Blossoms"] .. " (" .. L["Pandaria"] .. ")", id = 1180, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Ny'alotha the Waking City
+          nodes[1527][55184395] = { dnID = L["Instance Entrance"] .. " " .. L["switches weekly between"] .. " " .. ns.Uldum .. " (" .. ns.Kalimdor ..")" .. " & " .. ns.ValeOfEternalBlossoms .. " (" .. ns.Pandaria .. ")", id = 1180, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Ny'alotha the Waking City
+          nodes[71][12668471] = { dnID = L["Instance Entrance"] .. " " .. L["switches weekly between"] .. " " .. ns.Uldum .. " (" .. ns.Kalimdor ..")" .. " & " .. ns.ValeOfEternalBlossoms .. " (" .. ns.Pandaria .. ")", id = 1180, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Ny'alotha the Waking City
           nodes[75][39601704] = { id = 750, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Battle of Mount Hyjal
           nodes[75][60872115] = { id = 187, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dragon Soul
           end
@@ -126,23 +132,23 @@ ns._currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
             end
 
             if self.db.profile.showZoneMultiple then
-              nodes[71][64864997] = { mnID = 75, hideInfo = true, id = { 187, 750, 279, 255, 251, 184, 185, 186, }, type = "MultipleM", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
-              nodes[74][30857356] = { mnID = 75, hideInfo = true, id = { 187, 750, 279, 255, 251, 184, 185, 186, }, type = "MultipleM", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
+              nodes[71][64864997] = { mnID = 75, id = { 187, 750, 279, 255, 251, 184, 185, 186, }, type = "MultipleM", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
+              nodes[74][30857356] = { mnID = 75, id = { 187, 750, 279, 255, 251, 184, 185, 186, }, type = "MultipleM", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
             end
 
           end
 
         --Kalimdor Multiple
           if self.db.profile.showZoneMultiple and not db.activate.ClassicIcons then  
-            nodes[71][64864997] = { mnID = 75, hideInfo = true, id = { 187, 750, 279, 255, 251, 184, 185, 186, }, type = "PassageDungeonRaidMulti", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
-            nodes[74][30857356] = { mnID = 75, hideInfo = true, id = { 187, 750, 279, 255, 251, 184, 185, 186, }, type = "PassageDungeonRaidMulti", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
+            nodes[71][64864997] = { mnID = 75, id = { 187, 750, 279, 255, 251, 184, 185, 186, }, type = "PassageDungeonRaidMulti", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
+            nodes[74][30857356] = { mnID = 75, id = { 187, 750, 279, 255, 251, 184, 185, 186, }, type = "PassageDungeonRaidMulti", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dragon Soul, The Battle for Mount Hyjal, The Culling of Stratholme, Black Morass, Old Hillsbrad Foothills, End Time, Well of Eternity, Hour of Twilight Heroic
           end
 
 
         -- Kalimdor LFR
           if self.db.profile.showZoneLFR then
-            nodes[71][64574742] = { mnID = 75, name = L["Auridormi"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", hideInfo = true, id = { 187 }, type = "LFR", showInZone = true, showOnContinent = false, showOnMinimap = false }
-            nodes[75][63122722] = { mnID = 75, name = L["Auridormi"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", hideInfo = true, id = { 187 }, type = "LFR", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[71][64574742] = { mnID = 75, name = ns.Auridormi .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", id = { 187 }, type = "LFR", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[75][63122722] = { mnID = 75, name = ns.Auridormi .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", id = { 187 }, type = "LFR", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
         end
@@ -194,6 +200,16 @@ ns._currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
             nodes[34][71245337] = { id = 66, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackrock Caverns
           end
 
+          -- Eastern Kingdom PetBattleDungeons
+          if self.db.profile.showZonePetBattleDungeons then
+            nodes[23][43141993] = { npcID = 150987, name = "", mnID = 1505, type = "PetBattleDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Stratholme
+            nodes[27][29903684] = { npcID = 147070, name = "", mnID = 30, type = "PetBattleDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Gnomeregan
+            nodes[30][31397107] = { npcID = 147070, name = "", mnID = 840, type = "PetBattleDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Gnomeregan
+            nodes[33][45004700] = { npcID = 161782, name = "", mnID = 35, type = "PetBattleDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackrock Deeps
+            nodes[35][33082315] = { npcID = 161782, name = "", mnID = 1578, type = "PetBattleDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackrock Deeps
+            nodes[36][20643322] = { npcID = 161782, name = "", mnID = 33, type = "PetBattleDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackrock Deeps
+            nodes[52][41567113] = { npcID = 119390, name = "", mnID = 835, type = "PetBattleDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Deadmines
+          end
 
         -- Eastern Kingdom Raids
           if self.db.profile.showZoneRaids then
@@ -212,6 +228,11 @@ ns._currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
             nodes[35][53778131] = { id = 741, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Molten Core
           end
 
+          if self.db.profile.showZoneMultiple then
+            nodes[36][20643322] = { mnID = 33, id = { 741, 742, 66, 228, 229, 559 }, name = L["Way to the Instance Entrance"], type = "MultipleM", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
+            --nodes[36][20643322] = { mnID = 33, name = "", type = "MultipleM", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
+            nodes[33][45004700] = { mnID = 35, id = { 741, 228 }, name = L["Way to the Instance Entrance"] .. "\n" .. TOOLTIP_BATTLE_PET .. " " .. LFG_TYPE_DUNGEON, type = "MultipleM", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackrock Depths
+          end
 
           -- Eastern Kingdom Passage
           if self.db.profile.showZonePassage and not db.activate.ClassicIcons then  
@@ -219,28 +240,22 @@ ns._currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
             nodes[469][32793702] = { mnID = 30, dnID = L["Way to the Instance Entrance"], id = 231, type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Gnomeregan
             nodes[27][31393804] = { mnID = 30, dnID = L["Way to the Instance Entrance"], id = 231, type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Gnomeregan     
             nodes[51][69675353] = { dnID = L["Way to the Instance Entrance"], id = 237, type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Temple of Atal'hakkar 
-            nodes[36][20643322] = { mnID = 33, hideInfo = true, id = { 741, 742, 66, 228, 229, 559 }, name = L["Way to the Instance Entrance"], type = "PassageDungeonRaidMulti", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
-            nodes[32][35268404] = { mnID = 33, name = "", type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
+            nodes[36][20643322] = { mnID = 33, id = { 741, 742, 66, 228, 229, 559 }, name = L["Way to the Instance Entrance"] .. "\n" .. TOOLTIP_BATTLE_PET .. " " .. LFG_TYPE_DUNGEON, type = "PassageDungeonRaidMulti", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
+            nodes[32][35268404] = { mnID = 33, id = { 741, 742, 66, 228, 229, 559 }, name = L["Way to the Instance Entrance"] .. "\n" .. TOOLTIP_BATTLE_PET .. " " .. LFG_TYPE_DUNGEON, type = "PassageDungeonRaidMulti", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
             nodes[15][58543698] = { dnID = L["Way to the Instance Entrance"], id = 239, name = "", type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Uldaman (Secondary Entrance) 
             nodes[23][43251854] = { dnID = L["Way to the Instance Entrance"], id = 1292, type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false }-- Stratholme Service Entrance 
-            nodes[33][68635371] = { mnID = 34, hideInfo = true, id = { 66 }, name = L["Way to the Instance Entrance"], type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackrock Caverns
-            nodes[33][65896169] = { mnID = 34, hideInfo = true, id = { 66 }, name = L["Way to the Instance Entrance"], type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackrock Caverns
-            nodes[33][45004700] = { mnID = 35, hideInfo = true, id = { 741, 228 }, name = L["Way to the Instance Entrance"], type = "PassageRaid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackrock Depths
+            nodes[33][68635371] = { mnID = 34, id = { 66 }, name = L["Way to the Instance Entrance"], type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackrock Caverns
+            nodes[33][65896169] = { mnID = 34, id = { 66 }, name = L["Way to the Instance Entrance"], type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackrock Caverns
+            nodes[33][45004700] = { mnID = 35, id = { 741, 228 }, name = L["Way to the Instance Entrance"] .. "\n" .. TOOLTIP_BATTLE_PET .. " " .. LFG_TYPE_DUNGEON, type = "PassageDungeonRaidMulti", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackrock Depths
             nodes[34][58792725] = { mnID = 33, dnID = DUNGEON_FLOOR_BURNINGSTEPPES14, name = "", type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackrock Depths
             nodes[35][58168728] = { mnID = 33, dnID = DUNGEON_FLOOR_BURNINGSTEPPES14, name = "", type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackrock Depths
 
             -- Passage Nodes above Blizzards Icons to make it Clickable for maximized Maps
-            nodes[52][42527168] = { dnID = L["Way to the Instance Entrance"], id = 63, type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Deadmines   
+            nodes[52][42527168] = { mnID = 55, dnID = L["Way to the Instance Entrance"], id = 63, type = "PassageDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Deadmines   
           end
-
 
           -- Eastern Kingdom ClassicIcons
           if db.activate.ClassicIcons then
-
-            if self.db.profile.showZoneMultiple then
-              nodes[36][20643322] = { mnID = 33, hideInfo = true, id = { 741, 742, 66, 228, 229, 559 }, name = L["Way to the Instance Entrance"], type = "MultipleM", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
-              --nodes[36][20643322] = { mnID = 33, name = "", type = "MultipleM", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
-            end
 
             if self.db.profile.showZoneDungeons then
               nodes[15][42031147] = { dnID = L["Way to the Instance Entrance"], id = 239, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Uldaman
@@ -255,18 +270,14 @@ ns._currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
               nodes[33][75516099] = { id = 66, name = "", type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackrock Caverns
             end
 
-            if self.db.profile.showZoneRaids then
-              nodes[33][45004700] = { mnID = 35, hideInfo = true, id = { 741, 228 }, name = L["Way to the Instance Entrance"], type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackrock Depths
-            end
-
           end
 
           
         --Eastern Kingdom ContinentOldVanilla
           if self.db.profile.showZoneOldVanilla then
             nodes[23][35722308] = { mnID = 166, name = L["Secret Entrance"] .. " " .. L["(Wards of the Dread Citadel - Achievement)"] .. " - " .. L["Old Version"], type = "VInstanceR", showInZone = true, showOnContinent = false, showOnMinimap = false }-- Old Naxxramas version - Secret Entrance - Wards of the Dread Citadel 
-            nodes[19][48275496] = { hideInfo = true, name = L["Old Keyring \n You get the Scarlet Key in the \n [Loot-Filled Pumpkin] from [Hallow's End Event] or from the [Auction House] \n now you can activate the [Old Keyring] here \n to activate old dungeonversions from the Scarlet Monastery"], type = "VKey1", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Scarlet Monastery Key for Old dungeons 
-            nodes[2070][83723082] = { hideInfo = true, name = L["Old Keyring \n You get the Scarlet Key in the \n [Loot-Filled Pumpkin] from [Hallow's End Event] or from the [Auction House] \n now you can activate the [Old Keyring] here \n to activate old dungeonversions from the Scarlet Monastery"], type = "VKey1", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Scarlet Monastery Key for Old dungeons 
+            nodes[19][48275496] = { name = L["Old Keyring \n You get the Scarlet Key in the \n [Loot-Filled Pumpkin] from [Hallow's End Event] or from the [Auction House] \n now you can activate the [Old Keyring] here \n to activate old dungeonversions from the Scarlet Monastery"], type = "VKey1", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Scarlet Monastery Key for Old dungeons 
+            nodes[2070][83723082] = { name = L["Old Keyring \n You get the Scarlet Key in the \n [Loot-Filled Pumpkin] from [Hallow's End Event] or from the [Auction House] \n now you can activate the [Old Keyring] here \n to activate old dungeonversions from the Scarlet Monastery"], type = "VKey1", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Scarlet Monastery Key for Old dungeons 
             nodes[18][82333243] = { mnID = 19, name = L["Use the Old Keyring"], dnID = L["Graveyard"] .. " - " .. L["Old Version"] .. "\n" .. L["Cathedral"] .. " - " .. L["Old Version"] .. "\n" .. L["Library"] .. " - " .. L["Old Version"] .. "\n" .. L["Armory"] .. " - " .. L["Old Version"], type = "MultiVInstanceD", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Scarlet Monastery Key for Old dungeons
             nodes[2070][82333243] = { mnID = 19, name = L["Use the Old Keyring"], dnID = L["Graveyard"] .. " - " .. L["Old Version"] .. "\n" .. L["Cathedral"] .. " - " .. L["Old Version"] .. "\n" .. L["Library"] .. " - " .. L["Old Version"] .. "\n" .. L["Armory"] .. " - " .. L["Old Version"], type = "MultiVInstanceD", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Scarlet Monastery Key for Old dungeons
             nodes[2070][83812772] = { id = 316, name ="", type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Scarlet Monastery
@@ -417,7 +428,7 @@ ns._currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
             nodes[504][63833203] = { id = 362, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Throne of Thunder
             nodes[390][73714248] = { id = 369, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Siege of Orgrimmar
             nodes[390][39604763] = { id = 1180, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["This instance entrance is in a different timeline. Other timeline can be activated at Zidormi"] .. "  => /way 80.47 31.95" } -- Ny'alotha the Waking City
-            nodes[1530][40044556] = { id = 1180, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Instance Entrance"] .. " " .. L["switches weekly between"] .. " " .. L["Uldum"] .. " (" .. L["Kalimdor"] ..")" .. " & " .. L["Vale of Eternal Blossoms"] .. " (" .. L["Pandaria"] .. ")" } -- Ny'alotha the Waking City
+            nodes[1530][40044556] = { id = 1180, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Instance Entrance"] .. " " .. L["switches weekly between"] .. " " .. ns.Uldum .. " (" .. ns.Kalimdor ..")" .. " & " .. ns.ValeOfEternalBlossoms .. " (" .. ns.Pandaria .. ")" } -- Ny'alotha the Waking City
             nodes[1530][74114014] = { id = 369, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Siege of Orgrimmar
             nodes[1530][72684208] = { id = 369, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Position of the real Instance Entrance"] } -- Siege of Orgrimmar
           end
@@ -425,8 +436,8 @@ ns._currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
 
         -- Pandaria LFR
           if self.db.profile.showZoneLFR then
-            nodes[390][83153063] = { mnID = 390, name = L["Lorewalker Han"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", hideInfo = true, id = { 317, 330, 362, 320 }, type = "LFR", showInZone = true, showOnContinent = false, showOnMinimap = false }
-            nodes[1530][83712804] = { mnID = 390, name = L["Lorewalker Han"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", hideInfo = true, id = { 317, 330, 362, 320 }, type = "LFR", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[390][83153063] = { mnID = 390, name = ns.LorewalkerHan .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", id = { 317, 330, 362, 320 }, type = "LFR", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[1530][83712804] = { mnID = 390, name = ns.LorewalkerHan .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", id = { 317, 330, 362, 320 }, type = "LFR", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
         end
 
@@ -468,11 +479,11 @@ ns._currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
           if self.db.profile.showZoneLFR then
             
             if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
-              nodes[525][47746482] = { mnID = 590, name = L["Seer Kazal"] .. " - " .. REQUIRES_LABEL .. " " .. GARRISON_LOCATION_TOOLTIP .. " " .. LEVEL .. " " .. ACTION_SPELL_CAST_START_MASTER .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", hideInfo = true, id = { 477, 457, 669 }, type = "LFR", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              nodes[525][47746482] = { mnID = 590, name = ns.SeerKazal .. " - " .. REQUIRES_LABEL .. " " .. GARRISON_LOCATION_TOOLTIP .. " " .. LEVEL .. " " .. ACTION_SPELL_CAST_START_MASTER .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", id = { 477, 457, 669 }, type = "LFR", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
             
             if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
-              nodes[539][29001638] = { mnID = 582, name = L["Seer Kazal"] .. " - " .. REQUIRES_LABEL .. " " .. GARRISON_LOCATION_TOOLTIP .. " " .. LEVEL .. " " .. ACTION_SPELL_CAST_START_MASTER .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", hideInfo = true, id = { 477, 457, 669 }, type = "LFR", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              nodes[539][29001638] = { mnID = 582, name = ns.SeerKazal .. " - " .. REQUIRES_LABEL .. " " .. GARRISON_LOCATION_TOOLTIP .. " " .. LEVEL .. " " .. ACTION_SPELL_CAST_START_MASTER .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", id = { 477, 457, 669 }, type = "LFR", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
           end
 
@@ -519,7 +530,7 @@ ns._currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
 
         -- Broken Isles Raids without ClassicIcons
           if self.db.profile.showZonePassage and not db.activate.ClassicIcons then
-            nodes[680][43346230] = { name = L["Way to the Instance Entrance"], hideInfo = true, id = { 726, 786 }, type = "PassageDungeonRaidMulti", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Arcway
+            nodes[680][43346230] = { name = L["Way to the Instance Entrance"], id = { 726, 786 }, type = "PassageDungeonRaidMulti", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Arcway
           end
 
 
@@ -527,7 +538,7 @@ ns._currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
           if db.activate.ClassicIcons then
 
             if self.db.profile.showZoneMultiple then
-              nodes[680][43346230] = { name = L["Way to the Instance Entrance"], hideInfo = true, id = { 726, 786 }, type = "MultipleM", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Arcway
+              nodes[680][43346230] = { name = L["Way to the Instance Entrance"], id = { 726, 786 }, type = "MultipleM", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Arcway
             end
           end
 
@@ -588,7 +599,7 @@ ns._currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
           if self.db.profile.showZoneLFR then
 
             if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
-              nodes[862][57304305] = { mnID = 1164, name = L["Eppu"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", hideInfo = true, id = { 1176, 1031, 1179, 1036 }, type = "LFR", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              nodes[862][57304305] = { mnID = 1164, name = ns.Eppu .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", id = { 1176, 1031, 1179, 1036 }, type = "LFR", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
           end
 
@@ -636,7 +647,7 @@ ns._currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
           if self.db.profile.showZoneLFR then
 
             if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
-              nodes[895][75112192] = { mnID = 1161, name = L["Kiku"] .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", hideInfo = true, id = { 1176, 1031, 1179, 1036 }, type = "LFR", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              nodes[895][75112192] = { mnID = 1161, name = ns.Kiku .. "\n" .. L["Registrant"] .. " - " .. RAID_FINDER .. "\n" .. " ", id = { 1176, 1031, 1179, 1036 }, type = "LFR", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
           end
         end

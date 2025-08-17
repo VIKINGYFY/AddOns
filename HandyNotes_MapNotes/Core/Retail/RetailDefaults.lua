@@ -22,6 +22,8 @@ ns.defaults = {
       ZoneAlphaOldVanilla = 1,
       ZoneScaleLFR = 2,
       ZoneAlphaLFR = 1,
+      ZoneScalePetBattleDungeons = 2,
+      ZoneAlphaPetBattleDungeons = 1,
       
       -- Instance single MiniMap icon scale and alpha
       MiniMapInstanceScale = 2,
@@ -38,6 +40,8 @@ ns.defaults = {
       MiniMapAlphaOldVanilla = 1,
       MiniMapScaleLFR = 2,
       MiniMapAlphaLFR = 1,
+      MiniMapScalePetBattleDungeons = 2,
+      MiniMapAlphaPetBattleDungeons = 1,
 
     -- Transport single Zone icon scale and alpha 
       ZoneTransportScale = 1.5,
@@ -222,6 +226,7 @@ ns.defaults = {
       showMiniMapPassage = true,
       showMiniMapOldVanilla = true,
       showMiniMapLFR = true,
+      showMiniMapPetBattleDungeons = true,
     -- MiniMap Transport
       showMiniMapPortals = true,
       showMiniMapZeppelins = true,
@@ -295,6 +300,7 @@ ns.defaults = {
       showZonePassage = true,
       showZoneOldVanilla = true,
       showZoneLFR = true,
+      showZonePetBattleDungeons = true,
     -- Zone Transport
       showZonePortals = true,
       showZoneZeppelins = true,
@@ -363,6 +369,7 @@ ns.defaults = {
       showContinentDelves = true,
       showContinentPaths = true,
       showContinentRaces = true,
+      showContinentPetBattleDungeons = true,
       showContinentFP = true, -- only Classic and Cataclym
       showContinentPvPandPvEVendor = true,
       showContinentKalimdor = true,
@@ -394,6 +401,7 @@ ns.defaults = {
       showAzerothLFR = true,
       showAzerothDelves = true,
       showAzerothRaces = true,
+      showAzerothPetBattleDungeons = true,
       showAzerothFP = true, -- only classic +
       showAzerothKalimdor = true,
       showAzerothEasternKingdom = true,

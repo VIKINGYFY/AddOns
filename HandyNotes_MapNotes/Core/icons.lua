@@ -151,6 +151,7 @@ ns.icons = {
 ["PathL"] = iconLink .. "PathL",
 ["PathLO"] = iconLink .. "PathLO",
 --instance
+["PetBattleDungeon"] = iconLink .. "PetBattleDungeon",
 ["LFR"] = iconLink .. "LFR",
 ["PassageLFR"] = iconLink .. "PassageLFR",
 ["Dungeon"] = iconLink .. "Dungeon", 
@@ -188,6 +189,9 @@ ns.icons = {
 ["PassagePortal"] = iconLink .. "passagePortal",
 ["PassageHPortal"] = iconLink .. "passageHPortal",
 ["PassageAPortal"] = iconLink .. "passageAPortal",
+["PortalPetBattleDungeon"] = iconLink .. "portalPetBattleDungeon",
+["PortalHPetBattleDungeon"] = iconLink .. "portalHPetBattleDungeon",
+["PortalAPetBattleDungeon"] = iconLink .. "portalAPetBattleDungeon",
 --portal Old
 ["PortalOld"] = iconLink .. "portalOld",
 ["PortalSOld"] = iconLink .. "portalSOld",
@@ -398,6 +402,9 @@ TextIconWayGateGolden = TextIcon(iconLink .. "WayGateGolden", 50, 50, 1, 50, 1, 
 TextIconWayGateGreen = TextIcon(iconLink .. "WayGateGreen", 50, 50, 1, 50, 1, 50)
 TextIconDarkMoon = TextIcon(iconLink .. "DarkMoon", 70, 70, 1, 50, 1, 50)
 TextIconTorghastUp = TextIcon(iconLink .. "TorghastUp", 50, 50, 1, 50, 1, 50)
+TextIconPortalPetBattleDungeon = TextIcon(iconLink .. "portalPetBattleDungeon", 50, 50, 1, 50, 1, 50)
+TextIconPortalHPetBattleDungeon = TextIcon(iconLink .. "portalHPetBattleDungeon", 50, 50, 1, 50, 1, 50)
+TextIconPortalAPetBattleDungeon = TextIcon(iconLink .. "portalAPetBattleDungeon", 50, 50, 1, 50, 1, 50)
 --portal Old
 TextIconPortalOld = TextIcon(iconLink .. "portalOld", 50, 50, 1, 50, 1, 50) 
 TextIconHPortalOld = TextIcon(iconLink .. "hportalOld", 50, 50, 1, 50, 1, 50)
@@ -411,6 +418,7 @@ TextIconPathR = TextIcon(iconLink .. "PathR", 50, 50, 1, 50, 1, 50)
 TextIconPathU = TextIcon(iconLink .. "PathU", 50, 50, 1, 50, 1, 50)
 TextIconPathL = TextIcon(iconLink .. "PathL", 50, 50, 1, 50, 1, 50)
 --instance
+TextIconPetBattleDungeon = TextIcon(iconLink .. "PetBattleDungeon", 50, 50, 1, 50, 1, 50)
 TextIconLFR = TextIcon(iconLink .. "LFR", 50, 50, 1, 50, 1, 50)
 TextIconPassageLFR = TextIcon(iconLink .. "PassageLFR", 50, 50, 1, 50, 1, 50)
 TextIconDungeon = TextIcon(iconLink .. "Dungeon", 50, 50, 1, 50, 1, 50)

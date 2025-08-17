@@ -77,9 +77,9 @@ _V["PATH_CUSTOM_ICONS"] = "Interface/Addons/WorldQuestTab/Images/CustomIcons";
 _V["LIST_ANCHOR_TYPE"] = {["flight"] = 1, ["world"] = 2, ["full"] = 3, ["taxi"] = 4};
 
 _V["TOOLTIP_STYLES"] = { 
-	["default"] = {},
+	["default"] = TOOLTIP_QUEST_REWARDS_STYLE_WORLD_QUEST,
 	["callingAvailable"] = { ["hideObjectives"] = true; },
-	["callingActive"] = { ["hideType"] = true; },
+	["callingActive"] = TOOLTIP_QUEST_REWARDS_STYLE_CALLING_REWARD,
 }
 
 _V["COLOR_IDS"] = {
@@ -506,6 +506,13 @@ _V["SETTING_LIST"] = {
 			end
 			,["getValueFunc"] = function() return WQT.settings.list.showZone end
 			}
+	,{["template"] = "WQT_SettingCheckboxTemplate", ["categoryID"] = "QUESTLIST", ["label"] = _L["SETTINGS_WARBAND_ICON"], ["tooltip"] = _L["SETTINGS_WARBAND_ICON_TT"]
+			, ["valueChangedFunc"] = function(value)
+				WQT.settings.list.warbandIcon = value;
+				WQT_ListContainer:DisplayQuestList();
+			end
+			,["getValueFunc"] = function() return WQT.settings.list.warbandIcon end
+			}
 	,{["template"] = "WQT_SettingSliderTemplate", ["categoryID"] = "QUESTLIST", ["label"] = _L["REWARD_NUM_DISPLAY"], ["tooltip"] = _L["REWARD_NUM_DISPLAY_TT"], ["min"] = 0, ["max"] = 5, ["valueStep"] = 1
 			, ["valueChangedFunc"] = function(value) 
 				WQT.settings.list.rewardNumDisplay = value;
@@ -641,6 +648,14 @@ _V["SETTING_LIST"] = {
 			,["getValueFunc"] = function() return WQT.settings.pin.timeIcon; end
 			,["isDisabled"] = function() return WQT.settings.pin.disablePoI;  end
 			}	
+	,{["template"] = "WQT_SettingCheckboxTemplate", ["categoryID"] = "MAPPINS_MINIICONS", ["label"] = _L["SETTINGS_WARBAND_ICON"], ["tooltip"] = _L["SETTINGS_WARBAND_ICON_TT"]
+			, ["valueChangedFunc"] = function(value) 
+				WQT.settings.pin.warbandIcon = value;
+				WQT_WorldQuestFrame.pinDataProvider:RefreshAllData()
+			end
+			,["getValueFunc"] = function() return WQT.settings.pin.warbandIcon; end
+			,["isDisabled"] = function() return WQT.settings.pin.disablePoI;  end
+			}	
 	,{["template"] = "WQT_SettingSliderTemplate", ["categoryID"] = "MAPPINS_MINIICONS", ["label"] = _L["REWARD_NUM_DISPLAY_PIN"], ["tooltip"] = _L["REWARD_NUM_DISPLAY_PIN_TT"], ["min"] = 0, ["max"] = 3, ["valueStep"] = 1
 			, ["valueChangedFunc"] = function(value) 
 				WQT.settings.pin.numRewardIcons = value;
@@ -679,7 +694,7 @@ _V["NUMBER_ABBREVIATIONS_ASIAN"] = {
 		{["value"] = 1000000000, ["format"] = _L["NUMBERS_THIRD"]}
 		,{["value"] = 100000000, ["format"] = _L["NUMBERS_SECOND"], ["decimal"] = true}
 		,{["value"] = 100000, ["format"] = _L["NUMBERS_FIRST"]}
-		,{["value"] = 1000, ["format"] = _L["NUMBERS_FIRST"], ["decimal"] = true}
+		,{["value"] = 10000, ["format"] = _L["NUMBERS_FIRST"], ["decimal"] = true}
 	}
 
 _V["NUMBER_ABBREVIATIONS"] = {
@@ -841,7 +856,7 @@ _V["SORT_FUNCTIONS"] = {
 			local tagInfoB = b:GetTagInfo();
 			if (tagInfoA and tagInfoB and tagInfoA.quality and tagInfoB.quality and tagInfoA.quality ~= tagInfoB.quality) then 
 				return tagInfoA.quality > tagInfoB.quality; 
-			end 
+			end
 		end
 	,["title"] = function(a, b)
 			if (a.title ~= b.title) then 
@@ -863,8 +878,12 @@ _V["SORT_FUNCTIONS"] = {
 			if (aIsCriteria ~= bIsCriteria) then return aIsCriteria and not bIsCriteria; end 
 		end
 	,["zone"] = function(a, b) 
-			local mapInfoA = WQT_Utils:GetMapInfoForQuest(a.questID);
-			local mapInfoB = WQT_Utils:GetMapInfoForQuest(b.questID);
+			local mapInfoA = WQT_Utils:GetCachedMapInfo(a.mapID);
+			local mapInfoB = WQT_Utils:GetCachedMapInfo(b.mapID);
+			if (not mapInfoA or not mapInfoB) then
+				return mapInfoA;
+			end
+
 			if (mapInfoA and mapInfoA.name and mapInfoB and mapInfoB.name and mapInfoA.mapID ~= mapInfoB.mapID) then 
 				if (WQT.settings.list.alwaysAllQuests and (mapInfoA.mapID == WorldMapFrame.mapID or mapInfoB.mapID == WorldMapFrame.mapID)) then 
 					return mapInfoA.mapID == WorldMapFrame.mapID and mapInfoB.mapID ~= WorldMapFrame.mapID;
@@ -1388,6 +1407,7 @@ _V["WQT_DEFAULTS"] = {
 			typeIcon = true;
 			factionIcon = true;
 			showZone = true;
+			warbandIcon = false;
 			amountColors = true;
 			alwaysAllQuests = false;
 			colorTime = true;
@@ -1401,6 +1421,7 @@ _V["WQT_DEFAULTS"] = {
 			numRewardIcons = 0;
 			rarityIcon = false;
 			timeIcon = false;
+			warbandIcon = false;
 			continentVisible = _V["ENUM_PIN_CONTINENT"].none;
 			zoneVisible = _V["ENUM_PIN_ZONE"].all;
 			
@@ -1408,7 +1429,6 @@ _V["WQT_DEFAULTS"] = {
 			scale = 1;
 			disablePoI = false;
 			timeLabel = false;
-			continentPins = false;
 			fadeOnPing = true;
 			eliteRing = false;
 			ringType = _V["RING_TYPES"].time;
@@ -1474,6 +1494,19 @@ end
 -- fixes			List of bugfixes
 
 local patchNotes = {
+		{["version"] = "11.2.03";
+			["new"] = {
+				"Warband bonus reward icons for both the quest list and map pins (default off)";
+			};
+			["fixes"] = {
+				"Fixed tooltip rewards not showing if its appearance isn't collected yet";
+				"Fixed tooltips not showing a message regarding one-time warband bonus reputation";
+				"Fixed a possible error for characters level 70-79";
+				"Fixed some issues with Asian reward amount. Maybe, I can't actually test this myself";
+				"Fixed the zhTW loca just straight up not getting loaded (woops)";
+				"Fixed an error in the settings with Warmode enabled";
+			};
+		};
 		{["version"] = "11.2.02";
 			["changes"] = {
 				"Increased the max rewards in the quest list from 4 to 5";

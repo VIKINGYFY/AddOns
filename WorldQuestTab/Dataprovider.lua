@@ -56,8 +56,8 @@ end
 
 local function ScanTooltipRewardForPattern(questID, pattern)
 	local result;
-	
-	WQT_Utils:AddQuestRewardsToTooltip(WQT_ScrapeTooltip, questID, TOOLTIP_QUEST_REWARDS_STYLE_DEFAULT);
+
+	QuestUtils_AddQuestRewardsToTooltip(WQT_ScrapeTooltip, questID, TOOLTIP_QUEST_REWARDS_STYLE_WORLD_QUEST);
 
 	for i=2, 6 do
 		local line = _G["WQT_ScrapeTooltipTooltipTextLeft"..i];
@@ -164,6 +164,7 @@ function QuestInfoMixin:Init(questID, qInfo)
 	self.passedFilter = true;
 	self:UpdateValidity();
 	self:UpdateTimeRemaining();
+	self:UpdateHasWarbandBonus();
 
 	-- rewards
 	self:LoadRewards();
@@ -182,6 +183,10 @@ function QuestInfoMixin:UpdateTitleAndFaction()
 	end
 
 	return false;
+end
+
+function QuestInfoMixin:UpdateHasWarbandBonus()
+	self.hasWarbandBonus = C_QuestLog.QuestContainsFirstTimeRepBonusForPlayer(self.questID);
 end
 
 function QuestInfoMixin:UpdateValidity()
@@ -359,9 +364,8 @@ function QuestInfoMixin:IsExpired()
 end
 
 function QuestInfoMixin:SetAsWaypoint()
-	local mapInfo = WQT_Utils:GetMapInfoForQuest(self.questID);
-	local x, y = WQT_Utils:GetQuestMapLocation(self.questID, mapInfo.mapID);
-	local wayPoint = UiMapPoint.CreateFromCoordinates(mapInfo.mapID, x, y);
+	local x, y = WQT_Utils:GetQuestMapLocation(self.questID, self.mapID);
+	local wayPoint = UiMapPoint.CreateFromCoordinates(self.mapID, x, y);
 	C_Map.SetUserWaypoint(wayPoint);
 end
 
@@ -613,8 +617,9 @@ function WQT_DataProvider:OnUpdate(elapsed)
 						local addonInfo = questForRemove[questID];
 						questForRemove[questID] = nil;
 						local updateSuccess = false;
-						-- Just always update time. This has been an issue on the full screen map, and might as well make sure we are up to date
-						addonInfo:UpdateTimeRemaining()
+						-- Just always update these
+						addonInfo:UpdateTimeRemaining();
+						addonInfo:UpdateHasWarbandBonus();
 
 						updateSuccess = addonInfo:UpdateTitleAndFaction() or updateSuccess;
 						-- Quest log update might have been for missing data

@@ -255,11 +255,12 @@ function WQT_PinDataProvider:PlacePins()
 	end
 	
 	local mapID = parentMapFrame:GetMapID();
-	local settingsContinentPins = WQT_Utils:GetSetting("pin", "continentPins");
+	local mapInfo = WQT_Utils:GetCachedMapInfo(mapID);
+	if (not mapInfo) then return; end
 	local settingsContinentVisible = WQT_Utils:GetSetting("pin", "continentVisible");
 	local settingsZoneVisible = WQT_Utils:GetSetting("pin", "zoneVisible");
 	local settingsFilterPoI  = WQT_Utils:GetSetting("pin", "filterPoI");
-	local mapInfo = WQT_Utils:GetCachedMapInfo(mapID);
+	
 	local canvas = parentMapFrame:GetCanvas();
 	
 	wipe(self.activePins);
@@ -676,7 +677,14 @@ function WQT_PinMixin:UpdateVisuals()
 			self.timeIcon = iconFrame;
 		end
 	end
-	
+
+	-- Warband icon
+	if (questInfo.hasWarbandBonus and WQT_Utils:GetSetting("pin", "warbandIcon")) then
+		local iconFrame = self:AddIcon();
+		iconFrame:SetupIcon("warbands-icon");
+		iconFrame:SetIconScale(1.3);
+	end
+
 	-- Reward Type Icon
 	local numRewardIcons = WQT_Utils:GetSetting("pin", "numRewardIcons");
 	for k, rewardInfo in questInfo:IterateRewards() do
@@ -686,7 +694,7 @@ function WQT_PinMixin:UpdateVisuals()
 		end
 	end
 	
-	-- Quest tracked icon
+	-- Emissary tracked icon
 	if (isWatched) then
 		local iconFrame = self:AddIcon();
 		iconFrame:SetupIcon("worldquest-emissary-tracker-checkmark");

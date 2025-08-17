@@ -20,7 +20,7 @@ local function SetupInstance(instance)
 	instance:ToolbarMenuButtonsSize(1)
 	instance:AttributeMenu(true, 0, 3, needReset and DB.Font[1], needReset and 13, {1, 1, 1}, 1, true)
 	instance:SetBarSettings(needReset and 18, needReset and "normTex", nil, nil, nil, nil, nil, nil, nil, false)
-	instance:SetBarTextSettings(needReset and 14, needReset and DB.Font[1], nil, nil, nil, true, true, true)
+	instance:SetBarTextSettings(needReset and 12, needReset and DB.Font[1], nil, nil, nil, true, true, true)
 	instance:SetBarRightTextSettings(true, true, true)
 
 	local bg = B.SetBD(instance.baseframe)
@@ -127,7 +127,7 @@ local function ReskinDetails()
 		if instance1 then
 			EmbedWindow(instance1, -3, 24, 320, 190)
 			instance1:SetBarSettings(18, "normTex")
-			instance1:SetBarTextSettings(14, DB.Font[1], nil, nil, nil, true, true)
+			instance1:SetBarTextSettings(12, DB.Font[1], nil, nil, nil, true, true)
 		end
 	end
 end

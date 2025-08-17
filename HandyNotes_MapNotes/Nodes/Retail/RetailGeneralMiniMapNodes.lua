@@ -25,10 +25,10 @@ ns._currentSourceFile = "RetailGeneralMiniMapNodes.lua"
         if self.db.profile.showMiniMapKalimdor then
 
             if self.db.profile.showMiniMapZidormi then
-                minimap[62][48862446] = { name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " ".. L["Darkshore"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[81][78922197] = { name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Silithus"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[249][56013514] = { mnID = 1527, name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Uldum"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[1527][56013514] = { mnID = 249, name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Uldum"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[62][48862446] = { name = "|cffffffff" .. ns.Zidormi, TransportName = L["Travel through time to another point in the history of"] .. " ".. ns.Darkshore, type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[81][78922197] = { name = "|cffffffff" .. ns.Zidormi, TransportName = L["Travel through time to another point in the history of"] .. " " .. ns.Silithus, type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[249][56013514] = { mnID = 1527, name = "|cffffffff" .. ns.Zidormi, TransportName = L["Travel through time to another point in the history of"] .. " " .. ns.Uldum, type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[1527][56013514] = { mnID = 249, name = "|cffffffff" .. ns.Zidormi, TransportName = L["Travel through time to another point in the history of"] .. " " .. ns.Uldum, type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
             end
 
             if self.db.profile.showMiniMapPvPVendor then
@@ -257,10 +257,10 @@ ns._currentSourceFile = "RetailGeneralMiniMapNodes.lua"
             end
 
             if self.db.profile.showMiniMapZidormi then
-                minimap[18][69456280] = { mnID = 2070, name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Tirisfal Glades"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[14][38249009] = { name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Arathi Highlands"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[17][48160728] = { name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Blasted Lands"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[2070][69456280] = { mnID = 18, name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Tirisfal Glades"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[18][69456280] = { mnID = 2070, name = "|cffffffff" .. ns.Zidormi, TransportName = L["Travel through time to another point in the history of"] .. " " .. ns.TirisfalGlades, type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[14][38249009] = { name = "|cffffffff" .. ns.Zidormi, TransportName = L["Travel through time to another point in the history of"] .. " " .. ns.ArathiHighlands, type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[17][48160728] = { name = "|cffffffff" .. ns.Zidormi, TransportName = L["Travel through time to another point in the history of"] .. " " .. ns.BlastedLands, type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[2070][69456280] = { mnID = 18, name = "|cffffffff" .. ns.Zidormi, TransportName = L["Travel through time to another point in the history of"] .. " " .. ns.TirisfalGlades, type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
             end
 
             if self.db.profile.showMiniMapStablemaster then
@@ -755,8 +755,8 @@ ns._currentSourceFile = "RetailGeneralMiniMapNodes.lua"
         if self.db.profile.showMiniMapPandaria then
 
             if self.db.profile.showMiniMapZidormi then
-                minimap[390][80483196] = { mnID = 1530, name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Vale of Eternal Blossoms"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                minimap[1530][80972948] = { mnID = 390, name = "|cffffffff" .. L["Zidormi"], TransportName = L["Travel through time to another point in the history of"] .. " " .. L["Vale of Eternal Blossoms"], type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[390][80483196] = { mnID = 1530, name = "|cffffffff" .. ns.Zidormi, TransportName = L["Travel through time to another point in the history of"] .. " " .. ns.ValeOfEternalBlossoms, type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                minimap[1530][80972948] = { mnID = 390, name = "|cffffffff" .. ns.Zidormi, TransportName = L["Travel through time to another point in the history of"] .. " " .. ns.ValeOfEternalBlossoms, type = "Zidormi", showInZone = false, showOnContinent = false, showOnMinimap = true }
             end
 
             if self.db.profile.showMiniMapPvEVendor then

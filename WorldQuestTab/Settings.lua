@@ -129,6 +129,7 @@ function WQT_SettingsQuestListMixin:OnLoad()
 	self.dummyQuestInfo.factionID = 2600;
 	self.dummyQuestInfo.mapID = 2214;
 	self.dummyQuestInfo.title = "Worm Sign, Sealed, Delivered";
+	self.dummyQuestInfo.hasWarbandBonus = true;
 	self.dummyQuestInfo.isValid = true;
 	self.dummyQuestInfo.passedFilter = true;
 	self.dummyQuestInfo.classification = Enum.QuestClassification.WorldQuest;
@@ -152,6 +153,7 @@ function WQT_SettingsQuestListMixin:OnLoad()
 			["quality"] = 1;
 			["texture"] = 5872053;
 			["amount"] = 2;
+			["id"] = 2902;
 		};
 		{
 			["type"] = WQT_REWARDTYPE.gold;

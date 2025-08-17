@@ -255,6 +255,7 @@ local delveList = {
 	{uiMapID = 2255, delveID = 7786}, -- The Underkeep
 	{uiMapID = 2255, delveID = 7790}, -- The Spiral Weave
 	{uiMapID = 2346, delveID = 8246}, -- Sidestree Sluice
+	{uiMapID = 2371, delveID = 8273}, -- Archival Assault
 }
 
 info.onEnter = function(self)

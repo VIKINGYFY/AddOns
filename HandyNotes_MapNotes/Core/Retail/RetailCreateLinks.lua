@@ -69,12 +69,15 @@ local function AddMessage(self, text, ...)
   end
 
   if ns.Addon.db.profile.CreateAndCopyLinks then
-      if ns.questID then
-          text = text:gsub("https://www.wowhead.com/quest=" .. ns.questID, "|cff00ccff|Hurl:%1|h%1|h|r")
-      end
-      if ns.achievementID then
-          text = text:gsub("https://www.wowhead.com/achievement=" .. ns.achievementID, "|cff00ccff|Hurl:%1|h%1|h|r")
-      end
+    if ns.questID then
+        text = text:gsub("https://www.wowhead.com/quest=" .. ns.questID, "|cff00ccff|Hurl:%1|h%1|h|r")
+    end
+    if ns.questIDs then
+        text = text:gsub("https://www.wowhead.com/quest=" .. ns.questIDs, "|cff00ccff|Hurl:%1|h%1|h|r")
+    end
+    if ns.achievementID then
+        text = text:gsub("https://www.wowhead.com/achievement=" .. ns.achievementID, "|cff00ccff|Hurl:%1|h%1|h|r")
+    end
   end
 
   return self._OriginalAddMessage(self, text, ...)
