@@ -43,6 +43,7 @@ local generalGroup = frame:CreateMultiSelectionGroup(L["general options"])
 frame:AnchorToTopLeft(generalGroup, 0, -10)
 
 generalGroup:AddButton(L["show notify button"], "notifyButton")
+generalGroup:AddButton(L["lock button position"], "locked")
 generalGroup:AddButton(L["receive only"], "receiveOnly")
 generalGroup:AddButton(L["sound notify"], "sound")
 

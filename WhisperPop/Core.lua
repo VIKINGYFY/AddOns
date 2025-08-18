@@ -144,6 +144,17 @@ function addon:GetNewMessage()
 	end
 end
 
+function addon:ClearAllNews()
+	for i = 1, #self.db.history do
+		local data = self.db.history[i]
+		if data.new then
+			data.new = nil
+		end
+	end
+
+	self:BroadcastEvent("OnListUpdate")
+end
+
 function addon:GetNewNames()
 	local newNames = {}
 	for i = 1, #self.db.history do
@@ -233,6 +244,7 @@ addon.DB_DEFAULTS = {
 	sound = 1,
 	save = 1,
 	notifyButton = 1,
+	locked = 0,
 	ignoreTags = 1,
 	applyFilters = 1,
 	receiveOnly = 0,
@@ -453,25 +465,27 @@ function addon:Round(number, idp)
 end
 
 function addon:SavePosition(f)
-	local orig, _, tar, x, y = f:GetPoint()
+	local o, r, t, x, y = f:GetPoint()
+
+	r = r:GetName()
 	x = self:Round(x, 2)
 	y = self:Round(y, 2)
 
 	local db = self.db
 	local key = f.key or f:GetName()
-	db.positions[key] = {orig, "UIParent", tar, x, y}
+	db.positions[key] = {o, r, t, x, y}
 	f:ClearAllPoints()
-	f:SetPoint(orig, "UIParent", tar, x, y)
+	f:SetPoint(o, r, t, x, y)
 end
 
 function addon:LoadPosition(f)
 	local db = self.db
 	local key = f.key or f:GetName()
 	db.positions[key] = db.positions[key] or {}
-	local p, r, rp, x, y = unpack(db.positions[key])
+	local o, r, t, x, y = unpack(db.positions[key])
 
 	f:ClearAllPoints()
-	if not p then
+	if not o then
 		if f.defaultPos then
 			f:SetPoint(unpack(f.defaultPos))
 		else
@@ -479,12 +493,14 @@ function addon:LoadPosition(f)
 		end
 		self:SavePosition(f)
 	else
-		f:SetPoint(p, r, rp, x, y)
+		f:SetPoint(o, r, t, x, y)
 	end
 end
 
 local function Move_OnDragStart(self)
-	self:StartMoving()
+	if not self.locked then
+		self:StartMoving()
+	end
 end
 
 local function Move_OnDragStop(self)

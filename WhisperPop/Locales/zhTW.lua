@@ -29,6 +29,7 @@ addon.L = {
 	["settings tooltip 1"] = "|cff00ff00點擊：|r打開設置窗口",
 	["settings tooltip 2"] = "|cff00ff00Shift-點擊：|r清空所有已保存的記錄",
 	["show notify button"] = "顯示屏幕提示按鈕",
+	["lock button position"] = "鎖定按鈕位置",
 	["delete player records"] = "刪除所有來自|cff00ff00%s|r的記錄",
 	["filter settings"] = "過濾設置",
 	["ignore tag messages"] = "不保存標籤類消息（以 |cff00ff00<|r 或 |cff00ff00[|r 開頭的）",

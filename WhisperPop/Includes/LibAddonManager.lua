@@ -697,7 +697,7 @@ local function PopupData_EditBoxOnEnterPressed(self)
 end
 
 local function PopupData_OnShow(self)
-	local editBox = self.editBox
+	local editBox = self.editBox or self.GetEditBox and self:GetEditBox()
 	if editBox:IsShown() and editBox:GetText() ~= "" then
 		EditBox_Highlight(editBox)
 	end
@@ -712,7 +712,7 @@ local function PopupData_OnAccept(self, arg1, func)
 		return
 	end
 
-	local editBox = self.editBox
+	local editBox = self.editBox or self.GetEditBox and self:GetEditBox()
 	if not editBox:IsShown() then
 		return func(arg1)
 	end
@@ -775,7 +775,8 @@ local function Addon_PopupShowInput(self, text, func, arg1, default, wide)
 		dialog.data = arg1
 		dialog.data2 = func
 		if default then
-			dialog.editBox:SetText(tostring(default))
+			local editBox = dialog.editBox or self.GetEditBox and self:GetEditBox()
+			editBox:SetText(tostring(default))
 			return dialog
 		end
 	end

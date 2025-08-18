@@ -26,9 +26,14 @@ button.text = button:CreateFontString(button:GetName().."Text", "ARTWORK", "Game
 button.text:SetPoint("LEFT", button, "RIGHT", 2, 0)
 button.text:SetFont(STANDARD_TEXT_FONT, 13, "")
 
-button:SetScript("OnClick", function(self)
+button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+button:SetScript("OnClick", function(self, btn)
+	if btn == "RightButton" then
+		addon:ClearAllNews()
+	else
+		addon:ToggleFrame()
+	end
 	GameTooltip:Hide()
-	addon:ToggleFrame()
 end)
 
 button:SetScript("OnEnter", function(self)
@@ -86,6 +91,10 @@ addon:RegisterOptionCallback("notifyButton", function(value)
 	else
 		button:Hide()
 	end
+end)
+
+addon:RegisterOptionCallback("locked", function(value)
+	button.locked = value
 end)
 
 addon:RegisterOptionCallback("buttonScale", function(value)
