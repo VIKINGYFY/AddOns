@@ -1,15 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-local function reskinCommunityTab(tab)
-	tab:GetRegions():Hide()
-	B.ReskinIcon(tab.Icon)
-	tab:SetCheckedTexture(DB.pushedTex)
-	local hl = tab:GetHighlightTexture()
-	hl:SetColorTexture(1, 1, 1, .25)
-	hl:SetAllPoints(tab.Icon)
-end
-
 local cardGroup = {"First", "Second", "Third"}
 local function reskinGuildCards(cards)
 	for _, name in pairs(cardGroup) do
@@ -167,8 +158,8 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 				hooksecurefunc(requestFrame, "Initialize", reskinRequestCheckbox)
 			end
 
-			if frame.ClubFinderSearchTab then reskinCommunityTab(frame.ClubFinderSearchTab) end
-			if frame.ClubFinderPendingTab then reskinCommunityTab(frame.ClubFinderPendingTab) end
+			if frame.ClubFinderSearchTab then B.ReskinSideTab(frame.ClubFinderSearchTab) end
+			if frame.ClubFinderPendingTab then B.ReskinSideTab(frame.ClubFinderPendingTab) end
 			if frame.GuildCards then reskinGuildCards(frame.GuildCards) end
 			if frame.PendingGuildCards then reskinGuildCards(frame.PendingGuildCards) end
 			if frame.CommunityCards then
@@ -212,7 +203,7 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 	for _, name in next, {"ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab"} do
 		local tab = CommunitiesFrame[name]
 		if tab then
-			reskinCommunityTab(tab)
+			B.ReskinSideTab(tab)
 		end
 	end
 

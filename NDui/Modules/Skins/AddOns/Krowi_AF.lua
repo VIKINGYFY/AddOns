@@ -198,8 +198,8 @@ function S:KrowiAF()
 			local button = _G["KrowiAF_AchievementFrameSideButton"..i]
 			if not button then break end
 			if not button.bg then
-				button.Background:SetTexture("")
-				button.Icon.Overlay:SetTexture("")
+				button.Background:SetTexture(0)
+				button.Icon.Overlay:SetTexture(0)
 				B.ReskinIcon(button.Icon.Texture)
 				button.bg = B.SetBD(button)
 				button.bg:SetPoint("TOPLEFT", 6, -9)

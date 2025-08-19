@@ -103,13 +103,12 @@ end
 
 local function handleBankTab(tab)
 	if not tab.styled then
-		tab.Border:SetAlpha(0)
-		tab:SetNormalTexture(0)
-		tab:SetPushedTexture(0)
-		tab:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-		tab.SelectedTexture:SetTexture(DB.pushedTex)
-		B.CreateBDFrame(tab)
-		tab.Icon:SetTexCoord(unpack(DB.TexCoord))
+		B.CleanTextures(tab)
+
+		local bg = B.ReskinIcon(tab.Icon, true)
+		B.ReskinHLTex(tab, bg)
+		B.ReskinCPTex(tab, bg)
+		B.ReskinBBTex(tab.SelectedTexture, bg)
 
 		tab.styled = true
 	end
@@ -124,12 +123,9 @@ C.OnLoginThemes["Bags"] = function()
 			name:SetDrawLayer("OVERLAY")
 			name:ClearAllPoints()
 			name:SetPoint("TOP", 0, -10)
-			B.ReskinClose(frame.CloseButton)
 
-			B.StripTextures(frame)
-			B.SetBD(frame)
-			frame.PortraitContainer:Hide()
-			if frame.Bg then frame.Bg:Hide() end
+			B.ReskinFrame(frame)
+
 			createBagIcon(frame, i)
 			hooksecurefunc(frame, "Update", updateContainer)
 			hooksecurefunc(frame, "UpdateItemSlots", handleBagSlots)
@@ -157,9 +153,7 @@ C.OnLoginThemes["Bags"] = function()
 
 	-- Combined bags
 	local combinedBags = ContainerFrameCombinedBags
-	B.StripTextures(combinedBags)
-	B.SetBD(combinedBags)
-	B.ReskinClose(combinedBags.CloseButton)
+	B.ReskinFrame(combinedBags)
 	createBagIcon(combinedBags, 1)
 	hooksecurefunc(combinedBags, "UpdateItemSlots", handleBagSlots)
 	-- [[ Bank ]]

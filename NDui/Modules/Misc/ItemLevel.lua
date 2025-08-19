@@ -220,7 +220,7 @@ function M:ItemLevel_SetupLevel(frame, strType, unit)
 			for i = 1, 10 do
 				local texture = slotFrame["textureIcon"..i]
 				B.SetBorderColor(texture.bg)
-				texture:SetTexture(nil)
+				texture:SetTexture(0)
 				texture.bg:Hide()
 			end
 

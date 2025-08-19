@@ -43,7 +43,7 @@ C.OnLoadThemes["Blizzard_Calendar"] = function()
 		local eventButton = _G[dayButtonName.."EventButton"..eventButtonIndex]
 		while eventButton do
 			eventButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-			eventButton.black:SetTexture(nil)
+			eventButton.black:SetTexture(0)
 			eventButtonIndex = eventButtonIndex + 1
 			eventButton = _G[dayButtonName.."EventButton"..eventButtonIndex]
 		end
@@ -165,9 +165,9 @@ C.OnLoadThemes["Blizzard_Calendar"] = function()
 		end
 	end
 
-	CalendarViewEventAcceptButton.flashTexture:SetTexture("")
-	CalendarViewEventTentativeButton.flashTexture:SetTexture("")
-	CalendarViewEventDeclineButton.flashTexture:SetTexture("")
+	CalendarViewEventAcceptButton.flashTexture:SetTexture(0)
+	CalendarViewEventTentativeButton.flashTexture:SetTexture(0)
+	CalendarViewEventDeclineButton.flashTexture:SetTexture(0)
 
 	B.ReskinClose(CalendarCloseButton, CalendarFrame, -14, -4)
 	B.ReskinClose(CalendarCreateEventCloseButton)

@@ -18,7 +18,7 @@ local function updateEssenceButton(button)
 			B.ReskinIcon(button.Icon)
 			B.ReskinHLTex(button, bg, true)
 
-			button.PendingGlow:SetTexture("")
+			button.PendingGlow:SetTexture(0)
 			button.Background:SetAlpha(0)
 		end
 

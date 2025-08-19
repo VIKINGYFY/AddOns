@@ -31,12 +31,12 @@ local function reskinScrollChild(self)
 			child.FrameHighlight:SetInside(child.bg)
 			child.FrameHighlight:SetColorTexture(1, 1, 1, .25) -- 0.25 might be too much
 
-			child.NewOutline:SetTexture("")
+			child.NewOutline:SetTexture(0)
 			child.BindingText:SetFontObject(Game12Font)
 			hooksecurefunc(child, "Init", updateNewGlow)
 
 			local iconHighlight = child.IconHighlight
-			iconHighlight:SetTexture("")
+			iconHighlight:SetTexture(0)
 			iconHighlight.__owner = icon
 			hooksecurefunc(iconHighlight, "SetShown", updateIconGlow)
 		end

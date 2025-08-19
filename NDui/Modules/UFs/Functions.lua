@@ -58,6 +58,12 @@ local function UF_OnLeave(self)
 	end
 end
 
+function UF:UpdateClickState()
+	self:RegisterForClicks(self.onKeyDown and "AnyDown" or "AnyUp")
+	self.onKeyDown = nil
+	self:UnregisterEvent("PLAYER_REGEN_ENABLED", UF.UpdateClickState, true)
+end
+
 function UF:CreateHeader(self, onKeyDown)
 	local hl = self:CreateTexture(nil, "HIGHLIGHT")
 	hl:SetAllPoints()
@@ -67,7 +73,12 @@ function UF:CreateHeader(self, onKeyDown)
 	hl:SetBlendMode("ADD")
 	self.hl = hl
 
-	self:RegisterForClicks("AnyUp")
+	if InCombatLockdown() then
+		self.onKeyDown = onKeyDown
+		self:RegisterEvent("PLAYER_REGEN_ENABLED", UF.UpdateClickState, true)
+	else
+		self:RegisterForClicks(onKeyDown and "AnyDown" or "AnyUp")
+	end
 	self:HookScript("OnEnter", UF_OnEnter)
 	self:HookScript("OnLeave", UF_OnLeave)
 end
@@ -768,7 +779,7 @@ end
 
 function UF:CreateSparkleCastBar(self)
 	local bar = CreateFrame("StatusBar", "oUF_SparkleCastbar"..self.mystyle, self.Power)
-	bar:SetStatusBarTexture(DB.tpTex)
+	bar:SetStatusBarTexture(0)
 	bar:SetAllPoints()
 
 	local spark = bar:CreateTexture(nil, "OVERLAY")
@@ -850,7 +861,7 @@ function UF.PostCreateButton(element, button)
 	button.HL:SetColorTexture(1, 1, 1, .25)
 	button.HL:SetInside(button.icbg)
 
-	button.Overlay:SetTexture(nil)
+	button.Overlay:SetTexture(0)
 	button.Cooldown:SetReverse(true)
 	button.Stealable:SetAtlas("bags-newitem")
 

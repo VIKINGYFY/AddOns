@@ -29,7 +29,7 @@ end
 
 local function reskinHeader(header)
 	header.Text:SetTextColor(cr, cg, cb)
-	header.Background:SetTexture(nil)
+	header.Background:SetTexture(0)
 	local bg = header:CreateTexture(nil, "ARTWORK")
 	bg:SetTexture("Interface\\LFGFrame\\UI-LFG-SEPARATOR")
 	bg:SetTexCoord(0, .66, 0, .31)
@@ -176,7 +176,7 @@ C.OnLoginThemes["ObjectiveTracker"] = function()
 
 	-- Handle blocks, untest
 	hooksecurefunc(ScenarioObjectiveTracker.StageBlock, "UpdateStageBlock", function(block)
-		block.NormalBG:SetTexture("")
+		block.NormalBG:SetTexture(0)
 		if not block.bg then
 			block.bg = B.SetBD(block.GlowTexture, 0, -2, 4, 2)
 		end
@@ -211,8 +211,8 @@ C.OnLoginThemes["ObjectiveTracker"] = function()
 
 	hooksecurefunc(ScenarioObjectiveTracker.ChallengeModeBlock, "SetUpAffixes", function(self)
 		for frame in self.affixPool:EnumerateActive() do
-			frame.Border:SetTexture("")
-			frame.Portrait:SetTexture("")
+			frame.Border:SetTexture(0)
+			frame.Portrait:SetTexture(0)
 
 			if not frame.bg then
 				frame.bg = B.ReskinIcon(frame.Portrait)

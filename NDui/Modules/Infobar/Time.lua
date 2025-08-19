@@ -83,7 +83,7 @@ local questList = {
 	{name = "", id = 91173, questName = true}, -- 圣焰永明耀
 }
 
-local delvesKeys = {84736, 84737, 84738, 84739}
+local delvesKeys = {91175, 91176, 91177, 91178}
 local keyName = C_CurrencyInfo.GetCurrencyInfo(3028).name
 
 -- Check Invasion Status

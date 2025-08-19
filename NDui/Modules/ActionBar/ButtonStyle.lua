@@ -57,9 +57,10 @@ end
 function Bar:StyleActionButton(button)
 	if not button or button.__bg then return end
 
-	button.__bg = B.SetBD(button)
-
 	B.CleanTextures(button)
+
+	button.__bg = B.SetBD(button)
+	B.ReskinCPTex(button, button.__bg, true)
 
 	local icon = B.GetObject(button, "Icon")
 	if icon then
@@ -68,16 +69,9 @@ function Bar:StyleActionButton(button)
 		icon:SetTexCoord(unpack(DB.TexCoord))
 	end
 
-	local pushed = B.GetObject(button, "PushedTexture")
-	if pushed then
-		B.ReskinBGBorder(pushed, button.__bg)
-		pushed:SetColorTexture(1, 1, 1)
-	end
-
-	local checked = B.GetObject(button, "CheckedTexture")
-	if checked then
-		B.ReskinBGBorder(checked, button.__bg)
-		checked:SetColorTexture(0, 1, 1)
+	local flash = B.GetObject(button, "Flash")
+	if flash then
+		B.ReskinHLTex(flash, button.__bg)
 	end
 
 	local highlight = B.GetObject(button, "HighlightTexture")
@@ -87,8 +81,7 @@ function Bar:StyleActionButton(button)
 
 	local spellHighlight = B.GetObject(button, "SpellHighlightTexture")
 	if spellHighlight then
-		B.ReskinBGBorder(spellHighlight, button.__bg)
-		spellHighlight:SetColorTexture(1, 1, 0)
+		B.ReskinBBTex(spellHighlight, button.__bg)
 	end
 
 	local hotkey = B.GetObject(button, "HotKey")

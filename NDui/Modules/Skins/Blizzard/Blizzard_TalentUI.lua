@@ -12,10 +12,10 @@ C.OnLoadThemes["Blizzard_TalentUI"] = function()
 	PlayerTalentFrameTalentsBg:Hide()
 	ReanchorTutorial(PlayerTalentFrameTalentsTutorialButton)
 
-	PlayerTalentFrameActiveSpecTabHighlight:SetTexture("")
-	PlayerTalentFrameTitleGlowLeft:SetTexture("")
-	PlayerTalentFrameTitleGlowRight:SetTexture("")
-	PlayerTalentFrameTitleGlowCenter:SetTexture("")
+	PlayerTalentFrameActiveSpecTabHighlight:SetTexture(0)
+	PlayerTalentFrameTitleGlowLeft:SetTexture(0)
+	PlayerTalentFrameTitleGlowRight:SetTexture(0)
+	PlayerTalentFrameTitleGlowCenter:SetTexture(0)
 	PlayerTalentFrameLockInfoPortraitFrame:Hide()
 	PlayerTalentFrameLockInfoPortrait:Hide()
 
@@ -125,7 +125,7 @@ C.OnLoadThemes["Blizzard_TalentUI"] = function()
 			local bu = _G["PlayerTalentFrameTalentsTalentRow"..i.."Talent"..j]
 			local ic = _G["PlayerTalentFrameTalentsTalentRow"..i.."Talent"..j.."IconTexture"]
 
-			bu:SetHighlightTexture("")
+			bu:SetHighlightTexture(0)
 			bu.Cover:SetAlpha(0)
 			bu.Slot:SetAlpha(0)
 			bu.knownSelection:SetAlpha(0)

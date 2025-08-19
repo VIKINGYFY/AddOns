@@ -189,7 +189,7 @@ local function updateSoulshapeButtons(self)
 
 			B.ReskinIcon(bu.icon)
 			bu.selectedTexture:SetAlpha(0)
-			bu.background:SetTexture(nil)
+			bu.background:SetTexture(0)
 			bu:SetHighlightTexture(0)
 
 			local critterIcon = bu.critterIcon
@@ -357,7 +357,7 @@ function S:ERT()
 				local header = select(i, self:GetChildren())
 				if not header.styled then
 					for i = 5, 19 do
-						select(i, header.button:GetRegions()):SetTexture("")
+						select(i, header.button:GetRegions()):SetTexture(0)
 					end
 					B.ReskinButton(header.button)
 					header.descriptionBG:SetAlpha(0)
@@ -502,8 +502,8 @@ local function handleJournal()
 	hooksecurefunc(frame, "UpdateButton", function(_, button)
 		if button.iconTexture and not button.bg then
 			local icon = button.iconTexture
-			button.slotFrameCollected:SetTexture("")
-			button.slotFrameUncollected:SetTexture("")
+			button.slotFrameCollected:SetTexture(0)
+			button.slotFrameUncollected:SetTexture(0)
 			button:SetPushedTexture(0)
 			button:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 			button:GetHighlightTexture():SetAllPoints(icon)

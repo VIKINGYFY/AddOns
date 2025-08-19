@@ -74,10 +74,6 @@ end
 function TT:OnTooltipCleared()
 	if self:IsForbidden() then return end
 
-	if self.factionLogo and self.factionLogo:IsShown() then
-		self.factionLogo:Hide()
-	end
-
 	GameTooltip_ClearMoney(self)
 	GameTooltip_ClearStatusBars(self)
 	GameTooltip_ClearProgressBars(self)
@@ -85,6 +81,10 @@ function TT:OnTooltipCleared()
 
 	if self.StatusBar then
 		self.StatusBar:ClearWatch()
+	end
+
+	if self.factionLogo and self.factionLogo:IsShown() then
+		self.factionLogo:Hide()
 	end
 end
 

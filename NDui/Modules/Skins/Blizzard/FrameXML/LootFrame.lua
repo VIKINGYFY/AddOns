@@ -124,6 +124,6 @@ C.OnLoginThemes["LootFrame"] = function()
 			B.ReskinBorder(iconHitBox.IconBorder, true)
 		end
 
-		iconHitBox.IconBorder:SetTexture(nil)
+		iconHitBox.IconBorder:SetTexture(0)
 	end)
 end

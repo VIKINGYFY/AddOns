@@ -1085,7 +1085,7 @@ end
 
 function UF:CreateGCDTicker(self)
 	local ticker = CreateFrame("StatusBar", nil, self.Power)
-	ticker:SetStatusBarTexture(DB.tpTex)
+	ticker:SetStatusBarTexture(0)
 	ticker:SetAllPoints()
 
 	local spark = ticker:CreateTexture(nil, "OVERLAY")

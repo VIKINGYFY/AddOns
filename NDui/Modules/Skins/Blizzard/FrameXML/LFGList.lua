@@ -243,7 +243,7 @@ C.OnLoginThemes["LFGList"] = function()
 	-- Activity finder
 
 	local activityFinder = entryCreation.ActivityFinder
-	activityFinder.Background:SetTexture("")
+	activityFinder.Background:SetTexture(0)
 
 	local finderDialog = activityFinder.Dialog
 	B.StripTextures(finderDialog)

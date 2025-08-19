@@ -308,7 +308,7 @@ function S:ReskinRematchElements()
 	for i = 1, 6 do
 		local button = RematchPetCard.Front.Bottom.Abilities[i]
 		button.IconBorder:Hide()
-		select(8, button:GetRegions()):SetTexture(nil)
+		select(8, button:GetRegions()):SetTexture(0)
 		B.ReskinIcon(button.Icon)
 	end
 

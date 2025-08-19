@@ -64,10 +64,8 @@ function M:TradeTabs_Update()
 
 		if spellID and C_Spell.IsCurrentSpell(spellID) then
 			tab:SetChecked(true)
-			tab.cover:Show()
 		else
 			tab:SetChecked(false)
-			tab.cover:Hide()
 		end
 
 		local start, duration
@@ -88,10 +86,7 @@ function M:TradeTabs_ReskinButton()
 	if not C.db["Skins"]["BlizzardSkins"] then return end
 
 	for _, tab in pairs(tabList) do
-		tab:SetCheckedTexture(DB.pushedTex)
-		B.CreateBDFrame(tab)
-		local texture = tab:GetNormalTexture()
-		if texture then texture:SetTexCoord(unpack(DB.TexCoord)) end
+		B.ReskinSideTab(tab)
 	end
 end
 
@@ -122,16 +117,13 @@ function M:TradeTabs_Create(spellID, toyID, itemID)
 		tab:SetAttribute(tab.type, spellID or name)
 	end
 	tab:SetNormalTexture(texture)
+	tab:SetCheckedTexture(DB.pushedTex)
 	tab:SetHighlightTexture(DB.bdTex)
 	tab:GetHighlightTexture():SetVertexColor(1, 1, 1, .25)
 	tab:Show()
 
 	tab.CD = CreateFrame("Cooldown", nil, tab, "CooldownFrameTemplate")
 	tab.CD:SetAllPoints()
-
-	tab.cover = CreateFrame("Frame", nil, tab)
-	tab.cover:SetAllPoints()
-	tab.cover:EnableMouse(true)
 
 	tab:SetPoint("TOPLEFT", ProfessionsFrame, "TOPRIGHT", 3, -index*42)
 	table.insert(tabList, tab)

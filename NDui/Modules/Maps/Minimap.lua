@@ -321,7 +321,7 @@ function module:RecycleBin()
 				--region:SetInside(child.bg)
 				local texture = region:GetTexture() or ""
 				if removedTextures[texture] or string.find(texture, "Interface\\CharacterFrame") or string.find(texture, "Interface\\Minimap") then
-					region:SetTexture(nil)
+					region:SetTexture(0)
 					region:Hide() -- hide CircleMask
 				end
 				if not region.__ignored then

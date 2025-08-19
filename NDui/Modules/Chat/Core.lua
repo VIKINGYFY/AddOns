@@ -466,7 +466,7 @@ function module:OnLogin()
 	SetCVar("chatStyle", "classic")
 	SetCVar("chatMouseScroll", 1) -- enable mousescroll
 	--SetCVar("whisperMode", "inline") -- blizz reset this on NPE
-	CombatLogQuickButtonFrame_CustomTexture:SetTexture(nil)
+	CombatLogQuickButtonFrame_CustomTexture:SetTexture(0)
 
 	-- Add Elements
 	module:ChatWhisperSticky()

@@ -73,7 +73,7 @@ local function ApplyDBMStyle(self)
 		texture:SetTexture(DB.normTex)
 	end
 	if variance then
-		variance:SetTexture("")
+		variance:SetTexture(0)
 	end
 
 	name:SetWordWrap(false)

@@ -2,12 +2,12 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 C.OnLoginThemes["TimeManager"] = function()
-
 	TimeManagerGlobe:Hide()
-	TimeManagerStopwatchCheck:GetNormalTexture():SetTexCoord(unpack(DB.TexCoord))
-	TimeManagerStopwatchCheck:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-	TimeManagerStopwatchCheck:SetCheckedTexture(DB.pushedTex)
-	B.CreateBDFrame(TimeManagerStopwatchCheck)
+
+	local icon = TimeManagerStopwatchCheck:GetNormalTexture()
+	local icbg = B.ReskinIcon(icon)
+	B.ReskinHLTex(TimeManagerStopwatchCheck, icbg)
+	B.ReskinCPTex(TimeManagerStopwatchCheck, icbg)
 
 	B.ReskinDropDown(TimeManagerAlarmTimeFrame.HourDropdown)
 	B.ReskinDropDown(TimeManagerAlarmTimeFrame.MinuteDropdown)

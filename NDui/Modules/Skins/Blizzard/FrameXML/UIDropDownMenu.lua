@@ -60,7 +60,7 @@ local function Reskin_ToggleDropDownMenu(level)
 			highlight:SetPoint("BOTTOMRIGHT", lfWidth - buWidth - xOffset - C.mult, 0)
 
 			local uncheck = _G[name.."UnCheck"]
-			if uncheck then uncheck:SetTexture("") end
+			if uncheck then uncheck:SetTexture(0) end
 
 			local arrow = _G[name.."ExpandArrow"]
 			if arrow then

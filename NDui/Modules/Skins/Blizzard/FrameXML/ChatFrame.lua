@@ -13,14 +13,9 @@ end
 C.OnLoginThemes["ChatFrame"] = function()
 
 	-- Battlenet toast frame
-	BNToastFrame:SetBackdrop(nil)
-	B.SetBD(BNToastFrame)
-	B.ReskinClose(BNToastFrame.CloseButton)
-	BNToastFrame.TooltipFrame:HideBackdrop()
-	B.SetBD(BNToastFrame.TooltipFrame)
-
-	TimeAlertFrame:SetBackdrop(nil)
-	B.SetBD(TimeAlertFrame)
+	B.ReskinFrame(BNToastFrame)
+	B.ReskinFrame(BNToastFrame.TooltipFrame)
+	B.ReskinFrame(TimeAlertFrame)
 
 	-- Battletag invite frame
 	local border, send, cancel = BattleTagInviteFrame:GetChildren()
@@ -51,7 +46,7 @@ C.OnLoginThemes["ChatFrame"] = function()
 	QuickJoinToastButton:HookScript("OnMouseUp", function(self)
 		self.FriendsButton:SetTexture(friendTex)
 	end)
-	QuickJoinToastButton.Toast.Background:SetTexture("")
+	QuickJoinToastButton.Toast.Background:SetTexture(0)
 	local bg = B.SetBD(QuickJoinToastButton.Toast)
 	bg:SetPoint("TOPLEFT", 10, -1)
 	bg:SetPoint("BOTTOMRIGHT", 0, 3)

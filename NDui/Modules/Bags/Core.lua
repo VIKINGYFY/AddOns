@@ -1038,7 +1038,7 @@ function module:OnLogin()
 		end
 
 		if self.ProfessionQualityOverlay then
-			self.ProfessionQualityOverlay:SetAtlas(nil)
+			self.ProfessionQualityOverlay:SetAtlas(0)
 			SetItemCraftingQualityOverlay(self, item.link)
 		end
 

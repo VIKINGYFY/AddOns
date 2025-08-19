@@ -185,9 +185,9 @@ C.OnLoginThemes["PetBattleUI"] = function()
 	end
 	bottomFrame.Delimiter:Hide()
 	bottomFrame.MicroButtonFrame:Hide()
-	bottomFrame.TurnTimer.ArtFrame:SetTexture("")
-	bottomFrame.TurnTimer.ArtFrame2:SetTexture("")
-	bottomFrame.TurnTimer.TimerBG:SetTexture("")
+	bottomFrame.TurnTimer.ArtFrame:SetTexture(0)
+	bottomFrame.TurnTimer.ArtFrame2:SetTexture(0)
+	bottomFrame.TurnTimer.TimerBG:SetTexture(0)
 	for i = 1, 3 do
 		select(i, bottomFrame.FlowFrame:GetRegions()):SetAlpha(0)
 	end

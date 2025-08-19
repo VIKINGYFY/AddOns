@@ -10,7 +10,7 @@ local function ReskinMissionPage(self)
 
 	self.Stage.Header:SetAlpha(0)
 	if self.StartMissionFrame then B.StripTextures(self.StartMissionFrame) end
-	self.StartMissionButton.Flash:SetTexture("")
+	self.StartMissionButton.Flash:SetTexture(0)
 	B.ReskinButton(self.StartMissionButton)
 	B.ReskinClose(self.CloseButton, nil, -10, -5)
 
@@ -173,8 +173,8 @@ end
 local function ReskinFollowerButton(button)
 	if not button.styled then
 		button.BG:Hide()
-		button.Selection:SetTexture("")
-		button.AbilitiesBG:SetTexture("")
+		button.Selection:SetTexture(0)
+		button.AbilitiesBG:SetTexture(0)
 		button.bg = B.CreateBDFrame(button, .25)
 
 		local hl = button:GetHighlightTexture()
@@ -1179,13 +1179,13 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 					peek("Hi"):SetColorTexture(1, 1, 1, .25)
 					peek("Hi"):SetInside(widget.bg)
 					peek("PortraitR"):Hide()
-					peek("PortraitT"):SetTexture(nil)
+					peek("PortraitT"):SetTexture(0)
 					peek("PortraitT").__owner = widget
 					hooksecurefunc(peek("PortraitT"), "SetShown", updateSelectedBorder)
 
 					numButtons = numButtons + 1
 					if numButtons > 2 then
-						peek("UsedBorder"):SetTexture(nil)
+						peek("UsedBorder"):SetTexture(0)
 						peek("UsedBorder").__shadow = B.CreateSD(peek("Portrait"), nil, true)
 						peek("UsedBorder").__shadow:SetBackdropBorderColor(peek("UsedBorder"):GetVertexColor())
 						hooksecurefunc(peek("UsedBorder"), "SetShown", updateActiveGlow)

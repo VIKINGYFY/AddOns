@@ -57,10 +57,7 @@ function M:GarrisonTabs_Create()
 		end
 
 		if C.db["Skins"]["BlizzardSkins"] then
-			local bg = B.SetBD(tab)
-			B.ReskinCPTex(tab, bg)
-			B.ReskinHLTex(tab, bg)
-			B.UpdateButton(tab:GetNormalTexture(), bg)
+			B.ReskinSideTab(tab)
 		end
 
 		tab.pageID = data[1]

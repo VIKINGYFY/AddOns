@@ -385,6 +385,7 @@ do
 		"BottomRightTex",
 		"BottomTex",
 		"Center",
+		"CheckedTexture",
 		"CircleMask",
 		"Cover",
 		"DecorLeft",
@@ -428,6 +429,7 @@ do
 		"Portrait",
 		"PortraitContainer",
 		"PortraitOverlay",
+		"PushedTexture",
 		"RecipientOverlay",
 		"Right",
 		"RightDisabled",
@@ -500,8 +502,8 @@ do
 				if blizzTexture:IsObjectType("MaskTexture") then
 					blizzTexture:Hide()
 				elseif blizzTexture:IsObjectType("Texture") then
-					blizzTexture:SetTexture("")
-					blizzTexture:SetAtlas("")
+					blizzTexture:SetTexture(0)
+					blizzTexture:SetAtlas(0)
 					blizzTexture:SetAlpha(0)
 				else
 					B.StripTextures(blizzTexture, 99)
@@ -525,13 +527,13 @@ do
 							if kill == 0 then
 								region:SetAlpha(0)
 							elseif kill ~= index then
-								region:SetTexture("")
-								region:SetAtlas("")
+								region:SetTexture(0)
+								region:SetAtlas(0)
 								region:SetAlpha(0)
 							end
 						else
-							region:SetTexture("")
-							region:SetAtlas("")
+							region:SetTexture(0)
+							region:SetAtlas(0)
 						end
 					end
 				end
@@ -1512,9 +1514,9 @@ do
 		local list = self.AffixesContainer and self.AffixesContainer.Affixes or self.Affixes
 		if not list then return end
 
-		for _, frame in ipairs(list) do
-			frame.Border:SetTexture("")
-			frame.Portrait:SetTexture("")
+		for _, frame in pairs(list) do
+			frame.Border:SetTexture(0)
+			frame.Portrait:SetTexture(0)
 
 			if not frame.bg then
 				frame.bg = B.ReskinIcon(frame.Portrait)
@@ -1543,10 +1545,10 @@ do
 	end
 
 	function B:ReskinRole()
-		if self.background then self.background:SetTexture("") end
+		if self.background then self.background:SetTexture(0) end
 
 		local cover = self.cover or self.Cover
-		if cover then cover:SetTexture("") end
+		if cover then cover:SetTexture(0) end
 
 		local checkButton = self.checkButton or self.CheckButton or self.CheckBox or self.Checkbox
 		if checkButton then
@@ -1869,6 +1871,7 @@ do
 	local function HideBackdrop(frame)
 		if frame.NineSlice then frame.NineSlice:SetAlpha(0) end
 		if frame.SetBackdrop then frame:SetBackdrop(nil) end
+		if frame.background then frame.background:Hide() end
 	end
 
 	local function KillEditMode(object)
@@ -1914,7 +1917,7 @@ end
 -- 自定义
 do
 	function B:GetObject(key)
-		local frameName = (self.GetName and self:GetName()) or (self.GetDebugName and self:GetDebugName())
+		local frameName = self.GetDebugName and self:GetDebugName()
 		return self[key] or (frameName and _G[frameName..key])
 	end
 
@@ -1978,14 +1981,14 @@ do
 		local bg = B.SetBD(self)
 		for _, key in pairs(headers) do
 			local frameHeader = B.GetObject(self, key)
-			if frameHeader then
+			if frameHeader and type(frameHeader) == "table" then
 				B.StripTextures(frameHeader)
 				B.UpdatePoint(frameHeader, "TOP", bg, "TOP", 0, 5)
 			end
 		end
 		for _, key in pairs(closes) do
 			local frameClose = B.GetObject(self, key)
-			if frameClose and frameClose:IsObjectType("Button") then
+			if frameClose and type(frameClose) == "table" then
 				B.ReskinClose(frameClose, bg)
 			end
 		end
@@ -2037,7 +2040,6 @@ do
 
 		if not self.tipStyled then
 			self:HideBackdrop()
-			self:DisableDrawLayer("BACKGROUND")
 			self.bg = B.SetBD(self)
 
 			if self.StatusBar then
@@ -2084,10 +2086,13 @@ do
 		if not self or not self.GetNormalTexture then return end
 
 		self:SetSize(32, 32)
-		self:GetRegions():Hide()
 
-		local icon = self:GetNormalTexture()
-		local icbg = B.ReskinIcon(icon)
+		local region = self:GetRegions()
+		local normal = self:GetNormalTexture()
+		local icon = B.GetObject(self, "Icon") or B.GetObject(self, "icon")
+		if region ~= normal then region:Hide() end
+
+		local icbg = B.ReskinIcon(icon or normal, true)
 		B.ReskinHLTex(self, icbg)
 		B.ReskinCPTex(self, icbg)
 	end
@@ -2117,25 +2122,15 @@ do
 		end
 	end
 
-	function B:ReskinBGBorder(relativeTo, classColor)
+	function B:ReskinBBTex(relativeTo)
 		if not self then return end
 
 		self:SetTexture(DB.bdTex)
-		self:SetDrawLayer("BACKGROUND")
-
-		if classColor then
-			self:SetVertexColor(cr, cg, cb)
-		end
+		self:SetDrawLayer("BORDER")
+		self:SetVertexColor(1, 1, 0)
 
 		self:ClearAllPoints()
 		self:SetAllPoints(relativeTo)
-
-		if not relativeTo.setted then
-			local parent = relativeTo:GetParent()
-			relativeTo:SetFrameLevel(parent:GetFrameLevel() - 1)
-
-			relativeTo.setted = true
-		end
 	end
 
 	function B:ReskinHLTex(relativeTo, classColor, isColorTex)
@@ -2169,23 +2164,45 @@ do
 		end
 	end
 
-	function B:ReskinCPTex(relativeTo)
+	function B:ReskinCPTex(relativeTo, override)
 		if not self then return end
 
-		if self.SetPushedTexture then
-			self:SetPushedTexture(DB.bdTex)
+		if self.SetCheckedTexture then
+			self:SetCheckedTexture(0)
+			local checked = self:GetCheckedTexture()
+			if checked and not checked.bubg then
+				local bubg = B.CreateBDFrame(checked, 0)
+				bubg:ClearAllPoints()
+				bubg:SetAllPoints(relativeTo)
+				bubg:SetBackdropBorderColor(0, 1, 1)
+				bubg:SetFrameLevel(relativeTo:GetFrameLevel() + 1)
+				bubg:Hide()
 
-			local pushed = self:GetPushedTexture()
-			pushed:SetVertexColor(1, 1, 1)
-			B.ReskinBGBorder(pushed, relativeTo)
+				checked:HookScript("OnShow", function() bubg:Show() end)
+				checked:HookScript("OnHide", function() bubg:Hide() end)
+
+				checked.bubg = bubg
+			end
 		end
 
-		if self.SetCheckedTexture then
-			self:SetCheckedTexture(DB.bdTex)
+		if not self:IsObjectType("CheckButton") or override then
+			if self.SetPushedTexture then
+				self:SetPushedTexture(0)
+				local pushed = self:GetPushedTexture()
+				if pushed and not pushed.bubg then
+					local bubg = B.CreateBDFrame(pushed, 0)
+					bubg:ClearAllPoints()
+					bubg:SetAllPoints(relativeTo)
+					bubg:SetBackdropBorderColor(1, 1, 1)
+					bubg:SetFrameLevel(relativeTo:GetFrameLevel() + 1)
+					bubg:Hide()
 
-			local checked = self:GetCheckedTexture()
-			checked:SetVertexColor(0, 1, 1)
-			B.ReskinBGBorder(checked, relativeTo)
+					pushed:HookScript("OnShow", function() bubg:Show() end)
+					pushed:HookScript("OnHide", function() bubg:Hide() end)
+
+					pushed.bubg = bubg
+				end
+			end
 		end
 	end
 

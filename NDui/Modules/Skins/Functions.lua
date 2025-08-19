@@ -222,7 +222,7 @@ do
 
 		if self.PortraitRing then
 			self.PortraitRing:Hide()
-			self.PortraitRingQuality:SetTexture("")
+			self.PortraitRingQuality:SetTexture(0)
 			self.PortraitRingCover:SetColorTexture(0, 0, 0)
 			self.PortraitRingCover:SetAllPoints(self.squareBG)
 		end
