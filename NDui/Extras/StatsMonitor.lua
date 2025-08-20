@@ -1,31 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-local barWidth, barHeight = 150, 10
-local barData = {
-	{label = DB.mainStat, limit = 150000},
-	{label = "爆击", limit = 100},
-	{label = "急速", limit = 100},
-	{label = "精通", limit = 100},
-	{label = "全能", limit = 100},
-	{label = "移速", limit = 500},
-	{label = "躲闪", limit = 100, role = "Tank"},
-	{label = "招架", limit = 100, role = "Tank"},
-	{label = "格挡", limit = 100, hide = 0},
-}
-
-local StatsMonitor = CreateFrame("Frame", "StatsMonitor", UIParent, "BackdropTemplate")
-StatsMonitor:SetSize(barWidth, barHeight)
-StatsMonitor:RegisterEvent("PLAYER_LOGIN")
-StatsMonitor:RegisterEvent("PLAYER_ENTERING_WORLD")
-StatsMonitor:RegisterEvent("PLAYER_TALENT_UPDATE")
-StatsMonitor:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN")
-StatsMonitor:RegisterUnitEvent("UNIT_AURA", "player", "target")
-
-StatsMonitor:SetScript("OnEvent", function(self, event, ...)
-	self[event](self, event, ...)
-end)
-
 local function GetCurrentSpeed()
 	local isGliding, canGlide, forwardSpeed = C_PlayerInfo.GetGlidingInfo()
 	local isFlying, isSwimming, isOnTaxi = IsFlying("player"), IsSwimming("player"), UnitOnTaxi("player")
@@ -36,67 +11,89 @@ local function GetCurrentSpeed()
 	return speedBase / 7 * 100
 end
 
-local function SetupValue(bar, stat, isNumb)
-	if not bar then return end
-
-	local r, g, b = B.SmoothColor(stat, bar.limit)
-
-	bar:SetValue(stat)
-	bar:SetStatusBarColor(r, g, b)
-	bar.value:SetText(isNumb and B.Numb(stat) or B.Perc(stat))
-	--bar.title:SetTextColor(r, g, b)
-	--bar.value:SetTextColor(r, g, b)
+local function GetVersatility()
+	return GetCombatRatingBonus(29)
 end
 
-function StatsMonitor:UpdateSelf()
+local function GetPrimaryStat()
+	return UnitStat("player", DB.mainID)
+end
+
+local barWidth, barHeight = 150, 10
+local barData = {
+	{label = DB.mainStat, limit = 150000, hide = 0, numb = true, func = GetPrimaryStat},
+	{label = "爆击", limit = 100, hide = 0, func = GetSpellCritChance},
+	{label = "急速", limit = 100, hide = 0, func = GetHaste},
+	{label = "精通", limit = 100, hide = 0, func = GetMasteryEffect},
+	{label = "全能", limit = 100, hide = 0, func = GetVersatility},
+	{label = "移速", limit = 500, hide = 0, func = GetCurrentSpeed},
+	{label = "躲闪", limit = 100, hide = 0, role = "Tank", func = GetDodgeChance},
+	{label = "招架", limit = 100, hide = 0, role = "Tank", func = GetParryChance},
+	{label = "格挡", limit = 100, hide = 0, role = "Tank", func = GetBlockChance},
+}
+
+local StatsMonitor = CreateFrame("Frame", "StatsMonitor", UIParent, "BackdropTemplate")
+StatsMonitor:SetSize(barWidth, barHeight)
+StatsMonitor:RegisterEvent("PLAYER_LOGIN")
+StatsMonitor:RegisterEvent("PLAYER_ENTERING_WORLD")
+StatsMonitor:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
+StatsMonitor:RegisterEvent("PLAYER_TALENT_UPDATE")
+StatsMonitor:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN")
+StatsMonitor:RegisterUnitEvent("UNIT_AURA", "player", "target")
+
+StatsMonitor:SetScript("OnEvent", function(self, event, ...)
+	self[event](self, event, ...)
+end)
+
+function StatsMonitor:UpdateValues()
+	if not self.bars then return end
+
+	for _, bar in ipairs(self.bars) do
+		local stat = bar.func()
+		if not stat then return end
+
+		bar.stat = stat
+
+		local r,g,b = B.SmoothColor(stat, bar.limit)
+		bar:SetValue(stat)
+		bar:SetStatusBarColor(r,g,b)
+		bar.value:SetText(bar.numb and B.Numb(stat) or B.Perc(stat))
+		--bar.title:SetTextColor(r, g, b)
+		--bar.value:SetTextColor(r, g, b)
+	end
+end
+
+function StatsMonitor:UpdateLayout()
 	if not self.bars then return end
 
 	self.bars[1].title:SetText(DB.mainStat)
 
-	local hideCount = 0
+	local showCount = 0
 	for _, bar in ipairs(self.bars) do
-		if (bar.role and bar.role ~= DB.Role) or (bar.hide and bar.hide >= GetBlockChance()) then
+		local shouldHide
+
+		if bar.role and bar.role ~= DB.Role then
+			shouldHide = true
+		end
+
+		if not shouldHide and (not bar.stat or bar.stat <= bar.hide) then
+			shouldHide = true
+		end
+
+		if shouldHide then
 			bar:Hide()
-			hideCount = hideCount + 1
 		else
 			bar:Show()
+			showCount = showCount + 1
 		end
+
+		bar:ClearAllPoints()
+		bar:SetPoint("TOP", self, "TOP", 0, -barHeight - (showCount - 1) * (barHeight * 2))
 	end
 
-	self:SetSize(barWidth, barHeight * (#self.bars - hideCount) * 2)
+	self:SetSize(barWidth, barHeight * showCount * 2)
 	self:ClearAllPoints()
 	self:SetPoint("BOTTOM", self.mover, "BOTTOM")
-end
-
-function StatsMonitor:UpdateValue()
-	if not self.bars then return end
-
-	local main = UnitStat("player", DB.mainID)
-	SetupValue(self.bars[1], main, true)
-
-	local crit = GetSpellCritChance()
-	SetupValue(self.bars[2], crit)
-
-	local haste = GetHaste()
-	SetupValue(self.bars[3], haste)
-
-	local mastery = GetMasteryEffect()
-	SetupValue(self.bars[4], mastery)
-
-	local versatility = GetCombatRatingBonus(29)
-	SetupValue(self.bars[5], versatility)
-
-	local speed = GetCurrentSpeed()
-	SetupValue(self.bars[6], speed)
-
-	local dodge = GetDodgeChance()
-	SetupValue(self.bars[7], dodge)
-
-	local parry = GetParryChance()
-	SetupValue(self.bars[8], parry)
-
-	local block = GetBlockChance()
-	SetupValue(self.bars[9], block)
 end
 
 function StatsMonitor:PLAYER_LOGIN()
@@ -116,31 +113,35 @@ function StatsMonitor:PLAYER_LOGIN()
 
 		bar.title = B.CreateFS(bar, barHeight+4, v.label, false, "LEFT", 2, barHeight/2)
 		bar.value = B.CreateFS(bar, barHeight+4, "", false, "RIGHT", -2, barHeight/2)
-		bar.limit = v.limit
-		bar.role = v.role
-		bar.hide = v.hide
+
+		for k, e in pairs(v) do bar[k] = e end
 
 		self.bars[i] = bar
 	end
 
-	self:UpdateSelf()
-	self:UpdateValue()
+	self:UpdateValues()
+	self:UpdateLayout()
 end
 
 function StatsMonitor:PLAYER_ENTERING_WORLD()
-	self:UpdateSelf()
-	self:UpdateValue()
+	self:UpdateValues()
+	self:UpdateLayout()
+end
+
+function StatsMonitor:PLAYER_EQUIPMENT_CHANGED()
+	self:UpdateValues()
+	self:UpdateLayout()
 end
 
 function StatsMonitor:PLAYER_TALENT_UPDATE()
-	self:UpdateSelf()
-	self:UpdateValue()
+	self:UpdateValues()
+	self:UpdateLayout()
 end
 
 function StatsMonitor:UNIT_AURA()
-	self:UpdateValue()
+	self:UpdateValues()
 end
 
 function StatsMonitor:ACTIONBAR_UPDATE_COOLDOWN()
-	self:UpdateValue()
+	self:UpdateValues()
 end

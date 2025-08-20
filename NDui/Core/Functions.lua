@@ -2172,6 +2172,7 @@ do
 			local checked = self:GetCheckedTexture()
 			if checked and not checked.bubg then
 				local bubg = B.CreateBDFrame(checked, 0)
+				bubg:EnableMouse(false)
 				bubg:ClearAllPoints()
 				bubg:SetAllPoints(relativeTo)
 				bubg:SetBackdropBorderColor(0, 1, 1)
@@ -2191,6 +2192,7 @@ do
 				local pushed = self:GetPushedTexture()
 				if pushed and not pushed.bubg then
 					local bubg = B.CreateBDFrame(pushed, 0)
+					bubg:EnableMouse(false)
 					bubg:ClearAllPoints()
 					bubg:SetAllPoints(relativeTo)
 					bubg:SetBackdropBorderColor(1, 1, 1)

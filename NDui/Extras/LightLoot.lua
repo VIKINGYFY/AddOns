@@ -201,7 +201,7 @@ local function ClearSlot(slot)
 	slot:Hide()
 end
 
-function LightLoot:UpdateSelf()
+function LightLoot:UpdateLayout()
 	local maxWidth, maxQuality, shownSlot = 0, 0, 0
 
 	for _, slot in ipairs(self.slots) do
@@ -278,7 +278,7 @@ function LightLoot:LOOT_OPENED(event, autoloot)
 		end
 	end
 
-	self:UpdateSelf()
+	self:UpdateLayout()
 end
 
 function LightLoot:LOOT_SLOT_CLEARED(event, index)
@@ -287,7 +287,7 @@ function LightLoot:LOOT_SLOT_CLEARED(event, index)
 	local slot = self.slots[index]
 	if slot then ClearSlot(slot) end
 
-	self:UpdateSelf()
+	self:UpdateLayout()
 end
 
 function LightLoot:LOOT_SLOT_CHANGED(event, index)
@@ -296,7 +296,7 @@ function LightLoot:LOOT_SLOT_CHANGED(event, index)
 	local slot = self.slots[index]
 	if slot then UpdateSlot(slot, index) end
 
-	self:UpdateSelf()
+	self:UpdateLayout()
 end
 
 function LightLoot:LOOT_CLOSED()
