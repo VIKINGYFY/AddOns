@@ -4,7 +4,6 @@ if not C.Infobar.Friends then return end
 
 local module = B:GetModule("Infobar")
 local info = module:RegisterInfobar("Friend", C.Infobar.FriendsPos)
-local cr, cg, cb = DB.r, DB.g, DB.b
 
 local WOW_PROJECT_ID = WOW_PROJECT_ID or 1
 local WOW_PROJECT_60 = WOW_PROJECT_CLASSIC or 2
@@ -394,7 +393,7 @@ function info:FriendsPanel_CreateButton(parent, index)
 	button:SetPoint("TOPLEFT", 0, - (index-1) *20)
 	button.HL = button:CreateTexture(nil, "HIGHLIGHT")
 	button.HL:SetAllPoints()
-	button.HL:SetColorTexture(cr, cg, cb, .25)
+	button.HL:SetColorTexture(DB.r, DB.g, DB.b, .25)
 
 	button.status = button:CreateTexture(nil, "ARTWORK")
 	button.status:SetPoint("LEFT", button, 5, 0)

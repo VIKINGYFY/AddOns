@@ -1,6 +1,5 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local cr, cg, cb = DB.r, DB.g, DB.b
 
 C.OnLoadThemes["Blizzard_AzeriteUI"] = function()
 	B.ReskinFrame(AzeriteEmpoweredItemUI)
@@ -18,7 +17,7 @@ local function updateEssenceButton(button)
 			B.ReskinIcon(button.Icon)
 			B.ReskinHLTex(button, bg, true)
 
-			button.PendingGlow:SetTexture(0)
+			button.PendingGlow:SetTexture(nil)
 			button.Background:SetAlpha(0)
 		end
 

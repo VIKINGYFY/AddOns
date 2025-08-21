@@ -100,10 +100,10 @@ function ItemButton:Create(tpl, parent)
 	local btnNIT = button.NewItemTexture
 	local btnBIT = button.BattlepayItemTexture
 	local btnICO = button.ItemContextOverlay
-	if btnNT then btnNT:SetTexture(0) end
-	if btnNIT then btnNIT:SetTexture(0) end
-	if btnBIT then btnBIT:SetTexture(0) end
-	if btnICO then btnICO:SetTexture(0) end
+	if btnNT then btnNT:SetTexture(nil) end
+	if btnNIT then btnNIT:SetTexture(nil) end
+	if btnBIT then btnBIT:SetTexture(nil) end
+	if btnICO then btnICO:SetTexture(nil) end
 
 	button:RegisterForDrag("LeftButton") -- fix button drag in 9.0
 

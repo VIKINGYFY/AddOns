@@ -1,6 +1,5 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local cr, cg, cb = DB.r, DB.g, DB.b
 
 C.OnLoginThemes["LootFrame"] = function()
 	B.ReskinClose(LootFrame.ClosePanelButton)
@@ -73,7 +72,7 @@ C.OnLoginThemes["LootFrame"] = function()
 
 	local Timer = PromptFrame.Timer
 	Timer.Bar:SetTexture(DB.normTex)
-	Timer.Bar:SetVertexColor(cr, cg, cb)
+	Timer.Bar:SetVertexColor(DB.r, DB.g, DB.b)
 	B.CreateBDFrame(Timer, .25, nil, -1)
 
 	local SpecIcon = BonusRollFrame.SpecIcon
@@ -124,6 +123,6 @@ C.OnLoginThemes["LootFrame"] = function()
 			B.ReskinBorder(iconHitBox.IconBorder, true)
 		end
 
-		iconHitBox.IconBorder:SetTexture(0)
+		iconHitBox.IconBorder:SetTexture(nil)
 	end)
 end

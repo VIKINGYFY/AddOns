@@ -2,7 +2,7 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 C.OnLoadThemes["Blizzard_BlackMarketUI"] = function()
-	local cr, cg, cb = DB.r, DB.g, DB.b
+	
 
 	B.StripTextures(BlackMarketFrame)
 	BlackMarketFrame.MoneyFrameBorder:SetAlpha(0)
@@ -46,7 +46,7 @@ C.OnLoadThemes["Blizzard_BlackMarketUI"] = function()
 
 				bu:SetHighlightTexture(DB.bdTex)
 				local hl = bu:GetHighlightTexture()
-				hl:SetVertexColor(cr, cg, cb, .25)
+				hl:SetVertexColor(DB.r, DB.g, DB.b, .25)
 				hl.SetAlpha = B.Dummy
 				hl:ClearAllPoints()
 				hl:SetAllPoints(bg)
@@ -54,7 +54,7 @@ C.OnLoadThemes["Blizzard_BlackMarketUI"] = function()
 				bu.Selection:ClearAllPoints()
 				bu.Selection:SetAllPoints(bg)
 				bu.Selection:SetTexture(DB.bdTex)
-				bu.Selection:SetVertexColor(cr, cg, cb, .25)
+				bu.Selection:SetVertexColor(DB.r, DB.g, DB.b, .25)
 
 				bu.reskinned = true
 			end

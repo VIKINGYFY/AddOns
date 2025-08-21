@@ -3,7 +3,6 @@ local B, C, L, DB = unpack(ns)
 local G = B:GetModule("GUI")
 
 local f
-local cr, cg, cb = DB.r, DB.g, DB.b
 
 -- Elements
 local function labelOnEnter(self)
@@ -333,7 +332,7 @@ local function CreatePanel()
 	local function tabOnClick(self)
 		for i = 1, #tabs do
 			if self == tabs[i] then
-				tabs[i].__bg:SetBackdropColor(cr, cg, cb, .25)
+				tabs[i].__bg:SetBackdropColor(DB.r, DB.g, DB.b, .25)
 				tabs[i].selected = true
 				tabs[i].Page:Show()
 			else
@@ -355,7 +354,7 @@ local function CreatePanel()
 
 		local label = B.CreateFS(tabs[i], 15, group, "system", "LEFT", 10, 0)
 		if i == 10 then
-			label:SetTextColor(cr, cg, cb)
+			label:SetTextColor(DB.r, DB.g, DB.b)
 		end
 		tabs[i].Page = createPage(group)
 		tabs[i].List = G:CreateScroll(tabs[i].Page, 575, 200, L["AuraWatch List"])

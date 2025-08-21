@@ -1,6 +1,5 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local cr, cg, cb = DB.r, DB.g, DB.b
 
 local function reskinFrameButton(self)
 	for i = 1, self.ScrollTarget:GetNumChildren() do
@@ -8,8 +7,8 @@ local function reskinFrameButton(self)
 		if not child.styled then
 			child:GetRegions():Hide()
 			child:SetHighlightTexture(0)
-			child.iconBorder:SetTexture(0)
-			child.selectedTexture:SetTexture(0)
+			child.iconBorder:SetTexture(nil)
+			child.selectedTexture:SetTexture(nil)
 
 			local bg = B.CreateBDFrame(child, .25)
 			bg:SetPoint("TOPLEFT", 3, -1)
@@ -22,11 +21,11 @@ local function reskinFrameButton(self)
 			child.name:SetParent(bg)
 
 			if child.DragButton then
-				child.DragButton.ActiveTexture:SetTexture(0)
+				child.DragButton.ActiveTexture:SetTexture(nil)
 				child.DragButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 				child.DragButton:GetHighlightTexture():SetAllPoints(icon)
 			else
-				child.dragButton.ActiveTexture:SetTexture(0)
+				child.dragButton.ActiveTexture:SetTexture(nil)
 				child.dragButton.levelBG:SetAlpha(0)
 				child.dragButton.level:SetFontObject(GameFontNormal)
 				child.dragButton.level:SetTextColor(1, 1, 1)
@@ -82,7 +81,7 @@ C.OnLoadThemes["Blizzard_Collections"] = function()
 		button.icon:SetShown(button.index ~= nil)
 
 		if button.selectedTexture:IsShown() then
-			button.bg:SetBackdropColor(cr, cg, cb, .25)
+			button.bg:SetBackdropColor(DB.r, DB.g, DB.b, .25)
 		else
 			button.bg:SetBackdropColor(0, 0, 0, .25)
 		end
@@ -115,7 +114,7 @@ C.OnLoadThemes["Blizzard_Collections"] = function()
 		end
 
 		if button.selectedTexture:IsShown() then
-			button.bg:SetBackdropColor(cr, cg, cb, .25)
+			button.bg:SetBackdropColor(DB.r, DB.g, DB.b, .25)
 		else
 			button.bg:SetBackdropColor(0, 0, 0, .25)
 		end
@@ -220,7 +219,7 @@ C.OnLoadThemes["Blizzard_Collections"] = function()
 		_G["PetJournalLoadoutPet"..i.."BG"]:Hide()
 
 		bu.iconBorder:SetAlpha(0)
-		bu.qualityBorder:SetTexture(0)
+		bu.qualityBorder:SetTexture(nil)
 		bu.levelBG:SetAlpha(0)
 		bu.helpFrame:GetRegions():Hide()
 		bu.dragButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
@@ -327,8 +326,8 @@ C.OnLoadThemes["Blizzard_Collections"] = function()
 		bu:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 		bu:GetHighlightTexture():SetAllPoints(ic)
 		bu.cooldown:SetAllPoints(ic)
-		bu.slotFrameCollected:SetTexture(0)
-		bu.slotFrameUncollected:SetTexture(0)
+		bu.slotFrameCollected:SetTexture(nil)
+		bu.slotFrameUncollected:SetTexture(nil)
 		B.ReskinIcon(ic)
 
 		hooksecurefunc(bu.name, "SetTextColor", changeTextColor)
@@ -362,8 +361,8 @@ C.OnLoadThemes["Blizzard_Collections"] = function()
 		if not button.styled then
 			local ic = button.iconTexture
 
-			button.slotFrameCollected:SetTexture(0)
-			button.slotFrameUncollected:SetTexture(0)
+			button.slotFrameCollected:SetTexture(nil)
+			button.slotFrameUncollected:SetTexture(nil)
 			button.levelBackground:SetAlpha(0)
 			button:SetPushedTexture(0)
 			button:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
@@ -440,7 +439,7 @@ C.OnLoadThemes["Blizzard_Collections"] = function()
 				B.ReskinTab(tab, true)
 			end
 			if tabID == index then
-				tab.bg:SetBackdropColor(cr, cg, cb, .25)
+				tab.bg:SetBackdropColor(DB.r, DB.g, DB.b, .25)
 			else
 				tab.bg:SetBackdropColor(0, 0, 0, .25)
 			end
@@ -468,7 +467,7 @@ C.OnLoadThemes["Blizzard_Collections"] = function()
 			local child = select(i, self.ScrollTarget:GetChildren())
 			if not child.styled then
 				child.Background:Hide()
-				child.HighlightTexture:SetTexture(0)
+				child.HighlightTexture:SetTexture(nil)
 
 				local icon = child.IconFrame and child.IconFrame.Icon or child.Icon
 				if icon then
@@ -480,7 +479,7 @@ C.OnLoadThemes["Blizzard_Collections"] = function()
 				end
 
 				child.SelectedTexture:SetDrawLayer("BACKGROUND")
-				child.SelectedTexture:SetColorTexture(cr, cg, cb, .25)
+				child.SelectedTexture:SetColorTexture(DB.r, DB.g, DB.b, .25)
 				child.SelectedTexture:ClearAllPoints()
 				child.SelectedTexture:SetPoint("TOPLEFT", 4, -2)
 				child.SelectedTexture:SetPoint("BOTTOMRIGHT", -1, 2)
@@ -501,7 +500,7 @@ C.OnLoadThemes["Blizzard_Collections"] = function()
 		if not ic.bg then
 			ic.bg = B.ReskinIcon(ic)
 		end
-		itemFrame.IconBorder:SetTexture(0)
+		itemFrame.IconBorder:SetTexture(nil)
 
 		if itemFrame.collected then
 			local quality = C_TransmogCollection.GetSourceInfo(itemFrame.sourceID).quality

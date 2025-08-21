@@ -1,7 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-local cr, cg, cb = DB.r, DB.g, DB.b
 local select, pairs = select, pairs
 
 local function reskinQuestIcon(button)
@@ -28,12 +27,12 @@ local function reskinQuestIcons(_, block)
 end
 
 local function reskinHeader(header)
-	header.Text:SetTextColor(cr, cg, cb)
-	header.Background:SetTexture(0)
+	header.Text:SetTextColor(DB.r, DB.g, DB.b)
+	header.Background:SetTexture(nil)
 	local bg = header:CreateTexture(nil, "ARTWORK")
 	bg:SetTexture("Interface\\LFGFrame\\UI-LFG-SEPARATOR")
 	bg:SetTexCoord(0, .66, 0, .31)
-	bg:SetVertexColor(cr, cg, cb)
+	bg:SetVertexColor(DB.r, DB.g, DB.b)
 	bg:SetPoint("BOTTOM", 0, -4)
 	bg:SetSize(250, 30)
 	header.bg = bg -- accessable for other addons
@@ -83,6 +82,7 @@ end
 
 local function reskinMinimizeButton(button, header)
 	B.ReskinCollapse(button)
+	B.CreateSD(button.bg)
 	button:GetNormalTexture():SetAlpha(0)
 	button:GetPushedTexture():SetAlpha(0)
 	button.__texture:DoCollapse(false)
@@ -151,7 +151,7 @@ C.OnLoginThemes["ObjectiveTracker"] = function()
 	B.StripTextures(mainHeader) -- main header looks simple this way
 
 	-- Minimize Button
-	local mainMinimize =mainHeader.MinimizeButton
+	local mainMinimize = mainHeader.MinimizeButton
 	reskinMinimizeButton(mainMinimize, mainHeader)
 	mainMinimize.bg:SetBackdropBorderColor(1, 1, 0)
 
@@ -176,7 +176,7 @@ C.OnLoginThemes["ObjectiveTracker"] = function()
 
 	-- Handle blocks, untest
 	hooksecurefunc(ScenarioObjectiveTracker.StageBlock, "UpdateStageBlock", function(block)
-		block.NormalBG:SetTexture(0)
+		block.NormalBG:SetTexture(nil)
 		if not block.bg then
 			block.bg = B.SetBD(block.GlowTexture, 0, -2, 4, 2)
 		end
@@ -211,8 +211,8 @@ C.OnLoginThemes["ObjectiveTracker"] = function()
 
 	hooksecurefunc(ScenarioObjectiveTracker.ChallengeModeBlock, "SetUpAffixes", function(self)
 		for frame in self.affixPool:EnumerateActive() do
-			frame.Border:SetTexture(0)
-			frame.Portrait:SetTexture(0)
+			frame.Border:SetTexture(nil)
+			frame.Portrait:SetTexture(nil)
 
 			if not frame.bg then
 				frame.bg = B.ReskinIcon(frame.Portrait)

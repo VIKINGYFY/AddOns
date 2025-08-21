@@ -2,8 +2,6 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local M = B:RegisterModule("Mover")
 
-local cr, cg, cb = DB.r, DB.g, DB.b
-
 -- Movable Frame
 function B:CreateMF(parent, saved)
 	local frame = parent or self
@@ -175,7 +173,7 @@ function M:Mover_OnClick(btn)
 end
 
 function M:Mover_OnEnter()
-	self.bg:SetBackdropBorderColor(cr, cg, cb)
+	self.bg:SetBackdropBorderColor(DB.r, DB.g, DB.b)
 	self.text:SetTextColor(1, 1, 0)
 end
 

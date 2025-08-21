@@ -547,7 +547,6 @@ function Generic:NewHeader(header)
 	WrapOnClick(self, oldheader)
 end
 
-
 -----------------------------------------------------------
 --- state management
 

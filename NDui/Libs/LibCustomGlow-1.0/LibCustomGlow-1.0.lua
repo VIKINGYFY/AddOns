@@ -161,7 +161,6 @@ local function addFrameAndTex(r,color,name,key,N,xOffset,yOffset,texture,texCoor
 	end
 end
 
-
 --Pixel Glow Functions--
 local pCalc1 = function(progress,s,th,p)
 	local c
@@ -752,7 +751,6 @@ end
 table.insert(lib.glowList, "Action Button Glow")
 lib.startList["Action Button Glow"] = lib.ButtonGlow_Start
 lib.stopList["Action Button Glow"] = lib.ButtonGlow_Stop
-
 
 -- ProcGlow
 

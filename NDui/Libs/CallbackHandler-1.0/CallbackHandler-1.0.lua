@@ -43,7 +43,6 @@ function CallbackHandler:New(target, RegisterName, UnregisterName, UnregisterAll
 	-- we declare all objects and exported APIs inside this closure to quickly gain access
 	-- to e.g. function names, the "target" parameter, etc
 
-
 	-- Create the registry object
 	local events = setmetatable({}, meta)
 	local registry = { recurse=0, events=events }
@@ -125,7 +124,6 @@ function CallbackHandler:New(target, RegisterName, UnregisterName, UnregisterAll
 			end
 		end
 
-
 		if events[eventname][self] or registry.recurse<1 then
 		-- if registry.recurse<1 then
 			-- we're overwriting an existing entry, or not currently recursing. just set it.
@@ -172,7 +170,6 @@ function CallbackHandler:New(target, RegisterName, UnregisterName, UnregisterAll
 				error("Usage: "..UnregisterAllName.."([whatFor]): supply a meaningful 'self' or \"addonId\"", 2)
 			end
 
-
 			for i=1,select("#",...) do
 				local self = select(i,...)
 				if registry.insertQueue then
@@ -197,7 +194,6 @@ function CallbackHandler:New(target, RegisterName, UnregisterName, UnregisterAll
 
 	return registry
 end
-
 
 -- CallbackHandler purposefully does NOT do explicit embedding. Nor does it
 -- try to upgrade old implicit embeds since the system is selfcontained and

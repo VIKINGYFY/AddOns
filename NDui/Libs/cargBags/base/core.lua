@@ -176,7 +176,6 @@ function cargBags.ToBagSlot(bagID, slotID)
 	return bagID*100+slotID
 end
 
-
 --- Gets the bagID-slotID-pair of a bagSlot-index
 --  @param bagSlot <number>
 --  @return bagID <number>

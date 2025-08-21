@@ -1,7 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local module = B:RegisterModule("Chat")
-local cr, cg, cb = DB.r, DB.g, DB.b
 
 local messageSoundID = SOUNDKIT.TELL_MESSAGE
 local maxLines = 2048
@@ -60,10 +59,10 @@ local function GradientBackground(self)
 
 	local tex = B.SetGradient(frame, "H", 0, 0, 0, DB.alpha, 0)
 	tex:SetAllPoints()
-	local topLine = B.SetGradient(frame, "H", cr, cg, cb, DB.alpha, 0, nil, C.mult)
+	local topLine = B.SetGradient(frame, "H", DB.r, DB.g, DB.b, DB.alpha, 0, nil, C.mult)
 	topLine:SetPoint("BOTTOMLEFT", frame, "TOPLEFT")
 	topLine:SetPoint("BOTTOMRIGHT", frame, "TOPRIGHT")
-	local bottomLine = B.SetGradient(frame, "H", cr, cg, cb, DB.alpha, 0, nil, C.mult)
+	local bottomLine = B.SetGradient(frame, "H", DB.r, DB.g, DB.b, DB.alpha, 0, nil, C.mult)
 	bottomLine:SetPoint("TOPLEFT", frame, "BOTTOMLEFT")
 	bottomLine:SetPoint("TOPRIGHT", frame, "BOTTOMRIGHT")
 
@@ -466,7 +465,7 @@ function module:OnLogin()
 	SetCVar("chatStyle", "classic")
 	SetCVar("chatMouseScroll", 1) -- enable mousescroll
 	--SetCVar("whisperMode", "inline") -- blizz reset this on NPE
-	CombatLogQuickButtonFrame_CustomTexture:SetTexture(0)
+	CombatLogQuickButtonFrame_CustomTexture:SetTexture(nil)
 
 	-- Add Elements
 	module:ChatWhisperSticky()

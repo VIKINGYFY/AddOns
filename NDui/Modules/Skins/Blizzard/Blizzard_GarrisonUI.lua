@@ -1,6 +1,5 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local cr, cg, cb = DB.r, DB.g, DB.b
 
 local function ReskinMissionPage(self)
 	B.StripTextures(self)
@@ -10,7 +9,7 @@ local function ReskinMissionPage(self)
 
 	self.Stage.Header:SetAlpha(0)
 	if self.StartMissionFrame then B.StripTextures(self.StartMissionFrame) end
-	self.StartMissionButton.Flash:SetTexture(0)
+	self.StartMissionButton.Flash:SetTexture(nil)
 	B.ReskinButton(self.StartMissionButton)
 	B.ReskinClose(self.CloseButton, nil, -10, -5)
 
@@ -54,7 +53,7 @@ local function ReskinMissionTabs(self)
 			B.StripTextures(tab)
 			tab.bg = B.CreateBDFrame(tab, .25)
 			if i == 1 then
-				tab.bg:SetBackdropColor(cr, cg, cb, .25)
+				tab.bg:SetBackdropColor(DB.r, DB.g, DB.b, .25)
 			end
 		end
 	end
@@ -173,12 +172,12 @@ end
 local function ReskinFollowerButton(button)
 	if not button.styled then
 		button.BG:Hide()
-		button.Selection:SetTexture(0)
-		button.AbilitiesBG:SetTexture(0)
+		button.Selection:SetTexture(nil)
+		button.AbilitiesBG:SetTexture(nil)
 		button.bg = B.CreateBDFrame(button, .25)
 
 		local hl = button:GetHighlightTexture()
-		hl:SetColorTexture(cr, cg, cb, .25)
+		hl:SetColorTexture(DB.r, DB.g, DB.b, .25)
 		hl:ClearAllPoints()
 		hl:SetInside(button.bg)
 
@@ -207,7 +206,7 @@ local function ReskinFollowerButton(button)
 	end
 
 	if button.Selection:IsShown() then
-		button.bg:SetBackdropColor(cr, cg, cb, .25)
+		button.bg:SetBackdropColor(DB.r, DB.g, DB.b, .25)
 	else
 		button.bg:SetBackdropColor(0, 0, 0, .25)
 	end
@@ -411,7 +410,7 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 		tab.bg = bg
 
 		local hl = tab:GetHighlightTexture()
-		hl:SetColorTexture(cr, cg, cb, .25)
+		hl:SetColorTexture(DB.r, DB.g, DB.b, .25)
 		hl:ClearAllPoints()
 		hl:SetInside(bg)
 	end
@@ -425,7 +424,7 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 				otherTab.bg:SetBackdropColor(0, 0, 0, .25)
 			end
 		end
-		tab.bg:SetBackdropColor(cr, cg, cb, .25)
+		tab.bg:SetBackdropColor(DB.r, DB.g, DB.b, .25)
 
 		for _, button in pairs(list.Buttons) do
 			if not button.styled then
@@ -436,12 +435,12 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 				bg:SetPoint("TOPLEFT", 44, -5)
 				bg:SetPoint("BOTTOMRIGHT", 0, 6)
 
-				button.SelectedBG:SetColorTexture(cr, cg, cb, .25)
+				button.SelectedBG:SetColorTexture(DB.r, DB.g, DB.b, .25)
 				button.SelectedBG:ClearAllPoints()
 				button.SelectedBG:SetInside(bg)
 
 				local hl = button:GetHighlightTexture()
-				hl:SetColorTexture(cr, cg, cb, .25)
+				hl:SetColorTexture(DB.r, DB.g, DB.b, .25)
 				hl:SetAllPoints(button.SelectedBG)
 
 				button.styled = true
@@ -578,7 +577,7 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 
 		local selectedTex = bg:CreateTexture(nil, "BACKGROUND")
 		selectedTex:SetAllPoints()
-		selectedTex:SetColorTexture(cr, cg, cb, .25)
+		selectedTex:SetColorTexture(DB.r, DB.g, DB.b, .25)
 		selectedTex:Hide()
 		tab.selectedTex = selectedTex
 
@@ -630,7 +629,7 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 
 	hooksecurefunc("GarrisonMissonListTab_SetSelected", function(tab, isSelected)
 		if isSelected then
-			tab.bg:SetBackdropColor(cr, cg, cb, .25)
+			tab.bg:SetBackdropColor(DB.r, DB.g, DB.b, .25)
 		else
 			tab.bg:SetBackdropColor(0, 0, 0, .25)
 		end
@@ -1179,13 +1178,13 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 					peek("Hi"):SetColorTexture(1, 1, 1, .25)
 					peek("Hi"):SetInside(widget.bg)
 					peek("PortraitR"):Hide()
-					peek("PortraitT"):SetTexture(0)
+					peek("PortraitT"):SetTexture(nil)
 					peek("PortraitT").__owner = widget
 					hooksecurefunc(peek("PortraitT"), "SetShown", updateSelectedBorder)
 
 					numButtons = numButtons + 1
 					if numButtons > 2 then
-						peek("UsedBorder"):SetTexture(0)
+						peek("UsedBorder"):SetTexture(nil)
 						peek("UsedBorder").__shadow = B.CreateSD(peek("Portrait"), nil, true)
 						peek("UsedBorder").__shadow:SetBackdropBorderColor(peek("UsedBorder"):GetVertexColor())
 						hooksecurefunc(peek("UsedBorder"), "SetShown", updateActiveGlow)

@@ -3,7 +3,7 @@ local B, C, L, DB = unpack(ns)
 
 C.OnLoginThemes["LootHistory"] = function()
 
-	local cr, cg, cb = DB.r, DB.g, DB.b
+	
 
 	local frame = GroupLootHistoryFrame
 	if not frame then return end
@@ -19,7 +19,7 @@ C.OnLoginThemes["LootHistory"] = function()
 		B.StripTextures(bar)
 		B.CreateBDFrame(bar, .25, nil, -1)
 		bar.Fill:SetTexture(DB.normTex)
-		bar.Fill:SetVertexColor(cr, cg, cb)
+		bar.Fill:SetVertexColor(DB.r, DB.g, DB.b)
 	end
 
 	-- Resize button
@@ -38,8 +38,8 @@ C.OnLoginThemes["LootHistory"] = function()
 	line2:SetPoint("TOP", 0, -5)
 
 	frame.ResizeButton:HookScript("OnEnter", function()
-		line1:SetVertexColor(cr, cg, cb)
-		line2:SetVertexColor(cr, cg, cb)
+		line1:SetVertexColor(DB.r, DB.g, DB.b)
+		line2:SetVertexColor(DB.r, DB.g, DB.b)
 	end)
 	frame.ResizeButton:HookScript("OnLeave", function()
 		line1:SetVertexColor(.7, .7, .7)

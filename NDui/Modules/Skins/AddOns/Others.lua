@@ -2,8 +2,6 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local S = B:GetModule("Skins")
 
-local cr, cg, cb = DB.r, DB.g, DB.b
-
 function S:FriendGroups()
 	if not C_AddOns.IsAddOnLoaded("FriendGroups") then return end
 
@@ -189,7 +187,7 @@ local function updateSoulshapeButtons(self)
 
 			B.ReskinIcon(bu.icon)
 			bu.selectedTexture:SetAlpha(0)
-			bu.background:SetTexture(0)
+			bu.background:SetTexture(nil)
 			bu:SetHighlightTexture(0)
 
 			local critterIcon = bu.critterIcon
@@ -200,7 +198,7 @@ local function updateSoulshapeButtons(self)
 		end
 
 		if bu.selected then
-			bu.bg:SetBackdropColor(cr, cg, cb, .25)
+			bu.bg:SetBackdropColor(DB.r, DB.g, DB.b, .25)
 		else
 			bu.bg:SetBackdropColor(0, 0, 0, .25)
 		end
@@ -324,7 +322,7 @@ function S:ERT()
 		tab:SetPushedTexture(0)
 		tab:SetDisabledTexture(0)
 		local hl = tab:GetHighlightTexture()
-		hl:SetColorTexture(cr, cg, cb, .25)
+		hl:SetColorTexture(DB.r, DB.g, DB.b, .25)
 		hl:SetInside(bg)
 	end
 
@@ -357,7 +355,7 @@ function S:ERT()
 				local header = select(i, self:GetChildren())
 				if not header.styled then
 					for i = 5, 19 do
-						select(i, header.button:GetRegions()):SetTexture(0)
+						select(i, header.button:GetRegions()):SetTexture(nil)
 					end
 					B.ReskinButton(header.button)
 					header.descriptionBG:SetAlpha(0)
@@ -502,8 +500,8 @@ local function handleJournal()
 	hooksecurefunc(frame, "UpdateButton", function(_, button)
 		if button.iconTexture and not button.bg then
 			local icon = button.iconTexture
-			button.slotFrameCollected:SetTexture(0)
-			button.slotFrameUncollected:SetTexture(0)
+			button.slotFrameCollected:SetTexture(nil)
+			button.slotFrameUncollected:SetTexture(nil)
 			button:SetPushedTexture(0)
 			button:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 			button:GetHighlightTexture():SetAllPoints(icon)

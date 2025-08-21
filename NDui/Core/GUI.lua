@@ -2,7 +2,6 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local G = B:RegisterModule("GUI")
 
-local cr, cg, cb = DB.r, DB.g, DB.b
 local guiTab, guiPage, f = {}, {}
 
 -- Default Settings
@@ -409,10 +408,6 @@ G.DefaultSettings = {
 		Bigwigs = true,
 		TMW = true,
 		WeakAuras = true,
-		InfobarLine = true,
-		ChatbarLine = true,
-		MenuLine = true,
-		ClassLine = true,
 		Details = true,
 		ToggleDirection = 1,
 		BlizzardSkins = true,
@@ -1038,7 +1033,7 @@ local function AddTextureToOption(parent, index)
 	local tex = parent[index]:CreateTexture(nil, "ARTWORK")
 	tex:SetInside(nil, 4, 4)
 	tex:SetTexture(G.TextureList[index].texture)
-	tex:SetVertexColor(cr, cg, cb)
+	tex:SetVertexColor(DB.r, DB.g, DB.b)
 end
 
 -- Config
@@ -1318,11 +1313,6 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{3, "Skins", "SkinAlpha", L["SkinAlpha"].."*", nil, {0, 1, .05}, updateSkinAlpha},
 		{3, "Skins", "FontScale", L["GlobalFontScale"], true, {.5, 1.5, .05}},
 		{}, -- blank
-		{1, "Skins", "ClassLine", L["ClassColor Line"], nil, nil, nil, L["ClassColor Line Tip"]},
-		{1, "Skins", "InfobarLine", L["Infobar Line"], true},
-		{1, "Skins", "ChatbarLine", L["Chat Line"]},
-		{1, "Skins", "MenuLine", L["Menu Line"], true},
-		{}, -- blank
 		{1, "Skins", "Skada", L["Skada Skin"]},
 		{1, "Skins", "Details", L["Details Skin"], nil, resetDetails},
 		{4, "Skins", "ToggleDirection", L["ToggleDirection"].."*", true, {L["LEFT"], L["RIGHT"], L["TOP"], L["BOTTOM"], DISABLE}, updateToggleDirection},
@@ -1395,7 +1385,7 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 local function SelectTab(i)
 	for num = 1, #G.TabList do
 		if num == i then
-			guiTab[num].__bg:SetBackdropColor(cr, cg, cb, .25)
+			guiTab[num].__bg:SetBackdropColor(DB.r, DB.g, DB.b, .25)
 			guiTab[num].checked = true
 			guiPage[num]:Show()
 		else

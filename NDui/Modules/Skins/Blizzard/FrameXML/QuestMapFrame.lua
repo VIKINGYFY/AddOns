@@ -212,8 +212,8 @@ C.OnLoginThemes["QuestMapFrame"] = function()
 	local ShowMapButton = QuestLogPopupDetailFrame.ShowMapButton
 
 	ShowMapButton.Texture:SetAlpha(0)
-	ShowMapButton.Highlight:SetTexture(0)
-	ShowMapButton.Highlight:SetTexture(0)
+	ShowMapButton.Highlight:SetTexture(nil)
+	ShowMapButton.Highlight:SetTexture(nil)
 
 	ShowMapButton:SetSize(ShowMapButton.Text:GetStringWidth() + 14, 22)
 	ShowMapButton.Text:ClearAllPoints()

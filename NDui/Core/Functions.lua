@@ -1,6 +1,5 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local cr, cg, cb = DB.r, DB.g, DB.b
 
 -- Math
 do
@@ -385,7 +384,6 @@ do
 		"BottomRightTex",
 		"BottomTex",
 		"Center",
-		"CheckedTexture",
 		"CircleMask",
 		"Cover",
 		"DecorLeft",
@@ -423,13 +421,11 @@ do
 		"NameFrame",
 		"NewActionTexture",
 		"NineSlice",
-		"NormalTexture",
 		"Overlay",
 		"OverlayKit",
 		"Portrait",
 		"PortraitContainer",
 		"PortraitOverlay",
-		"PushedTexture",
 		"RecipientOverlay",
 		"Right",
 		"RightDisabled",
@@ -486,6 +482,8 @@ do
 		"topInset",
 		"track",
 		"trackBG",
+		"PushedTexture",
+		"NormalTexture",
 	}
 
 	function B:CleanTextures(isOverride)
@@ -502,8 +500,8 @@ do
 				if blizzTexture:IsObjectType("MaskTexture") then
 					blizzTexture:Hide()
 				elseif blizzTexture:IsObjectType("Texture") then
-					blizzTexture:SetTexture(0)
-					blizzTexture:SetAtlas(0)
+					blizzTexture:SetTexture(nil)
+					blizzTexture:SetAtlas(nil)
 					blizzTexture:SetAlpha(0)
 				else
 					B.StripTextures(blizzTexture, 99)
@@ -527,13 +525,13 @@ do
 							if kill == 0 then
 								region:SetAlpha(0)
 							elseif kill ~= index then
-								region:SetTexture(0)
-								region:SetAtlas(0)
+								region:SetTexture(nil)
+								region:SetAtlas(nil)
 								region:SetAlpha(0)
 							end
 						else
-							region:SetTexture(0)
-							region:SetAtlas(0)
+							region:SetTexture(nil)
+							region:SetAtlas(nil)
 						end
 					end
 				end
@@ -590,7 +588,7 @@ do
 	}
 
 	local colorList = {
-		["class"] = {cr, cg, cb},
+		["class"] = {DB.r, DB.g, DB.b},
 		["system"] = {1, 1, 0},
 		["info"] = {0, 1, 1},
 		["red"] = {1, 0, 0},
@@ -607,7 +605,7 @@ do
 		fs:SetText(text)
 
 		if color and type(color) == "boolean" then
-			fs:SetTextColor(cr, cg, cb)
+			fs:SetTextColor(DB.r, DB.g, DB.b)
 		elseif color then
 			fs:SetTextColor(unpack(colorList[color]))
 		end
@@ -960,7 +958,7 @@ do
 		local bar = CreateFrame("StatusBar", name, self)
 		bar:SetFrameLevel(self:GetFrameLevel())
 		bar:SetStatusBarTexture(DB.normTex)
-		bar:SetStatusBarColor(cr, cg, cb)
+		bar:SetStatusBarColor(DB.r, DB.g, DB.b)
 
 		bar.bd = B.SetBD(bar)
 
@@ -1013,9 +1011,9 @@ do
 		if not self:IsEnabled() then return end
 
 		if self.__gradient then
-			self.__gradient:SetVertexColor(cr, cg, cb, .25)
+			self.__gradient:SetVertexColor(DB.r, DB.g, DB.b, .25)
 		else
-			self.__bg:SetBackdropColor(cr, cg, cb, .25)
+			self.__bg:SetBackdropColor(DB.r, DB.g, DB.b, .25)
 		end
 	end
 	local function Button_OnLeave(self)
@@ -1036,7 +1034,7 @@ do
 	end
 
 	local function Menu_OnEnter(self)
-		self.bg:SetBackdropBorderColor(cr, cg, cb)
+		self.bg:SetBackdropBorderColor(DB.r, DB.g, DB.b)
 	end
 	local function Menu_OnLeave(self)
 		B.SetBorderColor(self.bg)
@@ -1045,7 +1043,7 @@ do
 		self.bg:SetBackdropColor(0, 0, 0, C.db["Skins"]["SkinAlpha"])
 	end
 	local function Menu_OnMouseDown(self)
-		self.bg:SetBackdropColor(cr, cg, cb, .25)
+		self.bg:SetBackdropColor(DB.r, DB.g, DB.b, .25)
 	end
 
 	function B:ReskinMenuButton()
@@ -1083,7 +1081,7 @@ do
 	-- Handle scrollframe
 	local function Thumb_OnEnter(self)
 		local thumb = self.thumb or self
-		thumb.__gradient:SetVertexColor(cr, cg, cb, .25)
+		thumb.__gradient:SetVertexColor(DB.r, DB.g, DB.b, .25)
 	end
 	local function Thumb_OnLeave(self)
 		local thumb = self.thumb or self
@@ -1184,9 +1182,9 @@ do
 		end
 		if self.IsEnabled and self:IsEnabled() then
 			if self.bg then
-				self.bg:SetBackdropColor(cr, cg, cb, .25)
+				self.bg:SetBackdropColor(DB.r, DB.g, DB.b, .25)
 			else
-				self.__texture:SetVertexColor(cr, cg, cb)
+				self.__texture:SetVertexColor(DB.r, DB.g, DB.b)
 			end
 		end
 	end
@@ -1330,7 +1328,7 @@ do
 	end
 
 	-- Handle checkbox and radio
-	function B:ReskinCheck(forceSaturation)
+	function B:ReskinCheck()
 		B.StripTextures(self)
 
 		self.bg = B.CreateBDFrame(self, 0, true, 4)
@@ -1341,9 +1339,7 @@ do
 		check:SetAtlas("checkmark-minimal")
 		check:SetDesaturated(true)
 		check:SetTexCoord(0, 1, 0, 1)
-		check:SetVertexColor(cr, cg, cb)
-
-		self.forceSaturation = forceSaturation
+		check:SetVertexColor(DB.r, DB.g, DB.b)
 	end
 
 	function B:ReskinRadio()
@@ -1354,7 +1350,7 @@ do
 		self:SetCheckedTexture(DB.bdTex)
 		local ch = self:GetCheckedTexture()
 		ch:SetInside(self.bg)
-		ch:SetVertexColor(cr, cg, cb, .5)
+		ch:SetVertexColor(DB.r, DB.g, DB.b, .5)
 
 		self:HookScript("OnEnter", Menu_OnEnter)
 		self:HookScript("OnLeave", Menu_OnLeave)
@@ -1515,8 +1511,8 @@ do
 		if not list then return end
 
 		for _, frame in pairs(list) do
-			frame.Border:SetTexture(0)
-			frame.Portrait:SetTexture(0)
+			frame.Border:SetTexture(nil)
+			frame.Portrait:SetTexture(nil)
 
 			if not frame.bg then
 				frame.bg = B.ReskinIcon(frame.Portrait)
@@ -1545,10 +1541,10 @@ do
 	end
 
 	function B:ReskinRole()
-		if self.background then self.background:SetTexture(0) end
+		if self.background then self.background:SetTexture(nil) end
 
 		local cover = self.cover or self.Cover
-		if cover then cover:SetTexture(0) end
+		if cover then cover:SetTexture(nil) end
 
 		local checkButton = self.checkButton or self.CheckButton or self.CheckBox or self.Checkbox
 		if checkButton then
@@ -2016,7 +2012,7 @@ do
 
 		self:SetStatusBarTexture(DB.normTex)
 		if not noCC then
-			self:SetStatusBarColor(cr, cg, cb, DB.alpha)
+			self:SetStatusBarColor(DB.r, DB.g, DB.b, DB.alpha)
 		end
 
 		for _, key in pairs(barWords) do
@@ -2137,7 +2133,7 @@ do
 		if not self then return end
 
 		local r, g, b = 1, 1, 1
-		if classColor then r, g, b = cr, cg, cb end
+		if classColor then r, g, b = DB.r, DB.g, DB.b end
 
 		local tex
 		if self.SetHighlightTexture then

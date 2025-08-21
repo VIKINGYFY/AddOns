@@ -1,7 +1,6 @@
 ﻿local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local module = B:GetModule("Maps")
-local cr, cg, cb = DB.r, DB.g, DB.b
 
 function module:CreatePulse()
 	local bg = B.SetBD(Minimap)
@@ -270,11 +269,11 @@ function module:RecycleBin()
 
 	local tex = B.SetGradient(bin, "H", 0, 0, 0, 0, DB.alpha, width, height)
 	tex:SetPoint("CENTER")
-	local topLine = B.SetGradient(bin, "H", cr, cg, cb, 0, DB.alpha, width, C.mult)
+	local topLine = B.SetGradient(bin, "H", DB.r, DB.g, DB.b, 0, DB.alpha, width, C.mult)
 	topLine:SetPoint("BOTTOM", bin, "TOP")
-	local bottomLine = B.SetGradient(bin, "H", cr, cg, cb, 0, DB.alpha, width, C.mult)
+	local bottomLine = B.SetGradient(bin, "H", DB.r, DB.g, DB.b, 0, DB.alpha, width, C.mult)
 	bottomLine:SetPoint("TOP", bin, "BOTTOM")
-	local rightLine = B.SetGradient(bin, "V", cr, cg, cb, DB.alpha, DB.alpha, C.mult, height + C.mult*2)
+	local rightLine = B.SetGradient(bin, "V", DB.r, DB.g, DB.b, DB.alpha, DB.alpha, C.mult, height + C.mult*2)
 	rightLine:SetPoint("LEFT", bin, "RIGHT")
 
 	local function hideBinButton()
@@ -321,7 +320,7 @@ function module:RecycleBin()
 				--region:SetInside(child.bg)
 				local texture = region:GetTexture() or ""
 				if removedTextures[texture] or string.find(texture, "Interface\\CharacterFrame") or string.find(texture, "Interface\\Minimap") then
-					region:SetTexture(0)
+					region:SetTexture(nil)
 					region:Hide() -- hide CircleMask
 				end
 				if not region.__ignored then
@@ -529,7 +528,7 @@ function module:ShowCalendar()
 			for i = 1, GameTimeFrame:GetNumRegions() do
 				local region = select(i, GameTimeFrame:GetRegions())
 				if region.SetTextColor then
-					region:SetTextColor(cr, cg, cb)
+					region:SetTextColor(DB.r, DB.g, DB.b)
 					region:SetFont(unpack(DB.Font))
 					break
 				end
@@ -680,7 +679,6 @@ function module:SetupMinimap()
 
 	_G.MinimapCluster.Tracking:SetAlpha(0)
 	_G.MinimapCluster.Tracking:SetScale(0.0001)
-
 
 	-- Add Elements
 	self:CreatePulse()

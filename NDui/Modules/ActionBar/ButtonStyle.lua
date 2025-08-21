@@ -1,6 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local cr, cg, cb = DB.r, DB.g, DB.b
+
 local Bar = B:GetModule("Actionbar")
 
 local keyButton = string.gsub(KEY_BUTTON4, "%d", "")
@@ -48,7 +48,7 @@ function Bar:UpdateEquipedColor(button)
 	if not button.__bg then return end
 
 	if button.Border:IsShown() then
-		button.__bg:SetBackdropBorderColor(cr, cg, cb)
+		button.__bg:SetBackdropBorderColor(DB.r, DB.g, DB.b)
 	else
 		B.SetBorderColor(button.__bg)
 	end

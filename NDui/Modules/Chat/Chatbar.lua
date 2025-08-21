@@ -158,14 +158,6 @@ function module:Chatbar()
 end
 
 function module:ChatBarBackground()
-	if not C.db["Skins"]["ChatbarLine"] then return end
-
-	local r, g, b = DB.r, DB.g, DB.b
-	if not C.db["Skins"]["ClassLine"] then
-		local colors = C.db["Skins"]["CustomBDColor"]
-		r, g, b = colors.r, colors.g, colors.b
-	end
-
 	local parent = _G["NDui_ChatBar"]
 	local width, height = 450, 18
 	local frame = CreateFrame("Frame", nil, parent)
@@ -174,8 +166,8 @@ function module:ChatBarBackground()
 
 	local tex = B.SetGradient(frame, "H", 0, 0, 0, DB.alpha, 0, width, height)
 	tex:SetPoint("CENTER")
-	local bottomLine = B.SetGradient(frame, "H", r, g, b, DB.alpha, 0, width, C.mult)
+	local bottomLine = B.SetGradient(frame, "H", DB.r, DB.g, DB.b, DB.alpha, 0, width, C.mult)
 	bottomLine:SetPoint("TOP", frame, "BOTTOM")
-	local topLine = B.SetGradient(frame, "H", r, g, b, DB.alpha, 0, width, C.mult)
+	local topLine = B.SetGradient(frame, "H", DB.r, DB.g, DB.b, DB.alpha, 0, width, C.mult)
 	topLine:SetPoint("BOTTOM", frame, "TOP")
 end

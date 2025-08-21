@@ -7,7 +7,6 @@ C.OnLoginThemes["GarrisonFollowerTooltip"] = function()
 	B.ReskinClose(FloatingBattlePetTooltip.CloseButton)
 	B.ReskinClose(FloatingPetBattleAbilityTooltip.CloseButton)
 
-
 	B.ReskinGarrisonTooltip(FloatingGarrisonMissionTooltip)
 	B.ReskinGarrisonTooltip(GarrisonFollowerTooltip)
 	B.ReskinGarrisonTooltip(FloatingGarrisonFollowerTooltip)

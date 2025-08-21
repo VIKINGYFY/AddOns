@@ -17,7 +17,7 @@ end
 
 C.OnLoginThemes["LFGList"] = function()
 
-	local cr, cg, cb = DB.r, DB.g, DB.b
+	
 
 	local LFGListFrame = LFGListFrame
 	LFGListFrame.NothingAvailable.Inset:Hide()
@@ -103,7 +103,7 @@ C.OnLoginThemes["LFGList"] = function()
 			local hl = result:CreateTexture(nil, "BACKGROUND")
 			hl:SetInside(bg)
 			hl:SetTexture(DB.bdTex)
-			hl:SetVertexColor(cr, cg, cb, .25)
+			hl:SetVertexColor(DB.r, DB.g, DB.b, .25)
 			hl:Hide()
 			result.hl = hl
 
@@ -150,7 +150,7 @@ C.OnLoginThemes["LFGList"] = function()
 		local hl = header:CreateTexture(nil, "BACKGROUND")
 		hl:SetInside(bg)
 		hl:SetTexture(DB.bdTex)
-		hl:SetVertexColor(cr, cg, cb, .25)
+		hl:SetVertexColor(DB.r, DB.g, DB.b, .25)
 		hl:Hide()
 		header.hl = hl
 
@@ -243,7 +243,7 @@ C.OnLoginThemes["LFGList"] = function()
 	-- Activity finder
 
 	local activityFinder = entryCreation.ActivityFinder
-	activityFinder.Background:SetTexture(0)
+	activityFinder.Background:SetTexture(nil)
 
 	local finderDialog = activityFinder.Dialog
 	B.StripTextures(finderDialog)

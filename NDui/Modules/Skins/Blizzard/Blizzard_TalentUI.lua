@@ -1,6 +1,5 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local cr, cg, cb = DB.r, DB.g, DB.b
 
 local function ReanchorTutorial(button)
 	button.Ring:Hide()
@@ -12,10 +11,10 @@ C.OnLoadThemes["Blizzard_TalentUI"] = function()
 	PlayerTalentFrameTalentsBg:Hide()
 	ReanchorTutorial(PlayerTalentFrameTalentsTutorialButton)
 
-	PlayerTalentFrameActiveSpecTabHighlight:SetTexture(0)
-	PlayerTalentFrameTitleGlowLeft:SetTexture(0)
-	PlayerTalentFrameTitleGlowRight:SetTexture(0)
-	PlayerTalentFrameTitleGlowCenter:SetTexture(0)
+	PlayerTalentFrameActiveSpecTabHighlight:SetTexture(nil)
+	PlayerTalentFrameTitleGlowLeft:SetTexture(nil)
+	PlayerTalentFrameTitleGlowRight:SetTexture(nil)
+	PlayerTalentFrameTitleGlowCenter:SetTexture(nil)
 	PlayerTalentFrameLockInfoPortraitFrame:Hide()
 	PlayerTalentFrameLockInfoPortrait:Hide()
 
@@ -49,7 +48,7 @@ C.OnLoadThemes["Blizzard_TalentUI"] = function()
 			B.StripTextures(bu)
 			B.ReskinButton(bu)
 
-			bu.selectedTex:SetColorTexture(cr, cg, cb, .25)
+			bu.selectedTex:SetColorTexture(DB.r, DB.g, DB.b, .25)
 			bu.selectedTex:SetDrawLayer("BACKGROUND")
 			bu.selectedTex:SetInside(bu.__bg)
 
@@ -117,9 +116,9 @@ C.OnLoadThemes["Blizzard_TalentUI"] = function()
 		row:DisableDrawLayer("BORDER")
 
 		row.TopLine:SetDesaturated(true)
-		row.TopLine:SetVertexColor(cr, cg, cb)
+		row.TopLine:SetVertexColor(DB.r, DB.g, DB.b)
 		row.BottomLine:SetDesaturated(true)
-		row.BottomLine:SetVertexColor(cr, cg, cb)
+		row.BottomLine:SetVertexColor(DB.r, DB.g, DB.b)
 
 		for j = 1, NUM_TALENT_COLUMNS do
 			local bu = _G["PlayerTalentFrameTalentsTalentRow"..i.."Talent"..j]
@@ -144,9 +143,9 @@ C.OnLoadThemes["Blizzard_TalentUI"] = function()
 				local _, _, _, selected, _, _, _, _, _, _, known = GetTalentInfo(i, j, 1)
 				local bu = _G["PlayerTalentFrameTalentsTalentRow"..i.."Talent"..j]
 				if known then
-					bu.bg:SetBackdropColor(cr, cg, cb, .5)
+					bu.bg:SetBackdropColor(DB.r, DB.g, DB.b, .5)
 				elseif selected then
-					bu.bg:SetBackdropColor(cr, cg, cb, .25)
+					bu.bg:SetBackdropColor(DB.r, DB.g, DB.b, .25)
 				else
 					bu.bg:SetBackdropColor(0, 0, 0, .25)
 				end

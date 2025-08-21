@@ -71,7 +71,7 @@ function S:WhisperPop()
 		local bu = _G[button]
 		B.CleanTextures(bu)
 
-		local icbg = B.ReskinIcon(_G[button.."Icon"])
+		local icbg = B.ReskinIcon(_G[button.."Icon"], true)
 		B.ReskinHLTex(bu, icbg)
 		B.ReskinCPTex(bu, icbg)
 	end

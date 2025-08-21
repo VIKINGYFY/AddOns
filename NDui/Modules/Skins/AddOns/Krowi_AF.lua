@@ -2,15 +2,13 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local S = B:GetModule("Skins")
 
-local cr, cg, cb = DB.r, DB.g, DB.b
-
 local function SetupButtonHighlight(button, bg)
 	if button.Highlight then
 		B.StripTextures(button.Highlight)
 	end
 	button:SetHighlightTexture(DB.bdTex)
 	local hl = button:GetHighlightTexture()
-	hl:SetVertexColor(cr, cg, cb, .25)
+	hl:SetVertexColor(DB.r, DB.g, DB.b, .25)
 	hl:SetInside(bg)
 end
 
@@ -198,8 +196,8 @@ function S:KrowiAF()
 			local button = _G["KrowiAF_AchievementFrameSideButton"..i]
 			if not button then break end
 			if not button.bg then
-				button.Background:SetTexture(0)
-				button.Icon.Overlay:SetTexture(0)
+				button.Background:SetTexture(nil)
+				button.Icon.Overlay:SetTexture(nil)
 				B.ReskinIcon(button.Icon.Texture)
 				button.bg = B.SetBD(button)
 				button.bg:SetPoint("TOPLEFT", 6, -9)
@@ -236,7 +234,7 @@ function S:KrowiAF()
 				local bg = B.CreateBDFrame(button, .25)
 				bg:SetInside()
 				local hl = button:GetHighlightTexture()
-				hl:SetVertexColor(cr, cg, cb, .25)
+				hl:SetVertexColor(DB.r, DB.g, DB.b, .25)
 				hl:SetInside(bg)
 
 				hooksecurefunc(button, "AddAchievement", ReskinCalendarAchievement)
@@ -247,7 +245,7 @@ function S:KrowiAF()
 		B.StripTextures(frame.TodayFrame)
 		local bg = B.CreateBDFrame(frame.TodayFrame, 0)
 		bg:SetInside()
-		bg:SetBackdropBorderColor(cr, cg, cb)
+		bg:SetBackdropBorderColor(DB.r, DB.g, DB.b)
 
 		local sideFrame = frame.SideFrame
 		if sideFrame then
@@ -311,7 +309,7 @@ function S:KrowiAF()
 		
 					child:SetHighlightTexture(DB.bdTex)
 					local hl = child:GetHighlightTexture()
-					hl:SetVertexColor(cr, cg, cb, .25)
+					hl:SetVertexColor(DB.r, DB.g, DB.b, .25)
 					hl:SetInside(bg)
 				end
 			end

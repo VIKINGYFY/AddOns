@@ -1,8 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-local cr, cg, cb = DB.r, DB.g, DB.b
-
 local function Reset_Highlight()
 	for _, button in pairs(QuestInfoRewardsFrame.RewardButtons) do
 		button.nf:SetBackdropColor(0, 0, 0, .25)
@@ -14,7 +12,7 @@ local function Update_Highlight(self)
 
 	local _, frame = self:GetPoint()
 	if frame then
-		frame.nf:SetBackdropColor(cr, cg, cb, .5)
+		frame.nf:SetBackdropColor(DB.r, DB.g, DB.b, .5)
 	end
 end
 

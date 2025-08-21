@@ -1,6 +1,5 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local cr, cg, cb = DB.r, DB.g, DB.b
 
 C.OnLoginThemes["SettingsPanel"] = function()
 
@@ -135,7 +134,7 @@ C.OnLoginThemes["SettingsPanel"] = function()
 						bg:SetPoint("TOPLEFT", 2, -1)
 						bg:SetPoint("BOTTOMRIGHT", -2, 3)
 						local hl = child.Button:CreateTexture(nil, "HIGHLIGHT")
-						hl:SetColorTexture(cr, cg, cb, .25)
+						hl:SetColorTexture(DB.r, DB.g, DB.b, .25)
 						hl:SetInside(bg)
 						hl:SetBlendMode("ADD")
 

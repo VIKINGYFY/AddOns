@@ -1,7 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-local cr, cg, cb = DB.r, DB.g, DB.b
 local LE_BATTLE_PET_ALLY = Enum.BattlePetOwner.Ally
 
 C.OnLoginThemes["PetBattleUI"] = function()
@@ -185,9 +184,9 @@ C.OnLoginThemes["PetBattleUI"] = function()
 	end
 	bottomFrame.Delimiter:Hide()
 	bottomFrame.MicroButtonFrame:Hide()
-	bottomFrame.TurnTimer.ArtFrame:SetTexture(0)
-	bottomFrame.TurnTimer.ArtFrame2:SetTexture(0)
-	bottomFrame.TurnTimer.TimerBG:SetTexture(0)
+	bottomFrame.TurnTimer.ArtFrame:SetTexture(nil)
+	bottomFrame.TurnTimer.ArtFrame2:SetTexture(nil)
+	bottomFrame.TurnTimer.TimerBG:SetTexture(nil)
 	for i = 1, 3 do
 		select(i, bottomFrame.FlowFrame:GetRegions()):SetAlpha(0)
 	end
@@ -227,7 +226,7 @@ C.OnLoginThemes["PetBattleUI"] = function()
 			bu.SelectedHighlight:SetPoint("TOPLEFT", bu, -12, 12)
 			bu.SelectedHighlight:SetPoint("BOTTOMRIGHT", bu, 12, -12)
 		end
-		buttonList[4]:GetCheckedTexture():SetColorTexture(cr, cg, cb, .25)
+		buttonList[4]:GetCheckedTexture():SetColorTexture(DB.r, DB.g, DB.b, .25)
 	end)
 
 	local skipButton = bottomFrame.TurnTimer.SkipButton
@@ -300,7 +299,7 @@ C.OnLoginThemes["PetBattleUI"] = function()
 		frame:SetFrameLevel(0)
 		local tex = B.SetGradient(frame, "H", 0, 0, 0, v[1], v[2], width, height)
 		tex:SetPoint("CENTER")
-		local line = B.SetGradient(frame, "H", cr, cg, cb, v[1], v[2], width, C.mult)
+		local line = B.SetGradient(frame, "H", DB.r, DB.g, DB.b, v[1], v[2], width, C.mult)
 		line:SetPoint("BOTTOM", frame, "TOP")
 
 		RegisterStateDriver(frame, "visibility", visibleState)

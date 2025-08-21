@@ -1,11 +1,10 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local cr, cg, cb = DB.r, DB.g, DB.b
 
 local function SetupButtonHighlight(button, bg)
 	button:SetHighlightTexture(DB.bdTex)
 	local hl = button:GetHighlightTexture()
-	hl:SetVertexColor(cr, cg, cb, .25)
+	hl:SetVertexColor(DB.r, DB.g, DB.b, .25)
 	hl:SetInside(bg)
 end
 

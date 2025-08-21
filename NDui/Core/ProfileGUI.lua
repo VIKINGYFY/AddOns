@@ -2,7 +2,6 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local G = B:GetModule("GUI")
 
-local cr, cg, cb = DB.r, DB.g, DB.b
 local myFullName = DB.MyFullName
 
 -- Static popups
@@ -260,7 +259,7 @@ function G:UpdateCurrentProfile()
 			UpdateButtonStatus(bar.download, false)
 			UpdateButtonStatus(bar.apply, false)
 			UpdateButtonStatus(bar.reset, true)
-			bar:SetBackdropColor(cr, cg, cb, .25)
+			bar:SetBackdropColor(DB.r, DB.g, DB.b, .25)
 			bar.apply.bg:SetBackdropBorderColor(1, 1, 0)
 		else
 			UpdateButtonStatus(bar.upload, true)

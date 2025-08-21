@@ -91,7 +91,7 @@ function StatsMonitor:UpdateLayout()
 		bar:SetPoint("TOP", self, "TOP", 0, -barHeight - (showCount - 1) * (barHeight * 2))
 	end
 
-	self:SetSize(barWidth, barHeight * showCount * 2)
+	self:SetSize(barWidth, showCount * (barHeight * 2))
 	self:ClearAllPoints()
 	self:SetPoint("BOTTOM", self.mover, "BOTTOM")
 end
@@ -104,15 +104,15 @@ function StatsMonitor:PLAYER_LOGIN()
 		if self.bars[i] then return end
 
 		local bar = B.CreateSB(self)
-		bar:SetPoint("TOP", self, "TOP", 0, -barHeight - (i - 1) * (barHeight*2))
+		bar:SetPoint("TOP", self, "TOP", 0, -barHeight - (i - 1) * (barHeight * 2))
 		bar:SetMinMaxValues(0, v.limit)
 		bar:SetSize(barWidth, barHeight)
 		bar:SetValue(0)
 
 		B.SmoothBar(bar)
 
-		bar.title = B.CreateFS(bar, barHeight+4, v.label, false, "LEFT", 2, barHeight/2)
-		bar.value = B.CreateFS(bar, barHeight+4, "", false, "RIGHT", -2, barHeight/2)
+		bar.title = B.CreateFS(bar, barHeight + 4, v.label, false, "LEFT", 2, barHeight / 2)
+		bar.value = B.CreateFS(bar, barHeight + 4, "", false, "RIGHT", -2, barHeight / 2)
 
 		for k, e in pairs(v) do bar[k] = e end
 

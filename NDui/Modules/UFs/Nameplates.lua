@@ -110,7 +110,6 @@ function UF:UpdateUnitPower()
 	self.powerText:SetShown(shouldShowPower)
 end
 
-
 -- Player Status
 local isInInstance, isInGroup, isInRaid
 local function checkPlayerStatus()

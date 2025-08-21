@@ -30,7 +30,6 @@ function layouts.grid(self, columns, spacing, xOffset, yOffset)
 	columns, spacing = columns or 8, spacing or 5
 	xOffset, yOffset = xOffset or 0, yOffset or 0
 
-
 	local width, height = 0, 0
 	local col, row = 0, 0
 	for i, button in ipairs(self.buttons) do

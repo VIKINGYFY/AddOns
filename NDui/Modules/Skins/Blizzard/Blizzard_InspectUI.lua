@@ -56,7 +56,7 @@ C.OnLoadThemes["Blizzard_InspectUI"] = function()
 		for j = 1, 3 do
 			local bu = row["talent"..j]
 			bu.Slot:Hide()
-			bu.border:SetTexture(0)
+			bu.border:SetTexture(nil)
 			B.ReskinIcon(bu.icon)
 		end
 	end

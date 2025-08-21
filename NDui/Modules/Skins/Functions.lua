@@ -2,9 +2,6 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local S = B:RegisterModule("Skins")
 
-local tL, tR, tT, tB = unpack(DB.TexCoord)
-local cr, cg, cb = DB.r, DB.g, DB.b
-
 do
 	function S:GetToggleDirection()
 		local direc = C.db["Skins"]["ToggleDirection"]
@@ -86,7 +83,6 @@ do
 		end
 	end
 
-
 	function B:ReskinIconSelector()
 		B.StripTextures(self)
 		B.SetBD(self):SetInside()
@@ -135,7 +131,6 @@ do
 		local newText, count = string.gsub(text, "|T([^:]-):[%d+:]+|t", "|T%1:14:14:0:0:64:64:5:59:5:59|t")
 		if count > 0 then self:SetFormattedText("%s", newText) end
 	end
-
 
 	local flyoutFrame
 
@@ -222,7 +217,7 @@ do
 
 		if self.PortraitRing then
 			self.PortraitRing:Hide()
-			self.PortraitRingQuality:SetTexture(0)
+			self.PortraitRingQuality:SetTexture(nil)
 			self.PortraitRingCover:SetColorTexture(0, 0, 0)
 			self.PortraitRingCover:SetAllPoints(self.squareBG)
 		end

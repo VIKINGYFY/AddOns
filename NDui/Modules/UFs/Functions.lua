@@ -861,7 +861,7 @@ function UF.PostCreateButton(element, button)
 	button.HL:SetColorTexture(1, 1, 1, .25)
 	button.HL:SetInside(button.icbg)
 
-	button.Overlay:SetTexture(0)
+	button.Overlay:SetTexture(nil)
 	button.Cooldown:SetReverse(true)
 	button.Stealable:SetAtlas("bags-newitem")
 

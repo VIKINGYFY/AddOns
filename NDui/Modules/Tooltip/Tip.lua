@@ -1,6 +1,5 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local cr, cg, cb = DB.r, DB.g, DB.b
 local TT = B:RegisterModule("Tooltip")
 
 local classification = {
@@ -478,7 +477,7 @@ TT:RegisterTooltips("NDui", function()
 	hooksecurefunc("UIDropDownMenu_CreateFrames", reskinDropdown)
 
 	-- IME
-	IMECandidatesFrame.selection:SetVertexColor(cr, cg, cb)
+	IMECandidatesFrame.selection:SetVertexColor(DB.r, DB.g, DB.b)
 
 	-- Pet Tooltip
 	PetBattlePrimaryUnitTooltip:HookScript("OnShow", function(self)

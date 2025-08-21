@@ -67,6 +67,7 @@ local function Reskin_Reward(self)
 	if self.bg then return end
 
 	self.bg = B.ReskinIcon(self.Icon)
+	B.ReskinNameFrame(self, self.bg)
 	B.ReskinBorder(self.IconBorder, true)
 end
 

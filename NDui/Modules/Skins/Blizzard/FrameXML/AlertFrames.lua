@@ -58,13 +58,13 @@ C.OnLoginThemes["AlertFrames"] = function()
 				frame.GuildName:SetPoint("TOPRIGHT", -50, -14)
 				B.ReskinIcon(frame.Icon.Texture)
 
-				frame.GuildBanner:SetTexture(0)
-				frame.GuildBorder:SetTexture(0)
-				frame.Icon.Bling:SetTexture(0)
+				frame.GuildBanner:SetTexture(nil)
+				frame.GuildBorder:SetTexture(nil)
+				frame.Icon.Bling:SetTexture(nil)
 			end
-			frame.glow:SetTexture(0)
-			frame.Background:SetTexture(0)
-			frame.Icon.Overlay:SetTexture(0)
+			frame.glow:SetTexture(nil)
+			frame.Background:SetTexture(nil)
+			frame.Icon.Overlay:SetTexture(nil)
 			if frame.GuildBanner:IsShown() then
 				frame.bg:SetPoint("TOPLEFT", 2, -29)
 				frame.bg:SetPoint("BOTTOMRIGHT", -2, 4)
@@ -82,11 +82,11 @@ C.OnLoginThemes["AlertFrames"] = function()
 				frame.Unlocked:SetTextColor(1, .8, 0)
 				frame.Unlocked:SetFontObject(NumberFont_GameNormal)
 				B.ReskinIcon(frame.Icon.Texture)
-				frame.Background:SetTexture(0)
-				frame.Icon.Bling:SetTexture(0)
-				frame.Icon.Overlay:SetTexture(0)
-				frame.glow:SetTexture(0)
-				frame.shine:SetTexture(0)
+				frame.Background:SetTexture(nil)
+				frame.Icon.Bling:SetTexture(nil)
+				frame.Icon.Overlay:SetTexture(nil)
+				frame.glow:SetTexture(nil)
+				frame.shine:SetTexture(nil)
 			end
 		end,
 		[LootAlertSystem] = function(frame)
@@ -100,16 +100,16 @@ C.OnLoginThemes["AlertFrames"] = function()
 				lootItem.Icon:SetInside()
 				lootItem.IconOverlay:SetInside()
 				lootItem.IconOverlay2:SetInside()
-				lootItem.SpecRing:SetTexture(0)
+				lootItem.SpecRing:SetTexture(nil)
 				lootItem.SpecIcon:SetPoint("TOPLEFT", lootItem.Icon, -5, 5)
 				lootItem.SpecIcon.bg = B.ReskinIcon(lootItem.SpecIcon)
 			end
-			frame.glow:SetTexture(0)
-			frame.shine:SetTexture(0)
-			frame.Background:SetTexture(0)
-			frame.PvPBackground:SetTexture(0)
-			frame.BGAtlas:SetTexture(0)
-			lootItem.IconBorder:SetTexture(0)
+			frame.glow:SetTexture(nil)
+			frame.shine:SetTexture(nil)
+			frame.Background:SetTexture(nil)
+			frame.PvPBackground:SetTexture(nil)
+			frame.BGAtlas:SetTexture(nil)
+			lootItem.IconBorder:SetTexture(nil)
 			lootItem.SpecIcon.bg:SetShown(lootItem.SpecIcon:IsShown() and lootItem.SpecIcon:GetTexture() ~= nil)
 		end,
 		[LootUpgradeAlertSystem] = function(frame)
@@ -126,12 +126,12 @@ C.OnLoginThemes["AlertFrames"] = function()
 				frame.BaseQualityBorder:SetTexture(DB.bdTex)
 				frame.UpgradeQualityBorder:SetTexture(DB.bdTex)
 				frame.UpgradeQualityBorder:SetSize(52, 52)
-				frame.Background:SetTexture(0)
-				frame.Sheen:SetTexture(0)
-				frame.BorderGlow:SetTexture(0)
+				frame.Background:SetTexture(nil)
+				frame.Sheen:SetTexture(nil)
+				frame.BorderGlow:SetTexture(nil)
 			end
-			frame.BaseQualityBorder:SetTexture(0)
-			frame.UpgradeQualityBorder:SetTexture(0)
+			frame.BaseQualityBorder:SetTexture(nil)
+			frame.UpgradeQualityBorder:SetTexture(nil)
 		end,
 		[MoneyWonAlertSystem] = function(frame)
 			if not frame.bg then
@@ -139,8 +139,8 @@ C.OnLoginThemes["AlertFrames"] = function()
 				frame.bg:SetInside(frame, 7, 7)
 
 				B.ReskinIcon(frame.Icon)
-				frame.Background:SetTexture(0)
-				frame.IconBorder:SetTexture(0)
+				frame.Background:SetTexture(nil)
+				frame.IconBorder:SetTexture(nil)
 			end
 		end,
 		[NewRecipeLearnedAlertSystem] = function(frame)
@@ -149,10 +149,10 @@ C.OnLoginThemes["AlertFrames"] = function()
 				frame.bg:SetPoint("TOPLEFT", 10, -5)
 				frame.bg:SetPoint("BOTTOMRIGHT", -10, 5)
 
-				frame:GetRegions():SetTexture(0)
+				frame:GetRegions():SetTexture(nil)
 				B.CreateBDFrame(frame.Icon, .25, nil, -1)
-				frame.glow:SetTexture(0)
-				frame.shine:SetTexture(0)
+				frame.glow:SetTexture(nil)
+				frame.shine:SetTexture(nil)
 			end
 			frame.Icon:SetMask("")
 			frame.Icon:SetTexCoord(unpack(DB.TexCoord))
@@ -164,7 +164,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 				frame.bg:SetPoint("BOTTOMRIGHT", -4, 8)
 
 				B.ReskinIcon(frame.QuestTexture)
-				frame.shine:SetTexture(0)
+				frame.shine:SetTexture(nil)
 				frame:DisableDrawLayer("BORDER")
 				frame.ToastText:SetFontObject(NumberFont_GameNormal)
 			end
@@ -177,8 +177,8 @@ C.OnLoginThemes["AlertFrames"] = function()
 
 				B.ReskinIcon(frame.Icon)
 				frame:GetRegions():Hide()
-				frame.glow:SetTexture(0)
-				frame.shine:SetTexture(0)
+				frame.glow:SetTexture(nil)
+				frame.shine:SetTexture(nil)
 			end
 		end,
 		[GarrisonFollowerAlertSystem] = function(frame)
@@ -193,10 +193,10 @@ C.OnLoginThemes["AlertFrames"] = function()
 				frame.PortraitFrame:ClearAllPoints()
 				frame.PortraitFrame:SetPoint("TOPLEFT", 22, -8)
 
-				frame.glow:SetTexture(0)
-				frame.shine:SetTexture(0)
+				frame.glow:SetTexture(nil)
+				frame.shine:SetTexture(nil)
 			end
-			frame.FollowerBG:SetTexture(0)
+			frame.FollowerBG:SetTexture(nil)
 		end,
 		[GarrisonMissionAlertSystem] = function(frame)
 			if not frame.bg then
@@ -207,8 +207,8 @@ C.OnLoginThemes["AlertFrames"] = function()
 				if frame.Blank then frame.Blank:Hide() end
 				if frame.IconBG then frame.IconBG:Hide() end
 				frame.Background:Hide()
-				frame.glow:SetTexture(0)
-				frame.shine:SetTexture(0)
+				frame.glow:SetTexture(nil)
+				frame.shine:SetTexture(nil)
 			end
 
 			-- Anchor fix in 8.2
@@ -237,8 +237,8 @@ C.OnLoginThemes["AlertFrames"] = function()
 				frame.bg:SetInside(frame, 8, 8)
 
 				frame:GetRegions():Hide()
-				frame.glow:SetTexture(0)
-				frame.shine:SetTexture(0)
+				frame.glow:SetTexture(nil)
+				frame.shine:SetTexture(nil)
 			end
 		end,
 		[GuildChallengeAlertSystem] = function(frame)
@@ -247,9 +247,9 @@ C.OnLoginThemes["AlertFrames"] = function()
 				frame.bg:SetPoint("TOPLEFT", 8, -13)
 				frame.bg:SetPoint("BOTTOMRIGHT", -8, 13)
 
-				select(2, frame:GetRegions()):SetTexture(0)
-				frame.glow:SetTexture(0)
-				frame.shine:SetTexture(0)
+				select(2, frame:GetRegions()):SetTexture(nil)
+				frame.glow:SetTexture(nil)
+				frame.shine:SetTexture(nil)
 			end
 		end,
 		[DungeonCompletionAlertSystem] = function(frame)
@@ -260,9 +260,9 @@ C.OnLoginThemes["AlertFrames"] = function()
 
 				B.ReskinIcon(frame.dungeonTexture)
 				frame:DisableDrawLayer("Border")
-				frame.heroicIcon:SetTexture(0)
-				frame.glowFrame.glow:SetTexture(0)
-				frame.shine:SetTexture(0)
+				frame.heroicIcon:SetTexture(nil)
+				frame.glowFrame.glow:SetTexture(nil)
+				frame.shine:SetTexture(nil)
 			end
 		end,
 		[ScenarioAlertSystem] = function(frame)
@@ -273,8 +273,8 @@ C.OnLoginThemes["AlertFrames"] = function()
 				B.ReskinIcon(frame.dungeonTexture)
 				frame:GetRegions():Hide()
 				select(3, frame:GetRegions()):Hide()
-				frame.glowFrame.glow:SetTexture(0)
-				frame.shine:SetTexture(0)
+				frame.glowFrame.glow:SetTexture(nil)
+				frame.shine:SetTexture(nil)
 			end
 		end,
 		[LegendaryItemAlertSystem] = function(frame)
@@ -288,10 +288,10 @@ C.OnLoginThemes["AlertFrames"] = function()
 				frame.Icon:ClearAllPoints()
 				frame.Icon:SetPoint("TOPLEFT", frame.bg, 10, -10)
 
-				frame.Background:SetTexture(0)
-				frame.Background2:SetTexture(0)
-				frame.Background3:SetTexture(0)
-				frame.glow:SetTexture(0)
+				frame.Background:SetTexture(nil)
+				frame.Background2:SetTexture(nil)
+				frame.Background3:SetTexture(nil)
+				frame.glow:SetTexture(nil)
 			end
 		end,
 		[NewPetAlertSystem] = function(frame)
@@ -302,8 +302,8 @@ C.OnLoginThemes["AlertFrames"] = function()
 
 				B.ReskinIcon(frame.Icon)
 				frame.IconBorder:Hide()
-				frame.Background:SetTexture(0)
-				frame.shine:SetTexture(0)
+				frame.Background:SetTexture(nil)
+				frame.shine:SetTexture(nil)
 			end
 		end,
 		[InvasionAlertSystem] = function(frame)
@@ -333,7 +333,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 				frame.bg:SetPoint("BOTTOMRIGHT", -24, 8)
 
 				B.ReskinIcon(frame.Icon)
-				frame.StandardBackground:SetTexture(0)
+				frame.StandardBackground:SetTexture(nil)
 			end
 		end,
 	}
@@ -367,7 +367,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 			for i = 1, frame.numUsedRewardFrames do
 				local reward = frame.RewardFrames[i]
 				if not reward.bg then
-					select(2, reward:GetRegions()):SetTexture(0)
+					select(2, reward:GetRegions()):SetTexture(nil)
 					reward.texture:ClearAllPoints()
 					reward.texture:SetInside(reward, 6, 6)
 					reward.bg = B.ReskinIcon(reward.texture)
@@ -384,19 +384,19 @@ C.OnLoginThemes["AlertFrames"] = function()
 			frame.bg:SetInside(frame, 10, 10)
 			fixAnim(frame)
 
-			frame.shine:SetTexture(0)
+			frame.shine:SetTexture(nil)
 			B.ReskinIcon(lootItem.Icon)
 
-			lootItem.SpecRing:SetTexture(0)
+			lootItem.SpecRing:SetTexture(nil)
 			lootItem.SpecIcon:SetPoint("TOPLEFT", lootItem.Icon, -5, 5)
 			lootItem.SpecIcon.bg = B.ReskinIcon(lootItem.SpecIcon)
 		end
 
-		frame.glow:SetTexture(0)
-		frame.Background:SetTexture(0)
-		frame.PvPBackground:SetTexture(0)
+		frame.glow:SetTexture(nil)
+		frame.Background:SetTexture(nil)
+		frame.PvPBackground:SetTexture(nil)
 		frame.BGAtlas:SetAlpha(0)
-		lootItem.IconBorder:SetTexture(0)
+		lootItem.IconBorder:SetTexture(nil)
 		lootItem.SpecIcon.bg:SetShown(lootItem.SpecIcon:IsShown() and lootItem.SpecIcon:GetTexture() ~= nil)
 	end)
 
@@ -407,9 +407,9 @@ C.OnLoginThemes["AlertFrames"] = function()
 			frame.bg:SetInside(frame, 5, 5)
 			fixAnim(frame)
 
-			frame.Background:SetTexture(0)
+			frame.Background:SetTexture(nil)
 			B.ReskinIcon(frame.Icon)
-			frame.IconBorder:SetTexture(0)
+			frame.IconBorder:SetTexture(nil)
 		end
 	end)
 
@@ -424,7 +424,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 		if icon and not toast.bg then
 			toast.bg = B.ReskinIcon(icon)
 			if border then
-				border:SetTexture(0)
+				border:SetTexture(nil)
 				B.ReskinBorder(border, true)
 			end
 		end

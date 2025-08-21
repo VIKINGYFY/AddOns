@@ -1,8 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-local cr, cg, cb = DB.r, DB.g, DB.b
-
 local lists = {
 	"ADD_DropDownList",
 	"DropDownList",
@@ -32,7 +30,7 @@ end
 
 local function Reskin_SetIconImage(icon, texture)
 	if texture:find("Divider") then
-		icon:SetColorTexture(cr, cg, cb, DB.alpha)
+		icon:SetColorTexture(DB.r, DB.g, DB.b, DB.alpha)
 		icon:SetHeight(C.mult)
 	end
 end
@@ -55,12 +53,12 @@ local function Reskin_ToggleDropDownMenu(level)
 		local buWidth = button:GetWidth()
 		if button:IsShown() and xOffset then
 			local highlight = _G[name.."Highlight"]
-			highlight:SetColorTexture(cr, cg, cb, .25)
+			highlight:SetColorTexture(DB.r, DB.g, DB.b, .25)
 			highlight:SetPoint("TOPLEFT", -xOffset + C.mult, 0)
 			highlight:SetPoint("BOTTOMRIGHT", lfWidth - buWidth - xOffset - C.mult, 0)
 
 			local uncheck = _G[name.."UnCheck"]
-			if uncheck then uncheck:SetTexture(0) end
+			if uncheck then uncheck:SetTexture(nil) end
 
 			local arrow = _G[name.."ExpandArrow"]
 			if arrow then
@@ -73,11 +71,11 @@ local function Reskin_ToggleDropDownMenu(level)
 				local _, cood = check:GetTexCoord()
 				if cood == 0 then
 					check:SetTexture("checkmark-minimal")
-					check:SetVertexColor(cr, cg, cb, 1)
+					check:SetVertexColor(DB.r, DB.g, DB.b, 1)
 					check:SetSize(20, 20)
 					check:SetDesaturated(true)
 				else
-					check:SetColorTexture(cr, cg, cb, DB.alpha)
+					check:SetColorTexture(DB.r, DB.g, DB.b, DB.alpha)
 					check:SetSize(10, 10)
 					check:SetDesaturated(false)
 				end

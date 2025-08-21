@@ -8,13 +8,13 @@ C.OnLoginThemes["TalkingHeadUI"] = function()
 
 	local portraitFrame = TalkingHeadFrame.PortraitFrame
 	B.StripTextures(portraitFrame)
-	portraitFrame.Portrait:SetAtlas(0)
+	portraitFrame.Portrait:SetAtlas(nil)
 	portraitFrame.Portrait.SetAtlas = B.Dummy
 
 	local model = TalkingHeadFrame.MainFrame.Model
 	model:SetPoint("TOPLEFT", 30, -27)
 	model:SetSize(100, 100)
-	model.PortraitBg:SetAtlas(0)
+	model.PortraitBg:SetAtlas(nil)
 	model.PortraitBg.SetAtlas = B.Dummy
 
 	local name = TalkingHeadFrame.NameFrame.Name

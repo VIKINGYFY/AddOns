@@ -58,7 +58,7 @@ function A:TotemBar_Update()
 			totem.CD:Show()
 			totem:SetAlpha(1)
 		else
-			totem.Icon:SetTexture(0)
+			totem.Icon:SetTexture(nil)
 			totem.CD:Hide()
 			totem:SetAlpha(0)
 		end
@@ -71,7 +71,7 @@ function A:TotemBar_Update()
 
 	for i = activeTotems+1, 4 do
 		local totem = totems[i]
-		totem.Icon:SetTexture(0)
+		totem.Icon:SetTexture(nil)
 		totem.CD:Hide()
 		totem:SetAlpha(0)
 	end

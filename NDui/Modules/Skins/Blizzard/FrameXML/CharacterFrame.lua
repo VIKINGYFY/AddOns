@@ -8,7 +8,7 @@ end
 
 C.OnLoginThemes["CharacterFrame"] = function()
 
-	local cr, cg, cb = DB.r, DB.g, DB.b
+	
 
 	B.ReskinFrame(CharacterFrame)
 	B.StripTextures(CharacterFrameInsetRight)
@@ -23,7 +23,7 @@ C.OnLoginThemes["CharacterFrame"] = function()
 	local function UpdateAzeriteItem(self)
 		if not self.styled then
 			self.AzeriteTexture:SetAlpha(0)
-			self.RankFrame.Texture:SetTexture(0)
+			self.RankFrame.Texture:SetTexture(nil)
 			self.RankFrame.Label:ClearAllPoints()
 			self.RankFrame.Label:SetPoint("TOPLEFT", self, 2, -1)
 			self.RankFrame.Label:SetTextColor(1, .5, 0)
@@ -105,7 +105,7 @@ C.OnLoginThemes["CharacterFrame"] = function()
 	local categories = {pane.ItemLevelCategory, pane.AttributesCategory, pane.EnhancementsCategory}
 	for _, category in pairs(categories) do
 		category.Background:Hide()
-		category.Title:SetTextColor(cr, cg, cb)
+		category.Title:SetTextColor(DB.r, DB.g, DB.b)
 		local line = category:CreateTexture(nil, "ARTWORK")
 		line:SetSize(180, C.mult)
 		line:SetPoint("BOTTOM", 0, 5)
@@ -145,14 +145,14 @@ C.OnLoginThemes["CharacterFrame"] = function()
 			local child = select(i, self.ScrollTarget:GetChildren())
 			if child.icon and not child.styled then
 				B.HideObject(child.Stripe)
-				child.BgTop:SetTexture(0)
-				child.BgMiddle:SetTexture(0)
-				child.BgBottom:SetTexture(0)
+				child.BgTop:SetTexture(nil)
+				child.BgMiddle:SetTexture(nil)
+				child.BgBottom:SetTexture(nil)
 				B.ReskinIcon(child.icon)
 
 				child.HighlightBar:SetColorTexture(1, 1, 1, .25)
 				child.HighlightBar:SetDrawLayer("BACKGROUND")
-				child.SelectedBar:SetColorTexture(cr, cg, cb, .25)
+				child.SelectedBar:SetColorTexture(DB.r, DB.g, DB.b, .25)
 				child.SelectedBar:SetDrawLayer("BACKGROUND")
 				child.Check:SetAtlas("checkmark-minimal")
 

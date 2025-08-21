@@ -3,7 +3,6 @@ local B, C, L, DB = unpack(ns)
 
 local module = B:RegisterModule("Bags")
 local cargBags = ns.cargBags
-local cr, cg, cb = DB.r, DB.g, DB.b
 
 local CHAR_BANK_TYPE = Enum.BankType.Character or 0
 local ACCOUNT_BANK_TYPE = Enum.BankType.Account or 2
@@ -125,7 +124,7 @@ function module:CreateInfoFrame()
 	icon:SetAtlas("talents-search-match")
 	icon:SetSize(52, 52)
 	icon:SetPoint("LEFT", -15, 0)
-	icon:SetVertexColor(cr, cg, cb)
+	icon:SetVertexColor(DB.r, DB.g, DB.b)
 	local hl = infoFrame:CreateTexture(nil, "HIGHLIGHT")
 	hl:SetAtlas("talents-search-match")
 	hl:SetSize(52, 52)
@@ -311,7 +310,6 @@ function module:CreateAccountMoney()
 	end)
 	frame.title = DB.LeftButton..BANK_DEPOSIT_MONEY_BUTTON_LABEL.."|n"..DB.RightButton..BANK_WITHDRAW_MONEY_BUTTON_LABEL
 	B.AddTooltip(frame, "ANCHOR_TOP")
-
 
 	return frame
 end
@@ -951,12 +949,16 @@ function module:OnLogin()
 		self.Favourite = self:CreateTexture(nil, "OVERLAY")
 		self.Favourite:SetAtlas("collections-icon-favorites")
 		self.Favourite:SetSize(30, 30)
-		self.Favourite:SetPoint("TOPLEFT", -12, 9)
+		self.Favourite:SetPoint("TOPRIGHT", 8, 4)
 
 		self.QuestTag = B.CreateFS(self, 30, "!", "system", "LEFT", 3, 0)
 		self.iLvl = B.CreateFS(self, C.db["Bags"]["FontSize"], "", false, "BOTTOMLEFT", 1, 0)
 		self.iSlot = B.CreateFS(self, C.db["Bags"]["FontSize"], "", false, "TOPRIGHT", 0, -2)
 		self.glowFrame = B.CreateGlowFrame(self, iconSize)
+
+		self.TierOverlay = self:CreateTexture(nil, "OVERLAY")
+		self.TierOverlay:SetPoint("TOPLEFT", -3, 2)
+		self.TierOverlay:SetAtlas(nil)
 
 		self:HookScript("OnClick", module.ButtonOnClick)
 
@@ -964,11 +966,6 @@ function module:OnLogin()
 			self.canIMogIt = self:CreateTexture(nil, "OVERLAY")
 			self.canIMogIt:SetSize(13, 13)
 			self.canIMogIt:SetPoint(unpack(CanIMogIt.ICON_LOCATIONS[CanIMogItOptions["iconLocation"]]))
-		end
-
-		if not self.ProfessionQualityOverlay then
-			self.ProfessionQualityOverlay = self:CreateTexture(nil, "OVERLAY")
-			self.ProfessionQualityOverlay:SetPoint("TOPLEFT", -3, 2)
 		end
 	end
 
@@ -1022,7 +1019,15 @@ function module:OnLogin()
 			end
 		end
 
+		self.TierOverlay:SetAtlas(nil)
+		local itemTier = item.link and C_TradeSkillUI.GetItemReagentQualityByItemInfo(item.link)
+		if itemTier then
+			self.TierOverlay:SetAtlas(format("Professions-Icon-Quality-Tier%d-Inv", itemTier), true)
+		end
+
 		self.IconOverlay:SetVertexColor(1, 1, 1)
+		self.IconOverlay:SetAtlas(nil)
+		self.IconOverlay2:SetAtlas(nil)
 		self.IconOverlay:Hide()
 		self.IconOverlay2:Hide()
 		local atlas, secondAtlas = GetIconOverlayAtlas(item)
@@ -1035,11 +1040,6 @@ function module:OnLogin()
 				self.IconOverlay2:SetAtlas(secondAtlas)
 				self.IconOverlay2:Show()
 			end
-		end
-
-		if self.ProfessionQualityOverlay then
-			self.ProfessionQualityOverlay:SetAtlas(0)
-			SetItemCraftingQualityOverlay(self, item.link)
 		end
 
 		if C.db["Bags"]["CustomItems"][item.id] and not C.db["Bags"]["ItemFilter"] then
@@ -1062,8 +1062,8 @@ function module:OnLogin()
 			self.iSlot:SetText(slot)
 
 			if module:IsSpecialJunk(item.id) then
-				self.iLvl:SetTextColor(cr, cg, cb)
-				self.iSlot:SetTextColor(cr, cg, cb)
+				self.iLvl:SetTextColor(DB.r, DB.g, DB.b)
+				self.iSlot:SetTextColor(DB.r, DB.g, DB.b)
 			elseif NDuiADB["CustomJunkList"][item.id] then
 				self.iLvl:SetTextColor(.5, .5, .5)
 				self.iSlot:SetTextColor(.5, .5, .5)

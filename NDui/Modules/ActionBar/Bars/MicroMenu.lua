@@ -4,12 +4,11 @@ local Bar = B:GetModule("Actionbar")
 
 -- Texture credit: 胡里胡涂
 local buttonList, menubar = {}
-local r, g, b = DB.r, DB.g, DB.b
 
 function Bar:MicroButton_SetupTexture(icon, texture)
 	icon:SetOutside(nil, 3, 3)
 	icon:SetTexture(DB.MicroTex..texture)
-	icon:SetVertexColor(r, g, b)
+	icon:SetVertexColor(DB.r, DB.g, DB.b)
 end
 
 local function ResetButtonParent(button, parent)
@@ -85,7 +84,6 @@ function Bar:MicroButton_Create(data)
 end
 
 function Bar:MicroMenu_Lines()
-	if not C.db["Skins"]["MenuLine"] then return end
 	if not menubar then return end
 
 	local width = menubar:GetWidth() / 2
@@ -103,9 +101,9 @@ function Bar:MicroMenu_Lines()
 
 		local tex = B.SetGradient(frame, "H", 0, 0, 0, v[1], v[2], width, height)
 		tex:SetPoint("CENTER")
-		local bottomLine = B.SetGradient(frame, "H", r, g, b, v[1], v[2], width, C.mult)
+		local bottomLine = B.SetGradient(frame, "H", DB.r, DB.g, DB.b, v[1], v[2], width, C.mult)
 		bottomLine:SetPoint("TOP"..anchor, frame, "BOTTOM"..anchor, 0, 0)
-		local topLine = B.SetGradient(frame, "H", r, g, b, v[1], v[2], width, C.mult)
+		local topLine = B.SetGradient(frame, "H", DB.r, DB.g, DB.b, v[1], v[2], width, C.mult)
 		topLine:SetPoint("BOTTOM"..anchor, frame, "TOP"..anchor, 0, 0)
 	end
 end
@@ -139,11 +137,6 @@ end
 
 function Bar:MicroMenu()
 	if not C.db["Actionbar"]["MicroMenu"] then return end
-
-	if not C.db["Skins"]["ClassLine"] then
-		local colors = C.db["Skins"]["CustomBDColor"]
-		r, g, b = colors.r, colors.g, colors.b
-	end
 
 	menubar = CreateFrame("Frame", "NDui_MicroMenu", UIParent)
 	menubar.mover = B.Mover(menubar, L["Menubar"], "Menubar", C.Skins.MMPos)

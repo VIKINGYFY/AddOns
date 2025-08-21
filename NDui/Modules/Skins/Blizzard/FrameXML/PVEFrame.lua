@@ -3,7 +3,7 @@ local B, C, L, DB = unpack(ns)
 
 C.OnLoginThemes["PVEFrame"] = function()
 
-	local cr, cg, cb = DB.r, DB.g, DB.b
+	
 
 	PVEFrameLeftInset:SetAlpha(0)
 	PVEFrameBlueBg:SetAlpha(0)
@@ -18,7 +18,7 @@ C.OnLoginThemes["PVEFrame"] = function()
 		if bu then
 			bu.ring:Hide()
 			B.ReskinButton(bu)
-			bu.bg:SetColorTexture(cr, cg, cb, .25)
+			bu.bg:SetColorTexture(DB.r, DB.g, DB.b, .25)
 			bu.bg:SetInside(bu.__bg)
 
 			bu.icon:SetPoint("LEFT", bu, "LEFT")

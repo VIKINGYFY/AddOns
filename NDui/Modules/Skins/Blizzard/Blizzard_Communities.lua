@@ -96,7 +96,7 @@ local function updateMemberName(self, info)
 end
 
 C.OnLoadThemes["Blizzard_Communities"] = function()
-	local cr, cg, cb = DB.r, DB.g, DB.b
+	
 	local CommunitiesFrame = CommunitiesFrame
 
 	B.ReskinFrame(CommunitiesFrame)
@@ -540,7 +540,7 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 		button:SetPoint("LEFT", listBG, C.mult, 0)
 		button:SetPoint("RIGHT", listBG, -C.mult, 0)
 		button:SetHighlightTexture(DB.bdTex)
-		button:GetHighlightTexture():SetVertexColor(cr, cg, cb, .25)
+		button:GetHighlightTexture():SetVertexColor(DB.r, DB.g, DB.b, .25)
 		button.InviteButton:SetSize(66, 18)
 		button.CancelInvitationButton:SetSize(20, 18)
 
@@ -567,7 +567,7 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 
 				child:SetHighlightTexture(DB.bdTex)
 				local hl = child:GetHighlightTexture()
-				hl:SetVertexColor(cr, cg, cb, .25)
+				hl:SetVertexColor(DB.r, DB.g, DB.b, .25)
 				hl:SetInside(bg)
 
 				child.styled = true

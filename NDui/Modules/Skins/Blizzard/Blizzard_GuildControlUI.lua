@@ -20,7 +20,7 @@ local function updateGuildRanks()
 end
 
 C.OnLoadThemes["Blizzard_GuildControlUI"] = function()
-	local cr, cg, cb = DB.r, DB.g, DB.b
+	
 
 	B.SetBD(GuildControlUI)
 
@@ -65,14 +65,14 @@ C.OnLoadThemes["Blizzard_GuildControlUI"] = function()
 
 					local check = box:GetCheckedTexture()
 					check:SetDesaturated(true)
-					check:SetVertexColor(cr, cg, cb)
+					check:SetVertexColor(DB.r, DB.g, DB.b)
 
 					local bg = B.CreateBDFrame(box, 0, true)
 					bg:SetInside(box, 4, 4)
 
 					local hl = box:GetHighlightTexture()
 					hl:SetInside(bg)
-					hl:SetVertexColor(cr, cg, cb, .25)
+					hl:SetVertexColor(DB.r, DB.g, DB.b, .25)
 				end
 
 				bu.styled = true

@@ -1,6 +1,5 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local cr, cg, cb = DB.r, DB.g, DB.b
 
 local function Reskin_StaticPopup(which, _, _, data)
 	local info = StaticPopupDialogs[which]

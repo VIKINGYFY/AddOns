@@ -3,11 +3,11 @@ local B, C, L, DB = unpack(ns)
 
 C.OnLoginThemes["AddonList"] = function()
 
-	local cr, cg, cb = DB.r, DB.g, DB.b
+	
 
 	local function forceSaturation(self, _, force)
 		if force then return end
-		self:SetVertexColor(cr, cg, cb)
+		self:SetVertexColor(DB.r, DB.g, DB.b)
 		self:SetDesaturated(true, true)
 	end
 
@@ -24,7 +24,7 @@ C.OnLoginThemes["AddonList"] = function()
 
 	hooksecurefunc("AddonList_InitAddon", function(entry)
 		if not entry.styled then
-			B.ReskinCheck(entry.Enabled, true)
+			B.ReskinCheck(entry.Enabled)
 			B.ReskinButton(entry.LoadAddonButton)
 			hooksecurefunc(entry.Enabled:GetCheckedTexture(), "SetDesaturated", forceSaturation)
 

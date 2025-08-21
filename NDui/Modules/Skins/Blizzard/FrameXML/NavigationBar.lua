@@ -3,7 +3,7 @@ local B, C, L, DB = unpack(ns)
 
 C.OnLoginThemes["NavigationBar"] = function()
 
-	local cr, cg, cb = DB.r, DB.g, DB.b
+	
 
 	local function moveNavButtons(self)
 		local width = 0
@@ -53,7 +53,7 @@ C.OnLoginThemes["NavigationBar"] = function()
 		B.ReskinButton(navButton)
 
 		navButton.selected:SetDrawLayer("BACKGROUND")
-		navButton.selected:SetColorTexture(cr, cg, cb, .25)
+		navButton.selected:SetColorTexture(DB.r, DB.g, DB.b, .25)
 		navButton.selected:SetInside(navButton.__bg)
 
 		navButton:HookScript("OnClick", function()

@@ -1,8 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
-local cr, cg, cb = DB.r, DB.g, DB.b
-
 local function reskinHeader(header)
 	B.StripTextures(header)
 	B.StripTextures(header.button, 2)
@@ -106,7 +104,7 @@ C.OnLoadThemes["Blizzard_EncounterJournal"] = function()
 			if not child.styled then
 				B.ReskinButton(child)
 				local hl = child:GetHighlightTexture()
-				hl:SetColorTexture(cr, cg, cb, .25)
+				hl:SetColorTexture(DB.r, DB.g, DB.b, .25)
 				hl:SetInside(child.__bg)
 
 				child.text:SetTextColor(1, 1, 1)
@@ -199,7 +197,7 @@ C.OnLoadThemes["Blizzard_EncounterJournal"] = function()
 
 					child:SetHighlightTexture(DB.bdTex)
 					local hl = child:GetHighlightTexture()
-					hl:SetVertexColor(cr, cg, cb, .25)
+					hl:SetVertexColor(DB.r, DB.g, DB.b, .25)
 					hl:SetInside(bg)
 
 					child.styled = true
@@ -220,7 +218,6 @@ C.OnLoadThemes["Blizzard_EncounterJournal"] = function()
 	B.ReskinDropDown(EncounterJournal.encounter.info.LootContainer.slotFilter)
 	B.ReskinDropDown(EncounterJournalEncounterFrameInfoDifficulty)
 
-
 	-- Suggest frame
 	local suggestFrame = EncounterJournal.suggestFrame
 
@@ -239,7 +236,7 @@ C.OnLoadThemes["Blizzard_EncounterJournal"] = function()
 	local reward = suggestion.reward
 	reward.text:SetTextColor(.9, .9, .9)
 	reward.iconRing:Hide()
-	reward.iconRingHighlight:SetTexture(0)
+	reward.iconRingHighlight:SetTexture(nil)
 	B.CreateBDFrame(reward.icon, .25, nil, -1):SetFrameLevel(3)
 	B.ReskinArrow(suggestion.prevButton, "left")
 	B.ReskinArrow(suggestion.nextButton, "right")
@@ -264,7 +261,7 @@ C.OnLoadThemes["Blizzard_EncounterJournal"] = function()
 
 		local reward = suggestion.reward
 		reward.iconRing:Hide()
-		reward.iconRingHighlight:SetTexture(0)
+		reward.iconRingHighlight:SetTexture(nil)
 		B.CreateBDFrame(reward.icon, .25, nil, -1):SetFrameLevel(3)
 	end
 

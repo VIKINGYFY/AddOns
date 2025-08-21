@@ -26,7 +26,7 @@ local function ConquestFrameButton_OnEnter(self)
 end
 
 C.OnLoadThemes["Blizzard_PVPUI"] = function()
-	local cr, cg, cb = DB.r, DB.g, DB.b
+	
 
 	local PVPQueueFrame = PVPQueueFrame
 	local HonorFrame = HonorFrame
@@ -44,7 +44,7 @@ C.OnLoadThemes["Blizzard_PVPUI"] = function()
 			bu.Ring:Hide()
 			B.ReskinButton(bu)
 			bu.Background:SetInside(bu.__bg)
-			bu.Background:SetColorTexture(cr, cg, cb, .25)
+			bu.Background:SetColorTexture(DB.r, DB.g, DB.b, .25)
 			bu.Background:SetAlpha(1)
 
 			icon:SetPoint("LEFT", bu, "LEFT")
@@ -126,7 +126,7 @@ C.OnLoadThemes["Blizzard_PVPUI"] = function()
 				bg:SetPoint("BOTTOMRIGHT", -1, 2)
 
 				button.SelectedTexture:SetDrawLayer("BACKGROUND")
-				button.SelectedTexture:SetColorTexture(cr, cg, cb, .25)
+				button.SelectedTexture:SetColorTexture(DB.r, DB.g, DB.b, .25)
 				button.SelectedTexture:SetInside(bg)
 
 				B.ReskinIcon(button.Icon)
@@ -145,7 +145,7 @@ C.OnLoadThemes["Blizzard_PVPUI"] = function()
 		local bu = bonusFrame[bonusButton]
 		B.ReskinButton(bu)
 		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
-		bu.SelectedTexture:SetColorTexture(cr, cg, cb, .25)
+		bu.SelectedTexture:SetColorTexture(DB.r, DB.g, DB.b, .25)
 		bu.SelectedTexture:SetInside(bu.__bg)
 
 		local reward = bu.Reward
@@ -180,7 +180,7 @@ C.OnLoadThemes["Blizzard_PVPUI"] = function()
 			end
 
 			bu.SelectedTexture:SetDrawLayer("BACKGROUND")
-			bu.SelectedTexture:SetColorTexture(cr, cg, cb, .25)
+			bu.SelectedTexture:SetColorTexture(DB.r, DB.g, DB.b, .25)
 			bu.SelectedTexture:SetInside(bu.__bg)
 		end
 	end

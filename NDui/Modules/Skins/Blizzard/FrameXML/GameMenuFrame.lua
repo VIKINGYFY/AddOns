@@ -14,7 +14,7 @@ C.OnLoginThemes["GameMenuFrame"] = function()
 	line:SetPoint("BOTTOM", 0, 5)
 	line:SetColorTexture(1, 1, 1, .25)
 
-	local cr, cg, cb = DB.r, DB.g, DB.b
+	
 
 	hooksecurefunc(GameMenuFrame, "InitButtons", function(self)
 		if not self.buttonPool then return end

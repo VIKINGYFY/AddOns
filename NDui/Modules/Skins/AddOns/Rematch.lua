@@ -2,7 +2,6 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local S = B:GetModule("Skins")
 
-local cr, cg, cb = DB.r, DB.g, DB.b
 local select, pairs, ipairs, next, unpack = select, pairs, ipairs, next, unpack
 
 function S:RematchFilter()
@@ -107,7 +106,7 @@ function S:RematchInset()
 end
 
 local function buttonOnEnter(self)
-	self.bg:SetBackdropColor(cr, cg, cb, .25)
+	self.bg:SetBackdropColor(DB.r, DB.g, DB.b, .25)
 end
 
 local function buttonOnLeave(self)
@@ -126,7 +125,7 @@ local function updateCollapseTexture(button, isExpanded)
 end
 
 local function headerEnter(header)
-	header.bg:SetBackdropColor(cr, cg, cb, .25)
+	header.bg:SetBackdropColor(DB.r, DB.g, DB.b, .25)
 end
 
 local function headerLeave(header)
@@ -308,7 +307,7 @@ function S:ReskinRematchElements()
 	for i = 1, 6 do
 		local button = RematchPetCard.Front.Bottom.Abilities[i]
 		button.IconBorder:Hide()
-		select(8, button:GetRegions()):SetTexture(0)
+		select(8, button:GetRegions()):SetTexture(nil)
 		B.ReskinIcon(button.Icon)
 	end
 

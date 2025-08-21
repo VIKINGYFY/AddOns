@@ -54,7 +54,7 @@ C.OnLoadThemes["Blizzard_RuneforgeUI"] = function()
 				button.Border:SetAlpha(0)
 				button.CircleMask:Hide()
 				button.bg = B.ReskinIcon(button.Icon)
-				button.SelectedTexture:SetTexture(0)
+				button.SelectedTexture:SetTexture(nil)
 				button.SelectedTexture.__owner = button
 				hooksecurefunc(button.SelectedTexture, "SetShown", updateSelectedTexture)
 			end

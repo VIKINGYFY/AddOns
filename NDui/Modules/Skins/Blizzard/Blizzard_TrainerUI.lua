@@ -2,7 +2,7 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 C.OnLoadThemes["Blizzard_TrainerUI"] = function()
-	local cr, cg, cb = DB.r, DB.g, DB.b
+	
 
 	B.ReskinFrame(ClassTrainerFrame)
 	ClassTrainerStatusBarSkillRank:ClearAllPoints()
@@ -15,9 +15,9 @@ C.OnLoadThemes["Blizzard_TrainerUI"] = function()
 
 	ClassTrainerFrameSkillStepButton:SetNormalTexture(0)
 	ClassTrainerFrameSkillStepButton:SetHighlightTexture(0)
-	ClassTrainerFrameSkillStepButton.disabledBG:SetTexture(0)
+	ClassTrainerFrameSkillStepButton.disabledBG:SetTexture(nil)
 	ClassTrainerFrameSkillStepButton.selectedTex:SetInside(bg)
-	ClassTrainerFrameSkillStepButton.selectedTex:SetColorTexture(cr, cg, cb, .25)
+	ClassTrainerFrameSkillStepButton.selectedTex:SetColorTexture(DB.r, DB.g, DB.b, .25)
 
 	B.ReskinStatusBar(ClassTrainerStatusBar)
 	B.ReskinScroll(ClassTrainerFrame.ScrollBar)
@@ -38,9 +38,9 @@ C.OnLoadThemes["Blizzard_TrainerUI"] = function()
 				button.money:SetPoint("TOPRIGHT", button, "TOPRIGHT", 5, -8)
 				button:SetNormalTexture(0)
 				button:SetHighlightTexture(0)
-				button.disabledBG:SetTexture(0)
+				button.disabledBG:SetTexture(nil)
 				button.selectedTex:SetInside(bg)
-				button.selectedTex:SetColorTexture(cr, cg, cb, .25)
+				button.selectedTex:SetColorTexture(DB.r, DB.g, DB.b, .25)
 
 				button.styled = true
 			end

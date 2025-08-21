@@ -1,7 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local oUF = ns.oUF
-local cr, cg, cb = DB.r, DB.g, DB.b
 
 -- 自定义
 do

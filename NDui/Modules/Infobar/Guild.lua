@@ -6,7 +6,7 @@ local module = B:GetModule("Infobar")
 local info = module:RegisterInfobar("Guild", C.Infobar.GuildPos)
 
 info.guildTable = {}
-local cr, cg, cb = DB.r, DB.g, DB.b
+
 local infoFrame, gName, gOnline, gRank, prevTime
 
 local function rosterButtonOnClick(self, btn)
@@ -34,7 +34,7 @@ function info:GuildPanel_CreateButton(parent, index)
 	button:SetPoint("TOPLEFT", 0, - (index-1) *20)
 	button.HL = button:CreateTexture(nil, "HIGHLIGHT")
 	button.HL:SetAllPoints()
-	button.HL:SetColorTexture(cr, cg, cb, .25)
+	button.HL:SetColorTexture(DB.r, DB.g, DB.b, .25)
 
 	button.level = B.CreateFS(button, 13, "Level")
 	button.level:SetPoint("TOP", button, "TOPLEFT", 16, -4)
@@ -184,7 +184,7 @@ function info:GuildPanel_Init()
 		end
 		bu[i].HL = bu[i]:CreateTexture(nil, "HIGHLIGHT")
 		bu[i].HL:SetAllPoints(bu[i])
-		bu[i].HL:SetColorTexture(cr, cg, cb, .25)
+		bu[i].HL:SetColorTexture(DB.r, DB.g, DB.b, .25)
 		bu[i].index = i
 		bu[i]:SetScript("OnClick", sortHeaderOnClick)
 	end
