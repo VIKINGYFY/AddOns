@@ -1694,7 +1694,7 @@ local function UpdateProfessionQuality(self)
 				self.ProfessionQuality = CreateFrame("Frame", nil, self)
 				self.ProfessionQuality:SetInside()
 				local tex = self.ProfessionQuality:CreateTexture(nil, "ARTWORK")
-				tex:SetPoint("TOPLEFT")
+				tex:SetPoint("TOPLEFT", -1, 2)
 				self.ProfessionQuality.Texture = tex
 			end
 			self.ProfessionQuality:Show()

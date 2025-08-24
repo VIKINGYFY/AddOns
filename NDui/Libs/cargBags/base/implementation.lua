@@ -46,7 +46,7 @@ function Implementation:New(name)
 	if (self.instances[name]) then return error(("cargBags: Implementation '%s' already exists!"):format(name)) end
 	if (_G[name]) then return error(("cargBags: Global '%s' for Implementation is already used!"):format(name)) end
 
-	local impl = setmetatable(CreateFrame("Button", name, UIParent), self.__index)
+	local impl = setmetatable(CreateFrame("Frame", name, UIParent), self.__index)
 	impl.name = name
 
 	impl:SetAllPoints()
@@ -310,7 +310,7 @@ function Implementation:GetItemInfo(bagID, slotID, i)
 	if info then
 		i.texture, i.count, i.locked, i.quality, i.link, i.id, i.hasPrice = info.iconFileID, info.stackCount, info.isLocked, (info.quality or 1), info.hyperlink, info.itemID, (not info.hasNoValue)
 
-		--i.isInSet, i.setName = C_Container.GetContainerItemEquipmentSetInfo(bagID, slotID)
+		i.isInSet, i.setName = C_Container.GetContainerItemEquipmentSetInfo(bagID, slotID)
 
 		i.cdStart, i.cdFinish, i.cdEnable = C_Container.GetContainerItemCooldown(bagID, slotID)
 

@@ -20,7 +20,7 @@ function Bar:UpdateStanceBar()
 		button:ClearAllPoints()
 		if i == 1 then
 			button:SetPoint("TOPLEFT", frame, 0, 0)
-		elseif mod(i-1, perRow) == 0 then
+		elseif (i - 1) % perRow == 0 then
 			button:SetPoint("TOP", frame.buttons[i-perRow], "BOTTOM", 0, -DB.margin)
 		else
 			button:SetPoint("LEFT", frame.buttons[i-1], "RIGHT", DB.margin, 0)

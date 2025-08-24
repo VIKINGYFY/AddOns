@@ -12,6 +12,7 @@ if not lib then return end
 function lib:GetUnitItemInfo(unit, index)
 	if not UnitExists(unit) then return 0 end
 
+	local itemID = GetInventoryItemID(unit, index)
 	local itemLink = GetInventoryItemLink(unit, index)
 	local itemQuality = GetInventoryItemQuality(unit, index)
 
@@ -32,7 +33,7 @@ function lib:GetUnitItemInfo(unit, index)
 		end
 	end
 
-	return itemLevel, itemName, itemLink, itemQuality, itemType
+	return itemLevel, itemName, itemLink, itemQuality, itemType, itemID
 end
 
 local weaponTypes = {

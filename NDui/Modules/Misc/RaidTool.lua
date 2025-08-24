@@ -476,7 +476,7 @@ function M:RaidTool_CreateMenu(parent)
 	local offset = DB.margin*2
 	for i, j in pairs(buttons) do
 		bu[i] = B.CreateButton(frame, 84, 28, j[1], 12)
-		bu[i]:SetPoint(mod(i, 2) == 0 and "TOPRIGHT" or "TOPLEFT", mod(i, 2) == 0 and -offset or offset, i > 2 and -(offset*6) or -offset)
+		bu[i]:SetPoint((i % 2 == 0) and "TOPRIGHT" or "TOPLEFT", (i % 2 == 0) and -offset or offset, (i > 2) and -(offset*6) or -offset)
 		bu[i]:SetScript("OnClick", j[2])
 	end
 
@@ -612,7 +612,7 @@ function M:RaidTool_UpdateGrid()
 		button:ClearAllPoints()
 		if i == 1 then
 			button:SetPoint("TOPLEFT", frame, margin, -margin)
-		elseif mod(i-1, perRow) == 0 then
+		elseif (i - 1) % perRow == 0 then
 			button:SetPoint("TOP", frame.buttons[i-perRow], "BOTTOM", 0, -margin)
 		else
 			button:SetPoint("LEFT", frame.buttons[i-1], "RIGHT", margin, 0)

@@ -40,7 +40,7 @@ function Bar:UpdateActionSize(name)
 		button:ClearAllPoints()
 		if i == 1 then
 			button:SetPoint("TOPLEFT", frame, 0, 0)
-		elseif mod(i-1, perRow) == 0 then
+		elseif (i - 1) % perRow == 0 then
 			button:SetPoint("TOP", frame.buttons[i-perRow], "BOTTOM", 0, -DB.margin)
 		else
 			button:SetPoint("LEFT", frame.buttons[i-1], "RIGHT", DB.margin, 0)
@@ -95,8 +95,8 @@ function Bar:UpdateButtonConfig(i)
 	count.font.flags = DB.Font[3]
 	count.position.anchor = "BOTTOMRIGHT"
 	count.position.relAnchor = false
-	count.position.offsetX = -2
-	count.position.offsetY = 2
+	count.position.offsetX = 0
+	count.position.offsetY = 0
 	count.justifyH = "RIGHT"
 
 	local macro = self.buttonConfig.text.macro

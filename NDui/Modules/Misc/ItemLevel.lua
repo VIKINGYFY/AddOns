@@ -161,34 +161,21 @@ function M:ItemLevel_UpdateInfo(slotFrame, info, upgradeInfo, quality)
 			slotFrame.enchantText:SetText(enchant)
 		end
 
-		local gemStep, essenceStep = 1, 1
+		local gemStep = 1
 		for i = 1, 10 do
 			local texture = slotFrame["textureIcon"..i]
 			local bg = texture.bg
 			local gem = info.gems and info.gems[gemStep]
 			local color = info.gemsColor and info.gemsColor[gemStep]
-			local essence = not gem and (info.essences and info.essences[essenceStep])
 			if gem then
-				texture:SetTexture(gem)
 				if color then
 					bg:SetBackdropBorderColor(color.r, color.g, color.b)
 				end
+
+				texture:SetTexture(gem)
 				bg:Show()
 
 				gemStep = gemStep + 1
-			elseif essence and next(essence) then
-				local r = essence[4]
-				local g = essence[5]
-				local b = essence[6]
-				if r and g and b then
-					bg:SetBackdropBorderColor(r, g, b)
-				end
-
-				local selected = essence[1]
-				texture:SetTexture(selected)
-				bg:Show()
-
-				essenceStep = essenceStep + 1
 			end
 		end
 	end
@@ -199,6 +186,7 @@ function M:ItemLevel_RefreshInfo(link, unit, index, slotFrame)
 		local quality = C_Item.GetItemQualityByID(link)
 		local info = B.GetItemLevel(link, unit, index, C.db["Misc"]["GemNEnchant"])
 		if info == "tooSoon" then return end
+
 		M:ItemLevel_UpdateInfo(slotFrame, info, upgradeInfo, quality)
 	end)
 end

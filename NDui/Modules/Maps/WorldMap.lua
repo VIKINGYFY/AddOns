@@ -148,7 +148,7 @@ function module:MapData_RefreshOverlays(fullUpdate)
 					texturePixelHeight = TILE_SIZE_HEIGHT
 					textureFileHeight = TILE_SIZE_HEIGHT
 				else
-					texturePixelHeight = mod(height, TILE_SIZE_HEIGHT)
+					texturePixelHeight = height % TILE_SIZE_HEIGHT
 					if texturePixelHeight == 0 then
 						texturePixelHeight = TILE_SIZE_HEIGHT
 					end

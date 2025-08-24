@@ -68,6 +68,9 @@ function module:UpdateBankAnchor(parent, bags)
 
 	local index = 1
 	local perRow = C.db["Bags"]["BankPerRow"]
+	if parent:GetName() == "NDui_BackpackAccount" then
+		perRow = C.db["Bags"]["BankPerRow"] + 1
+	end
 	anchorCache[index] = parent
 
 	for i = 1, #bags do
@@ -957,7 +960,7 @@ function module:OnLogin()
 		self.glowFrame = B.CreateGlowFrame(self, iconSize)
 
 		self.TierOverlay = self:CreateTexture(nil, "OVERLAY")
-		self.TierOverlay:SetPoint("TOPLEFT", -3, 2)
+		self.TierOverlay:SetPoint("TOPLEFT", -1, 2)
 		self.TierOverlay:SetAtlas(nil)
 
 		self:HookScript("OnClick", module.ButtonOnClick)

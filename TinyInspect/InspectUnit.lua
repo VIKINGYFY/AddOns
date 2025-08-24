@@ -163,7 +163,7 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 	frame.info:SetTextColor(1, 1, 0)
 
 	for i, v in ipairs(slots) do
-		local level, name, link, quality = LibUnitInfo:GetUnitItemInfo(unit, v.index)
+		local level, name, link, quality, _, itemID = LibUnitInfo:GetUnitItemInfo(unit, v.index)
 		local itemFrame = frame["item"..i]
 		itemFrame:SetWidth(0)
 		itemFrame.name = name
@@ -173,6 +173,7 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 		itemFrame.width = 0
 
 		itemFrame.itemLevel:SetText("")
+		itemFrame.itemLevel:SetTextColor(1, 1, 1)
 		itemFrame.itemName:SetText("")
 		itemFrame.itemInfo:SetText("")
 		itemFrame.itemInfo:SetTextColor(1, 1, 1)
@@ -184,6 +185,11 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 		if link and level then
 			itemFrame.itemLevel:SetText(level)
 			itemFrame.itemName:SetText(link)
+
+			local itemSetSpellIDs = C_Item.GetSetBonusesForSpecializationByItemID(specID, itemID)
+			if itemSetSpellIDs then
+				itemFrame.itemLevel:SetTextColor(0, 1, 1)
+			end
 
 			local upgradeInfo = C_Item.GetItemUpgradeInfo(link)
 			if upgradeInfo and upgradeInfo.trackString then

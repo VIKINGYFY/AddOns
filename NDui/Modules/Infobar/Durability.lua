@@ -93,7 +93,7 @@ end
 
 info.onMouseUp = function(self, btn)
 	if btn == "MiddleButton" then
-		NDuiADB["RepairType"] = mod(NDuiADB["RepairType"] + 1, 3)
+		NDuiADB["RepairType"] = (NDuiADB["RepairType"] + 1) % 3
 		self:onEnter()
 	else
 		if InCombatLockdown() then UIErrorsFrame:AddMessage(DB.InfoColor..ERR_NOT_IN_COMBAT) return end -- fix by LibShowUIPanel

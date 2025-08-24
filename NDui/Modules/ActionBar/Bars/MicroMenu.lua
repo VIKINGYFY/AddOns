@@ -121,7 +121,7 @@ function Bar:MicroMenu_Setup()
 		button:ClearAllPoints()
 		if i == 1 then
 			button:SetPoint("TOPLEFT")
-		elseif mod(i-1, perRow) == 0 then
+		elseif (i - 1) % perRow == 0 then
 			button:SetPoint("TOP", buttonList[i-perRow], "BOTTOM", 0, -margin)
 		else
 			button:SetPoint("LEFT", buttonList[i-1], "RIGHT", margin, 0)

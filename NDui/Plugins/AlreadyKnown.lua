@@ -138,7 +138,7 @@ local function GuildBankFrame_Update(self)
 	local button, index, column, texture, locked
 	local tab = GetCurrentGuildBankTab()
 	for i = 1, MAX_GUILDBANK_SLOTS_PER_TAB do
-		index = mod(i, NUM_SLOTS_PER_GUILDBANK_GROUP)
+		index = i % NUM_SLOTS_PER_GUILDBANK_GROUP
 		if index == 0 then index = NUM_SLOTS_PER_GUILDBANK_GROUP end
 
 		column = math.ceil((i-.5)/NUM_SLOTS_PER_GUILDBANK_GROUP)

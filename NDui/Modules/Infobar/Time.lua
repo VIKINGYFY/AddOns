@@ -136,7 +136,7 @@ end
 local function GetNextTime(baseTime, index)
 	local currentTime = time()
 	local duration = invIndex[index].duration
-	local elapsed = mod(currentTime - baseTime, duration)
+	local elapsed = (currentTime - baseTime) % duration
 	return duration - elapsed + currentTime
 end
 
@@ -146,7 +146,7 @@ local function GetNextLocation(nextTime, index)
 	if count == 0 then return QUEUE_TIME_UNAVAILABLE end
 
 	local elapsed = nextTime - inv.baseTime
-	local round = mod(math.floor(elapsed / inv.duration) + 1, count)
+	local round = (math.floor(elapsed / inv.duration) + 1) % count
 	if round == 0 then round = count end
 	return C_Map.GetMapInfo(inv.maps[inv.timeTable[round]]).name
 end
@@ -380,7 +380,7 @@ info.onEnter = function(self)
 		if feastTime then
 			local currentTime = time()
 			local duration = 5400 -- 1.5hrs
-			local elapsed = mod(currentTime - feastTime, duration)
+			local elapsed = (currentTime - feastTime) % duration
 			local nextTime = duration - elapsed + currentTime
 
 			addTitle(COMMUNITY_FEAST)

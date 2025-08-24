@@ -198,26 +198,21 @@ do
 			local num = 0
 			for i = 2, #data.lines do
 				local lineData = data.lines[i]
-				if not slotData.iLvl then
-					if lineData.itemLevel then
-						slotData.iLvl = lineData.itemLevel
-					end
-				elseif data.id == 158075 then -- heart of azeroth
-					if lineData.essenceIcon then
-						num = num + 1
-						slotData.gems[num] = lineData.essenceIcon
-						slotData.gemsColor[num] = lineData.leftColor
-					end
-				else
-					if lineData.enchantID then
-						slotData.enchantText = string.match(lineData.leftText, enchantString)
-					elseif lineData.gemIcon then
-						num = num + 1
-						slotData.gems[num] = lineData.gemIcon
-					elseif lineData.socketType then
-						num = num + 1
-						slotData.gems[num] = format("Interface\\ItemSocketingFrame\\UI-EmptySocket-%s", lineData.socketType)
-					end
+				if lineData.itemLevel then
+					slotData.iLvl = lineData.itemLevel
+				elseif lineData.enchantID then
+					slotData.enchantText = string.match(lineData.leftText, enchantString)
+				elseif lineData.essenceIcon then -- heart of azeroth
+					num = num + 1
+					slotData.gems[num] = lineData.essenceIcon
+					slotData.gemsColor[num] = lineData.leftColor
+				elseif lineData.gemIcon then
+					num = num + 1
+					slotData.gems[num] = lineData.gemIcon
+					slotData.gemsColor[num] = lineData.leftColor
+				elseif lineData.socketType then
+					num = num + 1
+					slotData.gems[num] = format("Interface\\ItemSocketingFrame\\UI-EmptySocket-%s", lineData.socketType)
 				end
 			end
 

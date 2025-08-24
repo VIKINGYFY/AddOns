@@ -48,7 +48,7 @@ function M:ExpBar_Update()
 			local friendID, friendRep, friendThreshold, nextFriendThreshold = repInfo.friendshipFactionID, repInfo.standing, repInfo.reactionThreshold, repInfo.nextThreshold
 			if C_Reputation.IsFactionParagon(factionID) then
 				local currentValue, threshold = C_Reputation.GetFactionParagonInfo(factionID)
-				currentValue = mod(currentValue, threshold)
+				currentValue = currentValue % threshold
 				barMin, barMax, value = 0, threshold, currentValue
 			elseif friendID and friendID ~= 0 then
 				if nextFriendThreshold then
@@ -165,7 +165,7 @@ function M:ExpBar_UpdateTooltip()
 
 		if C_Reputation.IsFactionParagon(factionID) then
 			local currentValue, threshold = C_Reputation.GetFactionParagonInfo(factionID)
-			currentValue = mod(currentValue, threshold)
+			currentValue = currentValue % threshold
 			GameTooltip:AddDoubleLine(L["Paragon"]..math.floor(currentValue/threshold), GetCMPText(currentValue, threshold), 0,1,1, 1,1,1)
 		end
 
