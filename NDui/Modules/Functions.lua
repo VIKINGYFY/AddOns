@@ -204,4 +204,12 @@ do
 			return B.HexRGB(B.UnitColor(unit))..UnitName(unit).."|r"
 		end
 	end
+
+	function B.ReplaceText(text)
+		local newText = string.gsub(text, ".-：", "")
+		newText = string.gsub(newText, ".-，", "")
+		newText = string.gsub(newText, ".-%-%s*", "")
+
+		return newText
+	end
 end

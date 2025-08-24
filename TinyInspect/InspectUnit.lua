@@ -186,7 +186,7 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 			itemFrame.itemLevel:SetText(level)
 			itemFrame.itemName:SetText(link)
 
-			local itemSetSpellIDs = C_Item.GetSetBonusesForSpecializationByItemID(specID, itemID)
+			local itemSetSpellIDs = itemID and C_Item.GetSetBonusesForSpecializationByItemID(specID, itemID)
 			if itemSetSpellIDs then
 				itemFrame.itemLevel:SetTextColor(0, 1, 1)
 			end

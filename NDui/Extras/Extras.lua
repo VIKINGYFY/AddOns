@@ -22,6 +22,7 @@ function EX:OnLogin()
 	self:InstanceSomething()
 	self:LFGActivityNotices()
 	self:SystemNotices()
+	self:NewGetMapUIInfo()
 
 	self:ActionBarGlow()
 	self:MDEnhance()
@@ -158,6 +159,18 @@ end
 
 function EX:LFGActivityNotices()
 	B:RegisterEvent("LFG_LIST_APPLICATION_STATUS_UPDATED", EX.UpdateLFGActivityNotices)
+end
+
+-- 精简name
+function EX:NewGetMapUIInfo()
+	local Old_GetMapUIInfo = C_ChallengeMode.GetMapUIInfo
+
+	function C_ChallengeMode.GetMapUIInfo(challengeMapID)
+		local name, id, timeLimit, texture, backgroundTexture, mapID = Old_GetMapUIInfo(challengeMapID)
+		if name then name = B.ReplaceText(name) end
+
+		return name, id, timeLimit, texture, backgroundTexture, mapID
+	end
 end
 
 -- 宏界面扩展
