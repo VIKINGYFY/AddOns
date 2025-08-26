@@ -698,8 +698,8 @@ do
 	end
 
 	-- Backdrop shadow
-	function B:CreateSD(size, override)
-		if not override and not C.db["Skins"]["Shadow"] then return end
+	function B:CreateSD(size, isOverride)
+		if not isOverride and not C.db["Skins"]["Shadow"] then return end
 		if self.__shadow then return end
 
 		local frame = self
@@ -780,7 +780,7 @@ do
 		local bg = B.CreateBDFrame(self)
 
 		if self:IsObjectType("StatusBar") then
-			B.UpdateSize(bg, -C.mult, C.mult, C.mult, -C.mult)
+			B.UpdateSize(bg, -1, 1, 1, -1)
 		else
 			B.UpdateSize(bg, x1, y1, x2, y2)
 		end
@@ -792,7 +792,7 @@ do
 	end
 
 	-- Handle icons
-	function B:ReskinIcon(shadow)
+	function B:ReskinIcon(isOutside)
 		self:SetTexCoord(unpack(DB.TexCoord))
 
 		if self.SetDrawLayer then
@@ -802,7 +802,7 @@ do
 		end
 
 		local bg = B.CreateBDFrame(self, .25, nil, -1)
-		if shadow then B.CreateSD(bg) end
+		if isOutside then B.CreateSD(bg) end
 
 		return bg
 	end
@@ -958,9 +958,7 @@ do
 		bar.bd = B.SetBD(bar)
 
 		if bg then
-			bar.bd:SetFrameLevel(bar:GetFrameLevel() - 1)
-
-			bar.bg = bar:CreateTexture(nil, "BACKGROUND")
+			bar.bg = bar:CreateTexture(nil, "BORDER")
 			bar.bg:SetTexture(DB.normTex)
 			bar.bg:SetInside(bar.bd)
 			bar.bg.multiplier = .25
@@ -1019,10 +1017,11 @@ do
 		end
 	end
 
-	function B:ReskinButton(override)
-		B.CleanTextures(self, override)
+	function B:ReskinButton(isOverride, isOutside)
+		B.CleanTextures(self, isOverride)
 
 		self.__bg = B.CreateBDFrame(self, 0, true)
+		if isOutside then B.CreateSD(self.__bg) end
 
 		self:HookScript("OnEnter", Button_OnEnter)
 		self:HookScript("OnLeave", Button_OnLeave)
@@ -1199,12 +1198,12 @@ do
 		button:SetPoint("TOPRIGHT", button.__owner, "TOPRIGHT", button.__xOffset, button.__yOffset)
 		button.isSetting = nil
 	end
-	function B:ReskinClose(parent, xOffset, yOffset, override)
+	function B:ReskinClose(parent, xOffset, yOffset, isOverride)
 		parent = parent or self:GetParent()
 		xOffset = xOffset or -6
 		yOffset = yOffset or -6
 
-		if not override then
+		if not isOverride then
 			self:ClearAllPoints()
 			self:SetPoint("TOPRIGHT", parent, "TOPRIGHT", xOffset, yOffset)
 			self.__owner = parent
@@ -1958,10 +1957,14 @@ do
 	function B.UpdateSize(f1, x1, y1, x2, y2, f2)
 		if not f1 then return end
 
+		local x_1 = x1 and x1 * C.mult
+		local y_1 = y1 and y1 * C.mult
+		local x_2 = x2 and x2 * C.mult
+		local y_2 = y2 and y2 * C.mult
 		local f = f1:GetParent()
 		f1:ClearAllPoints()
-		f1:SetPoint("TOPLEFT", f2 or f, x1, y1)
-		f1:SetPoint("BOTTOMRIGHT", f2 or f, x2, y2)
+		f1:SetPoint("TOPLEFT", f2 or f, x_1, y_1)
+		f1:SetPoint("BOTTOMRIGHT", f2 or f, x_2, y_2)
 	end
 
 	local headers = {"Header", "header"}
@@ -2155,7 +2158,7 @@ do
 		end
 	end
 
-	function B:ReskinCPTex(relativeTo, override)
+	function B:ReskinCPTex(relativeTo, isOverride)
 		if not self then return end
 
 		if self.SetCheckedTexture then
@@ -2177,7 +2180,7 @@ do
 			end
 		end
 
-		if not self:IsObjectType("CheckButton") or override then
+		if not self:IsObjectType("CheckButton") or isOverride then
 			if self.SetPushedTexture then
 				self:SetPushedTexture(0)
 				local pushed = self:GetPushedTexture()

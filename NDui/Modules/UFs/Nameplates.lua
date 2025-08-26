@@ -65,6 +65,7 @@ function UF:BlockAddons()
 		DBM.Options.DontShowNameplateIcons = true
 		DBM.Options.DontShowNameplateIconsCD = true
 		DBM.Options.DontShowNameplateIconsCast = true
+		DBM.Options.DontSendBossGUIDs = true
 	end
 
 	local function showAurasForDBM(_, _, _, spellID)
@@ -461,12 +462,10 @@ function UF:CreatePlates()
 	self:SetPoint("CENTER")
 	self:SetScale(NDuiADB["UIScale"])
 
-	local health = CreateFrame("StatusBar", nil, self)
+	local health = B.CreateSB(self)
 	health:SetFrameLevel(self:GetFrameLevel() - 1)
-	health:SetStatusBarTexture(DB.normTex)
 	health:SetAllPoints()
 
-	B.SetBD(health)
 	B.SmoothBar(health)
 
 	self.Health = health
@@ -910,6 +909,7 @@ end
 function UF:CreatePlayerPlate()
 	self.mystyle = "playerplate"
 	self:EnableMouse(false)
+
 	local healthHeight, powerHeight = C.db["Nameplate"]["PPHealthHeight"], C.db["Nameplate"]["PPPowerHeight"]
 	self:SetSize(C.db["Nameplate"]["PPWidth"], healthHeight+powerHeight+C.mult)
 

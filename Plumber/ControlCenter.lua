@@ -15,6 +15,7 @@ local LEFT_SECTOR_WIDTH = math.floor(0.618*FRAME_WIDTH + 0.5);
 
 local CATEGORY_ORDER = {
     --Must match the keys in the localization
+    [-1] = "Timerunning",
 
     [0] = "Unknown",    --Used during development
 
@@ -678,6 +679,14 @@ function ControlCenter:InitializeModules()
     local enabled, isForceEnabled;
 
     for _, moduleData in pairs(self.modules) do
+        if moduleData.timerunningSeason and moduleData.timerunningSeason ~= self.timerunningSeason then
+            moduleData.validityCheck = function()
+                return false
+            end;
+        end
+    end
+
+    for _, moduleData in pairs(self.modules) do
         isForceEnabled = false;
         if (not moduleData.validityCheck) or (moduleData.validityCheck()) then
             enabled = db[moduleData.dbKey];
@@ -753,29 +762,6 @@ function ControlCenter:AddModule(moduleData)
     end
 end
 
-function Plumber_GetNumModules()
-    --debug
-    local lastCategoryID, lastUIOrderID;
-    local categoryID, uiOrder;
-    local cates = {};
-
-    for _, module in ipairs(ControlCenter.modules) do
-        categoryID = module.categoryID;
-        uiOrder = module.uiOrder;
-        if categoryID then
-            if not cates[categoryID] then
-                cates[categoryID] = uiOrder;
-            elseif cates[categoryID] and uiOrder > cates[categoryID] then
-                cates[categoryID] = uiOrder;
-            end
-        end
-    end
-
-    for categoryID = 1, #CATEGORY_ORDER do
-        print("cate:", categoryID, "maxUiOrder:", cates[categoryID]);
-    end
-end
-
 
 ControlCenter:RegisterEvent("PLAYER_ENTERING_WORLD");
 
@@ -816,6 +802,10 @@ end
 do
     addon.CallbackRegistry:Register("NewDBKeysAdded", function(newDBKeys)
         ControlCenter.newDBKeys = newDBKeys;
+    end);
+
+    addon.CallbackRegistry:Register("TimerunningSeason", function(seasonID)
+        ControlCenter.timerunningSeason = seasonID;
     end);
 
 

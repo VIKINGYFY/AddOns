@@ -145,6 +145,14 @@ function S:DBMSkin()
 	DBM_AllSavedOptions["Default"]["EventSoundVictory"] = "None"
 	DBM_AllSavedOptions["Default"]["EventSoundVictory2"] = "None"
 
+	if C_AddOns.IsAddOnLoaded("DBM-VPVV") then
+		DBM_AllSavedOptions["Default"]["ChosenVoicePack2"] = "VV"
+		DBM_AllSavedOptions["Default"]["CountdownVoice"] = "VP: VV"
+		DBM_AllSavedOptions["Default"]["CountdownVoice2"] = "VP: VV"
+		DBM_AllSavedOptions["Default"]["CountdownVoice3"] = "VP: VV"
+		DBM_AllSavedOptions["Default"]["PullVoice"] = "VP: VV"
+	end
+
 	if not DBT_AllPersistentOptions["Default"] then DBT_AllPersistentOptions["Default"] = {} end
 	DBT_AllPersistentOptions["Default"]["DBM"]["BarYOffset"] = 5
 	DBT_AllPersistentOptions["Default"]["DBM"]["HugeBarYOffset"] = 5

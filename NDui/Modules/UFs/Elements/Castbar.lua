@@ -188,20 +188,22 @@ function UF:PostCastFailed()
 end
 
 UF.PipColors = {
-	[1] = {  0,   1,  0, .3},
-	[2] = {.25, .75,  0, .3},
-	[3] = {.50, .50,  0, .3},
-	[4] = {.75, .25,  0, .3},
-	[5] = {  1,   0,  0, .3},
+	[1] = {  0,   1,  0, .25},
+	[2] = {.25, .75,  0, .25},
+	[3] = {.50, .50,  0, .25},
+	[4] = {.75, .25,  0, .25},
+	[5] = {  1,   0,  0, .25},
 }
 function UF:CreatePip(stage)
 	local _, height = self:GetSize()
 
 	local pip = CreateFrame("Frame", nil, self, "CastingBarFrameStagePipTemplate")
+	pip:SetFrameLevel(self:GetFrameLevel())
 	pip.BasePip:SetTexture(DB.bdTex)
 	pip.BasePip:SetVertexColor(0, 0, 0)
 	pip.BasePip:SetWidth(C.mult)
 	pip.BasePip:SetHeight(height)
+
 	pip.tex = pip:CreateTexture(nil, "ARTWORK")
 	pip.tex:SetTexture(DB.normTex)
 	pip.tex:SetVertexColor(unpack(UF.PipColors[stage]))
@@ -215,7 +217,7 @@ function UF:PostUpdatePips(numStages)
 
 	for stage = 1, numStages do
 		local pip = pips[stage]
-		pip.tex:SetAlpha(.3) -- reset pip alpha
+		pip.tex:SetAlpha(.25) -- reset pip alpha
 		pip.duration = self.stagePoints[stage]
 
 		if stage == numStages then

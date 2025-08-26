@@ -25,6 +25,7 @@ end
 
 function UF:CreateDebuffsIndicator(self)
 	local debuffFrame = CreateFrame("Frame", nil, self)
+	debuffFrame:SetFrameLevel(self:GetFrameLevel())
 	debuffFrame:SetSize(1, 1)
 	debuffFrame:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT")
 

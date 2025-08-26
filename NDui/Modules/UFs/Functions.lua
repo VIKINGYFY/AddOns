@@ -187,18 +187,15 @@ function UF:CreateHealthBar(self)
 	end
 	health:SetHeight(healthHeight)
 
-	local bd = B.SetBD(health)
-	bd:SetFrameLevel(health:GetFrameLevel() - 1)
-	bd:SetOutside(self)
+	B.SetBD(health):SetOutside(self)
+	B.SmoothBar(health)
 
-	local bg = health:CreateTexture(nil, "BACKGROUND")
+	local bg = health:CreateTexture(nil, "BORDER")
 	bg:SetPoint("TOPLEFT", health:GetStatusBarTexture(), "TOPRIGHT", 0, 0)
 	bg:SetPoint("BOTTOMRIGHT", health, "BOTTOMRIGHT", 0, 0)
 	bg:SetVertexColor(.9, .9, .9)
 	bg:SetTexture(DB.normTex)
 	bg.multiplier = .25
-
-	B.SmoothBar(health)
 
 	self.Health = health
 	self.Health.bg = bg
@@ -400,15 +397,13 @@ function UF:CreatePowerBar(self)
 	power:SetHeight(powerHeight)
 	power.wasHidden = powerHeight == 0
 
-	local bd = B.CreateBDFrame(power, 0, nil, -1)
-	bd:SetFrameLevel(power:GetFrameLevel() - 1)
+	B.CreateBDFrame(power, 0, nil, -1)
+	B.SmoothBar(power)
 
-	local bg = power:CreateTexture(nil, "BACKGROUND")
+	local bg = power:CreateTexture(nil, "BORDER")
 	bg:SetTexture(DB.normTex)
 	bg:SetAllPoints()
 	bg.multiplier = .25
-
-	B.SmoothBar(power)
 
 	self.Power = power
 	self.Power.bg = bg
@@ -566,7 +561,7 @@ function UF:CreateRestingIndicator(self)
 	for i = 1, 3 do
 		local textFrame = CreateFrame("Frame", nil, frame)
 		textFrame:SetAllPoints()
-		textFrame:SetFrameLevel(i+5)
+		textFrame:SetFrameLevel(self:GetFrameLevel() + i)
 		local text = B.CreateFS(textFrame, (7+i*3), "z", "info", "CENTER", offsets[i][1], offsets[i][2])
 		frame.str[i] = text
 	end
@@ -1151,6 +1146,7 @@ function UF:CreateAuras(self)
 	local mystyle = self.mystyle
 
 	local bu = CreateFrame("Frame", nil, self)
+	bu:SetFrameLevel(self:GetFrameLevel())
 	bu.gap = true
 	bu.initialAnchor = "TOPLEFT"
 	bu["growth-y"] = "DOWN"
@@ -1191,6 +1187,7 @@ end
 
 function UF:CreateBuffs(self)
 	local bu = CreateFrame("Frame", nil, self)
+	bu:SetFrameLevel(self:GetFrameLevel())
 	bu:SetPoint("BOTTOMLEFT", self.AlternativePower, "TOPLEFT", 0, DB.margin)
 	bu.spacing = DB.margin
 	bu.tooltipAnchor = "ANCHOR_TOPLEFT"
@@ -1211,6 +1208,7 @@ end
 
 function UF:CreateDebuffs(self)
 	local bu = CreateFrame("Frame", nil, self)
+	bu:SetFrameLevel(self:GetFrameLevel())
 	bu:SetPoint("TOPRIGHT", self, "TOPLEFT", -DB.margin, 0)
 	bu.spacing = DB.margin
 	bu.tooltipAnchor = "ANCHOR_TOPLEFT"
@@ -1650,7 +1648,9 @@ function UF:CreateSwing(self)
 	local width, height = C.db["UFs"]["SwingWidth"], C.db["UFs"]["SwingHeight"]
 
 	local bar = CreateFrame("Frame", nil, self)
+	bar:SetFrameLevel(self:GetFrameLevel())
 	bar:SetSize(width, height)
+
 	bar.mover = B.Mover(bar, L["UFs SwingBar"], "Swing", {"TOP", self.Castbar.mover, "BOTTOM", 0, -5})
 	bar:ClearAllPoints()
 	bar:SetPoint("CENTER", bar.mover)
@@ -1710,6 +1710,7 @@ function UF:CreateFCT(self)
 	end
 
 	local scrolling = CreateFrame("ScrollingMessageFrame", "$parentCombatTextScrollingFrame", fcf)
+	scrolling:SetFrameLevel(fcf:GetFrameLevel())
 	scrolling:SetSpacing(DB.margin)
 	scrolling:SetMaxLines(20)
 	scrolling:SetFadeDuration(.2)

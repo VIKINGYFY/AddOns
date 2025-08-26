@@ -557,8 +557,9 @@ function bountyHelper:UpdateDiffLayout()
             local categoryInfo = difficultyInfo[header.difficultyID]
             if not categoryInfo.expanded then isVisible = false end
             
-            local isOwned = data.journalMountID and C_MountJournal.GetMountInfoByID(data.journalMountID) and select(11, C_MountJournal.GetMountInfoByID(data.journalMountID))
-
+            local journalMountID = data.journalMountID
+            local isOwned = journalMountID and select(11, C_MountJournal.GetMountInfoByID(data.journalMountID)) or PlayerHasToy(data.mountID)
+            
             if isVisible and hideOwned and isOwned then
                 isVisible = false;
             end
@@ -647,7 +648,7 @@ function bountyHelper:GetUnsortedMountCentricData()
 end
 
 function bountyHelper:loadMountData(callback)
-    local pending = 54
+    local pending = 59
 
     for mountID, data in pairs(db.mountData) do
         local item = Item:CreateFromItemID(mountID)
@@ -874,14 +875,14 @@ function bountyHelper:sortContent(sorting)
     end
     
     local defaultOrder = {
-        13335, 30480, 32458, 32768, 35513, 43952, 43953, 43959,
-        44151, 45693, 49636, 50818, 63040, 63041, 63043, 68823,
-        68824, 69224, 71665, 77067, 77069, 78919, 87777, 93666,
-        95059, 104253, 116660, 123890, 137574, 137575, 142236,
-        143643, 152789, 152816, 159842, 159921, 160829, 166518,
+        13335, 13379, 30480, 32458, 32768, 35513, 35275, 43952, 
+        43953, 43959, 44151, 45693, 49636, 50818, 63040, 63041,
+        63043, 68823, 68824, 69224, 71665, 77067, 77069, 78919,
+        87777, 93666, 95059, 104253, 116660, 123890, 137574, 137575,
+        142236, 143643, 152789, 152816, 159842, 159921, 160829, 166518,
         166705, 168826, 174872, 181819, 186638, 186656, 186642, 190768,
-        210061, 225548, 224147, 224151, 236960, 235626, 246445,
-        243061
+        210061, 209035, 225548, 224147, 224151, 236960, 235626, 236687,
+        246445, 243061, 246565
     }
     local orderMap = {}
     for i, id in ipairs(defaultOrder) do orderMap[id] = i end
@@ -922,7 +923,8 @@ end
 function bountyHelper:updateContent()
     for _, frame in ipairs(self.contentFrames) do
         if frame.isHeader then
-            local isOwned = select(11, C_MountJournal.GetMountInfoByID(db.mountData[frame.mountID].journalMountID))
+            local journalMountID = db.mountData[frame.mountID].journalMountID
+            local isOwned = journalMountID and select(11, C_MountJournal.GetMountInfoByID(journalMountID)) or PlayerHasToy(frame.mountID)
             local sourceCount = 0
 
             for _, sourceRow in ipairs(frame.sourceRows) do

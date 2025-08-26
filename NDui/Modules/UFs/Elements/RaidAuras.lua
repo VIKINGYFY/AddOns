@@ -14,6 +14,7 @@ function UF:CreateRaidAuras(self)
 
 	-- RaidAuras Util
 	local frame = CreateFrame("Frame", nil, self)
+	frame:SetFrameLevel(self:GetFrameLevel())
 	frame:SetSize(1, 1)
 	frame:SetPoint("CENTER")
 

@@ -126,6 +126,7 @@ function UF:CreateAurasIndicator(self)
 	local auraSize = 18
 
 	local auraFrame = CreateFrame("Frame", nil, self)
+	auraFrame:SetFrameLevel(self:GetFrameLevel())
 	auraFrame:SetSize(1, 1)
 	auraFrame:SetPoint("RIGHT", -15, 0)
 	auraFrame.instAura = C.db["UFs"]["InstanceAuras"]

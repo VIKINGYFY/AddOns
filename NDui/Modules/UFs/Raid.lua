@@ -32,8 +32,8 @@ end
 
 function UF:CreateTargetBorder(self)
 	local border = B.CreateBDFrame(self, 0)
-	border:SetOutside(self)
 	border:SetBackdropBorderColor(1, 1, 1)
+	border:SetOutside(self)
 	border:Hide()
 
 	self.TargetBorder = border

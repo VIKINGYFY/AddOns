@@ -1,5 +1,5 @@
 local VERSION_TEXT = "v1.7.3";
-local VERSION_DATE = 1755200000;
+local VERSION_DATE = 1756100000;
 
 
 local addonName, addon = ...
@@ -216,6 +216,10 @@ local DefaultValues = {
         SpellFlyout_UpdateFrequently = false,
 
 
+    --LegionRemix
+    LegionRemix = true,
+
+
     EnableNewByDefault = false,             --Always enable newly added features
 
 
@@ -275,6 +279,7 @@ end
 
 local EL = CreateFrame("Frame");
 EL:RegisterEvent("ADDON_LOADED");
+EL:RegisterEvent("PLAYER_ENTERING_WORLD");
 
 EL:SetScript("OnEvent", function(self, event, ...)
     if event == "ADDON_LOADED" then
@@ -283,9 +288,14 @@ EL:SetScript("OnEvent", function(self, event, ...)
             self:UnregisterEvent(event);
             LoadDatabase();
         end
-    elseif event == "LOADING_SCREEN_DISABLED" then
+    elseif event == "PLAYER_ENTERING_WORLD" then
         self:UnregisterEvent(event);
-        CallbackRegistry:Trigger("LOADING_SCREEN_DISABLED");
+        if PlayerGetTimerunningSeasonID then
+            local seasonID = PlayerGetTimerunningSeasonID();
+            if seasonID and seasonID > 0 then
+                CallbackRegistry:Trigger("TimerunningSeason", seasonID);
+            end
+        end
     end
 end);
 

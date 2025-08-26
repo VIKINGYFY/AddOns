@@ -309,6 +309,7 @@ function UF:AvadaKedavra(self)
 	self.Avada = {}
 	for i = 1, maxButtons do
 		local bu = CreateFrame("Frame", "NDui_AvadaIcon" .. i, self.Health)
+		bu:SetFrameLevel(self.Health:GetFrameLevel())
 		bu:SetSize(iconSize, iconSize)
 		B.AuraIcon(bu)
 

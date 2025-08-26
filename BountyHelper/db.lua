@@ -55,6 +55,7 @@ db.bossData = {
     },
     [329] = { -- Stratholme
         { name = "Lord Aurius Rivendare", encounterID = 456, killedAtDiff = { [1] = false } },
+        { name = "Hearthsinger Forresten", encounterID = 443, killedAtDiff = { [1] = false } },
     },
     [532] = { -- Karazhan
         { name = "Attumen the Huntsman", encounterID = 1553, killedAtDiff = { [3] = false } },
@@ -169,7 +170,8 @@ db.bossData = {
         { name = "The Jailer", encounterID = 2464, killedAtDiff = { [16] = false } },
     },
     [2549] = { -- Amirdrassil, the Dream's Hope
-        { name = "Fyrakk the Blazing", encounterID = 2519, killedAtDiff = { [16] = false } }
+        { name = "Fyrakk the Blazing", encounterID = 2519, killedAtDiff = { [16] = false } },
+        { name = "Larodar, Keeper of the Flame", encounterID = 2553, killedAtDiff = { [14] = false, [15] = false, [16] = false } }
     },
     [2651] = { -- Darkflame Cleft
         { name = "The Darkness", encounterID = 2561, killedAtDiff = { [23] = false } }
@@ -178,10 +180,11 @@ db.bossData = {
         { name = "Queen Ansurek", encounterID = 2602, killedAtDiff = { [14] = false, [15] = false, [16] = false, [17] = false } }
     },
     [2769] = { -- Liberation of Undermine
-        { name = "Chrome King Gallywix", encounterID = 2646, killedAtDiff = { [14] = false, [15] = false, [16] = false, [17] = false } }
+        { name = "Chrome King Gallywix", encounterID = 2646, killedAtDiff = { [14] = false, [15] = false, [16] = false, [17] = false } },
+        { name = "Stix Bunkjunker", encounterID = 2642, killedAtDiff = { [14] = false, [15] = false, [16] = false, [17] = false } }
     },
     [2810] = { -- Manaforge Omega
-        { name = "Dimensius, the All-Devouring", encounterID = 2691, killedAtDiff = { [15] = false, [16] = false } }
+        { name = "Dimensius, the All-Devouring", encounterID = 2691, killedAtDiff = { [14] = false, [15] = false, [16] = false, [17] = false } }
     }
 }
 
@@ -381,5 +384,30 @@ db.mountData = {
     }},
     [243061] = { journalMountID = 2569, dropsBy = {
         { instanceID = 2810, diff = 16, index = 1, chance = 100.0 }
+    }},
+
+    [13379] = { journalMountID = nil, dropsBy = {
+        { instanceID = 329, diff = 1, index = 2, chance = 23.0, repeatable = true }
+    }},
+    [35275] = { journalMountID = nil, dropsBy = {
+        { instanceID = 585, diff = 2, index = 1, chance = 3.0 }
+    }},
+    [209035] = { journalMountID = nil, dropsBy = {
+        --{ instanceID = 2549, diff = 17, index = 2, chance = 79.0 },
+        { instanceID = 2549, diff = 14, index = 2, chance = 79.0 },
+        { instanceID = 2549, diff = 15, index = 2, chance = 79.0 },
+        { instanceID = 2549, diff = 16, index = 2, chance = 79.0 }
+    }},
+    [236687] = { journalMountID = nil, dropsBy = {
+        { instanceID = 2769, diff = 17, index = 2, chance = 83.0, lfr = {2346, 0.4132, 0.4862}, wing = 2781 },
+        { instanceID = 2769, diff = 14, index = 2, chance = 83.0 },
+        { instanceID = 2769, diff = 15, index = 2, chance = 83.0 },
+        { instanceID = 2769, diff = 16, index = 2, chance = 83.0 }
+    }},
+    [246565] = { journalMountID = nil, dropsBy = {
+        { instanceID = 2810, diff = 17, index = 1, chance = 82.0, lfr = {2371, 0.4179, 0.2146}, wing = 2801 },
+        { instanceID = 2810, diff = 14, index = 1, chance = 82.0 },
+        { instanceID = 2810, diff = 15, index = 1, chance = 82.0 },
+        { instanceID = 2810, diff = 16, index = 1, chance = 82.0 }
     }}
 }

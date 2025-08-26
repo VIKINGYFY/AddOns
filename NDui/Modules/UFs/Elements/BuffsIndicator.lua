@@ -25,6 +25,7 @@ end
 
 function UF:CreateBuffsIndicator(self)
 	local buffFrame = CreateFrame("Frame", nil, self)
+	buffFrame:SetFrameLevel(self:GetFrameLevel())
 	buffFrame:SetSize(1, 1)
 	buffFrame:SetPoint("BOTTOMRIGHT", self.Health, "BOTTOMRIGHT")
 

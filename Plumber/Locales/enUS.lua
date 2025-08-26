@@ -39,6 +39,9 @@ L["Module Category Tooltip"] = "Tooltip";   --Additional Info on Tooltips
 L["Module Category Class"] = "Class";   --Player Class (rogue, paladin...)
 --- order: 5
 L["Module Category Reduction"] = "Reduction";   --Reduce UI elements
+--- order: -1
+L["Module Category Timerunning"] = "Legion Remix";   --Change this based on timerunning season
+
 
 L["Module Category Dragonflight"] = EXPANSION_NAME9 or "Dragonflight";  --Merge Expansion Feature (Dreamseeds, AzerothianArchives) Modules into this
 L["Module Category Plumber"] = "Plumber";   --This addon's name
@@ -350,6 +353,16 @@ L["ModuleName AppearanceTab"] = "Appearances Tab";
 L["ModuleDescription AppearanceTab"] = "Modify the Appearances Tab in the Warband Collections:\n\n- Reduce GPU load by improving model loading sequence and changing the number of items shown per page. It can reduce the chance of graphics crash when opening this UI.\n\n- Remember the page you visit after changing slots.";
 
 
+--LegionRemix
+L["ModuleName LegionRemix"] = "Legion Remix";
+L["ModuleDescription LegionRemix"] = "Legion Remix";
+L["Artifact Weapon"] = "Artifact Weapon";
+L["Earn X To Upgrade Y Format"] = "Earn another |cffffffff%s|r %s to upgrade %s"; --Example: Earn another 100 Infinite Power to upgrade Artifact Weapon
+L["Until Next Upgrade Format"] = "%s until next upgrade";
+L["New Trait Available"] = "New trait available.";
+L["Rank Increased"] = "Rank Increased";
+
+
 --Loot UI
 L["ModuleName LootUI"] = HUD_EDIT_MODE_LOOT_FRAME_LABEL or "Loot Window";
 L["ModuleDescription LootUI"] = "Replace the default Loot Window and provide some optional features:\n\n- Loot items fast.\n\n- Fix Auto Loot failure bug.\n\n- Show a Take All button when looting manually.";
@@ -486,6 +499,7 @@ L["Weekly Coffer Key Tooltip"] = "The first four weekly caches you earn each wee
 L["Weekly Coffer Key Shards Tooltip"] = "The first four weekly caches you earn each week contain Coffer Key Shards.";
 L["Weekly Cap"] = "Weekly Cap";
 L["Weekly Cap Reached"] = "Weekly cap reached.";
+L["Instruction Right Click To Use"] = "<Right Click to Use>";
 
 
 --Generic

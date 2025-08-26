@@ -89,6 +89,7 @@ local list = {
 		{AuraID = 1216921, UnitID = "player", Value =  true}, -- 不详污油残渣
 		{AuraID = 1218713, UnitID = "player"}, -- 临时制作的爆盐起搏器
 		{AuraID = 1219102, UnitID = "player", Value =  true}, -- 共鸣仪式泥浆
+		{AuraID = 1224918, UnitID = "player"}, -- 虚触碎片
 
 	},
 	["Raid Buff"] = { -- 团队增益组

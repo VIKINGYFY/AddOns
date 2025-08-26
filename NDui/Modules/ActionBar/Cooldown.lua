@@ -54,19 +54,15 @@ function module:ScalerOnSizeChanged(...)
 end
 
 function module:OnCreate()
-	local scaler = CreateFrame("Frame", nil, self)
-	scaler:SetAllPoints(self)
-
-	local timer = CreateFrame("Frame", nil, scaler)
+	local timer = CreateFrame("Frame", nil, self)
 	timer:SetScript("OnUpdate", module.TimerOnUpdate)
-	timer:SetAllPoints(scaler)
+	timer:SetAllPoints(self)
 	timer:Hide()
-	scaler.timer = timer
 
 	timer.text = B.CreateFS(timer, FONT_SIZE)
 
-	module.OnSizeChanged(timer, scaler:GetSize())
-	scaler:SetScript("OnSizeChanged", module.ScalerOnSizeChanged)
+	module.OnSizeChanged(timer, timer:GetSize())
+	self:SetScript("OnSizeChanged", module.ScalerOnSizeChanged)
 
 	self.timer = timer
 	return timer
