@@ -641,7 +641,7 @@ do
 		local name = overrideName or generateName(nil, ...)
 		local header = CreateFrame('Frame', name, PetBattleFrameHider, template)
 
-		header:SetAttribute('template', 'SecureUnitButtonTemplate, SecureHandlerStateTemplate, SecureHandlerEnterLeaveTemplate, PingableUnitFrameTemplate, SecureHandlerShowHideTemplate, SecureHandlerMouseUpDownTemplate')
+		header:SetAttribute('template', 'SecureUnitButtonTemplate, SecureHandlerStateTemplate, SecureHandlerEnterLeaveTemplate, PingableUnitFrameTemplate')
 
 		if (...) then
 			if (type(...) == 'table') then
@@ -734,7 +734,7 @@ PingableUnitFrameTemplate is inherited for Ping support.
 
 * oUF-enableArenaPrep - can be used to toggle arena prep support. Defaults to true (boolean)
 --]]
-function oUF:Spawn(unit, overrideName, noHandle)
+function oUF:Spawn(unit, overrideName)
 	argcheck(unit, 2, 'string')
 	if (not style) then return error('Unable to create frame. No styles have been registered.') end
 
@@ -744,7 +744,7 @@ function oUF:Spawn(unit, overrideName, noHandle)
 	local object = CreateFrame('Button', name, PetBattleFrameHider, 'SecureUnitButtonTemplate, PingableUnitFrameTemplate')
 	Private.UpdateUnits(object, unit)
 
-	if not noHandle then self:DisableBlizzard(unit) end
+	self:DisableBlizzard(unit)
 	walkObject(object, unit)
 
 	object:SetAttribute('unit', unit)
@@ -836,11 +836,13 @@ function oUF:SpawnNamePlates(namePrefix, nameplateCallback, nameplateCVars)
 			if (nameplate.UnitFrame) then
 				if (nameplate.UnitFrame.WidgetContainer) then
 					nameplate.UnitFrame.WidgetContainer:SetParent(nameplate.unitFrame)
+					nameplate.UnitFrame.WidgetContainer:SetIgnoreParentAlpha(true)
 					nameplate.unitFrame.WidgetContainer = nameplate.UnitFrame.WidgetContainer
 				end
 
 				if (nameplate.UnitFrame.SoftTargetFrame) then
 					nameplate.UnitFrame.SoftTargetFrame:SetParent(nameplate.unitFrame)
+					nameplate.UnitFrame.SoftTargetFrame:SetIgnoreParentAlpha(true)
 					nameplate.unitFrame.SoftTargetFrame = nameplate.UnitFrame.SoftTargetFrame
 				end
 			end

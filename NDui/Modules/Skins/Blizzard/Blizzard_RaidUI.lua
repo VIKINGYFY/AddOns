@@ -2,7 +2,6 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 C.OnLoadThemes["Blizzard_RaidUI"] = function()
-	
 
 	for i = 1, NUM_RAID_GROUPS do
 		local group = _G["RaidGroup"..i]

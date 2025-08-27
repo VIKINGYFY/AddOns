@@ -40,12 +40,12 @@ function M:IgnoreButton_Hook()
 		self:HookScript("OnDoubleClick", M.IgnoreButton_OnClick)
 		self:HookScript("OnEnter", M.IgnoreButton_OnEnter)
 		self:HookScript("OnLeave", B.HideTooltip)
-	
+
 		self.noteTex = self:CreateTexture(nil, "ARTWORK")
 		self.noteTex:SetSize(16, 16)
 		self.noteTex:SetTexture(DB.copyTex)
 		self.noteTex:SetPoint("RIGHT", -5, 0)
-	
+
 		self.hooked = true
 	end
 

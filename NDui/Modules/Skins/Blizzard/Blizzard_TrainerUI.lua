@@ -2,7 +2,6 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 C.OnLoadThemes["Blizzard_TrainerUI"] = function()
-	
 
 	B.ReskinFrame(ClassTrainerFrame)
 	ClassTrainerStatusBarSkillRank:ClearAllPoints()

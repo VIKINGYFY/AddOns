@@ -3,8 +3,6 @@ local B, C, L, DB = unpack(ns)
 
 C.OnLoginThemes["PVEFrame"] = function()
 
-	
-
 	PVEFrameLeftInset:SetAlpha(0)
 	PVEFrameBlueBg:SetAlpha(0)
 	PVEFrame.shadows:SetAlpha(0)

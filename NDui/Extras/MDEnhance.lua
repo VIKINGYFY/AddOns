@@ -106,7 +106,7 @@ end
 function EX:MDEnhance_SelectID(spellIDs)
 	if #spellIDs > 1 then
 		for _, spellID in pairs(spellIDs) do
-			if IsSpellKnown(spellID) then
+			if C_SpellBook.IsSpellKnown(spellID) then
 				return spellID
 			end
 		end
@@ -131,7 +131,7 @@ local function Button_OnEnter(parent, spellID)
 		local name = C_Spell.GetSpellName(spellID)
 		local CDInfo = C_Spell.GetSpellCooldown(spellID)
 
-		if IsSpellKnown(spellID) and CDInfo then
+		if C_SpellBook.IsSpellKnown(spellID) and CDInfo then
 			if CDInfo.duration == 0 then
 				GameTooltip:AddLine(name, 0,1,0)
 			else

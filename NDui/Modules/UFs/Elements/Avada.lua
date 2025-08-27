@@ -104,7 +104,7 @@ local function stringParser(str)
 		iconIndex = tonumber(iconIndex)
 		spellID = tonumber(spellID)
 		local geminiSpell = UF.AvadaGemini[spellID]
-		if geminiSpell and IsPlayerSpell(geminiSpell) then
+		if geminiSpell and C_SpellBook.IsSpellKnown(geminiSpell) then
 			spellID = geminiSpell
 		end
 		auraData[iconIndex] = {index = iconIndex, unit = unit, type = iconType, spellID = spellID}

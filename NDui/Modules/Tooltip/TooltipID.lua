@@ -24,7 +24,7 @@ function TT:AddLineForID(id, linkType, noadd)
 		if text and text == linkType then return end
 	end
 
-	if self.__isHoverTip and linkType == types.spell and IsPlayerSpell(id) and C_MountJournal.GetMountFromSpell(id) then
+	if self.__isHoverTip and linkType == types.spell and C_SpellBook.IsSpellKnown(id) and C_MountJournal.GetMountFromSpell(id) then
 		self:AddLine(LEARNT_STRING)
 	end
 

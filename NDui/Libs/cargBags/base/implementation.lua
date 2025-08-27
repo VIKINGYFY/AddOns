@@ -305,7 +305,6 @@ function Implementation:GetItemInfo(bagID, slotID, i)
 	i.bagId = bagID
 	i.slotId = slotID
 
-	local texture, count, locked, quality, itemLink, noValue, itemID
 	local info = C_Container.GetContainerItemInfo(bagID, slotID)
 	if info then
 		i.texture, i.count, i.locked, i.quality, i.link, i.id, i.hasPrice = info.iconFileID, info.stackCount, info.isLocked, (info.quality or 1), info.hyperlink, info.itemID, (not info.hasNoValue)
@@ -330,8 +329,9 @@ function Implementation:GetItemInfo(bagID, slotID, i)
 			i.classID = Enum.ItemClass.Miscellaneous
 			i.subClassID = Enum.ItemMiscellaneousSubclass.CompanionPet
 		elseif MYTHIC_KEYSTONES[i.id] then
-			i.level, i.name = string.match(i.link, "|H%w+:%d+:%d+:(%d+):.-|h%[(.-)%]|h")
-			i.level = tonumber(i.level) or 0
+			local keyID, keyName = string.match(i.link, "|H%w+:%d+:%d+:(%d+):.-|h%[(.-)%]|h")
+			i.name = keyName
+			i.level = tonumber(keyID) or 0
 		end
 	end
 
@@ -404,9 +404,6 @@ end
 	@callback Container:OnBagUpdate(bagID, slotID)
 ]]
 local isUpdating = false
-local bankUpdateQueue = {}
-local bankUpdateTimer
-local bankUpdateTimeGap = 0.05
 
 function Implementation:BAG_UPDATE(_, bagID, slotID)
 	if self.isSorting then return end
@@ -423,32 +420,16 @@ function Implementation:BAG_UPDATE(_, bagID, slotID)
 		end
 
 		local bankType = BankFrame.BankPanel.bankType
-		wipe(bankUpdateQueue)
 
 		if bankType == Enum.BankType.Character then
 			for bagID = 6, 11 do
-				tinsert(bankUpdateQueue, bagID)
+				self:UpdateBag(bagID)
 			end
 		elseif bankType == Enum.BankType.Account then
 			for bagID = 12, 16 do
-				tinsert(bankUpdateQueue, bagID)
+				self:UpdateBag(bagID)
 			end
 		end
-
-		if bankUpdateTimer then
-			bankUpdateTimer:Cancel()
-			bankUpdateTimer = nil
-		end
-
-		bankUpdateTimer = C_Timer.NewTicker(bankUpdateTimeGap, function()
-			if #bankUpdateQueue > 0 then
-				local nextBag = tremove(bankUpdateQueue, 1)
-				self:UpdateBag(nextBag)
-			else
-				bankUpdateTimer:Cancel()
-				bankUpdateTimer = nil
-			end
-		end)
 	end
 
 	isUpdating = false

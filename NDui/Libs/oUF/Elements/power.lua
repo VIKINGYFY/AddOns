@@ -32,10 +32,13 @@ The following options are listed by priority. The first check that returns true 
 .colorTapping      - Use `self.colors.tapping` to color the bar if the unit isn't tapped by the player (boolean)
 .colorThreat       - Use `self.colors.threat[threat]` to color the bar based on the unit's threat status. `threat` is
 					 defined by the first return of [UnitThreatSituation](https://warcraft.wiki.gg/wiki/API_UnitThreatSituation) (boolean)
+.colorPowerAtlas   - Use `self.colors.power[token].atlas` to replace the texture whenever it's available. The previously
+					 defined texture (if any) will be restored if the color changes to one that doesn't have an atlas
+					 (boolean)
 .colorPower        - Use `self.colors.power[token]` to color the bar based on the unit's power type. This method will
 					 fall-back to `:GetAlternativeColor()` if it can't find a color matching the token. If this function
 					 isn't defined, then it will attempt to color based upon the alternative power colors returned by
-					 [UnitPowerType](http://wowprogramming.com/docs/api/UnitPowerType.html). If these aren't
+					 [UnitPowerType](https://warcraft.wiki.gg/wiki/API_UnitPowerType). If these aren't
 					 defined, then it will attempt to color the bar based upon `self.colors.power[type]`. In case of
 					 failure it'll default to `self.colors.power.MANA` (boolean)
 .colorClass        - Use `self.colors.class[class]` to color the bar based on unit class. `class` is defined by the
@@ -98,7 +101,7 @@ local ALTERNATE_POWER_INDEX = Enum.PowerType.Alternate or 10
 
 --[[ Override: Power:GetDisplayPower()
 Used to get info on the unit's alternative power, if any.
-Should return the power type index (see [Enum.PowerType.Alternate](https://warcraft.wiki.gg/wiki/Enum_Unit.PowerType))
+Should return the power type index (see [Enum.PowerType.Alternate](https://warcraft.wiki.gg/wiki/Enum.PowerType))
 and the minimum value for the given power type (see [info.minPower](https://warcraft.wiki.gg/wiki/API_GetUnitPowerBarInfo))
 or nil if the unit has no alternative (alternate) power or it should not be
 displayed. In case of a nil return, the element defaults to the primary power
@@ -120,7 +123,7 @@ local function UpdateColor(self, event, unit)
 
 	local pType, pToken, altR, altG, altB = UnitPowerType(unit)
 
-	local r, g, b, color
+	local r, g, b, color, atlas
 	if (element.colorDisconnected and not UnitIsConnected(unit)) then
 		color = self.colors.disconnected
 	elseif (element.colorTapping and not UnitPlayerControlled(unit) and UnitIsTapDenied(unit)) then
@@ -146,6 +149,9 @@ local function UpdateColor(self, event, unit)
 		else
 			color = self.colors.power[ALTERNATE_POWER_INDEX]
 		end
+		if (element.colorPowerAtlas and color) then
+			atlas = color.atlas
+		end
 	elseif (element.colorClass and (UnitIsPlayer(unit) or UnitInPartyIsAI(unit)))
 		or (element.colorClassNPC and not (UnitIsPlayer(unit) or UnitInPartyIsAI(unit)))
 		or (element.colorClassPet and UnitPlayerControlled(unit) and not UnitIsPlayer(unit)) then
@@ -160,17 +166,25 @@ local function UpdateColor(self, event, unit)
 		r, g, b = self:ColorGradient((element.cur or 1) + adjust, (element.max or 1) + adjust, unpack(element.smoothGradient or self.colors.smooth))
 	end
 
+	if (atlas) then
+		element:SetStatusBarTexture(atlas)
+		element:SetStatusBarColor(1, 1, 1)
+	else
 	if (color) then
 		r, g, b = color[1], color[2], color[3]
 	end
 
 	if (b) then
+			if (element.__texture) then
+				element:SetStatusBarTexture(element.__texture)
+			end
 		element:SetStatusBarColor(r, g, b)
 
 		local bg = element.bg
 		if (bg) then
 			local mu = bg.multiplier or 1
 			bg:SetVertexColor(r * mu, g * mu, b * mu)
+			end
 		end
 	end
 
@@ -179,12 +193,13 @@ local function UpdateColor(self, event, unit)
 
 	* self - the Power element
 	* unit - the unit for which the update has been triggered (string)
-	* r    - the red component of the used color (number)[0-1]
-	* g    - the green component of the used color (number)[0-1]
-	* b    - the blue component of the used color (number)[0-1]
+	* r     - the red component of the used color (number?)[0-1]
+	* g     - the green component of the used color (number?)[0-1]
+	* b     - the blue component of the used color (number?)[0-1]
+	* atlas - the atlas used instead of color (string?)
 	--]]
 	if (element.PostUpdateColor) then
-		element:PostUpdateColor(unit, r, g, b)
+		element:PostUpdateColor(unit, r, g, b, atlas)
 	end
 end
 
@@ -219,7 +234,8 @@ local function Update(self, event, unit)
 	end
 
 	local cur, max = UnitPower(unit, displayType), UnitPowerMax(unit, displayType)
-	element:SetMinMaxValues(min or 0, max)
+	min = min or 0 -- ensure we always have a minimum value to avoid errors
+	element:SetMinMaxValues(min, max)
 
 	if (UnitIsConnected(unit)) then
 		element:SetValue(cur)
@@ -402,6 +418,9 @@ local function Enable(self)
 			element:SetStatusBarTexture([[Interface\TargetingFrame\UI-StatusBar]])
 		end
 
+		if (element.colorPowerAtlas) then
+			element.__texture = element.__texture or element:GetStatusBarTexture():GetTexture()
+		end
 		if (not element.GetDisplayPower) then
 			element.GetDisplayPower = GetDisplayPower
 		end

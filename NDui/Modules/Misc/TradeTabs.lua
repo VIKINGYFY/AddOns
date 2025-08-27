@@ -24,7 +24,7 @@ function M:UpdateProfessions()
 
 	if DB.MyClass == "DEATHKNIGHT" then
 		M:TradeTabs_Create(RUNEFORGING_ID)
-	elseif DB.MyClass == "ROGUE" and IsPlayerSpell(PICK_LOCK) then
+	elseif DB.MyClass == "ROGUE" and C_SpellBook.IsSpellKnown(PICK_LOCK) then
 		M:TradeTabs_Create(PICK_LOCK)
 	end
 

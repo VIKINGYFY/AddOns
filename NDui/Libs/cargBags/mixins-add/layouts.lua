@@ -34,12 +34,12 @@ function layouts.grid(self, columns, spacing, xOffset, yOffset)
 	local col, row = 0, 0
 	for i, button in ipairs(self.buttons) do
 		if button:IsShown() then
-			if(i == 1) then -- Hackish, I know
+			if (i == 1) then -- Hackish, I know
 				width, height = button:GetSize()
 			end
 
 			col = i % columns
-			if(col == 0) then col = columns end
+			if (col == 0) then col = columns end
 			row = math.ceil(i/columns)
 
 			local xPos = (col-1) * (width + spacing)

@@ -1427,7 +1427,7 @@ do
 
 	-- Handle collapse
 	local function updateCollapseTexture(texture, collapsed)
-		local atlas = collapsed and "Soulbinds_Collection_CategoryHeader_Expand" or "Soulbinds_Collection_CategoryHeader_Collapse"
+		local atlas = collapsed and "ui-questtrackerbutton-secondary-expand" or "ui-questtrackerbutton-secondary-collapse"
 		texture:SetAtlas(atlas, true)
 	end
 
@@ -1915,17 +1915,23 @@ do
 		if self.GetRegions then
 			for index, region in pairs {self:GetRegions()} do
 				local regionName = region:GetDebugName()
-				if regionName and string.find(regionName, name) then
+				if name and string.find(regionName, name) then
 					print("Regions:", index, regionName)
 					break
+				else
+					print("Regions:", index, regionName)
 				end
 			end
-		elseif self.GetChildren then
+		end
+
+		if self.GetChildren then
 			for index, child in pairs {self:GetChildren()} do
 				local childName = child:GetDebugName()
-				if childName and string.find(childName, name) then
-					print("Children:", index, childName)
+				if name and string.find(childName, name) then
+					print("Regions:", index, childName)
 					break
+				else
+					print("Regions:", index, childName)
 				end
 			end
 		end

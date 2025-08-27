@@ -96,7 +96,7 @@ local function updateMemberName(self, info)
 end
 
 C.OnLoadThemes["Blizzard_Communities"] = function()
-	
+
 	local CommunitiesFrame = CommunitiesFrame
 
 	B.ReskinFrame(CommunitiesFrame)

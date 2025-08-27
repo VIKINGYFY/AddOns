@@ -19,7 +19,7 @@ C.OnLoginThemes["RaidFrame"] = function()
 	RaidInfoDetailHeader:Hide()
 	RaidInfoInstanceLabel:DisableDrawLayer("BACKGROUND")
 	RaidInfoIDLabel:DisableDrawLayer("BACKGROUND")
-	
+
 	local roleCount = RaidFrame.RoleCount
 	B.ReskinSmallRole(roleCount.TankIcon, "TANK")
 	B.ReskinSmallRole(roleCount.HealerIcon, "HEALER")

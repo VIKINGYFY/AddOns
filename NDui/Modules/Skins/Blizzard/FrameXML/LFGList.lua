@@ -17,8 +17,6 @@ end
 
 C.OnLoginThemes["LFGList"] = function()
 
-	
-
 	local LFGListFrame = LFGListFrame
 	LFGListFrame.NothingAvailable.Inset:Hide()
 

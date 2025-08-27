@@ -3,8 +3,6 @@ local B, C, L, DB = unpack(ns)
 
 C.OnLoginThemes["GhostFrame"] = function()
 
-	
-
 	for i = 1, 6 do
 		select(i, GhostFrame:GetRegions()):Hide()
 	end

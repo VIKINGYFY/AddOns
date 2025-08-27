@@ -140,7 +140,7 @@ end
 local staggerIndices = {
 	green = 1,
 	yellow = 2,
-	red = 3
+	red = 3,
 }
 
 for power, color in next, PowerBarColor do

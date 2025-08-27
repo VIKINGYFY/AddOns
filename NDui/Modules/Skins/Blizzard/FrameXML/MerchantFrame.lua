@@ -48,7 +48,7 @@ C.OnLoginThemes["MerchantFrame"] = function()
 	MerchantExtraCurrencyBg:SetAlpha(0)
 	MerchantExtraCurrencyInset:SetAlpha(0)
 	BuybackBG:SetAlpha(0)
-	
+
 	B.ReskinFrameTab(MerchantFrame, 2)
 
 	for i = 1, BUYBACK_ITEMS_PER_PAGE do

@@ -26,7 +26,6 @@ local function ConquestFrameButton_OnEnter(self)
 end
 
 C.OnLoadThemes["Blizzard_PVPUI"] = function()
-	
 
 	local PVPQueueFrame = PVPQueueFrame
 	local HonorFrame = HonorFrame

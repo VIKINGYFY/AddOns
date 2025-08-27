@@ -2,7 +2,6 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
 C.OnLoadThemes["Blizzard_BlackMarketUI"] = function()
-	
 
 	B.StripTextures(BlackMarketFrame)
 	BlackMarketFrame.MoneyFrameBorder:SetAlpha(0)

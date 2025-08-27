@@ -3,8 +3,6 @@ local B, C, L, DB = unpack(ns)
 
 C.OnLoginThemes["LootHistory"] = function()
 
-	
-
 	local frame = GroupLootHistoryFrame
 	if not frame then return end
 

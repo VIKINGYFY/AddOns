@@ -253,12 +253,12 @@ function S:KrowiAF()
 			B.StripTextures(sideFrame.Header)
 			B.SetBD(sideFrame)
 			B.ReskinClose(sideFrame.CloseButton)
-	
+
 			local achesFrame = sideFrame.AchievementsFrame
 			if achesFrame then
 				B.StripTextures(achesFrame)
 				B.ReskinScroll(achesFrame.ScrollBar)
-		
+
 				hooksecurefunc(achesFrame.ScrollBox, "Update", function(self)
 					self:ForEachFrame(SetupAchivementButton)
 				end)
@@ -302,18 +302,18 @@ function S:KrowiAF()
 				for i = 1, columnDisplay:GetNumChildren() do
 					local child = select(i, columnDisplay:GetChildren())
 					B.StripTextures(child)
-		
+
 					local bg = B.CreateBDFrame(child, .25)
 					bg:SetPoint("TOPLEFT", 4, -2)
 					bg:SetPoint("BOTTOMRIGHT", 0, 2)
-		
+
 					child:SetHighlightTexture(DB.bdTex)
 					local hl = child:GetHighlightTexture()
 					hl:SetVertexColor(DB.r, DB.g, DB.b, .25)
 					hl:SetInside(bg)
 				end
 			end
-	
+
 			hooksecurefunc(characterList.ScrollBox, "Update", function(self)
 				for i = 1, self.ScrollTarget:GetNumChildren() do
 					local button = select(i, self.ScrollTarget:GetChildren())
@@ -322,7 +322,7 @@ function S:KrowiAF()
 						B.ReskinCheck(button.EarnedByAchievementTooltip)
 						B.ReskinCheck(button.MostProgressAchievementTooltip)
 						B.ReskinCheck(button.IgnoreCharacter)
-	
+
 						button.styled = true
 					end
 				end

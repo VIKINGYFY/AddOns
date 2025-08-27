@@ -29,7 +29,7 @@ local function AddBankTabSettingsToTooltip(tooltip, depositFlags)
 	elseif FlagsUtil.IsSet(depositFlags, Enum.BagSlotFlags.ExpansionLegacy) then
 		GameTooltip_AddNormalLine(tooltip, BANK_TAB_EXPANSION_ASSIGNMENT:format(BANK_TAB_EXPANSION_FILTER_LEGACY))
 	end
-	
+
 	local filterList = ContainerFrameUtil_ConvertFilterFlagsToList(depositFlags)
 	if filterList then
 		GameTooltip_AddNormalLine(tooltip, BANK_TAB_DEPOSIT_ASSIGNMENTS:format(filterList), true)

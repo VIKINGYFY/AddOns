@@ -8,8 +8,6 @@ end
 
 C.OnLoginThemes["CharacterFrame"] = function()
 
-	
-
 	B.ReskinFrame(CharacterFrame)
 	B.StripTextures(CharacterFrameInsetRight)
 	B.ReskinFrameTab(CharacterFrame, 3)
@@ -272,7 +270,7 @@ C.OnLoginThemes["CharacterFrame"] = function()
 
 	B.ReskinFrame(CurrencyTransferMenu)
 	local transferMenu = CurrencyTransferMenu.Content
-	if transferMenu then	
+	if transferMenu then
 		B.CreateBDFrame(transferMenu.SourceSelector, .25)
 		transferMenu.SourceSelector.SourceLabel:SetWidth(56)
 		B.ReskinDropDown(transferMenu.SourceSelector.Dropdown)

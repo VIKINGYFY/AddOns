@@ -60,6 +60,7 @@ local list = {
 		{AuraID =   77535, UnitID = "player", Value = true}, -- 鲜血护盾
 		{AuraID =   81256, UnitID = "player"}, -- 符文刃舞
 		{AuraID =  116888, UnitID = "player", Value = true, Flash = true}, -- 炼狱蔽体
+		{AuraID =  194679, UnitID = "player", Flash = true}, -- 符文分流
 		{AuraID =  194844, UnitID = "player"}, -- 白骨风暴
 		{AuraID =  195181, UnitID = "player"}, -- 白骨之盾
 		{AuraID =  211805, UnitID = "player"}, -- 风暴汇聚

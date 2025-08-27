@@ -3,8 +3,6 @@ local B, C, L, DB = unpack(ns)
 
 C.OnLoginThemes["AddonList"] = function()
 
-	
-
 	local function forceSaturation(self, _, force)
 		if force then return end
 		self:SetVertexColor(DB.r, DB.g, DB.b)

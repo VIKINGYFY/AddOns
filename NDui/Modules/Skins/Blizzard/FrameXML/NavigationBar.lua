@@ -3,8 +3,6 @@ local B, C, L, DB = unpack(ns)
 
 C.OnLoginThemes["NavigationBar"] = function()
 
-	
-
 	local function moveNavButtons(self)
 		local width = 0
 		local collapsedWidth
