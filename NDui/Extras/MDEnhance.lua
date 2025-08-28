@@ -104,6 +104,8 @@ function EX:MDEnhance_UpdateList()
 end
 
 function EX:MDEnhance_SelectID(spellIDs)
+	if not spellIDs then return end
+
 	if #spellIDs > 1 then
 		for _, spellID in pairs(spellIDs) do
 			if C_SpellBook.IsSpellKnown(spellID) then

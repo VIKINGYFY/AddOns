@@ -1444,7 +1444,7 @@ function G:SetupSwingBars(parent)
 
 	createOptionCheck(parent, offset, L["UFs SwingTimer"], "UFs", "SwingTimer", configureSwingBars, L["SwingTimer Tip"])
 	createOptionCheck(parent, offset-35, L["OffhandOnTop"], "UFs", "OffOnTop", configureSwingBars)
-	createOptionSlider(parent, L["Width"], 50, 300, 250, offset-105, "SwingWidth", configureSwingBars)
+	createOptionSlider(parent, L["Width"], 50, 900, 250, offset-105, "SwingWidth", configureSwingBars)
 	createOptionSlider(parent, L["Height"], 5, 30, 5, offset-175, "SwingHeight", configureSwingBars)
 
 	panel:HookScript("OnHide", function()

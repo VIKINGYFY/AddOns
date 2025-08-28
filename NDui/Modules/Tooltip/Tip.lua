@@ -22,7 +22,7 @@ local FACTION_COLORS = {
 }
 
 local function replaceSpecInfo(str)
-	return string.find(str, "%s") and "|cffFFCC00"..REFORGE_CURRENT..SPECIALIZATION..":|r "..str or str
+	return string.find(str, "%s") and "|cffFFCC00"..SPECIALIZATION..":|r "..str or str
 end
 
 function TT:UpdateFactionLine(lineData)
@@ -229,7 +229,7 @@ function TT:OnTooltipSetUnit()
 	if UnitExists(unitTarget) then
 		local tarRicon = GetRaidTargetIndex(unitTarget)
 		local tar = format("%s%s", (tarRicon and ICON_LIST[tarRicon].."10|t") or "", B.GetUnitTarget(unitTarget))
-		self:AddLine(format("%s: %s", REFORGE_CURRENT..TARGET, tar))
+		self:AddLine(format("%s: %s", TARGET, tar))
 	end
 
 	if not isPlayer and isShiftKeyDown then

@@ -1,7 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local EX = B:RegisterModule("Extras")
-local S = B:GetModule("Skins")
 
 local EX_LIST = {}
 
@@ -186,7 +185,7 @@ function EX.ExtMacroUI()
 	_G.MacroFrameTextBackground:SetPoint("TOPLEFT", 6, -389)
 	_G.MacroFrameSelectedMacroBackground:SetPoint("TOPLEFT", 2, -318)
 end
-S:LoadSkins("Blizzard_MacroUI", EX.ExtMacroUI)
+B:LoadAddOns("Blizzard_MacroUI", EX.ExtMacroUI)
 
 -- 自定义API
 do

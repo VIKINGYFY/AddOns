@@ -1,7 +1,6 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local TT = B:GetModule("Tooltip")
-local S = B:GetModule("Skins")
 
 local orig1, orig2, sectionInfo = {}, {}, {}
 local linkTypes = {
@@ -105,4 +104,4 @@ local function hookMessageFrame()
 	CommunitiesFrame.Chat.MessageFrame:SetScript("OnHyperlinkEnter", TT.HyperLink_OnEnter)
 	CommunitiesFrame.Chat.MessageFrame:SetScript("OnHyperlinkLeave", TT.HyperLink_OnLeave)
 end
-S:LoadSkins("Blizzard_Communities", hookMessageFrame)
+B:LoadAddOns("Blizzard_Communities", hookMessageFrame)

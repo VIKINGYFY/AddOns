@@ -231,7 +231,8 @@ function TT:InspectUnit(unit)
 		level = currentDB.level
 		self:SetupItemLevel(level)
 
-		if level and (GetTime() - currentDB.getTime < resetTime) then updater.elapsed = frequency return end
+		local currentTime = GetTime()
+		if level and (currentTime - currentDB.getTime < resetTime) then updater.elapsed = frequency return end
 		if not UnitIsVisible(unit) or UnitIsDeadOrGhost("player") or UnitOnTaxi("player") then return end
 		if InspectFrame and InspectFrame:IsShown() then return end
 

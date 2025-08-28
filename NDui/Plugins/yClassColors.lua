@@ -1,6 +1,5 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
-local S = B:GetModule("Skins")
 local oUF = ns.oUF
 
 ----------------------------
@@ -61,7 +60,7 @@ local function updateCommunities()
 		end
 	end)
 end
-S:LoadSkins("Blizzard_Communities", updateCommunities)
+B:LoadAddOns("Blizzard_Communities", updateCommunities)
 
 -- Friends
 hooksecurefunc(FriendsListFrame.ScrollBox, "Update", function(self)

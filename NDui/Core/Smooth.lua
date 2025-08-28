@@ -91,7 +91,7 @@ function B.SmoothBar(bar)
 	end
 end
 
-function B:DesmoothBar(bar)
+function B.DesmoothBar(bar)
 	if activeObjects[bar] then
 		bar:SetValue_(activeObjects[bar])
 		activeObjects[bar] = nil

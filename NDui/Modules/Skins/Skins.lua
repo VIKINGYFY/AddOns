@@ -26,7 +26,7 @@ function S:LoadAddOnSkins()
 		-- OnLoad Themes
 		for name, func in pairs(C.OnLoadThemes) do
 			if name and type(func) == "function" then
-				S:LoadSkins(name, func)
+				B:LoadAddOns(name, func)
 			end
 		end
 	end
@@ -34,7 +34,7 @@ function S:LoadAddOnSkins()
 	-- Other Themes
 	for name, func in pairs(C.OtherThemes) do
 		if name and type(func) == "function" then
-			S:LoadSkins(name, func)
+			B:LoadAddOns(name, func)
 		end
 	end
 end
