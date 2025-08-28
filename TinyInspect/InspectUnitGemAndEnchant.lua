@@ -206,6 +206,7 @@ local function ShowGemAndEnchant(frame, itemFrame)
 
 	local enchantID, enchantItemID, enchantSpellID = LibItemInfo:GetItemEnchantInfo(itemlink)
 	local enchantParts = EnchantParts[itemFrame.index]
+	local _, itemType = C_Item.GetItemInfoInstant(itemlink)
 	if enchantItemID then
 		total = total + 1
 		icon = GetIconFrame(frame)
@@ -230,14 +231,16 @@ local function ShowGemAndEnchant(frame, itemFrame)
 		icon:Show()
 		anchorframe = icon
 	elseif not enchantID and enchantParts then
-		total = total + 1
-		icon = GetIconFrame(frame)
-		icon.name = ENCHANTS .. ": " .. enchantParts
-		icon.bg:SetVertexColor(0, 1, 1)
-		icon.texture:SetTexture("Interface\\Cursor\\Quest")
-		UpdateIconPoint(icon, anchorframe, total)
-		icon:Show()
-		anchorframe = icon
+		if not (itemFrame.index == INVSLOT_OFFHAND and itemType == ARMOR) then
+			total = total + 1
+			icon = GetIconFrame(frame)
+			icon.name = ENCHANTS .. ": " .. enchantParts
+			icon.bg:SetVertexColor(0, 1, 1)
+			icon.texture:SetTexture("Interface\\Cursor\\Quest")
+			UpdateIconPoint(icon, anchorframe, total)
+			icon:Show()
+			anchorframe = icon
+		end
 	end
 
 	return total * (16 + 1)

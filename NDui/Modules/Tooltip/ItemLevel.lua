@@ -37,11 +37,11 @@ TT.TierSets = {
 }
 
 local formatSets = {
-	[1] = " |cffFFFFFF(1/4)", -- Common
-	[2] = " |cff1EFF00(2/4)", -- Uncommon
-	[3] = " |cff0070DD(3/4)", -- Rare
-	[4] = " |cffA335EE(4/4)", -- Epic
-	[5] = " |cffFF8000(5/5)", -- Legendary
+	[1] = " |cffFFFFFF(1 / 4)|r", -- Common
+	[2] = " |cff1EFF00(2 / 4)|r", -- Uncommon
+	[3] = " |cff0070DD(3 / 4)|r", -- Rare
+	[4] = " |cffA335EE(4 / 4)|r", -- Epic
+	[5] = " |cffFF8000(5 / 5)|r", -- Legendary
 }
 
 function TT:InspectOnUpdate(elapsed)
@@ -113,13 +113,16 @@ function TT:SetupItemLevel(level)
 	end
 end
 
+local weaponTypes = {
+	["INVTYPE_2HWEAPON"] = true,
+	["INVTYPE_RANGED"] = true,
+	["INVTYPE_RANGEDRIGHT"] = true,
+}
+
 function TT:GetUnitItemLevel(unit)
 	if not unit or UnitGUID(unit) ~= currentGUID then return end
 
-	local class = select(2, UnitClass(unit))
-	local ilvl, boa, total, haveWeapon, twohand, sets = 0, 0, 0, 0, 0, 0
-	local delay, mainhand, offhand, hasArtifact
-	weapon[1], weapon[2] = 0, 0
+	local ilvl, mlvl, olvl, total, boa, sets, delay, mtype, otype = 0, 0, 0, 0, 0, 0
 
 	for i = 1, 17 do
 		if i ~= 4 then
@@ -131,51 +134,29 @@ function TT:GetUnitItemLevel(unit)
 				if not itemLink then
 					delay = true
 				else
-					local _, _, quality, level, _, _, _, _, slot = C_Item.GetItemInfo(itemLink)
-					if (not quality) or (not level) then
+					local itemID = C_Item.GetItemIDForItemInfo(itemLink)
+					local _, _, itemQuality, itemLevel, _, _, _, _, itemEquipLoc = C_Item.GetItemInfo(itemLink)
+					if (not itemQuality) or (not itemLevel) then
 						delay = true
 					else
-						if quality == Enum.ItemQuality.Heirloom then
+						if itemQuality == Enum.ItemQuality.Heirloom then
 							boa = boa + 1
 						end
 
-						local itemID = GetItemInfoFromHyperlink(itemLink)
 						if TT.TierSets[itemID] then
 							sets = sets + 1
 						end
 
 						if unit ~= "player" then
-							level = B.GetItemLevel(itemLink) or level
+							itemLevel = B.GetItemLevel(itemLink) or 0
 							if i < 16 then
-								total = total + level
-							elseif i > 15 and quality == Enum.ItemQuality.Artifact then
-								local relics = {select(4, string.split(":", itemLink))}
-								for i = 1, 3 do
-									local relicID = relics[i] ~= "" and relics[i]
-									local relicLink = select(2, C_Item.GetItemGem(itemLink, i))
-									if relicID and not relicLink then
-										delay = true
-										break
-									end
-								end
-							end
-
-							if i == 16 then
-								if quality == Enum.ItemQuality.Artifact then hasArtifact = true end
-
-								weapon[1] = level
-								haveWeapon = haveWeapon + 1
-								if slot == "INVTYPE_2HWEAPON" or slot == "INVTYPE_RANGED" or (slot == "INVTYPE_RANGEDRIGHT" and class == "HUNTER") then
-									mainhand = true
-									twohand = twohand + 1
-								end
+								total = total + itemLevel
+							elseif i == 16 then
+								mlvl = itemLevel
+								mtype = itemEquipLoc
 							elseif i == 17 then
-								weapon[2] = level
-								haveWeapon = haveWeapon + 1
-								if slot == "INVTYPE_2HWEAPON" then
-									offhand = true
-									twohand = twohand + 1
-								end
+								olvl = itemLevel
+								otype = itemEquipLoc
 							end
 						end
 					end
@@ -188,27 +169,17 @@ function TT:GetUnitItemLevel(unit)
 		if unit == "player" then
 			ilvl = select(2, GetAverageItemLevel())
 		else
-			if hasArtifact or twohand == 2 then
-				local higher = math.max(weapon[1], weapon[2])
-				total = total + higher*2
-			elseif twohand == 1 and haveWeapon == 1 then
-				total = total + weapon[1]*2 + weapon[2]*2
-			elseif twohand == 1 and haveWeapon == 2 then
-				if mainhand and weapon[1] >= weapon[2] then
-					total = total + weapon[1]*2
-				elseif offhand and weapon[2] >= weapon[1] then
-					total = total + weapon[2]*2
-				else
-					total = total + weapon[1] + weapon[2]
-				end
+			if (otype and weaponTypes[otype]) or (mtype and weaponTypes[mtype]) then
+				total = total + math.max(mlvl, olvl) * 2
 			else
-				total = total + weapon[1] + weapon[2]
+				total = total + mlvl + olvl
 			end
+
 			ilvl = total / 16
 		end
 
 		if ilvl > 0 then ilvl = format("%.1f", ilvl) end
-		if boa > 0 then ilvl = ilvl..DB.InfoColor.." ("..HEIRLOOMS.." x "..boa..")" end
+		if boa > 0 then ilvl = ilvl..format(" |cff00FFFF(%s x %s)|r", HEIRLOOMS, boa) end
 		if sets > 0 then ilvl = ilvl..formatSets[sets] end
 	else
 		ilvl = nil

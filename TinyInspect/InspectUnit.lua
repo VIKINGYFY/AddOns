@@ -150,6 +150,7 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 		specID = GetInspectSpecialization(unit)
 		_, specName, _, specIcon = GetSpecializationInfoByID(specID)
 	end
+
 	if specIcon then
 		frame.specIcon:SetTexture(specIcon)
 		frame.specIcon:Show()

@@ -51,6 +51,7 @@ SLASH_NDUI_ENUMFRAME1 = "/nf"
 SlashCmdList["NDUI_DUMPSPELL"] = function(arg)
 	local name = C_Spell.GetSpellName(arg)
 	if not name then return end
+
 	local des = C_Spell.GetSpellDescription(arg)
 	print("|cff70C0F5------------------------")
 	print(" \124T"..C_Spell.GetSpellTexture(arg)..":16:16:::64:64:5:59:5:59\124t", DB.InfoColor..arg)
@@ -79,14 +80,16 @@ SLASH_NDUI_NPCID1 = "/getnpc"
 SlashCmdList["NDUI_GETFONT"] = function(msg)
 	local font = _G[msg]
 	if not font then print(msg, "not found.") return end
+
 	local a, b, c = font:GetFont()
-	print(msg,a,b,c)
+	print(msg, a, b, c)
 end
 SLASH_NDUI_GETFONT1 = "/nff"
 
 SlashCmdList["NDUI_CHECK_QUEST"] = function(msg)
 	if not msg then return end
-	print("QuestID "..msg.." complete:", C_QuestLog.IsQuestFlaggedCompleted(tonumber(msg)))
+
+	print(format("QuestID: %s complete: %s", msg, C_QuestLog.IsQuestFlaggedCompleted(tonumber(msg))))
 end
 SLASH_NDUI_CHECK_QUEST1 = "/ncq"
 
@@ -138,33 +141,36 @@ do
 	SLASH_NDUI_VER_CHECK1 = "/nduiver"
 end
 
-SlashCmdList["NDUI_GET_INSTANCES"] = function()
+SlashCmdList["NDUI_GET_INSTANCES"] = function(msg)
 	if not EncounterJournal then return end
+
+	local opt = msg:lower():match("^%s*(.-)%s*$")
+	local isRaid = false
+	if opt == "raid" then
+		isRaid = true
+	end
+
 	local tierID = EJ_GetCurrentTier()
-	print("local _, ns = ...")
-	print("local B, C, L, DB = unpack(ns)")
-	print("local module = B:GetModule(\"AurasTable\")")
 	print("local TIER = "..tierID)
 	print("local INSTANCE")
 	local i = 0
 	while true do
 		i = i + 1
-		local instID, instName = EJ_GetInstanceByIndex(i, false)
+		local instID, instName, _, _, _, _, _, _, _, _, mapID = EJ_GetInstanceByIndex(i, isRaid)
 		if not instID then return end
-		print("INSTANCE = "..instID.." -- "..instName)
+
+		print(format("INSTANCE = %s -- %s(mapID: %s)", instID, instName, mapID))
 	end
 end
 SLASH_NDUI_GET_INSTANCES1 = "/getinst"
 
 SlashCmdList["NDUI_GET_ENCOUNTERS"] = function()
 	if not EncounterJournal then return end
+
 	local tierID = EJ_GetCurrentTier()
 	local instID = EncounterJournal.instanceID
 	EJ_SelectInstance(instID)
 	local instName = EJ_GetInstanceInfo()
-	print("local _, ns = ...")
-	print("local B, C, L, DB = unpack(ns)")
-	print("local module = B:GetModule(\"AurasTable\")")
 	print("local TIER = "..tierID)
 	print("local INSTANCE = "..instID.." -- "..instName)
 	print("local BOSS")
@@ -173,7 +179,8 @@ SlashCmdList["NDUI_GET_ENCOUNTERS"] = function()
 		i = i + 1
 		local name, _, boss = EJ_GetEncounterInfoByIndex(i)
 		if not name then return end
-		print("BOSS = "..boss.." -- "..name)
+
+		print(format("BOSS = %s -- %s", boss, name))
 	end
 end
 SLASH_NDUI_GET_ENCOUNTERS1 = "/getenc"
@@ -182,7 +189,7 @@ SlashCmdList["NDUI_DUMPSPELLS"] = function(arg)
 	for spell in string.gmatch(arg, "%d+") do
 		local name = C_Spell.GetSpellName(spell)
 		if name then
-			print("module:RegisterDebuff(TIER, INSTANCE, BOSS, "..spell..") -- "..name)
+			print(format("module:RegisterDebuff(TIER, INSTANCE, BOSS, %s) -- %s", spell, name))
 		end
 	end
 end
@@ -190,12 +197,14 @@ SLASH_NDUI_DUMPSPELLS1 = "/getss"
 
 SlashCmdList["NDUI_GET_TIERSETS"] = function()
 	if not EncounterJournal then return end
+
 	local frame = EncounterJournal.LootJournalItems.ItemSetsFrame
 	local classFilter = frame:GetClassAndSpecFilters()
 	local classInfo = C_CreatureInfo.GetClassInfo(classFilter)
 	local sets = frame.itemSets
 	local setID = sets and sets[1].setID
 	if not setID then return end
+
 	local data = C_LootJournal.GetItemSetItems(setID)
 	local text = ""
 	for i = 1, 5 do

@@ -14,6 +14,14 @@ LootMonitor:SetScript("OnEvent", function(self, event, ...)
 	self[event](self, event, ...)
 end)
 
+LootMonitor:SetScript("OnEnter", function(self)
+	self:StopTimer()
+end)
+
+LootMonitor:SetScript("OnLeave", function(self)
+	self:StartTimer()
+end)
+
 local function UnitClassColor(unit)
 	local r, g, b = B.UnitColor(unit)
 	return B.HexRGB(r, g, b, unit)
@@ -63,17 +71,48 @@ local function CreateLMButton(index)
 	return LootMonitor.buttons[index]
 end
 
-local function CloseLMFrame()
-	table.wipe(LootMonitor.reports)
+function LootMonitor:StopTimer()
+	if self.timer then
+		self.timer:Cancel()
+		self.timer = nil
+	end
 
-	for _, button in ipairs(LootMonitor.buttons) do
+	self.Timer:SetText("")
+	self.Timer:SetTextColor(0, 1, 0)
+end
+
+function LootMonitor:StartTimer()
+	self:StopTimer()
+
+	self.remainingTime = self.autoCloseTime
+	self.Timer:SetText(self.remainingTime)
+	self.Timer:SetTextColor(0, 1, 0)
+
+	self.timer = C_Timer.NewTicker(1, function()
+		if self.remainingTime <= 0 then
+			self:CloseSelf()
+		else
+			local r, g, b = B.SmoothColor(self.remainingTime, self.autoCloseTime, true)
+			self.remainingTime = self.remainingTime - 1
+			self.Timer:SetText(self.remainingTime)
+			self.Timer:SetTextColor(r, g, b)
+		end
+	end)
+end
+
+function LootMonitor:CloseSelf()
+	table.wipe(self.reports)
+
+	for _, button in ipairs(self.buttons) do
 		button.text:SetText("")
 		button:Hide()
 	end
 
-	LootMonitor.Count:SetText("")
-	LootMonitor:SetSize(frameWidth, buttonHeight*4)
-	LootMonitor:Hide()
+	self.Count:SetText("")
+	self:SetSize(frameWidth, buttonHeight*4)
+
+	self:StopTimer()
+	self:Hide()
 end
 
 function LootMonitor:UpdateSelf()
@@ -87,8 +126,10 @@ function LootMonitor:UpdateSelf()
 		end
 	end
 
+	self.Count:SetText(maxReport)
 	self:SetSize(maxWidth, maxHeight)
-	self.Count:SetFormattedText(maxReport)
+
+	self:StartTimer()
 
 	if not self:IsShown() then
 		self:Show()
@@ -103,6 +144,9 @@ function LootMonitor:PLAYER_LOGIN()
 	B.SetBD(self)
 	B.CreateMF(self)
 
+	self.autoCloseTime = 30
+	self.remainingTime = 0
+
 	self.buttons = {}
 	self.reports = {}
 	self.message = {
@@ -113,20 +157,22 @@ function LootMonitor:PLAYER_LOGIN()
 	}
 
 	self.Close = B.CreateButton(self, 18, 18, true, DB.closeTex)
-	self.Close:SetPoint("TOPRIGHT", -6, -6)
-	self.Close:SetScript("OnClick", function(self) CloseLMFrame() end)
+	self.Close:SetScript("OnClick", function() self:CloseSelf() end)
 
 	self.Title = B.CreateFS(self, buttonHeight-2, "拾取监控", true, "TOPLEFT", 10, -10)
 	self.Info = B.CreateFS(self, buttonHeight-2, DB.LeftButton.."发送"..DB.RightButton.."密语", true, "BOTTOMRIGHT", -10, 10)
 	self.Count = B.CreateFS(self, buttonHeight-2, "", "info")
+	self.Timer = B.CreateFS(self, buttonHeight-2, "", "green")
 
+	B.UpdatePoint(self.Close, "TOPRIGHT", self, "TOPRIGHT", -6, -6)
 	B.UpdatePoint(self.Count, "LEFT", self.Title, "RIGHT", DB.margin, 0)
+	B.UpdatePoint(self.Timer, "RIGHT", self.Close, "LEFT", -DB.margin, 0)
 
 	for index = 1, maxLines do
 		CreateLMButton(index)
 	end
 
-	CloseLMFrame()
+	self:CloseSelf()
 end
 
 function LootMonitor:CHAT_MSG_LOOT(event, ...)
