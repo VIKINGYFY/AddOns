@@ -11,8 +11,12 @@ function B:CreateMF(parent, saved)
 
 	self:EnableMouse(true)
 	self:RegisterForDrag("LeftButton")
-	self:SetScript("OnDragStart", function() frame:StartMoving() end)
+	self:SetScript("OnDragStart", function()
+		if InCombatLockdown() then UIErrorsFrame:AddMessage(DB.InfoColor..ERR_NOT_IN_COMBAT) return end
+		frame:StartMoving()
+	end)
 	self:SetScript("OnDragStop", function()
+		if InCombatLockdown() then UIErrorsFrame:AddMessage(DB.InfoColor..ERR_NOT_IN_COMBAT) return end
 		frame:StopMovingOrSizing()
 		if not saved then return end
 		local orig, _, tar, x, y = frame:GetPoint()

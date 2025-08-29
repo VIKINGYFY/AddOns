@@ -33,14 +33,17 @@ end
 
 -- 自动隐藏名字，防止卡屏
 function EX:AutoHideName()
+	SetCVar("UnitNameEnemyGuardianName", 0)
 	SetCVar("UnitNameEnemyMinionName", 0)
 	SetCVar("UnitNameEnemyPetName", 0)
 	SetCVar("UnitNameEnemyPlayerName", 0)
 	SetCVar("UnitNameEnemyTotemName", 0)
+	SetCVar("UnitNameFriendlyGuardianName", 0)
 	SetCVar("UnitNameFriendlyMinionName", 0)
 	SetCVar("UnitNameFriendlyPetName", 0)
 	SetCVar("UnitNameFriendlyPlayerName", 0)
 	SetCVar("UnitNameFriendlyTotemName", 0)
+	SetCVar("UnitNameInteractiveNPC", 1)
 end
 
 -- 禁用奇怪的东西

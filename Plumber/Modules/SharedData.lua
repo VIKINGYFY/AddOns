@@ -41,6 +41,7 @@ do  --Weekly Caches (Meta quest rewards)
             244842,     --Fabled Veteran's Cache
             244865,     --Pninnacle Cache
             245611,     --Wriggling Pinnacle Cache
+            255676,     --Phase Diver's Cache
         },
 
         MinorChests = {
@@ -85,6 +86,6 @@ do  --Weekly Caches (Meta quest rewards)
 
 
     function API.GetDelvesGreatVaultItemLevel(tier)
-        return WeeklyRewardsConstant.DelvesGreatVaultItemLevel[tier] or 0
+        return WeeklyRewardsConstant.DelvesGreatVaultItemLevel[tier]
     end
 end

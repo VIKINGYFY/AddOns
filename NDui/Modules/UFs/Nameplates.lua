@@ -313,12 +313,25 @@ function UF:UpdateMouseoverChange()
 	end
 end
 
+function UF:MouseoverOnUpdate(elapsed)
+	self.elapsed = (self.elapsed or 0) + elapsed
+	if self.elapsed > .1 then
+		if not (UnitExists("mouseover") and UnitIsUnit("mouseover", self.__owner.unit)) then
+			self:Hide()
+			self.__owner.MouseoverIndicator:Hide()
+		end
+		self.elapsed = 0
+	end
+end
+
 function UF:AddMouseoverIndicator(self)
 	local mouseoverColor = C.db["Nameplate"]["MouseoverColor"]
 
 	local mouseover = UF.CreateNameplateIndicator(self)
 	mouseover.Glow:SetBackdropBorderColor(B.GetColor(mouseoverColor))
 	mouseover.nameGlow:SetVertexColor(B.GetColor(mouseoverColor))
+	mouseover.__owner = self
+	mouseover:SetScript("OnUpdate", UF.MouseoverOnUpdate)
 
 	self.MouseoverIndicator = mouseover
 	self:RegisterEvent("UPDATE_MOUSEOVER_UNIT", UF.UpdateMouseoverChange, true)
@@ -609,7 +622,6 @@ function UF:RefreshNameplats()
 		UF.UpdateNameplateAuras(nameplate)
 		UF.UpdateNameplateIndicator(nameplate)
 		UF.UpdateTargetChange(nameplate)
-		UF.UpdateMouseoverChange(nameplate)
 	end
 end
 
@@ -753,7 +765,6 @@ function UF:OnUnitSoftTargetChanged(previousTarget, currentTarget)
 			unitFrame.previousType = nil
 			UF.RefreshPlateType(unitFrame, unitFrame.unit)
 			UF.UpdateTargetChange(unitFrame)
-			UF.UpdateMouseoverChange(unitFrame)
 		end
 	end
 end
@@ -834,7 +845,6 @@ function UF:PostUpdatePlates(event, unit)
 	if event ~= "NAME_PLATE_UNIT_REMOVED" then
 		UF.UpdateUnitPower(self)
 		UF.UpdateTargetChange(self)
-		UF.UpdateMouseoverChange(self)
 		UF.UpdateQuestUnit(self, event, unit)
 		UF.UpdateUnitClassify(self, unit)
 		UF:UpdateTargetClassPower()

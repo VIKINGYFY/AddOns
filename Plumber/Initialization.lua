@@ -1,5 +1,5 @@
-local VERSION_TEXT = "v1.7.3";
-local VERSION_DATE = 1756100000;
+local VERSION_TEXT = "v1.7.4";
+local VERSION_DATE = 1756400000;
 
 
 local addonName, addon = ...
@@ -134,6 +134,7 @@ local DefaultValues = {
     ProfessionsBook = true,             --Show unspent points on ProfessionsBookFrame
     EditModeShowPlumberUI = true,
     LandingPageSwitch = true,           --Right click on ExpansionLandingPageMinimapButton to open a menu to access mission report
+    SoftTargetName = false,             --Show object's name on SoftTargetFrame
 
     AppearanceTab = false,              --Adjust Appearance Tab models to reduce GPU usage spike
         AppearanceTab_ModelCount = 1,
