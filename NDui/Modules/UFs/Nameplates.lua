@@ -181,7 +181,7 @@ function UF:UpdateColor(_, unit)
 	local isSpecialUnits = (isDoTUnit or isWarningUnit or isCustomUnit or isTrashUnit)
 
 	local isOffTank, status = UF:CheckThreatStatus(unit)
-	local healthPerc = UnitHealth(unit) / (UnitHealthMax(unit)+.0001) * 100
+	local healthPerc = UnitHealth(unit) / (UnitHealthMax(unit) + .0001) * 100
 
 	local customColor = C.db["Nameplate"]["CustomColor"]
 	local dotColor = C.db["Nameplate"]["DotColor"]
@@ -318,7 +318,6 @@ function UF:MouseoverOnUpdate(elapsed)
 	if self.elapsed > .1 then
 		if not (UnitExists("mouseover") and UnitIsUnit("mouseover", self.__owner.unit)) then
 			self:Hide()
-			self.__owner.MouseoverIndicator:Hide()
 		end
 		self.elapsed = 0
 	end

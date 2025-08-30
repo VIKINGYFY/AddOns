@@ -647,9 +647,11 @@ function UF:CreateRaidMark(self)
 end
 
 local function createBarMover(bar, text, value, anchor)
-	local mover = B.Mover(bar, text, value, anchor, bar:GetHeight()+bar:GetWidth()+3, bar:GetHeight()+3)
+	local width = bar:GetWidth() + bar:GetHeight() + DB.margin - 2*C.mult
+	local height = bar:GetHeight()
+	local mover = B.Mover(bar, text, value, anchor, width, height)
 	bar:ClearAllPoints()
-	bar:SetPoint("RIGHT", mover, "RIGHT")
+	bar:SetPoint("RIGHT", mover, "RIGHT", -C.mult, 0)
 	bar.mover = mover
 end
 
@@ -679,8 +681,8 @@ function UF:CreateCastBar(self)
 	local plateMargin = C.db["Nameplate"]["PlateMargin"]
 
 	local cb = B.CreateSB(self, true, nil, "oUF_Castbar"..mystyle)
-	cb:SetWidth(self:GetWidth() - (20 + DB.margin))
 	cb:SetHeight(20)
+	cb:SetWidth(self:GetWidth() - (cb:GetHeight() + DB.margin))
 	cb.castTicks = {}
 
 	if mystyle == "player" then
@@ -708,6 +710,9 @@ function UF:CreateCastBar(self)
 	name:SetPoint("RIGHT", timer, "LEFT", -DB.margin, 0)
 
 	if mystyle ~= "boss" and mystyle ~= "arena" then
+		if mystyle ~= "nameplate" then
+			cb:SetSize(cb:GetWidth() - 2*C.mult, cb:GetHeight() - 2*C.mult)
+		end
 		cb.Icon = cb:CreateTexture(nil, "ARTWORK")
 		cb.Icon:SetSize(cb:GetHeight(), cb:GetHeight())
 		cb.Icon:SetPoint("BOTTOMRIGHT", cb, "BOTTOMLEFT", -DB.margin, 0)
@@ -746,7 +751,7 @@ function UF:CreateCastBar(self)
 		local spellTarget = B.CreateFS(cb, C.db["Nameplate"]["CastBarTextSize"] + 2)
 		spellTarget:ClearAllPoints()
 		spellTarget:SetJustifyH("LEFT")
-		spellTarget:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -DB.margin)
+		spellTarget:SetPoint("TOPLEFT", cb, "BOTTOMLEFT", 0, -DB.margin)
 		cb.spellTarget = spellTarget
 
 		self:RegisterEvent("UNIT_TARGET", updateSpellTarget)
@@ -1651,21 +1656,20 @@ function UF:CreateSwing(self)
 	bar:SetFrameLevel(self:GetFrameLevel())
 	bar:SetSize(width, height)
 
-	bar.mover = B.Mover(bar, L["UFs SwingBar"], "Swing", {"TOP", self.Castbar.mover, "BOTTOM", 0, -5})
+	bar.mover = B.Mover(bar, L["UFs SwingBar"], "Swing", {"TOP", self.Castbar.mover, "BOTTOM", 0, -2*DB.margin})
 	bar:ClearAllPoints()
 	bar:SetPoint("CENTER", bar.mover)
 
 	local two = B.CreateSB(bar, true)
-	two:SetAllPoints()
+	two:SetInside()
 	two:Hide()
 
 	local main = B.CreateSB(bar, true)
-	main:SetAllPoints()
+	main:SetInside()
 	main:Hide()
 
 	local off = B.CreateSB(bar, true)
-	off:SetSize(width, height)
-	off:SetAllPoints()
+	off:SetSize(width - 2*C.mult, height - 2*C.mult)
 	off:Hide()
 
 	if C.db["UFs"]["OffOnTop"] then

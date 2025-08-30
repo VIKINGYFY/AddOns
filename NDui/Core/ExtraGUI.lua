@@ -1345,10 +1345,10 @@ function G:SetupCastbar(parent)
 	local function updateCastbar(castbar, width, height)
 		B.SetFontSize(castbar.Text, height * .6)
 		B.SetFontSize(castbar.Time, height * .6)
-		castbar:SetSize(width, height)
-		castbar.Icon:SetSize(height, height)
+		castbar:SetSize(width - 2*C.mult, height - 2*C.mult)
+		castbar.Icon:SetSize(height - 2*C.mult, height - 2*C.mult)
 		castbar.mover:Show()
-		castbar.mover:SetSize(width + height+ DB.margin, height)
+		castbar.mover:SetSize(width + height + DB.margin - 2*C.mult, height)
 	end
 
 	local function createOptionGroup(parent, title, offset, value, func)
@@ -1424,7 +1424,7 @@ function G:SetupSwingBars(parent)
 		local width, height = C.db["UFs"]["SwingWidth"], C.db["UFs"]["SwingHeight"]
 		local swing = frame.Swing
 		swing:SetSize(width, height)
-		swing.Offhand:SetHeight(height)
+		swing.Offhand:SetSize(width - 2*C.mult, height - 2*C.mult)
 		swing.mover:SetSize(width, height)
 		swing.mover:Show()
 
@@ -1434,18 +1434,16 @@ function G:SetupSwingBars(parent)
 
 		swing.Offhand:ClearAllPoints()
 		if C.db["UFs"]["OffOnTop"] then
-			swing.Offhand:SetPoint("BOTTOMLEFT", swing, "TOPLEFT", 0, 3)
-			swing.Offhand:SetPoint("BOTTOMRIGHT", swing, "TOPRIGHT", 0, 3)
+			swing.Offhand:SetPoint("BOTTOM", swing, "TOP", 0, DB.margin)
 		else
-			swing.Offhand:SetPoint("TOPLEFT", swing, "BOTTOMLEFT", 0, -3)
-			swing.Offhand:SetPoint("TOPRIGHT", swing, "BOTTOMRIGHT", 0, -3)
+			swing.Offhand:SetPoint("TOP", swing, "BOTTOM", 0, -DB.margin)
 		end
 	end
 
 	createOptionCheck(parent, offset, L["UFs SwingTimer"], "UFs", "SwingTimer", configureSwingBars, L["SwingTimer Tip"])
 	createOptionCheck(parent, offset-35, L["OffhandOnTop"], "UFs", "OffOnTop", configureSwingBars)
-	createOptionSlider(parent, L["Width"], 50, 900, 250, offset-105, "SwingWidth", configureSwingBars)
-	createOptionSlider(parent, L["Height"], 5, 30, 5, offset-175, "SwingHeight", configureSwingBars)
+	createOptionSlider(parent, L["Width"], 50, 900, 300, offset-105, "SwingWidth", configureSwingBars)
+	createOptionSlider(parent, L["Height"], 5, 30, 10, offset-175, "SwingHeight", configureSwingBars)
 
 	panel:HookScript("OnHide", function()
 		local mover = frame and frame.Swing and frame.Swing.mover

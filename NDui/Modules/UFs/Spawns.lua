@@ -334,6 +334,7 @@ function UF:OnLogin()
 		oUF:RegisterStyle("Focus", CreateFocusStyle)
 		oUF:RegisterStyle("FoT", CreateFoTStyle)
 		oUF:RegisterStyle("Pet", CreatePetStyle)
+		oUF:RegisterStyle("Boss", CreateBossStyle)
 
 		-- Loader
 		oUF:SetActiveStyle("Player")
@@ -363,12 +364,11 @@ function UF:OnLogin()
 		local focustarget = oUF:Spawn("focustarget", "oUF_FoT")
 		B.Mover(focustarget, L["FotUF"], "FotUF", {"BOTTOMLEFT", oUF_Focus, "BOTTOMRIGHT", 5, 0})
 
-		oUF:RegisterStyle("Boss", CreateBossStyle)
 		oUF:SetActiveStyle("Boss")
 		local boss = {}
 		for i = 1, 10 do -- MAX_BOSS_FRAMES, 10 in 11.0?
 			boss[i] = oUF:Spawn("boss"..i, "oUF_Boss"..i)
-			local moverWidth, moverHeight = boss[i]:GetWidth(), boss[i]:GetHeight()+8
+			local moverWidth, moverHeight = boss[i]:GetWidth(), boss[i]:GetHeight() + boss[i].Castbar:GetHeight() + DB.margin
 			local title = i > 5 and BOSS..i or L["BossFrame"]..i
 			if i == 1 then
 				boss[i].mover = B.Mover(boss[i], title, "Boss"..i, {"RIGHT", UIParent, "RIGHT", -50, -150}, moverWidth, moverHeight)
