@@ -6,21 +6,17 @@ local A = B:GetModule("Auras")
 local totems = {}
 
 function A:TotemBar_Init()
-	local margin = DB.margin
 	local vertical = C.db["Auras"]["VerticalTotems"]
 	local iconSize = C.db["Auras"]["TotemSize"]
-	local width = vertical and (iconSize + margin*2) or (iconSize*4 + margin*5)
-	local height = vertical and (iconSize*4 + margin*5) or (iconSize + margin*2)
+	local width = vertical and (iconSize + DB.margin*2) or (iconSize*4 + DB.margin*5)
+	local height = vertical and (iconSize*4 + DB.margin*5) or (iconSize + DB.margin*2)
 
 	local totemBar = _G["NDui_TotemBar"]
 	if not totemBar then
 		totemBar = CreateFrame("Frame", "NDui_TotemBar", A.PetBattleFrameHider)
-	end
-	totemBar:SetSize(width, height)
-
-	if not totemBar.mover then
 		totemBar.mover = B.Mover(totemBar, L["Totembar"], "Totems", C.Auras.TotemsPos)
 	end
+	totemBar:SetSize(width, height)
 	totemBar.mover:SetSize(width, height)
 
 	for i = 1, 4 do
@@ -35,11 +31,11 @@ function A:TotemBar_Init()
 		totem:SetSize(iconSize, iconSize)
 		totem:ClearAllPoints()
 		if i == 1 then
-			totem:SetPoint("BOTTOMLEFT", margin, margin)
+			totem:SetPoint("BOTTOMLEFT", DB.margin, DB.margin)
 		elseif vertical then
-			totem:SetPoint("BOTTOM", totems[i-1], "TOP", 0, margin)
+			totem:SetPoint("BOTTOM", totems[i-1], "TOP", 0, DB.margin)
 		else
-			totem:SetPoint("LEFT", totems[i-1], "RIGHT", margin, 0)
+			totem:SetPoint("LEFT", totems[i-1], "RIGHT", DB.margin, 0)
 		end
 	end
 end

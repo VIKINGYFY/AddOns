@@ -882,7 +882,7 @@ function UF:ResizePlayerPlate()
 		local plateHeight = healthHeight + powerHeight + C.mult
 
 		plate:SetSize(plateWidth, plateHeight)
-		plate.mover:SetSize(plateWidth + 2*C.mult, plateHeight + 2*C.mult)
+		plate.mover:SetSize(plateWidth, plateHeight)
 		plate.Health:SetHeight(healthHeight)
 		plate.Power:SetHeight(powerHeight)
 
@@ -899,7 +899,7 @@ function UF:ResizePlayerPlate()
 			plate.Stagger:SetSize(barWidth, barHeight)
 		end
 		if plate.Avada then
-			local iconSize = (barWidth+2*C.mult - 5*DB.margin)/6
+			local iconSize = (barWidth+C.mult*2 - DB.margin*5)/6
 			for i = 1, 6 do
 				plate.Avada[i]:SetSize(iconSize, iconSize)
 			end

@@ -304,7 +304,7 @@ function UF:Avada_Toggle(frame)
 end
 
 function UF:AvadaKedavra(self)
-	local iconSize = (C.db["Nameplate"]["PPWidth"]+2*C.mult - DB.margin*(maxButtons-1))/maxButtons
+	local iconSize = (C.db["Nameplate"]["PPWidth"]+C.mult*2 - DB.margin*(maxButtons-1))/maxButtons
 
 	self.Avada = {}
 	for i = 1, maxButtons do

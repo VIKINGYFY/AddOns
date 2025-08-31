@@ -33,7 +33,7 @@ C.OnLoadThemes["Blizzard_PVPUI"] = function()
 
 	-- Category buttons
 
-	local iconSize = 60-2*C.mult
+	local iconSize = 60-C.mult*2
 	for i = 1, 4 do
 		local bu = PVPQueueFrame["CategoryButton"..i]
 		if bu then

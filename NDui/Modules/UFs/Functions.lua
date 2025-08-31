@@ -647,9 +647,9 @@ function UF:CreateRaidMark(self)
 end
 
 local function createBarMover(bar, text, value, anchor)
-	local mover = B.Mover(bar, text, value, anchor, bar:GetWidth() + bar:GetHeight() + DB.margin + 2*C.mult, bar:GetHeight() + 2*C.mult)
+	local mover = B.Mover(bar, text, value, anchor, bar:GetWidth() + bar:GetHeight() + DB.margin, bar:GetHeight())
 	bar:ClearAllPoints()
-	bar:SetPoint("RIGHT", mover, "RIGHT", -C.mult, 0)
+	bar:SetPoint("RIGHT", mover, "RIGHT", 0, 0)
 	bar.mover = mover
 end
 
@@ -1451,7 +1451,7 @@ function UF:CreateAltPower(self)
 	local bar = B.CreateSB(self)
 	bar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, DB.margin)
 	bar:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, DB.margin)
-	bar:SetHeight(2*DB.margin)
+	bar:SetHeight(DB.margin*2)
 
 	local text = B.CreateFS(bar, 14)
 	self:Tag(text, "[altpower]")
@@ -1474,7 +1474,7 @@ function UF:CreateAddPower(self)
 	local bar = B.CreateSB(self, nil, true)
 	bar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, DB.margin)
 	bar:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, DB.margin)
-	bar:SetHeight(2*DB.margin)
+	bar:SetHeight(DB.margin*2)
 	bar.colorPower = true
 
 	local text = B.CreateFS(bar, 12)
@@ -1503,7 +1503,7 @@ function UF:CreateExpRepBar(self)
 	local bar = B.CreateSB(self, nil, nil, "NDuiExpRepBar")
 	bar:SetPoint("TOPRIGHT", self, "TOPLEFT", -DB.margin, 0)
 	bar:SetPoint("BOTTOMRIGHT", self, "BOTTOMLEFT", -DB.margin, 0)
-	bar:SetWidth(2*DB.margin)
+	bar:SetWidth(DB.margin*2)
 	bar:SetOrientation("VERTICAL")
 
 	local rest = CreateFrame("StatusBar", nil, bar)
@@ -1651,9 +1651,9 @@ function UF:CreateSwing(self)
 	bar:SetFrameLevel(self:GetFrameLevel())
 	bar:SetSize(width, height)
 
-	bar.mover = B.Mover(bar, L["UFs SwingBar"], "Swing", {"TOP", self.Castbar.mover, "BOTTOM", 0, -2*DB.margin}, width + 2*C.mult, height + 2*C.mult)
+	bar.mover = B.Mover(bar, L["UFs SwingBar"], "Swing", {"TOP", self.Castbar.mover, "BOTTOM", 0, -DB.margin*2})
 	bar:ClearAllPoints()
-	bar:SetPoint("CENTER", bar.mover)
+	bar:SetPoint("CENTER", bar.mover, "CENTER")
 
 	local two = B.CreateSB(bar, true)
 	two:SetAllPoints()

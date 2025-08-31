@@ -416,7 +416,7 @@ function module:RecycleBin()
 		local newHeight = row*base
 		bin:SetHeight(newHeight)
 		tex:SetHeight(newHeight)
-		rightLine:SetHeight(newHeight + 2*C.mult)
+		rightLine:SetHeight(newHeight + C.mult*2)
 
 		for index, button in pairs(shownButtons) do
 			button:ClearAllPoints()
@@ -482,11 +482,10 @@ function module:UpdateMinimapScale()
 
 	local size = C.db["Map"]["MinimapSize"]
 	local scale = C.db["Map"]["MinimapScale"]
-	local moverSize = size + 2*C.mult
 	Minimap:SetSize(size, size)
 	Minimap:SetScale(scale)
 	if Minimap.mover then
-		Minimap.mover:SetSize(moverSize*scale, moverSize*scale)
+		Minimap.mover:SetSize(size*scale, size*scale)
 	end
 end
 

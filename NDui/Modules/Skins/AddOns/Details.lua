@@ -25,8 +25,8 @@ local function SetupInstance(instance)
 
 	local bg = B.CreateBG(instance.baseframe)
 	bg:ClearAllPoints()
-	bg:SetPoint("TOPLEFT", instance.baseframe.titleBar, "TOPLEFT", -2*C.mult, 3)
-	bg:SetPoint("BOTTOMRIGHT", instance.baseframe, "BOTTOMRIGHT", 2*C.mult, 1)
+	bg:SetPoint("TOPLEFT", instance.baseframe.titleBar, "TOPLEFT", -C.mult*2, 3)
+	bg:SetPoint("BOTTOMRIGHT", instance.baseframe, "BOTTOMRIGHT", C.mult*2, 1)
 	instance.baseframe.bg = bg
 
 	if instance:GetId() < 4 then -- only the top 3 windows

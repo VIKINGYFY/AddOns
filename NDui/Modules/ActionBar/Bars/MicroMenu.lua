@@ -113,7 +113,6 @@ function Bar:MicroMenu_Setup()
 
 	local size = C.db["Actionbar"]["MBSize"]
 	local perRow = C.db["Actionbar"]["MBPerRow"]
-	local margin = 2*DB.margin
 
 	for i = 1, #buttonList do
 		local button = buttonList[i]
@@ -122,17 +121,18 @@ function Bar:MicroMenu_Setup()
 		if i == 1 then
 			button:SetPoint("TOPLEFT")
 		elseif (i - 1) % perRow == 0 then
-			button:SetPoint("TOP", buttonList[i-perRow], "BOTTOM", 0, -margin)
+			button:SetPoint("TOP", buttonList[i-perRow], "BOTTOM", 0, -DB.margin*2)
 		else
-			button:SetPoint("LEFT", buttonList[i-1], "RIGHT", margin, 0)
+			button:SetPoint("LEFT", buttonList[i-1], "RIGHT", DB.margin*2, 0)
 		end
 	end
 
 	local column = math.min(12, perRow)
 	local rows = math.ceil(12/perRow)
-	menubar:SetWidth(column*size + (column-1)*margin)
-	menubar:SetHeight(size*rows + (rows-1)*margin)
-	menubar.mover:SetSize(menubar:GetSize())
+	local width = column*size + (column-1)*DB.margin
+	local height = size*rows + (rows-1)*DB.margin
+	menubar:SetSize(width, height)
+	menubar.mover:SetSize(width, height)
 end
 
 function Bar:MicroMenu()

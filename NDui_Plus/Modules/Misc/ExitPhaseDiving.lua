@@ -65,7 +65,9 @@ function M:ExitPhaseDiving()
 	button.Icon:SetTexCoord(unpack(DB.TexCoord))
 	button.Icon:SetInside(button.bg)
 
-	button.mover = B.Mover(button, L["ExitPhaseDivingButton"], "ExitPhaseDivingButton", { "TOP", _G.NDui_ActionBarExtra, "BOTTOM", 0, -(DB.margin - C.mult) }, size + 2*C.mult, size + 2*C.mult)
+	button.mover = B.Mover(button, L["ExitPhaseDivingButton"], "ExitPhaseDivingButton", { "TOP", _G.NDui_ActionBarExtra, "BOTTOM", 0, -DB.margin })
+	button:ClearAllPoints()
+	button:SetPoint("CENTER", button.mover, "CENTER")
 
 	M.ExitPhaseDivingButton = button
 	M:ExitPhaseDiving_Toggle()

@@ -237,8 +237,7 @@ C.OnLoadThemes["Blizzard_AchievementUI"] = function()
 			if not child.styled then
 				B.StripTextures(child)
 				local bg = B.CreateBDFrame(child, .25)
-				bg:SetPoint("TOPLEFT", 2, -C.mult)
-				bg:SetPoint("BOTTOMRIGHT", 4, C.mult)
+				B.UpdateSize(bg, 2, -1, 4, 1)
 				SetupButtonHighlight(child, bg)
 
 				child.styled = true

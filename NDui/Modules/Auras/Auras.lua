@@ -47,12 +47,12 @@ function A:BuildBuffFrame()
 	A.BuffFrame = A:CreateAuraHeader("HELPFUL")
 	A.BuffFrame.mover = B.Mover(A.BuffFrame, "Buffs", "BuffAnchor", C.Auras.BuffPos)
 	A.BuffFrame:ClearAllPoints()
-	A.BuffFrame:SetPoint("TOPRIGHT", A.BuffFrame.mover)
+	A.BuffFrame:SetPoint("TOPRIGHT", A.BuffFrame.mover, "TOPRIGHT")
 
 	A.DebuffFrame = A:CreateAuraHeader("HARMFUL")
 	A.DebuffFrame.mover = B.Mover(A.DebuffFrame, "Debuffs", "DebuffAnchor", {"TOPRIGHT", A.BuffFrame.mover, "BOTTOMRIGHT", 0, -12})
 	A.DebuffFrame:ClearAllPoints()
-	A.DebuffFrame:SetPoint("TOPRIGHT", A.DebuffFrame.mover)
+	A.DebuffFrame:SetPoint("TOPRIGHT", A.DebuffFrame.mover, "TOPRIGHT")
 
 --	A:CreatePrivateAuras()
 end
@@ -337,10 +337,10 @@ function A:CreatePrivateAuras()
 	local reverse = C.db["Auras"]["ReversePrivate"]
 
 	A.PrivateFrame = CreateFrame("Frame", "NDuiPrivateAuras", UIParent)
-	A.PrivateFrame:SetSize((buttonSize + DB.margin)*maxButtons - DB.margin, buttonSize + 2*DB.margin)
+	A.PrivateFrame:SetSize((buttonSize + DB.margin)*maxButtons - DB.margin, buttonSize + DB.margin*2)
 	A.PrivateFrame.mover = B.Mover(A.PrivateFrame, "PrivateAuras", "PrivateAuras", {"TOPRIGHT", A.DebuffFrame.mover, "BOTTOMRIGHT", 0, -12})
 	A.PrivateFrame:ClearAllPoints()
-	A.PrivateFrame:SetPoint("TOPRIGHT", A.PrivateFrame.mover)
+	A.PrivateFrame:SetPoint("TOPRIGHT", A.PrivateFrame.mover, "TOPRIGHT")
 
 	A.PrivateAuras = {}
 	local prevButton

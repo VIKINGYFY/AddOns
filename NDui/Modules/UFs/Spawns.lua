@@ -292,15 +292,6 @@ UF.RaidDirections = {
 	[8] = {name = L["LEFT_UP"], point = "RIGHT", xOffset = -5, yOffset = 0, initAnchor = "BOTTOMRIGHT", relAnchor = "TOPRIGHT", x = 0, y = 5, columnAnchorPoint = "BOTTOM", multX = -1, multY = 1},
 }
 
-local function SetupMover(frame, name, value, point)
-	if not frame then return end
-
-	local width, height = frame:GetSize()
-	frame.mover = B.Mover(frame, name, value, point, width + 2*C.mult, height + 2*C.mult)
-	frame:ClearAllPoints()
-	frame:SetPoint("CENTER", frame.mover)
-end
-
 function UF:OnLogin()
 	if C.db["Nameplate"]["Enable"] then
 		UF:SetupCVars()
@@ -349,30 +340,30 @@ function UF:OnLogin()
 		-- Loader
 		oUF:SetActiveStyle("Player")
 		local player = oUF:Spawn("player", "oUF_Player")
-		SetupMover(player, L["PlayerUF"], "PlayerUF", C.UFs.PlayerPos)
+		B.Mover(player, L["PlayerUF"], "PlayerUF", C.UFs.PlayerPos)
 		UF.ToggleCastBar(player, "Player")
 
 		oUF:SetActiveStyle("Pet")
 		local pet = oUF:Spawn("pet", "oUF_Pet")
-		SetupMover(pet, L["PetUF"], "PetUF", {"BOTTOMLEFT", oUF_Player, "BOTTOMRIGHT", margin, -C.mult})
+		B.Mover(pet, L["PetUF"], "PetUF", {"BOTTOMLEFT", oUF_Player, "BOTTOMRIGHT", margin, 0})
 
 		oUF:SetActiveStyle("Target")
 		local target = oUF:Spawn("target", "oUF_Target")
-		SetupMover(target, L["TargetUF"], "TargetUF", C.UFs.TargetPos)
+		B.Mover(target, L["TargetUF"], "TargetUF", C.UFs.TargetPos)
 		UF.ToggleCastBar(target, "Target")
 
 		oUF:SetActiveStyle("ToT")
 		local targettarget = oUF:Spawn("targettarget", "oUF_ToT")
-		SetupMover(targettarget, L["TotUF"], "TotUF", {"BOTTOMRIGHT", oUF_Target, "BOTTOMLEFT", -margin, -C.mult})
+		B.Mover(targettarget, L["TotUF"], "TotUF", {"BOTTOMRIGHT", oUF_Target, "BOTTOMLEFT", -margin, 0})
 
 		oUF:SetActiveStyle("Focus")
 		local focus = oUF:Spawn("focus", "oUF_Focus")
-		SetupMover(focus, L["FocusUF"], "FocusUF", C.UFs.FocusPos)
+		B.Mover(focus, L["FocusUF"], "FocusUF", C.UFs.FocusPos)
 		UF.ToggleCastBar(focus, "Focus")
 
 		oUF:SetActiveStyle("FoT")
 		local focustarget = oUF:Spawn("focustarget", "oUF_FoT")
-		SetupMover(focustarget, L["FotUF"], "FotUF", {"BOTTOMLEFT", oUF_Focus, "BOTTOMRIGHT", margin, -C.mult})
+		B.Mover(focustarget, L["FotUF"], "FotUF", {"BOTTOMLEFT", oUF_Focus, "BOTTOMRIGHT", margin, 0})
 
 		oUF:SetActiveStyle("Boss")
 		local boss = {}
@@ -395,7 +386,7 @@ function UF:OnLogin()
 			local arena = {}
 			for i = 1, 5 do
 				arena[i] = oUF:Spawn("arena"..i, "oUF_Arena"..i)
-				arena[i]:SetPoint("TOPLEFT", boss[i].mover)
+				arena[i]:SetPoint("TOPLEFT", boss[i].mover, "TOPLEFT")
 			end
 		end
 

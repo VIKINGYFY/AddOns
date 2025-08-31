@@ -10,7 +10,7 @@ C.OnLoginThemes["PVEFrame"] = function()
 	PVEFrameTab2:SetPoint("LEFT", PVEFrameTab1, "RIGHT", -15, 0)
 	PVEFrameTab3:SetPoint("LEFT", PVEFrameTab2, "RIGHT", -15, 0)
 
-	local iconSize = 60-2*C.mult
+	local iconSize = 60-C.mult*2
 	for i = 1, 4 do
 		local bu = GroupFinderFrame["groupButton"..i]
 		if bu then

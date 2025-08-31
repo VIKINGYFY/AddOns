@@ -937,6 +937,10 @@ function module:OnLogin()
 	function MyButton:OnCreate()
 		self:SetSize(iconSize, iconSize)
 
+		B.CleanTextures(self)
+		B.CreateBD(self, .25)
+		B.ReskinHLTex(self, self)
+
 		self.Icon:SetInside()
 		self.Icon:SetTexCoord(unpack(DB.TexCoord))
 		self.Count:SetPoint("BOTTOMRIGHT", -1, 0)
@@ -945,11 +949,6 @@ function module:OnLogin()
 		self.Cooldown:SetInside()
 		self.IconOverlay:SetInside()
 		self.IconOverlay2:SetInside()
-
-		B.CleanTextures(self)
-		B.CreateBD(self, .25)
-		B.ReskinHLTex(self, self)
-
 		self.Favourite = self:CreateTexture(nil, "OVERLAY")
 		self.Favourite:SetAtlas("collections-icon-favorites")
 		self.Favourite:SetSize(30, 30)
@@ -1278,12 +1277,13 @@ function module:OnLogin()
 	local BagButton = Backpack:GetClass("BagButton", true, "BagButton")
 	function BagButton:OnCreate()
 		self:SetSize(iconSize, iconSize)
-		self.Icon:SetInside()
-		self.Icon:SetTexCoord(unpack(DB.TexCoord))
 
 		B.CleanTextures(self)
 		B.CreateBD(self, .25)
 		B.ReskinHLTex(self, self)
+
+		self.Icon:SetInside()
+		self.Icon:SetTexCoord(unpack(DB.TexCoord))
 	end
 
 	function BagButton:OnUpdateButton()

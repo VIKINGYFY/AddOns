@@ -9,16 +9,16 @@ function Bar:UpdateVehicleButton()
 	local size = C.db["Actionbar"]["VehButtonSize"]
 	frame.buttons[1]:SetSize(size, size)
 	frame:SetSize(size, size)
-	frame.mover:SetSize(size + 2*C.mult, size + 2*C.mult)
+	frame.mover:SetSize(size, size)
 end
 
 function Bar:CreateLeaveVehicle()
 	local buttonList = {}
 
 	local frame = CreateFrame("Frame", "NDui_ActionBarExit", UIParent, "SecureHandlerStateTemplate")
-	frame.mover = B.Mover(frame, L["LeaveVehicle"], "LeaveVehicle", {"LEFT", _G.NDui_ActionBarExtra, "RIGHT", DB.margin - C.mult, 0})
+	frame.mover = B.Mover(frame, L["LeaveVehicle"], "LeaveVehicle", {"LEFT", _G.NDui_ActionBarExtra, "RIGHT", DB.margin, 0})
 	frame:ClearAllPoints()
-	frame:SetPoint("CENTER", frame.mover)
+	frame:SetPoint("CENTER", frame.mover, "CENTER")
 
 	local button = CreateFrame("CheckButton", "NDui_LeaveVehicleButton", frame, "ActionButtonTemplate, SecureHandlerClickTemplate")
 	table.insert(buttonList, button)

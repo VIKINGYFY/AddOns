@@ -136,7 +136,7 @@ end
 
 local function MakeMoveHandle(frame, text, value, anchor)
 	local width, height = frame:GetSize()
-	local mover = B.Mover(frame, DB.InfoColor..text, value, anchor, width + 2*C.mult, height + 2*C.mult, true)
+	local mover = B.Mover(frame, DB.InfoColor..text, value, anchor, width, height, true)
 	frame:ClearAllPoints()
 	frame:SetPoint("CENTER", mover)
 	frame.__width = mover:GetWidth()

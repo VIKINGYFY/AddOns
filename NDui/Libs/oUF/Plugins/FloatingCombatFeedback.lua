@@ -81,20 +81,20 @@ local schoolColors = {
 }
 
 local eventFilter = {
-	["SWING_DAMAGE"] = {suffix = "DAMAGE", index = 10, iconType = "swing", autoAttack = true},
-	["RANGE_DAMAGE"] = {suffix = "DAMAGE", index = 13, iconType = "range", autoAttack = true},
+	["SWING_DAMAGE"] = {suffix = "DAMAGE", index = 10, iconType = "swing"},
+	["RANGE_DAMAGE"] = {suffix = "DAMAGE", index = 13, iconType = "range"},
 	["SPELL_DAMAGE"] = {suffix = "DAMAGE", index = 13, iconType = "spell"},
-	["SPELL_PERIODIC_DAMAGE"] = {suffix = "DAMAGE", index = 13, iconType = "spell", isPeriod = true},
+	["SPELL_PERIODIC_DAMAGE"] = {suffix = "DAMAGE", index = 13, iconType = "spell"},
 	["SPELL_BUILDING_DAMAGE"] = {suffix = "DAMAGE", index = 13, iconType = "spell"},
 
 	["SPELL_HEAL"] = {suffix = "HEAL", index = 13, iconType = "spell"},
-	["SPELL_PERIODIC_HEAL"] = {suffix = "HEAL", index = 13, iconType = "spell", isPeriod = true},
+	["SPELL_PERIODIC_HEAL"] = {suffix = "HEAL", index = 13, iconType = "spell"},
 	["SPELL_BUILDING_HEAL"] = {suffix = "HEAL", index = 13, iconType = "spell"},
 
-	["SWING_MISSED"] = {suffix = "MISS", index = 10, iconType = "swing", autoAttack = true},
-	["RANGE_MISSED"] = {suffix = "MISS", index = 13, iconType = "range", autoAttack = true},
+	["SWING_MISSED"] = {suffix = "MISS", index = 10, iconType = "swing"},
+	["RANGE_MISSED"] = {suffix = "MISS", index = 13, iconType = "range"},
 	["SPELL_MISSED"] = {suffix = "MISS", index = 13, iconType = "spell"},
-	["SPELL_PERIODIC_MISSED"] = {suffix = "MISS", index = 13, iconType = "spell", isPeriod = true},
+	["SPELL_PERIODIC_MISSED"] = {suffix = "MISS", index = 13, iconType = "spell"},
 
 	["ENVIRONMENTAL_DAMAGE"] = {suffix = "ENVIRONMENT", index = 10, iconType = "env"},
 }
@@ -160,13 +160,13 @@ local function Update(self, event, ...)
 		local _, sourceGUID, _, sourceFlags, _, destGUID, _, _, _, spellID, _, school = ...
 		local isPlayer = playerGUID == sourceGUID
 		local isRightUnit = element.unitGUID == destGUID
-		local isPet = C.db["UFs"]["PetCombatText"] and DB:IsMyPet(sourceFlags)
+		local isPet = C.db["UFs"]["CombatTextPet"] and DB:IsMyPet(sourceFlags)
 
 		if isRightUnit and (unit == "target" and (isPlayer or isPet) or unit == "player") then
 			local value = eventFilter[event]
 			if not value then return end
 
-			if value.suffix == "DAMAGE" then
+			if value.suffix == "DAMAGE" and C.db["UFs"]["CombatTextDamage"] then
 				local amount, _, _, _, _, _, critical, _, crushing = select(value.index, ...)
 				texture = getCombatTexture(value.iconType, spellID, (isPet and not isPlayer))
 				text = "-"..B.Numb(amount)
@@ -174,7 +174,7 @@ local function Update(self, event, ...)
 				if critical or crushing then
 					critMark = true
 				end
-			elseif value.suffix == "HEAL" then
+			elseif value.suffix == "HEAL" and C.db["UFs"]["CombatTextHeal"] then
 				local amount, overhealing, _, critical = select(value.index, ...)
 				texture = getCombatTexture(value.iconType, spellID)
 
@@ -184,17 +184,18 @@ local function Update(self, event, ...)
 					overhealText = " ("..B.Numb(overhealing)..")"
 				end
 
-				if amount == 0 then return end
-				text = "+"..B.Numb(amount)..overhealText
+				if amount ~= 0 then
+					text = "+"..B.Numb(amount)..overhealText
 
-				if critical then
-					critMark = true
+					if critical then
+						critMark = true
+					end
 				end
-			elseif value.suffix == "MISS" then
+			elseif value.suffix == "MISS" and C.db["UFs"]["CombatTextMiss"] then
 				local missType = select(value.index, ...)
 				texture = getCombatTexture(value.iconType, spellID, isPet)
 				text = getMissText(missType)
-			elseif value.suffix == "ENVIRONMENT" then
+			elseif value.suffix == "ENVIRONMENT" and C.db["UFs"]["CombatTextEnv"] then
 				local envType, amount = select(value.index, ...)
 				texture = getCombatTexture(value.iconType, envType)
 				text = "-"..B.Numb(amount)

@@ -65,7 +65,7 @@ function B:Mover(text, value, anchor, width, height, isAuraWatch)
 	local mover = CreateFrame("Frame", nil, UIParent)
 	mover:SetWidth(width or self:GetWidth())
 	mover:SetHeight(height or self:GetHeight())
-	mover.bg = B.CreateBG(mover)
+	mover.bg = B.CreateBG(mover, -1)
 	mover:Hide()
 	mover.text = B.CreateFS(mover, DB.Font[2], text)
 	mover.text:SetWordWrap(true)
@@ -94,7 +94,7 @@ function B:Mover(text, value, anchor, width, height, isAuraWatch)
 	end
 
 	self:ClearAllPoints()
-	self:SetPoint("TOPLEFT", mover)
+	self:SetPoint("TOPLEFT", mover, "TOPLEFT")
 
 	return mover
 end

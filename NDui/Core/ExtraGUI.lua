@@ -1346,7 +1346,7 @@ function G:SetupCastbar(parent)
 		castbar:SetSize(width, height)
 		castbar.Icon:SetSize(height, height)
 		castbar.mover:Show()
-		castbar.mover:SetSize(width + height + DB.margin + 2*C.mult, height + 2*C.mult)
+		castbar.mover:SetSize(width + height + DB.margin, height)
 	end
 
 	local function createOptionGroup(parent, title, offset, value, func)
@@ -1423,7 +1423,7 @@ function G:SetupSwingBars(parent)
 		local swing = frame.Swing
 		swing:SetSize(width, height)
 		swing.Offhand:SetSize(width, height)
-		swing.mover:SetSize(width + 2*C.mult, height + 2*C.mult)
+		swing.mover:SetSize(width, height)
 		swing.mover:Show()
 
 		swing.Text:SetShown(C.db["UFs"]["SwingTimer"])
@@ -1800,7 +1800,7 @@ function G:SetupActionbarStyle(parent)
 	local maxButtons, size = 3, 30
 
 	local frame = CreateFrame("Frame", "NDuiActionbarStyleFrame", parent.child)
-	frame:SetSize((size+DB.margin)*maxButtons + DB.margin, size + 2*DB.margin)
+	frame:SetSize((size+DB.margin)*maxButtons + DB.margin, size + DB.margin*2)
 	frame:SetPoint("TOPRIGHT", -85, -15)
 	B.CreateBDFrame(frame, .25)
 
