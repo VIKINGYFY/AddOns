@@ -3,7 +3,7 @@ local B, C, L, DB = unpack(ns)
 
 C.OnLoginThemes["TutorialFrame"] = function()
 
-	B.SetBD(TutorialFrame)
+	B.CreateBG(TutorialFrame)
 
 	TutorialFrameBackground:Hide()
 	TutorialFrameBackground.Show = B.Dummy

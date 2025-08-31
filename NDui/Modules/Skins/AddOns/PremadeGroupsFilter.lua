@@ -61,7 +61,7 @@ function S:PGFSkin()
 		styled = true
 
 		B.StripTextures(self)
-		B.SetBD(self):SetAllPoints()
+		B.CreateBG(self):SetAllPoints()
 		B.ReskinClose(self.CloseButton)
 		B.ReskinButton(self.ResetButton)
 		B.ReskinButton(self.RefreshButton)
@@ -125,7 +125,7 @@ function S:PGFSkin()
 	local popup = PremadeGroupsFilterStaticPopup
 	if popup then
 		B.StripTextures(popup)
-		B.SetBD(popup)
+		B.CreateBG(popup)
 		B.ReskinInput(popup.EditBox)
 		B.ReskinButton(popup.Button1)
 		B.ReskinButton(popup.Button2)

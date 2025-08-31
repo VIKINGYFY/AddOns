@@ -9,6 +9,6 @@ C.OnLoginThemes["TaxiFrame"] = function()
 	TaxiFrame.TitleBg:Hide()
 	TaxiFrame.TopTileStreaks:Hide()
 
-	B.SetBD(TaxiFrame, 3, -23, -5, 3)
+	B.CreateBG(TaxiFrame, 3, -23, -5, 3)
 	B.ReskinClose(TaxiFrame.CloseButton, TaxiRouteMap)
 end

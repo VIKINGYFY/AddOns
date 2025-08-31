@@ -10,7 +10,7 @@ function S:Myslot()
 
 	local frame = Myslot.MainFrame
 	B.StripTextures(frame)
-	B.SetBD(frame)
+	B.CreateBG(frame)
 
 	for _, child in pairs {frame:GetChildren()} do
 		local objType = child:GetObjectType()

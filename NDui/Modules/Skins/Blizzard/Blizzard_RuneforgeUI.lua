@@ -43,7 +43,7 @@ C.OnLoadThemes["Blizzard_RuneforgeUI"] = function()
 
 	local powerFrame = frame.CraftingFrame.PowerFrame
 	B.StripTextures(powerFrame)
-	B.SetBD(powerFrame)
+	B.CreateBG(powerFrame)
 
 	hooksecurefunc(powerFrame.PowerList, "RefreshListDisplay", function(self)
 		if not self.elements then return end

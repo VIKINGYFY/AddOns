@@ -59,15 +59,10 @@ function Bar:StyleActionButton(button)
 
 	B.CleanTextures(button)
 
-	button.__bg = B.SetBD(button)
-	B.ReskinCPTex(button, button.__bg, true)
+	button.__bg = B.CreateBG(button, -1)
 
-	local icon = B.GetObject(button, "Icon")
-	if icon then
-		icon:SetInside(button.__bg)
-		icon:SetDrawLayer("ARTWORK")
-		icon:SetTexCoord(unpack(DB.TexCoord))
-	end
+	B.ReskinCPTex(button, button.__bg, true)
+	B.UpdateButton(button, button.__bg)
 
 	local flash = B.GetObject(button, "Flash")
 	if flash then
@@ -88,16 +83,6 @@ function Bar:StyleActionButton(button)
 	if hotkey then
 		Bar.UpdateHotKey(hotkey)
 		hooksecurefunc(hotkey, "SetText", Bar.UpdateHotKey)
-	end
-
-	local autoCast = B.GetObject(button, "AutoCastOverlay")
-	if autoCast then
-		autoCast:SetInside(button.__bg)
-	end
-
-	local cooldown = B.GetObject(button, "Cooldown")
-	if cooldown then
-		cooldown:SetInside(button.__bg)
 	end
 end
 

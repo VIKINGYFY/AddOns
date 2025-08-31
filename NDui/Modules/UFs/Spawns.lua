@@ -5,6 +5,7 @@ local UF = B:GetModule("UnitFrames")
 
 -- Units
 local UFRangeAlpha = {insideAlpha = 1, outsideAlpha = .4}
+local margin = DB.margin*2
 
 local function SetUnitFrameSize(self, unit)
 	local width = C.db["UFs"][unit.."Width"]
@@ -291,6 +292,15 @@ UF.RaidDirections = {
 	[8] = {name = L["LEFT_UP"], point = "RIGHT", xOffset = -5, yOffset = 0, initAnchor = "BOTTOMRIGHT", relAnchor = "TOPRIGHT", x = 0, y = 5, columnAnchorPoint = "BOTTOM", multX = -1, multY = 1},
 }
 
+local function SetupMover(frame, name, value, point)
+	if not frame then return end
+
+	local width, height = frame:GetSize()
+	frame.mover = B.Mover(frame, name, value, point, width + 2*C.mult, height + 2*C.mult)
+	frame:ClearAllPoints()
+	frame:SetPoint("CENTER", frame.mover)
+end
+
 function UF:OnLogin()
 	if C.db["Nameplate"]["Enable"] then
 		UF:SetupCVars()
@@ -339,30 +349,30 @@ function UF:OnLogin()
 		-- Loader
 		oUF:SetActiveStyle("Player")
 		local player = oUF:Spawn("player", "oUF_Player")
-		B.Mover(player, L["PlayerUF"], "PlayerUF", C.UFs.PlayerPos)
+		SetupMover(player, L["PlayerUF"], "PlayerUF", C.UFs.PlayerPos)
 		UF.ToggleCastBar(player, "Player")
 
 		oUF:SetActiveStyle("Pet")
 		local pet = oUF:Spawn("pet", "oUF_Pet")
-		B.Mover(pet, L["PetUF"], "PetUF", {"BOTTOMLEFT", oUF_Player, "BOTTOMRIGHT", 5, 0})
+		SetupMover(pet, L["PetUF"], "PetUF", {"BOTTOMLEFT", oUF_Player, "BOTTOMRIGHT", margin, -C.mult})
 
 		oUF:SetActiveStyle("Target")
 		local target = oUF:Spawn("target", "oUF_Target")
-		B.Mover(target, L["TargetUF"], "TargetUF", C.UFs.TargetPos)
+		SetupMover(target, L["TargetUF"], "TargetUF", C.UFs.TargetPos)
 		UF.ToggleCastBar(target, "Target")
 
 		oUF:SetActiveStyle("ToT")
 		local targettarget = oUF:Spawn("targettarget", "oUF_ToT")
-		B.Mover(targettarget, L["TotUF"], "TotUF", {"BOTTOMRIGHT", oUF_Target, "BOTTOMLEFT", -5, 0})
+		SetupMover(targettarget, L["TotUF"], "TotUF", {"BOTTOMRIGHT", oUF_Target, "BOTTOMLEFT", -margin, -C.mult})
 
 		oUF:SetActiveStyle("Focus")
 		local focus = oUF:Spawn("focus", "oUF_Focus")
-		B.Mover(focus, L["FocusUF"], "FocusUF", C.UFs.FocusPos)
+		SetupMover(focus, L["FocusUF"], "FocusUF", C.UFs.FocusPos)
 		UF.ToggleCastBar(focus, "Focus")
 
 		oUF:SetActiveStyle("FoT")
 		local focustarget = oUF:Spawn("focustarget", "oUF_FoT")
-		B.Mover(focustarget, L["FotUF"], "FotUF", {"BOTTOMLEFT", oUF_Focus, "BOTTOMRIGHT", 5, 0})
+		SetupMover(focustarget, L["FotUF"], "FotUF", {"BOTTOMLEFT", oUF_Focus, "BOTTOMRIGHT", margin, -C.mult})
 
 		oUF:SetActiveStyle("Boss")
 		local boss = {}
@@ -446,7 +456,6 @@ function UF:OnLogin()
 				local sortData = UF.PartyDirections[index]
 				local partyWidth, partyHeight = C.db["UFs"]["PartyWidth"], C.db["UFs"]["PartyHeight"]
 				local partyFrameHeight = partyHeight + C.db["UFs"]["PartyPowerHeight"] + C.mult
-				local spacing = C.db["UFs"]["PartySpacing"]
 				local sortByRole = C.db["UFs"]["SortByRole"]
 				local sortAscending = C.db["UFs"]["SortAscending"]
 
@@ -458,16 +467,16 @@ function UF:OnLogin()
 					partyMover = B.Mover(party, L["PartyFrame"], "PartyFrame", {"LEFT", UIParent, 35, 135})
 				end
 
-				local moverWidth = index < 3 and partyWidth or (partyWidth+spacing)*5-spacing
-				local moverHeight = index < 3 and (partyFrameHeight+spacing)*5-spacing or partyFrameHeight
+				local moverWidth = index < 3 and partyWidth or (partyWidth+margin)*5-margin
+				local moverHeight = index < 3 and (partyFrameHeight+margin)*5-margin or partyFrameHeight
 				partyMover:SetSize(moverWidth, moverHeight)
 				party:ClearAllPoints()
 				party:SetPoint(sortData.initAnchor, partyMover)
 
 				ResetHeaderPoints(party)
 				party:SetAttribute("point", sortData.point)
-				party:SetAttribute("xOffset", sortData.xOffset/5*spacing)
-				party:SetAttribute("yOffset", sortData.yOffset/5*spacing)
+				party:SetAttribute("xOffset", sortData.xOffset/5*margin)
+				party:SetAttribute("yOffset", sortData.yOffset/5*margin)
 				party:SetAttribute("groupingOrder", "TANK,HEALER,DAMAGER,NONE")
 				party:SetAttribute("groupBy", sortByRole and "ASSIGNEDROLE")
 				party:SetAttribute("sortDir", sortAscending and "ASC" or "DESC")
@@ -486,7 +495,7 @@ function UF:OnLogin()
 					"showSolo", true,
 					"showParty", true,
 					"showRaid", true,
-					"columnSpacing", 5,
+					"columnSpacing", margin,
 					"oUF-initialConfigFunction", ([[
 						self:SetWidth(%d)
 						self:SetHeight(%d)
@@ -507,7 +516,7 @@ function UF:OnLogin()
 						partyPet.groupType = "pet"
 						table.insert(UF.headers, partyPet)
 						RegisterStateDriver(partyPet, "visibility", GetPartyPetVisibility())
-						petMover = B.Mover(partyPet, L["PartyPetFrame"], "PartyPet", {"TOPLEFT", partyMover, "BOTTOMLEFT", 0, -5})
+						petMover = B.Mover(partyPet, L["PartyPetFrame"], "PartyPet", {"TOPLEFT", partyMover, "BOTTOMLEFT", 0, -margin})
 					end
 					ResetHeaderPoints(partyPet)
 
@@ -550,7 +559,7 @@ function UF:OnLogin()
 				"point", sortData.point,
 				"xOffset", sortData.xOffset,
 				"yOffset", sortData.yOffset,
-				"columnSpacing", 5,
+				"columnSpacing", margin,
 				"columnAnchorPoint", sortData.columnAnchorPoint,
 				"oUF-initialConfigFunction", ([[
 					self:SetWidth(%d)
@@ -610,7 +619,7 @@ function UF:OnLogin()
 				"sortMethod", "INDEX",
 				"maxColumns", 1,
 				"unitsPerColumn", 5,
-				"columnSpacing", 5,
+				"columnSpacing", margin,
 				"columnAnchorPoint", "LEFT",
 				"oUF-initialConfigFunction", ([[
 					self:SetWidth(%d)
@@ -673,7 +682,6 @@ function UF:OnLogin()
 				local raidWidth, raidHeight = C.db["UFs"]["RaidWidth"], C.db["UFs"]["RaidHeight"]
 				local raidFrameHeight = raidHeight + C.db["UFs"]["RaidPowerHeight"] + C.mult
 				local indexSpacing = C.db["UFs"]["TeamIndex"] and 20 or 0
-				local spacing = C.db["UFs"]["RaidSpacing"]
 
 				local sortData = UF.RaidDirections[index]
 				for i = 1, numGroups do
@@ -694,29 +702,29 @@ function UF:OnLogin()
 						raidMover = B.Mover(groups[i], L["RaidFrame"], "RaidFrame", {"TOPLEFT", UIParent, 35, -50})
 					end
 
-					local groupWidth = index < 5 and raidWidth+spacing or (raidWidth+spacing)*5
-					local groupHeight = index < 5 and (raidFrameHeight+spacing)*5 or raidFrameHeight+spacing
+					local groupWidth = index < 5 and raidWidth+margin or (raidWidth+margin)*5
+					local groupHeight = index < 5 and (raidFrameHeight+margin)*5 or raidFrameHeight+margin
 					local numX = math.ceil(numGroups/rows)
 					local numY = math.min(rows, numGroups)
 					local indexSpacings = indexSpacing*(numY-1)
 					if index < 5 then
-						raidMover:SetSize(groupWidth*numX - spacing, groupHeight*numY - spacing + indexSpacings)
+						raidMover:SetSize(groupWidth*numX - margin, groupHeight*numY - margin + indexSpacings)
 					else
-						raidMover:SetSize(groupWidth*numY - spacing + indexSpacings, groupHeight*numX - spacing)
+						raidMover:SetSize(groupWidth*numY - margin + indexSpacings, groupHeight*numX - margin)
 					end
 
 					--if direction then
 						ResetHeaderPoints(group)
 						group:SetAttribute("point", sortData.point)
-						group:SetAttribute("xOffset", sortData.xOffset/5*spacing)
-						group:SetAttribute("yOffset", sortData.yOffset/5*spacing)
+						group:SetAttribute("xOffset", sortData.xOffset/5*margin)
+						group:SetAttribute("yOffset", sortData.yOffset/5*margin)
 					--end
 
 					group:ClearAllPoints()
 					if i == 1 then
 						group:SetPoint(sortData.initAnchor, raidMover)
 					elseif (i-1) % rows == 0 then
-						group:SetPoint(sortData.initAnchor, groups[i-rows], sortData.relAnchor, sortData.x/5*spacing, sortData.y/5*spacing)
+						group:SetPoint(sortData.initAnchor, groups[i-rows], sortData.relAnchor, sortData.x/5*margin, sortData.y/5*margin)
 					else
 						local x = math.floor((i-1)/rows)
 						local y = (i-1)%rows

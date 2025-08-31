@@ -56,10 +56,11 @@ function Bar:UpdateActionSize(name)
 	end
 
 	local column = math.min(num, perRow)
-	local rows = math.ceil(num/perRow)
-	frame:SetWidth(column*size + (column-1)*DB.margin)
-	frame:SetHeight(size*rows + (rows-1)*DB.margin)
-	frame.mover:SetSize(frame:GetSize())
+	local rows = math.ceil(num / perRow)
+	local width = column*size + (column-1)*DB.margin
+	local height = size*rows + (rows-1)*DB.margin
+	frame:SetSize(width, height)
+	frame.mover:SetSize(width + 2*C.mult, height + 2*C.mult)
 end
 
 local directions = {"UP", "DOWN", "LEFT", "RIGHT"}
@@ -194,12 +195,13 @@ function Bar:CreateBars()
 	end
 
 	local baseY = C.db["Actionbar"]["MBSize"] + 2*DB.margin
+	local margin = DB.margin - C.mult
 	local BAR_DATA = {
 		[1] = {page = 1, bindName = "ACTIONBUTTON", anchor = {"BOTTOM", UIParent, "BOTTOM", 0, baseY}},
-		[2] = {page = 6, bindName = "MULTIACTIONBAR1BUTTON", anchor = {"BOTTOM", _G.NDui_ActionBar1, "TOP", 0, DB.margin}},
-		[3] = {page = 5, bindName = "MULTIACTIONBAR2BUTTON", anchor = {"BOTTOM", _G.NDui_ActionBar2, "TOP", 0, DB.margin}},
-		[4] = {page = 3, bindName = "MULTIACTIONBAR3BUTTON", anchor = {"RIGHT", UIParent, "RIGHT", -DB.margin, 0}},
-		[5] = {page = 4, bindName = "MULTIACTIONBAR4BUTTON", anchor = {"RIGHT", _G.NDui_ActionBar4, "LEFT", -DB.margin, 0}},
+		[2] = {page = 6, bindName = "MULTIACTIONBAR1BUTTON", anchor = {"BOTTOM", _G.NDui_ActionBar1, "TOP", 0, margin}},
+		[3] = {page = 5, bindName = "MULTIACTIONBAR2BUTTON", anchor = {"BOTTOM", _G.NDui_ActionBar2, "TOP", 0, margin}},
+		[4] = {page = 3, bindName = "MULTIACTIONBAR3BUTTON", anchor = {"RIGHT", UIParent, "RIGHT", -margin, 0}},
+		[5] = {page = 4, bindName = "MULTIACTIONBAR4BUTTON", anchor = {"RIGHT", _G.NDui_ActionBar4, "LEFT", -margin, 0}},
 		[6] = {page = 13, bindName = "MULTIACTIONBAR5BUTTON", anchor = {"CENTER", UIParent, "CENTER", 0, 0}},
 		[7] = {page = 14, bindName = "MULTIACTIONBAR6BUTTON", anchor = {"CENTER", UIParent, "CENTER", 0, 40}},
 		[8] = {page = 15, bindName = "MULTIACTIONBAR7BUTTON", anchor = {"CENTER", UIParent, "CENTER", 0, 80}},
@@ -210,6 +212,8 @@ function Bar:CreateBars()
 		local data = BAR_DATA[index]
 		local frame = Bar.headers[index]
 		frame.mover = B.Mover(frame, L["Actionbar"]..index, "Bar"..index, data.anchor)
+		frame:ClearAllPoints()
+		frame:SetPoint("TOPLEFT", frame.mover, C.mult, -C.mult)
 		Bar.movers[mIndex] = frame.mover
 		mIndex = mIndex + 1
 		frame.buttons = {}

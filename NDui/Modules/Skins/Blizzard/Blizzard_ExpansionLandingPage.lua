@@ -14,7 +14,7 @@ end
 local function SkinLandingOverlay(frame)
 	if frame and not frame.styled then
 		B.StripTextures(frame)
-		B.SetBD(frame)
+		B.CreateBG(frame)
 
 		if frame.SkillsButton then
 			B.ReskinButton(frame.SkillsButton)

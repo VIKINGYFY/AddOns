@@ -162,7 +162,7 @@ function info:GuildPanel_Init()
 	infoFrame:SetClampedToScreen(true)
 	infoFrame:SetFrameStrata("HIGH")
 	updateInfoFrameAnchor(infoFrame)
-	B.SetBD(infoFrame)
+	B.CreateBG(infoFrame)
 
 	infoFrame:SetScript("OnLeave", function(self)
 		self:SetScript("OnUpdate", isPanelCanHide)

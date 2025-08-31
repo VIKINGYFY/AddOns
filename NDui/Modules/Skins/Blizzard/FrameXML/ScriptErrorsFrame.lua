@@ -5,7 +5,7 @@ C.OnLoginThemes["ScriptErrorsFrame"] = function()
 
 	ScriptErrorsFrame:SetScale(UIParent:GetScale())
 	B.StripTextures(ScriptErrorsFrame)
-	B.SetBD(ScriptErrorsFrame)
+	B.CreateBG(ScriptErrorsFrame)
 
 	B.ReskinArrow(ScriptErrorsFrame.PreviousError, "left")
 	B.ReskinArrow(ScriptErrorsFrame.NextError, "right")

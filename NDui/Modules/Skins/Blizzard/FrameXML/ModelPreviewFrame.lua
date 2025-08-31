@@ -10,7 +10,7 @@ C.OnLoginThemes["ModelPreviewFrame"] = function()
 	Display.ShadowOverlay:Hide()
 
 	B.StripTextures(ModelPreviewFrame)
-	B.SetBD(ModelPreviewFrame)
+	B.CreateBG(ModelPreviewFrame)
 	B.ReskinArrow(Display.ModelScene.CarouselLeftButton, "left")
 	B.ReskinArrow(Display.ModelScene.CarouselRightButton, "right")
 	B.ReskinClose(ModelPreviewFrameCloseButton)

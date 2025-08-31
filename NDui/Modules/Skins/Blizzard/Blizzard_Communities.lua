@@ -149,7 +149,7 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 			local requestFrame = frame.RequestToJoinFrame
 			if requestFrame then
 				B.StripTextures(requestFrame)
-				B.SetBD(requestFrame)
+				B.CreateBG(requestFrame)
 				B.StripTextures(requestFrame.MessageFrame)
 				B.StripTextures(requestFrame.MessageFrame.MessageScroll)
 				B.CreateBDFrame(requestFrame.MessageFrame.MessageScroll, .25)
@@ -222,7 +222,7 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 	do
 		local dialog = CommunitiesFrame.NotificationSettingsDialog
 		B.StripTextures(dialog)
-		B.SetBD(dialog)
+		B.CreateBG(dialog)
 		B.ReskinDropDown(dialog.CommunitiesListDropdown)
 		if dialog.Selector then
 			B.StripTextures(dialog.Selector)
@@ -252,7 +252,7 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 	do
 		local dialog = CommunitiesFrame.EditStreamDialog
 		B.StripTextures(dialog)
-		B.SetBD(dialog)
+		B.CreateBG(dialog)
 		dialog.NameEdit:DisableDrawLayer("BACKGROUND")
 		local bg = B.CreateBDFrame(dialog.NameEdit, .25)
 		bg:SetPoint("TOPLEFT", -3, -3)
@@ -268,7 +268,7 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 	do
 		local dialog = CommunitiesTicketManagerDialog
 		B.StripTextures(dialog)
-		B.SetBD(dialog)
+		B.CreateBG(dialog)
 		dialog.Background:Hide()
 		B.ReskinButton(dialog.LinkToChat)
 		B.ReskinButton(dialog.Copy)
@@ -354,7 +354,7 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 
 	local detailFrame = CommunitiesFrame.GuildMemberDetailFrame
 	B.StripTextures(detailFrame)
-	B.SetBD(detailFrame)
+	B.CreateBG(detailFrame)
 	B.ReskinClose(detailFrame.CloseButton)
 	B.ReskinButton(detailFrame.RemoveButton)
 	B.ReskinButton(detailFrame.GroupInviteButton)
@@ -369,7 +369,7 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 	do
 		local dialog = CommunitiesSettingsDialog
 		dialog.BG:Hide()
-		B.SetBD(dialog)
+		B.CreateBG(dialog)
 		B.ReskinButton(dialog.ChangeAvatarButton)
 		B.ReskinButton(dialog.Accept)
 		B.ReskinButton(dialog.Delete)
@@ -393,7 +393,7 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 	do
 		local dialog = CommunitiesAvatarPickerDialog
 		B.StripTextures(dialog)
-		B.SetBD(dialog)
+		B.CreateBG(dialog)
 		B.ReskinScroll(CommunitiesAvatarPickerDialog.ScrollBar)
 		if dialog.Selector then
 			B.StripTextures(dialog.Selector)
@@ -455,7 +455,7 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 	bg3:SetPoint("BOTTOMRIGHT", -5, -4)
 
 	B.StripTextures(CommunitiesGuildTextEditFrame)
-	B.SetBD(CommunitiesGuildTextEditFrame)
+	B.CreateBG(CommunitiesGuildTextEditFrame)
 	CommunitiesGuildTextEditFrameBg:Hide()
 	B.StripTextures(CommunitiesGuildTextEditFrame.Container)
 	B.CreateBDFrame(CommunitiesGuildTextEditFrame.Container, .25)
@@ -479,7 +479,7 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 
 	B.StripTextures(CommunitiesGuildNewsFiltersFrame)
 	CommunitiesGuildNewsFiltersFrameBg:Hide()
-	B.SetBD(CommunitiesGuildNewsFiltersFrame)
+	B.CreateBG(CommunitiesGuildNewsFiltersFrame)
 	B.ReskinClose(CommunitiesGuildNewsFiltersFrame.CloseButton)
 	for _, name in next, {"GuildAchievement", "Achievement", "DungeonEncounter", "EpicItemLooted", "EpicItemPurchased", "EpicItemCrafted", "LegendaryItemLooted"} do
 		local filter = CommunitiesGuildNewsFiltersFrame[name]
@@ -488,7 +488,7 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 
 	B.StripTextures(CommunitiesGuildLogFrame)
 	CommunitiesGuildLogFrameBg:Hide()
-	B.SetBD(CommunitiesGuildLogFrame)
+	B.CreateBG(CommunitiesGuildLogFrame)
 	B.ReskinClose(CommunitiesGuildLogFrameCloseButton)
 	B.ReskinScroll(CommunitiesGuildLogFrame.Container.ScrollFrame.ScrollBar)
 	B.StripTextures(CommunitiesGuildLogFrame.Container)
@@ -502,14 +502,14 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 	bossModel:SetPoint("LEFT", CommunitiesFrame, "RIGHT", 40, 0)
 	local textFrame = bossModel.TextFrame
 	B.StripTextures(textFrame)
-	local bg = B.SetBD(bossModel)
+	local bg = B.CreateBG(bossModel)
 	bg:SetOutside(bossModel, nil, nil, textFrame)
 
 	-- Recruitment dialog
 	do
 		local dialog = CommunitiesFrame.RecruitmentDialog
 		B.StripTextures(dialog)
-		B.SetBD(dialog)
+		B.CreateBG(dialog)
 		B.ReskinCheck(dialog.ShouldListClub.Button)
 		B.ReskinCheck(dialog.MaxLevelOnly.Button)
 		B.ReskinCheck(dialog.MinIlvlOnly.Button)

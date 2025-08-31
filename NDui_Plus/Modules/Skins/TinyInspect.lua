@@ -18,7 +18,7 @@ function S:TinyInspect()
 			frame:SetBackdropBorderColor(0, 0, 0, 0)
 			frame.SetBackdropBorderColor = B.Dummy
 			frame.GetBackdrop = function(self) return self.backdrop end
-			B.SetBD(frame)
+			B.CreateBG(frame)
 
 			local specicon = frame.specicon
 			specicon:SetSize(41, 41)
@@ -69,7 +69,7 @@ function S:TinyInspect()
 		local frame = parent.statsFrame
 		if frame and not frame.styled then
 			B.StripTextures(frame)
-			B.SetBD(frame)
+			B.CreateBG(frame)
 
 			frame.styled = true
 		end

@@ -135,7 +135,8 @@ local function BuildCooldownTable()
 end
 
 local function MakeMoveHandle(frame, text, value, anchor)
-	local mover = B.Mover(frame, DB.InfoColor..text, value, anchor, nil, nil, true)
+	local width, height = frame:GetSize()
+	local mover = B.Mover(frame, DB.InfoColor..text, value, anchor, width + 2*C.mult, height + 2*C.mult, true)
 	frame:ClearAllPoints()
 	frame:SetPoint("CENTER", mover)
 	frame.__width = mover:GetWidth()
@@ -209,8 +210,7 @@ local function BuildBAR(barWidth, iconSize)
 	local frame = CreateFrame("Frame", nil, PetBattleFrameHider)
 	frame:SetSize(iconSize, iconSize)
 
-	frame.bg = B.SetBD(frame)
-	frame.bg:SetOutside()
+	frame.bg = B.CreateBG(frame, -1)
 
 	frame.Icon = frame:CreateTexture(nil, "ARTWORK")
 	frame.Icon:SetInside(frame.bg)

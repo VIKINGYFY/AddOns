@@ -758,12 +758,12 @@ do
 
 		local bg = CreateFrame("Frame", nil, frame, "BackdropTemplate")
 		bg:SetFrameLevel(frame:GetFrameLevel())
+		bg:ClearAllPoints()
 
-		local value = offset and math.abs(offset) * C.mult
-		if offset and offset < 0 then
-			bg:SetOutside(self, value, value)
-		elseif offset and offset > 0 then
-			bg:SetInside(self, value, value)
+		local value = offset and offset * C.mult
+		if value then
+			bg:SetPoint("TOPLEFT", self, value, -value)
+			bg:SetPoint("BOTTOMRIGHT", self, -value, value)
 		else
 			bg:SetAllPoints(self)
 		end
@@ -776,11 +776,11 @@ do
 		return bg
 	end
 
-	function B:SetBD(x1, y1, x2, y2)
+	function B:CreateBG(x1, y1, x2, y2)
 		local bg = B.CreateBDFrame(self)
 
-		if self:IsObjectType("StatusBar") then
-			B.UpdateSize(bg, -1, 1, 1, -1)
+		if self:IsObjectType("StatusBar") or self:IsObjectType("Texture") then
+			B.UpdateSize(bg, -1)
 		else
 			B.UpdateSize(bg, x1, y1, x2, y2)
 		end
@@ -796,9 +796,7 @@ do
 		self:SetTexCoord(unpack(DB.TexCoord))
 
 		if self.SetDrawLayer then
-			if self:GetDrawLayer() == "BACKGROUND" or self:GetDrawLayer() == "BORDER" then
-				self:SetDrawLayer("ARTWORK")
-			end
+			self:SetDrawLayer("ARTWORK")
 		end
 
 		local bg = B.CreateBDFrame(self, .25, nil, -1)
@@ -955,7 +953,7 @@ do
 		bar:SetStatusBarTexture(DB.normTex)
 		bar:SetStatusBarColor(DB.r, DB.g, DB.b)
 
-		bar.bd = B.SetBD(bar)
+		bar.bd = B.CreateBG(bar)
 
 		if bg then
 			bar.bg = bar:CreateTexture(nil, "BORDER")
@@ -1042,7 +1040,7 @@ do
 
 	function B:ReskinMenuButton()
 		B.StripTextures(self)
-		self.bg = B.SetBD(self)
+		self.bg = B.CreateBG(self)
 		self:SetScript("OnEnter", Menu_OnEnter)
 		self:SetScript("OnLeave", Menu_OnLeave)
 		self:HookScript("OnMouseUp", Menu_OnMouseUp)
@@ -1054,7 +1052,7 @@ do
 		B.CleanTextures(self)
 		self:DisableDrawLayer("BACKGROUND")
 
-		local bg = isInside and B.CreateBDFrame(self, 0, true) or B.SetBD(self)
+		local bg = isInside and B.CreateBDFrame(self, 0, true) or B.CreateBG(self)
 		B.UpdateSize(bg, 8, -2, -8, 4)
 		self.bg = bg
 
@@ -1352,8 +1350,10 @@ do
 
 	-- Color swatch
 	function B:ReskinColorSwatch()
-		local icon
+		local bg = B.GetObject(self, "SwatchBg")
+		bg:SetColorTexture(0, 0, 0, 1)
 
+		local icon
 		if self.Color then
 			icon = self.Color
 			icon:SetTexture(DB.bdTex)
@@ -1362,11 +1362,7 @@ do
 			icon = self:GetNormalTexture()
 		end
 
-		icon:SetInside(nil, 2, 2)
-
-		local bg = B.GetObject(self, "SwatchBg")
-		bg:SetColorTexture(0, 0, 0, 1)
-		bg:SetOutside(icon)
+		icon:SetInside(bg)
 	end
 
 	-- Handle slider
@@ -1734,12 +1730,12 @@ do
 
 		local swatch = CreateFrame("Button", nil, self, "BackdropTemplate")
 		swatch:SetSize(18, 18)
-		B.CreateBD(swatch, .25)
+		swatch.bg = B.CreateBD(swatch, .25)
 		if name then
 			swatch.text = B.CreateFS(swatch, 14, name, false, "LEFT", 26, 0)
 		end
 		local tex = swatch:CreateTexture(nil, "ARTWORK")
-		tex:SetInside()
+		tex:SetInside(swatch.bg)
 		tex:SetTexture(DB.bdTex)
 		tex:SetVertexColor(color.r, color.g, color.b)
 		tex.GetColor = GetSwatchTexColor
@@ -1943,13 +1939,21 @@ do
 		local ic = B.GetObject(f1, "Icon") or B.GetObject(f1, "icon") or f1
 		if ic then
 			ic:SetInside(f2)
-			ic:SetDrawLayer("ARTWORK")
 			ic:SetTexCoord(unpack(DB.TexCoord))
+
+			if ic.SetDrawLayer then
+				ic:SetDrawLayer("ARTWORK")
+			end
 		end
 
 		local cd = B.GetObject(f1, "Cooldown") or B.GetObject(f1, "cooldown")
 		if cd then
 			cd:SetInside(f2)
+		end
+
+		local ac = B.GetObject(f1, "AutoCastOverlay")
+		if ac then
+			ac:SetInside(f2)
 		end
 	end
 
@@ -1968,9 +1972,15 @@ do
 		local x_2 = x2 and x2 * C.mult
 		local y_2 = y2 and y2 * C.mult
 		local f = f1:GetParent()
+
 		f1:ClearAllPoints()
-		f1:SetPoint("TOPLEFT", f2 or f, x_1, y_1)
-		f1:SetPoint("BOTTOMRIGHT", f2 or f, x_2, y_2)
+		if x_1 and not (y_1 and x_2 and y_2) then
+			f1:SetPoint("TOPLEFT", f2 or f, x_1, -x_1)
+			f1:SetPoint("BOTTOMRIGHT", f2 or f, -x_1, x_1)
+		else
+			f1:SetPoint("TOPLEFT", f2 or f, x_1, y_1)
+			f1:SetPoint("BOTTOMRIGHT", f2 or f, x_2, y_2)
+		end
 	end
 
 	local headers = {"Header", "header"}
@@ -1978,7 +1988,7 @@ do
 	function B:ReskinFrame(killType)
 		B.StripTextures(self, killType or 99)
 
-		local bg = B.SetBD(self)
+		local bg = B.CreateBG(self)
 		for _, key in pairs(headers) do
 			local frameHeader = B.GetObject(self, key)
 			if frameHeader and type(frameHeader) == "table" then
@@ -2009,7 +2019,7 @@ do
 	function B:ReskinStatusBar(noCC, isOutside)
 		B.StripTextures(self)
 		if isOutside then
-			self.bg = B.SetBD(self)
+			self.bg = B.CreateBG(self)
 		else
 			self.bg = B.CreateBDFrame(self, .25, nil, -1)
 		end
@@ -2040,7 +2050,7 @@ do
 
 		if not self.tipStyled then
 			self:HideBackdrop()
-			self.bg = B.SetBD(self)
+			self.bg = B.CreateBG(self)
 
 			if self.StatusBar then
 				self.StatusBar:ClearAllPoints()
@@ -2255,5 +2265,6 @@ do
 	B.ReskinIconBorder = B.ReskinBorder
 	B.ReskinPortraitFrame = B.ReskinFrame
 	B.ReskinTrimScroll = B.ReskinScroll
+	B.SetBD = B.CreateBG
 	B.StyleSearchButton = B.ReskinSearchList
 end

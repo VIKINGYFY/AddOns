@@ -3,7 +3,7 @@ local B, C, L, DB = unpack(ns)
 
 C.OnLoadThemes["Blizzard_ArtifactUI"] = function()
 	B.StripTextures(ArtifactFrame)
-	B.SetBD(ArtifactFrame)
+	B.CreateBG(ArtifactFrame)
 	B.ReskinFrameTab(ArtifactFrame, 2)
 
 	ArtifactFrameTab1:ClearAllPoints()

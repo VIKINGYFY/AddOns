@@ -24,7 +24,7 @@ C.OnLoginThemes["EquipmentFlyout"] = function()
 	hooksecurefunc("EquipmentFlyout_UpdateItems", function()
 		local frame = EquipmentFlyoutFrame.buttonFrame
 		if not frame.bg then
-			frame.bg = B.SetBD(EquipmentFlyoutFrame.buttonFrame)
+			frame.bg = B.CreateBG(EquipmentFlyoutFrame.buttonFrame)
 		end
 		frame:SetWidth(frame:GetWidth()+3)
 	end)
@@ -34,7 +34,7 @@ C.OnLoginThemes["EquipmentFlyout"] = function()
 	EquipmentFlyoutFrameHighlight:SetOutside(nil, 7, 7)
 
 	local navigationFrame = EquipmentFlyoutFrame.NavigationFrame
-	B.SetBD(navigationFrame)
+	B.CreateBG(navigationFrame)
 	navigationFrame:SetPoint("TOPLEFT", EquipmentFlyoutFrameButtons, "BOTTOMLEFT", 0, -3)
 	navigationFrame:SetPoint("TOPRIGHT", EquipmentFlyoutFrameButtons, "BOTTOMRIGHT", 0, -3)
 	B.ReskinArrow(navigationFrame.PrevButton, "left")

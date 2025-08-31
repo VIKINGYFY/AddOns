@@ -300,7 +300,7 @@ function S:ReskinRematchElements()
 	B.StripTextures(petCard.PinButton)
 	B.ReskinArrow(petCard.PinButton, "up")
 	petCard.PinButton:SetPoint("TOPLEFT", 5, -5)
-	local bg = B.SetBD(petCard.Title)
+	local bg = B.CreateBG(petCard.Title)
 	bg:SetAllPoints(petCard)
 	S.RematchCard(petCard.Front)
 	S.RematchCard(petCard.Back)
@@ -314,7 +314,7 @@ function S:ReskinRematchElements()
 	-- RematchAbilityCard
 	local abilityCard = RematchAbilityCard
 	B.StripTextures(abilityCard, 15)
-	B.SetBD(abilityCard)
+	B.CreateBG(abilityCard)
 	abilityCard.Hints.HintsBG:Hide()
 
 	-- RematchWinRecordCard
@@ -325,7 +325,7 @@ function S:ReskinRematchElements()
 	local bg = B.CreateBDFrame(card.Content, .25)
 	bg:SetPoint("TOPLEFT", 2, -2)
 	bg:SetPoint("BOTTOMRIGHT", -2, 2)
-	local bg = B.SetBD(card.Content)
+	local bg = B.CreateBG(card.Content)
 	bg:SetAllPoints(card)
 	for _, result in pairs({"Wins", "Losses", "Draws"}) do
 		S.RematchInput(card.Content[result].EditBox)
@@ -338,7 +338,7 @@ function S:ReskinRematchElements()
 	-- RematchDialog
 	local dialog = RematchDialog
 	B.StripTextures(dialog)
-	B.SetBD(dialog)
+	B.CreateBG(dialog)
 	B.ReskinClose(dialog.CloseButton)
 
 	S.RematchIcon(dialog.Slot)
@@ -461,7 +461,7 @@ function S:ReskinRematch()
 		local bg = B.CreateBDFrame(content.ScrollFrame, .25)
 		bg:SetPoint("TOPLEFT", 0, 5)
 		bg:SetPoint("BOTTOMRIGHT", 0, -2)
-		local bg = B.SetBD(content.ScrollFrame)
+		local bg = B.CreateBG(content.ScrollFrame)
 		bg:SetAllPoints(self)
 
 		S.RematchButton(self.Content.Bottom.DeleteButton)

@@ -35,7 +35,7 @@ end
 local function ReskinWAIcon(icon)
 	UpdateIconTexCoord(icon)
 	hooksecurefunc(icon, "SetTexCoord", UpdateIconTexCoord)
-	icon.bg = B.SetBD(icon)
+	icon.bg = B.CreateBG(icon)
 	icon.bg:SetFrameLevel(0)
 	hooksecurefunc(icon, "SetVertexColor", UpdateIconBgAlpha)
 end
@@ -52,7 +52,7 @@ local function Skin_WeakAuras(f, fType)
 		end
 	elseif fType == "aurabar" then
 		if not f.styled then
-			f.bg = B.SetBD(f.bar)
+			f.bg = B.CreateBG(f.bar)
 			f.bg:SetFrameLevel(0)
 			ReskinWAIcon(f.icon)
 			hooksecurefunc(f, "SetFrameStrata", ResetBGLevel)

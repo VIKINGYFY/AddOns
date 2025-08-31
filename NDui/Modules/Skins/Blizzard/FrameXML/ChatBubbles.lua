@@ -6,7 +6,7 @@ local function reskinChatBubble(chatbubble)
 
 	local frame = chatbubble:GetChildren()
 	if frame and not frame:IsForbidden() then
-		local bg = B.SetBD(frame)
+		local bg = B.CreateBG(frame)
 		bg:SetScale(UIParent:GetEffectiveScale())
 		bg:SetInside(frame, 6, 6)
 

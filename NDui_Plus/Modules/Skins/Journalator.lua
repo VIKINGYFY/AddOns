@@ -122,7 +122,7 @@ function S:Journalator()
 		local ExportCSV = _G.JournalatorExportCSVTextFrame
 		if ExportCSV then
 			S:Proxy("StripTextures", ExportCSV)
-			S:Proxy("SetBD", ExportCSV)
+			S:Proxy("CreateBG", ExportCSV)
 			S:Proxy("Reskin", ExportCSV.Close)
 			S:Proxy("ReskinTrimScroll", ExportCSV.ScrollBar)
 		end

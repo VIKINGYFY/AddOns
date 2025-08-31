@@ -506,7 +506,7 @@ function P:OpenGUI()
 	gui:SetFrameStrata("HIGH")
 	gui:SetFrameLevel(10)
 	B.CreateMF(gui)
-	B.SetBD(gui)
+	B.CreateBG(gui)
 	B.CreateFS(gui, 18, "NDui_Plus", true, "TOP", 0, -10)
 	B.CreateFS(gui, 16, format("v%s", P.Version), false, "TOP", 0, -30)
 

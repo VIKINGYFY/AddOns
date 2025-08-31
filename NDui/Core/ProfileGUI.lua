@@ -700,7 +700,7 @@ function G:CreateDataFrame()
 	dataFrame:SetSize(500, 500)
 	dataFrame:SetFrameStrata("DIALOG")
 	B.CreateMF(dataFrame)
-	B.SetBD(dataFrame)
+	B.CreateBG(dataFrame)
 	dataFrame.Header = B.CreateFS(dataFrame, 16, L["Export Header"], true, "TOP", 0, -5)
 
 	local scrollArea = CreateFrame("ScrollFrame", nil, dataFrame, "UIPanelScrollFrameTemplate")

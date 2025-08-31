@@ -96,7 +96,7 @@ C.OnLoginThemes["MerchantFrame"] = function()
 
 	local StackSplitFrame = StackSplitFrame
 	B.StripTextures(StackSplitFrame)
-	B.SetBD(StackSplitFrame)
+	B.CreateBG(StackSplitFrame)
 	B.ReskinButton(StackSplitFrame.OkayButton)
 	B.ReskinButton(StackSplitFrame.CancelButton)
 	B.ReskinArrow(StackSplitFrame.LeftButton, "left")

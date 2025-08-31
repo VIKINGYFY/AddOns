@@ -3,7 +3,7 @@ local B, C, L, DB = unpack(ns)
 
 C.OnLoginThemes["GuildInviteFrame"] = function()
 
-	B.SetBD(GuildInviteFrame)
+	B.CreateBG(GuildInviteFrame)
 	for i = 1, 10 do
 		select(i, GuildInviteFrame:GetRegions()):Hide()
 	end

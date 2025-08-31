@@ -8,7 +8,7 @@ C.OnLoginThemes["PVPMatch"] = function()
 
 	B.StripTextures(PVPReadyDialog)
 	PVPReadyDialogBackground:Hide()
-	B.SetBD(PVPReadyDialog)
+	B.CreateBG(PVPReadyDialog)
 
 	B.ReskinButton(PVPReadyDialog.enterButton)
 	B.ReskinButton(PVPReadyDialog.leaveButton)
@@ -19,11 +19,11 @@ C.OnLoginThemes["PVPMatch"] = function()
 	end
 
 	ReadyStatus.Border:SetAlpha(0)
-	B.SetBD(ReadyStatus)
+	B.CreateBG(ReadyStatus)
 	B.ReskinClose(ReadyStatus.CloseButton)
 
 	-- match score
-	B.SetBD(PVPMatchScoreboard)
+	B.CreateBG(PVPMatchScoreboard)
 	PVPMatchScoreboard:HookScript("OnShow", stripBorders)
 	B.ReskinClose(PVPMatchScoreboard.CloseButton)
 
@@ -41,7 +41,7 @@ C.OnLoginThemes["PVPMatch"] = function()
 	end
 
 	-- match results
-	B.SetBD(PVPMatchResults)
+	B.CreateBG(PVPMatchResults)
 	PVPMatchResults:HookScript("OnShow", stripBorders)
 	B.ReskinClose(PVPMatchResults.CloseButton)
 	B.StripTextures(PVPMatchResults.overlay)

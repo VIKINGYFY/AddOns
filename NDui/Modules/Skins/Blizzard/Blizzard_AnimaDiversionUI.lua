@@ -5,7 +5,7 @@ C.OnLoadThemes["Blizzard_AnimaDiversionUI"] = function()
 	local frame = AnimaDiversionFrame
 
 	B.StripTextures(frame)
-	B.SetBD(frame)
+	B.CreateBG(frame)
 	B.ReskinClose(frame.CloseButton)
 	frame.AnimaDiversionCurrencyFrame.Background:SetAlpha(0)
 

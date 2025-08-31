@@ -150,7 +150,7 @@ function CH:ChatEmote()
 	end
 
 	panel:SetHeight(ceil(index / column) * (height + space) + 24)
-	B.SetBD(panel)
+	B.CreateBG(panel)
 	panel:Hide()
 
 	hooksecurefunc("ChatEdit_OnHide", function() C_Timer.After(.5, function() panel:Hide() end) end)
@@ -170,7 +170,7 @@ function CH:ChatEmote()
 	button:SetNormalFontObject("DialogButtonNormalText")
 	button:SetText(L["Emote"])
 	button:GetFontString():SetPoint("CENTER", 2, 0)
-	B.SetBD(button)
+	B.CreateBG(button)
 	button:SetScript("OnClick", function(self) 
 		if panel:IsShown() then
 			panel:Hide()

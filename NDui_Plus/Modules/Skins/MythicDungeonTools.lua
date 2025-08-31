@@ -55,7 +55,7 @@ function S:MythicDungeonTools()
 				frame[key]:SetAlpha(0)
 			end
 
-			local bg = B.SetBD(frame)
+			local bg = B.CreateBG(frame)
 			bg:SetPoint("TOPLEFT", frame.topPanel, -1, 0)
 			bg:SetPoint("BOTTOMRIGHT", frame.sidePanel, 0, 0)
 

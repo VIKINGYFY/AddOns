@@ -4,7 +4,7 @@ local B, C, L, DB = unpack(ns)
 C.OnLoginThemes["ChatConfigFrame"] = function()
 
 	B.StripTextures(ChatConfigFrame)
-	B.SetBD(ChatConfigFrame)
+	B.CreateBG(ChatConfigFrame)
 	B.StripTextures(ChatConfigFrame.Header)
 
 	hooksecurefunc("ChatConfig_UpdateCheckboxes", function(frame)

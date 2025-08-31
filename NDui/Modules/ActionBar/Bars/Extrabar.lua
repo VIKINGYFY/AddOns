@@ -17,6 +17,8 @@ end
 function Bar:CreateExtrabar()
 	local buttonList = {}
 	local size = 52
+	local moverSize = size + 2*C.mult
+	local margin = DB.margin - C.mult
 
 	ExtraAbilityContainer:SetScript("OnShow", nil)
 	ExtraAbilityContainer:SetScript("OnUpdate", nil)
@@ -27,7 +29,9 @@ function Bar:CreateExtrabar()
 	-- ExtraActionButton
 	local extraFrame = CreateFrame("Frame", "NDui_ActionBarExtra", UIParent, "SecureHandlerStateTemplate")
 	extraFrame:SetSize(size, size)
-	extraFrame.mover = B.Mover(extraFrame, L["Extrabar"], "Extrabar", {"LEFT", _G.NDui_ActionBar3Button12, "TOPRIGHT", DB.margin, 0})
+	extraFrame.mover = B.Mover(extraFrame, L["Extrabar"], "Extrabar", {"LEFT", _G.NDui_ActionBar3Button12, "TOPRIGHT", margin, 0}, moverSize, moverSize)
+	extraFrame:ClearAllPoints()
+	extraFrame:SetPoint("CENTER", extraFrame.mover)
 
 	UpdateAbilityFrame(ExtraActionBarFrame, extraFrame)
 
@@ -42,7 +46,9 @@ function Bar:CreateExtrabar()
 	-- ZoneAbility
 	local zoneFrame = CreateFrame("Frame", "NDui_ActionBarZone", UIParent)
 	zoneFrame:SetSize(size, size)
-	zoneFrame.mover = B.Mover(zoneFrame, L["Zone Ability"], "ZoneAbility", {"RIGHT", _G.NDui_ActionBar3Button1, "TOPLEFT", -DB.margin, 0})
+	zoneFrame.mover = B.Mover(zoneFrame, L["Zone Ability"], "ZoneAbility", {"RIGHT", _G.NDui_ActionBar3Button1, "TOPLEFT", -margin, 0}, moverSize, moverSize)
+	zoneFrame:ClearAllPoints()
+	zoneFrame:SetPoint("CENTER", zoneFrame.mover)
 
 	UpdateAbilityFrame(ZoneAbilityFrame, zoneFrame)
 
@@ -53,7 +59,7 @@ function Bar:CreateExtrabar()
 			if spellButton and not spellButton.styled then
 				B.CleanTextures(spellButton)
 
-				local bubg = B.CreateBDFrame(spellButton, .25)
+				local bubg = B.CreateBG(spellButton, -1)
 				B.ReskinHLTex(spellButton, bubg)
 				B.ReskinCPTex(spellButton, bubg)
 				B.UpdateButton(spellButton, bubg)

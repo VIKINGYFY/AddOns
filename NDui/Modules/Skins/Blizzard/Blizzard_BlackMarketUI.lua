@@ -18,7 +18,7 @@ C.OnLoadThemes["Blizzard_BlackMarketUI"] = function()
 		bg:SetPoint("BOTTOMRIGHT", -1, 0)
 	end
 
-	B.SetBD(BlackMarketFrame)
+	B.CreateBG(BlackMarketFrame)
 	B.CreateBDFrame(BlackMarketFrame.HotDeal, .25)
 	B.ReskinButton(BlackMarketFrame.BidButton)
 	B.ReskinClose(BlackMarketFrame.CloseButton)

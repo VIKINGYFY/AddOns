@@ -233,7 +233,7 @@ C.OnLoginThemes["CharacterFrame"] = function()
 
 	local detailFrame = ReputationFrame.ReputationDetailFrame
 	B.StripTextures(detailFrame)
-	B.SetBD(detailFrame)
+	B.CreateBG(detailFrame)
 	B.ReskinClose(detailFrame.CloseButton)
 	B.ReskinCheck(detailFrame.AtWarCheckbox)
 	B.ReskinCheck(detailFrame.MakeInactiveCheckbox)
@@ -317,13 +317,13 @@ C.OnLoginThemes["CharacterFrame"] = function()
 	end)
 
 	B.StripTextures(TokenFramePopup)
-	B.SetBD(TokenFramePopup)
+	B.CreateBG(TokenFramePopup)
 
 	-- Quick Join
 	B.ReskinScroll(QuickJoinFrame.ScrollBar)
 	B.ReskinButton(QuickJoinFrame.JoinQueueButton)
 
-	B.SetBD(QuickJoinRoleSelectionFrame)
+	B.CreateBG(QuickJoinRoleSelectionFrame)
 	B.ReskinButton(QuickJoinRoleSelectionFrame.AcceptButton)
 	B.ReskinButton(QuickJoinRoleSelectionFrame.CancelButton)
 	B.ReskinClose(QuickJoinRoleSelectionFrame.CloseButton)

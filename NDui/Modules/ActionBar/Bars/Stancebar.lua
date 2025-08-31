@@ -29,10 +29,11 @@ function Bar:UpdateStanceBar()
 	end
 
 	local column = math.min(num, perRow)
-	local rows = math.ceil(num/perRow)
-	frame:SetWidth(column*size + (column-1)*DB.margin)
-	frame:SetHeight(size*rows + (rows-1)*DB.margin)
-	frame.mover:SetSize(frame:GetSize())
+	local rows = math.ceil(num / perRow)
+	local width = column*size + (column-1)*DB.margin
+	local height = size*rows + (rows-1)*DB.margin
+	frame:SetSize(width, height)
+	frame.mover:SetSize(width + 2*C.mult, height + 2*C.mult)
 end
 
 function Bar:UpdateStance()
@@ -83,7 +84,9 @@ end
 function Bar:CreateStancebar()
 	local buttonList = {}
 	local frame = CreateFrame("Frame", "NDui_ActionBarStance", UIParent, "SecureHandlerStateTemplate")
-	frame.mover = B.Mover(frame, L["StanceBar"], "StanceBar", {"BOTTOMLEFT", _G.NDui_ActionBar3, "TOPLEFT", 0, DB.margin})
+	frame.mover = B.Mover(frame, L["StanceBar"], "StanceBar", {"BOTTOMLEFT", _G.NDui_ActionBar3, "TOPLEFT", -C.mult, DB.margin - C.mult})
+	frame:ClearAllPoints()
+	frame:SetPoint("TOPLEFT", frame.mover, C.mult, -C.mult)
 	Bar.movers[10] = frame.mover
 
 	-- StanceBar

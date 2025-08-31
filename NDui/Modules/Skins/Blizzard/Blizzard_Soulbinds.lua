@@ -27,7 +27,7 @@ C.OnLoadThemes["Blizzard_Soulbinds"] = function()
 
 	B.StripTextures(SoulbindViewer)
 	SoulbindViewer.Background:SetAlpha(0)
-	B.SetBD(SoulbindViewer)
+	B.CreateBG(SoulbindViewer)
 	B.ReskinClose(SoulbindViewer.CloseButton)
 	B.ReskinButton(SoulbindViewer.CommitConduitsButton)
 	B.ReskinButton(SoulbindViewer.ActivateSoulbindButton)

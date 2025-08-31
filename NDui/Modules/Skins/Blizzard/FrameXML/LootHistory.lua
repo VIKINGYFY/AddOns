@@ -7,7 +7,7 @@ C.OnLoginThemes["LootHistory"] = function()
 	if not frame then return end
 
 	B.StripTextures(frame)
-	B.SetBD(frame)
+	B.CreateBG(frame)
 	B.ReskinClose(frame.ClosePanelButton)
 	B.ReskinScroll(frame.ScrollBar)
 	B.ReskinDropDown(frame.EncounterDropdown)

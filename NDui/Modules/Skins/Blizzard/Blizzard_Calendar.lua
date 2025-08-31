@@ -11,7 +11,7 @@ end
 
 local function ReskinCalendarPage(frame)
 	B.StripTextures(frame)
-	B.SetBD(frame)
+	B.CreateBG(frame)
 	B.StripTextures(frame.Header)
 	if frame.ScrollBar then
 		B.ReskinScroll(frame.ScrollBar)
@@ -69,7 +69,7 @@ C.OnLoadThemes["Blizzard_Calendar"] = function()
 	B.StripTextures(CalendarClassTotalsButton)
 
 	B.StripTextures(CalendarFrame)
-	B.SetBD(CalendarFrame, 9, 0, -7, 1)
+	B.CreateBG(CalendarFrame, 9, 0, -7, 1)
 	B.CreateBDFrame(CalendarClassTotalsButton)
 
 	ReskinEventList(CalendarViewEventInviteList)
@@ -96,7 +96,7 @@ C.OnLoadThemes["Blizzard_Calendar"] = function()
 		B.StripTextures(titleFrame)
 		local parent = titleFrame:GetParent()
 		B.StripTextures(parent)
-		B.SetBD(parent)
+		B.CreateBG(parent)
 	end
 
 	CalendarWeekdaySelectedTexture:SetDesaturated(true)

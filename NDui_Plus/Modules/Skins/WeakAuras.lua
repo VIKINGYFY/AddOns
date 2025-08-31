@@ -40,7 +40,7 @@ end
 local function ReskinWAIcon(icon)
 	UpdateIconTexCoord(icon)
 	hooksecurefunc(icon, "SetTexCoord", UpdateIconTexCoord)
-	icon.bg = B.SetBD(icon, 0)
+	icon.bg = B.CreateBG(icon, 0)
 	icon.bg:SetFrameLevel(0)
 	hooksecurefunc(icon, "SetVertexColor", UpdateIconBgAlpha)
 end
@@ -57,7 +57,7 @@ local function Skin_WeakAuras(f, fType)
 		end
 	elseif fType == "aurabar" then
 		if not f.styled then
-			f.bg = B.SetBD(f.bar, 0)
+			f.bg = B.CreateBG(f.bar, 0)
 			f.bg:SetFrameLevel(0)
 			ReskinWAIcon(f.icon)
 			hooksecurefunc(f, "SetFrameStrata", ResetBGLevel)
@@ -184,7 +184,7 @@ local function WeakAurasSkinTips()
 	skinTips:SetSize(480, 200)
 	skinTips:SetFrameStrata("HIGH")
 	B.CreateMF(skinTips)
-	B.SetBD(skinTips)
+	B.CreateBG(skinTips)
 	B.CreateFS(skinTips, 16, L["WeakAuras Skins FAQ"], true, "TOP", 0, -8)
 	local close = B.CreateButton(skinTips, 16, 16, true, DB.closeTex)
 	close:SetPoint("TOPRIGHT", -6, -6)
@@ -327,7 +327,7 @@ local function SkinWeakAurasOptions()
 	local tipPopup = frame.tipPopup
 	if tipPopup then
 		B.StripTextures(tipPopup)
-		B.SetBD(tipPopup)
+		B.CreateBG(tipPopup)
 
 		for _, child in pairs {tipPopup:GetChildren()} do
 			if child:GetObjectType() == "EditBox" then

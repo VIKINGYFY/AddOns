@@ -17,7 +17,7 @@ function S:Rematch()
 	--[[
 	local frame = RematchFrame
 	B.StripTextures(frame)
-	B.SetBD(frame)
+	B.CreateBG(frame)
 	B.StripTextures(frame.TitleBar)
 
 	S.RematchTitleButton(frame.TitleBar.CloseButton, true)

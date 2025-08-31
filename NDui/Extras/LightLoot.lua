@@ -233,7 +233,7 @@ function LightLoot:PLAYER_LOGIN()
 	B.CreateMF(self)
 
 	self.slots = {}
-	self.Border = B.SetBD(self)
+	self.Border = B.CreateBG(self)
 	self.Title = B.CreateFS(self, 18, "", false, "TOP", 0, 20)
 
 	_G.LootFrame:UnregisterAllEvents()

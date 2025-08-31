@@ -246,7 +246,7 @@ function Bar:Bind_CreateDialog()
 	local frame = CreateFrame("Frame", nil, UIParent)
 	frame:SetSize(320, 100)
 	frame:SetPoint("TOP", 0, -135)
-	B.SetBD(frame)
+	B.CreateBG(frame)
 	B.CreateFS(frame, 16, QUICK_KEYBIND_MODE, false, "TOP", 0, -10)
 
 	local helpInfo = B.CreateHelpInfo(frame, "|n"..QUICK_KEYBIND_DESCRIPTION.."|n|n"..L["KeybindingTip"])

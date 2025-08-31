@@ -46,7 +46,7 @@ local function ReskinPopupFrame(self)
 	S:Proxy("StripTextures", self.Border)
 	S:Proxy("StripTextures", self.Header)
 	S:Proxy("StripTextures", self.Main)
-	B.SetBD(self)
+	B.CreateBG(self)
 end
 
 function S:TalentLoadoutsEx()
@@ -55,7 +55,7 @@ function S:TalentLoadoutsEx()
 	end, function()
 		local frame = _G.TalentLoadoutExMainFrame
 		B.StripTextures(frame)
-		B.SetBD(frame)
+		B.CreateBG(frame)
 		frame:ClearAllPoints()
 		frame:SetPoint("TOPLEFT", _G.PlayerSpellsFrame, "TOPRIGHT", 1, 0)
 		frame:SetPoint("BOTTOMLEFT", _G.PlayerSpellsFrame, "BOTTOMRIGHT", 1, 0)
@@ -77,7 +77,7 @@ function S:TalentLoadoutsEx()
 			local listFrame = popupFrame.IconListFrame
 			if listFrame then
 				B.StripTextures(listFrame)
-				B.SetBD(listFrame)
+				B.CreateBG(listFrame)
 				listFrame:ClearAllPoints()
 				listFrame:SetPoint("TOPLEFT", popupFrame, "BOTTOMLEFT")
 				listFrame:SetPoint("TOPRIGHT", popupFrame, "BOTTOMRIGHT")
@@ -95,7 +95,7 @@ function S:TalentLoadoutsEx()
 			local textFrame = popupFrame.TalentTextFrame
 			if textFrame then
 				B.StripTextures(textFrame)
-				B.SetBD(textFrame)
+				B.CreateBG(textFrame)
 				textFrame:ClearAllPoints()
 				textFrame:SetPoint("BOTTOMLEFT", popupFrame, "TOPLEFT")
 				textFrame:SetPoint("BOTTOMRIGHT", popupFrame, "TOPRIGHT")

@@ -231,7 +231,7 @@ C.OnLoadThemes["Blizzard_PVPUI"] = function()
 		local popup = PlunderstormFramePopup
 		if popup then
 			B.StripTextures(popup)
-			B.SetBD(popup)
+			B.CreateBG(popup)
 			B.ReskinButton(popup.AcceptButton)
 			B.ReskinButton(popup.DeclineButton)
 		end

@@ -4,18 +4,18 @@ local B, C, L, DB = unpack(ns)
 C.OnLoginThemes["HelpFrame"] = function()
 
 	B.StripTextures(HelpFrame)
-	B.SetBD(HelpFrame)
+	B.CreateBG(HelpFrame)
 	B.ReskinClose(HelpFrame.CloseButton)
 	B.StripTextures(HelpBrowser.BrowserInset)
 
 	B.StripTextures(BrowserSettingsTooltip)
-	B.SetBD(BrowserSettingsTooltip)
+	B.CreateBG(BrowserSettingsTooltip)
 	B.ReskinButton(BrowserSettingsTooltip.CookiesButton)
 
 	B.StripTextures(TicketStatusFrameButton)
-	B.SetBD(TicketStatusFrameButton)
+	B.CreateBG(TicketStatusFrameButton)
 
-	B.SetBD(ReportCheatingDialog)
+	B.CreateBG(ReportCheatingDialog)
 	ReportCheatingDialog.Border:Hide()
 	B.ReskinButton(ReportCheatingDialogReportButton)
 	B.ReskinButton(ReportCheatingDialogCancelButton)

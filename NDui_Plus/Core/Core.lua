@@ -247,7 +247,7 @@ function P:Notifications()
 	frame:SetSize(300, 150)
 	frame:SetFrameStrata("HIGH")
 	B.CreateMF(frame)
-	B.SetBD(frame)
+	B.CreateBG(frame)
 
 	local close = B.CreateButton(frame, 16, 16, true, DB.closeTex)
 	close:SetPoint("TOPRIGHT", -10, -10)

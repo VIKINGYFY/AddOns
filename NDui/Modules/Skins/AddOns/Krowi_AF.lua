@@ -199,7 +199,7 @@ function S:KrowiAF()
 				button.Background:SetTexture(nil)
 				button.Icon.Overlay:SetTexture(nil)
 				B.ReskinIcon(button.Icon.Texture)
-				button.bg = B.SetBD(button)
+				button.bg = B.CreateBG(button)
 				button.bg:SetPoint("TOPLEFT", 6, -9)
 				button.bg:SetPoint("BOTTOMRIGHT", 2, 12)
 			end
@@ -220,7 +220,7 @@ function S:KrowiAF()
 	local frame = KrowiAF_AchievementCalendarFrame
 	if frame then
 		B.StripTextures(frame)
-		B.SetBD(frame)
+		B.CreateBG(frame)
 		B.ReskinArrow(frame.PrevMonthButton, "left")
 		B.ReskinArrow(frame.NextMonthButton, "right")
 		B.ReskinClose(frame.CloseButton)
@@ -251,7 +251,7 @@ function S:KrowiAF()
 		if sideFrame then
 			B.StripTextures(sideFrame)
 			B.StripTextures(sideFrame.Header)
-			B.SetBD(sideFrame)
+			B.CreateBG(sideFrame)
 			B.ReskinClose(sideFrame.CloseButton)
 
 			local achesFrame = sideFrame.AchievementsFrame
@@ -277,7 +277,7 @@ function S:KrowiAF()
 		end
 
 		local showAllResults = container.ShowFullSearchResultsButton
-		local bg = B.SetBD(container)
+		local bg = B.CreateBG(container)
 		bg:SetPoint("TOPLEFT", -3, 3)
 		bg:SetPoint("BOTTOMRIGHT", showAllResults, 3, -3)
 		B.ReskinSearchList(showAllResults)

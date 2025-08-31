@@ -97,8 +97,8 @@ local function restyleMRTWidget(self)
 	local offset = 3
 
 	if not self.styled then
-		B.SetBD(iconTexture)
-		self.__bg = B.SetBD(bar)
+		B.CreateBG(iconTexture)
+		self.__bg = B.CreateBG(bar)
 		self.background:SetAllPoints(bar)
 
 		self.styled = true
@@ -229,7 +229,7 @@ function S:SoulshapeJournal()
 		styled = true
 
 		B.StripTextures(frame)
-		B.SetBD(frame) -- on top of mount journal
+		B.CreateBG(frame) -- on top of mount journal
 		B.ReskinClose(frame.CloseButton)
 		B.ReskinScroll(frame.ScrollFrame.ScrollBar)
 		B.ReskinArrow(frame.SoulshapeDisplay.ModelScene.RotateLeftButton, "left")
@@ -258,7 +258,7 @@ function S:ATT()
 	local function reskinATTWindow(frame)
 		if not frame or frame.styled then return end
 
-		B.SetBD(frame, 2)
+		B.CreateBG(frame, 2)
 		B.ReskinClose(frame.CloseButton, nil, -4, -4)
 		B.ReskinScroll(frame.ScrollBar)
 		frame.Grip:SetTexture([[Interface\ChatFrame\UI-ChatIM-SizeGrabber-Up]])
@@ -284,7 +284,7 @@ function S:TrinketMenu()
 	local function reskinFrame(frame)
 		if not frame then return end
 		B.StripTextures(frame)
-		B.SetBD(frame, 3)
+		B.CreateBG(frame, 3)
 	end
 
 	local function reskinButton(name)
@@ -315,7 +315,7 @@ function S:ERT()
 	if not C_AddOns.IsAddOnLoaded("EchoRaidTools") then return end
 
 	local function reskinTab(tab)
-		local bg = B.SetBD(tab)
+		local bg = B.CreateBG(tab)
 		bg:SetInside(tab, 2, 2)
 
 		tab:SetNormalTexture(0)
@@ -382,7 +382,7 @@ function S:PSFJ()
 
 	local frame = _G.ProtoformSynthesisFieldJournal
 	B.StripTextures(frame)
-	B.SetBD(frame)
+	B.CreateBG(frame)
 
 	B.ReskinClose(frame.CloseButton)
 	B.ReskinTab(frame.PanelTabs.PetTab)
@@ -465,7 +465,7 @@ function S:TLDR()
 
 	B.StripTextures(TLDRMissionsFrame)
 	B.ReskinClose(TLDRMissionsFrame.CloseButton)
-	B.SetBD(TLDRMissionsFrame, 2)
+	B.CreateBG(TLDRMissionsFrame, 2)
 	B.ReskinButton(TLDRMissionsToggleButton)
 
 	reskinUIElements(TLDRMissionsFrameMainPanel)

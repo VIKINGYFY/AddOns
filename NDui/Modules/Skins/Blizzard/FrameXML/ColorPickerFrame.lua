@@ -8,7 +8,7 @@ C.OnLoginThemes["ColorPickerFrame"] = function()
 	ColorPickerFrame.Header:SetPoint("TOP", ColorPickerFrame, 0, 10)
 	ColorPickerFrame.Border:Hide()
 
-	B.SetBD(ColorPickerFrame)
+	B.CreateBG(ColorPickerFrame)
 	B.ReskinButton(ColorPickerFrame.Footer.OkayButton)
 	B.ReskinButton(ColorPickerFrame.Footer.CancelButton)
 end

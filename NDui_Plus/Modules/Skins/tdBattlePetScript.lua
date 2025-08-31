@@ -46,7 +46,7 @@ function S:tdBattlePetScript()
 		local ScriptFrame = PetBattle.ScriptFrame
 		if ScriptFrame then
 			B.StripTextures(ScriptFrame)
-			B.SetBD(ScriptFrame)
+			B.CreateBG(ScriptFrame)
 			B.ReskinClose(ScriptFrame.CloseButton)
 		end
 
@@ -60,7 +60,7 @@ function S:tdBattlePetScript()
 	local MainPanel = tdBattlePetScript:GetModule("UI.MainPanel")
 	if MainPanel then
 		B.StripTextures(MainPanel.MainPanel)
-		B.SetBD(MainPanel.MainPanel)
+		B.CreateBG(MainPanel.MainPanel)
 		B.ReskinClose(MainPanel.MainPanel.CloseButton)
 
 		local Inset = MainPanel.Content:GetParent()
@@ -131,7 +131,7 @@ function S:tdBattlePetScript()
 	local Import = tdBattlePetScript:GetModule("UI.Import")
 	if Import then
 		B.StripTextures(Import.Frame)
-		B.SetBD(Import.Frame)
+		B.CreateBG(Import.Frame)
 		B.ReskinClose(Import.Frame.CloseButton)
 		-- page 1
 		B.Reskin(Import.WelcomeNextButton)

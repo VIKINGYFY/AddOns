@@ -22,7 +22,7 @@ C.OnLoginThemes["ChatFrame"] = function()
 	border:Hide()
 	B.ReskinButton(send)
 	B.ReskinButton(cancel)
-	B.SetBD(BattleTagInviteFrame)
+	B.CreateBG(BattleTagInviteFrame)
 
 	local friendTex = "Interface\\HELPFRAME\\ReportLagIcon-Chat"
 	local queueTex = "Interface\\HELPFRAME\\HelpIcon-ItemRestoration"
@@ -47,7 +47,7 @@ C.OnLoginThemes["ChatFrame"] = function()
 		self.FriendsButton:SetTexture(friendTex)
 	end)
 	QuickJoinToastButton.Toast.Background:SetTexture(nil)
-	local bg = B.SetBD(QuickJoinToastButton.Toast)
+	local bg = B.CreateBG(QuickJoinToastButton.Toast)
 	bg:SetPoint("TOPLEFT", 10, -1)
 	bg:SetPoint("BOTTOMRIGHT", 0, 3)
 	bg:Hide()
@@ -91,17 +91,17 @@ C.OnLoginThemes["ChatFrame"] = function()
 	end)
 
 	B.StripTextures(CreateChannelPopup)
-	B.SetBD(CreateChannelPopup)
+	B.CreateBG(CreateChannelPopup)
 	B.ReskinButton(CreateChannelPopup.OKButton)
 	B.ReskinButton(CreateChannelPopup.CancelButton)
 	B.ReskinClose(CreateChannelPopup.CloseButton)
 	B.ReskinInput(CreateChannelPopup.Name)
 	B.ReskinInput(CreateChannelPopup.Password)
 
-	B.SetBD(VoiceChatPromptActivateChannel)
+	B.CreateBG(VoiceChatPromptActivateChannel)
 	B.ReskinButton(VoiceChatPromptActivateChannel.AcceptButton)
 	VoiceChatChannelActivatedNotification:SetBackdrop(nil)
-	B.SetBD(VoiceChatChannelActivatedNotification)
+	B.CreateBG(VoiceChatChannelActivatedNotification)
 
 	-- VoiceActivityManager
 	hooksecurefunc(VoiceActivityManager, "LinkFrameNotificationAndGuid", function(_, _, notification, guid)

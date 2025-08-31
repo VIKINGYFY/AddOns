@@ -15,7 +15,7 @@ C.OnLoginThemes["Menu"] = function()
 		if backdrops[menuFrame] then
 			menuFrame.bg = backdrops[menuFrame]
 		else
-			menuFrame.bg = B.SetBD(menuFrame)
+			menuFrame.bg = B.CreateBG(menuFrame)
 			backdrops[menuFrame] = menuFrame.bg
 		end
 

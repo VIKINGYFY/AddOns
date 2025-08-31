@@ -8,7 +8,7 @@ C.OnLoginThemes["GhostFrame"] = function()
 	end
 	B.ReskinIcon(GhostFrameContentsFrameIcon)
 
-	local bg = B.SetBD(GhostFrame)
+	local bg = B.CreateBG(GhostFrame)
 	GhostFrame:SetHighlightTexture(DB.bdTex)
 	GhostFrame:GetHighlightTexture():SetVertexColor(DB.r, DB.g, DB.b, .25)
 end

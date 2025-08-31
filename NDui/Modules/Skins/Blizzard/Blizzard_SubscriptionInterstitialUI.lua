@@ -11,7 +11,7 @@ C.OnLoadThemes["Blizzard_SubscriptionInterstitialUI"] = function()
 
 	B.StripTextures(frame)
 	frame.ShadowOverlay:Hide()
-	B.SetBD(frame)
+	B.CreateBG(frame)
 	B.ReskinButton(frame.ClosePanelButton)
 	B.ReskinClose(frame.CloseButton)
 

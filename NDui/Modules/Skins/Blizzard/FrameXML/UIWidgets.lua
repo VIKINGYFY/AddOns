@@ -16,7 +16,7 @@ end
 local function ReskinWidgetStatusBar(bar)
 	if bar and not bar.styled then
 		B.CleanTextures(bar)
-		B.SetBD(bar)
+		B.CreateBG(bar)
 
 		if bar.Label then
 			--bar.Label:SetPoint("CENTER", 0, -5)
@@ -50,7 +50,7 @@ local function ReskinPVPCaptureBar(self)
 	self.RightBar:SetVertexColor(.9, .2, .2)
 
 	if not self.bg then
-		self.bg = B.SetBD(self)
+		self.bg = B.CreateBG(self)
 		self.bg:SetPoint("TOPLEFT", self.LeftBar, -2, 2)
 		self.bg:SetPoint("BOTTOMRIGHT", self.RightBar, 2, -2)
 	end

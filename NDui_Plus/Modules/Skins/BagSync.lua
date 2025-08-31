@@ -18,7 +18,7 @@ local function SkinInfoFrame(self)
 	end
 
 	B.StripTextures(self)
-	B.SetBD(self)
+	B.CreateBG(self)
 	S:Proxy("ReskinClose", self.CloseButton)
 end
 
@@ -46,7 +46,7 @@ local function SkinBagSyncFrame(name, module)
 	if not frame then return end
 
 	B.StripTextures(frame)
-	B.SetBD(frame)
+	B.CreateBG(frame)
 
 	if frame.closeBtn then
 		B.ReskinClose(frame.closeBtn)

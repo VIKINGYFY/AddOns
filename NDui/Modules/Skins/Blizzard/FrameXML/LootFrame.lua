@@ -4,7 +4,7 @@ local B, C, L, DB = unpack(ns)
 C.OnLoginThemes["LootFrame"] = function()
 	B.ReskinClose(LootFrame.ClosePanelButton)
 	B.StripTextures(LootFrame)
-	B.SetBD(LootFrame)
+	B.CreateBG(LootFrame)
 	B.ReskinScroll(LootFrame.ScrollBar)
 
 	local function updateHighlight(self)
@@ -95,7 +95,7 @@ C.OnLoginThemes["LootFrame"] = function()
 			local frame = _G["GroupLootFrame"..i]
 			if not frame.styled then
 				frame.Background:SetAlpha(0)
-				frame.bg = B.SetBD(frame)
+				frame.bg = B.CreateBG(frame)
 				B.ReskinBorder(frame.Border, true)
 
 				frame.Timer.Bar:SetTexture(DB.bdTex)

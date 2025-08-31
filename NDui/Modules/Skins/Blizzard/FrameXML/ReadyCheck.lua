@@ -5,7 +5,7 @@ C.OnLoginThemes["ReadyCheck"] = function()
 
 	-- Ready check
 	B.StripTextures(ReadyCheckListenerFrame)
-	B.SetBD(ReadyCheckListenerFrame, 30, -1, 1, -1)
+	B.CreateBG(ReadyCheckListenerFrame, 30, -1, 1, -1)
 	ReadyCheckPortrait:SetAlpha(0)
 
 	B.ReskinButton(ReadyCheckFrameYesButton)
@@ -13,7 +13,7 @@ C.OnLoginThemes["ReadyCheck"] = function()
 
 	-- Role poll
 	B.StripTextures(RolePollPopup)
-	B.SetBD(RolePollPopup)
+	B.CreateBG(RolePollPopup)
 	B.ReskinButton(RolePollPopupAcceptButton)
 	B.ReskinClose(RolePollPopupCloseButton)
 

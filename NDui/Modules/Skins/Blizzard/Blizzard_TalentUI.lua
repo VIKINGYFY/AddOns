@@ -167,7 +167,7 @@ C.OnLoadThemes["Blizzard_TalentUI"] = function()
 	talentList:ClearAllPoints()
 	talentList:SetPoint("LEFT", PlayerTalentFrame, "RIGHT", 3, 0)
 	B.StripTextures(talentList)
-	B.SetBD(talentList)
+	B.CreateBG(talentList)
 	talentList.Inset:Hide()
 	B.ReskinButton(select(4, talentList:GetChildren()), nil)
 

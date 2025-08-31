@@ -3,8 +3,7 @@ local B, C, L, DB = unpack(ns)
 local module = B:GetModule("Maps")
 
 function module:CreatePulse()
-	local bg = B.SetBD(Minimap)
-	bg:SetOutside()
+	local bg = B.CreateBG(Minimap, -1)
 
 	if not C.db["Map"]["CombatPulse"] then return end
 
@@ -186,7 +185,7 @@ function module:ReskinRegions()
 	Invt:SetPoint("TOPRIGHT", Minimap, "BOTTOMLEFT", -20, -20)
 	Invt:SetSize(250, 80)
 	Invt:Hide()
-	B.SetBD(Invt)
+	B.CreateBG(Invt)
 	B.CreateFS(Invt, 16, GAMETIME_TOOLTIP_CALENDAR_INVITES, "info")
 
 	local lastInv = 0
@@ -220,7 +219,7 @@ function module:BlizzardACF()
 		frame:SetPoint("BOTTOMRIGHT", Minimap, -26, 2)
 		frame:SetFrameStrata("HIGH")
 		B.StripTextures(frame)
-		B.SetBD(frame)
+		B.CreateBG(frame)
 	end
 end
 
@@ -483,10 +482,11 @@ function module:UpdateMinimapScale()
 
 	local size = C.db["Map"]["MinimapSize"]
 	local scale = C.db["Map"]["MinimapScale"]
+	local moverSize = size + 2*C.mult
 	Minimap:SetSize(size, size)
 	Minimap:SetScale(scale)
 	if Minimap.mover then
-		Minimap.mover:SetSize(size*scale, size*scale)
+		Minimap.mover:SetSize(moverSize*scale, moverSize*scale)
 	end
 end
 
@@ -648,11 +648,11 @@ function module:SetupMinimap()
 
 	local mover = B.Mover(Minimap, L["Minimap"], "Minimap", C.Minimap.Pos)
 	Minimap:ClearAllPoints()
-	Minimap:SetPoint("TOPRIGHT", mover)
+	Minimap:SetPoint("CENTER", mover)
 	hooksecurefunc(Minimap, "SetPoint", function(frame, _, _, _, _, _, force)
 		if force then return end
 		frame:ClearAllPoints()
-		frame:SetPoint("TOPRIGHT", mover, "TOPRIGHT", 0, 0, true)
+		frame:SetPoint("CENTER", mover, "CENTER", 0, 0, true)
 	end)
 
 	Minimap.mover = mover

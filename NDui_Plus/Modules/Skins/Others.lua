@@ -38,7 +38,7 @@ function S:MogPartialSets()
 	local filter = _G.MogPartialSets_Filter
 	if filter then
 		B.StripTextures(filter)
-		B.SetBD(filter)
+		B.CreateBG(filter)
 		filter:SetScale(NDuiADB["UIScale"])
 
 		for _, key in ipairs({"ShowExtraSetsToggle", "OnlyFavoriteToggle", "FavoriteVariantsToggle", "UseHiddenIfMissingToggle"}) do
@@ -134,7 +134,7 @@ function S:SavedInstances()
 			local frame = _G.SavedInstancesDetachHeader
 			if frame and not frame.styled then
 				B.StripTextures(frame)
-				B.SetBD(frame)
+				B.CreateBG(frame)
 				B.ReskinClose(frame.CloseButton, nil, -2, -2)
 				frame.CloseButton:SetAlpha(1)
 
@@ -160,7 +160,7 @@ end
 
 function S:BuyEmAll()
 	B.StripTextures(_G.BuyEmAllFrame)
-	B.SetBD(_G.BuyEmAllFrame, 10, -10, -10, 10)
+	B.CreateBG(_G.BuyEmAllFrame, 10, -10, -10, 10)
 	B.Reskin(_G.BuyEmAllOkayButton)
 	B.Reskin(_G.BuyEmAllCancelButton)
 	B.Reskin(_G.BuyEmAllStackButton)
@@ -192,7 +192,7 @@ function S:WarpDeplete_HandleBar(object)
 	local frame = object.frame
 
 	B.StripTextures(frame)
-	B.SetBD(frame, nil, 0, 0, 0, 0)
+	B.CreateBG(frame, nil, 0, 0, 0, 0)
 	frame.SetBackdrop = B.Dummy
 	bar:SetStatusBarTexture(DB.normTex)
 	bar.SetStatusBarTexture = B.Dummy

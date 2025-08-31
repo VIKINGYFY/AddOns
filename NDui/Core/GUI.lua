@@ -164,7 +164,6 @@ G.DefaultSettings = {
 		NumGroups = 8,
 		RaidDirec = 1,
 		RaidRows = 1,
-		RaidSpacing = 5,
 		SimpleMode = false,
 		SMRScale = 10,
 		SMRPerCol = 20,
@@ -194,7 +193,6 @@ G.DefaultSettings = {
 		PartyWidth = 100,
 		PartyHeight = 32,
 		PartyPowerHeight = 2,
-		PartySpacing = 5,
 		PartyPetFrame = false,
 		PartyPetWidth = 100,
 		PartyPetHeight = 22,
@@ -1664,7 +1662,7 @@ function G:AddContactFrame()
 	local frame = CreateFrame("Frame", nil, UIParent)
 	frame:SetSize(300, 300)
 	frame:SetPoint("CENTER")
-	B.SetBD(frame)
+	B.CreateBG(frame)
 	B.CreateWatermark(frame)
 
 	B.CreateFS(frame, 16, L["Contact"], true, "TOP", 0, -10)
@@ -1717,7 +1715,7 @@ local function OpenGUI()
 	f:SetPoint("CENTER")
 	f:SetFrameStrata("HIGH")
 	B.CreateMF(f)
-	B.SetBD(f)
+	B.CreateBG(f)
 	B.CreateFS(f, 18, L["NDui Console"], true, "TOP", 0, -10)
 	B.CreateFS(f, 16, DB.Version.." ("..DB.Support..")", false, "TOP", 0, -30)
 

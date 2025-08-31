@@ -197,7 +197,7 @@ end
 function module:CreateBagBar(settings, columns)
 	local bagBar = self:SpawnPlugin("BagBar", settings.Bags)
 	bagBar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -5)
-	B.SetBD(bagBar)
+	B.CreateBG(bagBar)
 	bagBar.highlightFunction = highlightFunction
 	bagBar.isGlobal = true
 	bagBar:Hide()
@@ -211,7 +211,7 @@ end
 function module:CreateBagTab(settings, columns, account)
 	local bagTab = self:SpawnPlugin("BagTab", settings.Bags, account)
 	bagTab:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -5)
-	B.SetBD(bagTab)
+	B.CreateBG(bagTab)
 	bagTab.highlightFunction = highlightFunction
 	bagTab.isGlobal = true
 	bagTab:Hide()
@@ -525,7 +525,7 @@ function module:CreateSplitButton()
 	splitFrame:SetSize(100, 50)
 	splitFrame:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -5)
 	B.CreateFS(splitFrame, 14, L["SplitCount"], "system", "TOP", 1, -5)
-	B.SetBD(splitFrame)
+	B.CreateBG(splitFrame)
 	splitFrame:Hide()
 	local editbox = B.CreateEditBox(splitFrame, 90, 20)
 	editbox:SetPoint("BOTTOMLEFT", 5, 5)
@@ -1168,7 +1168,7 @@ function module:OnLogin()
 		self.Settings = settings
 		self:SetFrameStrata("HIGH")
 		self:SetClampedToScreen(true)
-		B.SetBD(self)
+		B.CreateBG(self)
 		if settings.Bags then
 			B.CreateMF(self, nil, true)
 		end

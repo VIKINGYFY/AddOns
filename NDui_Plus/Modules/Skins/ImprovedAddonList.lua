@@ -46,7 +46,7 @@ function S:ImprovedAddonList()
 	local inputDialog = _G.ImprovedAddonListInputDialog
 	if inputDialog then
 		B.StripTextures(inputDialog)
-		B.SetBD(inputDialog)
+		B.CreateBG(inputDialog)
 		B.ReskinClose(inputDialog.CloseButton)
 		B.ReskinInput(inputDialog.EditBox)
 		B.Reskin(inputDialog.OkayButton)
@@ -74,7 +74,7 @@ function S:ImprovedAddonList()
 	local remarkDialog = _G.ImprovedAddonListInputRemarkDialog
 	if remarkDialog then
 		B.StripTextures(remarkDialog)
-		B.SetBD(remarkDialog)
+		B.CreateBG(remarkDialog)
 		B.ReskinClose(remarkDialog.CloseButton)
 		B.ReskinInput(remarkDialog.EditBox)
 	end
@@ -82,7 +82,7 @@ function S:ImprovedAddonList()
 	local switchDialog = _G.ImprovedAddonListSwitchConfigurationPromptDialog
 	if switchDialog then
 		B.StripTextures(switchDialog)
-		B.SetBD(switchDialog)
+		B.CreateBG(switchDialog)
 		B.ReskinClose(switchDialog.CloseButton)
 
 		local list = switchDialog.List

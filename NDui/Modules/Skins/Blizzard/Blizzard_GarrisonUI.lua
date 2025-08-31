@@ -290,7 +290,7 @@ end
 
 local function ReskinMissionFrame(self)
 	B.StripTextures(self, 0)
-	B.SetBD(self)
+	B.CreateBG(self)
 	B.StripTextures(self.CloseButton, 0)
 	B.ReskinClose(self.CloseButton)
 	B.ReskinFrameTab(self, 3)
@@ -386,7 +386,7 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 	-- Building frame
 	local GarrisonBuildingFrame = GarrisonBuildingFrame
 	B.StripTextures(GarrisonBuildingFrame)
-	B.SetBD(GarrisonBuildingFrame)
+	B.CreateBG(GarrisonBuildingFrame)
 	B.ReskinClose(GarrisonBuildingFrame.CloseButton)
 	GarrisonBuildingFrame.GarrCorners:Hide()
 
@@ -535,7 +535,7 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 	-- Landing page
 	local GarrisonLandingPage = GarrisonLandingPage
 	B.StripTextures(GarrisonLandingPage)
-	B.SetBD(GarrisonLandingPage)
+	B.CreateBG(GarrisonLandingPage)
 	B.ReskinClose(GarrisonLandingPage.CloseButton)
 	B.ReskinFrameTab(GarrisonLandingPage, 3)
 
@@ -840,7 +840,7 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 	-- Monuments
 	local GarrisonMonumentFrame = GarrisonMonumentFrame
 	GarrisonMonumentFrame.Background:Hide()
-	B.SetBD(GarrisonMonumentFrame, 6, -10, -6, 4)
+	B.CreateBG(GarrisonMonumentFrame, 6, -10, -6, 4)
 
 	for _, name in pairs({"Left", "Right"}) do
 		local button = GarrisonMonumentFrame[name.."Btn"]
@@ -855,7 +855,7 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 	B.StripTextures(GarrisonShipyardFrame)
 	GarrisonShipyardFrame.BorderFrame.GarrCorners:Hide()
 	GarrisonShipyardFrame.BackgroundTile:Hide()
-	B.SetBD(GarrisonShipyardFrame)
+	B.CreateBG(GarrisonShipyardFrame)
 	B.ReskinInput(GarrisonShipyardFrameFollowers.SearchBox)
 	B.ReskinScroll(GarrisonShipyardFrame.FollowerList.ScrollBar)
 	B.StripTextures(GarrisonShipyardFrameFollowers)
@@ -989,7 +989,7 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 			if not WarPlanFrame then return end
 
 			B.StripTextures(WarPlanFrame)
-			B.SetBD(WarPlanFrame)
+			B.CreateBG(WarPlanFrame)
 			B.StripTextures(WarPlanFrame.ArtFrame)
 			B.ReskinClose(WarPlanFrame.ArtFrame.CloseButton)
 			B.ReskinText(WarPlanFrame.ArtFrame.TitleText, 1, .8, 0)
@@ -1234,7 +1234,7 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 					B.StripTextures(widget)
 					B.CreateBDFrame(widget, 1)
 				elseif otype == "MissionToast" then
-					B.SetBD(widget)
+					B.CreateBG(widget)
 					if widget.Background then widget.Background:Hide() end
 					if widget.Detail then widget.Detail:SetFontObject("Game13Font") end
 				elseif otype == "RewardFrame" then

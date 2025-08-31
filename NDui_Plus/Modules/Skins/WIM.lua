@@ -21,7 +21,7 @@ local function HandleChatFrame(frame)
 		backdrop[v]:SetTexture(nil)
 		backdrop[v].SetTexture = B.Dummy
 	end
-	B.SetBD(backdrop)
+	B.CreateBG(backdrop)
 
 	msgbox.bg = B.CreateBDFrame(msgbox, .25)
 	msgbox.bg:SetPoint("TOPLEFT", -6, -2)

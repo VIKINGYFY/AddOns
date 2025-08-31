@@ -24,7 +24,7 @@ local function changelog()
 	f:SetPoint("CENTER")
 	f:SetFrameStrata("HIGH")
 	B.CreateMF(f)
-	B.SetBD(f)
+	B.CreateBG(f)
 	B.CreateFS(f, 18, majorVersion.." "..L["Changelog"], true, "TOP", 0, -10)
 	B.CreateWatermark(f)
 

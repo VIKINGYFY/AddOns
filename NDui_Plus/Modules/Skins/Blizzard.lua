@@ -7,7 +7,7 @@ function S:QuestMapFrame()
 		if not tab.bg then
 			B.StripTextures(tab, 2)
 
-			tab.bg = B.SetBD(tab, 1, -4, -5, 4)
+			tab.bg = B.CreateBG(tab, 1, -4, -5, 4)
 			B.ReskinHLTex(tab.SelectedTexture, tab.bg, true)
 		end
 	end

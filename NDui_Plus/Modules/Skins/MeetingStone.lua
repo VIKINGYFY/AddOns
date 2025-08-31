@@ -169,7 +169,7 @@ function S:MeetingStone()
 			if frame.CloseButton then B.ReskinClose(frame.CloseButton) end
 
 			MS_StripTextures(frame)
-			B.SetBD(frame)
+			B.CreateBG(frame)
 		end
 	end
 
@@ -413,7 +413,7 @@ function S:MeetingStone()
 	local DataBroker = MSEnv.DataBroker
 	DataBroker.BrokerPanel:SetBackdrop(nil)
 	DataBroker.BrokerPanel:SetSize(174, 30)
-	B.SetBD(DataBroker.BrokerPanel, nil, 0, 0, 0, 0)
+	B.CreateBG(DataBroker.BrokerPanel, nil, 0, 0, 0, 0)
 	DataBroker.BrokerIcon:SetPoint("LEFT", 8, 0)
 
 	-- Misc
@@ -576,7 +576,7 @@ function S:MeetingStone()
 		end
 
 		B.StripTextures(PlayerInfoDialog)
-		B.SetBD(PlayerInfoDialog)
+		B.CreateBG(PlayerInfoDialog)
 		B.ReskinClose(PlayerInfoDialog.CloseButton)
 
 		for _, input in PlayerInfoDialog:IterateInputBoxes() do

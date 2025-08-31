@@ -173,7 +173,7 @@ C.OnLoadThemes["Blizzard_ProfessionsCustomerOrders"] = function()
 
 	local current = frame.Form.CurrentListings
 	B.StripTextures(current)
-	B.SetBD(current)
+	B.CreateBG(current)
 	B.ReskinButton(current.CloseButton)
 	B.ReskinScroll(current.OrderList.ScrollBar)
 	reskinListHeader(current.OrderList.HeaderContainer)
@@ -211,7 +211,7 @@ C.OnLoadThemes["Blizzard_ProfessionsCustomerOrders"] = function()
 
 	local qualityDialog = frame.Form.QualityDialog
 	B.StripTextures(qualityDialog)
-	B.SetBD(qualityDialog)
+	B.CreateBG(qualityDialog)
 	B.ReskinClose(qualityDialog.ClosePanelButton)
 	B.ReskinButton(qualityDialog.AcceptButton)
 	B.ReskinButton(qualityDialog.CancelButton)

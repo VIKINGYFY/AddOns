@@ -31,7 +31,7 @@ local function createExtraGUI(parent, name, title, bgFrame)
 	local frame = CreateFrame("Frame", name, parent)
 	frame:SetSize(300, 600)
 	frame:SetPoint("TOPLEFT", parent:GetParent(), "TOPRIGHT", 3, 0)
-	B.SetBD(frame)
+	B.CreateBG(frame)
 
 	if title then
 		B.CreateFS(frame, 14, title, "system", "TOPLEFT", 20, -25)
@@ -1146,7 +1146,7 @@ function G:SetupRaidFrame(parent)
 	local scroll = G:CreateScroll(panel, 260, 540)
 	local UF = B:GetModule("UnitFrames")
 
-	local defaultData = {80, 32, 2, 8, 1, 5}
+	local defaultData = {80, 32, 2, 8, 1}
 	local options = {}
 	for i = 1, 8 do
 		options[i] = UF.RaidDirections[i].name
@@ -1185,7 +1185,6 @@ function G:SetupRaidFrame(parent)
 	createOptionSlider(scroll.child, L["Power Height"], 0, 30, defaultData[3], -260, "RaidPowerHeight", resizeRaidFrame)
 	createOptionSlider(scroll.child, L["Num Groups"], 2, 8, defaultData[4], -340, "NumGroups", updateNumGroups)
 	createOptionSlider(scroll.child, L["RaidRows"], 1, 8, defaultData[5], -420, "RaidRows", updateNumGroups)
-	createOptionSlider(scroll.child, L["Spacing"], 0, 10, defaultData[6], -500, "RaidSpacing", updateNumGroups)
 end
 
 function G:SetupSimpleRaidFrame(parent)
@@ -1253,7 +1252,7 @@ function G:SetupPartyFrame(parent)
 		UF:UpdatePartyElements()
 	end
 
-	local defaultData = {100, 32, 2, 5}
+	local defaultData = {100, 32, 2}
 	local options = {}
 	for i = 1, 4 do
 		options[i] = UF.PartyDirections[i].name
@@ -1265,7 +1264,6 @@ function G:SetupPartyFrame(parent)
 	createOptionSlider(scroll.child, L["Width"], 80, 200, defaultData[1], -210, "PartyWidth", resizePartyFrame)
 	createOptionSlider(scroll.child, L["Height"], 25, 60, defaultData[2], -290, "PartyHeight", resizePartyFrame)
 	createOptionSlider(scroll.child, L["Power Height"], 0, 30, defaultData[3], -370, "PartyPowerHeight", resizePartyFrame)
-	createOptionSlider(scroll.child, L["Spacing"], 0, 10, defaultData[4], -450, "PartySpacing", resizePartyFrame)
 end
 
 function G:SetupPartyPetFrame(parent)
@@ -1345,10 +1343,10 @@ function G:SetupCastbar(parent)
 	local function updateCastbar(castbar, width, height)
 		B.SetFontSize(castbar.Text, height * .6)
 		B.SetFontSize(castbar.Time, height * .6)
-		castbar:SetSize(width - 2*C.mult, height - 2*C.mult)
-		castbar.Icon:SetSize(height - 2*C.mult, height - 2*C.mult)
+		castbar:SetSize(width, height)
+		castbar.Icon:SetSize(height, height)
 		castbar.mover:Show()
-		castbar.mover:SetSize(width + height + DB.margin - 2*C.mult, height)
+		castbar.mover:SetSize(width + height + DB.margin + 2*C.mult, height + 2*C.mult)
 	end
 
 	local function createOptionGroup(parent, title, offset, value, func)
@@ -1424,8 +1422,8 @@ function G:SetupSwingBars(parent)
 		local width, height = C.db["UFs"]["SwingWidth"], C.db["UFs"]["SwingHeight"]
 		local swing = frame.Swing
 		swing:SetSize(width, height)
-		swing.Offhand:SetSize(width - 2*C.mult, height - 2*C.mult)
-		swing.mover:SetSize(width, height)
+		swing.Offhand:SetSize(width, height)
+		swing.mover:SetSize(width + 2*C.mult, height + 2*C.mult)
 		swing.mover:Show()
 
 		swing.Text:SetShown(C.db["UFs"]["SwingTimer"])
@@ -2245,7 +2243,7 @@ function G:SetupAvada()
 	local panel = CreateFrame("Frame", guiName, UIParent, "BackdropTemplate")
 	panel:SetSize(620, 295)
 	panel:SetPoint("CENTER")
-	B.SetBD(panel)
+	B.CreateBG(panel)
 	B.CreateMF(panel)
 	extraGUIs[guiName] = panel
 

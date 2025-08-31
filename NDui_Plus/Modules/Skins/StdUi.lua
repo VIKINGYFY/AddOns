@@ -31,7 +31,7 @@ function S:StdUi()
 	StdUi.Window = function(...)
 		local frame = origWindow(...)
 		B.StripTextures(frame)
-		B.SetBD(frame)
+		B.CreateBG(frame)
 
 		local close = frame.closeBtn
 		if close then

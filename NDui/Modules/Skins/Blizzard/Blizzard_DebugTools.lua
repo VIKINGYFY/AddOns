@@ -5,7 +5,7 @@ local function reskinTableAttribute(frame)
 	if frame.styled then return end
 
 	B.StripTextures(frame)
-	B.SetBD(frame)
+	B.CreateBG(frame)
 	B.ReskinClose(frame.CloseButton)
 	B.ReskinCheck(frame.VisibilityButton)
 	B.ReskinCheck(frame.HighlightButton)

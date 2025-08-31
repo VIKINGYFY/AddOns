@@ -11,7 +11,7 @@ C.OnLoginThemes["EditModeManager"] = function()
 	local frame = EditModeManagerFrame
 
 	B.StripTextures(frame)
-	B.SetBD(frame)
+	B.CreateBG(frame)
 	B.ReskinClose(frame.CloseButton)
 	B.ReskinButton(frame.RevertAllChangesButton)
 	B.ReskinButton(frame.SaveChangesButton)
@@ -26,7 +26,7 @@ C.OnLoginThemes["EditModeManager"] = function()
 
 	local dialog = EditModeSystemSettingsDialog
 	B.StripTextures(dialog)
-	B.SetBD(dialog)
+	B.CreateBG(dialog)
 	B.ReskinClose(dialog.CloseButton)
 	frame.AccountSettings.SettingsContainer.BorderArt:Hide()
 	B.CreateBDFrame(frame.AccountSettings.SettingsContainer, .25)
@@ -99,14 +99,14 @@ C.OnLoginThemes["EditModeManager"] = function()
 
 	local dialog = EditModeUnsavedChangesDialog
 	B.StripTextures(dialog)
-	B.SetBD(dialog)
+	B.CreateBG(dialog)
 	B.ReskinButton(dialog.SaveAndProceedButton)
 	B.ReskinButton(dialog.ProceedButton)
 	B.ReskinButton(dialog.CancelButton)
 
 	local function ReskinLayoutDialog(dialog)
 		B.StripTextures(dialog)
-		B.SetBD(dialog)
+		B.CreateBG(dialog)
 		B.ReskinButton(dialog.AcceptButton)
 		B.ReskinButton(dialog.CancelButton)
 

@@ -42,7 +42,7 @@ local function createGearFrame()
 	gearFrame:SetSize(600, 400)
 	gearFrame:SetFrameStrata("DIALOG")
 	B.CreateMF(gearFrame)
-	B.SetBD(gearFrame)
+	B.CreateBG(gearFrame)
 
 	gearFrame.Header = B.CreateFS(gearFrame, 14, L["Transmog"], true, "TOP", 0, -5)
 

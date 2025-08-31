@@ -59,7 +59,7 @@ C.OnLoadThemes["Blizzard_ClickBindingUI"] = function()
 	hooksecurefunc(frame.ScrollBox, "Update", reskinScrollChild)
 
 	frame.TutorialFrame.NineSlice:Hide()
-	B.SetBD(frame.TutorialFrame)
+	B.CreateBG(frame.TutorialFrame)
 
 	if frame.EnableMouseoverCastCheckbox then
 		B.ReskinCheck(frame.EnableMouseoverCastCheckbox)

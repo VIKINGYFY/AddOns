@@ -85,7 +85,7 @@ do
 
 	function B:ReskinIconSelector()
 		B.StripTextures(self)
-		B.SetBD(self):SetInside()
+		B.CreateBG(self):SetInside()
 		B.StripTextures(self.BorderBox)
 		B.StripTextures(self.BorderBox.IconSelectorEditBox, 2)
 		B.ReskinInput(self.BorderBox.IconSelectorEditBox)
@@ -169,7 +169,7 @@ do
 				flyoutFrame = child
 
 				B.StripTextures(flyoutFrame)
-				flyoutFrame.bg = B.SetBD(flyoutFrame)
+				flyoutFrame.bg = B.CreateBG(flyoutFrame)
 				hooksecurefunc(flyoutFrame, "SetParent", resetFrameStrata)
 				B.ReskinCheck(checkbox)
 				checkbox.bg:SetInside(nil, 6, 6)

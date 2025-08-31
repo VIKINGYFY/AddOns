@@ -113,7 +113,7 @@ local function SetupCooldown(cooldown, cfg)
 end
 
 local function SetupBackdrop(icon)
-	local bg = B.SetBD(icon)
+	local bg = B.CreateBG(icon)
 	if C.db["Actionbar"]["Classcolor"] then
 		bg:SetBackdropColor(DB.r, DB.g, DB.b, .25)
 	else

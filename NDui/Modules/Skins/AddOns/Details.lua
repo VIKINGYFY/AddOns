@@ -23,7 +23,7 @@ local function SetupInstance(instance)
 	instance:SetBarTextSettings(needReset and 12, needReset and DB.Font[1], nil, nil, nil, true, true, true)
 	instance:SetBarRightTextSettings(true, true, true)
 
-	local bg = B.SetBD(instance.baseframe)
+	local bg = B.CreateBG(instance.baseframe)
 	bg:ClearAllPoints()
 	bg:SetPoint("TOPLEFT", instance.baseframe.titleBar, "TOPLEFT", -2*C.mult, 3)
 	bg:SetPoint("BOTTOMRIGHT", instance.baseframe, "BOTTOMRIGHT", 2*C.mult, 1)

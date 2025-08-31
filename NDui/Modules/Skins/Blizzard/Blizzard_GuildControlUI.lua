@@ -21,7 +21,7 @@ end
 
 C.OnLoadThemes["Blizzard_GuildControlUI"] = function()
 
-	B.SetBD(GuildControlUI)
+	B.CreateBG(GuildControlUI)
 
 	for i = 1, 9 do
 		select(i, GuildControlUI:GetRegions()):Hide()

@@ -172,7 +172,7 @@ function M:MailBox_ContactList()
 	list:SetSize(200, 424)
 	list:SetPoint("TOPLEFT", MailFrame, "TOPRIGHT", DB.margin, 0)
 	list:SetFrameStrata("HIGH")
-	B.SetBD(list)
+	B.CreateBG(list)
 	B.CreateFS(list, 14, L["ContactList"], "system", "TOP", 0, -5)
 
 	bu:SetScript("OnClick", function()

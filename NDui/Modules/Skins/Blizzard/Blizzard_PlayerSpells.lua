@@ -3,7 +3,7 @@ local B, C, L, DB = unpack(ns)
 
 local function reskinTalentFrameDialog(dialog)
 	B.StripTextures(dialog)
-	B.SetBD(dialog)
+	B.CreateBG(dialog)
 	if dialog.AcceptButton then B.ReskinButton(dialog.AcceptButton) end
 	if dialog.CancelButton then B.ReskinButton(dialog.CancelButton) end
 	if dialog.DeleteButton then B.ReskinButton(dialog.DeleteButton) end
@@ -100,7 +100,7 @@ C.OnLoadThemes["Blizzard_PlayerSpells"] = function()
 	local dialog = HeroTalentsSelectionDialog
 	if dialog then
 		B.StripTextures(dialog)
-		B.SetBD(dialog)
+		B.CreateBG(dialog)
 		B.ReskinClose(dialog.CloseButton)
 
 		hooksecurefunc(dialog, "ShowDialog", function(self)

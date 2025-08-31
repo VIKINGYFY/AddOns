@@ -50,7 +50,7 @@ function S:CompactVendor()
 	local StackSplitFrame = _G.CompactVendorFrameMerchantStackSplitFrame
 	if StackSplitFrame then
 		B.StripTextures(StackSplitFrame)
-		B.SetBD(StackSplitFrame)
+		B.CreateBG(StackSplitFrame)
 		S:Proxy("Reskin", StackSplitFrame.OkayButton)
 		S:Proxy("Reskin", StackSplitFrame.CancelButton)
 		S:Proxy("ReskinArrow", StackSplitFrame.LeftButton, "left")

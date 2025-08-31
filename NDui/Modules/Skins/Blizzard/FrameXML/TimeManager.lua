@@ -21,7 +21,7 @@ C.OnLoginThemes["TimeManager"] = function()
 
 	B.StripTextures(StopwatchFrame)
 	B.StripTextures(StopwatchTabFrame)
-	B.SetBD(StopwatchFrame)
+	B.CreateBG(StopwatchFrame)
 	B.ReskinClose(StopwatchCloseButton, StopwatchFrame, -2, -2)
 
 	local reset = StopwatchResetButton

@@ -46,15 +46,16 @@ function M:ExitPhaseDiving_Toggle()
 end
 
 function M:ExitPhaseDiving()
+	local size = 52
 	local button = CreateFrame("Button", "NDuiPlus_ExitPhaseDivingButton", UIParent, "SecureActionButtonTemplate")
 	button:SetAttribute("type", "macro")
 	button:SetAttribute("macrotext", "/cancelaura " .. PHASE_DIVING_AURA_ID)
 	button:SetAttribute("useOnKeyDown", false)
 	button:RegisterForClicks("AnyUp", "AnyDown")
-	button:SetSize(52, 52)
+	button:SetSize(size, size)
 	B.AddTooltip(button, "ANCHOR_RIGHT", 1250255)
 
-	button.bg = B.SetBD(button)
+	button.bg = B.CreateBG(button, -1)
 
 	B.ReskinCPTex(button, button.bg)
 	B.ReskinHLTex(button, button.bg)
@@ -64,7 +65,7 @@ function M:ExitPhaseDiving()
 	button.Icon:SetTexCoord(unpack(DB.TexCoord))
 	button.Icon:SetInside(button.bg)
 
-	button.mover = B.Mover(button, L["ExitPhaseDivingButton"], "ExitPhaseDivingButton", { "TOP", _G.NDui_ActionBarExtra, "BOTTOM", 0, -DB.margin })
+	button.mover = B.Mover(button, L["ExitPhaseDivingButton"], "ExitPhaseDivingButton", { "TOP", _G.NDui_ActionBarExtra, "BOTTOM", 0, -(DB.margin - C.mult) }, size + 2*C.mult, size + 2*C.mult)
 
 	M.ExitPhaseDivingButton = button
 	M:ExitPhaseDiving_Toggle()

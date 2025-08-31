@@ -44,7 +44,7 @@ function module:UpdateChatSize()
 end
 
 local function BlackBackground(self)
-	local frame = B.SetBD(self)
+	local frame = B.CreateBG(self)
 	frame:SetAllPoints(self.Background)
 	frame:SetShown(C.db["Chat"]["ChatBGType"] == 2)
 
@@ -116,7 +116,7 @@ function module:SkinChat()
 	eb.__owner = self
 	UpdateEditBoxAnchor(eb)
 	B.StripTextures(eb, 2)
-	B.SetBD(eb)
+	B.CreateBG(eb)
 	UpdateEditboxFont(eb)
 	table.insert(chatEditboxes, eb)
 
@@ -124,7 +124,7 @@ function module:SkinChat()
 	lang:GetRegions():SetAlpha(0)
 	lang:SetPoint("TOPLEFT", eb, "TOPRIGHT", 5, 0)
 	lang:SetPoint("BOTTOMRIGHT", eb, "BOTTOMRIGHT", 29, 0)
-	B.SetBD(lang)
+	B.CreateBG(lang)
 
 	local tab = _G[name.."Tab"]
 	tab:SetAlpha(1)

@@ -17,7 +17,7 @@ end
 local function ReskinSessionDialog(_, dialog)
 	if not dialog.styled then
 		B.StripTextures(dialog)
-		B.SetBD(dialog)
+		B.CreateBG(dialog)
 		B.ReskinButton(dialog.ButtonContainer.Confirm)
 		B.ReskinButton(dialog.ButtonContainer.Decline)
 		if dialog.MinimizeButton then
@@ -72,7 +72,7 @@ C.OnLoginThemes["QuestMapFrame"] = function()
 		local tab = QuestMapFrame[name]
 		B.StripTextures(tab, 2)
 
-		tab.bg = B.SetBD(tab, 1, -4, -5, 4)
+		tab.bg = B.CreateBG(tab, 1, -4, -5, 4)
 		B.ReskinHLTex(tab.SelectedTexture, tab.bg, true)
 	end
 

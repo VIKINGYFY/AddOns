@@ -189,7 +189,7 @@ C.OnLoginThemes["Bags"] = function()
 	local popup = BankCleanUpConfirmationPopup
 	if popup then
 		B.StripTextures(popup)
-		B.SetBD(popup)
+		B.CreateBG(popup)
 		B.Reskin(popup.AcceptButton)
 		B.Reskin(popup.CancelButton)
 		B.ReskinCheck(popup.HidePopupCheckbox.Checkbox)

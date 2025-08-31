@@ -66,7 +66,7 @@ local function reskinProfessionForm(form)
 	local qDialog = form.QualityDialog
 	if qDialog then
 		B.StripTextures(qDialog)
-		B.SetBD(qDialog)
+		B.CreateBG(qDialog)
 		B.ReskinClose(qDialog.ClosePanelButton)
 		B.ReskinButton(qDialog.AcceptButton)
 		B.ReskinButton(qDialog.CancelButton)
@@ -141,7 +141,7 @@ end
 
 local function reskinOutputLog(outputLog)
 	B.StripTextures(outputLog)
-	B.SetBD(outputLog)
+	B.CreateBG(outputLog)
 	B.ReskinClose(outputLog.ClosePanelButton)
 	B.ReskinScroll(outputLog.ScrollBar)
 	hooksecurefunc(outputLog.ScrollBox, "Update", reskinOutputButtons)

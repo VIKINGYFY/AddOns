@@ -4,7 +4,7 @@ local B, C, L, DB = unpack(ns)
 C.OnLoadThemes["Blizzard_Tutorial"] = function()
 	local tutorialFrame = NPE_TutorialKeyboardMouseFrame_Frame
 	tutorialFrame.NineSlice:Hide()
-	B.SetBD(tutorialFrame)
+	B.CreateBG(tutorialFrame)
 	tutorialFrame.TitleBg:Hide()
 	tutorialFrame.portrait:SetAlpha(0)
 	B.ReskinClose(tutorialFrame.CloseButton)

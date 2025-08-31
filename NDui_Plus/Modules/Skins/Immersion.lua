@@ -64,12 +64,12 @@ function S:Immersion()
 
 	local Elements = TalkBox.Elements
 	B.StripTextures(Elements)
-	B.SetBD(Elements, 0, -10, 0, 0)
+	B.CreateBG(Elements, 0, -10, 0, 0)
 	Elements.Content.RewardsFrame.ItemHighlight.Icon:SetAlpha(0)
 
 	local MainFrame = TalkBox.MainFrame
 	B.StripTextures(MainFrame)
-	B.SetBD(MainFrame)
+	B.CreateBG(MainFrame)
 	B.ReskinClose(MainFrame.CloseButton)
 	B.StripTextures(MainFrame.Model)
 	local ModelBG = B.CreateBDFrame(MainFrame.Model, 0)
@@ -107,7 +107,7 @@ function S:Immersion()
 			HL:SetAllPoints(button)
 			HL:SetBackdropColor(cr, cg, cb, .25)
 			HL:SetBackdropBorderColor(cr, cg, cb, 1)
-			local bg = B.SetBD(button)
+			local bg = B.CreateBG(button)
 			bg:SetAllPoints()
 			button.Overlay:Hide()
 
@@ -202,7 +202,7 @@ function S:Immersion()
 		for tooltip in self.Inspector.tooltipFramePool:EnumerateActive() do
 			if not tooltip.styled then
 				tooltip:HideBackdrop()
-				local bg = B.SetBD(tooltip)
+				local bg = B.CreateBG(tooltip)
 				bg:SetPoint("TOPLEFT", 0, 0)
 				bg:SetPoint("BOTTOMRIGHT", 6, 0)
 				tooltip.Icon.Border:SetAlpha(0)

@@ -43,7 +43,7 @@ C.OnLoadThemes["Blizzard_PlayerChoice"] = function()
 			B.ReskinText(self.Title.Text, 1, .8, 0, nil, SystemFont_Huge1)
 
 			B.ReskinClose(self.CloseButton)
-			self.bg = B.SetBD(self)
+			self.bg = B.CreateBG(self)
 		end
 
 		for _, button in pairs(toggleButtons) do

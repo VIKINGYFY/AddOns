@@ -13,7 +13,7 @@ local function ReskinCatalystFrame(frame)
 			local objType = child:GetObjectType()
 			if objType == "Frame" and child.Bg then
 				B.StripTextures(child)
-				B.SetBD(child)
+				B.CreateBG(child)
 				child.styled = true
 			elseif objType == "Button" and child.Icon and child.FavoriteStar then
 				HandleItemButton(child)
@@ -239,7 +239,7 @@ function S:KeystoneLoot()
 	for _, child in pairs {_G.UIParent:GetChildren()} do
 		if child.layoutType == "SimplePanelTemplate" and B:Round(child:GetHeight()) == 217 then
 			B.StripTextures(child)
-			B.SetBD(child)
+			B.CreateBG(child)
 			child:HookScript("OnShow", ReskinSpecFrame)
 			break
 		end

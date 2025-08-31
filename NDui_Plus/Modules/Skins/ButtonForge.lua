@@ -86,14 +86,14 @@ function S:ButtonForge()
 	local BFToolbar = _G.BFToolbar
 	if BFToolbar then
 		B.StripTextures(BFToolbar)
-		B.SetBD(BFToolbar)
+		B.CreateBG(BFToolbar)
 		B.ReskinClose(_G.BFToolbarToggle)
 	end
 
 	local BFBindingDialog = _G.BFBindingDialog
 	if BFBindingDialog then
 		B.StripTextures(BFBindingDialog)
-		B.SetBD(BFBindingDialog)
+		B.CreateBG(BFBindingDialog)
 		B.ReskinClose(BFBindingDialog.Toggle)
 	end
 

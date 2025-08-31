@@ -244,15 +244,11 @@ function ExtraQuestButton:PLAYER_LOGIN()
 	self.rangeTimer = 0
 
 	if not self:GetPoint() then
-		if _G.NDui_ActionBarExtra then
-			self:SetPoint("CENTER", _G.NDui_ActionBarExtra)
-		else
-			B.Mover(self, L["ExtraQuestButton"], "Extrabar", {"BOTTOM", UIParent, "BOTTOM", 250, 100})
-		end
+		self:SetPoint("CENTER", _G.NDui_ActionBarExtra)
 	end
 
 	if not self.bg then
-		self.bg = B.SetBD(self)
+		self.bg = B.CreateBG(self, -1)
 		B.ReskinCPTex(self, self.bg)
 
 		local Cooldown = CreateFrame("Cooldown", "$parentCooldown", self, "CooldownFrameTemplate")
@@ -272,27 +268,27 @@ function ExtraQuestButton:PLAYER_LOGIN()
 		self.Highlight = Highlight
 
 		local Artwork = self:CreateTexture("$parentArtwork", "OVERLAY")
-		B.UpdatePoint(Artwork, "BOTTOMLEFT", self, "BOTTOMLEFT", 0, 0)
+		B.UpdatePoint(Artwork, "TOPLEFT", self, "TOPLEFT", DB.margin, -DB.margin)
 		Artwork:SetSize(20, 20)
 		Artwork:SetAtlas(DB.questTex)
 		self.Artwork = Artwork
 
 		local HotKey = self:CreateFontString("$parentHotKey", nil, "NumberFontNormal")
-		B.UpdatePoint(HotKey, "TOPLEFT", self, "TOPLEFT", 3, -3)
+		B.UpdatePoint(HotKey, "TOPRIGHT", self, "TOPRIGHT", -DB.margin, -DB.margin)
 		self.HotKey = HotKey
 
 		local Count = self:CreateFontString("$parentCount", nil, "NumberFont_Shadow_Med")
-		B.UpdatePoint(Count, "BOTTOMRIGHT", self, "BOTTOMRIGHT", -3, 3)
+		B.UpdatePoint(Count, "BOTTOMRIGHT", self, "BOTTOMRIGHT", -DB.margin, DB.margin)
 		self.Count = Count
 	end
 
-	self:RegisterEvent("UPDATE_BINDINGS")
 	self:RegisterEvent("BAG_UPDATE_COOLDOWN")
 	self:RegisterEvent("BAG_UPDATE_DELAYED")
+	self:RegisterEvent("QUEST_ACCEPTED")
 	self:RegisterEvent("QUEST_LOG_UPDATE")
 	self:RegisterEvent("QUEST_POI_UPDATE")
 	self:RegisterEvent("QUEST_WATCH_LIST_CHANGED")
-	self:RegisterEvent("QUEST_ACCEPTED")
+	self:RegisterEvent("UPDATE_BINDINGS")
 	self:RegisterEvent("ZONE_CHANGED")
 	self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 end

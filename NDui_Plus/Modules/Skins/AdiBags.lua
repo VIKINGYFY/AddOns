@@ -13,7 +13,7 @@ end
 
 local function SkinContainer(self)
 	B.StripTextures(self)
-	B.SetBD(self)
+	B.CreateBG(self)
 	DisableBackdrop(self)
 
 	local soltButton = self.BagSlotButton
@@ -27,7 +27,7 @@ local function SkinContainer(self)
 	local soltPanel = self.BagSlotPanel
 	if soltPanel then
 		B.StripTextures(soltPanel)
-		B.SetBD(soltPanel)
+		B.CreateBG(soltPanel)
 		DisableBackdrop(soltPanel)
 	end
 

@@ -14,7 +14,7 @@ function S:SkinDropDownMenu(prefix, level, maxButtons)
 	end
 
 	if not listFrame.__bg then
-		listFrame.__bg = B.SetBD(listFrame)
+		listFrame.__bg = B.CreateBG(listFrame)
 	end
 
 	for _, key in pairs({"Backdrop", "MenuBackdrop", "Border"}) do
@@ -99,7 +99,7 @@ local function reskinDropDown(self)
 	if self.Backdrop and not self.styled then
 		self.Backdrop:SetBackdrop(nil)
 		self.Backdrop.SetBackdrop = B.Dummy
-		self.__bg = B.SetBD(self)
+		self.__bg = B.CreateBG(self)
 		self.__bg:SetFrameLevel(self:GetFrameLevel() + 1)
 		self.__bg:SetInside(self.Backdrop)
 

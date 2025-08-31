@@ -5,7 +5,7 @@ C.OnLoadThemes["Blizzard_AdventureMap"] = function()
 	local dialog = AdventureMapQuestChoiceDialog
 
 	B.StripTextures(dialog)
-	B.SetBD(dialog)
+	B.CreateBG(dialog)
 	B.ReskinButton(dialog.AcceptButton)
 	B.ReskinButton(dialog.DeclineButton)
 	B.ReskinClose(dialog.CloseButton)

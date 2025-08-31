@@ -6,7 +6,7 @@ C.OnLoadThemes["Blizzard_GMChatUI"] = function()
 	local frame = _G["GMChatFrame"]
 	frame:SetClampRectInsets(0, 0, 0, 0)
 	B.StripTextures(frame)
-	local bg = B.SetBD(frame)
+	local bg = B.CreateBG(frame)
 	bg:SetPoint("BOTTOMRIGHT", C.mult, -5)
 
 	local eb = frame.editBox
@@ -18,7 +18,7 @@ C.OnLoadThemes["Blizzard_GMChatUI"] = function()
 	eb:SetPoint("TOPLEFT", frame, "BOTTOMLEFT", 0, -7)
 	eb:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -28, -32)
 
-	local bg = B.SetBD(eb)
+	local bg = B.CreateBG(eb)
 	bg:Hide()
 	hooksecurefunc("ChatEdit_DeactivateChat", function(editBox)
 		if editBox.isGM then bg:Hide() end
@@ -31,11 +31,11 @@ C.OnLoadThemes["Blizzard_GMChatUI"] = function()
 	lang:GetRegions():SetAlpha(0)
 	lang:SetPoint("TOPLEFT", eb, "TOPRIGHT", 3, 0)
 	lang:SetPoint("BOTTOMRIGHT", eb, "BOTTOMRIGHT", 28, 0)
-	B.SetBD(lang)
+	B.CreateBG(lang)
 
 	local tab = _G["GMChatTab"]
 	B.StripTextures(tab)
-	local bg = B.SetBD(tab)
+	local bg = B.CreateBG(tab)
 	bg:SetBackdropColor(0, .8, 1, .25)
 	tab:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, 3)
 	tab:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, 28)

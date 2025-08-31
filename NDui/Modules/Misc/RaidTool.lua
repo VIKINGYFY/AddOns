@@ -187,7 +187,7 @@ function M:RaidTool_ReadyCheck(parent)
 	frame:SetSize(120, 50)
 	frame:Hide()
 	frame:SetScript("OnMouseUp", function(self) self:Hide() end)
-	B.SetBD(frame)
+	B.CreateBG(frame)
 	B.CreateFS(frame, 14, READY_CHECK, true, "TOP", 0, -8)
 	local rc = B.CreateFS(frame, 14, "", false, "BOTTOM", 0, 8)
 
@@ -399,7 +399,7 @@ function M:RaidTool_CreateMenu(parent)
 	local frame = CreateFrame("Frame", nil, parent)
 	frame:SetPoint("TOP", parent, "BOTTOM", 0, -DB.margin)
 	frame:SetSize(182, 70)
-	B.SetBD(frame)
+	B.CreateBG(frame)
 	frame:Hide()
 
 	local function updateDelay(self, elapsed)
@@ -569,7 +569,7 @@ function M:RaidTool_WorldMarker()
 	frame:SetPoint("RIGHT", -100, 0)
 	B.CreateMF(frame, nil, true)
 	B.RestoreMF(frame)
-	B.SetBD(frame)
+	B.CreateBG(frame)
 	frame.buttons = {}
 
 	for i = 1, 9 do

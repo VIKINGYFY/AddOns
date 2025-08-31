@@ -68,7 +68,7 @@ local function toggleDropDownMenu(_, level)
 	local menu = LibSFDropDown:GetMenu(level or 1)
 
 	if not menu.__bg then
-		menu.__bg = B.SetBD(menu, .7)
+		menu.__bg = B.CreateBG(menu, .7)
 	end
 
 	for _, backdrop in pairs(menu.styles) do
@@ -183,7 +183,7 @@ local function handlePetList(self)
 	local list = self.petSelectionList
 	if list and not list.styled then
 		B.StripTextures(list)
-		B.SetBD(list, nil, 0, 0, 0, 0)
+		B.CreateBG(list, nil, 0, 0, 0, 0)
 		S:Proxy("ReskinClose", list.closeButton)
 		S:Proxy("StripTextures", list.controlPanel)
 		S:Proxy("ReskinInput", list.searchBox)
@@ -434,7 +434,7 @@ function S:MountsJournal()
 		local existingLists = self.existingLists
 		if existingLists then
 			B.StripTextures(existingLists)
-			existingLists.bg = B.SetBD(existingLists)
+			existingLists.bg = B.CreateBG(existingLists)
 			existingLists.bg:SetAllPoints()
 			S:Proxy("ReskinInput", existingLists.searchBox)
 			S:Proxy("ReskinTrimScroll", existingLists.scrollBar)
@@ -625,7 +625,7 @@ function S:MountsJournal()
 	config.iconData:HookScript("OnShow", function(self)
 		if not self.styled then
 			B.StripTextures(self)
-			B.SetBD(self)
+			B.CreateBG(self)
 			handleIconButton(self.selectedIconBtn)
 			B.ReskinInput(self.searchBox)
 			handleFilterButton(self.filtersButton)
@@ -719,13 +719,13 @@ function S:MountsJournal()
 		if not self.styled then
 			self.bg:SetAlpha(0)
 			S:Proxy("StripTextures", self.panel)
-			S:Proxy("SetBD", self.panel)
+			S:Proxy("CreateBG", self.panel)
 			S:Proxy("ReskinTrimScroll", self.scrollBar)
 			handleDropMenu(self.menu)
 			S:Proxy("StripTextures", self.mapSelect)
-			S:Proxy("SetBD", self.mapSelect)
+			S:Proxy("CreateBG", self.mapSelect)
 			S:Proxy("StripTextures", self.mountSelect)
-			S:Proxy("SetBD", self.mountSelect)
+			S:Proxy("CreateBG", self.mountSelect)
 			S:Proxy("ReskinClose", self.mountSelect and self.mountSelect.close)
 
 			local actionPanel = self.actionPanel
@@ -759,7 +759,7 @@ function S:MountsJournal()
 	snippets:HookScript("OnShow", function(self)
 		if not self.styled then
 			B.StripTextures(self)
-			B.SetBD(self, nil, 0, 0, 0, 0)
+			B.CreateBG(self, nil, 0, 0, 0, 0)
 			self:ClearAllPoints()
 			self:SetPoint("TOPLEFT", MountsJournalFrame.bgFrame, "TOPRIGHT", 1, 0)
 			self:SetPoint("BOTTOMLEFT", MountsJournalFrame.bgFrame, "BOTTOMRIGHT", 1, 0)
@@ -777,7 +777,7 @@ function S:MountsJournal()
 	dataDialog:HookScript("OnShow", function(self)
 		if not self.styled then
 			B.StripTextures(self)
-			B.SetBD(self, nil, 0, 0, 0, 0)
+			B.CreateBG(self, nil, 0, 0, 0, 0)
 			S:Proxy("ReskinInput", self.nameEdit)
 			S:Proxy("StripTextures", self.codeBtn)
 			S:Proxy("CreateBDFrame", self.codeBtn, 0, true)
@@ -792,7 +792,7 @@ function S:MountsJournal()
 	local codeEdit = _G.MountsJournalCodeEdit
 	codeEdit:HookScript("OnShow", function(self)
 		B.StripTextures(self)
-		B.SetBD(self, nil, 0, 0, 0, 0)
+		B.CreateBG(self, nil, 0, 0, 0, 0)
 		S:Proxy("ReskinInput", self.nameEdit)
 		S:Proxy("ReskinInput", self.line)
 		handleFilterButton(self.settings)

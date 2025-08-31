@@ -4,7 +4,7 @@ local S = P:GetModule("Skins")
 
 local function SkinSearchFrame(self)
 	S:Proxy("StripTextures", self.frame)
-	S:Proxy("SetBD", self.frame)
+	S:Proxy("CreateBG", self.frame)
 end
 
 local function SkinItemButton(self)
@@ -97,7 +97,7 @@ end
 
 local function SkinQuestion(self)
 	S:Proxy("StripTextures", self.frame)
-	S:Proxy("SetBD", self.frame)
+	S:Proxy("CreateBG", self.frame)
 	S:Proxy("Reskin", self.yes)
 	S:Proxy("Reskin", self.no)
 	S:Proxy("ReskinInput", self.input)
@@ -227,7 +227,7 @@ function S:BetterBags()
 				bagButton.Icon:SetInside()
 				bagButton.Icon:SetTexCoord(unpack(DB.TexCoord))
 				B.StripTextures(decoration)
-				B.SetBD(decoration)
+				B.CreateBG(decoration)
 				decoratorFrames[frame:GetName()] = decoration
 			else
 				decoration:Show()
@@ -258,7 +258,7 @@ function S:BetterBags()
 				end
 
 				B.StripTextures(decoration)
-				B.SetBD(decoration)
+				B.CreateBG(decoration)
 				decoratorFrames[frame:GetName()] = decoration
 			else
 				decoration:Show()
@@ -271,7 +271,7 @@ function S:BetterBags()
 				decoration:SetAllPoints()
 				decoration:SetFrameLevel(frame:GetFrameLevel() - 1)
 				B.StripTextures(decoration)
-				B.SetBD(decoration)
+				B.CreateBG(decoration)
 				decoratorFrames[frame:GetName()] = decoration
 			else
 				decoration:Show()

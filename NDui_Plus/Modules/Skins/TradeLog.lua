@@ -11,7 +11,7 @@ function S:TradeLog()
 	UIDropDownMenu_SetWidth(TBT_AnnounceChannelDropDown, 60)
 
 	B.StripTextures(TradeListFrame)
-	B.SetBD(TradeListFrame)
+	B.CreateBG(TradeListFrame)
 	B.Reskin(TradeListKeepOnlyTodayButton)
 	B.ReskinClose(TradeListFrameClose)
 	B.ReskinCheck(TradeListOnlyCompleteCB)
@@ -28,7 +28,7 @@ function S:TradeLog()
 	end
 
 	B.StripTextures(TradeLogFrame)
-	B.SetBD(TradeLogFrame)
+	B.CreateBG(TradeLogFrame)
 	B.ReskinClose(TradeLogFrameClose)
 	B.CreateMF(TradeLogFrame)
 
@@ -82,7 +82,7 @@ function S:TradeLog()
 		RecentTradeFrame:SetPoint("TOPLEFT", TradeFrame, "TOPRIGHT", 3, 0)
 		RecentTradeFrame:SetPoint("BOTTOMLEFT", TradeFrame, "BOTTOMRIGHT", 3, 0)
 		B.StripTextures(RecentTradeFrame)
-		B.SetBD(RecentTradeFrame)
+		B.CreateBG(RecentTradeFrame)
 		B.ReskinClose(RecentTradeFrameClose)
 	end
 end

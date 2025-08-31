@@ -129,13 +129,13 @@ local function ReskinMawBuffsContainer(container)
 	B.StripTextures(container)
 	container:GetPushedTexture():SetAlpha(0)
 	container:GetHighlightTexture():SetAlpha(0)
-	local bg = B.SetBD(container, 13, -11, -3, 11)
+	local bg = B.CreateBG(container, 13, -11, -3, 11)
 	container:HookScript("OnClick", container_OnClick)
 
 	local blockList = container.List
 	B.StripTextures(blockList)
 	blockList.__bg = bg
-	local bg = B.SetBD(blockList)
+	local bg = B.CreateBG(blockList)
 	bg:SetPoint("TOPLEFT", 7, -12)
 	bg:SetPoint("BOTTOMRIGHT", -7, 12)
 
@@ -178,7 +178,7 @@ C.OnLoginThemes["ObjectiveTracker"] = function()
 	hooksecurefunc(ScenarioObjectiveTracker.StageBlock, "UpdateStageBlock", function(block)
 		block.NormalBG:SetTexture(nil)
 		if not block.bg then
-			block.bg = B.SetBD(block.GlowTexture, 0, -2, 4, 2)
+			block.bg = B.CreateBG(block.GlowTexture, 0, -2, 4, 2)
 		end
 	end)
 
@@ -232,7 +232,7 @@ C.OnLoginThemes["ObjectiveTracker"] = function()
 			B.StripTextures(block)
 			B.ReskinStatusBar(block.StatusBar)
 			block.StatusBar:SetHeight(10)
-			block.bg = B.SetBD(block, 4, -2, -4, 0)
+			block.bg = B.CreateBG(block, 4, -2, -4, 0)
 		end
 	end)
 

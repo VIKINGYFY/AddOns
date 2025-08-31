@@ -141,7 +141,7 @@ function LootMonitor:PLAYER_LOGIN()
 	self:ClearAllPoints()
 	self:SetPoint("LEFT", self.mover, "LEFT")
 
-	B.SetBD(self)
+	B.CreateBG(self)
 	B.CreateMF(self)
 
 	self.autoCloseTime = 30

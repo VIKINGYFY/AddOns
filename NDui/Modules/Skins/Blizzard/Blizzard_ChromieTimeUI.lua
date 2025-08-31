@@ -6,7 +6,7 @@ C.OnLoadThemes["Blizzard_ChromieTimeUI"] = function()
 	local frame = ChromieTimeFrame
 
 	B.StripTextures(frame)
-	B.SetBD(frame)
+	B.CreateBG(frame)
 	B.ReskinClose(frame.CloseButton)
 	B.ReskinButton(frame.SelectButton)
 

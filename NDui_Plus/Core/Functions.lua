@@ -247,7 +247,7 @@ do
 		end
 
 		B.StripTextures(self)
-		local bg = B.SetBD(self)
+		local bg = B.CreateBG(self)
 
 		local frameName = self.GetName and self:GetName()
 		for _, key in pairs({"Header", "header"}) do
@@ -339,7 +339,7 @@ do
 		if not self.tipStyled then
 			self:HideBackdrop()
 			self:DisableDrawLayer("BACKGROUND")
-			self.bg = B.SetBD(self)
+			self.bg = B.CreateBG(self)
 			self.bg:SetInside(self)
 
 			self.tipStyled = true

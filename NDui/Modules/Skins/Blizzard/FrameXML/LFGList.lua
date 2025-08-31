@@ -245,7 +245,7 @@ C.OnLoginThemes["LFGList"] = function()
 
 	local finderDialog = activityFinder.Dialog
 	B.StripTextures(finderDialog)
-	B.SetBD(finderDialog)
+	B.CreateBG(finderDialog)
 	B.ReskinButton(finderDialog.SelectButton)
 	B.ReskinButton(finderDialog.CancelButton)
 	B.ReskinInput(finderDialog.EntryBox)
@@ -256,7 +256,7 @@ C.OnLoginThemes["LFGList"] = function()
 	local LFGListApplicationDialog = LFGListApplicationDialog
 
 	B.StripTextures(LFGListApplicationDialog)
-	B.SetBD(LFGListApplicationDialog)
+	B.CreateBG(LFGListApplicationDialog)
 	B.StripTextures(LFGListApplicationDialog.Description)
 	B.CreateBDFrame(LFGListApplicationDialog.Description, .25)
 	B.ReskinButton(LFGListApplicationDialog.SignUpButton)
@@ -267,7 +267,7 @@ C.OnLoginThemes["LFGList"] = function()
 	local LFGListInviteDialog = LFGListInviteDialog
 
 	B.StripTextures(LFGListInviteDialog)
-	B.SetBD(LFGListInviteDialog)
+	B.CreateBG(LFGListInviteDialog)
 	B.ReskinButton(LFGListInviteDialog.AcceptButton)
 	B.ReskinButton(LFGListInviteDialog.DeclineButton)
 	B.ReskinButton(LFGListInviteDialog.AcknowledgeButton)

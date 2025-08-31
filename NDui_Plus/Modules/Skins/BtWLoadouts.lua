@@ -112,7 +112,7 @@ function S:BtWLoadouts()
 	if not frame then return end
 
 	B.StripTextures(frame)
-	B.SetBD(frame)
+	B.CreateBG(frame)
 	B.ReskinClose(frame.CloseButton)
 	B.ReskinArrow(frame.OptionsButton, "down")
 	frame.OptionsButton:SetPoint("RIGHT", frame.CloseButton, "LEFT", -4, 0)
@@ -288,7 +288,7 @@ function S:BtWLoadouts()
 		local AffixesList = _G.BtWLoadoutsConditionsAffixesDropDownList
 		if AffixesList then
 			B.StripTextures(AffixesList)
-			B.SetBD(AffixesList)
+			B.CreateBG(AffixesList)
 		end
 	end
 
@@ -304,7 +304,7 @@ function S:BtWLoadouts()
 	local importFrame = _G.BtWLoadoutsImportFrame
 	if importFrame then
 		B.StripTextures(importFrame)
-		B.SetBD(importFrame)
+		B.CreateBG(importFrame)
 		B.ReskinClose(importFrame.CloseButton)
 		B.Reskin(importFrame.ImportButton)
 	end
@@ -312,7 +312,7 @@ function S:BtWLoadouts()
 	local logFrame = _G.BtWLoadoutsLogFrame
 	if logFrame then
 		B.StripTextures(logFrame)
-		B.SetBD(logFrame)
+		B.CreateBG(logFrame)
 		B.ReskinClose(logFrame.CloseButton)
 		B.StripTextures(logFrame.BodyInset)
 

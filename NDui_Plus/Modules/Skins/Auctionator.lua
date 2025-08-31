@@ -27,7 +27,7 @@ local function reskinDialogFrame(frame)
 	if not frame then P:Debug("Unknown: Dialog") return end
 
 	B.StripTextures(frame)
-	B.SetBD(frame, .7)
+	B.CreateBG(frame, .7)
 
 	if frame.ScrollBar then B.ReskinTrimScroll(frame.ScrollBar) end
 	if frame.CloseDialog then B.ReskinClose(frame.CloseDialog) end
@@ -61,7 +61,7 @@ local function reskinItemDialog(self)
 	end
 
 	B.StripTextures(self)
-	B.SetBD(self, .7)
+	B.CreateBG(self, .7)
 	S:Proxy("ReskinClose", self.CloseButton)
 	S:Proxy("ReskinInput", self.SearchContainer.SearchString)
 	S:Proxy("ReskinCheck", self.SearchContainer.IsExact)
@@ -201,7 +201,7 @@ local function reskinDialog()
 	local dialog = _G["AuctionatorDialog" .. dialogIndex]
 	if dialog then
 		B.StripTextures(dialog)
-		B.SetBD(dialog)
+		B.CreateBG(dialog)
 
 		if dialog.editBox then
 			B.ReskinInput(dialog.editBox, 24)
@@ -325,7 +325,7 @@ function S:Auctionator()
 					local BuyDialog = buyFrame.BuyDialog
 					if BuyDialog then
 						B.StripTextures(BuyDialog)
-						B.SetBD(BuyDialog)
+						B.CreateBG(BuyDialog)
 						reskinButtons(BuyDialog, {"Buy", "Cancel"})
 						reskinIconAndName(BuyDialog.IconAndName)
 					end
@@ -333,7 +333,7 @@ function S:Auctionator()
 					local WarningDialog = buyFrame.WidePriceRangeWarningDialog
 					if WarningDialog then
 						B.StripTextures(WarningDialog)
-						B.SetBD(WarningDialog)
+						B.CreateBG(WarningDialog)
 						reskinButtons(WarningDialog, {"ContinueButton", "CancelButton"})
 					end
 				end

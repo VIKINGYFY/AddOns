@@ -6,7 +6,7 @@ C.OnLoginThemes["SettingsPanel"] = function()
 	local frame = SettingsPanel
 
 	B.StripTextures(frame)
-	B.SetBD(frame)
+	B.CreateBG(frame)
 	B.ReskinClose(frame.ClosePanelButton)
 	B.ReskinInput(frame.SearchBox)
 	B.ReskinButton(frame.ApplyButton)

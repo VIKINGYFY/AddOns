@@ -7,7 +7,7 @@ local function ReskinTMW()
 
 	TMW.Classes.Icon:PostHookMethod("OnNewInstance", function(self)
 		if not self.bg then
-			self.bg = B.SetBD(self)
+			self.bg = B.CreateBG(self)
 		end
 	end)
 

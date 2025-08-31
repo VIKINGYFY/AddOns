@@ -24,7 +24,7 @@ local function ReskinDBMBar(bar, frame)
 
 	if not bar.styled then
 		B.StripTextures(bar, 6)
-		B.SetBD(bar)
+		B.CreateBG(bar)
 		bar:SetStatusBarTexture(DB.normTex)
 
 		bar.styled = true

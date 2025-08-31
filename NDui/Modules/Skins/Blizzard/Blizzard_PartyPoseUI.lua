@@ -9,13 +9,13 @@ local function reskinPartyPose(frame)
 	if frame.OverlayElements then
 		frame.OverlayElements.Topper:SetAlpha(0)
 	end
-	B.SetBD(frame)
+	B.CreateBG(frame)
 	B.ReskinButton(frame.LeaveButton)
 	B.StripTextures(frame.ModelScene)
 	B.CreateBDFrame(frame.ModelScene, .25)
 
 	local rewardFrame = frame.RewardAnimations.RewardFrame
-	local bg = B.SetBD(rewardFrame)
+	local bg = B.CreateBG(rewardFrame)
 	bg:SetPoint("TOPLEFT", -5, 5)
 	bg:SetPoint("BOTTOMRIGHT", rewardFrame.NameFrame, 0, -5)
 	rewardFrame.NameFrame:SetAlpha(0)

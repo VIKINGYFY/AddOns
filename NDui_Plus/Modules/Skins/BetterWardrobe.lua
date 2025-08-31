@@ -295,7 +295,7 @@ function S:BetterWardrobe()
 	local WardrobeOutfitEditFrame = _G.BetterWardrobeOutfitEditFrame
 	if WardrobeOutfitEditFrame then
 		B.StripTextures(WardrobeOutfitEditFrame)
-		B.SetBD(WardrobeOutfitEditFrame)
+		B.CreateBG(WardrobeOutfitEditFrame)
 		S:Proxy("Reskin", WardrobeOutfitEditFrame.AcceptButton)
 		S:Proxy("Reskin", WardrobeOutfitEditFrame.CancelButton)
 		S:Proxy("Reskin", WardrobeOutfitEditFrame.DeleteButton)

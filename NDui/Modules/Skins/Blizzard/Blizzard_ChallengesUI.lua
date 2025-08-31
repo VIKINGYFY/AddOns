@@ -72,7 +72,7 @@ C.OnLoadThemes["Blizzard_ChallengesUI"] = function()
 	hooksecurefunc(ChallengesFrame.WeeklyInfo, "SetUp", Reskin_WeeklyInfo)
 
 	local keystoneFrame = ChallengesKeystoneFrame
-	B.SetBD(keystoneFrame)
+	B.CreateBG(keystoneFrame)
 	B.ReskinClose(keystoneFrame.CloseButton)
 	B.ReskinButton(keystoneFrame.StartButton)
 

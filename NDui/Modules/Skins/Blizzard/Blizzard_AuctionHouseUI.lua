@@ -226,14 +226,14 @@ C.OnLoadThemes["Blizzard_AuctionHouseUI"] = function()
 
 	local buyDialog = AuctionHouseFrame.BuyDialog
 	B.StripTextures(buyDialog)
-	B.SetBD(buyDialog)
+	B.CreateBG(buyDialog)
 	B.ReskinButton(buyDialog.OkayButton)
 	B.ReskinButton(buyDialog.BuyNowButton)
 	B.ReskinButton(buyDialog.CancelButton)
 
 	local multisellFrame = AuctionHouseMultisellProgressFrame
 	B.StripTextures(multisellFrame)
-	B.SetBD(multisellFrame)
+	B.CreateBG(multisellFrame)
 	local progressBar = multisellFrame.ProgressBar
 	B.ReskinStatusBar(progressBar, false, true)
 	B.ReskinIcon(progressBar.Icon)

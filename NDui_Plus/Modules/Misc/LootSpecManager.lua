@@ -194,7 +194,7 @@ function LSM:CreateGUI()
 	gui:SetFrameStrata("HIGH")
 	gui:SetFrameLevel(5)
 	B.CreateMF(gui)
-	B.SetBD(gui)
+	B.CreateBG(gui)
 	B.CreateFS(gui, 18, "LootSpecManager", true, "TOP", 0, -10)
 
 	local scroll = CreateFrame("ScrollFrame", nil, gui, "UIPanelScrollFrameTemplate")

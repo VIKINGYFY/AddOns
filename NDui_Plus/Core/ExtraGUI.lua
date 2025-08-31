@@ -23,7 +23,7 @@ local function createExtraGUI(parent, name, title, scrollFrame)
 	local frame = CreateFrame("Frame", name, parent)
 	frame:SetSize(280, _G.NDuiPlusGUI:GetHeight())
 	frame:SetPoint("TOPLEFT", _G.NDuiPlusGUI, "TOPRIGHT", 3, 0)
-	B.SetBD(frame)
+	B.CreateBG(frame)
 
 	if title then
 		B.CreateFS(frame, 14, title, "system", "TOPLEFT", 20, -25)

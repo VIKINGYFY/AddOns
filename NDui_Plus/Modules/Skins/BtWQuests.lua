@@ -52,7 +52,7 @@ end
 local function ReskinDropMenu(self)
 	local list = self.list
 	if not list.bg then
-		list.bg = B.SetBD(list)
+		list.bg = B.CreateBG(list)
 		list.bg:SetAllPoints()
 
 		for _, key in pairs({"Backdrop", "MenuBackdrop"}) do
@@ -172,7 +172,7 @@ function S:BtWQuests()
 	local SearchResults = frame.SearchResults
 	if SearchResults then
 		B.StripTextures(SearchResults)
-		local bg = B.SetBD(SearchResults)
+		local bg = B.CreateBG(SearchResults)
 		bg:SetPoint("TOPLEFT", -10, 0)
 		bg:SetPoint("BOTTOMRIGHT")
 		S:Proxy("ReskinClose", SearchResults.CloseButton)

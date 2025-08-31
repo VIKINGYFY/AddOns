@@ -135,14 +135,14 @@ function S:WorldQuestTab()
 	local FlightMapContainer = _G.WQT_FlightMapContainer
 	if FlightMapContainer then
 		B.StripTextures(FlightMapContainer)
-		B.SetBD(FlightMapContainer, nil, 6, 0, 0, 0)
+		B.CreateBG(FlightMapContainer, nil, 6, 0, 0, 0)
 		S:Proxy("Reskin", _G.WQT_FlightMapContainerButton)
 	end
 
 	local WorldMapContainer = _G.WQT_WorldMapContainer
 	if WorldMapContainer then
 		B.StripTextures(WorldMapContainer)
-		local bg = B.SetBD(WorldMapContainer, nil, 0, 0, 0, 0)
+		local bg = B.CreateBG(WorldMapContainer, nil, 0, 0, 0, 0)
 		bg:SetFrameLevel(bg:GetFrameLevel() + 1)
 	end
 end

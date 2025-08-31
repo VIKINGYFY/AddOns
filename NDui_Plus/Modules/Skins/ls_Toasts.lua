@@ -76,7 +76,7 @@ local style = {
 
 local function SkinToast(event, toast)
 	if not toast.bg then
-		toast.bg = B.SetBD(toast)
+		toast.bg = B.CreateBG(toast)
 		toast.bg:SetOutside()
 		toast.bg:SetFrameLevel(toast:GetFrameLevel() - 1)
 	end

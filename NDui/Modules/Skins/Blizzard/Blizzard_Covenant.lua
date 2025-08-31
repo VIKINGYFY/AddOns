@@ -25,7 +25,7 @@ C.OnLoadThemes["Blizzard_CovenantPreviewUI"] = function()
 			self.ModelSceneContainer.ModelSceneBorder:SetAlpha(0)
 			B.CreateBDFrame(self.Title, .25)
 			B.ReskinClose(self.CloseButton)
-			self.bg = B.SetBD(self)
+			self.bg = B.CreateBG(self)
 		end
 	end)
 end
@@ -68,7 +68,7 @@ C.OnLoadThemes["Blizzard_CovenantSanctum"] = function()
 
 	CovenantSanctumFrame:HookScript("OnShow", function(self)
 		if not self.bg then
-			self.bg = B.SetBD(self)
+			self.bg = B.CreateBG(self)
 			self.NineSlice:SetAlpha(0)
 			self.LevelFrame.Background:SetAlpha(0)
 			B.ReskinClose(self.CloseButton)
@@ -102,7 +102,7 @@ C.OnLoadThemes["Blizzard_CovenantRenown"] = function()
 		B.StripTextures(self)
 
 		if not self.styled then
-			B.SetBD(self)
+			B.CreateBG(self)
 			B.ReskinClose(self.CloseButton)
 			B.ReskinButton(self.LevelSkipButton)
 

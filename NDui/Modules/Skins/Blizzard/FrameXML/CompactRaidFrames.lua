@@ -35,7 +35,7 @@ C.OnLoginThemes["CompactRaidFrames"] = function()
 	B.StripTextures(CompactRaidFrameManager, 0)
 	select(1, CompactRaidFrameManagerDisplayFrame:GetRegions()):SetAlpha(0)
 
-	local bd = B.SetBD(CompactRaidFrameManager)
+	local bd = B.CreateBG(CompactRaidFrameManager)
 	bd:SetPoint("TOPLEFT")
 	bd:SetPoint("BOTTOMRIGHT", -9, 9)
 	B.ReskinCheck(CompactRaidFrameManagerDisplayFrameEveryoneIsAssistButton)

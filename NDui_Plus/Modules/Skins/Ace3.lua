@@ -208,7 +208,7 @@ function S:Ace3_Keybinding(widget)
 
 	B.Reskin(button)
 	B.StripTextures(msgframe)
-	B.SetBD(msgframe)
+	B.CreateBG(msgframe)
 	msgframe.msg:ClearAllPoints()
 	msgframe.msg:SetPoint("CENTER")
 end
@@ -337,7 +337,7 @@ function S:Ace3_Frame(widget)
 				B.StripTextures(child)
 			end
 		end
-		B.SetBD(frame)
+		B.CreateBG(frame)
 	else
 		frame.bg = B.CreateBDFrame(frame, .25)
 		frame.bg:SetPoint("TOPLEFT", 2, -2)
@@ -436,7 +436,7 @@ end
 function S:Ace3_StylePopup()
 	if not self:IsForbidden() and not self.styled then
 		B.StripTextures(self)
-		B.SetBD(self)
+		B.CreateBG(self)
 
 		for _, key in pairs({"accept", "cancel"}) do
 			local bu = self[key]

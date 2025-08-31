@@ -50,7 +50,7 @@ function M:CreateSingingSockets()
 		local frame = CreateFrame("Frame", "NDuiSingingSocket"..i, ItemSocketingFrame)
 		frame:SetSize(iconSize*2 + DB.margin*3, iconSize*2 + DB.margin*3)
 		frame:SetPoint("TOP", _G["ItemSocketingSocket"..i], "BOTTOM", 0, -50)
-		B.SetBD(frame)
+		B.CreateBG(frame)
 		M.SingingFrames[i] = frame
 
 		for index, gemID in pairs(gemsInfo[i]) do
@@ -77,7 +77,7 @@ function M:CreateFiberSockets()
 	local frame = CreateFrame("Frame", "NDuiFiberSockets", ItemSocketingFrame)
 	frame:SetSize(iconSize*4 + DB.margin*5, iconSize*2 + DB.margin*3)
 	frame:SetPoint("TOP", _G["ItemSocketingSocket1"], "BOTTOM", 0, -50)
-	B.SetBD(frame)
+	B.CreateBG(frame)
 
 	for index, gemID in pairs(fiberSockets)  do
 		local button = B.CreateButton(frame, iconSize, iconSize, true, C_Item.GetItemIconByID(gemID))

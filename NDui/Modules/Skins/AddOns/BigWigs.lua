@@ -31,7 +31,7 @@ local function styleBar(bar)
 	bar.candyBarBackdrop:Hide()
 	if not bar.styled then
 		B.StripTextures(bar.candyBarBar, true)
-		B.SetBD(bar.candyBarBar)
+		B.CreateBG(bar.candyBarBar)
 		bar.styled = true
 	end
 	bar:SetTexture(DB.normTex)
@@ -52,7 +52,7 @@ local function styleBar(bar)
 		bar.candyBarIconFrameBackdrop:Hide()
 
 		if not icon.styled then
-			B.SetBD(icon)
+			B.CreateBG(icon)
 			icon.styled = true
 		end
 	end

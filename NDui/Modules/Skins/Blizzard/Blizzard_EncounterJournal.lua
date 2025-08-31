@@ -52,7 +52,7 @@ C.OnLoadThemes["Blizzard_EncounterJournal"] = function()
 		local tab = EncounterJournal.encounter.info[name]
 		B.CleanTextures(tab)
 
-		local bg = B.SetBD(tab, 6, -2, -2, 4)
+		local bg = B.CreateBG(tab, 6, -2, -2, 4)
 		B.ReskinHLTex(tab, bg, true)
 
 		if name == "overviewTab" then
@@ -163,7 +163,7 @@ C.OnLoadThemes["Blizzard_EncounterJournal"] = function()
 	local showAllResults = EncounterJournalSearchBox.showAllResults
 	local previewContainer = EncounterJournalSearchBox.searchPreviewContainer
 	B.StripTextures(previewContainer)
-	local bg = B.SetBD(previewContainer)
+	local bg = B.CreateBG(previewContainer)
 	bg:SetPoint("TOPLEFT", -3, 3)
 	bg:SetPoint("BOTTOMRIGHT", showAllResults, 3, -3)
 
@@ -179,7 +179,7 @@ C.OnLoadThemes["Blizzard_EncounterJournal"] = function()
 		local result = EncounterJournalSearchResults
 		result:SetPoint("BOTTOMLEFT", EncounterJournal, "BOTTOMRIGHT", 15, -1)
 		B.StripTextures(result)
-		local bg = B.SetBD(result)
+		local bg = B.CreateBG(result)
 		bg:SetPoint("TOPLEFT", -10, 0)
 		bg:SetPoint("BOTTOMRIGHT")
 

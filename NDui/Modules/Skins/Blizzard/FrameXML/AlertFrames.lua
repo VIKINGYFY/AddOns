@@ -50,7 +50,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 	local AlertTemplateFunc = {
 		[AchievementAlertSystem] = function(frame)
 			if not frame.bg then
-				frame.bg = B.SetBD(frame)
+				frame.bg = B.CreateBG(frame)
 				frame.Unlocked:SetTextColor(1, .8, 0)
 				frame.Unlocked:SetFontObject(NumberFont_GameNormal)
 				frame.GuildName:ClearAllPoints()
@@ -75,7 +75,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 		end,
 		[CriteriaAlertSystem] = function(frame)
 			if not frame.bg then
-				frame.bg = B.SetBD(frame)
+				frame.bg = B.CreateBG(frame)
 				frame.bg:SetPoint("TOPLEFT", frame, 5, -7)
 				frame.bg:SetPoint("BOTTOMRIGHT", frame, 18, 10)
 
@@ -92,7 +92,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 		[LootAlertSystem] = function(frame)
 			local lootItem = frame.lootItem
 			if not frame.bg then
-				frame.bg = B.SetBD(frame)
+				frame.bg = B.CreateBG(frame)
 				frame.bg:SetPoint("TOPLEFT", frame, 13, -15)
 				frame.bg:SetPoint("BOTTOMRIGHT", frame, -13, 13)
 
@@ -114,7 +114,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 		end,
 		[LootUpgradeAlertSystem] = function(frame)
 			if not frame.bg then
-				frame.bg = B.SetBD(frame)
+				frame.bg = B.CreateBG(frame)
 				frame.bg:SetPoint("TOPLEFT", 10, -14)
 				frame.bg:SetPoint("BOTTOMRIGHT", -10, 12)
 
@@ -135,7 +135,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 		end,
 		[MoneyWonAlertSystem] = function(frame)
 			if not frame.bg then
-				frame.bg = B.SetBD(frame)
+				frame.bg = B.CreateBG(frame)
 				frame.bg:SetInside(frame, 7, 7)
 
 				B.ReskinIcon(frame.Icon)
@@ -145,7 +145,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 		end,
 		[NewRecipeLearnedAlertSystem] = function(frame)
 			if not frame.bg then
-				frame.bg = B.SetBD(frame)
+				frame.bg = B.CreateBG(frame)
 				frame.bg:SetPoint("TOPLEFT", 10, -5)
 				frame.bg:SetPoint("BOTTOMRIGHT", -10, 5)
 
@@ -159,7 +159,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 		end,
 		[WorldQuestCompleteAlertSystem] = function(frame)
 			if not frame.bg then
-				frame.bg = B.SetBD(frame)
+				frame.bg = B.CreateBG(frame)
 				frame.bg:SetPoint("TOPLEFT", 4, -7)
 				frame.bg:SetPoint("BOTTOMRIGHT", -4, 8)
 
@@ -171,7 +171,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 		end,
 		[GarrisonTalentAlertSystem] = function(frame)
 			if not frame.bg then
-				frame.bg = B.SetBD(frame)
+				frame.bg = B.CreateBG(frame)
 				frame.bg:SetPoint("TOPLEFT", 10, -10)
 				frame.bg:SetPoint("BOTTOMRIGHT", -10, 13)
 
@@ -183,7 +183,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 		end,
 		[GarrisonFollowerAlertSystem] = function(frame)
 			if not frame.bg then
-				frame.bg = B.SetBD(frame)
+				frame.bg = B.CreateBG(frame)
 				frame.bg:SetPoint("TOPLEFT", 16, -3)
 				frame.bg:SetPoint("BOTTOMRIGHT", -16, 16)
 
@@ -200,7 +200,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 		end,
 		[GarrisonMissionAlertSystem] = function(frame)
 			if not frame.bg then
-				frame.bg = B.SetBD(frame)
+				frame.bg = B.CreateBG(frame)
 				frame.bg:SetPoint("TOPLEFT", 8, -8)
 				frame.bg:SetPoint("BOTTOMRIGHT", -8, 10)
 
@@ -233,7 +233,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 		end,
 		[DigsiteCompleteAlertSystem] = function(frame)
 			if not frame.bg then
-				frame.bg = B.SetBD(frame)
+				frame.bg = B.CreateBG(frame)
 				frame.bg:SetInside(frame, 8, 8)
 
 				frame:GetRegions():Hide()
@@ -243,7 +243,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 		end,
 		[GuildChallengeAlertSystem] = function(frame)
 			if not frame.bg then
-				frame.bg = B.SetBD(frame)
+				frame.bg = B.CreateBG(frame)
 				frame.bg:SetPoint("TOPLEFT", 8, -13)
 				frame.bg:SetPoint("BOTTOMRIGHT", -8, 13)
 
@@ -254,7 +254,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 		end,
 		[DungeonCompletionAlertSystem] = function(frame)
 			if not frame.bg then
-				frame.bg = B.SetBD(frame)
+				frame.bg = B.CreateBG(frame)
 				frame.bg:SetPoint("TOPLEFT", 3, -8)
 				frame.bg:SetPoint("BOTTOMRIGHT", -3, 8)
 
@@ -267,7 +267,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 		end,
 		[ScenarioAlertSystem] = function(frame)
 			if not frame.bg then
-				frame.bg = B.SetBD(frame)
+				frame.bg = B.CreateBG(frame)
 				frame.bg:SetInside(frame, 5, 5)
 
 				B.ReskinIcon(frame.dungeonTexture)
@@ -279,7 +279,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 		end,
 		[LegendaryItemAlertSystem] = function(frame)
 			if not frame.bg then
-				frame.bg = B.SetBD(frame)
+				frame.bg = B.CreateBG(frame)
 				frame.bg:SetPoint("TOPLEFT", 25, -22)
 				frame.bg:SetPoint("BOTTOMRIGHT", -25, 24)
 				frame:HookScript("OnUpdate", fixBg)
@@ -296,7 +296,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 		end,
 		[NewPetAlertSystem] = function(frame)
 			if not frame.bg then
-				frame.bg = B.SetBD(frame)
+				frame.bg = B.CreateBG(frame)
 				frame.bg:SetPoint("TOPLEFT", 12, -13)
 				frame.bg:SetPoint("BOTTOMRIGHT", -12, 10)
 
@@ -308,7 +308,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 		end,
 		[InvasionAlertSystem] = function(frame)
 			if not frame.bg then
-				frame.bg = B.SetBD(frame)
+				frame.bg = B.CreateBG(frame)
 				frame.bg:SetInside(frame, 5, 5)
 
 				local bg, icon = frame:GetRegions()
@@ -318,7 +318,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 		end,
 		[EntitlementDeliveredAlertSystem] = function(frame)
 			if not frame.bg then
-				frame.bg = B.SetBD(frame)
+				frame.bg = B.CreateBG(frame)
 				frame.bg:SetInside(frame, 12, 12)
 
 				B.ReskinIcon(frame.Icon)
@@ -328,7 +328,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 		end,
 		[RafRewardDeliveredAlertSystem] = function(frame)
 			if not frame.bg then
-				frame.bg = B.SetBD(frame)
+				frame.bg = B.CreateBG(frame)
 				frame.bg:SetPoint("TOPLEFT", 24, -14)
 				frame.bg:SetPoint("BOTTOMRIGHT", -24, 8)
 
@@ -380,7 +380,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 	hooksecurefunc("LootWonAlertFrame_SetUp", function(frame)
 		local lootItem = frame.lootItem
 		if not frame.bg then
-			frame.bg = B.SetBD(frame)
+			frame.bg = B.CreateBG(frame)
 			frame.bg:SetInside(frame, 10, 10)
 			fixAnim(frame)
 
@@ -403,7 +403,7 @@ C.OnLoginThemes["AlertFrames"] = function()
 	-- BonusRollMoneyWonFrame
 	hooksecurefunc("MoneyWonAlertFrame_SetUp", function(frame)
 		if not frame.bg then
-			frame.bg = B.SetBD(frame)
+			frame.bg = B.CreateBG(frame)
 			frame.bg:SetInside(frame, 5, 5)
 			fixAnim(frame)
 

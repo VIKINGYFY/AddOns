@@ -877,9 +877,12 @@ function UF:ResizePlayerPlate()
 		local barHeight = C.db["Nameplate"]["PPBarHeight"]
 		local healthHeight = C.db["Nameplate"]["PPHealthHeight"]
 		local powerHeight = C.db["Nameplate"]["PPPowerHeight"]
+		
+		local plateWidth = barWidth
+		local plateHeight = healthHeight + powerHeight + C.mult
 
-		plate:SetSize(barWidth, healthHeight+powerHeight+C.mult)
-		plate.mover:SetSize(barWidth, healthHeight+powerHeight+C.mult)
+		plate:SetSize(plateWidth, plateHeight)
+		plate.mover:SetSize(plateWidth + 2*C.mult, plateHeight + 2*C.mult)
 		plate.Health:SetHeight(healthHeight)
 		plate.Power:SetHeight(powerHeight)
 
