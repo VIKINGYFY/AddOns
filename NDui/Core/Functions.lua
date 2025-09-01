@@ -1370,7 +1370,7 @@ do
 		B.StripTextures(self)
 
 		local bg = B.CreateBDFrame(self, 0, true)
-		B.UpdateSize(bg, 16, -2, -17, 3)
+		B.UpdateSize(bg, 14, -2, -15, 3)
 
 		local thumb = self:GetThumbTexture()
 		thumb:SetTexture(DB.sparkTex)
