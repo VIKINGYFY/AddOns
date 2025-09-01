@@ -77,13 +77,8 @@ local function UpdateCPU()
 end
 
 local function colorFPS(fps)
-	if fps < 30 then
-		return "|cffFF0000"..fps.."|r"
-	elseif fps < 60 then
-		return "|cffFFFF00"..fps.."|r"
-	else
-		return "|cff00FF00"..fps.."|r"
-	end
+	local r, g, b = B.SmoothColor(fps, 120, true)
+	return B.HexRGB(r, g, b, fps)
 end
 
 local function setFrameRate(self)

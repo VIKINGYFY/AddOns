@@ -8,13 +8,8 @@ local info = module:RegisterInfobar("Ping", C.Infobar.LatencyPos)
 local entered
 
 local function colorLatency(latency)
-	if latency < 250 then
-		return "|cff0CD809"..latency
-	elseif latency < 500 then
-		return "|cffE8DA0F"..latency
-	else
-		return "|cffD80909"..latency
-	end
+	local r, g, b = B.SmoothColor(latency, 500)
+	return B.HexRGB(r, g, b, latency)
 end
 
 local function setLatency(self)

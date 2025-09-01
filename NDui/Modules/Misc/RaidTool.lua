@@ -566,7 +566,7 @@ function M:RaidTool_WorldMarker()
 	}
 
 	local frame = CreateFrame("Frame", "NDui_WorldMarkers", UIParent)
-	frame:SetPoint("RIGHT", -100, 0)
+	frame:SetPoint("RIGHT", _G.oUF_Player, "LEFT", -20, 0)
 	B.CreateMF(frame, nil, true)
 	B.RestoreMF(frame)
 	B.CreateBG(frame)

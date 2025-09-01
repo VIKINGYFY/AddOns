@@ -9,4 +9,5 @@
 	<Script file="Gold.lua"/>
 	<Script file="Durability.lua"/>
 	<Script file="Spec.lua"/>
+	<Script file="Combat.lua"/>
 </Ui>
