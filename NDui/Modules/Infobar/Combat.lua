@@ -28,8 +28,8 @@ local function UpdateCombatTimer(self, elapsed)
 		local duration = GetTime() - combatStart
 		local durationTime = SecondsToClock(duration)
 		local r, g, b = B.SmoothColor(duration, 300)
-		local combatTime = B.HexRGB(r, g, b, durationTime)
-		self.text:SetFormattedText("|cffFF0000%s|r<%s>", ENTERING_COMBAT, combatTime)
+		local combatTime = B.HexRGB(r, g, b, "<"..durationTime..">")
+		self.text:SetFormattedText("|cffFF0000%s|r%s", ENTERING_COMBAT, combatTime)
 
 		self.timer = 0
 	end
@@ -44,12 +44,13 @@ info.onEvent = function(self, event)
 	if event == "PLAYER_REGEN_DISABLED" then
 		combatStart = GetTime()
 		lastCombatZone, lastCombatInst = GetZoneInfo()
+
 		self:SetScript("OnUpdate", UpdateCombatTimer)
 	else
 		lastCombatDuration = combatStart > 0 and (GetTime() - combatStart) or 0
-
 		local lastCombatTime = lastCombatDuration > 0 and SecondsToTime(lastCombatDuration, false, true, 3) or UNKNOWN
 		self.text:SetFormattedText("|cff00FF00%s|r<%s>", LEAVING_COMBAT, lastCombatTime)
+
 		self:SetScript("OnUpdate", nil)
 	end
 end

@@ -30,12 +30,12 @@ end
 function M.Focuser_OnEvent(event)
 	if event == "PLAYER_REGEN_ENABLED" then
 		if next(pending) then
-			for frame in next, pending do
+			for frame in pairs(pending) do
 				M.Focuser_Setup(frame)
 			end
 		end
 	else
-		for _, object in next, oUF.objects do
+		for _, object in pairs(oUF.objects) do
 			if not object.focuser then
 				M.Focuser_Setup(object)
 			end

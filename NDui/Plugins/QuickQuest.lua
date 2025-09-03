@@ -343,7 +343,7 @@ QuickQuest:Register("QUEST_PROGRESS", function()
 				local link = GetQuestItemLink("required", index)
 				if link then
 					local id = GetItemInfoFromHyperlink(link)
-					for _, itemID in next, itemBlacklist do
+					for _, itemID in pairs(itemBlacklist) do
 						if itemID == id then
 							CloseQuest()
 							return

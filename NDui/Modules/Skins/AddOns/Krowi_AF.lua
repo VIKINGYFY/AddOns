@@ -133,7 +133,7 @@ function S:KrowiAF()
 				B.StripTextures(bar.Button)
 				SetupButtonHighlight(bar.Button, bg)
 			end
-			for _, fill in next, bar.Fill do
+			for _, fill in pairs(bar.Fill) do
 				fill:SetTexture(DB.bdTex)
 			end
 			bar:SetColors({R = 0, G = .4, B = 0}, {R = 0, G = .6, B = 0})

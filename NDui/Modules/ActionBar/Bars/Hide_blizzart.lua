@@ -18,7 +18,7 @@ local framesToDisable = {
 }
 
 local function DisableAllScripts(frame)
-	for _, script in next, scripts do
+	for _, script in pairs(scripts) do
 		if frame:HasScript(script) then
 			frame:SetScript(script, nil)
 		end
@@ -57,11 +57,11 @@ local function DisableDefaultBarEvents() -- credit: Simpy
 end
 
 function Bar:HideBlizz()
-	for _, frame in next, framesToHide do
+	for _, frame in pairs(framesToHide) do
 		frame:SetParent(B.HiddenFrame)
 	end
 
-	for _, frame in next, framesToDisable do
+	for _, frame in pairs(framesToDisable) do
 		frame:UnregisterAllEvents()
 		DisableAllScripts(frame)
 	end

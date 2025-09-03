@@ -113,7 +113,7 @@ local BagSmartFilter = {
 		elseif text == "aoe" then
 			return item.bindOn == "accountequip"
 		else
-			return IsItemMatched(item.subType, text) or IsItemMatched(item.equipLoc, text) or IsItemMatched(item.name, text)
+			return IsItemMatched(item.subType, text) or IsItemMatched(item.equipLoc, text) or IsItemMatched(item.name, text) or IsItemMatched((item.expacID or 0) + 1, text)
 		end
 	end,
 	_default = "default",

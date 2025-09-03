@@ -316,7 +316,7 @@ function Implementation:GetItemInfo(bagID, slotID, i)
 		local questInfo = C_Container.GetContainerItemQuestInfo(bagID, slotID)
 		i.isQuestItem, i.questID, i.questActive = questInfo.isQuestItem, questInfo.questID, questInfo.isActive
 
-		i.name, _, _, _, _, i.type, i.subType, i.stackCount, i.equipLoc, _, _, i.classID, i.subClassID, i.bindType, i.expansionID = C_Item.GetItemInfo(i.link)
+		i.name, _, _, _, _, i.type, i.subType, i.stackCount, i.equipLoc, _, _, i.classID, i.subClassID, i.bindType, i.expacID = C_Item.GetItemInfo(i.link)
 		i.equipLoc = _G[i.equipLoc] -- INVTYPE to localized string
 
 		i.ilvl = B.GetItemLevel(i.link, i.bagId ~= -1 and i.bagId, i.slotId)

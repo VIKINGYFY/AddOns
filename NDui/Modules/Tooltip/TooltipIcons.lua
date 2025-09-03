@@ -53,7 +53,7 @@ function TT:ReskinTooltipIcons()
 	TT.HookTooltipMethod(GameTooltip)
 	TT.HookTooltipMethod(ItemRefTooltip)
 
-	for tooltipType, getTex in next, GetTooltipTextureByType do
+	for tooltipType, getTex in pairs(GetTooltipTextureByType) do
 		TooltipDataProcessor.AddTooltipPostCall(tooltipType, function(self)
 			if self == GameTooltip or self == ItemRefTooltip then
 				local data = self:GetTooltipData()

@@ -567,7 +567,7 @@ function G:ImportGUIData()
 				C.db[key][value][tonumber(index)] = toBoolean(state)
 			elseif value == "IgnoreSpells" then
 				local spells = {select(3, string.split(":", option))}
-				for _, spellID in next, spells do
+				for _, spellID in pairs(spells) do
 					C.db[key][value][tonumber(spellID)] = true
 				end
 			else

@@ -8,22 +8,30 @@ local B, C, L, DB = unpack(NDui)
 
 local LibItemInfo = LibStub:GetLibrary("LibItemInfo-NDui-MOD")
 
-local EnchantParts = {
---	[ 1] = HEADSLOT, -- 头部
---	[ 2] = NECKSLOT, -- 颈部
---	[ 3] = SHOULDERSLOT, -- 肩部
-	[ 5] = CHESTSLOT, -- 胸部
---	[ 6] = WAISTSLOT, -- 腰部
-	[ 7] = LEGSSLOT, -- 腿部
-	[ 8] = FEETSLOT, -- 脚部
-	[ 9] = WRISTSLOT, -- 腕部
---	[10] = HANDSSLOT, -- 手部
-	[11] = FINGER0SLOT, -- 手指1
-	[12] = FINGER1SLOT, -- 手指2
-	[15] = BACKSLOT, -- 背部
-	[16] = MAINHANDSLOT, -- 主手
-	[17] = SECONDARYHANDSLOT, -- 副手
+local INVSLOT_ENCHANT = {
+	[INVSLOT_CHEST] = true,
+	[INVSLOT_LEGS] = true,
+	[INVSLOT_FEET] = true,
+	[INVSLOT_WRIST] = true,
+	[INVSLOT_FINGER1] = true,
+	[INVSLOT_FINGER2] = true,
+	[INVSLOT_BACK] = true,
+	[INVSLOT_MAINHAND] = true,
+	[INVSLOT_OFFHAND] = true,
 }
+
+local function CheckEnchantmentSlot(index, quality, mainType, subType)
+	if INVSLOT_ENCHANT[index] then
+		if quality == Enum.ItemQuality.Artifact and (index == INVSLOT_NECK or index == INVSLOT_MAINHAND or index == INVSLOT_OFFHAND) then
+			return false
+		end
+		if index == INVSLOT_OFFHAND and (mainType == INVTYPE_HOLDABLE or subType == SHIELDSLOT) then
+			return false
+		end
+		return true
+	end
+	return false
+end
 
 local INVSLOT_SOCKET_ITEMS = {
 	[INVSLOT_NECK] = { 213777, 213777 },
@@ -205,8 +213,6 @@ local function ShowGemAndEnchant(frame, itemFrame)
 	end
 
 	local enchantID, enchantItemID, enchantSpellID = LibItemInfo:GetItemEnchantInfo(itemlink)
-	local enchantParts = EnchantParts[itemFrame.index]
-	local _, itemType = C_Item.GetItemInfoInstant(itemlink)
 	if enchantItemID then
 		total = total + 1
 		icon = GetIconFrame(frame)
@@ -230,17 +236,15 @@ local function ShowGemAndEnchant(frame, itemFrame)
 		UpdateIconPoint(icon, anchorframe, total)
 		icon:Show()
 		anchorframe = icon
-	elseif not enchantID and enchantParts then
-		if not (itemFrame.index == INVSLOT_OFFHAND and itemType == ARMOR) then
-			total = total + 1
-			icon = GetIconFrame(frame)
-			icon.name = ENCHANTS .. ": " .. enchantParts
-			icon.bg:SetVertexColor(0, 1, 1)
-			icon.texture:SetTexture("Interface\\Cursor\\Quest")
-			UpdateIconPoint(icon, anchorframe, total)
-			icon:Show()
-			anchorframe = icon
-		end
+	elseif not enchantID and CheckEnchantmentSlot(itemFrame.index, itemFrame.quality, itemFrame.mainType, itemFrame.subType) then
+		total = total + 1
+		icon = GetIconFrame(frame)
+		icon.name = ENCHANTS .. ": " .. itemFrame.slot
+		icon.bg:SetVertexColor(0, 1, 1)
+		icon.texture:SetTexture("Interface\\Cursor\\Quest")
+		UpdateIconPoint(icon, anchorframe, total)
+		icon:Show()
+		anchorframe = icon
 	end
 
 	return total * (16 + 1)

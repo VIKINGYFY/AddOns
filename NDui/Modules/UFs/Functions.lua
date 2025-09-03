@@ -894,7 +894,7 @@ local dispellType = {
 }
 
 function UF.PostUpdateButton(element, button, unit, data)
-	local duration, expiration, debuffType = data.duration, data.expirationTime, data.dispelName
+	local duration, expiration, debuffType, isPlayerAura = data.duration, data.expirationTime, data.dispelName, data.isPlayerAura
 
 	if duration then button.icbg:Show() end
 
@@ -905,7 +905,7 @@ function UF.PostUpdateButton(element, button, unit, data)
 		button:SetSize(element.size, element.size)
 	end
 
-	if element.desaturateDebuff and button.isHarmful and filteredStyle[style] and not data.isPlayerAura then
+	if element.desaturateDebuff and button.isHarmful and filteredStyle[style] and not isPlayerAura then
 		button.Icon:SetDesaturated(true)
 	else
 		button.Icon:SetDesaturated(false)
@@ -943,11 +943,11 @@ function UF.PostUpdateButton(element, button, unit, data)
 	end
 end
 
-function UF.AurasPostUpdateInfo(element, _, _, debuffsChanged)
+function UF.AurasPostUpdateInfo(element)
 	element.bolsterStacks = 0
 	element.bolsterInstanceID = nil
 
-	for auraInstanceID, data in next, element.allBuffs do
+	for auraInstanceID, data in pairs(element.allBuffs) do
 		if data.spellId == 209859 then
 			if not element.bolsterInstanceID then
 				element.bolsterInstanceID = auraInstanceID
@@ -969,14 +969,12 @@ function UF.AurasPostUpdateInfo(element, _, _, debuffsChanged)
 		end
 	end
 
-	if debuffsChanged then
+	if C.db["Nameplate"]["ColorByDot"] then
 		element.hasTheDot = nil
-		if C.db["Nameplate"]["ColorByDot"] then
-			for _, data in next, element.allDebuffs do
-				if data.isPlayerAura and C.db["Nameplate"]["DotSpells"][data.spellId] then
-					element.hasTheDot = true
-					break
-				end
+		for _, data in pairs(element.allDebuffs) do
+			if data.isPlayerAura and C.db["Nameplate"]["DotSpells"][data.spellId] then
+				element.hasTheDot = true
+				break
 			end
 		end
 	end
@@ -990,17 +988,17 @@ end
 
 function UF.CustomFilter(element, unit, data)
 	local style = element.__owner.mystyle
-	local name, debuffType, isStealable, spellID, nameplateShowAll = data.name, data.dispelName, data.isStealable, data.spellId, data.nameplateShowAll
+	local spellName, debuffType, isStealable, spellID, nameplateShowAll, isHarmful, isPlayerAura = data.name, data.dispelName, data.isStealable, data.spellId, data.nameplateShowAll, data.isHarmful, data.isPlayerAura
 
 	if style == "nameplate" or style == "boss" or style == "arena" then
-		if name and spellID == 209859 then -- pass all bolster
+		if spellName and spellID == 209859 then -- pass all bolster
 			return true
 		end
 		if element.__owner.plateType == "NameOnly" then
 			return UF.NameplateWhite[spellID]
 		elseif UF.NameplateBlack[spellID] then
 			return false
-		elseif ((element.showStealableBuffs and isStealable) or (element.alwaysShowStealable and dispellType[debuffType])) and not UnitIsPlayer(unit) and not data.isHarmful then
+		elseif ((element.showStealableBuffs and isStealable) or (element.alwaysShowStealable and dispellType[debuffType])) and not (UnitIsPlayer(unit) and isHarmful) then
 			return true
 		elseif UF.NameplateWhite[spellID] then
 			return true
@@ -1009,7 +1007,7 @@ function UF.CustomFilter(element, unit, data)
 			return (auraFilter == 3 and nameplateShowAll) or (auraFilter ~= 1 and data.isPlayerAura)
 		end
 	else
-		return (element.onlyShowPlayer and data.isPlayerAura) or (not element.onlyShowPlayer and name)
+		return (element.onlyShowPlayer and data.isPlayerAura) or (not element.onlyShowPlayer and spellName)
 	end
 end
 
@@ -1284,7 +1282,7 @@ function UF:OnUpdateRunes(elapsed)
 end
 
 function UF.PostUpdateRunes(element, runemap)
-	for index, runeID in next, runemap do
+	for index, runeID in pairs(runemap) do
 		local rune = element[index]
 		local start, duration, runeReady = GetRuneCooldown(runeID)
 		if rune:IsShown() then

@@ -116,7 +116,7 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 	calendarButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 	B.ReskinIcon(calendarButton:GetNormalTexture())
 
-	for _, name in next, {"GuildFinderFrame", "InvitationFrame", "TicketFrame", "CommunityFinderFrame", "ClubFinderInvitationFrame"} do
+	for _, name in pairs({"GuildFinderFrame", "InvitationFrame", "TicketFrame", "CommunityFinderFrame", "ClubFinderInvitationFrame"}) do
 		local frame = CommunitiesFrame[name]
 		if frame then
 			B.StripTextures(frame)
@@ -200,7 +200,7 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 		end
 	end)
 
-	for _, name in next, {"ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab"} do
+	for _, name in pairs({"ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab"}) do
 		local tab = CommunitiesFrame[name]
 		if tab then
 			B.ReskinSideTab(tab)
@@ -481,7 +481,7 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 	CommunitiesGuildNewsFiltersFrameBg:Hide()
 	B.CreateBG(CommunitiesGuildNewsFiltersFrame)
 	B.ReskinClose(CommunitiesGuildNewsFiltersFrame.CloseButton)
-	for _, name in next, {"GuildAchievement", "Achievement", "DungeonEncounter", "EpicItemLooted", "EpicItemPurchased", "EpicItemCrafted", "LegendaryItemLooted"} do
+	for _, name in pairs({"GuildAchievement", "Achievement", "DungeonEncounter", "EpicItemLooted", "EpicItemPurchased", "EpicItemCrafted", "LegendaryItemLooted"}) do
 		local filter = CommunitiesGuildNewsFiltersFrame[name]
 		B.ReskinCheck(filter)
 	end

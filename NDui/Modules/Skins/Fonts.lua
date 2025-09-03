@@ -178,6 +178,11 @@ C.OnLoginThemes["Fonts"] = function()
 	ReskinFont(PriceFontGray)
 	ReskinFont(PriceFontGreen)
 	ReskinFont(PriceFontRed)
+	-- add in 11.2
+	ReskinFont(UserScaledFontGameNormal)
+	ReskinFont(UserScaledFontGameHighlight)
+	ReskinFont(UserScaledFontGameNormalSmall)
+	ReskinFont(UserScaledFontGameHighlightSmall)
 	-- new font family in 11.0.2
 	for i = 12, 22 do
 		local font = _G["ObjectiveTrackerFont"..i]

@@ -124,7 +124,7 @@ function M:RaidTool_RoleCount(parent)
 		"PLAYER_FLAGS_CHANGED",
 		"PLAYER_ENTERING_WORLD",
 	}
-	for _, event in next, eventList do
+	for _, event in pairs(eventList) do
 		B:RegisterEvent(event, updateRoleCount)
 	end
 

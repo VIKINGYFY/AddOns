@@ -181,7 +181,7 @@ end
 function UF:DelayClickSets()
 	if not next(pendingFrames) then return end
 
-	for frame in next, pendingFrames do
+	for frame in pairs(pendingFrames) do
 		UF:CreateClickSets(frame)
 	end
 end

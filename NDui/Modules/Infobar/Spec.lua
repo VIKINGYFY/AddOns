@@ -70,7 +70,7 @@ info.onEnter = function(self)
 		if #pvpTalents > 0 then
 			GameTooltip:AddLine(" ")
 			GameTooltip:AddLine(PVP_TALENTS, 0,1,1)
-			for _, talentID in next, pvpTalents do
+			for _, talentID in pairs(pvpTalents) do
 				local _, name, icon, _, _, _, unlocked = GetPvpTalentInfoByID(talentID)
 				if name and unlocked then
 					GameTooltip:AddLine(addIcon(icon).." "..name, 1,1,1)

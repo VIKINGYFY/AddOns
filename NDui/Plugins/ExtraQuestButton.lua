@@ -442,7 +442,7 @@ local function GetQuestDistanceWithItem(questID)
 				return MAX_DISTANCE_YARDS-2, itemLink
 			end
 		elseif type(questMapID) == "table" then
-			for _, mapID in next, questMapID do
+			for _, mapID in pairs(questMapID) do
 				if mapID == currentMapID then
 					return MAX_DISTANCE_YARDS-2, itemLink
 				end

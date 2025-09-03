@@ -115,7 +115,7 @@ function Bar:UpdateButtonConfig(i)
 	hideElements.macro = not C.db["Actionbar"]["Macro"]
 
 	local lockBars = C.db["Actionbar"]["ButtonLock"]
-	for _, button in next, self.buttons do
+	for _, button in pairs(self.buttons) do
 		self.buttonConfig.keyBoundTarget = button.bindName
 		button.keyBoundTarget = self.buttonConfig.keyBoundTarget
 
@@ -166,8 +166,8 @@ function Bar:ReassignBindings()
 		if frame then
 			ClearOverrideBindings(frame)
 
-			for _, button in next, frame.buttons do
-				for _, key in next, {GetBindingKey(button.keyBoundTarget)} do
+			for _, button in pairs(frame.buttons) do
+				for _, key in pairs({GetBindingKey(button.keyBoundTarget)}) do
 					if key and key ~= "" then
 						SetOverrideBindingClick(frame, false, key, button:GetName())
 					end
@@ -254,7 +254,7 @@ function Bar:CreateBars()
 
 	if LAB.flyoutHandler then
 		LAB.flyoutHandler.Background:Hide()
-		for _, button in next, LAB.FlyoutButtons do
+		for _, button in pairs(LAB.FlyoutButtons) do
 			Bar:StyleActionButton(button)
 		end
 	end

@@ -12,7 +12,7 @@ function M:RegisterMisc(name, func)
 end
 
 function M:OnLogin()
-	for name, func in next, MISC_LIST do
+	for name, func in pairs(MISC_LIST) do
 		if name and type(func) == "function" then
 			xpcall(func, geterrorhandler())
 		end

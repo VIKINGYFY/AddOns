@@ -11,22 +11,22 @@ local frameWidth, levelWidth = 160, 0
 
 --裝備清單
 local slots = {
-	{ index = 1 },
-	{ index = 2 },
-	{ index = 3 },
-	{ index = 5 },
-	{ index = 6 },
-	{ index = 7 },
-	{ index = 8 },
-	{ index = 9 },
-	{ index = 10 },
-	{ index = 11 },
-	{ index = 12 },
-	{ index = 13 },
-	{ index = 14 },
-	{ index = 15 },
-	{ index = 16 },
-	{ index = 17 },
+	{ index = 1, slot = HEADSLOT, },
+	{ index = 2, slot = NECKSLOT, },
+	{ index = 3, slot = SHOULDERSLOT, },
+	{ index = 5, slot = CHESTSLOT, },
+	{ index = 6, slot = WAISTSLOT, },
+	{ index = 7, slot = LEGSSLOT, },
+	{ index = 8, slot = FEETSLOT, },
+	{ index = 9, slot = WRISTSLOT, },
+	{ index = 10, slot = HANDSSLOT, },
+	{ index = 11, slot = FINGER0SLOT, },
+	{ index = 12, slot = FINGER1SLOT, },
+	{ index = 13, slot = TRINKET0SLOT, },
+	{ index = 14, slot = TRINKET1SLOT, },
+	{ index = 15, slot = BACKSLOT, },
+	{ index = 16, slot = MAINHANDSLOT, },
+	{ index = 17, slot = SECONDARYHANDSLOT, },
 }
 
 local stats = {
@@ -60,6 +60,8 @@ local function GetInspectItemListFrame(parent)
 			itemFrame = CreateFrame("Button", nil, frame, "BackdropTemplate")
 			itemFrame:SetSize(120, (frameHeight-74)/#slots)
 			itemFrame.index = v.index
+			itemFrame.slot = v.slot
+
 			if (i == 1) then
 				itemFrame:SetPoint("TOPLEFT", frame.specIcon, "BOTTOMLEFT", 0, -8)
 			else
@@ -164,13 +166,14 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 	frame.info:SetTextColor(1, 1, 0)
 
 	for i, v in ipairs(slots) do
-		local level, name, link, quality, _, itemID = LibUnitInfo:GetUnitItemInfo(unit, v.index)
+		local level, link, quality, mainType, subType, itemID = LibUnitInfo:GetUnitItemInfo(unit, v.index)
 		local itemFrame = frame["item"..i]
 		itemFrame:SetWidth(0)
-		itemFrame.name = name
-		itemFrame.link = link
 		itemFrame.level = level
+		itemFrame.link = link
 		itemFrame.quality = quality
+		itemFrame.mainType = mainType
+		itemFrame.subType = subType
 		itemFrame.width = 0
 
 		itemFrame.itemLevel:SetText("")

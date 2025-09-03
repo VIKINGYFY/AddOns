@@ -92,7 +92,7 @@ C.OnLoadThemes["Blizzard_Calendar"] = function()
 		CalendarTexturePickerTitleFrame,
 		CalendarMassInviteTitleFrame
 	}
-	for _, titleFrame in next, frames do
+	for _, titleFrame in pairs(frames) do
 		B.StripTextures(titleFrame)
 		local parent = titleFrame:GetParent()
 		B.StripTextures(parent)

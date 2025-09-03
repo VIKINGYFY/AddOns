@@ -50,7 +50,7 @@ function EX:ActionBarGlow_Update()
 end
 
 function EX:ActionBarGlow_OnEvent()
-	for button in next, ActionButtons do
+	for button in pairs(ActionButtons) do
 		if button:IsVisible() then
 			EX.ActionBarGlow_Update(button)
 		end

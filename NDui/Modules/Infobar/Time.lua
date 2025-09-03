@@ -341,9 +341,9 @@ info.onEnter = function(self)
 	if IsShiftKeyDown() then
 		-- Elemental threats
 		title = false
-		for mapID, stormGroup in next, stormPoiIDs do
-			for _, areaPoiIDs in next, stormGroup do
-				for _, areaPoiID in next, areaPoiIDs do
+		for mapID, stormGroup in pairs(stormPoiIDs) do
+			for _, areaPoiIDs in pairs(stormGroup) do
+				for _, areaPoiID in pairs(areaPoiIDs) do
 					local poiInfo = C_AreaPoiInfo.GetAreaPOIInfo(mapID, areaPoiID)
 					local elementType = poiInfo and poiInfo.atlasName and string.match(poiInfo.atlasName, "ElementalStorm%-Lesser%-(.+)")
 					if elementType then

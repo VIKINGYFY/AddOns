@@ -131,7 +131,7 @@ B:RegisterEvent("PLAYER_LOGIN", function()
 		B.HideOverlayGlow = LCG.HideOverlayGlow
 	end
 
-	for _, module in next, initQueue do
+	for _, module in pairs(initQueue) do
 		if module.OnLogin then
 			xpcall(module.OnLogin, geterrorhandler(), module)
 		else

@@ -39,7 +39,7 @@ end
 local function UpdateProgressBars(frame)
 	local objectives = frame:GetObjectiveFrame()
 	if objectives and objectives.progressBars then
-		for _, bar in next, objectives.progressBars do
+		for _, bar in pairs(objectives.progressBars) do
 			if bar and not bar.styled then
 				B.ReskinStatusBar(bar)
 				bar.styled = true

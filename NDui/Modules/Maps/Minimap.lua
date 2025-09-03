@@ -481,11 +481,10 @@ function module:UpdateMinimapScale()
 	if C.db["Map"]["DisableMinimap"] then return end
 
 	local size = C.db["Map"]["MinimapSize"]
-	local scale = C.db["Map"]["MinimapScale"]
 	Minimap:SetSize(size, size)
-	Minimap:SetScale(scale)
+
 	if Minimap.mover then
-		Minimap.mover:SetSize(size*scale, size*scale)
+		Minimap.mover:SetSize(size, size)
 	end
 end
 

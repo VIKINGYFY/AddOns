@@ -37,7 +37,7 @@ local function IsOtherItem(item)
 end
 
 local function isItemOutmoded(item)
-	return item.link and IsOtherItem(item) and (item.expansionID and item.expansionID < C.db["Bags"]["iExpToShow"])
+	return item.link and IsOtherItem(item) and (item.expacID and item.expacID < C.db["Bags"]["iExpToShow"])
 end
 
 local function isItemLowerLevel(item)

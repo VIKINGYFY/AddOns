@@ -33,7 +33,7 @@ end
 local frame = CreateFrame("Frame")
 
 local function onUpdate(_, elapsed)
-	for object, target in next, activeObjects do
+	for object, target in pairs(activeObjects) do
 		local new = Lerp(object._value, target, clamp(AMOUNT * elapsed * TARGET_FPS))
 		if isCloseEnough(new, target, object._max - object._min) then
 			new = target

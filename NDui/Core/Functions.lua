@@ -1468,7 +1468,7 @@ do
 
 	local buttonNames = {"MaximizeButton", "MinimizeButton"}
 	function B:ReskinMinMax()
-		for _, name in next, buttonNames do
+		for _, name in pairs(buttonNames) do
 			local button = self[name]
 			if button then
 				button:ClearAllPoints()
