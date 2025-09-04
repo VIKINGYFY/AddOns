@@ -145,7 +145,7 @@ function UF:CreateAurasIndicator(self)
 
 		button.count = B.CreateFS(button, 12, "", false, "BOTTOMRIGHT", 6, -3)
 		button.timer = B.CreateFS(button, 12, "", false, "CENTER", 1, 0)
-		button.glowFrame = B.CreateGlowFrame(button, auraSize)
+		button.glowFrame = B.CreateGlowFrame(button)
 		button.CD:SetHideCountdownNumbers(true)
 
 		if not prevAura then

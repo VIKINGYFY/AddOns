@@ -59,7 +59,7 @@ end
 function UF:CreateThreatBorder(self)
 	local threatIndicator = B.CreateSD(self, 6, true)
 	threatIndicator:SetFrameLevel(self:GetFrameLevel() + 1)
-	threatIndicator:SetOutside(self, 6+C.mult, 6+C.mult)
+	threatIndicator:SetOutside(self, 7, 7)
 	threatIndicator:Hide()
 
 	self.ThreatIndicator = threatIndicator

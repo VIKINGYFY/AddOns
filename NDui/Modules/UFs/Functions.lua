@@ -740,8 +740,7 @@ function UF:CreateCastBar(self)
 		cb.Icon:SetPoint("BOTTOMRIGHT", cb, "BOTTOMLEFT", -plateMargin, 0)
 		cb.timeToHold = .5
 
-		cb.glowFrame = B.CreateGlowFrame(cb, iconSize)
-		cb.glowFrame:SetPoint("CENTER", cb.Icon)
+		cb.glowFrame = B.CreateGlowFrame(cb.Icon)
 
 		local spellTarget = B.CreateFS(cb, C.db["Nameplate"]["CastBarTextSize"] + 2)
 		spellTarget:ClearAllPoints()
@@ -859,6 +858,7 @@ function UF.PostCreateButton(element, button)
 	button.Overlay:SetTexture(nil)
 	button.Cooldown:SetReverse(true)
 	button.Stealable:SetAtlas("bags-newitem")
+	button.Stealable:SetOutside(button.icbg, 5, 5)
 
 	if AURA then
 		button:HookScript("OnMouseDown", AURA.RemoveSpellFromIgnoreList)
@@ -918,7 +918,7 @@ function UF.PostUpdateButton(element, button, unit, data)
 		B.SetBorderColor(button.icbg)
 	end
 
-	if element.alwaysShowStealable and dispellType[debuffType] and not UnitIsPlayer(unit) and not button.isHarmful then
+	if element.alwaysShowStealable and dispellType[debuffType] and not (UnitIsPlayer(unit) and button.isHarmful) then
 		button.Stealable:Show()
 	end
 
@@ -1800,7 +1800,7 @@ function UF:DemonicGatewayIcon(self)
 	icon:SetSize(22, 22)
 	icon:SetTexture(607512) -- 607513 for purple
 	icon:SetTexCoord(unpack(DB.TexCoord))
-	icon.glowFrame = B.CreateGlowFrame(self, 22)
+	icon.glowFrame = B.CreateGlowFrame(self)
 
 	local updater = CreateFrame("Frame")
 	updater:SetScript("OnUpdate", DGI_OnUpdate)

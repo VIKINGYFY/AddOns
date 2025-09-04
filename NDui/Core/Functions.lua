@@ -652,13 +652,15 @@ do
 	end
 
 	-- Glow parent
-	function B:CreateGlowFrame(size)
-		local frame = CreateFrame("Frame", nil, self)
-		frame:SetFrameLevel(self:GetFrameLevel())
-		frame:SetSize(size+8, size+8)
-		frame:SetPoint("CENTER")
+	function B:CreateGlowFrame()
+		local frame = self
+		if self:IsObjectType("Texture") then frame = self:GetParent() end
 
-		return frame
+		local glow = CreateFrame("Frame", nil, frame)
+		glow:SetFrameLevel(frame:GetFrameLevel())
+		glow:SetOutside(self, 4, 4)
+
+		return glow
 	end
 
 	-- Gradient texture
@@ -1833,8 +1835,8 @@ do
 	end
 
 	local function SetInside(frame, anchor, xOffset, yOffset, anchor2)
-		xOffset = xOffset or C.mult
-		yOffset = yOffset or C.mult
+		xOffset = xOffset and (xOffset * C.mult) or C.mult
+		yOffset = yOffset and (yOffset * C.mult) or C.mult
 		anchor = anchor or frame:GetParent()
 
 		DisablePixelSnap(frame)
@@ -1844,8 +1846,8 @@ do
 	end
 
 	local function SetOutside(frame, anchor, xOffset, yOffset, anchor2)
-		xOffset = xOffset or C.mult
-		yOffset = yOffset or C.mult
+		xOffset = xOffset and (xOffset * C.mult) or C.mult
+		yOffset = yOffset and (yOffset * C.mult) or C.mult
 		anchor = anchor or frame:GetParent()
 
 		DisablePixelSnap(frame)

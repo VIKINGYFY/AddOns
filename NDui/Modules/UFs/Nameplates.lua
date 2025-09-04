@@ -275,7 +275,7 @@ function UF:CreateNameplateIndicator()
 	indicator:Hide()
 
 	indicator.Glow = B.CreateSD(indicator, 8, true)
-	indicator.Glow:SetOutside(self, 8+C.mult, 8+C.mult)
+	indicator.Glow:SetOutside(self, 9, 9)
 
 	indicator.nameGlow = indicator:CreateTexture(nil, "BACKGROUND")
 	indicator.nameGlow:SetSize(150, 80)

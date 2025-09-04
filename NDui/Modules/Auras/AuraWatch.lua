@@ -195,7 +195,7 @@ local function BuildICON(iconSize)
 	B.AuraIcon(frame)
 	frame.bg:SetOutside()
 
-	frame.glowFrame = B.CreateGlowFrame(frame, iconSize)
+	frame.glowFrame = B.CreateGlowFrame(frame)
 	frame.Spellname = B.CreateFS(frame, 13, "", false, "TOP", 0, 5)
 	frame.Count = B.CreateFS(frame, iconSize*.55, "", false, "BOTTOMRIGHT", 6, -3)
 

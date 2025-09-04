@@ -313,7 +313,7 @@ function UF:AvadaKedavra(self)
 		bu:SetSize(iconSize, iconSize)
 		B.AuraIcon(bu)
 
-		--bu.glowFrame = B.CreateGlowFrame(bu, iconSize)
+		--bu.glowFrame = B.CreateGlowFrame(bu)
 		bu.Count = B.CreateFS(bu, 16, "", false, "BOTTOM", 0, -10)
 
 		if i == 1 then

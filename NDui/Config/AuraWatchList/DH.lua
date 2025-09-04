@@ -26,7 +26,6 @@ local list = {
 		{AuraID =  394933, UnitID = "target", Caster = "player"}, -- 恶魔笼头
 		{AuraID =  442624, UnitID = "target", Caster = "player"}, -- 收割者印记
 		{AuraID =  462030, UnitID = "target", Caster = "player"}, -- 末日咒符
-
 	},
 	["Special Aura"] = { -- 玩家重要光环组
 		{AuraID =  162264, UnitID = "player"}, -- 恶魔变形
@@ -54,7 +53,6 @@ local list = {
 		{AuraID =  452416, UnitID = "player"}, -- 魔涌
 		{AuraID =  453239, UnitID = "player"}, -- 苦难修行
 		{AuraID = 1215159, UnitID = "player"}, -- 冲撞惯性
-
 	},
 }
 

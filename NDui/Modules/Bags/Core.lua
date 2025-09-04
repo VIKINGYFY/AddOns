@@ -957,7 +957,7 @@ function module:OnLogin()
 		self.QuestTag = B.CreateFS(self, 30, "!", "system", "LEFT", 3, 0)
 		self.iLvl = B.CreateFS(self, C.db["Bags"]["FontSize"], "", false, "BOTTOMLEFT", 1, 0)
 		self.iSlot = B.CreateFS(self, C.db["Bags"]["FontSize"], "", false, "TOPRIGHT", 0, -2)
-		self.glowFrame = B.CreateGlowFrame(self, iconSize)
+		self.glowFrame = B.CreateGlowFrame(self)
 
 		self.TierOverlay = self:CreateTexture(nil, "OVERLAY")
 		self.TierOverlay:SetPoint("TOPLEFT", -1, 2)
