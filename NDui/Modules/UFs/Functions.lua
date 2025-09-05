@@ -944,38 +944,11 @@ function UF.PostUpdateButton(element, button, unit, data)
 end
 
 function UF.AurasPostUpdateInfo(element)
-	element.bolsterStacks = 0
-	element.bolsterInstanceID = nil
-
-	for auraInstanceID, data in pairs(element.allBuffs) do
-		if data.spellId == 209859 then
-			if not element.bolsterInstanceID then
-				element.bolsterInstanceID = auraInstanceID
-				element.activeBuffs[auraInstanceID] = true
-			end
-			element.bolsterStacks = element.bolsterStacks + 1
-			if element.bolsterStacks > 1 then
-				element.activeBuffs[auraInstanceID] = nil
-			end
-		end
-	end
-	if element.bolsterStacks > 0 then
-		for i = 1, element.visibleButtons do
-			local button = element[i]
-			if element.bolsterInstanceID and element.bolsterInstanceID == button.auraInstanceID then
-				button.Count:SetText(element.bolsterStacks)
-				break
-			end
-		end
-	end
-
-	if C.db["Nameplate"]["ColorByDot"] then
-		element.hasTheDot = nil
-		for _, data in pairs(element.allDebuffs) do
-			if data.isPlayerAura and C.db["Nameplate"]["DotSpells"][data.spellId] then
-				element.hasTheDot = true
-				break
-			end
+	element.hasTheDot = nil
+	for _, data in pairs(element.allDebuffs) do
+		if data.isPlayerAura and C.db["Nameplate"]["DotSpells"][data.spellId] then
+			element.hasTheDot = true
+			break
 		end
 	end
 end
@@ -991,9 +964,6 @@ function UF.CustomFilter(element, unit, data)
 	local spellName, debuffType, isStealable, spellID, nameplateShowAll, isHarmful, isPlayerAura = data.name, data.dispelName, data.isStealable, data.spellId, data.nameplateShowAll, data.isHarmful, data.isPlayerAura
 
 	if style == "nameplate" or style == "boss" or style == "arena" then
-		if spellName and spellID == 209859 then -- pass all bolster
-			return true
-		end
 		if element.__owner.plateType == "NameOnly" then
 			return UF.NameplateWhite[spellID]
 		elseif UF.NameplateBlack[spellID] then
@@ -1172,7 +1142,9 @@ function UF:CreateAuras(self)
 		bu.disableMouse = true
 		bu.disableCooldown = true
 		bu.FilterAura = UF.CustomFilter
-		bu.PostUpdateInfo = UF.AurasPostUpdateInfo
+		if C.db["Nameplate"]["ColorByDot"] then
+			bu.PostUpdateInfo = UF.AurasPostUpdateInfo
+		end
 	end
 
 	UF:UpdateAuraContainer(self, bu, bu.numTotal or bu.numBuffs + bu.numDebuffs)

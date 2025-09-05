@@ -180,8 +180,11 @@ local function UpdateIconTexture(type, icon, data)
 end
 
 local function UpdateIconPoint(icon, anchor, index)
+	local x, y = DB.margin, 1
+	if index > 1 then x, y = 1, 0 end
+
 	icon:ClearAllPoints()
-	icon:SetPoint("LEFT", anchor, "RIGHT", index == 1 and DB.margin or 1, 0)
+	icon:SetPoint("LEFT", anchor, "RIGHT", x, y)
 end
 
 --讀取並顯示圖標
