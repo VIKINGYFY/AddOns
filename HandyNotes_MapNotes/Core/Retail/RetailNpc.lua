@@ -1,83 +1,245 @@
 local ADDON_NAME, ns = ...
-local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
+
 ns.locale = GetLocale()
 
-local npcNameCache = {}
+local npcNameCache = ns.npcNameCache or {}
+ns.npcNameCache = npcNameCache
+
 local retryQueue = {}
 local retryTimer
-local maxRetries = 10 -- try
-local retryInterval = 1 -- interval in seconds
-local maxPerTickBase = 20 -- max tick
-local timeBudgetMs = 6 -- per tick
+local maxRetries = 10
+local retryInterval = 0.2
+local maxPerTickBase = 50
+local timeBudgetMs = 10
 
-function ns.GetNpcInfo(npcID)
-    if not npcID then return end
-    if npcNameCache[npcID] then return unpack(npcNameCache[npcID]) end
-
-    local tooltipData = C_TooltipInfo.GetHyperlink("unit:Creature-0-0-0-0-" .. npcID .. "-0000000000")
-    if not tooltipData or not tooltipData.lines or not tooltipData.lines[1] then
-        return nil, nil
-    end
-
-    local npcName  = tooltipData.lines[1] and tooltipData.lines[1].leftText or nil
-    local npcTitle = tooltipData.lines[2] and tooltipData.lines[2].leftText or nil
-
-    if not npcName or npcName == "" then
-        return nil, nil
-    end
-
-    npcNameCache[npcID] = { npcName, npcTitle }
-    return npcName, npcTitle
+local function getSVBucket()
+  local locNow = ns and ns.locale or GetLocale() or "enUS"
+  local db = HandyNotes_MapNotesRetailNpcCacheDB
+  return (db and db.names and db.names[locNow]) or {}
 end
 
+
+local function normalizeID(id)
+  if id == nil then return nil end
+  local n = tonumber(id)
+  return n or id
+end
+
+function ns._SilenceHN(enable)
+  if not HandyNotes or not HandyNotes.SendMessage then return end
+  if enable and not ns._hnSilenced then
+    ns._hnSilenced = true
+    ns._hnSendMessageOrig = HandyNotes.SendMessage
+    function HandyNotes:SendMessage(event, ...)
+      if event == "HandyNotes_NotifyUpdate" then return end
+      return ns._hnSendMessageOrig(self, event, ...)
+    end
+  elseif not enable and ns._hnSilenced then
+    HandyNotes.SendMessage = ns._hnSendMessageOrig
+    ns._hnSendMessageOrig = nil
+    ns._hnSilenced = false
+  end
+end
+
+setmetatable(npcNameCache, {
+  __index = function(t, id)
+    local num = tonumber(id)
+    local bucket = getSVBucket()
+    local packed = (num and bucket[num]) or bucket[id]
+    if type(packed) == "string" then
+      local name, title = packed:match("([^\031]*)\031(.*)")
+      if name and name ~= "" then
+        if title == "" then title = nil end
+        local tuple = { name, title }
+        rawset(t, id, tuple)
+        return tuple
+      end
+    end
+    return nil
+  end
+})
+
+function ns.GetNPCName(id)
+  id = normalizeID(id)
+  local tuple = id and npcNameCache[id]
+  return tuple and tuple[1] or nil
+end
+
+local function PersistNpcName(charDB, locale, npcID, name, title)
+  if not (charDB and locale and npcID and name) then return end
+  charDB.names = charDB.names or {}
+  charDB.names[locale] = charDB.names[locale] or {}
+  local packed = name .. "\031" .. (title or "")
+  charDB.names[locale][npcID] = packed
+end
+
+ns._npcCacheSuccess = 0
+ns._npcCacheFail = 0
+
+function ns.GetNpcInfo(npcID)
+  npcID = normalizeID(npcID)
+  if not npcID then return end
+
+  local entry = npcNameCache[npcID]
+  if entry then
+    return entry[1], entry[2]
+  end
+
+  local tooltipData = C_TooltipInfo.GetHyperlink("unit:Creature-0-0-0-0-" .. npcID .. "-0000000000")
+  if not tooltipData or not tooltipData.lines or not tooltipData.lines[1] then
+    return nil, nil
+  end
+
+  local npcName  = tooltipData.lines[1] and tooltipData.lines[1].leftText or nil
+  local npcTitle = tooltipData.lines[2] and tooltipData.lines[2].leftText or nil
+  if not npcName or npcName == "" then
+    return nil, nil
+  end
+
+  npcNameCache[npcID] = { npcName, npcTitle }
+
+  do
+    local db = HandyNotes_MapNotesRetailNpcCacheDB
+    if type(db) == "table" then
+      local loc = ns.locale or GetLocale() or "enUS"
+      PersistNpcName(db, loc, npcID, npcName, npcTitle)
+    end
+  end
+
+  return npcName, npcTitle
+end
+
+
+
 function ns.PrimeNpcNameCache()
-    local seen = {}
-    local successCount = 0
-    local failCount = 0
+  local seen = {}
+  local successCount = 0
+  local failCount = 0
 
-    for mapID, nodes in pairs(ns.nodes or {}) do
-        for coord, node in pairs(nodes) do
-            local ids = {}
+  for mapID, nodes in pairs(ns.nodes or {}) do
+      for coord, node in pairs(nodes) do
+        local ids = {}
+        if node.npcID then table.insert(ids, node.npcID) end
 
-            if node.npcID then table.insert(ids, node.npcID) end
-            for i = 1, 10 do
-                local id = node["npcIDs" .. i]
-                if id then table.insert(ids, id) end
-            end
-
-            for _, npcID in ipairs(ids) do
-                if not seen[npcID] then
-                    seen[npcID] = true
-                    local name = ns.GetNpcInfo(npcID)
-                    if name then
-                        successCount = successCount + 1
-                    else
-                        failCount = failCount + 1
-                        retryQueue[npcID] = {
-                            attempts = 0,
-                            mapID = mapID,
-                            coord = coord,
-                            sourceFile = node.sourceFile or ns._currentSourceFile or "?"
-                        }
-                        if ns.Addon.db.profile.DeveloperMode then
-                            print(("%s Missing NPC: %d (mapID: %d, coord: %.2f, file: %s)"):format(ns.COLORED_ADDON_NAME, npcID, mapID, coord, retryQueue[npcID].sourceFile))
-                        end
-                    end
-                end
-            end
+        for i = 1, 10 do
+          local id = node["npcIDs" .. i]
+          if id then table.insert(ids, id) end
         end
+
+        for _, npcID in ipairs(ids) do
+          if not seen[npcID] then
+            seen[npcID] = true
+            local name = ns.GetNpcInfo(npcID)
+
+            if name then
+              successCount = successCount + 1
+            else
+              failCount = failCount + 1
+              retryQueue[npcID] = {
+                attempts = 0,
+                mapID = mapID,
+                coord = coord,
+                sourceFile = node.sourceFile or ns._currentSourceFile or "?"
+              }
+              if ns.Addon.db.profile.DeveloperMode then
+                print(("%s Missing NPC: %d (mapID: %d, coord: %.2f, file: %s)"):format(ns.COLORED_ADDON_NAME, npcID, mapID, coord, retryQueue[npcID].sourceFile))
+              end
+            end
+          end
+        end
+      end
+  end
+
+  ns._npcCacheSuccess = successCount
+  ns._npcCacheFail    = failCount
+
+  local cachingTextDone = ns.LOCALE_CACHING_DONE[ns.locale] or ns.LOCALE_CACHING_DONE["enUS"] or "update database"
+  if ns.Addon.db.profile.DeveloperMode or ns._manualScanActive then
+      print(("%s %s - %d found, %d missing"):format(ns.COLORED_ADDON_NAME, cachingTextDone, successCount, failCount))
+  end
+
+  if failCount > 0 then
+    local cachingText = ns.LOCALE_RETRY[ns.locale] or ns.LOCALE_RETRY["enUS"]
+    print(ns.COLORED_ADDON_NAME .. " " .. cachingText .. " ...")
+    ns.StartRetryQueue()
+  end
+end
+
+local function withAllCategoriesEnabled(fn)
+  local ok_restore, snapshot = false, {}
+  local profile = ns.Addon and ns.Addon.db and ns.Addon.db.profile
+  if type(profile) == "table" then
+    for k, v in pairs(profile) do
+      if type(v) == "boolean" then
+        snapshot[k] = v
+        profile[k] = true
+      end
+    end
+    ok_restore = true
+  end
+
+  local ok, err = pcall(fn)
+
+  if ok_restore then
+    for k, v in pairs(snapshot) do
+      profile[k] = v
+    end
+  end
+
+  if not ok and ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode then
+    print(ns.COLORED_ADDON_NAME .. " Rebuild error: " .. tostring(err))
+  end
+end
+
+function ns.RebuildNpcNameCache(opts)
+  opts = opts or {}
+  local hard = opts.hard
+
+  local db  = HandyNotes_MapNotesRetailNpcCacheDB or {}
+  HandyNotes_MapNotesRetailNpcCacheDB = db
+
+  local loc = ns.locale or GetLocale() or "enUS"
+  db.names = db.names or {}
+  db.names[loc] = db.names[loc] or {}
+
+  if hard then
+    db.names[loc] = {}
+  end
+
+  ns._SilenceHN(true)
+
+  withAllCategoriesEnabled(function()
+    if ns.Addon and ns.Addon.FullUpdate then
+      ns.Addon:FullUpdate()
     end
 
-    local cachingTextDone = ns.LOCALE_CACHING_DONE[ns.locale] or ns.LOCALE_CACHING_DONE["enUS"] or "update database"
-    if ns.Addon.db.profile.DeveloperMode or ns._manualScanActive then
-        print(("%s %s - %d found, %d missing"):format(ns.COLORED_ADDON_NAME, cachingTextDone, successCount, failCount))
-    end
+    ns._manualScanActive = true
+    if ns.PrimeNpcNameCache then ns.PrimeNpcNameCache() end
+    ns._manualScanActive = false
+  end)
 
-    if failCount > 0 then
-      local cachingText = ns.LOCALE_RETRY[ns.locale] or ns.LOCALE_RETRY["enUS"]
-      print(ns.COLORED_ADDON_NAME .. " " .. cachingText .. " ...")
-      ns.StartRetryQueue()
-    end
+  if ns.Addon and ns.Addon.FullUpdate then
+    ns.Addon:FullUpdate()
+  end
+
+  ns._SilenceHN(false)
+  if HandyNotes and HandyNotes.SendMessage then
+    HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+  end
+end
+
+
+function ns.GetNpcCacheStats()
+  local loc = ns.locale or GetLocale() or "enUS"
+  local saved = 0
+  local bucket = (HandyNotes_MapNotesRetailNpcCacheDB and HandyNotes_MapNotesRetailNpcCacheDB.names
+                  and HandyNotes_MapNotesRetailNpcCacheDB.names[loc]) or {}
+  for _ in pairs(bucket) do saved = saved + 1 end
+
+  local ram = 0
+  for _ in pairs(npcNameCache) do ram = ram + 1 end
+
+  return ram, saved, loc
 end
 
 function ns.StartRetryQueue()
@@ -87,12 +249,12 @@ function ns.StartRetryQueue()
     local processed = 0
     local fps = GetFramerate() or 60
     local scale
-    if     fps >= 120 then scale = 1.00
-    elseif fps >=  90 then scale = 0.85
-    elseif fps >=  60 then scale = 0.70
-    elseif fps >=  45 then scale = 0.55
-    elseif fps >=  30 then scale = 0.40
-    else                   scale = 0.25
+    if fps >= 120 then scale = 1.00
+    elseif fps >= 90 then scale = 0.85
+    elseif fps >= 60 then scale = 0.70
+    elseif fps >= 45 then scale = 0.55
+    elseif fps >= 30 then scale = 0.40
+    else scale = 0.25 
     end
     local maxPerTick = math.max(3, math.floor(maxPerTickBase * scale))
     local startMs = debugprofilestop()
@@ -101,17 +263,25 @@ function ns.StartRetryQueue()
       local name = ns.GetNpcInfo(npcID)
       if name then
         retryQueue[npcID] = nil
-        if ns.Addon.db.profile.DeveloperMode then
-          print(("%s Cached after retry: %d (mapID: %d, file: %s)"):format(
-            ns.COLORED_ADDON_NAME, npcID, data.mapID or 0, data.sourceFile or "?"))
+
+        ns._npcCacheSuccess = (ns._npcCacheSuccess or 0) + 1
+        if (ns._npcCacheFail or 0) > 0 then
+          ns._npcCacheFail = ns._npcCacheFail - 1
         end
+
+        if ns.Addon.db.profile.DeveloperMode then
+          print(("%s Cached after retry: %d (mapID: %d, file: %s)"):format(ns.COLORED_ADDON_NAME, npcID, data.mapID or 0, data.sourceFile or "?"))
+        end
+
       else
         data.attempts = (data.attempts or 0) + 1
         if data.attempts >= maxRetries then
           retryQueue[npcID] = nil
+
           if ns.Addon.db.profile.DeveloperMode then
             print(("%s Failed to cache: %d after %d tries (mapID: %d, coord: %.2f, file: %s)"):format(ns.COLORED_ADDON_NAME, npcID, maxRetries, data.mapID or 0, data.coord or 0, data.sourceFile or "?"))
           end
+
         end
       end
 
@@ -121,12 +291,13 @@ function ns.StartRetryQueue()
       end
     end
 
-    if next(retryQueue) == nil then
-      retryTimer:Cancel()
-      retryTimer = nil
-      local cachingText = ns.LOCALE_RETRY_DONE[ns.locale] or ns.LOCALE_RETRY_DONE["enUS"]
-      print(ns.COLORED_ADDON_NAME .. " " .. cachingText)
-    end
+  if next(retryQueue) == nil then
+    retryTimer:Cancel()
+    retryTimer = nil
+    local cachingText = ns.LOCALE_RETRY_DONE[ns.locale] or ns.LOCALE_RETRY_DONE["enUS"]
+    print(("%s %s - %d found, %d missing"):format(ns.COLORED_ADDON_NAME, cachingText, ns._npcCacheSuccess, ns._npcCacheFail))
+  end
+
   end)
 end
 
@@ -193,52 +364,54 @@ function ns.NpcTooltips(tooltip, nodeData )
   --  end
   --end
 
-  -- old example npcIDs10 last NPC name without spacing
-  -- if nodeData.npcIDs10 then -- 
-  --  local npcName, npcTitle = ns.GetNpcInfo(nodeData.npcIDs10)
-  --  if nodeData.icon10 then
-  --    if npcName then 
-  --      tooltip:AddLine((npcName or "???"))
-  --    end
-  --    if npcTitle and not npcTitle:match("%?%?+") then 
-  --      tooltip:AddLine(nodeData.icon10 .. " " .. npcTitle)
-  --    end
-  --  else
-  --    if npcName then
-  --      tooltip:AddLine("|cffffffff" .. npcName) 
-  --    end
-  --    if npcTitle and not npcTitle:match("%?%?+") then 
-  --      tooltip:AddLine(npcTitle)
-  --    end
-  --  end
-  --end
-
 end
 
 local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")
 f:SetScript("OnEvent", function(_, event, addonName)
-    if addonName == "HandyNotes_MapNotes" then
-      
-        if not HandyNotes_MapNotesRetailNpcCacheDB then
-            HandyNotes_MapNotesRetailNpcCacheDB = {}
-        end
+  if addonName ~= "HandyNotes_MapNotes" then return end
 
-        if HandyNotes_MapNotesRetailNpcCacheDB.lastNpcCacheVersion ~= ns.currentVersion then 
-          HandyNotes_MapNotesRetailNpcCacheDB.lastNpcCacheVersion = ns.currentVersion
-        
-          if ns.PrimeNpcNameCache then
-          local cachingText = ns.LOCALE_CACHING[ns.locale] or ns.LOCALE_CACHING["enUS"]
-              C_Timer.After(2, function()
-                if ns.Addon.db.profile.DeveloperMode then
-                  print(ns.COLORED_ADDON_NAME .. " " .. cachingText .. " ...")
-                end
-                ns.PrimeNpcNameCache()
-              end)
-          end
-        end
+  if type(HandyNotes_MapNotesRetailNpcCacheDB) ~= "table" then
+    HandyNotes_MapNotesRetailNpcCacheDB = {}
+  end
 
+  local db = HandyNotes_MapNotesRetailNpcCacheDB
+  db.names = db.names or {}
+  db.cacheVersion = db.cacheVersion or ""
+
+  if db.cacheVersion ~= ns.CurrentAddonVersion then
+    db.names = {}
+    db.cacheVersion = ns.CurrentAddonVersion
+  end
+
+  local loc = ns.locale or GetLocale() or "enUS"
+  db.names[loc] = db.names[loc] or {}
+
+  do
+    local bucket = db.names[loc]
+    for id, packed in pairs(bucket) do
+      local name, title = string.match(packed, "^(.-)\031(.*)$")
+      if name and name ~= "" then
+        local idNum = tonumber(id) or id
+        npcNameCache[idNum] = { name, title ~= "" and title or nil }
+      end
     end
+  end
+
+  if db.lastNpcCacheVersion ~= ns.CurrentAddonVersion then
+    db.lastNpcCacheVersion = ns.CurrentAddonVersion
+
+    if ns.PrimeNpcNameCache then
+      local cachingText = ns.LOCALE_CACHING[ns.locale] or ns.LOCALE_CACHING["enUS"]
+      C_Timer.After(2, function()
+        if ns.Addon.db.profile.DeveloperMode then
+          print(ns.COLORED_ADDON_NAME .. " " .. cachingText .. " ...")
+        end
+        ns.RebuildNpcNameCache()
+      end)
+    end
+  end
+
 end)
 
 function ns.CreateTargetButton(npcName, title)
@@ -266,7 +439,8 @@ function ns.CreateTargetButton(npcName, title)
         if not UnitExists("target") or UnitName("target") ~= npcName then
           local fullName = title and (npcName.." – "..title) or npcName
           local colored  = "|cffffd700"..fullName.."|r"
-          if ns.Addon.db.profile.NpcNameTargetingChatText then
+          local CurrentMapID = WorldMapFrame:GetMapID()
+          if ns.Addon.db.profile.NpcNameTargetingChatText and (CurrentMapID ~= 626 and CurrentMapID ~= 747) then
             print( ("%s %s (%s)"):format(ns.COLORED_ADDON_NAME, SPELL_FAILED_CUSTOM_ERROR_216, colored))
           end
         end
@@ -437,18 +611,4 @@ ns.LOCALE_CACHING_DONE = {
   koKR = [[데이터베이스 확인 완료]],
   zhCN = [[数据库检查完成]],
   zhTW = [[資料庫檢查完成]],
-}
-
-ns.LOCALE_CACHINGFOUND = {
-  enUS = [[new npcID(s) found]],
-  deDE = [[neue npcID(s) gefunden]],
-  frFR = [[nouveaux ID(s) PNJ trouvés]],
-  esES = [[nuevas ID(s) de PNJ encontradas]],
-  esMX = [[nuevas ID(s) de PNJ encontradas]],
-  itIT = [[nuovi ID NPC trovati]],
-  ptBR = [[novas ID(s) de NPC encontradas]],
-  ruRU = [[найдены новые ID NPC]],
-  koKR = [[새로운 NPC ID 발견됨]],
-  zhCN = [[发现新的NPC ID]],
-  zhTW = [[發現新的NPC ID]],
 }

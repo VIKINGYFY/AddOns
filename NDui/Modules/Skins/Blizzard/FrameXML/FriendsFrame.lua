@@ -44,6 +44,22 @@ end
 C.OnLoginThemes["FriendsFrame"] = function()
 	B.ReskinFrameTab(FriendsFrame, 4)
 
+	if not DB.isNewPatch then
+		B.StripTextures(IgnoreListFrame)
+		B.ReskinTrimScroll(IgnoreListFrame.ScrollBar)
+		B.Reskin(FriendsFrameIgnorePlayerButton)
+		B.Reskin(FriendsFrameUnsquelchButton)
+	else
+		B.StripTextures(FriendsFrame.IgnoreListWindow)
+		B.SetBD(FriendsFrame.IgnoreListWindow)
+		local closeButton = FriendsFrame.IgnoreListWindow.CloseButton or select(4, FriendsFrame.IgnoreListWindow:GetChildren())
+		if closeButton then
+			B.ReskinClose(closeButton)
+		end
+		B.ReskinTrimScroll(FriendsFrame.IgnoreListWindow.ScrollBar)
+		B.Reskin(FriendsFrame.IgnoreListWindow.UnignorePlayerButton)
+	end
+
 	local INVITE_RESTRICTION_NONE = 9
 	hooksecurefunc("FriendsFrame_UpdateFriendButton", function(button)
 		if button.gameIcon then
@@ -96,14 +112,25 @@ C.OnLoginThemes["FriendsFrame"] = function()
 	bubg:SetBackdropColor(0, .8, 1, .25)
 
 	local broadcastButton = battlenetFrame.BroadcastButton
-	broadcastButton:SetSize(20, 20)
-	broadcastButton:GetNormalTexture():SetAlpha(0)
-	broadcastButton:GetPushedTexture():SetAlpha(0)
-	B.ReskinButton(broadcastButton)
-	B.UpdatePoint(broadcastButton, "LEFT", battlenetFrame, "RIGHT", 3, 0)
-	local newIcon = broadcastButton:CreateTexture(nil, "ARTWORK")
-	newIcon:SetAllPoints()
-	newIcon:SetTexture("Interface\\FriendsFrame\\BroadcastIcon")
+	if broadcastButton then -- isNewPatch, removed in 11.2.5
+		broadcastButton:SetSize(20, 20)
+		broadcastButton:GetNormalTexture():SetAlpha(0)
+		broadcastButton:GetPushedTexture():SetAlpha(0)
+		B.ReskinButton(broadcastButton)
+		B.UpdatePoint(broadcastButton, "LEFT", battlenetFrame, "RIGHT", 3, 0)
+		local newIcon = broadcastButton:CreateTexture(nil, "ARTWORK")
+		newIcon:SetAllPoints()
+		newIcon:SetTexture("Interface\\FriendsFrame\\BroadcastIcon")
+	end
+
+	if DB.isNewPatch then
+		local menuButton = FriendsFrameBattlenetFrame.ContactsMenuButton
+		if menuButton then
+			B.ReskinArrow(menuButton, "down")
+			menuButton.Icon:Hide()
+			menuButton:SetSize(22, 22)
+		end
+	end
 
 	local broadcastFrame = battlenetFrame.BroadcastFrame
 	B.ReskinFrame(broadcastFrame)
@@ -123,9 +150,7 @@ C.OnLoginThemes["FriendsFrame"] = function()
 
 	B.ReskinFrame(FriendsFrame)
 	B.ReskinButton(FriendsFrameAddFriendButton)
-	B.ReskinButton(FriendsFrameIgnorePlayerButton)
 	B.ReskinButton(FriendsFrameSendMessageButton)
-	B.ReskinButton(FriendsFrameUnsquelchButton)
 	B.ReskinScroll(FriendsListFrame.ScrollBar)
 
 	B.ReskinFrame(FriendsFriendsFrame)
@@ -133,9 +158,6 @@ C.OnLoginThemes["FriendsFrame"] = function()
 	B.ReskinButton(FriendsListFrameContinueButton)
 	B.ReskinDropDown(FriendsFriendsFrameDropdown)
 	B.ReskinScroll(FriendsFriendsFrame.ScrollBar)
-
-	B.StripTextures(IgnoreListFrame)
-	B.ReskinScroll(IgnoreListFrame.ScrollBar)
 
 	B.ReskinButton(WhoFrameAddFriendButton)
 	B.ReskinButton(WhoFrameGroupInviteButton)
@@ -153,8 +175,17 @@ C.OnLoginThemes["FriendsFrame"] = function()
 	whoBg:SetPoint("TOPLEFT", WhoFrameEditBox, -3, -2)
 	whoBg:SetPoint("BOTTOMRIGHT", WhoFrameEditBox, -1, 2)
 
-	for i = 1, 3 do
-		B.StripTextures(_G["FriendsTabHeaderTab"..i])
+	if not DB.isNewPatch then
+		for i = 1, 3 do
+			B.StripTextures(_G["FriendsTabHeaderTab"..i])
+		end
+	else
+		for i = 1, 3 do
+			local tab = select(i, FriendsTabHeader.TabSystem:GetChildren())
+			if tab then
+				B.ReskinTab(tab)
+			end
+		end
 	end
 
 	-- Recruite frame

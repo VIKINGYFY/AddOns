@@ -2,6 +2,10 @@
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "koKR")
 if not L then return end
 
+-- Class Hall
+L["Artifact Forge"] = "유물 제련소"
+L["Class Hall"] = "직업 전당"
+L["The entrance of each class must first be unlocked before they are accessible"] = "각 직업의 입구는 접근 가능하기 전에 먼저 잠금 해제해야 합니다"
 -- Worldmap
 L["Change zone map"] = "지역 지도 변경"
 L["This allows you to automatically switch the world map to the map of the new area when you leave one zone and enter a new one"] = "이 기능을 사용하면 한 지역을 떠나 다른 지역에 들어갈 때 세계 지도가 자동으로 새 지역의 지도로 전환됩니다"

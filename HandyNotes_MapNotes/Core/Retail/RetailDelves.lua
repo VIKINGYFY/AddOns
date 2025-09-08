@@ -22,6 +22,7 @@ function ns.BlizzardDelvesAddFunction()
         ns.BlizzDelveIDs = ns.BlizzDelveAreaPoisInfoIDs[self.poiInfo.areaPoiID] or ns.BlizzBountifulDelveAreaPoisInfoIDs[self.poiInfo.areaPoiID]
         if button == "MiddleButton" then
             if ns.BlizzDelveIDs then
+                ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
                 WorldMapFrame:SetMapID(ns.BlizzDelveIDs)
             end
         end
@@ -117,7 +118,7 @@ function ns.DelveContinent:ProjectDelves(parentMapID, zoneMapID)
     local delves = C_AreaPoiInfo.GetDelvesForMap(zoneMapID) or {}
     for _, delveID in ipairs(delves) do
         local info = C_AreaPoiInfo.GetAreaPOIInfo(zoneMapID, delveID)
-        if info and info.position and (info.atlasName == "delves-bountiful" or not ns.Addon.db.profile.OnlyBountiful) then
+        if info and info.position then
             local x, y = info.position:GetXY()
             local newX, newY = ConvertMapCoords(zoneMapID, parentMapID, x, y)
             if newX and newY and newX >= 0 and newX <= 1 and newY >= 0 and newY <= 1 then

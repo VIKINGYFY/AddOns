@@ -2,6 +2,10 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "enUS", true)
 
 
+-- Class Hall
+L["Artifact Forge"] = true
+L["Class Hall"] = true
+L["The entrance of each class must first be unlocked before they are accessible"] = true
 -- Worldmap
 L["Change zone map"] = true
 L["This allows you to automatically switch the world map to the map of the new area when you leave one zone and enter a new one"] = true

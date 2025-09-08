@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
     <Frame name="MapNotesContinentDelvePinTemplate" inherits="DelveEntrancePinTemplate" mixin="DelveEntrancePinMixin" virtual="true"/>
+    <Script file="RetailErrorMessage.lua"/>
     <Script file="RetailCreateLinks.lua"/>
     <Script file="RetailDefaults.lua"/>
     <Script file="RetailOptions.lua"/>
@@ -7,10 +8,13 @@
     <Script file="RetailWmb.lua"/>
     <Script file="RetailFogOfWar.lua"/>
     <Script file="RetailDelves.lua"/>
+    <Script file="RetailClassHall.lua"/>
     <Script file="RetailScaleAlpha.lua"/>
     <Script file="RetailSyncSingleScaleAlpha.lua"/>
+    <Script file="RetailPOIs.lua"/>
     <Script file="RetailNpc.lua"/>
-    <Script file="RetailChangeLog.lua"/>  
+    <Script file="RetailChangeLog.lua"/>
+    <Script file="RetailQuestsAndAchievements.lua"/>  
     <Script file="RetailMain.lua"/>
     <Script file="RetailAreaMap.lua"/>
 </Ui>

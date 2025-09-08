@@ -2,6 +2,10 @@
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "esES")
 if not L then return end
 
+-- Class Hall
+L["Artifact Forge"] = "Forja de artefactos"
+L["Class Hall"] = "Sede de clase"
+L["The entrance of each class must first be unlocked before they are accessible"] = "La entrada de cada clase debe desbloquearse primero antes de que sea accesible"
 -- Worldmap
 L["Change zone map"] = "Cambiar mapa de zona"
 L["This allows you to automatically switch the world map to the map of the new area when you leave one zone and enter a new one"] = "Esto permite cambiar automáticamente el mapa mundial al mapa de la nueva área cuando sales de una zona y entras en otra"

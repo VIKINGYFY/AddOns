@@ -918,11 +918,11 @@ ns._currentSourceFile = "RetailCapitals.lua"
                         nodes[1165][51719454] = { mnID = 14, name = L["This Arathi Highlands portal is only active if your faction is currently occupying Ar'gorok"], type = "HPortalS", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Dazar'alor to Arathi or Darkshore         
                         nodes[1165][56323078] = { npcID = 147642, name = "", dnID = "\n" .. TOOLTIP_BATTLE_PET .. " " .. CALENDAR_TYPE_DUNGEON .. " " .. L["Portals"] .. ":\n" .. " ", type = "PortalHPetBattleDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false, 
                                                   showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL,
-                                                  mnIDs1 = 11, questIDs1 = 45423, wwwNames1 = "Wailing Critters", wwwLinks1 = "https://www.wowhead.com/quest=45423",
-                                                  mnIDs2 = 52, questIDs2 = 46291, wwwNames2 = "The Deadmines strike back", wwwLinks2 = "https://www.wowhead.com/quest=46291", 
-                                                  mnIDs3 = 30, questIDs3 = 54185, wwwNames3 = "Gnomeregans new Guardians", wwwLinks3 = "https://www.wowhead.com/quest=54185",
-                                                  mnIDs4 = 23, questIDs4 = 56491, wwwNames4 = "Tiny Terrors of Stratholme", wwwLinks4 = "https://www.wowhead.com/quest=56491", 
-                                                  mnIDs5 = 35, questIDs5 = 58457, wwwNames5 = "Shadows of Blackrock", wwwLinks5 = "https://www.wowhead.com/quest=58457" } -- Portal Manapuff
+                                                  mnIDs1 = 11, questIDs1 = 45423, wwwLinks1 = "https://www.wowhead.com/quest=45423",
+                                                  mnIDs2 = 52, questIDs2 = 46291, wwwLinks2 = "https://www.wowhead.com/quest=46291", 
+                                                  mnIDs3 = 30, questIDs3 = 54185, wwwLinks3 = "https://www.wowhead.com/quest=54185",
+                                                  mnIDs4 = 23, questIDs4 = 56491, wwwLinks4 = "https://www.wowhead.com/quest=56491", 
+                                                  mnIDs5 = 35, questIDs5 = 58457, wwwLinks5 = "https://www.wowhead.com/quest=58457" } -- Portal Manapuff
                     end
 
                     if self.db.profile.showCapitalsTransport then
@@ -1961,11 +1961,11 @@ ns._currentSourceFile = "RetailCapitals.lua"
                         nodes[1161][66212442] = { mnID = 62, name = L["This Darkshore portal is only active if your faction is currently occupying Bashal'Aran"], type = "APortalS", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portalroom from Boralus
                         nodes[1161][50044667] = { npcID = 147666, name = "", dnID = "\n" .. TOOLTIP_BATTLE_PET .. " " .. CALENDAR_TYPE_DUNGEON .. " " .. L["Portals"] .. ":\n" .. " ", type = "PortalAPetBattleDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false, 
                                                   showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL,
-                                                  mnIDs1 = 11, questIDs1 = 45423, wwwNames1 = "Wailing Critters", wwwLinks1 = "https://www.wowhead.com/quest=45423",
-                                                  mnIDs2 = 52, questIDs2 = 46291, wwwNames2 = "The Deadmines strike back", wwwLinks2 = "https://www.wowhead.com/quest=46291", 
-                                                  mnIDs3 = 30, questIDs3 = 54185, wwwNames3 = "Gnomeregans new Guardians", wwwLinks3 = "https://www.wowhead.com/quest=54185",
-                                                  mnIDs4 = 23, questIDs4 = 56491, wwwNames4 = "Tiny Terrors of Stratholme", wwwLinks4 = "https://www.wowhead.com/quest=56491", 
-                                                  mnIDs5 = 35, questIDs5 = 58457, wwwNames5 = "Shadows of Blackrock", wwwLinks5 = "https://www.wowhead.com/quest=58457" } -- Portal Manapuff
+                                                  mnIDs1 = 11, questIDs1 = 45423, wwwLinks1 = "https://www.wowhead.com/quest=45423",
+                                                  mnIDs2 = 52, questIDs2 = 46291, wwwLinks2 = "https://www.wowhead.com/quest=46291", 
+                                                  mnIDs3 = 30, questIDs3 = 54185, wwwLinks3 = "https://www.wowhead.com/quest=54185",
+                                                  mnIDs4 = 23, questIDs4 = 56491, wwwLinks4 = "https://www.wowhead.com/quest=56491", 
+                                                  mnIDs5 = 35, questIDs5 = 58457, wwwLinks5 = "https://www.wowhead.com/quest=58457" } -- Portal Manapuff
                     end
 
                     if self.db.profile.showCapitalsTransport then
@@ -2381,11 +2381,11 @@ ns._currentSourceFile = "RetailCapitals.lua"
                     nodes[126][60021149] = { npcID = 29538, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     
                     if self.faction == "Horde" or db.activate.CapitalsEnemyFaction then
-                        nodes[125][66362219] = { npcIDs1 = 35495, npcIDs2 = 31582, npcIDs3 = 37941, npcIDs4 = 31581, npcIDs5 = 33963, name = TRANSMOG_SET_PVE .. " " .. MERCHANT .. " - " .. ITEM_REQ_HORDE, type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                        nodes[125][66362219] = { npcIDs1 = 35495, npcIDs2 = 31582, npcIDs3 = 37941, npcIDs4 = 31581, npcIDs5 = 33963, name = TRANSMOG_SET_PVE .. " " .. MERCHANT .. " - " .. ITEM_REQ_HORDE, type = "PvEVendorH", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     end
 
                     if self.faction == "Alliance" or db.activate.CapitalsEnemyFaction then
-                        nodes[125][38135483] = { npcIDs1 = 31580, npcIDs2 = 31579, npcIDs3 = 35494, npcIDs4 = 37942, npcIDs5 = 33964, name = TRANSMOG_SET_PVE .. " " .. MERCHANT .. " - " .. ITEM_REQ_ALLIANCE .. " (" .. DUNGEON_FLOOR_GILNEAS3 .. ")", type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                        nodes[125][38135483] = { npcIDs1 = 31580, npcIDs2 = 31579, npcIDs3 = 35494, npcIDs4 = 37942, npcIDs5 = 33964, name = TRANSMOG_SET_PVE .. " " .. MERCHANT .. " - " .. ITEM_REQ_ALLIANCE .. " (" .. DUNGEON_FLOOR_GILNEAS3 .. ")", type = "PvEVendorA", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     end
 
                 end
@@ -2628,11 +2628,11 @@ ns._currentSourceFile = "RetailCapitals.lua"
                     nodes[832][43432516] = { mnID = 627, name = L["Portal"], type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     nodes[627][58613935] = { npcID = 121602, name = "", dnID = "\n" .. TOOLTIP_BATTLE_PET .. " " .. CALENDAR_TYPE_DUNGEON .. " " .. L["Portals"] .. ":\n" .. " ", type = "PortalPetBattleDungeon", showInZone = true, showOnContinent = false, showOnMinimap = false, 
                                              showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL,
-                                             mnIDs1 = 11, questIDs1 = 45423, wwwNames1 = "Wailing Critters", wwwLinks1 = "https://www.wowhead.com/quest=45423",
-                                             mnIDs2 = 52, questIDs2 = 46291, wwwNames2 = "The Deadmines strike back", wwwLinks2 = "https://www.wowhead.com/quest=46291", 
-                                             mnIDs3 = 30, questIDs3 = 54185, wwwNames3 = "Gnomeregans new Guardians", wwwLinks3 = "https://www.wowhead.com/quest=54185",
-                                             mnIDs4 = 23, questIDs4 = 56491, wwwNames4 = "Tiny Terrors of Stratholme", wwwLinks4 = "https://www.wowhead.com/quest=56491", 
-                                             mnIDs5 = 35, questIDs5 = 58457, wwwNames5 = "Shadows of Blackrock", wwwLinks5 = "https://www.wowhead.com/quest=58457" } -- Portal Manapuff
+                                             mnIDs1 = 11, questIDs1 = 45423, wwwLinks1 = "https://www.wowhead.com/quest=45423",
+                                             mnIDs2 = 52, questIDs2 = 46291, wwwLinks2 = "https://www.wowhead.com/quest=46291", 
+                                             mnIDs3 = 30, questIDs3 = 54185, wwwLinks3 = "https://www.wowhead.com/quest=54185",
+                                             mnIDs4 = 23, questIDs4 = 56491, wwwLinks4 = "https://www.wowhead.com/quest=56491", 
+                                             mnIDs5 = 35, questIDs5 = 58457, wwwLinks5 = "https://www.wowhead.com/quest=58457" } -- Portal Manapuff
 
                     if self.faction == "Horde" or db.activate.CapitalsEnemyFaction then
                         nodes[629][33557905] = { mnID = 971, name = L["Portal"], type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false }
@@ -2678,7 +2678,7 @@ ns._currentSourceFile = "RetailCapitals.lua"
                 end
 
                 if self.db.profile.showCapitalsBlacksmith then
-                    nodes[627][45122893] = { npcID = 92183, name = "", type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[627][44122870] = { npcID = 92183, name = "", type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
 
                 if self.db.profile.showCapitalsMining then
@@ -3300,10 +3300,10 @@ ns._currentSourceFile = "RetailCapitals.lua"
                     nodes[2266][70537306] = { mnID = 1525, name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Portal"] } --  Timeways Portal to Zuldazar
                     --nodes[2266][60506950] = { mnID = 241, name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Portal"] } --  Timeways Portal to 
                     nodes[2339][53563873] = { mnID = 2266, name = "", type = "WayGateGolden", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["The Timeways"] .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. ns.Tazavesh .. "\n" .. " ==> " .. ns.Revendreth } --  Portal from Dornogal to the Timeways
-                    nodes[2339][63615205] = { mnID = 2255, name = L["Portal"], dnID = "", showWWW = true, achievementID = 19559, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19559", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Dornogal to Azj-Kahet if u finished the achievement=19559
-                    nodes[2339][29775967] = { mnID = 2367, name = L["Portal"], dnID = "", showWWW = true, achievementID = 40725, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=40725", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Kammer der Erinnerung
-                    nodes[2339][52465047] = { mnID = 2346, name = L["Portal"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/quest=86535/test-run", questID = 86535, type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Dornogal to Undermine
-                    nodes[2339][40312267] = { mnID = 2472, name = L["Portal"], dnID = "", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/quest=84957/return-to-the-veiled-market", questID = 84957, type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Dornogal to Tazavesh
+                    nodes[2339][63615205] = { mnID = 2255, name = L["Portal"], dnID = "", showWWW = true, achievementID = 19559, wwwLink = "https://wowhead.com/achievement=19559", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Dornogal to Azj-Kahet if u finished the achievement=19559
+                    nodes[2339][29775967] = { mnID = 2367, name = L["Portal"], dnID = "", showWWW = true, achievementID = 40725, wwwLink = "https://wowhead.com/achievement=40725", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Kammer der Erinnerung
+                    nodes[2339][52465047] = { mnID = 2346, name = L["Portal"], dnID = "", showWWW = true, questID = 86535, wwwLink = "https://wowhead.com/quest=86535/test-run",  type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Dornogal to Undermine
+                    nodes[2339][40312267] = { mnID = 2472, name = L["Portal"], dnID = "", showWWW = true, questID = 84957, wwwLink = "https://wowhead.com/quest=84957/return-to-the-veiled-market",  type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Dornogal to Tazavesh
 
                     if self.faction == "Horde" or db.activate.CapitalsEnemyFaction then
                         nodes[2339][38192724] = { mnID = 85, name = L["Portal"], dnID = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dornogal to Orgrimmar

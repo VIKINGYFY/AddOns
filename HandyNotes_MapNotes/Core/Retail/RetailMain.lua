@@ -1,4 +1,4 @@
-local ADDON_NAME, ns = ...
+local _, ns = ...
 local buildVersion, buildNumber, buildDate, interfaceVersion, localizedVersion, buildInfo = GetBuildInfo()
 ns.version = buildVersion -- ns.version == "11.1.0"
 
@@ -18,17 +18,8 @@ local minimap = { }
 local lfgIDs = { }
 local extraInformations = { }
 
-ns.Debug = ns.Debug or { ForceQuestsUnlearned = false }
-
-function ns.IsQuestLearned(questIDs)
-  if ns.Addon.db.profile.DeveloperMode then 
-    if IsAltKeyDown() then return false end
-    if ns.Debug.ForceQuestsUnlearned then return false end
-  end
-  return C_QuestLog.IsQuestFlaggedCompleted(questIDs)
-end
-
 ns.RestoreStaticPopUpsRetail()
+ns.ErrorMessages() -- RetailErrorMessage.lua
 
 function MapNotesMiniButton:OnInitialize() --mmb.lua
   self.db = LibStub("AceDB-3.0"):New("MNMiniMapButtonRetailDB", { profile = { minimap = { hide = false, }, }, }) 
@@ -58,36 +49,63 @@ function ns.ChangingMapToPlayerZone()
   if ns._MapChangeInit then return end
   ns._MapChangeInit = true
 
-  local function Update()
-    if not ns.Addon.db.profile.MapChanging then return end
-    if not WorldMapFrame or not WorldMapFrame:IsShown() then return end
-
-    local playerMapID = C_Map.GetBestMapForUnit("player")
-    if not playerMapID then return end
-
-    if WorldMapFrame:GetMapID() ~= playerMapID then
-      WorldMapFrame:SetMapID(playerMapID)
+  local lastSet
+  local function SetToPlayerMap()
+    if not (ns.Addon and ns.Addon.db and ns.Addon.db.profile.MapChanging) then return end
+    if not (WorldMapFrame and WorldMapFrame:IsShown()) then return end
+    local base = C_Map.GetBestMapForUnit("player")
+    if not base then return end
+    if base ~= lastSet and WorldMapFrame:GetMapID() ~= base then
+      ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
+      WorldMapFrame:SetMapID(base)
+      lastSet = base
     end
   end
 
   local f = CreateFrame("Frame")
-  f:RegisterEvent("ZONE_CHANGED_NEW_AREA") 
-  f:SetScript("OnEvent", function() Update() end)
+  f:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+  f:RegisterEvent("LOADING_SCREEN_DISABLED")
+  f:RegisterEvent("PLAYER_CONTROL_GAINED")
+  f:SetScript("OnEvent", SetToPlayerMap)
 
+  local burstPending = false
+  local function StartTicker()
+    if burstPending or not (WorldMapFrame and WorldMapFrame:IsShown()) then return end
+    burstPending = true
+    SetToPlayerMap()
+    C_Timer.After(0.5, function()
+      SetToPlayerMap()
+      burstPending = false
+    end)
+  end
+
+  local mini = CreateFrame("Frame")
+  mini:RegisterEvent("MINIMAP_UPDATE_ZOOM")
+  mini:SetScript("OnEvent", function(_, ev)
+    if not (WorldMapFrame and WorldMapFrame:IsShown()) then return end
+
+    local base = C_Map.GetBestMapForUnit("player")
+    if not base then return end
+
+    if WorldMapFrame:GetMapID() ~= base or ev ~= "MINIMAP_UPDATE_ZOOM" then
+      StartTicker()
+    end
+  end)
 end
 
-function ns.ShowPlayersMap(targetType) -- Find the right maps for the activation options from the menu (zone/continent/dungeon)
-    local id = C_Map.GetBestMapForUnit("player")
-    if not id then return end
+function ns.ShowPlayersMap(targetType) -- Find the right maps for the activation options from the menu (zone/continent/dungeon (RetailOptions.lua))
+  local PlayerMapID = C_Map.GetBestMapForUnit("player")
+  if not PlayerMapID then return end
 
-    local info = C_Map.GetMapInfo(id)
-    while info and info.mapType and info.mapType > targetType and info.parentMapID do
-        info = C_Map.GetMapInfo(info.parentMapID)
-    end
+  local info = C_Map.GetMapInfo(PlayerMapID)
+  while info and info.mapType and info.mapType > targetType and info.parentMapID do
+    info = C_Map.GetMapInfo(info.parentMapID)
+  end
 
-    if info and info.mapType == targetType then
-        WorldMapFrame:SetMapID(info.mapID)
-    end
+  if info and info.mapType == targetType then
+    ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
+    WorldMapFrame:SetMapID(info.mapID)
+  end
 end
 
 local alreadyWarned = {}
@@ -302,95 +320,12 @@ local function ShowBossNames(instanceID, tooltip)
 
 end
 
-local function mnIDsANDquestIDsTooltip(tooltip, nodeData)
-  --local IsCompleted = C_QuestLog.IsQuestFlaggedCompleted
-
-  local ANYmnIDs = false
-  for i = 1, 10 do
-    local mnIDs = nodeData["mnIDs"..i]
-    local questIDs = nodeData["questIDs"..i]
-    if mnIDs then
-      local info = C_Map.GetMapInfo(mnIDs)
-      if info and info.name then
-        ANYmnIDs = true
-        local learned = questIDs and ns.IsQuestLearned(questIDs)
-        if learned == true then
-          tooltip:AddDoubleLine(" ==> " .. info.name, ALREADY_LEARNED, 1,1,1, 0,1,0)
-        elseif learned == false then
-          tooltip:AddDoubleLine(" ==> " .. info.name, L["Has not been unlocked yet"], 1,1,1, 1,0,0)
-        end
-      end
-    end
-  end
-
-  if ANYmnIDs then
-    tooltip:AddLine(" ")
-  end
-
-  local anyShown = false
-  local function showCopyHint()
-    if ns.Addon.db.profile.CreateAndCopyLinks then
-      tooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. "|cff00ff00 " .. L["Middle mouse button to post the link in the chat"] .. " " .. TextIconMNL4:GetIconString(), nil, nil, false)
-    else
-      tooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. "|cff00ff00  " .. L["Enable „Link“ in MapNotes („General“ - „Chat-Options“)"] .. "  " .. TextIconMNL4:GetIconString() .. "\n " .. TextIconMNL4:GetIconString() .. "|cff00ff00  " .. L["to create clickable quest or achievement links in chat"] .. "  " .. TextIconMNL4:GetIconString(), nil, nil, false)
-    end
-  end
-
-  local function showLink(wwwLinks)
-    tooltip:AddDoubleLine("|cffffffff" .. (wwwLinks or ""), nil, nil, false)
-    tooltip:AddLine(L["Has not been unlocked yet"], 1, 0, 0)
-    tooltip:AddLine(" ")
-    anyShown = true
-  end
-
-  if nodeData.questID then -- solo questID
-    local learned = ns.IsQuestLearned(nodeData.questID)
-    if not learned then
-      if nodeData.wwwName then
-        tooltip:AddDoubleLine("\n" .. nodeData.wwwName, nil, nil, false)
-      end
-      if nodeData.showWWW and (nodeData.wwwLink or nodeData.wwwLink1) then
-        showLink(nodeData.wwwLink or nodeData.wwwLink1, false)
-      end
-    elseif nodeData.hideLink == true then
-      tooltip:AddLine("\n" .. ALREADY_LEARNED .. "\n", 0, 1, 0)
-    end
-  end
-
-  for i = 1, 10 do -- questIDs 1-10
-    ns.questIDs  = nodeData["questIDs"..i]
-    ns.wwwLinks = nodeData["wwwLinks"..i]
-    ns.questNames = nodeData["wwwNames"..i]
-
-    if ns.questIDs then
-      local learned = ns.IsQuestLearned(ns.questIDs)
-      if not learned then
-        if nodeData.showWWW then
-          if ns.questNames then
-            tooltip:AddDoubleLine("|cffffff00" .. ns.questNames, nil, nil, false)
-          end
-          showLink(ns.wwwLinks or ("https://www.wowhead.com/quest=" .. ns.questIDs))
-        end
-      end
-    elseif ns.wwwLinks and nodeData.showWWW then
-      if ns.questNames then
-        tooltip:AddDoubleLine("|cffffff00" .. ns.questNames, nil, nil, false)
-      end
-      showLink(ns.wwwLinks)
-    end
-  end
-
-  if anyShown then
-    showCopyHint()
-  end
-end
-
 local pluginHandler = { }
 ns.pluginHandler = pluginHandler
 function ns.pluginHandler.OnEnter(self, uiMapId, coord)
 
   local nodeData = nil
-  local GetCurrentMapID = WorldMapFrame:GetMapID()
+  local CurrentMapID = WorldMapFrame:GetMapID()
 
   ns.nodes[uiMapId][coord] = nodes[uiMapId][coord]
   ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
@@ -443,6 +378,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
 
   ExtraToolTip()
 	updateextraInformation()
+  ns.AddTaxiStatusToTooltip(tooltip, nodeData.taxiID)
 
   if nodeData.type and not ns.MapType0 then -- multi tooltips for instances above id names
 
@@ -463,7 +399,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
     if mixedMultiTypes[nodeData.type] and nodeData.mnID then
       tooltip:AddDoubleLine("|cffffffff" .. RAIDS .. " & " .. DUNGEONS .. "\n" .. " ")
     end
-  
+
   end
 
   if ns.Addon.db.profile.BossNames and nodeData.type ~= "LFR" and nodeData.type ~= "PassageLFR" then
@@ -478,7 +414,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
   local isMulti = (nodeData.id and type(nodeData.id) == "table")
   local total = isMulti and #instances or 1
 	for idx, v in pairs(instances) do
-    
+
     --print(i, v)
 	  if (db.KilledBosses and (extraInformations[v] or (lfgIDs[v] and extraInformations[lfgIDs[v]]))) then
  	    if (extraInformations[v]) then
@@ -505,8 +441,9 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
         end
         tooltip:AddDoubleLine("uiMapID:  " .. uiMapId, "Coord:  " .. coord, nil, nil, false)
         tooltip:AddDoubleLine("uiMapID:  " .. uiMapId, "==>   " .. C_Map.GetMapInfo(uiMapId).name, nil, nil, false)
-        if nodeData.npcID then
-          tooltip:AddDoubleLine("npcID:  " .. nodeData.npcID, C_Map.GetMapInfo(nodeData.npcID), nil, nil, false)
+        local npcID = tonumber(nodeData.npcID)
+        if npcID and npcID > 0 then
+          tooltip:AddDoubleLine(("npcID:  %d"):format(npcID), "", nil, nil, nil)
         end
         if nodeData.npcIDs1 then
           tooltip:AddDoubleLine("npcIDs1:  " .. nodeData.npcIDs1, C_Map.GetMapInfo(nodeData.npcIDs1), nil, nil, false)
@@ -636,38 +573,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
       end
     end
 
-    mnIDsANDquestIDsTooltip(tooltip, nodeData)
-
-    if nodeData.achievementID then
-      local _, name, _, completed, _, _, _, description, _, _, _, _, wasEarnedByMe = GetAchievementInfo(nodeData.achievementID)
-
-      --if wasEarnedByMe == false or completed == false then
-      if completed == false then
-        tooltip:AddLine("\n" .. description, nil, nil, false)
-
-        if nodeData.wwwName then
-          tooltip:AddDoubleLine(nodeData.wwwName, nil, nil, false)
-        end
-
-        if nodeData.wwwLink and nodeData.showWWW == true then
-          tooltip:AddDoubleLine("|cffffffff" .. nodeData.wwwLink, nil, nil, false)
-          tooltip:AddLine("\n" .. L["Has not been unlocked yet"], 1, 0, 0)
-          if ns.Addon.db.profile.CreateAndCopyLinks then
-            tooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. "|cff00ff00 " .. L["Middle mouse button to post the link in the chat"] .. " " .. TextIconMNL4:GetIconString(), nil, nil, false)
-          else
-            tooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. "|cff00ff00  " .. L["Enable „Link“ in MapNotes („General“ - „Chat-Options“)"] .. "  " .. TextIconMNL4:GetIconString() .. "\n " .. TextIconMNL4:GetIconString() .. "|cff00ff00  " .. L["to create clickable quest or achievement links in chat"] .. "  " .. TextIconMNL4:GetIconString(), nil, nil, false)
-          end
-        end
-        
-      end
-
-      -- if wasEarnedByMe == true and completed == true then
-      if completed == true then
-        nodeData.showWWW = false
-        nodeData.wwwName = false
-      end
-
-    end
+    ns.mnIDsANDquestIDsTooltip(tooltip, nodeData)
 
     if nodeData.type and not ns.MapType0 then -- single tooltips for instances under id names
 
@@ -824,8 +730,8 @@ do
 
 		local data = t.data
 		local state, value = next(data, prestate)
-    local GetCurrentMapID = WorldMapFrame:GetMapID()
-    local GetBestMapForUnit = C_Map.GetBestMapForUnit("player")
+    local CurrentMapID = WorldMapFrame:GetMapID()
+    local PlayerMapID = C_Map.GetBestMapForUnit("player")
 
 		while value do
 			local alpha
@@ -841,10 +747,11 @@ do
       ns.ChangeToClassicImagesRetail() -- function to change the icon style from new images to old images
 
       ns.pathIcons = value.type == "PathO" or value.type == "PathRO" or value.type == "PathLO" or value.type == "PathU" or value.type == "PathLU" or value.type == "PathRU" or value.type == "PathL" or value.type == "PathR"
+                          or value.type == "RedPathO" or value.type == "RedPathRO" or value.type == "RedPathLO" or value.type == "RedPathU" or value.type == "RedPathLU" or value.type == "RedPathRU" or value.type == "RedPathL" or value.type == "RedPathR"
       
       ns.professionIcons = value.type == "Alchemy" or value.type == "Engineer" or value.type == "Cooking" or value.type == "Fishing" or value.type == "Archaeology" or value.type == "Mining" or value.type == "Jewelcrafting" 
-                            or value.type == "Blacksmith" or value.type == "Leatherworking" or value.type == "Skinning" or value.type == "Tailoring" or value.type == "Herbalism" or value.type == "Inscription"
-                            or value.type == "Enchanting" or value.type == "FishingClassic" or value.type == "ProfessionOrders" or value.type == "ProfessionsMixed"
+                          or value.type == "Blacksmith" or value.type == "Leatherworking" or value.type == "Skinning" or value.type == "Tailoring" or value.type == "Herbalism" or value.type == "Inscription"
+                          or value.type == "Enchanting" or value.type == "FishingClassic" or value.type == "ProfessionOrders" or value.type == "ProfessionsMixed"
 
       ns.instanceIcons = value.type == "Dungeon" or value.type == "Raid" or value.type == "PassageDungeon" or value.type == "PassageDungeonRaidMulti" or value.type == "PassageRaid" or value.type == "VInstance" or value.type == "MultiVInstance" 
                           or value.type == "Multiple" or value.type == "LFR" or value.type == "Gray" or value.type == "VKey1" or value.type == "Delves" or value.type == "VInstanceD" or value.type == "VInstanceR" or value.type == "MultiVInstanceD" 
@@ -853,9 +760,11 @@ do
       ns.transportIcons = value.type == "Portal" or value.type == "PortalS" or value.type == "HPortal" or value.type == "APortal" or value.type == "HPortalS" or value.type == "APortalS" or value.type == "PassageHPortal" 
                           or value.type == "PassageAPortal" or value.type == "PassagePortal" or value.type == "Zeppelin" or value.type == "HZeppelin" or value.type == "AZeppelin" or value.type == "Ship" or value.type == "TorghastUp"
                           or value.type == "AShip" or value.type == "HShip" or value.type == "Carriage" or value.type == "TravelL" or value.type == "TravelH" or value.type == "TravelA" or value.type == "Tport2" 
-                          or value.type == "OgreWaygate" or value.type == "WayGateGreen" or value.type == "Ghost" or value.type == "DarkMoon" or value.type == "Mirror" or value.type == "TravelM" or value.type == "B11M" 
-                          or value.type == "MOrcF" or value.type == "UndeadF" or value.type == "GoblinF" or value.type == "GilneanF" or value.type == "KulM" or value.type == "DwarfF" or value.type == "OrcM" or value.type == "WayGateGolden"
-                          or value.type == "MoleMachineDwarf" or value.type == "PortalPetBattleDungeon" or value.type == "PortalHPetBattleDungeon" or value.type == "PortalAPetBattleDungeon"
+                          or value.type == "OgreWaygate" or value.type == "WayGateGreen" or value.type == "Ghost" or value.type == "DarkMoon" or value.type == "Mirror" or value.type == "TravelM" or value.type == "WayGateGolden"
+                          or value.type == "MoleMachineDwarf" or value.type == "PortalPetBattleDungeon" or value.type == "PortalHPetBattleDungeon" or value.type == "PortalAPetBattleDungeon" or value.type == "B11M" or value.type == "B11F" 
+                          or value.type == "MOrcM" or value.type == "MOrcF" or value.type == "UndeadM" or value.type == "UndeadF" or value.type == "GoblinM" or value.type == "GoblinF" or value.type == "GilneanM" or value.type == "GilneanF" 
+                          or value.type == "KulM" or value.type == "KulF" or value.type == "DwarfM" or value.type == "DwarfF" or value.type == "OrcM" or value.type == "OrcF" or value.type == "GnomeM" or value.type == "GnomeF" or value.type == "DraneiM"
+                          or value.type == "DraneiF" or value.type == "N11M" or value.type == "N11F" or value.type == "TrollM" or value.type == "TrollF"
                           
       ns.generalIcons = value.type == "Exit" or value.type == "PassageUpL" or value.type == "PassageDownL" or value.type == "PassageRightL" or value.type == "PassageLeftL" or value.type == "Innkeeper" 
                         or value.type == "Auctioneer" or value.type == "Bank" or value.type == "MNL" or value.type == "Barber" or value.type == "Transmogger" or value.type == "ItemUpgrade" or value.type == "PvPVendor" 
@@ -866,7 +775,20 @@ do
                         or value.type == "PvEVendorH" or value.type == "PvEVendorA" or value.type == "MMInnkeeperH" or value.type == "MMInnkeeperA" or value.type == "MMStablemasterH" or value.type == "MMStablemasterA"
                         or value.type == "MMMailboxH" or value.type == "MMMailboxA" or value.type == "MMPvPVendorH" or value.type == "MMPvPVendorA" or value.type == "MMPvEVendorH" or value.type == "MMPvEVendorA" 
                         or value.type == "ZonePvEVendorH" or value.type == "ZonePvPVendorH" or value.type == "ZonePvEVendorA" or value.type == "ZonePvPVendorA" or value.type == "TradingPost" or value.type == "PassageCaveUp"
-                        or value.type == "PassageCaveDown" or value.type == "MountMerchant"
+                        or value.type == "PassageCaveDown" or value.type == "MountMerchant" or value.type == "Upgrade" or value.type == "ScoutingMap"
+
+        ns.classHallIcons = value.type == "CHMountMerchant" or value.type == "CHUpgrade" or value.type == "CHScoutingMap" or value.type == "CHMailbox" or value.type == "RedPathO" or value.type == "RedPathRO" or value.type == "RedPathLO" or value.type == "RedPathU" 
+                        or value.type == "RedPathLU" or value.type == "RedPathRU" or value.type == "RedPathL" or value.type == "RedPathR" or value.type == "CHTravel" or value.type == "CHPortal" or value.type == "ArtifactForge" or value.type == "Recruit" 
+                        or value.type == "CHVendor" or value.type == "CHStablemasterN" or value.type == "Archivar" or value.type == "CHDeathknight" or value.type == "CHDemonhunter" or value.type == "CHDracyr" or value.type == "CHDruid" or value.type == "CHHunter" 
+                        or value.type == "CHMage" or value.type == "CHMonk" or value.type == "CHPaladin" or value.type == "CHPriest" or value.type == "CHRogue" or value.type == "CHShaman" or value.type == "CHWarlock" or value.type == "CHWarrior" 
+
+        ns.raceIcons = value.type == "B11M" or value.type == "B11F" or value.type == "MOrcM" or value.type == "MOrcF" or value.type == "UndeadM" or value.type == "UndeadF" or value.type == "GoblinM" or value.type == "GoblinF" or value.type == "GilneanM" 
+                        or value.type == "GilneanF" or value.type == "KulM" or value.type == "KulF" or value.type == "DwarfM" or value.type == "DwarfF" or value.type == "OrcM" or value.type == "OrcF" or value.type == "GnomeM" or value.type == "GnomeF" 
+                        or value.type == "DraneiM" or value.type == "DraneiF" or value.type == "N11M" or value.type == "N11F" or value.type == "TrollM" or value.type == "TrollF" or value.type == "TaureM" or value.type == "TaureF" or value.type == "PandaM" 
+                        or value.type == "PandaF" or value.type == "HMTaurenM" or value.type == "HMTaurenF" or value.type == "LFDraeneiM" or value.type == "LFDraeneiF" or value.type == "LN11BorneM" or value.type == "LN11BorneF" or value.type == "Void11M" 
+                        or value.type == "Void11F" or value.type == "DarkDwarfM" or value.type == "DarkDwarfF" or value.type == "DracthyrM" or value.type == "DracthyrF" or value.type == "VulperaM" or value.type == "VulperaF" or value.type == "MechaGnomeM" 
+                        or value.type == "MechaGnomeM" or value.type == "ZandalariTrollM" or value.type == "ZandalariTrollF"
+
 
       ns.AllZoneIDs = ns.KalimdorIDs
                       or ns.EasternKingdomIDs
@@ -889,84 +811,90 @@ do
       ns.MapType5 = mapInfo.mapType == 5 -- Micro maps
       ns.MapType6 = mapInfo.mapType == 6 -- Orphan maps
 
-      ns.ContinentIDs = GetCurrentMapID == 12 or GetCurrentMapID == 13 or GetCurrentMapID == 101 or GetCurrentMapID == 113 or GetCurrentMapID == 424 or GetCurrentMapID == 619
-                      or GetCurrentMapID == 875 or GetCurrentMapID == 876 or GetCurrentMapID == 905 or GetCurrentMapID == 1978 or GetCurrentMapID == 1550 or GetCurrentMapID == 572
-                      or GetCurrentMapID == 2274 or GetCurrentMapID == 948
+      ns.ContinentIDs = CurrentMapID == 12 or CurrentMapID == 13 or CurrentMapID == 101 or CurrentMapID == 113 or CurrentMapID == 424 or CurrentMapID == 619
+                      or CurrentMapID == 875 or CurrentMapID == 876 or CurrentMapID == 905 or CurrentMapID == 1978 or CurrentMapID == 1550 or CurrentMapID == 572
+                      or CurrentMapID == 2274 or CurrentMapID == 948
 
-      ns.CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentMapID == 89 or GetCurrentMapID == 103 or GetCurrentMapID == 85 or GetCurrentMapID == 90 
-                      or GetCurrentMapID == 86 or GetCurrentMapID == 88 or GetCurrentMapID == 110 or GetCurrentMapID == 111 or GetCurrentMapID == 125 or GetCurrentMapID == 126 
-                      or GetCurrentMapID == 391 or GetCurrentMapID == 392 or GetCurrentMapID == 393 or GetCurrentMapID == 394 or GetCurrentMapID == 407 or GetCurrentMapID == 503 
-                      or GetCurrentMapID == 582 or GetCurrentMapID == 590 or GetCurrentMapID == 622 or GetCurrentMapID == 624 or GetCurrentMapID == 626 or GetCurrentMapID == 627 
-                      or GetCurrentMapID == 831 or GetCurrentMapID == 832 or GetCurrentMapID == 628 or GetCurrentMapID == 629 or GetCurrentMapID == 1161 or GetCurrentMapID == 1163 
-                      or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 or GetCurrentMapID == 1670 or GetCurrentMapID == 1671 or GetCurrentMapID == 1672 or GetCurrentMapID == 1673 
-                      or GetCurrentMapID == 2112 or GetCurrentMapID == 2339 or GetCurrentMapID == 499 or GetCurrentMapID == 500 or GetCurrentMapID == 2266 
+      ns.ClassHallIDs = CurrentMapID == 626 or CurrentMapID == 627 or CurrentMapID == 641 or CurrentMapID == 650 or CurrentMapID == 747 or CurrentMapID == 720 -- Class Hall
+                      or CurrentMapID == 721 or CurrentMapID == 726 or CurrentMapID == 739 or CurrentMapID == 23 or CurrentMapID == 24 or CurrentMapID == 734 or CurrentMapID == 735
+
+      ns.CapitalIDs = CurrentMapID == 84 or CurrentMapID == 87 or CurrentMapID == 89 or CurrentMapID == 103 or CurrentMapID == 85 or CurrentMapID == 90 
+                      or CurrentMapID == 86 or CurrentMapID == 88 or CurrentMapID == 110 or CurrentMapID == 111 or CurrentMapID == 125 or CurrentMapID == 126 
+                      or CurrentMapID == 391 or CurrentMapID == 392 or CurrentMapID == 393 or CurrentMapID == 394 or CurrentMapID == 407 or CurrentMapID == 503 
+                      or CurrentMapID == 582 or CurrentMapID == 590 or CurrentMapID == 622 or CurrentMapID == 624 or CurrentMapID == 627 
+                      or CurrentMapID == 831 or CurrentMapID == 832 or CurrentMapID == 628 or CurrentMapID == 629 or CurrentMapID == 1161 or CurrentMapID == 1163 
+                      or CurrentMapID == 1164 or CurrentMapID == 1165 or CurrentMapID == 1670 or CurrentMapID == 1671 or CurrentMapID == 1672 or CurrentMapID == 1673 
+                      or CurrentMapID == 2112 or CurrentMapID == 2339 or CurrentMapID == 499 or CurrentMapID == 500 or CurrentMapID == 2266 
                             
-      ns.AllianceCapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentMapID == 89 or GetCurrentMapID == 103 or GetCurrentMapID == 393 or GetCurrentMapID == 394
-                      or GetCurrentMapID == 1161 or GetCurrentMapID == 622 or GetCurrentMapID == 582
+      ns.AllianceCapitalIDs = CurrentMapID == 84 or CurrentMapID == 87 or CurrentMapID == 89 or CurrentMapID == 103 or CurrentMapID == 393 or CurrentMapID == 394
+                      or CurrentMapID == 1161 or CurrentMapID == 622 or CurrentMapID == 582
 
-      ns.HordeCapitalsIDs = GetCurrentMapID == 85 or GetCurrentMapID == 86 or GetCurrentMapID == 88 or GetCurrentMapID == 110 or GetCurrentMapID == 90 or GetCurrentMapID == 392
-                      or GetCurrentMapID == 391 or GetCurrentMapID == 1163 or GetCurrentMapID == 1164 or GetCurrentMapID == 1165 or GetCurrentMapID == 624 or GetCurrentMapID == 590
+      ns.HordeCapitalsIDs = CurrentMapID == 85 or CurrentMapID == 86 or CurrentMapID == 88 or CurrentMapID == 110 or CurrentMapID == 90 or CurrentMapID == 392
+                      or CurrentMapID == 391 or CurrentMapID == 1163 or CurrentMapID == 1164 or CurrentMapID == 1165 or CurrentMapID == 624 or CurrentMapID == 590
 
-      ns.NeutralCapitalIDs = GetCurrentMapID == 2339 or GetCurrentMapID == 111 or GetCurrentMapID == 1670 or GetCurrentMapID == 1671 or GetCurrentMapID == 1673 or GetCurrentMapID == 1672
-                      or GetCurrentMapID == 125 or GetCurrentMapID == 126 or GetCurrentMapID == 627 or GetCurrentMapID == 626 or GetCurrentMapID == 628 or GetCurrentMapID == 269
-                      or GetCurrentMapID == 2112 or GetCurrentMapID == 407
+      ns.NeutralCapitalIDs = CurrentMapID == 626 or CurrentMapID == 747 -- Class Hall
+                      or CurrentMapID == 2339 or CurrentMapID == 111 or CurrentMapID == 1670 or CurrentMapID == 1671 or CurrentMapID == 1673 or CurrentMapID == 1672
+                      or CurrentMapID == 125 or CurrentMapID == 126 or CurrentMapID == 627 or CurrentMapID == 628 or CurrentMapID == 269 or CurrentMapID == 2112 
+                      or CurrentMapID == 407
 
-      ns.CapitalMiniMapIDs = GetBestMapForUnit == 84 or GetBestMapForUnit == 87 or GetBestMapForUnit == 89 or GetBestMapForUnit == 103 or GetBestMapForUnit == 85 or GetBestMapForUnit == 90 
-                      or GetBestMapForUnit == 86 or GetBestMapForUnit == 88 or GetBestMapForUnit == 110 or GetBestMapForUnit == 111 or GetBestMapForUnit == 125 or GetBestMapForUnit == 126 
-                      or GetBestMapForUnit == 391 or GetBestMapForUnit == 392 or GetBestMapForUnit == 393 or GetBestMapForUnit == 394 or GetBestMapForUnit == 407 or GetBestMapForUnit == 503 
-                      or GetBestMapForUnit == 582 or GetBestMapForUnit == 590 or GetBestMapForUnit == 622 or GetBestMapForUnit == 624 or GetBestMapForUnit == 626 or GetBestMapForUnit == 627 
-                      or GetBestMapForUnit == 628 or GetBestMapForUnit == 629 or GetCurrentMapID == 831 or GetCurrentMapID == 832 or GetBestMapForUnit == 1161 or GetBestMapForUnit == 1163 
-                      or GetBestMapForUnit == 1164 or GetBestMapForUnit == 1165 or GetBestMapForUnit == 1670 or GetBestMapForUnit == 1671 or GetBestMapForUnit == 1672 or GetBestMapForUnit == 1673 
-                      or GetBestMapForUnit == 2112 or GetBestMapForUnit == 2339 or GetBestMapForUnit == 499 or GetBestMapForUnit == 500 or GetBestMapForUnit == 2266
+      ns.CapitalMiniMapIDs = PlayerMapID == 626 or PlayerMapID == 747 -- Class Hall
+                      or PlayerMapID == 84 or PlayerMapID == 87 or PlayerMapID == 89 or PlayerMapID == 103 or PlayerMapID == 85 or PlayerMapID == 90 
+                      or PlayerMapID == 86 or PlayerMapID == 88 or PlayerMapID == 110 or PlayerMapID == 111 or PlayerMapID == 125 or PlayerMapID == 126 
+                      or PlayerMapID == 391 or PlayerMapID == 392 or PlayerMapID == 393 or PlayerMapID == 394 or PlayerMapID == 407 or PlayerMapID == 503 
+                      or PlayerMapID == 582 or PlayerMapID == 590 or PlayerMapID == 622 or PlayerMapID == 624 or PlayerMapID == 627 
+                      or PlayerMapID == 628 or PlayerMapID == 629 or PlayerMapID == 831 or PlayerMapID == 832 or PlayerMapID == 1161 or PlayerMapID == 1163 
+                      or PlayerMapID == 1164 or PlayerMapID == 1165 or PlayerMapID == 1670 or PlayerMapID == 1671 or PlayerMapID == 1672 or PlayerMapID == 1673 
+                      or PlayerMapID == 2112 or PlayerMapID == 2339 or PlayerMapID == 499 or PlayerMapID== 500 or PlayerMapID == 2266
 
-      ns.KalimdorIDs = GetCurrentMapID == 1 or GetCurrentMapID == 7 or GetCurrentMapID == 10 or GetCurrentMapID == 11 or GetCurrentMapID == 57 or GetCurrentMapID == 62 
-                      or GetCurrentMapID == 63 or GetCurrentMapID == 64 or GetCurrentMapID == 65 or GetCurrentMapID == 66 or GetCurrentMapID == 67 or GetCurrentMapID == 68 
-                      or GetCurrentMapID == 69 or GetCurrentMapID == 70 or GetCurrentMapID == 71 or GetCurrentMapID == 74 or GetCurrentMapID == 75 or GetCurrentMapID == 76 
-                      or GetCurrentMapID == 77 or GetCurrentMapID == 78 or GetCurrentMapID == 80 or GetCurrentMapID == 81 or GetCurrentMapID == 83 or GetCurrentMapID == 97 
-                      or GetCurrentMapID == 106 or GetCurrentMapID == 199 or GetCurrentMapID == 327 or GetCurrentMapID == 460 or GetCurrentMapID == 461 or GetCurrentMapID == 462 
-                      or GetCurrentMapID == 468 or GetCurrentMapID == 1527 or GetCurrentMapID == 198 or GetCurrentMapID == 249
+      ns.KalimdorIDs = CurrentMapID == 1 or CurrentMapID == 7 or CurrentMapID == 10 or CurrentMapID == 11 or CurrentMapID == 57 or CurrentMapID == 62 
+                      or CurrentMapID == 63 or CurrentMapID == 64 or CurrentMapID == 65 or CurrentMapID == 66 or CurrentMapID == 67 or CurrentMapID == 68 
+                      or CurrentMapID == 69 or CurrentMapID == 70 or CurrentMapID == 71 or CurrentMapID == 74 or CurrentMapID == 75 or CurrentMapID == 76 
+                      or CurrentMapID == 77 or CurrentMapID == 78 or CurrentMapID == 80 or CurrentMapID == 81 or CurrentMapID == 83 or CurrentMapID == 97 
+                      or CurrentMapID == 106 or CurrentMapID == 199 or CurrentMapID == 327 or CurrentMapID == 460 or CurrentMapID == 461 or CurrentMapID == 462 
+                      or CurrentMapID == 468 or CurrentMapID == 1527 or CurrentMapID == 198 or CurrentMapID == 249
           
-      ns.EasternKingdomIDs = GetCurrentMapID == 14 or GetCurrentMapID == 15 or GetCurrentMapID == 16 or GetCurrentMapID == 17 or GetCurrentMapID == 18 
-                      or GetCurrentMapID == 19 or GetCurrentMapID == 21 or GetCurrentMapID == 22 or GetCurrentMapID == 23 or GetCurrentMapID == 25 or GetCurrentMapID == 26 
-                      or GetCurrentMapID == 27 or GetCurrentMapID == 28 or GetCurrentMapID == 30 or GetCurrentMapID == 32 or GetCurrentMapID == 33 or GetCurrentMapID == 34 
-                      or GetCurrentMapID == 35 or GetCurrentMapID == 36 or GetCurrentMapID == 37 or GetCurrentMapID == 42 or GetCurrentMapID == 47 or GetCurrentMapID == 48 
-                      or GetCurrentMapID == 49 or GetCurrentMapID == 50 or GetCurrentMapID == 51 or GetCurrentMapID == 52 or GetCurrentMapID == 55 or GetCurrentMapID == 56 
-                      or GetCurrentMapID == 94 or GetCurrentMapID == 210 or GetCurrentMapID == 224 or GetCurrentMapID == 245 or GetCurrentMapID == 425 or GetCurrentMapID == 427 
-                      or GetCurrentMapID == 465 or GetCurrentMapID == 467 or GetCurrentMapID == 469 or GetCurrentMapID == 2070 
-                      or GetCurrentMapID == 241 or GetCurrentMapID == 203 or GetCurrentMapID == 204 or GetCurrentMapID == 205 or GetCurrentMapID == 241 or GetCurrentMapID == 244 
-                      or GetCurrentMapID == 245 or GetCurrentMapID == 201 or GetCurrentMapID == 95 or GetCurrentMapID == 122 or GetCurrentMapID == 217 or GetCurrentMapID == 226
+      ns.EasternKingdomIDs = CurrentMapID == 14 or CurrentMapID == 15 or CurrentMapID == 16 or CurrentMapID == 17 or CurrentMapID == 18 
+                      or CurrentMapID == 19 or CurrentMapID == 21 or CurrentMapID == 22 or CurrentMapID == 23 or CurrentMapID == 25 or CurrentMapID == 26 
+                      or CurrentMapID == 27 or CurrentMapID == 28 or CurrentMapID == 30 or CurrentMapID == 32 or CurrentMapID == 33 or CurrentMapID == 34 
+                      or CurrentMapID == 35 or CurrentMapID == 36 or CurrentMapID == 37 or CurrentMapID == 42 or CurrentMapID == 47 or CurrentMapID == 48 
+                      or CurrentMapID == 49 or CurrentMapID == 50 or CurrentMapID == 51 or CurrentMapID == 52 or CurrentMapID == 55 or CurrentMapID == 56 
+                      or CurrentMapID == 94 or CurrentMapID == 210 or CurrentMapID == 224 or CurrentMapID == 245 or CurrentMapID == 425 or CurrentMapID == 427 
+                      or CurrentMapID == 465 or CurrentMapID == 467 or CurrentMapID == 469 or CurrentMapID == 2070 
+                      or CurrentMapID == 241 or CurrentMapID == 203 or CurrentMapID == 204 or CurrentMapID == 205 or CurrentMapID == 241 or CurrentMapID == 244 
+                      or CurrentMapID == 245 or CurrentMapID == 201 or CurrentMapID == 95 or CurrentMapID == 122 or CurrentMapID == 217 or CurrentMapID == 226
           
-      ns.OutlandIDs = GetCurrentMapID == 100 or GetCurrentMapID == 102 or GetCurrentMapID == 104 or GetCurrentMapID == 105 or GetCurrentMapID == 107 or GetCurrentMapID == 108
-                      or GetCurrentMapID == 109
+      ns.OutlandIDs = CurrentMapID == 100 or CurrentMapID == 102 or CurrentMapID == 104 or CurrentMapID == 105 or CurrentMapID == 107 or CurrentMapID == 108
+                      or CurrentMapID == 109
           
-      ns.NorthrendIDs = GetCurrentMapID == 114 or GetCurrentMapID == 115 or GetCurrentMapID == 116 or GetCurrentMapID == 117 or GetCurrentMapID == 118 or GetCurrentMapID == 119
-                      or GetCurrentMapID == 120 or GetCurrentMapID == 121 or GetCurrentMapID == 123 or GetCurrentMapID == 127 or GetCurrentMapID == 170
+      ns.NorthrendIDs = CurrentMapID == 114 or CurrentMapID == 115 or CurrentMapID == 116 or CurrentMapID == 117 or CurrentMapID == 118 or CurrentMapID == 119
+                      or CurrentMapID == 120 or CurrentMapID == 121 or CurrentMapID == 123 or CurrentMapID == 127 or CurrentMapID == 170
           
-      ns.PandariaIDs = GetCurrentMapID == 371 or GetCurrentMapID == 376 or GetCurrentMapID == 379 or GetCurrentMapID == 388 or GetCurrentMapID == 390 or GetCurrentMapID == 418
-                      or GetCurrentMapID == 422 or GetCurrentMapID == 433 or GetCurrentMapID == 434 or GetCurrentMapID == 504 or GetCurrentMapID == 554 or GetCurrentMapID == 1530
-                      or GetCurrentMapID == 507
+      ns.PandariaIDs = CurrentMapID == 371 or CurrentMapID == 376 or CurrentMapID == 379 or CurrentMapID == 388 or CurrentMapID == 390 or CurrentMapID == 418
+                      or CurrentMapID == 422 or CurrentMapID == 433 or CurrentMapID == 434 or CurrentMapID == 504 or CurrentMapID == 554 or CurrentMapID == 1530
+                      or CurrentMapID == 507
           
-      ns.DraenorIDs = GetCurrentMapID == 525 or GetCurrentMapID == 534 or GetCurrentMapID == 535 or GetCurrentMapID == 539 or GetCurrentMapID == 542 or GetCurrentMapID == 543
-                      or GetCurrentMapID == 550 or GetCurrentMapID == 588
+      ns.DraenorIDs = CurrentMapID == 525 or CurrentMapID == 534 or CurrentMapID == 535 or CurrentMapID == 539 or CurrentMapID == 542 or CurrentMapID == 543
+                      or CurrentMapID == 550 or CurrentMapID == 588
           
-      ns.BrokenIslesIDs = GetCurrentMapID == 630 or GetCurrentMapID == 634 or GetCurrentMapID == 641 or GetCurrentMapID == 646 or GetCurrentMapID == 650 or GetCurrentMapID == 652
-                      or GetCurrentMapID == 750 or GetCurrentMapID == 680 or GetCurrentMapID == 830 or GetCurrentMapID == 882 or GetCurrentMapID == 885 or GetCurrentMapID == 905
-                      or GetCurrentMapID == 941 or GetCurrentMapID == 790 or GetCurrentMapID == 971
+      ns.BrokenIslesIDs = CurrentMapID == 630 or CurrentMapID == 634 or CurrentMapID == 641 or CurrentMapID == 646 or CurrentMapID == 650 or CurrentMapID == 652
+                      or CurrentMapID == 750 or CurrentMapID == 680 or CurrentMapID == 830 or CurrentMapID == 882 or CurrentMapID == 885 or CurrentMapID == 905
+                      or CurrentMapID == 941 or CurrentMapID == 790 or CurrentMapID == 971
           
-      ns.ZandalarIDs = GetCurrentMapID == 862 or GetCurrentMapID == 863 or GetCurrentMapID == 864 or GetCurrentMapID == 1355 or GetCurrentMapID == 1528
+      ns.ZandalarIDs = CurrentMapID == 862 or CurrentMapID == 863 or CurrentMapID == 864 or CurrentMapID == 1355 or CurrentMapID == 1528
           
-      ns.KulTirasIDs = GetCurrentMapID == 895 or GetCurrentMapID == 896 or GetCurrentMapID == 942 or GetCurrentMapID == 1462 or GetCurrentMapID == 1169
+      ns.KulTirasIDs = CurrentMapID == 895 or CurrentMapID == 896 or CurrentMapID == 942 or CurrentMapID == 1462 or CurrentMapID == 1169
           
-      ns.ShadowlandIDs = GetCurrentMapID == 1525 or GetCurrentMapID == 1533 or GetCurrentMapID == 1536 or GetCurrentMapID == 1543 or GetCurrentMapID == 1565 or GetCurrentMapID == 1961
-                      or GetCurrentMapID == 1970 or GetCurrentMapID == 2016
+      ns.ShadowlandIDs = CurrentMapID == 1525 or CurrentMapID == 1533 or CurrentMapID == 1536 or CurrentMapID == 1543 or CurrentMapID == 1565 or CurrentMapID == 1816
+                      or CurrentMapID == 1961 or CurrentMapID == 1970 or CurrentMapID == 2016
           
-      ns.DragonIsleIDs = GetCurrentMapID == 2022 or GetCurrentMapID == 2023 or GetCurrentMapID == 2024 or GetCurrentMapID == 2025 or GetCurrentMapID == 2026 or GetCurrentMapID == 2133
-                      or GetCurrentMapID == 2151 or GetCurrentMapID == 2200 or GetCurrentMapID == 2239
+      ns.DragonIsleIDs = CurrentMapID == 2022 or CurrentMapID == 2023 or CurrentMapID == 2024 or CurrentMapID == 2025 or CurrentMapID == 2026 or CurrentMapID == 2133
+                      or CurrentMapID == 2151 or CurrentMapID == 2200 or CurrentMapID == 2239
           
-      ns.KhazAlgar = GetCurrentMapID == 2248 or GetCurrentMapID == 2214 or GetCurrentMapID == 2215 or GetCurrentMapID == 2255 or  GetCurrentMapID == 2256 or GetCurrentMapID == 2213 
-                      or GetCurrentMapID == 2216 or GetCurrentMapID == 2369 or GetCurrentMapID == 2346 or GetCurrentMapID == 2371 or GetCurrentMapID == 2472
+      ns.KhazAlgar = CurrentMapID == 2248 or CurrentMapID == 2214 or CurrentMapID == 2215 or CurrentMapID == 2255 or  CurrentMapID == 2256 or CurrentMapID == 2213 
+                      or CurrentMapID == 2216 or CurrentMapID == 2369 or CurrentMapID == 2346 or CurrentMapID == 2371 or CurrentMapID == 2472
 
-      ns.ZoneIDs = GetCurrentMapID == 750 or GetCurrentMapID == 652 or GetCurrentMapID == 2266 or GetCurrentMapID == 2322
+      -- Special mapIDs that are actually zones/subzones but are considered dungeons/microdungeons by the game are hereby correctly recognized as zones in the addon (no capitals)
+      ns.ZoneIDs = CurrentMapID == 750 or CurrentMapID == 652 or CurrentMapID == 2266 or CurrentMapID == 2322
 
 			if value.name == nil then value.name = value.id or value.mnID end
 
@@ -1198,7 +1126,7 @@ do
           alpha = db.MiniMapAlphaItemUpgrade
         end
 
-        if ns.pathIcons or ns.ZoneIDs and not value.showInZone and not GetCurrentMapID == 2322 then
+        if ns.pathIcons or ns.ZoneIDs and not value.showInZone and not CurrentMapID == 2322 then
           scale = db.MiniMapScalePaths
           alpha = db.MiniMapAlphaPaths
         end
@@ -1265,6 +1193,12 @@ do
       if ns.CapitalMiniMapIDs and ns.generalIcons and (value.showOnMinimap == true) then
         scale = db.MinimapCapitalsGeneralScale
         alpha = db.MinimapCapitalsGeneralAlpha
+      end
+
+      -- Capitals Minimap Class Halls icons
+      if ns.ClassHallIDs and ns.classHallIcons and (value.showOnMinimap == true) then
+        scale = db.MinimapCapitalsClassHallScale
+        alpha = db.MinimapCapitalsClassHallAlpha
       end
 
       -- Instance icons World
@@ -1471,6 +1405,12 @@ do
       if ns.CapitalIDs and ns.generalIcons and (value.showOnMinimap == false) then
         scale = db.CapitalsGeneralScale
         alpha = db.CapitalsGeneralAlpha
+      end
+
+      -- Capitals Class Halls icons
+      if ns.ClassHallIDs and ns.classHallIcons and (value.showOnMinimap == false) then
+        scale = db.CapitalsClassHallScale
+        alpha = db.CapitalsClassHallAlpha
       end
 
       -- Capitals Transport (Zeppeline/Ship/Carriage) icons
@@ -1742,15 +1682,16 @@ ns.questID = nodes[uiMapId][coord].questID
 ns.hideLink = nodes[uiMapId][coord].hideLink
 
 local mapInfo = C_Map.GetMapInfo(uiMapId)
-local GetCurrentMapID = WorldMapFrame:GetMapID()
-local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentMapID == 89 or GetCurrentMapID == 103 or GetCurrentMapID == 85
-                or GetCurrentMapID == 90 or GetCurrentMapID == 86 or GetCurrentMapID == 88 or GetCurrentMapID == 110 or GetCurrentMapID == 111
-                or GetCurrentMapID == 125 or GetCurrentMapID == 126 or GetCurrentMapID == 391 or GetCurrentMapID == 392 or GetCurrentMapID == 393
-                or GetCurrentMapID == 394 or GetCurrentMapID == 407 or GetCurrentMapID == 582 or GetCurrentMapID == 590 or GetCurrentMapID == 622
-                or GetCurrentMapID == 624 or GetCurrentMapID == 626 or GetCurrentMapID == 627 or GetCurrentMapID == 628 or GetCurrentMapID == 629
-                or GetCurrentMapID == 831 or GetCurrentMapID == 832 or GetCurrentMapID == 1161 or GetCurrentMapID == 1163 or GetCurrentMapID == 1164 
-                or GetCurrentMapID == 1165 or GetCurrentMapID == 1670 or GetCurrentMapID == 1671 or GetCurrentMapID == 1672 or GetCurrentMapID == 1673 
-                or GetCurrentMapID == 2112 or GetCurrentMapID == 2339 or GetCurrentMapID == 503 or GetCurrentMapID == 2266
+local CurrentMapID = WorldMapFrame:GetMapID()
+local CapitalIDs =  CurrentMapID == 626 or CurrentMapID == 747 
+                or CurrentMapID == 84 or CurrentMapID == 87 or CurrentMapID == 89 or CurrentMapID == 103 or CurrentMapID == 85
+                or CurrentMapID == 90 or CurrentMapID == 86 or CurrentMapID == 88 or CurrentMapID == 110 or CurrentMapID == 111
+                or CurrentMapID == 125 or CurrentMapID == 126 or CurrentMapID == 391 or CurrentMapID == 392 or CurrentMapID == 393
+                or CurrentMapID == 394 or CurrentMapID == 407 or CurrentMapID == 582 or CurrentMapID == 590 or CurrentMapID == 622
+                or CurrentMapID == 624 or CurrentMapID == 627 or CurrentMapID == 628 or CurrentMapID == 629
+                or CurrentMapID == 831 or CurrentMapID == 832 or CurrentMapID == 1161 or CurrentMapID == 1163 or CurrentMapID == 1164 
+                or CurrentMapID == 1165 or CurrentMapID == 1670 or CurrentMapID == 1671 or CurrentMapID == 1672 or CurrentMapID == 1673 
+                or CurrentMapID == 2112 or CurrentMapID == 2339 or CurrentMapID == 503 or CurrentMapID == 2266
 
   StaticPopupDialogs["Delete_Icon?"] = {
     text = TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. ": " .. L["Delete this icon"] .. " ? " .. TextIconMNL4:GetIconString(),
@@ -1800,7 +1741,7 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentM
   if ns.Addon.db.profile.activate.SwapButtons then -- New SwapButtons
     if ns.Addon.db.profile.WayPointsShift then -- Shift
       if (button == "LeftButton" and db.WayPoints and IsShiftKeyDown()) then
-        if GetCurrentMapID and GetCurrentMapID ~= 946 then
+        if CurrentMapID and CurrentMapID ~= 946 then
           if TomTom then
             setWaypoint(uiMapId, coord)
             return
@@ -1820,7 +1761,7 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentM
       end
     else
       if (button == "LeftButton" and db.WayPoints) then
-        if GetCurrentMapID and GetCurrentMapID ~= 946 then
+        if CurrentMapID and CurrentMapID ~= 946 then
           if TomTom then
             setWaypoint(uiMapId, coord)
             return
@@ -1841,6 +1782,7 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentM
     end
 
     if (button == "RightButton" and mnID and mnID2 or mnID3 and not IsShiftKeyDown() and not IsAltKeyDown()) then -- original left
+      ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
       WorldMapFrame:SetMapID(mnID)
     end
   end
@@ -1848,7 +1790,7 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentM
   if not ns.Addon.db.profile.activate.SwapButtons then -- Original
     if ns.Addon.db.profile.WayPointsShift then -- Shift
       if (button == "RightButton" and db.WayPoints and IsShiftKeyDown()) then
-        if GetCurrentMapID and GetCurrentMapID ~= 946 then
+        if CurrentMapID and CurrentMapID ~= 946 then
           if TomTom then
               setWaypoint(uiMapId, coord)
               return
@@ -1868,7 +1810,7 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentM
       end
     else
       if (button == "RightButton" and db.WayPoints) then
-        if GetCurrentMapID and GetCurrentMapID ~= 946 then
+        if CurrentMapID and CurrentMapID ~= 946 then
           if TomTom then
             setWaypoint(uiMapId, coord)
             return
@@ -1889,11 +1831,13 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentM
     end
 
     if (button == "LeftButton" and mnID and mnID2 or mnID3 and not IsShiftKeyDown() and not IsAltKeyDown()) then -- original left
+      ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
       WorldMapFrame:SetMapID(mnID)
     end
   end
 
   if (button == "MiddleButton" and mnID2 and not IsShiftKeyDown() and not IsAltKeyDown()) then
+    ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
     WorldMapFrame:SetMapID(mnID2)
   end
 
@@ -1912,6 +1856,7 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentM
   end
 
   if (button == "MiddleButton" and mnID3 and not IsShiftKeyDown() and not IsAltKeyDown()) then
+    ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
     WorldMapFrame:SetMapID(mnID3)
   end
 
@@ -1923,60 +1868,41 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentM
 
   if (button == "MiddleButton") and not IsShiftKeyDown() then -- create links
     if ns.Addon.db.profile.CreateAndCopyLinks then
-      local printed = false
 
-      for i = 1, 10 do
-        ns.wwwLinks = nodes[uiMapId][coord]["wwwLinks"..i]
-        ns.questIDs = nodes[uiMapId][coord]["questIDs"..i]
-        if ns.wwwLinks and not ns.questIDs then
-          print(ns.wwwLinks)
-          printed = true
-        end
-      end
+    local printed = false
 
-      local function getQuestNameFor(node, questID)
-      if node.questID == questID and node.wwwName then
-        return node.wwwName
-      end
-      for i = 1, 10 do
-        if node["questIDs" .. i] == questID then
-          return node["wwwNames" .. i] or C_QuestLog.GetTitleForQuestID(questID)
-        end
-      end
-      return C_QuestLog.GetTitleForQuestID(questID)
-    end
-
-    local function printQuest(questIDs, questNames) -- print questIDs and questNames
-      local suffix = questNames and (" (".. questNames ..")") or ""
-      print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_QUEST, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/quest=" .. questIDs .. suffix)
-    end
-
-    if not ns.hideLink then
-      if ns.questID and not ns.IsQuestLearned(ns.questID) then
-        ns.questIDs = ns.questID
-        printQuest(ns.questID, getQuestNameFor(nodes[uiMapId][coord], ns.questID))
-        printed = true
-      end
-
-      for i = 1, 10 do
-        local questIDs = nodes[uiMapId][coord]["questIDs" .. i]
-        if questIDs and not ns.IsQuestLearned(questIDs) then
-          ns.questIDs = questIDs -- important for url-replacer
-          local questNames = getQuestNameFor(nodes[uiMapId][coord], questIDs)
-          printQuest(questIDs, questNames)
-          printed = true
-        end
-      end
-    end
-
-      if not printed and wwwLink and not (ns.achievementID or ns.questID) then -- print wwwLink
+    for i = 1, 10 do -- only wwwlinks without questID
+      local wwwLink = nodes[uiMapId][coord]["wwwLinks"..i]
+      local questLink = nodes[uiMapId][coord]["questIDs"..i]
+      if wwwLink and not questLink then
         print(wwwLink)
         printed = true
       end
+    end
 
-      if ns.achievementID then -- print achievement
-        print("|cffff0000Map|r|cff00ccffNotes|r", "|cffffff00" .. LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT, COMMUNITIES_INVITE_MANAGER_COLUMN_TITLE_LINK .. ":" .. "|r", "https://www.wowhead.com/achievement=" .. ns.achievementID)
+    if ns.questID and not ns.IsQuestLearned(ns.questID) then -- single questID
+      ns.printQuestWithName(ns.questID, ns.getQuestName(nodes[uiMapId][coord], ns.questID))
+      printed = true
+    end
+
+    for i = 1, 10 do -- questIDs 1-10
+      local questIDs = nodes[uiMapId][coord]["questIDs"..i]
+      if questIDs and not ns.IsQuestLearned(questIDs) then
+        ns.printQuestWithName(questIDs, ns.getQuestName(nodes[uiMapId][coord], questIDs))
+        printed = true
       end
+    end
+
+    if ns.achievementID and not ns.IsAchievementCompleted(ns.achievementID) then -- achievementID
+      ns.printAchievement(ns.achievementID, nodes[uiMapId][coord].wwwName)
+      printed = true
+    end
+
+    local wwwLink = nodes[uiMapId][coord].wwwLink or nodes[uiMapId][coord].wwwLink1 -- fallback single wwwlink
+    if not printed and wwwLink and not (ns.achievementID or ns.questID) then
+      print(wwwLink)
+    end
+
     end
 
   end
@@ -1984,17 +1910,19 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentM
   if ns.Addon.db.profile.activate.SwapButtons then -- New SwapButtons
     if (button == "RightButton" and not IsAltKeyDown()) then
       if mnID then
+        ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
         WorldMapFrame:SetMapID(mnID)
         return
       end
 
       if delveID then
+        ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
         WorldMapFrame:SetMapID(delveID)
         return
       end
     end
 
-    if (button == "RightButton" and db.journal and not IsAltKeyDown()) then
+    if (button == "RightButton" and db.journal and not IsAltKeyDown() and not InCombatLockdown()) then
 
       if nodes[uiMapId][coord].mnID and nodes[uiMapId][coord].id then
         mnID = nodes[uiMapId][coord].mnID[1] --change id function to mnID function
@@ -2039,17 +1967,21 @@ local CapitalIDs = GetCurrentMapID == 84 or GetCurrentMapID == 87 or GetCurrentM
   if not ns.Addon.db.profile.activate.SwapButtons then -- Original
     if (button == "LeftButton" and not IsAltKeyDown()) then
       if mnID then
+        if not ns.Addon.db.profile.DeveloperMode then
+          ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
+        end
         WorldMapFrame:SetMapID(mnID)
         return
       end
 
       if delveID then
+        ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
         WorldMapFrame:SetMapID(delveID)
         return
       end
     end
 
-    if (button == "LeftButton" and db.journal and not IsAltKeyDown()) then
+    if (button == "LeftButton" and db.journal and not IsAltKeyDown() and not InCombatLockdown()) then
       if nodes[uiMapId][coord].mnID and nodes[uiMapId][coord].id then
         mnID = nodes[uiMapId][coord].mnID[1] --change id function to mnID function
       else
@@ -2102,10 +2034,10 @@ local function updateStuff()
 end
 
 function Addon:ZONE_CHANGED_NEW_AREA()
-  local mapID = C_Map.GetBestMapForUnit("player")
-  if mapID then
+  local PlayerMapID = C_Map.GetBestMapForUnit("player")
+  if PlayerMapID then
     if ns.Addon.db.profile.ZoneChanged then
-      print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Location"] .. ": ", "|cff00ff00" .. "==>  " .. C_Map.GetMapInfo(mapID).name .. "  <==")
+      print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Location"] .. ": ", "|cff00ff00" .. "==>  " .. C_Map.GetMapInfo(PlayerMapID).name .. "  <==")
     end
   end
 end
@@ -2118,8 +2050,8 @@ function Addon:ZONE_CHANGED_INDOORS()
 end
 
 function Addon:ZONE_CHANGED()
-  local mapID = C_Map.GetBestMapForUnit("player")
-  if mapID then
+  local PlayerMapID = C_Map.GetBestMapForUnit("player")
+  if PlayerMapID then
     if ns.Addon.db.profile.ZoneChanged and ns.Addon.db.profile.ZoneChangedDetail and not ns.CapitalMiniMapIDs then
       print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Location"] .. ": ", "|cff00ff00" .. "==>  " .. GetZoneText() .. " " .. "|cff00ccff" .. GetSubZoneText() .. "|cff00ff00" .. "  <==")
     end
@@ -2275,6 +2207,9 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
   -- Check for Professions
   ns.AutomaticProfessionDetection()
 
+  -- Remove& Refresh BlizzardPOIs (ns.BlizzAreaPoisInfo) and ZidormiPOIs (ns.BlizzAreaPoisInfoZidormi)
+  ns.RemoveBlizzPOIs()
+
   -- Check if Blizz Instance entrances is true then remove Blizzard Pins
   if ns.Addon.db.profile.activate.RemoveBlizzInstances then
     SetCVar("showDungeonEntrancesOnMap", 0)
@@ -2294,60 +2229,10 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
   end
 
   -- Register Worldmapbutton
-  ns.WorldMapButton = LibStub("Krowi_WorldMapButtons-1.4"):Add(ADDON_NAME .. "WorldMapOptionsButtonTemplate","BUTTON")
+  ns.WorldMapButton = LibStub("Krowi_WorldMapButtons-1.4"):Add(ADDON_NAME .. "WorldMapOptionsButtonTemplate", "BUTTON")
   if ns.Addon.db.profile.activate.HideWMB
     then ns.WorldMapButton:Hide()
     else ns.WorldMapButton:Show()
-  end
-
-  function ns.RemoveBlizzPOIs()
-      if ns.Addon.db.profile.activate.HideMapNote then return end
-
-      if ns.Addon.db.profile.activate.RemoveBlizzPOIs and not ns.BlizzAreaPoisLookup then
-          ns.BlizzAreaPoisLookup = {}
-          for _, poiID in pairs(ns.BlizzAreaPoisInfo) do
-              ns.BlizzAreaPoisLookup[poiID] = true
-          end
-      end
-
-      if ns.Addon.db.profile.activate.RemoveBlizzPOIsZidormi and not ns.BlizzAreaPoisLookupZidormi then
-          ns.BlizzAreaPoisLookupZidormi = {}
-          for _, poiID in pairs(ns.BlizzAreaPoisInfoZidormi) do
-              ns.BlizzAreaPoisLookupZidormi[poiID] = true
-          end
-      end
-
-      for pinTemplate, pinPool in pairs(WorldMapFrame.pinPools) do
-          for pin in pinPool:EnumerateActive() do
-              local areaPoiID = pin.areaPoiID or (pin.poiInfo and pin.poiInfo.areaPoiID)
-
-              if ns.Addon.db.profile.activate.RemoveBlizzPOIs and areaPoiID and ns.BlizzAreaPoisLookup[areaPoiID] then
-                  pin:Hide()
-              end
-
-              if ns.Addon.db.profile.activate.RemoveBlizzPOIsZidormi and areaPoiID and ns.BlizzAreaPoisLookupZidormi[areaPoiID] then
-                  pin:Hide()
-              end
-
-              if ns.Addon.db.profile.activate.RemoveBlizzPOIsZidormi and pin.objectGUID then
-                  for _, id in ipairs(ns.BlizzAreaPoisInfoZidormi) do
-                      if string.find(pin.objectGUID, tostring(id)) then
-                          pin:Hide()
-                          break
-                      end
-                  end
-              end
-          end
-      end
-
-  end
-
-  for dp in pairs(WorldMapFrame.dataProviders) do
-      if (not dp.GetPinTemplates and type(dp.GetPinTemplate) == "function") then
-          if (dp:GetPinTemplate() == "AreaPOIPinTemplate") then
-              hooksecurefunc(dp, "RefreshAllData", ns.RemoveBlizzPOIs)
-          end
-      end
   end
 
   -- MapNotes DeveloperMode is active print line
@@ -2405,6 +2290,8 @@ function Addon:PopulateTable()
   LoadAndCheck(ns.LoadMinimapCapitalsLocationinfo,self) -- load nodes\Retail\RetailMinimapCapitals.lua
 
   LoadAndCheck(ns.LoadSpecialLocations,self)
+  LoadAndCheck(ns.LoadClassHallZoneLocationinfo,self)
+  LoadAndCheck(ns.LoadClassHallMiniMapLocationinfo,self)
 
 end
 
@@ -2435,7 +2322,7 @@ function Addon:UpdateInstanceNames(node)
     if ns.Addon.db.profile.TooltipInformations then
       local tooltipInfo = ""
 
-      local currentMapID = GetCurrentMapID
+      local currentMapID = CurrentMapID
       if currentMapID and currentMapID ~= 946 then
         if ns.Addon.db.profile.WayPointsShift then -- Shift
           if ns.Addon.db.profile.activate.SwapButtons then -- SwapButtons

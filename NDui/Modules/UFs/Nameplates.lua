@@ -598,7 +598,6 @@ function UF:UpdateNameplateSize()
 
 		self.Castbar.Icon:SetSize(iconSize, iconSize)
 		self.Castbar.glowFrame:SetSize(iconSize+8, iconSize+8)
-		self.Castbar.Shield:SetSize(plateHeight*2, plateHeight*2)
 
 		self.nameText:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, plateMargin)
 		self.nameText:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, plateMargin)

@@ -523,6 +523,23 @@ ns.defaults = {
       showCapitalsTradingPost = true,
       showCapitalsMountMerchent = true,
 
+    -- Capital Class Hall
+      CapitalsClassHallScale = 1.5,
+      CapitalsClassHallAlpha = 1,
+      showCapitalsClassHallEntrance = true,
+      showCapitalsClassHallPaths = true,
+      showCapitalsClassHallPortals = true,
+      showCapitalsClassHallScoutingMap = true,
+      showCapitalsClassHallArchivar = true,
+      showCapitalsClassHallMountMerchent = true,
+      showCapitalsClassHallMailbox = true,
+      showCapitalsClassHallFP = true,
+      showCapitalsClassHallArtifactForge = true,
+      showCapitalsClassHallRecruit = true,
+      showCapitalsClassHallVendor = true,
+      showCapitalsClassHallUpgrade = true,
+      showCapitalsClassHallStablemaster = true,
+
     --7 Capitals Minimap
       showMinimapCapitals = true,
       showMinimapCapitalsOrgrimmar = true,
@@ -609,7 +626,24 @@ ns.defaults = {
       showMinimapCapitalsStablemaster = true,
       showMinimapCapitalsTradingPost = true,
       showMinimapCapitalsMountMerchent = true,
-      
+
+    -- Capital Class Hall
+      MinimapCapitalsClassHallScale = 1.5,
+      MinimapCapitalsClassHallAlpha = 1,
+      showMinimapCapitalsClassHallEntrance = true,
+      showMinimapCapitalsClassHallPaths = true,
+      showMinimapCapitalsClassHallPortals = true,
+      showMinimapCapitalsClassHallScoutingMap = true,
+      showMinimapCapitalsClassHallArchivar = true,
+      showMinimapCapitalsClassHallMountMerchent = true,
+      showMinimapCapitalsClassHallMailbox = true,
+      showMinimapCapitalsClassHallFP = true,
+      showMinimapCapitalsClassHallArtifactForge = true,
+      showMinimapCapitalsClassHallRecruit = true,
+      showMinimapCapitalsClassHallVendor = true,
+      showMinimapCapitalsClassHallUpgrade = true,
+      showMinimapCapitalsClassHallStablemaster = true,
+
     --10 ns.Addon.db.profile.activate.
       activate = {
         HideMapNote = false,
@@ -675,12 +709,14 @@ ns.defaults = {
         CapitalsTransporting = true,
         CapitalsProfessions = true,
         CapitalsGeneral = true,
+        CapitalsClassHall = true,
       --Capitals Minimap
         MinimapCapitalsEnemyFaction = true,
         MinimapCapitalsInstances = true,
         MinimapCapitalsTransporting = true,
         MinimapCapitalsProfessions = true,
         MinimapCapitalsGeneral = true,
+        MinimapCapitalsClassHall = true,
 
         DeveloperMode = false,
       },

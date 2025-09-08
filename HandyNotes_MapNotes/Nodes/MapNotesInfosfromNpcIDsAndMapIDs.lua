@@ -136,6 +136,16 @@ ns.Shadowlands = mapName(1550)
 ns.DragonIsles = mapName(1978)
 ns.KhazAlgar = mapName(2274)
 
+------------------------------------ Class Hall
+
+ns.ValSharah = mapName(641)
+ns.HighMountains = mapName(650)
+
+
+
+
+
+
 
 ------------------------------------ areaID Names
 local function areaName(id)
@@ -161,6 +171,10 @@ ns.Ruttheran = areaName(702)
 ns.LionsWatch = areaName(7522)
 
 
+
+
+
+
 ------------------------------------ instanceID Names
 local function instanceName(id)
     local name = EJ_GetInstanceInfo(id)
@@ -181,18 +195,26 @@ ns.Naxxramas = instanceName(754)
 ns.Rookery = instanceName(1268)
 
 
+
+
+
+
 ------------------------------------ npcNameID Names
 local function npcName(id)
-  local link = "unit:Creature-0-0-0-0-" .. id .. "-0000000000"
-  local data = C_TooltipInfo and C_TooltipInfo.GetHyperlink and C_TooltipInfo.GetHyperlink(link)
-  local name = data and data.lines and data.lines[1] and data.lines[1].leftText
-  if (not name or name == "")
-     and (ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode) then
-    print("|cffff0000[MapNotes]|r missing npcNameID for " .. tostring(id))
-  end
-  return name or ""
+    local link = "unit:Creature-0-0-0-0-" .. id .. "-0000000000"
+    local data = C_TooltipInfo and C_TooltipInfo.GetHyperlink and C_TooltipInfo.GetHyperlink(link)
+    local name = data and data.lines and data.lines[1] and data.lines[1].leftText
+    if (not name or name == "") and (ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode) then
+        print("|cffff0000[MapNotes]|r missing npcNameID for " .. tostring(id))
+    end
+    return name or ""
 end
 
+ns.ScoutingMap = npcName(98093)
+ns.JackFindel = npcName(97004) -- Rogue Dalaran
+ns.LucianTrias = npcName(96782) -- Rogue Dalaran
+ns.Mongar = npcName(93188) -- Rogue Dalaran
+ns.Aludane = npcName(96813) -- FP Dalaran Legion
 ------------------------------------ Travel Npc
 ns.Manapuff = npcName(147642)
 ------------------------------------ Travel Npc Horde
@@ -218,3 +240,86 @@ ns.Eppu = npcName(177208)
 ns.Kiku = npcName(177193)
 ns.SeerKazal = npcName(94870)
 ns.Taelfar = npcName(205959)
+
+
+
+
+
+
+------------------------------------ npcTitleLine1 second line
+local function npcTitleLine1(id)
+    if not (C_TooltipInfo and C_TooltipInfo.GetHyperlink) then
+        if ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode then
+            print("|cffff0000[MapNotes]|r missing npcTitleID for " .. tostring(id))
+        end
+        return ""
+    end
+
+    local link = "unit:Creature-0-0-0-0-" .. id .. "-0000000000"
+    local data = C_TooltipInfo.GetHyperlink(link)
+    if not (data and data.lines and data.lines[2]) then return "" end
+
+    if TooltipUtil and TooltipUtil.SurfaceArgs then
+        TooltipUtil.SurfaceArgs(data)
+        TooltipUtil.SurfaceArgs(data.lines[2])
+    end
+
+    local title = data.lines[2].leftText or ""
+    if (title == "") and (ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode) then
+        print("|cffff0000[MapNotes]|r missing npcTitleID for " .. tostring(id))
+    end
+    return title or ""
+end
+
+ns.Archivar = npcTitleLine1(102641) -- Filius Funkenbart
+ns.QuartermasterF = npcTitleLine1(105986) -- Kelsey Stahlfunken
+ns.QuartermasterM = npcTitleLine1(196637) -- Tethalash
+ns.Upgrade = npcTitleLine1(108527) -- Loramus Thalipedes
+ns.RecruitM = npcTitleLine1(106442) -- Yaris Darkclow
+ns.RecruitF = npcTitleLine1(108393) -- Sister Lilith
+
+
+
+
+
+
+------------------------------------ TaxiIDs Text for Retail only
+local function TaxiID(id)
+  local raw = C_TaxiMap.GetTaxiNodeName and C_TaxiMap.GetTaxiNodeName(id)
+  local base = raw and raw:match("^(.-),") or raw
+  return base or raw or ""
+end
+
+ns.TaxiRatchet = TaxiID(80)
+
+
+
+
+
+------------------------------------ SpellID Text
+local GetSpellInfo = C_Spell and C_Spell.GetSpellInfo or GetSpellInfo
+local function spellName(id)
+    local info = GetSpellInfo(id)
+    local name = info and (info.name or info)
+    if (not name or name == "") and (ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode) then
+        print("|cffff0000[MapNotes]|r missing spellName(ID) for " .. tostring(id))
+    end
+    return name or ""
+end
+
+ns.HallOfTheGuardian = spellName(193759) -- Teleport Hall of the Guardian -- Mage
+ns.Dreamwalk = spellName(193753) -- Teleport Dreamwalk - Druid
+ns.DeathGate = spellName(50977) -- Teleport Death Gate -- DK
+ns.ZenPilgrimage = spellName(126892) -- Teleport Zen Pilgrimage -- Monk
+
+
+
+
+------------------------------------ CurrencyID Text
+function ns.GetCurrencyName(currencyID)
+    local info = C_CurrencyInfo.GetCurrencyInfo(currencyID)
+    local name = info and info.name
+    return name or ""
+end
+
+ns.WakeningEssence = ns.GetCurrencyName(1533) -- Dalaran Vendor Arkonomant Vridiel

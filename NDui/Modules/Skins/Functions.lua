@@ -132,56 +132,6 @@ do
 		if count > 0 then self:SetFormattedText("%s", newText) end
 	end
 
-	local flyoutFrame
-
-	local function reskinFlyoutButton(button)
-		if not button.styled then
-			button.bg = B.ReskinIcon(button.icon)
-			button:SetNormalTexture(0)
-			button:SetPushedTexture(0)
-			button:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-			B.ReskinBorder(button.IconBorder, true)
-
-			button.styled = true
-		end
-	end
-
-	local function refreshFlyoutButtons(self)
-		for i = 1, self.ScrollTarget:GetNumChildren() do
-			local button = select(i, self.ScrollTarget:GetChildren())
-			if button.IconBorder then
-				reskinFlyoutButton(button)
-			end
-		end
-	end
-
-	local function resetFrameStrata(frame)
-		frame.bg:SetFrameStrata("LOW")
-	end
-
-	function B:ReskinProfessionsFlyout(parent)
-		if flyoutFrame then return end
-
-		for i = 1, parent:GetNumChildren() do
-			local child = select(i, parent:GetChildren())
-			local checkbox = child.HideUnownedCheckbox
-			if checkbox then
-				flyoutFrame = child
-
-				B.StripTextures(flyoutFrame)
-				flyoutFrame.bg = B.CreateBG(flyoutFrame)
-				hooksecurefunc(flyoutFrame, "SetParent", resetFrameStrata)
-				B.ReskinCheck(checkbox)
-				checkbox.bg:SetInside(nil, 6, 6)
-				B.ReskinScroll(flyoutFrame.ScrollBar)
-				reskinFlyoutButton(flyoutFrame.UndoItem)
-				hooksecurefunc(flyoutFrame.ScrollBox, "Update", refreshFlyoutButtons)
-
-				break
-			end
-		end
-	end
-
 	function B:ReskinGarrisonTooltip()
 		if self.Icon then B.ReskinIcon(self.Icon) end
 		if self.CloseButton then B.ReskinClose(self.CloseButton) end

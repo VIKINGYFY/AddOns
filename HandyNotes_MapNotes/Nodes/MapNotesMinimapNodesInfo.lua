@@ -611,6 +611,14 @@ minimap[670] = { } -- Hellfire Citadel - Inside Dungeon Map
 --########## Legion ##########
 --############################
 
+-- Class Halls
+minimap[24] = { } -- Light's Hope Chapel - Paladin
+minimap[626] = { } -- Dalaran - Halls of Shadows - Rogue
+minimap[726] = { } -- Heart of Azeroth - Mahlstrom - Shaman
+minimap[734] = { } -- Hall of the Guardian
+minimap[735] = { } -- The Guardian's Library
+minimap[739] = { } -- Trueshot Lodge
+minimap[747] = { } -- The Dreamgrove - Druid
 -- Azeroth/Continent map minimap
 minimap[619] = { } -- Broken Isles
 minimap[627] = { } -- Dalaran
@@ -623,6 +631,10 @@ minimap[646] = { } -- Broken Shore
 minimap[650] = { } -- Highmountain
 minimap[652] = { } -- Highmountain Thundertotem Basement
 minimap[680] = { } -- Suramar
+minimap[715] = { } -- Emerald Dreamway - Druid
+minimap[719] = { } -- Mardum Zone
+minimap[720] = { } -- Mardum Lower- DH
+minimap[721] = { } -- Mardum Upper- DH
 minimap[750] = { } -- Highmountain Thundertotem
 minimap[790] = { } -- Eye of Aszhara
 minimap[830] = { } -- Krokuun
@@ -701,6 +713,7 @@ minimap[1536] = { } -- Maldraxxus
 minimap[1543] = { } -- The Maw
 minimap[1550] = { } -- Shadowlands
 minimap[1565] = { } -- Ardenweald
+minimap[1816] = { } -- Klauenkamm
 minimap[1670] = { } -- Oribos
 minimap[1671] = { } -- Oribos Uppder Side
 minimap[1911] = { } -- Torghast

@@ -8,6 +8,8 @@
     <Script file="RetailZoneMiniMapLocation.lua"/>    
     <Script file="RetailZoneDungeonNodesLocation.lua"/>
     <Script file="RetailZoneMiniMapDungeonNodesLocation.lua"/>
+    <Script file="RetailClassHallZone.lua"/>
+    <Script file="RetailClassHallMiniMap.lua"/>
     <Script file="RetailCapitals.lua"/>
     <Script file="RetailCapitalsMinimap.lua"/>
     <Script file="RetailGeneralZoneNodes.lua"/>

@@ -18,10 +18,11 @@ function EX:OnLogin()
 	end
 
 	self:DisableSomething()
+	self:FocusNotices()
 	self:InstanceSomething()
 	self:LFGActivityNotices()
-	self:SystemNotices()
 	self:NewGetMapUIInfo()
+	self:SystemNotices()
 
 	self:ActionBarGlow()
 	self:MDEnhance()
@@ -161,6 +162,34 @@ end
 
 function EX:LFGActivityNotices()
 	B:RegisterEvent("LFG_LIST_APPLICATION_STATUS_UPDATED", EX.UpdateLFGActivityNotices)
+end
+
+-- 焦点打断提示
+function EX.UpdateFocusNotices()
+	if not (UnitExists("focus") and IsInInstance() and IsInGroup()) then return end
+
+	local focusName = UnitName("focus")
+	local focusIcon = GetRaidTargetIndex("focus")
+
+	if not focusIcon then
+		if not IsInGroup() or (IsInGroup() and not IsInRaid()) or UnitIsGroupLeader("player") or UnitIsGroupAssistant("player") then
+			focusIcon = 7
+			SetRaidTarget("focus", focusIcon)
+		end
+	end
+
+	local text
+	if focusIcon and focusName then
+		text = format("我负责打断<{rt%s}%s>!", focusIcon, focusName)
+	else
+		text = format("我负责打断<%s>!", focusName)
+	end
+
+	C_ChatInfo.SendChatMessage(text, B.GetCurrentChannel())
+end
+
+function EX:FocusNotices()
+	B:RegisterEvent("PLAYER_FOCUS_CHANGED", EX.UpdateFocusNotices)
 end
 
 -- 精简name

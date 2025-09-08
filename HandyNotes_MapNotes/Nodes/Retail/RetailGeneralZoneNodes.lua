@@ -251,6 +251,7 @@ ns._currentSourceFile = "RetailGeneralZoneNodes.lua"
 
             if self.db.profile.showZonePvEVendor then
                 nodes[122][47253072] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS .. "\n" .. AUCTION_CATEGORY_RECIPES, type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[122][50574078] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneZidormi then
@@ -1069,7 +1070,6 @@ ns._currentSourceFile = "RetailGeneralZoneNodes.lua"
                 nodes[641][42605960] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[641][44208260] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[641][69404940] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[641][42605920] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[641][59208480] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[680][37404580] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[680][54206960] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
@@ -1351,28 +1351,26 @@ ns._currentSourceFile = "RetailGeneralZoneNodes.lua"
             end
 
             if self.db.profile.showZoneStablemaster then
-                nodes[1525][49007000] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1525][70334140] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1525][41204740] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1525][60403920] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1525][63206180] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1533][44203300] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1533][35202140] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1533][52404800] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1536][67204580] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1536][55007020] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1536][49805400] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1565][51007060] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1565][49005300] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1565][62603520] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1565][50603380] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1565][60405400] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1565][51003380] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1565][64601920] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1565][62603560] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1565][37403820] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1961][60602300] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1970][34206620] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1525][49007000] = { npcID = 156234, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1525][70334140] = { npcID = 159000, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1525][41204740] = { npcID = 167819, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1525][60403920] = { npcID = 163163, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1525][31234903] = { npcID = 166092, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1525][63206180] = { npcID = 156291, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1533][44203300] = { npcID = 174578, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1533][35182149] = { npcID = 175444, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1533][52404800] = { npcID = 160178, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1536][67204580] = { npcID = 174664, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1536][55067015] = { npcID = 161677, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1536][49805400] = { npcID = 161712, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1565][51007060] = { npcID = 170924, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1565][49005300] = { npcID = 168082, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1565][62703516] = { npcID = 162434, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1565][60405400] = { npcID = 162433, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1565][51003380] = { npcID = 170571, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1565][64741916] = { npcID = 164724, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1565][37403820] = { npcID = 160353, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1961][60602300] = { npcID = 177157, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneAuctioneer then
@@ -1410,33 +1408,33 @@ ns._currentSourceFile = "RetailGeneralZoneNodes.lua"
             end
 
             if self.db.profile.showZoneInnkeeper then
-                nodes[1565][64601940] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1565][51826920] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1565][50603380] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1565][48405060] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1565][36803700] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1565][60405380] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1565][36405320] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1565][62603540] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1533][48007300] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1533][53204680] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1533][35402060] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1536][55206860] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1536][54203060] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1536][50805300] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1536][67604480] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1536][39605520] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1525][40804660] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1525][71408020] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1525][31204660] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1525][47407060] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1525][62006440] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1525][60203980] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1525][72323986] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1533][42923273] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1961][60792416] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1970][61404920] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1970][34806400] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1565][64601940] = { npcID = 164722, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1565][51736876] = { npcID = 167251, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1816][51354731] = { npcID = 167251, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1565][50693380] = { npcID = 163738, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1565][48405060] = { npcID = 168032, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1565][36803700] = { npcID = 171015, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1565][60485392] = { npcID = 162445, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1565][36375334] = { npcID = 171162, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1565][62603540] = { npcID = 162446, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1533][48007300] = { npcID = 160601, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1533][53204680] = { npcID = 160173, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1533][35482065] = { npcID = 175621, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1533][42923273] = { npcID = 172576, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1536][54323084] = { npcID = 169698, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1536][50805300] = { npcID = 161702, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1536][67604480] = { npcID = 174665, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1536][39605520] = { npcID = 168952, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1525][40804660] = { npcID = 167815, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1525][71538019] = { npcID = 166070, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1525][31204660] = { npcID = 166089, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1525][47407060] = { npcID = 156220, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1525][62066448] = { npcID = 156290, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1525][60203980] = { npcID = 167754, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1525][72323986] = { npcID = 158986, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1961][60792416] = { npcID = 177156, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1970][61404920] = { npcID = 181084, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1970][34806400] = { npcID = 180916, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
         end

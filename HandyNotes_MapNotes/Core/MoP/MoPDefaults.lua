@@ -31,6 +31,8 @@ ns.defaults = {
       zoneAlpha = 1,
       instanceScale = 1,
       instanceAlpha = 1,
+      instanceMiniMapScale = 1,
+      instanceMiniMapAlpha = 1,
 
     --2.1 MiniMap tab
     -- MiniMap Continent

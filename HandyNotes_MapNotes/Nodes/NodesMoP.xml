@@ -2,5 +2,6 @@
     <Script file="LfgIdsInfo.lua"/>
     <Script file="MapNotesNodesInfo.lua"/>
     <Script file="MapNotesMinimapNodesInfo.lua"/>
+    <Script file="MapNotesInfosfromNpcIDsAndMapIDs.lua"/>
     <Include file="MoP\MoPNodes.xml"/>
 </Ui>

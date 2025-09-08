@@ -1,6 +1,56 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
+local flyoutFrame
+
+local function reskinFlyoutButton(button)
+	if not button.styled then
+		button.bg = B.ReskinIcon(button.icon)
+		button:SetNormalTexture(0)
+		button:SetPushedTexture(0)
+		button:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
+		B.ReskinBorder(button.IconBorder, true)
+
+		button.styled = true
+	end
+end
+
+local function refreshFlyoutButtons(self)
+	for i = 1, self.ScrollTarget:GetNumChildren() do
+		local button = select(i, self.ScrollTarget:GetChildren())
+		if button.IconBorder then
+			reskinFlyoutButton(button)
+		end
+	end
+end
+
+local function resetFrameStrata(frame)
+	frame.bg:SetFrameStrata("LOW")
+end
+
+local function reskinProfessionsFlyout(parent)
+	if flyoutFrame then return end
+
+	for i = 1, parent:GetNumChildren() do
+		local child = select(i, parent:GetChildren())
+		local checkbox = child.HideUnownedCheckbox
+		if checkbox then
+			flyoutFrame = child
+
+			B.StripTextures(flyoutFrame)
+			flyoutFrame.bg = B.CreateBG(flyoutFrame)
+			hooksecurefunc(flyoutFrame, "SetParent", resetFrameStrata)
+			B.ReskinCheck(checkbox)
+			checkbox.bg:SetInside(nil, 6, 6)
+			B.ReskinScroll(flyoutFrame.ScrollBar)
+			reskinFlyoutButton(flyoutFrame.UndoItem)
+			hooksecurefunc(flyoutFrame.ScrollBox, "Update", refreshFlyoutButtons)
+
+			break
+		end
+	end
+end
+
 local function resetButton(button)
 	button:SetNormalTexture(0)
 	button:SetPushedTexture(0)
@@ -156,6 +206,12 @@ local function reskinRankBar(rankBar)
 	B.ReskinArrow(rankBar.ExpansionDropdownButton, "down")
 end
 
+C.OnLoadThemes["Blizzard_ProfessionsTemplates"] = function()
+	if OpenProfessionsItemFlyout then
+		hooksecurefunc("OpenProfessionsItemFlyout", reskinProfessionsFlyout)
+	end
+end
+
 C.OnLoadThemes["Blizzard_Professions"] = function()
 	local frame = ProfessionsFrame
 	local craftingPage = ProfessionsFrame.CraftingPage
@@ -273,11 +329,6 @@ C.OnLoadThemes["Blizzard_Professions"] = function()
 
 	-- log
 	reskinOutputLog(craftingPage.CraftingOutputLog)
-
-	-- Item flyout
-	if OpenProfessionsItemFlyout then
-		hooksecurefunc("OpenProfessionsItemFlyout", B.ReskinProfessionsFlyout)
-	end
 
 	-- Order page
 	if not frame.OrdersPage then return end -- not exists in retail yet

@@ -220,6 +220,7 @@ function ns.pluginHandler:OnEnter(uiMapId, coord)
 
   ExtraToolTip()
 	updateextraInformation()
+  ns.AddTaxiStatusToTooltip(tooltip, nodeData.taxiID)
 
   if ns.Addon.db.profile.BossNames then
     if nodeData.id and type(nodeData.id) == "table" then
@@ -578,9 +579,15 @@ do
       end
 
       -- Instance icons World
-      if ns.instances and (not value.showOnMinimap == true) then
+      if ns.instances and (value.showOnMinimap == false) then
         scale = db.instanceScale
         alpha = db.instanceAlpha
+      end
+
+      -- Instance icons World minimap
+      if ns.instances and (value.showOnMinimap == true) then
+        scale = db.instanceMiniMapScale
+        alpha = db.instanceMiniMapAlpha
       end
 
       -- Profession Minimap icons in Capitals

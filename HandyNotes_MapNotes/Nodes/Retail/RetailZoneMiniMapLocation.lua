@@ -554,7 +554,14 @@ ns._currentSourceFile = "RetailZoneMiniMapLocation.lua"
 
               minimap[630][46674136] = { name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. "\n" .. " ==> " .. ns.Orgrimmar .. "\n" .. " ==> " .. ns.Stormwind} -- Portal to Orgrimmar from Azsuna
               minimap[971][24952789] = { name = "", type = "Portal", mnID = 629, showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.Dalaran } -- Portal to Dalaran
-    
+              minimap[715][44872367] = { mnID = 747, name = L["Portal"], type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Druid Emerald Dreamway 
+              minimap[715][53215181] = { mnID = 198, name = L["Portal"], type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Druid Emerald Dreamway - Hyjal
+              minimap[715][49036358] = { mnID = 26, name = L["Portal"], type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Druid Emerald Dreamway - The Hinterlands
+              minimap[715][39347014] = { mnID = 47, name = L["Portal"], type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Druid Emerald Dreamway - Duskwood
+              minimap[715][31612524] = { mnID = 116, name = L["Portal"], type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Druid Emerald Dreamway -  Grizzly Hills
+              minimap[715][22593943] = { mnID = 69, name = L["Portal"], type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Druid Emerald Dreamway - Feralas
+              minimap[715][26168213] = { mnID = 80, name = L["Portal"], type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Druid Emerald Dreamway - Moonglade
+
               if self.faction == "Horde" or db.activate.MiniMapEnemyFaction then
                 minimap[652][46176383] = { mnID = 85, name = "" , type = "HPortal", showInZone = true, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.Orgrimmar } -- Thundertotem to Ogrimmar
                 minimap[680][58188734] = { mnID = 85, name = "" , type = "HPortal", showInZone = true, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.Orgrimmar } -- Thundertotem to Ogrimmar
@@ -815,7 +822,7 @@ ns._currentSourceFile = "RetailZoneMiniMapLocation.lua"
               minimap[2213][45411357] = { npcID = 218171, name = "", type = "Alchemy", showInZone = false, showOnContinent = false, showOnMinimap = true }
               minimap[2216][67423141] = { npcID = 225611, name = "", type = "Alchemy", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["(inside building)"] }
               minimap[2213][67423141] = { npcID = 225611, name = "", type = "Alchemy", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["(inside building)"] }
-              minimap[2255][54837585] = { name = L["Alchemy"], type = "Alchemy", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["(inside building)"] }
+              minimap[2255][54837585] = { npcID = 225611, name = "", type = "Alchemy", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["(inside building)"] }
             end
             
             if self.db.profile.showMiniMapLeatherworking then
@@ -826,7 +833,7 @@ ns._currentSourceFile = "RetailZoneMiniMapLocation.lua"
             if self.db.profile.showMiniMapEngineer then
               minimap[2216][57503277] = { npcID = 218186, name = "", type = "Engineer", showInZone = false, showOnContinent = false, showOnMinimap = true }
               minimap[2213][57503277] = { npcID = 218186, name = "", type = "Engineer", showInZone = false, showOnContinent = false, showOnMinimap = true }
-              minimap[2255][51387631] = { name = L["Engineer"], type = "Engineer", showInZone = false, showOnContinent = false, showOnMinimap = true }
+              minimap[2255][51387631] = { npcID = 218186, name = "", type = "Engineer", showInZone = false, showOnContinent = false, showOnMinimap = true }
             end
           
             if self.db.profile.showMiniMapSkinning then

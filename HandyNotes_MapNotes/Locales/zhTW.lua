@@ -2,6 +2,10 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "zhTW")
 if not L then return end
 
+-- Class Hall
+L["Artifact Forge"] = "神器熔爐"
+L["Class Hall"] = "職業大廳"
+L["The entrance of each class must first be unlocked before they are accessible"] = "必須先解鎖每個職業的入口，才能進入"
 -- Worldmap
 L["Change zone map"] = "切換區域地圖"
 L["This allows you to automatically switch the world map to the map of the new area when you leave one zone and enter a new one"] = "這會讓你在離開一個區域並進入新區域時，自動將世界地圖切換到新區域的地圖"

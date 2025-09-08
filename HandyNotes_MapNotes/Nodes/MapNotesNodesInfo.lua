@@ -609,6 +609,14 @@ nodes[670] = { } -- Hellfire Citadel - Inside Dungeon Map
 --########## Legion ##########
 --############################
 
+-- Class Halls
+nodes[24] = { } -- Light's Hope Chapel - Paladin
+nodes[626] = { } -- Dalaran - Halls of Shadows - Rogue
+nodes[726] = { } -- Heart of Azeroth - Mahlstrom - Shaman
+nodes[734] = { } -- Hall of the Guardian
+nodes[735] = { } -- The Guardian's Library
+nodes[739] = { } -- Trueshot Lodge
+nodes[747] = { } -- The Dreamgrove - Druid
 -- Azeroth/Continent map nodes
 nodes[619] = { } -- Broken Isles
 nodes[627] = { } -- Dalaran
@@ -621,6 +629,10 @@ nodes[646] = { } -- Broken Shore
 nodes[650] = { } -- Highmountain
 nodes[652] = { } -- Highmountain Thundertotem Basement
 nodes[680] = { } -- Suramar
+nodes[715] = { } -- Emerald Dreamway - Druid
+nodes[719] = { } -- Mardum Zone
+nodes[720] = { } -- Mardum Upper - DH
+nodes[721] = { } -- Mardum Lower - DH
 nodes[750] = { } -- Highmountain Thundertotem
 nodes[790] = { } -- Eye of Aszhara
 nodes[830] = { } -- Krokuun
@@ -699,6 +711,7 @@ nodes[1536] = { } -- Maldraxxus
 nodes[1543] = { } -- The Maw
 nodes[1550] = { } -- Shadowlands
 nodes[1565] = { } -- Ardenweald
+nodes[1816] = { } -- Klauenkamm
 nodes[1670] = { } -- Oribos
 nodes[1671] = { } -- Oribos Uppder Side
 nodes[1911] = { } -- Torghast

@@ -727,14 +727,6 @@ function UF:CreateCastBar(self)
 		name:SetPoint("LEFT", cb, "LEFT", 0, 0)
 		timer:SetPoint("RIGHT", cb, "RIGHT", 0, 0)
 
-		local shieldSize = cb:GetHeight() * 2
-		local shield = cb:CreateTexture(nil, "OVERLAY")
-		shield:SetAtlas("UI-QuestPoiWrapper-QuestBang")
-		shield:SetDesaturated(true)
-		shield:SetSize(shieldSize, shieldSize)
-		shield:SetPoint("CENTER", cb, "CENTER", 0, 0)
-		cb.Shield = shield
-
 		local iconSize = self:GetHeight() * 2 + plateMargin
 		cb.Icon:SetSize(iconSize, iconSize)
 		cb.Icon:SetPoint("BOTTOMRIGHT", cb, "BOTTOMLEFT", -plateMargin, 0)

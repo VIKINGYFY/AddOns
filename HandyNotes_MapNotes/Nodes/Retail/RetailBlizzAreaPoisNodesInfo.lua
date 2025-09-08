@@ -16,6 +16,7 @@ ns.BlizzAreaPoisInfo = {
     2317, -- Dalaran City
     2837, -- Tonlongstepps PvE Vendor
     5056, -- The Dark Portal Blasted Lands
+
     5881, -- The Cape of Stranglethorn, Boat to Ratschet
     5882, -- Northern Barrens, Boat to Booty Bay
     7489, -- Loamm Dragonflight Zaralekcave
@@ -37,6 +38,10 @@ ns.BlizzAreaPoisInfo = {
     8230, -- Portal from Dornogal to Undermine
     8231, -- Portal from Undermine to Dornogal
     8414, -- Portal from K'arsh to Dornogal
+
+    -- ClassHall
+    5102, -- Class Hall Rogue Dalaran
+    5059, -- Class Hall Shaman Dalaran
 
     -- City Alliance
     8, -- Ironforge Icon

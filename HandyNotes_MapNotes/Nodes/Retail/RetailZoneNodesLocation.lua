@@ -607,7 +607,14 @@ ns._currentSourceFile = "RetailZoneNodesLocation.lua"
 
             nodes[630][46674136] = { name = "", type = "Portal", mnID = 85, mnID2 = 84, showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. "\n" .. " ==> " .. ns.Orgrimmar .. "\n" .. " ==> " .. ns.Stormwind} -- Portal to Orgrimmar from Azsuna
             nodes[971][24952789] = { name = "", type = "Portal", mnID = 629, showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.Dalaran } -- Portal to Dalaran
-    
+            nodes[715][44872367] = { mnID = 747, name = L["Portal"], type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Druid Emerald Dreamway 
+            nodes[715][53215181] = { mnID = 198, name = L["Portal"], type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Druid Emerald Dreamway - Hyjal
+            nodes[715][49036358] = { mnID = 26, name = L["Portal"], type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Druid Emerald Dreamway - The Hinterlands
+            nodes[715][39347014] = { mnID = 47, name = L["Portal"], type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Druid Emerald Dreamway - Duskwood
+            nodes[715][31612524] = { mnID = 116, name = L["Portal"], type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Druid Emerald Dreamway - Grizzly Hills
+            nodes[715][22593943] = { mnID = 69, name = L["Portal"], type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Druid Emerald Dreamway - Feralas
+            nodes[715][26168213] = { mnID = 80, name = L["Portal"], type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Druid Emerald Dreamway - Moonglade
+
             if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
               nodes[652][46176383] = { mnID = 85, name = "" , type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.Orgrimmar } -- Thundertotem to Orgrimmar
               nodes[680][58188734] = { mnID = 85, name = "" , type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.Orgrimmar } -- Thundertotem to Orgrimmar
@@ -898,7 +905,7 @@ ns._currentSourceFile = "RetailZoneNodesLocation.lua"
             nodes[2213][45411357] = { npcID = 218171, name = "", type = "Alchemy", showInZone = true, showOnContinent = false, showOnMinimap = false }
             nodes[2216][67423141] = { npcID = 225611, name = "", type = "Alchemy", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"] }
             nodes[2213][67423141] = { npcID = 225611, name = "", type = "Alchemy", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"] }
-            nodes[2255][54837585] = { name = L["Alchemy"], type = "Alchemy", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"] }
+            nodes[2255][54837585] = { npcID = 225611, name = "", type = "Alchemy", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["(inside building)"] }
           end
       
           if self.db.profile.showZoneLeatherworking then
