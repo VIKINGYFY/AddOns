@@ -264,6 +264,7 @@ function ExtraQuestButton:PLAYER_LOGIN()
 
 		local Highlight = self:CreateTexture("$parentHighlight", "HIGHLIGHT")
 		Highlight:SetColorTexture(1, 1, 1, .25)
+		Highlight:SetBlendMode("ADD")
 		Highlight:SetInside(self.bg)
 		self.Highlight = Highlight
 
@@ -313,7 +314,7 @@ ExtraQuestButton:SetScript("OnUpdate", function(self, elapsed)
 					HotKey:Show()
 					Icon:SetVertexColor(1, .1, .1)
 				elseif inRange then
-					HotKey:SetTextColor(.6, .6, .6)
+					HotKey:SetTextColor(.5, .5, .5)
 					HotKey:Show()
 					Icon:SetVertexColor(1, 1, 1)
 				else
@@ -324,7 +325,7 @@ ExtraQuestButton:SetScript("OnUpdate", function(self, elapsed)
 					HotKey:SetTextColor(1, .1, .1)
 					Icon:SetVertexColor(1, .1, .1)
 				else
-					HotKey:SetTextColor(.6, .6, .6)
+					HotKey:SetTextColor(.5, .5, .5)
 					Icon:SetVertexColor(1, 1, 1)
 				end
 			end

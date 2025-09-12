@@ -99,9 +99,11 @@ info.onEnter = function(self)
 	local _, anchor, offset = module:GetTooltipAnchor(info)
 	GameTooltip:SetOwner(self, "ANCHOR_"..anchor, 0, offset)
 	GameTooltip:ClearLines()
+	GameTooltip:AddLine("时长统计", 0,1,1)
+	GameTooltip:AddLine(" ")
 
-	GameTooltip:AddDoubleLine("战斗时长:", lastCombatTime, 0,1,1, 1,1,1)
-	GameTooltip:AddDoubleLine("过图时长:", lastLoadTime, 0,1,1, 1,1,1)
+	GameTooltip:AddDoubleLine("战斗:", lastCombatTime, 0,1,1, 1,1,1)
+	GameTooltip:AddDoubleLine("过图:", lastLoadTime, 0,1,1, 1,1,1)
 
 	GameTooltip:Show()
 end

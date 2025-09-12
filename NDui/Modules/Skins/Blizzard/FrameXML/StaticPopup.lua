@@ -1,6 +1,8 @@
 local _, ns = ...
 local B, C, L, DB = unpack(ns)
 
+local STATICPOPUP_NUMDIALOGS = STATICPOPUP_NUMDIALOGS or 4
+
 local function Reskin_StaticPopup(which, _, _, data)
 	local info = StaticPopupDialogs[which]
 	if not info then return end

@@ -47,7 +47,6 @@ end
 local function CreateLMButton(index)
 	if not LootMonitor.buttons[index] then
 		local button = CreateFrame("Button", "LootMonitorButton"..index, LootMonitor)
-		button:SetHighlightTexture(DB.bdTex)
 		button:SetHeight(buttonHeight)
 		button:SetPoint("RIGHT", LootMonitor, "RIGHT", -10, 0)
 		button:SetPoint("TOPLEFT", LootMonitor.Title, "BOTTOMLEFT", 0, -(DB.margin + (index - 1) * (buttonHeight + 1)))
@@ -58,8 +57,10 @@ local function CreateLMButton(index)
 		button:SetScript("OnLeave", Button_OnLeave)
 		button.index = index
 
-		local glow = button:GetHighlightTexture()
-		glow:SetVertexColor(1, 1, 1, .25)
+		local glow = button:CreateTexture(nil, "HIGHLIGHT")
+		glow:SetAllPoints()
+		glow:SetBlendMode("ADD")
+		glow:SetColorTexture(1, 1, 1, .5)
 		button.glow = glow
 
 		local text = B.CreateFS(button, buttonHeight-2, "", false, "LEFT", 0, 0)

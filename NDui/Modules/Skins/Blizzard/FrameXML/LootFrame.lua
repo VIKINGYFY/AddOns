@@ -98,8 +98,7 @@ C.OnLoginThemes["LootFrame"] = function()
 				frame.bg = B.CreateBG(frame)
 				B.ReskinBorder(frame.Border, true)
 
-				frame.Timer.Bar:SetTexture(DB.bdTex)
-				frame.Timer.Bar:SetVertexColor(1, 1, 0)
+				frame.Timer.Bar:SetColorTexture(1, 1, 0)
 				frame.Timer.Background:SetAlpha(0)
 				B.CreateBDFrame(frame.Timer, .25)
 

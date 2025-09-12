@@ -353,8 +353,8 @@ function S:ReskinRematchElements()
 	S.RematchDropdown(dialog.SaveAs.Target)
 	S.RematchDropdown(dialog.TabPicker)
 	S.RematchIcon(dialog.Pet.Pet)
-	B.ReskinRadio(dialog.ConflictRadios.MakeUnique)
-	B.ReskinRadio(dialog.ConflictRadios.Overwrite)
+	B.ReskinCheck(dialog.ConflictRadios.MakeUnique, 2)
+	B.ReskinCheck(dialog.ConflictRadios.Overwrite, 2)
 
 	local preferences = dialog.Preferences
 	S.RematchInput(preferences.MinHP)
@@ -383,8 +383,8 @@ function S:ReskinRematchElements()
 	local bg = B.CreateBDFrame(report.Chart, .25)
 	bg:SetPoint("TOPLEFT", -C.mult, -3)
 	bg:SetPoint("BOTTOMRIGHT", C.mult, 2)
-	B.ReskinRadio(report.ChartTypesRadioButton)
-	B.ReskinRadio(report.ChartSourcesRadioButton)
+	B.ReskinCheck(report.ChartTypesRadioButton, 2)
+	B.ReskinCheck(report.ChartSourcesRadioButton, 2)
 
 	local border = report.RarityBarBorder
 	border:Hide()

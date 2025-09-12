@@ -351,9 +351,10 @@ function module:RecycleBin()
 					child:SetHighlightTexture(DB.bdTex) -- prevent nil function
 					child:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 				elseif child:IsObjectType("Frame") then
-					child.highlight = child:CreateTexture(nil, "HIGHLIGHT")
-					child.highlight:SetAllPoints()
-					child.highlight:SetColorTexture(1, 1, 1, .25)
+					child.HL = child:CreateTexture(nil, "HIGHLIGHT")
+					child.HL:SetAllPoints()
+					child.HL:SetBlendMode("ADD")
+					child.HL:SetColorTexture(1, 1, 1, .25)
 				end
 
 				-- Naughty Addons

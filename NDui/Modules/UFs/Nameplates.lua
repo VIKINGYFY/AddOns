@@ -597,7 +597,7 @@ function UF:UpdateNameplateSize()
 		self.ClassifyIndicator:SetSize(nameTextSize+4, nameTextSize+4)
 
 		self.Castbar.Icon:SetSize(iconSize, iconSize)
-		self.Castbar.glowFrame:SetSize(iconSize+8, iconSize+8)
+		self.Castbar.glowFrame:SetOutside(self.Castbar.Icon, 4, 4)
 
 		self.nameText:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, plateMargin)
 		self.nameText:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, plateMargin)
@@ -876,7 +876,7 @@ function UF:ResizePlayerPlate()
 		local barHeight = C.db["Nameplate"]["PPBarHeight"]
 		local healthHeight = C.db["Nameplate"]["PPHealthHeight"]
 		local powerHeight = C.db["Nameplate"]["PPPowerHeight"]
-		
+
 		local plateWidth = barWidth
 		local plateHeight = healthHeight + powerHeight + C.mult
 
@@ -1101,8 +1101,8 @@ function UF:CreateGCDTicker(self)
 	local spark = ticker:CreateTexture(nil, "OVERLAY")
 	spark:SetTexture(DB.sparkTex)
 	spark:SetBlendMode("ADD")
-	spark:SetPoint("TOPLEFT", ticker:GetStatusBarTexture(), "TOPRIGHT", -10, 10)
-	spark:SetPoint("BOTTOMRIGHT", ticker:GetStatusBarTexture(), "BOTTOMRIGHT", 10, -10)
+	spark:SetPoint("TOP", ticker:GetStatusBarTexture(), "TOPRIGHT", 0, 15)
+	spark:SetPoint("BOTTOM", ticker:GetStatusBarTexture(), "BOTTOMRIGHT", 0, -15)
 	ticker.spark = spark
 
 	ticker:SetScript("OnUpdate", UF.UpdateGCDTicker)

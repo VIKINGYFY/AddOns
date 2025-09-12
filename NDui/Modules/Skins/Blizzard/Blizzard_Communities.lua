@@ -240,8 +240,8 @@ C.OnLoadThemes["Blizzard_Communities"] = function()
 			for i = 1, frame:GetNumChildren() do
 				local child = select(i, frame:GetChildren())
 				if child.StreamName and not child.styled then
-					B.ReskinRadio(child.ShowNotificationsButton)
-					B.ReskinRadio(child.HideNotificationsButton)
+					B.ReskinCheck(child.ShowNotificationsButton, 2)
+					B.ReskinCheck(child.HideNotificationsButton, 2)
 
 					child.styled = true
 				end

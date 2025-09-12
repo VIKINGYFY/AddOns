@@ -70,7 +70,7 @@ function Bar:UpdateStance()
 			if ( isCastable ) then
 				icon:SetVertexColor(1.0, 1.0, 1.0);
 			else
-				icon:SetVertexColor(0.4, 0.4, 0.4);
+				icon:SetVertexColor(0.5, 0.5, 0.5);
 			end
 		end
 	end

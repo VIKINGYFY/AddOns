@@ -393,6 +393,7 @@ function info:FriendsPanel_CreateButton(parent, index)
 	button:SetPoint("TOPLEFT", 0, - (index-1) *20)
 	button.HL = button:CreateTexture(nil, "HIGHLIGHT")
 	button.HL:SetAllPoints()
+	button.HL:SetBlendMode("ADD")
 	button.HL:SetColorTexture(DB.r, DB.g, DB.b, .25)
 
 	button.status = button:CreateTexture(nil, "ARTWORK")

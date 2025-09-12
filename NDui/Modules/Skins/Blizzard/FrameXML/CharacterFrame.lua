@@ -66,7 +66,7 @@ C.OnLoginThemes["CharacterFrame"] = function()
 		cooldown:SetInside(slot.bg)
 
 		B.ReskinBorder(slot.IconBorder)
-		B.ReskinHLTex(slot, slot.bg, nil, true)
+		B.ReskinHLTex(slot, slot.bg)
 
 		local popout = slot.popoutButton
 		popout:SetSize(14, 14)

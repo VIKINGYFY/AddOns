@@ -80,7 +80,6 @@ end
 local function CreateSlot(index)
 	if not LightLoot.slots[index] then
 		local button = CreateFrame("Button", "LightLootSlot"..index, LightLoot, "BackdropTemplate")
-		button:SetHighlightTexture(DB.bdTex)
 		button:SetHeight(math.max(fontSize, iconSize))
 		button:SetPoint("LEFT", LightLoot, "LEFT", DB.margin, 0)
 		button:SetPoint("RIGHT", LightLoot, "RIGHT", -DB.margin, 0)
@@ -109,8 +108,9 @@ local function CreateSlot(index)
 		tier:SetAtlas(nil)
 		button.tier = tier
 
-		local glow = button:GetHighlightTexture()
-		glow:SetVertexColor(DB.r, DB.g, DB.b, .5)
+		local glow = button:CreateTexture(nil, "HIGHLIGHT")
+		glow:SetBlendMode("ADD")
+		glow:SetColorTexture(DB.r, DB.g, DB.b, .5)
 		glow:SetPoint("TOPLEFT", border, "TOPRIGHT", DB.margin, 0)
 		glow:SetPoint("BOTTOMLEFT", border, "BOTTOMRIGHT", DB.margin, 0)
 		glow:SetPoint("RIGHT", button, "RIGHT")

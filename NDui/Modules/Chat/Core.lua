@@ -338,9 +338,9 @@ function module:UpdateTabColors(selected)
 	end
 
 	if self.whisperIndex == 1 then
-		self.glow:SetVertexColor(1, .5, 1)
+		self.glow:SetVertexColor(1, 0, 1)
 	elseif self.whisperIndex == 2 then
-		self.glow:SetVertexColor(0, 1, .96)
+		self.glow:SetVertexColor(0, 1, 1)
 	else
 		self.glow:SetVertexColor(1, 1, 0)
 	end

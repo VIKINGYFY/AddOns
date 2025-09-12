@@ -658,7 +658,7 @@ do
 
 		local glow = CreateFrame("Frame", nil, frame)
 		glow:SetFrameLevel(frame:GetFrameLevel())
-		glow:SetOutside(self, 4, 4)
+		glow:SetOutside(self, 3, 3)
 
 		return glow
 	end
@@ -747,8 +747,7 @@ do
 	function B:CreateGradient()
 		local tex = self:CreateTexture(nil, "BORDER")
 		tex:SetInside(self)
-		tex:SetTexture(DB.bdTex)
-		tex:SetVertexColor(.5, .5, .5, .25)
+		tex:SetColorTexture(.5, .5, .5, .25)
 
 		return tex
 	end
@@ -825,6 +824,7 @@ do
 		if highlight and type(highlight) == "boolean" then
 			self.HL = self:CreateTexture(nil, "HIGHLIGHT")
 			self.HL:SetColorTexture(1, 1, 1, .25)
+			self.HL:SetBlendMode("ADD")
 			self.HL:SetInside(self.bg)
 		end
 	end
@@ -969,8 +969,8 @@ do
 			bar.Spark:SetTexture(DB.sparkTex)
 			bar.Spark:SetBlendMode("ADD")
 			bar.Spark:SetAlpha(1)
-			bar.Spark:SetPoint("TOPLEFT", bar:GetStatusBarTexture(), "TOPRIGHT", -10, 10)
-			bar.Spark:SetPoint("BOTTOMRIGHT", bar:GetStatusBarTexture(), "BOTTOMRIGHT", 10, -10)
+			bar.Spark:SetPoint("TOP", bar:GetStatusBarTexture(), "TOPRIGHT", 0, 15)
+			bar.Spark:SetPoint("BOTTOM", bar:GetStatusBarTexture(), "BOTTOMRIGHT", 0, -15)
 		end
 
 		return bar
@@ -987,8 +987,7 @@ do
 			for i = 1, numTicks-1 do
 				if not ticks[i] then
 					ticks[i] = bar:CreateTexture(nil, "OVERLAY")
-					ticks[i]:SetTexture(DB.normTex)
-					ticks[i]:SetVertexColor(0, 0, 0)
+					ticks[i]:SetColorTexture(0, 0, 0)
 					ticks[i]:SetWidth(C.mult)
 					ticks[i]:SetHeight(height)
 				end
@@ -1004,14 +1003,14 @@ do
 		if not self:IsEnabled() then return end
 
 		if self.__gradient then
-			self.__gradient:SetVertexColor(DB.r, DB.g, DB.b, .25)
+			self.__gradient:SetColorTexture(DB.r, DB.g, DB.b, .25)
 		else
 			self.__bg:SetBackdropColor(DB.r, DB.g, DB.b, .25)
 		end
 	end
 	local function Button_OnLeave(self)
 		if self.__gradient then
-			self.__gradient:SetVertexColor(.5, .5, .5, .25)
+			self.__gradient:SetColorTexture(.5, .5, .5, .25)
 		else
 			self.__bg:SetBackdropColor(0, 0, 0, 0)
 		end
@@ -1075,11 +1074,11 @@ do
 	-- Handle scrollframe
 	local function Thumb_OnEnter(self)
 		local thumb = self.thumb or self
-		thumb.__gradient:SetVertexColor(DB.r, DB.g, DB.b, .25)
+		thumb.__gradient:SetColorTexture(DB.r, DB.g, DB.b, .25)
 	end
 	local function Thumb_OnLeave(self)
 		local thumb = self.thumb or self
-		thumb.__gradient:SetVertexColor(.5, .5, .5, .25)
+		thumb.__gradient:SetColorTexture(.5, .5, .5, .25)
 	end
 
 	local function updateScrollArrow(self)
@@ -1218,9 +1217,8 @@ do
 		B.ReskinButton(self)
 		B.SetupTexture(self, "close")
 
-		self:SetDisabledTexture(DB.bdTex)
 		local dis = self:GetDisabledTexture()
-		dis:SetVertexColor(0, 0, 0, .5)
+		dis:SetColorTexture(0, 0, 0, .5)
 		dis:SetDrawLayer("OVERLAY")
 		dis:SetInside(self.__bg)
 	end
@@ -1266,9 +1264,8 @@ do
 		B.ReskinButton(self)
 		B.SetupTexture(self, direction)
 
-		self:SetDisabledTexture(DB.bdTex)
 		local dis = self:GetDisabledTexture()
-		dis:SetVertexColor(0, 0, 0, .5)
+		dis:SetColorTexture(0, 0, 0, .5)
 		dis:SetDrawLayer("OVERLAY")
 		dis:SetInside(self.__bg)
 	end
@@ -1322,10 +1319,10 @@ do
 	end
 
 	-- Handle checkbox and radio
-	function B:ReskinCheck()
+	function B:ReskinCheck(offset)
 		B.StripTextures(self)
 
-		self.bg = B.CreateBDFrame(self, 0, true, 4)
+		self.bg = B.CreateBDFrame(self, 0, true, offset or 4)
 
 		B.ReskinHLTex(self, self.bg, true)
 
@@ -1336,20 +1333,6 @@ do
 		check:SetVertexColor(DB.r, DB.g, DB.b)
 	end
 
-	function B:ReskinRadio()
-		B.StripTextures(self)
-
-		self.bg = B.CreateBDFrame(self, 0, true, 2)
-
-		self:SetCheckedTexture(DB.bdTex)
-		local ch = self:GetCheckedTexture()
-		ch:SetInside(self.bg)
-		ch:SetVertexColor(DB.r, DB.g, DB.b, .5)
-
-		self:HookScript("OnEnter", Menu_OnEnter)
-		self:HookScript("OnLeave", Menu_OnLeave)
-	end
-
 	-- Color swatch
 	function B:ReskinColorSwatch()
 		local bg = B.GetObject(self, "SwatchBg")
@@ -1357,8 +1340,8 @@ do
 
 		local icon
 		if self.Color then
+			self.Color:SetTexture(DB.bdTex)
 			icon = self.Color
-			icon:SetTexture(DB.bdTex)
 		else
 			self:SetNormalTexture(DB.bdTex)
 			icon = self:GetNormalTexture()
@@ -1690,14 +1673,14 @@ do
 		r = B:Round(r, 2)
 		g = B:Round(g, 2)
 		b = B:Round(b, 2)
-		swatch.tex:SetVertexColor(r, g, b)
+		swatch.tex:SetColorTexture(r, g, b)
 		swatch.color.r, swatch.color.g, swatch.color.b = r, g, b
 	end
 
 	local function cancelPicker()
 		local swatch = ColorPickerFrame.__swatch
 		local r, g, b = ColorPickerFrame:GetPreviousValues()
-		swatch.tex:SetVertexColor(r, g, b)
+		swatch.tex:SetColorTexture(r, g, b)
 		swatch.color.r, swatch.color.g, swatch.color.b = r, g, b
 	end
 
@@ -1738,8 +1721,7 @@ do
 		end
 		local tex = swatch:CreateTexture(nil, "ARTWORK")
 		tex:SetInside(swatch.bg)
-		tex:SetTexture(DB.bdTex)
-		tex:SetVertexColor(color.r, color.g, color.b)
+		tex:SetColorTexture(color.r, color.g, color.b)
 		tex.GetColor = GetSwatchTexColor
 
 		swatch.tex = tex
@@ -2137,15 +2119,14 @@ do
 	function B:ReskinBBTex(relativeTo)
 		if not self then return end
 
-		self:SetTexture(DB.bdTex)
 		self:SetDrawLayer("BORDER")
-		self:SetVertexColor(1, 1, 0)
+		self:SetColorTexture(1, 1, 0)
 
 		self:ClearAllPoints()
 		self:SetAllPoints(relativeTo)
 	end
 
-	function B:ReskinHLTex(relativeTo, classColor, isColorTex)
+	function B:ReskinHLTex(relativeTo, classColor)
 		if not self then return end
 
 		local r, g, b = 1, 1, 1
@@ -2153,22 +2134,16 @@ do
 
 		local tex
 		if self.SetHighlightTexture then
-			self:SetHighlightTexture(DB.bdTex)
 			tex = self:GetHighlightTexture()
 		elseif self.SetNormalTexture then
-			self:SetNormalTexture(DB.bdTex)
 			tex = self:GetNormalTexture()
 		elseif self.SetTexture then
-			self:SetTexture(DB.bdTex)
 			tex = self
 		end
 
 		if tex then
-			if isColorTex then
-				tex:SetColorTexture(r, g, b, .25)
-			else
-				tex:SetVertexColor(r, g, b, .25)
-			end
+			tex:SetBlendMode("ADD")
+			tex:SetColorTexture(r, g, b, .25)
 
 			if relativeTo then
 				tex:SetInside(relativeTo)
@@ -2266,6 +2241,7 @@ do
 	B.ReskinEditBox = B.ReskinInput
 	B.ReskinIconBorder = B.ReskinBorder
 	B.ReskinPortraitFrame = B.ReskinFrame
+	B.ReskinRadio = B.ReskinCheck
 	B.ReskinTrimScroll = B.ReskinScroll
 	B.SetBD = B.CreateBG
 	B.StyleSearchButton = B.ReskinSearchList

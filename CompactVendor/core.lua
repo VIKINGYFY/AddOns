@@ -78,7 +78,7 @@ local GetIconShape do
     ---@class CompactVendorDBDefaults
     CompactVendorDBDefaults = {
         ListItemScale = 13,
-        IconShape = 1,
+        IconShape = 2,
     }
 
     local ListItemScaleFallbackFontObject = "CompactVendorFrameFont1"

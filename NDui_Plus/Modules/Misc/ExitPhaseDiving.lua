@@ -48,6 +48,7 @@ end
 function M:ExitPhaseDiving()
 	local size = 52
 	local button = CreateFrame("Button", "NDuiPlus_ExitPhaseDivingButton", UIParent, "SecureActionButtonTemplate")
+	button:SetHighlightTexture(DB.bdTex)
 	button:SetAttribute("type", "macro")
 	button:SetAttribute("macrotext", "/cancelaura " .. PHASE_DIVING_AURA_ID)
 	button:SetAttribute("useOnKeyDown", false)

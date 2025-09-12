@@ -199,8 +199,7 @@ function UF:CreatePip(stage)
 
 	local pip = CreateFrame("Frame", nil, self, "CastingBarFrameStagePipTemplate")
 	pip:SetFrameLevel(self:GetFrameLevel())
-	pip.BasePip:SetTexture(DB.bdTex)
-	pip.BasePip:SetVertexColor(0, 0, 0)
+	pip.BasePip:SetColorTexture(0, 0, 0)
 	pip.BasePip:SetWidth(C.mult)
 	pip.BasePip:SetHeight(height)
 

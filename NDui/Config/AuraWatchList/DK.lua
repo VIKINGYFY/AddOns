@@ -48,6 +48,7 @@ local list = {
 		{AuraID =  454824, UnitID = "target", Caster = "player"}, -- 镇压攫握
 		{AuraID =  458478, UnitID = "target", Caster = "player"}, -- 煽动惊恐
 		{AuraID =  458687, UnitID = "target", Caster = "player"}, -- 饮血者
+		{AuraID = 1233351, UnitID = "target", Caster = "player"}, -- 掠霜使者
 
 	},
 	["Special Aura"] = { -- 玩家重要光环组

@@ -73,6 +73,7 @@ function M:ContactButton_Create(parent, index)
 	button:SetPoint("TOPLEFT", 2, -2 - (index-1) *20)
 	button.HL = button:CreateTexture(nil, "HIGHLIGHT")
 	button.HL:SetAllPoints()
+	button.HL:SetBlendMode("ADD")
 	button.HL:SetColorTexture(1, 1, 1, .25)
 
 	button.name = B.CreateFS(button, 13, "Name", false, "LEFT", 0, 0)

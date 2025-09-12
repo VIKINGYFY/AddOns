@@ -774,8 +774,8 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 	local Pick = GarrisonRecruiterFrame.Pick
 	B.ReskinButton(Pick.ChooseRecruits)
 	B.ReskinDropDown(Pick.ThreatDropdown)
-	B.ReskinRadio(Pick.Radio1)
-	B.ReskinRadio(Pick.Radio2)
+	B.ReskinCheck(Pick.Radio1, 2)
+	B.ReskinCheck(Pick.Radio2, 2)
 
 	-- Unavailable frame
 	local UnavailableFrame = GarrisonRecruiterFrame.UnavailableFrame

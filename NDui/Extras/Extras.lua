@@ -178,14 +178,7 @@ function EX.UpdateFocusNotices()
 		end
 	end
 
-	local text
-	if focusIcon and focusName then
-		text = format("我负责打断<{rt%s}%s>!", focusIcon, focusName)
-	else
-		text = format("我负责打断<%s>!", focusName)
-	end
-
-	C_ChatInfo.SendChatMessage(text, B.GetCurrentChannel())
+	C_ChatInfo.SendChatMessage(format("我负责打断<%s%s>!", focusIcon and "{rt"..focusIcon.."}" or "", focusName), B.GetCurrentChannel())
 end
 
 function EX:FocusNotices()

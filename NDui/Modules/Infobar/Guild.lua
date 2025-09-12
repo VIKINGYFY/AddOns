@@ -34,6 +34,7 @@ function info:GuildPanel_CreateButton(parent, index)
 	button:SetPoint("TOPLEFT", 0, - (index-1) *20)
 	button.HL = button:CreateTexture(nil, "HIGHLIGHT")
 	button.HL:SetAllPoints()
+	button.HL:SetBlendMode("ADD")
 	button.HL:SetColorTexture(DB.r, DB.g, DB.b, .25)
 
 	button.level = B.CreateFS(button, 13, "Level")
@@ -184,6 +185,7 @@ function info:GuildPanel_Init()
 		end
 		bu[i].HL = bu[i]:CreateTexture(nil, "HIGHLIGHT")
 		bu[i].HL:SetAllPoints(bu[i])
+		bu[i].HL:SetBlendMode("ADD")
 		bu[i].HL:SetColorTexture(DB.r, DB.g, DB.b, .25)
 		bu[i].index = i
 		bu[i]:SetScript("OnClick", sortHeaderOnClick)

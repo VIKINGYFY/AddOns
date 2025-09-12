@@ -72,6 +72,7 @@ function M:GuildBest_Create()
 		tex:SetVertexColor(0, 1, 0)
 		local hl = button:CreateTexture(nil, "HIGHLIGHT")
 		hl:SetAllPoints()
+		hl:SetBlendMode("ADD")
 		hl:SetTexture(DB.copyTex)
 	end
 
