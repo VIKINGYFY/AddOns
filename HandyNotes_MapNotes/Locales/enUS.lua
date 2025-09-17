@@ -2,11 +2,19 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "enUS", true)
 
 
+-- Flightmaster maps
+L["Button"] = true
+L["Show the MapNotes button on the Flightmap"] = true
+L["Show Instances"] = true
+L["Hide Instances"] = true
 -- Class Hall
 L["Artifact Forge"] = true
 L["Class Hall"] = true
 L["The entrance of each class must first be unlocked before they are accessible"] = true
 -- Worldmap
+L["Worldmap player arrow"] = true
+L["Changes the size of the display"] = true
+L["Enables the ability to change the size of the player arrow on the world map"] = true
 L["Change zone map"] = true
 L["This allows you to automatically switch the world map to the map of the new area when you leave one zone and enter a new one"] = true
 -- Npc
@@ -45,13 +53,18 @@ L["This will redisplay the previously discovered icons of the race category on a
 L["Travel to this point and click on the mole machine on site to unlock it"] = true
 L["The icons are only visible if you belong to the corresponding race"] = true
 L["Otherwise, the icons in this category are not visible to you"] = true
--- Minimap Arrow
+-- Minimap Arrow & coordinates
+L["Mouse coordinates"] = true
+L["Player coordinates"] = true
+L["Hold down Shift + Left mouse button to move"] = true
 L["The MapNotes player arrow disappears from the minimap for the set number of seconds when you hover over it"] = true
 L["This makes it easier for the player to see which other icon is currently under the player"] = true
 L["Unfortunately does not work in instances"] = true
 L["Minimap player arrow"] = true
 L["Displays the player arrow on the minimap layered above addon-created icons"] = true
 L["Coordinates"] = true
+L["Two mouse coordinate windows are created on the world map: one on the minimized world map and one on the maximized world map"] = true 
+L["The mouse coordinate windows share size and transparency, but can be positioned differently"] = true
 L["Creates a window for displaying the coordinates"] = true
 L["Only visible when the world map is open"] = true
 L["Function"] = true
@@ -112,6 +125,9 @@ L["Rogue"] = true
 L["Shaman"] = true
 L["Warlock"] = true
 L["Warrior"] = true
+L["Death Knight"] = true
+L["Monk"] = true
+L["Demon Hunter"] = true
 L["Weapon Master"] = true
 --0.08
 L["Has not been unlocked yet"] = true

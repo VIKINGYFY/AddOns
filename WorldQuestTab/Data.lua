@@ -1494,6 +1494,15 @@ end
 -- fixes			List of bugfixes
 
 local patchNotes = {
+		{["version"] = "11.2.04";
+			["changes"] = {
+				"Slightly lightened up the visuals of map pins";
+			};
+			["fixes"] = {
+				"Fixed a possible error in areas such as Island Expeditions with Always All Quests enabled";
+				"Fixed a possible error with other add-ons adding tabs to the world map";
+			};
+		};
 		{["version"] = "11.2.03";
 			["new"] = {
 				"Warband bonus reward icons for both the quest list and map pins (default off)";

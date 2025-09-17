@@ -2,11 +2,19 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "ruRU")
 if not L then return end
 
+-- Flightmaster maps
+L["Button"] = "Кнопка"
+L["Show the MapNotes button on the Flightmap"] = "Отображать кнопку MapNotes на карте полётов"
+L["Show Instances"] = "Показывать подземелья"
+L["Hide Instances"] = "Скрывать подземелья"
 -- Class Hall
 L["Artifact Forge"] = "Кузня артефактов"
 L["Class Hall"] = "Оплот класса"
 L["The entrance of each class must first be unlocked before they are accessible"] = "Вход для каждого класса должен быть сначала разблокирован, прежде чем он станет доступен"
 -- Worldmap
+L["Worldmap player arrow"] = "Стрелка игрока на карте мира"
+L["Changes the size of the display"] = "Изменяет размер отображения"
+L["Enables the ability to change the size of the player arrow on the world map"] = "Позволяет изменить размер стрелки игрока на карте мира"
 L["Change zone map"] = "Сменить карту зоны"
 L["This allows you to automatically switch the world map to the map of the new area when you leave one zone and enter a new one"] = "Это позволяет автоматически переключать карту мира на карту новой зоны, когда вы покидаете одну зону и входите в другую"
 -- Npc
@@ -45,13 +53,18 @@ L["This will redisplay the previously discovered icons of the race category on a
 L["Travel to this point and click on the mole machine on site to unlock it"] = "Отправляйтесь в эту точку и нажмите на бурильную машину на месте, чтобы разблокировать её"
 L["The icons are only visible if you belong to the corresponding race"] = "Значки видны только в том случае, если вы принадлежите к соответствующей расе"
 L["Otherwise, the icons in this category are not visible to you"] = "В противном случае значки в этой категории будут вам недоступны"
--- Minimap Arrow
+-- Minimap Arrow & coordinates
+L["Mouse coordinates"] = "Координаты мыши"
+L["Player coordinates"] = "Координаты игрока"
+L["Hold down Shift + Left mouse button to move"] = "Удерживайте Shift + левую кнопку мыши, чтобы перемещать"
 L["The MapNotes player arrow disappears from the minimap for the set number of seconds when you hover over it"] = "Стрелка игрока MapNotes исчезает с миникарты на заданное количество секунд при наведении курсора мыши"
 L["This makes it easier for the player to see which other icon is currently under the player"] = "Это помогает игроку легче увидеть, какая иконка сейчас находится под игроком"
 L["Unfortunately does not work in instances"] = "К сожалению, не работает в подземельях"
 L["Minimap player arrow"] = "Стрелка игрока на мини-карте"
 L["Displays the player arrow on the minimap layered above addon-created icons"] = "Отображает стрелку игрока на мини-карте поверх значков, созданных аддонами"
 L["Coordinates"] = "Координаты"
+L["Two mouse coordinate windows are created on the world map: one on the minimized world map and one on the maximized world map"] = "На карте мира создаются два окна координат курсора: одно на уменьшенной карте и другое на увеличенной карте"
+L["The mouse coordinate windows share size and transparency, but can be positioned differently"] = "Окна координат курсора используют общий размер и прозрачность, но могут располагаться по-разному"
 L["Creates a window for displaying the coordinates"] = "Создаёт окно для отображения координат"
 L["Only visible when the world map is open"] = "Отображается только при открытии карты мира"
 L["Function"] = "Функция"
@@ -112,6 +125,9 @@ L["Rogue"] = "Разбойник"
 L["Shaman"] = "Шаман"
 L["Warlock"] = "Чернокнижник"
 L["Warrior"] = "Воин"
+L["Death Knight"] = "Рыцарь смерти"
+L["Monk"] = "Монах"
+L["Demon Hunter"] = "Охотник на демонов"
 L["Weapon Master"] = "Эксперт по оружию"
 --0.08
 L["Has not been unlocked yet"] = "Еще не разблокирован"

@@ -2,7 +2,8 @@ local ADDON_NAME, ns = ...
 local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 
 function ns.CreatePlayerCoordsFrame()
-  if not ns.Addon or not ns.Addon.db or not ns.Addon.db.profile.displayCoords.showPlayerCoords then return end
+  local db = ns.Addon and ns.Addon.db and ns.Addon.db.profile
+  if not (db and db.displayCoords and db.displayCoords.showPlayerCoords) then return end
 
   local pos = ns.Addon.db.profile.displayCoords.player or {
     point = "TOPRIGHT", relativeTo = "UIParent", relativePoint = "TOPRIGHT", x = -52.68329620361328, y = -250.0940246582031, scale = 1.0
@@ -36,6 +37,16 @@ function ns.CreatePlayerCoordsFrame()
       x = x, y = y,
       scale = self:GetScale()
     }
+  end)
+
+  playerFrame:SetScript("OnEnter", function(self)
+    GameTooltip:SetOwner(self, "ANCHOR_TOP")
+    GameTooltip:AddLine(ns.COLORED_ADDON_NAME .. " " .. L["Player coordinates"], 1, 1, 1, true)
+    GameTooltip:Show()
+  end)
+
+  playerFrame:SetScript("OnLeave", function()
+    GameTooltip:Hide()
   end)
 
   local alpha = ns.Addon.db.profile.displayCoords.PlayerCoordsAlpha or 1
@@ -89,6 +100,8 @@ function ns.CreatePlayerCoordsFrame()
 end
 
 function ns.CreateMouseCoordsFrame()
+  local db = ns.Addon and ns.Addon.db and ns.Addon.db.profile
+  if not (db and db.displayCoords and db.displayCoords.showMouseCoords) then return end
   if not ns.Addon or not ns.Addon.db or not ns.Addon.db.profile.displayCoords.showMouseCoords then return end
   if not WorldMapFrame:IsShown() then return end 
 
@@ -109,12 +122,11 @@ function ns.CreateMouseCoordsFrame()
   end
 
   local mouseFrame = CreateFrame("Frame", "MouseCoordsFrame", UIParent)
-  mouseFrame:SetSize(180, 30)
+  mouseFrame:SetSize(190, 30)
   mouseFrame:SetPoint(pos.point, anchor, pos.relativePoint, pos.x, pos.y)
   mouseFrame:SetScale(pos.scale or 1.0)
   mouseFrame:SetFrameStrata("HIGH")
   mouseFrame:SetFrameLevel(WorldMapFrame:GetFrameLevel() + 5)
-
   mouseFrame:SetMovable(true)
   mouseFrame:EnableMouse(true)
   mouseFrame:RegisterForDrag("LeftButton")
@@ -129,6 +141,16 @@ function ns.CreateMouseCoordsFrame()
       x = x, y = y,
       scale = self:GetScale()
     }
+  end)
+
+  mouseFrame:SetScript("OnEnter", function(self)
+    GameTooltip:SetOwner(self, "ANCHOR_TOP")
+    GameTooltip:AddLine(ns.COLORED_ADDON_NAME .. " " .. L["Mouse coordinates"], 1, 1, 1, true)
+    GameTooltip:Show()
+  end)
+
+  mouseFrame:SetScript("OnLeave", function()
+    GameTooltip:Hide()
   end)
 
   local alpha = ns.Addon.db.profile.displayCoords.MouseCoordsAlpha or 1
@@ -153,60 +175,63 @@ function ns.CreateMouseCoordsFrame()
   mouseFrame.text:SetText(ns.COLORED_ADDON_NAME)
   mouseFrame.text:SetDrawLayer("OVERLAY", 7)
 
-local function UpdateMouseCoords()
-  if not WorldMapFrame or not WorldMapFrame:IsShown() then return end
+  local function UpdateMouseCoords()
+    if not WorldMapFrame or not WorldMapFrame:IsShown() then return end
 
-  local x, y
+    local sc = WorldMapFrame and WorldMapFrame.ScrollContainer
+    if not (sc and sc:IsMouseOver()) then
+      if MouseCoordsFrame.lastX ~= 0 or MouseCoordsFrame.lastY ~= 0 then
+        MouseCoordsFrame.text:SetText(MOUSE_LABEL .. ": |cffff000000.00|r |cff00ccff00.00|r")
+        MouseCoordsFrame.lastX, MouseCoordsFrame.lastY = 0, 0
+      end
+      return
+    end
 
-  -- === RETAIL (ab BfA/Legion, Dragonflight etc.) ===
-  if WorldMapFrame.ScrollContainer and WorldMapFrame.ScrollContainer.GetNormalizedCursorPosition then
-    x, y = WorldMapFrame.ScrollContainer:GetNormalizedCursorPosition()
+    local x, y
+    if WorldMapFrame.ScrollContainer and WorldMapFrame.ScrollContainer.GetNormalizedCursorPosition then
+      x, y = WorldMapFrame.ScrollContainer:GetNormalizedCursorPosition()
 
-  -- === CLASSIC / CATA (kein GetNormalizedCursorPosition) ===
-  else
-    local cursorX, cursorY = GetCursorPosition()
-    local scale = WorldMapFrame:GetEffectiveScale()
-    cursorX = cursorX / scale
-    cursorY = cursorY / scale
+    else
+      local cursorX, cursorY = GetCursorPosition()
+      local scale = WorldMapFrame:GetEffectiveScale()
+      cursorX = cursorX / scale
+      cursorY = cursorY / scale
 
-    -- Versuch 1: Exakter Kartenbereich (WorldMapDetailFrame – nur Classic/Cata)
-    if WorldMapDetailFrame and WorldMapDetailFrame:IsVisible() then
-      local left = WorldMapDetailFrame:GetLeft()
-      local top = WorldMapDetailFrame:GetTop()
-      local width = WorldMapDetailFrame:GetWidth()
-      local height = WorldMapDetailFrame:GetHeight()
+      if WorldMapDetailFrame and WorldMapDetailFrame:IsVisible() then
+        local left = WorldMapDetailFrame:GetLeft()
+        local top = WorldMapDetailFrame:GetTop()
+        local width = WorldMapDetailFrame:GetWidth()
+        local height = WorldMapDetailFrame:GetHeight()
 
-      if left and top and width and height then
-        x = (cursorX - left) / width
-        y = (top - cursorY) / height
+        if left and top and width and height then
+          x = (cursorX - left) / width
+          y = (top - cursorY) / height
+        end
+      end
+
+      if (not x or not y) and WorldMapFrame.ScrollContainer and WorldMapFrame.ScrollContainer.NormalizeUIPosition then
+        x, y = WorldMapFrame.ScrollContainer:NormalizeUIPosition(cursorX, cursorY)
       end
     end
 
-    -- Fallback Versuch 2: NormalizeUIPosition() (wenn exakte Map fehlt)
-    if (not x or not y) and WorldMapFrame.ScrollContainer and WorldMapFrame.ScrollContainer.NormalizeUIPosition then
-      x, y = WorldMapFrame.ScrollContainer:NormalizeUIPosition(cursorX, cursorY)
+    if x and y and x >= 0 and x <= 1 and y >= 0 and y <= 1 then
+      local x2 = math.floor(x * 10000 + 0.5) / 100
+      local y2 = math.floor(y * 10000 + 0.5) / 100
+
+      if x2 ~= MouseCoordsFrame.lastX or y2 ~= MouseCoordsFrame.lastY then
+        MouseCoordsFrame.text:SetFormattedText(MOUSE_LABEL .. ": |cffff0000%.2f|r |cff00ccff%.2f|r", x2, y2)
+        MouseCoordsFrame.lastX, MouseCoordsFrame.lastY = x2, y2
+      end
+    else
+      if MouseCoordsFrame.lastX ~= 0 or MouseCoordsFrame.lastY ~= 0 then
+        MouseCoordsFrame.text:SetText(MOUSE_LABEL .. ": |cffff000000.00|r |cff00ccff00.00|r")
+        MouseCoordsFrame.lastX, MouseCoordsFrame.lastY = 0, 0
+      end
     end
   end
-
-  -- === Anzeige, wenn gültig (nur wenn in sichtbarem Bereich) ===
-  if x and y and x >= 0 and x <= 1 and y >= 0 and y <= 1 then
-    local x2 = math.floor(x * 10000 + 0.5) / 100
-    local y2 = math.floor(y * 10000 + 0.5) / 100
-
-    if x2 ~= MouseCoordsFrame.lastX or y2 ~= MouseCoordsFrame.lastY then
-      MouseCoordsFrame.text:SetFormattedText(MOUSE_LABEL .. ": |cffff0000%.2f|r |cff00ccff%.2f|r", x2, y2)
-      MouseCoordsFrame.lastX, MouseCoordsFrame.lastY = x2, y2
-    end
-  else
-    if MouseCoordsFrame.lastX ~= 0 or MouseCoordsFrame.lastY ~= 0 then
-      MouseCoordsFrame.text:SetText(ns.COLORED_ADDON_NAME)
-      MouseCoordsFrame.lastX, MouseCoordsFrame.lastY = 0, 0
-    end
-  end
-end
 
   mouseFrame:SetScript("OnUpdate", function(self, elapsed)
-    if not WorldMapFrame:IsShown() then return end
+    if not WorldMapFrame or not WorldMapFrame:IsShown() then return end
     self.timer = (self.timer or 0) + elapsed
     if self.timer >= 0.1 then
       UpdateMouseCoords()
@@ -263,26 +288,25 @@ end)
 WorldMapFrame:HookScript("OnShow", function()
   if ns.Addon and ns.Addon.db and ns.Addon.db.profile.displayCoords.showMouseCoords then
     C_Timer.After(0.1, function()
-if not MouseCoordsFrame then
-  ns.CreateMouseCoordsFrame()
-else
-  local pos = ns.Addon.db.profile.displayCoords.mouse
-  if pos then
-    local anchor = _G[pos.relativeTo]
-    if not anchor or not anchor:IsVisible() then anchor = UIParent end
-
-    MouseCoordsFrame:ClearAllPoints()
-    MouseCoordsFrame:SetPoint(pos.point, anchor, pos.relativePoint, pos.x, pos.y)
-    MouseCoordsFrame:SetScale(pos.scale or 1.0)
-    MouseCoordsFrame:Show()
-  else
-    MouseCoordsFrame:ClearAllPoints()
-    MouseCoordsFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 100, -100)
-    MouseCoordsFrame:SetScale(1.0)
-    MouseCoordsFrame:Show()
-  end
-end
-
+      if not MouseCoordsFrame then
+        ns.CreateMouseCoordsFrame()
+      else
+        local pos = ns.Addon.db.profile.displayCoords.mouse
+        if pos then
+          local anchor = _G[pos.relativeTo]
+          if not anchor or not anchor:IsVisible() then anchor = UIParent end
+        
+          MouseCoordsFrame:ClearAllPoints()
+          MouseCoordsFrame:SetPoint(pos.point, anchor, pos.relativePoint, pos.x, pos.y)
+          MouseCoordsFrame:SetScale(pos.scale or 1.0)
+          MouseCoordsFrame:Show()
+        else
+          MouseCoordsFrame:ClearAllPoints()
+          MouseCoordsFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 100, -100)
+          MouseCoordsFrame:SetScale(1.0)
+          MouseCoordsFrame:Show()
+        end
+      end
     end)
   end
 end)
@@ -298,9 +322,9 @@ function ns.DefaultPlayerCoords()
     point = "TOPRIGHT",
     relativeTo = "UIParent",
     relativePoint = "TOPRIGHT",
-    x = -52.68329620361328,
-    y = -250.0940246582031,
-    scale = 1.0
+    x = -49.52352905273438,
+    y = -222.0447998046875,
+    scale = 0.8
   }
 
   ns.Addon.db.profile.displayCoords.player = CopyTable(data)
@@ -315,12 +339,12 @@ end
 
 function ns.DefaultMouseCoords()
   local data = {
-    point = "TOPLEFT",
+    point = "TOP",
     relativeTo = "UIParent",
-    relativePoint = "TOPLEFT",
-    x = 19.4,
-    y = -207,
-    scale = 1.0
+    relativePoint = "TOP",
+    x = -290.368896484375,
+    y = -2.696654319763184,
+    scale = 0.7
   }
 
   ns.Addon.db.profile.displayCoords.mouse = CopyTable(data)
@@ -347,13 +371,13 @@ function ns.DefaultPlayerAlpha()
 end
 
 function ns.DefaultMouseAlpha()
-  ns.Addon.db.profile.displayCoords.MouseCoordsAlpha = 1
+  ns.Addon.db.profile.displayCoords.MouseCoordsAlpha = 0
   if MouseCoordsFrame then
     if MouseCoordsFrame.background then
-      MouseCoordsFrame.background:SetColorTexture(0, 0, 0, 1)
+      MouseCoordsFrame.background:SetColorTexture(0, 0, 0, 0)
     end
     if MouseCoordsFrame.border then
-      MouseCoordsFrame.border:SetAlpha(1)
+      MouseCoordsFrame.border:SetAlpha(0)
     end
   end
 end
@@ -370,6 +394,7 @@ end
 
 function ns.ApplySavedCoords()
   local db = ns.Addon.db.profile
+  db.displayCoords = db.displayCoords or CopyTable(ns.defaults.profile.displayCoords or {})
   local player = db.displayCoords.player
   local mouse = db.displayCoords.mouse
 

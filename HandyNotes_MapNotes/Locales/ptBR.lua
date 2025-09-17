@@ -2,11 +2,19 @@
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "ptBR")
 if not L then return end
 
+-- Flightmaster maps
+L["Button"] = "Botão"
+L["Show the MapNotes button on the Flightmap"] = "Mostrar o botão do MapNotes no mapa de voo"
+L["Show Instances"] = "Mostrar instâncias"
+L["Hide Instances"] = "Ocultar instâncias"
 -- Class Hall
 L["Artifact Forge"] = "Forja de Artefatos"
 L["Class Hall"] = "Salão de Classe"
 L["The entrance of each class must first be unlocked before they are accessible"] = "A entrada de cada classe deve primeiro ser desbloqueada antes de estar acessível"
 -- Worldmap
+L["Worldmap player arrow"] = "Seta do jogador no mapa-múndi"
+L["Changes the size of the display"] = "Altera o tamanho da exibição"
+L["Enables the ability to change the size of the player arrow on the world map"] = "Permite alterar o tamanho da seta do jogador no mapa-múndi"
 L["Change zone map"] = "Alterar mapa da zona"
 L["This allows you to automatically switch the world map to the map of the new area when you leave one zone and enter a new one"] = "Permite trocar automaticamente o mapa-múndi para o mapa da nova área quando você sai de uma zona e entra em outra"
 -- Npc
@@ -45,13 +53,18 @@ L["This will redisplay the previously discovered icons of the race category on a
 L["Travel to this point and click on the mole machine on site to unlock it"] = "Viaje até este ponto e clique na máquina de toupeira no local para desbloqueá-la"
 L["The icons are only visible if you belong to the corresponding race"] = "Os ícones só são visíveis se você pertencer à raça correspondente"
 L["Otherwise, the icons in this category are not visible to you"] = "Caso contrário, os ícones desta categoria não estarão visíveis para você"
--- Minimap Arrow
+-- Minimap Arrow & coordinates
+L["Mouse coordinates"] = "Coordenadas do mouse"
+L["Player coordinates"] = "Coordenadas do jogador"
+L["Hold down Shift + Left mouse button to move"] = "Mantenha pressionado Shift + botão esquerdo do mouse para mover"
 L["The MapNotes player arrow disappears from the minimap for the set number of seconds when you hover over it"] = "A seta do jogador do MapNotes desaparece do minimapa pelo número definido de segundos ao passar o mouse sobre ela"
 L["This makes it easier for the player to see which other icon is currently under the player"] = "Isso facilita para o jogador ver qual outro ícone está atualmente sob o jogador"
 L["Unfortunately does not work in instances"] = "Infelizmente não funciona em instâncias"
 L["Minimap player arrow"] = "Seta do jogador no minimapa"
 L["Displays the player arrow on the minimap layered above addon-created icons"] = "Exibe a seta do jogador no minimapa acima dos ícones criados por addons"
 L["Coordinates"] = "Coordenadas"
+L["Two mouse coordinate windows are created on the world map: one on the minimized world map and one on the maximized world map"] = "São criadas duas janelas de coordenadas do mouse no mapa do mundo: uma no mapa reduzido e outra no mapa ampliado"
+L["The mouse coordinate windows share size and transparency, but can be positioned differently"] = "As janelas de coordenadas do mouse compartilham o tamanho e a transparência, mas podem ser posicionadas de forma diferente"
 L["Creates a window for displaying the coordinates"] = "Cria uma janela para exibir as coordenadas"
 L["Only visible when the world map is open"] = "Visível apenas quando o mapa-múndi está aberto"
 L["Function"] = "Função"
@@ -112,6 +125,9 @@ L["Rogue"] = "Ladino"
 L["Shaman"] = "Xamã"
 L["Warlock"] = "Bruxo"
 L["Warrior"] = "Guerreiro"
+L["Death Knight"] = "Cavaleiro da Morte"
+L["Monk"] = "Monge"
+L["Demon Hunter"] = "Caçador de Demônios"
 L["Weapon Master"] = "Mestre de Armas"
 --0.08
 L["Has not been unlocked yet"] = "Ainda não foi desbloqueado"

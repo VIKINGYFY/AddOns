@@ -2,11 +2,19 @@
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "zhCN")
 if not L then return end
 
+-- Flightmaster maps
+L["Button"] = "按鈕"
+L["Show the MapNotes button on the Flightmap"] = "在飛行地圖上顯示 MapNotes 按鈕"
+L["Show Instances"] = "显示副本"
+L["Hide Instances"] = "隐藏副本"
 -- Class Hall
 L["Artifact Forge"] = "神器熔炉"
 L["Class Hall"] = "职业大厅"
 L["The entrance of each class must first be unlocked before they are accessible"] = "必须先解锁每个职业的入口，才能进入"
 -- Worldmap
+L["Worldmap player arrow"] = "世界地图玩家箭头"
+L["Changes the size of the display"] = "更改显示大小"
+L["Enables the ability to change the size of the player arrow on the world map"] = "允许更改世界地图上玩家箭头的大小"
 L["Change zone map"] = "切换区域地图"
 L["This allows you to automatically switch the world map to the map of the new area when you leave one zone and enter a new one"] = "这将使你在离开一个区域并进入新区域时，世界地图自动切换到新区域的地图"
 -- Npc
@@ -45,13 +53,18 @@ L["This will redisplay the previously discovered icons of the race category on a
 L["Travel to this point and click on the mole machine on site to unlock it"] = "前往此地点并点击现场的地鼠机器以解锁它"
 L["The icons are only visible if you belong to the corresponding race"] = "只有属于相应种族时才会显示图标"
 L["Otherwise, the icons in this category are not visible to you"] = "否则，此类别中的图标对你不可见"
--- Minimap Arrow
+-- Minimap Arrow & coordinates
+L["Mouse coordinates"] = "鼠标坐标"
+L["Player coordinates"] = "玩家坐标"
+L["Hold down Shift + Left mouse button to move"] = "按住 Shift + 鼠标左键以移动"
 L["The MapNotes player arrow disappears from the minimap for the set number of seconds when you hover over it"] = "当鼠标悬停在其上时，MapNotes 玩家箭头将在设定的秒数内从小地图上消失"
 L["This makes it easier for the player to see which other icon is currently under the player"] = "这使玩家更容易看清当前位于玩家下方的其他图标"
 L["Unfortunately does not work in instances"] = "在副本中无法使用"
 L["Minimap player arrow"] = "小地图玩家箭头"
 L["Displays the player arrow on the minimap layered above addon-created icons"] = "在小地图上显示玩家箭头，位于插件创建的图标之上"
 L["Coordinates"] = "坐标"
+L["Two mouse coordinate windows are created on the world map: one on the minimized world map and one on the maximized world map"] = "世界地图上会创建两个鼠标坐标窗口：一个在缩小的世界地图上，另一个在放大的世界地图上"
+L["The mouse coordinate windows share size and transparency, but can be positioned differently"] = "鼠标坐标窗口共享大小和透明度，但可以放置在不同位置"
 L["Creates a window for displaying the coordinates"] = "创建用于显示坐标的窗口"
 L["Only visible when the world map is open"] = "仅在世界地图打开时可见"
 L["Function"] = "功能"
@@ -112,6 +125,9 @@ L["Rogue"] = "潜行者"
 L["Shaman"] = "萨满祭司"
 L["Warlock"] = "术士"
 L["Warrior"] = "战士"
+L["Death Knight"] = "死亡骑士"
+L["Monk"] = "武僧"
+L["Demon Hunter"] = "恶魔猎手"
 L["Weapon Master"] = "武器大师"
 --0.08
 L["Has not been unlocked yet"] = "尚未解锁"

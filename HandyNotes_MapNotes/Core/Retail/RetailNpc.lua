@@ -109,8 +109,6 @@ function ns.GetNpcInfo(npcID)
   return npcName, npcTitle
 end
 
-
-
 function ns.PrimeNpcNameCache()
   local seen = {}
   local successCount = 0
@@ -228,12 +226,10 @@ function ns.RebuildNpcNameCache(opts)
   end
 end
 
-
 function ns.GetNpcCacheStats()
   local loc = ns.locale or GetLocale() or "enUS"
   local saved = 0
-  local bucket = (HandyNotes_MapNotesRetailNpcCacheDB and HandyNotes_MapNotesRetailNpcCacheDB.names
-                  and HandyNotes_MapNotesRetailNpcCacheDB.names[loc]) or {}
+  local bucket = (HandyNotes_MapNotesRetailNpcCacheDB and HandyNotes_MapNotesRetailNpcCacheDB.names and HandyNotes_MapNotesRetailNpcCacheDB.names[loc]) or {}
   for _ in pairs(bucket) do saved = saved + 1 end
 
   local ram = 0

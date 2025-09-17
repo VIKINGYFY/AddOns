@@ -693,10 +693,12 @@ function UF:CreateCastBar(self)
 		cb:SetSize(C.db["UFs"]["FocusCBWidth"], C.db["UFs"]["FocusCBHeight"])
 		createBarMover(cb, L["Focus Castbar"], "FocusCB", C.UFs.FocusCB)
 	elseif mystyle == "boss" or mystyle == "arena" then
+		cb:ClearAllPoints()
 		cb:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -DB.margin)
 		cb:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -DB.margin)
 		cb:SetHeight(10)
 	elseif mystyle == "nameplate" then
+		cb:ClearAllPoints()
 		cb:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -plateMargin)
 		cb:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -plateMargin)
 		cb:SetHeight(self:GetHeight())
@@ -730,8 +732,8 @@ function UF:CreateCastBar(self)
 		local iconSize = self:GetHeight() * 2 + plateMargin
 		cb.Icon:SetSize(iconSize, iconSize)
 		cb.Icon:SetPoint("BOTTOMRIGHT", cb, "BOTTOMLEFT", -plateMargin, 0)
-		cb.timeToHold = .5
 
+		cb.timeToHold = .5
 		cb.glowFrame = B.CreateGlowFrame(cb.Icon)
 
 		local spellTarget = B.CreateFS(cb, C.db["Nameplate"]["CastBarTextSize"] + 2)

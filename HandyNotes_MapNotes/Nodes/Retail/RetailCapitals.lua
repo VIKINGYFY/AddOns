@@ -127,7 +127,7 @@ ns._currentSourceFile = "RetailCapitals.lua"
 
                     if self.db.profile.showCapitalsPortals then
                         nodes[85][57278961] = { name = "", type = "PassageHPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portalroom"] .. "\n" .. "\n" .. " ==> " .. ns.Silvermoon .. "\n" .. " ==> " .. ns.Valdrakken .. "\n" .. " ==> " .. ns.Oribos .. "\n" .. " ==> " .. ns.Azsuna .. "\n" .. " ==> " .. ns.Zuldazar .. "\n" .. " ==> " .. ns.Dalaran .. " - " .. ns.Northrend .. "\n" .. " ==> " .. ns.Hyjal .. "\n" .. "\n" .. " ==> " .. ns.CavernsOfTime .. " - " .. L["in the basement"] .. "\n" .. " ==> " .. ns.Shattrath .. " - " .. L["in the basement"] .. "\n" .. " ==> " .. ns.Warspear .. " - " .. L["in the basement"] .. "\n" .. " ==> " .. ns.DarkPortal .. " - " .. L["in the basement"] .. "\n" .. "      (" .. L["talk to"] .. ": " .. ns.ThrallmarMage .. " )" .. "\n" .. " ==> " .. ns.Dornogal .. " - " .. L["in the basement"]} -- Portalroom from Orgrimmar
-                        nodes[85][50765561] = { mnID = 18, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.RuinsOfLorethAran } -- Ruins of Lordaeron 
+                        nodes[85][50765561] = { mnID = 18, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.RuinsofLordaeron } -- Ruins of Lordaeron 
                         nodes[85][47393928] = { mnID = 245, name = "", type = "HPortalS", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.TolBarad } --  Portal to Tol Barad
                         nodes[85][48863851] = { mnID = 1527, name = "", type = "HPortalS", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.Uldum } -- Portal to Uldum
                         nodes[85][50243944] = { mnID = 241, name = "", type = "HPortalS", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.TwilightHighlands } -- Portal to Twilight Highlands
@@ -481,7 +481,7 @@ ns._currentSourceFile = "RetailCapitals.lua"
 
                     if self.db.profile.showCapitalsPortals then
                         nodes[110][58511859] = { mnID = 85, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.Orgrimmar } -- Portal to Orgrimmar from Silvermoon 
-                        nodes[110][49491509] = { mnID = 18, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.RuinsOfLorethAran } -- Portal to Undercity from Silvermoon 
+                        nodes[110][49491509] = { mnID = 18, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.RuinsofLordaeron } -- Portal to Undercity from Silvermoon 
                     end
 
                     if self.db.profile.showCapitalsFP then

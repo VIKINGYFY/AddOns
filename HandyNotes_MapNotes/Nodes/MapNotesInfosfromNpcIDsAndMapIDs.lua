@@ -137,14 +137,8 @@ ns.DragonIsles = mapName(1978)
 ns.KhazAlgar = mapName(2274)
 
 ------------------------------------ Class Hall
-
 ns.ValSharah = mapName(641)
 ns.HighMountains = mapName(650)
-
-
-
-
-
 
 
 ------------------------------------ areaID Names
@@ -164,15 +158,11 @@ ns.DarkPortal = areaName(72)
 ns.ShadoPanGarison = areaName(6197)
 ------------------------------------ Sub Zones Horde
 ns.Gromgol = areaName(33)
-ns.RuinsOfLorethAran = areaName(3591)
+ns.RuinsofLordaeron = areaName(153)
 ns.Volmar = areaName(7523)
 ------------------------------------ Sub Zones Alliance
 ns.Ruttheran = areaName(702)
 ns.LionsWatch = areaName(7522)
-
-
-
-
 
 
 ------------------------------------ instanceID Names
@@ -195,12 +185,15 @@ ns.Naxxramas = instanceName(754)
 ns.Rookery = instanceName(1268)
 
 
-
-
-
-
 ------------------------------------ npcNameID Names
 local function npcName(id)
+    if ns.GetNpcInfo then
+        local name = ns.GetNpcInfo(id)
+        if name and name ~= "" then
+            return name
+        end
+    end
+
     local link = "unit:Creature-0-0-0-0-" .. id .. "-0000000000"
     local data = C_TooltipInfo and C_TooltipInfo.GetHyperlink and C_TooltipInfo.GetHyperlink(link)
     local name = data and data.lines and data.lines[1] and data.lines[1].leftText
@@ -242,28 +235,27 @@ ns.SeerKazal = npcName(94870)
 ns.Taelfar = npcName(205959)
 
 
-
-
-
-
 ------------------------------------ npcTitleLine1 second line
 local function npcTitleLine1(id)
+    if ns.GetNpcInfo then
+        local _, title = ns.GetNpcInfo(id)
+        if title and title ~= "" then
+            return title
+        end
+        return ""
+    end
+
     if not (C_TooltipInfo and C_TooltipInfo.GetHyperlink) then
         if ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode then
             print("|cffff0000[MapNotes]|r missing npcTitleID for " .. tostring(id))
         end
         return ""
     end
-
-    local link = "unit:Creature-0-0-0-0-" .. id .. "-0000000000"
-    local data = C_TooltipInfo.GetHyperlink(link)
+    local data = C_TooltipInfo.GetHyperlink("unit:Creature-0-0-0-0-" .. id .. "-0000000000")
     if not (data and data.lines and data.lines[2]) then return "" end
-
     if TooltipUtil and TooltipUtil.SurfaceArgs then
-        TooltipUtil.SurfaceArgs(data)
-        TooltipUtil.SurfaceArgs(data.lines[2])
+        TooltipUtil.SurfaceArgs(data); TooltipUtil.SurfaceArgs(data.lines[2])
     end
-
     local title = data.lines[2].leftText or ""
     if (title == "") and (ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode) then
         print("|cffff0000[MapNotes]|r missing npcTitleID for " .. tostring(id))
@@ -277,10 +269,8 @@ ns.QuartermasterM = npcTitleLine1(196637) -- Tethalash
 ns.Upgrade = npcTitleLine1(108527) -- Loramus Thalipedes
 ns.RecruitM = npcTitleLine1(106442) -- Yaris Darkclow
 ns.RecruitF = npcTitleLine1(108393) -- Sister Lilith
-
-
-
-
+ns.WeaponsSupplierM = npcTitleLine1(110434) -- Kristoff
+ns.WeaponsSupplierF = npcTitleLine1(110595) -- Lilith
 
 
 ------------------------------------ TaxiIDs Text for Retail only
@@ -291,9 +281,6 @@ local function TaxiID(id)
 end
 
 ns.TaxiRatchet = TaxiID(80)
-
-
-
 
 
 ------------------------------------ SpellID Text
@@ -311,8 +298,7 @@ ns.HallOfTheGuardian = spellName(193759) -- Teleport Hall of the Guardian -- Mag
 ns.Dreamwalk = spellName(193753) -- Teleport Dreamwalk - Druid
 ns.DeathGate = spellName(50977) -- Teleport Death Gate -- DK
 ns.ZenPilgrimage = spellName(126892) -- Teleport Zen Pilgrimage -- Monk
-
-
+ns.JumpToSkyhold = spellName(192085) -- Teleport -- Warrior Class Hall
 
 
 ------------------------------------ CurrencyID Text

@@ -333,7 +333,7 @@ ns._currentSourceFile = "RetailAzerothNodesLocation.lua"
 
             if self.faction == "Horde" or db.activate.AzerothEnemyFaction then
               nodes[947][84864258] = { mnID = 18, name = "", type = "HPortal", showInZone = true, TransportName = ns.TirisfalGlades .. " " .. L["Portals"] .. "\n" ..  "\n" .. " ==> " .. ns.Orgrimmar .. "\n" .. " ==> " .. ns.Gromgol .. "\n" .. " ==> " .. ns.HowlingFjord .. "\n" .. " ==> " .. ns.Silvermoon } -- Portal to Orgrimmar, Silvermoon, Howling Fjord and Grom'gol from Tirisfal
-              nodes[947][93143116] = { mnID = 110, name = "", type = "HPortal", showInZone = true, TransportName = ns.Silvermoon .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. ns.Orgrimmar .. "\n" .. " ==> " .. ns.RuinsOfLorethAran } -- Portal to Orgrimmar, Ruins of Lordaeron from Silvermoon
+              nodes[947][93143116] = { mnID = 110, name = "", type = "HPortal", showInZone = true, TransportName = ns.Silvermoon .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. ns.Orgrimmar .. "\n" .. " ==> " .. ns.RuinsofLordaeron } -- Portal to Orgrimmar, Ruins of Lordaeron from Silvermoon
             end
           end
     
@@ -342,9 +342,9 @@ ns._currentSourceFile = "RetailAzerothNodesLocation.lua"
           if self.db.profile.showAzerothMapNotes then
 
             if self.faction == "Horde" or db.activate.AzerothEnemyFaction then
-              nodes[947][84874364] = { mnID = 18, name = "", type = "HIcon", showInZone = true, TransportName = ns.Undercity .. " - " .. FACTION_HORDE .. "\n" .. "\n" .. L["Portal"] .. "\n" .. " ==> " .. ns.HellfirePeninsula .. "\n" .. "\n" .. ns.RuinsOfLorethAran  .. " / " .. ns.TirisfalGlades .. "\n" .. "\n" .. L["Portals"] .. "\n" ..  " ==> " .. ns.Orgrimmar .. "\n" .. " ==> " .. ns.Gromgol .. "\n" .. " ==> " .. ns.HowlingFjord .. "\n" .. " ==> " .. ns.Silvermoon } -- Portal to Orgrimmar, Silvermoon, Howling Fjord and Grom'gol from Tirisfal
-              nodes[947][91723289] = { mnID = 110, name = "", type = "HIcon", showInZone = true, TransportName = ns.Silvermoon .. " - " .. FACTION_HORDE .. "\n" .. "\n" .. L["Portals"] .. "\n" ..  " ==> " .. ns.Orgrimmar .. "\n" .. " ==> " .. ns.RuinsOfLorethAran } -- Portal to Orgrimmar, Ruins of Lordaeron from Silvermoon
-              nodes[947][85057132] = { mnID = 50, name = "", type = "HIcon", showInZone = true, TransportName = ns.Gromgol .. " - " .. FACTION_HORDE .. "\n" .. "\n" .. L["Zeppelin"] .. "\n" .. " ==> " .. ns.Orgrimmar .. "\n" .. "\n" .. L["Portal"] .. "\n" .. " ==> " .. ns.RuinsOfLorethAran } -- Transport from Stranglethorn Valley to Ogrimmar and Ruins of Lordaeron
+              nodes[947][84874364] = { mnID = 18, name = "", type = "HIcon", showInZone = true, TransportName = ns.Undercity .. " - " .. FACTION_HORDE .. "\n" .. "\n" .. L["Portal"] .. "\n" .. " ==> " .. ns.HellfirePeninsula .. "\n" .. "\n" .. ns.RuinsofLordaeron  .. " / " .. ns.TirisfalGlades .. "\n" .. "\n" .. L["Portals"] .. "\n" ..  " ==> " .. ns.Orgrimmar .. "\n" .. " ==> " .. ns.Gromgol .. "\n" .. " ==> " .. ns.HowlingFjord .. "\n" .. " ==> " .. ns.Silvermoon } -- Portal to Orgrimmar, Silvermoon, Howling Fjord and Grom'gol from Tirisfal
+              nodes[947][91723289] = { mnID = 110, name = "", type = "HIcon", showInZone = true, TransportName = ns.Silvermoon .. " - " .. FACTION_HORDE .. "\n" .. "\n" .. L["Portals"] .. "\n" ..  " ==> " .. ns.Orgrimmar .. "\n" .. " ==> " .. ns.RuinsofLordaeron } -- Portal to Orgrimmar, Ruins of Lordaeron from Silvermoon
+              nodes[947][85057132] = { mnID = 50, name = "", type = "HIcon", showInZone = true, TransportName = ns.Gromgol .. " - " .. FACTION_HORDE .. "\n" .. "\n" .. L["Zeppelin"] .. "\n" .. " ==> " .. ns.Orgrimmar .. "\n" .. "\n" .. L["Portal"] .. "\n" .. " ==> " .. ns.RuinsofLordaeron } -- Transport from Stranglethorn Valley to Ogrimmar and Ruins of Lordaeron
             end
 
             if self.faction == "Alliance" or db.activate.AzerothEnemyFaction then

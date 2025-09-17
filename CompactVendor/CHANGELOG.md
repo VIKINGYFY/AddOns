@@ -1,8 +1,13 @@
 # CompactVendor
 
-## [v11.2.0.250813](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.2.0.250813) (2025-08-13)
-[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.2.0.250813) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
+## [v11.2.0.250916](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.2.0.250916) (2025-09-16)
+[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.2.0.250916) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
 
+- Updated `GetSanitizedHyperlinkForQuery` to support any link offered from merchants, not just items.  
+    This should properly fix the issue with merchants selling currency "items" as mentioned in #34 and #35.  
+    TOC bump for update.  
+- TOC bump.  
+- Separated `ns.Search.Matches` into additional functions, per item type. If the link isn't supported, it will be silently ignored.  
 - Version bump.  
 - Merge pull request #36 from Korbrawr/master  
     Prevent calling heirloom/toy API for entries that aren't items  
@@ -106,6 +111,3 @@
 - Transmog API are unstable on Classic so added an override to avoid that situation as a fix for the addon.  
 - Changes to GetMerchantItemInfo had to have a method implemented to migrate between the old style and the new table return value.  
     Some minor docs changes.  
-- Fixed colorblind mode detection, in addition to the legacy or deprecated global, I also check the cvar itself just like the latest UI code does it when handling rendering money strings.  
-- Fixed issue on Classic SOD when talking to Pix Xizzix (and other vendors with Relics).  
-- Add support for CanIMogIt so when it's available we use it to detect the status of appearance collection.  

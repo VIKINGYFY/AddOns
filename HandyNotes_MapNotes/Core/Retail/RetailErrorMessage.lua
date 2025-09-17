@@ -16,6 +16,130 @@ function ns.SuppressInterfaceBlockedFor(seconds)
   _ScheduleMapNotesTaintWipes(dur)
 end
 
+ns._wmIBShieldArmedUntil = ns._wmIBShieldArmedUntil or 0
+
+function ns.ArmWorldMapIBShield(maxSeconds)
+  local dur = maxSeconds or 10
+  ns._wmIBShieldArmedUntil = GetTime() + dur
+end
+
+local function MN_WorldMap_OnShow_Arm()
+  if InCombatLockdown() and GetTime() <= (ns._wmIBShieldArmedUntil or 0) then
+    ns.SuppressInterfaceBlockedFor(2.0)
+    ns._wmIBShieldArmedUntil = 0
+  end
+end
+
+ns._mnIBShieldEv = ns._mnIBShieldEv or CreateFrame("Frame")
+ns._mnIBShieldEv:UnregisterAllEvents()
+ns._mnIBShieldEv:RegisterEvent("PLAYER_REGEN_DISABLED")
+ns._mnIBShieldEv:SetScript("OnEvent", function()
+  if GetTime() <= (ns._wmIBShieldArmedUntil or 0) then
+    ns.SuppressInterfaceBlockedFor(2.0)
+    ns._wmIBShieldArmedUntil = 0
+  end
+end)
+
+local function MarkMapOpening()
+  ns._mapOpening = true
+  C_Timer.After(0, function() ns._mapOpening = false end)
+end
+
+local function TryHookWorldMap()
+  if not ns._mnWMHooked and WorldMapFrame then
+    ns._mnWMHooked = true
+    WorldMapFrame:HookScript("OnShow", MN_WorldMap_OnShow_Arm)
+    WorldMapFrame:HookScript("OnShow", MarkMapOpening)
+  end
+end
+
+function ns.SafeSetMapID(mapID, duration)
+  if not mapID then return end
+
+  --if ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode then
+  --  if WorldMapFrame and WorldMapFrame.SetMapID then
+  --    WorldMapFrame:SetMapID(mapID)
+  --  end
+  --  return
+  --end
+
+  ns.SuppressInterfaceBlockedFor(duration or 0.8)
+  ns.ArmWorldMapIBShield(43200) --12 hours
+
+  if ns._mapOpening then
+    local id = mapID
+    C_Timer.After(0, function()
+      if WorldMapFrame and id then
+        WorldMapFrame:SetMapID(id)
+      end
+    end)
+  else
+    if WorldMapFrame and WorldMapFrame.SetMapID then
+      WorldMapFrame:SetMapID(mapID)
+    end
+  end
+end
+
+TryHookWorldMap()
+
+local function EarlySuppressIfArmed()
+  if InCombatLockdown() and GetTime() <= (ns._wmIBShieldArmedUntil or 0) then
+    ns.SuppressInterfaceBlockedFor(2.5)
+  end
+end
+
+local function TryHookWorldMapEarly()
+  if WorldMapFrame and not ns._mnWMEarlyHooked then
+    ns._mnWMEarlyHooked = true
+    if type(WorldMapFrame.HandleUserActionToggleSelf) == "function" then
+      hooksecurefunc(WorldMapFrame, "HandleUserActionToggleSelf", EarlySuppressIfArmed)
+    end
+  end
+
+  if UIParentManagedFrameContainer and not ns._mnUIPanelHooked then
+    ns._mnUIPanelHooked = true
+    if type(UIParentPanelManager) == "table" then
+      local t = UIParentPanelManager
+      if type(t.ShowUIPanel) == "function" then
+        hooksecurefunc(t, "ShowUIPanel", function(frame)
+          if frame == WorldMapFrame then EarlySuppressIfArmed() end
+        end)
+      end
+      if type(t.SetUIPanel) == "function" then
+        hooksecurefunc(t, "SetUIPanel", function(frame)
+          if frame == WorldMapFrame then EarlySuppressIfArmed() end
+        end)
+      end
+    end
+  end
+end
+
+TryHookWorldMapEarly()
+
+local _f = ns._mnEarlyEv or CreateFrame("Frame")
+ns._mnEarlyEv = _f
+_f:UnregisterAllEvents()
+_f:RegisterEvent("PLAYER_LOGIN")
+_f:RegisterEvent("ADDON_LOADED")
+_f:SetScript("OnEvent", function(_, event, arg1)
+  if event == "PLAYER_LOGIN" then
+    TryHookWorldMapEarly()
+  elseif event == "ADDON_LOADED" and (arg1 == "Blizzard_WorldMap" or arg1 == "Blizzard_UIParentPanelManager") then
+    TryHookWorldMapEarly()
+  end
+end)
+
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_LOGIN")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(_, event, arg1)
+  if event == "PLAYER_LOGIN" then
+    TryHookWorldMap()
+  elseif event == "ADDON_LOADED" and arg1 == "Blizzard_WorldMap" then
+    TryHookWorldMap()
+  end
+end)
+
 function ns.TrySetPropagate(btn, value)
   ns.SuppressInterfaceBlockedFor(0.8)
   local ok, err = pcall(btn.SetPropagateMouseClicks, btn, value)

@@ -867,10 +867,12 @@ function Addon:OnProfileReset(event, database, profileKeys)
   ns.dbChar = database.profile.deletedIcons
   ns.FogOfWar = database.profile.FogOfWarColor
 
-  ns.DefaultPlayerCoords()
-  ns.DefaultMouseCoords()
-  ns.DefaultPlayerAlpha()
-  ns.DefaultMouseAlpha()
+  ns.DefaultPlayerCoords() -- MoPCoordsDisplay.lua
+  ns.DefaultMouseCoords() -- MoPCoordsDisplay.lua
+  ns.DefaultPlayerAlpha() --MoPCoordsDisplay.lua
+  ns.DefaultMouseAlpha() -- MoPCoordsDisplay.lua
+  ns.HidePlayerCoordsFrame() -- MoPCoordsDisplay.lua
+  ns.HideMouseCoordsFrame() -- MoPCoordsDisplay.lua  
   ns.UpdateAreaMapFogOfWar()
   ns.ResetAreaMapToPlayerLocation()
   ns.UpdateMinimapArrow()

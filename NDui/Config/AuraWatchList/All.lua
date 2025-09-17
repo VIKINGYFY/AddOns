@@ -93,6 +93,10 @@ local list = {
 		{AuraID = 1224918, UnitID = "player"}, -- 虚触碎片
 		{AuraID = 1241806, UnitID = "player"}, -- 被诅咒的雕像
 		{AuraID = 1245431, UnitID = "player", Value = true}, -- 共生以太薄纱
+		{AuraID = 1247207, UnitID = "player"}, -- 虚体精华吞噬者
+		{AuraID =  450962, UnitID = "player"}, -- 虚空契约石
+		{AuraID = 1245643, UnitID = "player"}, -- 心智溃解之祸
+		{AuraID = 1246543, UnitID = "player"}, -- 影卫的扭曲收获者
 
 	},
 	["Raid Buff"] = { -- 团队增益组
@@ -325,7 +329,8 @@ local list = {
 		{AuraID =  423839, UnitID = "target", Value = true}, -- 风暴复仇，驭雷栖巢
 		{AuraID =  445262, UnitID = "target", Value = true}, -- 虚空壳壁，驭雷栖巢
 		{AuraID =  445409, UnitID = "target", Value = true}, -- 加固壳壁，斯卡莫拉克
-		{AuraID = 1241023, UnitID = "player", Value = true}, -- 最终警告
+		{AuraID =  446794, UnitID = "target", Flash = true}, -- 贪得无厌，阿瓦诺克斯
+		{AuraID = 1241023, UnitID = "target", Value = true}, -- 最终警告，佐·格伦
 		-- TWW Raids
 		{AuraID =  440177, UnitID = "target", Flash = true}, -- 准备饕餮，噬灭者乌格拉克斯
 		{AuraID =  440179, UnitID = "target", Flash = true}, -- 缠绕，阿努巴拉什

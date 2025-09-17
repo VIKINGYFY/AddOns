@@ -152,8 +152,8 @@ function EX.UpdateLFGActivityNotices(event, resultID, newStatus, oldStatus, grou
 	local info = C_LFGList.GetSearchResultInfo(resultID)
 	if info and info.activityIDs and #info.activityIDs > 0 then
 		local activityID = info.activityIDs[1]
-		local name = C_LFGList.GetActivityFullName(activityID)
-		local text = format("%s: %s - %s", CLUB_FINDER_ACCEPTED, name or UNKNOWN, groupName or UNKNOWN)
+		local fullName = C_LFGList.GetActivityFullName(activityID)
+		local text = format("%s: %s %s %s %s", CLUB_FINDER_ACCEPTED, fullName or UNKNOWN, info.name or UNKNOWN, info.leaderName or UNKNOWN, info.leaderOverallDungeonScore or UNKNOWN)
 
 		UIErrorsFrame:AddMessage(DB.InfoColor..text)
 		print(DB.InfoColor..text)

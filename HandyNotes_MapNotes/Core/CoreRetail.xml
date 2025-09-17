@@ -10,5 +10,4 @@
     <Script file="TaxiIDNames.lua"/>
     <Include file="wmb-template.xml"/>
     <Include file="Retail\RetailCore.xml"/>
-    <Script file="Core/CoordsDisplay.lua"/>
 </Ui>

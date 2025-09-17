@@ -1,9 +1,241 @@
 local ADDON_NAME, ns = ...
 local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
-ns.PreviousAddonVersion = "3.0.5"
-ns.CurrentAddonVersion = "3.0.6"
+ns.PreviousAddonVersion = "3.0.6"
+ns.CurrentAddonVersion = "3.0.7"
 
 ns.LOCALE_CHANGELOG_NEW = {
+  deDE = [[
+• Es wurden Instanzsymbole auf den Flugkarten von TWW, Dragonflight und Schattenlande hinzugefügt; weitere Gebiete folgen.
+Zusätzlich wurde ein Knopf oben rechts auf der Flugkarte erstellt, mit dem ihr die Symbole ein- bzw. ausblenden könnt.
+Die Option zum Aktivieren bzw. Deaktivieren des Knopfes sowie der Symbole befindet sich zusätzlich im MapNotes-Menü im allgemeinen Reiter unter „Flugkarte“.
+
+• Für die restlichen Klassen wurden Ordenshallensymbole hinzugefügt.
+
+• Es ist nun möglich, den Spielerpfeil auf der Weltkarte zu vergrößern oder zu verkleinern.
+Die dazugehörige Option befindet sich im Allgemeinen Reiter unter Weltkarte (Weltkarten-Spielerpfeil).
+
+• Die Koordinatenanzeige für Spieler- und Mausposition wurde angepasst.
+Das Koordinatenfenster für die Spielerposition besitzt nun einen Tooltip und kann nur noch mit „Umschalttaste + Linksklick“ verschoben werden (statt mit einfachem Linksklick).
+Das Koordinatenfenster für die Spielerposition lässt sich vom Spieler frei positionieren.
+Das Koordinatenfenster für die Mausposition besitzt nun einen Tooltip und kann nur noch mit „Umschalttaste + Linksklick“ verschoben werden (statt mit einfachem Linksklick).
+Das Koordinatenfenster für die Mausposition gibt es 2x. 1x gibt es eines auf der verkleinerten Weltkarte und 1x gibt es eines auf der vergrößerten Weltkarte.
+Die Koordinatenfenster der Mausposition lassen sich vom Spieler auf der verkleinerten und vergrößerten Weltkarte jeweils unabhängig frei positionieren.
+Im Addon Menü teilen sich die zwei Koordinatenfenster der Mausposition jeweils die Größe und Transparenz.
+Das Fenster der Mausposition wird automatisch ausgeblendet, wenn die Weltkarte geschlossen wird, und wieder angezeigt, wenn sie geöffnet wird.
+Auch die Standardeinstellungen (position/größe/transparenz) wurden angepasst.
+
+• Außerdem wurden noch ein paar kleinere Änderungen vorgenommen.
+]],
+
+  enUS = [[
+• Instance icons have been added to the flight maps of TWW, Dragonflight, and Shadowlands; more zones will follow.
+In addition, a button has been added at the top right of the flight map to toggle the icons on or off.
+The option to enable or disable the button as well as the icons can also be found in the MapNotes menu in the General tab under "Flight Map".
+
+• Class Order Hall icons have been added for the remaining classes.
+
+• It is now possible to increase or decrease the size of the player arrow on the world map.
+The corresponding option can be found in the General tab under World Map (World Map Player Arrow).
+
+• The coordinate display for player and mouse position has been adjusted.
+The coordinate window for the player position now has a tooltip and can only be moved with "Shift + Left Click" (instead of just Left Click).
+The coordinate window for the player position can be freely positioned by the player.
+The coordinate window for the mouse position now has a tooltip and can only be moved with "Shift + Left Click" (instead of just Left Click).
+There are two coordinate windows for the mouse position: one on the minimized world map and one on the maximized world map.
+The mouse-position windows can be freely and independently positioned by the player on both the minimized and maximized world maps.
+In the addon menu, the two mouse-position windows share the size and transparency settings.
+The mouse-position window is automatically hidden when the world map is closed and shown again when it is opened.
+The default settings (position/size/transparency) have also been adjusted.
+
+• A few other minor changes have also been made.
+]],
+
+  frFR = [[
+• Des icônes d’instance ont été ajoutées aux cartes de vol de TWW, Dragonflight et Ombreterre ; d’autres zones suivront.
+Un bouton a également été ajouté en haut à droite de la carte de vol pour afficher ou masquer les icônes.
+L’option permettant d’activer ou de désactiver le bouton ainsi que les icônes se trouve également dans le menu MapNotes, onglet Général, sous « Carte de vol ».
+
+• Des icônes du domaine de classe ont été ajoutées pour les classes restantes.
+
+• Il est désormais possible d’augmenter ou de diminuer la taille de la flèche du joueur sur la carte du monde.
+L’option correspondante se trouve dans l’onglet Général, sous Carte du monde (Flèche du joueur sur la carte du monde).
+
+• L’affichage des coordonnées pour la position du joueur et de la souris a été ajusté.
+La fenêtre des coordonnées pour la position du joueur dispose désormais d’une info-bulle et ne peut plus être déplacée qu’avec « Maj + clic gauche » (au lieu d’un simple clic gauche).
+La fenêtre des coordonnées de la position du joueur peut être librement positionnée par le joueur.
+La fenêtre des coordonnées pour la position de la souris dispose désormais aussi d’une info-bulle et ne peut plus être déplacée qu’avec « Maj + clic gauche ».
+Il existe deux fenêtres de coordonnées pour la position de la souris : l’une sur la carte du monde réduite et l’autre sur la carte du monde agrandie.
+Ces deux fenêtres peuvent être positionnées librement et indépendamment sur les versions réduite et agrandie de la carte du monde.
+Dans le menu de l’addon, ces deux fenêtres partagent les paramètres de taille et de transparence.
+La fenêtre de la position de la souris est automatiquement masquée lorsque la carte du monde est fermée, puis réaffichée lorsqu’elle est ouverte.
+Les paramètres par défaut (position/taille/transparence) ont également été ajustés.
+
+• Quelques autres petites modifications ont également été apportées.
+]],
+
+  itIT = [[
+• Sono state aggiunte icone delle istanze alle mappe di volo di TWW, Dragonflight e Shadowlands; altre zone seguiranno.
+Inoltre, è stato aggiunto un pulsante in alto a destra della mappa di volo per mostrare o nascondere le icone.
+L’opzione per abilitare o disabilitare sia il pulsante sia le icone si trova anche nel menu di MapNotes nella scheda Generale, in "Mappa di volo".
+
+• Aggiunte le icone della Sala d’Ordine per le classi rimanenti.
+
+• Ora è possibile aumentare o ridurre la dimensione della freccia del giocatore sulla mappa del mondo.
+L’opzione corrispondente si trova nella scheda Generale, sotto Mappa del mondo (Freccia del giocatore sulla mappa del mondo).
+
+• È stata modificata la visualizzazione delle coordinate per la posizione del giocatore e del mouse.
+La finestra delle coordinate della posizione del giocatore ora ha un tooltip e può essere spostata solo con "Maiusc + Clic sinistro" (invece del solo clic sinistro).
+La finestra delle coordinate della posizione del giocatore può essere posizionata liberamente.
+Anche la finestra della posizione del mouse ora ha un tooltip e può essere spostata solo con "Maiusc + Clic sinistro".
+Esistono due finestre di coordinate per la posizione del mouse: una sulla mappa del mondo ridotta e una su quella ingrandita.
+Queste due finestre possono essere posizionate liberamente e in modo indipendente sulla mappa ridotta e su quella ingrandita.
+Nel menu dell’addon, le due finestre della posizione del mouse condividono impostazioni di dimensione e trasparenza.
+La finestra della posizione del mouse viene nascosta automaticamente quando la mappa del mondo è chiusa e riappare quando viene aperta.
+Sono stati inoltre aggiornati i valori predefiniti (posizione/dimensione/trasparenza).
+
+• Sono state apportate anche alcune altre piccole modifiche.
+]],
+
+  esES = [[
+• Se han añadido iconos de instancias a los mapas de vuelo de TWW, Dragonflight y Tierras Sombrías; se añadirán más zonas próximamente.
+Además, se ha añadido un botón en la parte superior derecha del mapa de vuelo para mostrar u ocultar los iconos.
+La opción para activar o desactivar tanto el botón como los iconos también se encuentra en el menú MapNotes, en la pestaña General, en «Mapa de vuelo».
+
+• Se han añadido iconos de la Sede de la Orden para las clases restantes.
+
+• Ahora es posible aumentar o reducir el tamaño de la flecha del jugador en el mapa del mundo.
+La opción correspondiente se encuentra en la pestaña General, en Mapa del mundo (Flecha del jugador en el mapa del mundo).
+
+• Se ha ajustado la visualización de coordenadas para la posición del jugador y del ratón.
+La ventana de coordenadas de la posición del jugador ahora tiene un tooltip y solo se puede mover con «Mayús + Clic izquierdo» (en lugar de solo Clic izquierdo).
+La ventana de la posición del jugador se puede colocar libremente.
+La ventana de coordenadas de la posición del ratón también tiene ahora un tooltip y solo se puede mover con «Mayús + Clic izquierdo».
+Hay dos ventanas de coordenadas para la posición del ratón: una en el mapa del mundo reducido y otra en el mapa del mundo ampliado.
+Estas dos ventanas pueden colocarse de forma libre e independiente tanto en el mapa reducido como en el ampliado.
+En el menú del addon, ambas ventanas de la posición del ratón comparten el tamaño y la transparencia.
+La ventana de la posición del ratón se ocultará automáticamente cuando se cierre el mapa del mundo y se volverá a mostrar al abrirlo.
+También se han ajustado los valores predeterminados (posición/tamaño/transparencia).
+
+• También se han realizado algunos otros cambios menores.
+]],
+
+  esMX = [[
+• Se han agregado íconos de instancias a los mapas de vuelo de TWW, Dragonflight y Tierras Sombrías; más zonas se añadirán próximamente.
+Además, se agregó un botón en la parte superior derecha del mapa de vuelo para mostrar u ocultar los íconos.
+La opción para habilitar o deshabilitar tanto el botón como los íconos también está disponible en el menú de MapNotes, en la pestaña General, en «Mapa de vuelo».
+
+• Se añadieron íconos de la Sede de la Orden para las clases restantes.
+
+• Ahora es posible aumentar o reducir el tamaño de la flecha del jugador en el mapa del mundo.
+La opción correspondiente se encuentra en la pestaña General, en Mapa del mundo (Flecha del jugador en el mapa del mundo).
+
+• Se ajustó la visualización de coordenadas para la posición del jugador y del mouse.
+La ventana de coordenadas de la posición del jugador ahora tiene un tooltip y solo se puede mover con «Shift + Clic izquierdo» (en lugar de solo Clic izquierdo).
+La ventana de la posición del jugador puede posicionarse libremente.
+La ventana de coordenadas de la posición del mouse también tiene ahora un tooltip y solo se puede mover con «Shift + Clic izquierdo».
+Existen dos ventanas de coordenadas para la posición del mouse: una en el mapa del mundo minimizado y otra en el maximizado.
+Estas dos ventanas pueden colocarse de forma libre e independiente tanto en el mapa minimizado como en el maximizado.
+En el menú del addon, ambas ventanas de la posición del mouse comparten el tamaño y la transparencia.
+La ventana de la posición del mouse se ocultará automáticamente cuando se cierre el mapa del mundo y se volverá a mostrar al abrirlo.
+También se ajustaron los valores predeterminados (posición/tamaño/transparencia).
+
+• También se realizaron algunos otros cambios menores.
+]],
+
+  ruRU = [[
+• На карты полётов TWW, Dragonflight и Shadowlands добавлены значки подземелий; другие зоны будут добавлены позже.
+Также в правом верхнем углу карты полётов добавлена кнопка для включения и отключения значков.
+Опция включения или отключения как кнопки, так и значков находится в меню MapNotes, во вкладке «Общие», раздел «Карта полётов».
+
+• Добавлены значки Оплота класса для оставшихся классов.
+
+• Теперь можно увеличить или уменьшить размер стрелки игрока на карте мира.
+Соответствующая опция находится во вкладке «Общие», раздел «Карта мира» (стрелка игрока на карте мира).
+
+• Отображение координат для позиции игрока и курсора было изменено.
+Окно координат позиции игрока теперь имеет подсказку и может перемещаться только с помощью «Shift + ЛКМ» (вместо простого ЛКМ).
+Окно координат позиции игрока можно свободно располагать.
+Окно координат позиции курсора также получило подсказку и перемещается только с помощью «Shift + ЛКМ».
+Существует два окна координат позиции курсора: одно на уменьшенной карте мира и одно на увеличенной.
+Эти два окна можно свободно и независимо располагать на уменьшенной и увеличенной версиях карты мира.
+В меню аддона оба окна для позиции курсора используют общие настройки размера и прозрачности.
+Окно позиции курсора автоматически скрывается при закрытии карты мира и снова отображается при её открытии.
+Также были изменены значения по умолчанию (позиция/размер/прозрачность).
+
+• Были внесены и некоторые другие небольшие изменения.
+]],
+
+  ptBR = [[
+• Ícones de instância foram adicionados aos mapas de voo de TWW, Dragonflight e Shadowlands; mais zonas serão adicionadas futuramente.
+Além disso, foi adicionado um botão no canto superior direito do mapa de voo para mostrar ou ocultar os ícones.
+A opção para ativar ou desativar tanto o botão quanto os ícones também pode ser encontrada no menu do MapNotes, na aba Geral, em "Mapa de voo".
+
+• Foram adicionados ícones do Salão da Ordem para as classes restantes.
+
+• Agora é possível aumentar ou diminuir o tamanho da seta do jogador no mapa-múndi.
+A opção correspondente pode ser encontrada na aba Geral, em Mapa-múndi (Seta do jogador no mapa-múndi).
+
+• A exibição de coordenadas para a posição do jogador e do mouse foi ajustada.
+A janela de coordenadas da posição do jogador agora possui uma dica de ferramenta e só pode ser movida com "Shift + Clique esquerdo" (em vez de apenas Clique esquerdo).
+A janela da posição do jogador pode ser posicionada livremente.
+A janela de coordenadas da posição do mouse também passou a ter uma dica de ferramenta e só pode ser movida com "Shift + Clique esquerdo".
+Há duas janelas de coordenadas para a posição do mouse: uma no mapa do mundo reduzido e outra no mapa do mundo ampliado.
+Essas duas janelas podem ser posicionadas livremente e de forma independente tanto no mapa reduzido quanto no ampliado.
+No menu do addon, as duas janelas da posição do mouse compartilham as configurações de tamanho e transparência.
+A janela da posição do mouse é ocultada automaticamente quando o mapa-múndi é fechado e reaparece quando é aberto.
+Os valores padrão (posição/tamanho/transparência) também foram ajustados.
+
+• Algumas outras pequenas alterações também foram feitas.
+]],
+
+  zhCN = [[
+• 已在 TWW、巨龙时代和暗影国度的飞行地图上添加了副本图标，更多区域将陆续加入。
+此外，在飞行地图的右上角新增了一个按钮，可切换这些图标的显示与隐藏。
+启用或禁用按钮及图标的选项也可在 MapNotes 菜单的常规选项卡下的“飞行地图”中找到。
+
+• 已为其余职业添加了职业大厅图标。
+
+• 现在可以增大或减小世界地图上玩家箭头的大小。
+相关选项位于常规选项卡的世界地图（世界地图玩家箭头）中。
+
+• 已调整玩家与鼠标位置的坐标显示。
+玩家位置的坐标窗口现在带有提示，并且只能通过“Shift + 左键点击”移动（而不是仅左键）。
+该窗口可由玩家自由放置。
+鼠标位置的坐标窗口同样带有提示，并且也只能通过“Shift + 左键点击”移动。
+鼠标位置的坐标窗口有两个：一个在缩小的世界地图上，另一个在放大的世界地图上。
+这两个鼠标坐标窗口在缩小和放大的世界地图上都可由玩家自由且相互独立地定位。
+在插件菜单中，这两个鼠标坐标窗口共享大小和透明度设置。
+当世界地图关闭时，鼠标位置窗口会自动隐藏；打开时会再次显示。
+默认设置（位置/大小/透明度）也已调整。
+
+• 还进行了其他一些小的改动。
+]],
+
+  zhTW = [[
+• 已在 TWW、巨龍崛起與暗影之境的飛行地圖上新增副本圖示，更多區域將陸續加入。
+此外，在飛行地圖的右上角新增了一個按鈕，可切換圖示的顯示與隱藏。
+啟用或停用按鈕及圖示的選項，也可在 MapNotes 功能表的一般分頁中的「飛行地圖」找到。
+
+• 已為其餘職業新增了職業大廳圖示。
+
+• 現在可以放大或縮小世界地圖上玩家箭頭的大小。
+相關選項位於一般分頁的世界地圖（世界地圖玩家箭頭）中。
+
+• 已調整玩家與滑鼠位置的座標顯示。
+玩家位置的座標視窗現在具有工具提示，且只能透過「Shift + 左鍵點擊」移動（而非僅左鍵點擊）。
+該視窗可由玩家自由放置。
+滑鼠位置的座標視窗同樣具有工具提示，且也只能透過「Shift + 左鍵點擊」移動。
+滑鼠位置的座標視窗有兩個：一個在縮小的世界地圖上，另一個在放大的世界地圖上。
+這兩個滑鼠座標視窗可在縮小與放大的世界地圖上分別獨立地由玩家自由定位。
+在外掛選單中，這兩個滑鼠座標視窗共用大小與透明度設定。
+當世界地圖關閉時，滑鼠位置視窗會自動隱藏；打開時會再次顯示。
+預設值（位置/大小/透明度）也已調整。
+
+• 另外還進行了一些其他小幅更動。
+]],
+}
+
+ns.LOCALE_CHANGELOG_OLD = {
   deDE = [[
 • Die Link funktion im Chat-Optionen Reiter wurde angepasst, damit diese nun auch 
 korrekt im Gruppenchat und Gildenchat funktioniert.
@@ -186,247 +418,6 @@ Mais Salões de Classe para as classes que faltam serão adicionados em breve.
 缺少的職業大廳將於近期陸續新增。
 
 • 同時也對 Classic+ 與 熊貓人經典版 進行了一些額外調整
-]],
-}
-
-ns.LOCALE_CHANGELOG_OLD = {
-  deDE = [[
-• In „Hauptstädte +“ - „Transport“ Reiter wurden Kampfhaustier Portalsymbole 
-zu der „Portal“ Kategorie hinzugefügt.
-
-• Im „Zonen +“ - „Instanz Symbole“ wurde Haustierkampf Dungeonsymbole hinzugefügt.
-
-• Es wurden Kampfhaustierdungeons in den jeweiligen Zonen hinzugefügt.
-
-• Es wurden Portalsymbole in „Dazar'Alor“, „Boralus“ und „Legion Dalaran“
-zu den Kampfhaustierdungeons hinzugefügt.
-Zusätzlich wurde eine Anzeige hinzugefügt, die zeigt, ob ihr den jeweiligen
-Quest schon abgeschlossen habt, passend zu dem Portal.
-
-• Wenn ihr die „Link“ Funktion im Addon-Menü aktiviert habt, könnt ihr euch den
-jeweiligen Quest-Link im Chat anzeigen lassen und mit dem „Link“ dann rauskopieren,
-wenn ihr auf diesen Link im Chat klickt.
-Es wird immer nur der Quest mit dem Questnamen im Chat ausgegeben, 
-wenn dieser auch wirklich fehlt.
-
-• Allgemeine Tooltip-Anzeigen wurden überarbeitet.
-Aktivierbar innerhalb des „Allgemein“ - „Erweiterte Optionen“ Reiters unter „Tooltip“.
-
-• Sollte es mal vorkommen, dass bei manchen Spielern nicht alle NPC-Namen angezeigt werden, 
-können diese manuell mit der Funktion „NPC-Namen aktualisieren“ im „Allgemein“ - „NPC-Datenbank“ 
-Reiter aktualisiert werden.
-]],
-
-  enUS = [[
-• Added pet battle portal icons to the “Portal” category under the “Capitals +” → “Transport” tab.
-
-• Added pet battle dungeon icons to the “Zones +” → “Instance Symbols” section.
-
-• Pet Battle Dungeons have been added in their respective zones.
-
-• Portal icons were added for Pet Battle Dungeons in Dazar’Alor, Boralus, and Legion Dalaran.
-A new indicator has also been added to show if you have already completed the corresponding
-quest for the respective portal.
-
-• If the “Link” function is enabled in the addon menu, clicking the “Link” will show the
-quest link in chat, which you can then copy. Only missing quests will be shown by name.
-
-• General tooltip displays have been overhauled.
-You can toggle them under “General” → “Advanced Options” → “Tooltip.”
-
-• If some NPC names are not displaying for certain players, they can be manually updated using
-the “Update NPC Names” function under “General” → “NPC Database.”
-]],
-
-  frFR = [[
-• Des icônes de portails de combats de mascottes ont été ajoutées à la catégorie « Portail »
-sous l’onglet « Capitales + » → « Transport ».
-
-• Des icônes de donjons de combats de mascottes ont été ajoutées à la section « Zones + »
-→ « Symboles d’instance ».
-
-• Des donjons de combats de mascottes ont été ajoutés dans leurs zones respectives.
-
-• Des icônes de portails ont été ajoutées pour les donjons de combats de mascottes à
-Dazar’Alor, Boralus et Legion Dalaran.
-Un nouvel indicateur a également été ajouté pour afficher si vous avez déjà terminé la quête
-correspondante au portail.
-
-• Si la fonction « Lien » est activée dans le menu de l’addon, cliquer sur « Lien » affichera
-le lien de quête dans le chat, que vous pourrez copier. Seules les quêtes manquantes seront
-affichées par nom.
-
-• L’affichage des info-bulles générales a été retravaillé.
-Vous pouvez l’activer sous « Général » → « Options avancées » → « Info-bulle ».
-
-• Si certains noms de PNJ n’apparaissent pas pour certains joueurs, ils peuvent être mis à jour
-manuellement avec la fonction « Mettre à jour les noms des PNJ » dans « Général »
-→ « Base de données PNJ ».
-]],
-
-  itIT = [[
-• Aggiunte icone dei portali dei combattimenti tra mascotte nella categoria “Portale”
-nella scheda “Capitali +” → “Trasporti”.
-
-• Aggiunte icone dei dungeon dei combattimenti tra mascotte nella sezione “Zone +”
-→ “Simboli Istanze”.
-
-• Aggiunti dungeon di combattimento tra mascotte nelle relative zone.
-
-• Aggiunte icone dei portali per i dungeon di combattimento tra mascotte a
-Dazar’Alor, Boralus e Legion Dalaran.
-È stato inoltre aggiunto un indicatore per mostrare se hai già completato la missione
-correlata al portale.
-
-• Se la funzione “Link” è attivata nel menu dell’addon, fare clic su “Link” mostrerà il
-collegamento della missione nella chat, che potrai copiare. Verranno mostrati solo i nomi
-delle missioni mancanti.
-
-• Le visualizzazioni generali dei tooltip sono state riviste.
-Puoi attivarle in “Generale” → “Opzioni avanzate” → “Tooltip”.
-
-• Se i nomi di alcuni PNG non vengono visualizzati per alcuni giocatori, possono essere
-aggiornati manualmente con la funzione “Aggiorna nomi PNG” in “Generale”
-→ “Database PNG”.
-]],
-
-  esES = [[
-• Se han añadido iconos de portales de combates de mascotas a la categoría “Portal”
-en la pestaña “Capitales +” → “Transporte”.
-
-• Se han añadido iconos de mazmorras de combates de mascotas en la sección “Zonas +”
-→ “Símbolos de instancia”.
-
-• Se han añadido mazmorras de combates de mascotas en sus respectivas zonas.
-
-• Se añadieron iconos de portales para mazmorras de combates de mascotas en
-Dazar’Alor, Boralus y Legión Dalaran.
-También se ha añadido un indicador para mostrar si ya completaste la misión
-correspondiente al portal.
-
-• Si la función “Link” está activa en el menú del addon, al hacer clic en “Link”
-se mostrará el enlace de la misión en el chat, que podrás copiar. Solo se mostrarán
-las misiones que te falten.
-
-• Se ha rehecho la visualización general de tooltips.
-Puedes activarla en “General” → “Opciones avanzadas” → “Tooltip”.
-
-• Si a algunos jugadores no se les muestran todos los nombres de PNJ, pueden
-actualizarlos manualmente usando la función “Actualizar nombres de PNJ” en
-“General” → “Base de datos de PNJ”.
-]],
-
-  esMX = [[
-• Se agregaron íconos de portales de combates de mascotas a la categoría “Portal”
-en la pestaña “Capitales +” → “Transporte”.
-
-• Se agregaron íconos de mazmorras de combates de mascotas en la sección “Zonas +”
-→ “Símbolos de instancia”.
-
-• Se agregaron mazmorras de combates de mascotas en sus zonas respectivas.
-
-• Se agregaron íconos de portales para mazmorras de combates de mascotas en
-Dazar’Alor, Boralus y Legión Dalaran.
-También se añadió un indicador que muestra si ya completaste la misión
-correspondiente al portal.
-
-• Si la función “Link” está habilitada en el menú del addon, al hacer clic en “Link”
-se mostrará el enlace de la misión en el chat, que puedes copiar. Solo se mostrarán
-las misiones faltantes.
-
-• Se revisó la visualización general de tooltips.
-Puedes activarla en “General” → “Opciones avanzadas” → “Tooltip”.
-
-• Si ciertos jugadores no ven todos los nombres de PNJ, pueden actualizar
-manual-mente usando la función “Actualizar nombres de PNJ” en
-“General” → “Base de datos de PNJ”.
-]],
-
-  ruRU = [[
-• В разделе «Столицы +» → «Транспорт» были добавлены значки порталов для
-бегемот-боев (питомцев).
-
-• В разделе «Зоны +» → «Символы подземелий» были добавлены значки питомец-боев.
-
-• Питомец-подземелья были добавлены в соответствующих зонах.
-
-• Были добавлены значки порталов для питомец-подземелий в Dazar’Alor, Boralus и
-Legion Dalaran.
-Также добавлен индикатор, который показывает, завершена ли соответствующая
-задача к порталу.
-
-• Если в меню аддона включена функция «Ссылка», при клике по «Ссылке» в чат
-выводится ссылка на квест, которую можно скопировать. Отображаются только
-отсутствующие квесты.
-
-• Общие отображения всплывающих подсказок были переработаны.
-Вы можете включить их в разделе «Общее» → «Расширенные параметры» → «Подсказка».
-
-• Если у некоторых игроков не отображаются имена NPC, их можно вручную
-обновить через функцию «Обновить имена NPC» в разделе «Общее»
-→ «База данных NPC».
-]],
-
-  ptBR = [[
-• Foram adicionados ícones de portais de batalhas de mascotes à categoria “Portal”
-na aba “Capitais +” → “Transporte”.
-
-• Foram adicionados ícones de masmorras de batalhas de mascotes na seção “Zonas +”
-→ “Símbolos de Instância”.
-
-• Masmorras de batalha de mascotes foram adicionadas em suas zonas correspondentes.
-
-• Foram adicionados ícones de portais para masmorras de batalha de mascotes em
-Dazar’Alor, Boralus e Legião Dalaran.
-Também foi adicionado um indicador que mostra se você já completou a missão
-correspondente ao portal.
-
-• Se a função “Link” estiver ativada no menu do addon, ao clicar em “Link”
-o link da missão será exibido no chat, e você poderá copiá-lo. Apenas missões
-faltando serão mostradas.
-
-• As exibições gerais das tooltips foram revisadas.
-Você pode ativá-las em “Geral” → “Opções Avançadas” → “Tooltip”.
-
-• Se nomes de alguns NPCs não estiverem aparecendo para certos jogadores,
-eles podem ser atualizados manualmente com a função “Atualizar nomes de NPC”
-em “Geral” → “Banco de Dados de NPC”.
-]],
-
-  zhCN = [[
-• 在“首都 +” → “传送”标签下的“传送门”分类中，添加了战斗小宠物传送门图标。
-
-• 在“区域 +” → “副本图标”部分，添加了战斗小宠物副本图标。
-
-• 已在各自区域中添加了战斗小宠物副本。
-
-• 在达萨罗、伯拉勒斯和军团达拉然的小宠物副本中添加了传送门图标。
-同时新增了一个指示器，用于显示你是否已完成该传送门对应的任务。
-
-• 如果在插件菜单中启用了“链接”功能，点击“链接”将在聊天中显示任务链接，供你复制。
-只有缺少的任务才会以任务名称形式显示。
-
-• 通用鼠标提示显示已重新设计，可在“常规” → “高级选项” → “Tooltip”中启用。
-
-• 如果部分玩家看不到所有 NPC 名称，可以通过“常规” → “NPC 数据库”中的“更新 NPC 名称”功能手动更新。
-]],
-
-  zhTW = [[
-• 在「首都 +」→「傳送」標籤下的「傳送門」分類中，新增了戰寵戰鬥的傳送門圖示。
-
-• 在「區域 +」→「副本圖示」部分，新增了戰寵戰鬥副本圖示。
-
-• 各區域已新增戰寵戰鬥副本。
-
-• 在達薩羅、伯拉勒斯與軍團達拉然的戰寵戰鬥副本添加了傳送門圖示。
-並新增一個指示器，顯示你是否已完成與該傳送門關聯的任務。
-
-• 若在插件選單啟用了「連結」功能，點擊「連結」會在聊天中顯示該任務的連結，可供複製。
-只有缺少的任務才會顯示任務名稱。
-
-• 通用提示工具已重新設計，可在「一般」→「進階選項」→「Tooltip」中啟用。
-
-• 若某些玩家無法看到所有 NPC 名稱，可透過「一般」→「NPC 資料庫」中的「更新 NPC 名稱」功能進行手動更新。
 ]],
 }
 

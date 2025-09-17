@@ -16,9 +16,11 @@ ns.BlizzAreaPoisInfo = {
     2317, -- Dalaran City
     2837, -- Tonlongstepps PvE Vendor
     5056, -- The Dark Portal Blasted Lands
-
     5881, -- The Cape of Stranglethorn, Boat to Ratschet
     5882, -- Northern Barrens, Boat to Booty Bay
+    7017, -- Korthia - Oribos
+    7019, -- Zereth Morthis - Oribos
+    7020, -- Zereth Morthis
     7489, -- Loamm Dragonflight Zaralekcave
     --7898, -- Dornogal: Earthen capital and fortress protecting the Coreway
     7919, -- Dornogal: Foundation Hall Portal Room
@@ -27,7 +29,6 @@ ns.BlizzAreaPoisInfo = {
     7959, -- Portal to Dalaran from Dustwallow - TWW Pre Event
     7960, -- Portal to Dalaran from Dragonblight - TWW Pre Event
     7961, -- Portal to Dalaran from Searing Gorge - TWW Pre Event
-
     8001, -- Portal from Dornogal to Azj-Kahet
     8002, -- Portal from Azj-Kahet to Dornogal
     8171, -- Timeways Portal in Dornogal
@@ -41,7 +42,11 @@ ns.BlizzAreaPoisInfo = {
 
     -- ClassHall
     5102, -- Class Hall Rogue Dalaran
+    5058, -- Clss Hall Paladin Dalaran
     5059, -- Class Hall Shaman Dalaran
+    5060, -- Class Hall Warrior Dalaran
+    5061, -- Class Hall Warlock Dalaran    
+    5063, -- Class Hall Priest Dalaran
 
     -- City Alliance
     8, -- Ironforge Icon

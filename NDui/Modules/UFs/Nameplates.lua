@@ -597,10 +597,12 @@ function UF:UpdateNameplateSize()
 		self.ClassifyIndicator:SetSize(nameTextSize+4, nameTextSize+4)
 
 		self.Castbar.Icon:SetSize(iconSize, iconSize)
-		self.Castbar.glowFrame:SetOutside(self.Castbar.Icon, 4, 4)
+		self.Castbar.glowFrame:SetOutside(self.Castbar.Icon, 3, 3)
 
+		self.nameText:ClearAllPoints()
 		self.nameText:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, plateMargin)
 		self.nameText:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, plateMargin)
+		self.Castbar:ClearAllPoints()
 		self.Castbar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -plateMargin)
 		self.Castbar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -plateMargin)
 		self.Castbar.Icon:SetPoint("BOTTOMRIGHT", self.Castbar, "BOTTOMLEFT", -plateMargin, 0)

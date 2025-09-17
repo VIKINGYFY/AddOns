@@ -4,8 +4,8 @@ ns.defaults = {
 
   profile = {
 
-    -- Advanced Options
-      MinimapArrowScale = 0.8,
+    -- Flightmap
+      showTaxiMapNodes = true,
       
     -- Instance single Zone icon scale and alpha
       ZoneInstanceScale = 2,
@@ -650,10 +650,14 @@ ns.defaults = {
         HideMMB = false,
         EnemyFaction = true,
         SwapButtons = false,
+        FlightmapButton = true,
         showRacesIconsDiscovered = false,
         MinimapArrow = true,
+        MinimapArrowScale = 1,
         MinimapArrowOnEnter = true,
         MinimapArrowOnEnterTime = 3,
+        WorldMapArrow = false,
+        WorldMapArrowScale = 1,
         ClassicIcons = false,
         ClassicPortals = true,
         ClassicShips = true,

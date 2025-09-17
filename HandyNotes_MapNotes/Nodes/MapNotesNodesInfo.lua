@@ -107,6 +107,22 @@ nodes[946] = { } -- Worldmap
 nodes[947] = { } -- Azeroth
 nodes[971] = { } -- Telogros Rift
 
+-- Flightmaster Taxi map nodes
+nodes[993] = { } -- Broken Isles
+nodes[994] = { } -- Argus
+nodes[1647] = { } -- Shadowlands
+nodes[1569] = { } -- Shadowlands - Bastion
+nodes[1741] = { } -- Shadowlands - Maldraxxus
+nodes[1740] = { } -- Shadowlands - Ardenweald
+nodes[1742] = { } -- Shadowlands - Revendreth
+nodes[2046] = { } -- Shadowlands - Zereth Mortis
+nodes[2057] = { } -- Dragon Isles
+nodes[2175] = { } -- Zaralekcave
+nodes[2241] = { } -- Emerald Dream
+nodes[2276] = { } -- Khaz Algar
+nodes[2374] = { } -- Undermine
+nodes[2398] = { } -- K'aresh
+
 --############################
 --######### Kalimdor #########
 --############################
@@ -612,10 +628,16 @@ nodes[670] = { } -- Hellfire Citadel - Inside Dungeon Map
 -- Class Halls
 nodes[24] = { } -- Light's Hope Chapel - Paladin
 nodes[626] = { } -- Dalaran - Halls of Shadows - Rogue
+nodes[647] = { } -- Heart of Acherus - Deathknight
+nodes[648] = { } -- Acherus Halls - Deathknight
+nodes[695] = { } -- Skyhold - Warrior
+nodes[702] = { } -- Netherlight Tempel - Priest
+nodes[709] = { } -- The Wandering Isle - Monk
+nodes[717] = { } -- Dreadscar Rift - Warlock
 nodes[726] = { } -- Heart of Azeroth - Mahlstrom - Shaman
-nodes[734] = { } -- Hall of the Guardian
-nodes[735] = { } -- The Guardian's Library
-nodes[739] = { } -- Trueshot Lodge
+nodes[734] = { } -- Hall of the Guardian - Druid
+nodes[735] = { } -- The Guardian's Library - Mage
+nodes[739] = { } -- Trueshot Lodge - Hunter
 nodes[747] = { } -- The Dreamgrove - Druid
 -- Azeroth/Continent map nodes
 nodes[619] = { } -- Broken Isles

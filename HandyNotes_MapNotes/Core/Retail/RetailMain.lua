@@ -18,7 +18,7 @@ local minimap = { }
 local lfgIDs = { }
 local extraInformations = { }
 
-ns.RestoreStaticPopUpsRetail()
+ns.RestoreStaticPopUpsRetail() -- StaticPopUps.lua
 ns.ErrorMessages() -- RetailErrorMessage.lua
 
 function MapNotesMiniButton:OnInitialize() --mmb.lua
@@ -42,69 +42,6 @@ local function updateextraInformation()
         total = numEncounters
       }
     end
-  end
-end
-
-function ns.ChangingMapToPlayerZone()
-  if ns._MapChangeInit then return end
-  ns._MapChangeInit = true
-
-  local lastSet
-  local function SetToPlayerMap()
-    if not (ns.Addon and ns.Addon.db and ns.Addon.db.profile.MapChanging) then return end
-    if not (WorldMapFrame and WorldMapFrame:IsShown()) then return end
-    local base = C_Map.GetBestMapForUnit("player")
-    if not base then return end
-    if base ~= lastSet and WorldMapFrame:GetMapID() ~= base then
-      ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
-      WorldMapFrame:SetMapID(base)
-      lastSet = base
-    end
-  end
-
-  local f = CreateFrame("Frame")
-  f:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-  f:RegisterEvent("LOADING_SCREEN_DISABLED")
-  f:RegisterEvent("PLAYER_CONTROL_GAINED")
-  f:SetScript("OnEvent", SetToPlayerMap)
-
-  local burstPending = false
-  local function StartTicker()
-    if burstPending or not (WorldMapFrame and WorldMapFrame:IsShown()) then return end
-    burstPending = true
-    SetToPlayerMap()
-    C_Timer.After(0.5, function()
-      SetToPlayerMap()
-      burstPending = false
-    end)
-  end
-
-  local mini = CreateFrame("Frame")
-  mini:RegisterEvent("MINIMAP_UPDATE_ZOOM")
-  mini:SetScript("OnEvent", function(_, ev)
-    if not (WorldMapFrame and WorldMapFrame:IsShown()) then return end
-
-    local base = C_Map.GetBestMapForUnit("player")
-    if not base then return end
-
-    if WorldMapFrame:GetMapID() ~= base or ev ~= "MINIMAP_UPDATE_ZOOM" then
-      StartTicker()
-    end
-  end)
-end
-
-function ns.ShowPlayersMap(targetType) -- Find the right maps for the activation options from the menu (zone/continent/dungeon (RetailOptions.lua))
-  local PlayerMapID = C_Map.GetBestMapForUnit("player")
-  if not PlayerMapID then return end
-
-  local info = C_Map.GetMapInfo(PlayerMapID)
-  while info and info.mapType and info.mapType > targetType and info.parentMapID do
-    info = C_Map.GetMapInfo(info.parentMapID)
-  end
-
-  if info and info.mapType == targetType then
-    ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
-    WorldMapFrame:SetMapID(info.mapID)
   end
 end
 
@@ -197,82 +134,6 @@ local function LoadAndCheck(loadFunc, self)
 
   ns.nodes = previousNodes
   ns._currentSourceFile = previousSource
-end
-
-function ns.MiniMapPlayerArrow()
-    if MMPA then return MMPA end
-
-    MMPA = CreateFrame("Frame", "MMPA", Minimap)
-    MMPA:SetFrameStrata("MEDIUM")
-    MMPA:SetPoint("CENTER")
-    MMPA:SetSize(10, 10)
-    MMPA.texture = MMPA:CreateTexture(nil, "OVERLAY")
-    MMPA.texture:SetAtlas("UI-HUD-Minimap-Arrow-Player", true)
-    MMPA.texture:SetScale(ns.Addon.db.profile.MinimapArrowScale)
-    MMPA.texture:SetPoint("CENTER")
-    MMPA.texture:SetTexelSnappingBias(0)
-    MMPA.texture:SetSnapToPixelGrid(false)
-    MMPA.elapsed = 0
-
-    MMPA:SetScript("OnEnter", function(self)
-      if ns.Addon.db.profile.activate.MinimapArrowOnEnter and ns.Addon.db.profile.activate.MinimapArrow then
-        self:Hide()
-      end
-    end)
-
-    MMPA:SetScript("OnLeave", function(self)
-      if ns.Addon.db.profile.activate.MinimapArrowOnEnter and ns.Addon.db.profile.activate.MinimapArrow  then
-        C_Timer.After(ns.Addon.db.profile.activate.MinimapArrowOnEnterTime, function()
-          self:Show()
-        end)
-      end
-    end)
-
-    MMPA:SetScript("OnUpdate", function(self, elapsed)
-      self.elapsed = self.elapsed + elapsed
-      if self.elapsed < 0.05 then return end
-      self.elapsed = 0
-
-      if GetCVar("rotateMinimap") == "1" then
-        self.texture:SetRotation(0)
-        self.texture:Show()
-        return
-      end
-
-      local facing = GetPlayerFacing()
-      if not facing then
-        self.texture:Hide()
-        return
-      end
-
-      self.texture:Show()
-      if facing ~= self.facing then
-        self.facing = facing
-        self.texture:SetRotation(facing)
-      end
-
-    end)
-
-    if ns.Addon.db.profile.activate.MinimapArrow then
-        MMPA:Show()
-    else
-        MMPA:Hide()
-    end
-
-    return MMPA
-end
-
-function ns.UpdateMinimapArrow()
-  ns.Addon.db.profile.MinimapArrowScale = db.MinimapArrowScale
-  if MMPA and MMPA.texture then
-      MMPA.texture:SetScale(ns.Addon.db.profile.MinimapArrowScale)
-
-      if ns.Addon.db.profile.activate.MinimapArrow then
-          MMPA:Show()
-      else
-          MMPA:Hide()
-      end
-  end
 end
 
 local instanceInfoInitFrame = CreateFrame("Frame")
@@ -378,7 +239,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
 
   ExtraToolTip()
 	updateextraInformation()
-  ns.AddTaxiStatusToTooltip(tooltip, nodeData.taxiID)
+  ns.AddTaxiStatusToTooltip(tooltip, nodeData.taxiID) -- TaxiIDNames.lua
 
   if nodeData.type and not ns.MapType0 then -- multi tooltips for instances above id names
 
@@ -743,8 +604,8 @@ do
 			local anyLocked = false
 
       ns.SyncSingleScaleAlpha() -- synch single Icons
-      ns.SyncWithMinimapScaleAlpha() -- sync Capitals with Capitals - Minimap and/or Zones with Minimap Alpha/Scale
-      ns.ChangeToClassicImagesRetail() -- function to change the icon style from new images to old images
+      ns.SyncWithMinimapScaleAlpha() -- syncWithMinimap.lua - sync Capitals with Capitals - Minimap and/or Zones with Minimap Alpha/Scale
+      ns.ChangeToClassicImagesRetail() -- ClassicImages.lua - function to change the icon style from new images to old images
 
       ns.pathIcons = value.type == "PathO" or value.type == "PathRO" or value.type == "PathLO" or value.type == "PathU" or value.type == "PathLU" or value.type == "PathRU" or value.type == "PathL" or value.type == "PathR"
                           or value.type == "RedPathO" or value.type == "RedPathRO" or value.type == "RedPathLO" or value.type == "RedPathU" or value.type == "RedPathLU" or value.type == "RedPathRU" or value.type == "RedPathL" or value.type == "RedPathR"
@@ -815,8 +676,10 @@ do
                       or CurrentMapID == 875 or CurrentMapID == 876 or CurrentMapID == 905 or CurrentMapID == 1978 or CurrentMapID == 1550 or CurrentMapID == 572
                       or CurrentMapID == 2274 or CurrentMapID == 948
 
-      ns.ClassHallIDs = CurrentMapID == 626 or CurrentMapID == 627 or CurrentMapID == 641 or CurrentMapID == 650 or CurrentMapID == 747 or CurrentMapID == 720 -- Class Hall
-                      or CurrentMapID == 721 or CurrentMapID == 726 or CurrentMapID == 739 or CurrentMapID == 23 or CurrentMapID == 24 or CurrentMapID == 734 or CurrentMapID == 735
+      ns.ClassHallIDs = CurrentMapID == 23 or CurrentMapID == 24 or CurrentMapID == 626 or CurrentMapID == 627 or CurrentMapID == 628 or CurrentMapID == 641 -- Class Hall
+                      or CurrentMapID == 646 or CurrentMapID == 647 or CurrentMapID == 648 or CurrentMapID == 650 or CurrentMapID == 695 or CurrentMapID == 720 -- Class Hall
+                      or CurrentMapID == 702 or CurrentMapID == 709 or CurrentMapID == 717 or CurrentMapID == 721 or CurrentMapID == 726 or CurrentMapID == 739 -- Class Hall
+                      or CurrentMapID == 734 or CurrentMapID == 735 or CurrentMapID == 747 -- Class Hall
 
       ns.CapitalIDs = CurrentMapID == 84 or CurrentMapID == 87 or CurrentMapID == 89 or CurrentMapID == 103 or CurrentMapID == 85 or CurrentMapID == 90 
                       or CurrentMapID == 86 or CurrentMapID == 88 or CurrentMapID == 110 or CurrentMapID == 111 or CurrentMapID == 125 or CurrentMapID == 126 
@@ -1782,8 +1645,7 @@ local CapitalIDs =  CurrentMapID == 626 or CurrentMapID == 747
     end
 
     if (button == "RightButton" and mnID and mnID2 or mnID3 and not IsShiftKeyDown() and not IsAltKeyDown()) then -- original left
-      ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
-      WorldMapFrame:SetMapID(mnID)
+      ns.SafeSetMapID(mnID)
     end
   end
 
@@ -1831,14 +1693,12 @@ local CapitalIDs =  CurrentMapID == 626 or CurrentMapID == 747
     end
 
     if (button == "LeftButton" and mnID and mnID2 or mnID3 and not IsShiftKeyDown() and not IsAltKeyDown()) then -- original left
-      ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
-      WorldMapFrame:SetMapID(mnID)
+      ns.SafeSetMapID(mnID)
     end
   end
 
   if (button == "MiddleButton" and mnID2 and not IsShiftKeyDown() and not IsAltKeyDown()) then
-    ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
-    WorldMapFrame:SetMapID(mnID2)
+    ns.SafeSetMapID(mnID2)
   end
 
   -- npc targeting & rangecheck
@@ -1856,8 +1716,7 @@ local CapitalIDs =  CurrentMapID == 626 or CurrentMapID == 747
   end
 
   if (button == "MiddleButton" and mnID3 and not IsShiftKeyDown() and not IsAltKeyDown()) then
-    ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
-    WorldMapFrame:SetMapID(mnID3)
+    ns.SafeSetMapID(mnID3)
   end
 
   if (not pressed) then return end
@@ -1910,14 +1769,12 @@ local CapitalIDs =  CurrentMapID == 626 or CurrentMapID == 747
   if ns.Addon.db.profile.activate.SwapButtons then -- New SwapButtons
     if (button == "RightButton" and not IsAltKeyDown()) then
       if mnID then
-        ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
-        WorldMapFrame:SetMapID(mnID)
+        ns.SafeSetMapID(mnID)
         return
       end
 
       if delveID then
-        ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
-        WorldMapFrame:SetMapID(delveID)
+        ns.SafeSetMapID(delveID)
         return
       end
     end
@@ -1967,16 +1824,12 @@ local CapitalIDs =  CurrentMapID == 626 or CurrentMapID == 747
   if not ns.Addon.db.profile.activate.SwapButtons then -- Original
     if (button == "LeftButton" and not IsAltKeyDown()) then
       if mnID then
-        if not ns.Addon.db.profile.DeveloperMode then
-          ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
-        end
-        WorldMapFrame:SetMapID(mnID)
+        ns.SafeSetMapID(mnID)
         return
       end
 
       if delveID then
-        ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
-        WorldMapFrame:SetMapID(delveID)
+        ns.SafeSetMapID(delveID)
         return
       end
     end
@@ -2063,14 +1916,20 @@ function Addon:OnProfileChanged(event, database, profileKeys)
   ns.dbChar = database.profile.deletedIcons
   ns.FogOfWar = database.profile.FogOfWarColor
 
-  ns.ApplySavedCoords()
-  ns.ReloadAreaMapSettings()
-  ns.UpdateMinimapArrow()
+  ns.ApplySavedCoords() -- RetailCoordsDisplay.lua
+  ns.ReloadAreaMapSettings() -- RetailAreaMap.lua
+  ns.UpdateMinimapArrow() -- RetailMiniMap.lua
+  ns.ApplyWorldMapArrowSize() -- RetailWorldmap.lua
 
-  if ns.SetAreaMapMenuVisibility then
+  if ns.SetAreaMapMenuVisibility then -- RetailAreaMap.lua
     ns.SetAreaMapMenuVisibility(ns.Addon.db.profile.areaMap.showAreaMapDropDownMenu)
   end
-  
+
+  if MapNotesMiniButton and MapNotesMiniButton.db then  -- Minimapbutton position
+    MapNotesMiniButton.db:SetProfile(database:GetCurrentProfile())
+    MNMMBIcon:Refresh("MNMiniMapButton", MapNotesMiniButton.db.profile.minimap)
+  end
+
   HandyNotes:GetModule("FogOfWarButton"):Refresh()
   if ns.Addon.db.profile.CoreChatMassage then
     print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been changed"])
@@ -2084,15 +1943,18 @@ function Addon:OnProfileReset(event, database, profileKeys)
   ns.dbChar = database.profile.deletedIcons
   ns.FogOfWar = database.profile.FogOfWarColor
 
-  ns.DefaultPlayerCoords()
-  ns.DefaultMouseCoords()
-  ns.DefaultPlayerAlpha()
-  ns.DefaultMouseAlpha()
-  ns.UpdateAreaMapFogOfWar()
-  ns.ResetAreaMapToPlayerLocation()
-  ns.UpdateMinimapArrow()
+  ns.DefaultPlayerCoords() -- RetailCoordsDisplay.lua
+  ns.DefaultMouseCoords() -- RetailCoordsDisplay.lua
+  ns.DefaultPlayerAlpha() --RetailCoordsDisplay.lua
+  ns.DefaultMouseAlpha() -- RetailCoordsDisplay.lua
+  ns.HidePlayerCoordsFrame() -- RetailCoordsDisplay.lua
+  ns.HideMouseCoordsFrame() -- RetailCoordsDisplay.lua  
+  ns.UpdateAreaMapFogOfWar() -- RetailAreaMap.lua
+  ns.ResetAreaMapToPlayerLocation() -- RetailAreaMap.lua
+  ns.UpdateMinimapArrow() -- RetailMiniMap.lua
+  ns.ApplyWorldMapArrowSize() -- RetailWorldmap.lua
 
-  if ns.SetAreaMapMenuVisibility then
+  if ns.SetAreaMapMenuVisibility then -- RetailAreaMap.lua
     ns.SetAreaMapMenuVisibility(ns.Addon.db.profile.areaMap.showAreaMapDropDownMenu)
   end
 
@@ -2119,12 +1981,26 @@ function Addon:OnProfileCopied(event, database, profileKeys)
   ns.dbChar = database.profile.deletedIcons
   ns.FogOfWar = database.profile.FogOfWarColor
 
-  ns.ApplySavedCoords()
-  ns.ReloadAreaMapSettings()
-  ns.UpdateMinimapArrow()
+  ns.ApplySavedCoords() -- RetailCoordsDisplay.lua
+  ns.ReloadAreaMapSettings() -- RetailAreaMap.lua
+  ns.UpdateMinimapArrow() -- RetailMiniMap.lua
+  ns.ApplyWorldMapArrowSize() -- RetailWorldmap.lua
 
-  if ns.SetAreaMapMenuVisibility then
+  if ns.SetAreaMapMenuVisibility then -- RetailAreaMap.lua
     ns.SetAreaMapMenuVisibility(ns.Addon.db.profile.areaMap.showAreaMapDropDownMenu)
+  end
+
+  if MapNotesMiniButton and MapNotesMiniButton.db then -- Minimapbutton position
+    MapNotesMiniButton.db:SetProfile(database:GetCurrentProfile())
+    MapNotesMiniButton.db.profile.minimap = MapNotesMiniButton.db.profile.minimap or {}
+
+    if MapNotesMiniButton.db.profiles and MapNotesMiniButton.db.profiles[profileKeys] and MapNotesMiniButton.db.profiles[profileKeys].minimap then
+      for k, v in pairs(MapNotesMiniButton.db.profiles and MapNotesMiniButton.db.profiles[profileKeys] and MapNotesMiniButton.db.profiles[profileKeys].minimap) do
+        MapNotesMiniButton.db.profile.minimap[k] = v
+      end
+    end
+
+    MNMMBIcon:Refresh("MNMiniMapButton", MapNotesMiniButton.db.profile.minimap)
   end
 
   HandyNotes:GetModule("FogOfWarButton"):Refresh()
@@ -2161,10 +2037,10 @@ end
 
 function Addon:PLAYER_LOGIN() -- OnInitialize()
   ns.Addon = Addon
-  ns.LoadOptions(self)
-  ns.BlizzardDelvesAddTT()
-  ns.BlizzardDelvesAddFunction()
-  ns.ChangingMapToPlayerZone()
+  ns.LoadOptions(self) -- RetailOptions.lua
+  ns.BlizzardDelvesAddTT() -- RetailDelves.lua
+  ns.BlizzardDelvesAddFunction() -- RetailDelves.lua
+  ns.ChangingMapToPlayerZone() -- RetailWorldMap.lua
 
   -- Register Database Profile
   self.db = LibStub("AceDB-3.0"):New("HandyNotes_MapNotesRetailDB", ns.defaults)
@@ -2196,19 +2072,19 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
   Addon:RegisterEvent("ZONE_CHANGED_INDOORS")
 
   -- Check for PlayerArrow on Minimap
-  ns.MiniMapPlayerArrow()
+  ns.MiniMapPlayerArrow() -- RetailMiniMap.lua
 
   -- Check for Links
-  ns.CreateAndCopyLink()
+  ns.CreateAndCopyLink() -- RetailCreateLinks.lua
 
   -- Check for Class
-  ns.AutomaticClassDetectionCapital()
+  ns.AutomaticClassDetectionCapital() -- ClassesDetection.lua
 
   -- Check for Professions
-  ns.AutomaticProfessionDetection()
+  ns.AutomaticProfessionDetection() -- ProfessionDetection.lua
 
   -- Remove& Refresh BlizzardPOIs (ns.BlizzAreaPoisInfo) and ZidormiPOIs (ns.BlizzAreaPoisInfoZidormi)
-  ns.RemoveBlizzPOIs()
+  ns.RemovePOIs() -- RetailPOIs.lua
 
   -- Check if Blizz Instance entrances is true then remove Blizzard Pins
   if ns.Addon.db.profile.activate.RemoveBlizzInstances then
@@ -2261,7 +2137,7 @@ function Addon:PopulateTable()
   table.wipe(nodes)
   table.wipe(minimap)
 
-  ns.SyncWithMinimap(self) -- sync Capitals with Capitals - Minimap and/or Zones with Minimap
+  ns.SyncWithMinimap(self) -- syncWithMinimap.lua - sync Capitals with Capitals - Minimap and/or Zones with Minimap
 
   ns.LoadMapNotesNodesInfo() -- load nodes\Retail\RetailMapNotesNodesInfo.lua
   ns.LoadMapNotesMinimapInfo() -- load nodes\Retail\RetailMapNotesMinimapNodesInfo.lua
@@ -2289,6 +2165,7 @@ function Addon:PopulateTable()
   LoadAndCheck(ns.LoadCapitalsLocationinfo,self) -- load nodes\Retail\RetailCapitals.lua
   LoadAndCheck(ns.LoadMinimapCapitalsLocationinfo,self) -- load nodes\Retail\RetailMinimapCapitals.lua
 
+  LoadAndCheck(ns.LoadTaxiMapNodesLocationinfo,self)
   LoadAndCheck(ns.LoadSpecialLocations,self)
   LoadAndCheck(ns.LoadClassHallZoneLocationinfo,self)
   LoadAndCheck(ns.LoadClassHallMiniMapLocationinfo,self)

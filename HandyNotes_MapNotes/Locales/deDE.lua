@@ -2,11 +2,19 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "deDE")
 if not L then return end
 
+-- Flightmaster maps
+L["Button"] = "Knopf"
+L["Show the MapNotes button on the Flightmap"] = "Zeige den MapNotes Knopf auf der Flugkarte"
+L["Show Instances"] = "Instanzen anzeigen"
+L["Hide Instances"] = "Instanzen ausblenden"
 -- Class Hall
 L["Artifact Forge"] = "Artefaktschmiede"
 L["Class Hall"] = "Ordenshalle"
 L["The entrance of each class must first be unlocked before they are accessible"] = "Der Eingang der jeweiligen Klasse muss zuerst freigespielt werden, bevor er zugänglich ist"
 -- Worldmap
+L["Worldmap player arrow"] = "Weltkarten Spielerpfeil"
+L["Changes the size of the display"] = "Ändert die Größe der Anzeige"
+L["Enables the ability to change the size of the player arrow on the world map"] = "Ermöglicht die Änderung der Größe des Spielerpfeils auf der Weltkarte"
 L["Change zone map"] = "Zonenkarte wechseln"
 L["This allows you to automatically switch the world map to the map of the new area when you leave one zone and enter a new one"] = "Hiermit können Sie die Weltkarte automatisch auf die Karte des neuen Gebiets umschalten lassen, wenn Sie eine Zone verlassen und eine neue betreten"
 -- Npc
@@ -45,13 +53,18 @@ L["This will redisplay the previously discovered icons of the race category on a
 L["Travel to this point and click on the mole machine on site to unlock it"] = "Reise zu diesem Punkt und klicke vor Ort auf die Maulwurfmaschine, um sie freizuschalten"
 L["The icons are only visible if you belong to the corresponding race"] = "Die Symbole sind nur sichtbar, wenn du dem entsprechendem Volk angehörst"
 L["Otherwise, the icons in this category are not visible to you"] = "Andernfalls sind die Symbole dieser Kategorie für dich nicht sichtbar"
--- Minimap Arrow
+-- Minimap Arrow & coordinates
+L["Mouse coordinates"] = "Mauskoordinaten"
+L["Player coordinates"] = "Spielerkoordinaten"
+L["Hold down Shift + Left mouse button to move"] = "Umschalt + Linke Maustaste gedrückt halten zum Bewegen"
 L["The MapNotes player arrow disappears from the minimap for the set number of seconds when you hover over it"] = "Der MapNotes Spielerpfeil verschwindet für die eingestellte Sekundenanzahl von der Minikarte, wenn Sie mit der Maus darüber fahren"
 L["This makes it easier for the player to see which other icon is currently under the player"] = "Damit kann der Spieler leichter erkennen, welche anderen Symbole sich gerade unter dem Spieler befinden"
 L["Unfortunately does not work in instances"] = "Funktioniert leider nicht in Instanzen"
 L["Minimap player arrow"] = "Minikarte Spielerpfeil"
 L["Displays the player arrow on the minimap layered above addon-created icons"] = "Zeigt den Spielerpfeil auf der Minikarte über den vom Addons erstellten Symbolen an"
 L["Coordinates"] = "Koordinaten"
+L["Two mouse coordinate windows are created on the world map: one on the minimized world map and one on the maximized world map"] = "Auf der Weltkarte werden zwei Fenster für Mauskoordinaten erstellt: eines auf der verkleinerten Weltkarte und eines auf der vergrößerten Weltkarte"
+L["The mouse coordinate windows share size and transparency, but can be positioned differently"] = "Die Fenster für Mauskoordinaten teilen sich Größe und Transparenz, können aber unterschiedlich positioniert werden"
 L["Creates a window for displaying the coordinates"] = "Erstellt ein Fenster zur Anzeige der Koordinaten"
 L["Only visible when the world map is open"] = "Nur sichtbar, wenn die Weltkarte geöffnet ist"
 L["Function"] = "Funktion"
@@ -112,6 +125,9 @@ L["Rogue"] = "Schurke"
 L["Shaman"] = "Schamane"
 L["Warlock"] = "Hexenmeister"
 L["Warrior"] = "Krieger"
+L["Death Knight"] = "Todesritter"
+L["Monk"] = "Mönch"
+L["Demon Hunter"] = "Dämonenjäger"
 L["Weapon Master"] = "Waffenmeister"
 --0.08
 L["Has not been unlocked yet"] = "Wurde noch nicht freigeschaltet"
@@ -285,7 +301,7 @@ L["Ships"] = "Schiffe"
 L["Transport"] = "Transport"
 L["Ogre Waygate"] = "Ogerportale"
 L["Old Instances"] = "Alte Instanzen"
-L["Show icons of passage on this map"] = "Durchgangssymbole auf dieser Karte Anzegen"
+L["Show icons of passage on this map"] = "Durchgangssymbole auf dieser Karte anzeigen"
 L["Show icons of raids on this map"] = "Symbole von Raids auf dieser Karte anzeigen"
 L["Show icons of dungeons on this map"] = "Symbole von Dungeons auf dieser Karte anzeigen"
 L["Show icons of multiple on this map"] = "Symbole mehrerer auf dieser Karte anzeigen"

@@ -9,5 +9,4 @@
     <Script file="TaxiIDNames.lua"/>
     <Include file="wmb-template.xml"/>
     <Include file="MoP\MoPCore.xml"/>
-    <Script file="Core/CoordsDisplay.lua"/>
 </Ui>

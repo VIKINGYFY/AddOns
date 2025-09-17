@@ -20,6 +20,7 @@ local hideKilled = false
 local hideButton = false
 local lockEsc = false
 local currentScale = 1.0
+local searchText = ""
 
 bountyHelper.frames = {}
 bountyHelper.contentFrames = {}
@@ -204,7 +205,32 @@ function bountyHelper:createUI()
     end)
     self.frames.main = f
 
-    --TODO
+    local searchBar = CreateFrame("EditBox", "bountyHelperSearchBar", f, "InputBoxTemplate")
+    searchBar:SetSize(140, 20)
+    searchBar:SetScale(1.2)
+    searchBar:SetPoint("TOPRIGHT", -62, -7)
+    searchBar:SetAutoFocus(false)
+    searchBar:SetTextInsets(5, 5, 0, 0)
+    searchBar:SetText(searchText)
+    searchBar:SetScript("OnTextChanged", function(self)
+        searchText = strtrim(self:GetText()):lower()
+        bountyHelper:UpdateVisibleFrame()
+    end)
+    searchBar:SetScript("OnEnterPressed", function(self)
+        self:ClearFocus()
+    end)
+    self.frames.SearchBar = searchBar
+    searchBar:Hide()
+
+    local clearSearchButton = createButton(f, {"RIGHT", searchBar, "RIGHT", -2, 0}, "close", colors.redRGB, function()
+        searchText = ""
+        searchBar:SetText("")
+        bountyHelper:UpdateVisibleFrame()
+    end, {24, 24}, "Clear Search")
+    clearSearchButton:SetFrameLevel(5)
+    self.frames.ClearSearchButton = clearSearchButton
+    clearSearchButton:Hide()
+
     local toMountViewButton = CreateFrame("Button", "bountyHelperToMountViewButton", f, "UIPanelButtonTemplate")
     toMountViewButton:SetPoint("TOPRIGHT", -60, -6)
     toMountViewButton:SetText("Sort by Mount")
@@ -213,10 +239,11 @@ function bountyHelper:createUI()
     toMountViewButton:SetScript("OnClick", function() bountyHelper:ShowMountView() end)
     bountyHelper.frames.ToMountViewButton = toMountViewButton
     local toDifficultyViewButton = CreateFrame("Button", "bountyHelperToDifficultyViewButton", f, "UIPanelButtonTemplate")
-    toDifficultyViewButton:SetPoint("TOPRIGHT", -60, -6)
-    toDifficultyViewButton:SetText("Sort by Difficulty")
-    toDifficultyViewButton:SetSize(120, 22)
+    toDifficultyViewButton:SetPoint("TOPRIGHT", -248, -6)
+    toDifficultyViewButton:SetText("Diff")
+    toDifficultyViewButton:SetSize(44, 22)
     toDifficultyViewButton:SetScale(1.2)
+
     toDifficultyViewButton:SetScript("OnClick", function() bountyHelper:ShowDifficultyView() end)
     bountyHelper.frames.ToDifficultyViewButton = toDifficultyViewButton
     local diffScrollFrame = CreateFrame("ScrollFrame", "bountyHelperScrollFrame", f, "UIPanelScrollFrameTemplate")
@@ -227,7 +254,6 @@ function bountyHelper:createUI()
     diffScrollChild:SetSize(f:GetWidth() - 44, 1)
     diffScrollFrame:SetScrollChild(diffScrollChild)
     bountyHelper.frames.ScrollChild = diffScrollChild
-    --TODO
     
     local titleText = createText(f, "GameFontNormalHuge", {"TOPLEFT", 12, 0}, {0, 40})
     titleText:SetText(colors.gold .. "Bounty Helper")
@@ -538,6 +564,11 @@ function bountyHelper:PopulateList()
     end
 end
 
+function bountyHelper:filterContent(name, search)
+    if search == "" then return true end
+    return name:lower():find(search, 1, true) ~= nil
+end
+
 function bountyHelper:UpdateDiffLayout()
     local scrollChild = bountyHelper.frames.ScrollChild
     local lastVisibleFrame = nil
@@ -561,10 +592,10 @@ function bountyHelper:UpdateDiffLayout()
             local isOwned = journalMountID and select(11, C_MountJournal.GetMountInfoByID(data.journalMountID)) or PlayerHasToy(data.mountID)
             
             if isVisible and hideOwned and isOwned then
-                isVisible = false;
+                isVisible = false
             end
             if isVisible and hideKilled and data.killed and not isOwned and not data.repeatable then
-                isVisible = false;
+                isVisible = false
             end
 
             if not ((hideKilled and data.killed and not isOwned and not data.repeatable) or (hideOwned and isOwned)) then
@@ -659,9 +690,6 @@ function bountyHelper:loadMountData(callback)
         end)
     end
 end
-
---local mountCentricData = self:GetUnsortedMountCentricData()
---DevTools_Dump(mountCentricData[186638])
 
 function bountyHelper:createContent()
     for mountID, data in pairs(db.mountData) do
@@ -919,7 +947,6 @@ function bountyHelper:sortContent(sorting)
     self:updateContent()
 end
 
-
 function bountyHelper:updateContent()
     for _, frame in ipairs(self.contentFrames) do
         if frame.isHeader then
@@ -941,6 +968,9 @@ function bountyHelper:updateContent()
                 end
 
                 local hide = (hideIgnored and ignoreList[frame.mountID]) or (hideOwned and isOwned) or (hideKilled and killed and not isOwned and not source.repeatable)
+                if not hide and searchText ~= "" then
+                    hide = not self:filterContent(db.mountData[frame.mountID].name, searchText)
+                end
                 if not hide then sourceCount = sourceCount + 1 end
                 sourceRow:SetShown(not hide)
             end
@@ -978,6 +1008,9 @@ function bountyHelper:ShowDifficultyView()
     bountyHelper.frames.scrollFrame:Hide()
     bountyHelper.frames.ToDifficultyViewButton:Hide()
     
+    bountyHelper.frames.SearchBar:Hide()
+    bountyHelper.frames.ClearSearchButton:Hide()
+    
     bountyHelper:UpdateDiffLayout()
     bountyHelper.frames.main:Show()
 end
@@ -988,6 +1021,9 @@ function bountyHelper:ShowMountView()
 
     bountyHelper.frames.scrollFrame:Show()
     bountyHelper.frames.ToDifficultyViewButton:Show()
+    
+    bountyHelper.frames.SearchBar:Show()
+    bountyHelper.frames.ClearSearchButton:Show()
     
     bountyHelper:updateContent()
     bountyHelper.frames.main:Show()
@@ -1005,6 +1041,7 @@ function bountyHelper:Toggle()
         bountyHelper.frames.HideKilledCheckbox:SetChecked(hideKilled)
         bountyHelper.frames.HideButtonCheckbox:SetChecked(hideButton)
         bountyHelper.frames.LockCheckbox:SetChecked(lockEsc)
+        bountyHelper.frames.SearchBar:SetText(searchText)
         bountyHelper:ShowMountView()
     end
 end
@@ -1077,7 +1114,7 @@ eventHandlerFrame:SetScript("OnEvent", function(self, event, ...)
             hideButton = BountyHelperDB.hideButton or false
             lockEsc = BountyHelperDB.lockEsc or false
             currentScale = BountyHelperDB.scale or 1.0
-            --if not BountyHelperDB.position then = BountyHelperDB.position = {0, 0} end
+            searchText = BountyHelperDB.searchText or ""
             BountyHelperDB.point = BountyHelperDB.point or {"CENTER", 0, 0}
             BountyHelperDB.altData = BountyHelperDB.altData or {}
 
@@ -1140,6 +1177,7 @@ eventHandlerFrame:SetScript("OnEvent", function(self, event, ...)
         BountyHelperDB.hideButton = hideButton
         BountyHelperDB.lockEsc = lockEsc
         BountyHelperDB.scale = currentScale
+        BountyHelperDB.searchText = searchText
         local point, relativeTo, relativePoint, xOfs, yOfs = bountyHelper.frames.main:GetPoint()
         BountyHelperDB.point = { relativePoint, xOfs, yOfs }
         checkSaved()

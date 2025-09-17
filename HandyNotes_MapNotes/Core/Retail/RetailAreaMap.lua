@@ -77,7 +77,7 @@ function ns.AreaMap()
     wipe(ns.AreaMapIcons)
   
     for coord, node in pairs(ns.nodes[mapID]) do
-      if node and node.showInZone then
+      if node and (node.showInZone or node.showOnContinent) then
         local shouldShow = false
         if isChildMap and ns.Addon.db.profile.areaMap.showAreaMapDropDownMenuCapitalsIcons then
           shouldShow = true
@@ -449,6 +449,7 @@ function ns.CreateMapNotesDropdown()
   local function ToggleCapitalsIcons()
     ns.Addon.db.profile.areaMap.showAreaMapDropDownMenuCapitalsIcons = not ns.Addon.db.profile.areaMap.showAreaMapDropDownMenuCapitalsIcons
 
+    ns.lastAreaMapID = nil
     ns.UpdateAreaMapIcons()
     ns.RefreshDropdown()
 
@@ -462,6 +463,7 @@ function ns.CreateMapNotesDropdown()
   local function ToggleZoneIcons()
     ns.Addon.db.profile.areaMap.showAreaMapDropDownMenuZonesIcons = not ns.Addon.db.profile.areaMap.showAreaMapDropDownMenuZonesIcons
 
+    ns.lastAreaMapID = nil
     ns.UpdateAreaMapIcons()
     ns.RefreshDropdown()
 
@@ -617,6 +619,7 @@ function ns.CreateResetMapIDButton()
     GameTooltip:Show()
   end)
 
+  ns.EnableAreaMapRightClickUp() -- rightclick areamap developermode
   ns.ResetMapIDButton:SetScript("OnLeave", GameTooltip_Hide)
 end
 
@@ -625,7 +628,7 @@ function ns.ResetAreaMapToPlayerLocation()
   local mapID = C_Map.GetBestMapForUnit("player")
   if mapID then
     if BattlefieldMapFrame and BattlefieldMapFrame:IsShown() then
-      BattlefieldMapFrame:SetMapID(mapID)     
+      BattlefieldMapFrame:SetMapID(mapID)
     end
   end
 end
@@ -855,4 +858,41 @@ function ns.StopFogOfWarColorSyncTicker()
     ns._fogColorTicker:Cancel()
     ns._fogColorTicker = nil
   end
+end
+
+function ns.EnableAreaMapRightClickUp()
+  if not (BattlefieldMapFrame and BattlefieldMapFrame.ScrollContainer) then return end
+
+  local SC = BattlefieldMapFrame.ScrollContainer
+
+  local function StepToParent(mapID)
+    local info = mapID and C_Map.GetMapInfo(mapID)
+    local parentID = info and info.parentMapID
+    if parentID and parentID > 0 then
+      BattlefieldMapFrame:SetMapID(parentID)
+      return true
+    end
+  end
+
+  local function JumpToPlayer()
+    local best = C_Map.GetBestMapForUnit("player")
+    if best then BattlefieldMapFrame:SetMapID(best) end
+  end
+
+  SC:HookScript("OnMouseUp", function(_, button)
+      if not (ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode) then
+        return
+      end
+
+      if button ~= "RightButton" then
+        return
+      end
+
+      local current = BattlefieldMapFrame:GetMapID()
+      if StepToParent(current) then
+        return
+      end
+      JumpToPlayer()
+  end)
+
 end

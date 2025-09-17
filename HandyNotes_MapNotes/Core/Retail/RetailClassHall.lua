@@ -3,12 +3,18 @@ local ADDON_NAME, ns = ...
 local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 
 ns.AreaPOI_ClassHallTarget = ns.AreaPOI_ClassHallTarget or {
-    [627] = {        -- Dalaran (Legion)
-        [5102] = 626,  -- Rogue -> Hall of Shadows
-        [5059] = 726,  -- Shaman -> Das Herz der Elemente
+    [627] = { -- Dalaran (Legion)
+        [5102] = 626, -- Rogue -> Hall of Shadows
+        [5059] = 726, -- Shaman -> Das Herz der Elemente
+        [5058] = 24, -- Paladin -> Kapelle des Hoffnungsvollen Lichts
+        [5060] = 695, -- Warrior -> Skyhold
+        [5063] = 702, -- Priest -> Netherlight Tempel
     },
-    [626] = {        -- Dalaran (Legion)
-        [5102] = 627,  -- Rogue -> Dala
+    [626] = { -- Dalaran (Legion)
+        [5102] = 627, -- Rogue -> Dalaran
+    },
+    [628] = { -- Dalaran
+        [5061] = 717, -- Warlock -> Dreadscar Rift
     },
 }
 
@@ -59,8 +65,7 @@ EventUtil.ContinueOnAddOnLoaded("Blizzard_WorldMap", function()
         if button ~= "MiddleButton" then return end
         local dest = GetDest(self)
         if dest and not InCombatLockdown() and C_Map.GetMapInfo(dest) then
-            ns.SuppressInterfaceBlockedFor(0.8) -- Suppresses the error message in chat and from Blizzard and Bugsack regarding Frame:SetPropagateMouseClicks()
-            WorldMapFrame:SetMapID(dest)
+            ns.SafeSetMapID(dest)
         end
     end
 

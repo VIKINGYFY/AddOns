@@ -2,11 +2,19 @@
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "koKR")
 if not L then return end
 
+-- Flightmaster maps
+L["Button"] = "버튼"
+L["Show the MapNotes button on the Flightmap"] = "비행 경로 지도에 MapNotes 버튼 표시"
+L["Show Instances"] = "인스턴스 표시"
+L["Hide Instances"] = "인스턴스 숨기기"
 -- Class Hall
 L["Artifact Forge"] = "유물 제련소"
 L["Class Hall"] = "직업 전당"
 L["The entrance of each class must first be unlocked before they are accessible"] = "각 직업의 입구는 접근 가능하기 전에 먼저 잠금 해제해야 합니다"
 -- Worldmap
+L["Worldmap player arrow"] = "세계 지도 플레이어 화살표"
+L["Changes the size of the display"] = "표시 크기를 변경합니다"
+L["Enables the ability to change the size of the player arrow on the world map"] = "세계 지도에서 플레이어 화살표 크기를 변경할 수 있습니다"
 L["Change zone map"] = "지역 지도 변경"
 L["This allows you to automatically switch the world map to the map of the new area when you leave one zone and enter a new one"] = "이 기능을 사용하면 한 지역을 떠나 다른 지역에 들어갈 때 세계 지도가 자동으로 새 지역의 지도로 전환됩니다"
 -- Npc
@@ -45,13 +53,18 @@ L["This will redisplay the previously discovered icons of the race category on a
 L["Travel to this point and click on the mole machine on site to unlock it"] = "이 지점으로 이동하여 현장에서 두더지 기계를 클릭하여 잠금 해제하세요"
 L["The icons are only visible if you belong to the corresponding race"] = "해당 종족에 속한 경우에만 아이콘이 표시됩니다"
 L["Otherwise, the icons in this category are not visible to you"] = "그렇지 않으면 이 범주의 아이콘은 표시되지 않습니다"
--- Minimap Arrow
+-- Minimap Arrow & coordinates
+L["Mouse coordinates"] = "마우스 좌표"
+L["Player coordinates"] = "플레이어 좌표"
+L["Hold down Shift + Left mouse button to move"] = "이동하려면 Shift + 마우스 왼쪽 버튼을 길게 누르세요"
 L["The MapNotes player arrow disappears from the minimap for the set number of seconds when you hover over it"] = "마우스를 올리면 설정된 시간 동안 미니맵에서 MapNotes 플레이어 화살표가 사라집니다"
 L["This makes it easier for the player to see which other icon is currently under the player"] = "이를 통해 플레이어가 현재 플레이어 아래에 있는 다른 아이콘을 쉽게 볼 수 있습니다"
 L["Unfortunately does not work in instances"] = "인스턴스에서는 작동하지 않습니다"
 L["Minimap player arrow"] = "미니맵 플레이어 화살표"
 L["Displays the player arrow on the minimap layered above addon-created icons"] = "애드온에서 생성한 아이콘 위에 미니맵에 플레이어 화살표를 표시합니다"
 L["Coordinates"] = "좌표"
+L["Two mouse coordinate windows are created on the world map: one on the minimized world map and one on the maximized world map"] = "세계 지도에 마우스 좌표 창이 두 개 생성됩니다. 하나는 축소된 세계 지도에, 다른 하나는 확대된 세계 지도에 표시됩니다"
+L["The mouse coordinate windows share size and transparency, but can be positioned differently"] = "마우스 좌표 창은 크기와 투명도를 공유하지만 서로 다른 위치에 배치할 수 있습니다"
 L["Creates a window for displaying the coordinates"] = "좌표를 표시하는 창을 생성합니다"
 L["Only visible when the world map is open"] = "월드 맵이 열려 있을 때만 표시됩니다"
 L["Function"] = "기능"
@@ -112,6 +125,9 @@ L["Rogue"] = "도적"
 L["Shaman"] = "주술사"
 L["Warlock"] = "흑마법사"
 L["Warrior"] = "전사"
+L["Death Knight"] = "죽음의 기사"
+L["Monk"] = "수도사"
+L["Demon Hunter"] = "악마사냥꾼"
 L["Weapon Master"] = "무기 전문가"
 --0.08
 L["Has not been unlocked yet"] = "아직 잠금이 해제되지 않았습니다"
