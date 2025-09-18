@@ -1963,7 +1963,6 @@ function G:NameplateColorDots(parent)
 	if extraGUIs[guiName] then return end
 
 	local panel = createExtraGUI(parent, guiName, L["ColorDotsList"].."*", true)
-	panel:SetScript("OnHide", refreshNameplateFilters)
 
 	local barTable = {}
 
@@ -1981,7 +1980,6 @@ function G:NameplateColorDots(parent)
 			bar:Hide()
 			barTable[spellID] = nil
 			C.db["Nameplate"]["DotSpells"][spellID] = nil
-			NDuiADB["NameplateWhite"][spellID] = nil
 			sortBars(barTable)
 		end)
 
@@ -2009,7 +2007,6 @@ function G:NameplateColorDots(parent)
 		if not spellID or not C_Spell.GetSpellName(spellID) then UIErrorsFrame:AddMessage(DB.InfoColor..L["Incorrect SpellID"]) return end
 		if C.db["Nameplate"]["DotSpells"][spellID] then UIErrorsFrame:AddMessage(DB.InfoColor..L["Existing ID"]) return end
 		C.db["Nameplate"]["DotSpells"][spellID] = true
-		if not NDuiADB["NameplateWhite"][spellID] then NDuiADB["NameplateWhite"][spellID] = true end
 		createBar(parent.child, spellID, true)
 		parent.box:SetText("")
 	end

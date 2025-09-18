@@ -14,19 +14,13 @@ if not lib then return end
 
 local Masque = LibStub("Masque", true)
 local fallbackLevel = 0
-local isRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
 
--- textures
+local shineCoords = {0.8115234375, 0.9169921875, 0.8798828125, 0.9853515625}
 local textureList = {
 	empty = "Interface\\AdventureMap\\BrokenIsles\\AM_29",
 	white = "Interface\\BUTTONS\\WHITE8X8",
-	shine = "Interface\\ItemSocketingFrame\\UI-ItemSockets",
+	shine = "Interface\\Artifacts\\Artifacts",
 }
-local shineCoords = {0.3984375, 0.4453125, 0.40234375, 0.44921875}
-if isRetail then
-	textureList.shine = "Interface\\Artifacts\\Artifacts"
-	shineCoords = {0.8115234375, 0.9169921875, 0.8798828125, 0.9853515625}
-end
 
 lib.glowList = {}
 lib.startList = {}
@@ -42,7 +36,6 @@ local function RegisterGlow(name, startFunc, stopFunc)
 	lib.stopList[name] = stopFunc
 end
 
--- default options
 local PixelDefaults = {
 	frameLevel = fallbackLevel,
 	num = 8,
@@ -63,26 +56,21 @@ local AutoCastDefaults = {
 	yOffset = 0,
 }
 
-local ButtonDefaults = {
+local ActionButtonDefaults = {
 	frameLevel = fallbackLevel,
-	throttle = 0.01,
 	xOffset = 0,
 	yOffset = 0,
 }
 
 local ProcDefaults = {
 	frameLevel = fallbackLevel,
-	duration = 1,
 	xOffset = 0,
 	yOffset = 0,
 }
 
--- pools
-local Parent = UIParent
-local GlowTexPool = CreateTexturePool(Parent, "OVERLAY", 7)
-local GlowFramePool = CreateFramePool("Frame", Parent)
+local GlowTexPool = CreateTexturePool(UIParent, "OVERLAY")
+local GlowFramePool = CreateFramePool("Frame", UIParent)
 
--- helper: safely apply color to texture or list of textures
 local function ApplyColor(target, color)
 	if not target then return end
 
@@ -97,7 +85,6 @@ local function ApplyColor(target, color)
 		end
 	end
 
-	-- 只有普通 Lua table 才 pairs 遍历
 	if type(target) == "table" and getmetatable(target) == nil then
 		for _, v in pairs(target) do
 			apply(v)
@@ -107,35 +94,7 @@ local function ApplyColor(target, color)
 	end
 end
 
--- Pause/Resume utilities applied to frames that may own animations
-local function PauseAnims(f)
-	if not f then return end
-
-	if f.ProcStartAnim and f.ProcStartAnim.IsPlaying and f.ProcStartAnim:IsPlaying() then f.ProcStartAnim:Pause() end
-	if f.ProcLoopAnim and f.ProcLoopAnim.IsPlaying and f.ProcLoopAnim:IsPlaying() then f.ProcLoopAnim:Pause() end
-	if f.animIn and f.animIn.IsPlaying and f.animIn:IsPlaying() then f.animIn:Pause() end
-	if f.animOut and f.animOut.IsPlaying and f.animOut:IsPlaying() then f.animOut:Pause() end
-end
-
-local function ResumeAnims(f)
-	if not f then return end
-
-	if f.ProcStartAnim and f.ProcStartAnim.IsPaused and f.ProcStartAnim:IsPaused() then f.ProcStartAnim:Play() end
-	if f.ProcLoopAnim and f.ProcLoopAnim.IsPaused and f.ProcLoopAnim:IsPaused() then f.ProcLoopAnim:Play() end
-	if f.animIn and f.animIn.IsPaused and f.animIn:IsPaused() then f.animIn:Play() end
-	if f.animOut and f.animOut.IsPaused and f.animOut:IsPaused() then f.animOut:Play() end
-end
-
-local function HookPauseResume(f)
-	if not f or f._pauseHooked then return end
-
-	f:SetScript("OnHide", function(self) PauseAnims(self) end)
-	f:SetScript("OnShow", function(self) ResumeAnims(self) end)
-	f._pauseHooked = true
-end
-
--- utility to create or reuse a glow frame attached to parent button
-local function GetOrCreateFrame(button, name, frameLevel, xOffset, yOffset)
+local function GetOrCreateFrame(button, name, xOffset, yOffset)
 	local f
 	if button[name] then
 		f = button[name]
@@ -145,13 +104,12 @@ local function GetOrCreateFrame(button, name, frameLevel, xOffset, yOffset)
 	end
 
 	f:SetParent(button)
-	f:SetFrameLevel(button:GetFrameLevel() + frameLevel)
+	f:SetFrameLevel(button:GetFrameLevel())
+
 	f:ClearAllPoints()
 	f:SetPoint("TOPLEFT", button, "TOPLEFT", -xOffset, yOffset)
 	f:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", xOffset, -yOffset)
 	f:Show()
-
-	HookPauseResume(f)
 
 	return f
 end
@@ -193,7 +151,10 @@ end
 
 local function pUpdate(self, elapsed)
 	self.timer = (self.timer or 0) + elapsed / self.info.period
-	if self.timer > 1 or self.timer < -1 then self.timer = self.timer % 1 end
+	if self.timer > 1 or self.timer < -1 then
+		self.timer = self.timer % 1
+	end
+
 	local progress = self.timer
 	local width, height = self:GetSize()
 	if width ~= self.info.width or height ~= self.info.height then
@@ -248,7 +209,7 @@ function lib.PixelGlow_Start(button, options)
 	options = ApplyDefaults(options, PixelDefaults)
 
 	local name = "_PixelGlow"
-	local f = GetOrCreateFrame(button, name, options.frameLevel, options.xOffset, options.yOffset)
+	local f = GetOrCreateFrame(button, name, options.xOffset, options.yOffset)
 	local w, h = button:GetSize()
 
 	f.info = f.info or {}
@@ -261,7 +222,6 @@ function lib.PixelGlow_Start(button, options)
 	f.info.thickness = options.thickness
 	f.info.length = math.min(math.floor((w + h) * (2 / options.num - 0.1)), math.min(w, h))
 
-	-- primary mask (用于裁切边缘)
 	if not f.masks[1] then
 		f.masks[1] = f:CreateMaskTexture()
 		f.masks[1]:SetTexture(textureList.empty, "CLAMPTOWHITE", "CLAMPTOWHITE")
@@ -271,7 +231,6 @@ function lib.PixelGlow_Start(button, options)
 	f.masks[1]:SetPoint("TOPLEFT", f, "TOPLEFT", options.thickness, -options.thickness)
 	f.masks[1]:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -options.thickness, options.thickness)
 
-	-- create / update edge textures
 	for i = 1, options.num do
 		if not f.textures[i] then
 			f.textures[i] = GlowTexPool:Acquire()
@@ -280,27 +239,21 @@ function lib.PixelGlow_Start(button, options)
 			f.textures[i]:SetParent(f)
 			f.textures[i]:SetDrawLayer("OVERLAY")
 		end
-		-- apply requested color (ApplyColor 能兼容 userdata / table)
-		ApplyColor(f.textures[i], options.color)
-		-- ensure mask applied
 		if f.masks[1] and f.textures[i]:GetNumMaskTextures() < 1 then
 			f.textures[i]:AddMaskTexture(f.masks[1])
 		end
+
+		ApplyColor(f.textures[i], options.color)
 		f.textures[i]:Show()
 	end
 
-	-- release extras (如果 num 减少)
 	while #f.textures > options.num do
 		local t = table.remove(f.textures)
 		GlowTexPool:Release(t)
 	end
 
-	-- start update
 	pUpdate(f, 0)
 	f:SetScript("OnUpdate", pUpdate)
-
-	-- ensure hide/show pause behavior
-	HookPauseResume(f)
 end
 
 function lib.PixelGlow_Stop(button)
@@ -308,7 +261,7 @@ function lib.PixelGlow_Stop(button)
 	local f = button[name]
 	if not f then return end
 
-	button[name] = nil        -- 清除引用
+	button[name] = nil
 	GlowFramePool:Release(f)
 end
 
@@ -351,15 +304,15 @@ function lib.AutoCastGlow_Start(button, options)
 	options = ApplyDefaults(options, AutoCastDefaults)
 
 	local name = "_AutoCastGlow"
-	local f = GetOrCreateFrame(button, name, options.frameLevel, options.xOffset, options.yOffset)
+	local f = GetOrCreateFrame(button, name, options.xOffset, options.yOffset)
 
 	f.info = f.info or {}
-	f.info.num = options.num
-	f.info.period = options.period
+	f.textures = f.textures or {}
 	f.timer = f.timer or {0, 0, 0, 0}
 
-	-- need num * 4 textures (4 rows)
-	f.textures = f.textures or {}
+	f.info.num = options.num
+	f.info.period = options.period
+
 	for i = 1, options.num * 4 do
 		if not f.textures[i] then
 			f.textures[i] = GlowTexPool:Acquire()
@@ -367,33 +320,23 @@ function lib.AutoCastGlow_Start(button, options)
 			f.textures[i]:SetTexCoord(unpack(shineCoords))
 			f.textures[i]:SetParent(f)
 			f.textures[i]:SetDrawLayer("OVERLAY")
-			if not isRetail then
-				-- keep original behavior for non-retail
-				pcall(f.textures[i].SetBlendMode, f.textures[i], "ADD")
-			end
 		end
-		-- size pattern (original used sizes 7,6,5,4 scaled)
+
 		local sizes = {7, 6, 5, 4}
 		local row = math.floor((i - 1) / options.num) + 1
 		local size = sizes[row] or sizes[#sizes]
-		f.textures[i]:SetSize(size * options.scale, size * options.scale)
-
-		-- THIS IS THE CRITICAL FIX: apply the requested color
 		ApplyColor(f.textures[i], options.color)
-
+		f.textures[i]:SetSize(size * options.scale, size * options.scale)
 		f.textures[i]:Show()
 	end
 
-	-- trim extras if any
 	while #f.textures > options.num * 4 do
 		local t = table.remove(f.textures)
 		GlowTexPool:Release(t)
 	end
 
-	f:SetScript("OnUpdate", acUpdate)
 	acUpdate(f, 0)
-
-	HookPauseResume(f)
+	f:SetScript("OnUpdate", acUpdate)
 end
 
 function lib.AutoCastGlow_Stop(button)
@@ -401,16 +344,13 @@ function lib.AutoCastGlow_Stop(button)
 	local f = button[name]
 	if not f then return end
 
-	button[name] = nil        -- 清除引用
+	button[name] = nil
 	GlowFramePool:Release(f)
 end
 
 -- -----------------------
 -- Button Glow (action button sparkle)
 -- -----------------------
-local ButtonPool = CreateFramePool("Frame", Parent)
-local ButtonTextures = { ["spark"] = true, ["innerGlow"] = true, ["innerGlowOver"] = true, ["outerGlow"] = true, ["outerGlowOver"] = true, ["ants"] = true }
-
 local function AddScale(group, target, order, duration, x, y, delay)
 	local scale = group:CreateAnimation("Scale")
 	scale:SetChildKey(target)
@@ -497,12 +437,14 @@ local function InitButton(f)
 
 		AddScale(f.animIn, "spark", 1, 0.2, 1.5, 1.5)
 		AddAlpha(f.animIn, "spark", 1, 0.2, 0, 1, nil, true)
-		AddScale(f.animIn, "innerGlow", 1, 0.3, 2, 2)
-		AddScale(f.animIn, "outerGlow", 1, 0.3, 0.5, 0.5)
-		AddScale(f.animIn, "spark", 1, 0.2, 0.7, 0.7, 0.2)
+		AddScale(f.animIn, "innerGlow", 1, 0.2, 2, 2)
+		AddAlpha(f.animIn, "innerGlow", 1, 0.2, 1, 0, 0.2, false)
+		AddScale(f.animIn, "outerGlow", 1, 0.2, 0.5, 0.5)
+		AddAlpha(f.animIn, "outerGlow", 1, 0.2, 1, 0, 0.2, false)
+		AddScale(f.animIn, "spark", 1, 0.2, 0.8, 0.8, 0.2)
 		AddAlpha(f.animIn, "spark", 1, 0.2, 1, 0, 0.2, false)
-		AddAlpha(f.animIn, "innerGlow", 1, 0.2, 1, 0, 0.3, false)
-		AddAlpha(f.animIn, "ants", 1, 0.2, 0, 1, 0.3, true)
+		AddScale(f.animIn, "ants", 1, 0.2, 1, 1)
+		AddAlpha(f.animIn, "ants", 1, 0.2, 0, 1, 0.2, true)
 
 		f.animIn:SetScript("OnPlay", AnimIn_OnPlay)
 		f.animIn:SetScript("OnFinished", AnimIn_OnFinished)
@@ -512,9 +454,13 @@ local function InitButton(f)
 		f.animOut.fade = {}
 
 		AddAlpha(f.animOut, "ants", 1, 0.2, 1, 0, nil, false)
+		AddAlpha(f.animOut, "innerGlow", 2, 0.2, 1, 0, nil, false)
 		AddAlpha(f.animOut, "outerGlow", 2, 0.2, 1, 0, nil, false)
 
-		f.animOut:SetScript("OnFinished", function(self) ButtonPool:Release(self:GetParent()) end)
+		f.animOut:SetScript("OnFinished", function(self)
+			local p = self:GetParent()
+			GlowFramePool:Release(p)
+		end)
 
 		f.inited = true
 	end
@@ -522,12 +468,30 @@ end
 
 local function SetupButton(f, options)
 	f:SetScript("OnUpdate", function(self, elapsed)
-		AnimateTexCoords(self.ants, 256, 256, 48, 48, 22, elapsed, options.throttle)
+		AnimateTexCoords(self.ants, 256, 256, 48, 48, 22, elapsed, 0.01)
 		local cooldown = self:GetParent().cooldown
 		if cooldown and cooldown:IsShown() and cooldown:GetCooldownDuration() > 3000 then
 			self:SetAlpha(0.5)
 		else
 			self:SetAlpha(1.0)
+		end
+	end)
+
+	f:SetScript("OnHide", function(self)
+		if self.animIn and self.animIn:IsPlaying() then
+			self.animIn:Pause()
+		end
+		if self.animOut and self.animOut:IsPlaying() then
+			self.animOut:Pause()
+		end
+	end)
+
+	f:SetScript("OnShow", function(self)
+		if self.animIn and self.animIn:IsPaused() then
+			self.animIn:Play()
+		end
+		if self.animOut and self.animOut:IsPaused() then
+			self.animOut:Play()
 		end
 	end)
 
@@ -537,17 +501,15 @@ local function SetupButton(f, options)
 		Masque:UpdateSpellAlert(button)
 		button.overlay = old_overlay
 	end
-
-	HookPauseResume(f)
 end
 
 function lib.ButtonGlow_Start(button, options)
 	if not button then return end
-	options = ApplyDefaults(options, ButtonDefaults)
+	options = ApplyDefaults(options, ActionButtonDefaults)
 
 	local w, h = button:GetSize()
-	local xOffset = options.xOffset + w
-	local yOffset = options.yOffset + h
+	local x = options.xOffset + w
+	local y = options.yOffset + h
 
 	local name, f = "_ButtonGlow"
 	if button[name] then
@@ -558,23 +520,22 @@ function lib.ButtonGlow_Start(button, options)
 			f.animIn:Play()
 		end
 	else
-		f = ButtonPool:Acquire()
+		f = GlowFramePool:Acquire()
 		f:SetSize(w*1.5, h*1.5)
 		InitButton(f)
 		f.animIn:Play()
-
 		button[name] = f
 	end
 
 	f:SetParent(button)
-	f:SetFrameLevel(button:GetFrameLevel() + options.frameLevel)
+	f:SetFrameLevel(button:GetFrameLevel())
 
 	f:ClearAllPoints()
-	f:SetPoint("TOPLEFT", button, "TOPLEFT", -xOffset*0.2, yOffset*0.2)
-	f:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", xOffset*0.2, -yOffset*0.2)
+	f:SetPoint("TOPLEFT", button, "TOPLEFT", -x*0.2, y*0.2)
+	f:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", x*0.2, -y*0.2)
 	f.ants:ClearAllPoints()
-	f.ants:SetPoint("TOPLEFT", f, "TOPLEFT", xOffset*0.1, -yOffset*0.1)
-	f.ants:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -xOffset*0.1, yOffset*0.1)
+	f.ants:SetPoint("TOPLEFT", f, "TOPLEFT", x*0.1, -y*0.1)
+	f.ants:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -x*0.1, y*0.1)
 
 	SetupButton(f, options)
 
@@ -591,30 +552,27 @@ function lib.ButtonGlow_Stop(button)
 		-- let it finish
 	elseif f.animIn:IsPlaying() then
 		f.animIn:Stop()
-		ButtonPool:Release(f)
+		GlowFramePool:Release(f)
 	elseif button:IsVisible() then
 		f.animOut:Play()
 	else
-		ButtonPool:Release(f)
+		GlowFramePool:Release(f)
 	end
 end
 
 -- -----------------------
 -- Proc Glow (proc start + loop)
 -- -----------------------
-local ProcPool = CreateFramePool("Frame", Parent)
-
 local function InitProc(f)
 	if not f.inited then
 		f.ProcStart = f:CreateTexture(nil, "OVERLAY")
-		f.ProcStart:SetBlendMode("ADD")
-		f.ProcStart:SetAtlas("UI-HUD-ActionBar-Proc-Start-Flipbook")
-		f.ProcStart:SetAlpha(1)
 		f.ProcStart:SetPoint("CENTER")
+		f.ProcStart:SetAlpha(0)
+		f.ProcStart:SetAtlas("UI-HUD-ActionBar-Proc-Start-Flipbook")
 
 		f.ProcLoop = f:CreateTexture(nil, "OVERLAY")
-		f.ProcLoop:SetAtlas("UI-HUD-ActionBar-Proc-Loop-Flipbook")
 		f.ProcLoop:SetAlpha(0)
+		f.ProcLoop:SetAtlas("UI-HUD-ActionBar-Proc-Loop-Flipbook")
 		f.ProcLoop:ClearAllPoints()
 		f.ProcLoop:SetPoint("TOPLEFT", f, "TOPLEFT")
 		f.ProcLoop:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT")
@@ -673,32 +631,27 @@ local function InitProc(f)
 end
 
 local function SetupProc(f, options)
-	-- 尝试安全地引用并设置 flipbookRepeat 的时长（如果存在）
-	if f.ProcLoopAnim and f.ProcLoopAnim.flipbookRepeat then
-		f.ProcLoopAnim.flipbookRepeat:SetDuration(options.duration)
-	end
-
 	local playing = (f.ProcStartAnim and f.ProcStartAnim:IsPlaying()) or (f.ProcLoopAnim and f.ProcLoopAnim:IsPlaying())
 	if not playing and f._procState == "idle" then
 		local w, h = f:GetSize()
-		f.ProcStart:ClearAllPoints()
-		f.ProcStart:SetPoint("CENTER", f, "CENTER")
-		f.ProcStart:SetPoint("TOPLEFT", f, "CENTER", -(w / 42 * 75) / 1.4, (h / 42 * 75) / 1.4)
-		f.ProcStart:SetPoint("BOTTOMRIGHT", f, "CENTER", (w / 42 * 75) / 1.4, -(h / 42 * 75) / 1.4)
+		f.ProcStart:SetSize((w / 42 * 150) / 1.4, (h / 42 * 150) / 1.4)
 		f.ProcStart:Show()
 		f.ProcLoop:Hide()
 		f.ProcStartAnim:Play()
 		f._procState = "start"
 	end
 
-	-- OnHide: 隐藏时只暂停动画（真正清理由 Stop 函数负责）
 	f:SetScript("OnHide", function(self)
 		if self._procState ~= "idle" then
-			PauseAnims(self)
+			if self.ProcStartAnim and self.ProcStartAnim:IsPlaying() then
+				self.ProcStartAnim:Pause()
+			end
+			if self.ProcLoopAnim and self.ProcLoopAnim:IsPlaying() then
+				self.ProcLoopAnim:Pause()
+			end
 		end
 	end)
 
-	-- OnShow: 恢复因 Hide 而暂停的动画
 	f:SetScript("OnShow", function(self)
 		if self._procState == "start" then
 			if self.ProcStartAnim and self.ProcStartAnim:IsPaused() then
@@ -710,8 +663,6 @@ local function SetupProc(f, options)
 			end
 		end
 	end)
-
-	HookPauseResume(f)
 end
 
 function lib.ProcGlow_Start(button, options)
@@ -719,25 +670,24 @@ function lib.ProcGlow_Start(button, options)
 	options = ApplyDefaults(options, ProcDefaults)
 
 	local w, h = button:GetSize()
-	local xOffset = options.xOffset + w * 0.2
-	local yOffset = options.yOffset + h * 0.2
+	local x = options.xOffset + w * 0.2
+	local y = options.yOffset + h * 0.2
 
 	local name, f = "_ProcGlow"
 	if button[name] then
 		f = button[name]
 	else
-		f = ProcPool:Acquire()
-		f:SetSize(w*1.5, h*1.5)
+		f = GlowFramePool:Acquire()
 		InitProc(f)
 		button[name] = f
 	end
 
 	f:SetParent(button)
-	f:SetFrameLevel(button:GetFrameLevel() + options.frameLevel)
+	f:SetFrameLevel(button:GetFrameLevel())
 
 	f:ClearAllPoints()
-	f:SetPoint("TOPLEFT", button, "TOPLEFT", -xOffset, yOffset)
-	f:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", xOffset, -yOffset)
+	f:SetPoint("TOPLEFT", button, "TOPLEFT", -x, y)
+	f:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", x, -y)
 
 	SetupProc(f, options)
 	f:Show()
@@ -755,24 +705,22 @@ function lib.ProcGlow_Stop(button)
 	if f.ProcLoop then f.ProcLoop:Hide() end
 
 	f._procState = "idle"
-	ProcPool:Release(f)
+	GlowFramePool:Release(f)
 end
 
--- register
-RegisterGlow("Pixel Glow", lib.PixelGlow_Start, lib.PixelGlow_Stop)
-RegisterGlow("Auto Cast Glow", lib.AutoCastGlow_Start, lib.AutoCastGlow_Stop)
 RegisterGlow("Action Button Glow", lib.ButtonGlow_Start, lib.ButtonGlow_Stop)
+RegisterGlow("Auto Cast Glow", lib.AutoCastGlow_Start, lib.AutoCastGlow_Stop)
+RegisterGlow("Pixel Glow", lib.PixelGlow_Start, lib.PixelGlow_Stop)
 RegisterGlow("Proc Glow", lib.ProcGlow_Start, lib.ProcGlow_Stop)
 
--- NDui glue (keep behavior)
 local LCG_GlowList = {
-	[1] = "Pixel Glow",
+	[1] = "Action Button Glow",
 	[2] = "Auto Cast Glow",
-	[3] = "Action Button Glow",
+	[3] = "Pixel Glow",
 	[4] = "Proc Glow"
 }
 local function GetGlowType()
-	return LCG_GlowList[NDuiADB and NDuiADB.GlowMode or 3]
+	return LCG_GlowList[NDuiADB and NDuiADB.GlowMode or 1]
 end
 function lib.ShowOverlayGlow(button)
 	lib.startList[GetGlowType()](button)

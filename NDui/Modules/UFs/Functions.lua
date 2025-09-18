@@ -677,6 +677,7 @@ function UF:CreateCastBar(self)
 	if mystyle ~= "nameplate" and not C.db["UFs"]["Castbars"] then return end
 
 	local plateMargin = C.db["Nameplate"]["PlateMargin"]
+	local healthCastBar = C.db["Nameplate"]["HealthCastBar"]
 
 	local cb = B.CreateSB(self, true, nil, "oUF_Castbar"..mystyle)
 	cb:SetHeight(20)
@@ -699,9 +700,17 @@ function UF:CreateCastBar(self)
 		cb:SetHeight(10)
 	elseif mystyle == "nameplate" then
 		cb:ClearAllPoints()
-		cb:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -plateMargin)
-		cb:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -plateMargin)
-		cb:SetHeight(self:GetHeight())
+		if healthCastBar then
+			cb:SetAllPoints(self.Health)
+			cb:SetFrameLevel(self:GetFrameLevel() + 1)
+			cb.bd:SetBackdropColor(0, 0, 0, 1)
+		else
+			cb:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -plateMargin)
+			cb:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -plateMargin)
+			cb:SetHeight(self:GetHeight())
+			cb:SetFrameLevel(self:GetFrameLevel())
+			cb.bd:SetBackdropColor(0, 0, 0, C.db["Skins"]["SkinAlpha"])
+		end
 	end
 
 	local cbTextSize = styleValue[mystyle] and cb:GetHeight() * 0.6 or cb:GetHeight() * 1.2
@@ -969,10 +978,10 @@ function UF.CustomFilter(element, unit, data)
 			return true
 		else
 			local auraFilter = C.db["Nameplate"]["AuraFilter"]
-			return (auraFilter == 3 and nameplateShowAll) or (auraFilter ~= 1 and data.isPlayerAura)
+			return (auraFilter == 3 and nameplateShowAll) or (auraFilter ~= 1 and isPlayerAura)
 		end
 	else
-		return (element.onlyShowPlayer and data.isPlayerAura) or (not element.onlyShowPlayer and spellName)
+		return (element.onlyShowPlayer and isPlayerAura) or (not element.onlyShowPlayer and spellName)
 	end
 end
 

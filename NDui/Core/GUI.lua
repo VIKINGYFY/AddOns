@@ -343,6 +343,7 @@ G.DefaultSettings = {
 	},
 	Nameplate = {
 		Enable = true,
+		HealthCastBar = false,
 		maxAuras = 18,
 		PlateAuras = true,
 		perRow = 6,
@@ -533,7 +534,7 @@ G.AccountSettings = {
 	NameplateWhite = {},
 	NameplateBlack = {},
 	IgnoreNotes = {},
-	GlowMode = 3,
+	GlowMode = 1,
 	IgnoredRares = "",
 	AvadaIndex = {},
 	AvadaProfile = {},
@@ -1084,7 +1085,7 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{1, "Actionbar", "SendActionCD", HeaderTag..L["SendActionCD"].."*", true, nil, nil, L["SendActionCDTip"]},
 		{1, "Actionbar", "Macro", L["Actionbar Macro"].."*", nil, nil, updateHotkeys},
 		{1, "Actionbar", "Grid", L["Actionbar Grid"].."*", nil, nil, updateHotkeys},
-		{4, "ACCOUNT", "GlowMode", L["GlowMode"], true, {"Pixel", "Autocast", "Action Button", "Proc Glow"}},
+		{4, "ACCOUNT", "GlowMode", L["GlowMode"], true, {"Action Button", "Auto Cast", "Pixel", "Proc"}},
 	},
 	[2] = {
 		{1, "Bags", "Enable", HeaderTag..L["Enable Bags"]},
@@ -1100,7 +1101,7 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{3, "Bags", "BankPerRow", L["BankPerRow"].."*", true, {1, 20, 1}, updateBagAnchor, L["BankPerRowTip"]},
 		{3, "Bags", "IconSize", L["Bags IconSize"].."*", nil, {20, 50, 1}, updateBagSize},
 		{3, "Bags", "FontSize", L["Bags FontSize"].."*", true, {10, 50, 1}, updateBagSize},
-		{3, "Bags", "BagsWidth", L["Bags Width"].."*", false, {10, 40, 1}, updateBagSize},
+		{3, "Bags", "BagsWidth", L["Bags Width"].."*", nil, {10, 40, 1}, updateBagSize},
 		{3, "Bags", "BankWidth", L["Bank Width"].."*", true, {10, 40, 1}, updateBagSize},
 	},
 	[3] = {
@@ -1171,9 +1172,10 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{4, "Nameplate", "HealthType", L["HealthValueType"].."*", true, G.HealthValues, refreshNameplates, L["100PercentTip"]},
 		{}, -- blank
 		{1, "Nameplate", "PlateAuras", HeaderTag..L["PlateAuras"].."*", nil, setupNameplateFilter, refreshNameplates},
+		{1, "Nameplate", "HealthCastBar", L["HealthCastBar"], true},
 		{4, "Nameplate", "DispellMode", L["Dispellable"].."*", nil, {L["Filter"], L["Always"], DISABLE}, refreshNameplates, L["DispellableTip"]},
 		{4, "Nameplate", "AuraFilter", L["NameplateAuraFilter"].."*", true, {L["BlackNWhite"], L["PlayerOnly"], L["IncludeCrowdControl"]}, refreshNameplates},
-		{3, "Nameplate", "maxAuras", L["Max Auras"].."*", false, {10, 30, 1}, refreshNameplates},
+		{3, "Nameplate", "maxAuras", L["Max Auras"].."*", nil, {10, 30, 1}, refreshNameplates},
 		{3, "Nameplate", "perRow", L["IconsPerRow"].."*", true, {5, 10, 1}, refreshNameplates},
 		{}, -- blank
 		{1, "Nameplate", "FriendlyCC", L["Friendly CC"].."*"},
@@ -1211,9 +1213,9 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{1, "Nameplate", "PPGCDTicker", L["PlayerPlate GCDTicker"].."*", nil, nil, toggleGCDTicker},
 		{3, "Nameplate", "PPFadeoutAlpha", L["PlayerPlate FadeoutAlpha"].."*", true, {0, .5, .05}, togglePlateVisibility},
 		{}, -- blank
-		{3, "Nameplate", "PPWidth", L["Width"].."*", false, {100, 500, 1}, refreshNameplates},
+		{3, "Nameplate", "PPWidth", L["Width"].."*", nil, {100, 500, 1}, refreshNameplates},
 		{3, "Nameplate", "PPBarHeight", L["PlayerPlate CPHeight"].."*", true, {2, 15, 1}, refreshNameplates},
-		{3, "Nameplate", "PPHealthHeight", L["PlayerPlate HPHeight"].."*", false, {2, 15, 1}, refreshNameplates},
+		{3, "Nameplate", "PPHealthHeight", L["PlayerPlate HPHeight"].."*", nil, {2, 15, 1}, refreshNameplates},
 		{3, "Nameplate", "PPPowerHeight", L["PlayerPlate MPHeight"].."*", true, {2, 15, 1}, refreshNameplates},
 	},
 	[7] = {
@@ -1283,7 +1285,7 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{1, "Chat", "BlockSpammer", L["BlockSpammer"].."*", nil, nil, nil, L["BlockSpammerTip"]},
 		{1, "Chat", "BlockStranger", "|cffFF0000"..L["BlockStranger"].."*", nil, nil, nil, L["BlockStrangerTip"]},
 		{2, "ACCOUNT", "ChatFilterWhiteList", HeaderTag..L["ChatFilterWhiteList"].."*", true, nil, updateFilterWhiteList, L["ChatFilterWhiteListTip"]},
-		{3, "Chat", "Matches", L["Keyword Match"].."*", false, {1, 3, 1}},
+		{3, "Chat", "Matches", L["Keyword Match"].."*", nil, {1, 3, 1}},
 		{2, "ACCOUNT", "ChatFilterList", L["Filter List"].."*", true, nil, updateFilterList, L["FilterListTip"]},
 		{}, -- blank
 		{1, "Chat", "Invite", HeaderTag..L["Whisper Invite"]},
@@ -1293,7 +1295,7 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 	[10] = {
 		{1, "Map", "DisableMap", "|cffFF0000"..L["DisableMap"], nil, nil, nil, L["DisableMapTip"]},
 		{1, "Map", "MapRevealGlow", L["MapRevealGlow"].."*", true, nil, nil, L["MapRevealGlowTip"]},
-		{3, "Map", "MapScale", L["Map Scale"].."*", false, {.5, 1.5, .1}},
+		{3, "Map", "MapScale", L["Map Scale"].."*", nil, {.5, 1.5, .1}},
 		{3, "Map", "MaxMapScale", L["Maximize Map Scale"].."*", true, {.5, 1, .1}},
 		{}, -- blank
 		{1, "Map", "DisableMinimap", "|cffFF0000"..L["DisableMinimap"], nil, nil, nil, L["DisableMinimapTip"]},
@@ -1378,7 +1380,7 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{2, "Misc", "InfoStrLeft", L["LeftInfobar"].."*", nil, nil, updateInfobarAnchor, L["InfobarStrTip"]},
 		{2, "Misc", "InfoStrRight", L["RightInfobar"].."*", true, nil, updateInfobarAnchor, L["InfobarStrTip"]},
 		{}, -- blank
-		{4, "ACCOUNT", "TexStyle", L["Texture Style"], false, {}},
+		{4, "ACCOUNT", "TexStyle", L["Texture Style"], nil, {}},
 		{4, "ACCOUNT", "NumberFormat", L["Numberize"], true, {L["Number Type1"], L["Number Type2"], L["Number Type3"]}},
 		{2, "ACCOUNT", "CustomTex", L["CustomTex"], nil, nil, nil, L["CustomTexTip"]},
 		{3, "ACCOUNT", "SmoothAmount", L["SmoothAmount"].."*", true, {.1, 1, .05}, updateSmoothingAmount, L["SmoothAmountTip"]},
@@ -1511,7 +1513,7 @@ local function CreateOption(i)
 			cb.__value = value
 			cb.__name = name
 			cb.__callback = callback
-			cb.name = B.CreateFS(cb, 14, name, false, "LEFT", 30, 0)
+			cb.name = B.CreateFS(cb, 14, name, nil, "LEFT", 30, 0)
 			if isNew then AddNewTag(cb, cb.name) end
 			cb:SetChecked(CheckUIOption(key, value))
 			cb:SetScript("OnClick", onCheckboxClick)
@@ -1724,7 +1726,7 @@ local function OpenGUI()
 	B.CreateMF(f)
 	B.CreateBG(f)
 	B.CreateFS(f, 18, L["NDui Console"], true, "TOP", 0, -10)
-	B.CreateFS(f, 16, DB.Version.." ("..DB.Support..")", false, "TOP", 0, -30)
+	B.CreateFS(f, 16, DB.Version.." ("..DB.Support..")", nil, "TOP", 0, -30)
 
 	local contact = B.CreateButton(f, 130, 20, L["Contact"])
 	contact:SetPoint("BOTTOMLEFT", 20, 15)

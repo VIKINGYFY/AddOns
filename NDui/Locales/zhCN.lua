@@ -22,6 +22,7 @@ L["Target Color"] = "目标高亮边框"
 L["Warning Color"] = "危险目标染色"
 L["iExpToShow"] = "资料片版本阈值"
 L["iExpToShowTip"] = "|n低于设置阈值的 部分非装备 将自动归类在 垃圾 分类里，但不会自动出售。|n"..convertExpansionID()
+L["HealthCastBar"] = "施法条覆盖血条"
 
 L["From"] = "来自"
 L["Tell"] = "告诉"

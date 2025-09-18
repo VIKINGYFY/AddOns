@@ -570,6 +570,7 @@ function UF:UpdateNameplateSize()
 	local nameTextSize = C.db["Nameplate"]["NameTextSize"]
 	local healthTextSize = C.db["Nameplate"]["HealthTextSize"]
 	local castbarTextSize = C.db["Nameplate"]["CastBarTextSize"]
+	local healthCastBar = C.db["Nameplate"]["HealthCastBar"]
 
 	local iconSize = plateHeight*2 + plateMargin
 	local nameType = C.db["Nameplate"]["NameType"]
@@ -602,11 +603,16 @@ function UF:UpdateNameplateSize()
 		self.nameText:ClearAllPoints()
 		self.nameText:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, plateMargin)
 		self.nameText:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, plateMargin)
-		self.Castbar:ClearAllPoints()
-		self.Castbar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -plateMargin)
-		self.Castbar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -plateMargin)
-		self.Castbar.Icon:SetPoint("BOTTOMRIGHT", self.Castbar, "BOTTOMLEFT", -plateMargin, 0)
 		self.RaidTargetIndicator:SetPoint("BOTTOMLEFT", self, "TOPRIGHT", C.db["Nameplate"]["RaidTargetX"], C.db["Nameplate"]["RaidTargetY"])
+
+		self.Castbar:ClearAllPoints()
+		if healthCastBar then
+			self.Castbar:SetAllPoints(self.Health)
+		else
+			self.Castbar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -plateMargin)
+			self.Castbar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -plateMargin)
+		end
+		self.Castbar.Icon:SetPoint("BOTTOMRIGHT", self.Castbar, "BOTTOMLEFT", -plateMargin, 0)
 
 		self:Tag(self.nameText, UF.PlateNameTags[nameType])
 		self:Tag(self.healthValue, "[VariousHP("..UF.VariousTagIndex[C.db["Nameplate"]["HealthType"]]..")]")

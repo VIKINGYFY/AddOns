@@ -180,7 +180,7 @@ function TT:OnTooltipSetUnit()
 			rankIndex = rankIndex + 1
 			guildInfo = format("<%s> %s(%s)", guildName, rank, rankIndex)
 
-			if string.len(guildInfo) > 64 then
+			if string.len(guildInfo) > 64 and not isShiftKeyDown then
 				guildInfo = L["Hold Shift"]..GUILD_INFORMATION
 			end
 
