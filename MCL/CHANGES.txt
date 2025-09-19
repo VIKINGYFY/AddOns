@@ -1,10 +1,10 @@
-lightweight tag be4a5614803476f76a0aa288173f12191dc51099 v2.7.7
-Author:	Cameron Liddell <camyana65@gmail.com>
-Date:	Sat Aug 23 12:19:42 2025 +0100
+lightweight tag c0c507bb4d5d3fb95cb0ce19eb418510e96f98b4 v2.7.9
+Author:	Camyana <117818293+Camyana@users.noreply.github.com>
+Date:	Fri Sep 19 10:33:22 2025 +0100
 
-commit be4a5614803476f76a0aa288173f12191dc51099
-Author: Cameron Liddell <camyana65@gmail.com>
-Date:   Sat Aug 23 12:19:42 2025 +0100
+commit c0c507bb4d5d3fb95cb0ce19eb418510e96f98b4
+Author: Camyana <117818293+Camyana@users.noreply.github.com>
+Date:   Fri Sep 19 10:33:22 2025 +0100
 
-    v2.7.7
+    v2.7.9
 

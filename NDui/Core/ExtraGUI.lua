@@ -1578,14 +1578,11 @@ function G:SetupNameplateSize(parent)
 	local scroll = G:CreateScroll(panel, 260, 540)
 	local UF = B:GetModule("UnitFrames")
 
-	createOptionSlider(scroll.child, L["Width"], 50, 300, 200, -30, "PlateWidth", UF.RefreshAllPlates, "Nameplate")
-	createOptionSlider(scroll.child, L["Height"], 5, 30, 10, -100, "PlateHeight", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["Width"], 100, 300, 200, -30, "PlateWidth", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["Height"], 10, 30, 16, -100, "PlateHeight", UF.RefreshAllPlates, "Nameplate")
 	createOptionSlider(scroll.child, L["NameTextSize"], 10, 30, 14, -170, "NameTextSize", UF.RefreshAllPlates, "Nameplate")
-	createOptionSlider(scroll.child, L["HealthTextSize"], 10, 30, 16, -240, "HealthTextSize", UF.RefreshAllPlates, "Nameplate")
-	createOptionSlider(scroll.child, L["CastbarTextSize"], 10, 30, 16, -310, "CastBarTextSize", UF.RefreshAllPlates, "Nameplate")
-	createOptionSlider(scroll.child, L["Plate Margin"], 0, 10, 5, -380, "PlateMargin", UF.RefreshAllPlates, "Nameplate")
-	createOptionSlider(scroll.child, L["RaidTargetX"], -200, 200, 0, -450, "RaidTargetX", UF.RefreshAllPlates, "Nameplate")
-	createOptionSlider(scroll.child, L["RaidTargetY"], -200, 200, 0, -520, "RaidTargetY", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["RaidTargetX"], -200, 200, 0, -240, "RaidTargetX", UF.RefreshAllPlates, "Nameplate")
+	createOptionSlider(scroll.child, L["RaidTargetY"], -200, 200, 0, -310, "RaidTargetY", UF.RefreshAllPlates, "Nameplate")
 end
 
 function G:SetupNameOnlySize(parent)

@@ -391,11 +391,8 @@ G.DefaultSettings = {
 		PlateRange = 45,
 
 		PlateWidth = 200,
-		PlateHeight = 10,
-		PlateMargin = 5,
+		PlateHeight = 16,
 		NameTextSize = 14,
-		HealthTextSize = 16,
-		CastBarTextSize = 16,
 
 		NameOnlyTextSize = 14,
 		NameOnlyTitleSize = 12,

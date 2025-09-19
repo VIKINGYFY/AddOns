@@ -338,7 +338,7 @@ function NS.Script:Load()
 									index = i,
 									title = title,
 									isComplete = false,
-									questID = questID,
+									questID = questID or 0,
 									isOnQuest = false,
 									isTrivial = isTrivial,
 									frequency = frequency,
@@ -483,7 +483,7 @@ function NS.Script:Load()
 
 								do -- CONTEXT ICON
 									local gossipOptionTexture = entries[i].optionType == "option" and options[entries[i].optionIndex].icon
-									local _, texture = addon.ContextIcon.Script:GetContextIcon(entries[i], gossipOptionTexture)
+									local _, texture = addon.ContextIcon:GetContextIcon(entries[i], gossipOptionTexture)
 
 									--------------------------------
 

@@ -491,7 +491,7 @@ do
 
 		for _, texture in pairs(blizzTextures) do
 			local blizzTexture = B.GetObject(self, texture)
-			if blizzTexture then
+			if blizzTexture and type(blizzTexture) == "table" then
 				if blizzTexture:IsObjectType("MaskTexture") then
 					blizzTexture:Hide()
 				elseif blizzTexture:IsObjectType("Texture") then

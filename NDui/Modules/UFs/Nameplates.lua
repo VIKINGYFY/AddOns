@@ -26,8 +26,8 @@ function UF:UpdateClickableSize()
 	if InCombatLockdown() then return end
 
 	local uiScale = NDuiADB["UIScale"]
-	local harmWidth = C.db["Nameplate"]["PlateWidth"] + C.db["Nameplate"]["PlateMargin"] * 2
-	local harmHeight = C.db["Nameplate"]["PlateHeight"] * 2 + C.db["Nameplate"]["PlateMargin"] * 3
+	local harmWidth = C.db["Nameplate"]["PlateWidth"] + DB.margin * 2
+	local harmHeight = C.db["Nameplate"]["PlateHeight"] * 2 + DB.margin * 3
 
 	C_NamePlate.SetNamePlateEnemySize(harmWidth*uiScale, harmHeight*uiScale)
 	C_NamePlate.SetNamePlateFriendlySize(harmWidth*uiScale, harmHeight*uiScale)
@@ -565,14 +565,13 @@ UF.PlateNameTags = {
 	[5] = "[nprare][nplevel][name]",
 }
 function UF:UpdateNameplateSize()
-	local plateWidth, plateHeight = C.db["Nameplate"]["PlateWidth"], C.db["Nameplate"]["PlateHeight"]
-	local plateMargin = C.db["Nameplate"]["PlateMargin"]
+	local plateWidth = C.db["Nameplate"]["PlateWidth"]
+	local plateHeight = C.db["Nameplate"]["PlateHeight"]
 	local nameTextSize = C.db["Nameplate"]["NameTextSize"]
-	local healthTextSize = C.db["Nameplate"]["HealthTextSize"]
-	local castbarTextSize = C.db["Nameplate"]["CastBarTextSize"]
 	local healthCastBar = C.db["Nameplate"]["HealthCastBar"]
 
-	local iconSize = plateHeight*2 + plateMargin
+	local iconSize, fontSize = plateHeight*2 + (healthCastBar and 0 or DB.margin), plateHeight-2
+
 	local nameType = C.db["Nameplate"]["NameType"]
 	local nameOnlyTextSize, nameOnlyTitleSize = C.db["Nameplate"]["NameOnlyTextSize"], C.db["Nameplate"]["NameOnlyTitleSize"]
 
@@ -588,31 +587,30 @@ function UF:UpdateNameplateSize()
 
 		B.SetFontSize(self.nameText, nameTextSize)
 		B.SetFontSize(self.targetName, nameTextSize+4)
-		B.SetFontSize(self.Castbar.Text, castbarTextSize)
-		B.SetFontSize(self.Castbar.Time, castbarTextSize)
-		B.SetFontSize(self.Castbar.spellTarget, castbarTextSize+2)
-		B.SetFontSize(self.healthValue, healthTextSize)
+		B.SetFontSize(self.healthValue, fontSize)
+		B.SetFontSize(self.Castbar.Text, fontSize)
+		B.SetFontSize(self.Castbar.Time, fontSize)
+		B.SetFontSize(self.Castbar.spellTarget, plateHeight)
 
 		self:SetSize(plateWidth, plateHeight)
 		self.Castbar:SetHeight(plateHeight)
-		self.ClassifyIndicator:SetSize(nameTextSize+4, nameTextSize+4)
-
 		self.Castbar.Icon:SetSize(iconSize, iconSize)
 		self.Castbar.glowFrame:SetOutside(self.Castbar.Icon, 3, 3)
+		self.ClassifyIndicator:SetSize(nameTextSize+4, nameTextSize+4)
 
 		self.nameText:ClearAllPoints()
-		self.nameText:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, plateMargin)
-		self.nameText:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, plateMargin)
+		self.nameText:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, DB.margin)
+		self.nameText:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, DB.margin)
 		self.RaidTargetIndicator:SetPoint("BOTTOMLEFT", self, "TOPRIGHT", C.db["Nameplate"]["RaidTargetX"], C.db["Nameplate"]["RaidTargetY"])
 
 		self.Castbar:ClearAllPoints()
 		if healthCastBar then
-			self.Castbar:SetAllPoints(self.Health)
+			self.Castbar:SetAllPoints(self)
 		else
-			self.Castbar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -plateMargin)
-			self.Castbar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -plateMargin)
+			self.Castbar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -DB.margin)
+			self.Castbar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -DB.margin)
 		end
-		self.Castbar.Icon:SetPoint("BOTTOMRIGHT", self.Castbar, "BOTTOMLEFT", -plateMargin, 0)
+		self.Castbar.Icon:SetPoint("BOTTOMRIGHT", self.Castbar, "BOTTOMLEFT", -DB.margin, 0)
 
 		self:Tag(self.nameText, UF.PlateNameTags[nameType])
 		self:Tag(self.healthValue, "[VariousHP("..UF.VariousTagIndex[C.db["Nameplate"]["HealthType"]]..")]")
@@ -712,8 +710,8 @@ function UF:UpdatePlateByType()
 
 		name:ClearAllPoints()
 		name:SetJustifyH("LEFT")
-		name:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, C.db["Nameplate"]["PlateMargin"])
-		name:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, C.db["Nameplate"]["PlateMargin"])
+		name:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, DB.margin)
+		name:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, DB.margin)
 		hpval:Show()
 		title:Hide()
 
@@ -1004,7 +1002,7 @@ function UF:UpdateTargetClassPower()
 	if nameplate then
 		bar:SetParent(nameplate.unitFrame)
 		bar:ClearAllPoints()
-		bar:SetPoint("BOTTOM", nameplate.unitFrame.nameText, "TOP", 0, C.db["Nameplate"]["PlateMargin"])
+		bar:SetPoint("BOTTOM", nameplate.unitFrame.nameText, "TOP", 0, DB.margin)
 		bar:Show()
 	else
 		bar:Hide()

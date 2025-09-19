@@ -30,10 +30,10 @@ local slots = {
 }
 
 local stats = {
-	{ key = "ITEM_MOD_CRIT_RATING_SHORT",    label = "|cffFF0000爆|r" },
-	{ key = "ITEM_MOD_HASTE_RATING_SHORT",   label = "|cffFFFF00急|r" },
-	{ key = "ITEM_MOD_MASTERY_RATING_SHORT", label = "|cff00FF00精|r" },
-	{ key = "ITEM_MOD_VERSATILITY",          label = "|cff00FFFF全|r" },
+	{ key = "ITEM_MOD_CRIT_RATING_SHORT",    label = "|cffFF0000爆|r", value = 0  },
+	{ key = "ITEM_MOD_HASTE_RATING_SHORT",   label = "|cffFFFF00急|r", value = 0  },
+	{ key = "ITEM_MOD_MASTERY_RATING_SHORT", label = "|cff00FF00精|r", value = 0  },
+	{ key = "ITEM_MOD_VERSATILITY",          label = "|cff00FFFF全|r", value = 0  },
 }
 
 --創建面板
@@ -49,11 +49,17 @@ local function GetInspectItemListFrame(parent)
 		frame.specIcon:SetPoint("TOPLEFT", 16, -16)
 		frame.iconBG = B.ReskinIcon(frame.specIcon)
 
-		frame.name = B.CreateFS(frame, 18)
-		B.UpdatePoint(frame.name, "BOTTOMLEFT", frame.specIcon, "RIGHT", 4, -2)
+		frame.unitName = B.CreateFS(frame, 18)
+		frame.unitName:SetJustifyH("LEFT")
+		B.UpdatePoint(frame.unitName, "BOTTOMLEFT", frame.specIcon, "RIGHT", 4, -2)
 
-		frame.info = B.CreateFS(frame, 14)
-		B.UpdatePoint(frame.info, "TOPLEFT", frame.specIcon, "RIGHT", 5, -5)
+		frame.unitInfo = B.CreateFS(frame, 14)
+		frame.unitInfo:SetJustifyH("LEFT")
+		B.UpdatePoint(frame.unitInfo, "BOTTOMLEFT", frame.unitName, "BOTTOMRIGHT", 4, 0)
+
+		frame.unitStas = B.CreateFS(frame, 14)
+		frame.unitStas:SetJustifyH("LEFT")
+		B.UpdatePoint(frame.unitStas, "TOPLEFT", frame.specIcon, "RIGHT", 5, -5)
 
 		local itemFrame
 		for i, v in ipairs(slots) do
@@ -62,7 +68,7 @@ local function GetInspectItemListFrame(parent)
 			itemFrame.index = v.index
 			itemFrame.slot = v.slot
 
-			if (i == 1) then
+			if i == 1 then
 				itemFrame:SetPoint("TOPLEFT", frame.specIcon, "BOTTOMLEFT", 0, -8)
 			else
 				itemFrame:SetPoint("TOPLEFT", frame["item"..(i-1)], "BOTTOMLEFT")
@@ -81,18 +87,15 @@ local function GetInspectItemListFrame(parent)
 
 			itemFrame.itemLevel = B.CreateFS(itemFrame, 16)
 			itemFrame.itemLevel:SetJustifyH("CENTER")
-			itemFrame.itemLevel:ClearAllPoints()
-			itemFrame.itemLevel:SetPoint("LEFT", itemFrame.itemStats4, "RIGHT", DB.margin, 0)
+			B.UpdatePoint(itemFrame.itemLevel, "LEFT", itemFrame.itemStats4, "RIGHT", DB.margin, 0)
 
 			itemFrame.itemName = B.CreateFS(itemFrame, 16)
 			itemFrame.itemName:SetJustifyH("LEFT")
-			itemFrame.itemName:ClearAllPoints()
-			itemFrame.itemName:SetPoint("LEFT", itemFrame.itemLevel, "RIGHT", DB.margin, 0)
+			B.UpdatePoint(itemFrame.itemName, "LEFT", itemFrame.itemLevel, "RIGHT", DB.margin, 0)
 
 			itemFrame.itemInfo = B.CreateFS(itemFrame, 16)
 			itemFrame.itemInfo:SetJustifyH("LEFT")
-			itemFrame.itemInfo:ClearAllPoints()
-			itemFrame.itemInfo:SetPoint("LEFT", itemFrame.itemName, "RIGHT", DB.margin, 0)
+			B.UpdatePoint(itemFrame.itemInfo, "LEFT", itemFrame.itemName, "RIGHT", DB.margin, 0)
 
 			itemFrame:SetScript("OnEnter", function(self)
 				if self.link then
@@ -135,10 +138,12 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 	local frame = GetInspectItemListFrame(parent)
 	frame.unit = unit
 
-	frame.name:SetText("")
-	frame.name:SetTextColor(1, 1, 1)
-	frame.info:SetText("")
-	frame.info:SetTextColor(1, 1, 1)
+	frame.unitName:SetText("")
+	frame.unitName:SetTextColor(1, 1, 1)
+	frame.unitInfo:SetText("")
+	frame.unitInfo:SetTextColor(1, 1, 1)
+	frame.unitStas:SetText("")
+	frame.unitStas:SetTextColor(1, 1, 1)
 
 	frame.specIcon:SetTexture("")
 	frame.specIcon:Hide()
@@ -160,10 +165,14 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 	end
 
 	local r, g, b = B.UnitColor(unit)
-	frame.name:SetFormattedText("%s", UnitName(unit), UnitLevel(unit))
-	frame.name:SetTextColor(r, g, b)
-	frame.info:SetFormattedText("%s - %s - %.1f", specName, UnitLevel(unit), ilevel)
-	frame.info:SetTextColor(1, 1, 0)
+	frame.unitName:SetFormattedText("%s", UnitName(unit))
+	frame.unitName:SetTextColor(r, g, b)
+	frame.unitInfo:SetFormattedText("%s %s %.1f", specName, UnitLevel(unit), ilevel)
+	frame.unitInfo:SetTextColor(0, 1, 1)
+
+	for _, s in ipairs(stats) do
+		s.value = 0
+	end
 
 	for i, v in ipairs(slots) do
 		local level, link, quality, mainType, subType, itemID = LibUnitInfo:GetUnitItemInfo(unit, v.index)
@@ -202,14 +211,25 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 				itemFrame.itemInfo:SetTextColor(r, g, b)
 			end
 
-			local stats = C_Item.GetItemStats(link)
-			if stats then
+			local itemStats = C_Item.GetItemStats(link)
+			if itemStats then
 				for s = 1, 4 do
-					if stats[itemFrame["itemStats"..s].key] then
+					if itemStats[itemFrame["itemStats"..s].key] then
 						itemFrame["itemStats"..s]:SetAlpha(1)
 					end
 				end
+				for _, s in ipairs(stats) do
+					if itemStats[s.key] then
+						s.value = s.value + itemStats[s.key]
+					end
+				end
 			end
+
+			frame.unitStas:SetFormattedText(
+				"|cffFF0000%s: %s|r |cffFFFF00%s: %s|r |cff00FF00%s: %s|r |cff00FFFF%s: %s|r",
+				_G[stats[1].key], B.Numb(stats[1].value), _G[stats[2].key], B.Numb(stats[2].value),
+				_G[stats[3].key], B.Numb(stats[3].value), _G[stats[4].key], B.Numb(stats[4].value)
+			)
 
 			itemFrame:Show()
 		else

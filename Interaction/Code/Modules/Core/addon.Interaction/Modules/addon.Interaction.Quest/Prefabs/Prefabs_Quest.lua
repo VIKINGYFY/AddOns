@@ -599,6 +599,16 @@ function NS.Prefabs:Load()
 							Frame.Image.IconTexture:SetTexCoord(.15, .85, .15, .85)
 						end
 
+						do -- CORNER
+							Frame.Image.Corner, Frame.Image.CornerTexture = addon.API.FrameTemplates:CreateTexture(Frame.Image.Icon, frameStrata, addon.Variables.PATH_ART.."Icons/gold.png", "$parent.Corner", 2)
+							Frame.Image.Corner:SetPoint("TOPRIGHT", Frame.Image.Icon, (REWARD_PADDING / 1.5), (REWARD_PADDING / 1.5))
+							Frame.Image.Corner:SetPoint("BOTTOMLEFT", Frame.Image.Icon, (REWARD_PADDING * 3.5), (REWARD_PADDING * 3.5))
+							Frame.Image.Corner:SetFrameStrata(frameStrata)
+							Frame.Image.Corner:SetFrameLevel(frameLevel + 4)
+							Frame.Image.Corner:Hide()
+							Frame.Image.CornerTexture:SetTexCoord(.05, .95, .05, .95)
+						end
+
 						do -- TEXT
 							Frame.Image.Text = CreateFrame("Frame", "$parent.Text", Frame.Image)
 							Frame.Image.Text:SetPoint("BOTTOM", Frame.Image, 0, REWARD_PADDING / 2)
@@ -792,6 +802,7 @@ function NS.Prefabs:Load()
 								do -- STATE
 									if state == "DEFAULT" then
 										local quality = Frame.Quality
+										local bestPrice = Frame.BestPrice
 										local qualityColors = {
 											[0] = { addon.Theme.Quest.Gradient_Quality_Poor_Start, addon.Theme.Quest.Gradient_Quality_Poor_End, addon.Theme.Quest.Text_Quality_Poor },
 											[1] = { addon.Theme.Quest.Gradient_Quality_Common_Start, addon.Theme.Quest.Gradient_Quality_Common_End, addon.Theme.Quest.Text_Quality_Common },
@@ -813,6 +824,14 @@ function NS.Prefabs:Load()
 										Frame.Label:SetTextColor(COLOR_Text.r, COLOR_Text.g, COLOR_Text.b, 1)
 										Frame.BackgroundTexture:SetVertexColor(COLOR_Background.r, COLOR_Background.g, COLOR_Background.b, COLOR_Background.a)
 										Frame.Image.IconTexture:SetVertexColor(COLOR_Image.r, COLOR_Image.g, COLOR_Image.b, COLOR_Image.a)
+										if Frame.Image.CornerTexture then
+											Frame.Image.CornerTexture:SetVertexColor(COLOR_Image.r, COLOR_Image.g, COLOR_Image.b, COLOR_Image.a)
+											if bestPrice then
+												Frame.Image.Corner:Show()
+											else
+												Frame.Image.Corner:Hide()
+											end
+										end
 										Frame.Image.BackgroundTexture:SetGradient("VERTICAL", GRADIENT_Start, GRADIENT_End)
 									end
 
@@ -905,7 +924,14 @@ function NS.Prefabs:Load()
 									InteractionFrame.GameTooltip:SetQuestItem(Frame.callback.type, Frame.callback:GetID())
 									InteractionFrame.GameTooltip:ShowComparison(InteractionFrame.GameTooltip)
 								elseif (rewardType == "currency") then
-									InteractionFrame.GameTooltip:SetQuestCurrency(Frame.callback.type, Frame.callback:GetID())
+									-- the conditional prevents the error but we still do not know how this rewards section ended up
+									-- with a reference to a "required" or "choice" type child
+									-- method collecting children frames by type fails upstream under some conditions
+									if Frame.callback.type == "reward" then
+										InteractionFrame.GameTooltip:SetQuestCurrency(Frame.callback.type, Frame.callback:GetID())
+									else
+										-- DEBUG?
+									end
 								end
 
 								if (Frame.callback.rewardContextLine) then

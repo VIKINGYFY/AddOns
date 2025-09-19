@@ -293,7 +293,7 @@ end
 function UF:CreateHealthText(self)
 	local mystyle, health = self.mystyle, self.Health
 
-	local hpval = B.CreateFS(self, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["HealthTextSize"]))
+	local hpval = B.CreateFS(self, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["PlateHeight"] - 2))
 	hpval:SetJustifyH("RIGHT")
 	hpval:ClearAllPoints()
 	hpval:SetPoint("RIGHT", health, "RIGHT", -DB.margin, 0)
@@ -676,7 +676,6 @@ function UF:CreateCastBar(self)
 	local mystyle = self.mystyle
 	if mystyle ~= "nameplate" and not C.db["UFs"]["Castbars"] then return end
 
-	local plateMargin = C.db["Nameplate"]["PlateMargin"]
 	local healthCastBar = C.db["Nameplate"]["HealthCastBar"]
 
 	local cb = B.CreateSB(self, true, nil, "oUF_Castbar"..mystyle)
@@ -701,19 +700,19 @@ function UF:CreateCastBar(self)
 	elseif mystyle == "nameplate" then
 		cb:ClearAllPoints()
 		if healthCastBar then
-			cb:SetAllPoints(self.Health)
+			cb:SetAllPoints(self)
 			cb:SetFrameLevel(self:GetFrameLevel() + 1)
 			cb.bd:SetBackdropColor(0, 0, 0, 1)
 		else
-			cb:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -plateMargin)
-			cb:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -plateMargin)
+			cb:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -DB.margin)
+			cb:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -DB.margin)
 			cb:SetHeight(self:GetHeight())
-			cb:SetFrameLevel(self:GetFrameLevel())
-			cb.bd:SetBackdropColor(0, 0, 0, C.db["Skins"]["SkinAlpha"])
+			--cb:SetFrameLevel(self:GetFrameLevel())
+			--cb.bd:SetBackdropColor(0, 0, 0, C.db["Skins"]["SkinAlpha"])
 		end
 	end
 
-	local cbTextSize = styleValue[mystyle] and cb:GetHeight() * 0.6 or cb:GetHeight() * 1.2
+	local cbTextSize = cb:GetHeight() * (styleValue[mystyle] and 0.6 or 1.2)
 	local timer = B.CreateFS(cb, cbTextSize, "", false, "RIGHT", -DB.margin, 0)
 	local name = B.CreateFS(cb, cbTextSize, "", false, "LEFT", DB.margin, 0)
 	name:SetPoint("RIGHT", timer, "LEFT", -DB.margin, 0)
@@ -738,14 +737,14 @@ function UF:CreateCastBar(self)
 		name:SetPoint("LEFT", cb, "LEFT", 0, 0)
 		timer:SetPoint("RIGHT", cb, "RIGHT", 0, 0)
 
-		local iconSize = self:GetHeight() * 2 + plateMargin
+		local iconSize = cb:GetHeight() * 2 + (healthCastBar and 0 or DB.margin)
 		cb.Icon:SetSize(iconSize, iconSize)
-		cb.Icon:SetPoint("BOTTOMRIGHT", cb, "BOTTOMLEFT", -plateMargin, 0)
+		cb.Icon:SetPoint("BOTTOMRIGHT", cb, "BOTTOMLEFT", -DB.margin, 0)
 
 		cb.timeToHold = .5
 		cb.glowFrame = B.CreateGlowFrame(cb.Icon)
 
-		local spellTarget = B.CreateFS(cb, C.db["Nameplate"]["CastBarTextSize"] + 2)
+		local spellTarget = B.CreateFS(cb, cb:GetHeight())
 		spellTarget:ClearAllPoints()
 		spellTarget:SetJustifyH("LEFT")
 		spellTarget:SetPoint("TOPLEFT", cb, "BOTTOMLEFT", 0, -DB.margin)

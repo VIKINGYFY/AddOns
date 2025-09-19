@@ -250,15 +250,15 @@ function NS.LibraryUI.Script:Load()
 					--------------------------------
 
 					if type == "Letter" then
-						if (CurrentEntry.Type == "Parchment" or CurrentEntry.Type == "ParchmentLarge" or not CurrentEntry.Type) and CurrentEntry.NumPages <= 1 then
+						if (CurrentEntry.Type == "Parchment" or CurrentEntry.Type == "ParchmentLarge" or CurrentEntry.Type == "Valentine" or not CurrentEntry.Type) and CurrentEntry.NumPages <= 1 then
 							table.insert(Results, CurrentEntry)
 						end
 					elseif type == "Book" then
-						if (CurrentEntry.Type == "Parchment" or CurrentEntry.Type == "ParchmentLarge" or not CurrentEntry.Type) and CurrentEntry.NumPages > 1 then
+						if (CurrentEntry.Type == "Parchment" or CurrentEntry.Type == "ParchmentLarge" or CurrentEntry.Type == "Valentine" or not CurrentEntry.Type) and CurrentEntry.NumPages > 1 then
 							table.insert(Results, CurrentEntry)
 						end
 					elseif type == "Stone" then
-						if CurrentEntry.Type == "Stone" or CurrentEntry.Type == "Bronze" then
+						if CurrentEntry.Type == "Stone" or CurrentEntry.Type == "Bronze" or CurrentEntry.Type == "Silver" or CurrentEntry.Type == "Marble" or CurrentEntry.Type == "Progenitor" then
 							table.insert(Results, CurrentEntry)
 						end
 					elseif type == "InWorld" then
@@ -356,9 +356,9 @@ function NS.LibraryUI.Script:Load()
 					local NumPages = item.NumPages
 					local IsItemInInventory = item.IsItemInInventory
 
-					local IsLetter = ((Type == "Parchment" or Type == "ParchmentLarge" or not Type) and NumPages == 1)
-					local IsBook = ((Type == "Parchment" or Type == "ParchmentLarge" or not Type) and NumPages > 1)
-					local IsSlate = (Type == "Stone" or Type == "Bronze")
+					local IsLetter = ((Type == "Parchment" or Type == "ParchmentLarge" or Type == "Valentine" or not Type) and NumPages == 1)
+					local IsBook = ((Type == "Parchment" or Type == "ParchmentLarge" or Type == "Valentine" or not Type) and NumPages > 1)
+					local IsSlate = (Type == "Stone" or Type == "Bronze"  or Type == "Silver" or Type == "Marble" or Type == "Progenitor")
 					local IsWorld = (not IsItemInInventory)
 
 					if Type_InWorld then
@@ -616,7 +616,7 @@ function NS.LibraryUI.Script:Load()
 						local ItemBookTexture = NS.Variables.READABLE_UI_PATH .. "Library/element-button-image-book.png"
 						local ItemBookLargeTexture = NS.Variables.READABLE_UI_PATH .. "Library/element-button-image-book-large.png"
 
-						if Type == "Parchment" or Type == "ParchmentLarge" or not Type then
+						if Type == "Parchment" or Type == "ParchmentLarge" or Type == "Valentine" or not Type then
 							if NumPages > 1 then
 								if Type == "ParchmentLarge" then
 									ImageTexture = ItemBookLargeTexture
@@ -628,7 +628,7 @@ function NS.LibraryUI.Script:Load()
 							end
 						end
 
-						if Type == "Stone" or Type == "Bronze" then
+						if Type == "Stone" or Type == "Bronze" or Type == "Silver" or Type == "Marble" or Type == "Progenitor" then
 							ImageTexture = ItemStoneTexture
 						end
 
@@ -874,9 +874,9 @@ function NS.LibraryUI.Script:Load()
 				--------------------------------
 
 				if isLocal then
-					addon.PromptText:ShowTextFrame(L["Readable - Library - TextPrompt - Export - Local"] .. " " .. addon.API.Util:InlineIcon(copyIcon, 17.5, 17.5 * (239 / 64), 0, 0), true, L["Readable - Library - TextPrompt - Export Input Placeholder"], encoded, "Done", function() return true end, true)
+					addon.PromptText.Script:ShowTextFrame(L["Readable - Library - TextPrompt - Export - Local"] .. " " .. addon.API.Util:InlineIcon(copyIcon, 17.5, 17.5 * (239 / 64), 0, 0), true, L["Readable - Library - TextPrompt - Export Input Placeholder"], encoded, "Done", function() return true end, true)
 				else
-					addon.PromptText:ShowTextFrame(L["Readable - Library - TextPrompt - Export - Global"] .. " " .. addon.API.Util:InlineIcon(copyIcon, 17.5, 17.5 * (239 / 64), 0, 0), true, L["Readable - Library - TextPrompt - Export Input Placeholder"], encoded, "Done", function() return true end, true)
+					addon.PromptText.Script:ShowTextFrame(L["Readable - Library - TextPrompt - Export - Global"] .. " " .. addon.API.Util:InlineIcon(copyIcon, 17.5, 17.5 * (239 / 64), 0, 0), true, L["Readable - Library - TextPrompt - Export Input Placeholder"], encoded, "Done", function() return true end, true)
 				end
 			end
 
@@ -893,7 +893,7 @@ function NS.LibraryUI.Script:Load()
 
 				--------------------------------
 
-				addon.PromptText:ShowTextFrame(isLocal and L["Readable - Library - TextPrompt - Import - Local"] or L["Readable - Library - TextPrompt - Import - Global"], true, L["Readable - Library - TextPrompt - Import Input Placeholder"], "", L["Readable - Library - TextPrompt - Import Button 1"], function(_, val)
+				addon.PromptText.Script:ShowTextFrame(isLocal and L["Readable - Library - TextPrompt - Import - Local"] or L["Readable - Library - TextPrompt - Import - Global"], true, L["Readable - Library - TextPrompt - Import Input Placeholder"], "", L["Readable - Library - TextPrompt - Import Button 1"], function(_, val)
 					local success, values = LibraryCallback:Import(val)
 
 					if val ~= "" and success then
