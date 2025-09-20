@@ -570,7 +570,8 @@ function UF:UpdateNameplateSize()
 	local nameTextSize = C.db["Nameplate"]["NameTextSize"]
 	local healthCastBar = C.db["Nameplate"]["HealthCastBar"]
 
-	local iconSize, fontSize = plateHeight*2 + (healthCastBar and 0 or DB.margin), plateHeight-2
+	local iconSize = plateHeight * 2 + (healthCastBar and 0 or DB.margin)
+	local fontSize = math.floor(plateHeight * 0.8)
 
 	local nameType = C.db["Nameplate"]["NameType"]
 	local nameOnlyTextSize, nameOnlyTitleSize = C.db["Nameplate"]["NameOnlyTextSize"], C.db["Nameplate"]["NameOnlyTitleSize"]
@@ -590,7 +591,7 @@ function UF:UpdateNameplateSize()
 		B.SetFontSize(self.healthValue, fontSize)
 		B.SetFontSize(self.Castbar.Text, fontSize)
 		B.SetFontSize(self.Castbar.Time, fontSize)
-		B.SetFontSize(self.Castbar.spellTarget, plateHeight)
+		B.SetFontSize(self.Castbar.spellTarget, nameTextSize+4)
 
 		self:SetSize(plateWidth, plateHeight)
 		self.Castbar:SetHeight(plateHeight)

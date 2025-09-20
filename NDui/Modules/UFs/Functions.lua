@@ -293,7 +293,7 @@ end
 function UF:CreateHealthText(self)
 	local mystyle, health = self.mystyle, self.Health
 
-	local hpval = B.CreateFS(self, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["PlateHeight"] - 2))
+	local hpval = B.CreateFS(self, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["NameTextSize"]))
 	hpval:SetJustifyH("RIGHT")
 	hpval:ClearAllPoints()
 	hpval:SetPoint("RIGHT", health, "RIGHT", -DB.margin, 0)
@@ -707,12 +707,10 @@ function UF:CreateCastBar(self)
 			cb:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -DB.margin)
 			cb:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -DB.margin)
 			cb:SetHeight(self:GetHeight())
-			--cb:SetFrameLevel(self:GetFrameLevel())
-			--cb.bd:SetBackdropColor(0, 0, 0, C.db["Skins"]["SkinAlpha"])
 		end
 	end
 
-	local cbTextSize = cb:GetHeight() * (styleValue[mystyle] and 0.6 or 1.2)
+	local cbTextSize = math.floor(cb:GetHeight() * (styleValue[mystyle] and 0.6 or 1.2))
 	local timer = B.CreateFS(cb, cbTextSize, "", false, "RIGHT", -DB.margin, 0)
 	local name = B.CreateFS(cb, cbTextSize, "", false, "LEFT", DB.margin, 0)
 	name:SetPoint("RIGHT", timer, "LEFT", -DB.margin, 0)
@@ -744,7 +742,7 @@ function UF:CreateCastBar(self)
 		cb.timeToHold = .5
 		cb.glowFrame = B.CreateGlowFrame(cb.Icon)
 
-		local spellTarget = B.CreateFS(cb, cb:GetHeight())
+		local spellTarget = B.CreateFS(cb, C.db["Nameplate"]["NameTextSize"]+4)
 		spellTarget:ClearAllPoints()
 		spellTarget:SetJustifyH("LEFT")
 		spellTarget:SetPoint("TOPLEFT", cb, "BOTTOMLEFT", 0, -DB.margin)
