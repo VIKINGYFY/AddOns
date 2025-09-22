@@ -67,15 +67,6 @@ C.OnLoginThemes["QuestMapFrame"] = function()
 	B.ReskinScroll(QuestScrollFrame.ScrollBar)
 	B.ReskinInput(QuestScrollFrame.SearchBox)
 
-	local tabs = {"QuestsTab", "EventsTab", "MapLegendTab"}
-	for _, name in pairs(tabs) do
-		local tab = QuestMapFrame[name]
-		B.StripTextures(tab, 2)
-
-		tab.bg = B.CreateBG(tab, 1, -4, -5, 4)
-		B.ReskinHLTex(tab.SelectedTexture, tab.bg, true)
-	end
-
 	-- Quest details
 
 	local DetailsFrame = QuestMapFrame.DetailsFrame
@@ -268,4 +259,24 @@ C.OnLoginThemes["QuestMapFrame"] = function()
 			self.ExecuteSessionCommand.normalIcon:SetAtlas(atlas)
 		end
 	end)
+
+	-- Side tabs
+	local function reskinSideTab(tab)
+		if not tab then return end
+
+		B.StripTextures(tab, 2)
+
+		tab.bg = B.CreateBG(tab, 1, -4, -5, 4)
+
+		tab.SelectedTexture:SetDrawLayer("BACKGROUND")
+		B.ReskinHLTex(tab.SelectedTexture, tab.bg, true, true)
+
+		local hl = tab:CreateTexture(nil, "HIGHLIGHT")
+		hl:SetColorTexture(1, 1, 1, .25)
+		hl:SetInside(tab.bg)
+	end
+
+	for _, tab in ipairs(QuestMapFrame.TabButtons) do
+		reskinSideTab(tab)
+	end
 end

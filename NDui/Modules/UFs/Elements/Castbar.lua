@@ -69,7 +69,8 @@ function UF:OnCastbarUpdate(elapsed)
 		end
 		self.duration = duration
 		self:SetValue(duration)
-		self.Spark:SetPoint("CENTER", self, "LEFT", (duration / self.max) * self:GetWidth(), 0)
+		self.Spark:SetPoint("TOP", self:GetStatusBarTexture(), "TOPRIGHT", 0, 15)
+		self.Spark:SetPoint("BOTTOM", self:GetStatusBarTexture(), "BOTTOMRIGHT", 0, -15)
 	elseif self.holdTime > 0 then
 		self.holdTime = self.holdTime - elapsed
 	else

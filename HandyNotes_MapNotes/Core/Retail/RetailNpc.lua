@@ -140,7 +140,7 @@ function ns.PrimeNpcNameCache()
                 sourceFile = node.sourceFile or ns._currentSourceFile or "?"
               }
               if ns.Addon.db.profile.DeveloperMode then
-                print(("%s Missing NPC: %d (mapID: %d, coord: %.2f, file: %s)"):format(ns.COLORED_ADDON_NAME, npcID, mapID, coord, retryQueue[npcID].sourceFile))
+                --print(("%s Missing NPC: %d (mapID: %d, coord: %.2f, file: %s)"):format(ns.COLORED_ADDON_NAME, npcID, mapID, coord, retryQueue[npcID].sourceFile))
               end
             end
           end
@@ -149,16 +149,17 @@ function ns.PrimeNpcNameCache()
   end
 
   ns._npcCacheSuccess = successCount
-  ns._npcCacheFail    = failCount
+  ns._npcCacheFail = failCount
 
   local cachingTextDone = ns.LOCALE_CACHING_DONE[ns.locale] or ns.LOCALE_CACHING_DONE["enUS"] or "update database"
+  local FoundMIssing = ns.LOCALE_FOUND_MISSING[ns.locale] or ns.LOCALE_FOUND_MISSING["enUS"] or "%s %s - %d found, %d missing"
   if ns.Addon.db.profile.DeveloperMode or ns._manualScanActive then
-      print(("%s %s - %d found, %d missing"):format(ns.COLORED_ADDON_NAME, cachingTextDone, successCount, failCount))
+      print((FoundMIssing):format(ns.COLORED_ADDON_NAME, cachingTextDone, successCount, failCount))
   end
 
   if failCount > 0 then
     local cachingText = ns.LOCALE_RETRY[ns.locale] or ns.LOCALE_RETRY["enUS"]
-    print(ns.COLORED_ADDON_NAME .. " " .. cachingText .. " ...")
+      print(ns.COLORED_ADDON_NAME .. " " .. cachingText .. " ...")
     ns.StartRetryQueue()
   end
 end
@@ -287,12 +288,13 @@ function ns.StartRetryQueue()
       end
     end
 
-  if next(retryQueue) == nil then
-    retryTimer:Cancel()
-    retryTimer = nil
-    local cachingText = ns.LOCALE_RETRY_DONE[ns.locale] or ns.LOCALE_RETRY_DONE["enUS"]
-    print(("%s %s - %d found, %d missing"):format(ns.COLORED_ADDON_NAME, cachingText, ns._npcCacheSuccess, ns._npcCacheFail))
-  end
+    local FoundMIssing = ns.LOCALE_FOUND_MISSING[ns.locale] or ns.LOCALE_FOUND_MISSING["enUS"] or "%s %s - %d found, %d missing"
+    if next(retryQueue) == nil then
+      retryTimer:Cancel()
+      retryTimer = nil
+      local cachingText = ns.LOCALE_RETRY_DONE[ns.locale] or ns.LOCALE_RETRY_DONE["enUS"]
+      print((FoundMIssing):format(ns.COLORED_ADDON_NAME, cachingText, ns._npcCacheSuccess, ns._npcCacheFail))
+    end
 
   end)
 end
@@ -412,6 +414,7 @@ end)
 
 function ns.CreateTargetButton(npcName, title)
   if not npcName then return end
+  if InCombatLockdown() then return end
 
   local x, y = GetCursorPosition()
   local scale = UIParent:GetEffectiveScale()
@@ -476,17 +479,18 @@ function ns.CreateTargetButton(npcName, title)
 end
 
 function ns.TryCreateTarget(uiMapId, coord, button)
-  if ns.Addon.db.profile.NpcNameTargeting then 
+  if InCombatLockdown() then return false end
+  if ns.Addon.db.profile.NpcNameTargeting then
     if button ~= "MiddleButton" or not IsShiftKeyDown() then return false end
     
-    local cd    = ns.nodes[uiMapId] and ns.nodes[uiMapId][coord]
+    local cd = ns.nodes[uiMapId] and ns.nodes[uiMapId][coord]
     local npcID = cd and (cd.npcID or cd.npcIDs1)
     if not npcID then return false end
     
     local npcName, npcTitle = ns.GetNpcInfo(npcID)
     if not npcName then return false end
     local fullName = npcTitle and (npcName.." – "..npcTitle) or npcName
-    local colored  = "|cffffd700"..fullName.."|r"
+    local colored = "|cffffd700"..fullName.."|r"
     
     local desiredYards = 102
     
@@ -498,8 +502,8 @@ function ns.TryCreateTarget(uiMapId, coord, button)
     local _, wp = C_Map.GetWorldPosFromMapPos(uiMapId, { x = nx, y = ny })
     if wp then
       local wX, wY, wZ = wp.x, wp.y, wp.z or 0
-      local dx, dy     = pX - wX, pY - wY
-      local distYards  = math.sqrt(dx*dx + dy*dy)
+      local dx, dy = pX - wX, pY - wY
+      local distYards = math.sqrt(dx*dx + dy*dy)
       
       --local distMeters = distYards * 0.9144
       --print( ("%s Entfernung: %.1f Y / %.1f m"):format( ns.COLORED_ADDON_NAME, distYards, distMeters ))
@@ -607,4 +611,18 @@ ns.LOCALE_CACHING_DONE = {
   koKR = [[데이터베이스 확인 완료]],
   zhCN = [[数据库检查完成]],
   zhTW = [[資料庫檢查完成]],
+}
+
+ns.LOCALE_FOUND_MISSING = {
+  enUS = "%s %s - %d found, %d missing",
+  deDE = "%s %s - %d gefunden, %d fehlen",
+  frFR = "%s %s - %d trouvés, %d manquants",
+  esES = "%s %s - %d encontrados, %d faltan",
+  esMX = "%s %s - %d encontrados, %d faltan",
+  itIT = "%s %s - %d trovati, %d mancanti",
+  ptBR = "%s %s - %d encontrados, %d faltando",
+  ruRU = "%s %s - %d найдено, %d отсутствуют",
+  koKR = "%s %s - %d 발견됨, %d 누락됨",
+  zhCN = "%s %s - 已找到 %d 个，缺少 %d 个",
+  zhTW = "%s %s - 已找到 %d 個，缺少 %d 個",
 }

@@ -666,7 +666,7 @@ function UF:ToggleCastBarLatency(frame)
 	frame:RegisterEvent("CURRENT_SPELL_CAST_CHANGED", UF.OnCastSent, true)
 end
 
-local styleValue = {
+local styleList = {
 	["player"] = true,
 	["target"] = true,
 	["focus"] = true,
@@ -710,7 +710,7 @@ function UF:CreateCastBar(self)
 		end
 	end
 
-	local cbTextSize = math.floor(cb:GetHeight() * (styleValue[mystyle] and 0.6 or 1.2))
+	local cbTextSize = math.floor(cb:GetHeight() * (styleList[mystyle] and 0.6 or 1.2))
 	local timer = B.CreateFS(cb, cbTextSize, "", false, "RIGHT", -DB.margin, 0)
 	local name = B.CreateFS(cb, cbTextSize, "", false, "LEFT", DB.margin, 0)
 	name:SetPoint("RIGHT", timer, "LEFT", -DB.margin, 0)
@@ -732,12 +732,15 @@ function UF:CreateCastBar(self)
 
 		UF:ToggleCastBarLatency(self)
 	elseif mystyle == "nameplate" then
-		name:SetPoint("LEFT", cb, "LEFT", 0, 0)
+		timer:ClearAllPoints()
 		timer:SetPoint("RIGHT", cb, "RIGHT", 0, 0)
+
+		name:ClearAllPoints()
+		name:SetPoint("LEFT", cb, "LEFT", 0, 0)
+		name:SetPoint("RIGHT", timer, "LEFT", -DB.margin, 0)
 
 		local iconSize = cb:GetHeight() * 2 + (healthCastBar and 0 or DB.margin)
 		cb.Icon:SetSize(iconSize, iconSize)
-		cb.Icon:SetPoint("BOTTOMRIGHT", cb, "BOTTOMLEFT", -DB.margin, 0)
 
 		cb.timeToHold = .5
 		cb.glowFrame = B.CreateGlowFrame(cb.Icon)
@@ -751,14 +754,9 @@ function UF:CreateCastBar(self)
 		self:RegisterEvent("UNIT_TARGET", updateSpellTarget)
 	end
 
-	if mystyle == "nameplate" or mystyle == "boss" or mystyle == "arena" then
-		cb.decimal = "%.1f"
-	else
-		cb.decimal = "%.2f"
-	end
-
 	cb.Time = timer
 	cb.Text = name
+	cb.decimal = (styleList[mystyle] and "%.2f" or "%.1f")
 	cb.OnUpdate = UF.OnCastbarUpdate
 	cb.PostCastStart = UF.PostCastStart
 	cb.PostCastUpdate = UF.PostCastUpdate

@@ -2,6 +2,16 @@
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "koKR")
 if not L then return end
 
+-- toggle maps
+L["Blocked in combat"] = "전투 중 차단됨"
+L["Required for"] = "필요 대상"
+L["Toggle Maps"] = "지도 전환"
+L["Toggle Maps function is disabled"] = "‘지도 전환’ 기능이 비활성화되었습니다"
+L["Switch after battle"] = "전투 후 전환"
+L["Changing the world map via a MapNotes icon will be done after the battle, as this is no longer possible during the battle without causing an error"] = "MapNotes 아이콘을 통한 월드 맵 변경은 전투가 끝난 후에 실행됩니다. 전투 중에는 오류 없이 더 이상 수행할 수 없습니다"
+L["Shows an information on the screen when a map change has been attempted in battle"] = "전투 중 지도 변경이 시도되었을 때 화면에 알림을 표시합니다"
+L["Enables the ability to toggle the displayed world map by clicking on certain MapNotes icons"] = "일부 MapNotes 아이콘을 클릭하여 표시되는 세계 지도를 전환할 수 있습니다"
+L["This was previously enabled automatically and is now an option to enable or disable"] = "이전에는 자동으로 활성화되었지만 이제는 켜거나 끌 수 있는 옵션입니다"
 -- Flightmaster maps
 L["Button"] = "버튼"
 L["Show the MapNotes button on the Flightmap"] = "비행 경로 지도에 MapNotes 버튼 표시"
@@ -258,6 +268,9 @@ L["Hide the MapNotes button on the worldmap"] = "세계지도에서 Mapnotes 버
 L["hide MapNotes!"] = "MapNotes를 숨기세요!"
 L["Disable MapNotes, all icons will be hidden on each map and all categories will be disabled"] = "MapNotes를 비활성화하면 모든 아이콘이 각 지도에서 숨겨지고 모든 카테고리가 비활성화됩니다"
 L["Adventure guide"] = "모험 가이드"
+L["Adventure guide function is disabled"] = "‘모험 안내서’ 기능이 비활성화되었습니다"
+L["Clicking on an instance icon outside of a zone map does not open the adventure guide, but rather the world map where the instance is located"] = "지역 지도 밖에서 인스턴스 아이콘을 클릭하면 ‘모험 안내서’가 열리지 않고, 대신 해당 인스턴스가 위치한 지역의 세계 지도가 열립니다"
+L["The „Toggle Maps“ function is responsible for this"] = "이는 ‘지도 전환’ 기능 때문입니다"
 L["Left-clicking on a MapNotes raid (green), dungeon (blue) or multiple icon (green&blue) on the map opens the corresponding dungeon or raid map in the Adventure Guide"] = "지도에서 MapNotes 레이드(녹색), 던전(파란색) 또는 여러 아이콘(녹색 및 파란색)을 마우스 왼쪽 버튼으로 클릭하면 모험 가이드에서 해당 던전 또는 레이드 맵이 열립니다"
 L["TomTom waypoints"] = "TomTom 웨이포인트"
 L["extra information"] = "추가 정보"

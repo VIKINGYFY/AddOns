@@ -389,6 +389,7 @@ function UF:AddQuestIcon(self)
 
 	local count = B.CreateFS(self.Health, 20, "", "info")
 	count:SetJustifyH("LEFT")
+	count:ClearAllPoints()
 	count:SetPoint("LEFT", qicon, "RIGHT", -3, 0)
 
 	self.questIcon = qicon
@@ -460,6 +461,7 @@ function UF:ShowUnitTargeted(self)
 
 	local count = B.CreateFS(self.Health, 20, "", "info")
 	count:SetJustifyH("LEFT")
+	count:ClearAllPoints()
 	count:SetPoint("LEFT", ticon, "RIGHT", 0, 0)
 
 	self.targetIcon = ticon
@@ -542,6 +544,7 @@ function UF:UpdateNameplateAuras()
 	if not C.db["Nameplate"]["PlateAuras"] then return end
 
 	local element = self.Auras
+	element:ClearAllPoints()
 	if C.db["Nameplate"]["TargetPower"] then
 		element:SetPoint("BOTTOMLEFT", self.nameText, "TOPLEFT", 0, DB.margin*2 + C.db["Nameplate"]["PPBarHeight"])
 	else
@@ -598,20 +601,7 @@ function UF:UpdateNameplateSize()
 		self.Castbar.Icon:SetSize(iconSize, iconSize)
 		self.Castbar.glowFrame:SetOutside(self.Castbar.Icon, 3, 3)
 		self.ClassifyIndicator:SetSize(nameTextSize+4, nameTextSize+4)
-
-		self.nameText:ClearAllPoints()
-		self.nameText:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, DB.margin)
-		self.nameText:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, DB.margin)
 		self.RaidTargetIndicator:SetPoint("BOTTOMLEFT", self, "TOPRIGHT", C.db["Nameplate"]["RaidTargetX"], C.db["Nameplate"]["RaidTargetY"])
-
-		self.Castbar:ClearAllPoints()
-		if healthCastBar then
-			self.Castbar:SetAllPoints(self)
-		else
-			self.Castbar:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -DB.margin)
-			self.Castbar:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, -DB.margin)
-		end
-		self.Castbar.Icon:SetPoint("BOTTOMRIGHT", self.Castbar, "BOTTOMLEFT", -DB.margin, 0)
 
 		self:Tag(self.nameText, UF.PlateNameTags[nameType])
 		self:Tag(self.healthValue, "[VariousHP("..UF.VariousTagIndex[C.db["Nameplate"]["HealthType"]]..")]")
@@ -908,17 +898,6 @@ function UF:ResizePlayerPlate()
 			local iconSize = (barWidth+C.mult*2 - DB.margin*5)/6
 			for i = 1, 6 do
 				plate.Avada[i]:SetSize(iconSize, iconSize)
-			end
-		end
-		if plate.dices then
-			local parent = C.db["Nameplate"]["TargetPower"] and plate.Health or plate.ClassPowerBar
-			local size = (barWidth - 10)/6
-			for i = 1, 6 do
-				local dice = plate.dices[i]
-				dice:SetSize(size, size/2)
-				if i == 1 then
-					dice:SetPoint("BOTTOMLEFT", parent, "TOPLEFT", 0, DB.margin)
-				end
 			end
 		end
 	end

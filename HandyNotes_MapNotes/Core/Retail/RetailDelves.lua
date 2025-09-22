@@ -10,8 +10,15 @@ function ns.BlizzardDelvesAddTT()
 
     hooksecurefunc(DelveEntrancePinMixin, "OnMouseEnter", function(self)
         if not ns.Addon.db.profile.activate.HideMapNote then
-            GameTooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. " " .. "|cff00ff00" .. "< " .. KEY_BUTTON3 .. " " .. L["to show delve map"] .. " > " .. TextIconMNL4:GetIconString(), nil, nil, false)
-            GameTooltip:Show()
+            if ns.Addon.db.profile.activate.ToggleMap then
+                GameTooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. " " .. "|cff00ff00" .. "< " .. KEY_BUTTON3 .. " " .. L["to show delve map"] .. " > " .. TextIconMNL4:GetIconString(), nil, nil, false)
+                GameTooltip:Show()
+            else
+                if ns.Addon.db.profile.activate.ToggleMapInfo and WorldMapFrame:IsShown() then
+                    GameTooltip:AddDoubleLine(TextIconInfo:GetIconString() .. "|cff00ff00 " .. L["Toggle Maps function is disabled"], nil, nil, false)
+                    GameTooltip:Show()
+                end
+            end
         end
     end)
 end
@@ -24,7 +31,7 @@ function ns.BlizzardDelvesAddFunction()
         ns.BlizzDelveIDs = ns.BlizzDelveAreaPoisInfoIDs[self.poiInfo.areaPoiID] or ns.BlizzBountifulDelveAreaPoisInfoIDs[self.poiInfo.areaPoiID]
         if button == "MiddleButton" and not ns.Addon.db.profile.activate.HideMapNote then
             if ns.BlizzDelveIDs then
-                ns.SafeSetMapID(ns.BlizzDelveIDs)
+                ns.MapNotesOpenMap(ns.BlizzDelveIDs)
             end
         end
     end)

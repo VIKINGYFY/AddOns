@@ -25,8 +25,10 @@ OnTooltipShow = function(tooltip)
     tooltip:AddLine(" ")
     tooltip:AddLine(L["Left-click => Open/Close"] .. " " .. ns.COLORED_ADDON_NAME,1,1,1)
     tooltip:AddLine(L["Shift + Right-click => hide"] .. " " .. "|cffffff00" .. L["-> MiniMapButton <-"],1,1,1)
-    tooltip:AddLine(L["Middle-Mouse-Button => Open/Close"] .. " " .. "|cff00ccff" .. "-> " .. WORLDMAP_BUTTON .." <-",1,1,1)
-
+    if ns.Addon.db.profile.activate.ToggleMap then
+      tooltip:AddLine(L["Middle-Mouse-Button => Open/Close"] .. " " .. "|cff00ccff" .. "-> " .. WORLDMAP_BUTTON .." <-",1,1,1)
+    end
+    tooltip:AddLine(SHIFT_KEY .. " + " .. KEY_BUTTON3 .. "|cff00ccff" .. " -> " .. UIOPTIONS_MENU .. " " .. RELOADUI .. " (" .. SLASH_RELOAD1 .. ")" .." <-",1,1,1)
 
 
   -- Zone without Sync function
@@ -269,14 +271,8 @@ OnTooltipShow = function(tooltip)
     tooltip:Show()
   end
 
-  if ns.Addon and ns.Addon.FullUpdate then
-    ns.Addon:FullUpdate()
-  end
-
-  if HandyNotes and HandyNotes.SendMessage then
-    HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-  end
-
+  ns.Addon:FullUpdate()
+  HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
 end,
 
 OnClick = function(self, button)
@@ -779,25 +775,29 @@ OnClick = function(self, button)
     end
   end
 
-  -- open/close Worldmap
-  if button == "MiddleButton" then
-    ns.SuppressInterfaceBlockedFor(0.8)
-    ns.ArmWorldMapIBShield(43200) -- 12 hours
+  -- reload ui
+  if button == "MiddleButton" and IsShiftKeyDown() then
+    ReloadUI()
+  end
 
-    if WorldMapFrame:IsShown() then
-      ToggleWorldMap()
-      WorldMapFrame:Hide()
-    else
-      ToggleWorldMap()
-      WorldMapFrame:Show()
+  -- open/close Worldmap
+  if button == "MiddleButton" and not IsShiftKeyDown() then
+    if ns.Addon.db.profile.activate.ToggleMap then
+      if not InCombatLockdown() then
+        if WorldMapFrame:IsShown() then
+          WorldMapFrame:Hide()
+        else
+          C_Map.OpenWorldMap()
+        end
+      else
+        if ns.Addon.db.profile.activate.InfoBlockedInCombat then
+          UIErrorsFrame:AddMessage(ns.COLORED_ADDON_NAME .. "\n" .. ns.CombatLocked, 1, 0.82, 0)
+        end
+      end
     end
   end
 
-  if ns.Addon and ns.Addon.FullUpdate then
-    ns.Addon:FullUpdate()
-  end
-
-  if HandyNotes and HandyNotes.SendMessage then
-    HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-  end
-end }
+  ns.Addon:FullUpdate()
+  HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+end 
+}

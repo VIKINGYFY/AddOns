@@ -1,29 +1,269 @@
 local ADDON_NAME, ns = ...
+local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes", true)
+local loc = GetLocale()
+
+function ns.MapNotesOpenMap(mapID, duration)
+  if not mapID then return end
+  local act = ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.activate
+  if not act then return end
+
+  if act.UseInBattle and ns.UnsafeSetMapID then
+    return ns.UnsafeSetMapID(mapID, duration)
+  elseif act.ToggleMap and ns.SafeOpenWorldMap then
+    return ns.SafeOpenWorldMap(mapID, duration)
+  else
+    return
+  end
+end
+
+
+-- disable safe setting
+function ns.ForceUseInBattle(enable, silent)
+  local act = ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.activate
+  if not act then return end
+
+  act._UseInBattleBackup = act._UseInBattleBackup or {}
+  if enable then
+    if not next(act._UseInBattleBackup) then
+      act._UseInBattleBackup.ToggleMap = act.ToggleMap
+      act._UseInBattleBackup.ToggleMapInfo = act.ToggleMapInfo
+      act._UseInBattleBackup.ToggleMapAfterCombat = act.ToggleMapAfterCombat
+      act._UseInBattleBackup.InfoBlockedInCombat = act.InfoBlockedInCombat
+    end
+    act.UseInBattle = true
+    act.ToggleMap = false
+    act.ToggleMapInfo = false
+    act.ToggleMapAfterCombat= false
+    act.InfoBlockedInCombat = false
+  else
+    act.UseInBattle = false
+    if next(act._UseInBattleBackup) then
+      act.ToggleMap = act._UseInBattleBackup.ToggleMap
+      act.ToggleMapInfo = act._UseInBattleBackup.ToggleMapInfo
+      act.ToggleMapAfterCombat = act._UseInBattleBackup.ToggleMapAfterCombat
+      act.InfoBlockedInCombat = act._UseInBattleBackup.InfoBlockedInCombat
+    end
+    act._UseInBattleBackup = {}
+  end
+
+  if ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.MapChanging then
+    ns._MapChangeLastSet = nil
+    if ns.ChangingMapToPlayerZone then ns.ChangingMapToPlayerZone() end
+  end
+
+  ns.Addon:FullUpdate()
+  HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+end
+
+function ns.SyncUseInBattleFromDB()
+  local act = ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.activate
+  if not act then return end
+  ns.ForceUseInBattle(act.UseInBattle, true)
+end
+
+
+-- safe mapchange
+ns.CombatLocked = (ns.LOCALE_COMBAT_LOCKED and (ns.LOCALE_COMBAT_LOCKED[ns.locale] or ns.LOCALE_COMBAT_LOCKED.enUS)) or "Map switching is blocked during combat"
+ns.AfterCombatAllowed = (ns.LOCALE_AFTER_COMBAT_ALLOWED and (ns.LOCALE_AFTER_COMBAT_ALLOWED[ns.locale] or ns.LOCALE_AFTER_COMBAT_ALLOWED.enUS)) or "Map switching blocked in combat – will be executed after combat"
+ns.OpenAfterCombat = (ns.LOCALE_OPEN_AFTER_COMBAT and (ns.LOCALE_OPEN_AFTER_COMBAT[ns.locale] or ns.LOCALE_OPEN_AFTER_COMBAT.enUS)) or "> Map switching executed after combat <"
+
+local pendingMapOpen
+function ns.SafeOpenWorldMap(mapID)
+  if not mapID then return end
+  local act = ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.activate
+  if not act or not act.ToggleMap then return end
+
+  if InCombatLockdown() then
+    if act.ToggleMapAfterCombat then
+      pendingMapOpen = mapID
+      if act.InfoBlockedInCombat then
+        if UIErrorsFrame then
+          UIErrorsFrame:AddMessage(ns.COLORED_ADDON_NAME .. "\n" .. ns.AfterCombatAllowed, 1, 0.82, 0)
+        else
+          print(ns.COLORED_ADDON_NAME .. "\n" .. ns.AfterCombatAllowed)
+        end
+      end
+    else
+      if act.InfoBlockedInCombat then
+        if UIErrorsFrame then
+          UIErrorsFrame:AddMessage(ns.COLORED_ADDON_NAME .. "\n" .. ns.CombatLocked, 1, 0.82, 0)
+        else
+          print(ns.COLORED_ADDON_NAME .. "\n" .. ns.CombatLocked)
+        end
+      end
+    end
+    return
+  end
+
+  C_Map.OpenWorldMap(mapID)
+end
+
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("PLAYER_REGEN_ENABLED")
+frame:SetScript("OnEvent", function()
+  if pendingMapOpen then
+    C_Map.OpenWorldMap(pendingMapOpen)
+    pendingMapOpen = nil
+    local act = ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.activate
+    if act and act.InfoBlockedInCombat then
+      if UIErrorsFrame then
+        UIErrorsFrame:AddMessage(ns.COLORED_ADDON_NAME .. "\n" .. ns.OpenAfterCombat, 1, 0.82, 0)
+      else
+        print(ns.COLORED_ADDON_NAME .. "\n" .. ns.OpenAfterCombat)
+      end
+    end
+  end
+end)
+
+-- blizzard error frame
+local information = (ns.LOCALE_BLOCKPANEL_MSG and (ns.LOCALE_BLOCKPANEL_MSG[loc] or ns.LOCALE_BLOCKPANEL_MSG.enUS)) or "Please reload the UI to return this function to the Blizzard UI."
+local function CreateBlockPanel()
+    if MN_BlockPanel then return end
+
+    local f = CreateFrame("Frame", "MN_BlockPanel", UIParent, "DialogBorderOpaqueTemplate")
+    f:SetSize(360, 90)
+    f:SetFrameStrata("DIALOG")
+    f:Hide()
+
+    if f.SetBackdrop then
+        f:SetBackdrop({
+            bgFile  = "Interface\\Buttons\\WHITE8x8",
+            edgeFile= "Interface\\DialogFrame\\UI-DialogBox-Border",
+            tile = false, edgeSize = 32,
+            insets = { left = 11, right = 12, top = 12, bottom = 11 },
+        })
+        f:SetBackdropColor(0, 0, 0, 0.90)
+    end
+
+    f.title = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    f.title:SetPoint("TOP", f, "TOP", 0, -12)
+    f.title:SetText("|cffff0000Map|r|cff00ccffNotes|r")
+
+    f.msg = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    f.msg:SetPoint("TOP", f.title, "BOTTOM", 0, 0)
+    f.msg:SetWidth(f:GetWidth() - 32)
+    f.msg:SetJustifyH("CENTER")
+    f.msg:SetText(information)
+
+    local BTN_W, BTN_H = 100, 22
+    f.btns = CreateFrame("Frame", nil, f)
+    f.btns:SetPoint("TOP", f.msg, "BOTTOM", 0, -10)
+    f.btns:SetSize(BTN_W, BTN_H)
+
+    f.buttonReload = CreateFrame("Button", nil, f.btns, "StaticPopupButtonTemplate")
+    f.buttonReload:SetSize(BTN_W, BTN_H)
+    f.buttonReload:SetPoint("CENTER", f.btns, "CENTER", -69, -3)
+    f.buttonReload:SetText(RELOADUI)
+    f.buttonReload:SetNormalFontObject("GameFontNormal")
+    f.buttonReload:SetHighlightFontObject("GameFontHighlight")
+    f.buttonReload:SetScript("OnClick", ReloadUI)
+
+    f.buttonIgnore = CreateFrame("Button", nil, f.btns, "StaticPopupButtonTemplate")
+    f.buttonIgnore:SetSize(BTN_W, BTN_H)
+    f.buttonIgnore:SetPoint("CENTER", f.btns, "CENTER", 69, -3)
+    f.buttonIgnore:SetText(IGNORE)
+    f.buttonIgnore:SetNormalFontObject("GameFontNormal")
+    f.buttonIgnore:SetHighlightFontObject("GameFontHighlight")
+    f.buttonIgnore:SetScript("OnClick", function() f:Hide() end)
+
+    MN_BlockPanel = f
+
+    if f:GetName() then
+        table.insert(UISpecialFrames, f:GetName())
+    end
+
+    f:SetScript("OnSizeChanged", function(self)
+        if self.msg then self.msg:SetWidth(self:GetWidth() - 32) end
+        if self.btns then self.btns:SetPoint("TOP", self.msg, "BOTTOM", 0, 0) end
+    end)
+end
+CreateBlockPanel()
+
+-- blizzard popup 
+local function MN_ShowBlockPanelForPopup(which, addonName)
+    if not MN_BlockPanel then return end
+    if which ~= "ADDON_ACTION_FORBIDDEN" and which ~= "ADDON_ACTION_BLOCKED" then
+        MN_BlockPanel:Hide()
+        return
+    end
+
+    local offender = tostring(addonName or "")
+    local isMapNotes = (offender == "HandyNotes_MapNotes")
+
+    C_Timer.After(0.05, function()
+        local target
+        for i = 1, (STATICPOPUP_NUMDIALOGS or 4) do
+            local f = _G["StaticPopup"..i]
+            if f and f:IsShown() and f.which == which then
+                if isMapNotes then
+                    target = f; break
+                end
+                if offender == "" then
+                    local txt = (f.text and f.text.GetText and f.text:GetText()) or ""
+                    if txt:find("HandyNotes_MapNotes", 1, true) then
+                        isMapNotes = true
+                        target = f; break
+                    end
+                end
+            end
+        end
+
+        if target then
+            MN_BlockPanel:ClearAllPoints()
+            MN_BlockPanel:SetPoint("TOPLEFT", target, "BOTTOMLEFT", 0, -2)
+            MN_BlockPanel:SetPoint("TOPRIGHT", target, "BOTTOMRIGHT", 0, -2)
+            MN_BlockPanel:SetScale(target:GetScale() or 1)
+            MN_BlockPanel:Show()
+
+            if not target.MN_BlockPanelHooked then
+                target:HookScript("OnHide", function()
+                    if MN_BlockPanel then MN_BlockPanel:Hide() end
+                end)
+                target.MN_BlockPanelHooked = true
+            end
+        else
+            MN_BlockPanel:Hide()
+        end
+    end)
+end
+
+hooksecurefunc("StaticPopup_Show", function(which, text1)
+    MN_ShowBlockPanelForPopup(which, text1)
+end)
+
+hooksecurefunc("StaticPopup_Hide", function(which)
+    if which == "ADDON_ACTION_FORBIDDEN" or which == "ADDON_ACTION_BLOCKED" then
+        if MN_BlockPanel then MN_BlockPanel:Hide() end
+    end
+end)
+
+-- unsafe function to change map
+local function UseInBattleActive()
+  return ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.activate and ns.Addon.db.profile.activate.UseInBattle
+end
 
 ns._suppressBlockedUntil = ns._suppressBlockedUntil or 0
-
 function ns.SuppressInterfaceBlockedFor(seconds)
+  if not UseInBattleActive() then return end
   local dur = seconds or 0.8
   ns._suppressBlockedUntil = GetTime() + dur
-
   BS_ApplySilence()
   ArmWindowRestore(dur)
-
   ns.PurgeOurTaintsNow()
   C_Timer.After(0.05, ns.PurgeOurTaintsNow)
   C_Timer.After(dur + 0.02, ns.PurgeOurTaintsNow)
-
-  _ScheduleMapNotesTaintWipes(dur)
 end
 
 ns._wmIBShieldArmedUntil = ns._wmIBShieldArmedUntil or 0
 
 function ns.ArmWorldMapIBShield(maxSeconds)
+  if not UseInBattleActive() then return end
   local dur = maxSeconds or 10
   ns._wmIBShieldArmedUntil = GetTime() + dur
 end
 
 local function MN_WorldMap_OnShow_Arm()
+  if not UseInBattleActive() then return end
   if InCombatLockdown() and GetTime() <= (ns._wmIBShieldArmedUntil or 0) then
     ns.SuppressInterfaceBlockedFor(2.0)
     ns._wmIBShieldArmedUntil = 0
@@ -34,6 +274,7 @@ ns._mnIBShieldEv = ns._mnIBShieldEv or CreateFrame("Frame")
 ns._mnIBShieldEv:UnregisterAllEvents()
 ns._mnIBShieldEv:RegisterEvent("PLAYER_REGEN_DISABLED")
 ns._mnIBShieldEv:SetScript("OnEvent", function()
+  if not UseInBattleActive() then return end
   if GetTime() <= (ns._wmIBShieldArmedUntil or 0) then
     ns.SuppressInterfaceBlockedFor(2.0)
     ns._wmIBShieldArmedUntil = 0
@@ -53,15 +294,9 @@ local function TryHookWorldMap()
   end
 end
 
-function ns.SafeSetMapID(mapID, duration)
+function ns.UnsafeSetMapID(mapID, duration)
+  if not UseInBattleActive() then return end
   if not mapID then return end
-
-  --if ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode then
-  --  if WorldMapFrame and WorldMapFrame.SetMapID then
-  --    WorldMapFrame:SetMapID(mapID)
-  --  end
-  --  return
-  --end
 
   ns.SuppressInterfaceBlockedFor(duration or 0.8)
   ns.ArmWorldMapIBShield(43200) --12 hours
@@ -80,7 +315,7 @@ function ns.SafeSetMapID(mapID, duration)
   end
 end
 
-TryHookWorldMap()
+if UseInBattleActive() then TryHookWorldMap() end
 
 local function EarlySuppressIfArmed()
   if InCombatLockdown() and GetTime() <= (ns._wmIBShieldArmedUntil or 0) then
@@ -114,7 +349,7 @@ local function TryHookWorldMapEarly()
   end
 end
 
-TryHookWorldMapEarly()
+if UseInBattleActive() then TryHookWorldMapEarly() end
 
 local _f = ns._mnEarlyEv or CreateFrame("Frame")
 ns._mnEarlyEv = _f
@@ -122,6 +357,7 @@ _f:UnregisterAllEvents()
 _f:RegisterEvent("PLAYER_LOGIN")
 _f:RegisterEvent("ADDON_LOADED")
 _f:SetScript("OnEvent", function(_, event, arg1)
+  if not UseInBattleActive() then return end
   if event == "PLAYER_LOGIN" then
     TryHookWorldMapEarly()
   elseif event == "ADDON_LOADED" and (arg1 == "Blizzard_WorldMap" or arg1 == "Blizzard_UIParentPanelManager") then
@@ -133,6 +369,7 @@ local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_LOGIN")
 f:RegisterEvent("ADDON_LOADED")
 f:SetScript("OnEvent", function(_, event, arg1)
+  if not UseInBattleActive() then return end
   if event == "PLAYER_LOGIN" then
     TryHookWorldMap()
   elseif event == "ADDON_LOADED" and arg1 == "Blizzard_WorldMap" then
@@ -141,6 +378,7 @@ f:SetScript("OnEvent", function(_, event, arg1)
 end)
 
 function ns.TrySetPropagate(btn, value)
+  if not UseInBattleActive() then return end
   ns.SuppressInterfaceBlockedFor(0.8)
   local ok, err = pcall(btn.SetPropagateMouseClicks, btn, value)
   return ok, err
@@ -157,34 +395,19 @@ end
 local function IsMapNotesSetPropagateTaintMsg(msg)
   if type(msg) ~= "string" then return false end
   local m = msg:lower()
-  return m:find("addon_action_blocked", 1, true)
-     and m:find("handynotes_mapnotes", 1, true)
-     and (m:find("setpropagatemouseclicks", 1, true) 
-     or m:find(":setpropagatemouseclicks", 1, true) 
-     or m:find("setpassthroughbuttons", 1, true)
-     or m:find(":setpassthroughbuttons", 1, true))
+  return m:find("addon_action_blocked", 1, true) and m:find("handynotes_mapnotes", 1, true) and (m:find("setpropagatemouseclicks", 1, true) 
+      or m:find(":setpropagatemouseclicks", 1, true) or m:find("setpassthroughbuttons", 1, true) or m:find(":setpassthroughbuttons", 1, true))
 end
 
-local bugSackTriggers = {
-  deDE="bugsack: du hast einen fehler entdeckt", 
-  enUS="bugsack: you have found an error",
-  enGB="bugsack: you have found an error", 
-  frFR="bugsack: vous avez trouvé une erreur",
-  esES="bugsack: ¡ha ocurrido un error!", 
-  esMX="bugsack: ¡ha ocurrido un error!",
-  itIT="bugsack: hai trovato un bug", 
-  ptBR="bugsack: você encontrou um erro",
-  ruRU="bugsack: у тебя муха в супе", 
-  zhCN="bugsack: 这里有一个恶心的错误",
-  zhTW="bugsack: 在你的湯裡有一隻臭蟲啊！", 
-  koKR="bugsack: 수프에 벌레가 있습니다",
-}
-
 local function ShouldBlockChat(raw)
+  if not UseInBattleActive() then
+    return false
+  end
+
   local s = StripWoWCodes(raw):lower()
   local inWindow = GetTime() <= (ns._suppressBlockedUntil or 0)
 
-  local iab = (INTERFACE_ACTION_BLOCKED and INTERFACE_ACTION_BLOCKED:lower()) or "interface action failed because of an addon"
+  local iab  = (INTERFACE_ACTION_BLOCKED and INTERFACE_ACTION_BLOCKED:lower()) or "interface action failed because of an addon"
   local iabm = (INTERFACE_ACTION_BLOCKED_MODULAR and INTERFACE_ACTION_BLOCKED_MODULAR:lower()) or ""
   local isInterfaceBlocked = (iab ~= "" and s:find(iab,1,true)) or (iabm ~= "" and s:find(iabm,1,true))
 
@@ -194,7 +417,7 @@ local function ShouldBlockChat(raw)
   end
 
   if inWindow then
-    local trigger = bugSackTriggers[GetLocale()]
+    local trigger = ns.bugSackTriggers[GetLocale()]
     if trigger and s:find(trigger:lower(), 1, true) then
       return true
     end
@@ -225,6 +448,7 @@ local function InstallChatHooks()
 end
 
 local function PatchBugGrabber()
+  if not UseInBattleActive() then return end
   if not BugGrabber then return end
   local target = BugGrabber
   local mt = getmetatable(BugGrabber)
@@ -244,8 +468,8 @@ local function PatchBugGrabber()
   end
 end
 
-
 local function PatchBugSack()
+  if not UseInBattleActive() then return end
   if not BugSack then return end
   local remain = (ns._suppressBlockedUntil or 0) - GetTime()
   if remain > 0 then
@@ -255,7 +479,6 @@ local function PatchBugSack()
 end
 
 ns.__BS = ns.__BS or { active=false, guard_id=0, origMute=nil, origAuto=nil, origChat=nil, origOpenSack=nil }
-
 local function _ShouldBlockAutoOpenNow()
   if GetTime() > (ns._suppressBlockedUntil or 0) then return false end
   if type(debugstack) ~= "function" then return true end
@@ -264,6 +487,7 @@ local function _ShouldBlockAutoOpenNow()
 end
 
 function BS_ApplySilence()
+  if not UseInBattleActive() then return false end
   if not BugSack or not BugSack.db then return false end
 
   if not ns.__BS.active then
@@ -300,10 +524,9 @@ local function BS_RestoreSilence()
   ns.__BS.origMute, ns.__BS.origAuto, ns.__BS.origChat, ns.__BS.origOpenSack = nil, nil, nil, nil
 end
 
-
-
 ns.__SND = ns.__SND or { active=false, guard_id=0, origPS=nil, origPSF=nil }
 function SoundGate_Apply()
+  if not UseInBattleActive() then return end
   if ns.__SND.active then return end
   ns.__SND.origPS  = ns.__SND.origPS  or _G.PlaySound
   ns.__SND.origPSF = ns.__SND.origPSF or _G.PlaySoundFile
@@ -333,6 +556,7 @@ function SoundGate_Apply()
 end
 
 function ArmWindowRestore(duration)
+  if not UseInBattleActive() then return end
   local dur = duration or (ns._suppressBlockedUntil - GetTime())
   local delay = math.max(0.05, (dur or 0) + 0.01)
 
@@ -363,6 +587,7 @@ local function _purgeList(list)
 end
 
 function ns.PurgeOurTaintsNow()
+  if not UseInBattleActive() then return 0 end
   local removed = 0
 
   if BugGrabber then
@@ -399,6 +624,7 @@ function ns.PurgeOurTaintsNow()
 end
 
 function ns.WipeStoredMapNotesTaints()
+  if not UseInBattleActive() then return 0 end
   local db = _G.BugGrabberDB
   if not db or type(db.errors) ~= "table" then return 0 end
 
@@ -421,6 +647,7 @@ function ns.WipeStoredMapNotesTaints()
 end
 
 function _ScheduleMapNotesTaintWipes(duration)
+  if not UseInBattleActive() then return end
   local d = duration or 0.8
   local deadline = GetTime() + d + 0.05
   ns.WipeStoredMapNotesTaints()

@@ -2126,7 +2126,7 @@ do
 		self:SetAllPoints(relativeTo)
 	end
 
-	function B:ReskinHLTex(relativeTo, classColor)
+	function B:ReskinHLTex(relativeTo, classColor, isVertex)
 		if not self then return end
 
 		local r, g, b = 1, 1, 1
@@ -2134,16 +2134,24 @@ do
 
 		local tex
 		if self.SetHighlightTexture then
+			self:SetHighlightTexture(DB.bdTex)
 			tex = self:GetHighlightTexture()
 		elseif self.SetNormalTexture then
+			self:SetNormalTexture(DB.bdTex)
 			tex = self:GetNormalTexture()
 		elseif self.SetTexture then
+			self:SetTexture(DB.bdTex)
 			tex = self
 		end
 
 		if tex then
 			tex:SetBlendMode("ADD")
-			tex:SetColorTexture(r, g, b, .25)
+
+			if isVertex then
+				tex:SetVertexColor(r, g, b, .25)
+			else
+				tex:SetColorTexture(r, g, b, .25)
+			end
 
 			if relativeTo then
 				tex:SetInside(relativeTo)

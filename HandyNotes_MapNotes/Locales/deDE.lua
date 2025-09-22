@@ -2,6 +2,16 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "deDE")
 if not L then return end
 
+-- toggle maps
+L["Blocked in combat"] = "Im Kampf blockiert"
+L["Required for"] = "Benötigt für"
+L["Toggle Maps"] = "Karten umschalten"
+L["Toggle Maps function is disabled"] = "Die Funktion „Karten umschalten“ ist deaktiviert"
+L["Switch after battle"] = "Nach Kampf wechseln"
+L["Changing the world map via a MapNotes icon will be done after the battle, as this is no longer possible during the battle without causing an error"] = "Das Ändern der Weltkarte über ein MapNotes-Symbol wird nach dem Kampf durchgeführt, da dies während des Kampfes nicht mehr ohne Fehler möglich ist"
+L["Shows an information on the screen when a map change has been attempted in battle"] = "Zeigt eine Meldung auf dem Bildschirm an, wenn im Kampf ein Kartenwechsel versucht wurde"
+L["Enables the ability to toggle the displayed world map by clicking on certain MapNotes icons"] = "Ermöglicht es, die angezeigte Weltkarte durch Klicken auf bestimmte MapNotes-Symbole umzuschalten"
+L["This was previously enabled automatically and is now an option to enable or disable"] = "Dies war zuvor automatisch aktiviert und ist nun eine Option zum Ein- oder Ausschalten"
 -- Flightmaster maps
 L["Button"] = "Knopf"
 L["Show the MapNotes button on the Flightmap"] = "Zeige den MapNotes Knopf auf der Flugkarte"
@@ -42,7 +52,7 @@ L["< Right Click to show map >"] = "< Zum Anzeigen der Karte rechtssklicken >"
 L["< Left Click sets a waypoint on a MapNotes icon >"] = "< Linksklick setzt einen Wegpunkt auf ein MapNotes Symbol >"
 L["Right-clicking on a symbol on this map type opens the corresponding map in which the symbol is located"] = "Ein Rechtsklick auf ein Symbol auf diesem Kartentyp öffnet die entsprechende Karte, in dem sich das Symbol befindet"
 L["Right-clicking on a MapNotes raid (green), dungeon (blue) or multiple icon (green&blue) on the map opens the corresponding dungeon or raid map in the Adventure Guide"] = "Ein Rechtsklick auf einen MapNotes-Raid (grün), Dungeon (blau) oder mehrere Symbole (grün und blau) auf der Karte öffnet die entsprechende Dungeon- oder Raid-Karte im Abenteuerführer"
-L["Right-clicking on a multiple icon will open the map where the dungeons are located"] = "Wenn Sie mit der rechten Maustaste auf ein Mehrfachsymbol klicken, wird die Karte geöffnet, auf der sich die Dungeons befinden"
+L["Right-clicking on a multiple icon will open the map where the dungeons are located"] = "Wenn Sie mit der rechten Maustaste auf ein Mehrfachsymbol klicken, wird die Weltkarte geöffnet, auf der sich die Dungeons befinden"
 -- Races
 L["These icons disappear from the map after discovery"] = "Diese Symbole verschwinden nach der Entdeckung von der Karte"
 L["However, they can be displayed again in the General tab under Advanced Options using the 'Races +' option"] = "Sie können jedoch im Reiter Allgemein unter Erweiterte Optionen mit der Option 'Völker +' wieder angezeigt werden"
@@ -258,13 +268,16 @@ L["Hide the MapNotes button on the worldmap"] = "MapNotes-Knopf auf der Weltkart
 L["hide MapNotes!"] = "MapNotes ausblenden!"
 L["Disable MapNotes, all icons will be hidden on each map and all categories will be disabled"] = "MapNotes deaktivieren, alle Symbole werden auf jeder Karte ausgeblendet und alle Kategorien werden deaktiviert"
 L["Adventure guide"] = "Abenteuerführer"
+L["Adventure guide function is disabled"] = "Die Funktion „Abenteuerführer“ ist deaktiviert"
+L["Clicking on an instance icon outside of a zone map does not open the adventure guide, but rather the world map where the instance is located"] = "Ein Klick auf ein Instanzsymbol außerhalb einer Zonenkarte öffnet nicht den Abenteuerführer, sondern die Weltkarte der Zone, in der sich die Instanz befindet"
+L["The „Toggle Maps“ function is responsible for this"] = "Die Funktion „Karten umschalten“ ist dafür verantwortlich"
 L["Left-clicking on a MapNotes raid (green), dungeon (blue) or multiple icon (green&blue) on the map opens the corresponding dungeon or raid map in the Adventure Guide"] = "Ein Linksklick auf einen MapNotes-Raid (grün), Dungeon (blau) oder mehrere Symbole (grün und blau) auf der Karte öffnet die entsprechende Dungeon- oder Raid-Karte im Abenteuerführer"
 L["TomTom waypoints"] = "TomTom-Wegpunkte"
 L["extra information"] = "Zusatzinformation"
 L["gray single"] = "Einzelne Grau"
 L["Colors only individual points of assigned dungeons and raids in gray (if you have an ID)"] = "Färbt nur einzelpunkte zugewiesener Dungeons und Raids in grau(wenn Sie eine ID haben)"
 L["gray all"] = "Alle Grau"
-L["Colors EVERYONE! Assigned dungeons and raids also have multiple points in gray (if you have an ID)"] = "Färbt ALLE! zugewiesenen Dungeons und Raids grau auch Mehrfachpunkte (wenn du eine ID hast)"
+L["Colors EVERYONE! Assigned dungeons and raids also have multiple points in gray (if you have an ID)"] = "Färbt ALLE! zugewiesenen Dungeons und Raids grau auch Mehrfachpunkte (wenn Sie eine ID haben)"
 L["enemy faction"] = "Feindliche Fraktion"
 L["Shows enemy faction (horde/alliance) icons"] = "Zeigt Symbole der feindlichen Fraktion (Horde/Allianz)"
 L["However, this only applies to the Azeroth & continent map. Not for Zones + & Capital + category. These have their own activation option for opposing players"] = "Dies gilt jedoch nur für die Azeroth & Kontinent-Karten. Nicht für die Karten der Kategorie „Zonen +“ und „Hauptstadt +“. Diese verfügen über eine eigene Aktivierungsmöglichkeit für gegnerische Spieler"

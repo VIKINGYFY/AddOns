@@ -1,6 +1,6 @@
 local _, ns = ...
 local buildVersion, buildNumber, buildDate, interfaceVersion, localizedVersion, buildInfo = GetBuildInfo()
-ns.version = buildVersion -- ns.version == "11.1.0"
+ns.version = buildVersion -- ns.version == "12.2.0"
 
 local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes", true)
 if not HandyNotes then return end
@@ -19,37 +19,55 @@ local lfgIDs = { }
 local extraInformations = { }
 
 ns.RestoreStaticPopUpsRetail() -- StaticPopUps.lua
-ns.ErrorMessages() -- RetailErrorMessage.lua
+if ns.ErrorMessages then ns.ErrorMessages() end -- RetailErrorMessage.lua
 
 function MapNotesMiniButton:OnInitialize() --mmb.lua
   self.db = LibStub("AceDB-3.0"):New("MNMiniMapButtonRetailDB", { profile = { minimap = { hide = false, }, }, }) 
   MNMMBIcon:Register("MNMiniMapButton", ns.miniButton, self.db.profile.minimap)
 end
 
-local function updateextraInformation()
-  table.wipe(extraInformations)
+ns.alreadyWarned = ns.alreadyWarned or {}
+SLASH_DeveloperMode1 = "/mndevmode";
+function SlashCmdList.DeveloperMode(msg, editbox)
+  if ns.Addon.db.profile.DeveloperMode then
+    ns.Addon.db.profile.DeveloperMode = false
+    print("MapNotes DeveloperMode = Off")
+  else
+    ns.Addon.db.profile.DeveloperMode = true
+    print("MapNotes DeveloperMode = On")
 
-  for i = 1, GetNumSavedInstances() do
-    local name, _, _, _, locked, _, _, _, _, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(i)
-    if locked then
-      local entry = extraInformations[name]
-      if not entry then
-        entry = {}
-        extraInformations[name] = entry
-      end
-      entry[difficultyName] = {
-        progress = encounterProgress,
-        total = numEncounters
-      }
+    if ns.alreadyWarned then
+      table.wipe(ns.alreadyWarned)
+    end
+
+    if ns._MN_dbgSeen then
+      table.wipe(ns._MN_dbgSeen)
+    end
+
+    ns.RunDeveloperValidation()
+  end
+end
+
+function ns.RunDeveloperValidation()
+  if not (ns.Addon and ns.Addon.db and ns.Addon.db.profile.DeveloperMode) then return end
+
+  for mapID, mapNodes in pairs(ns.nodes or {}) do
+    for coord, value in pairs(mapNodes) do
+      ns.ValidateNodeEntry(value, coord, mapID, value and value.sourceFile or "?")
+    end
+  end
+
+  for mapID, mapNodes in pairs(ns.minimap or {}) do
+    for coord, value in pairs(mapNodes) do
+      ns.ValidateNodeEntry(value, coord, mapID, value and value.sourceFile or "?")
     end
   end
 end
 
-local alreadyWarned = {}
 function ns.ValidateNodeEntry(value, coord, uiMapID, sourceFile)
 
   local warnKey = tostring(uiMapID) .. ":" .. tostring(coord)
-  if alreadyWarned[warnKey] then return end
+  if ns.alreadyWarned[warnKey] then return end
 
   local missing = {}
   if not value.name and not value.id then
@@ -70,70 +88,72 @@ function ns.ValidateNodeEntry(value, coord, uiMapID, sourceFile)
   end
 
   if #missing > 0 then
-    print("|cffff0000[MapNotes]|r Error: Missing entry: " .. table.concat(missing, " and ") .. "\n • type[mapID][coords]: " .. dataSource .. "[" .. coordStr .. "]" .. "\n • File: " .. source)
-    alreadyWarned[warnKey] = true
+    print(ns.COLORED_ADDON_NAME, ERRORS .. " • Datei: " .. tostring(source) ..  " • Zeile: " .. tostring(dataSource) .. "[" .. coordStr .. "]")
+    ns.alreadyWarned[warnKey] = true
     return nil
   end
 
   if hideInAllViews then
-    print("|cffff0000[MapNotes]|r Error: showInZone, showOnContinent, showOnMinimap are all set to false!" .. "\n • type[mapID][coords]: " .. dataSource .. "[" .. coordStr .. "]" .. "\n • File: " .. source)
-    alreadyWarned[warnKey] = true
+    print(ns.COLORED_ADDON_NAME, ERRORS .. " • showInZone, showOnContinent, showOnMinimap alles zugleich deaktiviert!" .. "\n • Datei: " .. tostring(source) ..  " • Zeile: " .. tostring(dataSource) .. "[" .. coordStr .. "]")
+    ns.alreadyWarned[warnKey] = true
   end
 
   local visibleEverywhere = value.showInZone and value.showOnContinent and value.showOnMinimap
   if visibleEverywhere then
-    print("|cffffff00[MapNotes]|r Hinweis: Icon ist überall sichtbar!" .. "\n • type[mapID][coords]: " .. dataSource .. "[" .. coordStr .. "]" .. "\n • File: " .. source)
-    alreadyWarned[warnKey] = true
+    print(ns.COLORED_ADDON_NAME, ERRORS .. " • showInZone, showOnContinent, showOnMinimap alles zugleich aktiviert!" .. "\n • Datei: " .. tostring(source) ..  " • Zeile: " .. tostring(dataSource) .. "[" .. coordStr .. "]")
+    ns.alreadyWarned[warnKey] = true
   end
 end
 
 local function LoadAndCheck(loadFunc, self)
+  local prevNodes, prevMinimap = ns.nodes, ns.minimap
+  local function newAuto() return setmetatable({}, { __index = function(t,k) local v={} rawset(t,k,v); return v end }) end
+  local tempNodes, tempMinimap = newAuto(), newAuto()
+  ns.nodes, ns.minimap = tempNodes, tempMinimap
 
-  if type(loadFunc) == "function" then
-    loadFunc(self)
-  end
-
-  -- no DeveloperMode active
-  if not (ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode) then
-    return
-  end
-
-  local previousNodes = ns.nodes
-  local tempNodes = {}
-
-  setmetatable(tempNodes, {
-    __index = function(t, k)
-      local new = {}
-      rawset(t, k, new)
-      return new
-    end
-  })
-
-  ns.nodes = tempNodes
-
-  local previousSource = ns._currentSourceFile
+  local prevSource = ns._currentSourceFile
   ns._currentSourceFile = nil
+  if type(loadFunc) == "function" then loadFunc(self) end
 
-  loadFunc(self)
-
-  local currentSource = ns._currentSourceFile or previousSource or "?"
-
-  for mapID, mapNodes in pairs(tempNodes) do
-    for coord, value in pairs(mapNodes) do
-      ns.ValidateNodeEntry(value, coord, mapID, currentSource)
+  local currentSource = ns._currentSourceFile or prevSource or "?"
+  local doValidate = ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode
+  local function mergeAndTag(temp, dest)
+    for mapID, mapNodes in pairs(temp) do
+      dest[mapID] = dest[mapID] or {}
+      for coord, value in pairs(mapNodes) do
+        value.sourceFile = currentSource
+        dest[mapID][coord] = value
+        if doValidate then
+          ns.ValidateNodeEntry(value, coord, mapID, currentSource)
+        end
+      end
     end
   end
 
-  for mapID, mapNodes in pairs(tempNodes) do
-      previousNodes[mapID] = previousNodes[mapID] or {}
-      for coord, value in pairs(mapNodes) do
-          value.sourceFile = currentSource
-          previousNodes[mapID][coord] = value
-      end
-  end
+  mergeAndTag(tempNodes,   prevNodes)
+  mergeAndTag(tempMinimap, prevMinimap)
 
-  ns.nodes = previousNodes
-  ns._currentSourceFile = previousSource
+  ns.nodes, ns.minimap = prevNodes, prevMinimap
+  ns._currentSourceFile = prevSource
+end
+
+local function updateextraInformation()
+  table.wipe(extraInformations)
+
+  for i = 1, GetNumSavedInstances() do
+    local name, _, _, _, locked, _, _, _, _, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(i)
+    if locked then
+      local entry = extraInformations[name]
+      if not entry then
+        entry = {}
+        extraInformations[name] = entry
+      end
+      entry[difficultyName] = {
+        progress = encounterProgress,
+        total = numEncounters
+      }
+    end
+  end
 end
 
 local instanceInfoInitFrame = CreateFrame("Frame")
@@ -188,8 +208,8 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
   local nodeData = nil
   local CurrentMapID = WorldMapFrame:GetMapID()
 
-  ns.nodes[uiMapId][coord] = nodes[uiMapId][coord]
-  ns.minimap[uiMapId][coord] = minimap[uiMapId][coord]
+  ns.nodes[uiMapId][coord] = nodes[uiMapId][coord] or {}
+  ns.minimap[uiMapId][coord] = minimap[uiMapId][coord] or {}
 
   if (minimap[uiMapId] and minimap[uiMapId][coord]) then
     nodeData = minimap[uiMapId][coord]
@@ -234,7 +254,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
 	end
 
   if (not nodeData.name) then return end
-
+  if type(nodeData.name) ~= "string" then return end
 	local instances = { strsplit("\n", nodeData.name) }
 
   ExtraToolTip()
@@ -272,8 +292,8 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
     end
   end
 
-  local isMulti = (nodeData.id and type(nodeData.id) == "table")
-  local total = isMulti and #instances or 1
+  ns.isMulti = (nodeData.id and type(nodeData.id) == "table")
+  ns.total = ns.isMulti and #instances or 1
 	for idx, v in pairs(instances) do
 
     --print(i, v)
@@ -481,14 +501,29 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
       end
     end
 
+      -- Toogle Maps tooltip
+      if not ns.Addon.db.profile.activate.ToggleMap and ns.Addon.db.profile.activate.ToggleMapInfo and WorldMapFrame:IsShown() and (not ns.isMulti or idx == ns.total) then
+        if (nodeData.mnID and nodeData.leaveDelve and ns.icons["Delves"]) or nodeData.mnID then
+          tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. "|cff00ff00 " .. L["Toggle Maps function is disabled"], nil, nil, false)
+        end
+      end
+
     -- Extra Tooltip
-    if ns.OnlyDisplayedIfTheWorldmapIsAlsoOpen and (not isMulti or idx == total) then -- only show tooltips if worldmap is opend and hide it on all icons if worldmap is closed
+    if ns.OnlyDisplayedIfTheWorldmapIsAlsoOpen and (not ns.isMulti or idx == ns.total) then -- only show tooltips if worldmap is opend and hide it on all icons if worldmap is closed
       local mapInfo = C_Map.GetMapInfo(uiMapId)
       local isCosmicAndAzeroth = mapInfo and (mapInfo.mapType == 0 or mapInfo.mapType == 1) or false
       local isCosmic = mapInfo and mapInfo.mapType == 0 or false
       local isAzeroth  = mapInfo and mapInfo.mapType == 1 or false
 
-      if nodeData.mnID then -- show mnID map change information
+
+      -- Adventure Guide tooltip
+      if not ns.Addon.db.profile.journal then
+        if nodeData.id and not nodeData.mnID then
+          tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. "|cff00ff00 " .. L["Adventure guide function is disabled"], nil, nil, false)
+        end
+      end
+
+      if nodeData.mnID and ns.Addon.db.profile.activate.ToggleMap then -- show mnID map change information
         if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
           tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click to show map >"], nil, nil, false)
         else -- Original Buttons
@@ -497,7 +532,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
       end
     
       if nodeData.id and not nodeData.mnID and ns.Addon.db.profile.journal then -- "id = " instance entrances
-        if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
+        if ns.Addon.db.profile.activate.SwapButtons and ns.Addon.db.profile.journal then -- Swap Buttons
           tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click to open Adventure Guide >"], nil, nil, false) -- instance entrances into adventure guide
         else -- -- Original Buttons
           tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Left Click to open Adventure Guide >"], nil, nil, false) -- instance entrances into adventure guide
@@ -521,7 +556,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
         end
       end
 
-      if nodeData.mnID and nodeData.leaveDelve and ns.icons["Delves"] then -- inside delves to leave them
+      if nodeData.mnID and nodeData.leaveDelve and ns.icons["Delves"] and ns.Addon.db.profile.activate.ToggleMap then -- inside delves to leave them
         tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. "< " .. MIDDLE_BUTTON_STRING .. " " .. INSTANCE_LEAVE .. " (" .. DELVES_LABEL .. ") >", nil, nil, false)
       end
 
@@ -531,17 +566,6 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
     end
 
     tooltip:Show()
-  end
-end
-
-SLASH_DeveloperMode1 = "/mndevmode";
-function SlashCmdList.DeveloperMode(msg, editbox)
-  if ns.Addon.db.profile.DeveloperMode == true then
-    ns.Addon.db.profile.DeveloperMode = false
-    print("MapNotes DeveloperMode = Off")
-  else
-    ns.Addon.db.profile.DeveloperMode = true 
-    print("MapNotes DeveloperMode = On")
   end
 end
 
@@ -650,20 +674,6 @@ do
                         or value.type == "Void11F" or value.type == "DarkDwarfM" or value.type == "DarkDwarfF" or value.type == "DracthyrM" or value.type == "DracthyrF" or value.type == "VulperaM" or value.type == "VulperaF" or value.type == "MechaGnomeM" 
                         or value.type == "MechaGnomeM" or value.type == "ZandalariTrollM" or value.type == "ZandalariTrollF"
 
-
-      ns.AllZoneIDs = ns.KalimdorIDs
-                      or ns.EasternKingdomIDs
-                      or ns.OutlandIDs
-                      or ns.NorthrendIDs
-                      or ns.DraenorIDs
-                      or ns.PandariaIDs
-                      or ns.BrokenIslesIDs
-                      or ns.ZandalarIDs
-                      or ns.KulTirasIDs
-                      or ns.ShadowlandIDs
-                      or ns.DragonIsleIDs
-                      or ns.KhazAlgar
-
       ns.MapType0 = mapInfo.mapType == 0 -- Cosmic map
       ns.MapType1 = mapInfo.mapType == 1 -- World map
       ns.MapType2 = mapInfo.mapType == 2 -- Continent maps
@@ -687,7 +697,7 @@ do
                       or CurrentMapID == 582 or CurrentMapID == 590 or CurrentMapID == 622 or CurrentMapID == 624 or CurrentMapID == 627 
                       or CurrentMapID == 831 or CurrentMapID == 832 or CurrentMapID == 628 or CurrentMapID == 629 or CurrentMapID == 1161 or CurrentMapID == 1163 
                       or CurrentMapID == 1164 or CurrentMapID == 1165 or CurrentMapID == 1670 or CurrentMapID == 1671 or CurrentMapID == 1672 or CurrentMapID == 1673 
-                      or CurrentMapID == 2112 or CurrentMapID == 2339 or CurrentMapID == 499 or CurrentMapID == 500 or CurrentMapID == 2266 
+                      or CurrentMapID == 2112 or CurrentMapID == 2339 or CurrentMapID == 499 or CurrentMapID == 500 or CurrentMapID == 2266
                             
       ns.AllianceCapitalIDs = CurrentMapID == 84 or CurrentMapID == 87 or CurrentMapID == 89 or CurrentMapID == 103 or CurrentMapID == 393 or CurrentMapID == 394
                       or CurrentMapID == 1161 or CurrentMapID == 622 or CurrentMapID == 582
@@ -700,14 +710,13 @@ do
                       or CurrentMapID == 125 or CurrentMapID == 126 or CurrentMapID == 627 or CurrentMapID == 628 or CurrentMapID == 269 or CurrentMapID == 2112 
                       or CurrentMapID == 407
 
-      ns.CapitalMiniMapIDs = PlayerMapID == 626 or PlayerMapID == 747 -- Class Hall
-                      or PlayerMapID == 84 or PlayerMapID == 87 or PlayerMapID == 89 or PlayerMapID == 103 or PlayerMapID == 85 or PlayerMapID == 90 
+      ns.CapitalMiniMapIDs = PlayerMapID == 84 or PlayerMapID == 87 or PlayerMapID == 89 or PlayerMapID == 103 or PlayerMapID == 85 or PlayerMapID == 90 
                       or PlayerMapID == 86 or PlayerMapID == 88 or PlayerMapID == 110 or PlayerMapID == 111 or PlayerMapID == 125 or PlayerMapID == 126 
                       or PlayerMapID == 391 or PlayerMapID == 392 or PlayerMapID == 393 or PlayerMapID == 394 or PlayerMapID == 407 or PlayerMapID == 503 
                       or PlayerMapID == 582 or PlayerMapID == 590 or PlayerMapID == 622 or PlayerMapID == 624 or PlayerMapID == 627 
-                      or PlayerMapID == 628 or PlayerMapID == 629 or PlayerMapID == 831 or PlayerMapID == 832 or PlayerMapID == 1161 or PlayerMapID == 1163 
+                      or PlayerMapID == 831 or PlayerMapID == 832 or PlayerMapID == 628 or PlayerMapID == 629 or PlayerMapID == 1161 or PlayerMapID == 1163 
                       or PlayerMapID == 1164 or PlayerMapID == 1165 or PlayerMapID == 1670 or PlayerMapID == 1671 or PlayerMapID == 1672 or PlayerMapID == 1673 
-                      or PlayerMapID == 2112 or PlayerMapID == 2339 or PlayerMapID == 499 or PlayerMapID== 500 or PlayerMapID == 2266
+                      or PlayerMapID == 2112 or PlayerMapID == 2339 or PlayerMapID == 499 or PlayerMapID == 500 or PlayerMapID == 2266
 
       ns.KalimdorIDs = CurrentMapID == 1 or CurrentMapID == 7 or CurrentMapID == 10 or CurrentMapID == 11 or CurrentMapID == 57 or CurrentMapID == 62 
                       or CurrentMapID == 63 or CurrentMapID == 64 or CurrentMapID == 65 or CurrentMapID == 66 or CurrentMapID == 67 or CurrentMapID == 68 
@@ -756,12 +765,30 @@ do
       ns.KhazAlgar = CurrentMapID == 2248 or CurrentMapID == 2214 or CurrentMapID == 2215 or CurrentMapID == 2255 or  CurrentMapID == 2256 or CurrentMapID == 2213 
                       or CurrentMapID == 2216 or CurrentMapID == 2369 or CurrentMapID == 2346 or CurrentMapID == 2371 or CurrentMapID == 2472
 
+      ns.AllZoneIDs = ns.KalimdorIDs
+                      or ns.EasternKingdomIDs
+                      or ns.OutlandIDs
+                      or ns.NorthrendIDs
+                      or ns.DraenorIDs
+                      or ns.PandariaIDs
+                      or ns.BrokenIslesIDs
+                      or ns.ZandalarIDs
+                      or ns.KulTirasIDs
+                      or ns.ShadowlandIDs
+                      or ns.DragonIsleIDs
+                      or ns.KhazAlgar
+
       -- Special mapIDs that are actually zones/subzones but are considered dungeons/microdungeons by the game are hereby correctly recognized as zones in the addon (no capitals)
       ns.ZoneIDs = CurrentMapID == 750 or CurrentMapID == 652 or CurrentMapID == 2266 or CurrentMapID == 2322
 
-			if value.name == nil then value.name = value.id or value.mnID end
+      if value.name == nil then value.name = value.id or value.mnID end
 
-			local instances = { strsplit("\n", value.name) }
+      local nameForSplit = value.name
+      if type(nameForSplit) ~= "string" or nameForSplit == "" then
+        nameForSplit = tostring(value.id or value.mnID or "")
+      end
+      local instances = (nameForSplit ~= "" and { strsplit("\n", nameForSplit) } or {})
+
 			for i, v in pairs(instances) do
 				if (not extraInformations[v] and not extraInformations[lfgIDs[v]]) then
 					allLocked = false
@@ -797,8 +824,6 @@ do
       end
 
       if (anyLocked and db.invertlockout) or (allLocked and not db.invertlockout) then
-				alpha = db.mapnoteAlpha
-      else
 				alpha = db.mapnoteAlpha
 			end
 
@@ -997,13 +1022,13 @@ do
       end
 
       -- inside Dungeon
-      if (mapInfo.mapType == 4 or mapInfo.mapType == 6) and not ns.CapitalIDs and not ns.ZoneIDs then
+      if (mapInfo.mapType == 4 or mapInfo.mapType == 6) and not (ns.CapitalIDs or ns.ClassHallIDs) and not ns.ZoneIDs then
           scale = db.dungeonScale
           alpha = db.dungeonAlpha
       end
 
       -- Dungeon Single scale / alpha
-      if (mapInfo.mapType == 4 or mapInfo.mapType == 6) and not ns.CapitalIDs and not ns.ZoneIDs then
+      if (mapInfo.mapType == 4 or mapInfo.mapType == 6) and not (ns.CapitalIDs or ns.ClassHallIDs) and not ns.ZoneIDs then
 
         if value.type == "Exit" then
           scale = db.DungeonMapScaleExit
@@ -1071,25 +1096,25 @@ do
       end
 
       -- Zone Transport icons
-      if not ns.CapitalIDs and ns.transportIcons and (value.showOnMinimap == false) then
+      if not (ns.CapitalIDs or ns.ClassHallIDs) and ns.transportIcons and (value.showOnMinimap == false) then
         scale = db.ZoneTransportScale
         alpha = db.ZoneTransportAlpha
       end
 
       -- Zone Profession icons 
-      if not ns.CapitalIDs and ns.professionIcons and (value.showOnMinimap == false) then
+      if not (ns.CapitalIDs or ns.ClassHallIDs) and ns.professionIcons and (value.showOnMinimap == false) then
         scale = db.ZoneProfessionsScale
         alpha = db.ZoneProfessionsAlpha
       end
 
       -- Zones General icons
-      if not ns.CapitalIDs and ns.generalIcons and (value.showOnMinimap == false) then
+      if not (ns.CapitalIDs or ns.ClassHallIDs) and ns.generalIcons and (value.showOnMinimap == false) then
         scale = db.ZoneGeneralScale
         alpha = db.ZoneGeneralAlpha
       end
 
       -- Zone single icon scale / alpha
-      if not ns.CapitalIDs and (value.showOnMinimap == false) then
+      if not (ns.CapitalIDs or ns.ClassHallIDs) and (value.showOnMinimap == false) then
 
         -- Instance Icons
         if value.type == "Raid" then
@@ -1311,11 +1336,11 @@ do
         or t.uiMapId == 905 -- Argus Continent
         or (mapInfo.mapType == 0 and (ns.dbChar.AzerothDeletedIcons[t.uiMapId] and not ns.dbChar.AzerothDeletedIcons[t.uiMapId][state])) -- Cosmos
         or (mapInfo.mapType == 1 and (ns.dbChar.AzerothDeletedIcons[t.uiMapId] and not ns.dbChar.AzerothDeletedIcons[t.uiMapId][state])) -- Azeroth
-        or (not ns.CapitalIDs and (mapInfo.mapType == 4 or mapInfo.mapType == 6) and (ns.dbChar.DungeonDeletedIcons[t.uiMapId] and not ns.dbChar.DungeonDeletedIcons[t.uiMapId][state])) -- Dungeon
-        or (not ns.CapitalIDs and (ns.dbChar.ZoneDeletedIcons[t.uiMapId] and not ns.dbChar.ZoneDeletedIcons[t.uiMapId][state] and value.showInZone) and (mapInfo.mapType == 3 or mapInfo.mapType == 5 )) -- Zone without Capitals
-        or (ns.CapitalIDs and (ns.dbChar.CapitalsDeletedIcons[t.uiMapId] and not ns.dbChar.CapitalsDeletedIcons[t.uiMapId][state] and value.showInZone)) -- Capitals
-        or (ns.CapitalIDs and ns.dbChar.MinimapCapitalsDeletedIcons[t.minimapId] and not ns.dbChar.MinimapCapitalsDeletedIcons[t.minimapId][state] and value.showOnMinimap) -- Minimap Capitals
-        or (not ns.CapitalIDs and (mapInfo.mapType == 3 or mapInfo.mapType == 5) and ns.dbChar.MinimapZoneDeletedIcons[t.minimapId] and not ns.dbChar.MinimapZoneDeletedIcons[t.minimapId][state] and value.showOnMinimap) -- Minimap Zones
+        or (not (ns.CapitalIDs or ns.ClassHallIDs) and (mapInfo.mapType == 4 or mapInfo.mapType == 6) and (ns.dbChar.DungeonDeletedIcons[t.uiMapId] and not ns.dbChar.DungeonDeletedIcons[t.uiMapId][state])) -- Dungeon
+        or (not (ns.CapitalIDs or ns.ClassHallIDs) and (ns.dbChar.ZoneDeletedIcons[t.uiMapId] and not ns.dbChar.ZoneDeletedIcons[t.uiMapId][state] and value.showInZone) and (mapInfo.mapType == 3 or mapInfo.mapType == 5 )) -- Zone without Capitals
+        or ((ns.CapitalIDs or ns.ClassHallIDs) and (ns.dbChar.CapitalsDeletedIcons[t.uiMapId] and not ns.dbChar.CapitalsDeletedIcons[t.uiMapId][state] and value.showInZone)) -- Capitals
+        or ((ns.CapitalIDs or ns.ClassHallIDs) and ns.dbChar.MinimapCapitalsDeletedIcons[t.minimapId] and not ns.dbChar.MinimapCapitalsDeletedIcons[t.minimapId][state] and value.showOnMinimap) -- Minimap Capitals
+        or (not (ns.CapitalIDs or ns.ClassHallIDs) and (mapInfo.mapType == 3 or mapInfo.mapType == 5) and ns.dbChar.MinimapZoneDeletedIcons[t.minimapId] and not ns.dbChar.MinimapZoneDeletedIcons[t.minimapId][state] and value.showOnMinimap) -- Minimap Zones
       then
         return state, nil, icon, scale, alpha
       end
@@ -1346,7 +1371,12 @@ do
 					local allLocked = true
 					local anyLocked = false
           
-					local instances = { strsplit("\n", value.name) }
+					local nameForSplit = value.name
+          if type(nameForSplit) ~= "string" or nameForSplit == "" then
+            nameForSplit = tostring(value.id or value.mnID or "")
+          end
+
+          local instances = (nameForSplit ~= "" and { strsplit("\n", nameForSplit) } or {})
 					for i, v in pairs(instances) do
 						if (not extraInformations[v] and not extraInformations[lfgIDs[v]]) then
 							allLocked = false
@@ -1379,8 +1409,6 @@ do
 
           if (anyLocked and db.invertlockout) or (allLocked and not db.invertlockout) then
 						alpha = db.continentAlpha
-          else
-            alpha = db.continentAlpha
           end
               
           if (mapInfo.mapType == 2 and (ns.dbChar.ContinentDeletedIcons[t.contId] and not ns.dbChar.ContinentDeletedIcons[t.contId][state]) and value.showOnContinent) then -- Continent
@@ -1546,15 +1574,6 @@ ns.hideLink = nodes[uiMapId][coord].hideLink
 
 local mapInfo = C_Map.GetMapInfo(uiMapId)
 local CurrentMapID = WorldMapFrame:GetMapID()
-local CapitalIDs =  CurrentMapID == 626 or CurrentMapID == 747 
-                or CurrentMapID == 84 or CurrentMapID == 87 or CurrentMapID == 89 or CurrentMapID == 103 or CurrentMapID == 85
-                or CurrentMapID == 90 or CurrentMapID == 86 or CurrentMapID == 88 or CurrentMapID == 110 or CurrentMapID == 111
-                or CurrentMapID == 125 or CurrentMapID == 126 or CurrentMapID == 391 or CurrentMapID == 392 or CurrentMapID == 393
-                or CurrentMapID == 394 or CurrentMapID == 407 or CurrentMapID == 582 or CurrentMapID == 590 or CurrentMapID == 622
-                or CurrentMapID == 624 or CurrentMapID == 627 or CurrentMapID == 628 or CurrentMapID == 629
-                or CurrentMapID == 831 or CurrentMapID == 832 or CurrentMapID == 1161 or CurrentMapID == 1163 or CurrentMapID == 1164 
-                or CurrentMapID == 1165 or CurrentMapID == 1670 or CurrentMapID == 1671 or CurrentMapID == 1672 or CurrentMapID == 1673 
-                or CurrentMapID == 2112 or CurrentMapID == 2339 or CurrentMapID == 503 or CurrentMapID == 2266
 
   StaticPopupDialogs["Delete_Icon?"] = {
     text = TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. ": " .. L["Delete this icon"] .. " ? " .. TextIconMNL4:GetIconString(),
@@ -1563,7 +1582,7 @@ local CapitalIDs =  CurrentMapID == 626 or CurrentMapID == 747
     showAlert = true,
     exclusive  = true,
     OnAccept = function()
-      if CapitalIDs then
+      if ns.CapitalIDs or ns.ClassHallIDs then
         ns.dbChar.CapitalsDeletedIcons[uiMapId][coord] = true
         ns.dbChar.MinimapCapitalsDeletedIcons[uiMapId][coord] = true
         print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00", L["Capitals"] .. " & " .. L["Capitals"] .. " - " .. MINIMAP_LABEL .. " - " .. "|cff00ff00" .. L["A icon has been deleted"])
@@ -1579,13 +1598,13 @@ local CapitalIDs =  CurrentMapID == 626 or CurrentMapID == 747
         print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00", L["Continents"] .. " - " .. "|cff00ff00" .. L["A icon has been deleted"])
       end
     
-      if not CapitalIDs and mapInfo.mapType == 3 then -- Zone
+      if not (ns.CapitalIDs or ns.ClassHallIDs) and mapInfo.mapType == 3 then -- Zone
         ns.dbChar.ZoneDeletedIcons[uiMapId][coord] = true
         ns.dbChar.MinimapZoneDeletedIcons[uiMapId][coord] = true
         print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00", L["Zones"] .. " & " .. MINIMAP_LABEL .. " - " .. "|cff00ff00" .. L["A icon has been deleted"])
       end
     
-      if not CapitalIDs and (mapInfo.mapType == 4 or mapInfo.mapType == 6) then -- Dungeon
+      if not (ns.CapitalIDs or ns.ClassHallIDs) and (mapInfo.mapType == 4 or mapInfo.mapType == 6) then -- Dungeon
         ns.dbChar.DungeonDeletedIcons[uiMapId][coord] = true
         print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00", DUNGEONS .. " - " .. "|cff00ff00" .. L["A icon has been deleted"])
       end
@@ -1645,7 +1664,7 @@ local CapitalIDs =  CurrentMapID == 626 or CurrentMapID == 747
     end
 
     if (button == "RightButton" and mnID and mnID2 or mnID3 and not IsShiftKeyDown() and not IsAltKeyDown()) then -- original left
-      ns.SafeSetMapID(mnID)
+      ns.MapNotesOpenMap(mnID)
     end
   end
 
@@ -1693,12 +1712,12 @@ local CapitalIDs =  CurrentMapID == 626 or CurrentMapID == 747
     end
 
     if (button == "LeftButton" and mnID and mnID2 or mnID3 and not IsShiftKeyDown() and not IsAltKeyDown()) then -- original left
-      ns.SafeSetMapID(mnID)
+      ns.MapNotesOpenMap(mnID)
     end
   end
 
   if (button == "MiddleButton" and mnID2 and not IsShiftKeyDown() and not IsAltKeyDown()) then
-    ns.SafeSetMapID(mnID2)
+    ns.MapNotesOpenMap(mnID2)
   end
 
   -- npc targeting & rangecheck
@@ -1716,7 +1735,7 @@ local CapitalIDs =  CurrentMapID == 626 or CurrentMapID == 747
   end
 
   if (button == "MiddleButton" and mnID3 and not IsShiftKeyDown() and not IsAltKeyDown()) then
-    ns.SafeSetMapID(mnID3)
+    ns.MapNotesOpenMap(mnID3)
   end
 
   if (not pressed) then return end
@@ -1769,12 +1788,12 @@ local CapitalIDs =  CurrentMapID == 626 or CurrentMapID == 747
   if ns.Addon.db.profile.activate.SwapButtons then -- New SwapButtons
     if (button == "RightButton" and not IsAltKeyDown()) then
       if mnID then
-        ns.SafeSetMapID(mnID)
+        ns.MapNotesOpenMap(mnID)
         return
       end
 
       if delveID then
-        ns.SafeSetMapID(delveID)
+        ns.MapNotesOpenMap(delveID)
         return
       end
     end
@@ -1824,12 +1843,12 @@ local CapitalIDs =  CurrentMapID == 626 or CurrentMapID == 747
   if not ns.Addon.db.profile.activate.SwapButtons then -- Original
     if (button == "LeftButton" and not IsAltKeyDown()) then
       if mnID then
-        ns.SafeSetMapID(mnID)
+        ns.MapNotesOpenMap(mnID)
         return
       end
 
       if delveID then
-        ns.SafeSetMapID(delveID)
+        ns.MapNotesOpenMap(delveID)
         return
       end
     end
@@ -1889,7 +1908,7 @@ end
 function Addon:ZONE_CHANGED_NEW_AREA()
   local PlayerMapID = C_Map.GetBestMapForUnit("player")
   if PlayerMapID then
-    if ns.Addon.db.profile.ZoneChanged then
+    if ns.Addon.db.profile.ZoneTextChanged then
       print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Location"] .. ": ", "|cff00ff00" .. "==>  " .. C_Map.GetMapInfo(PlayerMapID).name .. "  <==")
     end
   end
@@ -1897,7 +1916,7 @@ end
 
 local subzone = GetSubZoneText()
 function Addon:ZONE_CHANGED_INDOORS()
-    if ns.Addon.db.profile.ZoneChanged and ns.Addon.db.profile.ZoneChangedDetail and not ns.CapitalMiniMapIDs then
+    if ns.Addon.db.profile.ZoneTextChanged and ns.Addon.db.profile.ZoneTextChangedDetail and not ns.CapitalMiniMapIDs then
       print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Location"] .. ": ", "|cff00ff00" .. "==>  " .. "|cff00ff00" .. GetZoneText() .. " " .. "|cff00ccff" .. GetSubZoneText().. "|cff00ff00" .. "  <==")
     end
 end
@@ -1905,7 +1924,7 @@ end
 function Addon:ZONE_CHANGED()
   local PlayerMapID = C_Map.GetBestMapForUnit("player")
   if PlayerMapID then
-    if ns.Addon.db.profile.ZoneChanged and ns.Addon.db.profile.ZoneChangedDetail and not ns.CapitalMiniMapIDs then
+    if ns.Addon.db.profile.ZoneTextChanged and ns.Addon.db.profile.ZoneTextChangedDetail and not ns.CapitalMiniMapIDs then
       print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00" .. " " .. L["Location"] .. ": ", "|cff00ff00" .. "==>  " .. GetZoneText() .. " " .. "|cff00ccff" .. GetSubZoneText() .. "|cff00ff00" .. "  <==")
     end
   end
@@ -1931,11 +1950,12 @@ function Addon:OnProfileChanged(event, database, profileKeys)
   end
 
   HandyNotes:GetModule("FogOfWarButton"):Refresh()
+  ns.Addon:FullUpdate()
+  HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+  
   if ns.Addon.db.profile.CoreChatMassage then
     print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been changed"])
   end
-  ns.Addon:FullUpdate()
-  HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
 end
 
 function Addon:OnProfileReset(event, database, profileKeys)
@@ -1960,20 +1980,19 @@ function Addon:OnProfileReset(event, database, profileKeys)
 
   wipe(ns.dbChar.CapitalsDeletedIcons)
   wipe(ns.dbChar.MinimapCapitalsDeletedIcons)
-  wipe(ns.dbChar.CapitalsDeletedIcons)
-  wipe(ns.dbChar.MinimapCapitalsDeletedIcons)
   wipe(ns.dbChar.AzerothDeletedIcons)
   wipe(ns.dbChar.ContinentDeletedIcons)
   wipe(ns.dbChar.ZoneDeletedIcons)
   wipe(ns.dbChar.MinimapZoneDeletedIcons)
   wipe(ns.dbChar.DungeonDeletedIcons)
 
-  if ns.Addon.db.profile.CoreChatMassage then
-    print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been reset to default"])
-  end
   HandyNotes:GetModule("FogOfWarButton"):Refresh()
   ns.Addon:FullUpdate()
   HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+
+  if ns.Addon.db.profile.CoreChatMassage then
+    print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been reset to default"])
+  end
 end
 
 function Addon:OnProfileCopied(event, database, profileKeys)
@@ -2004,11 +2023,12 @@ function Addon:OnProfileCopied(event, database, profileKeys)
   end
 
   HandyNotes:GetModule("FogOfWarButton"):Refresh()
+  ns.Addon:FullUpdate()
+  HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+
   if ns.Addon.db.profile.CoreChatMassage then
     print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been adopted"])
   end
-  ns.Addon:FullUpdate()
-  HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
 end
 
 function Addon:OnProfileDeleted(event, database, profileKeys)
@@ -2017,11 +2037,12 @@ function Addon:OnProfileDeleted(event, database, profileKeys)
   ns.FogOfWar = database.profile.FogOfWarColor
 
   HandyNotes:GetModule("FogOfWarButton"):Refresh()
+  ns.Addon:FullUpdate()
+  HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+
   if ns.Addon.db.profile.CoreChatMassage then
     print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been deleted"])
   end
-  ns.Addon:FullUpdate()
-  HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
 end
 
 function Addon:PLAYER_ENTERING_WORLD()
@@ -2070,6 +2091,9 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
   Addon:RegisterEvent("ZONE_CHANGED_NEW_AREA")
   Addon:RegisterEvent("ZONE_CHANGED")
   Addon:RegisterEvent("ZONE_CHANGED_INDOORS")
+
+  -- UseInBattle
+  ns.SyncUseInBattleFromDB() -- RetailErrorMessage.lua
 
   -- Check for PlayerArrow on Minimap
   ns.MiniMapPlayerArrow() -- RetailMiniMap.lua
@@ -2157,19 +2181,19 @@ function Addon:PopulateTable()
   LoadAndCheck(ns.LoadPathsZoneLocationinfo,self) -- load nodes\Retail\RetailPathsZoneNodes.lua
   LoadAndCheck(ns.LoadPathsMiniMapLocationinfo,self) -- load nodes\Retail\RetailPathsMiniMapNodes.lua
 
-  LoadAndCheck(ns.LoadInsideDungeonNodesLocationInfo,self) -- load nodes\Retail\RetailInsideDungeonNodesLocation.lua
-
-  LoadAndCheck(ns.LoadWorldNodesLocationInfo, self) -- load nodes\Retail\RetailWorldNodesLocation.lua
-  --ns.LoadWorldNodesLocationInfo(self) -- load nodes\Retail\RetailWorldNodesLocation.lua
-
   LoadAndCheck(ns.LoadCapitalsLocationinfo,self) -- load nodes\Retail\RetailCapitals.lua
   LoadAndCheck(ns.LoadMinimapCapitalsLocationinfo,self) -- load nodes\Retail\RetailMinimapCapitals.lua
 
-  LoadAndCheck(ns.LoadTaxiMapNodesLocationinfo,self)
-  LoadAndCheck(ns.LoadSpecialLocations,self)
-  LoadAndCheck(ns.LoadClassHallZoneLocationinfo,self)
-  LoadAndCheck(ns.LoadClassHallMiniMapLocationinfo,self)
+  LoadAndCheck(ns.LoadClassHallZoneLocationinfo,self) -- load nodes\Retail\RetailClassHallZone.lua
+  LoadAndCheck(ns.LoadClassHallMiniMapLocationinfo,self) -- load nodes\Retail\RetailClassHallMiniMap.lua
 
+  LoadAndCheck(ns.LoadSpecialLocations,self) -- load nodes\Retail\RetailSpecialLocations.lua  
+
+  LoadAndCheck(ns.LoadInsideDungeonNodesLocationInfo,self) -- load nodes\Retail\RetailInsideDungeonNodesLocation.lua
+
+  LoadAndCheck(ns.LoadTaxiMapNodesLocationinfo,self) -- load nodes\Retail\RetailTaxiMapNodes.lua
+
+  LoadAndCheck(ns.LoadWorldNodesLocationInfo, self) -- load nodes\Retail\RetailWorldNodesLocation.lua
 end
 
 function Addon:UpdateInstanceNames(node)
@@ -2194,61 +2218,6 @@ function Addon:UpdateInstanceNames(node)
       node.name = node.name .. "\n" .. table.concat(nameList, "\n")
     else
       node.name = table.concat(nameList, "\n")
-    end
-
-    if ns.Addon.db.profile.TooltipInformations then
-      local tooltipInfo = ""
-
-      local currentMapID = CurrentMapID
-      if currentMapID and currentMapID ~= 946 then
-        if ns.Addon.db.profile.WayPointsShift then -- Shift
-          if ns.Addon.db.profile.activate.SwapButtons then -- SwapButtons
-            if not ns.Addon.db.profile.DeleteIcons and not ns.Addon.db.profile.WayPoints then
-              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Right Click to show map >"]
-            elseif ns.Addon.db.profile.DeleteIcons and ns.Addon.db.profile.WayPoints then
-              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Shift + Left Click sets a waypoint on a MapNotes icon >"] .. " \n" .. TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click to show map >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cffff0000" .. L["< Alt + Right click to delete this icon >"]
-            elseif ns.Addon.db.profile.DeleteIcons then
-              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Right Click to show map >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cffff0000" .. L["< Alt + Right click to delete this icon >"]
-            elseif ns.Addon.db.profile.WayPoints then
-              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Shift + Left Click sets a waypoint on a MapNotes icon >"] .. " \n" .. TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Right Click to show map >"]
-            end
-          else -- Original Buttons
-            if not ns.Addon.db.profile.DeleteIcons and not ns.Addon.db.profile.WayPoints then
-              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Left Click to show map >"]
-            elseif ns.Addon.db.profile.DeleteIcons and ns.Addon.db.profile.WayPoints then
-              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Shift + Right Click sets a waypoint on a MapNotes icon >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Left Click to show map >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cffff0000" .. L["< Alt + Right click to delete this icon >"]
-            elseif ns.Addon.db.profile.DeleteIcons then
-              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Left Click to show map >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cffff0000" .. L["< Alt + Right click to delete this icon >"]
-            elseif ns.Addon.db.profile.WayPoints then
-              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Shift + Right Click sets a waypoint on a MapNotes icon >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Left Click to show map >"]
-            end
-          end
-        else
-          if ns.Addon.db.profile.activate.SwapButtons then -- SwapButtons
-            if not ns.Addon.db.profile.DeleteIcons and not ns.Addon.db.profile.WayPoints then
-              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Right Click to show map >"]
-            elseif ns.Addon.db.profile.DeleteIcons and ns.Addon.db.profile.WayPoints then
-              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Left Click sets a waypoint on a MapNotes icon >"] .. " \n" .. TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click to show map >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cffff0000" .. L["< Alt + Right click to delete this icon >"]
-            elseif ns.Addon.db.profile.DeleteIcons then
-              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Right Click to show map >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cffff0000" .. L["< Alt + Right click to delete this icon >"]
-            elseif ns.Addon.db.profile.WayPoints then
-              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Left Click sets a waypoint on a MapNotes icon >"] .. " \n" .. TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Right Click to show map >"]
-            end
-          else -- Original Buttons
-            if not ns.Addon.db.profile.DeleteIcons and not ns.Addon.db.profile.WayPoints then
-              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Left Click to show map >"]
-            elseif ns.Addon.db.profile.DeleteIcons and ns.Addon.db.profile.WayPoints then
-              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Right Click sets a waypoint on a MapNotes icon >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Left Click to show map >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cffff0000" .. L["< Alt + Right click to delete this icon >"]
-            elseif ns.Addon.db.profile.DeleteIcons then
-              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Left Click to show map >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cffff0000" .. L["< Alt + Right click to delete this icon >"]
-            elseif ns.Addon.db.profile.WayPoints then
-              tooltipInfo = TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Right Click sets a waypoint on a MapNotes icon >"] .. "\n" .. TextIconInfo:GetIconString() .. " |cff00ff00" .. L["< Left Click to show map >"]
-            end
-          end
-        end
-      end
-
-      node.name = node.name .. "\n" .. tooltipInfo
     end
 
   elseif id then

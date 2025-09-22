@@ -327,6 +327,7 @@ local list = {
 		{AuraID =  343470, UnitID = "target", Value = true}, -- 通灵战潮，碎骨之盾
 		{AuraID =  423588, UnitID = "target", Value = true}, -- 修道院，圣光屏障
 		{AuraID =  423839, UnitID = "target", Value = true}, -- 风暴复仇，驭雷栖巢
+		{AuraID =  428150, UnitID = "target", Value = true}, -- 反射护盾，高阶牧师艾姆雅
 		{AuraID =  445262, UnitID = "target", Value = true}, -- 虚空壳壁，驭雷栖巢
 		{AuraID =  445409, UnitID = "target", Value = true}, -- 加固壳壁，斯卡莫拉克
 		{AuraID =  446794, UnitID = "target", Flash = true}, -- 贪得无厌，阿瓦诺克斯

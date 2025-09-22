@@ -2,6 +2,16 @@
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "itIT")
 if not L then return end
 
+-- toggle maps
+L["Blocked in combat"] = "Bloccato in combattimento"
+L["Required for"] = "Richiesto per"
+L["Toggle Maps"] = "Attiva/disattiva mappe"
+L["Toggle Maps function is disabled"] = "La funzione «Attiva/disattiva mappe» è disattivata"
+L["Switch after battle"] = "Cambia dopo il combattimento"
+L["Changing the world map via a MapNotes icon will be done after the battle, as this is no longer possible during the battle without causing an error"] = "La modifica della mappa del mondo tramite un’icona di MapNotes verrà effettuata dopo il combattimento, poiché non è più possibile durante il combattimento senza causare un errore"
+L["Shows an information on the screen when a map change has been attempted in battle"] = "Mostra un’informazione sullo schermo quando è stato tentato un cambio mappa in combattimento"
+L["Enables the ability to toggle the displayed world map by clicking on certain MapNotes icons"] = "Consente di alternare la mappa del mondo visualizzata facendo clic su determinate icone di MapNotes"
+L["This was previously enabled automatically and is now an option to enable or disable"] = "In precedenza era abilitato automaticamente ed è ora un’opzione da abilitare o disabilitare"
 -- Flightmaster maps
 L["Button"] = "Pulsante"
 L["Show the MapNotes button on the Flightmap"] = "Mostra il pulsante di MapNotes sulla mappa dei voli"
@@ -258,6 +268,9 @@ L["Hide the MapNotes button on the worldmap"] = "Nascondi il pulsante Mapnotes s
 L["hide MapNotes!"] = "nascondi MapNotes!"
 L["Disable MapNotes, all icons will be hidden on each map and all categories will be disabled"] = "Disabilita MapNotes, tutte le icone verranno nascoste su ciascuna mappa e tutte le categorie saranno disabilitate"
 L["Adventure guide"] = "Guida all'avventura"
+L["Adventure guide function is disabled"] = "La funzione «Guida alle avventure» è disattivata"
+L["Clicking on an instance icon outside of a zone map does not open the adventure guide, but rather the world map where the instance is located"] = "Facendo clic su un’icona dell’istanza al di fuori di una mappa di zona non si apre la Guida alle avventure, bensì la mappa del mondo della zona in cui si trova l’istanza"
+L["The „Toggle Maps“ function is responsible for this"] = "La funzione «Attiva/disattiva mappe» ne è responsabile"
 L["Left-clicking on a MapNotes raid (green), dungeon (blue) or multiple icon (green&blue) on the map opens the corresponding dungeon or raid map in the Adventure Guide"] = "Facendo clic con il tasto sinistro del mouse su un raid MapNotes (verde), un dungeon (blu) o un'icona multipla (verde e blu) sulla mappa si apre il dungeon o la mappa del raid corrispondente nella Guida all'avventura"
 L["TomTom waypoints"] = "Waypoint TomTom"
 L["extra information"] = "ulteriori informazioni"

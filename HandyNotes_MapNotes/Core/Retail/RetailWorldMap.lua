@@ -5,19 +5,19 @@ function ns.ChangingMapToPlayerZone()
   if ns._MapChangeInit then return end
   ns._MapChangeInit = true
 
-  local lastSet
   local function SetToPlayerMap()
-    if not (ns.Addon and ns.Addon.db and ns.Addon.db.profile.MapChanging) then return end
+    local db = ns.Addon and ns.Addon.db and ns.Addon.db.profile
+    if not (db and db.MapChanging) then return end
     if not (WorldMapFrame and WorldMapFrame:IsShown()) then return end
 
     local target = C_Map.GetBestMapForUnit("player")
     if not target then return end
 
-    if target ~= lastSet and WorldMapFrame:GetMapID() ~= target then
-      ns.SafeSetMapID(target)
-      lastSet = target
-      if ns.Addon.db.profile.DeveloperMode then
-        print("Switched map to:", target, C_Map.GetMapInfo(target) and C_Map.GetMapInfo(target).name)
+    if WorldMapFrame:GetMapID() ~= target then
+      ns.MapNotesOpenMap(target)
+      if db.DeveloperMode then
+        local mi = C_Map.GetMapInfo(target)
+        print("Switched map to:", target, mi and mi.name)
       end
     end
   end
@@ -40,7 +40,7 @@ function ns.ShowPlayersMap(targetType) -- Find the right maps for the activation
   end
 
   if info and info.mapType == targetType then
-    ns.SafeSetMapID(info.mapID)
+    ns.MapNotesOpenMap(info.mapID)
   end
 end
 

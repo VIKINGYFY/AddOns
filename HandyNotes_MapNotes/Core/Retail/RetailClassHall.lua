@@ -65,7 +65,7 @@ EventUtil.ContinueOnAddOnLoaded("Blizzard_WorldMap", function()
         if button ~= "MiddleButton" then return end
         local dest = GetDest(self)
         if dest and not InCombatLockdown() and C_Map.GetMapInfo(dest) then
-            ns.SafeSetMapID(dest)
+            ns.MapNotesOpenMap(dest)
         end
     end
 

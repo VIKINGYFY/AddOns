@@ -2,6 +2,16 @@
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "zhCN")
 if not L then return end
 
+-- toggle maps
+L["Blocked in combat"] = "战斗中被阻止"
+L["Required for"] = "需要于"
+L["Toggle Maps"] = "切換地圖"
+L["Toggle Maps function is disabled"] = "“切换地图”功能已禁用"
+L["Switch after battle"] = "战斗后切换"
+L["Changing the world map via a MapNotes icon will be done after the battle, as this is no longer possible during the battle without causing an error"] = "通过 MapNotes 图标更改世界地图将在战斗结束后进行，因为在战斗中这样做已无法避免错误"
+L["Shows an information on the screen when a map change has been attempted in battle"] = "当在战斗中尝试切换地图时，会在屏幕上显示提示"
+L["Enables the ability to toggle the displayed world map by clicking on certain MapNotes icons"] = "允许通过点击某些 MapNotes 图标来切换显示的世界地图"
+L["This was previously enabled automatically and is now an option to enable or disable"] = "此功能以前是自动启用的，现在可以选择启用或禁用"
 -- Flightmaster maps
 L["Button"] = "按鈕"
 L["Show the MapNotes button on the Flightmap"] = "在飛行地圖上顯示 MapNotes 按鈕"
@@ -258,6 +268,9 @@ L["Hide the MapNotes button on the worldmap"] = "隐藏世界地图上的mapnote
 L["hide MapNotes!"] = "隐藏地图注释！"
 L["Disable MapNotes, all icons will be hidden on each map and all categories will be disabled"] = "禁用MapNotes，每张地图上的所有图标将被隐藏，所有类别将被禁用"
 L["Adventure guide"] = "冒险指南"
+L["Adventure guide function is disabled"] = "“冒险指南”功能已禁用"
+L["Clicking on an instance icon outside of a zone map does not open the adventure guide, but rather the world map where the instance is located"] = "在区域地图之外点击副本图标不会打开“冒险指南”，而是会打开该副本所在区域的世界地图"
+L["The „Toggle Maps“ function is responsible for this"] = "这是由“切换地图”功能导致的"
 L["Left-clicking on a MapNotes raid (green), dungeon (blue) or multiple icon (green&blue) on the map opens the corresponding dungeon or raid map in the Adventure Guide"] = "左键单击地图上的 MapNotes 团队副本（绿色）、地下城（蓝色）或多个图标（绿色和蓝色）可在冒险指南中打开相应的地下城或团队地图"
 L["TomTom waypoints"] = "TomTom 航点"
 L["extra information"] = "更多信息"
