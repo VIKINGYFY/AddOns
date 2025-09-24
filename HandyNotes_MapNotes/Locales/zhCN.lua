@@ -246,6 +246,7 @@ L["Reveals unexplored areas and shows the individual areas of each zone that are
 L["Description"] = "描述"
 L["Position of the real Instance Entrance"] = "实际团队副本入口的位置"
 L["Way to the Instance Entrance"] = "前往团队副本入口的路径"
+L["Way to the Delve Entrance"] = "前往地下堡入口的道路"
 L["Also disables all Blizzard Instance icons on the zone map. However, these can be reactivated on the map at the top right under the 'Map filter' dungeon entrance magnifying glass. Disable and enable MapNotes VS again. blizzard, deactivates the instance icons on the zone map again"] = "同时禁用区域地图上的所有暴雪团队副本图标。不过，可以在地图右上方“地图过滤器”地下城入口放大镜内重新激活这些图标。暴雪，再次停用区域地图上的团队副本图标"
 L["Hides certain Blizzard icons (e.g. Horde/Alliance/Neutral capitals icon or general travel icons on the map) and replaces them with almost identical MapNotes icons, providing additional information and functionality"] = "隐藏某些暴雪图标（例如部落/联盟/中立主城图标或地图上的一般旅行图标），代之以几乎相同的 MapNotes 图标，提供更多信息和功能"
 L["Removes the Blizzard symbols only where MapNotes symbols and Blizzard symbols overlap, thereby making the tooltip and the function of the MapNote symbols usable again on the overlapping points"] = "仅在地图注释标记和暴雪图标重叠的地方移除暴雪图标，从而使鼠标提示和地图注释标记的功能在重叠点上再次可用"

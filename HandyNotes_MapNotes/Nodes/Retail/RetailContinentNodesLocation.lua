@@ -1180,75 +1180,77 @@ ns._currentSourceFile = "RetailContinentNodesLocation.lua"
         --#################################
     
         if self.db.profile.showContinentKhazAlgar then
+
+          -- missing Blizzard Delves on zone maps  
+          if ns.Addon.db.profile.showContinentDelves then
+            nodes[2274][37838637] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "Delves", showInZone = false, showOnContinent = true, showOnMinimap = false } -- Zekvir's Lair
+          end
     
-          -- Khaz Algar Dungeons
-            if self.db.profile.showContinentDungeons then
-              nodes[2274][57814889] = { id = 1210, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Darkflame Cleft
-              nodes[2274][35095289] = { id = 1267, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Priory of the Sacred Flame
-              nodes[2274][40465803] = { id = 1270, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- The Dawnbreaker
-              nodes[2274][53004397] = { id = 1269, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- The Stonevault
-              nodes[2274][52715561] = { id = 1298, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Operation: Floodgate
-              nodes[2274][70301908] = { id = 1268, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- The Rookery
-              nodes[2274][84362059] = { id = 1272, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Cinderbrew Meadery
-              nodes[2274][43337984] = { id = 1274, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- City of Threads
-              nodes[2274][44338372] = { id = 1271, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Ara-Kara, City of Echoes
-              nodes[2274][24392389] = { id = 1303, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Eco-Dome Al'dani
-              nodes[2274][24391549] = { id = 1194, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Tazavesh, the Veiled Market
-            end
-      
-          -- Khaz Algar Raids
-            if self.db.profile.showContinentRaids then
-              nodes[2274][41469096] = { id = 1273, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Nerub-ar Palace     
-              nodes[2274][82217245] = { id = 1296, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Liberation of Undermine  
-              nodes[2274][17931205] = { id = 1302, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Manaforge Omega
-            end
+        -- Khaz Algar Dungeons
+          if self.db.profile.showContinentDungeons then
+            nodes[2274][57814889] = { id = 1210, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Darkflame Cleft
+            nodes[2274][35095289] = { id = 1267, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Priory of the Sacred Flame
+            nodes[2274][40465803] = { id = 1270, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- The Dawnbreaker
+            nodes[2274][53004397] = { id = 1269, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- The Stonevault
+            nodes[2274][52715561] = { id = 1298, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Operation: Floodgate
+            nodes[2274][70301908] = { id = 1268, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- The Rookery
+            nodes[2274][84362059] = { id = 1272, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Cinderbrew Meadery
+            nodes[2274][43337984] = { id = 1274, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- City of Threads
+            nodes[2274][44338372] = { id = 1271, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Ara-Kara, City of Echoes
+            nodes[2274][24392389] = { id = 1303, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Eco-Dome Al'dani
+            nodes[2274][24391549] = { id = 1194, type = "Dungeon", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Tazavesh, the Veiled Market
+          end
+    
+        -- Khaz Algar Raids
+          if self.db.profile.showContinentRaids then
+            nodes[2274][41469096] = { id = 1273, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Nerub-ar Palace     
+            nodes[2274][82217245] = { id = 1296, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Liberation of Undermine  
+            nodes[2274][17931205] = { id = 1302, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Manaforge Omega
+          end
 
-          -- Khaz Algar MapNotesIcons
-            if self.db.profile.showContinentMapNotes then
-              nodes[2274][72311951] = { mnID = 2339, name = "", type = "MNL", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = ns.Dornogal .. " - " .. FACTION_NEUTRAL .. "\n" .. "\n" .. L["Portals"] .. "\n" .. " ==> " .. ns.Orgrimmar .. "\n" .. " ==> " .. ns.Stormwind .. "\n" .. "\n" .. L["The Timeways"] .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. ns.Tazavesh .. "\n" .. " ==> " .. ns.Revendreth .."\n" .. "\n" .. CALENDAR_TYPE_DUNGEON .. "\n" .. " ==> " .. ns.Rookery } -- Dornogal
-
-              if self.faction == "Horde" or db.activate.ContinentEnemyFaction then
-
-              end
-
-              if self.faction == "Alliance" or db.activate.ContinentEnemyFaction then
-              
-              end
+        -- Khaz Algar MapNotesIcons
+          if self.db.profile.showContinentMapNotes then
+            nodes[2274][72311951] = { mnID = 2339, name = "", type = "MNL", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = ns.Dornogal .. " - " .. FACTION_NEUTRAL .. "\n" .. "\n" .. L["Portals"] .. "\n" .. " ==> " .. ns.Orgrimmar .. "\n" .. " ==> " .. ns.Stormwind .. "\n" .. "\n" .. L["The Timeways"] .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. ns.Tazavesh .. "\n" .. " ==> " .. ns.Revendreth .."\n" .. "\n" .. CALENDAR_TYPE_DUNGEON .. "\n" .. " ==> " .. ns.Rookery } -- Dornogal
+            if self.faction == "Horde" or db.activate.ContinentEnemyFaction then
             end
-      
-          -- Khaz Algar Portals
-            if self.db.profile.showContinentPortals then
-              nodes[2274][70881758] = { mnID = 2339, name = "", type = "Portal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Portals"] .. "\n" ..  "\n" .. " ==> " .. ns.Stormwind .. "\n" .. " ==> " .. ns.Orgrimmar } --  Isle of Dorn Portals
-              
-              if self.faction == "Horde" or db.activate.ContinentEnemyFaction then
-  
-              end
-      
-              if self.faction == "Alliance" or db.activate.ContinentEnemyFaction then
-                --nodes[1978][25006083] = { mnID = "2239",  name = "", type = "APortal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Portals"] .. "\n" .. " ==> " .. ns.Stormwind .. "\n" .. " ==> " .. ns.Darkshore .. "\n" .. " ==> " .. ns.Hyjal  .. "\n" .. " ==> " .. POSTMASTER_LETTER_LORLATHIL } -- Valdrakken to Stormwind City Portal
-              end
+            if self.faction == "Alliance" or db.activate.ContinentEnemyFaction then
+            
             end
+          end
+    
+        -- Khaz Algar Portals
+          if self.db.profile.showContinentPortals then
+            nodes[2274][70881758] = { mnID = 2339, name = "", type = "Portal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Portals"] .. "\n" ..  "\n" .. " ==> " .. ns.Stormwind .. "\n" .. " ==> " .. ns.Orgrimmar } --  Isle of Dorn Portals
+            
+            if self.faction == "Horde" or db.activate.ContinentEnemyFaction then
 
-          -- Khaz Algar Transport
-            if self.db.profile.showContinentTransport then
-              nodes[2274][52685213] = { mnID = 2369, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = false, showOnContinent = true, showOnMinimap = false } -- Mole Machine from Deeps to Sirene Isle
-              nodes[2274][64396827] = { mnID = 2346, name = L["Rocket drill"] .. " " .. L["Transport"], dnID = "", type = "RocketDrill", questID = 83151, wwwLink = "wowhead.com/quest=83151", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Down Undermine", showInZone = false, showOnContinent = true, showOnMinimap = false } -- Mole Machine from Deeps to Undermine
             end
+    
+            if self.faction == "Alliance" or db.activate.ContinentEnemyFaction then
+              --nodes[1978][25006083] = { mnID = "2239",  name = "", type = "APortal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Portals"] .. "\n" .. " ==> " .. ns.Stormwind .. "\n" .. " ==> " .. ns.Darkshore .. "\n" .. " ==> " .. ns.Hyjal  .. "\n" .. " ==> " .. POSTMASTER_LETTER_LORLATHIL } -- Valdrakken to Stormwind City Portal
+            end
+          end
 
-          -- Khaz Algar Zeppelin
-            if self.db.profile.showContinentZeppelins then
-              nodes[2274][73131599] = { mnID = 2369, name = "", type = "Zeppelin", showInZone = false, showOnContinent = true, showOnMinimap = false, TransportName = L["Zeppelin"] .. " ==> " .. L["Siren Isle"] } -- Zeppelin to Siren Isle from Dornogal
-            end
+        -- Khaz Algar Transport
+          if self.db.profile.showContinentTransport then
+            nodes[2274][52685213] = { mnID = 2369, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = false, showOnContinent = true, showOnMinimap = false } -- Mole Machine from Deeps to Sirene Isle
+            nodes[2274][64396827] = { mnID = 2346, name = L["Rocket drill"] .. " " .. L["Transport"], dnID = "", type = "RocketDrill", questID = 83151, wwwLink = "wowhead.com/quest=83151", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Down Undermine", showInZone = false, showOnContinent = true, showOnMinimap = false } -- Mole Machine from Deeps to Undermine
+          end
 
-          -- Khaz Algar Paths
-            if self.db.profile.showContinentPaths then
-              nodes[2274][46397339] = { mnID = 2339, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19559", achievementID = 19559, type = "PassageCaveUp", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Azj-Kahet to Dornogal if u finished the achievement=19559
-              nodes[2274][60306969] = { mnID = 2248, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19560", achievementID = 19560, type = "PassageCaveUp", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Ringing Deeps to Isle of Dornogal
-              nodes[2274][55475781] = { mnID = 2248, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19560", achievementID = 19560, type = "PassageCaveUp", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Ringing Deeps to Isle of Dornogal
-              nodes[2274][65383353] = { mnID = 2214, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19560", achievementID = 19560, type = "PassageCaveDown", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Isle of Dornogal to Ringing Deeps
-              nodes[2274][79661540] = { mnID = 2214, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19560", achievementID = 19560, type = "PassageCaveDown", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Isle of Dornogal to Ringing Deeps
-              nodes[2274][70402160] = { mnID = 2214, name = L["Passage"], dnID = "", type = "PassageCaveDown", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Isle of Dornogal to Ringing Deeps
-            end
+        -- Khaz Algar Zeppelin
+          if self.db.profile.showContinentZeppelins then
+            nodes[2274][73131599] = { mnID = 2369, name = "", type = "Zeppelin", showInZone = false, showOnContinent = true, showOnMinimap = false, TransportName = L["Zeppelin"] .. " ==> " .. L["Siren Isle"] } -- Zeppelin to Siren Isle from Dornogal
+          end
+
+        -- Khaz Algar Paths
+          if self.db.profile.showContinentPaths then
+            nodes[2274][46397339] = { mnID = 2339, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19559", achievementID = 19559, type = "PassageCaveUp", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Azj-Kahet to Dornogal if u finished the achievement=19559
+            nodes[2274][60306969] = { mnID = 2248, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19560", achievementID = 19560, type = "PassageCaveUp", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Ringing Deeps to Isle of Dornogal
+            nodes[2274][55475781] = { mnID = 2248, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19560", achievementID = 19560, type = "PassageCaveUp", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Ringing Deeps to Isle of Dornogal
+            nodes[2274][65383353] = { mnID = 2214, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19560", achievementID = 19560, type = "PassageCaveDown", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Isle of Dornogal to Ringing Deeps
+            nodes[2274][79661540] = { mnID = 2214, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19560", achievementID = 19560, type = "PassageCaveDown", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Isle of Dornogal to Ringing Deeps
+            nodes[2274][70402160] = { mnID = 2214, name = L["Passage"], dnID = "", type = "PassageCaveDown", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Isle of Dornogal to Ringing Deeps
+          end
 
         end
 

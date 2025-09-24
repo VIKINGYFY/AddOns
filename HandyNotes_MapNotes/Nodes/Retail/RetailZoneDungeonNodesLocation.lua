@@ -280,8 +280,8 @@ ns._currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
             nodes[2070][83723082] = { name = L["Old Keyring \n You get the Scarlet Key in the \n [Loot-Filled Pumpkin] from [Hallow's End Event] or from the [Auction House] \n now you can activate the [Old Keyring] here \n to activate old dungeonversions from the Scarlet Monastery"], type = "VKey1", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Scarlet Monastery Key for Old dungeons 
             nodes[18][82333243] = { mnID = 19, name = L["Use the Old Keyring"], dnID = L["Graveyard"] .. " - " .. L["Old Version"] .. "\n" .. L["Cathedral"] .. " - " .. L["Old Version"] .. "\n" .. L["Library"] .. " - " .. L["Old Version"] .. "\n" .. L["Armory"] .. " - " .. L["Old Version"], type = "MultiVInstanceD", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Scarlet Monastery Key for Old dungeons
             nodes[2070][82333243] = { mnID = 19, name = L["Use the Old Keyring"], dnID = L["Graveyard"] .. " - " .. L["Old Version"] .. "\n" .. L["Cathedral"] .. " - " .. L["Old Version"] .. "\n" .. L["Library"] .. " - " .. L["Old Version"] .. "\n" .. L["Armory"] .. " - " .. L["Old Version"], type = "MultiVInstanceD", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Scarlet Monastery Key for Old dungeons
-            nodes[2070][83812772] = { id = 316, name ="", type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Scarlet Monastery
-            nodes[2070][85483158] = { id = 311, name ="", type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Scarlet Halls 
+            nodes[2070][83812772] = { id = 316, name = "", type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Scarlet Monastery
+            nodes[2070][85483158] = { id = 311, name = "", type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Scarlet Halls 
             nodes[19][78882223] = { mnID = 304, name = L["Cathedral"] .. " - " .. L["Old Version"] .. " - " .. L["Use the Old Keyring"], type = "VInstanceD", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Scarlet Monastery - Cathedral"
             nodes[19][78255762] = { mnID = 303, name = L["Library"] .. " - " .. L["Old Version"] .. " - " .. L["Use the Old Keyring"], type = "VInstanceD", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Scarlet Monastery -"
             nodes[19][86414766] = { mnID = 304, name = L["Armory"] .. " - " .. L["Old Version"] .. " - " .. L["Use the Old Keyring"], type = "VInstanceD", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Scarlet Mona"
@@ -742,42 +742,47 @@ ns._currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
 
         if self.db.profile.showZoneKhazAlgar then
 
+        -- missing Blizzard Delves on zone maps  
+          if not ns.Addon.db.profile.activate.HideBlizzDelves then
+            nodes[2213][06283385] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "Delves", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Zekvir's Lair
+            nodes[2255][33467669] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "Delves", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Zekvir's Lair
+            nodes[2256][33467669] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "Delves", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Zekvir's Lair
+          end
+
           -- Khaz Algar Dungeons
-            if self.db.profile.showZoneDungeons then
+          if self.db.profile.showZoneDungeons then
+          -- Dungeon Nodes above Blizzards Icons to make it Clickable for maximized Maps
+            nodes[2214][55452162] = { id = 1210, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Darkflame Cleft
+            nodes[2215][96973883] = { id = 1210, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Darkflame Cleft
+            nodes[2215][41324933] = { id = 1267, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Priory of the Sacred Flame
+            nodes[2215][54906313] = { id = 1270, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Dawnbreaker
+            nodes[2214][42700856] = { id = 1269, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Stonevault
+            nodes[2214][42083948] = { id = 1298, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Operation: Floodgate
+            nodes[2248][45234108] = { id = 1268, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Rookery
+            nodes[2248][76584378] = { id = 1272, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Cinderbrew Meadery
+            nodes[2255][46746917] = { id = 1274, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- City of Threads
+            nodes[2255][49538100] = { id = 1271, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Ara-Kara, City of Echoes
+            nodes[2256][46746917] = { id = 1274, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- City of Threads
+            nodes[2256][49538100] = { id = 1271, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Ara-Kara, City of Echoes
+            nodes[2216][52164580] = { id = 1271, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Ara-Kara, City of Echoes
+            nodes[2213][52164580] = { id = 1271, type = "Dungeon", dnID = DUNGEON_FLOOR_GILNEAS2, showInZone = true, showOnContinent = false, showOnMinimap = false } -- Ara-Kara, City of Echoes
+            nodes[2213][44191124] = { id = 1274, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- City of Threads
+            nodes[2371][65246841] = { id = 1303, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Eco-Dome Al'dani
+            nodes[2371][63587021] = { id = 1194, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Tazavesh, the Veiled Market
+            nodes[2472][43860393] = { id = 1303, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Eco-Dome Al'dani
+            nodes[2472][36321209] = { id = 1194, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Tazavesh, the Veiled Market
+          end
 
-            -- Dungeon Nodes above Blizzards Icons to make it Clickable for maximized Maps
-              nodes[2214][55452162] = { id = 1210, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Darkflame Cleft
-              nodes[2215][96973883] = { id = 1210, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Darkflame Cleft
-              nodes[2215][41324933] = { id = 1267, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Priory of the Sacred Flame
-              nodes[2215][54906313] = { id = 1270, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Dawnbreaker
-              nodes[2214][42700856] = { id = 1269, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Stonevault
-              nodes[2214][42083948] = { id = 1298, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Operation: Floodgate
-              nodes[2248][45234108] = { id = 1268, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Rookery
-              nodes[2248][76584378] = { id = 1272, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Cinderbrew Meadery
-              nodes[2255][46746917] = { id = 1274, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- City of Threads
-              nodes[2255][49538100] = { id = 1271, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Ara-Kara, City of Echoes
-              nodes[2256][46746917] = { id = 1274, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- City of Threads
-              nodes[2256][49538100] = { id = 1271, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Ara-Kara, City of Echoes
-              nodes[2216][52164580] = { id = 1271, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Ara-Kara, City of Echoes
-              nodes[2213][52164580] = { id = 1271, type = "Dungeon", dnID = DUNGEON_FLOOR_GILNEAS2, showInZone = true, showOnContinent = false, showOnMinimap = false } -- Ara-Kara, City of Echoes
-              nodes[2213][44191124] = { id = 1274, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- City of Threads
-              nodes[2371][65246841] = { id = 1303, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Eco-Dome Al'dani
-              nodes[2371][63587021] = { id = 1194, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Tazavesh, the Veiled Market
-              nodes[2472][43860393] = { id = 1303, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Eco-Dome Al'dani
-              nodes[2472][36321209] = { id = 1194, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Tazavesh, the Veiled Market
-            end
-
-          -- Khaz Algar Raids
-            if self.db.profile.showZoneRaids then
-
-            -- Raid Nodes above Blizzards Icons to make it Clickable for maximized Maps
-              nodes[2255][43559029] = { id = 1273, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Nerub-ar Palace
-              nodes[2256][43559029] = { id = 1273, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Nerub-ar Palace
-              nodes[2213][35047242] = { id = 1273, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Nerub-ar Palace       
-              nodes[2216][35047242] = { id = 1273, type = "Raid", dnID = DUNGEON_FLOOR_GILNEAS3, showInZone = true, showOnContinent = false, showOnMinimap = false } -- Nerub-ar Palace
-              nodes[2346][42045031] = { id = 1296, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Liberation of Undermine
-              nodes[2371][41662152] = { id = 1302, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Manaforge Omega
-            end
+        -- Khaz Algar Raids
+          if self.db.profile.showZoneRaids then
+          -- Raid Nodes above Blizzards Icons to make it Clickable for maximized Maps
+            nodes[2255][43559029] = { id = 1273, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Nerub-ar Palace
+            nodes[2256][43559029] = { id = 1273, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Nerub-ar Palace
+            nodes[2213][35047242] = { id = 1273, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Nerub-ar Palace       
+            nodes[2216][35047242] = { id = 1273, type = "Raid", dnID = DUNGEON_FLOOR_GILNEAS3, showInZone = true, showOnContinent = false, showOnMinimap = false } -- Nerub-ar Palace
+            nodes[2346][42045031] = { id = 1296, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Liberation of Undermine
+            nodes[2371][41662152] = { id = 1302, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Manaforge Omega
+          end
 
         end
 

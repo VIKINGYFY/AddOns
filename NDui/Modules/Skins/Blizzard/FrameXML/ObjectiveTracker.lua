@@ -178,7 +178,7 @@ C.OnLoginThemes["ObjectiveTracker"] = function()
 	hooksecurefunc(ScenarioObjectiveTracker.StageBlock, "UpdateStageBlock", function(block)
 		block.NormalBG:SetTexture(nil)
 		if not block.bg then
-			block.bg = B.CreateBG(block.GlowTexture, 0, -2, 4, 2)
+			block.bg = B.CreateBG(block.GlowTexture, 0, -4, 0, -4)
 		end
 	end)
 
@@ -190,7 +190,8 @@ C.OnLoginThemes["ObjectiveTracker"] = function()
 		local widgetContainer = self.WidgetContainer
 		if widgetContainer.widgetFrames then
 			for _, widgetFrame in pairs(widgetContainer.widgetFrames) do
-				if widgetFrame.Frame then widgetFrame.Frame:SetAlpha(0) end
+				local frame = widgetFrame.Frame
+				if frame then frame:Hide() end
 
 				local bar = widgetFrame.TimerBar
 				if bar and not bar.bg then
@@ -198,10 +199,10 @@ C.OnLoginThemes["ObjectiveTracker"] = function()
 				end
 
 				if widgetFrame.CurrencyContainer then
-					for currencyFrame in widgetFrame.currencyPool:EnumerateActive() do
-						local tex = currencyFrame.Icon:GetTexture()
-						if not isIgnoredTex[tex] and not currencyFrame.bg then
-							currencyFrame.bg = B.ReskinIcon(currencyFrame.Icon)
+					for currency in widgetFrame.currencyPool:EnumerateActive() do
+						local tex = currency.Icon:GetTexture()
+						if not isIgnoredTex[tex] and not currency.bg then
+							currency.bg = B.ReskinIcon(currency.Icon)
 						end
 					end
 				end

@@ -6,11 +6,6 @@ local VERSION_FALLBACK = (TOC_VERSION == "0.0.0")
 local PREFIX = "HN_MapNotes_Ver"
 local f = CreateFrame("Frame")
 
-local function dbg(...)
-  local ok = ns and ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode
-  if ok then print("|cffff7f00MN-VER|r", ...) end
-end
-
 local function NormName(s)
   return (tostring(s or "")):gsub("%s+", "")
 end
@@ -55,12 +50,10 @@ local function Broadcast(ver)
   if ch and ver then
     C_ChatInfo.SendAddonMessage(PREFIX, ver, ch)
     sent = true
-    dbg("sent", ver, "->", ch)
   end
   if IsInGuild() and ch ~= "GUILD" and ver then
     C_ChatInfo.SendAddonMessage(PREFIX, ver, "GUILD")
     sent = true
-    dbg("sent", ver, "-> GUILD")
   end
   return sent
 end
@@ -72,7 +65,6 @@ end
 local function SendWithRetry()
   if VERSION_FALLBACK then return end
   if not SendOnce() then
-    dbg("no channel yet, retry in 3s")
     C_Timer.After(3, SendOnce)
   end
 end
@@ -80,20 +72,17 @@ end
 local function WhisperBackVersion(targetRaw)
   if not targetRaw or targetRaw == "" then return end
   C_ChatInfo.SendAddonMessage(PREFIX, TOC_VERSION, "WHISPER", targetRaw)
-  dbg("ping-back WHISPER", TOC_VERSION, "->", targetRaw)
 end
 
 local function EnableReceiving()
   if not f:IsEventRegistered("CHAT_MSG_ADDON") then
     f:RegisterEvent("CHAT_MSG_ADDON")
-    dbg("receiving ENABLED")
   end
 end
 
 local function DisableReceiving()
   if f:IsEventRegistered("CHAT_MSG_ADDON") then
     f:UnregisterEvent("CHAT_MSG_ADDON")
-    dbg("receiving DISABLED (in combat)")
   end
 end
 
@@ -112,20 +101,15 @@ f:SetScript("OnEvent", function(_, evt, ...)
 
   elseif evt == "GROUP_ROSTER_UPDATE" then
     C_Timer.After(3, SendWithRetry)
-
   elseif evt == "PLAYER_REGEN_ENABLED" then
     EnableReceiving()
-
   elseif evt == "PLAYER_REGEN_DISABLED" then
     DisableReceiving()
-
   elseif evt == "CHAT_MSG_ADDON" then
     if VERSION_FALLBACK then return end
     local prefix, msg, channel, senderRaw = ...
     if prefix ~= PREFIX or not msg then return end
     if NormName(senderRaw) == PLAYER then return end
-
-    dbg("recv", msg, "from", senderRaw, "via", channel)
 
     if IsNewer(msg, TOC_VERSION) then
       maxSeen = msg

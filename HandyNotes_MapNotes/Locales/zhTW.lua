@@ -246,6 +246,7 @@ L["Reveals unexplored areas and shows the individual areas of each zone that are
 L["Description"] = "描述"
 L["Position of the real Instance Entrance"] = "副本入口的實際位置"
 L["Way to the Instance Entrance"] = "通往副本入口的路線"
+L["Way to the Delve Entrance"] = "通往探究入口的道路"
 L["Also disables all Blizzard Instance icons on the zone map. However, these can be reactivated on the map at the top right under the 'Map filter' dungeon entrance magnifying glass. Disable and enable MapNotes VS again. blizzard, deactivates the instance icons on the zone map again"] = "同時禁用區域地圖上的所有暴雪副本圖示. 但是，可以在地圖右上角的「地圖篩選」副本入口放大鏡下重新激活這些圖示. 禁用並重新啟用MapNotes後，暴雪圖示再次被禁用. "
 L["Hides certain Blizzard icons (e.g. Horde/Alliance/Neutral capitals icon or general travel icons on the map) and replaces them with almost identical MapNotes icons, providing additional information and functionality"] = "隱藏某些暴雪圖示（例如部落/聯盟/中立主城圖示或地圖上的一般旅行圖示），並用幾乎相同的MapNotes圖示替換，提供額外的資訊和功能"
 L["Removes the Blizzard symbols only where MapNotes symbols and Blizzard symbols overlap, thereby making the tooltip and the function of the MapNote symbols usable again on the overlapping points"] = "僅在MapNotes圖示和暴雪圖示重疊的地方移除暴雪符號，從而使工具提示和MapNote圖示的功能在重疊點上可再次使用"

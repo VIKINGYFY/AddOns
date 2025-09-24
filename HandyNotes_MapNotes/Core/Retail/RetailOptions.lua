@@ -399,19 +399,19 @@ ns.options = {
                   if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.RemoveBlizzInstances then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. DUNGEONS .. " / " .. RAIDS .. " " .. L["icons"], "|cff00ccff" .. L["are shown"] ) else end end 
                 end,
               },
-            ShowBlizzDelves = {
+            HideBlizzDelves = {
               disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
               type = "toggle",
               name = DELVES_LABEL,
               desc = TextIconDelves:GetIconString().. " " .. L["Disables the display of all Blizzard Delves entrances on the zone map"] .. "\n\n" .. L["It is recommended not to activate this function if you generally want to see these symbols on the zone map. Since MapNotes didn't place its own Delve icons on the zone map, instead we attached our functions to the Blizzard Delve icons"],
               order = 4.4,
               width = 0.60,
-              get = function() return ns.Addon.db.profile.activate.ShowBlizzDelves end,
-              set = function(info, v) ns.Addon.db.profile.activate.ShowBlizzDelves = v 
-                  if ns.Addon.db.profile.activate.ShowBlizzDelves then SetCVar("showDelveEntrancesOnMap", 0) else SetCVar("showDelveEntrancesOnMap", 1) end
+              get = function() return ns.Addon.db.profile.activate.HideBlizzDelves end,
+              set = function(info, v) ns.Addon.db.profile.activate.HideBlizzDelves = v 
+                  if ns.Addon.db.profile.activate.HideBlizzDelves then SetCVar("showDelveEntrancesOnMap", 0) else SetCVar("showDelveEntrancesOnMap", 1) end
                   self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
-                  if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.ShowBlizzDelves then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. DELVES_LABEL .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
-                  if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.ShowBlizzDelves then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. DELVES_LABEL .. " " .. L["icons"], "|cff00ccff" .. L["are shown"] ) else end end
+                  if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.HideBlizzDelves then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. DELVES_LABEL .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
+                  if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.HideBlizzDelves then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. DELVES_LABEL .. " " .. L["icons"], "|cff00ccff" .. L["are shown"] ) else end end
                 end,
               },
             },

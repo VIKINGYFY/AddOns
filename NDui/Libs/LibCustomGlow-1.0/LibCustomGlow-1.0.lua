@@ -383,13 +383,9 @@ local function AnimIn_OnPlay(group)
 	local frame = group:GetParent()
 	local fw, fh = frame:GetSize()
 	frame.spark:SetAlpha(1)
-	frame.spark:SetSize(fw, fh)
 	frame.innerGlow:SetAlpha(1)
-	frame.innerGlow:SetSize(fw / 2, fh / 2)
 	frame.outerGlow:SetAlpha(0)
-	frame.outerGlow:SetSize(fw * 2, fh * 2)
 	frame.ants:SetAlpha(0)
-	frame.ants:SetSize(fw, fh)
 	frame:Show()
 end
 
@@ -397,36 +393,40 @@ local function AnimIn_OnFinished(group)
 	local frame = group:GetParent()
 	local fw, fh = frame:GetSize()
 	frame.spark:SetAlpha(0)
-	frame.spark:SetSize(fw, fh)
 	frame.innerGlow:SetAlpha(0)
-	frame.innerGlow:SetSize(fw, fh)
 	frame.outerGlow:SetAlpha(1)
-	frame.outerGlow:SetSize(fw, fh)
 	frame.ants:SetAlpha(1)
-	frame.ants:SetSize(fw, fh)
+end
+
+local function AnimOut_OnFinished(group)
+	local frame = group:GetParent()
+	GlowFramePool:Release(frame)
 end
 
 local function InitButton(f)
 	if not f.inited then
 		f.ants = f:CreateTexture(nil, "OVERLAY")
-		f.ants:SetPoint("CENTER")
+		f.ants:SetPoint("CENTER", f, "CENTER")
 		f.ants:SetAlpha(0)
 		f.ants:SetTexture("Interface\\SpellActivationOverlay\\IconAlertAnts")
 
 		f.spark = f:CreateTexture(nil, "BACKGROUND")
-		f.spark:SetPoint("CENTER")
+		f.spark:SetPoint("TOPLEFT", f, "TOPLEFT")
+		f.spark:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT")
 		f.spark:SetAlpha(0)
 		f.spark:SetTexture("Interface\\SpellActivationOverlay\\IconAlert")
 		f.spark:SetTexCoord(0.00781250, 0.61718750, 0.00390625, 0.26953125)
 
 		f.innerGlow = f:CreateTexture(nil, "OVERLAY")
-		f.innerGlow:SetPoint("CENTER")
+		f.innerGlow:SetPoint("TOPLEFT", f, "TOPLEFT")
+		f.innerGlow:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT")
 		f.innerGlow:SetAlpha(0)
 		f.innerGlow:SetTexture("Interface\\SpellActivationOverlay\\IconAlert")
 		f.innerGlow:SetTexCoord(0.00781250, 0.50781250, 0.27734375, 0.52734375)
 
 		f.outerGlow = f:CreateTexture(nil, "OVERLAY")
-		f.outerGlow:SetPoint("CENTER")
+		f.outerGlow:SetPoint("TOPLEFT", f, "TOPLEFT")
+		f.outerGlow:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT")
 		f.outerGlow:SetAlpha(0)
 		f.outerGlow:SetTexture("Interface\\SpellActivationOverlay\\IconAlert")
 		f.outerGlow:SetTexCoord(0.00781250, 0.50781250, 0.27734375, 0.52734375)
@@ -435,16 +435,16 @@ local function InitButton(f)
 		f.animIn.appear = {}
 		f.animIn.fade = {}
 
-		AddScale(f.animIn, "spark", 1, 0.2, 1.5, 1.5)
-		AddAlpha(f.animIn, "spark", 1, 0.2, 0, 1, nil, true)
+		AddScale(f.animIn, "spark",     1, 0.2, 1.5, 1.5)
+		AddAlpha(f.animIn, "spark",     1, 0.2, 0, 1, nil, true)
 		AddScale(f.animIn, "innerGlow", 1, 0.2, 2, 2)
 		AddAlpha(f.animIn, "innerGlow", 1, 0.2, 1, 0, 0.2, false)
 		AddScale(f.animIn, "outerGlow", 1, 0.2, 0.5, 0.5)
 		AddAlpha(f.animIn, "outerGlow", 1, 0.2, 1, 0, 0.2, false)
-		AddScale(f.animIn, "spark", 1, 0.2, 0.8, 0.8, 0.2)
-		AddAlpha(f.animIn, "spark", 1, 0.2, 1, 0, 0.2, false)
-		AddScale(f.animIn, "ants", 1, 0.2, 1, 1)
-		AddAlpha(f.animIn, "ants", 1, 0.2, 0, 1, 0.2, true)
+		AddScale(f.animIn, "spark",     1, 0.2, 0.8, 0.8, 0.2)
+		AddAlpha(f.animIn, "spark",     1, 0.2, 1, 0, 0.2, false)
+		AddScale(f.animIn, "ants",      1, 0.2, 1, 1)
+		AddAlpha(f.animIn, "ants",      1, 0.2, 0, 1, 0.2, true)
 
 		f.animIn:SetScript("OnPlay", AnimIn_OnPlay)
 		f.animIn:SetScript("OnFinished", AnimIn_OnFinished)
@@ -453,14 +453,11 @@ local function InitButton(f)
 		f.animOut.appear = {}
 		f.animOut.fade = {}
 
-		AddAlpha(f.animOut, "ants", 1, 0.2, 1, 0, nil, false)
+		AddAlpha(f.animOut, "ants",      1, 0.2, 1, 0, nil, false)
 		AddAlpha(f.animOut, "innerGlow", 2, 0.2, 1, 0, nil, false)
 		AddAlpha(f.animOut, "outerGlow", 2, 0.2, 1, 0, nil, false)
 
-		f.animOut:SetScript("OnFinished", function(self)
-			local p = self:GetParent()
-			GlowFramePool:Release(p)
-		end)
+		f.animOut:SetScript("OnFinished", AnimOut_OnFinished)
 
 		f.inited = true
 	end
@@ -508,8 +505,8 @@ function lib.ButtonGlow_Start(button, options)
 	options = ApplyDefaults(options, ActionButtonDefaults)
 
 	local w, h = button:GetSize()
-	local x = options.xOffset + w
-	local y = options.yOffset + h
+	local x = options.xOffset + w * 0.2
+	local y = options.yOffset + h * 0.2
 
 	local name, f = "_ButtonGlow"
 	if button[name] then
@@ -521,21 +518,21 @@ function lib.ButtonGlow_Start(button, options)
 		end
 	else
 		f = GlowFramePool:Acquire()
-		f:SetSize(w*1.5, h*1.5)
 		InitButton(f)
+		f:SetSize(w*1.4, h*1.4)
+		f.ants:SetSize(w*1.4*0.9, h*1.4*0.9)
 		f.animIn:Play()
 		button[name] = f
 	end
 
 	f:SetParent(button)
 	f:SetFrameLevel(button:GetFrameLevel())
+	f:SetSize(w*1.4, h*1.4)
+	f.ants:SetSize(w*1.4*0.9, h*1.4*0.9)
 
 	f:ClearAllPoints()
-	f:SetPoint("TOPLEFT", button, "TOPLEFT", -x*0.2, y*0.2)
-	f:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", x*0.2, -y*0.2)
-	f.ants:ClearAllPoints()
-	f.ants:SetPoint("TOPLEFT", f, "TOPLEFT", x*0.1, -y*0.1)
-	f.ants:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -x*0.1, y*0.1)
+	f:SetPoint("TOPLEFT", button, "TOPLEFT", -x, y)
+	f:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", x, -y)
 
 	SetupButton(f, options)
 
@@ -566,7 +563,7 @@ end
 local function InitProc(f)
 	if not f.inited then
 		f.ProcStart = f:CreateTexture(nil, "OVERLAY")
-		f.ProcStart:SetPoint("CENTER")
+		f.ProcStart:SetPoint("CENTER", f, "CENTER")
 		f.ProcStart:SetAlpha(0)
 		f.ProcStart:SetAtlas("UI-HUD-ActionBar-Proc-Start-Flipbook")
 

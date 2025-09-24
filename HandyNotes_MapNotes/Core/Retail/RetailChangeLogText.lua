@@ -1,10 +1,14 @@
 local ADDON_NAME, ns = ...
 
-ns.PreviousAddonVersion = "3.0.7"
-ns.CurrentAddonVersion = "3.0.8"
+ns.PreviousAddonVersion = "3.0.8"
+ns.CurrentAddonVersion = "3.0.9"
 
 ns.LOCALE_CHANGELOG_NEW = {
   deDE = [[
+•Version:3.0.9
+• Es wurde die Tiefe „Zekvirs Höhle“ zur Zonen- und Kontinentkarte hinzugefügt, da sie von Blizzard immer noch fehlt.
+
+•Version: 3.0.8
 • Im Kampf ist es nicht mehr möglich, die Weltkarte über Addons zu wechseln, ohne Blizzard-Fehler zu erzeugen.
   • Da dies eine Kernfunktion von MapNotes ist, wurden nun drei Optionen hinzugefügt, die dieses Problem auf verschiedenen Wegen lösen.
 
@@ -31,6 +35,9 @@ ns.LOCALE_CHANGELOG_NEW = {
 ]],
 
   enUS = [[
+•Version:3.0.9
+• The Delve “Zekvir’s Cavern” has been added to the zone and continent maps, as it is still missing from Blizzard.
+
 • It is no longer possible to switch the world map via addons during combat without triggering Blizzard errors.
   • Because this is a core MapNotes feature, three options were added to address the problem in different ways.
 
@@ -57,6 +64,9 @@ ns.LOCALE_CHANGELOG_NEW = {
 ]],
 
   frFR = [[
+•Version:3.0.9
+• Le Gouffre « Caverne de Zekvir » a été ajouté à la carte de zone et à la carte du continent, car il manque encore chez Blizzard.
+
 • Il n’est plus possible de changer la carte du monde via des addons pendant le combat sans provoquer des erreurs Blizzard.
   • Comme il s’agit d’une fonctionnalité essentielle de MapNotes, trois options ont été ajoutées pour traiter ce problème de différentes manières.
 
@@ -83,6 +93,9 @@ ns.LOCALE_CHANGELOG_NEW = {
 ]],
 
   itIT = [[
+•Version:3.0.9
+• La Scorribanda « Caverna di Zekvir » è stata aggiunta alla mappa della zona e alla mappa del continente, poiché è ancora assente da Blizzard.
+
 • Non è più possibile cambiare la mappa del mondo tramite addon durante il combattimento senza causare errori Blizzard.
   • Poiché questa è una funzione fondamentale di MapNotes, sono state aggiunte tre opzioni per affrontare il problema in modi diversi.
 
@@ -109,6 +122,9 @@ ns.LOCALE_CHANGELOG_NEW = {
 ]],
 
   esES = [[
+•Version:3.0.9
+• La Profundidad « Caverna de Zekvir » se ha añadido al mapa de la zona y al mapa del continente, ya que aún falta en Blizzard.
+
 • Ya no es posible cambiar el mapa del mundo mediante addons durante el combate sin provocar errores de Blizzard.
   • Como se trata de una función principal de MapNotes, se han añadido tres opciones para abordar el problema de diferentes maneras.
 
@@ -135,6 +151,9 @@ ns.LOCALE_CHANGELOG_NEW = {
 ]],
 
   esMX = [[
+•Version:3.0.9
+• La Profundidad « Caverna de Zekvir » se agregó al mapa de zona y al mapa del continente, ya que todavía falta en Blizzard.
+
 • Ya no es posible cambiar el mapa del mundo mediante addons durante el combate sin causar errores de Blizzard.
   • Debido a que esta es una función central de MapNotes, se agregaron tres opciones para abordar el problema de distintas maneras.
 
@@ -161,6 +180,9 @@ ns.LOCALE_CHANGELOG_NEW = {
 ]],
 
   ptBR = [[
+•Version:3.0.9
+• A Imersão « Caverna de Zekvir » foi adicionada ao mapa da zona e ao mapa do continente, pois ainda está ausente na Blizzard.
+
 • Não é mais possível trocar o mapa-múndi por addons durante o combate sem causar erros da Blizzard.
   • Como isso é um recurso central do MapNotes, foram adicionadas três opções para lidar com o problema de maneiras diferentes.
 
@@ -187,6 +209,9 @@ ns.LOCALE_CHANGELOG_NEW = {
 ]],
 
   ruRU = [[
+•Version:3.0.9
+• Вылазка «Пещера Зеквира» была добавлена на карту зоны и карту континента, так как она до сих пор отсутствует у Blizzard.
+
 • Во время боя больше нельзя переключать карту мира через аддоны без вызова ошибок Blizzard.
   • Так как это ключевая функция MapNotes, были добавлены три варианта, решающие проблему разными способами.
 
@@ -213,6 +238,9 @@ ns.LOCALE_CHANGELOG_NEW = {
 ]],
 
   zhCN = [[
+•Version:3.0.9
+• 已将地下堡“泽克维尔的洞穴”添加到区域地图和大陆地图中，因为暴雪仍然缺少它。
+
 • 战斗中已无法通过插件切换世界地图而不触发暴雪错误。
   • 由于这是 MapNotes 的核心功能，我们新增了三种方式来应对这一问题。
 
@@ -239,6 +267,9 @@ ns.LOCALE_CHANGELOG_NEW = {
 ]],
 
   zhTW = [[
+•Version:3.0.9
+• 已將探究「澤克維爾之洞穴」新增到區域地圖和大陸地圖，因為暴雪仍然缺少它。
+
 • 戰鬥中已無法透過外掛切換世界地圖而不產生暴雪錯誤。
   • 由於這是 MapNotes 的核心功能，因此新增三種方式來處理這個問題。
 
@@ -265,6 +296,9 @@ ns.LOCALE_CHANGELOG_NEW = {
 ]],
 
   koKR = [[
+•Version:3.0.9
+• 구렁 ‘제크비르의 동굴’이 지역 지도와 대륙 지도에 추가되었습니다. 블리자드에서는 아직 누락되어 있습니다.
+
 • 전투 중에는 애드온으로 세계 지도를 전환하면 블리자드 오류가 발생하므로 더 이상 수행할 수 없습니다.
   • 이는 MapNotes의 핵심 기능이기 때문에, 문제를 다양한 방식으로 해결할 수 있도록 세 가지 옵션이 추가되었습니다.
 
@@ -294,230 +328,230 @@ ns.LOCALE_CHANGELOG_NEW = {
 ns.LOCALE_CHANGELOG_OLD = {
   deDE = [[
 • Es wurden Instanzsymbole auf den Flugkarten von TWW, Dragonflight und Schattenlande hinzugefügt; weitere Gebiete folgen.
-Zusätzlich wurde ein Knopf oben rechts auf der Flugkarte erstellt, mit dem ihr die Symbole ein- bzw. ausblenden könnt.
-Die Option zum Aktivieren bzw. Deaktivieren des Knopfes sowie der Symbole befindet sich zusätzlich im MapNotes-Menü im allgemeinen Reiter unter „Flugkarte“.
+  • Zusätzlich wurde ein Knopf oben rechts auf der Flugkarte erstellt, mit dem ihr die Symbole ein- bzw. ausblenden könnt.
+  • Die Option zum Aktivieren bzw. Deaktivieren des Knopfes sowie der Symbole befindet sich zusätzlich im MapNotes-Menü im allgemeinen Reiter unter „Flugkarte“.
 
 • Für die restlichen Klassen wurden Ordenshallensymbole hinzugefügt.
 
 • Es ist nun möglich, den Spielerpfeil auf der Weltkarte zu vergrößern oder zu verkleinern.
-Die dazugehörige Option befindet sich im Allgemeinen Reiter unter Weltkarte (Weltkarten-Spielerpfeil).
+  • Die dazugehörige Option befindet sich im Allgemeinen Reiter unter Weltkarte (Weltkarten-Spielerpfeil).
 
 • Die Koordinatenanzeige für Spieler- und Mausposition wurde angepasst.
-Das Koordinatenfenster für die Spielerposition besitzt nun einen Tooltip und kann nur noch mit „Umschalttaste + Linksklick“ verschoben werden (statt mit einfachem Linksklick).
-Das Koordinatenfenster für die Spielerposition lässt sich vom Spieler frei positionieren.
-Das Koordinatenfenster für die Mausposition besitzt nun einen Tooltip und kann nur noch mit „Umschalttaste + Linksklick“ verschoben werden (statt mit einfachem Linksklick).
-Das Koordinatenfenster für die Mausposition gibt es 2x. 1x gibt es eines auf der verkleinerten Weltkarte und 1x gibt es eines auf der vergrößerten Weltkarte.
-Die Koordinatenfenster der Mausposition lassen sich vom Spieler auf der verkleinerten und vergrößerten Weltkarte jeweils unabhängig frei positionieren.
-Im Addon Menü teilen sich die zwei Koordinatenfenster der Mausposition jeweils die Größe und Transparenz.
-Das Fenster der Mausposition wird automatisch ausgeblendet, wenn die Weltkarte geschlossen wird, und wieder angezeigt, wenn sie geöffnet wird.
-Auch die Standardeinstellungen (position/größe/transparenz) wurden angepasst.
+  • Das Koordinatenfenster für die Spielerposition besitzt nun einen Tooltip und kann nur noch mit „Umschalttaste + Linksklick“ verschoben werden (statt mit einfachem Linksklick).
+  • Das Koordinatenfenster für die Spielerposition lässt sich vom Spieler frei positionieren.
+  • Das Koordinatenfenster für die Mausposition besitzt nun einen Tooltip und kann nur noch mit „Umschalttaste + Linksklick“ verschoben werden (statt mit einfachem Linksklick).
+  • Das Koordinatenfenster für die Mausposition gibt es 2x. 1x gibt es eines auf der verkleinerten Weltkarte und 1x gibt es eines auf der vergrößerten Weltkarte.
+  • Die Koordinatenfenster der Mausposition lassen sich vom Spieler auf der verkleinerten und vergrößerten Weltkarte jeweils unabhängig frei positionieren.
+  • Im Addon Menü teilen sich die zwei Koordinatenfenster der Mausposition jeweils die Größe und Transparenz.
+  • Das Fenster der Mausposition wird automatisch ausgeblendet, wenn die Weltkarte geschlossen wird, und wieder angezeigt, wenn sie geöffnet wird.
+  • Auch die Standardeinstellungen (position/größe/transparenz) wurden angepasst.
 
 • Außerdem wurden noch ein paar kleinere Änderungen vorgenommen.
 ]],
 
   enUS = [[
 • Instance icons have been added to the flight maps of TWW, Dragonflight, and Shadowlands; more zones will follow.
-In addition, a button has been added at the top right of the flight map to toggle the icons on or off.
-The option to enable or disable the button as well as the icons can also be found in the MapNotes menu in the General tab under "Flight Map".
+  • In addition, a button has been added at the top right of the flight map to toggle the icons on or off.
+  • The option to enable or disable the button as well as the icons can also be found in the MapNotes menu in the General tab under “Flight Map”.
 
 • Class Order Hall icons have been added for the remaining classes.
 
 • It is now possible to increase or decrease the size of the player arrow on the world map.
-The corresponding option can be found in the General tab under World Map (World Map Player Arrow).
+  • The corresponding option can be found in the General tab under World Map (World Map Player Arrow).
 
 • The coordinate display for player and mouse position has been adjusted.
-The coordinate window for the player position now has a tooltip and can only be moved with "Shift + Left Click" (instead of just Left Click).
-The coordinate window for the player position can be freely positioned by the player.
-The coordinate window for the mouse position now has a tooltip and can only be moved with "Shift + Left Click" (instead of just Left Click).
-There are two coordinate windows for the mouse position: one on the minimized world map and one on the maximized world map.
-The mouse-position windows can be freely and independently positioned by the player on both the minimized and maximized world maps.
-In the addon menu, the two mouse-position windows share the size and transparency settings.
-The mouse-position window is automatically hidden when the world map is closed and shown again when it is opened.
-The default settings (position/size/transparency) have also been adjusted.
+  • The coordinate window for the player position now has a tooltip and can only be moved with “Shift + Left Click” (instead of just Left Click).
+  • The coordinate window for the player position can be freely positioned by the player.
+  • The coordinate window for the mouse position now has a tooltip and can only be moved with “Shift + Left Click” (instead of just Left Click).
+  • There are two coordinate windows for the mouse position: one on the minimized world map and one on the maximized world map.
+  • The mouse-position windows can be freely and independently positioned by the player on both the minimized and maximized world maps.
+  • In the addon menu, the two mouse-position windows share the size and transparency settings.
+  • The mouse-position window is automatically hidden when the world map is closed and shown again when it is opened.
+  • The default settings (position/size/transparency) have also been adjusted.
 
 • A few other minor changes have also been made.
 ]],
 
   frFR = [[
 • Des icônes d’instance ont été ajoutées aux cartes de vol de TWW, Dragonflight et Ombreterre ; d’autres zones suivront.
-Un bouton a également été ajouté en haut à droite de la carte de vol pour afficher ou masquer les icônes.
-L’option permettant d’activer ou de désactiver le bouton ainsi que les icônes se trouve également dans le menu MapNotes, onglet Général, sous « Carte de vol ».
+  • Un bouton a également été ajouté en haut à droite de la carte de vol pour afficher ou masquer les icônes.
+  • L’option permettant d’activer ou de désactiver le bouton ainsi que les icônes se trouve également dans le menu MapNotes, onglet Général, sous « Carte de vol ».
 
 • Des icônes du domaine de classe ont été ajoutées pour les classes restantes.
 
 • Il est désormais possible d’augmenter ou de diminuer la taille de la flèche du joueur sur la carte du monde.
-L’option correspondante se trouve dans l’onglet Général, sous Carte du monde (Flèche du joueur sur la carte du monde).
+  • L’option correspondante se trouve dans l’onglet Général, sous Carte du monde (Flèche du joueur sur la carte du monde).
 
 • L’affichage des coordonnées pour la position du joueur et de la souris a été ajusté.
-La fenêtre des coordonnées pour la position du joueur dispose désormais d’une info-bulle et ne peut plus être déplacée qu’avec « Maj + clic gauche » (au lieu d’un simple clic gauche).
-La fenêtre des coordonnées de la position du joueur peut être librement positionnée par le joueur.
-La fenêtre des coordonnées pour la position de la souris dispose désormais aussi d’une info-bulle et ne peut plus être déplacée qu’avec « Maj + clic gauche ».
-Il existe deux fenêtres de coordonnées pour la position de la souris : l’une sur la carte du monde réduite et l’autre sur la carte du monde agrandie.
-Ces deux fenêtres peuvent être positionnées librement et indépendamment sur les versions réduite et agrandie de la carte du monde.
-Dans le menu de l’addon, ces deux fenêtres partagent les paramètres de taille et de transparence.
-La fenêtre de la position de la souris est automatiquement masquée lorsque la carte du monde est fermée, puis réaffichée lorsqu’elle est ouverte.
-Les paramètres par défaut (position/taille/transparence) ont également été ajustés.
+  • La fenêtre des coordonnées pour la position du joueur dispose désormais d’une info-bulle et ne peut plus être déplacée qu’avec « Maj + clic gauche » (au lieu d’un simple clic gauche).
+  • La fenêtre des coordonnées de la position du joueur peut être librement positionnée par le joueur.
+  • La fenêtre des coordonnées pour la position de la souris dispose désormais aussi d’une info-bulle et ne peut plus être déplacée qu’avec « Maj + clic gauche ».
+  • Il existe deux fenêtres de coordonnées pour la position de la souris : l’une sur la carte du monde réduite et l’autre sur la carte du monde agrandie.
+  • Ces deux fenêtres peuvent être positionnées librement et indépendamment sur les versions réduite et agrandie de la carte du monde.
+  • Dans le menu de l’addon, ces deux fenêtres partagent les paramètres de taille et de transparence.
+  • La fenêtre de la position de la souris est automatiquement masquée lorsque la carte du monde est fermée, puis réaffichée lorsqu’elle est ouverte.
+  • Les paramètres par défaut (position/taille/transparence) ont également été ajustés.
 
 • Quelques autres petites modifications ont également été apportées.
 ]],
 
   itIT = [[
 • Sono state aggiunte icone delle istanze alle mappe di volo di TWW, Dragonflight e Shadowlands; altre zone seguiranno.
-Inoltre, è stato aggiunto un pulsante in alto a destra della mappa di volo per mostrare o nascondere le icone.
-L’opzione per abilitare o disabilitare sia il pulsante sia le icone si trova anche nel menu di MapNotes nella scheda Generale, in "Mappa di volo".
+  • Inoltre, è stato aggiunto un pulsante in alto a destra della mappa di volo per mostrare o nascondere le icone.
+  • L’opzione per abilitare o disabilitare sia il pulsante sia le icone si trova anche nel menu di MapNotes nella scheda Generale, in «Mappa di volo».
 
 • Aggiunte le icone della Sala d’Ordine per le classi rimanenti.
 
 • Ora è possibile aumentare o ridurre la dimensione della freccia del giocatore sulla mappa del mondo.
-L’opzione corrispondente si trova nella scheda Generale, sotto Mappa del mondo (Freccia del giocatore sulla mappa del mondo).
+  • L’opzione corrispondente si trova nella scheda Generale, sotto Mappa del mondo (Freccia del giocatore sulla mappa del mondo).
 
 • È stata modificata la visualizzazione delle coordinate per la posizione del giocatore e del mouse.
-La finestra delle coordinate della posizione del giocatore ora ha un tooltip e può essere spostata solo con "Maiusc + Clic sinistro" (invece del solo clic sinistro).
-La finestra delle coordinate della posizione del giocatore può essere posizionata liberamente.
-Anche la finestra della posizione del mouse ora ha un tooltip e può essere spostata solo con "Maiusc + Clic sinistro".
-Esistono due finestre di coordinate per la posizione del mouse: una sulla mappa del mondo ridotta e una su quella ingrandita.
-Queste due finestre possono essere posizionate liberamente e in modo indipendente sulla mappa ridotta e su quella ingrandita.
-Nel menu dell’addon, le due finestre della posizione del mouse condividono impostazioni di dimensione e trasparenza.
-La finestra della posizione del mouse viene nascosta automaticamente quando la mappa del mondo è chiusa e riappare quando viene aperta.
-Sono stati inoltre aggiornati i valori predefiniti (posizione/dimensione/trasparenza).
+  • La finestra delle coordinate della posizione del giocatore ora ha un tooltip e può essere spostata solo con «Maiusc + Clic sinistro» (invece del solo Clic sinistro).
+  • La finestra della posizione del giocatore può essere posizionata liberamente.
+  • La finestra delle coordinate della posizione del mouse ora ha anch’essa un tooltip e può essere spostata solo con «Maiusc + Clic sinistro».
+  • Esistono due finestre di coordinate per la posizione del mouse: una sulla mappa del mondo ridotta e una su quella ingrandita.
+  • Queste due finestre possono essere posizionate liberamente e in modo indipendente sulla mappa ridotta e su quella ingrandita.
+  • Nel menu dell’addon, le due finestre della posizione del mouse condividono impostazioni di dimensione e trasparenza.
+  • La finestra della posizione del mouse viene nascosta automaticamente quando la mappa del mondo è chiusa e riappare quando viene aperta.
+  • Sono stati inoltre aggiornati i valori predefiniti (posizione/dimensione/trasparenza).
 
 • Sono state apportate anche alcune altre piccole modifiche.
 ]],
 
   esES = [[
 • Se han añadido iconos de instancias a los mapas de vuelo de TWW, Dragonflight y Tierras Sombrías; se añadirán más zonas próximamente.
-Además, se ha añadido un botón en la parte superior derecha del mapa de vuelo para mostrar u ocultar los iconos.
-La opción para activar o desactivar tanto el botón como los iconos también se encuentra en el menú MapNotes, en la pestaña General, en «Mapa de vuelo».
+  • Además, se ha añadido un botón en la parte superior derecha del mapa de vuelo para mostrar u ocultar los iconos.
+  • La opción para activar o desactivar tanto el botón como los iconos también se encuentra en el menú MapNotes, en la pestaña General, en «Mapa de vuelo».
 
 • Se han añadido iconos de la Sede de la Orden para las clases restantes.
 
 • Ahora es posible aumentar o reducir el tamaño de la flecha del jugador en el mapa del mundo.
-La opción correspondiente se encuentra en la pestaña General, en Mapa del mundo (Flecha del jugador en el mapa del mundo).
+  • La opción correspondiente se encuentra en la pestaña General, en Mapa del mundo (Flecha del jugador en el mapa del mundo).
 
 • Se ha ajustado la visualización de coordenadas para la posición del jugador y del ratón.
-La ventana de coordenadas de la posición del jugador ahora tiene un tooltip y solo se puede mover con «Mayús + Clic izquierdo» (en lugar de solo Clic izquierdo).
-La ventana de la posición del jugador se puede colocar libremente.
-La ventana de coordenadas de la posición del ratón también tiene ahora un tooltip y solo se puede mover con «Mayús + Clic izquierdo».
-Hay dos ventanas de coordenadas para la posición del ratón: una en el mapa del mundo reducido y otra en el mapa del mundo ampliado.
-Estas dos ventanas pueden colocarse de forma libre e independiente tanto en el mapa reducido como en el ampliado.
-En el menú del addon, ambas ventanas de la posición del ratón comparten el tamaño y la transparencia.
-La ventana de la posición del ratón se ocultará automáticamente cuando se cierre el mapa del mundo y se volverá a mostrar al abrirlo.
-También se han ajustado los valores predeterminados (posición/tamaño/transparencia).
+  • La ventana de coordenadas de la posición del jugador ahora tiene un tooltip y solo se puede mover con «Mayús + Clic izquierdo» (en lugar de solo Clic izquierdo).
+  • La ventana de la posición del jugador se puede colocar libremente.
+  • La ventana de coordenadas de la posición del ratón también tiene ahora un tooltip y solo se puede mover con «Mayús + Clic izquierdo».
+  • Hay dos ventanas de coordenadas para la posición del ratón: una en el mapa del mundo reducido y otra en el mapa del mundo ampliado.
+  • Estas dos ventanas pueden colocarse de forma libre e independiente tanto en el mapa reducido como en el ampliado.
+  • En el menú del addon, ambas ventanas de la posición del ratón comparten el tamaño y la transparencia.
+  • La ventana de la posición del ratón se ocultará automáticamente cuando se cierre el mapa del mundo y se volverá a mostrar al abrirlo.
+  • También se han ajustado los valores predeterminados (posición/tamaño/transparencia).
 
 • También se han realizado algunos otros cambios menores.
 ]],
 
   esMX = [[
 • Se han agregado íconos de instancias a los mapas de vuelo de TWW, Dragonflight y Tierras Sombrías; más zonas se añadirán próximamente.
-Además, se agregó un botón en la parte superior derecha del mapa de vuelo para mostrar u ocultar los íconos.
-La opción para habilitar o deshabilitar tanto el botón como los íconos también está disponible en el menú de MapNotes, en la pestaña General, en «Mapa de vuelo».
+  • Además, se agregó un botón en la parte superior derecha del mapa de vuelo para mostrar u ocultar los íconos.
+  • La opción para habilitar o deshabilitar tanto el botón como los íconos también está disponible en el menú de MapNotes, en la pestaña General, en «Mapa de vuelo».
 
 • Se añadieron íconos de la Sede de la Orden para las clases restantes.
 
 • Ahora es posible aumentar o reducir el tamaño de la flecha del jugador en el mapa del mundo.
-La opción correspondiente se encuentra en la pestaña General, en Mapa del mundo (Flecha del jugador en el mapa del mundo).
+  • La opción correspondiente se encuentra en la pestaña General, en Mapa del mundo (Flecha del jugador en el mapa del mundo).
 
 • Se ajustó la visualización de coordenadas para la posición del jugador y del mouse.
-La ventana de coordenadas de la posición del jugador ahora tiene un tooltip y solo se puede mover con «Shift + Clic izquierdo» (en lugar de solo Clic izquierdo).
-La ventana de la posición del jugador puede posicionarse libremente.
-La ventana de coordenadas de la posición del mouse también tiene ahora un tooltip y solo se puede mover con «Shift + Clic izquierdo».
-Existen dos ventanas de coordenadas para la posición del mouse: una en el mapa del mundo minimizado y otra en el maximizado.
-Estas dos ventanas pueden colocarse de forma libre e independiente tanto en el mapa minimizado como en el maximizado.
-En el menú del addon, ambas ventanas de la posición del mouse comparten el tamaño y la transparencia.
-La ventana de la posición del mouse se ocultará automáticamente cuando se cierre el mapa del mundo y se volverá a mostrar al abrirlo.
-También se ajustaron los valores predeterminados (posición/tamaño/transparencia).
+  • La ventana de coordenadas de la posición del jugador ahora tiene un tooltip y solo se puede mover con «Shift + Clic izquierdo» (en lugar de solo Clic izquierdo).
+  • La ventana de la posición del jugador puede posicionarse libremente.
+  • La ventana de coordenadas de la posición del mouse también tiene ahora un tooltip y solo se puede mover con «Shift + Clic izquierdo».
+  • Existen dos ventanas de coordenadas para la posición del mouse: una en el mapa del mundo minimizado y otra en el maximizado.
+  • Estas dos ventanas pueden colocarse de forma libre e independiente tanto en el mapa minimizado como en el maximizado.
+  • En el menú del addon, ambas ventanas de la posición del mouse comparten el tamaño y la transparencia.
+  • La ventana de la posición del mouse se ocultará automáticamente cuando se cierre el mapa del mundo y se volverá a mostrar al abrirlo.
+  • También se ajustaron los valores predeterminados (posición/tamaño/transparencia).
 
 • También se realizaron algunos otros cambios menores.
 ]],
 
   ruRU = [[
 • На карты полётов TWW, Dragonflight и Shadowlands добавлены значки подземелий; другие зоны будут добавлены позже.
-Также в правом верхнем углу карты полётов добавлена кнопка для включения и отключения значков.
-Опция включения или отключения как кнопки, так и значков находится в меню MapNotes, во вкладке «Общие», раздел «Карта полётов».
+  • Также в правом верхнем углу карты полётов добавлена кнопка для включения и отключения значков.
+  • Опция включения или отключения как кнопки, так и значков находится в меню MapNotes, во вкладке «Общие», раздел «Карта полётов».
 
 • Добавлены значки Оплота класса для оставшихся классов.
 
 • Теперь можно увеличить или уменьшить размер стрелки игрока на карте мира.
-Соответствующая опция находится во вкладке «Общие», раздел «Карта мира» (стрелка игрока на карте мира).
+  • Соответствующая опция находится во вкладке «Общие», раздел «Карта мира» (стрелка игрока на карте мира).
 
 • Отображение координат для позиции игрока и курсора было изменено.
-Окно координат позиции игрока теперь имеет подсказку и может перемещаться только с помощью «Shift + ЛКМ» (вместо простого ЛКМ).
-Окно координат позиции игрока можно свободно располагать.
-Окно координат позиции курсора также получило подсказку и перемещается только с помощью «Shift + ЛКМ».
-Существует два окна координат позиции курсора: одно на уменьшенной карте мира и одно на увеличенной.
-Эти два окна можно свободно и независимо располагать на уменьшенной и увеличенной версиях карты мира.
-В меню аддона оба окна для позиции курсора используют общие настройки размера и прозрачности.
-Окно позиции курсора автоматически скрывается при закрытии карты мира и снова отображается при её открытии.
-Также были изменены значения по умолчанию (позиция/размер/прозрачность).
+  • Окно координат позиции игрока теперь имеет подсказку и может перемещаться только с помощью «Shift + ЛКМ» (вместо простого ЛКМ).
+  • Окно координат позиции игрока можно свободно располагать.
+  • Окно координат позиции курсора также получило подсказку и перемещается только с помощью «Shift + ЛКМ».
+  • Существует два окна координат позиции курсора: одно на уменьшенной карте мира и одно на увеличенной.
+  • Эти два окна можно свободно и независимо располагать на уменьшенной и увеличенной версиях карты мира.
+  • В меню аддона оба окна для позиции курсора используют общие настройки размера и прозрачности.
+  • Окно позиции курсора автоматически скрывается при закрытии карты мира и снова отображается при её открытии.
+  • Также были изменены значения по умолчанию (позиция/размер/прозрачность).
 
 • Были внесены и некоторые другие небольшие изменения.
 ]],
 
   ptBR = [[
 • Ícones de instância foram adicionados aos mapas de voo de TWW, Dragonflight e Shadowlands; mais zonas serão adicionadas futuramente.
-Além disso, foi adicionado um botão no canto superior direito do mapa de voo para mostrar ou ocultar os ícones.
-A opção para ativar ou desativar tanto o botão quanto os ícones também pode ser encontrada no menu do MapNotes, na aba Geral, em "Mapa de voo".
+  • Além disso, foi adicionado um botão no canto superior direito do mapa de voo para mostrar ou ocultar os ícones.
+  • A opção para ativar ou desativar tanto o botão quanto os ícones também pode ser encontrada no menu do MapNotes, na aba Geral, em “Mapa de voo”.
 
 • Foram adicionados ícones do Salão da Ordem para as classes restantes.
 
 • Agora é possível aumentar ou diminuir o tamanho da seta do jogador no mapa-múndi.
-A opção correspondente pode ser encontrada na aba Geral, em Mapa-múndi (Seta do jogador no mapa-múndi).
+  • A opção correspondente pode ser encontrada na aba Geral, em Mapa-múndi (Seta do jogador no mapa-múndi).
 
 • A exibição de coordenadas para a posição do jogador e do mouse foi ajustada.
-A janela de coordenadas da posição do jogador agora possui uma dica de ferramenta e só pode ser movida com "Shift + Clique esquerdo" (em vez de apenas Clique esquerdo).
-A janela da posição do jogador pode ser posicionada livremente.
-A janela de coordenadas da posição do mouse também passou a ter uma dica de ferramenta e só pode ser movida com "Shift + Clique esquerdo".
-Há duas janelas de coordenadas para a posição do mouse: uma no mapa do mundo reduzido e outra no mapa do mundo ampliado.
-Essas duas janelas podem ser posicionadas livremente e de forma independente tanto no mapa reduzido quanto no ampliado.
-No menu do addon, as duas janelas da posição do mouse compartilham as configurações de tamanho e transparência.
-A janela da posição do mouse é ocultada automaticamente quando o mapa-múndi é fechado e reaparece quando é aberto.
-Os valores padrão (posição/tamanho/transparência) também foram ajustados.
+  • A janela de coordenadas da posição do jogador agora possui uma dica de ferramenta e só pode ser movida com “Shift + Clique esquerdo” (em vez de apenas Clique esquerdo).
+  • A janela da posição do jogador pode ser posicionada livremente.
+  • A janela de coordenadas da posição do mouse também passou a ter uma dica de ferramenta e só pode ser movida com “Shift + Clique esquerdo”.
+  • Há duas janelas de coordenadas para a posição do mouse: uma no mapa do mundo reduzido e outra no mapa do mundo ampliado.
+  • Essas duas janelas podem ser posicionadas livremente e de forma independente tanto no mapa reduzido quanto no ampliado.
+  • No menu do addon, as duas janelas da posição do mouse compartilham as configurações de tamanho e transparência.
+  • A janela da posição do mouse é ocultada automaticamente quando o mapa-múndi é fechado e reaparece quando é aberto.
+  • Os valores padrão (posição/tamanho/transparência) também foram ajustados.
 
 • Algumas outras pequenas alterações também foram feitas.
 ]],
 
   zhCN = [[
-• 已在 TWW、巨龙时代和暗影国度的飞行地图上添加了副本图标，更多区域将陆续加入。
-此外，在飞行地图的右上角新增了一个按钮，可切换这些图标的显示与隐藏。
-启用或禁用按钮及图标的选项也可在 MapNotes 菜单的常规选项卡下的“飞行地图”中找到。
+• 已在 TWW、巨龙时代和暗影国度的飞行地图上添加了副本图标；更多区域将陆续加入。
+  • 此外，在飞行地图的右上角新增了一个按钮，可切换这些图标的显示或隐藏。
+  • 启用或禁用按钮及图标的选项也可在 MapNotes 菜单的常规选项卡下的“飞行地图”中找到。
 
 • 已为其余职业添加了职业大厅图标。
 
 • 现在可以增大或减小世界地图上玩家箭头的大小。
-相关选项位于常规选项卡的世界地图（世界地图玩家箭头）中。
+  • 相关选项位于常规选项卡的世界地图（世界地图玩家箭头）中.
 
 • 已调整玩家与鼠标位置的坐标显示。
-玩家位置的坐标窗口现在带有提示，并且只能通过“Shift + 左键点击”移动（而不是仅左键）。
-该窗口可由玩家自由放置。
-鼠标位置的坐标窗口同样带有提示，并且也只能通过“Shift + 左键点击”移动。
-鼠标位置的坐标窗口有两个：一个在缩小的世界地图上，另一个在放大的世界地图上。
-这两个鼠标坐标窗口在缩小和放大的世界地图上都可由玩家自由且相互独立地定位。
-在插件菜单中，这两个鼠标坐标窗口共享大小和透明度设置。
-当世界地图关闭时，鼠标位置窗口会自动隐藏；打开时会再次显示。
-默认设置（位置/大小/透明度）也已调整。
+  • 玩家位置的坐标窗口现在带有提示，并且只能通过“Shift + 左键点击”移动（而不是仅左键）。
+  • 该窗口可由玩家自由放置。
+  • 鼠标位置的坐标窗口同样带有提示，并且也只能通过“Shift + 左键点击”移动。
+  • 鼠标位置的坐标窗口有两个：一个在缩小的世界地图上，另一个在放大的世界地图上。
+  • 这两个鼠标坐标窗口在缩小和放大的世界地图上都可由玩家自由且相互独立地定位。
+  • 在插件菜单中，这两个鼠标坐标窗口共享大小和透明度设置。
+  • 当世界地图关闭时，鼠标位置窗口会自动隐藏；打开时会再次显示。
+  • 默认设置（位置/大小/透明度）也已调整。
 
 • 还进行了其他一些小的改动。
 ]],
 
   zhTW = [[
-• 已在 TWW、巨龍崛起與暗影之境的飛行地圖上新增副本圖示，更多區域將陸續加入。
-此外，在飛行地圖的右上角新增了一個按鈕，可切換圖示的顯示與隱藏。
-啟用或停用按鈕及圖示的選項，也可在 MapNotes 功能表的一般分頁中的「飛行地圖」找到。
+• 已在 TWW、巨龍崛起與暗影之境的飛行地圖上新增副本圖示；更多區域將陸續加入。
+  • 此外，在飛行地圖的右上角新增了一個按鈕，可切換圖示的顯示或隱藏。
+  • 啟用或停用按鈕及圖示的選項，也可在 MapNotes 功能表的一般分頁中的「飛行地圖」找到。
 
 • 已為其餘職業新增了職業大廳圖示。
 
 • 現在可以放大或縮小世界地圖上玩家箭頭的大小。
-相關選項位於一般分頁的世界地圖（世界地圖玩家箭頭）中。
+  • 相關選項位於一般分頁的世界地圖（世界地圖玩家箭頭）中。
 
 • 已調整玩家與滑鼠位置的座標顯示。
-玩家位置的座標視窗現在具有工具提示，且只能透過「Shift + 左鍵點擊」移動（而非僅左鍵點擊）。
-該視窗可由玩家自由放置。
-滑鼠位置的座標視窗同樣具有工具提示，且也只能透過「Shift + 左鍵點擊」移動。
-滑鼠位置的座標視窗有兩個：一個在縮小的世界地圖上，另一個在放大的世界地圖上。
-這兩個滑鼠座標視窗可在縮小與放大的世界地圖上分別獨立地由玩家自由定位。
-在外掛選單中，這兩個滑鼠座標視窗共用大小與透明度設定。
-當世界地圖關閉時，滑鼠位置視窗會自動隱藏；打開時會再次顯示。
-預設值（位置/大小/透明度）也已調整。
+  • 玩家位置的座標視窗現在具有工具提示，且只能透過「Shift + 左鍵點擊」移動（而非僅左鍵點擊）。
+  • 該視窗可由玩家自由放置。
+  • 滑鼠位置的座標視窗同樣具有工具提示，且也只能透過「Shift + 左鍵點擊」移動。
+  • 滑鼠位置的座標視窗有兩個：一個在縮小的世界地圖上，另一個在放大的世界地圖上。
+  • 這兩個滑鼠座標視窗可在縮小與放大的世界地圖上分別獨立地由玩家自由定位。
+  • 在外掛選單中，這兩個滑鼠座標視窗共用大小與透明度設定。
+  • 當世界地圖關閉時，滑鼠位置視窗會自動隱藏；打開時會再次顯示。
+  • 預設值（位置/大小/透明度）也已調整。
 
 • 另外還進行了一些其他小幅更動。
 ]],

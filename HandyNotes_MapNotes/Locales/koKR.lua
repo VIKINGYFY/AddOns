@@ -246,6 +246,7 @@ L["Reveals unexplored areas and shows the individual areas of each zone that are
 L["Description"] = "설명"
 L["Position of the real Instance Entrance"] = "실제 인스턴스 입력 위치"
 L["Way to the Instance Entrance"] = "인스턴스 입력 방법"
+L["Way to the Delve Entrance"] = "구렁 입구로 가는 길"
 L["Also disables all Blizzard Instance icons on the zone map. However, these can be reactivated on the map at the top right under the 'Map filter' dungeon entrance magnifying glass. Disable and enable MapNotes VS again. blizzard, deactivates the instance icons on the zone map again"] = "또한 영역 카드의 모든 눈보라 인스턴스 기호를 비활성화합니다. 그러나 Lupe '카드 필터'던전 입력의 상단에있는 맵에서 이들을 재 활성화 할 수 있습니다. Mapnotes와의 재 반달 및 활성화. 블리자드, 구역 카드의 인스턴스 기호를 다시 비활성화합니다"
 L["Hides certain Blizzard icons (e.g. Horde/Alliance/Neutral capitals icon or general travel icons on the map) and replaces them with almost identical MapNotes icons, providing additional information and functionality"] = "숨겨진 특정 블리자드 기호 (예 : horde / Alliance / Neutral 또는 General Travel 기호의 대문자 기호)는 추가 정보 및 기능을 제공하는 거의 동일한 Mapnotes 기호로 대체합니다"
 L["Removes the Blizzard symbols only where MapNotes symbols and Blizzard symbols overlap, thereby making the tooltip and the function of the MapNote symbols usable again on the overlapping points"] = "Mapnotes 기호와 눈보라가 겹치는 기호만으로도 블리자드 기호를 제거합니다. 즉, Mapnote 기호의 툴팁과 기능이 오버팅 지점에서 다시 사용할 수 있음을 의미합니다"

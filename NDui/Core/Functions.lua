@@ -782,7 +782,9 @@ do
 
 		if self:IsObjectType("StatusBar") or self:IsObjectType("Texture") then
 			B.UpdateSize(bg, -1)
-		else
+		end
+
+		if x1 then
 			B.UpdateSize(bg, x1, y1, x2, y2)
 		end
 

@@ -208,8 +208,8 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
   local nodeData = nil
   local CurrentMapID = WorldMapFrame:GetMapID()
 
-  ns.nodes[uiMapId][coord] = nodes[uiMapId][coord] or {}
-  ns.minimap[uiMapId][coord] = minimap[uiMapId][coord] or {}
+  if ns.nodes[uiMapId] and nodes[uiMapId] then ns.nodes[uiMapId][coord] = nodes[uiMapId][coord] end
+  if ns.minimap[uiMapId] and minimap[uiMapId] then ns.minimap[uiMapId][coord] = minimap[uiMapId][coord] end
 
   if (minimap[uiMapId] and minimap[uiMapId][coord]) then
     nodeData = minimap[uiMapId][coord]
@@ -501,12 +501,17 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
       end
     end
 
-      -- Toogle Maps tooltip
-      if not ns.Addon.db.profile.activate.ToggleMap and ns.Addon.db.profile.activate.ToggleMapInfo and WorldMapFrame:IsShown() and (not ns.isMulti or idx == ns.total) then
-        if (nodeData.mnID and nodeData.leaveDelve and ns.icons["Delves"]) or nodeData.mnID then
-          tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. "|cff00ff00 " .. L["Toggle Maps function is disabled"], nil, nil, false)
-        end
+    -- if ToggleMap or UseInBattle not active tooltip
+    if not ns.Addon.db.profile.activate.ToggleMap and ns.Addon.db.profile.activate.ToggleMapInfo and WorldMapFrame:IsShown() and (not ns.isMulti or idx == ns.total) then
+      if (nodeData.mnID and nodeData.leaveDelve and ns.icons["Delves"]) or nodeData.mnID then
+        tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. "|cff00ff00 " .. L["Toggle Maps function is disabled"], nil, nil, false)
       end
+    end
+
+    -- delveID tooltips
+    if nodeData.delveID and WorldMapFrame:IsShown() then
+      tooltip:AddDoubleLine(TextIconMNL4:GetIconString() .. " " .. "|cff00ff00" .. "< " .. KEY_BUTTON3 .. " " .. L["to show delve map"] .. " > " .. TextIconMNL4:GetIconString(), nil, nil, false)       
+    end
 
     -- Extra Tooltip
     if ns.OnlyDisplayedIfTheWorldmapIsAlsoOpen and (not ns.isMulti or idx == ns.total) then -- only show tooltips if worldmap is opend and hide it on all icons if worldmap is closed
@@ -515,7 +520,6 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
       local isCosmic = mapInfo and mapInfo.mapType == 0 or false
       local isAzeroth  = mapInfo and mapInfo.mapType == 1 or false
 
-
       -- Adventure Guide tooltip
       if not ns.Addon.db.profile.journal then
         if nodeData.id and not nodeData.mnID then
@@ -523,7 +527,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
         end
       end
 
-      if nodeData.mnID and ns.Addon.db.profile.activate.ToggleMap then -- show mnID map change information
+      if nodeData.mnID and (ns.Addon.db.profile.activate.ToggleMap or ns.Addon.db.profile.activate.UseInBattle) and not nodeData.delveID then -- show mnID map change information with ToggleMap or UseInBattle
         if ns.Addon.db.profile.activate.SwapButtons then -- Swap Buttons
           tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. L["< Right Click to show map >"], nil, nil, false)
         else -- Original Buttons
@@ -556,7 +560,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
         end
       end
 
-      if nodeData.mnID and nodeData.leaveDelve and ns.icons["Delves"] and ns.Addon.db.profile.activate.ToggleMap then -- inside delves to leave them
+      if nodeData.mnID and nodeData.leaveDelve and ns.icons["Delves"] and (ns.Addon.db.profile.activate.ToggleMap or ns.Addon.db.profile.activate.UseInBattle) then -- inside delves to leave them with ToggleMap or UseInBattle
         tooltip:AddDoubleLine(TextIconInfo:GetIconString() .. " " .. "|cff00ff00" .. "< " .. MIDDLE_BUTTON_STRING .. " " .. INSTANCE_LEAVE .. " (" .. DELVES_LABEL .. ") >", nil, nil, false)
       end
 
@@ -1323,6 +1327,16 @@ do
         alpha = db.cosmosAlpha
       end
 
+      if (value.type == "Delves" or value.type == "DelvesPassage") and value.showInZone and (mapInfo.mapType == 3 or mapInfo.mapType == 5) then-- zone fixed value for delves!
+        scale = 2
+        alpha = 1
+      end
+
+      if (value.type == "Delves" or value.type == "DelvesPassage") and value.showOnMinimap then-- minimap fixed value for delves!
+        scale = 1.5
+        alpha = 1
+      end
+
       -- mapType == X
       -- X = 0 =	Cosmic 	
       -- X = 1 =	World 	
@@ -1364,7 +1378,8 @@ do
 				state, value = next(data, prestate)
 
 				while state do -- Have we reached the end of this continent?
-          local alpha
+          local alpha = db.continentAlpha
+          local scale = db.continentScale
           local icon = ns.icons[value.type]
           local mapInfo = C_Map.GetMapInfo(WorldMapFrame:GetMapID())
 
@@ -1410,9 +1425,14 @@ do
           if (anyLocked and db.invertlockout) or (allLocked and not db.invertlockout) then
 						alpha = db.continentAlpha
           end
+                  
+          if (value.type == "Delves" or value.type == "DelvesPassage") and value.showOnContinent and mapInfo.mapType == 2 then -- continent fixed value for delves!
+            scale = 2.1
+            alpha = 1
+          end
               
           if (mapInfo.mapType == 2 and (ns.dbChar.ContinentDeletedIcons[t.contId] and not ns.dbChar.ContinentDeletedIcons[t.contId][state]) and value.showOnContinent) then -- Continent
-            return state, continent, icon, db.continentScale, alpha
+            return state, continent, icon, scale, alpha
           end
 
 					state, value = next(data, state)  -- Get next data
@@ -1738,6 +1758,10 @@ local CurrentMapID = WorldMapFrame:GetMapID()
     ns.MapNotesOpenMap(mnID3)
   end
 
+  if button == "MiddleButton" and delveID then
+    ns.MapNotesOpenMap(delveID)
+  end
+
   if (not pressed) then return end
 
   if (button == "MiddleButton") and leaveDelve and ns.icons["Delves"] then
@@ -1791,11 +1815,6 @@ local CurrentMapID = WorldMapFrame:GetMapID()
         ns.MapNotesOpenMap(mnID)
         return
       end
-
-      if delveID then
-        ns.MapNotesOpenMap(delveID)
-        return
-      end
     end
 
     if (button == "RightButton" and db.journal and not IsAltKeyDown() and not InCombatLockdown()) then
@@ -1844,11 +1863,6 @@ local CurrentMapID = WorldMapFrame:GetMapID()
     if (button == "LeftButton" and not IsAltKeyDown()) then
       if mnID then
         ns.MapNotesOpenMap(mnID)
-        return
-      end
-
-      if delveID then
-        ns.MapNotesOpenMap(delveID)
         return
       end
     end
@@ -2118,9 +2132,9 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
   end
 
   -- Check if Blizz Delves entrances is true then remove Blizzard Pins
-  if ns.Addon.db.profile.activate.ShowBlizzDelves then
+  if ns.Addon.db.profile.activate.HideBlizzDelves then
     SetCVar("showDelveEntrancesOnMap", 0)
-  elseif not ns.Addon.db.profile.activate.ShowBlizzDelves then
+  elseif not ns.Addon.db.profile.activate.HideBlizzDelves then
     SetCVar("showDelveEntrancesOnMap", 1)
   end
 
