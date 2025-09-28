@@ -1,0 +1,13 @@
+## Interface: 110200
+## Title: HandyNotes: World of Warcraft
+## Version: 123
+## Notes: World of Warcraft Original Zone Notes
+## OptionalDeps: Ace3
+## RequiredDeps: HandyNotes
+## X-Embeds: Ace3
+## SavedVariables: HandyNotes_WorldOfWarcraftDB
+## IconTexture: 630785
+
+embeds.xml
+core\core.xml
+plugin.xml

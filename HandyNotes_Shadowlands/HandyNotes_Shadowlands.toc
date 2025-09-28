@@ -1,0 +1,13 @@
+## Interface: 110200
+## Title: HandyNotes: Shadowlands
+## Version: 123
+## Notes: Shadowlands Notes
+## OptionalDeps: Ace3
+## RequiredDeps: HandyNotes
+## X-Embeds: Ace3
+## SavedVariables: HandyNotes_ShadowlandsDB
+## IconTexture: 4254080
+
+embeds.xml
+core\core.xml
+plugin.xml

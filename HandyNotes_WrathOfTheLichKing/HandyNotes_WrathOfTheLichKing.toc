@@ -1,0 +1,13 @@
+## Interface: 110200
+## Title: HandyNotes: Wrath of the Lich King
+## Version: 125
+## Notes: Wrath of the Lich King Notes
+## OptionalDeps: Ace3
+## RequiredDeps: HandyNotes
+## X-Embeds: Ace3
+## SavedVariables: HandyNotes_WrathOfTheLichKingDB
+## IconTexture: 630787
+
+embeds.xml
+core\core.xml
+plugin.xml

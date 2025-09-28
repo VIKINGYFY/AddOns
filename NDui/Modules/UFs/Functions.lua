@@ -720,6 +720,11 @@ function UF:CreateCastBar(self)
 		cb.Icon:SetSize(cb:GetHeight(), cb:GetHeight())
 		cb.Icon:SetPoint("BOTTOMRIGHT", cb, "BOTTOMLEFT", -DB.margin, 0)
 		B.ReskinIcon(cb.Icon, true)
+
+		cb.glowFrame = B.CreateGlowFrame(cb.Icon)
+
+		self:RegisterEvent("UNIT_TARGET", updateSpellTarget)
+		self:RegisterEvent("UNIT_TARGETABLE_CHANGED", updateSpellTarget)
 	end
 
 	if mystyle == "player" then
@@ -743,15 +748,6 @@ function UF:CreateCastBar(self)
 		cb.Icon:SetSize(iconSize, iconSize)
 
 		cb.timeToHold = .5
-		cb.glowFrame = B.CreateGlowFrame(cb.Icon)
-
-		local spellTarget = B.CreateFS(cb, C.db["Nameplate"]["NameTextSize"]+4)
-		spellTarget:ClearAllPoints()
-		spellTarget:SetJustifyH("LEFT")
-		spellTarget:SetPoint("TOPLEFT", cb, "BOTTOMLEFT", 0, -DB.margin)
-		cb.spellTarget = spellTarget
-
-		self:RegisterEvent("UNIT_TARGET", updateSpellTarget)
 	end
 
 	cb.Time = timer

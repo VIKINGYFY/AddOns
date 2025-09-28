@@ -1,0 +1,13 @@
+## Interface: 110200
+## Title: HandyNotes: Battle for Azeroth
+## Version: 123
+## Notes: Battle for Azeroth Notes
+## OptionalDeps: Ace3
+## RequiredDeps: HandyNotes
+## X-Embeds: Ace3
+## SavedVariables: HandyNotes_BattleForAzerothDB
+## IconTexture: 2065570
+
+embeds.xml
+core\core.xml
+plugin.xml

@@ -1,0 +1,14 @@
+## Interface: 110200
+## Title: |cff0080ffNDui|r Inspect
+## Author: M
+## Notes: NDui专用观察面板！
+## RequiredDeps: NDui
+## Version: @project-version@
+## SavedVariables: TinyInspectDB
+
+libs\lib.xml
+
+InspectCore.lua
+InspectGroupMember.lua
+InspectUnit.lua
+InspectUnitGemAndEnchant.lua

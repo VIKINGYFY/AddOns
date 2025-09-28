@@ -1,12 +1,12 @@
 # BagSync
 
-## [v19.73](https://github.com/Xruptor/BagSync/tree/v19.73) (2025-08-17)
-[Full Changelog](https://github.com/Xruptor/BagSync/compare/v19.72...v19.73) [Previous Releases](https://github.com/Xruptor/BagSync/releases)
+## [v19.74](https://github.com/Xruptor/BagSync/tree/v19.74) (2025-09-27)
+[Full Changelog](https://github.com/Xruptor/BagSync/compare/v19.73...v19.74) [Previous Releases](https://github.com/Xruptor/BagSync/releases)
 
-- Fixed dialog prompts and updated localization  
-    * Fixed an error that would appear with dialog prompts for Blacklist, Profiles and Whitelist modules.  (Fixes #420)  
-    * zhCN localization has been updated.  (Special thanks to @nanjuekaien1)  
-- Merge pull request #417 from nanjuekaien1/patch-86  
+- Classic and Anniversary Server Bank Fix  
+    * Fixed an issue on the classic and anniversary servers where the first bank slot was not correctly being counted.  This is due to Blizzard having incorrect variables stored within the client versus the retail server.  In fact the first bank slot is actually the ReagentBag number on classic servers.  Way to go Blizzard!  
+    * Adjusted the bank slots to compensate for this mess.  (Fixes #421)  
+    *  Special thanks to Schlapstick on the Classic Anniversary server for helping a poor tauren out to buy a bank slot.  You rock! :)  
+- Merge pull request #422 from nanjuekaien1/patch-87  
     Update zhCN.lua  
-- Update zhCN.lua  
 - Update zhCN.lua  

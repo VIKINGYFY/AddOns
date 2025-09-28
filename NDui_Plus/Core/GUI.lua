@@ -236,7 +236,7 @@ local AddonSkins = {
 	{"ShadowDancer", "ShadowDancer"},
 	{"SimpleAddonManager", "SimpleAddonManager"},
 	{"tdBattlePetScript", "tdBattlePetScript"},
-	--{"TinyInspect", "TinyInspect"},
+	{"TinyInspect", "TinyInspect"},
 	{"WeakAurasOptions", "WeakAurasOptions"},
 	{"WhisperPop", "WhisperPop"},
 	{"WorldQuestTab", "WorldQuestTab"},

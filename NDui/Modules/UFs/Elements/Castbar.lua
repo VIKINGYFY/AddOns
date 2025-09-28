@@ -91,20 +91,16 @@ function UF:OnCastSent()
 	element.__sendTime = GetTime()
 end
 
-local function ResetSpellTarget(self)
-	if self.spellTarget then
-		self.spellTarget:SetText("")
-	end
-end
-
 local function UpdateSpellTarget(self, unit)
-	if not self.spellTarget then return end
+	if not self.spellID then return end
 
+	local spellName = C_Spell.GetSpellName(self.spellID)
 	local unitTarget = unit and unit.."target"
 	if unitTarget and UnitExists(unitTarget) then
-		self.spellTarget:SetText(B.GetUnitTarget(unitTarget))
+		local targetName = B.GetUnitTarget(unitTarget)
+		self.Text:SetText(spellName.." > "..targetName)
 	else
-		ResetSpellTarget(self) -- when unit loses target
+		self.Text:SetText(spellName)
 	end
 end
 
@@ -150,12 +146,13 @@ function UF:PostCastStart(unit)
 
 	UpdateCastBarColor(self, unit)
 
-	if self.__owner.mystyle == "nameplate" then
-		-- Major spells
-		if C.db["Nameplate"]["CastbarGlow"] and UF.MajorSpells[self.spellID] then
-			B.ShowOverlayGlow(self.glowFrame)
-		else
-			B.HideOverlayGlow(self.glowFrame)
+	if self.__owner.mystyle ~= "boss" or self.__owner.mystyle ~= "arena" then
+		if self.glowFrame then
+			if C.db["Nameplate"]["CastbarGlow"] and UF.MajorSpells[self.spellID] then
+				B.ShowOverlayGlow(self.glowFrame)
+			else
+				B.HideOverlayGlow(self.glowFrame)
+			end
 		end
 
 		-- Spell target
@@ -177,7 +174,6 @@ function UF:PostCastStop()
 		self.fadeOut = true
 	end
 	self:Show()
-	ResetSpellTarget(self)
 end
 
 function UF:PostCastFailed()
@@ -185,7 +181,6 @@ function UF:PostCastFailed()
 	self:SetValue(self.max)
 	self.fadeOut = true
 	self:Show()
-	ResetSpellTarget(self)
 end
 
 UF.PipColors = {

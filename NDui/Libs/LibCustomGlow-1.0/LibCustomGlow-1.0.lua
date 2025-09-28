@@ -405,7 +405,7 @@ end
 
 local function InitButton(f)
 	if not f.inited then
-		f.ants = f:CreateTexture(nil, "OVERLAY")
+		f.ants = f:CreateTexture(nil, "OVERLAY", nil, 1)
 		f.ants:SetPoint("CENTER", f, "CENTER")
 		f.ants:SetAlpha(0)
 		f.ants:SetTexture("Interface\\SpellActivationOverlay\\IconAlertAnts")
@@ -436,12 +436,12 @@ local function InitButton(f)
 		f.animIn.fade = {}
 
 		AddScale(f.animIn, "spark",     1, 0.2, 1.5, 1.5)
-		AddAlpha(f.animIn, "spark",     1, 0.2, 0, 1, nil, true)
+		AddAlpha(f.animIn, "spark",     1, 0.2, 0, 1, 0.2, true)
 		AddScale(f.animIn, "innerGlow", 1, 0.2, 2, 2)
 		AddAlpha(f.animIn, "innerGlow", 1, 0.2, 1, 0, 0.2, false)
 		AddScale(f.animIn, "outerGlow", 1, 0.2, 0.5, 0.5)
 		AddAlpha(f.animIn, "outerGlow", 1, 0.2, 1, 0, 0.2, false)
-		AddScale(f.animIn, "spark",     1, 0.2, 0.8, 0.8, 0.2)
+		AddScale(f.animIn, "spark",     1, 0.2, 1, 1)
 		AddAlpha(f.animIn, "spark",     1, 0.2, 1, 0, 0.2, false)
 		AddScale(f.animIn, "ants",      1, 0.2, 1, 1)
 		AddAlpha(f.animIn, "ants",      1, 0.2, 0, 1, 0.2, true)
@@ -466,12 +466,6 @@ end
 local function SetupButton(f, options)
 	f:SetScript("OnUpdate", function(self, elapsed)
 		AnimateTexCoords(self.ants, 256, 256, 48, 48, 22, elapsed, 0.01)
-		local cooldown = self:GetParent().cooldown
-		if cooldown and cooldown:IsShown() and cooldown:GetCooldownDuration() > 3000 then
-			self:SetAlpha(0.5)
-		else
-			self:SetAlpha(1.0)
-		end
 	end)
 
 	f:SetScript("OnHide", function(self)
@@ -527,8 +521,6 @@ function lib.ButtonGlow_Start(button, options)
 
 	f:SetParent(button)
 	f:SetFrameLevel(button:GetFrameLevel())
-	f:SetSize(w*1.4, h*1.4)
-	f.ants:SetSize(w*1.4*0.9, h*1.4*0.9)
 
 	f:ClearAllPoints()
 	f:SetPoint("TOPLEFT", button, "TOPLEFT", -x, y)

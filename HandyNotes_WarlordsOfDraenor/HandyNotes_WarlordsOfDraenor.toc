@@ -1,0 +1,13 @@
+## Interface: 110200
+## Title: HandyNotes: Warlords of Draenor
+## Version: 123
+## Notes: Warlords of Draenor Notes
+## OptionalDeps: Ace3
+## RequiredDeps: HandyNotes
+## X-Embeds: Ace3
+## SavedVariables: HandyNotes_WarlordsOfDraenorDB
+## IconTexture: 2838050
+
+embeds.xml
+core\core.xml
+plugin.xml

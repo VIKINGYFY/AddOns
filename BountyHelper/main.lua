@@ -21,6 +21,8 @@ local hideButton = false
 local lockEsc = false
 local currentScale = 1.0
 local searchText = ""
+local hideDungeons = false
+local hideRaids = false
 
 bountyHelper.frames = {}
 bountyHelper.contentFrames = {}
@@ -399,6 +401,32 @@ function bountyHelper:createUI()
         bountyHelper:UpdateVisibleFrame()
     end)
     self.frames.HideIgnoredCheckbox = hideIgnoredCheckbox
+
+    local hideDungeonsCheckbox = CreateFrame("CheckButton", "bountyHelperHideDungeonsCheckbox", settingsPanel, "UICheckButtonTemplate")
+    hideDungeonsCheckbox:SetPropagateMouseMotion(true)
+    hideDungeonsCheckbox:SetPoint("LEFT", hideIgnoredCheckbox, "RIGHT", 104, 0)
+    hideDungeonsCheckbox.text = hideDungeonsCheckbox:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    hideDungeonsCheckbox.text:SetFont(STANDARD_TEXT_FONT, 14)
+    hideDungeonsCheckbox.text:SetPoint("LEFT", hideDungeonsCheckbox, "RIGHT", 0, 1)
+    hideDungeonsCheckbox.text:SetText("Hide Dungeons")
+    hideDungeonsCheckbox:SetScript("OnClick", function(self)
+        hideDungeons = self:GetChecked()
+        bountyHelper:UpdateVisibleFrame()
+    end)
+    self.frames.HideDungeonsCheckbox = hideDungeonsCheckbox
+
+    local hideRaidsCheckbox = CreateFrame("CheckButton", "bountyHelperHideRaidsCheckbox", settingsPanel, "UICheckButtonTemplate")
+    hideRaidsCheckbox:SetPropagateMouseMotion(true)
+    hideRaidsCheckbox:SetPoint("LEFT", hideDungeonsCheckbox, "RIGHT", 120, 0)
+    hideRaidsCheckbox.text = hideRaidsCheckbox:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    hideRaidsCheckbox.text:SetFont(STANDARD_TEXT_FONT, 14)
+    hideRaidsCheckbox.text:SetPoint("LEFT", hideRaidsCheckbox, "RIGHT", 0, 1)
+    hideRaidsCheckbox.text:SetText("Hide Raids")
+    hideRaidsCheckbox:SetScript("OnClick", function(self)
+        hideRaids = self:GetChecked()
+        bountyHelper:UpdateVisibleFrame()
+    end)
+    self.frames.HideRaidsCheckbox = hideRaidsCheckbox
 end
 
 function bountyHelper:CreateCategoryHeader(parent, difficultyID)
@@ -582,6 +610,11 @@ function bountyHelper:UpdateDiffLayout()
             local info = difficultyInfo[frame.difficultyID]
             frame.expander:SetText(info.expanded and "-" or "+")
             frame.childCount = 0
+            if hideDungeons and difficultyInfo.dungeons[frame.difficultyID] then
+                isVisible = false
+            elseif hideRaids and not difficultyInfo.dungeons[frame.difficultyID] then
+                isVisible = false
+            end
         else
             local data = frame.bossData 
             local header = frame.headerFrame
@@ -595,6 +628,12 @@ function bountyHelper:UpdateDiffLayout()
                 isVisible = false
             end
             if isVisible and hideKilled and data.killed and not isOwned and not data.repeatable then
+                isVisible = false
+            end
+            if isVisible and hideDungeons and difficultyInfo.dungeons[header.difficultyID] then
+                isVisible = false
+            end
+            if isVisible and hideRaids and not difficultyInfo.dungeons[header.difficultyID] then
                 isVisible = false
             end
 
@@ -971,6 +1010,12 @@ function bountyHelper:updateContent()
                 if not hide and searchText ~= "" then
                     hide = not self:filterContent(db.mountData[frame.mountID].name, searchText)
                 end
+                if not hide and hideDungeons and difficultyInfo.dungeons[source.diff] then
+                    hide = true
+                end
+                if not hide and hideRaids and not difficultyInfo.dungeons[source.diff] then
+                    hide = true
+                end
                 if not hide then sourceCount = sourceCount + 1 end
                 sourceRow:SetShown(not hide)
             end
@@ -1041,6 +1086,8 @@ function bountyHelper:Toggle()
         bountyHelper.frames.HideKilledCheckbox:SetChecked(hideKilled)
         bountyHelper.frames.HideButtonCheckbox:SetChecked(hideButton)
         bountyHelper.frames.LockCheckbox:SetChecked(lockEsc)
+        bountyHelper.frames.HideDungeonsCheckbox:SetChecked(hideDungeons)
+        bountyHelper.frames.HideRaidsCheckbox:SetChecked(hideRaids)
         bountyHelper.frames.SearchBar:SetText(searchText)
         bountyHelper:ShowMountView()
     end
@@ -1113,6 +1160,8 @@ eventHandlerFrame:SetScript("OnEvent", function(self, event, ...)
             hideKilled = BountyHelperDB.hideKilled or false
             hideButton = BountyHelperDB.hideButton or false
             lockEsc = BountyHelperDB.lockEsc or false
+            hideDungeons = BountyHelperDB.hideDungeons or false
+            hideRaids = BountyHelperDB.hideRaids or false
             currentScale = BountyHelperDB.scale or 1.0
             searchText = BountyHelperDB.searchText or ""
             BountyHelperDB.point = BountyHelperDB.point or {"CENTER", 0, 0}
@@ -1176,6 +1225,8 @@ eventHandlerFrame:SetScript("OnEvent", function(self, event, ...)
         BountyHelperDB.hideKilled = hideKilled
         BountyHelperDB.hideButton = hideButton
         BountyHelperDB.lockEsc = lockEsc
+        BountyHelperDB.hideDungeons = hideDungeons
+        BountyHelperDB.hideRaids = hideRaids
         BountyHelperDB.scale = currentScale
         BountyHelperDB.searchText = searchText
         local point, relativeTo, relativePoint, xOfs, yOfs = bountyHelper.frames.main:GetPoint()

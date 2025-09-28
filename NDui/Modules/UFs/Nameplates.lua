@@ -594,7 +594,6 @@ function UF:UpdateNameplateSize()
 		B.SetFontSize(self.healthValue, fontSize)
 		B.SetFontSize(self.Castbar.Text, fontSize)
 		B.SetFontSize(self.Castbar.Time, fontSize)
-		B.SetFontSize(self.Castbar.spellTarget, nameTextSize+4)
 
 		self:SetSize(plateWidth, plateHeight)
 		self.Castbar:SetHeight(plateHeight)

@@ -1,0 +1,13 @@
+## Interface: 110200
+## Title: HandyNotes: Legion
+## Version: 123
+## Notes: Legion Notes
+## OptionalDeps: Ace3
+## RequiredDeps: HandyNotes
+## X-Embeds: Ace3
+## SavedVariables: HandyNotes_LegionDB
+## IconTexture: 236415
+
+embeds.xml
+core\core.xml
+plugin.xml
