@@ -1483,11 +1483,6 @@ function UF:CreateExpRepBar(self)
 end
 
 function UF:PostUpdatePrediction(_, health, maxHealth, allIncomingHeal, allAbsorb)
-	if not C.db["UFs"]["OverAbsorb"] then
-		self.overAbsorbBar:Hide()
-		return
-	end
-
 	local hasOverAbsorb
 	local overAbsorbAmount = health + allIncomingHeal + allAbsorb - maxHealth
 	if overAbsorbAmount > 0 then
@@ -1586,13 +1581,9 @@ function UF:ToggleAddPower()
 	local frame = _G.oUF_Player
 	if not frame then return end
 
-	if C.db["UFs"]["AddPower"] then
-		if not frame:IsElementEnabled("AdditionalPower") then
-			frame:EnableElement("AdditionalPower")
-			frame.AdditionalPower:ForceUpdate()
-		end
-	elseif frame:IsElementEnabled("AdditionalPower") then
-		frame:DisableElement("AdditionalPower")
+	if not frame:IsElementEnabled("AdditionalPower") then
+		frame:EnableElement("AdditionalPower")
+		frame.AdditionalPower:ForceUpdate()
 	end
 end
 

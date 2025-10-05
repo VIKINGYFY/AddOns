@@ -3,7 +3,7 @@
 ## Notes: This is the way.
 ## Author: Adaptivex
 ## IconTexture: Interface/AddOns/WaypointUI/Art/Icons/logo-colored-glow.png
-## Version: 0.0.7
+## Version: 0.0.7b
 ## SavedVariables: WaypointDB_Global, WaypointDB_Global_Persistent
 ## SavedVariablesPerCharacter: WaypointDB_Local, WaypointDB_Local_Persistent
 ## AddonCompartmentFunc: WaypointUI_OpenConfig

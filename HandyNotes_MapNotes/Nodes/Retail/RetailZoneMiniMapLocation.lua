@@ -71,7 +71,7 @@ ns._currentSourceFile = "RetailZoneMiniMapLocation.lua"
                 minimap[57][26305072] = { mnID = 89, name = "", type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = ns.Darnassus .. " - " .. FACTION_ALLIANCE .. "\n" .. "\n" .. L["Portals"] .. "\n" .. " ==> " .. ns.Ruttheran .. "\n" .. " ==> " .. ns.Exodar  .. "\n" .. " ==> " .. ns.HellfirePeninsula } -- Portal To Teldrassil from Darnassus
                 minimap[97][20235409] = { mnID = 57, name = "", type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.Ruttheran } -- Portal Exodar to Teldrassil
                 minimap[62][53731873] = { mnID = 2239, name = "", type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.Amirdrassil } -- Portal from New Darkshore to Bel'ameth, Amirdrassil
-                minimap[62][48023628] = { mnID = 1161, name = "", TransportName = L["Portal"] .. " ==> " .. ns.Boralus .. "\n" .. "\n" .. L["(its only shown up ingame if your faction\n is currently occupying Bashal'Aran)"], showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from New Darkshore to Zandalar
+                minimap[62][48023628] = { mnID = 1161, name = "", TransportName = L["Portal"] .. " ==> " .. ns.Boralus .. "\n" .. "\n" .. L["(its only shown up ingame if your faction\n is currently occupying Bashal'Aran)"], type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from New Darkshore to Zandalar
                 minimap[198][62602315] = { mnID = 84,  name = "" , type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.Stormwind } -- Portal To Stormwind from Hyjal
                 minimap[207][48525385] = { mnID = 84, name = "", type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.Stormwind } -- Portal To Stormwind
                 minimap[57][55039371] = { mnID = 84, name = "", type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.Stormwind } -- Portal To Stormwind from Teldrassil
@@ -603,6 +603,11 @@ ns._currentSourceFile = "RetailZoneMiniMapLocation.lua"
                                            mnIDs4 = 23, questIDs4 = 56491, wwwNames4 = "Tiny Terrors of Stratholme", wwwLinks4 = "https://www.wowhead.com/quest=56491", 
                                            mnIDs5 = 35, questIDs5 = 58457, wwwNames5 = "Shadows of Blackrock", wwwLinks5 = "https://www.wowhead.com/quest=58457" } -- Portal Manapuff
               end
+
+              if self.faction == "Alliance" or db.activate.MiniMapEnemyFaction then
+                minimap[1355][39975256] = { mnID = 1161, name = "", type = "APortal", questID = 55175, showWWW = true, wwwLink = "wowhead.com/quest=29824", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portalroom to Boralus from Mezzamere
+              end
+
             end
     
     
@@ -620,14 +625,14 @@ ns._currentSourceFile = "RetailZoneMiniMapLocation.lua"
             if self.db.profile.showMiniMapTravel then
 
               if self.faction == "Horde" or db.activate.MiniMapEnemyFaction then
-                minimap[862][58466298] = { mnID = 896, mnID2 = 895, mnID3 = 942, name = L["(Dread-Admiral Tattersail) will take you to Drustvar, Tiragarde Sound or Stormsong Valley"], dnID = " " .. ITEM_REQ_HORDE, type = "UndeadF", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Ship from Dazar'alor to Drustvar, Tiragarde Sound or Stormsong Valley
-                minimap[862][55325808] = { mnID = 1462, name = ns.CaptainKrooz .. " " .. L["Travel"], dnID = " " .. ITEM_REQ_HORDE, type = "GoblinF", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Transport from Dazar'alor to Mechagon 
+                minimap[862][58466298] = { npcID = 135690, mnID = 896, mnID2 = 895, mnID3 = 942, name = "", dnID = L["(Dread-Admiral Tattersail) will take you to Drustvar, Tiragarde Sound or Stormsong Valley"] .. "\n(" .. ITEM_REQ_HORDE .. ")", type = "UndeadF", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Ship from Dazar'alor to Drustvar, Tiragarde Sound or Stormsong Valley
+                minimap[862][55325808] = { npcID = 152506, mnID = 1462, name = "", dnID = "(" .. ITEM_REQ_HORDE ..")", type = "GoblinF", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Transport from Dazar'alor to Mechagon 
               end
   
               if self.faction == "Alliance" or db.activate.MiniMapEnemyFaction then
-                minimap[864][36693428] = { mnID = 1161, name = ns.BarnardTheSmasherBayswort .. " " .. L["Travel"], type = "KulM", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = " " .. ITEM_REQ_ALLIANCE .. "\n" .. " ==> " .. ns.Boralus } -- Transport from Vol'dun to Boralus
-                minimap[863][62064008] = { mnID = 1161, name = ns.DeshaStormwallow .. " " .. L["Travel"], type = "DwarfF", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = " " .. ITEM_REQ_ALLIANCE .. "\n" .. " ==> " .. ns.Boralus } -- Transport from Nazmir to Boralus
-                minimap[862][40457103] = { mnID = 1161, name = ns.DariaSmithson .. " " .. L["Travel"], type = "GilneanF", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName =  " " .. ITEM_REQ_ALLIANCE .. "\n" .. " ==> " .. ns.Boralus } -- Transport from Zuldazar to Boralus 
+                minimap[864][36693428] = { npcID = 135383, mnID = 1161, name = "", dnID =  "(" .. ITEM_REQ_ALLIANCE .. ")", type = "KulM", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Transport from Vol'dun to Boralus
+                minimap[863][62064008] = { npcID = 139620, mnID = 1161, name = "", dnID =  "(" .. ITEM_REQ_ALLIANCE .. ")", type = "DwarfF", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Transport from Nazmir to Boralus
+                minimap[862][40457103] = { npcID = 143334, mnID = 1161, name = "", dnID =  "(" .. ITEM_REQ_ALLIANCE .. ")", type = "GilneanF", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Transport from Zuldazar to Boralus 
               end
             end
 
@@ -663,10 +668,10 @@ ns._currentSourceFile = "RetailZoneMiniMapLocation.lua"
             if self.db.profile.showMiniMapTravel then
 
               if self.faction == "Horde" or db.activate.MiniMapEnemyFaction then
-                minimap[1462][75522266] = { mnID = 862, name = ns.CaptainKrooz .. " " .. L["Travel"], dnID = " " .. ITEM_REQ_HORDE, type = "GoblinF", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Transport from Mechagon to Zuldazar
-                minimap[896][20614336] = { mnID = 862, name = ns.Swellthrasher .. " " .. L["Travel"], type = "MOrcF", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = " " .. ITEM_REQ_HORDE .. "\n" .. " ==> " .. ns.Zuldazar } -- Transport from Drustvar to Zuldazar
-                minimap[942][51902432] = { mnID = 862, name = ns.GrokSeahandler .. " " .. L["Travel"], type = "OrcM", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = " " .. ITEM_REQ_HORDE .. "\n" .. " ==> " .. ns.Zuldazar } -- Transport from Stormsong Valley to Zuldazar
-                minimap[895][87725089] = { mnID = 862, name = ns.ErulDawnbrook .. " " .. L["Travel"], type = "B11M", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = " " .. ITEM_REQ_HORDE .. "\n" .. " ==> " .. ns.Zuldazar } -- Transport from Tiragarde Sound to Zuldazar 
+                minimap[1462][75522266] = { npcID = 152506, mnID = 862, name = "", dnID = "(" .. ITEM_REQ_HORDE ..")", type = "GoblinF", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Transport from Mechagon to Zuldazar
+                minimap[896][20614336] = { npcID = 139519, mnID = 862, name = "", dnID =  "(" .. ITEM_REQ_HORDE .. ")", type = "MOrcF", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Transport from Drustvar to Zuldazar
+                minimap[942][51902432] = { npcID = 143282, mnID = 862, name = "", dnID =  "(" .. ITEM_REQ_HORDE .. ")", type = "OrcM", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Transport from Stormsong Valley to Zuldazar
+                minimap[895][87855119] = { npcID = 139524, mnID = 862, name = "", dnID =  "(" .. ITEM_REQ_HORDE .. ")", type = "B11M", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Transport from Tiragarde Sound to Zuldazar 
               end
             end
           
@@ -676,7 +681,6 @@ ns._currentSourceFile = "RetailZoneMiniMapLocation.lua"
             
               if self.faction == "Alliance" or db.activate.MiniMapEnemyFaction then
                 minimap[895][74072427] = { mnID = 1161, name ="", type = "APortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = ns.Boralus .. " " .. L["Portalroom"] .. "\n" .. " " .. L["(inside building)"] .. "\n" .. " ==> " .. ns.Stormwind .. "\n" .. " ==> " .. ns.Silithus .. "\n" .. " ==> " .. ns.Exodar .. "\n" .. " ==> " .. ns.Ironforge .. "\n" .. " ==> " .. ns.Nazjatar } -- Portalroom from Boralus } -- Portalroom from Boralus
-                minimap[1355][39975256] = { mnID = 1161, name = "", type = "APortal", questID = 55175, showWWW = true, wwwLink = "wowhead.com/quest=29824", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portalroom to Boralus from Mezzamere
               end
             end
 

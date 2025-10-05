@@ -59,6 +59,7 @@ function ns.SyncSingleScaleAlpha()
     db.MiniMapScaleMailbox = db.ZoneScaleMailbox
     db.MiniMapScalePvPVendor = db.ZoneScalePvPVendor
     db.MiniMapScalePvEVendor = db.ZoneScalePvEVendor
+    db.MiniMapScaleRenownQuartermaster = db.ZoneScaleRenownQuartermaster
     db.MiniMapScaleStablemaster = db.ZoneScaleStablemaster
     db.MiniMapScaleCatalyst = db.ZoneScaleCatalyst
     db.MiniMapScaleZidormi = db.ZoneScaleZidormi
@@ -73,6 +74,7 @@ function ns.SyncSingleScaleAlpha()
     db.MiniMapAlphaMailbox = db.ZoneAlphaMailbox
     db.MiniMapAlphaPvPVendor = db.ZoneAlphaPvPVendor
     db.MiniMapAlphaPvEVendor = db.ZoneAlphaPvEVendor
+    db.MiniMapAlphaRenownQuartermaster = db.ZoneAlphaRenownQuartermaster
     db.MiniMapAlphaStablemaster = db.ZoneAlphaStablemaster
     db.MiniMapAlphaCatalyst = db.ZoneAlphaCatalyst
     db.MiniMapAlphaZidormi = db.ZoneAlphaZidormi
@@ -145,6 +147,7 @@ function ns.SyncSingleScaleAlpha()
     db.ZoneScaleMailbox = db.ZoneGeneralScale
     db.ZoneScalePvPVendor = db.ZoneGeneralScale
     db.ZoneScalePvEVendor = db.ZoneGeneralScale
+    db.ZoneScaleRenownQuartermaster = db.ZoneGeneralScale
     db.ZoneScaleStablemaster = db.ZoneGeneralScale
     db.ZoneScaleCatalyst = db.ZoneGeneralScale
     db.ZoneScaleZidormi = db.ZoneGeneralScale
@@ -161,6 +164,7 @@ function ns.SyncSingleScaleAlpha()
     db.ZoneAlphaMailbox = db.ZoneGeneralAlpha
     db.ZoneAlphaPvPVendor = db.ZoneGeneralAlpha
     db.ZoneAlphaPvEVendor = db.ZoneGeneralAlpha
+    db.ZoneAlphaRenownQuartermaster = db.ZoneGeneralAlpha
     db.ZoneAlphaStablemaster = db.ZoneGeneralAlpha
     db.ZoneAlphaCatalyst = db.ZoneGeneralAlpha
     db.ZoneAlphaZidormi = db.ZoneGeneralAlpha
@@ -250,6 +254,7 @@ function ns.SyncSingleScaleAlpha()
     db.MiniMapScaleMailbox = db.MiniMapGeneralScale
     db.MiniMapScalePvPVendor = db.MiniMapGeneralScale
     db.MiniMapScalePvEVendor = db.MiniMapGeneralScale
+    db.MiniMapScaleRenownQuartermaster = db.MiniMapGeneralScale
     db.MiniMapScaleStablemaster = db.MiniMapGeneralScale
     db.MiniMapScaleCatalyst = db.MiniMapGeneralScale
     db.MiniMapScaleZidormi = db.MiniMapGeneralScale
@@ -266,6 +271,7 @@ function ns.SyncSingleScaleAlpha()
     db.MiniMapAlphaMailbox = db.MiniMapGeneralAlpha
     db.MiniMapAlphaPvPVendor = db.MiniMapGeneralAlpha
     db.MiniMapAlphaPvEVendor = db.MiniMapGeneralAlpha
+    db.MiniMapAlphaRenownQuartermaster = db.MiniMapGeneralAlpha
     db.MiniMapAlphaStablemaster = db.MiniMapGeneralAlpha
     db.MiniMapAlphaCatalyst = db.MiniMapGeneralAlpha
     db.MiniMapAlphaZidormi = db.MiniMapGeneralAlpha

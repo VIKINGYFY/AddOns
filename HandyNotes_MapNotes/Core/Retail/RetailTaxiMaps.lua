@@ -7,14 +7,14 @@ local function DecodeCoord(coord)
     return x / 100, y / 100
 end
 
-local PIN_SIZE = 60 -- pin size
+local Icon_Size = 20 -- pin size
 local function CreateMNFlightPin(parent)
     local FlightmasterMapIcons = CreateFrame("Frame", nil, parent)
-    FlightmasterMapIcons:SetSize(PIN_SIZE, PIN_SIZE)
+    FlightmasterMapIcons:SetSize(Icon_Size, Icon_Size)
     FlightmasterMapIcons:SetFrameStrata("HIGH")
     FlightmasterMapIcons:SetFrameLevel(parent:GetFrameLevel() + 500)
-    FlightmasterMapIcons:EnableMouse(true)
-    FlightmasterMapIcons:SetHitRectInsets(-6, -6, -6, -6)
+    FlightmasterMapIcons:EnableMouse(true) -- do not let clicks through = true , let clicks through = false
+    FlightmasterMapIcons:SetHitRectInsets(0,0,0,0)
     FlightmasterMapIcons.tex = FlightmasterMapIcons:CreateTexture(nil, "OVERLAY")
     FlightmasterMapIcons.tex:SetAllPoints()
     FlightmasterMapIcons.tex:SetTexelSnappingBias(0)
@@ -51,6 +51,17 @@ local function ShowTaxiDungeonTooltip(pin, node)
     title = title or node.name or (node.type and (node.type .. (node.id and (" ("..node.id..")") or ""))) or "MapNotes"
     GameTooltip:AddLine("|cffffd200" .. title, 1, 1, 1)
 
+    if node.dnID then
+        GameTooltip:AddLine(" ")
+        if type(node.dnID) == "table" then
+            for _, line in ipairs(node.dnID) do
+                GameTooltip:AddLine(line, 1, 1, 1, true)
+            end
+        else
+            GameTooltip:AddLine(node.dnID, 1, 1, 1, true)
+        end
+    end
+
     if ns.Addon and ns.Addon.db and ns.Addon.db.profile.BossNames then
         if node.id and type(node.id) ~= "table" then
             GameTooltip:AddLine(" ")
@@ -72,7 +83,6 @@ end
 
 local provider = { pins = {}, forMapID = nil, canvas = nil, child = nil }
 local hooked = false
-
 local function RemoveAllPins()
     for pin in pairs(provider.pins) do
         pin:Hide()
@@ -87,12 +97,64 @@ local function PositionAllPins()
     local w, h = provider.child:GetSize()
     if not (w and h) or w == 0 or h == 0 then return end
 
+    local scale = provider.canvas and provider.canvas:GetCanvasScale() or 1
+    local adjustedSize = Icon_Size / scale
+
     for pin, pos in pairs(provider.pins) do
         pin:ClearAllPoints()
         pin:SetPoint("CENTER", provider.child, "TOPLEFT", pos.x * w, -pos.y * h)
+        pin:SetSize(adjustedSize, adjustedSize)
         pin:Show()
     end
 end
+
+local hoveredPin
+local function UpdateHoverTooltip()
+    if not (provider.canvas and provider.child and next(provider.pins)) then
+        if hoveredPin then GameTooltip:Hide(); hoveredPin = nil end
+        return
+    end
+
+    local mx, my = GetCursorPosition()
+    local scale = provider.child:GetEffectiveScale()
+    mx, my = mx / scale, my / scale
+
+    local left = provider.child:GetLeft()
+    local top = provider.child:GetTop()
+    local w, h = provider.child:GetSize()
+    if not (left and top and w and h and w > 0 and h > 0) then return end
+
+    local lx = mx - left
+    local ly = top - my
+
+    local canvasScale = provider.canvas:GetCanvasScale() or 1
+    local adjustedSize = Icon_Size / canvasScale
+    local r = adjustedSize * 0.6
+
+    local bestPin, bestDist2
+    for pin, pos in pairs(provider.pins) do
+        local px = pos.x * w
+        local py = pos.y * h
+        local dx = lx - px
+        local dy = ly - py
+        local d2 = dx*dx + dy*dy
+        if d2 <= (r*r) and (not bestDist2 or d2 < bestDist2) then
+            bestPin, bestDist2 = pin, d2
+        end
+    end
+
+    if bestPin then
+        if hoveredPin ~= bestPin then
+            hoveredPin = bestPin
+            GameTooltip:Hide()
+        end
+        ShowTaxiDungeonTooltip(bestPin, provider.pins[bestPin] and provider.pins[bestPin].node)
+    else
+        if hoveredPin then GameTooltip:Hide(); hoveredPin = nil end
+    end
+
+end
+
 
 local function RefreshAllData()
     if not (FlightMapFrame and FlightMapFrame:IsShown()) then return end
@@ -122,9 +184,6 @@ local function RefreshAllData()
                 local pin = CreateMNFlightPin(child)
                 ApplyIcon(pin, node)
 
-                pin:SetScript("OnEnter", function(self) ShowTaxiDungeonTooltip(self, node) end)
-                pin:SetScript("OnLeave", function() GameTooltip:Hide() end)
-
                 provider.pins[pin] = { x = x, y = y, node = node }
             end
         end
@@ -136,14 +195,18 @@ local function RefreshAllData()
     end
 
     PositionAllPins()
+    UpdateHoverTooltip()
 end
 
 function ns.RefreshTaxiMapIfOpen()
     if FlightMapFrame and FlightMapFrame:IsShown() then
-        if RefreshAllData then RefreshAllData() end
-        if ns.TaxiToggleButton and ns.TaxiToggleButton.UpdateTooltip and GameTooltip:IsOwned(ns.TaxiToggleButton) then
-            ns.TaxiToggleButton:UpdateTooltip()
-        end
+        if EnsureHooks then EnsureHooks() end
+        C_Timer.After(0, function()
+            if RefreshAllData then RefreshAllData() end
+            if ns.TaxiToggleButton and ns.TaxiToggleButton.UpdateTooltip and GameTooltip:IsOwned(ns.TaxiToggleButton) then
+                ns.TaxiToggleButton:UpdateTooltip()
+            end
+        end)
     end
 end
 
@@ -167,10 +230,12 @@ local function EnsureHooks()
 
     map:RegisterCallback("OnCanvasScaleChanged", function()
         PositionAllPins()
+        UpdateHoverTooltip()
     end, provider)
 
     map:RegisterCallback("OnCanvasPanChanged", function()
         PositionAllPins()
+        UpdateHoverTooltip()
     end, provider)
 
     hooked = true
@@ -190,22 +255,24 @@ do
     end
 
     if ev == "TAXIMAP_OPENED" and FlightMapFrame and FlightMapFrame:IsShown() then
-    ns.UpdateTaxiMapToggleButtonVisibility()
-    EnsureHooks()
-    RefreshAllData()
+        ns.UpdateTaxiMapToggleButtonVisibility()
+        EnsureHooks()
+        RefreshAllData()
+        if not hoverTicker then
+            hoverTicker = C_Timer.NewTicker(0.05, function()
+                if provider.child and next(provider.pins) then
+                    UpdateHoverTooltip()
+                end
+            end)
+        end
     elseif ev == "TAXIMAP_CLOSED" then
         RemoveAllPins()
+        if hoveredPin then GameTooltip:Hide(); hoveredPin = nil end
+        if hoverTicker then hoverTicker:Cancel(); hoverTicker = nil end
         provider.canvas, provider.child, provider.forMapID = nil, nil, nil
     end
   end)
 end
-
-
-C_Timer.NewTicker(0.25, function()
-    if provider.child and next(provider.pins) then
-        PositionAllPins()
-    end
-end, 4)
 
 function ns.CreateTaxiMapToggleButton()
 
@@ -255,8 +322,8 @@ function ns.CreateTaxiMapToggleButton()
                 GameTooltip:AddLine(ns.COLORED_ADDON_NAME)
                 GameTooltip:AddLine(" ")
                 local db = ns.Addon and ns.Addon.db and ns.Addon.db.profile
-                local on = db and db.showTaxiMapNodes
-                GameTooltip:AddLine(on and (KEY_BUTTON1 .. " => " .. "|cffff0000" .. L["Hide Instances"]) or (KEY_BUTTON1 .. " => " .. "|cff00ff00" .. L["Show Instances"]), 1, 1, 1)
+                local active = db and db.showTaxiMapNodes
+                GameTooltip:AddLine(active and (KEY_BUTTON1 .. " => " .. "|cffff0000" .. L["Hide Instances"]) or (KEY_BUTTON1 .. " => " .. "|cff00ff00" .. L["Show Instances"]), 1, 1, 1)
                 GameTooltip:Show()
             end
 

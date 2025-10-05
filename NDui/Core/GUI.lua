@@ -153,7 +153,6 @@ G.DefaultSettings = {
 		ShowAuras = true,
 		Arena = true,
 		Castbars = true,
-		AddPower = true,
 		SwingBar = false,
 		SwingWidth = 300,
 		SwingHeight = 10,
@@ -225,7 +224,6 @@ G.DefaultSettings = {
 		SortAscending = false,
 		AutoBuffs = false,
 		ShowRoleMode = 1,
-		OverAbsorb = true,
 		PrivateSize = 22,
 		ReversePrivate = false,
 
@@ -873,10 +871,6 @@ local function updateUFTextScale()
 	B:GetModule("UnitFrames"):UpdateTextScale()
 end
 
-local function toggleAddPower()
-	B:GetModule("UnitFrames"):ToggleAddPower()
-end
-
 local function toggleUFClassPower()
 	B:GetModule("UnitFrames"):ToggleUFClassPower()
 end
@@ -1038,7 +1032,8 @@ end
 -- Config
 local HeaderTag = "|cff00FF00"
 local IsNew = "ISNEW"
-G.HealthValues = {DISABLE, L["ShowHealthDefault"], L["ShowHealthCurMax"], L["ShowHealthCurrent"], L["ShowHealthPercent"], L["ShowHealthLoss"], L["ShowHealthLossPercent"], L["ShowHealthAbsorb"]}
+G.HealthValues = {DISABLE, L["ShowHealth CP"], L["ShowHealth CM"], L["ShowHealth OC"], L["ShowHealth OP"], L["ShowHealth OL"], L["ShowHealth LP"], L["ShowHealth AC"]}
+G.PowerValues = {DISABLE, L["ShowHealth CP"], L["ShowHealth CM"], L["ShowHealth OC"], L["ShowHealth OP"], L["ShowHealth OL"], L["ShowHealth LP"]}
 
 local function AddNewTag(parent, anchor)
 	local tag = CreateFrame("Frame", nil, parent, "NewFeatureLabelTemplate")
@@ -1107,8 +1102,6 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{1, "UFs", "ShowAuras", L["ShowAuras"].."*", nil, setupUFAuras, toggleAllAuras},
 		{1, "UFs", "ClassPower", L["UFs ClassPower"].."*", true, nil, toggleUFClassPower},
 		{1, "UFs", "Portrait", L["UFs Portrait"].."*", nil, nil, togglePortraits},
-		{1, "UFs", "AddPower", L["AddPower"].."*", true, nil, toggleAddPower, L["AddPowerTip"]},
-		{1, "UFs", "OverAbsorb", L["OverAbsorb"].."*", nil, nil, nil, L["OverAbsorbTip"]},
 		{1, "UFs", "CCName", L["ClassColor Name"].."*", true, nil, updateUFTextScale, L["CustomNameColorTip"]},
 		{5, "UFs", "CustomNameColor", L["CustomNameColor"], 3},
 		{3, "UFs", "UFTextScale", L["UFTextScale"].."*", nil, {.5, 1.5, .05}, updateUFTextScale},
@@ -1152,7 +1145,7 @@ G.OptionList = { -- type, key, value, name, horizon, doubleline
 		{1, "UFs", "AutoRes", HeaderTag..L["UFs AutoRes"], true},
 		{}, -- blank
 		{4, "UFs", "RaidHealthColor", L["HealthColor"].."*", nil, {L["Default Dark"], L["ClassColorHP"], L["GradientHP"], L["ClearHealth"], L["ClearClass"]}, updateRaidTextScale},
-		{4, "UFs", "RaidHPMode", L["HealthValueType"].."*", true, {DISABLE, L["ShowHealthPercent"], L["ShowHealthCurrent"], L["ShowHealthLoss"], L["ShowHealthLossPercent"], L["ShowHealthAbsorb"]}, updateRaidTextScale},
+		{4, "UFs", "RaidHPMode", L["HealthValueType"].."*", true, {DISABLE, L["ShowHealth OP"], L["ShowHealth OC"], L["ShowHealth OL"], L["ShowHealth LP"], L["ShowHealth AC"]}, updateRaidTextScale},
 		{4, "UFs", "ShowRoleMode", L["ShowRoleMode"], nil, {ALL, DISABLE, L["HideDPSRole"]}},
 		{3, "UFs", "RaidTextScale", L["UFTextScale"].."*", true, {.5, 1.5, .05}, updateRaidTextScale},
 		{1, "UFs", "ShowSolo", L["ShowSolo"].."*", nil, nil, updateAllHeaders, L["ShowSoloTip"]},

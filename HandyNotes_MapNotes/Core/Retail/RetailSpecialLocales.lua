@@ -16,16 +16,16 @@ ns.CHANGE_VERSIONS_CHECK = { -- RetailVersionsCheck.lua
 }
 
 ns.CHANGE_LOG_CONFIRMED = { -- RetailChangelog.lua
-  deDE = "Das Änderungsprotokoll wird nicht mehr automatisch angezeigt, bis eine neue Version veröffentlicht wird",
-  enUS = "The change log will no longer be displayed automatically until a new version is released",
-  frFR = "Le journal des modifications ne sera plus affiché automatiquement jusqu'à la publication d'une nouvelle version",
-  esES = "El registro de cambios ya no se mostrará automáticamente hasta que se publique una nueva versión",
-  esMX = "El registro de cambios ya no se mostrará automáticamente hasta que se publique una nueva versión",
-  itIT = "Il registro delle modifiche non verrà più mostrato automaticamente finché non sarà rilasciata una nuova versione",
-  ptBR = "O registro de alterações não será mais exibido automaticamente até que uma nova versão seja lançada",
-  ruRU = "Журнал изменений больше не будет отображаться автоматически до выхода новой версии",
-  zhCN = "在发布新版本之前，更新日志将不再自动显示",
-  zhTW = "在發佈新版本之前，更新日誌將不會再自動顯示",
+  deDE = "Das Änderungsprotokoll wird bis zu einer neuen Version nicht mehr automatisch angezeigt",
+  enUS = "The changelog will no longer be displayed automatically until a new version is released",
+  frFR = "Le journal des modifications ne sera plus affiché automatiquement jusqu’à la sortie d’une nouvelle version",
+  esES = "El registro de cambios ya no se mostrará automáticamente hasta que se lance una nueva versión",
+  esMX = "El registro de cambios ya no se mostrará automáticamente hasta que se lance una nueva versión",
+  itIT = "Il registro delle modifiche non verrà più mostrato automaticamente fino al rilascio di una nuova versione",
+  ptBR = "O registro de alterações não será mais exibido automaticamente até o lançamento de uma nova versão",
+  ruRU = "Журнал изменений больше не будет автоматически отображаться до выхода новой версии",
+  zhCN = "在新版本发布之前，更新日志将不再自动显示",
+  zhTW = "在新版本發布之前，更新日誌將不再自動顯示",
   koKR = "새 버전이 출시될 때까지 변경 로그는 더 이상 자동으로 표시되지 않습니다",
 }
 

@@ -130,9 +130,7 @@ ns._currentSourceFile = "RetailZoneMiniMapDungeonminimapLocation.lua"
               minimap[64][41662882] = { dnID = L["Way to the Instance Entrance"], id = 233, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Razorfen Downs
               minimap[1527][71755222] = { dnID = L["Way to the Instance Entrance"], id = 70, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Halls of Origination
               minimap[63][14161380] = { dnID = L["Way to the Instance Entrance"], id = 227, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Blackfathom Deeps 
-              minimap[66][29226253] = { dnID = L["Way to the Instance Entrance"], id = 232, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Maraudon Outside
-              --minimap[69][65503524] = { id = 230, lfgid = 34, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dire Maul - Warpwood Quarter - East above Camp Mojache   
-              --minimap[69][77073692] = { id = 230, lfgid = 34, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dire Maul - Warpwood Quarter - East above Camp Mojache   
+              minimap[66][29226253] = { dnID = L["Way to the Instance Entrance"], id = 232, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Maraudon Outside 
             end
 
             if self.db.profile.showMiniMapMultiple then
@@ -270,7 +268,6 @@ ns._currentSourceFile = "RetailZoneMiniMapDungeonminimapLocation.lua"
               minimap[35][58168728] = { mnID = 33, dnID = DUNGEON_FLOOR_BURNINGSTEPPES14, name = "", type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Blackrock Depths
               minimap[32][35268404] = { mnID = 33, name = "", type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
               --minimap[15][58543698] = { id = 239, name = "", type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Uldaman (Secondary Entrance) 
-              --minimap[23][43251854] = { id = 236, lfgid = 274, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true }-- Stratholme Service Entrance 
               minimap[33][75516099] = { id = 66, name = "", type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Blackrock Caverns
             end
 

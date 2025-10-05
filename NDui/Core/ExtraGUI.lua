@@ -1061,7 +1061,7 @@ function G:SetupUnitFrame(parent)
 		local mult = 0
 		if value ~= "Pet" then
 			mult = 60
-			createOptionDropdown(parent, L["PowerValueType"], offset-50-mult, G.HealthValues, L["100PercentTip"], "UFs", value.."MPTag", defaultData[value][5], func)
+			createOptionDropdown(parent, L["PowerValueType"], offset-50-mult, G.PowerValues, L["100PercentTip"], "UFs", value.."MPTag", defaultData[value][5], func)
 		end
 		createOptionSlider(parent, L["Width"], sliderRange[value][1], sliderRange[value][2], defaultData[value][1], offset-110-mult, value.."Width", func)
 		createOptionSlider(parent, L["Height"], 15, 100, defaultData[value][2], offset-180-mult, value.."Height", func)

@@ -31,10 +31,10 @@ end
 local function MapLine_OnUpdate()
 	if not mapID then Line:Hide() return end
 
+	local playerD = GetPlayerFacing()
 	local position = C_Map.GetPlayerMapPosition(mapID, "player")
-	if position then
+	if playerD and position then
 		local playerX, playerY = position.x, position.y
-		local playerD = GetPlayerFacing()
 
 		local startX = playerX * mapWidth
 		local startY = -playerY * mapHeight

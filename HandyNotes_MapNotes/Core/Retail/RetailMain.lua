@@ -15,7 +15,6 @@ local MNMMBIcon = LibStub("LibDBIcon-1.0", true)
 local db = { }
 local nodes = { }
 local minimap = { }
-local lfgIDs = { }
 local extraInformations = { }
 
 ns.RestoreStaticPopUpsRetail() -- StaticPopUps.lua
@@ -64,45 +63,106 @@ function ns.RunDeveloperValidation()
   end
 end
 
-function ns.ValidateNodeEntry(value, coord, uiMapID, sourceFile)
+ns.CANONICAL_KEYS = {
+  name="name", 
+  id="id", 
+  type="type", 
+  npcid="npcID",
+  showinzone="showInZone", 
+  showoncontinent="showOnContinent",
+  showonminimap="showOnMinimap",
+  mnid="mnID", 
+  transportname="TransportName", 
+  delveid="delveID", dnid="dnID",
+  mnid2="mnID2", 
+  mnid3="mnID3", 
+  taxiid="taxiID", 
+  wwwname="wwwName", 
+  leavedelve="leaveDelve",
+}
 
-  local warnKey = tostring(uiMapID) .. ":" .. tostring(coord)
+function ns.ValidateNodeEntry(value, coord, uiMapID, sourceFile)
+  if not (ns.Addon and ns.Addon.db and ns.Addon.db.profile.DeveloperMode) then return end
+  ns.alreadyWarned = ns.alreadyWarned or {}
+
+  local fromMinimap = ns.minimap and ns.minimap[uiMapID] and ns.minimap[uiMapID][coord] == value
+  local fromNodes = ns.nodes and ns.nodes[uiMapID] and ns.nodes[uiMapID][coord] == value
+  local dataSource = "?"
+  if fromMinimap then
+    dataSource = "minimap[" .. tostring(uiMapID) .. "]"
+  elseif fromNodes then
+    dataSource = "nodes[" .. tostring(uiMapID) .. "]"
+  elseif ns.minimap and ns.minimap[uiMapID] then
+    dataSource = "minimap[" .. tostring(uiMapID) .. "]"
+  elseif ns.nodes and ns.nodes[uiMapID] then
+    dataSource = "nodes[" .. tostring(uiMapID) .. "]"
+  end
+
+  local coordStr = coord and tostring(coord) or "?"
+  local warnKey = tostring(dataSource) .. ":" .. tostring(coordStr)
   if ns.alreadyWarned[warnKey] then return end
+
+  ns._validatedOnce = ns._validatedOnce or {}
+  if ns._validatedOnce[warnKey] then return true end
+
+  local source = sourceFile or ns._currentSourceFile or "?"
+  local typoForRequired = false
+  for key in pairs(value) do
+    if type(key) == "string" then
+      local lower = key:lower()
+      local canonical = ns.CANONICAL_KEYS[lower]
+      if canonical and key ~= canonical then
+        local typoWarnKey = warnKey .. ":typo:" .. key
+        if not ns.alreadyWarned[typoWarnKey] then
+          print(ns.COLORED_ADDON_NAME, ERRORS .. " '" .. key .. "= ' → richtig wäre: '" .. canonical .. " ='" .. "\n • Datei: " .. tostring(source) .. " • Zeile: " .. tostring(dataSource) .. "[" .. coordStr .. "]")
+          ns.alreadyWarned[typoWarnKey] = true
+        end
+        if canonical == "name" or canonical == "id" then
+          typoForRequired = true
+        end
+      end
+    end
+  end
+  ns._validatedOnce[warnKey] = true
+
+  if value.type and ns.icons and not ns.icons[value.type] then
+    ns.alreadyWarned = ns.alreadyWarned or {}
+    local badKey = warnKey .. ":badtype:" .. tostring(value.type)
+    if not ns.alreadyWarned[badKey] then
+      print(ns.COLORED_ADDON_NAME, ERRORS .. " • 'type = " .. tostring(value.type) .. "'" .. "\n • Datei: " .. tostring(source) .. " • Zeile: " .. tostring(dataSource) .. "[" .. coordStr .. "]")
+      ns.alreadyWarned[badKey] = true
+    end
+  end
 
   local missing = {}
   if not value.name and not value.id then
-    table.insert(missing, "'name =' or 'id ='")
+    if not typoForRequired then
+      table.insert(missing, "'name =' or 'id ='")
+    end
   end
   if not value.type then
     table.insert(missing, "'type ='")
   end
 
-  local hideInAllViews = (value.showInZone == false or value.showInZone == nil) and (value.showOnContinent == false or value.showOnContinent == nil) and (value.showOnMinimap == false or value.showOnMinimap == nil)
-  local coordStr = coord and tostring(coord) or "?"
-  local source = sourceFile or ns._currentSourceFile or "?"
-  local dataSource = "?"
-  if ns.nodes and ns.nodes[uiMapID] then
-    dataSource = "nodes[" .. uiMapID .. "]"
-  elseif ns.minimap and ns.minimap[uiMapID] then
-    dataSource = "minimap[" .. uiMapID .. "]"
-  end
-
   if #missing > 0 then
-    print(ns.COLORED_ADDON_NAME, ERRORS .. " • Datei: " .. tostring(source) ..  " • Zeile: " .. tostring(dataSource) .. "[" .. coordStr .. "]")
+    print(ns.COLORED_ADDON_NAME, ERRORS .. " • Datei: " .. tostring(source) .. " • Zeile: " .. tostring(dataSource) .. "[" .. coordStr .. "]" .. " • Grund: " .. table.concat(missing, ", ") .. " fehlt!")
     ns.alreadyWarned[warnKey] = true
     return nil
   end
 
+  local hideInAllViews = (value.showInZone == false or value.showInZone == nil) and (value.showOnContinent == false or value.showOnContinent == nil) and (value.showOnMinimap == false or value.showOnMinimap == nil)
   if hideInAllViews then
-    print(ns.COLORED_ADDON_NAME, ERRORS .. " • showInZone, showOnContinent, showOnMinimap alles zugleich deaktiviert!" .. "\n • Datei: " .. tostring(source) ..  " • Zeile: " .. tostring(dataSource) .. "[" .. coordStr .. "]")
+    print(ns.COLORED_ADDON_NAME, ERRORS .. " • showInZone, showOnContinent, showOnMinimap alles zugleich deaktiviert!" .. "\n • Datei: " .. tostring(source) .. " • Zeile: " .. tostring(dataSource) .. "[" .. coordStr .. "]")
     ns.alreadyWarned[warnKey] = true
   end
 
-  local visibleEverywhere = value.showInZone and value.showOnContinent and value.showOnMinimap
+  local visibleEverywhere = (value.showInZone == true) and (value.showOnContinent == true) and (value.showOnMinimap == true)
   if visibleEverywhere then
-    print(ns.COLORED_ADDON_NAME, ERRORS .. " • showInZone, showOnContinent, showOnMinimap alles zugleich aktiviert!" .. "\n • Datei: " .. tostring(source) ..  " • Zeile: " .. tostring(dataSource) .. "[" .. coordStr .. "]")
+    print(ns.COLORED_ADDON_NAME, ERRORS .. " • showInZone, showOnContinent, showOnMinimap alles zugleich aktiviert!" .. "\n • Datei: " .. tostring(source) .. " • Zeile: " .. tostring(dataSource) .. "[" .. coordStr .. "]")
     ns.alreadyWarned[warnKey] = true
   end
+
+  return true
 end
 
 local function LoadAndCheck(loadFunc, self)
@@ -130,7 +190,7 @@ local function LoadAndCheck(loadFunc, self)
     end
   end
 
-  mergeAndTag(tempNodes,   prevNodes)
+  mergeAndTag(tempNodes, prevNodes)
   mergeAndTag(tempMinimap, prevMinimap)
 
   ns.nodes, ns.minimap = prevNodes, prevMinimap
@@ -297,7 +357,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
 	for idx, v in pairs(instances) do
 
     --print(i, v)
-	  if (db.KilledBosses and (extraInformations[v] or (lfgIDs[v] and extraInformations[lfgIDs[v]]))) then
+	  if (db.KilledBosses and (extraInformations[v])) then
  	    if (extraInformations[v]) then
         --print("Dungeon/Raid is locked")
 	      for a,b in pairs(extraInformations[v]) do
@@ -305,12 +365,6 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
 	        tooltip:AddDoubleLine(v, a .. " " .. b.progress .. "/" .. b.total, 1, 1, 1, 1, 1, 1)
  	      end
 	    end
-      if (lfgIDs[v] and extraInformations[lfgIDs[v]]) then
-        for a,b in pairs(extraInformations[lfgIDs[v]]) do
-          --tooltip:AddLine(v .. ": " .. a .. " " .. b, nil, nil, nil, false)
-          tooltip:AddDoubleLine(v, a .. " " .. b.progress .. "/" .. b.total, 1, 1, 1, 1, 1, 1)
-        end
-      end
 	  else
 	    tooltip:AddLine(v, nil, nil, nil, false)
       if ns.Addon.db.profile.DeveloperMode then
@@ -405,7 +459,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
       if nodeData.mnID2 then
         local mnID2name = C_Map.GetMapInfo(nodeData.mnID2).name
         if mnID2name then 
-          tooltip:AddDoubleLine(KEY_BUTTON3 .. " ==> " .. mnID2name, nil, nil, false)
+          tooltip:AddDoubleLine(KEY_BUTTON2 .. " ==> " .. mnID2name, nil, nil, false)
         end
       end
 
@@ -428,7 +482,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
       if nodeData.mnID2 then
         local mnID2name = C_Map.GetMapInfo(nodeData.mnID2).name
         if mnID2name then 
-          tooltip:AddDoubleLine(KEY_BUTTON3 .. " ==> " .. mnID2name, nil, nil, false)
+          tooltip:AddDoubleLine(KEY_BUTTON1 .. " ==> " .. mnID2name, nil, nil, false)
         end
       end
 
@@ -664,19 +718,19 @@ do
                         or value.type == "PvEVendorH" or value.type == "PvEVendorA" or value.type == "MMInnkeeperH" or value.type == "MMInnkeeperA" or value.type == "MMStablemasterH" or value.type == "MMStablemasterA"
                         or value.type == "MMMailboxH" or value.type == "MMMailboxA" or value.type == "MMPvPVendorH" or value.type == "MMPvPVendorA" or value.type == "MMPvEVendorH" or value.type == "MMPvEVendorA" 
                         or value.type == "ZonePvEVendorH" or value.type == "ZonePvPVendorH" or value.type == "ZonePvEVendorA" or value.type == "ZonePvPVendorA" or value.type == "TradingPost" or value.type == "PassageCaveUp"
-                        or value.type == "PassageCaveDown" or value.type == "MountMerchant" or value.type == "Upgrade" or value.type == "ScoutingMap"
+                        or value.type == "PassageCaveDown" or value.type == "MountMerchant" or value.type == "Upgrade" or value.type == "ScoutingMap" or value.type == "RenownQuartermaster"
 
-        ns.classHallIcons = value.type == "CHMountMerchant" or value.type == "CHUpgrade" or value.type == "CHScoutingMap" or value.type == "CHMailbox" or value.type == "RedPathO" or value.type == "RedPathRO" or value.type == "RedPathLO" or value.type == "RedPathU" 
-                        or value.type == "RedPathLU" or value.type == "RedPathRU" or value.type == "RedPathL" or value.type == "RedPathR" or value.type == "CHTravel" or value.type == "CHPortal" or value.type == "ArtifactForge" or value.type == "Recruit" 
-                        or value.type == "CHVendor" or value.type == "CHStablemasterN" or value.type == "Archivar" or value.type == "CHDeathknight" or value.type == "CHDemonhunter" or value.type == "CHDracyr" or value.type == "CHDruid" or value.type == "CHHunter" 
-                        or value.type == "CHMage" or value.type == "CHMonk" or value.type == "CHPaladin" or value.type == "CHPriest" or value.type == "CHRogue" or value.type == "CHShaman" or value.type == "CHWarlock" or value.type == "CHWarrior" 
+      ns.classHallIcons = value.type == "CHMountMerchant" or value.type == "CHUpgrade" or value.type == "CHScoutingMap" or value.type == "CHMailbox" or value.type == "RedPathO" or value.type == "RedPathRO" or value.type == "RedPathLO" or value.type == "RedPathU" 
+                      or value.type == "RedPathLU" or value.type == "RedPathRU" or value.type == "RedPathL" or value.type == "RedPathR" or value.type == "CHTravel" or value.type == "CHPortal" or value.type == "ArtifactForge" or value.type == "Recruit" 
+                      or value.type == "CHVendor" or value.type == "CHStablemasterN" or value.type == "Archivar" or value.type == "CHDeathknight" or value.type == "CHDemonhunter" or value.type == "CHDracyr" or value.type == "CHDruid" or value.type == "CHHunter" 
+                      or value.type == "CHMage" or value.type == "CHMonk" or value.type == "CHPaladin" or value.type == "CHPriest" or value.type == "CHRogue" or value.type == "CHShaman" or value.type == "CHWarlock" or value.type == "CHWarrior" 
 
-        ns.raceIcons = value.type == "B11M" or value.type == "B11F" or value.type == "MOrcM" or value.type == "MOrcF" or value.type == "UndeadM" or value.type == "UndeadF" or value.type == "GoblinM" or value.type == "GoblinF" or value.type == "GilneanM" 
-                        or value.type == "GilneanF" or value.type == "KulM" or value.type == "KulF" or value.type == "DwarfM" or value.type == "DwarfF" or value.type == "OrcM" or value.type == "OrcF" or value.type == "GnomeM" or value.type == "GnomeF" 
-                        or value.type == "DraneiM" or value.type == "DraneiF" or value.type == "N11M" or value.type == "N11F" or value.type == "TrollM" or value.type == "TrollF" or value.type == "TaureM" or value.type == "TaureF" or value.type == "PandaM" 
-                        or value.type == "PandaF" or value.type == "HMTaurenM" or value.type == "HMTaurenF" or value.type == "LFDraeneiM" or value.type == "LFDraeneiF" or value.type == "LN11BorneM" or value.type == "LN11BorneF" or value.type == "Void11M" 
-                        or value.type == "Void11F" or value.type == "DarkDwarfM" or value.type == "DarkDwarfF" or value.type == "DracthyrM" or value.type == "DracthyrF" or value.type == "VulperaM" or value.type == "VulperaF" or value.type == "MechaGnomeM" 
-                        or value.type == "MechaGnomeM" or value.type == "ZandalariTrollM" or value.type == "ZandalariTrollF"
+      ns.raceIcons = value.type == "B11M" or value.type == "B11F" or value.type == "MOrcM" or value.type == "MOrcF" or value.type == "UndeadM" or value.type == "UndeadF" or value.type == "GoblinM" or value.type == "GoblinF" or value.type == "GilneanM" 
+                      or value.type == "GilneanF" or value.type == "KulM" or value.type == "KulF" or value.type == "DwarfM" or value.type == "DwarfF" or value.type == "OrcM" or value.type == "OrcF" or value.type == "GnomeM" or value.type == "GnomeF" 
+                      or value.type == "DraneiM" or value.type == "DraneiF" or value.type == "N11M" or value.type == "N11F" or value.type == "TrollM" or value.type == "TrollF" or value.type == "TaureM" or value.type == "TaureF" or value.type == "PandaM" 
+                      or value.type == "PandaF" or value.type == "HMTaurenM" or value.type == "HMTaurenF" or value.type == "LFDraeneiM" or value.type == "LFDraeneiF" or value.type == "LN11BorneM" or value.type == "LN11BorneF" or value.type == "Void11M" 
+                      or value.type == "Void11F" or value.type == "DarkDwarfM" or value.type == "DarkDwarfF" or value.type == "DracthyrM" or value.type == "DracthyrF" or value.type == "VulperaM" or value.type == "VulperaF" or value.type == "MechaGnomeM" 
+                      or value.type == "MechaGnomeM" or value.type == "ZandalariTrollM" or value.type == "ZandalariTrollF"
 
       ns.MapType0 = mapInfo.mapType == 0 -- Cosmic map
       ns.MapType1 = mapInfo.mapType == 1 -- World map
@@ -794,7 +848,7 @@ do
       local instances = (nameForSplit ~= "" and { strsplit("\n", nameForSplit) } or {})
 
 			for i, v in pairs(instances) do
-				if (not extraInformations[v] and not extraInformations[lfgIDs[v]]) then
+				if not extraInformations[v] then
 					allLocked = false
 				else
 					anyLocked = true
@@ -993,6 +1047,11 @@ do
           alpha = db.MiniMapAlphaPvEVendor
         end
 
+        if value.type == "RenownQuartermaster" then
+          scale = db.MiniMapScaleRenownQuartermaster
+          alpha = db.MiniMapAlphaRenownQuartermaster
+        end
+
         if value.type == "StablemasterN" or value.type == "StablemasterH" or value.type == "StablemasterA" or value.type == "MMStablemasterH" or value.type == "MMStablemasterA" then
           scale = db.MiniMapScaleStablemaster
           alpha = db.MiniMapAlphaStablemaster
@@ -1055,7 +1114,7 @@ do
           alpha = db.DungeonMapAlphaTransport
         end
 
-        if value.type == "PvEVendor" or value.type == "PvPVendor" then
+        if value.type == "PvEVendor" or value.type == "PvPVendor" or value.type == "RenownQuartermaster" then
           scale = db.DungeonMapScaleVendor
           alpha = db.DungeonMapAlphaVendor
         end
@@ -1255,6 +1314,11 @@ do
           alpha = db.ZoneAlphaPvEVendor
         end
 
+        if value.type == "RenownQuartermaster" then
+          scale = db.ZoneScaleRenownQuartermaster
+          alpha = db.ZoneAlphaRenownQuartermaster
+        end
+
         if value.type == "StablemasterN" or value.type == "StablemasterH" or value.type == "StablemasterA" then
           scale = db.ZoneScaleStablemaster
           alpha = db.ZoneAlphaStablemaster
@@ -1393,7 +1457,7 @@ do
 
           local instances = (nameForSplit ~= "" and { strsplit("\n", nameForSplit) } or {})
 					for i, v in pairs(instances) do
-						if (not extraInformations[v] and not extraInformations[lfgIDs[v]]) then
+						if not extraInformations[v] then
 							allLocked = false
 						else
 							anyLocked = true
@@ -1683,8 +1747,12 @@ local CurrentMapID = WorldMapFrame:GetMapID()
       end
     end
 
-    if (button == "RightButton" and mnID and mnID2 or mnID3 and not IsShiftKeyDown() and not IsAltKeyDown()) then -- original left
+    if (button == "RightButton" and mnID and not IsShiftKeyDown() and not IsAltKeyDown()) then -- swap right
       ns.MapNotesOpenMap(mnID)
+    end
+
+    if (button == "LeftButton" and mnID2 and not IsShiftKeyDown() and not IsAltKeyDown()) then -- swap left
+      ns.MapNotesOpenMap(mnID2)
     end
   end
 
@@ -1731,13 +1799,13 @@ local CurrentMapID = WorldMapFrame:GetMapID()
       end
     end
 
-    if (button == "LeftButton" and mnID and mnID2 or mnID3 and not IsShiftKeyDown() and not IsAltKeyDown()) then -- original left
+    if (button == "LeftButton" and mnID and not IsShiftKeyDown() and not IsAltKeyDown()) then -- original left
       ns.MapNotesOpenMap(mnID)
     end
-  end
 
-  if (button == "MiddleButton" and mnID2 and not IsShiftKeyDown() and not IsAltKeyDown()) then
-    ns.MapNotesOpenMap(mnID2)
+    if (button == "RightButton" and mnID2 and not IsShiftKeyDown() and not IsAltKeyDown()) then -- original right
+      ns.MapNotesOpenMap(mnID2)
+    end
   end
 
   -- npc targeting & rangecheck
@@ -1754,17 +1822,17 @@ local CurrentMapID = WorldMapFrame:GetMapID()
     end
   end
 
-  if (button == "MiddleButton" and mnID3 and not IsShiftKeyDown() and not IsAltKeyDown()) then
+  if (button == "MiddleButton" and mnID3 and not IsShiftKeyDown() and not IsAltKeyDown()) then -- neutral
     ns.MapNotesOpenMap(mnID3)
   end
 
-  if button == "MiddleButton" and delveID then
+  if button == "MiddleButton" and delveID then -- neutral
     ns.MapNotesOpenMap(delveID)
   end
 
   if (not pressed) then return end
 
-  if (button == "MiddleButton") and leaveDelve and ns.icons["Delves"] then
+  if (button == "MiddleButton") and leaveDelve and ns.icons["Delves"] then -- neutral
     StaticPopup_Show("Leave_Delve?")
   end
 
@@ -1947,7 +2015,7 @@ end
 function Addon:OnProfileChanged(event, database, profileKeys)
   db = database.profile
   ns.dbChar = database.profile.deletedIcons
-  ns.FogOfWar = database.profile.FogOfWarColor
+  HandyNotes:GetModule("FogOfWarButton"):SyncColorsFromDB(true)
 
   ns.ApplySavedCoords() -- RetailCoordsDisplay.lua
   ns.ReloadAreaMapSettings() -- RetailAreaMap.lua
@@ -1963,7 +2031,6 @@ function Addon:OnProfileChanged(event, database, profileKeys)
     MNMMBIcon:Refresh("MNMiniMapButton", MapNotesMiniButton.db.profile.minimap)
   end
 
-  HandyNotes:GetModule("FogOfWarButton"):Refresh()
   ns.Addon:FullUpdate()
   HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
   
@@ -1975,7 +2042,7 @@ end
 function Addon:OnProfileReset(event, database, profileKeys)
 	db = database.profile
   ns.dbChar = database.profile.deletedIcons
-  ns.FogOfWar = database.profile.FogOfWarColor
+  HandyNotes:GetModule("FogOfWarButton"):SyncColorsFromDB(true)
 
   ns.DefaultPlayerCoords() -- RetailCoordsDisplay.lua
   ns.DefaultMouseCoords() -- RetailCoordsDisplay.lua
@@ -2000,7 +2067,6 @@ function Addon:OnProfileReset(event, database, profileKeys)
   wipe(ns.dbChar.MinimapZoneDeletedIcons)
   wipe(ns.dbChar.DungeonDeletedIcons)
 
-  HandyNotes:GetModule("FogOfWarButton"):Refresh()
   ns.Addon:FullUpdate()
   HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
 
@@ -2012,7 +2078,7 @@ end
 function Addon:OnProfileCopied(event, database, profileKeys)
 	db = database.profile
   ns.dbChar = database.profile.deletedIcons
-  ns.FogOfWar = database.profile.FogOfWarColor
+  HandyNotes:GetModule("FogOfWarButton"):SyncColorsFromDB(true)
 
   ns.ApplySavedCoords() -- RetailCoordsDisplay.lua
   ns.ReloadAreaMapSettings() -- RetailAreaMap.lua
@@ -2036,7 +2102,6 @@ function Addon:OnProfileCopied(event, database, profileKeys)
     MNMMBIcon:Refresh("MNMiniMapButton", MapNotesMiniButton.db.profile.minimap)
   end
 
-  HandyNotes:GetModule("FogOfWarButton"):Refresh()
   ns.Addon:FullUpdate()
   HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
 
@@ -2048,9 +2113,8 @@ end
 function Addon:OnProfileDeleted(event, database, profileKeys)
 	db = database.profile
   ns.dbChar = database.profile.deletedIcons
-  ns.FogOfWar = database.profile.FogOfWarColor
+  HandyNotes:GetModule("FogOfWarButton"):SyncColorsFromDB(true)
 
-  HandyNotes:GetModule("FogOfWarButton"):Refresh()
   ns.Addon:FullUpdate()
   HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
 
@@ -2089,7 +2153,7 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
   -- deleted icons database
   ns.dbChar = self.db.profile.deletedIcons
   -- FogOfWar color database
-  ns.FogOfWar = self.db.profile.FogOfWarColor
+  HandyNotes:GetModule("FogOfWarButton"):SyncColorsFromDB(true)
 
   -- Register options 
   HandyNotes:RegisterPluginDB("MapNotes", ns.pluginHandler, ns.options)
@@ -2214,17 +2278,11 @@ function Addon:UpdateInstanceNames(node)
   local dungeonInfo = EJ_GetInstanceInfo
   local id = node.id
 
-  if node.lfgid then
-    dungeonInfo = GetLFGDungeonInfo
-    id = node.lfgid
-  end
-
   if type(id) == "table" then
     local nameList = {}
     for _, v in ipairs(id) do
       local name = dungeonInfo(v)
       if not name or name == "" then name = "..." end
-      self:UpdateAlter(v, name)
       table.insert(nameList, name)
     end
 
@@ -2236,30 +2294,11 @@ function Addon:UpdateInstanceNames(node)
 
   elseif id then
     node.name = dungeonInfo(id)
-    self:UpdateAlter(id, node.name)
   end
 end
 
 
 function Addon:ProcessTable()
-  lfgIDs = ns.lfgIDs
-
-  function Addon:UpdateAlter(id, name)
-    if (lfgIDs[id]) then
-      local lfgIDs1, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, lfgIDs2 = GetLFGDungeonInfo(lfgIDs[id])
-        if (lfgIDs2 and lfgIDs1 == name) then
-      	  lfgIDs1 = lfgIDs2
-        end
-
-      if (lfgIDs1) then
-        if (lfgIDs1 == name) then
-        else
-        lfgIDs[id] = nil
-        lfgIDs[name] = lfgIDs1
-        end
-      end
-    end
-  end
 
   for i,v in pairs(nodes) do
     for j,u in pairs(v) do

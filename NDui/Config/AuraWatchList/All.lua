@@ -194,7 +194,6 @@ local list = {
 		{AuraID =  462661, UnitID = "player", Flash = true}, -- 萨拉塔斯的交易：虚缚
 		{AuraID =  465136, UnitID = "player", Flash = true}, -- 萨拉塔斯的交易：吞噬
 		{AuraID = 1216943, UnitID = "player", Flash = true}, -- 萨拉塔斯的交易：脉冲
-
 		-- DF Party
 		{AuraID =   88286, UnitID = "player", Flash = true}, -- 减速风，旋云之巅
 		{AuraID =  153692, UnitID = "player", Flash = true}, -- 死疽沥青，影月墓地
@@ -255,6 +254,8 @@ local list = {
 		{AuraID =  333299, UnitID = "player"}, -- 伤逝剧场，荒芜诅咒
 		{AuraID =  335161, UnitID = "player"}, -- 通灵战潮，残存心能
 		{AuraID =  345323, UnitID = "player", Flash = true}, -- 通灵战潮，勇士之赐
+		{AuraID =  350010, UnitID = "player", Flash = true}, -- 琳彩天街，被吞噬的心能
+		{AuraID =  359019, UnitID = "player", Flash = true}, -- 琳彩天街，快拍提速！
 		{AuraID =  433740, UnitID = "player"}, -- 感染，艾拉卡拉
 		{AuraID =  458082, UnitID = "player", Flash = true}, -- 驭雷栖巢，驭雷者电荷
 		{AuraID = 1239229, UnitID = "player", Flash = true}, -- 圆顶，卡雷什涌动

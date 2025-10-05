@@ -127,8 +127,6 @@ ns._currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
               nodes[1527][71755222] = { dnID = L["Way to the Instance Entrance"], id = 70, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Halls of Origination
               nodes[63][14161380] = { dnID = L["Way to the Instance Entrance"], id = 227, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackfathom Deeps 
               nodes[66][29226253] = { dnID = L["Way to the Instance Entrance"], id = 232, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Maraudon Outside
-              --nodes[69][65503524] = { id = 1276, lfgid = 34, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dire Maul - Warpwood Quarter - East above Camp Mojache   
-              --nodes[69][77073692] = { id = 1276, lfgid = 34, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Dire Maul - Warpwood Quarter - East above Camp Mojache   
             end
 
             if self.db.profile.showZoneMultiple then
@@ -266,7 +264,6 @@ ns._currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
               nodes[35][58168728] = { mnID = 33, dnID = DUNGEON_FLOOR_BURNINGSTEPPES14, name = "", type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackrock Depths
               nodes[32][35268404] = { mnID = 33, name = "", type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Molten Core, Blackwing Lair, Blackrock Caverns, Blackrock Depths, Lower Blackrock Spire, Upper Blackrock Spire 
               --nodes[15][58543698] = { id = 239, name = "", type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Uldaman (Secondary Entrance) 
-              --nodes[23][43251854] = { id = 236, lfgid = 274, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false }-- Stratholme Service Entrance 
               nodes[33][75516099] = { id = 66, name = "", type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackrock Caverns
             end
 
@@ -572,7 +569,7 @@ ns._currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
 
         --Zandalar Raids
           if self.db.profile.showZoneRaids then
-            nodes[1528][47353182] = {  id = 1179, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Eternal Palace
+            nodes[1528][47353182] = { id = 1179, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Eternal Palace
 
           -- Raid Nodes above Blizzards Icons to make it Clickable for maximized Maps
             nodes[862][54262993] = { id = 1176, type = "Raid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Battle of Dazar'alor
@@ -582,7 +579,7 @@ ns._currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
 
         --Zandalar Raids without ClassicIcons
           if self.db.profile.showZonePassage and not db.activate.ClassicIcons then
-            nodes[1355][50341233] = {  id = 1179, type = "PassageRaid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Eternal Palace
+            nodes[1355][50341233] = { id = 1179, type = "PassageRaid", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Eternal Palace
           end
 
 

@@ -181,6 +181,7 @@ ns.TempleOfAhnQiraj = instanceName(744)
 ------------------------------------ Eastern Kingdom
 ns.ShadowfangKeep = instanceName(64)
 ns.Scholomance = instanceName(246)
+ns.ScarletMonastery = instanceName(316)
 ns.Naxxramas = instanceName(754)
 ns.Rookery = instanceName(1268)
 
@@ -266,6 +267,7 @@ end
 ns.Archivar = npcTitleLine1(102641) -- Filius Funkenbart
 ns.QuartermasterF = npcTitleLine1(105986) -- Kelsey Stahlfunken
 ns.QuartermasterM = npcTitleLine1(196637) -- Tethalash
+ns.RenownQuartermaster = npcTitleLine1(223728) -- Auditor Balwurz
 ns.Upgrade = npcTitleLine1(108527) -- Loramus Thalipedes
 ns.RecruitM = npcTitleLine1(106442) -- Yaris Darkclow
 ns.RecruitF = npcTitleLine1(108393) -- Sister Lilith

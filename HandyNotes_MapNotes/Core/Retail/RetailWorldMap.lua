@@ -5,15 +5,18 @@ function ns.ChangingMapToPlayerZone()
   if ns._MapChangeInit then return end
   ns._MapChangeInit = true
 
+  local lastBestMapID = C_Map.GetBestMapForUnit("player")
   local function SetToPlayerMap()
     local db = ns.Addon and ns.Addon.db and ns.Addon.db.profile
     if not (db and db.MapChanging) then return end
-    if not (WorldMapFrame and WorldMapFrame:IsShown()) then return end
 
     local target = C_Map.GetBestMapForUnit("player")
     if not target then return end
 
-    if WorldMapFrame:GetMapID() ~= target then
+    if target == lastBestMapID then return end
+    lastBestMapID = target
+
+    if WorldMapFrame and WorldMapFrame:IsShown() and WorldMapFrame:GetMapID() ~= target then
       ns.MapNotesOpenMap(target)
       if db.DeveloperMode then
         local mi = C_Map.GetMapInfo(target)

@@ -176,7 +176,6 @@ function ns.CreateMouseCoordsFrame()
     dc.mouseMax.scale = s
   end)
 
-
   mouseFrame:SetScript("OnEnter", function(self)
     GameTooltip:SetOwner(self, "ANCHOR_TOP")
     if not ns.Addon.db.profile.activate.HideMapNote then

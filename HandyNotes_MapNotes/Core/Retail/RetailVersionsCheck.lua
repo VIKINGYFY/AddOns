@@ -1,6 +1,5 @@
 local ADDON_NAME, ns = ...
-local TOC_VERSION = (C_AddOns and C_AddOns.GetAddOnMetadata(ADDON_NAME, "Version")) or "0.0.0"
-TOC_VERSION = tostring(TOC_VERSION or "0.0.0"):gsub("%s+", "")
+local TOC_VERSION = tostring(ns and ns.CurrentAddonVersion or "0.0.0"):gsub("%s+", "")
 local VERSION_FALLBACK = (TOC_VERSION == "0.0.0")
 
 local PREFIX = "HN_MapNotes_Ver"

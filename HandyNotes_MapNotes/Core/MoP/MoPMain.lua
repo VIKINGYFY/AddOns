@@ -1,4 +1,4 @@
-local ADDON_NAME, ns = ...
+local _, ns = ...
 
 local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes", true)
 if not HandyNotes then return end
@@ -13,7 +13,6 @@ local MNMMBIcon = LibStub("LibDBIcon-1.0", true)
 local db = { }
 local nodes = { }
 local minimap = { }
-local lfgIDs = { }
 local extraInformations = { }
 
 ns.RestoreStaticPopUps()
@@ -232,7 +231,7 @@ function ns.pluginHandler:OnEnter(uiMapId, coord)
 	
 	for i, v in pairs(instances) do
     --print(i, v)
-	  if (db.KilledBosses and (extraInformations[v] or (lfgIDs[v] and extraInformations[lfgIDs[v]]))) then
+	  if db.KilledBosses and (extraInformations[v]) then
  	    if (extraInformations[v]) then
         --print("Dungeon/Raid is locked")
 	      for a,b in pairs(extraInformations[v]) do
@@ -240,12 +239,6 @@ function ns.pluginHandler:OnEnter(uiMapId, coord)
 	        tooltip:AddDoubleLine(v, a .. " " .. b.progress .. "/" .. b.total, 1, 1, 1, 1, 1, 1)
  	      end
 	    end
-      if (lfgIDs[v] and extraInformations[lfgIDs[v]]) then
-        for a,b in pairs(extraInformations[lfgIDs[v]]) do
-          --tooltip:AddLine(v .. ": " .. a .. " " .. b, nil, nil, nil, false)
-          tooltip:AddDoubleLine(v, a .. " " .. b.progress .. "/" .. b.total, 1, 1, 1, 1, 1, 1)
-        end
-      end
 	  else
 	    tooltip:AddLine(v, nil, nil, nil, false)
       if ns.DeveloperMode == true then
@@ -523,7 +516,7 @@ do
       
 			local instances = { strsplit("\n", value.name) }
 			for i, v in pairs(instances) do
-				if (not extraInformations[v] and not extraInformations[lfgIDs[v]]) then
+				if not extraInformations[v] then
 					allLocked = false
 				else
 					anyLocked = true
@@ -697,7 +690,7 @@ do
           
 					local instances = { strsplit("\n", value.name) }
 					for i, v in pairs(instances) do
-						if (not extraInformations[v] and not extraInformations[lfgIDs[v]]) then
+						if not extraInformations[v] then
 							allLocked = false
 						else
 							anyLocked = true
@@ -992,7 +985,7 @@ end
 function Addon:OnProfileChanged(event, database, profileKeys)
   db = database.profile
   ns.dbChar = database.profile.deletedIcons
-  ns.FogOfWar = database.profile.FogOfWarColor
+  HandyNotes:GetModule("FogOfWarButton"):SyncColorsFromDB(true)
 
   ns.ApplySavedCoords()
   ns.ReloadAreaMapSettings()
@@ -1002,7 +995,6 @@ function Addon:OnProfileChanged(event, database, profileKeys)
     ns.SetAreaMapMenuVisibility(ns.Addon.db.profile.areaMap.showAreaMapDropDownMenu)
   end
 
-  HandyNotes:GetModule("FogOfWarButton"):Refresh()
   if ns.Addon.db.profile.CoreChatMassage then
     print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " ..
       TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been changed"])
@@ -1014,7 +1006,7 @@ end
 function Addon:OnProfileReset(event, database, profileKeys)
 	db = database.profile
   ns.dbChar = database.profile.deletedIcons
-  ns.FogOfWar = database.profile.FogOfWarColor
+  HandyNotes:GetModule("FogOfWarButton"):SyncColorsFromDB(true)
 
   ns.DefaultPlayerCoords() -- MoPCoordsDisplay.lua
   ns.DefaultMouseCoords() -- MoPCoordsDisplay.lua
@@ -1043,7 +1035,6 @@ function Addon:OnProfileReset(event, database, profileKeys)
   if ns.Addon.db.profile.CoreChatMassage then
     print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been reset to default"])
   end
-  HandyNotes:GetModule("FogOfWarButton"):Refresh()
   ns.Addon:FullUpdate()
   HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
 end
@@ -1051,7 +1042,7 @@ end
 function Addon:OnProfileCopied(event, database, profileKeys)
 	db = database.profile
   ns.dbChar = database.profile.deletedIcons
-  ns.FogOfWar = database.profile.FogOfWarColor
+  HandyNotes:GetModule("FogOfWarButton"):SyncColorsFromDB(true)
 
   ns.ApplySavedCoords()
   ns.ReloadAreaMapSettings()
@@ -1060,8 +1051,7 @@ function Addon:OnProfileCopied(event, database, profileKeys)
   if ns.SetAreaMapMenuVisibility then
     ns.SetAreaMapMenuVisibility(ns.Addon.db.profile.areaMap.showAreaMapDropDownMenu)
   end
-  
-  HandyNotes:GetModule("FogOfWarButton"):Refresh()
+
   if ns.Addon.db.profile.CoreChatMassage then
     print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been adopted"])
   end
@@ -1072,9 +1062,8 @@ end
 function Addon:OnProfileDeleted(event, database, profileKeys)
 	db = database.profile
   ns.dbChar = database.profile.deletedIcons
-  ns.FogOfWar = database.profile.FogOfWarColor
+  HandyNotes:GetModule("FogOfWarButton"):SyncColorsFromDB(true)
 
-  HandyNotes:GetModule("FogOfWarButton"):Refresh()
   if ns.Addon.db.profile.CoreChatMassage then
     print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been deleted"])
   end
@@ -1110,7 +1099,7 @@ function Addon:PLAYER_LOGIN()
   -- deleted icons database
   ns.dbChar = self.db.profile.deletedIcons
   -- FogOfWar color database
-  ns.FogOfWar = self.db.profile.FogOfWarColor
+  HandyNotes:GetModule("FogOfWarButton"):SyncColorsFromDB(true)
 
   -- Register options 
   HandyNotes:RegisterPluginDB("MapNotes", ns.pluginHandler, ns.options)
@@ -1234,15 +1223,9 @@ function Addon:UpdateInstanceNames(node)
   local dungeonInfo = EJ_GetInstanceInfo
     local id = node.id
 
-      if (node.lfgid) then
-        dungeonInfo = GetLFGDungeonInfo
-        id = node.lfgid 
-      end
-
       if (type(id) == "table") then
         for i,v in pairs(node.id) do
           local name = dungeonInfo(v)
-            self:UpdateAlter(v, name)
           if (node.name) then
             node.name = node.name .. "\n" .. name
           else
@@ -1251,29 +1234,10 @@ function Addon:UpdateInstanceNames(node)
         end
       elseif (id) then
         node.name = dungeonInfo(id)
-        self:UpdateAlter(id, node.name)
       end
 end
 
 function Addon:ProcessTable()
-  lfgIDs = ns.lfgIDs
-
-  function Addon:UpdateAlter(id, name)
-    if (lfgIDs[id]) then
-      local lfgIDs1, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, lfgIDs2 = GetLFGDungeonInfo(lfgIDs[id])
-        if (lfgIDs2 and lfgIDs1 == name) then
-      	  lfgIDs1 = lfgIDs2
-        end
-
-      if (lfgIDs1) then
-        if (lfgIDs1 == name) then
-        else
-        lfgIDs[id] = nil
-        lfgIDs[name] = lfgIDs1
-        end
-      end
-    end
-  end
 
   for i,v in pairs(nodes) do
     for j,u in pairs(v) do

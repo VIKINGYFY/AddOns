@@ -1,4 +1,4 @@
-local ADDON_NAME, ns = ...
+local _, ns = ...
 
 local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes", true)
 if not HandyNotes then return end
@@ -843,7 +843,7 @@ end
 function Addon:OnProfileChanged(event, database, profileKeys)
   db = database.profile
   ns.dbChar = database.profile.deletedIcons
-  ns.FogOfWar = database.profile.FogOfWarColor
+  HandyNotes:GetModule("FogOfWarButton"):SyncColorsFromDB(true)
 
   ns.ApplySavedCoords()
   ns.ReloadAreaMapSettings()
@@ -853,7 +853,6 @@ function Addon:OnProfileChanged(event, database, profileKeys)
     ns.SetAreaMapMenuVisibility(ns.Addon.db.profile.areaMap.showAreaMapDropDownMenu)
   end
 
-  HandyNotes:GetModule("FogOfWarButton"):Refresh()
   if ns.Addon.db.profile.CoreChatMassage then
     print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " ..
       TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been changed"])
@@ -865,7 +864,7 @@ end
 function Addon:OnProfileReset(event, database, profileKeys)
 	db = database.profile
   ns.dbChar = database.profile.deletedIcons
-  ns.FogOfWar = database.profile.FogOfWarColor
+  HandyNotes:GetModule("FogOfWarButton"):SyncColorsFromDB(true)
 
   ns.DefaultPlayerCoords() -- MoPCoordsDisplay.lua
   ns.DefaultMouseCoords() -- MoPCoordsDisplay.lua
@@ -894,7 +893,7 @@ function Addon:OnProfileReset(event, database, profileKeys)
   if ns.Addon.db.profile.CoreChatMassage then
     print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been reset to default"])
   end
-  HandyNotes:GetModule("FogOfWarButton"):Refresh()
+
   ns.Addon:FullUpdate()
   HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
 end
@@ -902,7 +901,7 @@ end
 function Addon:OnProfileCopied(event, database, profileKeys)
 	db = database.profile
   ns.dbChar = database.profile.deletedIcons
-  ns.FogOfWar = database.profile.FogOfWarColor
+  HandyNotes:GetModule("FogOfWarButton"):SyncColorsFromDB(true)
 
   ns.ApplySavedCoords()
   ns.ReloadAreaMapSettings()
@@ -912,7 +911,6 @@ function Addon:OnProfileCopied(event, database, profileKeys)
     ns.SetAreaMapMenuVisibility(ns.Addon.db.profile.areaMap.showAreaMapDropDownMenu)
   end
 
-  HandyNotes:GetModule("FogOfWarButton"):Refresh()
   if ns.Addon.db.profile.CoreChatMassage then
     print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been adopted"])
   end
@@ -923,9 +921,8 @@ end
 function Addon:OnProfileDeleted(event, database, profileKeys)
 	db = database.profile
   ns.dbChar = database.profile.deletedIcons
-  ns.FogOfWar = database.profile.FogOfWarColor
+  HandyNotes:GetModule("FogOfWarButton"):SyncColorsFromDB(true)
 
-  HandyNotes:GetModule("FogOfWarButton"):Refresh()
   if ns.Addon.db.profile.CoreChatMassage then
     print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. " " .. "|cffffff00" .. L["Profile has been deleted"])
   end
@@ -959,7 +956,7 @@ function Addon:PLAYER_LOGIN()
   -- deleted icons database
   ns.dbChar = self.db.profile.deletedIcons
   -- FogOfWar color database
-  ns.FogOfWar = self.db.profile.FogOfWarColor
+  HandyNotes:GetModule("FogOfWarButton"):SyncColorsFromDB(true)
 
   -- Register options 
   HandyNotes:RegisterPluginDB("MapNotes", ns.pluginHandler, ns.options)

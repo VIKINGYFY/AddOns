@@ -11,19 +11,19 @@ local MP_EVENTS = "UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER"
 local LV_EVENTS = "UNIT_LEVEL PLAYER_LEVEL_CHANGED UNIT_CLASSIFICATION_CHANGED"
 local OT_EVENTS = "UNIT_NAME_UPDATE UNIT_CONNECTION UNIT_FLAGS UNIT_FACTION UNIT_CLASSIFICATION_CHANGED"
 
-local function CurrentAndPercent(cur, per, noColor)
+local function Current_Percent(cur, per, abs, noColor)
 	if per < 100 then
-		return B.Numb(cur)..DB.Separator..(noColor and B.Perc(per) or B.ColorPerc(per, true))
+		return (abs > 0 and DB.InfoColor..B.Numb(abs).."|r " or "")..B.Numb(cur)..DB.Separator..(noColor and B.Perc(per) or B.ColorPerc(per, true))
 	else
-		return B.Numb(cur)
+		return (abs > 0 and DB.InfoColor..B.Numb(abs).."|r " or "")..B.Numb(cur)
 	end
 end
 
-local function CurrentAndMaximum(cur, max, noColor)
+local function Current_Maximum(cur, max, abs, noColor)
 	if cur < max then
-		return (noColor and B.Numb(cur) or B.ColorNumb(cur, max, true))..DB.Separator..B.Numb(max)
+		return (abs > 0 and DB.InfoColor..B.Numb(abs).."|r " or "")..(noColor and B.Numb(cur) or B.ColorNumb(cur, max, true))..DB.Separator..B.Numb(max)
 	else
-		return B.Numb(cur)
+		return (abs > 0 and DB.InfoColor..B.Numb(abs).."|r " or "")..B.Numb(cur)
 	end
 end
 
@@ -40,9 +40,9 @@ oUF.Tags.Methods["VariousHP"] = function(unit, _, arg1)
 	local absorb = UnitGetTotalAbsorbs(unit) or 0
 
 	if arg1 == "currentpercent" then
-		return CurrentAndPercent(cur, per)
+		return Current_Percent(cur, per, absorb)
 	elseif arg1 == "currentmaximum" then
-		return CurrentAndMaximum(cur, max)
+		return Current_Maximum(cur, max, absorb)
 	elseif arg1 == "current" then
 		return B.ColorNumb(cur, max, true)
 	elseif arg1 == "percent" then
@@ -65,9 +65,9 @@ oUF.Tags.Methods["VariousMP"] = function(unit, _, arg1)
 	local lossper = (max == 0 and 0) or (loss/max * 100)
 
 	if arg1 == "currentpercent" then
-		return CurrentAndPercent(cur, per, true)
+		return Current_Percent(cur, per, 0, true)
 	elseif arg1 == "currentmaximum" then
-		return CurrentAndMaximum(cur, max, true)
+		return Current_Maximum(cur, max, 0, true)
 	elseif arg1 == "current" then
 		return B.Numb(cur)
 	elseif arg1 == "percent" then

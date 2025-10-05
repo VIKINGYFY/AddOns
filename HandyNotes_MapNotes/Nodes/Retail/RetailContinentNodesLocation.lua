@@ -593,7 +593,6 @@ ns._currentSourceFile = "RetailContinentNodesLocation.lua"
             nodes[424][23100860] = { id = 362, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Throne of Thunder
             nodes[424][56685529] = { id = 320, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Terrace of Endless Spring  
             nodes[424][47015340] = { id = 1180, type = "Raid", showOnContinent = true, showInZone = false, showOnMinimap = false, dnID = L["Instance Entrance"] .. " " .. L["switches weekly between"] .. " " .. ns.Uldum .. " (" .. ns.Kalimdor ..")" .. " & " .. ns.ValeOfEternalBlossoms .. " (" .. ns.Pandaria .. ")" } -- Ny'Alotha, The Waking City
-
           end
     
     
@@ -906,7 +905,8 @@ ns._currentSourceFile = "RetailContinentNodesLocation.lua"
           if self.db.profile.showContinentTransport then
 
             if self.faction == "Horde" or db.activate.ContinentEnemyFaction then
-              nodes[875][56027038] = { mnID = 876, name = L["(Dread-Admiral Tattersail) will take you to Drustvar, Tiragarde Sound or Stormsong Valley"], type = "Travel", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Ship from Dazar'alor to Drustvar, Tiragarde Sound or Stormsong Valley
+              nodes[875][58267339] = { mnID = 876, name = L["(Dread-Admiral Tattersail) will take you to Drustvar, Tiragarde Sound or Stormsong Valley"], type = "UndeadF", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Ship from Dazar'alor to Drustvar, Tiragarde Sound or Stormsong Valley
+              nodes[875][56307038] = { npcID = 152506, mnID = 876, name = "", dnID = "(" .. ITEM_REQ_HORDE ..")", type = "GoblinF", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Transport from Dazar'alor to Mechagon 
             end
 
             if self.faction == "Alliance" or db.activate.ContinentEnemyFaction then

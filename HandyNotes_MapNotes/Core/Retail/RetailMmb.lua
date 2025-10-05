@@ -271,13 +271,16 @@ OnTooltipShow = function(tooltip)
     tooltip:Show()
   end
 
+  ns._suppressAreaMapMirror = true
   ns.Addon:FullUpdate()
   HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+  C_Timer.After(0, function() ns._suppressAreaMapMirror = nil end)
 end,
 
 OnClick = function(self, button)
   if not (ns.Addon and ns.Addon.db and ns.Addon.db.profile) then return end
-  local info = C_Map.GetMapInfo(C_Map.GetBestMapForUnit("player"))
+  local mapID = (WorldMapFrame and WorldMapFrame.GetMapID and WorldMapFrame:GetMapID()) or C_Map.GetBestMapForUnit("player")
+  local info = mapID and C_Map.GetMapInfo(mapID) or {}
   local PlayerMapID = C_Map.GetBestMapForUnit("player")
 
   if button == "RightButton" and not IsShiftKeyDown() then
@@ -797,7 +800,9 @@ OnClick = function(self, button)
     end
   end
 
+  ns._suppressAreaMapMirror = true
   ns.Addon:FullUpdate()
   HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+  C_Timer.After(0, function() ns._suppressAreaMapMirror = nil end)
 end 
 }
