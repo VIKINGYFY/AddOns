@@ -303,10 +303,14 @@ function UF:CreateHealthText(self)
 		self:Tag(hpval, "[raidhp]")
 		hpval:SetScale(C.db["UFs"]["RaidTextScale"])
 	elseif mystyle == "nameplate" then
-		hpval:ClearAllPoints()
-		hpval:SetPoint("RIGHT", health, "RIGHT", 0, 0)
-		hpval:SetJustifyH("RIGHT")
 		self:Tag(hpval, "[VariousHP(currentpercent)]")
+		hpval:SetJustifyH("RIGHT")
+		hpval:ClearAllPoints()
+		if C.db["Nameplate"]["HealthCastBar"] then
+			hpval:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", 0, -DB.margin)
+		else
+			hpval:SetPoint("RIGHT", health, "RIGHT", 0, 0)
+		end
 	end
 
 	local name = B.CreateFS(self, retVal(self, 13, 12, 12, 12, C.db["Nameplate"]["NameTextSize"]))
@@ -722,9 +726,6 @@ function UF:CreateCastBar(self)
 		B.ReskinIcon(cb.Icon, true)
 
 		cb.glowFrame = B.CreateGlowFrame(cb.Icon)
-
-		self:RegisterEvent("UNIT_TARGET", updateSpellTarget)
-		self:RegisterEvent("UNIT_TARGETABLE_CHANGED", updateSpellTarget)
 	end
 
 	if mystyle == "player" then
@@ -761,6 +762,9 @@ function UF:CreateCastBar(self)
 	cb.PostCastInterruptible = UF.PostUpdateInterruptible
 	cb.CreatePip = UF.CreatePip
 	cb.PostUpdatePips = UF.PostUpdatePips
+
+	self:RegisterEvent("UNIT_TARGET", updateSpellTarget)
+	self:RegisterEvent("UNIT_TARGETABLE_CHANGED", updateSpellTarget)
 
 	self.Castbar = cb
 end

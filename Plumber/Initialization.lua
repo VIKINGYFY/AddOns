@@ -1,5 +1,5 @@
-local VERSION_TEXT = "v1.7.5";
-local VERSION_DATE = 1758000000;
+local VERSION_TEXT = "v1.7.6";
+local VERSION_DATE = 1759900000;
 
 
 local addonName, addon = ...
@@ -117,6 +117,11 @@ local function GetDBBool(dbKey)
     return DB[dbKey] == true
 end
 addon.GetDBBool = GetDBBool;
+
+local function FlipDBBool(dbKey)
+    SetDBValue(dbKey, not GetDBBool(dbKey), true);
+end
+addon.FlipDBBool = FlipDBBool;
 
 
 local function GetPersonalData(dbKey)
@@ -268,6 +273,8 @@ local DefaultValues = {
 
     --LegionRemix
     LegionRemix = true,
+        LegionRemix_TraitSubIconStyle = 3,  --1:OFF, 2:Mini Icon, 3:Replace Icon
+        LegionRemix_PaperDollTraitDetail = false,
 
 
     EnableNewByDefault = false,             --Always enable newly added features

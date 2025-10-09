@@ -145,6 +145,7 @@ function UF:PostCastStart(unit)
 	end
 
 	UpdateCastBarColor(self, unit)
+	UpdateSpellTarget(self, unit)
 
 	if self.__owner.mystyle ~= "boss" or self.__owner.mystyle ~= "arena" then
 		if self.glowFrame then
@@ -154,9 +155,6 @@ function UF:PostCastStart(unit)
 				B.HideOverlayGlow(self.glowFrame)
 			end
 		end
-
-		-- Spell target
-		UpdateSpellTarget(self, unit)
 	end
 end
 

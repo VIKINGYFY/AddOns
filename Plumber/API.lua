@@ -1443,6 +1443,11 @@ do  -- Pixel
         return GetPixelForScale(scale, pixelSize);
     end
     API.GetPixelForWidget = GetPixelForWidget;
+
+    function API.UpdateTextureSliceScale(textureSlice)
+        local SCREEN_WIDTH, SCREEN_HEIGHT = GetPhysicalScreenSize();
+        textureSlice:SetScale((768/SCREEN_HEIGHT));
+    end
 end
 
 do  -- Easing
@@ -3025,6 +3030,45 @@ do  -- Tooltip
     end
 
 
+    function API.ConvertTooltipInfoToOneString(text, getterName, ...)
+        -- where ... are getterArgs
+        -- Ignore textures
+
+        local data = C_TooltipInfo[getterName](...)
+        if data and data.lines then
+            local lineText;
+            for i, line in ipairs(data.lines) do
+                lineText = line.leftText;
+                if i == 1 and lineText == "" then
+                    lineText = nil;
+                end
+                if lineText then
+                    if line.leftColor then
+                        lineText = line.leftColor:WrapTextInColorCode(lineText);
+                    end
+                    if text then
+                        text = text.."\n"..lineText;
+                    else
+                        text = lineText;
+                    end
+                end
+                lineText = line.rightText;
+                if lineText and lineText ~= "" then
+                    if line.rightColor then
+                        lineText = line.rightColor:WrapTextInColorCode(lineText);
+                    end
+                    if text then
+                        text = text.."\n"..lineText;
+                    else
+                        text = lineText;
+                    end
+                end
+            end
+        end
+        return text
+    end
+
+
     local TextureInfoTable = {
         width = 14,
         height = 14,
@@ -3501,6 +3545,40 @@ do  -- 11.0 Menu Formatter
                     elementDescription = rootDescription:CreateButton(info.name, info.OnClick);
                 elseif info.type == "Checkbox" then
                     elementDescription = rootDescription:CreateCheckbox(info.name, info.IsSelected, info.ToggleSelected);
+                elseif info.type == "Submenu" then
+                    elementDescription = rootDescription:CreateButton(L["Pin Size"]);
+
+                    local function IsSelected(index)
+                        --Override
+                        return false
+                    end
+
+                    local response = info.response and MenuResponse and MenuResponse[info.response] or 2;
+
+                    local function SetSelected(index)
+                        info.SetSelected(index);
+                        return response
+                    end
+
+                    for index, text in ipairs(info.radios) do
+                        elementDescription:CreateRadio(text, info.IsSelected or IsSelected, SetSelected, index);
+                    end
+                elseif info.type == "Radio" then
+                    local function IsSelected(index)
+                        --Override
+                        return false
+                    end
+
+                    local response = info.response and MenuResponse and MenuResponse[info.response] or 2;
+
+                    local function SetSelected(index)
+                        info.SetSelected(index);
+                        return response
+                    end
+
+                    for index, text in ipairs(info.radios) do
+                        elementDescription = rootDescription:CreateRadio(text, info.IsSelected or IsSelected, SetSelected, index);
+                    end
                 end
 
                 if info.IsEnabledFunc then
@@ -3846,9 +3924,12 @@ end
 do  --Delves
     local function IsInDelves()
         --See Blizzard InstanceDifficulty.lua
+        --[[    --This fails when relogging inside a delve
         local _, _, _, mapID = UnitPosition("player");
         local HasActiveDelve = C_DelvesUI and C_DelvesUI.HasActiveDelve or Nop;
         return mapID and HasActiveDelve(mapID);
+        --]]
+        return C_PartyInfo.IsPartyWalkIn and C_PartyInfo.IsPartyWalkIn()    --See INSTANCE_WALK_IN_LEAVE
     end
     API.IsInDelves = IsInDelves;
 
@@ -3953,6 +4034,74 @@ do  --Delves
         EL:SetScript("OnEvent", EL.OnEvent);
     end
 end
+
+do  --FocusSolver (Run something when being hovered long enough)
+    local FocusSolverMixin = {};
+
+    function FocusSolverMixin:OnUpdate(elapsed)
+        self.t = self.t + elapsed;
+        if self.t > 0.05 then
+            self.t = nil;
+            self:SetScript("OnUpdate", nil);
+            if self.object and self.object:IsMouseMotionFocus() then
+                if self.useModifierKeys then
+                    self:RegisterEvent("MODIFIER_STATE_CHANGED");
+                end
+                self.object:OnFocused();
+            else
+                self:UnregisterEvent("MODIFIER_STATE_CHANGED");
+            end
+        end
+    end
+
+    function FocusSolverMixin:Stop()
+        self.t = 0;
+        self:SetScript("OnUpdate", self.OnUpdate);
+        self:UnregisterEvent("MODIFIER_STATE_CHANGED");
+    end
+
+    function FocusSolverMixin:SetFocus(object)
+        self.object = object;
+        if object then
+            if not self.t then
+                self:SetScript("OnUpdate", self.OnUpdate);
+            end
+            self.t = 0;
+        else
+            self:Stop();
+        end
+    end
+
+    function FocusSolverMixin:OnEvent(event, ...)
+        if event == "MODIFIER_STATE_CHANGED" then
+            if self.object and self.object:IsMouseMotionFocus() then
+                self.object:OnFocused();
+            end
+        end
+    end
+
+    function FocusSolverMixin:SetDelay(delay)
+        self.delay = delay;
+    end
+
+    function FocusSolverMixin:SetUseModifierKeys(useModifierKeys)
+        self.useModifierKeys = useModifierKeys;
+    end
+
+    function FocusSolverMixin:OnHide()
+        self:Stop();
+    end
+
+    function API.CreateFocusSolver(parent)
+        local f = CreateFrame("Frame", nil, parent);
+        API.Mixin(f, FocusSolverMixin);
+        f:SetScript("OnHide", f.OnHide);
+        f:SetDelay(0.05);
+        return f
+    end
+end
+
+
 --[[
 local DEBUG = CreateFrame("Frame");
 DEBUG:RegisterUnitEvent("UNIT_SPELLCAST_CHANNEL_START", "player");

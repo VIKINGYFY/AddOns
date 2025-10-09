@@ -148,15 +148,30 @@ local function Path(self, ...)
 end
 
 local function Visibility(self, event, unit)
+	local element = self.Stagger
 	if (SPEC_MONK_BREWMASTER ~= C_SpecializationInfo.GetSpecialization() or UnitHasVehiclePlayerFrameUI('player')) then
-		if (self.Stagger:IsShown()) then
-			self.Stagger:Hide()
+		if (element:IsShown()) then
+			element:Hide()
 			self:UnregisterEvent('UNIT_AURA', Path)
+
+			--[[ Callback: Stagger:PostVisibility(isVisible)
+			Called after the element's visibility has been changed.
+
+			* self      - the Stagger element
+			* isVisible - the current visibility state of the element (boolean)
+			--]]
+			if (element.PostVisibility) then
+				element:PostVisibility(false)
+			end
 		end
 	else
-		if (not self.Stagger:IsShown()) then
-			self.Stagger:Show()
+		if (not element:IsShown()) then
+			element:Show()
 			self:RegisterEvent('UNIT_AURA', Path)
+
+			if (element.PostVisibility) then
+				element:PostVisibility(true)
+			end
 		end
 
 		Path(self, event, unit)
@@ -191,14 +206,13 @@ local function Enable(self, unit)
 			element:SetStatusBarTexture([[Interface\TargetingFrame\UI-StatusBar]])
 		end
 
-		if self.mystyle == "player" then -- NDui: only disable MonkStaggerBar for oUF_Player
-			MonkStaggerBar:UnregisterEvent('PLAYER_ENTERING_WORLD')
-			MonkStaggerBar:UnregisterEvent('PLAYER_SPECIALIZATION_CHANGED')
-			MonkStaggerBar:UnregisterEvent('UNIT_DISPLAYPOWER')
-			MonkStaggerBar:UnregisterEvent('UNIT_EXITED_VEHICLE')
-			MonkStaggerBar:UnregisterEvent('UPDATE_VEHICLE_ACTIONBAR')
-		end
+		MonkStaggerBar:UnregisterEvent('PLAYER_ENTERING_WORLD')
+		MonkStaggerBar:UnregisterEvent('PLAYER_SPECIALIZATION_CHANGED')
+		MonkStaggerBar:UnregisterEvent('UNIT_DISPLAYPOWER')
+		MonkStaggerBar:UnregisterEvent('UNIT_EXITED_VEHICLE')
+		MonkStaggerBar:UnregisterEvent('UPDATE_VEHICLE_ACTIONBAR')
 
+		-- do not change this without taking Visibility into account
 		element:Hide()
 
 		return true

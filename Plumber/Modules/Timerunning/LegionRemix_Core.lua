@@ -22,6 +22,7 @@ local GetDefinitionInfo = C_Traits.GetDefinitionInfo;
 local CanPurchaseRank = C_Traits.CanPurchaseRank;
 local PurchaseRank = C_Traits.PurchaseRank;
 local GetConfigInfo = C_Traits.GetConfigInfo;
+local GetIncreasedTraitData = C_Traits.GetIncreasedTraitData;
 
 
 local GetInventoryItemID = GetInventoryItemID;
@@ -59,64 +60,49 @@ end
 
 do	--DataProvider
 	DataProvider.traitNameCache = {};
-
-	local TraitData = {
-		--{nodeID, entryID, definitionID}
-		{108115, 133498, 138284}, --Remix Time
-		{108523, 133999, 138785}, --Momentus's Perseverance
-		{108180, 133581, 138367}, --Nostwin's Impatience"
-		{108873, 134447, 139218}, --Eternus's Ambition
-		{108701, 134247, 139023}, --Moratari's Calculation
-		{108870, 134444, 139215}, --Erus's Aggression
-
-		{108700, 134246, 139022}, --Limits Unbound
-	};
+	DataProvider.traitSpellCache = {};
 
 	DataProvider.ArtifactTracks = {
+		--[index] = {majorNodeID1, majorNodeID2, ...}
+
 		{	--1
-			{108114, 133497, 138283}, --Call of the Forest
-			{108106, 133489, 138275}, --Souls of the Caw
-			{108110, 133493, 138279}, --Highmountain Fortitude
-			{108120, 133506, 138292}, --Waking Frenzy
-			{108121, 133507, 138293}, --Dreamweaving
+			108114, --Call of the Forest
+			108106, --Souls of the Caw
+			108110, --Highmountain Fortitude
+			108120, --Waking Frenzy
+			108121, --Dreamweaving
 		},
 
 		{	--2
-			{108113, 133496, 138282}, --Twisted Crusade
-			{108702, 134248, 139024}, --Touch of Malice
-			{108105, 133488, 138274}, --I Am My Scars!
-			{108132, 133525, 138311}, --Call of the Legion
-			{108975, 134745, 139513}, --Felspike
+			108113, --Twisted Crusade
+			108702, --Touch of Malice
+			108105, --I Am My Scars!
+			108132, --Call of the Legion
+			108975, --Felspike
 		},
 
 		{	--3
-			{108111, 133494, 138280}, --Naran's Everdisc
-			{108102, 133485, 138271}, --Volatile Magics
-			{
-				{108103, 133486, 138272}, --Arcane Aegis
-				{108103, 133508, 138294}, --Arcane Ward
-			},
-			{108107, 133490, 138276}, --Temporal Retaliation
-			{108118, 133504, 138290}, --Arcane Inspiration
+			108111, --Naran's Everdisc
+			108102, --Volatile Magics
+			108103, --[Selection] Arcane Aegis / Arcane Ward
+			108107, --Temporal Retaliation
+			108118, --Arcane Inspiration
 		},
 
 		{	--4
-			{108112, 133495, 138281}, --Tempest Wrath
-			{108108, 133491, 138277}, --Terror From Below
-			{
-				{108104, 133487, 138273}, --Storm Surger
-				{108104, 135715, 140470}, --Brewing Storm
-			},
-			{108119, 133505, 138291}, --Thunderstruck
-			{108699, 134245, 139021}, --Churning Waters
+			108112, --Tempest Wrath
+			108108, --Terror From Below
+			108104, --[Selection] Storm Surger / Brewing Storm
+			108119, --Thunderstruck
+			108699, --Churning Waters
 		},
 
 		{	--5
-			{108875, 134449, 139220}, --Vindicator's Judgment
-			{109265, 135326, 140093}, --Light's Vengeance
-			{109260, 135321, 140088}, --Flight of the Val'kyr
-			{109262, 135323, 140090}, --Xe'ra's Embrace
-			{109272, 135333, 140100}, --Empyreal Orders
+			108875, --Vindicator's Judgment
+			109265, --Light's Vengeance
+			109260, --Flight of the Val'kyr
+			109262, --Xe'ra's Embrace
+			109272, --Empyreal Orders
 		},
 	};
 
@@ -144,33 +130,7 @@ do	--DataProvider
 		1251045,
 	};
 
-	DataProvider.ArtifactAbilityNodes = {
-		--From top to bottom
-		--{nodeID, entryID, definitionID}
-		{108114, 133497, 133283},
-		{108113, 133496, 138282},
-		{108111, 133494, 138280},
-		{108112, 133495, 138281},
-		{108875, 133449, 139220},
-	};
-
-	DataProvider.FinalTraitNodes = {
-		--{nodeID, entryID}
-		{108121, 133507},
-		{108975, 134745},
-		{108118, 133504},
-		{108699, 134245},
-		{109272, 135333},
-	};
-
-	DataProvider.ChoiceNodes = {
-		--Artifact Abilities
-		[108114] = true,
-		[108113] = true,
-		[108111] = true,
-		[108112] = true,
-		[108875] = true,
-
+	DataProvider.SelectionNodes = {
 		--Arcane Shield, Storm
 		[108103] = true,
 		[108104] = true,
@@ -191,30 +151,30 @@ do	--DataProvider
 	DataProvider.PurchaseRoute_Basic = {
 		--{nodeID, entryID, definitionID}
 		--entryID and definitionID can be inferred
-		{108115, 133498, 138284},	--Remix Time
-		{108182, 133583, 138369},	--Prim +1
-		{108181, 133582, 138368},	--STA +9
-		{108878, 134454, 139225},	--MAST +4
-		{108180, 133581, 138367},	--Nostwin's Impatience
+		108115, --Remix Time
+		108182, --Prim +1
+		108181, --STA +9
+		108878, --SPD +4
+		108180, --Nostwin's Impatience
 
 		--Purchase all small nodes, go up first
-		{108165, 133564, 138350},	--MAST +8
-		{108172, 133571, 138357},	--STA +13
+		108165, --SPD +8
+		108172, --STA +13
 		--Down
-		{108260, 133691, 138477},	--MAST +8
-		{108166, 133565, 138351},	--STA +13
+		108260, --SPD +8
+		108166, --STA +13
 		--Up
-		{108523, 133999, 138785},	--Momentus's Perseverance
-		{108874, 134448, 139219},	--Prim +2
-		{108869, 134443, 139214},	--Prim +2
+		108523, --Momentus's Perseverance
+		108874, --Prim +2
+		108869, --Prim +2
 		--Down
-		{108701, 134247, 139023},	--Moratari's Calculation
-		{108251, 133682, 138468},	--MAST +8
-		{108873, 134447, 139128},	--Eternus's Ambition
-		{108868, 134442, 139213},	--Prim +2
-		{108169, 133568, 138354},	--STA +13
+		108701, --Moratari's Calculation
+		108251, --SPD +8
+		108873, --Eternus's Ambition
+		108868, --Prim +2
+		108169, --STA +13
 		--Up
-		{108870, 134444, 139215},	--Erus's Aggression
+		108870, --Erus's Aggression
 	};
 
 	DataProvider.JewelrySlots = {
@@ -236,34 +196,50 @@ do	--DataProvider
 		table.insert(PlumberDevData.RemixArtifact, line);
 	end
 
-	function DataProvider:IsChoiceNode(nodeID)
-		return self.ChoiceNodes[nodeID]
+	function DataProvider:IsSelectionNode(nodeID)
+		return self.SelectionNodes[nodeID]
 	end
 
 	function DataProvider:GetArtifactNodeInfoByIndex(index)
-		local v = self.ArtifactAbilityNodes[index];
-		return v[1], v[2], v[3]
+		local nodeID = self.ArtifactTracks[index][1];
+		local entryID = self:GetNodeEntryID(nodeID);
+		return nodeID, entryID
 	end
 
 	function DataProvider:GetFinalNodeInfoIndex(index)
-		local v = self.FinalTraitNodes[index];
-		return v[1], v[2], v[3]
+		local nodeID = self.ArtifactTracks[index][5];
+		local entryID = self:GetNodeEntryID(nodeID);
+		return nodeID, entryID
 	end
 
 	function DataProvider:GetNodeInfo(nodeID)
-		return GetNodeInfo(self:GetCurrentConfigID(), nodeID)
+		local configID = self:GetCurrentConfigID();
+		if configID then
+			return GetNodeInfo(configID, nodeID)
+		end
 	end
 
 	function DataProvider:GetEntryInfo(entryID)
-		return GetEntryInfo(self:GetCurrentConfigID(), entryID)
+		local configID = self:GetCurrentConfigID();
+		if configID then
+			return GetEntryInfo(configID, entryID)
+		end
 	end
 
 	function DataProvider:GetCost(nodeID)
-		local costs = GetNodeCost(self:GetCurrentConfigID(), nodeID);
+		local configID = self:GetCurrentConfigID();
+		local costs = configID and GetNodeCost(configID, nodeID);
 		if costs and costs[1] then
 			return costs[1].amount
 		else
 			return 0
+		end
+	end
+
+	function DataProvider:IsNodeActive(nodeID)
+		local nodeInfo = self:GetNodeInfo(nodeID);
+		if nodeInfo then
+			return nodeInfo.currentRank > 0
 		end
 	end
 
@@ -283,8 +259,8 @@ do	--DataProvider
 	function DataProvider:GetActiveArtifactTrackIndex()
 		local artifactTrackIndex;
 
-		for index = 1, #self.ArtifactAbilityNodes do
-			local nodeID, entryID, definitionID = self:GetArtifactNodeInfoByIndex(index);
+		for index = 1, #self.ArtifactTracks do
+			local nodeID = self:GetArtifactNodeInfoByIndex(index);
 			local nodeInfo = self:GetNodeInfo(nodeID);
 			if nodeInfo and nodeInfo.currentRank > 0 then
 				artifactTrackIndex = index;
@@ -296,8 +272,8 @@ do	--DataProvider
 	end
 
 	function DataProvider:ShouldChooseArtifactTrack()
-		for index = 1, #self.ArtifactAbilityNodes do
-			local nodeID, entryID, definitionID = self:GetArtifactNodeInfoByIndex(index);
+		for index = 1, #self.ArtifactTracks do
+			local nodeID = self:GetArtifactNodeInfoByIndex(index);
 			local nodeInfo = self:GetNodeInfo(nodeID);
 			if nodeInfo and nodeInfo.canPurchaseRank then
 				return true
@@ -305,11 +281,25 @@ do	--DataProvider
 		end
 	end
 
-	function DataProvider:GetDefaultArtifactNodeData()
-		local trackIndex = 1;
-		if self.ArtifactAbilityNodes[trackIndex] then
-			return unpack(self.ArtifactAbilityNodes[trackIndex])
+	function DataProvider:CanPreActivateArtifactTrack()
+		--True if an artifact ability is purchased or can be purchased
+		if (self:GetActiveArtifactTrackIndex() ~= nil) then
+			return false
+		else
+			local nodeInfo;
+			for _, _nodeID in ipairs(self.PurchaseRoute_Basic) do
+				nodeInfo = self:GetNodeInfo(_nodeID);
+				if nodeInfo and nodeInfo.canPurchaseRank then
+					return true
+				end
+			end
+			return self:ShouldChooseArtifactTrack();
 		end
+	end
+
+	function DataProvider:GetDefaultArtifactNodeData()
+		local trackIndex = self:GetLastArtifactTrackIndexForCurrentSpec() or 1;
+		return self:GetArtifactNodeInfoByIndex(trackIndex)
 	end
 
 	function DataProvider:GetParagonLevel()
@@ -335,7 +325,7 @@ do	--DataProvider
 					local nodeID, entryID = v[1], v[2];
 					local nodeInfo = self:GetNodeInfo(nodeID);
 					local increasedRanks = nodeInfo.entryIDToRanksIncreased and nodeInfo.entryIDToRanksIncreased[entryID] or 0;
-					if increasedRanks > 0 then
+					if increasedRanks > 0 and nodeInfo.entryIDsWithCommittedRanks and #nodeInfo.entryIDsWithCommittedRanks > 0 then	--In question
 						return true
 					end
 				end
@@ -372,7 +362,7 @@ do	--DataProvider
 				--For choice node, use this
 				local increasedRanks = nodeInfo.entryIDToRanksIncreased and nodeInfo.entryIDToRanksIncreased[entryID] or 0;
 				if increasedRanks > 0 then
-					local increasedTraitDataList = C_Traits.GetIncreasedTraitData(nodeID, entryID);
+					local increasedTraitDataList = GetIncreasedTraitData(nodeID, entryID);
 					for _index, increasedTraitData in ipairs(increasedTraitDataList) do
 						local qualityColor = API.GetItemQualityColor(increasedTraitData.itemQualityIncreasing);
 						local itemName = increasedTraitData.itemNameIncreasing or "";
@@ -417,6 +407,7 @@ do	--DataProvider
 		return items
 	end
 
+	--[[
 	function DataProvider:GetTreeInfo()
 		if not PlumberDevData then
 			PlumberDevData = {};
@@ -446,11 +437,11 @@ do	--DataProvider
 								local name = spellInfo.name or spellID;
 								local rankText = nodeInfo.currentRank.."/"..nodeInfo.maxRanks;
 								local ranksIncreased = nodeInfo.ranksIncreased or 0;
-								Debug_SaveTraitInfo(nodeID, entryID, entryInfo.definitionID, name);
+								--Debug_SaveTraitInfo(nodeID, entryID, entryInfo.definitionID, name);
 								print(string.format("|T%s:16:16|t %s  Rank: %s, EntryID: %s", icon, name, rankText, entryID));
 								if ranksIncreased > 0 then
 									rankText = rankText..string.format("(+%d)", nodeInfo.ranksIncreased);
-									local increasedTraitDataList = C_Traits.GetIncreasedTraitData(nodeID, entryID);
+									local increasedTraitDataList = GetIncreasedTraitData(nodeID, entryID);
 									print(nodeID, entryID);
 									for _index, increasedTraitData in ipairs(increasedTraitDataList) do
 										local r, g, b = C_Item.GetItemQualityColor(increasedTraitData.itemQualityIncreasing);
@@ -469,9 +460,11 @@ do	--DataProvider
 			end
 		end
 	end
+	--]]
 
+	--[[
 	function DataProvider:GetIncreasedTraits()
-		local GetIncreasedTraitData = C_Traits.GetIncreasedTraitData;
+		local GetIncreasedTraitData = GetIncreasedTraitData;
 		local isLoaded = true;
 		for _, v in ipairs(self.IncreasableTraits) do
 			local nodeID, entryID, definitionID = v[1], v[2], v[3];
@@ -504,6 +497,37 @@ do	--DataProvider
 			end
 		end
 	end
+	--]]
+
+	function DataProvider:GetIncreasedTraitRankForNodeEntry(nodeID, entryID)
+		local totalIncreased = 0;
+		local increasedTraitDataList = GetIncreasedTraitData(nodeID, entryID);
+		if increasedTraitDataList and #increasedTraitDataList > 0 then
+			for	_index, increasedTraitData in ipairs(increasedTraitDataList) do
+				totalIncreased = totalIncreased + increasedTraitData.numPointsIncreased;
+			end
+		end
+		return totalIncreased
+	end
+
+	function DataProvider:GetIncreasedTraitSpellsAndRanks()
+		local n = 0;
+		local tbl;
+		for _, v in ipairs(self.IncreasableTraits) do
+			local nodeID, entryID, definitionID = v[1], v[2], v[3];
+			local totalIncreased = self:GetIncreasedTraitRankForNodeEntry(nodeID, entryID);
+			if totalIncreased > 0 then
+				local definitionInfo = GetDefinitionInfo(definitionID);
+				local spellID = definitionInfo and definitionInfo.spellID;
+				if not tbl then
+					tbl = {};
+				end
+				n = n + 1;
+				tbl[n] = {spellID, totalIncreased};
+			end
+		end
+		return tbl
+	end
 
 	function DataProvider:UpdateClassSpecInfo()
 		local specIndex = C_SpecializationInfo.GetSpecialization();
@@ -513,7 +537,9 @@ do	--DataProvider
 			self.specIndex = specIndex;
 			local _, name = C_SpecializationInfo.GetSpecializationInfo(specIndex);
 			CallbackRegistry:Trigger("LegionRemix.ClassSpecChanged", specIndex);
-			C_RemixArtifactUI.ClearRemixArtifactItem();
+			if C_RemixArtifactUI then
+				C_RemixArtifactUI.ClearRemixArtifactItem();
+			end
 		end
 	end
 
@@ -522,7 +548,7 @@ do	--DataProvider
 		--configID is different for each artifact weawpon
 
 		local traitTreeID = C_RemixArtifactUI.GetCurrTraitTreeID() or 1161;
-		local configID = GetConfigIDByTreeID(traitTreeID);
+		local configID = traitTreeID and GetConfigIDByTreeID(traitTreeID);
 		if not configID then return end;
 
 		self.configID = configID;
@@ -530,8 +556,6 @@ do	--DataProvider
 		local configInfo = GetConfigInfo(configID);
 		local treeID = configInfo.treeIDs[1] or 1161;
 		self.treeID = treeID;
-
-		print("current configID:", configID);
 	end
 
 	function DataProvider:GetCurrentConfigID()
@@ -591,9 +615,9 @@ do	--DataProvider
 		end
 	end
 
-	function DataProvider:GetTraitName(entryID)
-		if self.traitNameCache[entryID] then
-			return self.traitNameCache[entryID]
+	function DataProvider:GetTraitSpell(entryID)
+		if self.traitSpellCache[entryID] then
+			return self.traitSpellCache[entryID]
 		end
 
 		if not self.configID then return end;
@@ -601,6 +625,18 @@ do	--DataProvider
 		local entryInfo = GetEntryInfo(self.configID, entryID);
 		local definitionInfo = GetDefinitionInfo(entryInfo.definitionID);
 		local spellID = definitionInfo and definitionInfo.spellID;
+		self.traitSpellCache[entryID] = spellID;
+		return spellID
+	end
+
+	function DataProvider:GetTraitName(entryID)
+		if self.traitNameCache[entryID] then
+			return self.traitNameCache[entryID]
+		end
+
+		if not self.configID then return end;
+
+		local spellID = self:GetTraitSpell(entryID);
 		local spellInfo = spellID and C_Spell.GetSpellInfo(spellID);
 		if spellInfo then
 			local icon = spellInfo.iconID or spellInfo.originalIconID;
@@ -628,13 +664,14 @@ do	--DataProvider
 			local activeTrackIndex = self:GetActiveArtifactTrackIndex();
 			if activeTrackIndex then
 				local trackData = self.ArtifactTracks[activeTrackIndex];
-				nodeID = trackData[1][1];
+				nodeID = trackData[1];
 				local _nodeInfo = self:GetNodeInfo(nodeID);
 				while _nodeInfo and _nodeInfo.visibleEdges and _nodeInfo.visibleEdges[1] and _nodeInfo.visibleEdges[1].targetNode do
 					nodeID = _nodeInfo.visibleEdges[1].targetNode;
 					_nodeInfo = self:GetNodeInfo(nodeID);
 					if _nodeInfo and _nodeInfo.canPurchaseRank then
-						entryID = _nodeInfo.entryIDs[1];
+						--entryID = _nodeInfo.entryIDs[1];
+						entryID = self:GetLastSelectedEntryID(nodeID, _nodeInfo.entryIDs);
 						break
 					end
 				end
@@ -652,11 +689,11 @@ do	--DataProvider
 				end
 				--]]
 			else
-				for _, v in ipairs(self.PurchaseRoute_Basic) do
-					nodeID = v[1];
-					nodeInfo = self:GetNodeInfo(nodeID);
+				for _, _nodeID in ipairs(self.PurchaseRoute_Basic) do
+					nodeInfo = self:GetNodeInfo(_nodeID);
 					if nodeInfo.canPurchaseRank then
 						entryID = nodeInfo.entryIDs[1];
+						nodeID = _nodeID;
 						break
 					end
 				end
@@ -693,6 +730,115 @@ do	--DataProvider
 		end
 	end
 
+	function DataProvider:GetNextUpgradeInfoForUI()
+		local tbl;
+		local traitInfo = self:GetNextTraitForUpgrade();
+		if traitInfo and traitInfo.cost >= 0 then
+			local line1, line2, nextSpellID, nextEntryID, nextRank;
+			tbl = {};
+			local numUnspent = self:GetNumUnspentPower();
+			local diff = traitInfo.cost - numUnspent;
+			if diff <= 0 then
+				--Diff becomes negative when player receives lots of power at once to upgrade more than 1 trait
+				--We will automatically upgrade the second trait after CURRENCY_DISPLAY_UPDATE
+				diff = 0;
+				line1 = L["Soon To Unlock"];
+			else
+				line1 = L["Amount Required To Unlock Format"]:format(BreakUpLargeNumbers(diff));
+			end
+			nextSpellID = self:GetTraitSpell(traitInfo.entryID);
+			nextEntryID = traitInfo.entryID;
+			local entryInfo = self:GetEntryInfo(traitInfo.entryID);
+			if entryInfo then
+				if entryInfo.type == 3 then
+					--SpendSmallCircle: Stat Bonus
+					line2 = C_Spell.GetSpellDescription(nextSpellID);
+					if line2 then
+						line2 = string.gsub(line2, "[%.。]%s*$", "");
+					end
+				else
+					local nodeInfo = DataProvider:GetNodeInfo(traitInfo.nodeID);
+					local maxRanks = entryInfo.maxRanks;
+					if maxRanks > 1 then
+						nextRank = (nodeInfo and nodeInfo.ranksPurchased or 0) + 1;
+					end
+				end
+			end
+			if not line2 then
+				line2 = self:GetTraitName(traitInfo.entryID);
+			end
+			if nextRank and line2 then
+				line2 = string.format("|cffb6b6b6%s|r  %s", L["Rank Format"]:format(nextRank), line2);
+			end
+
+			tbl = {
+				line1 = line1,
+				line2 = line2,
+				nextSpellID = nextSpellID,
+				nextEntryID = nextEntryID,
+				nextRank = nextRank,
+			}
+		end
+		return tbl
+	end
+
+	function DataProvider:GetLastSelectedEntryID(nodeID, entryIDs)
+		--For selection nodes
+		local entryID, saved;
+		if #entryIDs == 1 then
+			entryID = entryIDs[1];
+			saved = true;
+		else
+			if self.playerDB and self.playerDB.lastSelectedEntry then
+				local specIndex = C_SpecializationInfo.GetSpecialization() or 1;
+				if self.playerDB.lastSelectedEntryBySpec and self.playerDB.lastSelectedEntryBySpec[specIndex] then
+					entryID = self.playerDB.lastSelectedEntryBySpec[specIndex][nodeID]
+				end
+				if not entryID then
+					entryID = self.playerDB.lastSelectedEntry[nodeID];
+				end
+			end
+			if entryID then
+				local valid = false;
+				for _, id in ipairs(entryIDs) do
+					if id == entryID then
+						valid = true;
+						break
+					end
+				end
+				if valid then
+					saved = true;
+				else
+					entryID = nil;
+				end
+			end
+
+			if not entryID then
+				saved = false;
+				entryID = entryIDs[2];	--We use the 2nd one to avoid Arcane Aegis, which changes Moving Backward bahavior
+			end
+		end
+		return entryID, saved
+	end
+
+	function DataProvider:SaveLastSelectedEntryID(nodeID, entryID)
+		if not (nodeID and entryID and self.playerDB) then return end;
+
+		if not self.playerDB.lastSelectedEntry then
+			self.playerDB.lastSelectedEntry = {};
+		end
+		self.playerDB.lastSelectedEntry[nodeID] = entryID;
+
+		local specIndex = C_SpecializationInfo.GetSpecialization() or 1;
+		if not self.playerDB.lastSelectedEntryBySpec then
+			self.playerDB.lastSelectedEntryBySpec = {};
+		end
+		if not self.playerDB.lastSelectedEntryBySpec[specIndex] then
+			self.playerDB.lastSelectedEntryBySpec[specIndex] = {};
+		end
+		self.playerDB.lastSelectedEntryBySpec[specIndex][nodeID] = entryID;
+	end
+
 
 
 
@@ -707,7 +853,7 @@ do	--DataProvider
 		else
 			DataProvider.playerDB = {};
 		end
-
+		DataProvider:UpdateConfigInfo();
 		DataProvider:UpdateClassSpecInfo();
 	end);
 
@@ -724,12 +870,9 @@ do	--DataProvider
 		end
 	end
 
-	function DataProvider:SaveLastArtifactTrackIndexForCurrentSpec()
+	function DataProvider:SetLastArtifactTrackIndexForCurrentSpec(artifactTrackIndex)
 		if not self.playerDB then return end;
-
-		local artifactTrackIndex = self:GetActiveArtifactTrackIndex();
-
-		if artifactTrackIndex then
+		if artifactTrackIndex and self.ArtifactTracks[artifactTrackIndex] then
 			if not self.specIndex then
 				self:UpdateClassSpecInfo();
 			end
@@ -738,6 +881,11 @@ do	--DataProvider
 				self.playerDB["spec"..self.specIndex.."artifactTrackIndex"] = artifactTrackIndex;
 			end
 		end
+	end
+
+	function DataProvider:SaveLastArtifactTrackIndexForCurrentSpec()
+		local artifactTrackIndex = self:GetActiveArtifactTrackIndex();
+		self:SetLastArtifactTrackIndexForCurrentSpec(artifactTrackIndex);
 	end
 end
 
@@ -753,7 +901,6 @@ do
 
 	function EventListener:Enable(state)
 		if state then
-			--self:RegisterEvent("TRAIT_CONFIG_UPDATED");
 			--self:RegisterEvent("TRAIT_TREE_CURRENCY_INFO_UPDATED");
 			API.RegisterFrameForEvents(self, self.dynamicEvents);
 			self:SetScript("OnEvent", self.OnEvent);
@@ -791,18 +938,14 @@ do
 				if traitInfo then
 					local traitName = DataProvider:GetTraitName(traitInfo.entryID);
 					if traitInfo.shouldChooseArtifactTrack then
-						print("You can choose an Artifact Ability");
-						CommitUtil:TryPurchaseToNode(traitInfo.nodeID, true);
+						--print("You can choose an Artifact Ability");
+					end
+
+					--print("You can upgrade: "..traitName);
+					if InCombatLockdown() then
+						CommitUtil:TryPurchaseUpgradeAfterCombat();
 					else
-						print("You can upgrade: "..traitName);
-						if (not DataProvider:IsChoiceNode(traitInfo.nodeID)) then
-							if InCombatLockdown() then
-								print("We will purchase "..traitName.." after combat");
-								CommitUtil:TryPurchaseUpgradeAfterCombat();
-							else
-								CommitUtil:TryPurchaseToNode(traitInfo.nodeID, true);
-							end
-						end
+						CommitUtil:TryPurchaseToNode(traitInfo.nodeID, true);
 					end
 				end
 			end
@@ -841,13 +984,13 @@ do
 				self:RequestUpdate();
 			end
 		else
-			print(event, ...);
+			--print(event, ...);
 			if event == "ACTIVE_TALENT_GROUP_CHANGED" then
 				self.specDirty = true;
 				self:RequestUpdate();
 			elseif event == "REMIX_ARTIFACT_UPDATE" then
 				DataProvider:UpdateConfigInfo();
-				RemixAPI.ShowArtifactUI();
+				--RemixAPI.ShowArtifactUI();
 			elseif event == "BAG_UPDATE_DELAYED" then
 				self:UnregisterEvent(event);
 				if InCombatLockdown() then
@@ -858,6 +1001,11 @@ do
 			elseif event == "PLAYER_REGEN_ENABLED" then
 				self:UnregisterEvent(event);
 				CommitUtil:ReEquipFailedItems();
+			elseif event == "TRAIT_CONFIG_UPDATED" then
+				local configID = ...
+				if configID == DataProvider.configID then
+					CallbackRegistry:Trigger("LegionRemix.ConfigUpdated", configID);
+				end
 			end
 		end
 	end
@@ -887,15 +1035,16 @@ do	--CommitUtil
 		C_Traits.CommitConfig(configID);
 	end
 
-	function CommitUtil:OnCommitingFinished()
+	function CommitUtil:OnCommitFinished()
 		self.commitedConfigID = nil;
 		self:SetScript("OnUpdate", nil);
 		self:UnregisterEvent("TRAIT_CONFIG_UPDATED");
 		self:UnregisterEvent("CONFIG_COMMIT_FAILED");
 		if self.commitingResult == 1 then
-			print("COMMIT SUCCEEDED");
+			CallbackRegistry:Trigger("LegionRemix.CommitFinished", true);
 			DataProvider:SaveLastArtifactTrackIndexForCurrentSpec();
 		elseif self.commitingResult == 0 then
+			CallbackRegistry:Trigger("LegionRemix.CommitFinished", false);
 			print("COMMIT FAILED");
 		end
 		self.commitingResult = nil;
@@ -920,7 +1069,6 @@ do	--CommitUtil
 			end
 		elseif event == "BAG_UPDATE_DELAYED" then
 			if self.equipItemAfterCommit then
-				print("equipItemAfterCommit")
 				self.equipItemAfterCommit = nil;
 				self:UnregisterEvent(event);
 				self:ReEquipItems(self.replacedEquipment);
@@ -929,7 +1077,7 @@ do	--CommitUtil
 		end
 
 		if self.commitingResult then
-			self:OnCommitingFinished();
+			self:OnCommitFinished();
 			if self.equipItemAfterCommit then
 				self:RegisterEvent("BAG_UPDATE_DELAYED");
 			end
@@ -988,11 +1136,9 @@ do	--CommitUtil
 		local configID = DataProvider:GetCurrentConfigID();
 		if not configID then return false end;
 
-		local nodeID, entryID;
 		local anySuccessPurchase = false;
 
-		for _, v in ipairs(DataProvider.PurchaseRoute_Basic) do
-			nodeID = v[1];
+		for _, nodeID in ipairs(DataProvider.PurchaseRoute_Basic) do
 			if PurchaseRank(configID, nodeID) then
 				anySuccessPurchase = true;
 			end
@@ -1009,10 +1155,40 @@ do	--CommitUtil
 		end
 
 		local configID = DataProvider:GetCurrentConfigID();
+
+
 		local success = C_Traits.TryPurchaseToNode(configID, nodeID);
 		if success then
 			self.anySuccessPurchase = true;
 		end
+
+		local nodeTrack = DataProvider:GetNodeArtifactTrack(nodeID);
+		if nodeTrack then
+			local nodeIDs = DataProvider:GetArtifactTrackNodeIDs(nodeTrack);
+			for _, _nodeID in ipairs(nodeIDs) do
+				if DataProvider:IsSelectionNode(_nodeID) then
+					local nodeInfo = DataProvider:GetNodeInfo(_nodeID);
+					local entryID = DataProvider:GetLastSelectedEntryID(_nodeID, nodeInfo.entryIDs);
+					local committedEntryID;
+					if nodeInfo.entryIDsWithCommittedRanks then
+						for _, id in ipairs(nodeInfo.entryIDsWithCommittedRanks) do
+							committedEntryID = id;
+							break
+						end
+					end
+					if (committedEntryID ~= entryID) then
+						if C_Traits.SetSelection(configID, _nodeID, entryID) then
+							self.anySuccessPurchase = true;
+						end
+					end
+				end
+				if nodeID == _nodeID then
+					break
+				end
+			end
+		end
+
+		--DataProvider:IsSelectionNode(traitInfo.nodeID)
 
 		if self.anySuccessPurchase then
 			self:SetCommitStarted(configID);
@@ -1031,6 +1207,7 @@ do	--CommitUtil
 		end
 
 		local configID = DataProvider:GetCurrentConfigID();
+		if not configID then return end;
 		local nodeID, entryID = 108700, 134246;
 		--while PurchaseRank(configID, nodeID) do
 		--	self.anySuccessPurchase = true;
@@ -1047,6 +1224,7 @@ do	--CommitUtil
 		for itemID, v in pairs(replacedEquipment) do
 			UnequipInventorySlot(v.slotID);
 		end
+		self:RegisterEvent("BAG_UPDATE_DELAYED");	--In question
 	end
 
 	function CommitUtil:ReEquipItems(replacedEquipment, fromRequery)
@@ -1058,9 +1236,9 @@ do	--CommitUtil
 			numPending = numPending + 1;
 			itemFound[itemID] = false;
 		end
-		print("numPending", numPending);
+
 		if InCombatLockdown() then
-			print("In Combat");
+
 			self.failedItems = API.CopyTable(replacedEquipment);
 			EventListener:ListenLeavingCombat();
 		else
@@ -1089,18 +1267,18 @@ do	--CommitUtil
 							C_Container.PickupContainerItem(action.bag, action.slot);
 
 							if ( not CursorHasItem() ) then
-								print("Error PickupContainerItem");
+
 							elseif not C_PaperDollInfo.CanCursorCanGoInSlot(action.invSlot) then
-								print("Error CannotGoInSlot");
+
 							elseif IsInventoryItemLocked(action.invSlot) then
-								print("Error InventoryItemLocked");
+
 							else
 								PickupInventoryItem(action.invSlot);
 								numPending = numPending - 1;
 							end
 
 							if numPending <= 0 then
-								print("Reequip Complete");
+								--print("Reequip Complete");
 								self.failedItems = nil;
 								return true
 							end
@@ -1111,7 +1289,7 @@ do	--CommitUtil
 
 			if numPending > 0 and not fromRequery then
 				--Something is wrong
-				print("TRY REEQUIP AGAIN");
+				--print("TRY REEQUIP AGAIN");
 				self.failedItems = API.CopyTable(replacedEquipment);
 				EventListener:ListenBagUpdateDelayed();
 			else
@@ -1137,10 +1315,10 @@ do	--CommitUtil
 		if DataProvider:IsForbiddenSelectionNodeOnTracks(activeTrackIndex, index) then
 			local items = DataProvider:GetForbiddenSelectionNodeItems();
 			if items then
-				print("Unequip these items before changing traits:")
-				for _, v in ipairs(items) do
-					print(v.slotID, v.coloredItemName);
-				end
+				--print("Unequip these items before changing traits:")
+				--for _, v in ipairs(items) do
+				--	print(v.slotID, v.coloredItemName);
+				--end
 
 				--Auto unequip/re-equip
 				local total = #items;
@@ -1161,9 +1339,11 @@ do	--CommitUtil
 					if numFound == total then
 						self:SetReplacedEquipment(itemIDxData);
 					end
+				else
+					API.DisplayErrorMessage(L["Require More Bag Slot Alert"]);
+					return
 				end
 			end
-			--return
 		end
 
 		local configID = DataProvider:GetCurrentConfigID();
@@ -1174,7 +1354,7 @@ do	--CommitUtil
 
 		self:TryPurchaseBasicTraits();
 
-		local nodeID, entryID, definitionID = DataProvider:GetArtifactNodeInfoByIndex(index);
+		local nodeID, entryID = DataProvider:GetArtifactNodeInfoByIndex(index);
 
 		if configID then
 			local costs = GetNodeCost(configID, nodeID);
@@ -1185,15 +1365,27 @@ do	--CommitUtil
 				if success then
 					self.anySuccessPurchase = true;
 				end
+
+				local nodeIDs = DataProvider:GetArtifactTrackNodeIDs(index);
+				for _, _nodeID in ipairs(nodeIDs) do
+					if DataProvider:IsSelectionNode(_nodeID) then
+						local nodeInfo = DataProvider:GetNodeInfo(_nodeID);
+						local entryID = DataProvider:GetLastSelectedEntryID(_nodeID, nodeInfo.entryIDs);
+						if C_Traits.SetSelection(configID, _nodeID, entryID) then
+							self.anySuccessPurchase = true;
+						end
+					end
+				end
 			end
 		else
-			print("Cannot Purchase", DataProvider:GetTraitName(entryID));
+			--print("Cannot Purchase", DataProvider:GetTraitName(entryID));
 		end
 
 		self:TryPurchaseParagon();
 
 		if self.anySuccessPurchase then
 			self:SetCommitStarted(configID);
+			return true
 		end
 	end
 
@@ -1214,10 +1406,50 @@ do	--CommitUtil
 	function CommitUtil:TryPurchaseNextUpgrade()
 		local traitInfo = DataProvider:GetNextTraitForUpgrade(true);
 		if traitInfo then
-			local traitName = DataProvider:GetTraitName(traitInfo.entryID);
-			if (not DataProvider:IsChoiceNode(traitInfo.nodeID)) then
-				print("Purchasing "..traitName);
-				CommitUtil:TryPurchaseToNode(traitInfo.nodeID);
+			--local traitName = DataProvider:GetTraitName(traitInfo.entryID);
+			CommitUtil:TryPurchaseToNode(traitInfo.nodeID);
+		end
+	end
+
+	function CommitUtil:TryPurchaseSelectionNode(nodeID, entryID)
+		--We only use this when the Selection Node has a commited entry
+		if InCombatLockdown() or self:IsCommitingInProcess() then return end;
+
+		local nodeInfo = DataProvider:GetNodeInfo(nodeID);
+		if nodeInfo then
+			local isNewEntryIDValid;
+			if nodeInfo.entryIDs then
+				for _, _entryID in ipairs(nodeInfo.entryIDs) do
+					if _entryID == entryID then
+						isNewEntryIDValid = true;
+						break
+					end
+				end
+			end
+			if not isNewEntryIDValid then return end;
+			local canChangeEntry;
+            if nodeInfo.entryIDsWithCommittedRanks then
+                for _, committedEntryID in ipairs(nodeInfo.entryIDsWithCommittedRanks) do
+                    if committedEntryID ~= entryID then
+						canChangeEntry = true;
+                    	break
+					end
+                end
+            end
+			if canChangeEntry then
+				local configID = DataProvider:GetCurrentConfigID();
+				if C_Traits.ConfigHasStagedChanges(configID) then
+					if not C_Traits.RollbackConfig(configID) then
+						return
+					end
+				end
+				--local success = configID and C_Traits.RefundAllRanks(configID, nodeID);
+				--According to wiki: You should not use the C_Traits.PurchaseRank or C_Traits.RefundRank APIs on selection nodes.
+				--https://warcraft.wiki.gg/wiki/API_C_Traits.SetSelection
+				if C_Traits.SetSelection(configID, nodeID, entryID) then
+					self:SetCommitStarted(configID);
+					return true
+				end
 			end
 		end
 	end
@@ -1257,14 +1489,15 @@ do	--CommitUtil
 	end
 
 
-	YEETPC = function(index)
-		index = index or 1;
+	_G.Plumber_ActivateArtifactTrack = function(index)
+		--Global API
 		CommitUtil:TryPurchaseArtifactTrack(index);
 	end
 end
 
 
 do	--Debug
+	--[[
 	EventRegistry:RegisterCallback("TalentDisplay.TooltipCreated", function(_, node, tooltip)
 		local nodeInfo = node.nodeInfo;
 		if nodeInfo then
@@ -1305,6 +1538,7 @@ do	--Debug
 		end
 		tooltip:Show();
 	end);
+	--]]
 end
 
 
@@ -1371,9 +1605,9 @@ do	--Module Registry
 	local function EnableModule(state)
 		if state and not MASTER_ENABLED then
 			DataProvider:UpdateConfigInfo();
-			UIParent:UnregisterEvent("REMIX_ARTIFACT_UPDATE");
+			--UIParent:UnregisterEvent("REMIX_ARTIFACT_UPDATE");
 		elseif not state and MASTER_ENABLED then
-			UIParent:RegisterEvent("REMIX_ARTIFACT_UPDATE");
+			--UIParent:RegisterEvent("REMIX_ARTIFACT_UPDATE");
 		else
 			return
 		end
@@ -1382,6 +1616,7 @@ do	--Module Registry
 		EventListener:Enable(state);
 		CurrencyTooltipModule:SetEnabled(state);
 		CommitUtil:Enable(state);
+		CallbackRegistry:Trigger("LegionRemix.EnableModule", state);
 	end
 
     local moduleData = {
@@ -1391,7 +1626,7 @@ do	--Module Registry
         toggleFunc = EnableModule,
         categoryID = -1,
         uiOrder = 0,
-        moduleAddedTime = 1755200000,
+        moduleAddedTime = 1759900000,
 		timerunningSeason = 2,
     };
 
@@ -1406,7 +1641,7 @@ end
 
 	--HasIncreasedRanks, TalentButtonSpendMixin:AddTooltipInfo
 	do
-		local increasedTraitDataList = C_Traits.GetIncreasedTraitData(self:GetNodeID(), self:GetEntryID());
+		local increasedTraitDataList = GetIncreasedTraitData(self:GetNodeID(), self:GetEntryID());
 		for	_index, increasedTraitData in ipairs(increasedTraitDataList) do
 			local r, g, b = C_Item.GetItemQualityColor(increasedTraitData.itemQualityIncreasing);
 			local qualityColor = CreateColor(r, g, b, 1);

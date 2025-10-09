@@ -900,7 +900,7 @@ C.OnLoadThemes["Blizzard_GarrisonUI"] = function()
 	local allyPortrait = combatAlly.InProgress.PortraitFrame
 	B.ReskinGarrisonPortrait(allyPortrait)
 	OrderHallMissionFrame:HookScript("OnShow", function()
-		if allyPortrait:IsShown() then
+		if allyPortrait:IsShown() and allyPortrait.quality then
 			local r, g, b = C_Item.GetItemQualityColor(allyPortrait.quality)
 			allyPortrait.squareBG:SetBackdropBorderColor(r, g, b)
 		end

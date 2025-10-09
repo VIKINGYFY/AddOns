@@ -324,6 +324,8 @@ local function UpdateAuras(self, event, unit, updateInfo)
 			local slots = {C_UnitAuras.GetAuraSlots(unit, buffFilter)}
 			for i = 2, #slots do -- #1 return is continuationToken, we don't care about it
 				local data = processData(auras, unit, C_UnitAuras.GetAuraDataBySlot(unit, slots[i]))
+				if not data then return end
+
 				auras.allBuffs[data.auraInstanceID] = data
 
 				--[[ Override: Auras:FilterAura(unit, data)
