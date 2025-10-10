@@ -1,15 +1,17 @@
 local ADDON_NAME, ns = ...
 local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 
-local frameWidths = 825 -- outer windows widths
-local frameHeights = 510 -- outer window heights
+local frameWidths = 700 -- outer windows widths
+local frameHeights = 500 -- outer window heights
 local edge = 19 -- = 0.5cm left and right
 local LEFT, RIGHT = 12, 12 -- distance textframe to outer frame
 
-function ns.ShowChangelogWindow()
+function ns.ShowLoginChangelogWindow()
   if (MapNotesChangelogFrame and MapNotesChangelogFrame:IsShown()) 
     or (MapNotesChangelogFrameMenu and MapNotesChangelogFrameMenu:IsShown()) 
-    or (MapNotesOldChangelogFrameMenu and MapNotesOldChangelogFrameMenu:IsShown()) then 
+    or (MapNotesOldChangelogFrameMenu1 and MapNotesOldChangelogFrameMenu1:IsShown())
+    or (MapNotesOldChangelogFrameMenu2 and MapNotesOldChangelogFrameMenu2:IsShown())
+    then
     return
   end
 
@@ -79,10 +81,12 @@ function ns.ShowChangelogWindow()
   table.insert(UISpecialFrames, "MapNotesChangelogFrame")
 end
 
-function ns.ShowChangelogWindowMenuNew()
+function ns.ShowMenuChangelogWindowNew()
   if (MapNotesChangelogFrame and MapNotesChangelogFrame:IsShown()) 
     or (MapNotesChangelogFrameMenu and MapNotesChangelogFrameMenu:IsShown()) 
-    or (MapNotesOldChangelogFrameMenu and MapNotesOldChangelogFrameMenu:IsShown()) then 
+    or (MapNotesOldChangelogFrameMenu1 and MapNotesOldChangelogFrameMenu1:IsShown())
+    or (MapNotesOldChangelogFrameMenu2 and MapNotesOldChangelogFrameMenu2:IsShown())
+    then
     return
   end
 
@@ -141,14 +145,16 @@ function ns.ShowChangelogWindowMenuNew()
   table.insert(UISpecialFrames, "MapNotesChangelogFrameMenu")
 end
 
-function ns.ShowChangelogWindowMenuOld()
+function ns.ShowMenuChangelogWindowOld_1()
   if (MapNotesChangelogFrame and MapNotesChangelogFrame:IsShown()) 
     or (MapNotesChangelogFrameMenu and MapNotesChangelogFrameMenu:IsShown()) 
-    or (MapNotesOldChangelogFrameMenu and MapNotesOldChangelogFrameMenu:IsShown()) then 
+    or (MapNotesOldChangelogFrameMenu1 and MapNotesOldChangelogFrameMenu1:IsShown())
+    or (MapNotesOldChangelogFrameMenu2 and MapNotesOldChangelogFrameMenu2:IsShown())
+    then
     return
   end
 
-  local ChangeLogFrameMenu = CreateFrame("Frame", "MapNotesOldChangelogFrameMenu", UIParent, "BasicFrameTemplateWithInset")
+  local ChangeLogFrameMenu = CreateFrame("Frame", "MapNotesOldChangelogFrameMenu1", UIParent, "BasicFrameTemplateWithInset")
   ChangeLogFrameMenu:SetSize(frameWidths, frameHeights)
   local textwindowWidths = frameWidths - (LEFT + RIGHT)
   ChangeLogFrameMenu:SetPoint("CENTER")
@@ -167,13 +173,13 @@ function ns.ShowChangelogWindowMenuOld()
 
   ChangeLogFrameMenu.fixedVersionText = ChangeLogFrameMenu:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
   ChangeLogFrameMenu.fixedVersionText:SetPoint("TOPLEFT", 10, -5)
-  ChangeLogFrameMenu.fixedVersionText:SetText("|cffffd700" .. GAME_VERSION_LABEL .. ":|r " .. "|cffff0000" .. ns.PreviousAddonVersion)
+  ChangeLogFrameMenu.fixedVersionText:SetText("|cffffd700" .. GAME_VERSION_LABEL .. ":|r " .. "|cffff0000" .. ns.PreviousAddonVersion_1)
 
   ChangeLogFrameMenu.scrollFrame = CreateFrame("ScrollFrame", nil, ChangeLogFrameMenu, "UIPanelScrollFrameTemplate")
   ChangeLogFrameMenu.scrollFrame:SetPoint("TOPLEFT", 10, -40)
   ChangeLogFrameMenu.scrollFrame:SetPoint("BOTTOMRIGHT", -30, 40)
 
-  local content = CreateFrame("Frame", nil, ChangeLogFrameMenu.scrollFrame) -- EditBox with padding inside frame
+  local content = CreateFrame("Frame", nil, ChangeLogFrameMenu.scrollFrame)
   content:SetSize(textwindowWidths, 1)
   ChangeLogFrameMenu.editBox = CreateFrame("EditBox", nil, content)
   ChangeLogFrameMenu.editBox:SetMultiLine(true)
@@ -182,7 +188,7 @@ function ns.ShowChangelogWindowMenuOld()
   ChangeLogFrameMenu.editBox:SetPoint("RIGHT", content, "RIGHT", -edge, 0)
   ChangeLogFrameMenu.editBox:SetAutoFocus(false)
 
-  local changelogText = ns.LOCALE_CHANGELOG_OLD[GetLocale()] or ns.LOCALE_CHANGELOG_OLD["enUS"]
+  local changelogText = ns.LOCALE_CHANGELOG_OLD_1[GetLocale()] or ns.LOCALE_CHANGELOG_OLD_1["enUS"]
   ChangeLogFrameMenu.editBox:SetText("|cffffd700" .. changelogText)
   ChangeLogFrameMenu.scrollFrame:SetScrollChild(content)
 
@@ -200,7 +206,71 @@ function ns.ShowChangelogWindowMenuOld()
     LibStub("AceConfigDialog-3.0"):Open("MapNotes")
   end)
 
-  table.insert(UISpecialFrames, "MapNotesOldChangelogFrameMenu")
+  table.insert(UISpecialFrames, "MapNotesOldChangelogFrameMenu1")
+end
+
+function ns.ShowMenuChangelogWindowOld_2()
+  if (MapNotesChangelogFrame and MapNotesChangelogFrame:IsShown()) 
+    or (MapNotesChangelogFrameMenu and MapNotesChangelogFrameMenu:IsShown()) 
+    or (MapNotesOldChangelogFrameMenu1 and MapNotesOldChangelogFrameMenu1:IsShown())
+    or (MapNotesOldChangelogFrameMenu2 and MapNotesOldChangelogFrameMenu2:IsShown())
+    then
+    return
+  end
+
+  local ChangeLogFrameMenu = CreateFrame("Frame", "MapNotesOldChangelogFrameMenu2", UIParent, "BasicFrameTemplateWithInset")
+  ChangeLogFrameMenu:SetSize(frameWidths, frameHeights)
+  local textwindowWidths = frameWidths - (LEFT + RIGHT)
+  ChangeLogFrameMenu:SetPoint("CENTER")
+  ChangeLogFrameMenu:SetMovable(true)
+  ChangeLogFrameMenu:EnableMouse(true)
+  ChangeLogFrameMenu:RegisterForDrag("LeftButton")
+  ChangeLogFrameMenu:SetScript("OnDragStart", ChangeLogFrameMenu.StartMoving)
+  ChangeLogFrameMenu:SetScript("OnDragStop", ChangeLogFrameMenu.StopMovingOrSizing)
+  ChangeLogFrameMenu:SetFrameStrata("DIALOG")
+  ChangeLogFrameMenu:SetToplevel(true)
+  ChangeLogFrameMenu:SetClampedToScreen(true)
+
+  ChangeLogFrameMenu.title = ChangeLogFrameMenu:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+  ChangeLogFrameMenu.title:SetPoint("TOP", 0, -3)
+  ChangeLogFrameMenu.title:SetText(ns.COLORED_ADDON_NAME .. "|cffffd700 " .. L["Changelog"])
+
+  ChangeLogFrameMenu.fixedVersionText = ChangeLogFrameMenu:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+  ChangeLogFrameMenu.fixedVersionText:SetPoint("TOPLEFT", 10, -5)
+  ChangeLogFrameMenu.fixedVersionText:SetText("|cffffd700" .. GAME_VERSION_LABEL .. ":|r " .. "|cffff0000" .. ns.PreviousAddonVersion_2)
+
+  ChangeLogFrameMenu.scrollFrame = CreateFrame("ScrollFrame", nil, ChangeLogFrameMenu, "UIPanelScrollFrameTemplate")
+  ChangeLogFrameMenu.scrollFrame:SetPoint("TOPLEFT", 10, -40)
+  ChangeLogFrameMenu.scrollFrame:SetPoint("BOTTOMRIGHT", -30, 40)
+
+  local content = CreateFrame("Frame", nil, ChangeLogFrameMenu.scrollFrame)
+  content:SetSize(textwindowWidths, 1)
+  ChangeLogFrameMenu.editBox = CreateFrame("EditBox", nil, content)
+  ChangeLogFrameMenu.editBox:SetMultiLine(true)
+  ChangeLogFrameMenu.editBox:SetFontObject(GameFontHighlight)
+  ChangeLogFrameMenu.editBox:SetPoint("TOPLEFT", edge, 0)
+  ChangeLogFrameMenu.editBox:SetPoint("RIGHT", content, "RIGHT", -edge, 0)
+  ChangeLogFrameMenu.editBox:SetAutoFocus(false)
+
+  local changelogText = ns.LOCALE_CHANGELOG_OLD_2[GetLocale()] or ns.LOCALE_CHANGELOG_OLD_2["enUS"]
+  ChangeLogFrameMenu.editBox:SetText("|cffffd700" .. changelogText)
+  ChangeLogFrameMenu.scrollFrame:SetScrollChild(content)
+
+  ChangeLogFrameMenu.closeButton = CreateFrame("Button", nil, ChangeLogFrameMenu, "GameMenuButtonTemplate")
+  ChangeLogFrameMenu.closeButton:SetPoint("BOTTOMRIGHT", -10, -10)
+  ChangeLogFrameMenu.closeButton:SetSize(100, 25)
+  ChangeLogFrameMenu.closeButton:SetText(CLOSE)
+
+  ChangeLogFrameMenu.closeButton:SetScript("OnClick", function()
+    ChangeLogFrameMenu:Hide()
+    LibStub("AceConfigDialog-3.0"):Open("MapNotes")
+  end)
+
+  ChangeLogFrameMenu:SetScript("OnHide", function()
+    LibStub("AceConfigDialog-3.0"):Open("MapNotes")
+  end)
+
+  table.insert(UISpecialFrames, "MapNotesOldChangelogFrameMenu2")
 end
 
 local DBFrame = CreateFrame("Frame")
@@ -212,11 +282,11 @@ DBFrame:SetScript("OnEvent", function(_, event, addonName)
     end
 
     if not HandyNotes_MapNotesRetailChangelogDB.lastChangelogVersion then
-      HandyNotes_MapNotesRetailChangelogDB.lastChangelogVersion = ns.PreviousAddonVersion
+      HandyNotes_MapNotesRetailChangelogDB.lastChangelogVersion = ns.PreviousAddonVersion_1
     end
 
     if HandyNotes_MapNotesRetailChangelogDB.lastChangelogVersion ~= ns.CurrentAddonVersion then
-      ns.ShowChangelogWindow()
+      ns.ShowLoginChangelogWindow()
     end
   end
 end)

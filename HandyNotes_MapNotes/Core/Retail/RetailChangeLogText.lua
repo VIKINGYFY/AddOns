@@ -1,9 +1,233 @@
 local ADDON_NAME, ns = ...
 
-ns.PreviousAddonVersion = "3.0.9"
-ns.CurrentAddonVersion = "3.1.0"
+ns.CurrentAddonVersion = "3.1.1"
+ns.PreviousAddonVersion_1 = "3.1.0"
+ns.PreviousAddonVersion_2 = "3.0.9"
 
-ns.LOCALE_CHANGELOG_NEW = {
+ns.LOCALE_CHANGELOG_NEW = { -- 3.1.1
+  deDE = [[
+• Das Änderungsprotokoll wurde auf 3 „Changelogs“ erweitert, zu finden unter „About MapNotes“
+
+• Für Legion, Pandaria und Draenor wurden NPC-Namen für die Zonen und die Minikarte hinzugefügt
+
+• Die Option zum Deaktivieren von Blizzard-Symbolen, die sich mit MapNotes überschneiden, wurde im Reiter „Allgemein“ der „Erweiterten Optionen“ entfernt und hat nun einen eigenen Reiter
+
+  • Zu finden im Reiter „Allgemein“ unter „Blizzard-Symbole“
+
+  • Hier gibt es nun auch die Möglichkeit, die Minikartensymbole von Blizzard über MapNotes zu deaktivieren
+
+  • Es wurden nicht nur die Symbolkategorien der Blizzard-Minimap-Symbole hinzugefügt, die sich mit MapNotes überschneiden, sondern auch „Speis & Trank“, „Reagenzien“ und „Reparieren“
+
+  • Im Addon-Menü steht bei diesen 3 Symboltypen die Information, dass MapNotes für diese 3 Symboltypen keine eigenen Symbole darstellt
+
+  • MapNotes speichert für jeden eurer Charaktere die ursprünglich eingestellten Werte der Minikartensymbole von Blizzard, damit – wenn ihr die Optionen im Addon wieder deaktiviert – die ursprünglichen Einstellungen wie zuvor wiederhergestellt werden können
+
+  • Änderungen werden sofort übernommen und treten in Kraft, werden im Blizzard-Minimap-Untermenü jedoch visuell noch falsch angezeigt, bis ihr einmal neu geladen (/reload) habt
+
+]],
+
+  enUS = [[
+• The changelog has been expanded to 3 “Changelogs”, available under “About MapNotes”
+
+• Added NPC names for zones and the minimap in Legion, Pandaria, and Draenor
+
+• The option to disable Blizzard icons that overlap with MapNotes has been removed from the “General” tab in “Advanced Options” and now has its own tab
+
+  • Found under the “General” tab, in “Blizzard Icons”
+
+  • You can now also disable Blizzard’s minimap icons through MapNotes
+
+  • Not only were overlapping Blizzard minimap icon categories added, but also “Food & Drink”, “Reagents”, and “Repair”
+
+  • Please read the description in the Addon menu for these icon selections, as MapNotes does not display its own icons for these three types
+
+  • MapNotes saves each character’s original Blizzard minimap icon settings, so when you disable the options again, the original settings can be restored
+
+  • Changes take effect immediately but may appear visually incorrect in Blizzard’s minimap menu until you reload (/reload)
+]],
+
+  frFR = [[
+• Le journal des modifications a été étendu à 3 « Changelogs », disponibles sous « À propos de MapNotes »
+
+• Ajout des noms de PNJ pour les zones et la minicarte de Légion, Pandarie et Draenor
+
+• L’option permettant de désactiver les icônes Blizzard qui se chevauchent avec MapNotes a été supprimée de l’onglet « Général » dans « Options avancées » et dispose désormais de son propre onglet
+
+  • Disponible dans l’onglet « Général », sous « Icônes Blizzard »
+
+  • Il est désormais possible de désactiver les icônes de la minicarte Blizzard via MapNotes
+
+  • En plus des catégories qui se chevauchent, les catégories « Nourriture et boisson », « Réactifs » et « Réparation » ont été ajoutées
+
+  • Veuillez lire la description dans le menu de l’addon pour ces options, car MapNotes n’affiche pas ses propres icônes pour ces trois types
+
+  • MapNotes enregistre les paramètres originaux des icônes de la minicarte Blizzard pour chacun de vos personnages afin de pouvoir les restaurer lorsque vous désactivez à nouveau ces options
+
+  • Les modifications prennent effet immédiatement, mais peuvent sembler incorrectes dans le sous-menu de la minicarte Blizzard jusqu’à un rechargement (/reload)
+]],
+
+  itIT = [[
+• Il registro delle modifiche è stato ampliato a 3 “Changelog”, disponibili in “Informazioni su MapNotes”
+
+• Aggiunti i nomi degli NPC per le zone e la minimappa in Legion, Pandaria e Draenor
+
+• L’opzione per disattivare le icone Blizzard che si sovrappongono a MapNotes è stata rimossa dalla scheda “Generale” delle “Opzioni avanzate” e ora ha una scheda dedicata
+
+  • Si trova nella scheda “Generale”, sotto “Icone Blizzard”
+
+  • Ora è anche possibile disattivare le icone della minimappa Blizzard tramite MapNotes
+
+  • Sono state aggiunte non solo le categorie di icone che si sovrappongono, ma anche “Cibo e bevande”, “Reagenti” e “Riparazioni”
+
+  • Leggi la descrizione nel menu dell’addon per queste selezioni, poiché MapNotes non mostra icone proprie per questi tre tipi
+
+  • MapNotes salva le impostazioni originali delle icone della minimappa di Blizzard per ciascun personaggio, così da ripristinarle quando disattivi nuovamente le opzioni
+
+  • Le modifiche hanno effetto immediato ma potrebbero apparire visivamente errate nel sottomenu della minimappa di Blizzard fino al riavvio (/reload)
+]],
+
+  esES = [[
+• El registro de cambios se ha ampliado a 3 “Changelogs”, disponible en “Acerca de MapNotes”
+
+• Se han añadido nombres de PNJ para las zonas y la minimapa en Legión, Pandaria y Draenor
+
+• La opción para desactivar los iconos de Blizzard que se superponen con MapNotes se ha eliminado de la pestaña “General” de “Opciones avanzadas” y ahora tiene su propia pestaña
+
+  • Se encuentra en la pestaña “General”, en “Iconos de Blizzard”
+
+  • Ahora también puedes desactivar los iconos de la minimapa de Blizzard desde MapNotes
+
+  • Además de las categorías que se superponen, se han añadido “Comida y bebida”, “Reactivos” y “Reparación”
+
+  • Lee la descripción en el menú del Addon para estas opciones, ya que MapNotes no muestra iconos propios para estos tres tipos
+
+  • MapNotes guarda la configuración original de los iconos de la minimapa de Blizzard para cada personaje, para restaurarla cuando desactives las opciones
+
+  • Los cambios surten efecto de inmediato, pero pueden mostrarse de forma incorrecta en el submenú de la minimapa de Blizzard hasta que recargues (/reload)
+]],
+
+  esMX = [[
+• El registro de cambios se amplió a 3 “Changelogs”, disponible en “Acerca de MapNotes”
+
+• Se agregaron nombres de PNJ para las zonas y la minimapa en Legión, Pandaria y Draenor
+
+• La opción para desactivar los íconos de Blizzard que se superponen con MapNotes se eliminó de la pestaña “General” en “Opciones avanzadas” y ahora tiene su propia pestaña
+
+  • Se encuentra en la pestaña “General”, en “Íconos de Blizzard”
+
+  • Ahora también puedes desactivar los íconos de la minimapa de Blizzard mediante MapNotes
+
+  • Además de las categorías superpuestas, se agregaron “Comida y bebida”, “Reactivos” y “Reparación”
+
+  • Lee la descripción en el menú del Addon para estas opciones, ya que MapNotes no muestra íconos propios para estos tres tipos
+
+  • MapNotes guarda la configuración original de los íconos de la minimapa de Blizzard para cada personaje, para poder restaurarla cuando desactives las opciones
+
+  • Los cambios surten efecto de inmediato, pero pueden mostrarse de forma incorrecta en el submenú de la minimapa de Blizzard hasta que recargues (/reload)
+]],
+
+  ptBR = [[
+• O registro de alterações foi expandido para 3 “Changelogs”, disponível em “Sobre o MapNotes”
+
+• Foram adicionados nomes de PNJ para as zonas e a minimapa em Legion, Pandaria e Draenor
+
+• A opção para desativar ícones da Blizzard que se sobrepõem ao MapNotes foi removida da guia “Geral” em “Opções avançadas” e agora tem sua própria guia
+
+  • Localizada na guia “Geral”, em “Ícones da Blizzard”
+
+  • Agora também é possível desativar os ícones da minimapa da Blizzard através do MapNotes
+
+  • Além das categorias sobrepostas, foram adicionadas “Comida e bebida”, “Reagentes” e “Reparar”
+
+  • Leia a descrição no menu do Addon para essas opções, pois o MapNotes não exibe ícones próprios para esses três tipos
+
+  • O MapNotes salva as configurações originais dos ícones da minimapa da Blizzard para cada personagem, para que possam ser restauradas quando você desativar as opções
+
+  • As alterações entram em vigor imediatamente, mas podem parecer incorretas no submenu da minimapa da Blizzard até recarregar (/reload)
+]],
+
+  ruRU = [[
+• Журнал изменений расширен до 3 «Changelogs» и доступен в разделе «About MapNotes»
+
+• Добавлены имена НИПов для зон и миникарты в Легионе, Пандарии и Дреноре
+
+• Опция отключения значков Blizzard, перекрывающих MapNotes, удалена с вкладки «Общие» в «Расширенных настройках» и теперь вынесена в отдельную вкладку
+
+  • Находится во вкладке «Общие» → «Значки Blizzard»
+
+  • Теперь можно отключить значки миникарты Blizzard через MapNotes
+
+  • Добавлены не только перекрывающиеся категории, но и «Еда и напитки», «Реагенты» и «Ремонт»
+
+  • Пожалуйста, прочтите описание в меню аддона для этих категорий, так как MapNotes не отображает собственные значки для этих трёх типов
+
+  • MapNotes сохраняет исходные настройки значков миникарты Blizzard для каждого персонажа, чтобы их можно было восстановить при повторном отключении опций
+
+  • Изменения вступают в силу сразу, но могут отображаться некорректно в подменю миникарты Blizzard до перезагрузки (/reload)
+]],
+
+  zhCN = [[
+• 更新日志扩展为 3 个“Changelogs”，可在“关于 MapNotes”中查看
+
+• 为军团、潘达利亚和德拉诺地区添加了区域和小地图的 NPC 名称
+
+• 禁用与 MapNotes 重叠的暴雪图标的选项已从“高级选项”的“常规”选项卡中移除，并拥有了自己的选项卡
+
+  • 位于“常规”选项卡的“暴雪图标”中
+
+  • 现在还可以通过 MapNotes 禁用暴雪的小地图图标
+
+  • 除了与 MapNotes 重叠的图标类别外，还新增了“食物与饮料”“材料”“修理”
+
+  • 请阅读插件菜单中这些图标选项的说明，因为 MapNotes 不会为这三种类型显示自定义图标
+
+  • MapNotes 会为每个角色保存暴雪小地图图标的原始设置，以便在禁用这些选项后恢复原状
+
+  • 更改会立即生效，但在暴雪小地图菜单中可能显示不正确，直到你重新加载（/reload）
+]],
+
+  zhTW = [[
+• 更新日誌已擴充為 3 個「Changelogs」，可在「關於 MapNotes」中查看
+
+• 為軍團、潘達利亞與德拉諾地區新增了區域與小地圖的 NPC 名稱
+
+• 停用與 MapNotes 重疊的暴雪圖示選項已自「進階選項」的「一般」頁籤移除，並擁有自己的頁籤
+
+  • 位於「一般」頁籤的「暴雪圖示」
+
+  • 現在也可以透過 MapNotes 停用暴雪的小地圖圖示
+
+  • 除了與 MapNotes 重疊的圖示類別外，還新增了「食物與飲料」「材料」「修理」
+
+  • 請閱讀外掛選單中這些圖示選項的說明，因為 MapNotes 不會為這三種類型顯示自訂圖示
+
+  • MapNotes 會為每個角色儲存暴雪小地圖圖示的原始設定，以便在停用選項後還原
+
+  • 變更會立即生效，但在暴雪小地圖選單中可能顯示不正確，直到重新載入（/reload）
+]],
+
+  koKR = [[
+• 변경 로그가 3개의 “Changelogs”로 확장되었으며 “About MapNotes”에서 확인할 수 있음
+
+• 군단, 판다리아, 드레노어 지역의 지역 및 미니맵에 NPC 이름이 추가됨
+
+• MapNotes와 겹치는 블리자드 아이콘 비활성화 옵션이 “고급 옵션”의 “일반” 탭에서 제거되고 별도의 탭으로 이동됨
+
+  • “일반” 탭의 “Blizzard 아이콘”에서 확인 가능
+
+  • 이제 MapNotes를 통해 블리자드 미니맵 아이콘도 비활성화 가능
+
+  • 겹치는 아이콘 외에 “음식 및 음료”, “재료”, “수리” 카테고리도 추가됨
+
+  • 이 세 가지 유형은 MapNotes에서 자체 아이콘을 표시하지 않으므로 애드온 메뉴의 설명을 읽어 주세요
+
+  • 각 캐릭터의 원래 블리자드 미니맵 아이콘 설정을 저장하여, 옵션 해제 시 원상복구 가능
+
+  • 변경 사항은 즉시 적용되지만, 블리자드 미니맵 하위 메뉴에서는 재시작(/reload) 전까지 잘못 표시될 수 있음
+]],
+}
+
+ns.LOCALE_CHANGELOG_OLD_1 = { -- 3.1.0
   deDE = [[
 • Umstellung von einigen externen Libs auf interne Logik
 
@@ -137,12 +361,8 @@ ns.LOCALE_CHANGELOG_NEW = {
 ]],
 }
 
-ns.LOCALE_CHANGELOG_OLD = {
+ns.LOCALE_CHANGELOG_OLD_2 = { -- 3.0.9
   deDE = [[
-•Version:3.0.9
-• Es wurde die Tiefe „Zekvirs Höhle“ zur Zonen- und Kontinentkarte hinzugefügt, da sie von Blizzard immer noch fehlt.
-
-•Version: 3.0.8
 • Im Kampf ist es nicht mehr möglich, die Weltkarte über Addons zu wechseln, ohne Blizzard-Fehler zu erzeugen.
   • Da dies eine Kernfunktion von MapNotes ist, wurden nun drei Optionen hinzugefügt, die dieses Problem auf verschiedenen Wegen lösen.
 
@@ -169,9 +389,6 @@ ns.LOCALE_CHANGELOG_OLD = {
 ]],
 
   enUS = [[
-•Version:3.0.9
-• The Delve “Zekvir’s Cavern” has been added to the zone and continent maps, as it is still missing from Blizzard.
-
 • It is no longer possible to switch the world map via addons during combat without triggering Blizzard errors.
   • Because this is a core MapNotes feature, three options were added to address the problem in different ways.
 
@@ -198,9 +415,6 @@ ns.LOCALE_CHANGELOG_OLD = {
 ]],
 
   frFR = [[
-•Version:3.0.9
-• Le Gouffre « Caverne de Zekvir » a été ajouté à la carte de zone et à la carte du continent, car il manque encore chez Blizzard.
-
 • Il n’est plus possible de changer la carte du monde via des addons pendant le combat sans provoquer des erreurs Blizzard.
   • Comme il s’agit d’une fonctionnalité essentielle de MapNotes, trois options ont été ajoutées pour traiter ce problème de différentes manières.
 
@@ -227,9 +441,6 @@ ns.LOCALE_CHANGELOG_OLD = {
 ]],
 
   itIT = [[
-•Version:3.0.9
-• La Scorribanda « Caverna di Zekvir » è stata aggiunta alla mappa della zona e alla mappa del continente, poiché è ancora assente da Blizzard.
-
 • Non è più possibile cambiare la mappa del mondo tramite addon durante il combattimento senza causare errori Blizzard.
   • Poiché questa è una funzione fondamentale di MapNotes, sono state aggiunte tre opzioni per affrontare il problema in modi diversi.
 
@@ -256,9 +467,6 @@ ns.LOCALE_CHANGELOG_OLD = {
 ]],
 
   esES = [[
-•Version:3.0.9
-• La Profundidad « Caverna de Zekvir » se ha añadido al mapa de la zona y al mapa del continente, ya que aún falta en Blizzard.
-
 • Ya no es posible cambiar el mapa del mundo mediante addons durante el combate sin provocar errores de Blizzard.
   • Como se trata de una función principal de MapNotes, se han añadido tres opciones para abordar el problema de diferentes maneras.
 
@@ -285,9 +493,6 @@ ns.LOCALE_CHANGELOG_OLD = {
 ]],
 
   esMX = [[
-•Version:3.0.9
-• La Profundidad « Caverna de Zekvir » se agregó al mapa de zona y al mapa del continente, ya que todavía falta en Blizzard.
-
 • Ya no es posible cambiar el mapa del mundo mediante addons durante el combate sin causar errores de Blizzard.
   • Debido a que esta es una función central de MapNotes, se agregaron tres opciones para abordar el problema de distintas maneras.
 
@@ -314,9 +519,6 @@ ns.LOCALE_CHANGELOG_OLD = {
 ]],
 
   ptBR = [[
-•Version:3.0.9
-• A Imersão « Caverna de Zekvir » foi adicionada ao mapa da zona e ao mapa do continente, pois ainda está ausente na Blizzard.
-
 • Não é mais possível trocar o mapa-múndi por addons durante o combate sem causar erros da Blizzard.
   • Como isso é um recurso central do MapNotes, foram adicionadas três opções para lidar com o problema de maneiras diferentes.
 
@@ -343,9 +545,6 @@ ns.LOCALE_CHANGELOG_OLD = {
 ]],
 
   ruRU = [[
-•Version:3.0.9
-• Вылазка «Пещера Зеквира» была добавлена на карту зоны и карту континента, так как она до сих пор отсутствует у Blizzard.
-
 • Во время боя больше нельзя переключать карту мира через аддоны без вызова ошибок Blizzard.
   • Так как это ключевая функция MapNotes, были добавлены три варианта, решающие проблему разными способами.
 
@@ -372,9 +571,6 @@ ns.LOCALE_CHANGELOG_OLD = {
 ]],
 
   zhCN = [[
-•Version:3.0.9
-• 已将地下堡“泽克维尔的洞穴”添加到区域地图和大陆地图中，因为暴雪仍然缺少它。
-
 • 战斗中已无法通过插件切换世界地图而不触发暴雪错误。
   • 由于这是 MapNotes 的核心功能，我们新增了三种方式来应对这一问题。
 
@@ -401,9 +597,6 @@ ns.LOCALE_CHANGELOG_OLD = {
 ]],
 
   zhTW = [[
-•Version:3.0.9
-• 已將探究「澤克維爾之洞穴」新增到區域地圖和大陸地圖，因為暴雪仍然缺少它。
-
 • 戰鬥中已無法透過外掛切換世界地圖而不產生暴雪錯誤。
   • 由於這是 MapNotes 的核心功能，因此新增三種方式來處理這個問題。
 
@@ -430,9 +623,6 @@ ns.LOCALE_CHANGELOG_OLD = {
 ]],
 
   koKR = [[
-•Version:3.0.9
-• 구렁 ‘제크비르의 동굴’이 지역 지도와 대륙 지도에 추가되었습니다. 블리자드에서는 아직 누락되어 있습니다.
-
 • 전투 중에는 애드온으로 세계 지도를 전환하면 블리자드 오류가 발생하므로 더 이상 수행할 수 없습니다.
   • 이는 MapNotes의 핵심 기능이기 때문에, 문제를 다양한 방식으로 해결할 수 있도록 세 가지 옵션이 추가되었습니다.
 

@@ -650,6 +650,7 @@ nodes[641] = { } -- Val'sharah
 nodes[646] = { } -- Broken Shore
 nodes[650] = { } -- Highmountain
 nodes[652] = { } -- Highmountain Thundertotem Basement
+nodes[659] = { } -- Highmountain Dunkelsteingrotte
 nodes[680] = { } -- Suramar
 nodes[715] = { } -- Emerald Dreamway - Druid
 nodes[719] = { } -- Mardum Zone

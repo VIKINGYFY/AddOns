@@ -370,7 +370,7 @@ local CurrentMapID = WorldMapFrame:GetMapID()
                     end
                 end
             --Broken Isles
-            elseif (CurrentMapID == 630 or CurrentMapID == 634 or CurrentMapID == 641 or CurrentMapID == 646 or CurrentMapID == 650 or CurrentMapID == 652
+            elseif (CurrentMapID == 630 or CurrentMapID == 634 or CurrentMapID == 641 or CurrentMapID == 646 or CurrentMapID == 650 or CurrentMapID == 652 or CurrentMapID == 659
                 or CurrentMapID == 750 or CurrentMapID == 680 or CurrentMapID == 830 or CurrentMapID == 882 or CurrentMapID == 885 or CurrentMapID == 941 
                 or CurrentMapID == 790 or CurrentMapID == 971 or CurrentMapID == 715 or CurrentMapID == 719)
             then
@@ -566,7 +566,7 @@ local CurrentMapID = WorldMapFrame:GetMapID()
                     end
                 end
             -- Broken Isles    
-            elseif (CurrentMapID == 630 or CurrentMapID == 634 or CurrentMapID == 641 or CurrentMapID == 646 or CurrentMapID == 650 or CurrentMapID == 652
+            elseif (CurrentMapID == 630 or CurrentMapID == 634 or CurrentMapID == 641 or CurrentMapID == 646 or CurrentMapID == 650 or CurrentMapID == 652 or CurrentMapID == 659
                 or CurrentMapID == 750 or CurrentMapID == 680 or CurrentMapID == 830 or CurrentMapID == 882 or CurrentMapID == 885 or CurrentMapID == 941 
                 or CurrentMapID == 790 or CurrentMapID == 971 or CurrentMapID == 715 or CurrentMapID == 719)
             then
@@ -838,7 +838,7 @@ local CurrentMapID = WorldMapFrame:GetMapID()
             GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["Draenor"] .. " " .. L["Zones"] .. "-" .. BRAWL_TOOLTIP_MAPS .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
             GameTooltip:Show()
         --Broken Isles
-        elseif (CurrentMapID == 630 or CurrentMapID == 634 or CurrentMapID == 641 or CurrentMapID == 646 or CurrentMapID == 650 or CurrentMapID == 652
+        elseif (CurrentMapID == 630 or CurrentMapID == 634 or CurrentMapID == 641 or CurrentMapID == 646 or CurrentMapID == 650 or CurrentMapID == 652 or CurrentMapID == 659
             or CurrentMapID == 750 or CurrentMapID == 680 or CurrentMapID == 830 or CurrentMapID == 882 or CurrentMapID == 885 or CurrentMapID == 941 
             or CurrentMapID == 790 or CurrentMapID == 971 or CurrentMapID == 715 or CurrentMapID == 719)
         then
@@ -926,7 +926,7 @@ local CurrentMapID = WorldMapFrame:GetMapID()
             GameTooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["synchronizes"] .. " " .. L["Draenor"] .. " " .. L["Zones"] .. " & " .. MINIMAP_LABEL .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
             GameTooltip:Show()
         --Broken Isles
-        elseif (CurrentMapID == 630 or CurrentMapID == 634 or CurrentMapID == 641 or CurrentMapID == 646 or CurrentMapID == 650 or CurrentMapID == 652
+        elseif (CurrentMapID == 630 or CurrentMapID == 634 or CurrentMapID == 641 or CurrentMapID == 646 or CurrentMapID == 650 or CurrentMapID == 652 or CurrentMapID == 659
             or CurrentMapID == 750 or CurrentMapID == 680 or CurrentMapID == 830 or CurrentMapID == 882 or CurrentMapID == 885 or CurrentMapID == 941 
             or CurrentMapID == 790 or CurrentMapID == 971 or CurrentMapID == 715 or CurrentMapID == 719)
         then

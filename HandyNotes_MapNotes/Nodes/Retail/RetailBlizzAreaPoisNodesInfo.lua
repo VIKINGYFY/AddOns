@@ -65,6 +65,7 @@ ns.BlizzAreaPoisInfo = {
     5877, -- Borean Tundra Ship to Stormwind
     5878, -- Stormwind Ship to Vallianz
     5879, -- Stormwind Ship to Boralus
+    5892, -- Jadeforest to Stormwind Portal
     7335, -- Stormwind Ship to Dragon Isles
 
     -- City Horde

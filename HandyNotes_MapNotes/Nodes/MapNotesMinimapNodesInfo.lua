@@ -652,6 +652,7 @@ minimap[641] = { } -- Val'sharah
 minimap[646] = { } -- Broken Shore
 minimap[650] = { } -- Highmountain
 minimap[652] = { } -- Highmountain Thundertotem Basement
+minimap[659] = { } -- Highmountain Dunkelsteingrotte
 minimap[680] = { } -- Suramar
 minimap[715] = { } -- Emerald Dreamway - Druid
 minimap[719] = { } -- Mardum Zone

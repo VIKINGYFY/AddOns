@@ -2,6 +2,12 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "deDE")
 if not L then return end
 
+-- blizzard minimap icons
+L["Blizzard Icons"] = "Blizzard Symbole"
+L["The Blizzard settings configured by the player are restored"] = "Die vom Spieler eingestellten Blizzard-Einstellungen werden wiederhergestellt"
+L["It is recommended not to enable this option if you want this icon to appear on the minimap, as MapNotes does not display its own icon on the world map or minimap"] = "Es wird empfohlen, diese Funktion nicht zu aktivieren, wenn Sie dieses Symbol auf der Minikarte angezeigt bekommen möchten, da MapNotes kein eigenes Symbol dafür auf der Weltkarte oder der Minikarte anzeigt"
+L["Changes take effect immediately, but are only displayed correctly in the Blizzard Minimap dropdown menu after reloading the UI"] = "Änderungen werden sofort übernommen, im Blizzard-Minikarte-Untermenü jedoch erst nach einem Neuladen korrekt angezeigt"
+L["After disabling this option, the player's previous settings are restored"] = "Nach dem Deaktivieren dieser Option werden die vorherigen Einstellungen des Spielers wiederhergestellt"
 -- toggle maps
 L["Blocked in combat"] = "Im Kampf blockiert"
 L["Required for"] = "Benötigt für"
@@ -146,7 +152,7 @@ L["Synchronize"] = "Synchronisieren"
 L["Synchronizes size and visibility of all individual symbols"] = "Synchronisiert Größe und Sichtbarkeit aller einzelnen Symbole"
 L["This disables the individual icon size and visibility sliders"] = "Dadurch werden die einzelnen Schieberegler für Symbolgröße und Sichtbarkeit deaktiviert"
 L["At the same time, all preset size and visibility settings of the individual symbols are replaced by the values set by these two sliders"] = "Gleichzeitig werden alle voreingestellten Größen- und Sichtbarkeitseinstellungen der einzelnen Symbole durch diese beiden Schieberegler eingestellten Werte ersetzt"
-L["It is recommended not to activate this function if you generally want to see these symbols on the zone map. Since MapNotes didn't place its own Delve icons on the zone map, instead we attached our functions to the Blizzard Delve icons"] = "Es wird empfohlen, diese Funktion nicht zu aktivieren, wenn Sie diese Symbole generell auf der Zonenkarte sehen möchten. Da MapNotes keine eigenen Tiefen-Symbole auf der Zonenkarte platziert hat, haben wir unsere Funktionen stattdessen an die Blizzard Delve-Symbole angehängt"
+L["It is recommended not to activate this function if you generally want to see these symbols on the zone map. Since MapNotes didn't place its own Delve icons on the zone map, instead we attached our functions to the Blizzard Delve icons"] = "Es wird empfohlen, diese Funktion nicht zu aktivieren, wenn Sie diese Symbole generell auf der Zonenkarte sehen möchten. Da MapNotes keine eigenen Tiefen-Symbole auf der Zonenkarte platziert hat, haben wir unsere Funktionen stattdessen an die Blizzard Tiefen-Symbole angehängt"
 --0.09
 L["Profiles"] = "Profile"
 L["Tooltip"] = "Tooltip"
@@ -170,7 +176,7 @@ L["Here you can enable or disable all chat messages sent by MapNotes Minimap and
 L["Here you can enable or disable all chat messages sent from one of these MapNotes tabs when you change the settings"] = "Hier können Sie alle Chat-Nachrichten aktivieren oder deaktivieren, die von einer dieser Registerkarten von MapNotes gesendet werden, wenn Sie die Einstellungen ändern"
 L["Only affects passage icons to instances and not path icons to zones"] = "Betrifft nur Durchgangssymbole zu Instanzen und keine Wegesymbole zu Zonen"
 L["By deactivating it, the border of the zone icons of your own factions is also removed, as the displayed icons are automatically only for your own faction"] = "Durch das deaktivieren, wird zusätzlich die Umrandung der Zonen Symbolen der eigenen Fraktionen entfernt, da die jetzt angezeigten Symbole nur für die eigene Fraktion verfügbar sind"
-L["If the world map is open, these are also displayed on the minimap icons, but if the world map is closed, these are no longer displayed on the minimap"] = "Bei geöffneter Weltkarte werden diese auch auf den Minimap-Icons angezeigt, bei geschlossener Weltkarte werden diese jedoch nicht mehr auf der Minimap angezeigt"
+L["If the world map is open, these are also displayed on the minimap icons, but if the world map is closed, these are no longer displayed on the minimap"] = "Bei geöffneter Weltkarte werden diese auch auf den Minikarten-Symbolen angezeigt, bei geschlossener Weltkarte werden diese jedoch nicht mehr auf der Minikarte angezeigt"
 --0.1 profiles
 L["Profile has been changed"] = "Profil wurde gewechselt"
 L["Profile has been reset to default"] = "Profil wurde auf die Standardeinstellungen zurückgesetzt"
@@ -186,7 +192,7 @@ L["When entering a new zone, the name of the new zone will be displayed in the c
 --0.3 Classic function Change
 L["Number"] = "Nummer"
 L["Old icon style"] = "Alter Symbol Stil"
-L["Changes the appearance of the icons. When activated, the listed icons will be changed with the previous style of these icons"] = "Ändert das Aussehen der Symbole. Bei aktivierung werden die aufgelisteten Icons mit dem vorherigen Style dieser Icons geändert"
+L["Changes the appearance of the icons. When activated, the listed icons will be changed with the previous style of these icons"] = "Ändert das Aussehen der Symbole. Bei aktivierung werden die aufgelisteten Symbole mit dem vorherigen Style dieser Symbole geändert"
 --0.4 Restore
 L["canceled"] = "abgebrochen"
 L["Delete this icon"] = "Dieses Symbol löschen"
@@ -356,7 +362,7 @@ L["Kul Tiras"] = "Kul Tiras"
 L["Shadowlands"] = "Schattenlande"
 L["Dragon Isles"] = "Dracheninseln"
 --8 Core spec
-L["-> MiniMapButton <-"] = "-> MiniMapKnopf <-"
+L["-> MiniMapButton <-"] = "-> MiniKartenKnopf <-"
 L["-> WorldMapButton <-"] = "-> WeltKartenKnopf <-"
 L["MapNotes menu window"] = "MapNotes-Menüfenster"
 L["All set icons have been restored"] = "Alle eingestellten Symbole wurden wiederhergestellt"

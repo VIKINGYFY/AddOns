@@ -21,6 +21,7 @@
     <Script file="RetailNpc.lua"/>
     <Script file="RetailTaxiMaps.lua"/>
     <Script file="RetailChangeLog.lua"/>
+    <Script file="RetailBlizzardMiniMapTracking.lua"/>    
     <Script file="RetailQuestsAndAchievements.lua"/>  
     <Script file="RetailMain.lua"/>
     <Script file="RetailAreaMap.lua"/>

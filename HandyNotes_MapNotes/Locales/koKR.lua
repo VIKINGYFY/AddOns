@@ -2,6 +2,12 @@
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "koKR")
 if not L then return end
 
+-- blizzard minimap icons
+L["Blizzard Icons"] = "블리자드 아이콘"
+L["The Blizzard settings configured by the player are restored"] = "플레이어가 설정한 블리자드 설정이 복원됩니다"
+L["It is recommended not to enable this option if you want this icon to appear on the minimap, as MapNotes does not display its own icon on the world map or minimap"] = "이 아이콘이 미니맵에 표시되기를 원한다면 이 옵션을 활성화하지 않는 것이 좋습니다. MapNotes는 월드맵이나 미니맵에 자체 아이콘을 표시하지 않습니다"
+L["Changes take effect immediately, but are only displayed correctly in the Blizzard Minimap dropdown menu after reloading the UI"] = "변경 사항은 즉시 적용되지만 블리자드 미니맵 드롭다운 메뉴에는 UI를 다시 불러온 후에야 올바르게 표시됩니다"
+L["After disabling this option, the player's previous settings are restored"] = "이 옵션을 비활성화하면 플레이어의 이전 설정이 복원됩니다"
 -- toggle maps
 L["Blocked in combat"] = "전투 중 차단됨"
 L["Required for"] = "필요 대상"

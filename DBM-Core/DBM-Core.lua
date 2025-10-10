@@ -76,13 +76,13 @@ end
 ---@class DBM
 local DBM = private:GetPrototype("DBM")
 _G.DBM = DBM
-DBM.Revision = parseCurseDate("20251006053126")
+DBM.Revision = parseCurseDate("20251009033307")
 DBM.TaintedByTests = false -- Tests may mess with some internal state, you probably don't want to rely on DBM for an important boss fight after running it in test mode
 
 local fakeBWVersion, fakeBWHash = 398, "3d79f92"--398.5
 local PForceDisable
 -- The string that is shown as version
-DBM.DisplayVersion = "12.0.0"--Core version
+DBM.DisplayVersion = "12.0.1 alpha"--Core version
 DBM.classicSubVersion = 0
 DBM.dungeonSubVersion = 0
 DBM.ReleaseRevision = releaseDate(2025, 10, 5) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
@@ -1991,8 +1991,8 @@ do
 			else
 				self:RegisterEvents(
 					"ENCOUNTER_TIMELINE_EVENT_ADDED",
-					"ENCOUNTER_TIMELINE_EVENT_REMOVED"
---					"ENCOUNTER_TIMELINE_EVENT_STATE_CHANGED"
+					"ENCOUNTER_TIMELINE_EVENT_REMOVED",
+					"ENCOUNTER_TIMELINE_EVENT_STATE_CHANGED"
 				)
 			end
 			if not private.isClassic then -- Retail, WoTLKC, and BCC
@@ -4490,9 +4490,13 @@ function DBM:LoadMod(mod, force, enableTestSupport)
 		if LastInstanceType ~= "pvp" and #inCombat == 0 and IsInGroup() then--do timer recovery only mod load
 			if not timerRequestInProgress then
 				timerRequestInProgress = true
+				--if self:IsPostMidnight() then--TODO, see if needed, blizzard timeline might already resend added events
+				--	--Request timeline timers from API
+				--	self:RecoverBlizzardTimers()
+				--end
 				-- Request timer to 3 person to prevent failure.
 				self:Unschedule(self.RequestTimers)
-				if not DBM:MidRestrictionsActive() then
+				if not self:MidRestrictionsActive() then
 					self:Schedule(7, self.RequestTimers, self, 1)
 					self:Schedule(10, self.RequestTimers, self, 2)
 					self:Schedule(13, self.RequestTimers, self, 3)
@@ -9393,7 +9397,7 @@ function bossModPrototype:ReceiveSync(event, sender, revision, ...)
 	end
 end
 
----@param revision number|string Either a number in the format "202101010000" (year, month, day, hour, minute) or string "20251006052730" to be auto set by packager
+---@param revision number|string Either a number in the format "202101010000" (year, month, day, hour, minute) or string "20251009033307" to be auto set by packager
 function bossModPrototype:SetRevision(revision)
 	revision = parseCurseDate(revision or "")
 	if not revision or type(revision) == "string" then

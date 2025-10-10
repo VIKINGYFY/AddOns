@@ -2,6 +2,12 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "zhTW")
 if not L then return end
 
+-- blizzard minimap icons
+L["Blizzard Icons"] = "暴雪圖示"
+L["The Blizzard settings configured by the player are restored"] = "會恢復玩家所設定的 Blizzard 設定"
+L["It is recommended not to enable this option if you want this icon to appear on the minimap, as MapNotes does not display its own icon on the world map or minimap"] = "如果您希望此圖示顯示在小地圖上，建議不要啟用此選項，因為 MapNotes 不會在世界地圖或小地圖上顯示自己的圖示"
+L["Changes take effect immediately, but are only displayed correctly in the Blizzard Minimap dropdown menu after reloading the UI"] = "變更會立即生效，但在 Blizzard 小地圖下拉選單中需重新載入介面後才會正確顯示"
+L["After disabling this option, the player's previous settings are restored"] = "停用此選項後，會恢復玩家之前的設定"
 -- toggle maps
 L["Blocked in combat"] = "戰鬥中被阻止"
 L["Required for"] = "需要於"

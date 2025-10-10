@@ -345,18 +345,27 @@ ns.options = {
                 if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.NpcNameTargeting then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["NPC targeting"], "|cff00ff00" .. L["is activated"]) else 
                 if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.NpcNameTargeting then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00 ".. L["NPC targeting"], "|cffff0000" ..  L["is deactivated"]) end end end,
               },
+            },
+          },
+        BlizzardTab = {
+          disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+          type = "group",
+          name = L["Blizzard Icons"],
+          desc = "",
+          order = 2,
+          args = {
             AdvancedHeader2 = {
               type = "header",
-              name = BATTLENET_OPTIONS_LABEL .. " " .. DISABLE,
-              order = 4.0,
+              name = ZONE .. " / " .. WORLD_MAP .. " - " .. L["Blizzard Icons"] .. " - " .. DISABLE,
+              order = 1.0,
               },
             RemoveBlizzPOIs = {
               disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
               type = "toggle",
               name = "POIs",
               desc = L["Points of interests"] .. "\n" .. "("  .. L["Portals"] .. ", " .. L["Ships"] .. ", " .. L["Capitals"] .. ")" .. "\n\n" .. L["Removes the Blizzard symbols only where MapNotes symbols and Blizzard symbols overlap, thereby making the tooltip and the function of the MapNote symbols usable again on the overlapping points"],
-              order = 4.1,
-              width = 0.60,
+              order = 1.1,
+              width = 1,
               get = function() return ns.Addon.db.profile.activate.RemoveBlizzPOIs end,
               set = function(info, v) ns.Addon.db.profile.activate.RemoveBlizzPOIs = v 
                   ns.BlizzAreaPoisLookup = nil
@@ -372,8 +381,8 @@ ns.options = {
               type = "toggle",
               name = L["Zidormi"],
               desc = L["Points of interests"] .. "\n" .. "("  .. L["Zidormi"] .. ")" .. "\n\n" .. L["Removes the Blizzard symbols only where MapNotes symbols and Blizzard symbols overlap, thereby making the tooltip and the function of the MapNote symbols usable again on the overlapping points"],
-              order = 4.2,
-              width = 0.60,
+              order = 1.2,
+              width = 1,
               get = function() return ns.Addon.db.profile.activate.RemoveBlizzPOIsZidormi end,
               set = function(info, v) ns.Addon.db.profile.activate.RemoveBlizzPOIsZidormi = v 
                   ns.BlizzAreaPoisLookupZidormi = nil
@@ -389,8 +398,8 @@ ns.options = {
               type = "toggle",
               name = INSTANCE,
               desc = TextIconRaid:GetIconString() .. " " .. TextIconDungeon:GetIconString() .. " " ..  L["Disables the display of all Blizzard Dungeon and Raid icons on the zone map"],
-              order = 4.3,
-              width = 0.60,
+              order = 1.3,
+              width = 1,
               get = function() return ns.Addon.db.profile.activate.RemoveBlizzInstances end,
               set = function(info, v) ns.Addon.db.profile.activate.RemoveBlizzInstances = v
                   if ns.Addon.db.profile.activate.RemoveBlizzInstances then SetCVar("showDungeonEntrancesOnMap", 0) else SetCVar("showDungeonEntrancesOnMap", 1) end
@@ -404,14 +413,214 @@ ns.options = {
               type = "toggle",
               name = DELVES_LABEL,
               desc = TextIconDelves:GetIconString().. " " .. L["Disables the display of all Blizzard Delves entrances on the zone map"] .. "\n\n" .. L["It is recommended not to activate this function if you generally want to see these symbols on the zone map. Since MapNotes didn't place its own Delve icons on the zone map, instead we attached our functions to the Blizzard Delve icons"],
-              order = 4.4,
-              width = 0.60,
+              order = 1.4,
+              width = 1,
               get = function() return ns.Addon.db.profile.activate.HideBlizzDelves end,
               set = function(info, v) ns.Addon.db.profile.activate.HideBlizzDelves = v 
                   if ns.Addon.db.profile.activate.HideBlizzDelves then SetCVar("showDelveEntrancesOnMap", 0) else SetCVar("showDelveEntrancesOnMap", 1) end
                   self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
                   if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.HideBlizzDelves then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. DELVES_LABEL .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
                   if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.HideBlizzDelves then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. DELVES_LABEL .. " " .. L["icons"], "|cff00ccff" .. L["are shown"] ) else end end
+                end,
+              },
+            AdvancedHeader3 = {
+              type = "header",
+              name = MINIMAP_LABEL .. " - " .. L["Blizzard Icons"] .. " - " .. DISABLE,
+              order = 2.0,
+              },
+            HideBlizzAuctioneer = {
+              disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+              type = "toggle",
+              name = MINIMAP_TRACKING_AUCTIONEER,
+              desc = L["Changes take effect immediately, but are only displayed correctly in the Blizzard Minimap dropdown menu after reloading the UI"] .. "\n\n" .. L["After disabling this option, the player's previous settings are restored"],
+              order = 2.1,
+              width = 1,
+              get = function() return ns.Addon.db.profile.activate.HideBlizzAuctioneer end,
+              set = function(info, v) ns.Addon.db.profile.activate.HideBlizzAuctioneer = v 
+                  ns.SetHideFlagAndApply("HideBlizzAuctioneer", v)
+                  self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                  if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.HideBlizzAuctioneer then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_AUCTIONEER .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
+                  if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.HideBlizzAuctioneer then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_AUCTIONEER .. " " .. L["icons"] .. " - |cff00ccff" .. L["The Blizzard settings configured by the player are restored"] ) else end end
+                end,
+              },
+            HideBlizzBanker = {
+              disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+              type = "toggle",
+              name = BANK,
+              desc = L["Changes take effect immediately, but are only displayed correctly in the Blizzard Minimap dropdown menu after reloading the UI"] .. "\n\n" .. L["After disabling this option, the player's previous settings are restored"],
+              order = 2.2,
+              width = 1,
+              get = function() return ns.Addon.db.profile.activate.HideBlizzBanker end,
+              set = function(info, v) ns.Addon.db.profile.activate.HideBlizzBanker = v 
+                  ns.SetHideFlagAndApply("HideBlizzBanker", v)
+                  self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                  if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.HideBlizzBanker then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. BANK .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
+                  if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.HideBlizzBanker then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. BANK .. " " .. L["icons"] .. " - |cff00ccff" .. L["The Blizzard settings configured by the player are restored"] ) else end end
+                end,
+              },
+            HideBlizzBarber = {
+              disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+              type = "toggle",
+              name = MINIMAP_TRACKING_BARBER,
+              desc = L["Changes take effect immediately, but are only displayed correctly in the Blizzard Minimap dropdown menu after reloading the UI"] .. "\n\n" .. L["After disabling this option, the player's previous settings are restored"],
+              order = 2.3,
+              width = 1,
+              get = function() return ns.Addon.db.profile.activate.HideBlizzBarber end,
+              set = function(info, v) ns.Addon.db.profile.activate.HideBlizzBarber = v 
+                  ns.SetHideFlagAndApply("HideBlizzBarber", v)
+                  self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                  if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.HideBlizzBarber then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_BARBER .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
+                  if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.HideBlizzBarber then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_BARBER .. " " .. L["icons"] .. " - |cff00ccff" .. L["The Blizzard settings configured by the player are restored"] ) else end end
+                end,
+              },
+            HideBlizzBattlemaster = {
+              disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+              type = "toggle",
+              name = MINIMAP_TRACKING_BATTLEMASTER,
+              desc = L["Changes take effect immediately, but are only displayed correctly in the Blizzard Minimap dropdown menu after reloading the UI"] .. "\n\n" .. L["After disabling this option, the player's previous settings are restored"],
+              order = 2.4,
+              width = 1,
+              get = function() return ns.Addon.db.profile.activate.HideBlizzBattlemaster end,
+              set = function(info, v) ns.Addon.db.profile.activate.HideBlizzBattlemaster = v 
+                  ns.SetHideFlagAndApply("HideBlizzBattlemaster", v)
+                  self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                  if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.HideBlizzBattlemaster then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_BATTLEMASTER .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
+                  if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.HideBlizzBattlemaster then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_BATTLEMASTER .. " " .. L["icons"] .. " - |cff00ccff" .. L["The Blizzard settings configured by the player are restored"] ) else end end
+                end,
+              },
+            HideBlizzInnkeeper = {
+              disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+              type = "toggle",
+              name = MINIMAP_TRACKING_INNKEEPER,
+              desc = L["Changes take effect immediately, but are only displayed correctly in the Blizzard Minimap dropdown menu after reloading the UI"] .. "\n\n" .. L["After disabling this option, the player's previous settings are restored"],
+              order = 2.5,
+              width = 1,
+              get = function() return ns.Addon.db.profile.activate.HideBlizzInnkeeper end,
+              set = function(info, v) ns.Addon.db.profile.activate.HideBlizzInnkeeper = v 
+                  ns.SetHideFlagAndApply("HideBlizzInnkeeper", v)
+                  self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                  if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.HideBlizzInnkeeper then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_INNKEEPER .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
+                  if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.HideBlizzInnkeeper then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_INNKEEPER .. " " .. L["icons"] .. " - |cff00ccff" .. L["The Blizzard settings configured by the player are restored"] ) else end end
+                end,
+              },
+            HideBlizzItemUpgrade = {
+              disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+              type = "toggle",
+              name = ITEM_UPGRADE,
+              desc = L["Changes take effect immediately, but are only displayed correctly in the Blizzard Minimap dropdown menu after reloading the UI"] .. "\n\n" .. L["After disabling this option, the player's previous settings are restored"],
+              order = 2.6,
+              width = 1,
+              get = function() return ns.Addon.db.profile.activate.HideBlizzItemUpgrade end,
+              set = function(info, v) ns.Addon.db.profile.activate.HideBlizzItemUpgrade = v 
+                  ns.SetHideFlagAndApply("HideBlizzItemUpgrade", v)
+                  self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                  if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.HideBlizzItemUpgrade then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. ITEM_UPGRADE .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
+                  if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.HideBlizzItemUpgrade then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. ITEM_UPGRADE .. " " .. L["icons"] .. " - |cff00ccff" .. L["The Blizzard settings configured by the player are restored"] ) else end end
+                end,
+              },
+            HideBlizzMailbox = {
+              disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+              type = "toggle",
+              name = MINIMAP_TRACKING_MAILBOX,
+              desc = L["Changes take effect immediately, but are only displayed correctly in the Blizzard Minimap dropdown menu after reloading the UI"] .. "\n\n" .. L["After disabling this option, the player's previous settings are restored"],
+              order = 2.7,
+              width = 1,
+              get = function() return ns.Addon.db.profile.activate.HideBlizzMailbox end,
+              set = function(info, v) ns.Addon.db.profile.activate.HideBlizzMailbox = v 
+                  ns.SetHideFlagAndApply("HideBlizzMailbox", v)
+                  self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                  if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.HideBlizzMailbox then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_MAILBOX .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
+                  if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.HideBlizzMailbox then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_MAILBOX .. " " .. L["icons"] .. " - |cff00ccff" .. L["The Blizzard settings configured by the player are restored"] ) else end end
+                end,
+              },
+            HideBlizzProfTrainers = {
+              disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+              type = "toggle",
+              name = MINIMAP_TRACKING_TRAINER_PROFESSION,
+              desc = L["Changes take effect immediately, but are only displayed correctly in the Blizzard Minimap dropdown menu after reloading the UI"] .. "\n\n" .. L["After disabling this option, the player's previous settings are restored"],
+              order = 2.8,
+              width = 1,
+              get = function() return ns.Addon.db.profile.activate.HideBlizzProfTrainers end,
+              set = function(info, v) ns.Addon.db.profile.activate.HideBlizzProfTrainers = v 
+                  ns.SetHideFlagAndApply("HideBlizzProfTrainers", v)
+                  self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                  if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.HideBlizzProfTrainers then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_TRAINER_PROFESSION .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
+                  if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.HideBlizzProfTrainers then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_TRAINER_PROFESSION .. " " .. L["icons"] .. " - |cff00ccff" .. L["The Blizzard settings configured by the player are restored"] ) else end end
+                end,
+              },
+            HideBlizzStablemaster = {
+              disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+              type = "toggle",
+              name = MINIMAP_TRACKING_STABLEMASTER,
+              desc = L["Changes take effect immediately, but are only displayed correctly in the Blizzard Minimap dropdown menu after reloading the UI"] .. "\n\n" .. L["After disabling this option, the player's previous settings are restored"],
+              order = 2.9,
+              width = 1,
+              get = function() return ns.Addon.db.profile.activate.HideBlizzStablemaster end,
+              set = function(info, v) ns.Addon.db.profile.activate.HideBlizzStablemaster = v 
+                  ns.SetHideFlagAndApply("HideBlizzStablemaster", v)
+                  self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                  if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.HideBlizzStablemaster then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_STABLEMASTER .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
+                  if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.HideBlizzStablemaster then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_STABLEMASTER .. " " .. L["icons"] .. " - |cff00ccff" .. L["The Blizzard settings configured by the player are restored"] ) else end end
+                end,
+              },
+            HideBlizzTransmog = {
+              disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+              type = "toggle",
+              name = MINIMAP_TRACKING_TRANSMOGRIFIER,
+              desc = L["Changes take effect immediately, but are only displayed correctly in the Blizzard Minimap dropdown menu after reloading the UI"] .. "\n\n" .. L["After disabling this option, the player's previous settings are restored"],
+              order = 3.0,
+              width = 1,
+              get = function() return ns.Addon.db.profile.activate.HideBlizzTransmog end,
+              set = function(info, v) ns.Addon.db.profile.activate.HideBlizzTransmog = v 
+                  ns.SetHideFlagAndApply("HideBlizzTransmog", v)
+                  self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                  if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.HideBlizzTransmog then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_TRANSMOGRIFIER .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
+                  if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.HideBlizzTransmog then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_TRANSMOGRIFIER .. " " .. L["icons"] .. " - |cff00ccff" .. L["The Blizzard settings configured by the player are restored"] ) else end end
+                end,
+              },
+            HideBlizzFoodDrink = {
+              disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+              type = "toggle",
+              name = MINIMAP_TRACKING_VENDOR_FOOD,
+              desc = L["Changes take effect immediately, but are only displayed correctly in the Blizzard Minimap dropdown menu after reloading the UI"] .. "\n\n" .. L["After disabling this option, the player's previous settings are restored"] .. "\n\n" .. "|cffff0000" .. L["It is recommended not to enable this option if you want this icon to appear on the minimap, as MapNotes does not display its own icon on the world map or minimap"],
+              order = 3.1,
+              width = 1,
+              get = function() return ns.Addon.db.profile.activate.HideBlizzFoodDrink end,
+              set = function(info, v) ns.Addon.db.profile.activate.HideBlizzFoodDrink = v 
+                  ns.SetHideFlagAndApply("HideBlizzFoodDrink", v)
+                  self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                  if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.HideBlizzFoodDrink then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_VENDOR_FOOD .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
+                  if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.HideBlizzFoodDrink then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_VENDOR_FOOD .. " " .. L["icons"] .. " - |cff00ccff" .. L["The Blizzard settings configured by the player are restored"] ) else end end
+                end,
+              },
+            HideBlizzReagents = {
+              disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+              type = "toggle",
+              name = MINIMAP_TRACKING_VENDOR_REAGENT,
+              desc = L["Changes take effect immediately, but are only displayed correctly in the Blizzard Minimap dropdown menu after reloading the UI"] .. "\n\n" .. L["After disabling this option, the player's previous settings are restored"] .. "\n\n" .. "|cffff0000" .. L["It is recommended not to enable this option if you want this icon to appear on the minimap, as MapNotes does not display its own icon on the world map or minimap"],
+              order = 3.2,
+              width = 1,
+              get = function() return ns.Addon.db.profile.activate.HideBlizzReagents end,
+              set = function(info, v) ns.Addon.db.profile.activate.HideBlizzReagents = v 
+                  ns.SetHideFlagAndApply("HideBlizzReagents", v)
+                  self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                  if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.HideBlizzReagents then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_VENDOR_REAGENT .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
+                  if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.HideBlizzReagents then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_VENDOR_REAGENT .. " " .. L["icons"] .. " - |cff00ccff" .. L["The Blizzard settings configured by the player are restored"] ) else end end
+                end,
+              },
+            HideBlizzRepair = {
+              disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+              type = "toggle",
+              name = MINIMAP_TRACKING_REPAIR,
+              desc = L["Changes take effect immediately, but are only displayed correctly in the Blizzard Minimap dropdown menu after reloading the UI"] .. "\n\n" .. L["After disabling this option, the player's previous settings are restored"] .. "\n\n" .. "|cffff0000" .. L["It is recommended not to enable this option if you want this icon to appear on the minimap, as MapNotes does not display its own icon on the world map or minimap"],
+              order = 3.3,
+              width = 1,
+              get = function() return ns.Addon.db.profile.activate.HideBlizzRepair end,
+              set = function(info, v) ns.Addon.db.profile.activate.HideBlizzRepair = v 
+                  ns.SetHideFlagAndApply("HideBlizzRepair", v)
+                  self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes") 
+                  if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.activate.HideBlizzRepair then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_REPAIR .. " " .. L["icons"], "|cffff0000" .. L["are hidden"] ) else
+                  if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.activate.HideBlizzRepair then print(ns.COLORED_ADDON_NAME, "|cffffff00" .. SLASH_TEXTTOSPEECH_BLIZZARD .. " " .. MINIMAP_LABEL .. " " .. MINIMAP_TRACKING_REPAIR .. " " .. L["icons"] .. " - |cff00ccff" .. L["The Blizzard settings configured by the player are restored"] ) else end end
                 end,
               },
             },
@@ -421,7 +630,7 @@ ns.options = {
           type = "group",
           name = EMBLEM_SYMBOL .. " " .. OPTIONS,
           desc = "",
-          order = 2,
+          order = 3,
           args = {
             Capitalstheader1 = {
               type = "header",
@@ -495,7 +704,7 @@ ns.options = {
           type = "group",
           name = CHAT_OPTIONS_LABEL,
           desc = "",
-          order = 3,
+          order = 4,
           args = {
             Chatheader1 = {
               type = "header",
@@ -573,7 +782,7 @@ ns.options = {
           type = "group",
           name = L["Unexplored Areas"],
           desc = "",
-          order = 4,
+          order = 5,
           args = {
             Capitalstheader1 = {
               type = "header",
@@ -634,7 +843,7 @@ ns.options = {
           type = "group",
           name = L["Coordinates"],
           desc = "",
-          order = 5,
+          order = 6,
           args = {
             Coordinatesheader = {
               type = "header",
@@ -773,7 +982,7 @@ ns.options = {
           type = "group",
           name = MINIMAP_LABEL .. " +",
           desc = "",
-          order = 6,
+          order = 7,
           args = {
             AdvancedHeader3 = {
               type = "header",
@@ -844,7 +1053,7 @@ ns.options = {
           type = "group",
           name = L["Area Map"],
           desc = "",
-          order = 7,
+          order = 8,
           args = {
             AreaMapheader1 = {
               type = "header",
@@ -871,7 +1080,7 @@ ns.options = {
           type = "group",
           name = BRAWL_TOOLTIP_MAPS .. " +",
           desc = "",
-          order = 8,
+          order = 9,
           args = {
             ToggleMap = {
               disabled = function() return ns.Addon.db.profile.activate.UseInBattle or ns.Addon.db.profile.activate.HideMapNote end,
@@ -1050,7 +1259,7 @@ ns.options = {
           type = "group",
           name = FLIGHT_MAP,
           desc = "|cffff0000(in progress)|r",
-          order = 9,
+          order = 10,
           args = {
             Flightmapheader1 = {
               type = "header",
@@ -1099,7 +1308,7 @@ ns.options = {
           type = "group",
           name = L["NPC database"],
           desc = "",
-          order = 10,
+          order = 11,
           args = {
             AreaMapheader1 = {
               type = "header",
@@ -9069,33 +9278,38 @@ ns.options = {
             MNChangeLogheader1 = {
               type = "header",
               name = L["Changelog"],
-              order = 1.4,
-              },
-            MNChangeLogmid1 = {
-              type = "description",
-              name = "",
-              width = 0.30,
-              order = 1.5,
+              order = 1.1,
               },
             MNChangeLogNew = {
               type = "execute",
               name = GAME_VERSION_LABEL .. " " .. ns.CurrentAddonVersion,
               desc = L["Show MapNotes Changelog again"],
-              width = 1,
-              order = 1.6,
+              width = 0.85,
+              order = 1.2,
               func = function(info, v) self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-                ns.ShowChangelogWindowMenuNew() 
+                ns.ShowMenuChangelogWindowNew() 
                 LibStub("AceConfigDialog-3.0"):Close("MapNotes")
                 end,
               },
-            MNChangeLogOld = {
+            MNChangeLogOld_1 = {
               type = "execute",
-              name = GAME_VERSION_LABEL .. " " .. ns.PreviousAddonVersion,
+              name = GAME_VERSION_LABEL .. " " .. ns.PreviousAddonVersion_1,
               desc = L["Show MapNotes Changelog again"],
-              width = 1,
-              order = 1.7,
+              width = 0.85,
+              order = 1.3,
               func = function(info, v) self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-                ns.ShowChangelogWindowMenuOld() 
+                ns.ShowMenuChangelogWindowOld_1() 
+                LibStub("AceConfigDialog-3.0"):Close("MapNotes")
+                end,
+              },
+            MNChangeLogOld_2 = {
+              type = "execute",
+              name = GAME_VERSION_LABEL .. " " .. ns.PreviousAddonVersion_2,
+              desc = L["Show MapNotes Changelog again"],
+              width = 0.85,
+              order = 1.4,
+              func = function(info, v) self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+                ns.ShowMenuChangelogWindowOld_2() 
                 LibStub("AceConfigDialog-3.0"):Close("MapNotes")
                 end,
               },

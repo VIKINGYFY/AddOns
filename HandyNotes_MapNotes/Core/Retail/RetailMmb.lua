@@ -95,7 +95,7 @@ OnTooltipShow = function(tooltip)
       tooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["Draenor"] .. " " .. MINIMAP_LABEL .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
       tooltip:Show()
     --Broken Isles
-    elseif (PlayerMapID == 630 or PlayerMapID == 634 or PlayerMapID == 641 or PlayerMapID == 646 or PlayerMapID == 650 or PlayerMapID == 652
+    elseif (PlayerMapID == 630 or PlayerMapID == 634 or PlayerMapID == 641 or PlayerMapID == 646 or PlayerMapID == 650 or PlayerMapID == 652 or PlayerMapID == 659
       or PlayerMapID == 750 or PlayerMapID == 680 or PlayerMapID == 830 or PlayerMapID == 882 or PlayerMapID == 885 or PlayerMapID == 905
       or PlayerMapID == 941 or PlayerMapID == 790 or PlayerMapID == 971 or PlayerMapID == 715)
     then
@@ -196,7 +196,7 @@ OnTooltipShow = function(tooltip)
       tooltip:AddLine(HELPFRAME_REPORT_PLAYER_RIGHT_CLICK .. " => " .. "|cffff0000".. L["Draenor"] .. " " .. L["Zones"] .. " & " .. MINIMAP_LABEL .. "|cffffcc00" .. " " .. L["icons"] .. " " .. SHOW .. " / " .. HIDE,1,1,1)
       tooltip:Show()
     --Broken Isles
-    elseif (PlayerMapID == 630 or PlayerMapID == 634 or PlayerMapID == 641 or PlayerMapID == 646 or PlayerMapID == 650 or PlayerMapID == 652
+    elseif (PlayerMapID == 630 or PlayerMapID == 634 or PlayerMapID == 641 or PlayerMapID == 646 or PlayerMapID == 650 or PlayerMapID == 652 or PlayerMapID == 659
       or PlayerMapID == 750 or PlayerMapID == 680 or PlayerMapID == 830 or PlayerMapID == 882 or PlayerMapID == 885 or PlayerMapID == 905
       or PlayerMapID == 941 or PlayerMapID == 790 or PlayerMapID == 971 or PlayerMapID == 715 )
     then
@@ -402,7 +402,7 @@ OnClick = function(self, button)
           end
         end
       --Broken Isles
-      elseif (PlayerMapID == 630 or PlayerMapID == 634 or PlayerMapID == 641 or PlayerMapID == 646 or PlayerMapID == 650 or PlayerMapID == 652
+      elseif (PlayerMapID == 630 or PlayerMapID == 634 or PlayerMapID == 641 or PlayerMapID == 646 or PlayerMapID == 650 or PlayerMapID == 652 or PlayerMapID == 659
         or PlayerMapID == 750 or PlayerMapID == 680 or PlayerMapID == 830 or PlayerMapID == 882 or PlayerMapID == 885 or PlayerMapID == 905
         or PlayerMapID == 941 or PlayerMapID == 790 or PlayerMapID == 971 or PlayerMapID == 715)
       then
@@ -611,7 +611,7 @@ OnClick = function(self, button)
           end
         end
       --Broken Isles
-      elseif (PlayerMapID == 630 or PlayerMapID == 634 or PlayerMapID == 641 or PlayerMapID == 646 or PlayerMapID == 650 or PlayerMapID == 652
+      elseif (PlayerMapID == 630 or PlayerMapID == 634 or PlayerMapID == 641 or PlayerMapID == 646 or PlayerMapID == 650 or PlayerMapID == 652 or PlayerMapID == 659
         or PlayerMapID == 750 or PlayerMapID == 680 or PlayerMapID == 830 or PlayerMapID == 882 or PlayerMapID == 885 or PlayerMapID == 905
         or PlayerMapID == 941 or PlayerMapID == 790 or PlayerMapID == 971 or PlayerMapID == 715)
       then

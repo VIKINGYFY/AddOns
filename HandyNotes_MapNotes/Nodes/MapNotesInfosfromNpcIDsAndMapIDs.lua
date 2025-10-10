@@ -273,6 +273,14 @@ ns.RecruitM = npcTitleLine1(106442) -- Yaris Darkclow
 ns.RecruitF = npcTitleLine1(108393) -- Sister Lilith
 ns.WeaponsSupplierM = npcTitleLine1(110434) -- Kristoff
 ns.WeaponsSupplierF = npcTitleLine1(110595) -- Lilith
+ns.InnkeeperM = npcTitleLine1(98106) -- Elliot Theodric
+ns.InnkeeperF = npcTitleLine1(100746) -- Folla Strenghuf
+ns.SkinningM = npcTitleLine1(7088) -- Thuwd
+ns.CookingM = npcTitleLine1(133261) -- Feng Su
+ns.CookingF = npcTitleLine1(46709) -- Arugi
+ns.TailoringM = npcTitleLine1(3363) -- Magar
+ns.FishingM = npcTitleLine1(70398) -- Ben mit der dröhnenden Stimme
+ns.ArchaeologyM = npcTitleLine1(47571) -- Bellok Leuchtklinge
 
 
 ------------------------------------ TaxiIDs Text for Retail only

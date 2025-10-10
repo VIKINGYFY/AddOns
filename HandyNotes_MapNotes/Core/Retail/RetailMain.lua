@@ -2021,6 +2021,7 @@ function Addon:OnProfileChanged(event, database, profileKeys)
   ns.ReloadAreaMapSettings() -- RetailAreaMap.lua
   ns.UpdateMinimapArrow() -- RetailMiniMap.lua
   ns.ApplyWorldMapArrowSize() -- RetailWorldmap.lua
+  ns.EnforceActiveHides() -- RetailBlizzardMiniMapTracking.lua
 
   if ns.SetAreaMapMenuVisibility then -- RetailAreaMap.lua
     ns.SetAreaMapMenuVisibility(ns.Addon.db.profile.areaMap.showAreaMapDropDownMenu)
@@ -2054,6 +2055,7 @@ function Addon:OnProfileReset(event, database, profileKeys)
   ns.ResetAreaMapToPlayerLocation() -- RetailAreaMap.lua
   ns.UpdateMinimapArrow() -- RetailMiniMap.lua
   ns.ApplyWorldMapArrowSize() -- RetailWorldmap.lua
+  ns.EnforceActiveHides() -- RetailBlizzardMiniMapTracking.lua
 
   if ns.SetAreaMapMenuVisibility then -- RetailAreaMap.lua
     ns.SetAreaMapMenuVisibility(ns.Addon.db.profile.areaMap.showAreaMapDropDownMenu)
@@ -2084,6 +2086,7 @@ function Addon:OnProfileCopied(event, database, profileKeys)
   ns.ReloadAreaMapSettings() -- RetailAreaMap.lua
   ns.UpdateMinimapArrow() -- RetailMiniMap.lua
   ns.ApplyWorldMapArrowSize() -- RetailWorldmap.lua
+  ns.EnforceActiveHides() -- RetailBlizzardMiniMapTracking.lua
 
   if ns.SetAreaMapMenuVisibility then -- RetailAreaMap.lua
     ns.SetAreaMapMenuVisibility(ns.Addon.db.profile.areaMap.showAreaMapDropDownMenu)
@@ -2124,8 +2127,15 @@ function Addon:OnProfileDeleted(event, database, profileKeys)
 end
 
 function Addon:PLAYER_ENTERING_WORLD()
-  if (not self.faction) then
+  if not self.faction then
       self.faction = UnitFactionGroup("player")
+      self:PopulateTable()
+      self:PopulateMinimap()
+      self:ProcessTable()
+  end
+  if not self.raceFile then
+      local _, raceFile = UnitRace("player")
+      self.raceFile = raceFile
       self:PopulateTable()
       self:PopulateMinimap()
       self:ProcessTable()

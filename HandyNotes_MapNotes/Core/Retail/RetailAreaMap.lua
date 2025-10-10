@@ -908,11 +908,7 @@ function ns.EnableAreaMapRightClickUp()
 
   overlay:SetFrameStrata("BACKGROUND")
   overlay:SetFrameLevel(0)
-
   overlay:RegisterForClicks("RightButtonUp")
-  if overlay.SetPassThroughButtons then
-    overlay:SetPassThroughButtons("LeftButton", "MiddleButton")
-  end
 
   if overlay.SetMouseMotionEnabled then
     overlay:SetMouseMotionEnabled(false)

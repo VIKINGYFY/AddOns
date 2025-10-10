@@ -302,38 +302,47 @@ end
 function ns.NpcTooltips(tooltip, nodeData )
   if not nodeData then return end
 
-  local npcName, npcTitle = ns.GetNpcInfo(nodeData.npcID)
-  if nodeData.type ~= "LFR" then -- hide on "LFR" types
-    if npcName then -- single npcID
+  if nodeData.type ~= "LFR" and nodeData.npcID then
+    local npcName  = ns.GetNPCName(nodeData.npcID)
+    local npcTitle
+    if not npcName then
+      npcName, npcTitle = ns.GetNpcInfo(nodeData.npcID)
+    else
+      local tuple = ns.npcNameCache[nodeData.npcID]; npcTitle = tuple and tuple[2]
+    end
+    if npcName then
       tooltip:AddLine("|cffffffff" .. npcName)
     end
-    if npcTitle and not npcTitle:match("%?%?+") then -- if no title is present, blizzard replaces it with a dummy with "Level ??"", this suppresses the title instead of creating a dummy ad
+    if npcTitle and not npcTitle:match("%?%?+") then
       tooltip:AddLine(npcTitle)
     end
   end
 
   for i = 1, 10 do
-    local id   = nodeData["npcIDs" .. i]
-    local icon = nodeData["icon"   .. i]
+    local id = nodeData["npcIDs" .. i]
+    local icon = nodeData["icon" .. i]
     if id then
-      local npcName, npcTitle = ns.GetNpcInfo(id)
+      local npcName = ns.GetNPCName(id)
+      local npcTitle
+      if not npcName then
+        npcName, npcTitle = ns.GetNpcInfo(id) 
+      else
+        local tuple = ns.npcNameCache[id]; npcTitle = tuple and tuple[2]
+      end
+
       if icon then
-        if npcName then
-          tooltip:AddLine(npcName or "???")
-        end
+        if npcName then tooltip:AddLine(npcName) end
         if npcTitle and not npcTitle:match("%?%?+") then
           tooltip:AddLine(icon .. " " .. npcTitle)
         end
       else
-        if npcName then
-          tooltip:AddLine("|cffffffff" .. npcName)
-        end
+        if npcName then tooltip:AddLine("|cffffffff" .. npcName) end
         if npcTitle and not npcTitle:match("%?%?+") then
           tooltip:AddLine(npcTitle)
         end
       end
 
-      if i < 10 and (nodeData["npcIDs" .. (i + 1)] or nodeData.dnID) then -- add a blank line if further IDs follow (except for 10)
+      if i < 10 and (nodeData["npcIDs"..(i+1)] or nodeData.dnID) then
         tooltip:AddLine(" ")
       end
     end

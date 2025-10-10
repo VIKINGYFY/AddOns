@@ -2,6 +2,12 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "ruRU")
 if not L then return end
 
+-- blizzard minimap icons
+L["Blizzard Icons"] = "Значки Blizzard"
+L["The Blizzard settings configured by the player are restored"] = "Настройки Blizzard, заданные игроком, восстанавливаются"
+L["It is recommended not to enable this option if you want this icon to appear on the minimap, as MapNotes does not display its own icon on the world map or minimap"] = "Рекомендуется не включать эту опцию, если вы хотите, чтобы этот значок отображался на мини-карте, так как MapNotes не показывает собственный значок на карте мира или мини-карте"
+L["Changes take effect immediately, but are only displayed correctly in the Blizzard Minimap dropdown menu after reloading the UI"] = "Изменения вступают в силу сразу, но корректно отображаются в выпадающем меню мини-карты Blizzard только после перезагрузки интерфейса"
+L["After disabling this option, the player's previous settings are restored"] = "После отключения этой опции будут восстановлены предыдущие настройки игрока"
 -- toggle maps
 L["Blocked in combat"] = "Заблокировано в бою"
 L["Required for"] = "Требуется для"

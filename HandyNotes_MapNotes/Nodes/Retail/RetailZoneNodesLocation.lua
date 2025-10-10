@@ -359,66 +359,57 @@ ns._currentSourceFile = "RetailZoneNodesLocation.lua"
         if self.db.profile.activate.ZoneProfessions then
 
           if self.db.profile.showZoneAlchemy then
-            nodes[422][55623530] = { name = L["Alchemy"], type = "Alchemy", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[422][55623530] = { npcID = 65186, name = "", type = "Alchemy", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
       
           if self.db.profile.showZoneLeatherworking then
-            nodes[379][64606090] = { name = L["Leatherworking"], type = "Leatherworking", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[379][64606090] = { npcID = 65121, name = "", type = "Leatherworking", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneEngineer then
-            nodes[376][16068313] = { name = L["Engineer"], type = "Engineer", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[376][16068313] = { npcID = 55143, name = "", type = "Engineer", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneSkinning then
-            nodes[376][15925308] = { name = L["Skinning"], type = "Skinning", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[376][15948311] = { npcID = 63825, name = "", dnID = ns.SkinningM, type = "Skinning", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneTailoring then
-            nodes[376][59706266] = { name = L["Tailoring"], type = "Tailoring", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[376][62685975] = { npcID = 57405, name = "", dnID = ns.TailoringM, type = "Tailoring", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneBlacksmith then
-            nodes[390][21827237] = { name = L["Blacksmithing"], type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[390][21827237] = { npcID = 65129, name = "", type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneMining then
-            nodes[371][46062940] = { name = L["Mining"], type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[371][46062940] = { npcID = 65092, name = "", type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneFishing then
-            nodes[418][68474349] = { name = PROFESSIONS_FISHING, type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false }
-            nodes[376][58904700] = { name = PROFESSIONS_FISHING, type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[418][68474349] = { npcID = 63721, name = "", dnID = ns.FishingM, type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[376][58904700] = { npcID = 70398, name = "", type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneCooking then
-            nodes[371][46304520] = { name = PROFESSIONS_COOKING, type = "Cooking", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[371][46274547] = { npcID = 56707, name = "", dnID = ns.CookingM, type = "Cooking", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneArchaeology then
-              nodes[390][83563122] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              nodes[390][83593103] = { npcID = 64922, name = "", type = "Archaeology", showInZone = true, showOnContinent = false, showOnMinimap = false }
 
             if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
-              nodes[390][21101500] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showInZone = true, showOnContinent = false, showOnMinimap = false }
-              --nodes[379][57207860] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showInZone = true, showOnContinent = false, showOnMinimap = false }
-              nodes[504][33503380] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              nodes[504][33873361] = { npcID = 67586, name = "", type = "Archaeology", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
-          end
-
-          if self.db.profile.showZoneHerbalism then            
-            if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
-              nodes[371][46806060] = { name = L["Herbalism"], type = "Herbalism", wwwName = LFG_LIST_REQUIRE .. " " .. STORY_PROGRESS, questID = 29824, showWWW = true, wwwLink = "wowhead.com/quest=29824", showInZone = true, showOnContinent = false, showOnMinimap = false }
-            end
-
           end
 
           if self.db.profile.showZoneEnchanting then
-              nodes[371][46824287] = { name = L["Enchanting"], type = "Enchanting", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              nodes[371][46854294] = { npcID = 65127, name = "", type = "Enchanting", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneInscription then
-            nodes[390][81902863] = { name = INSCRIPTION, type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false }
-            nodes[371][55004500] = { name = INSCRIPTION, type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[390][81902930] = { npcID = 64691, name = "", type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            nodes[371][55004500] = { npcID = 56065, name = "", dnID = ERR_USE_OBJECT_MOVING, type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           -- not mixed
@@ -426,73 +417,56 @@ ns._currentSourceFile = "RetailZoneNodesLocation.lua"
 
             if self.db.profile.showZoneSkinning then
 
-              if self.faction == "Horde" then
-                nodes[371][27791536] = { name = L["Skinning"], type = "Skinning", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
+                nodes[371][27791536] = { npcID = 66981, name = "", type = "Skinning", showInZone = true, showOnContinent = false, showOnMinimap = false }
               end
 
-              if self.faction == "Alliance" then
-                nodes[371][44848553] = { name = L["Skinning"], type = "Skinning", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
+                nodes[371][44848553] = { npcID = 67026, name = "", type = "Skinning", showInZone = true, showOnContinent = false, showOnMinimap = false }
               end
 
             end
 
             if self.db.profile.showZoneInscription then
-              nodes[371][47603500] = { name = INSCRIPTION, type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false }
-              nodes[379][50604230] = { name = INSCRIPTION, type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              nodes[371][47683511] = { npcID = 62327, name = "", type = "Inscription", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneCooking then
-              nodes[376][52675166] = { name = PROFESSIONS_COOKING, type = "Cooking", showInZone = true, showOnContinent = false, showOnMinimap = false }
-              --nodes[379][50604180] = { name = PROFESSIONS_COOKING, type = "Cooking", showInZone = true, showOnContinent = false, showOnMinimap = false }
-            end
-
-            if self.db.profile.showZoneLeatherworking then
-              --nodes[379][50604200] = { name = L["Leatherworking"], type = "Leatherworking", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              nodes[376][52675166] = { npcID = 58715, name = "", dnID = ns.CookingM, type = "Cooking", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneHerbalism then
-              nodes[376][53715129] = { name = L["Herbalism"], type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false }
-              --nodes[379][50604230] = { name = L["Herbalism"], type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              nodes[376][53715129] = { npcID = 65877, name = "", type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneJewelcrafting then
-              nodes[371][48073494] = { name = L["Jewelcrafting"], type = "Jewelcrafting", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              nodes[371][48073494] = { npcID = 65098, name = "", type = "Jewelcrafting", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneBlacksmith then
-              --nodes[379][48604460] = { name = L["Blacksmithing"], type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false }
-              nodes[371][48403690] = { name = L["Blacksmithing"], type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              nodes[371][48403690] = { npcID = 65114, name = "", type = "Blacksmith", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneMining then
-              --nodes[379][48604460] = { name = L["Mining"], type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false }
   
-              if self.faction == "Horde" then
-                nodes[371][27801480] = { name = L["Mining"], type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
+                nodes[371][27801480] = { npcID = 66979, name = "", type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false }
               end
 
-              if self.faction == "Alliance" then
-                nodes[371][45108590] = { name = L["Mining"], type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
+                nodes[371][45108590] = { npcID = 67024, name = "", type = "Mining", showInZone = true, showOnContinent = false, showOnMinimap = false }
               end
 
-            end
-
-            if self.db.profile.showZoneMining or self.db.profile.showZoneBlacksmith then
-              --nodes[379][48604460] = { dnID = FACTION_NEUTRAL .. " " .. MINIMAP_TRACKING_TRAINER_PROFESSION .. "\n" .. "\n" .. TextIconBlacksmith:GetIconString() .. " " .. L["Blacksmithing"] .. "\n" .. TextIconMining:GetIconString() .. " " .. L["Mining"], name = "", type = "ProfessionsMixed", showInZone = true, showOnContinent = false, showOnMinimap = false }
-            end
-
-            if self.db.profile.showZoneFishing then
-              --nodes[379][51004020] = { name = PROFESSIONS_FISHING, type = "Fishing", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneHerbalism then
                 
-              if self.faction == "Horde" then
-                nodes[371][27801563] = { name = L["Herbalism"], type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
+                nodes[371][27801563] = { npcID = 66980, name = "", type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false }
               end
 
-              if self.faction == "Alliance" then
-                nodes[371][45608600] = { name = L["Herbalism"], type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false }
+              if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
+                nodes[371][45608600] = { npcID = 67025, name = "", type = "Herbalism", showInZone = true, showOnContinent = false, showOnMinimap = false }
               end
 
             end
@@ -500,16 +474,14 @@ ns._currentSourceFile = "RetailZoneNodesLocation.lua"
           end
 
           if self.db.profile.ZoneProfessionsMixed then
-            --nodes[379][48604460] = { dnID = FACTION_NEUTRAL .. " " .. MINIMAP_TRACKING_TRAINER_PROFESSION .. "\n" .. "\n" .. TextIconBlacksmith:GetIconString() .. " " .. L["Blacksmithing"] .. "\n" .. TextIconMining:GetIconString() .. " " .. L["Mining"], name = "", type = "ProfessionsMixed", showInZone = true, showOnContinent = false, showOnMinimap = false }
-            --nodes[379][50604230] = { dnID = FACTION_NEUTRAL .. " " .. MINIMAP_TRACKING_TRAINER_PROFESSION .. "\n" .. "\n" .. TextIconInscription:GetIconString() .. " " .. INSCRIPTION .. "\n" .. TextIconHerbalism:GetIconString() .. " " .. L["Herbalism"] .. "\n" .. TextIconLeatherworking:GetIconString() .. " " .. L["Leatherworking"] .. "\n" .. TextIconCooking:GetIconString() .. " " .. PROFESSIONS_COOKING .. "\n" .. TextIconFishing:GetIconString() .. " " .. PROFESSIONS_FISHING, name = "", type = "ProfessionsMixed", showInZone = true, showOnContinent = false, showOnMinimap = false }
             nodes[371][48083510] = { dnID = FACTION_NEUTRAL .. " " .. MINIMAP_TRACKING_TRAINER_PROFESSION .. "\n" .. "\n" .. TextIconInscription:GetIconString() .. " " .. INSCRIPTION .. "\n" .. TextIconJewelcrafting:GetIconString() .. " " .. L["Jewelcrafting"] .. "\n" .. TextIconBlacksmith:GetIconString() .. " " .. L["Blacksmithing"], name = "", type = "ProfessionsMixed", showInZone = true, showOnContinent = false, showOnMinimap = false }
             nodes[376][52675166] = { dnID = FACTION_NEUTRAL .. " " .. MINIMAP_TRACKING_TRAINER_PROFESSION .. "\n" .. "\n" .. TextIconHerbalism:GetIconString() .. " " .. L["Herbalism"] .. "\n" .. TextIconCooking:GetIconString() .. " " .. PROFESSIONS_COOKING, name = "", type = "ProfessionsMixed", showInZone = true, showOnContinent = false, showOnMinimap = false }
 
-            if self.faction == "Horde" then
+            if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
               nodes[371][27071522] = { dnID = ITEM_REQ_HORDE .. "\n" .. "\n" .. TextIconHerbalism:GetIconString() .. " " .. L["Herbalism"] .. "\n" .. TextIconMining:GetIconString() .. " " .. L["Mining"] .. "\n" .. TextIconSkinning:GetIconString() .. " " .. L["Skinning"], name = "", type = "ProfessionsMixed", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
-            if self.faction == "Alliance" then
+            if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
               nodes[371][44748643] = { dnID = ITEM_REQ_ALLIANCE .. "\n" .. "\n" .. TextIconHerbalism:GetIconString() .. " " .. L["Herbalism"] .. "\n" .. TextIconMining:GetIconString() .. " " .. L["Mining"] .. "\n" .. TextIconSkinning:GetIconString() .. " " .. L["Skinning"], name = "", type = "ProfessionsMixed", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
@@ -963,10 +935,6 @@ ns._currentSourceFile = "RetailZoneNodesLocation.lua"
           if self.db.profile.showZoneJewelcrafting then
             nodes[2216][47751925] = { npcID = 218180, name = "", type = "Jewelcrafting", showInZone = true, showOnContinent = false, showOnMinimap = false }
             nodes[2213][47751925] = { npcID = 218180, name = "", type = "Jewelcrafting", showInZone = true, showOnContinent = false, showOnMinimap = false }
-          end
-
-          if self.db.profile.showZoneArchaeology then
-            nodes[390][83563122] = { name = PROFESSIONS_ARCHAEOLOGY, type = "Archaeology", showInZone = true, showOnContinent = false, showOnMinimap = false }
           end
 
           if self.db.profile.showZoneHerbalism then            
