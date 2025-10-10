@@ -51,6 +51,7 @@ local L = {
     ["QuickActionBarUI.SettingsNoActionSaveError"] = "Keine Aktion zum Speichern vorhanden.",
     ["QuickActionBarUI.SettingsEditorAction"] = "Aktion %s",
     ["QuickActionBarUI.SettingsGeneralActionSaveError"] = "Fehler beim Speichern der Aktion: %s",
+    ["QuickActionBarUI.CombatToggleError"] = "Die Schnellleiste kann im Kampf nicht geöffnet oder geschlossen werden.",
 
     -- UI/ScrappingUI.lua
     ["ScrappingUI.MaxScrappingQuality"] = "Maximale Qualität zum Verschrotten",

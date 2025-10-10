@@ -51,6 +51,7 @@ local L = {
     ["QuickActionBarUI.SettingsNoActionSaveError"] = "No action to save.",
     ["QuickActionBarUI.SettingsEditorAction"] = "Action %s",
     ["QuickActionBarUI.SettingsGeneralActionSaveError"] = "Got an error while saving action: %s",
+    ["QuickActionBarUI.CombatToggleError"] = "The Quick Action Bar cannot be opened or closed in combat.",
 
     -- UI/ScrappingUI.lua
     ["ScrappingUI.MaxScrappingQuality"] = "Max Scrapping Quality",

@@ -108,7 +108,7 @@ function artifactTraitsTabUI:CreateTabUI()
                             { "TOP", specs[index].sample, "BOTTOM", 0, (10 + (45 * (traitIndex - 1))) * -1 - 10 },
                         },
                         show_tooltip = true,
-                        frame_strata = "FULLSCREEN_DIALOG"
+                        frame_strata = "HIGH"
                     })
                     local spell = Spell:CreateFromSpellID(spellID)
                     spell:ContinueOnSpellLoad(function()

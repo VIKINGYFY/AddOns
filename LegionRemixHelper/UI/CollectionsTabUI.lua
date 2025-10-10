@@ -39,25 +39,17 @@ function collectionsTabUI:SetupTab()
     collectionsTab:SetText(self.L["CollectionsTabUI.TabTitle"])
     collectionsTab:SetPoint("LEFT", CollectionsJournal.WarbandScenesTab, "RIGHT", 5, 0)
     PanelTemplates_TabResize(collectionsTab)
-    CollectionsJournal.numTabs = CollectionsJournal.numTabs + 1
 
     function collectionsTab:GetTextYOffset(isSelected)
         return isSelected and -3 or 2
     end
 
     function collectionsTab:SetTabSelected(isSelected)
-        self.Left:SetShown(not isSelected)
-        self.Middle:SetShown(not isSelected)
-        self.Right:SetShown(not isSelected)
-        self.LeftActive:SetShown(isSelected)
-        self.MiddleActive:SetShown(isSelected)
-        self.RightActive:SetShown(isSelected)
-
-        local selectedFontObject = GameFontHighlightSmall
-        local unselectedFontObject = GameFontNormalSmall
-        self:SetNormalFontObject(isSelected and selectedFontObject or unselectedFontObject)
-
-        self.Text:SetPoint("CENTER", self, "CENTER", 0, self:GetTextYOffset(isSelected))
+        if isSelected then
+            PanelTemplates_SelectTab(collectionsTab)
+        else
+            PanelTemplates_DeselectTab(collectionsTab)
+        end
     end
 
     local content = CreateFrame("Frame", nil, CollectionsJournal, "CollectionsBackgroundTemplate")

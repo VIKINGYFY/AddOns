@@ -8,7 +8,9 @@ local itemOpenerUtils = {
     ---@type table<any, string>
     L = nil,
     ---@type ItemUtils
-    itemUtils = nil
+    itemUtils = nil,
+    ---@type LegionRH
+    addon = nil
 }
 Private.ItemOpenerUtils = itemOpenerUtils
 
@@ -36,16 +38,24 @@ function itemOpenerUtils:CreateSettings()
     end
 end
 
+---@param itemID number
+---@return boolean isEnabled
+function itemOpenerUtils:IsOpenItemEnabled(itemID)
+    local db = self.addon:GetDatabaseValue("itemOpener.items."..itemID, true)
+    return db and true or false
+end
+
 ---@param itemLoc ItemLocationMixin
 ---@return boolean isAutoItem
 function itemOpenerUtils:IsAutoItem(itemLoc)
     for _, itemEntry in ipairs(const.ITEM_OPENER.ITEMS) do
         if itemLoc and itemLoc:IsValid() then
             local itemID = C_Item.GetItemID(itemLoc)
-            if itemID == itemEntry.ITEM_ID then
+            local isEnabled = self:IsOpenItemEnabled(itemEntry.ITEM_ID)
+            if itemID == itemEntry.ITEM_ID and isEnabled then
                 return true
             end
-            if itemEntry.ITEM_NAME then
+            if itemEntry.ITEM_NAME and isEnabled then
                 local itemName = C_Item.GetItemName(itemLoc)
                 if itemName == itemEntry.ITEM_NAME then
                     return true
@@ -60,6 +70,17 @@ function itemOpenerUtils:OpenBagItems()
     if not Private.Addon:GetDatabaseValue("itemOpener.autoItemOpen", true) then
         return
     end
+    if InCombatLockdown() then
+        local callback = self.addon:GetEventCallback("PLAYER_REGEN_ENABLED", "ItemOpenerUtils_OnPlayerRegenEnabled")
+        if callback then
+            return
+        end
+        self.addon:RegisterEvent("PLAYER_REGEN_ENABLED", "ItemOpenerUtils_OnPlayerRegenEnabled", function()
+            self.addon:UnregisterEventCallback("PLAYER_REGEN_ENABLED", "ItemOpenerUtils_OnPlayerRegenEnabled")
+            self:OpenBagItems()
+        end)
+        return
+    end
     for itemLoc in self.itemUtils:ForEachBagItem() do
         if self:IsAutoItem(itemLoc) then
             C_Container.UseContainerItem(itemLoc:GetBagAndSlot())
@@ -70,11 +91,12 @@ end
 function itemOpenerUtils:Init()
     self.L = Private.L
     local addon = Private.Addon
+    self.addon = addon
     self.itemUtils = Private.ItemUtils
 
     addon:RegisterEvent("BAG_UPDATE_DELAYED", "ItemOpenerUtils_OnBagUpdateDelayed", function()
-        self:OpenBagItems()
+        RunNextFrame(function()
+            self:OpenBagItems()
+        end)
     end)
 end
-
-rasuL = itemOpenerUtils

@@ -51,10 +51,11 @@ local L = {
     ["QuickActionBarUI.SettingsNoActionSaveError"] = "没有可保存的动作栏。",
     ["QuickActionBarUI.SettingsEditorAction"] = "动作栏 %s",
     ["QuickActionBarUI.SettingsGeneralActionSaveError"] = "保存动作栏时出错：%s",
+    ["QuickActionBarUI.CombatToggleError"] = "The Quick Action Bar cannot be opened or closed in combat.",
 
     -- UI/ScrappingUI.lua
     ["ScrappingUI.MaxScrappingQuality"] = "最大拆解品质",
-    ["ScrappingUI.MinItemLevelDifference"] = "最低物品等级差",
+    ["ScrappingUI.MinItemLevelDifference"] = "最低物品等级",
     ["ScrappingUI.MinItemLevelDifferenceInstructions"] = "比装备低 x 级",
     ["ScrappingUI.AutoScrap"] = "自动拆解",
 
@@ -63,10 +64,10 @@ local L = {
     ["ArtifactTraitUtils.UnknownTrait"] = "未知专长",
     ["ArtifactTraitUtils.JewelryFormat"] = "|T%s:16|t %s （+%d）",
     ["ArtifactTraitUtils.MaxTriesReached"] = "购买节点时达到最大尝试次数。",
-    ["ArtifactTraitUtils.SettingsCategoryPrefix"] = "Artifact Traits",
-    ["ArtifactTraitUtils.SettingsCategoryTooltip"] = "Settings for the Artifact Traits feature",
-    ["ArtifactTraitUtils.AutoBuy"] = "Automatic Node Purchase",
-    ["ArtifactTraitUtils.AutoBuyTooltip"] = "Automatically purchases the preset talents when you have enough Artifact Power.",
+    ["ArtifactTraitUtils.SettingsCategoryPrefix"] = "神器特质",
+    ["ArtifactTraitUtils.SettingsCategoryTooltip"] = "神器特质功能相关设置",
+    ["ArtifactTraitUtils.AutoBuy"] = "自动学习节点",
+    ["ArtifactTraitUtils.AutoBuyTooltip"] = "当拥有足够神器能量时，自动学习预设好的天赋。",
 
     -- Utils/CollectionUtils.lua
     ["CollectionUtils.Sources"] = "来源：",
@@ -77,10 +78,10 @@ local L = {
 
     -- Utils/ItemOpenerUtils.lua
     ["ItemOpenerUtils.SettingsCategoryPrefix"] = "自动开启物品",
-    ["ItemOpenerUtils.SettingsCategoryTooltip"] = "自动开启物品功能设置",
+    ["ItemOpenerUtils.SettingsCategoryTooltip"] = "自动开启物品设置选项",
     ["ItemOpenerUtils.AutoItemOpen"] = "自动开启物品",
     ["ItemOpenerUtils.AutoItemOpenTooltip"] = "获得特定物品时自动开启背包中的物品。（此功能仍在开发中）",
-    ["ItemOpenerUtils.AutoOpenItemEntryTooltip"] = "Automatically opens %s when found in your inventory.",
+    ["ItemOpenerUtils.AutoOpenItemEntryTooltip"] = "在背包中发现%s时自动开启。",
 
     -- Utils/QuestUtils.lua
     ["QuestUtils.SettingsCategoryPrefix"] = "自动任务",
@@ -117,7 +118,7 @@ local L = {
     ["ToastUtils.TestToastTitle"] = "测试提示通知",
     ["ToastUtils.TestToastDescription"] = "这是一个测试提示通知。",
     ["ToastUtils.TypeBronzeTitle"] = "新的青铜币进度！",
-    ["ToastUtils.TypeBronzeDescription"] = "你的青铜币达到 %d！(%.2f%% 达到上限)",
+    ["ToastUtils.TypeBronzeDescription"] = "你的青铜币达到 %d！（%.2f%% 达到上限）",
     ["ToastUtils.TypeArtifactTitle"] = "新的神器升级！",
     ["ToastUtils.TypeArtifactDescription"] = "你找到了一个新的神器升级！请检查你的背包或快捷动作栏。",
     ["ToastUtils.TypeUpgradeTitle"] = "新的物品升级！",
@@ -144,7 +145,7 @@ local L = {
     ["UpdateUtils.NilVersion"] = "N/A",
 
     -- Utils/UXUtils.lua
-    ["UXUtils.SettingsCategoryPrefix"] = "General Settings",
-    ["UXUtils.SettingsCategoryTooltip"] = "General Addon Settings",
+    ["UXUtils.SettingsCategoryPrefix"] = "通用设置",
+    ["UXUtils.SettingsCategoryTooltip"] = "插件通用设置",
 }
 locales["zhCN"] = L

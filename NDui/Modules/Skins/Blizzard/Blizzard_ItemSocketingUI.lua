@@ -24,24 +24,22 @@ C.OnLoadThemes["Blizzard_ItemSocketingUI"] = function()
 		Fiber = {r=0.9, g=0.8, b=0.5},
 	}
 
-	local SocketingContainer = ItemSocketingFrame.SocketingContainer
-	for _, socket in ipairs(SocketingContainer.SocketFrames) do
-		local shine = socket.Shine
-
+	local socketingContainer = ItemSocketingFrame.SocketingContainer
+	for _, socket in ipairs(socketingContainer.SocketFrames) do
 		B.StripTextures(socket)
 		socket:SetPushedTexture(0)
 		socket:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 		socket.Icon:SetTexCoord(unpack(DB.TexCoord))
 		socket.bg = B.ReskinIcon(socket.Icon)
 
-		shine:ClearAllPoints()
-		shine:SetOutside()
+		socket.Shine:ClearAllPoints()
+		socket.Shine:SetOutside()
 		socket.BracketFrame:Hide()
 		socket.Background:SetAlpha(0)
 	end
 
 	hooksecurefunc("ItemSocketingFrame_Update", function()
-		for i, socket in ipairs(SocketingContainer.SocketFrames) do
+		for i, socket in ipairs(socketingContainer.SocketFrames) do
 			if not socket:IsShown() then break end
 
 			local color = GemTypeInfo[C_ItemSocketInfo.GetSocketTypes(i)] or GemTypeInfo.Cogwheel
@@ -54,6 +52,6 @@ C.OnLoadThemes["Blizzard_ItemSocketingUI"] = function()
 	B.ReskinFrame(ItemSocketingFrame)
 	ItemSocketingFrame.BackgroundColor:SetAlpha(0)
 	B.CreateBDFrame(ItemSocketingScrollFrame, .25)
-	B.ReskinButton(SocketingContainer.ApplySocketsButton)
+	B.ReskinButton(socketingContainer.ApplySocketsButton)
 	B.ReskinScroll(ItemSocketingScrollFrame.ScrollBar)
 end

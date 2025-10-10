@@ -2,7 +2,7 @@
 ---@field RegisteredAddons table<string, RasuAddonBase>
 ---@field CreateAddon fun(self:RasuAddon, name:string, db:string|table|?, defaultDB:table|?, loc:table|?, defaultLoc:string|?, ignoreError:boolean|?) : RasuAddonBase
 ---@field GetAddon fun(self:RasuAddon, name:string) : RasuAddonBase|?
-local lib = LibStub:NewLibrary("RasuAddon", 51)
+local lib = LibStub:NewLibrary("RasuAddon", 52)
 
 if not lib then
     return
@@ -130,6 +130,7 @@ end
 function AddonBase:UnregisterEventCallback(event, name)
     if self:GetEventCallback(event, name) then
         wipe(self.EventCallbacks[event][name])
+        self.EventCallbacks[event][name] = nil
     end
 end
 
