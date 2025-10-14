@@ -4,6 +4,9 @@ local Private = select(2, ...)
 local locales = Private.Locales or {}
 Private.Locales = locales
 local L = {
+    -- UI/Components/Dropdown.lua
+    ["Components.Dropdown.SelectOption"] = "Select an option",
+
     -- UI/Tabs/ArtifactTraitsTabUI.lua
     ["Tabs.ArtifactTraitsTabUI.AutoActivateForSpec"] = "Auto-Activate for Spec",
     ["Tabs.ArtifactTraitsTabUI.NoArtifactEquipped"] = "No Artifact Equipped",
@@ -19,6 +22,8 @@ local L = {
     ["Tabs.CollectionTabUI.FilterSources"] = "Sources",
     ["Tabs.CollectionTabUI.FilterCheckAll"] = "Check All",
     ["Tabs.CollectionTabUI.FilterUncheckAll"] = "Uncheck All",
+    ["Tabs.CollectionTabUI.FilterRaidVariants"] = "Show Raid Variants",
+    ["Tabs.CollectionTabUI.FilterUnique"] = "Only Remix-Specific Items",
     ["Tabs.CollectionTabUI.Type"] = "Type",
     ["Tabs.CollectionTabUI.Source"] = "Source",
     ["Tabs.CollectionTabUI.SearchInstructions"] = "Search",
@@ -62,6 +67,11 @@ local L = {
     -- Utils/ArtifactTraitUtils.lua
     ["ArtifactTraitUtils.NoItemEquipped"] = "No Item Equipped.",
     ["ArtifactTraitUtils.UnknownTrait"] = "Unknown Trait",
+    ["ArtifactTraitUtils.ColumnNature"] = "Nature",
+    ["ArtifactTraitUtils.ColumnFel"] = "Fel",
+    ["ArtifactTraitUtils.ColumnArcane"] = "Arcane",
+    ["ArtifactTraitUtils.ColumnStorm"] = "Storm",
+    ["ArtifactTraitUtils.ColumnHoly"] = "Holy",
     ["ArtifactTraitUtils.JewelryFormat"] = "|T%s:16|t %s (+%d)",
     ["ArtifactTraitUtils.MaxTriesReached"] = "Max tries reached when purchasing nodes.",
     ["ArtifactTraitUtils.SettingsCategoryPrefix"] = "Artifact Traits",
@@ -76,12 +86,36 @@ local L = {
     ["CollectionUtils.UnknownVendor"] = "Unknown Vendor",
     ["CollectionUtils.Vendor"] = "Vendor, ",
 
+    -- Utils/CommandUtils.lua
+    ["CommandUtils.UnknownCommand"] =
+[[Unknown Command!
+Usage: /LRH or /LegionRH <subCommand>
+Subcommands:
+    collections (c) - Open the Collections tab.
+    settings (s) - Open the settings menu.
+Example: /LRH s]],
+    ["CommandUtils.CollectionsCommand"] = "collections",
+    ["CommandUtils.CollectionsCommandShort"] = "c",
+    ["CommandUtils.SettingsCommand"] = "settings",
+    ["CommandUtils.SettingsCommandShort"] = "s",
+
+    -- Utils/EditModeUtils.lua
+    ["EditModeUtils.ShowAddonSystems"] = "Legion-Remix-Helper-Systems",
+    ["EditModeUtils.SystemLabel.ToastUI"] = "Toasts",
+    ["EditModeUtils.SystemTooltip.ToastUI"] = "Move the position of the toasts.",
+
     -- Utils/ItemOpenerUtils.lua
     ["ItemOpenerUtils.SettingsCategoryPrefix"] = "Auto-Item-Opener",
     ["ItemOpenerUtils.SettingsCategoryTooltip"] = "Settings for the Auto-Item-Opener feature",
     ["ItemOpenerUtils.AutoItemOpen"] = "Automatically Open Items",
     ["ItemOpenerUtils.AutoItemOpenTooltip"] = "Automatically opens certain items in your inventory when found. (This feature is still in development)",
     ["ItemOpenerUtils.AutoOpenItemEntryTooltip"] = "Automatically opens %s when found in your inventory.",
+
+    -- Utils/MerchantUtils.lua
+    ["MerchantUtils.SettingsCategoryPrefix"] = "Merchant Settings",
+    ["MerchantUtils.SettingsCategoryTooltip"] = "Settings for the Merchant feature",
+    ["MerchantUtils.HideCollectedMerchantItems"] = "Hide Collected Merchant Items",
+    ["MerchantUtils.HideCollectedMerchantItemsTooltip"] = "Hides items in the merchant window that you already have in your collection.",
 
     -- Utils/QuestUtils.lua
     ["QuestUtils.SettingsCategoryPrefix"] = "Auto-Quest",
@@ -90,6 +124,10 @@ local L = {
     ["QuestUtils.AutoTurnInTooltip"] = "Automatically turn in quests when interacting with NPCs.",
     ["QuestUtils.AutoAccept"] = "Auto Accept",
     ["QuestUtils.AutoAcceptTooltip"] = "Automatically accept quests when interacting with NPCs.",
+    ["QuestUtils.IgnoreEternus"] = "Ignore Eternus",
+    ["QuestUtils.IgnoreEternusTooltip"] = "Ignore quests that come from Eternus.",
+    ["QuestUtils.SuppressShift"] = "Suppress with Shift",
+    ["QuestUtils.SuppressShiftTooltip"] = "Hold Shift to suppress automatic quest acceptance/turn-in.",
 
     -- Utils/QuickActionBarUtils.lua
     ["QuickActionBarUtils.SettingsCategoryPrefix"] = "Quick Action Bar",

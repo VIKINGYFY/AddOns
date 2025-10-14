@@ -54,9 +54,9 @@ function StatsMonitor:UpdateValues()
 
 		bar.stat = stat
 
-		local r,g,b = B.SmoothColor(stat, bar.limit)
+		local r, g, b = B.SmoothColor(stat, bar.limit)
 		bar:SetValue(stat)
-		bar:SetStatusBarColor(r,g,b)
+		bar:SetStatusBarColor(r, g, b)
 		bar.value:SetText(bar.numb and B.Numb(stat) or B.Perc(stat))
 		--bar.title:SetTextColor(r, g, b)
 		--bar.value:SetTextColor(r, g, b)

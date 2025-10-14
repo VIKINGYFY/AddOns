@@ -16,5 +16,8 @@
     <script file="ArtifactTraitUtils.lua" />
     <script file="CollectionUtils.lua" />
     <script file="UpdateUtils.lua" />
+    <script file="MerchantUtils.lua" />
     <script file="UXUtils.lua" />
+    <script file="CommandUtils.lua" />
+    <script file="EditModeUtils.lua" />
 </Ui>

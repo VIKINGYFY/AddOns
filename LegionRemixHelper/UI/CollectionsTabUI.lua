@@ -23,12 +23,16 @@ function collectionsTabUI:Init()
     local addon = Private.Addon
     self.L = Private.L
 
-    addon:RegisterEvent("ADDON_LOADED", "collectionsTabUI_AddonLoaded", function(_, _, loadedAddonName)
-        if loadedAddonName == "Blizzard_Collections" then
-            addon:UnregisterEventCallback("ADDON_LOADED", "collectionsTabUI_AddonLoaded")
-            self:SetupTab()
-        end
-    end)
+    if C_AddOns.IsAddOnLoaded("Blizzard_Collections") then
+        self:SetupTab()
+    else
+        addon:RegisterEvent("ADDON_LOADED", "collectionsTabUI_AddonLoaded", function(_, _, loadedAddonName)
+            if loadedAddonName == "Blizzard_Collections" then
+                addon:UnregisterEventCallback("ADDON_LOADED", "collectionsTabUI_AddonLoaded")
+                self:SetupTab()
+            end
+        end)
+    end
 end
 
 function collectionsTabUI:SetupTab()

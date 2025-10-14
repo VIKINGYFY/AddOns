@@ -55,27 +55,27 @@ constants.REMIX_ARTIFACT_TRAITS = {
     CURRENCY_ID = 3268,
     ROWS = {
         NATURE_ROW = {
-            NAME = "Nature",
+            NAME_KEY = "ArtifactTraitUtils.ColumnNature",
             ID = 1,
             ROOT_NODE_ID = 108114, -- Call of the Forest
         },
         FEL_ROW = {
-            NAME = "Fel",
+            NAME_KEY = "ArtifactTraitUtils.ColumnFel",
             ID = 2,
             ROOT_NODE_ID = 108113, -- Twisted Crusade
         },
         ARCANE_ROW = {
-            NAME = "Arcane",
+            NAME_KEY = "ArtifactTraitUtils.ColumnArcane",
             ID = 3,
             ROOT_NODE_ID = 108111, -- Naran's Everdisc
         },
         STORM_ROW = {
-            NAME = "Storm",
+            NAME_KEY = "ArtifactTraitUtils.ColumnStorm",
             ID = 4,
             ROOT_NODE_ID = 108112, -- Tempest Wrath
         },
         HOLY_ROW = {
-            NAME = "Holy",
+            NAME_KEY = "ArtifactTraitUtils.ColumnHoly",
             ID = 5,
             ROOT_NODE_ID = 108875, -- Vindicator's Judgment
         },
@@ -174,7 +174,7 @@ constants.NPC = {
         }
     },
     LFR_APPAREL = {
-        NAME = "Aeonicus",
+        NAME = "Aeonicus (doesn't sell anymore)",
         ID = 241145,
         LOCATION = {
             MAP_ID = constants.REMIX_HUB_MAP_ID,
@@ -183,7 +183,7 @@ constants.NPC = {
         }
     },
     NORMAL_APPAREL = {
-        NAME = "Durus",
+        NAME = "Durus (doesn't sell anymore)",
         ID = 241143,
         LOCATION = {
             MAP_ID = constants.REMIX_HUB_MAP_ID,
@@ -192,7 +192,7 @@ constants.NPC = {
         }
     },
     HEROIC_APPAREL = {
-        NAME = "Sacerdormu",
+        NAME = "Sacerdormu (doesn't sell anymore)",
         ID = 246028,
         LOCATION = {
             MAP_ID = constants.REMIX_HUB_MAP_ID,
@@ -306,6 +306,7 @@ constants.COLLECTIONS = {
             HORNS_OF_THE_FIRST_SATYR = 2,
             EVERFLAME_OF_HATRED = 3,
             COSMIC_SOULSILVER = 4,
+            FELWARPED_SLAB = 5,
         },
     },
     DRUID_FORM_BY_ID = { -- Links the Item ID to the Quest ID that unlocks the form
@@ -328,6 +329,9 @@ do
         },
         [enums.PRICE_TYPE.COSMIC_SOULSILVER] = {
             ITEM_ID = 253304,
+        },
+        [enums.PRICE_TYPE.FELWARPED_SLAB] = {
+            ITEM_ID = 253305,
         },
     }
 
@@ -362,6 +366,7 @@ do
             REWARD_TYPE = enums.REWARD_TYPE.TITLE,
             SOURCE_ID = 60935,
             SOURCE_TYPE = enums.SOURCE_TYPE.ACHIEVEMENT,
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- %s of the Infinite Chaos
@@ -369,6 +374,7 @@ do
             REWARD_TYPE = enums.REWARD_TYPE.TITLE,
             SOURCE_ID = 61079,
             SOURCE_TYPE = enums.SOURCE_TYPE.ACHIEVEMENT,
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- %s the Infernal
@@ -376,6 +382,7 @@ do
             REWARD_TYPE = enums.REWARD_TYPE.TITLE,
             SOURCE_ID = 42691,
             SOURCE_TYPE = enums.SOURCE_TYPE.ACHIEVEMENT,
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Sargerei Commander's Felscorned Regalia
@@ -526,6 +533,17 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.ACHIEVEMENT,
         },
         {
+            -- Hammer of Vigilance
+            REWARD_ID = 151524,
+            REWARD_TYPE = enums.REWARD_TYPE.APPEARANCE,
+            SOURCE_ID = npcs.MYTHIC_APPAREL.ID,
+            SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
+            PRICES = {
+                { TYPE = enums.PRICE_TYPE.FELWARPED_SLAB,           AMOUNT = 20 },
+                { TYPE = enums.PRICE_TYPE.BRONZE,                   AMOUNT = 30000 },
+            }
+        },
+        {
             -- The First Satyr's Spaulders
             REWARD_ID = 242368,
             REWARD_TYPE = enums.REWARD_TYPE.APPEARANCE,
@@ -566,7 +584,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Felscorned Reins of the Vilebrood Vanquisher
@@ -574,6 +593,7 @@ do
             REWARD_TYPE = enums.REWARD_TYPE.MOUNT,
             SOURCE_ID = 42685,
             SOURCE_TYPE = enums.SOURCE_TYPE.ACHIEVEMENT,
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Slayer's Reins of the Felscorned Shrieker
@@ -583,7 +603,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Slayer's Reins of the Felscorned Shrieker
@@ -591,6 +612,7 @@ do
             REWARD_TYPE = enums.REWARD_TYPE.MOUNT,
             SOURCE_ID = 61087,
             SOURCE_TYPE = enums.SOURCE_TYPE.ACHIEVEMENT,
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Feldruid's Scornwing Idol
@@ -600,7 +622,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Feldruid's Scornwing Idol
@@ -608,6 +631,7 @@ do
             REWARD_TYPE = enums.REWARD_TYPE.MOUNT,
             SOURCE_ID = 61086,
             SOURCE_TYPE = enums.SOURCE_TYPE.ACHIEVEMENT,
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Felscorned Wolfhawk
@@ -617,7 +641,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Felscorned Wolfhawk
@@ -625,6 +650,7 @@ do
             REWARD_TYPE = enums.REWARD_TYPE.MOUNT,
             SOURCE_ID = 42687,
             SOURCE_TYPE = enums.SOURCE_TYPE.ACHIEVEMENT,
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Archmage's Felscorned Disc
@@ -634,7 +660,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Archmage's Felscorned Disc
@@ -642,6 +669,7 @@ do
             REWARD_TYPE = enums.REWARD_TYPE.MOUNT,
             SOURCE_ID = 61089,
             SOURCE_TYPE = enums.SOURCE_TYPE.ACHIEVEMENT,
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Felscorned Grandmaster's Bell
@@ -651,7 +679,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Felscorned Grandmaster's Bell
@@ -659,6 +688,7 @@ do
             REWARD_TYPE = enums.REWARD_TYPE.MOUNT,
             SOURCE_ID = 61085,
             SOURCE_TYPE = enums.SOURCE_TYPE.ACHIEVEMENT,
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Highlord's Felscorned Charger
@@ -668,7 +698,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Highlord's Felscorned Charger
@@ -676,6 +707,7 @@ do
             REWARD_TYPE = enums.REWARD_TYPE.MOUNT,
             SOURCE_ID = 42504,
             SOURCE_TYPE = enums.SOURCE_TYPE.ACHIEVEMENT,
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Felscorned Seeker's Whistle
@@ -685,7 +717,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Felscorned Seeker's Whistle
@@ -693,6 +726,7 @@ do
             REWARD_TYPE = enums.REWARD_TYPE.MOUNT,
             SOURCE_ID = 61088,
             SOURCE_TYPE = enums.SOURCE_TYPE.ACHIEVEMENT,
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Shadowblade's Reins of Felscorned Portent
@@ -702,7 +736,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Shadowblade's Reins of Felscorned Portent
@@ -710,6 +745,7 @@ do
             REWARD_TYPE = enums.REWARD_TYPE.MOUNT,
             SOURCE_ID = 61084,
             SOURCE_TYPE = enums.SOURCE_TYPE.ACHIEVEMENT,
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Felscorned Tempest Totem
@@ -719,7 +755,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Felscorned Tempest Totem
@@ -727,6 +764,7 @@ do
             REWARD_TYPE = enums.REWARD_TYPE.MOUNT,
             SOURCE_ID = 42686,
             SOURCE_TYPE = enums.SOURCE_TYPE.ACHIEVEMENT,
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Felscorned Reins of the Netherlord's Dreadsteed
@@ -736,7 +774,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Felscorned Reins of the Netherlord's Dreadsteed
@@ -744,6 +783,7 @@ do
             REWARD_TYPE = enums.REWARD_TYPE.MOUNT,
             SOURCE_ID = 61090,
             SOURCE_TYPE = enums.SOURCE_TYPE.ACHIEVEMENT,
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Iron Reins of the Felscorned War Wrym
@@ -753,7 +793,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Iron Reins of the Felscorned War Wrym
@@ -761,6 +802,7 @@ do
             REWARD_TYPE = enums.REWARD_TYPE.MOUNT,
             SOURCE_ID = 42684,
             SOURCE_TYPE = enums.SOURCE_TYPE.ACHIEVEMENT,
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Illidari Dreadstalker
@@ -770,7 +812,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Illidari Blightstalker
@@ -780,7 +823,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Highland Elderhorn
@@ -800,7 +844,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Snowy Highmountain Eagle
@@ -810,7 +855,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Wretched Fel Bat
@@ -820,7 +866,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Ashplague Fel Bat
@@ -830,7 +877,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Bloodhunter Fel Bat
@@ -840,7 +888,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Gloomdark Nightmare
@@ -850,7 +899,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Turquoise Courser
@@ -860,7 +910,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Golden Sunrunner
@@ -870,7 +921,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Twilight Courser
@@ -880,7 +932,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Brimstone Courser
@@ -890,7 +943,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Chestnut Courser
@@ -900,7 +954,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Leystone Basilisk
@@ -910,7 +965,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Felslate Basilisk
@@ -920,7 +976,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Slag Basilisk
@@ -930,7 +987,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Aquamarine Basilisk
@@ -940,7 +998,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Arcberry Manasaber
@@ -950,7 +1009,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Bonesteed of Triumph
@@ -960,7 +1020,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Bonesteed of Bloodshed
@@ -970,7 +1031,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Bonesteed of Plague
@@ -980,7 +1042,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Bonesteed of Oblivion
@@ -990,7 +1053,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Ghastly Ur'zul
@@ -1000,7 +1064,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Luminous Mana Ray
@@ -1010,7 +1075,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Albino Mana Ray
@@ -1020,7 +1086,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Bloodtooth Mana Ray
@@ -1030,7 +1097,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Fel-Scarred Mana Ray
@@ -1040,7 +1108,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Garnet Ruinstrider
@@ -1050,7 +1119,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Longhorned Beryl Talbuk
@@ -1060,7 +1130,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Longhorned Argussian Talbuk
@@ -1070,7 +1141,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Longhorned Bleakhoof Talbuk
@@ -1080,7 +1152,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Longhorned Sable Talbuk
@@ -1090,7 +1163,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 10000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Reins of the Long-Forgotten Hippogryph
@@ -1380,7 +1454,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 5000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Tidbit
@@ -1390,7 +1465,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 5000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Son of Goredome
@@ -1400,7 +1476,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 5000 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Hungering Claw
@@ -1900,7 +1977,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 2500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Arsenal: Mo'arg Swords
@@ -1910,7 +1988,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 2500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Arsenal: Bone Scythes
@@ -1920,7 +1999,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 2500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Arsenal: Immortal Maces
@@ -1930,7 +2010,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 2500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Arsenal: Mo'arg Hornmaces
@@ -1940,7 +2021,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 2500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Arsenal: Gems of the Lightforged Draenei
@@ -1950,7 +2032,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 2500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Arsenal: Arms of the Felforged Knight
@@ -1960,7 +2043,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Arsenal: Odyn's Spears
@@ -1970,7 +2054,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Windrunner Quivers
@@ -1980,7 +2065,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Blazing Dreamscribed Robes
@@ -1990,7 +2076,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Dreamwatcher Vestments
@@ -2000,7 +2087,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Dreamseeker Vestments
@@ -2010,7 +2098,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Nightrune Robes
@@ -2020,7 +2109,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Earthrune Robes
@@ -2030,7 +2120,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Skyrune Robes
@@ -2040,7 +2131,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Slayer's Golden Scarguards
@@ -2050,7 +2142,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Slayer's Silver Scarguards
@@ -2060,7 +2153,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Fel-Bloodied Battlegear
@@ -2070,7 +2164,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Searaider's Battlegarb
@@ -2100,7 +2195,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Ruby Drake Hunter's Kit
@@ -2110,7 +2206,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Highpeak Dragonscale
@@ -2120,7 +2217,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Dreamweald Dragonscale
@@ -2130,7 +2228,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Firewurm Dragonscale
@@ -2140,7 +2239,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Jarl's Battlehorns
@@ -2150,7 +2250,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Storm Champion's Warharness
@@ -2160,7 +2261,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Dream Defender's Emerald Guardplate
@@ -2170,7 +2272,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Barkbinds of the Archdruid's Nightmare
@@ -2180,7 +2283,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Fel-Marked Scales
@@ -2190,7 +2294,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Verdant Dreamscribed Robes
@@ -2200,7 +2305,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Tidesoaked Battlegear
@@ -2210,7 +2316,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Stygian Silks
@@ -2220,7 +2327,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Argussian Demonsbane Armor
@@ -2230,7 +2338,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Vestments of Eredathian Sacrifice
@@ -2240,7 +2349,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Antoran Guard's Golden Battleplate
@@ -2250,7 +2360,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Heritage of the Lightforged - Holy Gold
@@ -2260,7 +2371,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Heritage of the Lightforged - Hologemmed
@@ -2270,7 +2382,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Heritage of the Lightforged - Crimson Vengeance
@@ -2280,7 +2393,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Heritage of the Shal'dorei - Vineyard Red
@@ -2290,7 +2404,8 @@ do
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
                 { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 7500 },
-            }
+            },
+            UNIQUE_TO_REMIX = true,
         },
         {
             -- Ensemble: Fel-Infused Cloth Armor
@@ -2929,7 +3044,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -2939,7 +3054,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -2949,7 +3064,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -2959,7 +3074,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -2969,7 +3084,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -2979,7 +3094,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -2989,7 +3104,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -2999,7 +3114,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3009,7 +3124,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3019,7 +3134,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3029,7 +3144,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3039,7 +3154,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3049,7 +3164,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3059,7 +3174,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3069,7 +3184,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3079,7 +3194,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3089,7 +3204,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3099,7 +3214,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3109,7 +3224,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3119,7 +3234,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3129,7 +3244,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3139,7 +3254,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3149,7 +3264,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3159,7 +3274,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3169,7 +3284,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3179,7 +3294,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3189,7 +3304,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3199,7 +3314,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3209,7 +3324,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3219,7 +3334,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3229,7 +3344,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3239,7 +3354,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3249,7 +3364,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3259,7 +3374,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3269,7 +3384,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3279,7 +3394,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3289,7 +3404,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3299,7 +3414,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3309,7 +3424,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3319,7 +3434,7 @@ do
             SOURCE_ID = npcs.LFR_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3329,7 +3444,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3339,7 +3454,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3349,7 +3464,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3359,7 +3474,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3369,7 +3484,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3379,7 +3494,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3389,7 +3504,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3399,7 +3514,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3409,7 +3524,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3419,7 +3534,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3429,7 +3544,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3439,7 +3554,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3449,7 +3564,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3459,7 +3574,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3469,7 +3584,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3479,7 +3594,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3489,7 +3604,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3499,7 +3614,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3509,7 +3624,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3519,7 +3634,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3529,7 +3644,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3539,7 +3654,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3549,7 +3664,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3559,7 +3674,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3569,7 +3684,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3579,7 +3694,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3589,7 +3704,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3599,7 +3714,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3609,7 +3724,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3619,7 +3734,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3629,7 +3744,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3639,7 +3754,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3649,7 +3764,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3659,7 +3774,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3669,7 +3784,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3679,7 +3794,7 @@ do
             SOURCE_ID = npcs.NORMAL_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3689,7 +3804,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3699,7 +3814,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3709,7 +3824,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3719,7 +3834,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3729,7 +3844,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3739,7 +3854,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3749,7 +3864,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3759,7 +3874,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3769,7 +3884,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3779,7 +3894,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3789,7 +3904,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3799,7 +3914,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3809,7 +3924,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3819,7 +3934,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3829,7 +3944,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3839,7 +3954,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3849,7 +3964,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3859,7 +3974,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3869,7 +3984,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3879,7 +3994,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3889,7 +4004,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3899,7 +4014,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3909,7 +4024,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3919,7 +4034,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3929,7 +4044,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3939,7 +4054,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3949,7 +4064,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3959,7 +4074,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3969,7 +4084,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3979,7 +4094,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3989,7 +4104,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -3999,7 +4114,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -4009,7 +4124,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -4019,7 +4134,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -4029,7 +4144,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -4039,7 +4154,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -4049,7 +4164,7 @@ do
             SOURCE_ID = npcs.HEROIC_APPAREL.ID,
             SOURCE_TYPE = enums.SOURCE_TYPE.VENDOR,
             PRICES = {
-                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 20000 },
+                { TYPE = enums.PRICE_TYPE.BRONZE, AMOUNT = 0 },
             }
         },
         {
@@ -4788,52 +4903,36 @@ do
         ITEMS = {
             {
                 ITEM_ID = 237812, -- Cache of Infinite Treasure
-                NEEDS_CONVERT = true
             },
             {
                 ITEM_ID = 251821, -- Cache of Infinite Power
-                NEEDS_CONVERT = true
             },
             {
                 ITEM_ID = 245553, -- Heroic Cache of Infinite Treasure
-                NEEDS_CONVERT = true
             },
             {
                 ITEM_ID = 246814, -- Bronze Cache
-                NEEDS_CONVERT = true
             },
             {
                 ITEM_ID = 254847, -- Minor Bronze Cache
-                NEEDS_CONVERT = true
             },
             {
                 ITEM_ID = 246815, -- Lesser Bronze Cache
-                NEEDS_CONVERT = true
             },
             {
                 ITEM_ID = 246813, -- Greater Bronze Cache
-                NEEDS_CONVERT = true
-            },
-            {
-                ITEM_ID = 245925, -- Artifactium Sand
-            },
-            {
-                ITEM_ID = 249891, -- Mound of Artifactium Sand
             },
         },
     }
 
     for _, itemEntry in ipairs(constants.ITEM_OPENER.ITEMS) do
-        if itemEntry.NEEDS_CONVERT then
-            local item = Item:CreateFromItemID(itemEntry.ITEM_ID)
-            item:ContinueOnItemLoad(function()
-                local name = item:GetItemName()
-                if name and name ~= "" then
-                    itemEntry.ITEM_NAME = name
-                    itemEntry.NEEDS_CONVERT = nil
-                end
-            end)
-        end
+        local item = Item:CreateFromItemID(itemEntry.ITEM_ID)
+        item:ContinueOnItemLoad(function()
+            local name = item:GetItemName()
+            if name and name ~= "" then
+                itemEntry.ITEM_NAME = name
+            end
+        end)
     end
 end
 
@@ -4944,6 +5043,10 @@ constants.TOOLTIP = {
     },
 }
 
+constants.QUESTS = {
+    ETERNUS_NPC_ID = 241748,
+}
+
 constants.INV_SLOT = {
     WEAPON = 16,
     OFF_HAND = 17,
@@ -4953,4 +5056,9 @@ constants.SOCIALS = {
     {NAME = "GitHub", ICON = constants.MEDIA.TEXTURES.GITHUB, URL = "https://github.com/Larsj02/LegionRemixHelper"},
     {NAME = "Discord", ICON = constants.MEDIA.TEXTURES.DISCORD, URL = "https://discord.gg/NmBab5wvPS"},
     {NAME = "Ko-fi", ICON = constants.MEDIA.TEXTURES.KOFI, URL = "https://ko-fi.com/larsj02"},
+}
+
+constants.EDIT_MODE = {
+    DEFAULT_SYSTEM_WIDTH = 200,
+    DEFAULT_SYSTEM_HEIGHT = 200,
 }

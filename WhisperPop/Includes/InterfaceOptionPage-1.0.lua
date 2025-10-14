@@ -268,7 +268,7 @@ local function CheckButton_Text_OnSetText(self)
 end
 
 local function CheckButton_OnEnable(self)
-	self.text:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
+	self.text:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
 end
 
 local function CheckButton_OnDisable(self)
@@ -904,31 +904,6 @@ local function EditBox_OnEscapePressed(self)
 	EditBox_CancelText(self)
 	self:ClearFocus()
 end
-
-hooksecurefunc("ChatEdit_InsertLink", function(link)
-	if type(link) ~= "string" then
-		return
-	end
-
-	local editBox = GetCurrentKeyBoardFocus()
-	if not editBox then
-		return
-	end
-
-	local handleClick = editBox.handleClick
-	if type(handleClick) ~= "string" then
-		return
-	end
-
-	handleClick = string.lower(handleClick)
-
-	if handleClick == "link" then
-		editBox:SetText(link)
-	elseif handleClick == "name" then
-		local name = string.match(link, "%[(.+)%]")
-		editBox:SetText(name or link)
-	end
-end)
 
 local function CreateEditBox(self, text, horizontal, disableInCombat, textColor)
 	local editbox = CreateSubControl(self, "EditBox", nil, "BackdropTemplate", disableInCombat)

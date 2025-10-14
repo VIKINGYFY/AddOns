@@ -74,11 +74,13 @@ local function Reskin_GeneralsText()
 		QuestInfoDescriptionText,
 		QuestInfoGroupSize,
 		QuestInfoObjectivesText,
+		QuestInfoRewardText,
 		QuestInfoRewardsFrame.ItemChooseText,
 		QuestInfoRewardsFrame.ItemReceiveText,
 		QuestInfoRewardsFrame.PlayerTitleText,
+		QuestInfoRewardsFrame.QuestSessionBonusReward,
 		QuestInfoRewardsFrame.XPFrame.ReceiveText,
-		QuestInfoRewardText,
+		QuestInfoTimerText,
 	}
 	for _, text in pairs(texts) do
 		B.ReskinText(text, 1, 1, 1)

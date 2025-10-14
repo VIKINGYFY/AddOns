@@ -42,7 +42,7 @@ function Bar:CreateExtrabar()
 	RegisterStateDriver(extraFrame, "visibility", extraFrame.frameVisibility)
 
 	-- ZoneAbility
-	local zoneFrame = CreateFrame("Frame", "NDui_ActionBarZone", UIParent)
+	local zoneFrame = CreateFrame("Frame", "NDui_ActionBarZone", UIParent, "SecureHandlerStateTemplate")
 	zoneFrame:SetSize(size, size)
 	zoneFrame.mover = B.Mover(zoneFrame, L["Zone Ability"], "ZoneAbility", {"RIGHT", _G.NDui_ActionBar3Button1, "TOPLEFT", -DB.margin, 0})
 	zoneFrame:ClearAllPoints()

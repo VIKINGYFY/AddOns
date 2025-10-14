@@ -213,9 +213,9 @@ function ShowInspectItemListFrame(unit, parent, ilevel)
 
 			local itemStats = C_Item.GetItemStats(link)
 			if itemStats then
-				for s = 1, 4 do
-					if itemStats[itemFrame["itemStats"..s].key] then
-						itemFrame["itemStats"..s]:SetAlpha(1)
+				for n = 1, 4 do
+					if itemStats[itemFrame["itemStats"..n].key] then
+						itemFrame["itemStats"..n]:SetAlpha(1)
 					end
 				end
 				for _, s in ipairs(stats) do

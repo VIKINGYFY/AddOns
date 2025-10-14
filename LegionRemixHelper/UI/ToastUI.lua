@@ -93,3 +93,11 @@ function toastUI:ReorderFrames()
         previousFrame = frame
     end
 end
+
+function toastUI:CreateEditModeElements()
+    local editModeUtils = Private.EditModeUtils
+    editModeUtils:CreateSystem("ToastUI", UIParent, 311, 78, function (anchorInfo)
+        self.toastAnchor:ClearAllPoints()
+        self.toastAnchor:SetPoint(anchorInfo.point, anchorInfo.relativeTo, anchorInfo.relativePoint, anchorInfo.xOfs, anchorInfo.yOfs)
+    end)
+end

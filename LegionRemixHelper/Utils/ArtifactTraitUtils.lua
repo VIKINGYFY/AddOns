@@ -315,7 +315,7 @@ end
 function artifactTraitUtils:GetRowNames()
     local rowNames = {}
     for _, row in pairs(const.REMIX_ARTIFACT_TRAITS.ROWS) do
-        rowNames[row.ID] = row.NAME
+        rowNames[row.ID] = self.L[row.NAME_KEY] or row.NAME_KEY
     end
     return rowNames
 end

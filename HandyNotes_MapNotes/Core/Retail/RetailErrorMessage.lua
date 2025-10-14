@@ -360,7 +360,7 @@ _f:SetScript("OnEvent", function(_, event, arg1)
   if not UseInBattleActive() then return end
   if event == "PLAYER_LOGIN" then
     TryHookWorldMapEarly()
-  elseif event == "ADDON_LOADED" and (arg1 == "Blizzard_WorldMap" or arg1 == "Blizzard_UIParentPanelManager") then
+  elseif event == "ADDON_LOADED" and arg1 == "Blizzard_WorldMap" then
     TryHookWorldMapEarly()
   end
 end)

@@ -154,12 +154,14 @@ end
 ---@param template string?
 ---@param data table?
 ---@param height number?
+---@param identifier string?
 ---@param onInit fun(frame: Frame, data: table?)
 ---@param onDefaulted fun()?
 ---@param searchTags string[]?
 ---@return table initializer
-function settingsUtils:CreatePanel(category, template, data, height, onInit, onDefaulted, searchTags)
+function settingsUtils:CreatePanel(category, template, data, height, identifier, onInit, onDefaulted, searchTags)
     local initializer = Settings.CreatePanelInitializer(template or "BackdropTemplate", data or {})
+    identifier = identifier or "default"
 
     function initializer:GetExtent()
         return self.height
@@ -199,7 +201,22 @@ function settingsUtils:CreatePanel(category, template, data, height, onInit, onD
     end)
 
     initializer:SetHeight(height or 200)
-    initializer:SetOnInit(onInit)
+    initializer:SetOnInit(function(frame, panelData)
+        if not frame.panelFrames then
+            frame.panelFrames = {}
+        end
+        for _, f in pairs(frame.panelFrames) do
+            f:Hide()
+        end
+        local panel = frame.panelFrames[identifier]
+        if not panel then
+            panel = CreateFrame("Frame", nil, frame, template or "BackdropTemplate")
+            panel:SetAllPoints()
+            frame.panelFrames[identifier] = panel
+        end
+        onInit(panel, panelData)
+        panel:Show()
+    end)
     initializer:SetOnDefaulted(onDefaulted)
     initializer:AddSearchTags(unpack(searchTags or {}))
 

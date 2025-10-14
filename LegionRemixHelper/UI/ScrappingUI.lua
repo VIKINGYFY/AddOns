@@ -52,12 +52,14 @@ function scrappingUI:Init()
 
     local qualities = {}
     for qualityString, qualityIndex in pairs(Enum.ItemQuality) do
-        local qualityColor = CreateColor(C_Item.GetItemQualityColor(qualityIndex))
-        if qualityColor then
-            qualityString = qualityColor:WrapTextInColorCode(qualityString)
-        end
         if qualityIndex <= 4 and qualityIndex >= 1 then
-            tinsert(qualities, { qualityString, qualityIndex })
+            -- Use WoW's localized quality name instead of the enum key
+            local localizedQualityName = _G["ITEM_QUALITY" .. qualityIndex .. "_DESC"] or qualityString
+            local qualityColor = CreateColor(C_Item.GetItemQualityColor(qualityIndex))
+            if qualityColor then
+                localizedQualityName = qualityColor:WrapTextInColorCode(localizedQualityName)
+            end
+            tinsert(qualities, { localizedQualityName, qualityIndex })
         end
     end
     sort(qualities, function(a, b) return a[2] < b[2] end)

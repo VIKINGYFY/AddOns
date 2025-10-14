@@ -221,7 +221,7 @@ function module:CreateBagTab(settings, columns, account)
 		purchaseButton:SetSize(120, 22)
 		purchaseButton:SetPoint("TOP", bagTab, "BOTTOM", 0, -5)
 		B.CreateFS(purchaseButton, 14, PURCHASE, "info")
-		B.Reskin(purchaseButton)
+		B.ReskinButton(purchaseButton)
 		purchaseButton:Hide()
 
 		purchaseButton:RegisterForClicks("AnyUp", "AnyDown")

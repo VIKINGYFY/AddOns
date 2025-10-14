@@ -1,6 +1,6 @@
-## Interface: 110107, 110200
+## Interface: 110200, 110205
 ## Title: BtWQuests: Wrath of the Lich King
-## Version: v1.21
+## Version: v1.22
 ## Notes: Wrath of the Lich King quest data for BtWQuests
 ## Author: Breen
 ## Dependencies: BtWQuests

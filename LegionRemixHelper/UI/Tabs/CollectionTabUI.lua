@@ -21,6 +21,8 @@ local collectionTabUI = {
     filter = {
         collected = true,
         uncollected = true,
+        raidVariants = false,
+        onlyUnique = false,
         types = {},
         sources = {},
         search = "",
@@ -244,6 +246,20 @@ function collectionTabUI:CreateTabUI()
         height = 20,
         template = "WowStyle1FilterDropdownTemplate",
         setupMenu = function(dropdown, rootDescription)
+            rootDescription:CreateCheckbox(self.L["Tabs.CollectionTabUI.FilterRaidVariants"], function(data)
+                    return self.filter.raidVariants
+                end,
+                function()
+                    self.filter.raidVariants = not self.filter.raidVariants
+                    self:UpdateFilteredData()
+                end)
+            rootDescription:CreateCheckbox(self.L["Tabs.CollectionTabUI.FilterUnique"], function(data)
+                    return self.filter.onlyUnique
+                end,
+                function()
+                    self.filter.onlyUnique = not self.filter.onlyUnique
+                    self:UpdateFilteredData()
+                end)
             rootDescription:CreateCheckbox(self.L["Tabs.CollectionTabUI.FilterCollected"], function(data)
                     return self.filter.collected
                 end,
@@ -336,11 +352,13 @@ function collectionTabUI:CreateTabUI()
 end
 
 ---@param reward CollectionRewardObject
----@param filter {collected:boolean, uncollected:boolean, types:boolean[], sources:boolean[], search:string}
+---@param filter {collected:boolean, uncollected:boolean, types:boolean[], sources:boolean[], search:string, raidVariants:boolean, onlyUnique:boolean}
 function collectionTabUI:MatchFilter(reward, filter)
     local isCollected = reward:IsCollected()
     if isCollected and not filter.collected then return false end
     if not isCollected and not filter.uncollected then return false end
+    if not filter.raidVariants and reward:IsRaidVariant() then return false end
+    if filter.onlyUnique and not reward:IsUniqueToRemix() then return false end
     if not filter.types[reward:GetRewardType()] then return false end
     local sources = reward:GetSourceTypes()
     local sourceMatch = false

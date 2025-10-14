@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(2687, "DBM-Raids-WarWithin", 1, 1302)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20251001061751")
+mod:SetRevision("20251011043849")
 mod:SetCreatureID(233817)
 mod:SetEncounterID(3132)
 mod:SetHotfixNoticeRev(20250821000000)
@@ -108,7 +108,7 @@ local allTimers = {
 			--Arcane Expulsion
 			[1227631] = {155},--5 second longer than heroic
 			--Invoke Collector
-			[1231720] = {9, 43.5, 43},
+			[1231720] = {9, 43.5, 41.9},
 			--Void Tear
 			[1248133] = {21.5, 45.5, 14.4, 28.5, 14.4, 15},--14.4s can sometimes be 15.5
 			--Astral Harvest

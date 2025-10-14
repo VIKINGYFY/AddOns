@@ -1,5 +1,11 @@
 # Changelog
 
+## 29
+- Version update
+
+## 28
+- Fix dragonflight derby racing
+
 ## 27
 - 3 New colors: Blight, Void, Random (everytime you mount up a random color is picked)
 

@@ -14,7 +14,7 @@ local itemOpenerUtils = {
 }
 Private.ItemOpenerUtils = itemOpenerUtils
 
-function itemOpenerUtils:CreateSettings()
+function itemOpenerUtils:CreateSettings(items)
     local settingsUtils = Private.SettingsUtils
     local settingsCategory = settingsUtils:GetCategory()
     local settingsPrefix = self.L["ItemOpenerUtils.SettingsCategoryPrefix"]
@@ -26,14 +26,28 @@ function itemOpenerUtils:CreateSettings()
         settingsUtils:GetDBFunc("GETTERSETTER", "itemOpener.autoItemOpen"))
 
     local openItemTooltip = self.L["ItemOpenerUtils.AutoOpenItemEntryTooltip"]
-    for _, itemEntry in ipairs(const.ITEM_OPENER.ITEMS) do
+    for _, itemData in ipairs(items) do
+        settingsUtils:CreateCheckbox(settingsCategory, "AUTO_ITEM_OPEN_" .. itemData.id, "BOOLEAN",
+            itemData.link,
+            openItemTooltip:format(itemData.link), true,
+            settingsUtils:GetDBFunc("GETTERSETTER", "itemOpener.items." .. itemData.id))
+    end
+end
+
+function itemOpenerUtils:InitAndCreateSettings()
+    local items = {}
+    for itemIndex, itemEntry in ipairs(const.ITEM_OPENER.ITEMS) do
         local id = itemEntry.ITEM_ID
         local item = Item:CreateFromItemID(id)
         item:ContinueOnItemLoad(function()
             local link = item:GetItemLink()
-            settingsUtils:CreateCheckbox(settingsCategory, "AUTO_ITEM_OPEN_"..id, "BOOLEAN", link,
-                openItemTooltip:format(link), true,
-                settingsUtils:GetDBFunc("GETTERSETTER", "itemOpener.items."..id))
+            if link and link ~= "" then
+                tinsert(items, { id = id, link = link })
+
+                if #items == #const.ITEM_OPENER.ITEMS then
+                    self:CreateSettings(items)
+                end
+            end
         end)
     end
 end
@@ -41,7 +55,7 @@ end
 ---@param itemID number
 ---@return boolean isEnabled
 function itemOpenerUtils:IsOpenItemEnabled(itemID)
-    local db = self.addon:GetDatabaseValue("itemOpener.items."..itemID, true)
+    local db = self.addon:GetDatabaseValue("itemOpener.items." .. itemID, true)
     return db and true or false
 end
 

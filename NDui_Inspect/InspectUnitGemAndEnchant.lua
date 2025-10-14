@@ -255,6 +255,8 @@ end
 
 --功能附着
 hooksecurefunc("ShowInspectItemListFrame", function(unit, parent)
+	if PlayerIsTimerunning() then return end
+
 	local frame = parent.inspectFrame
 	if not frame then return end
 

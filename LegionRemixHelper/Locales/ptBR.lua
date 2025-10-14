@@ -4,8 +4,11 @@ local Private = select(2, ...)
 local locales = Private.Locales or {}
 Private.Locales = locales
 local L = {
+    -- UI/Components/Dropdown.lua
+    ["Components.Dropdown.SelectOption"] = "Selecione uma opção",
+
     -- UI/Tabs/ArtifactTraitsTabUI.lua
-    ["Tabs.ArtifactTraitsTabUI.AutoActivateForSpec"] = "Auto-Ativar para Especialização",
+    ["Tabs.ArtifactTraitsTabUI.AutoActivateForSpec"] = "Auto-Activate for Spec",
     ["Tabs.ArtifactTraitsTabUI.NoArtifactEquipped"] = "Nenhum Artefato Equipado",
 
     -- UI/Tabs/CollectionTabUI.lua
@@ -19,6 +22,8 @@ local L = {
     ["Tabs.CollectionTabUI.FilterSources"] = "Fontes",
     ["Tabs.CollectionTabUI.FilterCheckAll"] = "Marcar Todos",
     ["Tabs.CollectionTabUI.FilterUncheckAll"] = "Desmarcar Todos",
+    ["Tabs.CollectionTabUI.FilterRaidVariants"] = "Show Raid Variants",
+    ["Tabs.CollectionTabUI.FilterUnique"] = "Only Remix-Specific Items",
     ["Tabs.CollectionTabUI.Type"] = "Tipo",
     ["Tabs.CollectionTabUI.Source"] = "Fonte",
     ["Tabs.CollectionTabUI.SearchInstructions"] = "Busca",
@@ -62,6 +67,11 @@ local L = {
     -- Utils/ArtifactTraitUtils.lua
     ["ArtifactTraitUtils.NoItemEquipped"] = "Nenhum Item Equipado.",
     ["ArtifactTraitUtils.UnknownTrait"] = "Traço Desconhecido",
+    ["ArtifactTraitUtils.ColumnNature"] = "Natureza",
+    ["ArtifactTraitUtils.ColumnFel"] = "Caos",
+    ["ArtifactTraitUtils.ColumnArcane"] = "Arcano",
+    ["ArtifactTraitUtils.ColumnStorm"] = "Tempestade",
+    ["ArtifactTraitUtils.ColumnHoly"] = "Sagrado",
     ["ArtifactTraitUtils.JewelryFormat"] = "|T%s:16|t %s (+%d)",
     ["ArtifactTraitUtils.MaxTriesReached"] = "Máximo de tentativas alcançadas ao comprar nós.",
     ["ArtifactTraitUtils.SettingsCategoryPrefix"] = "Traços do Artefato",
@@ -76,12 +86,36 @@ local L = {
     ["CollectionUtils.UnknownVendor"] = "Vendedor Desconhecido",
     ["CollectionUtils.Vendor"] = "Vendedor, ",
 
+    -- Utils/CommandUtils.lua
+    ["CommandUtils.UnknownCommand"] =
+[[Unknown Command!
+Usage: /LRH or /LegionRH <subCommand>
+Subcommands:
+    collections (c) - Open the Collections tab.
+    settings (s) - Open the settings menu.
+Example: /LRH s]],
+    ["CommandUtils.CollectionsCommand"] = "collections",
+    ["CommandUtils.CollectionsCommandShort"] = "c",
+    ["CommandUtils.SettingsCommand"] = "settings",
+    ["CommandUtils.SettingsCommandShort"] = "s",
+
+    -- Utils/EditModeUtils.lua
+    ["EditModeUtils.ShowAddonSystems"] = "Legion-Remix-Helper-Systems",
+    ["EditModeUtils.SystemLabel.ToastUI"] = "Toasts",
+    ["EditModeUtils.SystemTooltip.ToastUI"] = "Move the position of the toasts.",
+
     -- Utils/ItemOpenerUtils.lua
     ["ItemOpenerUtils.SettingsCategoryPrefix"] = "Abridor Automático de itens",
     ["ItemOpenerUtils.SettingsCategoryTooltip"] = "Configurações do recurso Abridor Automático de itens",
     ["ItemOpenerUtils.AutoItemOpen"] = "Abre Itens Automaticamente",
     ["ItemOpenerUtils.AutoItemOpenTooltip"] = "Abre automaticamente determinados itens no seu inventário quando encontrados. (Este recurso ainda está em desenvolvimento)",
     ["ItemOpenerUtils.AutoOpenItemEntryTooltip"] = "Abre automaticamente %s quando encontrado no seu inventário.",
+
+    -- Utils/MerchantUtils.lua
+    ["MerchantUtils.SettingsCategoryPrefix"] = "Merchant Settings",
+    ["MerchantUtils.SettingsCategoryTooltip"] = "Settings for the Merchant feature",
+    ["MerchantUtils.HideCollectedMerchantItems"] = "Hide Collected Merchant Items",
+    ["MerchantUtils.HideCollectedMerchantItemsTooltip"] = "Hides items in the merchant window that you already have in your collection.",
 
     -- Utils/QuestUtils.lua
     ["QuestUtils.SettingsCategoryPrefix"] = "Missões-Automáticas",
@@ -90,6 +124,10 @@ local L = {
     ["QuestUtils.AutoTurnInTooltip"] = "Automaticamente entrega as missões ao interagir com os PNJs.",
     ["QuestUtils.AutoAccept"] = "Aceitação automática",
     ["QuestUtils.AutoAcceptTooltip"] = "Automaticamente aceita as missões ao interagir com os PNJs.",
+    ["QuestUtils.IgnoreEternus"] = "Ignore Eternus",
+    ["QuestUtils.IgnoreEternusTooltip"] = "Ignore quests that come from Eternus.",
+    ["QuestUtils.SuppressShift"] = "Suppress with Shift",
+    ["QuestUtils.SuppressShiftTooltip"] = "Hold Shift to suppress automatic quest acceptance/turn-in.",
 
     -- Utils/QuickActionBarUtils.lua
     ["QuickActionBarUtils.SettingsCategoryPrefix"] = "Barra de Ações Rápidas",

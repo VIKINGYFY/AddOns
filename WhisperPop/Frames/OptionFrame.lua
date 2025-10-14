@@ -42,9 +42,16 @@ addon.optionFrame = frame
 local generalGroup = frame:CreateMultiSelectionGroup(L["general options"])
 frame:AnchorToTopLeft(generalGroup, 0, -10)
 
-generalGroup:AddButton(L["show notify button"], "notifyButton")
-generalGroup:AddButton(L["lock button position"], "locked")
-generalGroup:AddButton(L["receive only"], "receiveOnly")
+local notifyCheck = generalGroup:AddButton(L["show notify button"], "notifyButton")
+
+local lockCheck = generalGroup:AddButton(L["lock button position"], "locked")
+lockCheck:ClearAllPoints()
+lockCheck:SetPoint("TOPLEFT", notifyCheck, "BOTTOMLEFT", lockCheck:GetWidth(), 0)
+
+local receiveCheck = generalGroup:AddButton(L["receive only"], "receiveOnly")
+receiveCheck:ClearAllPoints()
+receiveCheck:SetPoint("TOPLEFT", lockCheck, "BOTTOMLEFT", -lockCheck:GetWidth(), 0)
+
 generalGroup:AddButton(L["sound notify"], "sound")
 
 local realmCheck = generalGroup:AddButton(L["show realms"], "showRealm")
@@ -73,6 +80,14 @@ function generalGroup:OnCheckChanged(value, checked)
 		addon:PlaySound()
 	end
 end
+
+addon:RegisterOptionCallback("notifyButton", function(value)
+	if value then
+		lockCheck:Enable()
+	else
+		lockCheck:Disable()
+	end
+end)
 
 addon:RegisterOptionCallback("showRealm", function(value)
 	if value then

@@ -57,11 +57,9 @@ C.OnLoginThemes["QuestMapFrame"] = function()
 	B.StripTextures(QuestMapFrame.DetailsFrame.BackFrame)
 
 	local campaignOverview = QuestMapFrame.QuestsFrame.CampaignOverview
-	if campaignOverview then -- isNewPath, removed?
-		B.StripTextures(campaignOverview)
-		ReskinQuestHeader(campaignOverview.Header)
-		B.ReskinScroll(campaignOverview.ScrollFrame.ScrollBar)
-	end
+	B.StripTextures(campaignOverview)
+	ReskinQuestHeader(campaignOverview.Header)
+	B.ReskinScroll(campaignOverview.ScrollFrame.ScrollBar)
 
 	QuestScrollFrame.Edge:Hide()
 	B.ReskinScroll(QuestScrollFrame.ScrollBar)

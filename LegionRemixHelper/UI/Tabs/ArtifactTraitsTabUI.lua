@@ -159,9 +159,19 @@ function artifactTraitsTabUI:CreateTabUI()
         local function UpdateJewelrySlot()
             local equippedItem = utils:GetEquippedJewelryBySlot(jewelery.Slot)
             if equippedItem then
-                local icon = C_Item.GetItemIcon(equippedItem)
                 jewelery:SetState("SELECT")
-                jewelery:SetIconTexture(icon)
+                jewelery:SetIconTexture(C_Item.GetItemIcon(equippedItem))
+
+                local itemID = C_Item.GetItemID(equippedItem)
+                if itemID then
+                    local entryID = utils:GetEntryIDFromItemID(itemID)
+                    if entryID then
+                        local spellID = utils:GetSpellIDFromEntryID(entryID, configID)
+                        if spellID then
+                            jewelery:SetIconTexture(C_Spell.GetSpellTexture(spellID))
+                        end
+                    end
+                end
             else
                 jewelery:SetState("EMPTY")
             end

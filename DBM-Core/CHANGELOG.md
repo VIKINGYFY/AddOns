@@ -1,8 +1,9 @@
 # DBM - Core
 
-## [12.0.0-10-g5390459](https://github.com/DeadlyBossMods/DeadlyBossMods/tree/5390459dfd7d24531d4aebcab98e12db2617851f) (2025-10-09)
-[Full Changelog](https://github.com/DeadlyBossMods/DeadlyBossMods/compare/12.0.0...5390459dfd7d24531d4aebcab98e12db2617851f) [Previous Releases](https://github.com/DeadlyBossMods/DeadlyBossMods/releases)
+## [12.0.0-11-ga7ed62b](https://github.com/DeadlyBossMods/DeadlyBossMods/tree/a7ed62b4495c712a8a7385a3f1f2b342ad25e3e6) (2025-10-11)
+[Full Changelog](https://github.com/DeadlyBossMods/DeadlyBossMods/compare/12.0.0...a7ed62b4495c712a8a7385a3f1f2b342ad25e3e6) [Previous Releases](https://github.com/DeadlyBossMods/DeadlyBossMods/releases)
 
+- small microadjust  
 - Blizzard timeline Timers update  
      - Pause/resume now supported  
      - Timer recovery drycoded but not enabled yet since no way to test it yet  

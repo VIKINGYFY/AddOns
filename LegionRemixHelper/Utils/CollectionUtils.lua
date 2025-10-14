@@ -21,6 +21,7 @@ local const = Private.constants
 ---@field SOURCE_TYPE Enum.RHE_CollectionSourceType
 ---@field PRICES? { TYPE: Enum.RHE_CollectionPriceType, AMOUNT: number }[]
 ---@field ILLUSION_ID number|nil
+---@field UNIQUE_TO_REMIX boolean|nil
 
 ---@class CombinedCollectionReward
 ---@field REWARD_ID number
@@ -28,6 +29,7 @@ local const = Private.constants
 ---@field SOURCES { SOURCE_ID: number, SOURCE_TYPE: Enum.RHE_CollectionSourceType }[]
 ---@field PRICES? { TYPE: Enum.RHE_CollectionPriceType, AMOUNT: number }[]
 ---@field ILLUSION_ID number|nil
+---@field UNIQUE_TO_REMIX boolean|nil
 
 ---@class NPCInfo
 ---@field ID number
@@ -49,6 +51,8 @@ local const = Private.constants
 ---@field vendorInfo NPCInfo|nil
 ---@field achievementID number|nil
 ---@field bronzePrice number
+---@field isRaidVariant boolean
+---@field isUnique boolean
 local collectionRewardMixin = {
     collectionCheckFunction = nil,
     collected = false,
@@ -62,7 +66,9 @@ local collectionRewardMixin = {
     vendorLocation = nil,
     vendorInfo = nil,
     achievementID = nil,
-    bronzePrice = 0
+    bronzePrice = 0,
+    isRaidVariant = false,
+    isUnique = false,
 }
 
 ---@return boolean isCollected
@@ -228,9 +234,29 @@ function collectionRewardMixin:SetBronzePrice(price)
     self.bronzePrice = price
 end
 
----@return number
+---@return number price
 function collectionRewardMixin:GetBronzePrice()
     return self.bronzePrice
+end
+
+---@param isUnique boolean
+function collectionRewardMixin:SetUniqueToRemix(isUnique)
+    self.isUnique = isUnique
+end
+
+---@return boolean isUnique
+function collectionRewardMixin:IsUniqueToRemix()
+    return self.isUnique
+end
+
+---@param isRaidVariant boolean
+function collectionRewardMixin:SetRaidVariant(isRaidVariant)
+    self.isRaidVariant = isRaidVariant
+end
+
+---@return boolean isRaidVariant
+function collectionRewardMixin:IsRaidVariant()
+    return self.isRaidVariant
 end
 
 function collectionUtils:Init()
@@ -273,7 +299,8 @@ end
 ---@param itemID number|nil
 ---@param illusionID number|nil
 ---@return CollectionRewardObject
-function collectionUtils:CreateCollectionObject(reward, name, icon, sourceTooltip, isCollected, bronzeCost, collectionCheckFunction,
+function collectionUtils:CreateCollectionObject(reward, name, icon, sourceTooltip, isCollected, bronzeCost,
+                                                collectionCheckFunction,
                                                 itemID, illusionID)
     local obj = setmetatable({}, { __index = collectionRewardMixin })
 
@@ -285,11 +312,13 @@ function collectionUtils:CreateCollectionObject(reward, name, icon, sourceToolti
     obj:SetCollectionCheckFunction(collectionCheckFunction)
     obj:SetItemID(itemID)
     obj:SetIllusion(illusionID)
+    obj:SetUniqueToRemix(reward.UNIQUE_TO_REMIX == true)
     obj:SetRewardType(reward.REWARD_TYPE)
     for _, source in ipairs(reward.SOURCES) do
         obj:AddSourceType(source.SOURCE_TYPE)
         if source.SOURCE_TYPE == const.COLLECTIONS.ENUM.SOURCE_TYPE.VENDOR then
             obj:SetVendorInfo(collectionUtils:GetVendorByID(source.SOURCE_ID))
+            obj:SetRaidVariant(collectionUtils:IsRemovedRaidVendor(source.SOURCE_ID) == true)
         elseif source.SOURCE_TYPE == const.COLLECTIONS.ENUM.SOURCE_TYPE.ACHIEVEMENT then
             obj:SetAchievementId(source.SOURCE_ID)
         end
@@ -311,10 +340,16 @@ end
 function collectionUtils:GetSetCollectionFunction(setID)
     return function()
         local setInfo = C_TransmogSets.GetSetInfo(setID)
-        if setInfo then
-            return setInfo.collected and true or false
+        if setInfo and not setInfo.collected then
+            local setItems = C_Transmog.GetAllSetAppearancesByID(setID)
+            for _, item in ipairs(setItems) do
+                if not C_TransmogCollection.PlayerHasTransmogByItemInfo(item.itemID) then
+                    return false
+                end
+            end
+            return true
         end
-        return false
+        return setInfo and setInfo.collected or false
     end
 end
 
@@ -399,6 +434,17 @@ function collectionUtils:GetVendorByID(npcID)
     return self.vendorCache[npcID]
 end
 
+---@param npcID number
+---@return boolean|nil isRemovedVendor
+function collectionUtils:IsRemovedRaidVendor(npcID)
+    if npcID == const.NPC.LFR_APPAREL.ID or
+        npcID == const.NPC.NORMAL_APPAREL.ID or
+        npcID == const.NPC.HEROIC_APPAREL.ID
+    then
+        return true
+    end
+end
+
 function collectionUtils:CachePriceIcons()
     self.priceIconCache = self.priceIconCache or {}
     for priceType, priceInfo in ipairs(const.COLLECTIONS.PRICE_INFO) do
@@ -424,7 +470,8 @@ function collectionUtils:GetSourceTooltip(reward)
         if source.SOURCE_TYPE == const.COLLECTIONS.ENUM.SOURCE_TYPE.ACHIEVEMENT then
             local name = select(2, GetAchievementInfo(source.SOURCE_ID))
             name = name or self.L["CollectionUtils.UnknownAchievement"]
-            tooltip = ("%s\n%s%s\n"):format(tooltip, const.COLORS.YELLOW:WrapTextInColorCode(self.L["CollectionUtils.Achievement"]), name)
+            tooltip = ("%s\n%s%s\n"):format(tooltip,
+                const.COLORS.YELLOW:WrapTextInColorCode(self.L["CollectionUtils.Achievement"]), name)
         elseif source.SOURCE_TYPE == const.COLLECTIONS.ENUM.SOURCE_TYPE.VENDOR then
             local vendorInfo = self:GetVendorByID(source.SOURCE_ID)
             local name = vendorInfo and vendorInfo.NAME or self.L["CollectionUtils.UnknownVendor"]
@@ -435,7 +482,8 @@ function collectionUtils:GetSourceTooltip(reward)
                 icon = icon or 134400
                 prices = ("%s|T%s:12|t %d\n"):format(prices, icon, priceInfo.AMOUNT)
             end
-            tooltip = ("%s\n%s%s:\n%s"):format(tooltip, const.COLORS.YELLOW:WrapTextInColorCode(self.L["CollectionUtils.Vendor"]), name, prices)
+            tooltip = ("%s\n%s%s:\n%s"):format(tooltip,
+                const.COLORS.YELLOW:WrapTextInColorCode(self.L["CollectionUtils.Vendor"]), name, prices)
         end
     end
 
@@ -473,7 +521,8 @@ function collectionUtils:LoadReward(reward)
             tooltip = name
             local collectionFunc = self:GetTitleCollectionFunction(titleID)
 
-            local titleObj = self:CreateCollectionObject(reward, name, icon, tooltip, collectionFunc(), bronzePrice, collectionFunc)
+            local titleObj = self:CreateCollectionObject(reward, name, icon, tooltip, collectionFunc(), bronzePrice,
+                collectionFunc)
             self:AddToCache(titleObj, rewardType)
         end
     elseif rewardType == rtEnum.SET then
@@ -485,7 +534,8 @@ function collectionUtils:LoadReward(reward)
             local setID = C_Item.GetItemLearnTransmogSet(itemID)
             local collectionFunc = self:GetSetCollectionFunction(setID)
 
-            local setObj = self:CreateCollectionObject(reward, name, icon, tooltip, collectionFunc(), bronzePrice, collectionFunc,
+            local setObj = self:CreateCollectionObject(reward, name, icon, tooltip, collectionFunc(), bronzePrice,
+                collectionFunc,
                 itemID)
             self:AddToCache(setObj, rewardType)
         end)
@@ -498,7 +548,8 @@ function collectionUtils:LoadReward(reward)
             local speciesID = select(13, C_PetJournal.GetPetInfoByItemID(itemID))
             local collectionFunc = self:GetPetCollectionFunction(speciesID)
 
-            local petObj = self:CreateCollectionObject(reward, name, icon, tooltip, collectionFunc(), bronzePrice, collectionFunc,
+            local petObj = self:CreateCollectionObject(reward, name, icon, tooltip, collectionFunc(), bronzePrice,
+                collectionFunc,
                 itemID)
             self:AddToCache(petObj, rewardType)
         end)
@@ -511,7 +562,8 @@ function collectionUtils:LoadReward(reward)
             local name = item:GetItemName()
             local collectionFunc = self:GetIllusionCollectionFunction(illusionID)
 
-            local illusionObj = self:CreateCollectionObject(reward, name, icon, tooltip, collectionFunc(), bronzePrice, collectionFunc,
+            local illusionObj = self:CreateCollectionObject(reward, name, icon, tooltip, collectionFunc(), bronzePrice,
+                collectionFunc,
                 itemID, illusionID)
             self:AddToCache(illusionObj, rewardType)
         end)
@@ -536,7 +588,8 @@ function collectionUtils:LoadReward(reward)
             local mountID = C_MountJournal.GetMountFromItem(itemID)
             local collectionFunc = self:GetMountCollectionFunction(mountID, itemID)
 
-            local mountObj = self:CreateCollectionObject(reward, name, icon, tooltip, collectionFunc(), bronzePrice, collectionFunc,
+            local mountObj = self:CreateCollectionObject(reward, name, icon, tooltip, collectionFunc(), bronzePrice,
+                collectionFunc,
                 itemID)
             self:AddToCache(mountObj, rewardType)
         end)
@@ -548,7 +601,8 @@ function collectionUtils:LoadReward(reward)
             local name = item:GetItemName()
             local collectionFunc = self:GetToyCollectionFunction(itemID)
 
-            local toyObj = self:CreateCollectionObject(reward, name, icon, tooltip, collectionFunc(), bronzePrice, collectionFunc,
+            local toyObj = self:CreateCollectionObject(reward, name, icon, tooltip, collectionFunc(), bronzePrice,
+                collectionFunc,
                 itemID)
             self:AddToCache(toyObj, rewardType)
         end)
@@ -567,7 +621,8 @@ function collectionUtils:LoadRewardInfos()
                 REWARD_TYPE = reward.REWARD_TYPE,
                 SOURCES = {},
                 PRICES = reward.PRICES,
-                ILLUSION_ID = reward.ILLUSION_ID
+                ILLUSION_ID = reward.ILLUSION_ID,
+                UNIQUE_TO_REMIX = reward.UNIQUE_TO_REMIX
             }
         end
         if not combinedRewards[key].PRICES and reward.PRICES then

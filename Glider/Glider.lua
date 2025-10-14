@@ -69,6 +69,12 @@ local ART = {
   Random = "Random",
 }
 
+local function DebugPrint(...)
+  if GetCVarBool("DebugLogArc") then
+    print("Glider: ",...)
+  end
+end
+
 Configuration.numOptions = 0
 for _ in pairs(ART) do
   Configuration.numOptions = Configuration.numOptions + 1
@@ -304,11 +310,10 @@ function Glider:SetupLayout(layoutName)
   end
   fixedSizeFrame:SetPoint(layout.point, CalculateOffset(layout.x), CalculateOffset(layout.y)) ]]
   anchorFrame:SetPoint(layout.point, Round(layout.x), Round(layout.y))
-  if layout.scale then
-    Glider:SetScale(layout.scale)
-    Glider.VigorCharge:SetEdgeTexture(layout.scale > 1 and [[Interface\AddOns\Glider\Media\VigorEdge2x.tga]] or
+  layout.scale = layout.scale or 1
+  Glider:SetScale(layout.scale)
+  Glider.VigorCharge:SetEdgeTexture(layout.scale > 1 and [[Interface\AddOns\Glider\Media\VigorEdge2x.tga]] or
       [[Interface\AddOns\Glider\Media\VigorEdge.tga]]) ---@diagnostic disable-line
-  end
 
   Glider.VigorCharge:SetSwipeColor(1, 1, 1, 1)
   if not ART[layout.style] then
@@ -351,22 +356,6 @@ LEM:RegisterCallback('layout', function(layoutName)
 end)
 
 --EventRegistry:RegisterFrameEventAndCallback('EDIT_MODE_LAYOUTS_UPDATED', onEditModeChanged)
-
-function Glider:OnEvent(e, ...)
-  if e == "UPDATE_UI_WIDGET" then
-    self:Update(...)
-  elseif e == "UPDATE_ALL_UI_WIDGETS" then
-    -- ugly fix: Flying from Khaz Algar to Ringing Deeps and similar world transitions can flash the vigor bar
-    -- so just hide the entire container for a short duration, permamently hiding it messes with content that uses the same bar
-    if self:IsShown() then
-      UIWidgetPowerBarContainerFrame:Hide()
-      C_Timer.After(5, function() UIWidgetPowerBarContainerFrame:Show() end)
-    end
-  elseif e == "UNIT_AURA" and self:IsShown() then
-    MutableData.isThrill = C_UnitAuras.GetPlayerAuraBySpellID(377234) and true or false
-  end
-end
-
 function Glider:SetRandomColor()
     local randomIndex = math.random(1, Configuration.numOptions)
     local colorName = ART_OPTIONS[randomIndex].text
@@ -505,7 +494,9 @@ function Glider:ProcessWidgets()
       if widget.widgetType == 24 and widget.widgetSetID == 283 then
       local info = C_UIWidgetManager.GetFillUpFramesWidgetVisualizationInfo(widget.widgetID)
       if info then
-        isShown = bit.bor(isShown, info.shownState)
+        -- here we just assume if we still run into bugged widgets, numTotalFrames is 0 but i can't tell if this bug is still around
+        isShown = bit.bor(isShown, (info.shownState == 1 and info.numTotalFrames > 0) and 1 or 0)
+        MutableData.widgetID = (info.shownState == 1 and info.numTotalFrames > 0) and widget.widgetID or 4460
       end
       widget:Hide()
       end
@@ -520,15 +511,15 @@ function Glider:SetCooldownPercentage(frame, perc)
 end
 
 function Glider:IsSkyriding()
-  -- 650 is Derby racing
-  local powerBarID = UnitPowerBarID("player") -- Sadly also bugs out, but we use it in this case cause GetGlidingInfo is laggy, bad for responsive UI
   local hasSkyridingBar = (GetBonusBarIndex() == 11 and GetBonusBarOffset() == 5)
-  local canGlide = select(2, GetGlidingInfo())
-  return ( hasSkyridingBar or
-          --powerBarID == 631 or
-          --powerBarID == 650 or
-          (canGlide and powerBarID ~= 0)
-        ) and true or false;
+  if hasSkyridingBar then
+    return true
+  else
+    -- 650 is Derby racing
+    local powerBarID = UnitPowerBarID("player") -- Sadly also bugs out, but we use it in this case cause GetGlidingInfo is laggy, bad for responsive UI
+    local canGlide = select(2, GetGlidingInfo())
+    return hasSkyridingBar or (canGlide and powerBarID ~= 0);
+  end
 end
 
 function Glider:Update(widget)
@@ -538,7 +529,7 @@ function Glider:Update(widget)
 
   self:ProcessWidgets()
 
-  if widget.widgetID ~= 4460 then
+  if widget.widgetID ~= MutableData.widgetID then
     return
   end
 
@@ -547,7 +538,7 @@ function Glider:Update(widget)
     return
   end
 
-  local info = C_UIWidgetManager.GetFillUpFramesWidgetVisualizationInfo(4460)
+  local info = C_UIWidgetManager.GetFillUpFramesWidgetVisualizationInfo(MutableData.widgetID)
   if not info then
     self:HideAnim()
     return
@@ -561,14 +552,16 @@ function Glider:Update(widget)
   end
   MutableData.lastFill = MutableData.lastNumFullFrames + info.fillValue
 
-  local originalPercentage = (MutableData.lastNumFullFrames + fillValue / (info.fillMax + 1e-7)) / info.numTotalFrames
+  local originalPercentage = 0
+  if info.numTotalFrames > 0 then
+    originalPercentage = (MutableData.lastNumFullFrames + fillValue / (info.fillMax + 1e-7)) / (info.numTotalFrames)
+  end
   MutableData.adjustedPercentage = (Configuration.percentageMulti[info.numTotalFrames] or 0) * originalPercentage
 
   if not (self:IsShown() or self.animShow:IsPlaying()) and info.numTotalFrames > 0 then
-    CooldownFrame_SetDisplayAsPercentage(self.VigorCharge, MutableData.adjustedPercentage);
+    self:SetCooldownPercentage(self.VigorCharge, MutableData.adjustedPercentage);
     self:ShowAnim()
   end
-
 
   if info.numFullFrames == 0 then
     MutableData.numFullFrames = MutableData.lastNumFullFrames
@@ -605,6 +598,22 @@ function Glider:Update(widget)
   end
 
   MutableData.lastNumFullFrames = info.numFullFrames
+end
+
+
+function Glider:OnEvent(e, ...)
+  if e == "UPDATE_UI_WIDGET" then
+    self:Update(...)
+  elseif e == "UPDATE_ALL_UI_WIDGETS" then
+    -- ugly fix: Flying from Khaz Algar to Ringing Deeps and similar world transitions can flash the vigor bar
+    -- so just hide the entire container for a short duration, permamently hiding it messes with content that uses the same bar
+    if self:IsShown() then
+      UIWidgetPowerBarContainerFrame:Hide()
+      C_Timer.After(5, function() UIWidgetPowerBarContainerFrame:Show() end)
+    end
+  elseif e == "UNIT_AURA" and self:IsShown() then
+    MutableData.isThrill = C_UnitAuras.GetPlayerAuraBySpellID(377234) and true or false
+  end
 end
 
 function Glider:OnLoad()

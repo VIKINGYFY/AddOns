@@ -5,6 +5,9 @@ local Private = select(2, ...)
 local locales = Private.Locales or {}
 Private.Locales = locales
 local L = {
+    -- UI/Components/Dropdown.lua
+    ["Components.Dropdown.SelectOption"] = "Выберите опцию",
+
     -- UI/Tabs/ArtifactTraitsTabUI.lua
     ["Tabs.ArtifactTraitsTabUI.AutoActivateForSpec"] = "Автоактивация для специализации",
     ["Tabs.ArtifactTraitsTabUI.NoArtifactEquipped"] = "Артефакт не экипирован",
@@ -20,6 +23,8 @@ local L = {
     ["Tabs.CollectionTabUI.FilterSources"] = "Источники",
     ["Tabs.CollectionTabUI.FilterCheckAll"] = "Выбрать все",
     ["Tabs.CollectionTabUI.FilterUncheckAll"] = "Снять все",
+    ["Tabs.CollectionTabUI.FilterRaidVariants"] = "Показать варианты рейда",
+    ["Tabs.CollectionTabUI.FilterUnique"] = "Только специфичные предметы Remix",
     ["Tabs.CollectionTabUI.Type"] = "Тип",
     ["Tabs.CollectionTabUI.Source"] = "Источник",
     ["Tabs.CollectionTabUI.SearchInstructions"] = "Поиск",
@@ -52,7 +57,7 @@ local L = {
     ["QuickActionBarUI.SettingsNoActionSaveError"] = "Нет действия для сохранения.",
     ["QuickActionBarUI.SettingsEditorAction"] = "Действие %s",
     ["QuickActionBarUI.SettingsGeneralActionSaveError"] = "Ошибка при сохранении действия: %s",
-    ["QuickActionBarUI.CombatToggleError"] = "The Quick Action Bar cannot be opened or closed in combat.",
+    ["QuickActionBarUI.CombatToggleError"] = "Панель быстрых действий нельзя открыть или закрыть во время боя.",
 
     -- UI/ScrappingUI.lua
     ["ScrappingUI.MaxScrappingQuality"] = "Макс. качество разбора",
@@ -63,11 +68,16 @@ local L = {
     -- Utils/ArtifactTraitUtils.lua
     ["ArtifactTraitUtils.NoItemEquipped"] = "Предмет не экипирован.",
     ["ArtifactTraitUtils.UnknownTrait"] = "Неизвестная особенность",
+    ["ArtifactTraitUtils.ColumnNature"] = "Природа",
+    ["ArtifactTraitUtils.ColumnFel"] = "Хаос",
+    ["ArtifactTraitUtils.ColumnArcane"] = "Тайная магия",
+    ["ArtifactTraitUtils.ColumnStorm"] = "Буря",
+    ["ArtifactTraitUtils.ColumnHoly"] = "Свет",
     ["ArtifactTraitUtils.JewelryFormat"] = "|T%s:16|t %s (+%d)",
     ["ArtifactTraitUtils.MaxTriesReached"] = "Достигнут максимум попыток при покупке.",
-    ["ArtifactTraitUtils.SettingsCategoryPrefix"] = "Особености артефакта",
-    ["ArtifactTraitUtils.SettingsCategoryTooltip"] = "Настройки для функции Особености артефакта",
-    ["ArtifactTraitUtils.AutoBuy"] = "Автоматическое изучения артефакта",
+    ["ArtifactTraitUtils.SettingsCategoryPrefix"] = "Особенности артефакта",
+    ["ArtifactTraitUtils.SettingsCategoryTooltip"] = "Настройки для функции Особенности артефакта",
+    ["ArtifactTraitUtils.AutoBuy"] = "Автоматическое изучение артефакта",
     ["ArtifactTraitUtils.AutoBuyTooltip"] = "Автоматически изучает предустановленные таланты, когда у вас достаточно бесконечной силы.",
 
     -- Utils/CollectionUtils.lua
@@ -77,12 +87,36 @@ local L = {
     ["CollectionUtils.UnknownVendor"] = "Неизвестный торговец",
     ["CollectionUtils.Vendor"] = "Торговец, ",
 
+    -- Utils/CommandUtils.lua
+    ["CommandUtils.UnknownCommand"] =
+[[Неизвестная команда!
+Использование: /LRH или /LegionRH <подкоманда>
+Подкоманды:
+     коллекция (c) — открыть вкладку Коллекции.
+     настройки (s) — Открыть меню настроек.
+Пример: /LRH s]],
+    ["CommandUtils.CollectionsCommand"] = "коллекции",
+    ["CommandUtils.CollectionsCommandShort"] = "c",
+    ["CommandUtils.SettingsCommand"] = "настройки",
+    ["CommandUtils.SettingsCommandShort"] = "s",
+
+    -- Utils/EditModeUtils.lua
+    ["EditModeUtils.ShowAddonSystems"] = "Legion-Remix-Helper-Systems",
+    ["EditModeUtils.SystemLabel.ToastUI"] = "Уведомления",
+    ["EditModeUtils.SystemTooltip.ToastUI"] = "Переместить позицию уведомлений.",
+
     -- Utils/ItemOpenerUtils.lua
     ["ItemOpenerUtils.SettingsCategoryPrefix"] = "Авто открывание предметов",
     ["ItemOpenerUtils.SettingsCategoryTooltip"] = "Настройки функции автоматического открытия предметов",
     ["ItemOpenerUtils.AutoItemOpen"] = "Автоматически открывать предметы",
     ["ItemOpenerUtils.AutoItemOpenTooltip"] = "Автоматически открывает определённые предметы в вашем инвентаре при их нахождении. (Эта функция всё ещё находится в разработке.)",
     ["ItemOpenerUtils.AutoOpenItemEntryTooltip"] = "Автоматически открывает %s при нахождении в вашем инвентаре.",
+
+    -- Utils/MerchantUtils.lua
+    ["MerchantUtils.SettingsCategoryPrefix"] = "Настройки торговца",
+    ["MerchantUtils.SettingsCategoryTooltip"] = "Настройки функции Торговец",
+    ["MerchantUtils.HideCollectedMerchantItems"] = "Скрыть собранные предметы торговца",
+    ["MerchantUtils.HideCollectedMerchantItemsTooltip"] = "Скрывает предметы в окне торговца, которые уже есть в вашей коллекции.",
 
     -- Utils/QuestUtils.lua
     ["QuestUtils.SettingsCategoryPrefix"] = "Автозадание",
@@ -91,6 +125,10 @@ local L = {
     ["QuestUtils.AutoTurnInTooltip"] = "Автоматически сдавать задания при взаимодействии с НИП.",
     ["QuestUtils.AutoAccept"] = "Автоприем",
     ["QuestUtils.AutoAcceptTooltip"] = "Автоматически принимать задания при взаимодействии с НИП.",
+    ["QuestUtils.IgnoreEternus"] = "Игнорировать Вечноса",
+    ["QuestUtils.IgnoreEternusTooltip"] = "Игнорируйте задания, от Вечноса.",
+    ["QuestUtils.SuppressShift"] = "С помощью Shift",
+    ["QuestUtils.SuppressShiftTooltip"] = "Удерживайте клавишу Shift, чтобы отменить автоматическое принятие/сдачу заданий.",
 
     -- Utils/QuickActionBarUtils.lua
     ["QuickActionBarUtils.SettingsCategoryPrefix"] = "Быстрая панель действий",

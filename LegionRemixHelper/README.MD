@@ -6,7 +6,8 @@
 
 ![CurseForge Downloads](https://img.shields.io/curseforge/dt/1352479?style=for-the-badge&logo=curseforge)
 [![Discord](https://img.shields.io/discord/1241329415770603521?style=for-the-badge&logo=discord&label=Discord)](https://discord.gg/EC3r5CENeT)
-[![Sponsor](https://img.shields.io/badge/Sponsor_Me-%E2%9D%A4-red?style=for-the-badge&logo=paypal)](https://www.paypal.me/Larsj02)
+[![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/Larsj02)
+[![PayPal](https://img.shields.io/badge/Support-PayPal-blue?style=for-the-badge&logo=paypal)](https://www.paypal.me/Larsj02)
 
 </div>
 
@@ -65,20 +66,19 @@ Streamline your character's progression and ensure you're always at your stronge
 
 This addon is for the community. If you have a bug report, a feature request, or just want to chat, please join our Discord!
 
-* **Join the Discord Community:** [link here](https://discord.gg/EC3r5CENeT)
+* **Join the Discord Community:** https://discord.gg/EC3r5CENeT
 * **Report an Issue:** Please use the [GitHub Issues tracker](https://github.com/Larsj02/LegionRemixHelper/issues).
 * **Contribute:** Pull requests are always welcome!
 
 ---
 
-## ❤️ Support the Developer
+## ❤️ Support My Work
 
-The development of this addon was unfortunately slowed down by a personal emergency. My cat, Leo, required a sudden and expensive life-saving surgery.
+Creating and maintaining addons like this is a passion project, driven by my love for the WoW community. I pour hundreds of hours into development to make your gaming experience better.
 
-Thanks to the incredible support from family, friends, and the WoW community, Leo is now home and recovering well! However, we are still working to cover the loans taken for his treatment.
+If you find this addon useful and want to show your appreciation, your support helps me dedicate more time to creating and updating projects and would mean the world to me.
 
-If you enjoy using **Legion Remix Helper** and feel like supporting my work and helping with these vet bills, any donation would be immensely appreciated.
+* ☕ **Support me on Ko-Fi:** https://ko-fi.com/Larsj02 (Perfect for ongoing support!)
+* 🅿️ **Send a Tip via PayPal:** https://paypal.me/Larsj02 (For a one-time thank you!)
 
-* **Support Leo's Recovery:** [link here](https://www.paypal.com/pools/c/125889021916995752)
-
-Thank you for your incredible support. I hope this addon makes your Legion Remix experience a fantastic one!
+Thank you for being an amazing part of this journey!

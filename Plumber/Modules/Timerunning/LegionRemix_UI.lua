@@ -16,12 +16,14 @@ local Easing_OutQuart = addon.EasingFunctions.outQuart;
 
 local ipairs = ipairs;
 local InCombatLockdown = InCombatLockdown;
+local IsGamePadFreelookEnabled = IsGamePadFreelookEnabled;
 
 
 local TEXTURE_FILE = "Interface/AddOns/Plumber/Art/Timerunning/LegionRemixUI.png";
 
 
 local MainFrame;
+local GAMEPAD_MODE = false;
 
 
 local Constants = {
@@ -122,6 +124,7 @@ do
         --Only FlyoutButton is clickable
         if not self.isFlyoutButton then return end;
 
+        MainFrame:SetLastGamePadFocus(self.parentNodeButton);
         MainFrame:CloseNodeFlyout();
 
         local parentNodeButton = self.parentNodeButton;
@@ -785,6 +788,43 @@ do
     local ANIM_OFFSET_H_BUTTON_HOVER = 12;
     local ANIM_DURATION_BUTTON_HOVER = 0.25;
 
+    local InifiteResearchQuests = { --Slain enemies with Artifact Ability active
+        [1] = 90115,
+        [2] = 92439,
+        [3] = 92441,
+        [4] = 92440,
+        [5] = 92442,
+    };
+
+    local function QuestIcon_OnEnter(self)
+        if self.questID and C_QuestLog.IsOnQuest(self.questID) then
+            local tooltip = GameTooltip;
+            local title = API.GetQuestName(self.questID);
+            local progressTexts = API.GetQuestProgressTexts(self.questID);
+            self.UpdateTooltip = QuestIcon_OnEnter;
+            tooltip:SetOwner(self, "ANCHOR_RIGHT");
+            tooltip:SetText(title, 1, 0.82, 0, 1, true);
+            if progressTexts then
+                for _, text in ipairs(progressTexts) do
+                    tooltip:AddLine(text, 1, 1, 1, true);
+                end
+            end
+            tooltip:Show();
+        end
+    end
+
+    local function QuestIcon_OnLeave(self)
+        GameTooltip:Hide();
+    end
+
+    local function QuestIcon_Update(self)
+        if C_QuestLog.IsOnQuest(self.questID) then
+            self:Show();
+        else
+            self:Hide();
+        end
+    end
+
     function TrackCardMixin:OnLoad()
         self.titleCenterX = 104;
         self.Div:ClearAllPoints();
@@ -815,6 +855,16 @@ do
         self.EdgeGlow2:SetTexture("Interface/AddOns/Plumber/Art/Timerunning/EdgeGlow");
         self.EdgeGlow2:SetBlendMode("ADD");
         self.EdgeGlow2:SetVertexColor(205/255, 237/255, 59/255);
+
+        self.QuestIcon.Texture:SetTexture(TEXTURE_FILE);
+        self.QuestIcon.Texture:SetTexCoord(640/1024, 688/1024, 672/1024, 720/1024);
+        self.QuestIcon.HighlightTexture:SetTexture(TEXTURE_FILE);
+        self.QuestIcon.HighlightTexture:SetTexCoord(640/1024, 688/1024, 672/1024, 720/1024);
+        self.QuestIcon.HighlightTexture:SetBlendMode("ADD");
+        self.QuestIcon:SetScript("OnEnter", QuestIcon_OnEnter);
+        self.QuestIcon:SetScript("OnLeave", QuestIcon_OnLeave);
+        self.QuestIcon.Update = QuestIcon_Update;
+        self.QuestIcon.questID = InifiteResearchQuests[self.trackIndex];
 
         --self:SetScript("OnEnter", self.OnEnter);
         --self:SetScript("OnLeave", self.OnLeave);
@@ -858,7 +908,9 @@ do
             self:ShowHoverVisual();
         elseif (not state) and self.activateButtonShown then
             self.activateButtonShown = nil;
-            MainFrame.ActivateButton:SetParentCard();
+            if MainFrame.ActivateButton.parentCard == self then
+                MainFrame.ActivateButton:SetParentCard();
+            end
             self:ResetHoverVisual();
         end
     end
@@ -942,6 +994,7 @@ do
         end
 
         self.isActive = isActive;
+        self.QuestIcon:Update();
     end
 end
 
@@ -1095,6 +1148,8 @@ do
         "PLAYER_REGEN_DISABLED",
         "CURRENCY_DISPLAY_UPDATE",
         "TRAIT_TREE_CHANGED",
+        "QUEST_ACCEPTED",
+        "QUEST_REMOVED",
     };
 
     function MainFrameMixin:OnShow()
@@ -1116,6 +1171,10 @@ do
         self:SetScript("OnUpdate", nil);
         self:OnDraggingSpell(false);
         PlaySound(SOUNDKIT.UI_EXPANSION_LANDING_PAGE_CLOSE);
+
+        if GAMEPAD_MODE then
+            self:SetLastGamePadFocus(nil);
+        end
     end
 
     function MainFrameMixin:UpdateHeader()
@@ -1173,6 +1232,8 @@ do
                     self:OnDraggingSpell(false);
                 end
             end
+        elseif event == "QUEST_ACCEPTED" or event == "QUEST_REMOVED" then
+            self:UpdateQuests();
         end
     end
 
@@ -1185,6 +1246,12 @@ do
         self:UpdateNodeFlyoutFrame();
         self:UpdateHeader();
         --self:DebugSaveAllNodes();
+    end
+
+    function MainFrameMixin:UpdateQuests()
+        for _, card in ipairs(self.TrackCards) do
+            card.QuestIcon:Update();
+        end
     end
 
     function MainFrameMixin:OnUpdate_UpdateAfterDelay(elapsed)
@@ -1281,6 +1348,7 @@ do
             f:EnableMouseMotion(true);
             f:SetSize(80, 80);
 
+            f:SetAttribute("nodeignoremime", true)
             f:SetScript("OnLeave", function()
                 if not(f:IsMouseOver() or (f.owner and f.owner:IsVisible() and f.owner:IsMouseOver())) then
                     MainFrame:CloseNodeFlyout();
@@ -1328,7 +1396,11 @@ do
         local totalWidth = offsetX - gapH;
         local bottomPadding = 6;
         f:SetSize(totalWidth, buttonSize + bottomPadding);
-        f:SetPoint("BOTTOM", nodeButton, "TOP", 0, -10 -bottomPadding);
+        if GAMEPAD_MODE then
+            f:SetPoint("BOTTOMLEFT", nodeButton, "CENTER", -buttonSize * 0.5, 0);
+        else
+            f:SetPoint("BOTTOM", nodeButton, "TOP", 0, -10 -bottomPadding);
+        end
         f:SetFrameStrata("DIALOG");
         f.owner = nodeButton;
 
@@ -1362,7 +1434,7 @@ do
     function MainFrameMixin:CloseNodeFlyout()
         if self.NodeFlyoutFrame then
             self.NodeFlyoutFrame:Hide();
-            self.NodeFlyoutFrame:ClearAllPoints();
+            --self.NodeFlyoutFrame:ClearAllPoints();    --Remove this so ConsolePort cursor can correctly transite
         end
     end
 
@@ -1388,6 +1460,20 @@ do
                     return true
                 end
             end
+
+            if GAMEPAD_MODE then
+                local object = ConsolePort:GetCursorNode();
+                if object then
+                    if nodeButton == object then
+                        return true
+                    end
+                    for _, button in ipairs(self.flyoutButtonPool:GetActiveObjects()) do
+                        if button == object then
+                            return true
+                        end
+                    end
+                end
+            end
         end
         return false
     end
@@ -1408,6 +1494,14 @@ do
                         focusedCard = card;
                         break
                     end
+                end
+            end
+
+            if GAMEPAD_MODE and IsGamePadFreelookEnabled() then
+                focusedCard = nil;
+                local object = ConsolePort:GetCursorNode();
+                if object and object.parentCard then
+                    focusedCard = object.parentCard;
                 end
             end
         end
@@ -1433,6 +1527,18 @@ do
         self:Refresh(playAnimation);
     end
 
+    function MainFrameMixin:SetLastGamePadFocus(object)
+        if GAMEPAD_MODE then
+            if self.lastGamePadFocus then
+                self.lastGamePadFocus:SetAttribute("nodepriority", nil);
+            end
+            self.lastGamePadFocus = object;
+            if object then
+                object:SetAttribute("nodepriority", 1);
+            end
+        end
+    end
+
     function MainFrameMixin:SetTooltip(row, icon, header, description, updateTooltipFunc)
         local f = self.TooltipFrame;
         f:SetTooltip(icon, header, description, updateTooltipFunc);
@@ -1443,8 +1549,6 @@ do
         f:SetParent(self);
         f:Show();
     end
-
-
 
     function MainFrameMixin:HideTooltip()
         self.TooltipFrame:HideTooltip(true);
@@ -1533,11 +1637,11 @@ local function CreateMainUI()
         local card = CreateFrame("Frame", nil, f, "PlumberLegionRemixCardTemplate");
         TrackCards[index] = card;
         API.Mixin(card, TrackCardMixin);
-        card:OnLoad();
         card:SetPoint("TOP", f, "TOP", 0, offsetY);
         card:SetFrameLevel(baseFrameLevel - index);
         card.trackIndex = index;
         card.TraitNodes = {};
+        card:OnLoad();
 
         for i, nodeID in ipairs(trackData) do
             local button = CreateFrame("Button", nil, card, "PlumberLegionRemixNodeTemplate");
@@ -1573,6 +1677,7 @@ local function CreateMainUI()
                 arrow:OnLoad();
                 arrow:SetData(nodeID);
                 arrow:SetPoint("LEFT", card, "LEFT", offsetX, 0);
+                arrow.parentCard = card;
                 offsetX = offsetX + Constants.ThreeArrowsSize + gapH;
             end
         end
@@ -1680,6 +1785,64 @@ local function CreateMainUI()
     f:SetSize(cardWidth, height);
     f:SetScript("OnHide", f.OnHide);
     f:SetScript("OnShow", f.OnShow);
+
+
+    --ConsolePort Compatibility
+    if ConsolePort and ConsolePort.AddInterfaceCursorFrame and ConsolePort.GetCursorNode then
+        GAMEPAD_MODE = true;
+        f.NodeFocusSolver:SetGamePadMode(true);
+
+        --Create hidden buttons for cusor snapping
+
+        local function HiddenButton_OnEnter(self)
+            if self.parentCard:IsVisible() then
+                self.parentCard:OnEnter();
+                if ActivateButton:IsShown() and ActivateButton:IsEnabled() then
+                    local forceFocus = true;
+                    ActivateButton:UpdateVisual(forceFocus);
+                end
+            end
+        end
+
+        local function HiddenButton_OnClick(self, button)
+            if button == "RightButton" then
+                MainFrame:Hide();
+                return
+            end
+            if self.parentCard:IsVisible() then
+                ActivateButton:Update();
+                if ActivateButton:IsShown() and ActivateButton:IsEnabled() and button == "LeftButton" then
+                    ActivateButton:OnClick();
+                end
+            end
+        end
+
+        for i, card in ipairs(TrackCards) do
+            local HiddenButton = CreateFrame("Button", nil, card);
+            card.HiddenButton = HiddenButton;
+            HiddenButton.trackIndex = i;
+            HiddenButton.parentCard = card;
+            HiddenButton:SetUsingParentLevel(true);
+            HiddenButton:SetSize(128, 24);
+            HiddenButton:SetPoint("TOP", card, "LEFT", 104, -2);
+            HiddenButton:SetScript("OnEnter", HiddenButton_OnEnter);
+            HiddenButton:SetScript("OnClick", HiddenButton_OnClick);
+        end
+
+        local function SetIgnoreOject(object)
+            object:SetAttribute("nodeignore", true);
+        end
+
+        SetIgnoreOject(HeaderFrame.MouseoverFrame);
+        SetIgnoreOject(ActivateButton);
+
+        ConsolePort:AddInterfaceCursorFrame(CloseButton);
+    end
+
+    --GW2 UI Compatibility
+    if GwDressingRoom then
+        f:SetFrameStrata("HIGH");
+    end
 end
 
 local function ShowArtifactUI()
@@ -1700,3 +1863,4 @@ local function ToggleArtifactUI()
     end
 end
 RemixAPI.ToggleArtifactUI = ToggleArtifactUI;
+_G.Plumber_ToggleArtifactUI = ToggleArtifactUI;

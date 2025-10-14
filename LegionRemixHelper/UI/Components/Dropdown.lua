@@ -26,7 +26,7 @@ local defaultOptions = {
         { "CENTER" }
     },
     template = "WowStyle1DropdownTemplate",
-    defaultText = "Select an option",
+    defaultText = Private.L["Components.Dropdown.SelectOption"],
     setupMenu = nil,
     dropdownType = "DROPDOWN",
     onSelect = nil,

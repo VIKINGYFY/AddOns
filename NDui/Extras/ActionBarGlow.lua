@@ -26,6 +26,10 @@ local ActionBarSpells = {
 		[ 370965] = true, -- 恶魔追击
 		[ 390163] = true, -- 极乐敕令
 	},
+	["WARRIOR"] = {
+		[ 163201] = true, -- 斩杀
+	},
+
 }
 
 function EX:ActionBarGlow_Update()

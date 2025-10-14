@@ -1,6 +1,6 @@
-## Interface: 110107, 110200
+## Interface: 110200, 110205
 ## Title: BtWQuests: Battle for Azeroth
-## Version: v53.24
+## Version: v53.25
 ## Notes: Battle for Azeroth quest data for BtWQuests
 ## Author: Breen
 ## Dependencies: BtWQuests

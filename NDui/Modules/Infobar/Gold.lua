@@ -204,7 +204,7 @@ info.onEnter = function(self)
 		end
 		local r, g, b = B.SmoothColor(chargeInfo.quantity, chargeInfo.maxQuantity)
 		local iconTexture = " |T"..chargeInfo.iconFileID..":12:18:0:1:64:64:5:59:16:48|t"
-		GameTooltip:AddDoubleLine(chargeInfo.name, chargeInfo.quantity.." / "..chargeInfo.maxQuantity..iconTexture, 1,1,1, r,g,b)
+		GameTooltip:AddDoubleLine(chargeInfo.name, B.Numb(chargeInfo.quantity).." / "..B.Numb(chargeInfo.maxQuantity)..iconTexture, 1,1,1, r,g,b)
 	end
 
 	for i = 1, 10 do -- seems unlimit, but use 10 for now, needs review
@@ -221,9 +221,9 @@ info.onEnter = function(self)
 			local iconTexture = " |T"..icon..":12:18:0:1:64:64:5:59:16:48|t"
 			if total > 0 then
 				local r, g, b = B.SmoothColor(count, total)
-				GameTooltip:AddDoubleLine(name, count.." / "..total..iconTexture, 1,1,1, r,g,b)
+				GameTooltip:AddDoubleLine(name, B.Numb(count).." / "..B.Numb(total)..iconTexture, 1,1,1, r,g,b)
 			else
-				GameTooltip:AddDoubleLine(name, count..iconTexture, 1,1,1, 1,1,1)
+				GameTooltip:AddDoubleLine(name, B.Numb(count)..iconTexture, 1,1,1, 1,1,1)
 			end
 		end
 	end

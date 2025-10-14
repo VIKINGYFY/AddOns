@@ -162,10 +162,10 @@ C.OnLoginThemes["Bags"] = function()
 	B.StripTextures(BankPanel)
 	BankPanel.EdgeShadows:Hide()
 	ReskinSortButton(BankPanel.AutoSortButton)
-	B.Reskin(BankPanel.AutoDepositFrame.DepositButton)
+	B.ReskinButton(BankPanel.AutoDepositFrame.DepositButton)
 	B.ReskinCheck(BankPanel.AutoDepositFrame.IncludeReagentsCheckbox)
-	B.Reskin(BankPanel.MoneyFrame.WithdrawButton)
-	B.Reskin(BankPanel.MoneyFrame.DepositButton)
+	B.ReskinButton(BankPanel.MoneyFrame.WithdrawButton)
+	B.ReskinButton(BankPanel.MoneyFrame.DepositButton)
 
 	hooksecurefunc(BankPanel, "GenerateItemSlotsForSelectedTab", handleBagSlots)
 
@@ -190,8 +190,8 @@ C.OnLoginThemes["Bags"] = function()
 	if popup then
 		B.StripTextures(popup)
 		B.CreateBG(popup)
-		B.Reskin(popup.AcceptButton)
-		B.Reskin(popup.CancelButton)
+		B.ReskinButton(popup.AcceptButton)
+		B.ReskinButton(popup.CancelButton)
 		B.ReskinCheck(popup.HidePopupCheckbox.Checkbox)
 	end
 

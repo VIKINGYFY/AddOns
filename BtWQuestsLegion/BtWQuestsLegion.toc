@@ -1,6 +1,6 @@
-## Interface: 110107, 110200
+## Interface: 110200, 110205
 ## Title: BtWQuests: Legion
-## Version: v30.16
+## Version: v30.17
 ## Notes: Legion quest data for BtWQuests
 ## Author: Breen
 ## Dependencies: BtWQuests

@@ -4,8 +4,11 @@ local Private = select(2, ...)
 local locales = Private.Locales or {}
 Private.Locales = locales
 local L = {
+    -- UI/Components/Dropdown.lua
+    ["Components.Dropdown.SelectOption"] = "Option auswählen",
+
     -- UI/Tabs/ArtifactTraitsTabUI.lua
-    ["Tabs.ArtifactTraitsTabUI.AutoActivateForSpec"] = "Automatisch für Spezialisierung aktivieren",
+    ["Tabs.ArtifactTraitsTabUI.AutoActivateForSpec"] = "Auto-Activate for Spec",
     ["Tabs.ArtifactTraitsTabUI.NoArtifactEquipped"] = "Bitte rüste deine Artefaktwaffe aus!",
 
     -- UI/Tabs/CollectionTabUI.lua
@@ -19,6 +22,8 @@ local L = {
     ["Tabs.CollectionTabUI.FilterSources"] = "Quellen",
     ["Tabs.CollectionTabUI.FilterCheckAll"] = "Alle auswählen",
     ["Tabs.CollectionTabUI.FilterUncheckAll"] = "Alle abwählen",
+    ["Tabs.CollectionTabUI.FilterRaidVariants"] = "Raid-Varianten anzeigen",
+    ["Tabs.CollectionTabUI.FilterUnique"] = "Nur Remix-Spezifische Gegenstände",
     ["Tabs.CollectionTabUI.Type"] = "Typ",
     ["Tabs.CollectionTabUI.Source"] = "Quelle",
     ["Tabs.CollectionTabUI.SearchInstructions"] = "Suchen",
@@ -62,6 +67,11 @@ local L = {
     -- Utils/ArtifactTraitUtils.lua
     ["ArtifactTraitUtils.NoItemEquipped"] = "Kein Gegenstand ausgerüstet.",
     ["ArtifactTraitUtils.UnknownTrait"] = "Unbekanntes Talent",
+    ["ArtifactTraitUtils.ColumnNature"] = "Natur",
+    ["ArtifactTraitUtils.ColumnFel"] = "Chaos",
+    ["ArtifactTraitUtils.ColumnArcane"] = "Arkan",
+    ["ArtifactTraitUtils.ColumnStorm"] = "Sturm",
+    ["ArtifactTraitUtils.ColumnHoly"] = "Heilig",
     ["ArtifactTraitUtils.JewelryFormat"] = "|T%s:16|t %s (+%d)",
     ["ArtifactTraitUtils.MaxTriesReached"] = "Maximale Versuche beim Kauf von Knoten erreicht.",
     ["ArtifactTraitUtils.SettingsCategoryPrefix"] = "Artefakt-Talente",
@@ -76,12 +86,36 @@ local L = {
     ["CollectionUtils.UnknownVendor"] = "Unbekannter Händler",
     ["CollectionUtils.Vendor"] = "Händler, ",
 
+    -- Utils/CommandUtils.lua
+    ["CommandUtils.UnknownCommand"] =
+[[Unbekannter Befehl!
+Verwendung: /LRH oder /LegionRH <unterbefehl>
+Unterbefehle:
+    sammlung (s) - Öffne den Sammlungs-Tab.
+    einstellungen (e) - Öffne das Einstellungsmenü.
+Beispiel: /LRH s]],
+    ["CommandUtils.CollectionsCommand"] = "sammlung",
+    ["CommandUtils.CollectionsCommandShort"] = "s",
+    ["CommandUtils.SettingsCommand"] = "einstellungen",
+    ["CommandUtils.SettingsCommandShort"] = "e",
+
+    -- Utils/EditModeUtils.lua
+    ["EditModeUtils.ShowAddonSystems"] = "Legion-Remix-Helper-Systeme",
+    ["EditModeUtils.SystemLabel.ToastUI"] = "Benachrichtigungen",
+    ["EditModeUtils.SystemTooltip.ToastUI"] = "Verschiebe die Position der Benachrichtigungen.",
+
     -- Utils/ItemOpenerUtils.lua
     ["ItemOpenerUtils.SettingsCategoryPrefix"] = "Auto-Gegenstand-Öffner",
     ["ItemOpenerUtils.SettingsCategoryTooltip"] = "Einstellungen für die Auto-Gegenstand-Öffner-Funktion",
     ["ItemOpenerUtils.AutoItemOpen"] = "Automatisch Gegenstände öffnen",
     ["ItemOpenerUtils.AutoItemOpenTooltip"] = "Öffnet automatisch bestimmte Gegenstände in deinem Inventar, wenn sie gefunden werden. (Dieses Feature wird noch entwickelt)",
     ["ItemOpenerUtils.AutoOpenItemEntryTooltip"] = "Öffnet %s automatisch, wenn es im Inventar gefunden wird.",
+
+    -- Utils/MerchantUtils.lua
+    ["MerchantUtils.SettingsCategoryPrefix"] = "Händler Einstellungen",
+    ["MerchantUtils.SettingsCategoryTooltip"] = "Einstellungen für die Händler-Funktion",
+    ["MerchantUtils.HideCollectedMerchantItems"] = "Gesammelte Händlergegenstände ausblenden",
+    ["MerchantUtils.HideCollectedMerchantItemsTooltip"] = "Blendet Gegenstände aus dem Händlerfenster aus, die du bereits in deiner Sammlung hast.",
 
     -- Utils/QuestUtils.lua
     ["QuestUtils.SettingsCategoryPrefix"] = "Auto-Quest",
@@ -90,6 +124,10 @@ local L = {
     ["QuestUtils.AutoTurnInTooltip"] = "Quests automatisch abgeben, wenn du mit NPCs interagierst.",
     ["QuestUtils.AutoAccept"] = "Automatisch annehmen",
     ["QuestUtils.AutoAcceptTooltip"] = "Quests automatisch annehmen, wenn du mit NPCs interagierst.",
+    ["QuestUtils.IgnoreEternus"] = "Eternus ignorieren",
+    ["QuestUtils.IgnoreEternusTooltip"] = "Quests ignorieren, die von Eternus kommen.",
+    ["QuestUtils.SuppressShift"] = "Mit Shift unterdrücken",
+    ["QuestUtils.SuppressShiftTooltip"] = "Shift gedrückt halten, um das automatische Annehmen/Abgeben von Quests zu unterdrücken.",
 
     -- Utils/QuickActionBarUtils.lua
     ["QuickActionBarUtils.SettingsCategoryPrefix"] = "Schnellleiste",

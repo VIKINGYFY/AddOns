@@ -28,6 +28,6 @@ function uxUtils:CreateSettings()
 
     settingsUtils:CreateHeader(settingsCategory, settingsPrefix, self.L["UXUtils.SettingsCategoryTooltip"],
         { settingsPrefix })
-    settingsUtils:CreatePanel(settingsCategory, nil, nil, 75, Private.UXUI:GetSettingsPanelInitializer(),
+    settingsUtils:CreatePanel(settingsCategory, nil, nil, 75, "UXSettingsPanel", Private.UXUI:GetSettingsPanelInitializer(),
         self:GetOnDefaulted(), { settingsPrefix })
 end

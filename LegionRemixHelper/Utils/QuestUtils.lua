@@ -10,6 +10,8 @@ local questUtils = {
 }
 Private.QuestUtils = questUtils
 
+local const = Private.constants
+
 function questUtils:Init()
     self.L = Private.L
     local addon = Private.Addon
@@ -49,15 +51,44 @@ function questUtils:CreateSettings()
     settingsUtils:CreateCheckbox(settingsCategory, "AUTO_QUEST_ACCEPT", "BOOLEAN", self.L["QuestUtils.AutoAccept"],
         self.L["QuestUtils.AutoAcceptTooltip"], true,
         settingsUtils:GetDBFunc("GETTERSETTER", "quest.autoAccept"))
+    settingsUtils:CreateCheckbox(settingsCategory, "AUTO_QUEST_IGNORE_ETERNUS", "BOOLEAN", self.L["QuestUtils.IgnoreEternus"],
+        self.L["QuestUtils.IgnoreEternusTooltip"], true,
+        settingsUtils:GetDBFunc("GETTERSETTER", "quest.ignoreEternus"))
+    settingsUtils:CreateCheckbox(settingsCategory, "AUTO_QUEST_SURPRESS_SHIFT", "BOOLEAN", self.L["QuestUtils.SuppressShift"],
+        self.L["QuestUtils.SuppressShiftTooltip"], true,
+        settingsUtils:GetDBFunc("GETTERSETTER", "quest.suppressShift"))
 end
 
----@param functionType "autoAccept" | "autoTurnIn"
----@return boolean
+---@param functionType "autoAccept" | "autoTurnIn" | "ignoreEternus" | "suppressShift"
+---@return boolean isActive
 function questUtils:IsActive(functionType)
     return self.addon:GetDatabaseValue("quest." .. functionType)
 end
 
+---@return boolean isEternusNPC
+function questUtils:IsEternusNPC()
+    local guid = UnitGUID("npc")
+    if not guid then return false end
+    local npcID = select(6, strsplit("-", guid))
+    return npcID and tonumber(npcID) == const.QUESTS.ETERNUS_NPC_ID
+end
+
+---@return boolean shouldSurpress
+function questUtils:ShouldSuppressAutoQuest()
+    local suppressShift = self:IsActive("suppressShift")
+    if suppressShift and IsShiftKeyDown() then
+        return true
+    end
+    if self:IsActive("ignoreEternus") and self:IsEternusNPC() then
+        return true
+    end
+    return false
+end
+
 function questUtils:OnGossipShow()
+    if self:ShouldSuppressAutoQuest() then
+        return
+    end
     if self:IsActive("autoTurnIn") then
         local activeQuests = C_GossipInfo.GetActiveQuests()
         if activeQuests then
@@ -81,6 +112,9 @@ function questUtils:OnGossipShow()
 end
 
 function questUtils:OnQuestGreeting()
+    if self:ShouldSuppressAutoQuest() then
+        return
+    end
     if self:IsActive("autoTurnIn") then
         local numActive = GetNumActiveQuests()
         for i = 1, numActive do
@@ -101,6 +135,9 @@ function questUtils:OnQuestGreeting()
 end
 
 function questUtils:OnQuestComplete()
+    if self:ShouldSuppressAutoQuest() then
+        return
+    end
     if self:IsActive("autoTurnIn") then
         pcall(function()  -- Only complete with no selection
             ---@diagnostic disable-next-line: param-type-mismatch
@@ -110,12 +147,18 @@ function questUtils:OnQuestComplete()
 end
 
 function questUtils:OnQuestDetail()
+    if self:ShouldSuppressAutoQuest() then
+        return
+    end
     if self:IsActive("autoAccept") then
         AcceptQuest()
     end
 end
 
 function questUtils:OnQuestProgress()
+    if self:ShouldSuppressAutoQuest() then
+        return
+    end
     if self:IsActive("autoTurnIn") and IsQuestCompletable() then
         CompleteQuest()
     end

@@ -1,4 +1,4 @@
-## Interface: 110200
+## Interface: 110205
 ## Title: |cff0080ffNDui|r Inspect
 ## Author: M
 ## Notes: NDui专用观察面板！

@@ -21,6 +21,8 @@ local defaultDatabase = {
     quest = {
         autoAccept = false,
         autoTurnIn = false,
+        suppressShift = false,
+        ignoreEternus = true,
     },
     toast = {
         activate = false,
@@ -37,6 +39,18 @@ local defaultDatabase = {
     },
     itemOpener = {
         autoItemOpen = false,
+    },
+    merchant = {
+        hideCollectedItems = false,
+    },
+    editMode = {
+        ToastUI = {
+            point = "TOP",
+            relativePoint = "TOP",
+            relativeTo = "UIParent",
+            xOfs = 0,
+            yOfs = -50,
+        }
     },
     version = nil
 }

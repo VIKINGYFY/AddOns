@@ -5,6 +5,10 @@
 -- 2015/9/06
 ------------------------------------------------------------
 
+local ChatFrame_SendTell = ChatFrame_SendTell or ChatFrameUtil.SendTell
+local ChatFrame_SendBNetTell = ChatFrame_SendBNetTell or ChatFrameUtil.SendBNetTell
+local ChatFrame_OpenChat = ChatFrame_OpenChat or ChatFrameUtil.OpenChat
+
 local function getDeprecatedAccountInfo(accountInfo)
 	if accountInfo then
 		local clientProgram = accountInfo.gameAccountInfo.clientProgram ~= "" and accountInfo.gameAccountInfo.clientProgram or nil
@@ -416,13 +420,18 @@ function addon:CHAT_MSG_WHISPER(...)
 	else
 		-- Spam filters only applied on incoming non-GM whispers, other cases make no sense
 		if self.db.applyFilters then
-			local filtersList = ChatFrame_GetMessageEventFilters("CHAT_MSG_WHISPER")
-			if filtersList then
-				local _, func
-				for _, func in ipairs(filtersList) do
-					if type(func) == "function" and func(DEFAULT_CHAT_FRAME, "CHAT_MSG_WHISPER", ...) then
-						return
+			if ChatFrame_GetMessageEventFilters then
+				local filtersList = ChatFrame_GetMessageEventFilters("CHAT_MSG_WHISPER")
+				if filtersList then
+					for _, func in ipairs(filtersList) do
+						if type(func) == "function" and func(DEFAULT_CHAT_FRAME, "CHAT_MSG_WHISPER", ...) then
+							return
+						end
 					end
+				end
+			elseif ChatFrameUtil and ChatFrameUtil.ProcessMessageEventFilters then
+				if ChatFrameUtil.ProcessMessageEventFilters(DEFAULT_CHAT_FRAME, "CHAT_MSG_WHISPER", ...) then
+					return
 				end
 			end
 		end
