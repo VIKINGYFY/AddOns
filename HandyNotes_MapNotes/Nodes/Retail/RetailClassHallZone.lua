@@ -4,7 +4,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 function ns.LoadClassHallZoneLocationinfo(self)
 local db = ns.Addon.db.profile
 local nodes = ns.nodes
-ns._currentSourceFile = "RetailClassHallZone.lua"
+ns.currentSourceFile = "RetailClassHallZone.lua"
 
 --#####################################################################################################
 --##########################        function to hide all nodes below         ##########################

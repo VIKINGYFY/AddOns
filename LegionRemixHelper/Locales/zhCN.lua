@@ -44,9 +44,9 @@ local L = {
     ["QuickActionBarUI.SettingsTitleInput"] = "动作栏名称",
     ["QuickActionBarUI.SettingsIconLabel"] = "图标：",
     ["QuickActionBarUI.SettingsIconInput"] = "图标ID或路径",
-    ["QuickActionBarUI.SettingsIDLabel"] = "动作ID：",
+    ["QuickActionBarUI.SettingsIDLabel"] = "ID：",
     ["QuickActionBarUI.SettingsIDInput"] = "物品/法术名称或ID",
-    ["QuickActionBarUI.SettingsTypeLabel"] = "动作类型：",
+    ["QuickActionBarUI.SettingsTypeLabel"] = "类型：",
     ["QuickActionBarUI.SettingsTypeInputSpell"] = "法术",
     ["QuickActionBarUI.SettingsTypeInputItem"] = "物品",
     ["QuickActionBarUI.SettingsCheckUsableLabel"] = "仅在可用时显示：",
@@ -63,6 +63,16 @@ local L = {
     ["ScrappingUI.MinItemLevelDifference"] = "最低物品等级",
     ["ScrappingUI.MinItemLevelDifferenceInstructions"] = "比装备低 x 级",
     ["ScrappingUI.AutoScrap"] = "自动拆解",
+    ["ScrappingUI.ScraperListTabTitle"] = "拆解列表",
+    ["ScrappingUI.AdvancedSettingsTabTitle"] = "更多设置",
+    ["ScrappingUI.JewelryTraitsToKeep"] = "需保留的物品及特质",
+    ["ScrappingUI.AdvancedJewelryFilter"] = "高级物品及特质",
+    ["ScrappingUI.FilterCheckAll"] = "全选",
+    ["ScrappingUI.FilterUncheckAll"] = "全不选",
+    ["ScrappingUI.Neck"] = "项链及特质",
+    ["ScrappingUI.Trinket"] = "饰品及特质",
+    ["ScrappingUI.Finger"] = "戒指及特质",
+    ["ScrappingUI.IgnoreFromEquipmentSets"] = "忽略装备套装中的物品",
 
     -- Utils/ArtifactTraitUtils.lua
     ["ArtifactTraitUtils.NoItemEquipped"] = "未装备物品。",
@@ -116,6 +126,8 @@ local L = {
     ["MerchantUtils.SettingsCategoryTooltip"] = "商人功能的设置",
     ["MerchantUtils.HideCollectedMerchantItems"] = "隐藏已收藏的物品",
     ["MerchantUtils.HideCollectedMerchantItemsTooltip"] = "在商人窗口中隐藏你已收藏的物品。",
+    ["MerchantUtils.HideCollectedPetsAtLimit"] = "达到上限时隐藏已收集的宠物",
+    ["MerchantUtils.HideCollectedPetsAtLimitTooltip"] = "仅在达到宠物收集上限时隐藏商人窗口中的宠物。",
 
     -- Utils/QuestUtils.lua
     ["QuestUtils.SettingsCategoryPrefix"] = "自动任务",
@@ -128,6 +140,8 @@ local L = {
     ["QuestUtils.IgnoreEternusTooltip"] = "忽略来自伊特努丝的任务。",
     ["QuestUtils.SuppressShift"] = "按住Shift键临时禁用",
     ["QuestUtils.SuppressShiftTooltip"] = "按住Shift键可临时禁用自动交/接任务功能。",
+    ["QuestUtils.SuppressWorldTierIcon"] = "隐藏世界难度图标",
+    ["QuestUtils.SuppressWorldTierIconTooltip"] = "隐藏小地图下方的世界难度图标。",
 
     -- Utils/QuickActionBarUtils.lua
     ["QuickActionBarUtils.SettingsCategoryPrefix"] = "快捷动作栏",

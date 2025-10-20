@@ -376,6 +376,8 @@ L["SoftTargetName ShowNPC Tooltip"] = "If disabled, the name will only appear on
 --LegionRemix
 L["ModuleName LegionRemix"] = "Legion Remix";
 L["ModuleDescription LegionRemix"] = "- Automatically learn traits.\n\n- Add a widget to the Paper Doll that provides various types of info. You can click this widget to open a new Artifact UI.";
+L["ModuleName LegionRemix_HideWorldTier"] = "Hide World Tier Icon";
+L["ModuleDescription LegionRemix_HideWorldTier"] = "Hide the Heroic World Tier icon below the minimap.";
 L["Artifact Weapon"] = "Artifact Weapon";
 L["Artifact Ability"] = "Artifact Ability";
 L["Artifact Traits"] = "Artifact Traits";
@@ -405,6 +407,9 @@ L["Fully Upgraded"] = AZERITE_EMPOWERED_ITEM_FULLY_UPGRADED or "Fully Upgraded";
 L["Unlock Level Requirement Format"] = "Reach level %d to unlock";
 L["Auto Learn Traits"] = "Auto Learn Traits";
 L["Auto Learn Traits Tooltip"] = "Automatically upgrade artifact traits when you have enough Infinite Power";
+L["Infinite Power Yield Format"] = "Grant |cffffffff%s|r Power at your current Knowledge level.";
+L["Infinite Knowledge Bonus Format"] = "Current Bonus: |cffffffff%s|r";
+L["Infinite Knowledge Bonus Next Format"] = "Next Rank: %s";
 
 
 --ItemUpgradeUI
@@ -552,6 +557,11 @@ L["Weekly Coffer Key Shards Tooltip"] = "The first four weekly caches you earn e
 L["Weekly Cap"] = "Weekly Cap";
 L["Weekly Cap Reached"] = "Weekly cap reached.";
 L["Instruction Right Click To Use"] = "<Right Click to Use>";
+L["Join Queue"] = WOW_LABS_JOIN_QUEUE or "Join Queue";
+L["In Queue"] = BATTLEFIELD_QUEUE_STATUS or "In Queue";
+L["Click To Switch"] = "Click to switch to |cffffffff%s|r";
+L["Click To Queue"] = "Click to queue for |cffffffff%s|r";
+L["Click to Open Format"] = "Click to open %s";
 
 
 --Generic
@@ -577,6 +587,16 @@ L["New Feature Auto Enabled Format"] = "New Module %s has been enabled.";
 L["Click To See Details"] = "Click to see details";
 
 
+--WIP Merchant UI
+L["ItemType Consumables"] = AUCTION_CATEGORY_CONSUMABLES or "Consumables";
+L["ItemType Weapons"] = AUCTION_CATEGORY_WEAPONS or "Weapons";
+L["ItemType Gems"] = AUCTION_CATEGORY_GEMS or "Gems";
+L["ItemType Armor Generic"] = AUCTION_SUBCATEGORY_PROFESSION_ACCESSORIES or "Accessories";  --Trinkets, Rings, Necks
+L["ItemType Mounts"] = MOUNTS or "Mounts";
+L["ItemType Pets"] = PETS or "Pets";
+L["ItemType Toys"] = "Toys";
+L["ItemType TransmogSet"] = PERKS_VENDOR_CATEGORY_TRANSMOG_SET or "Transmog Set";
+L["ItemType Transmog"] = "Transmog";
 
 
 -- !! Do NOT translate the following entries

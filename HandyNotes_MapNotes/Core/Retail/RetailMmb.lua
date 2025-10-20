@@ -271,10 +271,10 @@ OnTooltipShow = function(tooltip)
     tooltip:Show()
   end
 
-  ns._suppressAreaMapMirror = true
+  ns.suppressAreaMapMirror = true
   ns.Addon:FullUpdate()
   HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-  C_Timer.After(0, function() ns._suppressAreaMapMirror = nil end)
+  C_Timer.After(0, function() ns.suppressAreaMapMirror = nil end)
 end,
 
 OnClick = function(self, button)
@@ -800,9 +800,9 @@ OnClick = function(self, button)
     end
   end
 
-  ns._suppressAreaMapMirror = true
+  ns.suppressAreaMapMirror = true
   ns.Addon:FullUpdate()
   HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
-  C_Timer.After(0, function() ns._suppressAreaMapMirror = nil end)
+  C_Timer.After(0, function() ns.suppressAreaMapMirror = nil end)
 end 
 }

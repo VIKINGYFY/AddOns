@@ -63,6 +63,16 @@ local L = {
     ["ScrappingUI.MinItemLevelDifference"] = "Minimale Itemlevel-Differenz",
     ["ScrappingUI.MinItemLevelDifferenceInstructions"] = "x Stufen unter dem ausgerüsteten Gegenstand",
     ["ScrappingUI.AutoScrap"] = "Auto-Verschrotten",
+    ["ScrappingUI.ScraperListTabTitle"] = "Item-Liste",
+    ["ScrappingUI.AdvancedSettingsTabTitle"] = "Mehr Einstellungen",
+    ["ScrappingUI.JewelryTraitsToKeep"] = "Schmuck-Traits zum Behalten",
+    ["ScrappingUI.AdvancedJewelryFilter"] = "Erweiterter Schmuck-Filter",
+    ["ScrappingUI.FilterCheckAll"] = "Alle auswählen",
+    ["ScrappingUI.FilterUncheckAll"] = "Alle abwählen",
+    ["ScrappingUI.Neck"] = "Hals-Traits",
+    ["ScrappingUI.Trinket"] = "Schmuckstück-Traits",
+    ["ScrappingUI.Finger"] = "Ring-Traits",
+    ["ScrappingUI.IgnoreFromEquipmentSets"] = "Items in Ausrüstungssets ignorieren",
 
     -- Utils/ArtifactTraitUtils.lua
     ["ArtifactTraitUtils.NoItemEquipped"] = "Kein Gegenstand ausgerüstet.",
@@ -116,6 +126,8 @@ Beispiel: /LRH s]],
     ["MerchantUtils.SettingsCategoryTooltip"] = "Einstellungen für die Händler-Funktion",
     ["MerchantUtils.HideCollectedMerchantItems"] = "Gesammelte Händlergegenstände ausblenden",
     ["MerchantUtils.HideCollectedMerchantItemsTooltip"] = "Blendet Gegenstände aus dem Händlerfenster aus, die du bereits in deiner Sammlung hast.",
+    ["MerchantUtils.HideCollectedPetsAtLimit"] = "Gesammelte Haustiere nur bei Limit ausblenden",
+    ["MerchantUtils.HideCollectedPetsAtLimitTooltip"] = "Blendet Haustiere aus dem Händlerfenster nur aus, wenn du das Sammellimit für Haustiere erreicht hast.",
 
     -- Utils/QuestUtils.lua
     ["QuestUtils.SettingsCategoryPrefix"] = "Auto-Quest",
@@ -128,6 +140,8 @@ Beispiel: /LRH s]],
     ["QuestUtils.IgnoreEternusTooltip"] = "Quests ignorieren, die von Eternus kommen.",
     ["QuestUtils.SuppressShift"] = "Mit Shift unterdrücken",
     ["QuestUtils.SuppressShiftTooltip"] = "Shift gedrückt halten, um das automatische Annehmen/Abgeben von Quests zu unterdrücken.",
+    ["QuestUtils.SuppressWorldTierIcon"] = "Weltstufen-Icon unterdrücken",
+    ["QuestUtils.SuppressWorldTierIconTooltip"] = "Das Weltstufen-Icon, das sich unter der Minikarte befindet, ausblenden.",
 
     -- Utils/QuickActionBarUtils.lua
     ["QuickActionBarUtils.SettingsCategoryPrefix"] = "Schnellleiste",

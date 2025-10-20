@@ -1,5 +1,5 @@
-local VERSION_TEXT = "v1.7.6";
-local VERSION_DATE = 1759900000;
+local VERSION_TEXT = "v1.7.7";
+local VERSION_DATE = 1760900000;
 
 
 local addonName, addon = ...
@@ -276,6 +276,7 @@ local DefaultValues = {
         LegionRemix_TraitSubIconStyle = 3,  --1:OFF, 2:Mini Icon, 3:Replace Icon
         LegionRemix_AutoUpgrade = true,
         LegionRemix_PaperDollTraitDetail = false,
+    LegionRemix_HideWorldTier = true,
 
 
     EnableNewByDefault = false,             --Always enable newly added features

@@ -51,8 +51,6 @@ function Bar:CreateExtrabar()
 	UpdateAbilityFrame(ZoneAbilityFrame, zoneFrame)
 
 	hooksecurefunc(ZoneAbilityFrame, "UpdateDisplayedZoneAbilities", function(self)
-		zoneFrame:SetShown(self:IsShown())
-
 		for spellButton in self.SpellButtonContainer:EnumerateActive() do
 			if spellButton and not spellButton.styled then
 				B.CleanTextures(spellButton)

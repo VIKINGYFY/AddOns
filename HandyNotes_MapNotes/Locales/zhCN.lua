@@ -375,6 +375,7 @@ L["Left-click => Open/Close"] = "左键点击=>打开/关闭"
 L["Shift + Right-click => hide"] = "Shift + 右键点击​​ => 隐藏"
 L["Middle-Mouse-Button => Open/Close"] = "中间鼠标按钮=>打开/关闭"
 --9 transport
+L["Elevator"] = "升降机"
 L["Ever-Shifting Mirror"] = "百变之镜"
 L["icons"] = "图标"
 L["Exit"] = "港口"

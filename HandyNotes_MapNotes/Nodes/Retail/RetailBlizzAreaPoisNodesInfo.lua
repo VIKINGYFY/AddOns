@@ -3,16 +3,26 @@ local ADDON_NAME, ns = ...
 ns.BlizzAreaPoisInfo = {
 
     -- Alliance
+    1714, -- Ehrenfeste    
+    2065, -- Telaar
     6014, -- Stormwind Portal Chamber icon
+    2303, -- Valianzfeste
 
     -- Horde
+    1715, -- Thrallmar 
+    2064, -- Garadar    
     6015, -- Orgrimmar Portal Chamber icon
+    2304, -- Kriegshymnenfeste
 
     -- Neutral
     39, -- Ratchet
     1961, -- Shattrath
+    2062, -- Zuflucht des Cenarius
     2071, -- Area 52
+    2080, -- Ogril'la
+    2085, -- Kamagua
     2298, -- Wyrmresttempel
+    2302, -- Hafen Moa'ki
     2317, -- Dalaran City
     2837, -- Tonlongstepps PvE Vendor
     5056, -- The Dark Portal Blasted Lands
@@ -31,6 +41,10 @@ ns.BlizzAreaPoisInfo = {
     7961, -- Portal to Dalaran from Searing Gorge - TWW Pre Event
     8001, -- Portal from Dornogal to Azj-Kahet
     8002, -- Portal from Azj-Kahet to Dornogal
+    8004, -- South Elevator from Deeps to Isle of Dorn
+    8006, -- South Elevator from Isle of Dorn to Deeps
+    8009, -- North Elevator from Isle of Dorn to Deeps
+    8010, -- North Elevator from Deeps to Isle of Dorn
     8171, -- Timeways Portal in Dornogal
     8247, -- Mole Machine from Deeps to Siren Isle
     8248, -- Zeppelin to Serin Isle from Isle of Dorn

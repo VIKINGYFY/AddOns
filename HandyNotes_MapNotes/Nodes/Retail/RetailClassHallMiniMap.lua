@@ -4,7 +4,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 function ns.LoadClassHallMiniMapLocationinfo(self)
 local db = ns.Addon.db.profile
 local minimap = ns.minimap
-ns._currentSourceFile = "RetailClassHallMiniMap.lua"
+ns.currentSourceFile = "RetailClassHallMiniMap.lua"
 
 --#####################################################################################################
 --##########################        function to hide all minimap below         ##########################
@@ -188,7 +188,7 @@ ns._currentSourceFile = "RetailClassHallMiniMap.lua"
                         minimap[695][62351503] = { npcID = 106459, name = "", type = "Recruit", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Warrior
                         minimap[695][55991502] = { npcID = 106460, name = "", type = "Recruit", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Warrior
                         minimap[702][40855398] = { npcID = 106451, name = "", type = "Recruit", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Priest
-                        minimap[702][40902747] = { npcID = 406450, name = "", type = "Recruit", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Priest
+                        minimap[702][40902747] = { npcID = 106450, name = "", type = "Recruit", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Priest
                         minimap[702][57205498] = { npcID = 120160, name = "", type = "Recruit", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Priest
                         minimap[648][40897387] = { npcID = 106435, name = "", type = "Recruit", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Deathknight
                         minimap[647][53316838] = { npcID = 106436, name = "", type = "Recruit", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Deathknight

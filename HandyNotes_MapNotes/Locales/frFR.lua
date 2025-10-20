@@ -375,6 +375,7 @@ L["Left-click => Open/Close"] = "Clic gauche => Ouvrir/Fermer"
 L["Shift + Right-click => hide"] = "Maj + clic droit => masquer"
 L["Middle-Mouse-Button => Open/Close"] = "Bouton de la souris du milieu => Ouvrir / fermer"
 --9 transport
+L["Elevator"] = "Ascenseur"
 L["Ever-Shifting Mirror"] = "Miroir changeant"
 L["icons"] = "Icônes"
 L["Exit"] = "Sortie"

@@ -376,6 +376,8 @@ L["SoftTargetName ShowNPC Tooltip"] = "若禁用此选项，我们将只显示�
 --LegionRemix
 L["ModuleName LegionRemix"] = "军团再临：幻境新生";
 L["ModuleDescription LegionRemix"] = "- 自动解锁神器特质。\n\n- 在角色界面上显示一个提供各种信息的小部件。你可以点击它来打开全新的神器UI。";
+L["ModuleName LegionRemix_HideWorldTier"] = "隐藏世界难度图标";
+L["ModuleDescription LegionRemix_HideWorldTier"] = "隐藏小地图下方的世界难度图标。";
 L["Artifact Weapon"] = "神器武器";
 L["Artifact Ability"] = "神器技能";
 L["Artifact Traits"] = "神器特质";
@@ -404,6 +406,9 @@ L["Fully Upgraded"] = "已升至顶级";
 L["Unlock Level Requirement Format"] = "角色升至%d级后解锁";
 L["Auto Learn Traits"] = "自动升级特质";
 L["Auto Learn Traits Tooltip"] = "当你有足够的永恒能量时自动升级神器特质。";
+L["Infinite Power Yield Format"] = "在你当前知识等级下将奖励|cffffffff%s|r点永恒能量。";
+L["Infinite Knowledge Bonus Format"] = "当前增益：|cffffffff%s|r";
+L["Infinite Knowledge Bonus Next Format"] = "下级增益：%s";
 
 
 --ItemUpgradeUI
@@ -519,6 +524,11 @@ L["Weekly Coffer Key Shards Tooltip"] = "每周获得的前四个周常宝箱里
 L["Weekly Cap"] = "每周上限";
 L["Weekly Cap Reached"] = "已达到每周上限。";
 L["Instruction Right Click To Use"] = "<右键单击来使用>"
+L["Join Queue"] = "加入队列";
+L["In Queue"] = "在队列中";
+L["Click To Switch"] = "点击以切换为|cffffffff%s|r";
+L["Click To Queue"] = "点击以加入|cffffffff%s|r";
+L["Click to Open Format"] = "点击以打开%s";
 
 
 --Generic

@@ -5,8 +5,8 @@ ns.DelveContinent = CreateFromMixins(CVarMapCanvasDataProviderMixin, AreaPOIData
 ns.DelveContinent:Init("showContinentDelvesOnMapNotes")
 
 function ns.BlizzardDelvesAddTT()
-    if ns._BlizzDelveTT_Hooked then return end
-    ns._BlizzDelveTT_Hooked = true
+    if ns.BlizzDelveTT_Hooked then return end
+    ns.BlizzDelveTT_Hooked = true
 
     hooksecurefunc(DelveEntrancePinMixin, "OnMouseEnter", function(self)
         if not ns.Addon.db.profile.activate.HideMapNote then
@@ -24,8 +24,8 @@ function ns.BlizzardDelvesAddTT()
 end
 
 function ns.BlizzardDelvesAddFunction()
-    if ns._BlizzDelveClick_Hooked then return end
-    ns._BlizzDelveClick_Hooked = true
+    if ns.BlizzDelveClick_Hooked then return end
+    ns.BlizzDelveClick_Hooked = true
 
     hooksecurefunc(DelveEntrancePinMixin, "OnClick", function(self, button)
         ns.BlizzDelveIDs = ns.BlizzDelveAreaPoisInfoIDs[self.poiInfo.areaPoiID] or ns.BlizzBountifulDelveAreaPoisInfoIDs[self.poiInfo.areaPoiID]
@@ -146,34 +146,37 @@ function ns.DelveContinent:ProjectDelves(parentMapID, zoneMapID)
 end
 
 EventUtil.ContinueOnAddOnLoaded("Blizzard_WorldMap", function()
-    if ns._DelveProviderAdded then return end
-    ns._DelveProviderAdded = true
+    if ns.DelveProviderAdded then return end
+    ns.DelveProviderAdded = true
 
     local provider = CreateFromMixins(ns.DelveContinent)
     WorldMapFrame:AddDataProvider(provider)
 
-    ns._DelveProvider = provider
+    ns.DelveProvider = provider
 
     if WorldMapFrame:IsShown() and provider.GetMap and provider:GetMap() then
         provider:RefreshAllData()
     end
 
-    WorldMapFrame:HookScript("OnShow", function()
-        if ns._DelveProvider and ns._DelveProvider.GetMap and ns._DelveProvider:GetMap() then
-            ns._DelveProvider:RefreshAllData()
-        end
-    end)
+    if not ns.DelveShowHooked then
+        ns.DelveShowHooked = true
+        hooksecurefunc(WorldMapFrame, "Show", function(self)
+            C_Timer.After(0, function()
+                if ns.DelveProvider and ns.DelveProvider.GetMap and ns.DelveProvider:GetMap() and ns.DelveProvider.RefreshAllData then
+                    ns.DelveProvider:RefreshAllData()
+                end
+            end)
+        end)
+    end
 end)
 
 function ns.RefreshContinentDelvesPins(opts)
-    local p = ns._DelveProvider
-    if not p or not p.GetMap then return end
-    local map = p:GetMap()
-    if not map then return end
+    if not ns.DelveProvider or not ns.DelveProvider.GetMap then return end
+    if not ns.DelveProvider:GetMap() then return end
 
     if opts and opts.remove then
-        p:RemoveAllData()
+        ns.DelveProvider:RemoveAllData()
     else
-        p:RefreshAllData()
+        ns.DelveProvider:RefreshAllData()
     end
 end

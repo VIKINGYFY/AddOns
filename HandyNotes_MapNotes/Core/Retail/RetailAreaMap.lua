@@ -8,15 +8,15 @@ local ADDON_NAME, ns = ...
 local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 ns.FogOfWarDataRetail = ns.FogOfWarDataRetail or _G.FogOfWarDataRetailGlobal
 
-ns._pendingAreaMapID = nil
-ns._areaMapSetting = false
+ns.pendingAreaMapID = nil
+ns.areaMapSetting = false
 local function _applyAreaMapID(mapID)
   if not (BattlefieldMapFrame and BattlefieldMapFrame:IsShown()) then return end
-  if ns._areaMapSetting then return end
-  ns._areaMapSetting = true
+  if ns.areaMapSetting then return end
+  ns.areaMapSetting = true
   C_Timer.After(0, function()
     pcall(BattlefieldMapFrame.SetMapID, BattlefieldMapFrame, mapID)
-    ns._areaMapSetting = false
+    ns.areaMapSetting = false
     C_Timer.After(0, function()
       if ns.UpdateAreaMapIcons then ns.UpdateAreaMapIcons() end
       if ns.UpdateAreaMapFogOfWar then ns.UpdateAreaMapFogOfWar() end
@@ -26,25 +26,25 @@ end
 
 function ns.SafeSetAreaMapID(mapID)
   if not mapID then return end
-  ns._pendingAreaMapID = mapID
+  ns.pendingAreaMapID = mapID
 
   if InCombatLockdown() then
-    if not ns._waitAreaMapCombat then
-      ns._waitAreaMapCombat = CreateFrame("Frame")
-      ns._waitAreaMapCombat:RegisterEvent("PLAYER_REGEN_ENABLED")
-      ns._waitAreaMapCombat:SetScript("OnEvent", function(self)
+    if not ns.waitAreaMapCombat then
+      ns.waitAreaMapCombat = CreateFrame("Frame")
+      ns.waitAreaMapCombat:RegisterEvent("PLAYER_REGEN_ENABLED")
+      ns.waitAreaMapCombat:SetScript("OnEvent", function(self)
         self:UnregisterAllEvents()
-        ns._waitAreaMapCombat = nil
-        local m = ns._pendingAreaMapID
-        ns._pendingAreaMapID = nil
+        ns.waitAreaMapCombat = nil
+        local m = ns.pendingAreaMapID
+        ns.pendingAreaMapID = nil
         if m then _applyAreaMapID(m) end
       end)
     end
     return
   end
 
-  local m = ns._pendingAreaMapID
-  ns._pendingAreaMapID = nil
+  local m = ns.pendingAreaMapID
+  ns.pendingAreaMapID = nil
   _applyAreaMapID(m)
 end
 
@@ -661,7 +661,7 @@ function ns.CreateResetMapIDButton()
 end
 
 function ns.ResetAreaMapToPlayerLocation()
-  ns._autoCorrected = false
+  ns.autoCorrected = false
   local mapID = C_Map.GetBestMapForUnit("player")
   if mapID then
     if BattlefieldMapFrame and BattlefieldMapFrame:IsShown() then
@@ -860,12 +860,12 @@ function ns.showAreaMapDropDownMenuSettingsforOptionsFile(val)
 end
 
 function ns.StartFogOfWarColorSyncTicker()
-  if ns._fogColorTicker then return end
+  if ns.fogColorTicker then return end
 
   local lastR, lastG, lastB, lastA = 0, 0, 0, 0
   local noChangeCounter = 0
 
-  ns._fogColorTicker = C_Timer.NewTicker(0.3, function()
+  ns.fogColorTicker = C_Timer.NewTicker(0.3, function()
     local db = ns.Addon and ns.Addon.db and ns.Addon.db.profile
     if not db or not db.FogOfWarColor then return end
 
@@ -891,15 +891,15 @@ function ns.StartFogOfWarColorSyncTicker()
 end
 
 function ns.StopFogOfWarColorSyncTicker()
-  if ns._fogColorTicker then
-    ns._fogColorTicker:Cancel()
-    ns._fogColorTicker = nil
+  if ns.fogColorTicker then
+    ns.fogColorTicker:Cancel()
+    ns.fogColorTicker = nil
   end
 end
 
 function ns.EnableAreaMapRightClickUp()
   if not (BattlefieldMapFrame and BattlefieldMapFrame.ScrollContainer and BattlefieldMapFrame.ScrollContainer.Child) then return end
-  if ns._AreaMapRightClickOverlay then return end
+  if ns.AreaMapRightClickOverlay then return end
 
   local parent = BattlefieldMapFrame.ScrollContainer.Child
 
@@ -914,7 +914,7 @@ function ns.EnableAreaMapRightClickUp()
     overlay:SetMouseMotionEnabled(false)
   end
 
-  overlay:EnableMouse(ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode == true)
+  overlay:EnableMouse(ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode)
 
   overlay:SetScript("OnClick", function(_, button)
     if button ~= "RightButton" then return end
@@ -942,21 +942,21 @@ function ns.EnableAreaMapRightClickUp()
     end
   end)
 
-  ns._AreaMapRightClickOverlay = overlay
+  ns.AreaMapRightClickOverlay = overlay
 end
 
 
 do -- refresh areamap
-  if not ns._hookedHNNotify and HandyNotes and type(HandyNotes.SendMessage) == "function" then
+  if not ns.hookedHNNotify and HandyNotes and type(HandyNotes.SendMessage) == "function" then
     hooksecurefunc(HandyNotes, "SendMessage", function(_, msg, who)
       if msg == "HandyNotes_NotifyUpdate" and who == "MapNotes" then
-        if ns._suppressAreaMapMirror then return end
+        if ns.suppressAreaMapMirror then return end
 
         if ns.AreaMapFrame and ns.AreaMapFrame:IsShown() and ns.Addon.db.profile.areaMap.showAreaMapDropDownMenu then
           if ns.UpdateAreaMapIcons then ns.UpdateAreaMapIcons() end
         end
       end
     end)
-    ns._hookedHNNotify = true
+    ns.hookedHNNotify = true
   end
 end

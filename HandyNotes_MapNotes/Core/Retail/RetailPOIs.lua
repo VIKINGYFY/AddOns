@@ -1,5 +1,13 @@
 local ADDON_NAME, ns = ...
 
+ns.AreaPOIHooked = ns.AreaPOIHooked or setmetatable({}, { __mode = "k" })
+
+local function MN_Post(fn)
+  C_Timer.After(0, function()
+    pcall(fn)
+  end)
+end
+
 local function MN_MapHasRelevantActivePins()
   if not (WorldMapFrame and WorldMapFrame.pinPools) then return false end
 
@@ -101,12 +109,12 @@ function ns.RemovePOIs()
 end
 
 local function MN_TryHookProvider(dp)
-  if not dp or dp.__MN_AreaPOI_Hooked then return end
+  if not dp or ns.AreaPOIHooked[dp] then return end
 
   if (not dp.GetPinTemplates and type(dp.GetPinTemplate) == "function") then
     local ok, tmpl = pcall(dp.GetPinTemplate, dp)
     if ok and tmpl == "AreaPOIPinTemplate" then
-      dp.__MN_AreaPOI_Hooked = true
+      ns.AreaPOIHooked[dp] = true
 
       hooksecurefunc(dp, "RefreshAllData", function()
         local cfg = ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.activate
@@ -115,22 +123,21 @@ local function MN_TryHookProvider(dp)
         end
 
         if WorldMapFrame and WorldMapFrame:IsShown() and MN_MapHasRelevantActivePins() then
-          --print("test 1 RefreshAllData")
           ns.RemovePOIs()
           if ns.RebindPOIEvent then ns.RebindPOIEvent() end
         end
       end)
     end
   end
-
 end
 
 for dp in pairs((WorldMapFrame and WorldMapFrame.dataProviders) or {}) do
   MN_TryHookProvider(dp)
 end
 
-if WorldMapFrame and not WorldMapFrame.__MN_AddDataProviderHooked then
-  WorldMapFrame.__MN_AddDataProviderHooked = true
+ns.AddDataProviderHooked = ns.AddDataProviderHooked or false
+if WorldMapFrame and not ns.AddDataProviderHooked then
+  ns.AddDataProviderHooked = true
   hooksecurefunc(WorldMapFrame, "AddDataProvider", function(_, dp)
     MN_TryHookProvider(dp)
   end)
@@ -203,39 +210,36 @@ local function MN_OnMapChanged()
   end
 end
 
-if WorldMapFrame then
-  if type(WorldMapFrame.OnMapChanged) == "function" then
-    hooksecurefunc(WorldMapFrame, "OnMapChanged", MN_OnMapChanged)
-  else
-    hooksecurefunc(WorldMapFrame, "SetMapID", MN_OnMapChanged)
-  end
-else
-  C_Timer.After(0, function()
-    if WorldMapFrame then
-      if type(WorldMapFrame.OnMapChanged) == "function" then
-        hooksecurefunc(WorldMapFrame, "OnMapChanged", MN_OnMapChanged)
-      else
-        hooksecurefunc(WorldMapFrame, "SetMapID", MN_OnMapChanged)
-      end
-    end
-  end)
-end
+ns.POIShowHooked = ns.POIShowHooked or false
+ns.POIHideHooked = ns.POIHideHooked or false
+ns.MapChangeHooked = ns.MapChangeHooked or false
+C_Timer.After(0, function()
+  if not WorldMapFrame then return end
 
-if WorldMapFrame then
-  WorldMapFrame:HookScript("OnShow", ns.RegisterPOIEvent)
-  WorldMapFrame:HookScript("OnHide", ns.UnregisterPOIEvent)
+  if not ns.MapChangeHooked then
+    ns.MapChangeHooked = true
+    if type(WorldMapFrame.OnMapChanged) == "function" then
+      hooksecurefunc(WorldMapFrame, "OnMapChanged", MN_OnMapChanged)
+    else
+      hooksecurefunc(WorldMapFrame, "SetMapID", MN_OnMapChanged)
+    end
+  end
+
+  if not ns.POIShowHooked then
+    ns.POIShowHooked = true
+    hooksecurefunc(WorldMapFrame, "Show", function(self)
+      MN_Post(function() ns.RegisterPOIEvent(self) end)
+    end)
+  end
+
+  if not ns.POIHideHooked then
+    ns.POIHideHooked = true
+    hooksecurefunc(WorldMapFrame, "Hide", function(self)
+      MN_Post(function() ns.UnregisterPOIEvent(self) end)
+    end)
+  end
 
   if WorldMapFrame:IsShown() then
-    ns.RegisterPOIEvent()
+    MN_Post(function() ns.RegisterPOIEvent(WorldMapFrame) end)
   end
-else
-  C_Timer.After(0, function()
-    if WorldMapFrame then
-      WorldMapFrame:HookScript("OnShow", ns.RegisterPOIEvent)
-      WorldMapFrame:HookScript("OnHide", ns.UnregisterPOIEvent)
-      if WorldMapFrame:IsShown() then
-        ns.RegisterPOIEvent()
-      end
-    end
-  end)
-end
+end)

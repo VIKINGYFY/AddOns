@@ -47,7 +47,7 @@ function ns.ForceUseInBattle(enable, silent)
   end
 
   if ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.MapChanging then
-    ns._MapChangeLastSet = nil
+    ns.MapChangeLastSet = nil
     if ns.ChangingMapToPlayerZone then ns.ChangingMapToPlayerZone() end
   end
 
@@ -242,11 +242,11 @@ local function UseInBattleActive()
   return ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.activate and ns.Addon.db.profile.activate.UseInBattle
 end
 
-ns._suppressBlockedUntil = ns._suppressBlockedUntil or 0
+ns.suppressBlockedUntil = ns.suppressBlockedUntil or 0
 function ns.SuppressInterfaceBlockedFor(seconds)
   if not UseInBattleActive() then return end
   local dur = seconds or 0.8
-  ns._suppressBlockedUntil = GetTime() + dur
+  ns.suppressBlockedUntil = GetTime() + dur
   BS_ApplySilence()
   ArmWindowRestore(dur)
   ns.PurgeOurTaintsNow()
@@ -254,41 +254,42 @@ function ns.SuppressInterfaceBlockedFor(seconds)
   C_Timer.After(dur + 0.02, ns.PurgeOurTaintsNow)
 end
 
-ns._wmIBShieldArmedUntil = ns._wmIBShieldArmedUntil or 0
+ns.wmIBShieldArmedUntil = ns.wmIBShieldArmedUntil or 0
 
 function ns.ArmWorldMapIBShield(maxSeconds)
   if not UseInBattleActive() then return end
   local dur = maxSeconds or 10
-  ns._wmIBShieldArmedUntil = GetTime() + dur
+  ns.wmIBShieldArmedUntil = GetTime() + dur
 end
 
 local function MN_WorldMap_OnShow_Arm()
   if not UseInBattleActive() then return end
-  if InCombatLockdown() and GetTime() <= (ns._wmIBShieldArmedUntil or 0) then
+  if InCombatLockdown() and GetTime() <= (ns.wmIBShieldArmedUntil or 0) then
     ns.SuppressInterfaceBlockedFor(2.0)
-    ns._wmIBShieldArmedUntil = 0
+    ns.wmIBShieldArmedUntil = 0
   end
 end
 
-ns._mnIBShieldEv = ns._mnIBShieldEv or CreateFrame("Frame")
-ns._mnIBShieldEv:UnregisterAllEvents()
-ns._mnIBShieldEv:RegisterEvent("PLAYER_REGEN_DISABLED")
-ns._mnIBShieldEv:SetScript("OnEvent", function()
+ns.mnIBShieldEv = ns.mnIBShieldEv or CreateFrame("Frame")
+ns.mnIBShieldEv:UnregisterAllEvents()
+ns.mnIBShieldEv:RegisterEvent("PLAYER_REGEN_DISABLED")
+ns.mnIBShieldEv:SetScript("OnEvent", function()
   if not UseInBattleActive() then return end
-  if GetTime() <= (ns._wmIBShieldArmedUntil or 0) then
+  if GetTime() <= (ns.wmIBShieldArmedUntil or 0) then
     ns.SuppressInterfaceBlockedFor(2.0)
-    ns._wmIBShieldArmedUntil = 0
+    ns.wmIBShieldArmedUntil = 0
   end
 end)
 
 local function MarkMapOpening()
-  ns._mapOpening = true
-  C_Timer.After(0, function() ns._mapOpening = false end)
+  ns.mapOpening = true
+  C_Timer.After(0, function() ns.mapOpening = false end)
 end
 
 local function TryHookWorldMap()
-  if not ns._mnWMHooked and WorldMapFrame then
-    ns._mnWMHooked = true
+  if InCombatLockdown() then return end
+  if not ns.mnWMHooked and WorldMapFrame then
+    ns.mnWMHooked = true
     WorldMapFrame:HookScript("OnShow", MN_WorldMap_OnShow_Arm)
     WorldMapFrame:HookScript("OnShow", MarkMapOpening)
   end
@@ -301,7 +302,7 @@ function ns.UnsafeSetMapID(mapID, duration)
   ns.SuppressInterfaceBlockedFor(duration or 0.8)
   ns.ArmWorldMapIBShield(43200) --12 hours
 
-  if ns._mapOpening then
+  if ns.mapOpening then
     local id = mapID
     C_Timer.After(0, function()
       if WorldMapFrame and id then
@@ -318,41 +319,26 @@ end
 if UseInBattleActive() then TryHookWorldMap() end
 
 local function EarlySuppressIfArmed()
-  if InCombatLockdown() and GetTime() <= (ns._wmIBShieldArmedUntil or 0) then
+  if not UseInBattleActive() then return end
+  if InCombatLockdown() and GetTime() <= (ns.wmIBShieldArmedUntil or 0) then
     ns.SuppressInterfaceBlockedFor(2.5)
   end
 end
 
 local function TryHookWorldMapEarly()
-  if WorldMapFrame and not ns._mnWMEarlyHooked then
-    ns._mnWMEarlyHooked = true
+  if InCombatLockdown() then return end
+  if WorldMapFrame and not ns.mnWMEarlyHooked then
+    ns.mnWMEarlyHooked = true
     if type(WorldMapFrame.HandleUserActionToggleSelf) == "function" then
       hooksecurefunc(WorldMapFrame, "HandleUserActionToggleSelf", EarlySuppressIfArmed)
-    end
-  end
-
-  if UIParentManagedFrameContainer and not ns._mnUIPanelHooked then
-    ns._mnUIPanelHooked = true
-    if type(UIParentPanelManager) == "table" then
-      local t = UIParentPanelManager
-      if type(t.ShowUIPanel) == "function" then
-        hooksecurefunc(t, "ShowUIPanel", function(frame)
-          if frame == WorldMapFrame then EarlySuppressIfArmed() end
-        end)
-      end
-      if type(t.SetUIPanel) == "function" then
-        hooksecurefunc(t, "SetUIPanel", function(frame)
-          if frame == WorldMapFrame then EarlySuppressIfArmed() end
-        end)
-      end
     end
   end
 end
 
 if UseInBattleActive() then TryHookWorldMapEarly() end
 
-local _f = ns._mnEarlyEv or CreateFrame("Frame")
-ns._mnEarlyEv = _f
+local _f = ns.mnEarlyEv or CreateFrame("Frame")
+ns.mnEarlyEv = _f
 _f:UnregisterAllEvents()
 _f:RegisterEvent("PLAYER_LOGIN")
 _f:RegisterEvent("ADDON_LOADED")
@@ -379,6 +365,9 @@ end)
 
 function ns.TrySetPropagate(btn, value)
   if not UseInBattleActive() then return end
+  if InCombatLockdown() then return end
+  if not (btn and btn.SetPropagateMouseClicks) then return end
+  if btn.IsForbidden and btn:IsForbidden() then return end
   ns.SuppressInterfaceBlockedFor(0.8)
   local ok, err = pcall(btn.SetPropagateMouseClicks, btn, value)
   return ok, err
@@ -405,7 +394,7 @@ local function ShouldBlockChat(raw)
   end
 
   local s = StripWoWCodes(raw):lower()
-  local inWindow = GetTime() <= (ns._suppressBlockedUntil or 0)
+  local inWindow = GetTime() <= (ns.suppressBlockedUntil or 0)
 
   local iab  = (INTERFACE_ACTION_BLOCKED and INTERFACE_ACTION_BLOCKED:lower()) or "interface action failed because of an addon"
   local iabm = (INTERFACE_ACTION_BLOCKED_MODULAR and INTERFACE_ACTION_BLOCKED_MODULAR:lower()) or ""
@@ -461,7 +450,7 @@ local function PatchBugGrabber()
   local orig = target.StoreBug
   function target:StoreBug(bug, ...)
     local msg = (type(bug)=="table" and (bug.message or bug.error or bug.msg or bug.text)) or tostring(bug or "")
-    if GetTime() <= (ns._suppressBlockedUntil or 0) and IsMapNotesSetPropagateTaintMsg(msg or "") then
+    if GetTime() <= (ns.suppressBlockedUntil or 0) and IsMapNotesSetPropagateTaintMsg(msg or "") then
       return
     end
     return orig(self, bug, ...)
@@ -471,16 +460,16 @@ end
 local function PatchBugSack()
   if not UseInBattleActive() then return end
   if not BugSack then return end
-  local remain = (ns._suppressBlockedUntil or 0) - GetTime()
+  local remain = (ns.suppressBlockedUntil or 0) - GetTime()
   if remain > 0 then
     BS_ApplySilence()
     ArmWindowRestore(remain)
   end
 end
 
-ns.__BS = ns.__BS or { active=false, guard_id=0, origMute=nil, origAuto=nil, origChat=nil, origOpenSack=nil }
+ns.BS = ns.BS or { active=false, guard_id=0, origMute=nil, origAuto=nil, origChat=nil, origOpenSack=nil }
 local function _ShouldBlockAutoOpenNow()
-  if GetTime() > (ns._suppressBlockedUntil or 0) then return false end
+  if GetTime() > (ns.suppressBlockedUntil or 0) then return false end
   if type(debugstack) ~= "function" then return true end
   local st = (debugstack(3, 10, 10) or ""):lower()
   return st:find("buggrabber", 1, true) or st:find("callbackhandler", 1, true)
@@ -490,11 +479,11 @@ function BS_ApplySilence()
   if not UseInBattleActive() then return false end
   if not BugSack or not BugSack.db then return false end
 
-  if not ns.__BS.active then
-    ns.__BS.origMute = BugSack.db.mute
-    ns.__BS.origAuto = BugSack.db.auto
-    ns.__BS.origChat = BugSack.db.chatframe
-    ns.__BS.origOpenSack = BugSack.OpenSack
+  if not ns.BS.active then
+    ns.BS.origMute = BugSack.db.mute
+    ns.BS.origAuto = BugSack.db.auto
+    ns.BS.origChat = BugSack.db.chatframe
+    ns.BS.origOpenSack = BugSack.OpenSack
   end
 
   BugSack.db.chatframe = false
@@ -506,33 +495,33 @@ function BS_ApplySilence()
       if _ShouldBlockAutoOpenNow() then
         return
       end
-      return ns.__BS.origOpenSack and ns.__BS.origOpenSack(self, ...)
+      return ns.BS.origOpenSack and ns.BS.origOpenSack(self, ...)
     end
   end
 
-  ns.__BS.active = true
+  ns.BS.active = true
   return true
 end
 
 local function BS_RestoreSilence()
-  if not BugSack or not BugSack.db or not ns.__BS.active then return end
-  if ns.__BS.origChat ~= nil then BugSack.db.chatframe = ns.__BS.origChat end
-  if ns.__BS.origAuto ~= nil then BugSack.db.auto = ns.__BS.origAuto end
-  if ns.__BS.origMute ~= nil then BugSack.db.mute = ns.__BS.origMute end
-  if ns.__BS.origOpenSack then BugSack.OpenSack = ns.__BS.origOpenSack end
-  ns.__BS.active = false
-  ns.__BS.origMute, ns.__BS.origAuto, ns.__BS.origChat, ns.__BS.origOpenSack = nil, nil, nil, nil
+  if not BugSack or not BugSack.db or not ns.BS.active then return end
+  if ns.BS.origChat ~= nil then BugSack.db.chatframe = ns.BS.origChat end
+  if ns.BS.origAuto ~= nil then BugSack.db.auto = ns.BS.origAuto end
+  if ns.BS.origMute ~= nil then BugSack.db.mute = ns.BS.origMute end
+  if ns.BS.origOpenSack then BugSack.OpenSack = ns.BS.origOpenSack end
+  ns.BS.active = false
+  ns.BS.origMute, ns.BS.origAuto, ns.BS.origChat, ns.BS.origOpenSack = nil, nil, nil, nil
 end
 
-ns.__SND = ns.__SND or { active=false, guard_id=0, origPS=nil, origPSF=nil }
+ns.SND = ns.SND or { active=false, guard_id=0, origPS=nil, origPSF=nil }
 function SoundGate_Apply()
   if not UseInBattleActive() then return end
-  if ns.__SND.active then return end
-  ns.__SND.origPS  = ns.__SND.origPS  or _G.PlaySound
-  ns.__SND.origPSF = ns.__SND.origPSF or _G.PlaySoundFile
+  if ns.SND.active then return end
+  ns.SND.origPS  = ns.SND.origPS  or _G.PlaySound
+  ns.SND.origPSF = ns.SND.origPSF or _G.PlaySoundFile
 
   local function shouldSuppressNow() -- mute bugsack for mapnotes setpropagatemouseclicks error
-    if GetTime() > (ns._suppressBlockedUntil or 0) then return false end
+    if GetTime() > (ns.suppressBlockedUntil or 0) then return false end
     if type(debugstack) ~= "function" then return false end
     local st = debugstack(2, 8, 8)
     st = st and st:lower() or ""
@@ -542,29 +531,29 @@ function SoundGate_Apply()
   if type(_G.PlaySound) == "function" then
     _G.PlaySound = function(...)
       if shouldSuppressNow() then return end
-      return ns.__SND.origPS(...)
+      return ns.SND.origPS(...)
     end
   end
   if type(_G.PlaySoundFile) == "function" then
     _G.PlaySoundFile = function(...)
       if shouldSuppressNow() then return end
-      return ns.__SND.origPSF(...)
+      return ns.SND.origPSF(...)
     end
   end
 
-  ns.__SND.active = true
+  ns.SND.active = true
 end
 
 function ArmWindowRestore(duration)
   if not UseInBattleActive() then return end
-  local dur = duration or (ns._suppressBlockedUntil - GetTime())
+  local dur = duration or (ns.suppressBlockedUntil - GetTime())
   local delay = math.max(0.05, (dur or 0) + 0.01)
 
-  ns.__BS.guard_id  = (ns.__BS.guard_id or 0) + 1
-  local my_bs  = ns.__BS.guard_id
+  ns.BS.guard_id  = (ns.BS.guard_id or 0) + 1
+  local my_bs  = ns.BS.guard_id
 
   C_Timer.After(delay, function()
-    if my_bs == ns.__BS.guard_id and GetTime() >= (ns._suppressBlockedUntil or 0) then
+    if my_bs == ns.BS.guard_id and GetTime() >= (ns.suppressBlockedUntil or 0) then
       BS_RestoreSilence()
     end
   end)
@@ -655,20 +644,20 @@ function _ScheduleMapNotesTaintWipes(duration)
   C_Timer.After(d + 0.02, ns.WipeStoredMapNotesTaints)
 
   if not _G.BugGrabberDB then
-    if ns.__MN_WipeOnceFrame then
-      ns.__MN_WipeOnceFrame:UnregisterAllEvents()
-      ns.__MN_WipeOnceFrame:SetScript("OnEvent", nil)
-      ns.__MN_WipeOnceFrame = nil
+    if ns.MN_WipeOnceFrame then
+      ns.MN_WipeOnceFrame:UnregisterAllEvents()
+      ns.MN_WipeOnceFrame:SetScript("OnEvent", nil)
+      ns.MN_WipeOnceFrame = nil
     end
-    ns.__MN_WipeOnceFrame = CreateFrame("Frame")
-    ns.__MN_WipeOnceFrame:RegisterEvent("ADDON_LOADED")
-    ns.__MN_WipeOnceFrame:SetScript("OnEvent", function(self, _, name)
+    ns.MN_WipeOnceFrame = CreateFrame("Frame")
+    ns.MN_WipeOnceFrame:RegisterEvent("ADDON_LOADED")
+    ns.MN_WipeOnceFrame:SetScript("OnEvent", function(self, _, name)
       if name == "!BugGrabber" and GetTime() <= deadline then
         ns.WipeStoredMapNotesTaints()
       end
       self:UnregisterAllEvents()
       self:SetScript("OnEvent", nil)
-      ns.__MN_WipeOnceFrame = nil
+      ns.MN_WipeOnceFrame = nil
     end)
   end
 end
@@ -680,27 +669,27 @@ local function EnsurePatches()
 end
 
 function ns.ErrorMessages()
-  if ns.__ErrorMessagesInstalled then return end
-  ns.__ErrorMessagesInstalled = true
+  if ns.ErrorMessagesInstalled then return end
+  ns.ErrorMessagesInstalled = true
 
   EnsurePatches()
 
-  if not ns.__ErrorMessagesEventFrame then
+  if not ns.ErrorMessagesEventFrame then
     local f = CreateFrame("Frame")
-    ns.__ErrorMessagesEventFrame = f
+    ns.ErrorMessagesEventFrame = f
     f:RegisterEvent("PLAYER_LOGIN")
     f:RegisterEvent("ADDON_LOADED")
     f:SetScript("OnEvent", function(_, event, arg1)
       if event == "PLAYER_LOGIN" then
         EnsurePatches()
-        if (ns._suppressBlockedUntil or 0) > GetTime() then
-          BS_ApplySilence(); ArmWindowRestore(ns._suppressBlockedUntil - GetTime())
+        if (ns.suppressBlockedUntil or 0) > GetTime() then
+          BS_ApplySilence(); ArmWindowRestore(ns.suppressBlockedUntil - GetTime())
         end
       elseif event == "ADDON_LOADED" then
         if arg1 == "!BugGrabber" or arg1 == "BugSack" then
           EnsurePatches()
-          if arg1 == "BugSack" and (ns._suppressBlockedUntil or 0) > GetTime() then
-            BS_ApplySilence(); ArmWindowRestore(ns._suppressBlockedUntil - GetTime())
+          if arg1 == "BugSack" and (ns.suppressBlockedUntil or 0) > GetTime() then
+            BS_ApplySilence(); ArmWindowRestore(ns.suppressBlockedUntil - GetTime())
           end
         end
       end

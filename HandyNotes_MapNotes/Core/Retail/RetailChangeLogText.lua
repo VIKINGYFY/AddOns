@@ -1,10 +1,444 @@
 local ADDON_NAME, ns = ...
 
-ns.CurrentAddonVersion = "3.1.1"
-ns.PreviousAddonVersion_1 = "3.1.0"
-ns.PreviousAddonVersion_2 = "3.0.9"
+ns.CurrentAddonVersion = "3.1.3"
+ns.PreviousAddonVersion_1 = "3.1.2"
 
-ns.LOCALE_CHANGELOG_NEW = { -- 3.1.1
+ns.LOCALE_CHANGELOG_3_1_ = { -- empty backup file
+  deDE = [[
+
+]],
+
+  enUS = [[
+
+]],
+
+  frFR = [[
+
+]],
+
+  itIT = [[
+
+]],
+
+  esES = [[
+
+]],
+
+  esMX = [[
+
+]],
+
+  ptBR = [[
+
+]],
+
+  ruRU = [[
+
+]],
+
+  zhCN = [[
+
+]],
+
+  zhTW = [[
+
+]],
+
+  koKR = [[
+
+]],
+}
+
+ns.LOCALE_CHANGELOG_3_1_3 = {
+  deDE = [[
+• Alte Änderungsprotokolle werden nun zusammengefasst unter „Über MapNotes“ angezeigt.
+
+• Unter „Über MapNotes“ findet sich nun auch der Punkt „Fehler“, in dem Informationen zum Melden von Fehlern erklärt werden.
+
+• Nordend und Scherbenwelt wurden mit NPC-Namen erweitert.
+
+• Die fehlenden NPC-Namen für die noch fehlenden Zonen werden in nächster Zeit ergänzt.
+
+• Ein paar kleine Anpassungen wurden ebenfalls vorgenommen.
+]],
+
+  enUS = [[
+• Older changelogs are now grouped together under "About MapNotes".
+
+• A new "Errors" section has been added under "About MapNotes", explaining how to report issues.
+
+• Northrend and Outland have been updated with additional NPC names.
+
+• Missing NPC names for remaining zones will be added soon.
+
+• Several minor adjustments have also been made.
+]],
+
+  frFR = [[
+• Les anciens journaux des modifications sont désormais regroupés sous « À propos de MapNotes ».
+
+• Une nouvelle section « Erreurs » a été ajoutée sous « À propos de MapNotes », expliquant comment signaler les problèmes.
+
+• Le Norfendre et l’Outreterre ont été enrichis de noms de PNJ supplémentaires.
+
+• Les noms de PNJ manquants pour les zones restantes seront ajoutés prochainement.
+
+• Quelques petits ajustements ont également été effectués.
+]],
+
+  itIT = [[
+• I vecchi registri delle modifiche sono ora raggruppati sotto "Informazioni su MapNotes".
+
+• È stata aggiunta una nuova sezione "Errori" sotto "Informazioni su MapNotes", che spiega come segnalare eventuali problemi.
+
+• Nordania e Terre Esterne sono state ampliate con nuovi nomi di PNG.
+
+• I nomi dei PNG mancanti per le restanti zone verranno aggiunti a breve.
+
+• Sono state inoltre apportate alcune piccole modifiche.
+]],
+
+  esES = [[
+• Los registros de cambios antiguos ahora se muestran agrupados en "Acerca de MapNotes".
+
+• Se ha añadido una nueva sección "Errores" en "Acerca de MapNotes", explicando cómo informar de problemas.
+
+• Rasganorte y Terrallende se han ampliado con nuevos nombres de PNJ.
+
+• Los nombres de PNJ que faltan para las zonas restantes se añadirán próximamente.
+
+• También se han realizado algunos pequeños ajustes.
+]],
+
+  esMX = [[
+• Los registros de cambios antiguos ahora se agrupan en "Acerca de MapNotes".
+
+• Se agregó una nueva sección "Errores" en "Acerca de MapNotes" con información sobre cómo reportar problemas.
+
+• Rasganorte y Terrallende fueron actualizados con nombres adicionales de PNJ.
+
+• Los nombres de PNJ faltantes para las zonas restantes se agregarán pronto.
+
+• También se realizaron algunos pequeños ajustes.
+]],
+
+  ptBR = [[
+• Os registros de alterações antigos agora são exibidos agrupados em "Sobre o MapNotes".
+
+• Foi adicionada uma nova seção "Erros" em "Sobre o MapNotes", explicando como relatar problemas.
+
+• Nortúndria e Terralém foram atualizadas com nomes adicionais de PNJs.
+
+• Os nomes de PNJs que faltam nas zonas restantes serão adicionados em breve.
+
+• Também foram feitas algumas pequenas melhorias.
+]],
+
+  ruRU = [[
+• Старые журналы изменений теперь объединены в разделе «О MapNotes».
+
+• В разделе «О MapNotes» появился новый пункт «Ошибки» с объяснением, как сообщать о проблемах.
+
+• Нордскол и Запределье дополнены именами НИПов.
+
+• Недостающие имена НИПов для оставшихся зон будут добавлены позже.
+
+• Также внесены некоторые небольшие исправления.
+]],
+
+  zhCN = [[
+• 旧的更新日志现在汇总显示在“关于 MapNotes”中。
+
+• 在“关于 MapNotes”中新增了“错误”部分，说明如何报告问题。
+
+• 诺森德和外域已补充更多 NPC 名称。
+
+• 其余区域缺少的 NPC 名称将于近期补充。
+
+• 同时进行了若干细微调整。
+]],
+
+  zhTW = [[
+• 舊的更新日誌現在會在「關於 MapNotes」中集中顯示。
+
+• 在「關於 MapNotes」中新增了「錯誤」區段，說明如何回報問題。
+
+• 諾森德與外域已新增更多 NPC 名稱。
+
+• 其餘區域缺少的 NPC 名稱將於近期補上。
+
+• 也進行了一些細部調整。
+]],
+
+  koKR = [[
+• 이전 변경 기록이 이제 "MapNotes 정보" 탭에서 함께 표시됩니다.
+
+• "MapNotes 정보"에 새로운 "오류" 항목이 추가되어 오류 신고 방법이 안내됩니다.
+
+• 노스렌드와 아웃랜드 지역의 NPC 이름이 추가되었습니다.
+
+• 나머지 지역의 누락된 NPC 이름은 곧 추가될 예정입니다.
+
+• 몇 가지 작은 수정 사항이 적용되었습니다.
+]],
+}
+
+ns.LOCALE_CHANGELOG_3_1_2 = {
+  deDE = [[
+Hinweis:
+
+• Falls ihr irgendwelche Fehler findet, die von MapNotes ausgehen, und ihr sie auf „Curseforge.com/wow/addons/mapnotes“ meldet, dann füllt ein Fehlerprotokoll aus, damit man an diesen Fehler gezielt und auch schnell arbeiten kann.
+  • Eine allgemeine Nachricht im Chat innerhalb der Kommentarsektion ist dazu selten wirklich hilfreich.
+  • Dieses Fehlerprotokoll wird automatisch erstellt, wenn ihr unter „Curseforge.com/wow/addons/mapnotes“ auf „Probleme“ klickt und ein neues Problem eröffnet (Curseforge.com/wow/addons/mapnotes/issues/create).
+  • Da die Fehlersuche ohne wirkliche Hinweise oder zusätzliche Informationen der Spieler für den Addon-Entwickler oft sehr langwierig und komplex sein kann, ist jede zusätzliche Information immer hilfreich, um Fehler schnell zu finden und zu beheben.
+  Vielen lieben Dank
+                    BadBoyBarny
+
+
+Änderungen:
+
+• Es wurde die NPC-Namensspeicherung angepasst.
+  • Nun werden zusätzlich die NPC-Namen in der jeweiligen WoW-Sprache abgespeichert.
+  • Also wenn ihr WoW in englischer Sprache spielt, dann werden die NPC-Namen in englischer Sprache abgespeichert und in den Tooltips angezeigt. Wechselt ihr die WoW-Sprache zum Beispiel von Englisch zu Französisch, werden die NPC-Namen in französischer Sprache abgespeichert und dann auf Französisch angezeigt.
+  • Wechselt ihr wieder zur englischen Sprache, sind natürlich die englischen Namen noch vorhanden, und diese werden dann wieder im Tooltip angezeigt.
+  • Die Sprache des Spiels könnt ihr im Battle.net-Fenster unter „Einstellungen > Spieleinstellungen > World of Warcraft > Textsprache / Sprachausgabe“ ändern.
+  • Jedes Mal, wenn ihr die Sprache in WoW ändert, wird nach dem ersten Login ein schneller NPC-Scan durchgeführt, der die Namen aktualisiert und richtig zuordnet.
+
+• Die Änderungsprotokolle haben nun eine Schutzfunktion erhalten, womit ein Fehler mit „CopyToClipboard“ vermieden wird.
+]],
+
+  enUS = [[
+Note:
+
+• If you find any errors originating from MapNotes, and you report them on “Curseforge.com/wow/addons/mapnotes”, please fill out a bug report so that the error can be addressed in a targeted and speedy manner.
+  • A general message in chat within the comment section is rarely truly helpful.
+  • This bug report is created automatically when you click “Issues” under “Curseforge.com/wow/addons/mapnotes” and open a new issue (Curseforge.com/wow/addons/mapnotes/issues/create).
+  • Since debugging without real hints or additional information from the players can often be very time-consuming and complex for the addon developer, any extra information is always helpful in identifying and fixing bugs quickly.
+  Many thanks
+                    BadBoyBarny
+
+
+Changes:
+
+• NPC name storage has been adjusted.
+  • Now NPC names are also saved in the respective WoW language.
+  • So if you play WoW in English, the NPC names will be saved in English and shown in tooltips. If you switch the WoW language, for example from English to French, the NPC names in French will be saved and then shown in French.
+  • If you switch back to English, of course the English names remain and will be displayed again in the tooltip.
+  • You can change the game’s language in the Battle.net window under “Settings > Game Settings > World of Warcraft > Text Language / Voice Language”.
+  • Every time you change the language in WoW, a quick NPC scan is performed after the first login, which updates and correctly maps the names.
+
+• The changelogs now include a protection mechanism that prevents an error with “CopyToClipboard”.
+]],
+
+  frFR = [[
+Remarque :
+
+• Si vous trouvez des erreurs provenant de MapNotes et que vous les signalez sur « Curseforge.com/wow/addons/mapnotes », merci de remplir un rapport de bug afin que l’erreur puisse être traitée de façon ciblée et rapide.
+  • Un message général dans le chat, dans la section des commentaires, est rarement vraiment utile.
+  • Ce rapport de bug est créé automatiquement lorsque vous cliquez sur « Issues » sous « Curseforge.com/wow/addons/mapnotes » et ouvrez un nouvel incident (Curseforge.com/wow/addons/mapnotes/issues/create).
+  • Étant donné que le débogage sans véritables indices ou informations supplémentaires des joueurs peut être très long et complexe pour le développeur de l’addon, toute information supplémentaire est toujours utile pour identifier et corriger les bogues rapidement.
+  Un grand merci
+                    BadBoyBarny
+
+
+Modifications :
+
+• Le stockage des noms de PNJ a été ajusté.
+  • Désormais, les noms de PNJ sont également enregistrés dans la langue WoW correspondante.
+  • Donc, si vous jouez à WoW en anglais, les noms de PNJ seront enregistrés en anglais et affichés dans les infobulles. Si vous changez la langue de WoW, par exemple de l’anglais au français, les noms de PNJ en français seront enregistrés et ensuite affichés en français.
+  • Si vous revenez à l’anglais, bien sûr les noms anglais restent et seront de nouveau affichés dans l’infobulle.
+  • Vous pouvez changer la langue du jeu dans la fenêtre Battle.net sous « Paramètres > Paramètres du jeu > World of Warcraft > Langue du texte / Voix ».
+  • Chaque fois que vous changez la langue dans WoW, un scan rapide des PNJ est effectué après la première connexion, qui met à jour et mappe correctement les noms.
+
+• Les journaux de modifications incluent désormais un mécanisme de protection qui évite une erreur avec « CopyToClipboard ».
+]],
+
+  itIT = [[
+Nota:
+
+• Se trovate degli errori che provengono da MapNotes e li segnalate su “Curseforge.com/wow/addons/mapnotes”, compilate un report di bug in modo che l’errore possa essere affrontato in modo mirato e rapido.
+  • Un messaggio generico nella chat, nella sezione dei commenti, è raramente veramente utile.
+  • Questo report di bug viene creato automaticamente quando cliccate su “Issues” sotto “Curseforge.com/wow/addons/mapnotes” e aprite una nuova segnalazione (Curseforge.com/wow/addons/mapnotes/issues/create).
+  • Poiché il debug senza veri indizi o informazioni aggiuntive dai giocatori può essere spesso molto lungo e complesso per lo sviluppatore dell’addon, qualsiasi informazione aggiuntiva è sempre utile per identificare e correggere i bug rapidamente.
+  Molte grazie
+                    BadBoyBarny
+
+
+Modifiche:
+
+• È stato modificato il salvataggio dei nomi NPC.
+  • Ora i nomi degli NPC vengono salvati anche nella lingua WoW corrispondente.
+  • Quindi se giocate WoW in inglese, i nomi degli NPC verranno salvati in inglese e mostrati nei tooltip. Se cambiate la lingua di WoW, per esempio da inglese a francese, i nomi degli NPC in francese verranno salvati e poi mostrati in francese.
+  • Se tornate all’inglese, ovviamente i nomi inglesi rimangono e verranno di nuovo visualizzati nel tooltip.
+  • Potete modificare la lingua del gioco nella finestra Battle.net sotto “Impostazioni > Impostazioni del gioco > World of Warcraft > Lingua del testo / Voce”.
+  • Ogni volta che cambiate la lingua in WoW, dopo il primo login viene eseguita una scansione rapida degli NPC che aggiorna e mappa correttamente i nomi.
+
+• I changelog includono ora un meccanismo di protezione che previene un errore con “CopyToClipboard”.
+]],
+
+  esES = [[
+Nota:
+
+• Si encuentran errores que provienen de MapNotes y los informan en “Curseforge.com/wow/addons/mapnotes”, por favor completen un informe de error para que el fallo pueda ser tratado de manera focalizada y rápida.
+  • Un mensaje general en el chat dentro de la sección de comentarios rara vez es realmente útil.
+  • Este informe de error se crea automáticamente cuando hacen clic en “Issues” bajo “Curseforge.com/wow/addons/mapnotes” y abren un nuevo problema (Curseforge.com/wow/addons/mapnotes/issues/create).
+  • Dado que la depuración sin pistas reales o información adicional de los jugadores puede ser muy prolongada y compleja para el desarrollador del addon, cualquier información adicional siempre es útil para identificar y corregir errores rápidamente.
+  Muchas gracias
+                    BadBoyBarny
+
+
+Cambios:
+
+• Se ha ajustado el almacenamiento de nombres de NPC.
+  • Ahora los nombres de NPC también se guardan en el idioma respectivo de WoW.
+  • Así que si juegas WoW en inglés, los nombres de NPC se guardarán en inglés y aparecerán en tooltips. Si cambias el idioma de WoW, por ejemplo de inglés a francés, los nombres de NPC en francés se guardarán y luego se mostrarán en francés.
+  • Si vuelves al inglés, obviamente los nombres en inglés permanecen y se mostrarán de nuevo en el tooltip.
+  • Puedes cambiar el idioma del juego en la ventana de Battle.net bajo “Ajustes > Ajustes del juego > World of Warcraft > Idioma de texto / Voz”.
+  • Cada vez que cambias el idioma en WoW, tras el primer inicio de sesión se realiza un escaneo rápido de NPC que actualiza y asigna correctamente los nombres.
+
+• Los registros de cambios ahora incluyen un mecanismo de protección que evita un error con “CopyToClipboard”.
+]],
+
+  esMX = [[
+Nota:
+
+• Si encuentran errores que provienen de MapNotes y los reportan en “Curseforge.com/wow/addons/mapnotes”, por favor llenen un reporte de error para que el fallo pueda ser atendido de manera puntual y rápida.
+  • Un mensaje general en el chat dentro de la sección de comentarios rara vez resulta realmente útil.
+  • Este reporte de error se genera automáticamente cuando hacen clic en “Issues” bajo “Curseforge.com/wow/addons/mapnotes” y abren un nuevo problema (Curseforge.com/wow/addons/mapnotes/issues/create).
+  • Dado que la depuración sin pistas reales o información adicional de los jugadores puede resultar muy larga y compleja para el desarrollador del addon, cualquier información adicional siempre es útil para identificar y corregir los errores rápidamente.
+  Muchas gracias
+                    BadBoyBarny
+
+
+Cambios:
+
+• Se ha ajustado el almacenamiento de los nombres de NPC.
+  • Ahora los nombres de NPC también se guardan en el idioma correspondiente de WoW.
+  • Así que si juegas WoW en inglés, los nombres de NPC se guardarán en inglés y se mostrarán en tooltips. Si cambias el idioma de WoW, por ejemplo de inglés a francés, los nombres en francés se guardarán y luego aparecerán en francés.
+  • Si regresas al inglés, por supuesto los nombres en inglés permanecen y volverán a mostrarse en el tooltip.
+  • Puedes cambiar el idioma del juego en la ventana de Battle.net bajo “Configuración > Configuración del juego > World of Warcraft > Idioma de texto / Voz”.
+  • Cada vez que cambias el idioma en WoW, después del primer inicio de sesión se realiza un escaneo rápido de NPC que actualiza y asigna adecuadamente los nombres.
+
+• Los registros de cambios ahora incluyen un mecanismo de protección que previene un error con “CopyToClipboard”.
+]],
+
+  ptBR = [[
+Nota:
+
+• Se você encontrar qualquer erro proveniente do MapNotes e relatá-lo em “Curseforge.com/wow/addons/mapnotes”, por favor preencha um relatório de bug para que o erro possa ser tratado de forma direcionada e rápida.
+  • Uma mensagem geral no chat, dentro da seção de comentários, raramente é realmente útil.
+  • Este relatório de bug é criado automaticamente quando você clica em “Issues” sob “Curseforge.com/wow/addons/mapnotes” e abre um novo problema (Curseforge.com/wow/addons/mapnotes/issues/create).
+  • Como depurar sem pistas reais ou informações adicionais dos jogadores pode ser muitas vezes muito demorado e complexo para o desenvolvedor do addon, qualquer informação extra é sempre útil para identificar e corrigir bugs rapidamente.
+  Muito obrigado
+                    BadBoyBarny
+
+
+Alterações:
+
+• O armazenamento dos nomes de NPC foi ajustado.
+  • Agora os nomes de NPC também são salvos no idioma correspondente do WoW.
+  • Então, se você joga WoW em inglês, os nomes de NPC serão salvos em inglês e exibidos nas dicas (tooltips). Se você mudar o idioma do WoW, por exemplo do inglês para o francês, os nomes dos NPC em francês serão salvos e depois exibidos em francês.
+  • Se você voltar ao inglês, os nomes em inglês ainda existirão e serão exibidos novamente na dica (tooltip).
+  • Você pode alterar o idioma do jogo na janela do Battle.net em “Configurações > Configurações do jogo > World of Warcraft > Idioma de texto / Voz”.
+  • Toda vez que você mudar o idioma no WoW, após o primeiro login é realizado um scan rápido de NPC que atualiza e mapeia corretamente os nomes.
+
+• Os changelogs agora incluem um mecanismo de proteção que previne um erro com “CopyToClipboard”.
+]],
+
+  ruRU = [[
+Примечание:
+
+• Если вы обнаружите какие-либо ошибки, исходящие из MapNotes, и сообщите о них на «Curseforge.com/wow/addons/mapnotes», пожалуйста, заполните отчёт об ошибке, чтобы её можно было исправить целенаправленно и оперативно.
+  • Общий комментарий в чате в разделе комментариев редко бывает действительно полезен.
+  • Этот отчёт об ошибке создаётся автоматически, когда вы нажимаете «Issues» на «Curseforge.com/wow/addons/mapnotes» и открываете новую задачу (Curseforge.com/wow/addons/mapnotes/issues/create).
+  • Поскольку отладка без реальных подсказок или дополнительной информации от игроков часто оказывается очень трудоёмкой и сложной для разработчика аддона, любая дополнительная информация всегда полезна для быстрого обнаружения и исправления ошибок.
+  Большое спасибо
+                    BadBoyBarny
+
+
+Изменения:
+
+• Хранение имён NPC было скорректировано.
+  • Теперь имена NPC также сохраняются на соответствующем языке WoW.
+  • Итак, если вы играете в WoW на английском, имена NPC будут сохранены на английском и отображаться в подсказках (tooltip). Если вы переключите язык WoW, например, с английского на французский, будут сохранены имена NPC на французском и отображаться на французском.
+  • Если вы снова вернётесь к английскому, то имена на английском останутся и будут снова отображаться в подсказках.
+  • Язык игры можно изменить в окне Battle.net в «Настройки > Настройки игры > World of Warcraft > Язык текста / Голоса».
+  • Каждый раз, когда вы меняете язык в WoW, после первого входа выполняется бысткое сканирование NPC, которое обновляет и правильно сопоставляет имена.
+
+• В журналы изменений теперь добавлен механизм защиты, который предотвращает ошибку с «CopyToClipboard».
+]],
+
+  zhCN = [[
+注意：
+
+• 如果你发现任何源自 MapNotes 的错误，并在 “Curseforge.com/wow/addons/mapnotes” 上报告，请填写错误报告，以便该错误能够被有针对性和快速地处理。
+  • 在评论区的聊天中发布一条通用消息很少真正有帮助。
+  • 当你在 “Curseforge.com/wow/addons/mapnotes” 下点击“问题”（Issues）并创建一个新问题 (Curseforge.com/wow/addons/mapnotes/issues/create) 时，将自动生成此错误报告。
+  • 由于没有真实提示或玩家提供的额外信息时调试通常对插件开发者而言非常耗时且复杂，任何额外信息始终有助于快速识别和修复错误。
+  万分感谢
+                    BadBoyBarny
+
+
+变更：
+
+• 已调整 NPC 名称存储方式。
+  • 现在还会按对应的 WoW 语言保存 NPC 名称。
+  • 因此，如果你用英文玩 WoW，则 NPC 名称将以英文保存并在工具提示中显示。如果你将 WoW 语言从英文切换为法语，则将保存法语 NPC 名称，并以法语显示。
+  • 若你切换回英文，则英文名称仍然存在并会在工具提示中再次显示。
+  • 你可以在 Battle.net 窗口中通过 “设置 > 游戏设置 > World of Warcraft > 文本语言 / 语音语言” 更改游戏语言。
+  • 每次更改 WoW 语言后，在首次登录时将执行快速 NPC 扫描，以更新并正确映射名称。
+
+• 更改日志现在包含保护机制，以防止出现 “CopyToClipboard” 错误。
+]],
+
+  zhTW = [[
+注意：
+
+• 如果你發現任何來自 MapNotes 的錯誤，並在 “Curseforge.com/wow/addons/mapnotes” 上回報，請填寫錯誤報告，以便錯誤能被有針對性且快速地處理。
+  • 在評論區聊天中發送一條通用訊息很少真正有用。
+  • 當你在 “Curseforge.com/wow/addons/mapnotes” 下點擊 “Issues”（問題）並創建新問題 (Curseforge.com/wow/addons/mapnotes/issues/create) 時，會自動生成此錯誤報告。
+  • 由於在沒有實際提示或玩家提供額外資訊時進行除錯，對插件開發者而言通常非常耗時且複雜，任何額外資訊始終有助於快速識別並修復錯誤。
+  非常感謝
+                    BadBoyBarny
+
+
+變更：
+
+• 已調整 NPC 名稱的儲存方式。
+  • 現在還會按對應的 WoW 語言儲存 NPC 名稱。
+  • 因此，如果你使用英文遊玩 WoW，NPC 名稱將以英文儲存並在工具提示中顯示。如果你將 WoW 語言從英語切換為法語，則會儲存法語的 NPC 名稱，並以法語顯示。
+  • 若你切換回英文，則英文名稱仍然存在並會在工具提示中再次顯示。
+  • 你可以在 Battle.net 視窗中透過 “設定 > 遊戲設定 > World of Warcraft > 文字語言 / 語音語言” 更改遊戲語言。
+  • 每次更改 WoW 語言後，在首次登入時會執行快速 NPC 掃描，以更新並正確映射名稱。
+
+• 更改日誌現在包含保護機制，以防止出現 “CopyToClipboard” 錯誤。
+]],
+
+  koKR = [[
+참고:
+
+• MapNotes에서 발생하는 오류를 발견하여 “Curseforge.com/wow/addons/mapnotes” 에 보고할 경우, 오류를 보다 정확하고 신속하게 처리할 수 있도록 버그 리포트를 작성해 주세요.
+  • 댓글 섹션 내 채팅에 일반적인 메시지를 남기는 것은 거의 도움이 되지 않습니다.
+  • 이 버그 리포트는 “Curseforge.com/wow/addons/mapnotes” 아래의 “Issues” 항목을 클릭하고 새 문제를 열면 자동으로 생성됩니다 (Curseforge.com/wow/addons/mapnotes/issues/create).
+  • 플레이어로부터의 실질적인 단서나 추가 정보 없이 디버깅하는 것은 애드온 개발자에게 매우 시간 소모적이고 복잡할 수 있으므로, 추가 정보는 항상 오류를 신속하게 파악하고 수정하는 데 유용합니다.
+  진심으로 감사드립니다
+                    BadBoyBarny
+
+
+변경 사항:
+
+• NPC 이름 저장 방식이 조정되었습니다.
+  • 이제 NPC 이름이 해당 WoW 언어로도 저장됩니다.
+  • 따라서 WoW를 영어로 플레이할 경우 NPC 이름이 영어로 저장되고 툴팁에 표시됩니다. WoW 언어를 예를 들어 영어에서 프랑스어로 변경하면, NPC 이름이 프랑스어로 저장되고 프랑스어로 표시됩니다.
+  • 다시 영어로 변경하면 당연히 영어 이름이 남아 있으며 툴팁에 다시 표시됩니다.
+  • 게임 언어는 Battle.net 창의 “설정 > 게임 설정 > World of Warcraft > 텍스트 언어 / 음성 언어” 에서 변경할 수 있습니다.
+  • WoW 언어를 변경할 때마다 첫 로그인 후 빠른 NPC 스캔이 수행되어 이름이 업데이트되고 올바르게 매핑됩니다.
+
+• 변경 로그에는 이제 “CopyToClipboard” 오류를 방지하는 보호 메커니즘이 포함되어 있습니다.
+]],
+}
+
+ns.LOCALE_CHANGELOG_3_1_1 = {
   deDE = [[
 • Das Änderungsprotokoll wurde auf 3 „Changelogs“ erweitert, zu finden unter „About MapNotes“
 
@@ -23,7 +457,6 @@ ns.LOCALE_CHANGELOG_NEW = { -- 3.1.1
   • MapNotes speichert für jeden eurer Charaktere die ursprünglich eingestellten Werte der Minikartensymbole von Blizzard, damit – wenn ihr die Optionen im Addon wieder deaktiviert – die ursprünglichen Einstellungen wie zuvor wiederhergestellt werden können
 
   • Änderungen werden sofort übernommen und treten in Kraft, werden im Blizzard-Minimap-Untermenü jedoch visuell noch falsch angezeigt, bis ihr einmal neu geladen (/reload) habt
-
 ]],
 
   enUS = [[
@@ -227,424 +660,10 @@ ns.LOCALE_CHANGELOG_NEW = { -- 3.1.1
 ]],
 }
 
-ns.LOCALE_CHANGELOG_OLD_1 = { -- 3.1.0
-  deDE = [[
-• Umstellung von einigen externen Libs auf interne Logik
-
-• Zandalar- und Kul'Tiras-Symbole wurden mit NPC-Namen ergänzt
-
-• Instanzsymbole wurden auf allen Flugkarten hinzugefügt, von Vanilla bis TWW
-
-• Die Anzeige für Ruhmrüstmeister wurde aus der Symbolkategorie „PvE“ entfernt und hat nun eine eigene Option namens Ruhmrüstmeister
-  • Zu finden im Reiter „Capitals +“ und „Zone +“ unter Allgemeine Symbole
-  • Es wurde auch ein neues Symbol für die Ruhmrüstmeister erstellt
-]],
-
-  enUS = [[
-• Converted some external libs to internal logic
-
-• Zandalar and Kul'Tiras symbols now include NPC names
-
-• Instance symbols have been added to all flight maps, from Vanilla to TWW
-
-• Reputation Quartermasters have been removed from the "PvE" symbol category and now have their own option called Quartermasters
-  • Found in the "Capitals +" and "Zone +" tabs under General Symbols
-  • A new symbol has also been created for the Quartermasters
-]],
-
-  frFR = [[
-• Passage de certaines bibliothèques externes à une logique interne
-
-• Les symboles de Zandalar et de Kul'Tiras affichent désormais les noms des PNJ
-
-• Les symboles d’instance ont été ajoutés à toutes les cartes de vol, de Vanilla à TWW
-
-• Les intendants de réputation ont été retirés de la catégorie de symboles « JcE » et disposent maintenant de leur propre option appelée Intendants
-  • À trouver dans les onglets « Capitals + » et « Zone + » sous Symboles généraux
-  • Un nouveau symbole a également été créé pour les intendants
-]],
-
-  itIT = [[
-• Conversione di alcune librerie esterne in logica interna
-
-• I simboli di Zandalar e Kul'Tiras ora includono i nomi degli NPC
-
-• I simboli delle istanze sono stati aggiunti a tutte le mappe di volo, da Vanilla a TWW
-
-• I Quartiermastri della reputazione sono stati rimossi dalla categoria di simboli "PvE" e hanno ora una propria opzione chiamata Quartiermastri
-  • Si trovano nelle schede "Capitals +" e "Zone +" sotto Simboli generali
-  • È stato anche creato un nuovo simbolo per i Quartiermastri
-]],
-
-  esES = [[
-• Conversión de algunas librerías externas a lógica interna
-
-• Los símbolos de Zandalar y Kul'Tiras ahora incluyen nombres de PNJ
-
-• Se han añadido símbolos de mazmorras a todos los mapas de vuelo, desde Vanilla hasta TWW
-
-• Los intendentes de reputación se han eliminado de la categoría de símbolos «JcE» y ahora tienen su propia opción llamada Intendentes
-  • Se encuentran en las pestañas «Capitals +» y «Zone +» bajo Símbolos generales
-  • También se ha creado un nuevo símbolo para los Intendentes
-]],
-
-  esMX = [[
-• Conversión de algunas librerías externas a lógica interna
-
-• Los símbolos de Zandalar y Kul'Tiras ahora incluyen nombres de PNJ
-
-• Se han agregado símbolos de mazmorras a todos los mapas de vuelo, desde Vanilla hasta TWW
-
-• Los intendentes de reputación se han eliminado de la categoría de símbolos «JcE» y ahora tienen su propia opción llamada Intendentes
-  • Se encuentran en las pestañas «Capitals +» y «Zone +» bajo Símbolos generales
-  • También se creó un nuevo símbolo para los Intendentes
-]],
-
-  ptBR = [[
-• Conversão de algumas libs externas para lógica interna
-
-• Os símbolos de Zandalar e Kul'Tiras agora incluem nomes de NPCs
-
-• Símbolos de instâncias foram adicionados a todos os mapas de voo, de Vanilla até TWW
-
-• Os intendentes de reputação foram removidos da categoria de símbolos "PvE" e agora possuem sua própria opção chamada Intendentes
-  • Localizados nas abas "Capitals +" e "Zone +" em Símbolos gerais
-  • Um novo símbolo também foi criado para os Intendentes
-]],
-
-  ruRU = [[
-• Переход от некоторых внешних библиотек на внутреннюю логику
-
-• Символы Зандалара и Кул-Тираса теперь содержат имена НИПов
-
-• Символы подземелий добавлены на все карты полётов, от Vanilla до TWW
-
-• Торговцы за репутацию были убраны из категории символов «PvE» и теперь имеют отдельную опцию «Торговцы за репутацию»
-  • Находятся во вкладках «Capitals +» и «Zone +» в разделе Общие символы
-  • Также был создан новый символ для торговцев за репутацию
-]],
-
-  zhCN = [[
-• 部分外部库已转换为内部逻辑
-
-• 赞达拉和库尔提拉斯的符号现在包含 NPC 名称
-
-• 地图副本符号已添加到所有飞行地图，从经典旧世到 TWW
-
-• 声望军需官已从“PvE”符号类别中移除，现在有了单独的选项“军需官”
-  • 可在“Capitals +”和“Zone +”选项卡中的通用符号下找到
-  • 还为军需官创建了一个新的符号
-]],
-
-  zhTW = [[
-• 部分外部程式庫已轉換為內部邏輯
-
-• 贊達拉與庫爾提拉斯的符號現在包含 NPC 名稱
-
-• 副本符號已新增到所有飛行地圖，從經典舊世到 TWW
-
-• 聲望軍需官已從「PvE」符號類別中移除，現在有了單獨的選項「軍需官」
-  • 可在「Capitals +」和「Zone +」分頁中的一般符號下找到
-  • 同時也為軍需官建立了一個新的符號
-]],
-
-  koKR = [[
-• 일부 외부 라이브러리를 내부 로직으로 전환
-
-• 잔달라 및 쿨 티라스 심볼에 NPC 이름이 추가됨
-
-• 인스턴스 심볼이 바닐라부터 TWW까지 모든 비행 경로 지도에 추가됨
-
-• 평판 병참장교가 "PvE" 심볼 카테고리에서 제거되었으며 이제 "병참장교"라는 별도의 옵션이 있음
-  • "Capitals +" 및 "Zone +" 탭의 일반 심볼에서 찾을 수 있음
-  • 병참장교를 위한 새로운 심볼도 추가됨
-]],
-}
-
-ns.LOCALE_CHANGELOG_OLD_2 = { -- 3.0.9
-  deDE = [[
-• Im Kampf ist es nicht mehr möglich, die Weltkarte über Addons zu wechseln, ohne Blizzard-Fehler zu erzeugen.
-  • Da dies eine Kernfunktion von MapNotes ist, wurden nun drei Optionen hinzugefügt, die dieses Problem auf verschiedenen Wegen lösen.
-
-• Möglichkeit 1: „Im Kampf trotzdem verwenden“ aktivieren
-  • Unter „Allgemein -> Karten + -> Im Kampf trotzdem verwenden“ können Spieler die Weltkartenwechsel-Funktion wie bisher auch im Kampf nutzen.
-  • Diese Option versucht, alle Fehler zu unterdrücken und auszublenden, die durch das Wechseln der Weltkarte über MapNotes entstehen können, sodass nur sehr seltene und spezielle Fehler durchkommen.
-  • In diesen Fällen erstellt MapNotes ein eigenes Fenster mit einem Knopf, um die Benutzeroberfläche mit einem Klick kurz neu zu laden, sodass der Fehler bereinigt wird.
-
-• Möglichkeit 2: „Karten umschalten“ aktivieren (standardmäßig ausgewählt)
-  • Die Funktion, die Weltkarte per Klick auf bestimmte MapNotes-Symbole „außerhalb des Kampfes“ zu wechseln, wurde hinzugefügt.
-  • Sie kann unter „Allgemein -> Karten + -> Karten umschalten“ deaktiviert werden.
-  • Für diese Funktion gibt es zusätzlich „Nach Kampf wechseln“: Dabei wird der letzte Klick auf das Symbol gespeichert und die Weltkarte nach dem Kampf auf die Zielkarte gewechselt.
-  • Ebenfalls unter „Allgemein -> Karten + -> Info: Im Kampf blockiert“ befindet sich eine Option, die im Kampf eine Meldung am Bildschirm einblendet, dass dies nicht möglich ist.
-
-• Möglichkeit 3: „Karten umschalten“ deaktivieren
-  • Es wurde die Möglichkeit hinzugefügt, das Wechseln der Weltkarte per Klick auf bestimmte MapNotes-Symbole komplett zu deaktivieren.
-  • Unter „Allgemein -> Karten + -> Karten umschalten“ muss dafür nur diese Funktion deaktiviert werden.
-  • Bei Deaktivierung funktionieren Kartenwechsel über MapNotes nicht mehr.
-  • Unter „Allgemein -> Karten + -> Karten umschalten Tooltip“ erhalten diese Symbole zusätzlich den Tooltip: „Die Funktion ‚Karten umschalten‘ ist deaktiviert“.
-
-• Zusätzlich wurde dem Minikarten-Knopf eine neue Funktion hinzugefügt: „Umschalt-Taste + Mittlere Maustaste“ lädt die Benutzeroberfläche neu (/reload).
-
-• Unter „Allgemein -> Karten +“ befinden sich nun auch die Optionen für die „Standort-Chatnachrichten“ und „Standort-Details-Chatnachrichten“ (zuvor im Reiter „Allgemein -> Chat-Optionen“).
-]],
-
-  enUS = [[
-• It is no longer possible to switch the world map via addons during combat without triggering Blizzard errors.
-  • Because this is a core MapNotes feature, three options were added to address the problem in different ways.
-
-• Option 1: Enable “Use in combat anyway”
-  • Under “General -> Maps + -> Use in combat anyway”, players can keep using the world-map switching feature even during combat as before.
-  • This option attempts to suppress and hide all errors that may arise from switching the world map via MapNotes, so that only very rare and specific errors get through.
-  • In such cases, MapNotes opens its own small window with a button to quickly reload the UI so the error is cleared.
-
-• Option 2: Enable “Toggle Maps” (enabled by default)
-  • Adds the ability to switch the world map by clicking certain MapNotes icons **outside of combat**.
-  • It can be disabled under “General -> Maps + -> Toggle Maps”.
-  • Additionally, “Switch after battle” stores the last click and switches the world map to the target map after combat.
-  • Also under “General -> Maps + -> Info: Blocked in combat” you’ll find an option that shows an on-screen message in combat that this isn’t possible.
-
-• Option 3: Disable “Toggle Maps”
-  • Adds the possibility to completely disable switching the world map by clicking certain MapNotes icons.
-  • Simply disable this option under “General -> Maps + -> Toggle Maps”.
-  • When disabled, switching maps via MapNotes no longer works.
-  • Under “General -> Maps + -> Toggle Maps Tooltip” these icons additionally show the tooltip: “The ‘Toggle Maps’ function is disabled”.
-
-• Additionally, a new function was added to the minimap button: “Shift + Middle Mouse Button” reloads the user interface (/reload).
-
-• Under “General -> Maps +” you will now also find the options for “Location chat messages” and “Location details chat messages” (previously under “General -> Chat Options”).
-]],
-
-  frFR = [[
-• Il n’est plus possible de changer la carte du monde via des addons pendant le combat sans provoquer des erreurs Blizzard.
-  • Comme il s’agit d’une fonctionnalité essentielle de MapNotes, trois options ont été ajoutées pour traiter ce problème de différentes manières.
-
-• Option 1 : Activer « Utiliser en combat quand même »
-  • Dans « Général -> Cartes + -> Utiliser en combat quand même », vous pouvez continuer à utiliser le changement de carte du monde même en combat, comme auparavant.
-  • Cette option tente de supprimer et de masquer toutes les erreurs susceptibles de survenir lors du changement de carte via MapNotes, afin que seules des erreurs très rares et spécifiques passent.
-  • Dans ces cas, MapNotes ouvre une petite fenêtre dédiée avec un bouton pour recharger rapidement l’interface afin de corriger l’erreur.
-
-• Option 2 : Activer « Basculer les cartes » (activé par défaut)
-  • Ajoute la possibilité de changer la carte du monde en cliquant sur certaines icônes MapNotes **hors combat**.
-  • Peut être désactivé dans « Général -> Cartes + -> Basculer les cartes ».
-  • En complément, « Changer après le combat » mémorise le dernier clic et bascule la carte du monde vers la carte cible après le combat.
-  • Également dans « Général -> Cartes + -> Info : Bloqué en combat », une option affiche un message à l’écran en combat indiquant que l’action est impossible.
-
-• Option 3 : Désactiver « Basculer les cartes »
-  • Permet de désactiver complètement le changement de carte du monde en cliquant sur certaines icônes MapNotes.
-  • Il suffit de désactiver l’option dans « Général -> Cartes + -> Basculer les cartes ».
-  • Une fois désactivé, le changement de carte via MapNotes ne fonctionne plus.
-  • Dans « Général -> Cartes + -> Info-bulle Basculer les cartes », ces icônes affichent en outre : « La fonction “Basculer les cartes” est désactivée ».
-
-• Par ailleurs, un nouveau raccourci a été ajouté au bouton de la minicarte : « Maj + Bouton central de la souris » recharge l’interface (/reload).
-
-• Dans « Général -> Cartes + » se trouvent désormais aussi les options « Messages de localisation dans le chat » et « Détails de localisation dans le chat » (auparavant dans « Général -> Options du chat »).
-]],
-
-  itIT = [[
-• Non è più possibile cambiare la mappa del mondo tramite addon durante il combattimento senza causare errori Blizzard.
-  • Poiché questa è una funzione fondamentale di MapNotes, sono state aggiunte tre opzioni per affrontare il problema in modi diversi.
-
-• Opzione 1: Attivare « Usare comunque in combattimento »
-  • In « Generale -> Mappe + -> Usare comunque in combattimento » i giocatori possono continuare a usare il cambio mappa anche in combattimento, come in passato.
-  • Questa opzione cerca di sopprimere e nascondere tutti gli errori che possono insorgere cambiando la mappa tramite MapNotes, così che passino solo errori molto rari e specifici.
-  • In tali casi, MapNotes apre una piccola finestra dedicata con un pulsante per ricaricare rapidamente l’interfaccia e risolvere l’errore.
-
-• Opzione 2: Attivare « Cambia mappe » (attiva per impostazione predefinita)
-  • Aggiunge la possibilità di cambiare la mappa del mondo facendo clic su alcune icone di MapNotes **fuori dal combattimento**.
-  • Può essere disattivata in « Generale -> Mappe + -> Cambia mappe ».
-  • Inoltre, « Cambia dopo il combattimento » salva l’ultimo clic e cambia la mappa del mondo alla mappa di destinazione dopo il combattimento.
-  • In « Generale -> Mappe + -> Info: Bloccato in combattimento » è presente un’opzione che mostra in combattimento un messaggio a schermo che indica l’impossibilità dell’azione.
-
-• Opzione 3: Disattivare « Cambia mappe »
-  • Consente di disattivare completamente il cambio della mappa del mondo facendo clic su alcune icone di MapNotes.
-  • È sufficiente disattivare l’opzione in « Generale -> Mappe + -> Cambia mappe ».
-  • Una volta disattivata, il cambio mappa tramite MapNotes non funziona più.
-  • In « Generale -> Mappe + -> Tooltip Cambia mappe » tali icone mostrano inoltre: « La funzione “Cambia mappe” è disattivata ».
-
-• Inoltre, al pulsante della minimappa è stata aggiunta una nuova funzione: « Maiusc + tasto centrale del mouse » ricarica l’interfaccia (/reload).
-
-• In « Generale -> Mappe + » sono ora presenti anche le opzioni « Messaggi di posizione in chat » e « Dettagli posizione in chat » (in precedenza in « Generale -> Opzioni chat »).
-]],
-
-  esES = [[
-• Ya no es posible cambiar el mapa del mundo mediante addons durante el combate sin provocar errores de Blizzard.
-  • Como se trata de una función principal de MapNotes, se han añadido tres opciones para abordar el problema de diferentes maneras.
-
-• Opción 1: Activar « Usar en combate de todos modos »
-  • En « General -> Mapas + -> Usar en combate de todos modos », los jugadores pueden seguir usando el cambio de mapa incluso en combate, como antes.
-  • Esta opción intenta suprimir y ocultar todos los errores que puedan surgir al cambiar el mapa mediante MapNotes, de modo que solo aparezcan errores muy raros y específicos.
-  • En estos casos, MapNotes abre una pequeña ventana con un botón para recargar rápidamente la interfaz y así resolver el error.
-
-• Opción 2: Activar « Alternar mapas » (activado por defecto)
-  • Añade la posibilidad de cambiar el mapa del mundo haciendo clic en ciertos iconos de MapNotes **fuera de combate**.
-  • Puede desactivarse en « General -> Mapas + -> Alternar mapas ».
-  • Además, « Cambiar después del combate » guarda el último clic y cambia el mapa del mundo al mapa de destino después del combate.
-  • También en « General -> Mapas + -> Info: Bloqueado en combate » hay una opción que muestra un mensaje en pantalla durante el combate indicando que no es posible.
-
-• Opción 3: Desactivar « Alternar mapas »
-  • Permite desactivar por completo el cambio del mapa del mundo al hacer clic en ciertos iconos de MapNotes.
-  • Basta con desactivar la opción en « General -> Mapas + -> Alternar mapas ».
-  • Al desactivarla, el cambio de mapas mediante MapNotes deja de funcionar.
-  • En « General -> Mapas + -> Tooltip Alternar mapas » estos iconos muestran además: « La función “Alternar mapas” está desactivada ».
-
-• Además, se ha añadido una función nueva al botón del minimapa: « Mayús + Botón central del ratón » recarga la interfaz (/reload).
-
-• En « General -> Mapas + » también encontrarás ahora las opciones « Mensajes de ubicación en el chat » y « Detalles de ubicación en el chat » (antes en « General -> Opciones de chat »).
-]],
-
-  esMX = [[
-• Ya no es posible cambiar el mapa del mundo mediante addons durante el combate sin causar errores de Blizzard.
-  • Debido a que esta es una función central de MapNotes, se agregaron tres opciones para abordar el problema de distintas maneras.
-
-• Opción 1: Activar « Usar en combate de todos modos »
-  • En « General -> Mapas + -> Usar en combate de todos modos », los jugadores pueden seguir usando el cambio de mapa también en combate, como antes.
-  • Esta opción intenta suprimir y ocultar todos los errores que puedan surgir al cambiar el mapa mediante MapNotes, de modo que solo aparezcan errores muy raros y específicos.
-  • En estos casos, MapNotes abre una pequeña ventana dedicada con un botón para recargar rápidamente la interfaz y resolver el error.
-
-• Opción 2: Activar « Alternar mapas » (activado de forma predeterminada)
-  • Agrega la posibilidad de cambiar el mapa del mundo al hacer clic en ciertos íconos de MapNotes **fuera de combate**.
-  • Se puede desactivar en « General -> Mapas + -> Alternar mapas ».
-  • Además, « Cambiar después del combate » guarda el último clic y cambia el mapa del mundo al mapa de destino después del combate.
-  • También en « General -> Mapas + -> Info: Bloqueado en combate » encontrarás una opción que muestra en combate un mensaje en pantalla indicando que no es posible.
-
-• Opción 3: Desactivar « Alternar mapas »
-  • Permite deshabilitar por completo el cambio del mapa del mundo al hacer clic en ciertos íconos de MapNotes.
-  • Solo desactiva la opción en « General -> Mapas + -> Alternar mapas ».
-  • Al deshabilitarla, el cambio de mapas mediante MapNotes deja de funcionar.
-  • En « General -> Mapas + -> Tooltip Alternar mapas » estos íconos también mostrarán: « La función “Alternar mapas” está deshabilitada ».
-
-• Además, se añadió una nueva función al botón del minimapa: « Mayús + Botón central del mouse » recarga la interfaz (/reload).
-
-• En « General -> Mapas + » ahora también encontrarás las opciones « Mensajes de ubicación en el chat » y « Detalles de ubicación en el chat » (antes en « General -> Opciones de chat »).
-]],
-
-  ptBR = [[
-• Não é mais possível trocar o mapa-múndi por addons durante o combate sem causar erros da Blizzard.
-  • Como isso é um recurso central do MapNotes, foram adicionadas três opções para lidar com o problema de maneiras diferentes.
-
-• Opção 1: Ativar « Usar em combate mesmo assim »
-  • Em « Geral -> Mapas + -> Usar em combate mesmo assim », os jogadores podem continuar usando a troca de mapa também em combate, como antes.
-  • Esta opção tenta suprimir e ocultar todos os erros que podem surgir ao trocar o mapa via MapNotes, permitindo que apenas erros muito raros e específicos passem.
-  • Nesses casos, o MapNotes abre uma pequena janela com um botão para recarregar rapidamente a interface e corrigir o erro.
-
-• Opção 2: Ativar « Alternar mapas » (ativada por padrão)
-  • Adiciona a possibilidade de trocar o mapa do mundo clicando em certos ícones do MapNotes **fora de combate**.
-  • Pode ser desativada em « Geral -> Mapas + -> Alternar mapas ».
-  • Além disso, « Alternar após o combate » armazena o último clique e muda o mapa do mundo para o destino após o combate.
-  • Em « Geral -> Mapas + -> Info: Bloqueado em combate » há uma opção que exibe, durante o combate, uma mensagem na tela informando que não é possível.
-
-• Opção 3: Desativar « Alternar mapas »
-  • Permite desativar completamente a troca do mapa do mundo ao clicar em certos ícones do MapNotes.
-  • Basta desativar a opção em « Geral -> Mapas + -> Alternar mapas ».
-  • Desativando, a troca de mapas via MapNotes deixa de funcionar.
-  • Em « Geral -> Mapas + -> Dica de ferramenta Alternar mapas » esses ícones também exibem: « A função “Alternar mapas” está desativada ».
-
-• Além disso, foi adicionada uma nova função ao botão do minimapa: « Shift + Botão do meio do mouse » recarrega a interface (/reload).
-
-• Em « Geral -> Mapas + » agora você também encontra as opções « Mensagens de localização no chat » e « Detalhes de localização no chat » (antes em « Geral -> Opções de chat »).
-]],
-
-  ruRU = [[
-• Во время боя больше нельзя переключать карту мира через аддоны без вызова ошибок Blizzard.
-  • Так как это ключевая функция MapNotes, были добавлены три варианта, решающие проблему разными способами.
-
-• Вариант 1: Включить « Использовать в бою всё равно »
-  • В « Общие -> Карты + -> Использовать в бою всё равно » игроки могут, как и раньше, пользоваться переключением карты мира даже во время боя.
-  • Этот вариант пытается подавлять и скрывать все ошибки, которые могут возникать при переключении карты через MapNotes, так что проходят только очень редкие и специфические ошибки.
-  • В таких случаях MapNotes открывает небольшое отдельное окно с кнопкой для быстрой перезагрузки интерфейса, чтобы устранить ошибку.
-
-• Вариант 2: Включить « Переключение карт » (включено по умолчанию)
-  • Добавляет возможность переключать карту мира, нажимая на некоторые значки MapNotes **вне боя**.
-  • Можно отключить в « Общие -> Карты + -> Переключение карт ».
-  • Дополнительно « Переключать после боя » запоминает последний щелчок и переключает карту мира на целевую после боя.
-  • В « Общие -> Карты + -> Инфо: Заблокировано в бою » есть опция, показывающая во время боя на экране сообщение о невозможности действия.
-
-• Вариант 3: Отключить « Переключение карт »
-  • Позволяет полностью запретить переключение карты мира по нажатию на определённые значки MapNotes.
-  • Для этого достаточно отключить опцию в « Общие -> Карты + -> Переключение карт ».
-  • После отключения переключение карт через MapNotes работать не будет.
-  • В « Общие -> Карты + -> Подсказка Переключение карт » такие значки дополнительно получают подсказку: « Функция “Переключение карт” отключена ».
-
-• Кроме того, для кнопки на миникарте добавлена новая функция: « Shift + Средняя кнопка мыши » перезагружает интерфейс (/reload).
-
-• В « Общие -> Карты + » теперь также находятся опции « Сообщения о локации в чат » и « Подробные сообщения о локации в чат » (раньше — в « Общие -> Настройки чата »).
-]],
-
-  zhCN = [[
-• 战斗中已无法通过插件切换世界地图而不触发暴雪错误。
-  • 由于这是 MapNotes 的核心功能，我们新增了三种方式来应对这一问题。
-
-• 方案一：启用“战斗中仍然使用”
-  • 在“通用 -> 地图 + -> 战斗中仍然使用”下，玩家可以像以往一样在战斗中继续使用世界地图切换功能。
-  • 该选项会尽量抑制并隐藏通过 MapNotes 切换世界地图时可能产生的所有错误，使只有极少数特定错误会显示。
-  • 遇到这种情况时，MapNotes 会弹出一个小窗口，提供一键快速重载界面的按钮，以清除错误。
-
-• 方案二：启用“切换地图”（默认启用）
-  • 新增可在**非战斗**状态下，通过点击部分 MapNotes 图标来切换世界地图。
-  • 可在“通用 -> 地图 + -> 切换地图”中关闭。
-  • 另外，“战后切换”会记录你对图标的最后一次点击，并在战斗结束后切换到目标地图。
-  • 在“通用 -> 地图 + -> 信息：战斗中已阻止”中，还提供在战斗中提示“此操作不可用”的选项。
-
-• 方案三：关闭“切换地图”
-  • 可完全关闭通过点击 MapNotes 图标切换世界地图的功能。
-  • 只需在“通用 -> 地图 + -> 切换地图”中关闭该选项。
-  • 关闭后，MapNotes 将不再执行任何地图切换。
-  • 在“通用 -> 地图 + -> ‘切换地图’提示”中，这些图标还会额外显示：“‘切换地图’功能已禁用”。
-
-• 另外，小地图按钮新增功能：“Shift + 鼠标中键”可重新载入界面（/reload）。
-
-• “通用 -> 地图 +”下现在也能找到“位置聊天消息”和“位置详细聊天消息”的选项（之前位于“通用 -> 聊天选项”）。
-]],
-
-  zhTW = [[
-• 戰鬥中已無法透過外掛切換世界地圖而不產生暴雪錯誤。
-  • 由於這是 MapNotes 的核心功能，因此新增三種方式來處理這個問題。
-
-• 方案一：啟用「戰鬥中仍然使用」
-  • 於「一般 -> 地圖 + -> 戰鬥中仍然使用」中，玩家可如以往一樣在戰鬥中繼續使用世界地圖切換功能。
-  • 此選項會盡量抑制並隱藏透過 MapNotes 切換世界地圖時可能產生的所有錯誤，使僅有極少數特定錯誤會顯示。
-  • 發生此情況時，MapNotes 會彈出一個小視窗，提供一鍵快速重新載入介面的按鈕，以清除錯誤。
-
-• 方案二：啟用「切換地圖」（預設啟用）
-  • 新增可在**非戰鬥**狀態下，透過點擊部分 MapNotes 圖示來切換世界地圖。
-  • 可在「一般 -> 地圖 + -> 切換地圖」中停用。
-  • 另外，「戰後切換」會記錄你對圖示的最後一次點擊，並在戰鬥結束後切換到目標地圖。
-  • 在「一般 -> 地圖 + -> 資訊：戰鬥中已封鎖」中，也提供在戰鬥中提示「此操作不可用」的選項。
-
-• 方案三：停用「切換地圖」
-  • 可完全停用透過點擊 MapNotes 圖示切換世界地圖的功能。
-  • 只需在「一般 -> 地圖 + -> 切換地圖」中停用該選項。
-  • 停用後，MapNotes 將不再執行任何地圖切換。
-  • 在「一般 -> 地圖 + -> 切換地圖滑鼠提示」中，這些圖示也會額外顯示：「『切換地圖』功能已停用」。
-
-• 另外，小地圖按鈕新增功能：「Shift + 滑鼠中鍵」可重新載入介面（/reload）。
-
-• 「一般 -> 地圖 +」下現在也能找到「位置聊天訊息」與「位置詳細聊天訊息」選項（先前位於「一般 -> 聊天選項」）。
-]],
-
-  koKR = [[
-• 전투 중에는 애드온으로 세계 지도를 전환하면 블리자드 오류가 발생하므로 더 이상 수행할 수 없습니다.
-  • 이는 MapNotes의 핵심 기능이기 때문에, 문제를 다양한 방식으로 해결할 수 있도록 세 가지 옵션이 추가되었습니다.
-
-• 옵션 1: ‘전투 중에도 강제로 사용’ 활성화
-  • ‘일반 -> 지도 + -> 전투 중에도 강제로 사용’에서, 예전처럼 전투 중에도 세계 지도 전환 기능을 계속 사용할 수 있습니다.
-  • 이 옵션은 MapNotes로 세계 지도를 전환할 때 발생할 수 있는 모든 오류를 최대한 억제하고 숨겨, 매우 드물고 특정한 오류만 표시되도록 시도합니다.
-  • 이러한 경우에는, MapNotes가 전용 작은 창을 띄워 버튼 한 번으로 UI를 빠르게 다시 불러와 오류를 정리할 수 있게 합니다.
-
-• 옵션 2: ‘지도 전환’ 활성화 (기본값)
-  • **비전투** 상태에서 일부 MapNotes 아이콘을 클릭해 세계 지도를 전환할 수 있는 기능을 추가합니다.
-  • ‘일반 -> 지도 + -> 지도 전환’에서 비활성화할 수 있습니다.
-  • 또한 ‘전투 후 전환’은 마지막 클릭을 저장했다가 전투가 끝난 뒤 대상 지도로 전환합니다.
-  • ‘일반 -> 지도 + -> 정보: 전투 중 차단됨’에는 전투 중 해당 작업이 불가함을 화면에 표시하는 옵션이 있습니다.
-
-• 옵션 3: ‘지도 전환’ 비활성화
-  • 특정 MapNotes 아이콘을 클릭해 세계 지도를 전환하는 기능을 완전히 비활성화할 수 있습니다.
-  • ‘일반 -> 지도 + -> 지도 전환’에서 이 옵션을 끄면 됩니다.
-  • 비활성화 시, MapNotes를 통한 지도 전환은 더 이상 동작하지 않습니다.
-  • ‘일반 -> 지도 + -> 지도 전환 툴팁’에서 해당 아이콘에 “‘지도 전환’ 기능이 비활성화되어 있습니다”라는 툴팁을 추가로 표시합니다.
-
-• 추가로 미니맵 버튼에 ‘Shift + 마우스 가운데 버튼’으로 UI를 다시 불러오는 (/reload) 기능이 추가되었습니다.
-
-• ‘일반 -> 지도 +’에는 이제 ‘위치 채팅 메시지’ 및 ‘위치 상세 채팅 메시지’ 옵션도 있습니다(기존에는 ‘일반 -> 채팅 옵션’에 위치).
-]],
+ns.LOCALE_CHANGELOG_NEW = ns.LOCALE_CHANGELOG_3_1_3
+
+ns.LOCALE_OLDER_CHANGELOGS = {
+ -- { version = "3.1.3", table = ns.LOCALE_CHANGELOG_3_1_3 },
+  { version = "3.1.2", table = ns.LOCALE_CHANGELOG_3_1_2 },
+  { version = "3.1.1", table = ns.LOCALE_CHANGELOG_3_1_1 },
 }

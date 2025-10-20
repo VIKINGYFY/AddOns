@@ -4,7 +4,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 function ns.LoadPathsMiniMapLocationinfo(self)
 local db = ns.Addon.db.profile
 local minimap = ns.minimap
-ns._currentSourceFile = "RetailPathsMiniMapNodes.lua"
+ns.currentSourceFile = "RetailPathsMiniMapNodes.lua"
 
 --#####################################################################################################
 --##########################        function to hide all minimap below         ##########################
@@ -542,12 +542,7 @@ ns._currentSourceFile = "RetailPathsMiniMapNodes.lua"
                     minimap[2248][52915233] = { name = "", dnID = "|cffffffff" .. L["Entrance"], mnID = 2339, type = "PathLO", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     minimap[2248][56233921] = { name = "", dnID = "|cffffffff" .. L["Entrance"], mnID = 2339, type = "PathL", showInZone = false, showOnContinent = false, showOnMinimap = true }
                     --minimap[2248][46154704] = { name = "", dnID = "|cffffffff" .. L["Passage"], mnID = 2214, type = "PathU", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                    minimap[2248][37427287] = { dnID = "|cffffffff" .. L["Passage"], name = "", mnID = 2214, type = "PassageCaveDown", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                    minimap[2248][67333102] = { dnID = "|cffffffff" .. L["Passage"], name = "", mnID = 2214, type = "PassageCaveDown", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                    minimap[2214][61547692] = { dnID = "|cffffffff" .. L["Passage"], name = "", mnID = 2248, type = "PassageCaveUp", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only Minimap
-                    minimap[2214][49194459] = { dnID = "|cffffffff" .. L["Passage"], name = "", mnID = 2248, type = "PassageCaveUp", showInZone = false, showOnContinent = false, showOnMinimap = true } -- only Minimap
-                    minimap[2214][63197831] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2346, type = "PathR", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                    
+                    minimap[2214][63197831] = { name = "", dnID = "|cffffffff" .. L["Path"], mnID = 2346, type = "PathR", showInZone = false, showOnContinent = false, showOnMinimap = true } 
                 end
 
             end

@@ -4,7 +4,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 function ns.LoadCapitalsLocationinfo(self)
 local db = ns.Addon.db.profile
 local nodes = ns.nodes
-ns._currentSourceFile = "RetailCapitals.lua"
+ns.currentSourceFile = "RetailCapitals.lua"
 
 --#####################################################################################################
 --##########################        function to hide all nodes below         ##########################
@@ -2335,9 +2335,13 @@ if not db.activate.HideMapNote then
                 end
 
                 if self.db.profile.showCapitalsPvEVendor then
-                    nodes[111][50864226] = { npcIDs1 = 18525, npcIDs2 = 21432, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[111][47752581] = { npcID = 19321, name = TRANSMOG_SET_PVE .. " " .. MERCHANT .. " - " .. L["The Aldor"], type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[111][60486423] = { npcID = 19331, name = TRANSMOG_SET_PVE .. " " .. MERCHANT .. " - " .. L["The Scryers"], type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[111][50834228] = { npcID = 18525, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, type = "PvEVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                end
+
+                if self.db.profile.showCapitalsRenownQuartermaster then
+                    nodes[111][50994171] = { npcID = 21432, name = "", type = "RenownQuartermaster", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[111][60486423] = { npcID = 19331, name = "", type = "RenownQuartermaster", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[111][47752581] = { npcID = 19321, name = "", type = "RenownQuartermaster", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
 
                 if self.db.profile.showCapitalsMailbox then

@@ -7,6 +7,8 @@ local defaultDatabase = {
         maxQuality = Enum.ItemQuality.Rare,
         minLevelDiff = 0,
         autoScrap = false,
+        advancedJeweleryFilter = false,
+        ignoreFromEquipmentSets = false,
     },
     collectionsTab = {
         selected = 1,
@@ -23,6 +25,7 @@ local defaultDatabase = {
         autoTurnIn = false,
         suppressShift = false,
         ignoreEternus = true,
+        suppressWorldTierIcon = false,
     },
     toast = {
         activate = false,
@@ -42,6 +45,7 @@ local defaultDatabase = {
     },
     merchant = {
         hideCollectedItems = false,
+        hideCollectedPetsAtLimit = true, -- we set this to true as it was default behavior before adding the setting
     },
     editMode = {
         ToastUI = {
@@ -55,11 +59,28 @@ local defaultDatabase = {
     version = nil
 }
 
+local defaultCharDatabase = {
+    char = {
+        scrapping = {
+            jeweleryTraitsToKeep = {
+                Neck = CopyTable(const.SCRAPPING_MACHINE.JEWELRY.NECK),
+                Finger = CopyTable(const.SCRAPPING_MACHINE.JEWELRY.FINGER),
+                Trinket = CopyTable(const.SCRAPPING_MACHINE.JEWELRY.TRINKET),
+            },
+        },
+    }
+}
+
 ---@class LegionRH : RasuAddonBase
 local addon = LibStub("RasuAddon"):CreateAddon(
     const.ADDON_NAME,
     "LegionRemixHelperDB",
-    defaultDatabase
+    defaultDatabase,
+    nil,
+    nil,
+    nil,
+    "LegionRemixHelperCharDB",
+    defaultCharDatabase
 )
 
 Private.Addon = addon

@@ -84,7 +84,7 @@ function ns.mnIDsANDquestIDsTooltip(tooltip, nodeData)
             if info and info.name then
                 ANYmnIDs = true
                 local learned = questIDs and ns.IsQuestLearned(questIDs)
-                if learned == true then
+                if learned then
                     tooltip:AddDoubleLine(" ==> " .. info.name, ALREADY_LEARNED, 1,1,1, 0,1,0)
                 elseif learned == false then
                     tooltip:AddDoubleLine(" ==> " .. info.name, L["Has not been unlocked yet"], 1,1,1, 1,0,0)
@@ -125,7 +125,7 @@ function ns.mnIDsANDquestIDsTooltip(tooltip, nodeData)
             elseif nodeData.showWWW then
                 showLink("https://www.wowhead.com/quest=" .. nodeData.questID)
             end
-        elseif nodeData.hideLink == true then
+        elseif nodeData.hideLink then
             tooltip:AddLine("\n" .. ALREADY_LEARNED .. "\n", 0, 1, 0)
         end
     end

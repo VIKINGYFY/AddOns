@@ -1,8 +1,8 @@
 ---@class RasuAddon
 ---@field RegisteredAddons table<string, RasuAddonBase>
----@field CreateAddon fun(self:RasuAddon, name:string, db:string|table|?, defaultDB:table|?, loc:table|?, defaultLoc:string|?, ignoreError:boolean|?) : RasuAddonBase
+---@field CreateAddon fun(self:RasuAddon, name:string, db:string|table|?, defaultDB:table|?, loc:table|?, defaultLoc:string|?, ignoreError:boolean|?, charDB:string|table|?, defaultCharDB:table|?) : RasuAddonBase
 ---@field GetAddon fun(self:RasuAddon, name:string) : RasuAddonBase|?
-local lib = LibStub:NewLibrary("RasuAddon", 52)
+local lib = LibStub:NewLibrary("RasuAddon", 53)
 
 if not lib then
     return
@@ -23,7 +23,9 @@ lib.RegisteredAddons = {}
 ---@field Commands table
 ---@field Loc table|?
 ---@field Database table|string|?
+---@field CharDatabase table|string|?
 ---@field DefaultDatabase table|?
+---@field DefaultCharDatabase table|?
 ---@field OnInitialize function|?
 ---@field OnEnable function|?
 ---@field OnDisable function|?
@@ -38,10 +40,12 @@ local AddonBase = {
     Commands = {},
     Loc = {},
     Database = {},
-    DefaultDatabase = {}
+    DefaultDatabase = {},
+    CharDatabase = {},
+    DefaultCharDatabase = {}
 }
 
-function lib:CreateAddon(name, db, defaultDB, loc, defaultLoc, ignoreError)
+function lib:CreateAddon(name, db, defaultDB, loc, defaultLoc, ignoreError, charDB, defaultCharDB)
     defaultLoc = defaultLoc or "enUS"
     if self.RegisteredAddons[name] and not ignoreError then
         error("This addon name is already taken!", 2)
@@ -54,6 +58,8 @@ function lib:CreateAddon(name, db, defaultDB, loc, defaultLoc, ignoreError)
     addon.DisplayName = C_AddOns.GetAddOnMetadata(name, "Title") or name
     addon.Database = db
     addon.DefaultDatabase = defaultDB
+    addon.CharDatabase = charDB
+    addon.DefaultCharDatabase = defaultCharDB
 
     if loc and (loc[GetLocale()] or defaultLoc) then
         local isLocSet = false
@@ -210,6 +216,10 @@ function AddonBase:InitializeAddon()
         _G[self.Database] = _G[self.Database] or self.DefaultDatabase
         self.Database = _G[self.Database]
     end
+    if type(self.CharDatabase) == "string" then
+        _G[self.CharDatabase] = _G[self.CharDatabase] or self.DefaultCharDatabase
+        self.CharDatabase = _G[self.CharDatabase]
+    end
 
     if self.OnInitialize then
         self:OnInitialize()
@@ -295,9 +305,10 @@ end
 
 ---@param databasePath string
 ---@param silent boolean|?
+---@param useCharDB boolean|?
 ---@return unknown value
-function AddonBase:GetDatabaseValue(databasePath, silent)
-    local dbValue = self.Database
+function AddonBase:GetDatabaseValue(databasePath, silent, useCharDB)
+    local dbValue = useCharDB and self.CharDatabase or self.Database
     if type(dbValue) ~= "table" then
         if silent then return nil end
         error("Database is not a table!", 2)
@@ -315,10 +326,11 @@ end
 
 ---@param databasePath string
 ---@param newValue any
-function AddonBase:SetDatabaseValue(databasePath, newValue)
-    local dbTable = self.Database
+---@param useCharDB boolean|?
+function AddonBase:SetDatabaseValue(databasePath, newValue, useCharDB)
+    local dbTable = useCharDB and self.CharDatabase or self.Database
     if type(dbTable) ~= "table" then error("Database is not a table!", 2) end
-    if self:InitDatabasePath(databasePath, newValue) then return end
+    if self:InitDatabasePath(databasePath, newValue, useCharDB) then return end
     local keys = {}
     for step in databasePath:gmatch("[^%.]+") do
         table.insert(keys, step)
@@ -368,15 +380,17 @@ end
 
 ---@param databasePath string
 ---@param forceState boolean?
-function AddonBase:ToggleDatabaseValue(databasePath, forceState)
-    self:SetDatabaseValue(databasePath, forceState ~= nil and forceState or not self:GetDatabaseValue(databasePath))
+---@param useCharDB boolean|?
+function AddonBase:ToggleDatabaseValue(databasePath, forceState, useCharDB)
+    self:SetDatabaseValue(databasePath, forceState ~= nil and forceState or not self:GetDatabaseValue(databasePath, false, useCharDB), useCharDB)
 end
 
 ---@param databasePath string
 ---@param defaultValue any
+---@param useCharDB boolean|?
 ---@return boolean? wasDefaultSet
-function AddonBase:InitDatabasePath(databasePath, defaultValue)
-    local dbTable = self.Database
+function AddonBase:InitDatabasePath(databasePath, defaultValue, useCharDB)
+    local dbTable = useCharDB and self.CharDatabase or self.Database
     if type(dbTable) ~= "table" then error("Database is not a table!", 2) end
     local steps = {}
     for step in databasePath:gmatch("[^%.]+") do

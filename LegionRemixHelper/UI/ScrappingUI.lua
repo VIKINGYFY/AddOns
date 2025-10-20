@@ -13,12 +13,35 @@ local scrappingUI = {
     scrollFrame = nil,
     iconFrames = {},
     ---@type table<any, string>
-    L = nil
+    L = nil,
+    ---@type Frame[]
+    tabs = {},
+    ---@type Frame|table
+    tabSystem = nil,
 }
 Private.ScrappingUI = scrappingUI
 
 local const = Private.constants
 local components = Private.Components
+
+---@param name string
+---@return Frame tabContent
+---@return number tabID
+function scrappingUI:AddTab(name)
+    local tabSystem = self.tabSystem
+
+    local tabID = tabSystem:AddTab(name)
+    local tabButton = tabSystem:GetTabButton(tabID)
+    tabButton:Init(tabID, name)
+
+    local tabContent = CreateFrame("Frame", nil, self.frame)
+    tabContent:SetAllPoints()
+    tabContent:Hide()
+
+    self.tabs[tabID] = tabContent
+
+    return tabContent, tabID
+end
 
 function scrappingUI:Init()
     self.scrappingMachine = ScrappingMachineFrame
@@ -41,7 +64,20 @@ function scrappingUI:Init()
     ButtonFrameTemplate_HidePortrait(frame)
     self.frame = frame
 
-    local qualityLabel = components.Label:CreateFrame(frame, {
+    local tabSys = CreateFrame("Frame", nil, frame, "TabSystemTemplate")
+    self.tabSystem = tabSys
+    tabSys:SetPoint("BOTTOMLEFT", 5, -30)
+
+    tabSys:SetTabSelectedCallback(function(tabID)
+        for id, tabContent in pairs(self.tabs) do
+            tabContent:SetShown(id == tabID)
+        end
+        return false
+    end)
+    local scraperList, scrapperTabID = self:AddTab(self.L["ScrappingUI.ScraperListTabTitle"])
+    tabSys:SetTab(scrapperTabID)
+
+    local qualityLabel = components.Label:CreateFrame(scraperList, {
         anchors = {
             { "TOPLEFT",  15,  -30 },
             { "TOPRIGHT", -15, -30 }
@@ -63,7 +99,7 @@ function scrappingUI:Init()
         end
     end
     sort(qualities, function(a, b) return a[2] < b[2] end)
-    local qualityDropdown = components.Dropdown:CreateFrame(frame, {
+    local qualityDropdown = components.Dropdown:CreateFrame(scraperList, {
         anchors = {
             { "TOPLEFT",  qualityLabel.frame, "BOTTOMLEFT",  0, -2 },
             { "TOPRIGHT", qualityLabel.frame, "BOTTOMRIGHT", 0, -2 },
@@ -80,7 +116,7 @@ function scrappingUI:Init()
         defaultSelection = self.utils:GetMaxScrappingQuality(),
     })
 
-    local minItemLevelLabel = components.Label:CreateFrame(frame, {
+    local minItemLevelLabel = components.Label:CreateFrame(scraperList, {
         anchors = {
             { "TOPLEFT",  qualityDropdown.dropdown, "BOTTOMLEFT",  0, -5 },
             { "TOPRIGHT", qualityDropdown.dropdown, "BOTTOMRIGHT", 0, -5 }
@@ -88,7 +124,7 @@ function scrappingUI:Init()
         text = self.L["ScrappingUI.MinItemLevelDifference"],
         font = "GameFontNormalSmall",
     })
-    local minItemLevelTextBox = components.TextBox:CreateFrame(frame, {
+    local minItemLevelTextBox = components.TextBox:CreateFrame(scraperList, {
         anchors = {
             { "TOPLEFT",  minItemLevelLabel.frame, "BOTTOMLEFT",  5, -2 },
             { "TOPRIGHT", minItemLevelLabel.frame, "BOTTOMRIGHT", 0, -2 },
@@ -108,7 +144,7 @@ function scrappingUI:Init()
         end,
     })
 
-    local autoScrapCheckBox = components.CheckBox:CreateFrame(frame, {
+    local autoScrapCheckBox = components.CheckBox:CreateFrame(scraperList, {
         anchors = {
             { "TOPLEFT", minItemLevelTextBox.editBox, "BOTTOMLEFT", -5, -5 },
         },
@@ -125,7 +161,7 @@ function scrappingUI:Init()
         end,
     })
 
-    local scrollFrame = components.ScrollFrame:CreateFrame(frame, {
+    local scrollFrame = components.ScrollFrame:CreateFrame(scraperList, {
         frame_strata = frame:GetFrameStrata(),
         initializer = self:GetScrollframeInitializer(),
         type = "GRID",
@@ -144,6 +180,96 @@ function scrappingUI:Init()
         },
     })
     self.scrollFrame = scrollFrame
+
+    local advancedSettings = self:AddTab(self.L["ScrappingUI.AdvancedSettingsTabTitle"])
+
+    local ignoreHighestEquip = components.CheckBox:CreateFrame(advancedSettings, {
+        anchors = {
+            { "TOPLEFT", advancedSettings, 15, -30 },
+        },
+        width = 20,
+        height = 20,
+        text = self.L["ScrappingUI.AdvancedJewelryFilter"],
+        font = "GameFontNormalSmall",
+        checked = self.utils:GetAdvancedJeweleryFilter(),
+        onClick = function(checked)
+            self.utils:SetAdvancedJeweleryFilter(checked)
+            self:Refresh()
+        end,
+    })
+
+    local onlyJeweleryTraitsToKeep = components.Dropdown:CreateFrame(advancedSettings, {
+        anchors = {
+            { "TOPLEFT", ignoreHighestEquip.checkButton, "BOTTOMLEFT", 0, -15 },
+        },
+        width = 200,
+        height = 20,
+        template = "WowStyle1FilterDropdownTemplate",
+        setupMenu = function(_, rootDescription)
+            rootDescription:CreateButton(self.L["ScrappingUI.FilterCheckAll"], function()
+                self.utils:SetTraitToKeepForAll(true)
+                self:Refresh()
+                return MenuResponse.Refresh
+            end)
+            rootDescription:CreateButton(self.L["ScrappingUI.FilterUncheckAll"], function()
+                self.utils:SetTraitToKeepForAll(false)
+                self:Refresh()
+                return MenuResponse.Refresh
+            end)
+            for _, slot in ipairs(self.utils:GetTraitSlots()) do
+                ---@diagnostic disable-next-line: missing-parameter
+                local submenu = rootDescription:CreateButton(self.L["ScrappingUI." .. slot])
+                local traits = self.utils:GetSortedTraitsToKeepForSlot(slot)
+                local spellTraits = {}
+                local loadedSpells = 0
+                local allLoaded = false
+                for _, itemID in ipairs(traits) do
+                    local spellID = Private.ArtifactTraitUtils:GetJewelrySpellID(tonumber(itemID))
+                    local spell = Spell:CreateFromSpellID(spellID)
+                    spell:ContinueOnSpellLoad(function()
+                        if allLoaded then return end
+                        if spellTraits[itemID] then return end
+                        loadedSpells = loadedSpells + 1
+                        spellTraits[itemID] = {
+                            name = spell:GetSpellName(),
+                            icon = C_Spell.GetSpellTexture(spellID),
+                        }
+                        if loadedSpells ~= #traits then return end
+                        allLoaded = true
+                        for _, loadedItemID in ipairs(traits) do
+                            local trait = spellTraits[loadedItemID]
+                            ---@cast trait {name: string, icon: string}
+                            if trait then
+                                submenu:CreateCheckbox(("|T%s:16|t %s"):format(trait.icon, trait.name), function()
+                                    return self.utils:GetTraitToKeepForSlot(slot, loadedItemID)
+                                end, function()
+                                    self.utils:ToggleTraitToKeepForSlot(slot, loadedItemID)
+                                    self:Refresh()
+                                    return MenuResponse.Refresh
+                                end)
+                            end
+                        end
+                    end)
+                end
+            end
+        end
+    })
+    onlyJeweleryTraitsToKeep:GetDropdown():SetText(self.L["ScrappingUI.JewelryTraitsToKeep"])
+
+    local ignoreFromSets = components.CheckBox:CreateFrame(advancedSettings, {
+        anchors = {
+            { "TOPLEFT", onlyJeweleryTraitsToKeep.dropdown, 0, -30 },
+        },
+        width = 20,
+        height = 20,
+        text = self.L["ScrappingUI.IgnoreFromEquipmentSets"],
+        font = "GameFontNormalSmall",
+        checked = self.utils:GetIgnoreFromEquipmentSets(),
+        onClick = function(checked)
+            self.utils:SetIgnoreFromEquipmentSets(checked)
+            self:Refresh()
+        end,
+    })
 
     self.scrappingMachine:HookScript("OnShow", function()
         self:Refresh()

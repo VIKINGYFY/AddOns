@@ -21,8 +21,13 @@ do  --ScrollViewListButton
         self.Center:SetVertexColor(r, g, b);
     end
 
+    function SharedListButtonMixin:ShouldShowHighlight()
+        --Override when there is a child button
+        return self:IsMouseMotionFocus()
+    end
+
     function SharedListButtonMixin:UpdateVisual()
-        if self:IsMouseMotionFocus() then
+        if self:ShouldShowHighlight() then
             self.Left:SetTexCoord(0/512, 64/512, 128/512, 192/512);
             self.Right:SetTexCoord(448/512, 512/512, 128/512, 192/512);
             self.Center:SetTexCoord(64/512, 448/512, 128/512, 192/512);
@@ -46,7 +51,11 @@ do  --ScrollViewListButton
                 if self.selected then
                     self.Name:SetTextColor(1, 1, 1);
                 else
-                    self.Name:SetTextColor(0.922, 0.871, 0.761);
+                    if self.SetDefaultTextColor then
+                        self:SetDefaultTextColor();
+                    else
+                        self.Name:SetTextColor(0.922, 0.871, 0.761);
+                    end
                 end
             end
         end
@@ -170,7 +179,7 @@ do  --Generic Checklist Button
     function ChecklistButtonMixin:UpdateProgress_Quest()
         local data = API.GetQuestData(self.id);
         if data then
-            if  data.completed or (self.data.warband and data.warbandCompleted) then
+            if data.completed or (self.data.warband and data.warbandCompleted) then
                 self.Icon:SetAtlas("checkmark-minimal-disabled");
                 self.completed = true;
             else

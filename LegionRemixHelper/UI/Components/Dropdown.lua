@@ -60,10 +60,15 @@ function dropdownComponent:CreateFrame(parent, options)
     if not options.frame_strata then
         options.frame_strata = parent:GetFrameStrata()
     end
+    local resizeToText = true
+    if options.width then
+        resizeToText = false
+    end
     options = componentsBase:MixTables(defaultOptions, options)
 
     local dropdown = CreateFrame("DropdownButton", nil, parent, options.template)
     dropdown:SetFrameStrata(options.frame_strata)
+    dropdown.resizeToText = resizeToText
     dropdown:SetSize(options.width, options.height)
     for _, anchor in ipairs(options.anchors) do
         dropdown:SetPoint(unpack(anchor))

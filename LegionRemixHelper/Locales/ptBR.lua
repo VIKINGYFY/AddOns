@@ -8,22 +8,22 @@ local L = {
     ["Components.Dropdown.SelectOption"] = "Selecione uma opção",
 
     -- UI/Tabs/ArtifactTraitsTabUI.lua
-    ["Tabs.ArtifactTraitsTabUI.AutoActivateForSpec"] = "Auto-Activate for Spec",
+    ["Tabs.ArtifactTraitsTabUI.AutoActivateForSpec"] = "Ativação automática para especialização",
     ["Tabs.ArtifactTraitsTabUI.NoArtifactEquipped"] = "Nenhum Artefato Equipado",
 
     -- UI/Tabs/CollectionTabUI.lua
     ["Tabs.CollectionTabUI.CtrlClickPreview"] = "Ctrl-Click para pré visualização",
-    ["Tabs.CollectionTabUI.ShiftClickToLink"] = "Shift-Click para link",
+    ["Tabs.CollectionTabUI.ShiftClickToLink"] = "Shift-Click para linkar",
     ["Tabs.CollectionTabUI.NoName"] = "Sem Nome",
-    ["Tabs.CollectionTabUI.AltClickVendor"] = "Alt-Click para marcar um Ponto de Referência até o vendedor",
-    ["Tabs.CollectionTabUI.AltClickAchievement"] = "Alt-Click para visualizar uma Conquista",
+    ["Tabs.CollectionTabUI.AltClickVendor"] = "Alt-Click para marcar um Ponto de Referência no vendedor",
+    ["Tabs.CollectionTabUI.AltClickAchievement"] = "Alt-Click para visualizar a Conquista",
     ["Tabs.CollectionTabUI.FilterCollected"] = "Coletado",
     ["Tabs.CollectionTabUI.FilterNotCollected"] = "Não Coletado",
     ["Tabs.CollectionTabUI.FilterSources"] = "Fontes",
     ["Tabs.CollectionTabUI.FilterCheckAll"] = "Marcar Todos",
     ["Tabs.CollectionTabUI.FilterUncheckAll"] = "Desmarcar Todos",
-    ["Tabs.CollectionTabUI.FilterRaidVariants"] = "Show Raid Variants",
-    ["Tabs.CollectionTabUI.FilterUnique"] = "Only Remix-Specific Items",
+    ["Tabs.CollectionTabUI.FilterRaidVariants"] = "Mostrar variantes de Raid",
+    ["Tabs.CollectionTabUI.FilterUnique"] = "Apenas Itens Específico do Remix",
     ["Tabs.CollectionTabUI.Type"] = "Tipo",
     ["Tabs.CollectionTabUI.Source"] = "Fonte",
     ["Tabs.CollectionTabUI.SearchInstructions"] = "Busca",
@@ -56,13 +56,23 @@ local L = {
     ["QuickActionBarUI.SettingsNoActionSaveError"] = "Nenhuma ação para salvar.",
     ["QuickActionBarUI.SettingsEditorAction"] = "Ação %s",
     ["QuickActionBarUI.SettingsGeneralActionSaveError"] = "Houve um erro durante o salvamento da ação: %s",
-    ["QuickActionBarUI.CombatToggleError"] = "The Quick Action Bar cannot be opened or closed in combat.",
+    ["QuickActionBarUI.CombatToggleError"] = "A Barra de Ação Rápida não pode ser aberta ou fechada em combate.",
 
     -- UI/ScrappingUI.lua
     ["ScrappingUI.MaxScrappingQuality"] = "Qualidade Máxima do Sucateamento",
     ["ScrappingUI.MinItemLevelDifference"] = "Nível de Item Mínimo de Diferença",
     ["ScrappingUI.MinItemLevelDifferenceInstructions"] = "x níveis abaixo do equipado",
     ["ScrappingUI.AutoScrap"] = "Auto Sucateamento",
+    ["ScrappingUI.ScraperListTabTitle"] = "Sucateamentos",
+    ["ScrappingUI.AdvancedSettingsTabTitle"] = "Configurações",
+    ["ScrappingUI.JewelryTraitsToKeep"] = "Traços de Jóias para Manter",
+    ["ScrappingUI.AdvancedJewelryFilter"] = "Filtro Avançado de Jóias",
+    ["ScrappingUI.FilterCheckAll"] = "Selecionar Todos",
+    ["ScrappingUI.FilterUncheckAll"] = "Deselecionar Todos",
+    ["ScrappingUI.Neck"] = "Traços de Colar",
+    ["ScrappingUI.Trinket"] = "Traços de Berloque",
+    ["ScrappingUI.Finger"] = "Traços de Anel",
+    ["ScrappingUI.IgnoreFromEquipmentSets"] = "Ignorar Itens em Conjuntos de Equipamento",
 
     -- Utils/ArtifactTraitUtils.lua
     ["ArtifactTraitUtils.NoItemEquipped"] = "Nenhum Item Equipado.",
@@ -88,21 +98,21 @@ local L = {
 
     -- Utils/CommandUtils.lua
     ["CommandUtils.UnknownCommand"] =
-[[Unknown Command!
-Usage: /LRH or /LegionRH <subCommand>
-Subcommands:
-    collections (c) - Open the Collections tab.
-    settings (s) - Open the settings menu.
-Example: /LRH s]],
+[[Comando Desconhecido!
+Uso: /LRH ou /LegionRH <subComando>
+SubComandos:
+    collections (c) - Abre aba de Coleções.
+    settings (s) - Abre o menu de configuração.
+Exemplos: /LRH s]],
     ["CommandUtils.CollectionsCommand"] = "collections",
     ["CommandUtils.CollectionsCommandShort"] = "c",
     ["CommandUtils.SettingsCommand"] = "settings",
     ["CommandUtils.SettingsCommandShort"] = "s",
 
     -- Utils/EditModeUtils.lua
-    ["EditModeUtils.ShowAddonSystems"] = "Legion-Remix-Helper-Systems",
-    ["EditModeUtils.SystemLabel.ToastUI"] = "Toasts",
-    ["EditModeUtils.SystemTooltip.ToastUI"] = "Move the position of the toasts.",
+    ["EditModeUtils.ShowAddonSystems"] = "Sistemas-Legion-Remix-Helper",
+    ["EditModeUtils.SystemLabel.ToastUI"] = "Pop-Ups",
+    ["EditModeUtils.SystemTooltip.ToastUI"] = "Mover posições de pop-ups.",
 
     -- Utils/ItemOpenerUtils.lua
     ["ItemOpenerUtils.SettingsCategoryPrefix"] = "Abridor Automático de itens",
@@ -112,10 +122,12 @@ Example: /LRH s]],
     ["ItemOpenerUtils.AutoOpenItemEntryTooltip"] = "Abre automaticamente %s quando encontrado no seu inventário.",
 
     -- Utils/MerchantUtils.lua
-    ["MerchantUtils.SettingsCategoryPrefix"] = "Merchant Settings",
-    ["MerchantUtils.SettingsCategoryTooltip"] = "Settings for the Merchant feature",
-    ["MerchantUtils.HideCollectedMerchantItems"] = "Hide Collected Merchant Items",
-    ["MerchantUtils.HideCollectedMerchantItemsTooltip"] = "Hides items in the merchant window that you already have in your collection.",
+    ["MerchantUtils.SettingsCategoryPrefix"] = "Configurações de Vendedor",
+    ["MerchantUtils.SettingsCategoryTooltip"] = "Configurações para o recurso Vendedor",
+    ["MerchantUtils.HideCollectedMerchantItems"] = "Ocultar itens coletados do vendedor",
+    ["MerchantUtils.HideCollectedMerchantItemsTooltip"] = "Oculta itens na janela do vendedor que você já tem em sua coleção.",
+    ["MerchantUtils.HideCollectedPetsAtLimit"] = "Ocultar Animais de Estimação Coletados ao Limite",
+    ["MerchantUtils.HideCollectedPetsAtLimitTooltip"] = "Oculta animais de estimação na janela do vendedor apenas quando você atingiu o limite de coleção para animais de estimação.",
 
     -- Utils/QuestUtils.lua
     ["QuestUtils.SettingsCategoryPrefix"] = "Missões-Automáticas",
@@ -124,10 +136,12 @@ Example: /LRH s]],
     ["QuestUtils.AutoTurnInTooltip"] = "Automaticamente entrega as missões ao interagir com os PNJs.",
     ["QuestUtils.AutoAccept"] = "Aceitação automática",
     ["QuestUtils.AutoAcceptTooltip"] = "Automaticamente aceita as missões ao interagir com os PNJs.",
-    ["QuestUtils.IgnoreEternus"] = "Ignore Eternus",
-    ["QuestUtils.IgnoreEternusTooltip"] = "Ignore quests that come from Eternus.",
-    ["QuestUtils.SuppressShift"] = "Suppress with Shift",
-    ["QuestUtils.SuppressShiftTooltip"] = "Hold Shift to suppress automatic quest acceptance/turn-in.",
+    ["QuestUtils.IgnoreEternus"] = "Ignorar Eternus",
+    ["QuestUtils.IgnoreEternusTooltip"] = "Ignore missões que vêm de Eternus.",
+    ["QuestUtils.SuppressShift"] = "Suprimir com Shift",
+    ["QuestUtils.SuppressShiftTooltip"] = "Segure Shift para suprimir a aceitação/entrega automática de missões.",
+    ["QuestUtils.SuppressWorldTierIcon"] = "Suprimir o ícone de nível do mundo",
+    ["QuestUtils.SuppressWorldTierIconTooltip"] = "Ocultar o ícone de nível do mundo que está abaixo do minimapa.",
 
     -- Utils/QuickActionBarUtils.lua
     ["QuickActionBarUtils.SettingsCategoryPrefix"] = "Barra de Ações Rápidas",

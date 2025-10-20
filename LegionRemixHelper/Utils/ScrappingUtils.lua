@@ -111,19 +111,85 @@ function scrappingUtils:GetScrappableItems()
     return scrappableItems
 end
 
+---@param itemList ScrappableItem[]
+---@param itemID number
+---@return ScrappableItem|nil highestItem
+---@return ScrappableItem|nil highestGeneral
+function scrappingUtils:GetHighestItemFromListByID(itemList, itemID)
+    local highestItem = nil
+    local highestGeneral = nil
+    for _, item in ipairs(itemList) do
+        if not highestGeneral or item.level > highestGeneral.level then
+            highestGeneral = item
+        end
+        if C_Item.GetItemID(item.location) == itemID then
+            if not highestItem or item.level > highestItem.level then
+                highestItem = item
+            end
+        end
+    end
+    for _, slot in ipairs(const.SCRAPPING_MACHINE.JEWELRY.INV_SLOTS) do
+        local itemLoc = ItemLocation:CreateFromEquipmentSlot(slot)
+        if itemLoc:IsValid() then
+            local itemLevel = C_Item.GetCurrentItemLevel(itemLoc)
+            if C_Item.GetItemID(itemLoc) == itemID then
+                if not highestItem or itemLevel > highestItem.level then
+                    highestItem = {
+                        level = itemLevel,
+                        location = itemLoc,
+                    }
+                end
+            else
+                if not highestGeneral or itemLevel > highestGeneral.level then
+                    highestGeneral = {
+                        level = itemLevel,
+                        location = itemLoc,
+                    }
+                end
+            end
+        end
+    end
+    return highestItem, highestGeneral
+end
+
+---@param itemLoc ItemLocationMixin
+---@return boolean isInEquipmentSet
+function scrappingUtils:IsItemInEquipmentSet(itemLoc)
+    local containerIndex, slotIndex = itemLoc:GetBagAndSlot()
+    if not containerIndex or not slotIndex then
+        return false
+    end
+    local inSet = C_Container.GetContainerItemEquipmentSetInfo(containerIndex, slotIndex)
+    return inSet == true
+end
+
 ---@param capReturn number|nil
 ---@return ScrappableItem[]
 function scrappingUtils:GetFilteredScrappableItems(capReturn)
+    local shouldIgnoreFromEquipmentSets = self:GetIgnoreFromEquipmentSets()
     local minLevelDiff = self:GetMinimumLevelDifference() or 0
     local maxQuality = self:GetMaxScrappingQuality() or Enum.ItemQuality.Rare
 
     local scrappableItems = self:GetScrappableItems()
     local filteredItems = {}
     for _, item in ipairs(scrappableItems) do
-        local equippedItemLevel = Private.ItemUtils:GetMinLevelForInvType(item.invType)
-        if equippedItemLevel and equippedItemLevel - item.level >= minLevelDiff and item.quality <= maxQuality then
-            tinsert(filteredItems, item)
-
+        if not (shouldIgnoreFromEquipmentSets and self:IsItemInEquipmentSet(item.location)) then
+            local jewelryType = const.SCRAPPING_MACHINE.JEWELRY.INV_TYPES[item.invType]
+            local itemID = C_Item.GetItemID(item.location)
+            local highestItem, highestGeneral = self:GetHighestItemFromListByID(scrappableItems, itemID)
+            local equippedItemLevel = Private.ItemUtils:GetMinLevelForInvType(item.invType)
+            if item.quality <= maxQuality and equippedItemLevel and equippedItemLevel - item.level >= minLevelDiff then
+                if self:GetAdvancedJeweleryFilter() and jewelryType then
+                    local shouldKeep = self:GetTraitToKeepForSlot(jewelryType, itemID)
+                    if not shouldKeep and highestGeneral ~= item then
+                        tinsert(filteredItems, item)
+                    elseif shouldKeep and highestItem ~= item then
+                        tinsert(filteredItems, item)
+                    end
+                else
+                    tinsert(filteredItems, item)
+                end
+            end
             if capReturn and #filteredItems >= capReturn then
                 break
             end
@@ -198,4 +264,83 @@ end
 ---@param value boolean
 function scrappingUtils:SetAutoScrap(value)
     Private.Addon:SetDatabaseValue("scrapping.autoScrap", value)
+end
+
+---@return boolean isAdvancedFilterActive
+function scrappingUtils:GetAdvancedJeweleryFilter()
+    return Private.Addon:GetDatabaseValue("scrapping.advancedJeweleryFilter")
+end
+
+---@param activateAdvancedFilter boolean
+function scrappingUtils:SetAdvancedJeweleryFilter(activateAdvancedFilter)
+    Private.Addon:SetDatabaseValue("scrapping.advancedJeweleryFilter", activateAdvancedFilter)
+end
+
+---@return string[] traitSlots
+function scrappingUtils:GetTraitSlots()
+    return { "Finger", "Neck", "Trinket" }
+end
+
+---@param slot "Finger"|"Neck"|"Trinket"
+---@return table<string, boolean> keepTraits
+function scrappingUtils:GetTraitsToKeepForSlot(slot)
+    return Private.Addon:GetDatabaseValue("char.scrapping.jeweleryTraitsToKeep." .. slot, true, true) or {}
+end
+
+---@param slot "Finger"|"Neck"|"Trinket"
+---@return table<string> keepTraitsSortedIds
+function scrappingUtils:GetSortedTraitsToKeepForSlot(slot)
+    local traits = self:GetTraitsToKeepForSlot(slot)
+    local sortedIds = {}
+    for itemID in pairs(traits) do
+        tinsert(sortedIds, itemID)
+    end
+    sort(sortedIds, function(a, b)
+        return a < b
+    end)
+    return sortedIds
+end
+
+---@param slot "Finger"|"Neck"|"Trinket"
+---@param itemID number|string
+---@return boolean keepTraits
+function scrappingUtils:GetTraitToKeepForSlot(slot, itemID)
+    return Private.Addon:GetDatabaseValue("char.scrapping.jeweleryTraitsToKeep." .. slot .. "." .. tostring(itemID), true,
+            true) or
+        false
+end
+
+---@param slot "Finger"|"Neck"|"Trinket"
+---@param itemID number|string
+---@param shouldKeepTrait boolean
+function scrappingUtils:SetTraitToKeepForSlot(slot, itemID, shouldKeepTrait)
+    Private.Addon:SetDatabaseValue("char.scrapping.jeweleryTraitsToKeep." .. slot .. "." .. tostring(itemID),
+        shouldKeepTrait, true)
+end
+
+---@param shouldKeepTrait boolean
+function scrappingUtils:SetTraitToKeepForAll(shouldKeepTrait)
+    for _, slot in ipairs(self:GetTraitSlots()) do
+        local traits = self:GetTraitsToKeepForSlot(slot)
+        for itemID in pairs(traits) do
+            self:SetTraitToKeepForSlot(slot, itemID, shouldKeepTrait)
+        end
+    end
+end
+
+---@param slot "Finger"|"Neck"|"Trinket"
+---@param itemID number|string
+function scrappingUtils:ToggleTraitToKeepForSlot(slot, itemID)
+    Private.Addon:ToggleDatabaseValue("char.scrapping.jeweleryTraitsToKeep." .. slot .. "." .. tostring(itemID), nil,
+        true)
+end
+
+---@return boolean isIgnoreFromEquipmentSetsActive
+function scrappingUtils:GetIgnoreFromEquipmentSets()
+    return Private.Addon:GetDatabaseValue("scrapping.ignoreFromEquipmentSets", true)
+end
+
+---@param activateIgnoreFromEquipmentSets boolean
+function scrappingUtils:SetIgnoreFromEquipmentSets(activateIgnoreFromEquipmentSets)
+    Private.Addon:SetDatabaseValue("scrapping.ignoreFromEquipmentSets", activateIgnoreFromEquipmentSets)
 end

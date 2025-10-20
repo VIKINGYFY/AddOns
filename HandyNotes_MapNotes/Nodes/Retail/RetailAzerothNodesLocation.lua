@@ -4,7 +4,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 function ns.LoadAzerothNodesLocationInfo(self)
 local db = ns.Addon.db.profile
 local nodes = ns.nodes
-ns._currentSourceFile = "RetailAzerothNodesLocation.lua"
+ns.currentSourceFile = "RetailAzerothNodesLocation.lua"
 
 --#####################################################################################################
 --##########################        function to hide all nodes below         ##########################
@@ -870,5 +870,5 @@ ns._currentSourceFile = "RetailAzerothNodesLocation.lua"
       end
   end
 
-ns._currentSourceFile = nil 
+ns.currentSourceFile = nil 
 end

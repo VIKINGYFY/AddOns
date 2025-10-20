@@ -2,8 +2,8 @@ local ADDON_NAME, ns = ...
 local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 
 function ns.ChangingMapToPlayerZone()
-  if ns._MapChangeInit then return end
-  ns._MapChangeInit = true
+  if ns.MapChangeInit then return end
+  ns.MapChangeInit = true
 
   local lastBestMapID = C_Map.GetBestMapForUnit("player")
   local function SetToPlayerMap()

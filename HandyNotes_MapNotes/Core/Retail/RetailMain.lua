@@ -39,8 +39,8 @@ function SlashCmdList.DeveloperMode(msg, editbox)
       table.wipe(ns.alreadyWarned)
     end
 
-    if ns._MN_dbgSeen then
-      table.wipe(ns._MN_dbgSeen)
+    if ns.MN_dbgSeen then
+      table.wipe(ns.MN_dbgSeen)
     end
 
     ns.RunDeveloperValidation()
@@ -102,10 +102,10 @@ function ns.ValidateNodeEntry(value, coord, uiMapID, sourceFile)
   local warnKey = tostring(dataSource) .. ":" .. tostring(coordStr)
   if ns.alreadyWarned[warnKey] then return end
 
-  ns._validatedOnce = ns._validatedOnce or {}
-  if ns._validatedOnce[warnKey] then return true end
+  ns.validatedOnce = ns.validatedOnce or {}
+  if ns.validatedOnce[warnKey] then return true end
 
-  local source = sourceFile or ns._currentSourceFile or "?"
+  local source = sourceFile or ns.currentSourceFile or "?"
   local typoForRequired = false
   for key in pairs(value) do
     if type(key) == "string" then
@@ -123,7 +123,7 @@ function ns.ValidateNodeEntry(value, coord, uiMapID, sourceFile)
       end
     end
   end
-  ns._validatedOnce[warnKey] = true
+  ns.validatedOnce[warnKey] = true
 
   if value.type and ns.icons and not ns.icons[value.type] then
     ns.alreadyWarned = ns.alreadyWarned or {}
@@ -156,7 +156,7 @@ function ns.ValidateNodeEntry(value, coord, uiMapID, sourceFile)
     ns.alreadyWarned[warnKey] = true
   end
 
-  local visibleEverywhere = (value.showInZone == true) and (value.showOnContinent == true) and (value.showOnMinimap == true)
+  local visibleEverywhere = (value.showInZone) and (value.showOnContinent) and value.showOnMinimap
   if visibleEverywhere then
     print(ns.COLORED_ADDON_NAME, ERRORS .. " • showInZone, showOnContinent, showOnMinimap alles zugleich aktiviert!" .. "\n • Datei: " .. tostring(source) .. " • Zeile: " .. tostring(dataSource) .. "[" .. coordStr .. "]")
     ns.alreadyWarned[warnKey] = true
@@ -171,11 +171,11 @@ local function LoadAndCheck(loadFunc, self)
   local tempNodes, tempMinimap = newAuto(), newAuto()
   ns.nodes, ns.minimap = tempNodes, tempMinimap
 
-  local prevSource = ns._currentSourceFile
-  ns._currentSourceFile = nil
+  local prevSource = ns.currentSourceFile
+  ns.currentSourceFile = nil
   if type(loadFunc) == "function" then loadFunc(self) end
 
-  local currentSource = ns._currentSourceFile or prevSource or "?"
+  local currentSource = ns.currentSourceFile or prevSource or "?"
   local doValidate = ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode
   local function mergeAndTag(temp, dest)
     for mapID, mapNodes in pairs(temp) do
@@ -194,7 +194,7 @@ local function LoadAndCheck(loadFunc, self)
   mergeAndTag(tempMinimap, prevMinimap)
 
   ns.nodes, ns.minimap = prevNodes, prevMinimap
-  ns._currentSourceFile = prevSource
+  ns.currentSourceFile = prevSource
 end
 
 local function updateextraInformation()
@@ -718,7 +718,8 @@ do
                         or value.type == "PvEVendorH" or value.type == "PvEVendorA" or value.type == "MMInnkeeperH" or value.type == "MMInnkeeperA" or value.type == "MMStablemasterH" or value.type == "MMStablemasterA"
                         or value.type == "MMMailboxH" or value.type == "MMMailboxA" or value.type == "MMPvPVendorH" or value.type == "MMPvPVendorA" or value.type == "MMPvEVendorH" or value.type == "MMPvEVendorA" 
                         or value.type == "ZonePvEVendorH" or value.type == "ZonePvPVendorH" or value.type == "ZonePvEVendorA" or value.type == "ZonePvPVendorA" or value.type == "TradingPost" or value.type == "PassageCaveUp"
-                        or value.type == "PassageCaveDown" or value.type == "MountMerchant" or value.type == "Upgrade" or value.type == "ScoutingMap" or value.type == "RenownQuartermaster"
+                        or value.type == "PassageCaveDown" or value.type == "MountMerchant" or value.type == "Upgrade" or value.type == "ScoutingMap" or value.type == "RenownQuartermaster" or value.type == "RenownQuartermasterH" or value.type == "RenownQuartermasterA" 
+                        or value.type == "PassageElevatorUp" or value.type == "PassageElevatorDown"
 
       ns.classHallIcons = value.type == "CHMountMerchant" or value.type == "CHUpgrade" or value.type == "CHScoutingMap" or value.type == "CHMailbox" or value.type == "RedPathO" or value.type == "RedPathRO" or value.type == "RedPathLO" or value.type == "RedPathU" 
                       or value.type == "RedPathLU" or value.type == "RedPathRU" or value.type == "RedPathL" or value.type == "RedPathR" or value.type == "CHTravel" or value.type == "CHPortal" or value.type == "ArtifactForge" or value.type == "Recruit" 
@@ -744,8 +745,8 @@ do
                       or CurrentMapID == 875 or CurrentMapID == 876 or CurrentMapID == 905 or CurrentMapID == 1978 or CurrentMapID == 1550 or CurrentMapID == 572
                       or CurrentMapID == 2274 or CurrentMapID == 948
 
-      ns.ClassHallIDs = CurrentMapID == 23 or CurrentMapID == 24 or CurrentMapID == 626 or CurrentMapID == 627 or CurrentMapID == 628 or CurrentMapID == 641 -- Class Hall
-                      or CurrentMapID == 646 or CurrentMapID == 647 or CurrentMapID == 648 or CurrentMapID == 650 or CurrentMapID == 695 or CurrentMapID == 720 -- Class Hall
+      ns.ClassHallIDs = CurrentMapID == 24 or CurrentMapID == 626 or CurrentMapID == 627 or CurrentMapID == 628 -- Class Hall
+                      or CurrentMapID == 646 or CurrentMapID == 647 or CurrentMapID == 648 or CurrentMapID == 695 or CurrentMapID == 720 -- Class Hall
                       or CurrentMapID == 702 or CurrentMapID == 709 or CurrentMapID == 717 or CurrentMapID == 721 or CurrentMapID == 726 or CurrentMapID == 739 -- Class Hall
                       or CurrentMapID == 734 or CurrentMapID == 735 or CurrentMapID == 747 -- Class Hall
 
@@ -886,31 +887,31 @@ do
 			end
 
       -- MiniMap Instance World
-      if ns.instanceIcons and (value.showOnMinimap == true) then
+      if ns.instanceIcons and value.showOnMinimap then
         scale = db.MiniMapInstanceScale
         alpha = db.MiniMapInstanceAlpha
       end
 
       -- MiniMap Transport (Zeppeline/Ship/Carriage) icons
-      if not ns.CapitalMiniMapIDs and ns.transportIcons and (value.showOnMinimap == true) then
+      if not ns.CapitalMiniMapIDs and ns.transportIcons and value.showOnMinimap then
         scale = db.MiniMapTransportScale
         alpha = db.MiniMapTransportAlpha
       end
 
       -- Profession Minimap icons in Zone
-      if not ns.CapitalMiniMapIDs and ns.professionIcons and (value.showOnMinimap == true) then
+      if not ns.CapitalMiniMapIDs and ns.professionIcons and value.showOnMinimap then
         scale = db.MiniMapProfessionsScale
         alpha = db.MiniMapProfessionsAlpha
       end
 
       -- MiniMap General icons
-      if not ns.CapitalMiniMapIDs and ns.generalIcons and (value.showOnMinimap == true) or ns.ZoneIDs and not value.showInZone then
+      if not ns.CapitalMiniMapIDs and ns.generalIcons and value.showOnMinimap or ns.ZoneIDs and not value.showInZone then
         scale = db.MiniMapGeneralScale
         alpha = db.MiniMapGeneralAlpha
       end
 
       -- MiniMap single icon scale / alpha
-      if not ns.CapitalMiniMapIDs or ns.ZoneIDs and (value.showOnMinimap == true)  then
+      if not ns.CapitalMiniMapIDs or ns.ZoneIDs and value.showOnMinimap  then
 
         -- Instance Icons
         if value.type == "Raid" then
@@ -1047,7 +1048,7 @@ do
           alpha = db.MiniMapAlphaPvEVendor
         end
 
-        if value.type == "RenownQuartermaster" then
+        if value.type == "RenownQuartermaster" or value.type == "RenownQuartermasterH" or value.type == "RenownQuartermasterA" then
           scale = db.MiniMapScaleRenownQuartermaster
           alpha = db.MiniMapAlphaRenownQuartermaster
         end
@@ -1114,7 +1115,7 @@ do
           alpha = db.DungeonMapAlphaTransport
         end
 
-        if value.type == "PvEVendor" or value.type == "PvPVendor" or value.type == "RenownQuartermaster" then
+        if value.type == "PvEVendor" or value.type == "PvPVendor" or value.type == "RenownQuartermaster" or value.type == "RenownQuartermasterH" or value.type == "RenownQuartermasterA" then
           scale = db.DungeonMapScaleVendor
           alpha = db.DungeonMapAlphaVendor
         end
@@ -1123,61 +1124,61 @@ do
 
 
       -- Profession Minimap icons in Capitals
-      if ns.professionIcons and ns.CapitalMiniMapIDs and (value.showOnMinimap == true) then
+      if ns.professionIcons and ns.CapitalMiniMapIDs and value.showOnMinimap then
         scale = db.MinimapCapitalsProfessionsScale
         alpha = db.MinimapCapitalsProfessionsAlpha
       end
 
       -- Capitals Minimap Transport (Zeppeline/Ship/Carriage) icons
-      if ns.CapitalMiniMapIDs and ns.transportIcons and (value.showOnMinimap == true) then
+      if ns.CapitalMiniMapIDs and ns.transportIcons and value.showOnMinimap then
         scale = db.MinimapCapitalsTransportScale
         alpha = db.MinimapCapitalsTransportAlpha
       end
 
       -- Capitals Minimap Instance (Dungeon/Raid/Passage/Multi) icons
-      if ns.CapitalMiniMapIDs and ns.instanceIcons and (value.showOnMinimap == true) then
+      if ns.CapitalMiniMapIDs and ns.instanceIcons and value.showOnMinimap then
         scale = db.MinimapCapitalsInstanceScale
         alpha = db.MinimapCapitalsInstanceAlpha
       end
 
       -- Capitals Minimap General (Innkeeper/Exit/Passage) icons
-      if ns.CapitalMiniMapIDs and ns.generalIcons and (value.showOnMinimap == true) then
+      if ns.CapitalMiniMapIDs and ns.generalIcons and value.showOnMinimap then
         scale = db.MinimapCapitalsGeneralScale
         alpha = db.MinimapCapitalsGeneralAlpha
       end
 
       -- Capitals Minimap Class Halls icons
-      if ns.ClassHallIDs and ns.classHallIcons and (value.showOnMinimap == true) then
+      if (ns.ClassHallIDs and ns.classHallIcons and value.showOnMinimap) or (not ns.CapitalMiniMapIDs and ns.classHallIcons and value.showOnMinimap) then
         scale = db.MinimapCapitalsClassHallScale
         alpha = db.MinimapCapitalsClassHallAlpha
       end
 
       -- Instance icons World
-      if ns.instanceIcons and (not value.showOnMinimap == true) then
+      if ns.instanceIcons and not value.showOnMinimap then
         scale = db.ZoneInstanceScale
         alpha = db.ZoneInstanceAlpha
       end
 
       -- Zone Transport icons
-      if not (ns.CapitalIDs or ns.ClassHallIDs) and ns.transportIcons and (value.showOnMinimap == false) then
+      if not (ns.CapitalIDs or ns.ClassHallIDs) and ns.transportIcons and value.showOnMinimap == false then
         scale = db.ZoneTransportScale
         alpha = db.ZoneTransportAlpha
       end
 
       -- Zone Profession icons 
-      if not (ns.CapitalIDs or ns.ClassHallIDs) and ns.professionIcons and (value.showOnMinimap == false) then
+      if not (ns.CapitalIDs or ns.ClassHallIDs) and ns.professionIcons and value.showOnMinimap == false then
         scale = db.ZoneProfessionsScale
         alpha = db.ZoneProfessionsAlpha
       end
 
       -- Zones General icons
-      if not (ns.CapitalIDs or ns.ClassHallIDs) and ns.generalIcons and (value.showOnMinimap == false) then
+      if not (ns.CapitalIDs or ns.ClassHallIDs) and ns.generalIcons and value.showOnMinimap == false then
         scale = db.ZoneGeneralScale
         alpha = db.ZoneGeneralAlpha
       end
 
       -- Zone single icon scale / alpha
-      if not (ns.CapitalIDs or ns.ClassHallIDs) and (value.showOnMinimap == false) then
+      if not (ns.CapitalIDs or ns.ClassHallIDs) and value.showOnMinimap == false then
 
         -- Instance Icons
         if value.type == "Raid" then
@@ -1314,7 +1315,7 @@ do
           alpha = db.ZoneAlphaPvEVendor
         end
 
-        if value.type == "RenownQuartermaster" then
+        if value.type == "RenownQuartermaster" or value.type == "RenownQuartermasterH" or value.type == "RenownQuartermasterA" then
           scale = db.ZoneScaleRenownQuartermaster
           alpha = db.ZoneAlphaRenownQuartermaster
         end
@@ -1352,31 +1353,31 @@ do
       end
 
       -- Capitals Profession icons 
-      if ns.CapitalIDs and ns.professionIcons and (value.showOnMinimap == false) then
+      if ns.CapitalIDs and ns.professionIcons and value.showOnMinimap == false then
         scale = db.CapitalsProfessionsScale
         alpha = db.CapitalsProfessionsAlpha
       end
 
       -- Capitals General (Innkeeper/Exit/Passage) icons
-      if ns.CapitalIDs and ns.generalIcons and (value.showOnMinimap == false) then
+      if ns.CapitalIDs and ns.generalIcons and value.showOnMinimap == false then
         scale = db.CapitalsGeneralScale
         alpha = db.CapitalsGeneralAlpha
       end
 
       -- Capitals Class Halls icons
-      if ns.ClassHallIDs and ns.classHallIcons and (value.showOnMinimap == false) then
+      if (ns.ClassHallIDs and ns.classHallIcons and value.showOnMinimap == false ) or (not (ns.CapitalIDs or ns.ClassHallIDs) and ns.classHallIcons and value.showOnMinimap == false) then
         scale = db.CapitalsClassHallScale
         alpha = db.CapitalsClassHallAlpha
       end
 
       -- Capitals Transport (Zeppeline/Ship/Carriage) icons
-      if ns.CapitalIDs and ns.transportIcons and (value.showOnMinimap == false) then
+      if ns.CapitalIDs and ns.transportIcons and value.showOnMinimap == false then
         scale = db.CapitalsTransportScale
         alpha = db.CapitalsTransportAlpha
       end
 
       -- Capitals Instance (Dungeon/Raid/Passage/Multi) icons
-      if ns.CapitalIDs and ns.instanceIcons and (value.showOnMinimap == false) then
+      if ns.CapitalIDs and ns.instanceIcons and value.showOnMinimap == false then
         scale = db.CapitalsInstanceScale
         alpha = db.CapitalsInstanceAlpha
       end
@@ -1391,12 +1392,17 @@ do
         alpha = db.cosmosAlpha
       end
 
-      if (value.type == "Delves" or value.type == "DelvesPassage") and value.showInZone and (mapInfo.mapType == 3 or mapInfo.mapType == 5) then-- zone fixed value for delves!
+      if (value.type == "PassageElevatorDown" or value.type == "PassageElevatorUp") and value.showInZone and (mapInfo.mapType == 3 or mapInfo.mapType == 5) then -- zone fixed value for PassageElevator Up & Down!
         scale = 2
         alpha = 1
       end
 
-      if (value.type == "Delves" or value.type == "DelvesPassage") and value.showOnMinimap then-- minimap fixed value for delves!
+      if (value.type == "Delves" or value.type == "DelvesPassage") and value.showInZone and (mapInfo.mapType == 3 or mapInfo.mapType == 5) then -- zone fixed value for delves!
+        scale = 2
+        alpha = 1
+      end
+
+      if (value.type == "Delves" or value.type == "DelvesPassage") and value.showOnMinimap then -- minimap fixed value for delves!
         scale = 1.5
         alpha = 1
       end
@@ -1558,30 +1564,49 @@ local function setWaypoint(uiMapID, coord)
 
   if TomTom then
     local x, y = getCoordinatesForTomTom(coord)
+    local npcID_npcIDs1 = dungeon.npcID or dungeon.npcIDs1
+
+    local nodeName = dungeon.name
+    if (not nodeName or nodeName == "") and npcID_npcIDs1 then
+      local nameFromInfo = ns.GetNpcInfo and select(1, ns.GetNpcInfo(npcID_npcIDs1)) or nil
+      nodeName = nameFromInfo or (ns.GetNPCName and ns.GetNPCName(npcID_npcIDs1)) or tostring(npcID_npcIDs1)
+    end
+
+    if npcID_npcIDs1 and nodeName and nodeName ~= "" then
+      local _, npcTitle = ns.GetNpcInfo and ns.GetNpcInfo(npcID_npcIDs1) or nil, nil
+      if not npcTitle and ns.npcNameCache then
+        local t = ns.npcNameCache[npcID_npcIDs1]; npcTitle = t and t[2]
+      end
+      if npcTitle and npcTitle ~= "" and not npcTitle:match("%?%?+") then
+        nodeName = nodeName .. "\n" .. "|cffffd200(|r" .. npcTitle .. "|cffffd200)|r"
+      end
+    end
 
     local mnIDName = dungeon.mnID and getMNIDName(dungeon.mnID) or nil
     local title
     if mnIDName and mnIDName ~= "" then
-        if dungeon.name and dungeon.name ~= "" then
-            title = TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "\n" .. L["Way to"] .. "\n" .. dungeon.name .. " " .. mnIDName
-        else
-            title = TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "\n" .. L["Way to"] .. "\n" .. mnIDName
-        end
+      if nodeName and nodeName ~= "" then
+        title = TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. "|cffffd200" .. TARGET .. "|r " .. TextIconMNL4:GetIconString() .. "\n" .. nodeName .. " " .. mnIDName
+      else
+        title = TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. "|cffffd200" .. TARGET .. "|r " .. TextIconMNL4:GetIconString() .. "\n" .. mnIDName
+      end
+    elseif npcID_npcIDs1 then
+        title = TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. "|cffffd200" .. TARGET .. "|r " .. TextIconMNL4:GetIconString() .. "\n" .. (nodeName or tostring(npcID_npcIDs1))
     elseif dungeon.dnID and dungeon.dnID ~= "" then
-        title = TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "\n" .. L["Way to"] .. "\n" .. dungeon.dnID
+      title = TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. "|cffffd200" .. TARGET .. "|r " .. TextIconMNL4:GetIconString() .. "\n" .. dungeon.dnID
     elseif dungeon.TransportName and dungeon.TransportName ~= "" then
-        title = TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "\n" .. L["Way to"] .. "\n" .. dungeon.TransportName .. "\n" .. dungeon.name
-    elseif dungeon.name and dungeon.name ~= "" then
-        title = TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "\n" .. L["Way to"] .. "\n" .. dungeon.name
+      title = TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. "|cffffd200" .. TARGET .. "|r " .. TextIconMNL4:GetIconString() .. "\n" .. dungeon.TransportName .. (nodeName and ("\n" .. nodeName) or "")
+    elseif nodeName and nodeName ~= "" then
+      title = TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. "|cffffd200" .. TARGET .. "|r " .. TextIconMNL4:GetIconString() .. "\n" .. nodeName
     else
-        title = "Unbekannter Titel"  -- Fallback
+      title = " "
     end
 
-    TomTom:AddWaypoint(uiMapID, x, y, {
-      title = title,
-      persistent = nil,
-      minimap = true,
-      world = true
+    TomTom:AddWaypoint(uiMapID, x, y, { 
+      title = title, 
+      persistent = nil, 
+      minimap = true, 
+      world = true 
     })
 
   else
@@ -1594,11 +1619,11 @@ local function setWaypoint(uiMapID, coord)
     local x, y = getCoordinatesForBlizzard(coord)
     local mapInfo = C_Map.GetMapInfo(uiMapID)
     if mapInfo then
-        local point = UiMapPoint.CreateFromCoordinates(uiMapID, x, y)
-        if point then
-            C_Map.SetUserWaypoint(point)
-            C_SuperTrack.SetSuperTrackedUserWaypoint(true)
-        end
+      local point = UiMapPoint.CreateFromCoordinates(uiMapID, x, y)
+      if point then
+          C_Map.SetUserWaypoint(point)
+          C_SuperTrack.SetSuperTrackedUserWaypoint(true)
+      end
     end
   end
 end
@@ -1643,7 +1668,19 @@ function BlizzardWaypointProviderMixin:RefreshAllData()
   end
 end
 
-WorldMapFrame:AddDataProvider(Mixin(CreateFromMixins(MapCanvasDataProviderMixin), BlizzardWaypointProviderMixin))
+local function MN_AddWaypointProvider()
+  if InCombatLockdown() then return end
+  if not WorldMapFrame then return end
+  if ns.mnWaypointProviderAdded then return end
+  ns.mnWaypointProviderAdded = true
+  WorldMapFrame:AddDataProvider(Mixin(CreateFromMixins(MapCanvasDataProviderMixin), BlizzardWaypointProviderMixin))
+end
+
+C_Timer.After(0, function()
+  if WorldMapFrame then
+    WorldMapFrame:HookScript("OnShow", MN_AddWaypointProvider)
+  end
+end)
 
 function ns.pluginHandler:OnClick(button, pressed, uiMapId, coord, value)
 local delveID = nodes[uiMapId][coord].delveID
@@ -2150,6 +2187,8 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
   ns.BlizzardDelvesAddTT() -- RetailDelves.lua
   ns.BlizzardDelvesAddFunction() -- RetailDelves.lua
   ns.ChangingMapToPlayerZone() -- RetailWorldMap.lua
+
+   C_Timer.After(0, MN_AddWaypointProvider)
 
   -- Register Database Profile
   self.db = LibStub("AceDB-3.0"):New("HandyNotes_MapNotesRetailDB", ns.defaults)

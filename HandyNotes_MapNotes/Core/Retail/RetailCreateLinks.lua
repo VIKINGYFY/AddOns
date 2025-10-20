@@ -125,20 +125,20 @@ local function AddMessage(self, text, ...)
 
   if ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.CreateAndCopyLinks then
     if text and not text:find("|Hurl:") then
-      if ns.questID then
-        local pat = "https://www.wowhead.com/quest=" .. ns.questID
-        text = text:gsub(pat, "|cff00ccff|Hurl:%1|h%1|h|r")
-      end
-
-      if ns.questIDs and ns.questIDs ~= ns.questID then
-        local pat = "https://www.wowhead.com/quest=" .. ns.questIDs
-        text = text:gsub(pat, "|cff00ccff|Hurl:%1|h%1|h|r")
-      end
-
-      if ns.achievementID then
-        local pat = "https://www.wowhead.com/achievement=" .. ns.achievementID
-        text = text:gsub(pat, "|cff00ccff|Hurl:%1|h%1|h|r")
-      end
+        if ns.questID then
+            local pat = "(https://www%.wowhead%.com/quest=" .. ns.questID .. ")"
+            text = text:gsub(pat, "|cff00ccff|Hurl:%1|h%1|h|r")
+        end
+    
+        if ns.questIDs and ns.questIDs ~= ns.questID then
+            local pat = "(https://www%.wowhead%.com/quest=" .. ns.questIDs .. ")"
+            text = text:gsub(pat, "|cff00ccff|Hurl:%1|h%1|h|r")
+        end
+    
+        if ns.achievementID then
+            local pat = "(https://www%.wowhead%.com/achievement=" .. ns.achievementID .. ")"
+            text = text:gsub(pat, "|cff00ccff|Hurl:%1|h%1|h|r")
+        end
     end
   end
 
@@ -158,7 +158,7 @@ local function URLClicker_OnHyperlinkShow(self, link)
 end
 
 function ns.CreateAndCopyLink()
-    if ns._CreateAndCopyLinkEnabled then return end
+    if ns.CreateAndCopyLinkEnabled then return end
 
     CaCLFrame = CreateFrame("Frame", "CaCLFrame", UIParent, "DialogBoxFrame")
     CaCLFrame:SetSize(400, 130)
@@ -204,11 +204,11 @@ function ns.CreateAndCopyLink()
 
     hooksecurefunc("ChatFrame_OnHyperlinkShow", URLClicker_OnHyperlinkShow)
 
-    ns._CreateAndCopyLinkEnabled = true
+    ns.CreateAndCopyLinkEnabled = true
 end
 
 function ns.DisableCreateAndCopyLink()
-    if not ns._CreateAndCopyLinkEnabled then return end
+    if not ns.CreateAndCopyLinkEnabled then return end
 
     UnregisterAllChatFilters()
 
@@ -224,7 +224,7 @@ function ns.DisableCreateAndCopyLink()
         CaCLFrame:Hide()
     end
 
-    ns._CreateAndCopyLinkEnabled = false
+    ns.CreateAndCopyLinkEnabled = false
 end
 
 function ns.ToggleCreateAndCopyLink()

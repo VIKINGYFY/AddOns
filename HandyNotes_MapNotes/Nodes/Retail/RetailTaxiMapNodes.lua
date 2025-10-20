@@ -4,7 +4,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 function ns.LoadTaxiMapNodesLocationinfo(self)
 local db = ns.Addon.db.profile
 local nodes = ns.nodes
-ns._currentSourceFile = "RetailTaxiMapNodes.lua"
+ns.currentSourceFile = "RetailTaxiMapNodes.lua"
 
     if not db.activate.HideMapNote then
 

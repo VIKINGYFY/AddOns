@@ -298,8 +298,8 @@ C_Timer.After(1, function()
   end
 end)
 
-if not ns._MN_MouseSizeHooks then
-  ns._MN_MouseSizeHooks = true
+if not ns.MN_MouseSizeHooks then
+  ns.MN_MouseSizeHooks = true
 
   WorldMapFrame:HookScript("OnSizeChanged", function()
     C_Timer.After(0, MN_ReanchorMouseFrame)
@@ -467,8 +467,8 @@ function ns.ApplySavedAlpha()
   end
 end
 
-if not ns._MN_MouseOnShowHook then
-  ns._MN_MouseOnShowHook = true
+if not ns.MN_MouseOnShowHook then
+  ns.MN_MouseOnShowHook = true
   WorldMapFrame:HookScript("OnShow", function()
     if ns.Addon and ns.Addon.db and ns.Addon.db.profile.displayCoords.showMouseCoords then
       C_Timer.After(0.05, function()

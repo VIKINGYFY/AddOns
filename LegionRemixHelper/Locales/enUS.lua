@@ -63,6 +63,16 @@ local L = {
     ["ScrappingUI.MinItemLevelDifference"] = "Min Item Level Difference",
     ["ScrappingUI.MinItemLevelDifferenceInstructions"] = "x levels lower than equipped",
     ["ScrappingUI.AutoScrap"] = "Auto Scrap",
+    ["ScrappingUI.ScraperListTabTitle"] = "Scrapper List",
+    ["ScrappingUI.AdvancedSettingsTabTitle"] = "More Settings",
+    ["ScrappingUI.JewelryTraitsToKeep"] = "Jewelry Traits to Keep",
+    ["ScrappingUI.AdvancedJewelryFilter"] = "Advanced Jewelry Filter",
+    ["ScrappingUI.FilterCheckAll"] = "Check All",
+    ["ScrappingUI.FilterUncheckAll"] = "Uncheck All",
+    ["ScrappingUI.Neck"] = "Neck traits",
+    ["ScrappingUI.Trinket"] = "Trinket traits",
+    ["ScrappingUI.Finger"] = "Ring traits",
+    ["ScrappingUI.IgnoreFromEquipmentSets"] = "Ignore Items in Equipment Sets",
 
     -- Utils/ArtifactTraitUtils.lua
     ["ArtifactTraitUtils.NoItemEquipped"] = "No Item Equipped.",
@@ -116,6 +126,8 @@ Example: /LRH s]],
     ["MerchantUtils.SettingsCategoryTooltip"] = "Settings for the Merchant feature",
     ["MerchantUtils.HideCollectedMerchantItems"] = "Hide Collected Merchant Items",
     ["MerchantUtils.HideCollectedMerchantItemsTooltip"] = "Hides items in the merchant window that you already have in your collection.",
+    ["MerchantUtils.HideCollectedPetsAtLimit"] = "Hide Collected Pets at Limit",
+    ["MerchantUtils.HideCollectedPetsAtLimitTooltip"] = "Hide pets in the merchant window only when you have reached the collection limit for pets.",
 
     -- Utils/QuestUtils.lua
     ["QuestUtils.SettingsCategoryPrefix"] = "Auto-Quest",
@@ -128,6 +140,8 @@ Example: /LRH s]],
     ["QuestUtils.IgnoreEternusTooltip"] = "Ignore quests that come from Eternus.",
     ["QuestUtils.SuppressShift"] = "Suppress with Shift",
     ["QuestUtils.SuppressShiftTooltip"] = "Hold Shift to suppress automatic quest acceptance/turn-in.",
+    ["QuestUtils.SuppressWorldTierIcon"] = "Suppress World Tier Icon",
+    ["QuestUtils.SuppressWorldTierIconTooltip"] = "Hide the World Tier icon that is below the minimap.",
 
     -- Utils/QuickActionBarUtils.lua
     ["QuickActionBarUtils.SettingsCategoryPrefix"] = "Quick Action Bar",

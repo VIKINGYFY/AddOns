@@ -375,6 +375,7 @@ L["Left-click => Open/Close"] = true
 L["Shift + Right-click => hide"] = true
 L["Middle-Mouse-Button => Open/Close"] = true
 --9 transport
+L["Elevator"] = true
 L["Ever-Shifting Mirror"] = true
 L["icons"] = true
 L["Exit"] = true

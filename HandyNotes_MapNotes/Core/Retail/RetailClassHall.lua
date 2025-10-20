@@ -58,8 +58,8 @@ local function EnsureTipAndAddLine(self, uiMapID, poiID)
 end
 
 EventUtil.ContinueOnAddOnLoaded("Blizzard_WorldMap", function()
-    if ns._MN_POI_MixinsHooked then return end
-    ns._MN_POI_MixinsHooked = true
+    if ns.MN_POI_MixinsHooked then return end
+    ns.MN_POI_MixinsHooked = true
 
     local function ClickHandler(self, button)
         if button ~= "MiddleButton" then return end

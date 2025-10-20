@@ -4,7 +4,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 function ns.LoadMiniMapLocationinfo(self)
 local db = ns.Addon.db.profile
 local minimap = ns.minimap
-ns._currentSourceFile = "RetailZoneMiniMapLocation.lua"
+ns.currentSourceFile = "RetailZoneMiniMapLocation.lua"
 
 --#####################################################################################################
 --##########################        function to hide all minimap below         ##########################
@@ -286,6 +286,7 @@ ns._currentSourceFile = "RetailZoneMiniMapLocation.lua"
 
               if self.faction == "Horde" or db.activate.MiniMapEnemyFaction then
                 minimap[127][31103140] = { mnID = 85, name = "", type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.Orgrimmar } --  Dalaran to Orgrimmar Portal
+                minimap[117][77712829] = { mnID = 18, name = "", type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.RuinsofLordaeron } -- Fjord to Ruins of Lordaeron
               end
 
               if self.faction == "Alliance" or db.activate.MiniMapEnemyFaction then
@@ -297,7 +298,7 @@ ns._currentSourceFile = "RetailZoneMiniMapLocation.lua"
             if self.db.profile.showMiniMapZeppelins then 
 
               if self.faction == "Horde" or db.activate.MiniMapEnemyFaction then
-                minimap[114][41365356] = { mnID = 85, name = "", type = "HZeppelin", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Zeppelin"] .. " ==> " .. ns.Orgrimmar  } -- Zeppelin from Borean Tundra to Ogrimmar
+                minimap[114][41205333] = { mnID = 85, name = "", type = "HZeppelin", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Zeppelin"] .. " ==> " .. ns.Orgrimmar  } -- Zeppelin from Borean Tundra to Ogrimmar
               end
             end
 
@@ -803,6 +804,10 @@ ns._currentSourceFile = "RetailZoneMiniMapLocation.lua"
               minimap[2346][17285075] = { npcID = 233626, mnID = 2214, name = L["Rocket drill"] .. " " .. L["Transport"], dnID = "", type = "RocketDrill", questID = 83151, wwwLink = "wowhead.com/quest=83151", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Down Undermine", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Mole Machine from Undermine to Deeps
               minimap[2346][18795225] = { npcID = 233625, mnID = 862, name = L["Rocket drill"] .. " " .. L["Transport"], dnID = "", type = "RocketDrill", questID = 83933, wwwLink = "https://www.wowhead.com/quest=83933/the-kajacoast", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "The Kaja'Coast", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Mole Machine from Undermine to Zandalar
               minimap[2472][34741004] = { npcID = 234692, mnID = 2472, name ="", type = "TravelM", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Tazavesh Flightmaster
+              minimap[2214][49194459] = { mnID = 2248, name = L["Elevator"], type = "PassageElevatorUp", questID = 82195, wwwLink = "https://https://www.wowhead.com/quest=82195/rust-and-redemption", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Rust and Redemption", showInZone = false, showOnContinent = false, showOnMinimap = true }
+              minimap[2214][61547692] = { mnID = 2248, name = L["Elevator"], type = "PassageElevatorUp", questID = 84220, wwwLink = "https://www.wowhead.com/quest=84220/passage-to-the-ringing-deeps", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Passage to the ringing deeps", showInZone = false, showOnContinent = false, showOnMinimap = true }
+              minimap[2248][67333102] = { mnID = 2214, name = L["Elevator"], type = "PassageElevatorDown", questID = 82195, wwwLink = "https://https://www.wowhead.com/quest=82195/rust-and-redemption", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Rust and Redemption", showInZone = false, showOnContinent = false, showOnMinimap = true }
+              minimap[2248][37427287] = { mnID = 2214, name = L["Elevator"], type = "PassageElevatorDown", questID = 84220, wwwLink = "https://www.wowhead.com/quest=84220/passage-to-the-ringing-deeps", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Passage to the ringing deeps", showInZone = false, showOnContinent = false, showOnMinimap = true }
             end
 
           end

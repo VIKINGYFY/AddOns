@@ -63,8 +63,8 @@ local function Reskin_GeneralsText()
 		QuestInfoDescriptionHeader,
 		QuestInfoObjectivesHeader,
 		QuestInfoRewardsFrame.Header,
-		QuestInfoSpellObjectiveLearnLabel,
 		QuestInfoTitleHeader,
+		QuestInfoAccountCompletedNotice,
 	}
 	for _, title in pairs(titles) do
 		B.ReskinText(title, 1, .8, 0)
@@ -87,6 +87,7 @@ local function Reskin_GeneralsText()
 	end
 
 	B.ReskinText(QuestInfoQuestType, 0, 1, 1)
+	B.ReskinText(QuestInfoSpellObjectiveLearnLabel, 0, 1, 1)
 end
 
 local function Reskin_RewardButton(self, isMapQuestInfo)
@@ -138,40 +139,32 @@ local function Reskin_SpecialReward()
 
 		-- Follower Rewards
 		for followerReward in rewardsFrame.followerRewardPool:EnumerateActive() do
-			local portrait, class
-			if followerReward.AdventuresFollowerPortraitFrame and followerReward.AdventuresFollowerPortraitFrame:IsShown() then
-				portrait = followerReward.AdventuresFollowerPortraitFrame
-				class = nil
-			else
-				portrait = followerReward.PortraitFrame
-				class = followerReward.Class
-			end
+			local portrait = followerReward.PortraitFrame
+			local class = followerReward.Class
+			local name = followerReward.Name
 
-			if not followerReward.styled then
+			if not followerReward.nf then
+				B.ReskinGarrisonPortrait(portrait)
 				followerReward.BG:Hide()
-
-				local bubg = B.CreateBGFrame(followerReward, .25)
-				B.UpdateSize(bubg, 0, -3, 2, 7)
-
-				B.ReskinFollowerPortrait(portrait)
-				B.UpdatePoint(portrait, "LEFT", bubg, "LEFT", .5, .5)
-
-				if class then
-					B.ReskinFollowerClass(class, 36, "RIGHT", -4, 0, bubg)
-				end
-
-				followerReward.bubg = bubg
-				followerReward.styled = true
+				followerReward.nf = B.ReskinNameFrame(followerReward, portrait.squareBG)
 			end
 
 			if isQuestLog then
-				followerReward.bubg:ClearAllPoints()
-				followerReward.bubg:SetPoint("TOPLEFT", 0, 1)
-				followerReward.bubg:SetPoint("BOTTOMRIGHT", 2, -3)
+				portrait:SetPoint("TOPLEFT", 2, 0)
+			else
+				portrait:SetPoint("TOPLEFT", 2, -5)
 			end
 
 			if portrait then
-				B.UpdateFollowerQuality(portrait)
+				B.UpdateFollowerQuality(portrait, followerReward.nf)
+			end
+
+			if class then
+				B.UpdateFollowerClass(class, followerReward.nf)
+			end
+
+			if name then
+				B.UpdatePoint(name, "LEFT", followerReward.nf, "LEFT", DB.margin, 0)
 			end
 		end
 	end

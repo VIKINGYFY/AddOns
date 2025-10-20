@@ -24,7 +24,7 @@ function ns.FogOfWar:SyncColorsFromDB(doRefresh)
 end
 
 ns.hookedPins = ns.hookedPins or {}
-ns._hookCheckTicker = ns._hookCheckTicker or nil
+ns.hookCheckTicker = ns.hookCheckTicker or nil
 local function HookAllExplorationPinsOnce()
   if not WorldMapFrame or not WorldMapFrame.EnumeratePinsByTemplate then return end
   for pin in WorldMapFrame:EnumeratePinsByTemplate("MapExplorationPinTemplate") do
@@ -42,8 +42,8 @@ end
 function ns.FogOfWar:OnEnable()
   self:SyncColorsFromDB(false)
   HookAllExplorationPinsOnce()
-  if not ns._hookCheckTicker then
-    ns._hookCheckTicker = C_Timer.NewTicker(3, function()
+  if not ns.hookCheckTicker then
+    ns.hookCheckTicker = C_Timer.NewTicker(3, function()
       if WorldMapFrame and WorldMapFrame:IsShown() then
         HookAllExplorationPinsOnce()
       end
@@ -52,9 +52,9 @@ function ns.FogOfWar:OnEnable()
 end
 
 function ns.FogOfWar:OnDisable()
-  if ns._hookCheckTicker then
-    ns._hookCheckTicker:Cancel()
-    ns._hookCheckTicker = nil
+  if ns.hookCheckTicker then
+    ns.hookCheckTicker:Cancel()
+    ns.hookCheckTicker = nil
   end
 end
 

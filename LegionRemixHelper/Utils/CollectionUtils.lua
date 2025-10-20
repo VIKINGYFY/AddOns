@@ -373,10 +373,12 @@ function collectionUtils:GetMountCollectionFunction(mountID, itemID)
 end
 
 ---@param speciesID number
+---@param checkAtLimit boolean?
 ---@return fun():isCollected:boolean
-function collectionUtils:GetPetCollectionFunction(speciesID)
+function collectionUtils:GetPetCollectionFunction(speciesID, checkAtLimit)
     return function()
-        return C_PetJournal.GetNumCollectedInfo(speciesID) > 0
+        local collected, limit = C_PetJournal.GetNumCollectedInfo(speciesID)
+        return (checkAtLimit and collected >= limit) or (not checkAtLimit and collected > 0)
     end
 end
 

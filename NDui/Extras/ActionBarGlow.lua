@@ -27,9 +27,15 @@ local ActionBarSpells = {
 		[ 390163] = true, -- 极乐敕令
 	},
 	["WARRIOR"] = {
-		[ 163201] = true, -- 斩杀
+		[   1160] = true, -- 挫志怒吼
+		[ 107574] = true, -- 天神下凡
+		[ 163201] = true, -- 斩杀（20%）
+		[ 202168] = true, -- 胜利在望
+		[ 281000] = true, -- 斩杀（35%）
+		[ 384318] = true, -- 雷鸣之吼
+		[ 385952] = true, -- 盾牌冲锋
+		[ 386071] = true, -- 瓦解怒吼
 	},
-
 }
 
 function EX:ActionBarGlow_Update()

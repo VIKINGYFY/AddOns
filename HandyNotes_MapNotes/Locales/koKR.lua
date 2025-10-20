@@ -375,6 +375,7 @@ L["Left-click => Open/Close"] = "왼쪽 클릭 => 열기/닫기"
 L["Shift + Right-click => hide"] = "Shift + 마우스 오른쪽 버튼 클릭 => 숨기기"
 L["Middle-Mouse-Button => Open/Close"] = "중간 마우스 버튼 => 열/닫습니다"
 --9 transport
+L["Elevator"] = "엘리베이터"
 L["Ever-Shifting Mirror"] = "끊임없이 변화하는 거울"
 L["icons"] = "아이콘"
 L["Exit"] = "출구"

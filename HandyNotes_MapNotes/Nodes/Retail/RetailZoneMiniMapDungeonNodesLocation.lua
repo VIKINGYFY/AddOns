@@ -4,7 +4,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 function ns.LoadMiniMapDungeonLocationinfo(self)
 local db = ns.Addon.db.profile
 local minimap = ns.minimap
-ns._currentSourceFile = "RetailZoneMiniMapDungeonminimapLocation.lua"
+ns.currentSourceFile = "RetailZoneMiniMapDungeonminimapLocation.lua"
 
 --#####################################################################################################
 --##########################        function to hide all minimap below         ##########################

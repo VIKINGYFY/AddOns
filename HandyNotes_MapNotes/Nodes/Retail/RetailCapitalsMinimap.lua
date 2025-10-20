@@ -4,7 +4,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 function ns.LoadMinimapCapitalsLocationinfo(self)
 local db = ns.Addon.db.profile
 local minimap = ns.minimap
-ns._currentSourceFile = "RetailCapitalsMinimap.lua"
+ns.currentSourceFile = "RetailCapitalsMinimap.lua"
 
 --#####################################################################################################
 --##########################        function to hide all minimap below         ########################
@@ -2345,9 +2345,13 @@ if not db.activate.HideMapNote then
                 end
 
                 if self.db.profile.showMinimapCapitalsPvEVendor then
-                    minimap[111][50864226] = { npcIDs1 = 18525, npcIDs2 = 21432, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                    minimap[111][47752581] = { npcID = 19321, name = TRANSMOG_SET_PVE .. " " .. MERCHANT .. " - " .. L["The Aldor"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                    minimap[111][60486423] = { npcID = 19331, name = TRANSMOG_SET_PVE .. " " .. MERCHANT .. " - " .. L["The Scryers"], type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                    minimap[111][50834228] = { npcID = 18525, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, type = "PvEVendor", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                end
+
+                if self.db.profile.showMinimapCapitalsRenownQuartermaster then
+                    minimap[111][50994171] = { npcID = 21432, name = "", type = "RenownQuartermaster", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                    minimap[111][60486423] = { npcID = 19331, name = "", type = "RenownQuartermaster", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                    minimap[111][47752581] = { npcID = 19321, name = "", type = "RenownQuartermaster", showInZone = false, showOnContinent = false, showOnMinimap = true }
                 end
 
                 if self.db.profile.showMinimapCapitalsMailbox then

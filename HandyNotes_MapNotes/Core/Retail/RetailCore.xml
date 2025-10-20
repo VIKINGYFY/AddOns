@@ -4,6 +4,7 @@
     <Script file="RetailVersionsCheck.lua"/>
     <Script file="RetailSpecialLocales.lua"/>
     <Script file="RetailChangeLogText.lua"/>
+    <Script file="RetailChangeLog.lua"/>
     <Script file="RetailOptions.lua"/>
     <Script file="RetailWorldMap.lua"/>
     <Script file="RetailMiniMap.lua"/>
@@ -20,8 +21,7 @@
     <Script file="RetailPOIs.lua"/>
     <Script file="RetailNpc.lua"/>
     <Script file="RetailTaxiMaps.lua"/>
-    <Script file="RetailChangeLog.lua"/>
-    <Script file="RetailBlizzardMiniMapTracking.lua"/>    
+    <Script file="RetailBlizzardMiniMapTracking.lua"/>
     <Script file="RetailQuestsAndAchievements.lua"/>  
     <Script file="RetailMain.lua"/>
     <Script file="RetailAreaMap.lua"/>

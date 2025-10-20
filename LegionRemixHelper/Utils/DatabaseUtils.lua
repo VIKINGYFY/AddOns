@@ -26,6 +26,9 @@ function databaseUtils:LoadDefaultsForMissing()
     local addon = Private.Addon
     local defaults = addon.DefaultDatabase
     local database = addon.Database
+    local charDefaults = addon.DefaultCharDatabase
+    local charDatabase = addon.CharDatabase
 
     self:CheckAndUpdate(database, defaults)
+    self:CheckAndUpdate(charDatabase, charDefaults)
 end

@@ -4,7 +4,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
 function ns.LoadContinentNodesLocationinfo(self)
 local db = ns.Addon.db.profile
 local nodes = ns.nodes
-ns._currentSourceFile = "RetailContinentNodesLocation.lua"
+ns.currentSourceFile = "RetailContinentNodesLocation.lua"
 
 --#####################################################################################################
 --##########################        function to hide all nodes below         ##########################
@@ -487,6 +487,21 @@ ns._currentSourceFile = "RetailContinentNodesLocation.lua"
         -- Outland PvpandPveVendor
           if self.db.profile.showContinentPvPandPvEVendor then
             nodes[101][53442348] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 109, type = "PvPVendor", showInZone = false, showOnContinent = true, showOnMinimap = false }
+                nodes[101][56751336] = { npcID = 20242, name = "", type = "RenownQuartermaster", showOnContinent = true, showInZone = false, showOnMinimap = false }
+                nodes[101][32582984] = { npcID = 23428, name = "", type = "RenownQuartermaster", showOnContinent = true, showInZone = false, showOnMinimap = false }
+                nodes[101][42785103] = { npcID = 17904, name = "", type = "RenownQuartermaster", showOnContinent = true, showInZone = false, showOnMinimap = false }
+                nodes[101][53617857] = { npcID = 23367, name = "", type = "RenownQuartermaster", showOnContinent = true, showInZone = false, showOnMinimap = false }
+          
+            if self.faction == "Horde" or db.activate.ContinentEnemyFaction then
+              nodes[101][58894830] = { npcID = 17585, name = "", type = "RenownQuartermasterH", showOnContinent = true, showInZone = false, showOnMinimap = false }
+              nodes[101][32116091] = { npcID = 20241, name = "", type = "RenownQuartermasterH", showOnContinent = true, showInZone = false, showOnMinimap = false }
+            end
+
+            if self.faction == "Alliance" or db.activate.ContinentEnemyFaction then
+              nodes[101][59455568] = { npcID = 17657, name = "", type = "RenownQuartermasterA", showOnContinent = true, showInZone = false, showOnMinimap = false }
+              nodes[101][32707332] = { npcID = 20240, name = "", type = "RenownQuartermasterA", showOnContinent = true, showInZone = false, showOnMinimap = false }
+            end
+
           end
 
         end
@@ -561,8 +576,24 @@ ns._currentSourceFile = "RetailContinentNodesLocation.lua"
 
         -- Northrend PvpandPveVendor
           if self.db.profile.showContinentPvPandPvEVendor then
-            nodes[113][49032027] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 118, type = "PvEVendor", showInZone = false, showOnContinent = true, showOnMinimap = false }
-            nodes[113][41133952] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT, mnID = 118, type = "PvEVendor", showInZone = false, showOnContinent = true, showOnMinimap = false }
+            --nodes[113][41133952] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT, mnID = 118, type = "PvEVendor", showInZone = false, showOnContinent = true, showOnMinimap = false }
+            nodes[113][37041885] = { npcID = 32538, name = "", type = "RenownQuartermaster", showInZone = false, showOnContinent = true, showOnMinimap = false }
+            nodes[113][45602042] = { npcIDs1 = 173791, npcIDs2 = 34885, name = "", type = "RenownQuartermaster", showInZone = false, showOnContinent = true, showOnMinimap = false }
+            nodes[113][66953007] = { npcID = 32540, name = "", type = "RenownQuartermaster", showInZone = false, showOnContinent = true, showOnMinimap = false }
+            nodes[113][66298110] = { npcID = 31916, name = "", type = "RenownQuartermaster", showInZone = false, showOnContinent = true, showOnMinimap = false }
+            nodes[113][50335869] = { npcID = 32533, name = "", type = "RenownQuartermaster", showInZone = false, showOnContinent = true, showOnMinimap = false }
+            nodes[113][46096700] = { npcID = 32763, name = "", type = "RenownQuartermaster", showInZone = false, showOnContinent = true, showOnMinimap = false }
+
+            if self.faction == "Horde" then
+                nodes[113][49032027] = { npcIDs1 = 35574, npcIDs2 = 35576, npcIDs3 = 35578, npcIDs4 = 35580, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, mnID = 118, type = "PvEVendorH", showInZone = false, showOnContinent = true, showOnMinimap = false }
+                nodes[113][19676549] = { npcID = 32565, name = "", type = "RenownQuartermasterH", showInZone = false, showOnContinent = true, showOnMinimap = false }
+            end
+
+            if self.faction == "Alliance" then
+                nodes[118][49032027] = { npcIDs1 = 35573, npcIDs2 = 35575, npcIDs3 = 35577, npcIDs4 = 35579, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, mnID = 118, type = "PvEVendorA", showInZone = false, showOnContinent = true, showOnMinimap = false }
+                nodes[113][23946927] = { npcID = 32564, name = "", type = "RenownQuartermasterA", showInZone = false, showOnContinent = true, showOnMinimap = false }
+            end
+          
           end
 
         end

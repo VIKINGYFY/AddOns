@@ -98,6 +98,7 @@ function itemOpenerUtils:OpenBagItems()
     for itemLoc in self.itemUtils:ForEachBagItem() do
         if self:IsAutoItem(itemLoc) then
             C_Container.UseContainerItem(itemLoc:GetBagAndSlot())
+            return -- after opening we will get another BAG_UPDATE_DELAYED. stop here to avoid Locked items
         end
     end
 end

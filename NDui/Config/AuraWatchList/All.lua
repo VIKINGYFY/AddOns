@@ -404,13 +404,11 @@ local list = {
 		{SlotID = 17}, -- 副手
 	},
 	["InternalCD"] = { -- 自定义内置冷却组
-		{IntID = 114018, Duration = 15, OnSuccess = true, UnitID = "all"}, -- 帷幕
-		{IntID = 410232, Duration = 120}, -- 孢子披风冷却
-		{IntID = 451568, Duration = 60}, -- 折转侵攻模组
-
-		-- {IntID = 240447, Duration = 20}, -- 大秘境，践踏
-		-- {IntID = 316958, Duration = 30, OnSuccess = true, UnitID = "all"}, -- 红土
-		{IntID = 353635, Duration = 27.5, OnSuccess = true, UnitID = "all"},-- 坍缩之星自爆时间
+		{IntID =  114018, Duration = 15, OnSuccess = true, UnitID = "all"}, -- 帷幕
+		{IntID =  353635, Duration = 30, OnSuccess = true, UnitID = "all"}, -- 坍缩之星自爆时间
+		{IntID =  410232, Duration = 120}, -- 孢子披风冷却
+		{IntID =  451568, Duration = 60}, -- 折转侵攻模组
+		{IntID = 1237711, Duration = 30, OnSuccess = true},-- 扭曲的远征
 	},
 }
 

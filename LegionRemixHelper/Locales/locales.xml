@@ -3,6 +3,7 @@
 ..\FrameXML\UI.xsd">
     <script file="deDE.lua" />
     <script file="enUS.lua" />
+    <script file="frFR.lua" />
     <script file="itIT.lua" />
     <script file="ptBR.lua" />
     <script file="ruRU.lua" />

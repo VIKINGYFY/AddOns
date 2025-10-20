@@ -245,6 +245,14 @@ function artifactTraitUtils:GetSpellIDFromNodeID(nodeID, configID)
     return self:GetSpellIDFromEntryID(nodeInfo.entryIDs[1], configID)
 end
 
+---@param itemID number
+---@return number?
+function artifactTraitUtils:GetJewelrySpellID(itemID)
+    local entryID = self:GetEntryIDFromItemID(itemID)
+    if not entryID then return end
+    return self:GetSpellIDFromEntryID(entryID)
+end
+
 ---@param itemLocation ItemLocation
 ---@return string tooltip
 function artifactTraitUtils:GetJewelryTooltip(itemLocation)

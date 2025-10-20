@@ -22,6 +22,8 @@ local L = {
     ["Tabs.CollectionTabUI.FilterSources"] = "Fonti",
     ["Tabs.CollectionTabUI.FilterCheckAll"] = "Seleziona tutto",
     ["Tabs.CollectionTabUI.FilterUncheckAll"] = "Deseleziona tutto",
+    ["Tabs.CollectionTabUI.FilterRaidVariants"] = "Mostra varianti incursione",
+    ["Tabs.CollectionTabUI.FilterUnique"] = "Solo oggetti specifici Remix",
     ["Tabs.CollectionTabUI.Type"] = "Tipo",
     ["Tabs.CollectionTabUI.Source"] = "Fonte",
     ["Tabs.CollectionTabUI.SearchInstructions"] = "Cerca",
@@ -61,6 +63,16 @@ local L = {
     ["ScrappingUI.MinItemLevelDifference"] = "Differenza minima di livello oggetto",
     ["ScrappingUI.MinItemLevelDifferenceInstructions"] = "x livelli in meno rispetto all'equipaggiato",
     ["ScrappingUI.AutoScrap"] = "Riciclaggio automatico",
+    ["ScrappingUI.ScraperListTabTitle"] = "Elenco riciclo",
+    ["ScrappingUI.AdvancedSettingsTabTitle"] = "Avanzate",
+    ["ScrappingUI.JewelryTraitsToKeep"] = "Tratti gioiello da mantenere",
+    ["ScrappingUI.AdvancedJewelryFilter"] = "Filtro gioiello avanzato",
+    ["ScrappingUI.FilterCheckAll"] = "Seleziona tutto",
+    ["ScrappingUI.FilterUncheckAll"] = "Deseleziona tutto",
+    ["ScrappingUI.Neck"] = "Tratti collana",
+    ["ScrappingUI.Trinket"] = "Tratti monile",
+    ["ScrappingUI.Finger"] = "Tratti anello",
+    ["ScrappingUI.IgnoreFromEquipmentSets"] = "Ignora gli oggetti negli insiemi di equipaggiamento",
 
     -- Utils/ArtifactTraitUtils.lua
     ["ArtifactTraitUtils.NoItemEquipped"] = "Nessun oggetto equipaggiato.",
@@ -98,9 +110,9 @@ Esempio: /LRH s]],
     ["CommandUtils.SettingsCommandShort"] = "i",
 
     -- Utils/EditModeUtils.lua
-    ["EditModeUtils.ShowAddonSystems"] = "Legion-Remix-Helper-Systems",
-    ["EditModeUtils.SystemLabel.ToastUI"] = "Toasts",
-    ["EditModeUtils.SystemTooltip.ToastUI"] = "Move the position of the toasts.",
+    ["EditModeUtils.ShowAddonSystems"] = "Assistente Legion Remix",
+    ["EditModeUtils.SystemLabel.ToastUI"] = "Notifiche",
+    ["EditModeUtils.SystemTooltip.ToastUI"] = "Sposta la posizione delle notifiche.",
 
     -- Utils/ItemOpenerUtils.lua
     ["ItemOpenerUtils.SettingsCategoryPrefix"] = "Apertura automatica oggetti",
@@ -108,6 +120,14 @@ Esempio: /LRH s]],
     ["ItemOpenerUtils.AutoItemOpen"] = "Apri automaticamente gli oggetti",
     ["ItemOpenerUtils.AutoItemOpenTooltip"] = "Apre automaticamente alcuni oggetti nell'inventario quando vengono trovati. (Funzionalità ancora in sviluppo)",
     ["ItemOpenerUtils.AutoOpenItemEntryTooltip"] = "Apre automaticamente l'oggetto %s quando viene trovato nel tuo inventario.",
+
+    -- Utils/MerchantUtils.lua
+    ["MerchantUtils.SettingsCategoryPrefix"] = "Impostazioni Mercante",
+    ["MerchantUtils.SettingsCategoryTooltip"] = "Impostazioni per la funzionalità Mercante",
+    ["MerchantUtils.HideCollectedMerchantItems"] = "Nascondi oggetti mercante raccolti",
+    ["MerchantUtils.HideCollectedMerchantItemsTooltip"] = "Nasconde gli oggetti che hai già nella tua collezione dalla finestra del mercante.",
+    ["MerchantUtils.HideCollectedPetsAtLimit"] = "Nascondi animali domestici raccolti al limite",
+    ["MerchantUtils.HideCollectedPetsAtLimitTooltip"] = "Nasconde gli animali domestici nella finestra del mercante solo quando hai raggiunto il limite di raccolta per gli animali domestici.",
 
     -- Utils/QuestUtils.lua
     ["QuestUtils.SettingsCategoryPrefix"] = "Missioni automatiche",
@@ -120,6 +140,8 @@ Esempio: /LRH s]],
     ["QuestUtils.IgnoreEternusTooltip"] = "Ignora le missioni provenienti da Eternus.",
     ["QuestUtils.SuppressShift"] = "Disattiva con Shift",
     ["QuestUtils.SuppressShiftTooltip"] = "Tieni premuto Shift per disattivare l'accettazione o la consegna automatica delle missioni.",
+    ["QuestUtils.SuppressWorldTierIcon"] = "Sopprimere l'icona del livello mondiale",
+    ["QuestUtils.SuppressWorldTierIconTooltip"] = "Nascondere l'icona del livello mondiale che si trova sotto la mini-mappa.",
 
     -- Utils/QuickActionBarUtils.lua
     ["QuickActionBarUtils.SettingsCategoryPrefix"] = "Barra rapida",

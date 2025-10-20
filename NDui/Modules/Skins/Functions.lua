@@ -198,4 +198,24 @@ do
 			self.HealthBar.Health:SetTexture(DB.normTex)
 		end
 	end
+
+	function B:UpdateFollowerQuality(frame)
+		if not self.quality or not self.squareBG then return end
+
+		local r, g, b = C_Item.GetItemQualityColor(self.quality)
+		self.squareBG:SetBackdropBorderColor(r, g, b)
+
+		if frame then
+			frame:SetBackdropBorderColor(r, g, b)
+		end
+	end
+
+	function B:UpdateFollowerClass(frame)
+		if not self or not frame then return end
+
+		self:ClearAllPoints()
+		self:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, 0)
+		self:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 0, 0)
+	end
+
 end
