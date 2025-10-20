@@ -96,6 +96,7 @@ local function PrepareLinks(str)
 end
 
 local function RenderLinks(str, nameOnly)
+	if not str then return end
     -- render numeric ids
     local links, _ = str:gsub('{(%l+):(%d+)(%l*)}', function(type, id, suffix)
         id = tonumber(id)
@@ -164,6 +165,7 @@ local function RenderLinks(str, nameOnly)
     end)
     -- render commonly colored text
     local function renderNonNumeric(str, nameOnly)
+		if not str then return end
         local result = str:gsub('{(%l+):([^{}]+)}', function(type, text)
             if nameOnly then return text end
             if type == 'bug' then return ns.color.Red(text) end
