@@ -8,7 +8,6 @@ if DB.MyClass ~= "DEATHKNIGHT" then return end
 local list = {
 	["Player Aura"] = { -- 玩家光环组
 		{AuraID =    3714, UnitID = "player"}, -- 冰霜之路
-		{AuraID =   47568, UnitID = "player"}, -- 符文武器增效
 		{AuraID =   48265, UnitID = "player"}, -- 死亡脚步
 		{AuraID =   48707, UnitID = "player", Value = true}, -- 反魔法护罩
 		{AuraID =   48792, UnitID = "player"}, -- 冰封之韧
@@ -28,7 +27,6 @@ local list = {
 		{AuraID =  383269, UnitID = "player"}, -- 憎恶附肢
 		{AuraID =  434242, UnitID = "pet", Value = true}, -- 血凝固结
 		{AuraID =  444347, UnitID = "player"}, -- 死亡冲锋
-
 	},
 	["Target Aura"] = { -- 目标光环组
 		{AuraID =   45524, UnitID = "target", Caster = "player"}, -- 寒冰锁链
@@ -49,15 +47,9 @@ local list = {
 		{AuraID =  458478, UnitID = "target", Caster = "player"}, -- 煽动惊恐
 		{AuraID =  458687, UnitID = "target", Caster = "player"}, -- 饮血者
 		{AuraID = 1233351, UnitID = "target", Caster = "player"}, -- 掠霜使者
-
 	},
 	["Special Aura"] = { -- 玩家重要光环组
-		--{AuraID =   51124, UnitID = "player"}, -- 杀戮机器
-		--{AuraID =   59052, UnitID = "player"}, -- 白霜
-		--{AuraID =  456370, UnitID = "player"}, -- 低温冰冻
-		--{AuraID = 1230916, UnitID = "player"}, -- 血性大发
 		{AuraID =   51271, UnitID = "player"}, -- 冰霜之柱
-		{AuraID =   55233, UnitID = "player"}, -- 吸血鬼之血
 		{AuraID =   77535, UnitID = "player", Value = true}, -- 鲜血护盾
 		{AuraID =   81256, UnitID = "player"}, -- 符文刃舞
 		{AuraID =  116888, UnitID = "player", Value = true, Flash = true}, -- 炼狱蔽体
@@ -66,7 +58,6 @@ local list = {
 		{AuraID =  195181, UnitID = "player"}, -- 白骨之盾
 		{AuraID =  211805, UnitID = "player"}, -- 风暴汇聚
 		{AuraID =  219809, UnitID = "player", Value = true}, -- 墓石
-		{AuraID =  273947, UnitID = "player"}, -- 鲜血禁闭
 		{AuraID =  274156, UnitID = "player"}, -- 吞噬
 		{AuraID =  377103, UnitID = "player"}, -- 断裂之痕
 		{AuraID =  377195, UnitID = "player"}, -- 历久弥坚
@@ -76,14 +67,10 @@ local list = {
 		{AuraID =  433925, UnitID = "player"}, -- 鲜血女王的精华
 		{AuraID =  441416, UnitID = "player"}, -- 破灭
 		{AuraID =  454871, UnitID = "player", Flash = true}, -- 抽血
-		{AuraID =  458745, UnitID = "player"}, -- 骨化锋刺
 		{AuraID =  460049, UnitID = "player"}, -- 苦痛凌虐
-		{AuraID =  460500, UnitID = "player"}, -- 染血利刃
 		{AuraID =  469169, UnitID = "player"}, -- 凄惨痛快
-		{AuraID = 1230273, UnitID = "player"}, -- 冷冽强袭
 		{AuraID = 1233152, UnitID = "player"}, -- 冷酷严冬
 		{AuraID = 1249658, UnitID = "player", Flash = true}, -- 冰龙吐息
-
 	},
 }
 

@@ -34,6 +34,7 @@ Glider.Flash = flashTexture
 local vigorCharge = CreateFrame("Cooldown", nil, Glider, "CooldownFrameTemplate") ---@diagnostic disable-line
 vigorCharge:SetHideCountdownNumbers(true)
 vigorCharge:SetDrawEdge(false)
+vigorCharge:SetDrawBling(false)
 vigorCharge:SetReverse(true)
 vigorCharge:SetFrameLevel(0)
 vigorCharge:SetUsingParentLevel(true)

@@ -9,13 +9,6 @@ local function HandleListButton(self)
 	Highlight.HL:SetTexture(DB.bdTex)
 	Highlight.HL:SetVertexColor(DB.r, DB.g, DB.b, .25)
 	Highlight.HL:SetInside()
-
-	local Title = self.Title
-	Title:ClearAllPoints()
-	Title:SetPoint("BOTTOMLEFT", self.Type, "RIGHT", 0, 0)
-	Title:SetPoint("RIGHT", self.Rewards, "LEFT", 0, 0)
-
-	self.Time:SetPoint("BOTTOM", self, "BOTTOM", 0, 3)
 end
 
 local function HandleRewardButton(self)
@@ -35,7 +28,7 @@ end
 
 local function HandleSettingsCategory(self)
 	B.StripTextures(self)
-	B.Reskin(self)
+	B.ReskinButton(self)
 
 	if self.Background then
 		self.__bg:SetPoint("TOPLEFT", self.Background, "TOPLEFT", 0, 2)
@@ -118,8 +111,8 @@ function S:WorldQuestTab()
 	end
 
 	local SettingsPreview = _G.WQT_SettingsQuestListPreview and _G.WQT_SettingsQuestListPreview.Preview
-	if SettingsPreview and SettingsPreview.Rewards then
-		HandleRewardButton(SettingsPreview.Rewards)
+	if SettingsPreview then
+		HandleRewardButton(SettingsPreview.RightContent.Rewards)
 	end
 
 	P:SecureHook("WQT_SettingsCategoryMixin", "Init", HandleSettingsCategory)

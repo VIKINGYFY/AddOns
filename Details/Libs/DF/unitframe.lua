@@ -5,6 +5,8 @@ if (not detailsFramework or not DetailsFrameworkCanLoad) then
 	return
 end
 
+if detailsFramework.IsMidnightWow() then return end
+
 local _
 --lua locals
 local rawset = rawset --lua local

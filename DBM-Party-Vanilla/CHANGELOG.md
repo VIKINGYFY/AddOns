@@ -1,8 +1,13 @@
 # DBM - Dungeons, Delves, & Events
 
-## [r215-8-gafd5ee3](https://github.com/DeadlyBossMods/DBM-Dungeons/tree/afd5ee3c0bf24bbc1e10ccfbae3c881dd950d44d) (2025-10-19)
-[Full Changelog](https://github.com/DeadlyBossMods/DBM-Dungeons/compare/r215...afd5ee3c0bf24bbc1e10ccfbae3c881dd950d44d) [Previous Releases](https://github.com/DeadlyBossMods/DBM-Dungeons/releases)
+## [r216](https://github.com/DeadlyBossMods/DBM-Dungeons/tree/r216) (2025-10-23)
+[Full Changelog](https://github.com/DeadlyBossMods/DBM-Dungeons/compare/r215...r216) [Previous Releases](https://github.com/DeadlyBossMods/DBM-Dungeons/releases)
 
+- fix and close https://github.com/DeadlyBossMods/DBM-Dungeons/issues/567  
+- Add defeat localization for Cho'Rush (#571)  
+- Update localization.tw.lua (#573)  
+- Update print statement from 'Hello' to 'Goodbye' (#572)  
+- clarify odyn's timer as RP timer and not combat timer. the timer is for when the dialog option to engage him enables, not for when he actually enables (that happens 3 seconds after a player chooses that dialog option)  
 - fix false timer restart error  
 - Update localization.cn.lua (#570)  
 - Add localization for Chefe Guerreiro Laceral Mão Negra (#569)  

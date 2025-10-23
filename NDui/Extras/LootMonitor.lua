@@ -4,6 +4,9 @@ local EX = B:GetModule("Extras")
 
 local frameWidth, buttonHeight = 200, 16
 local maxLines, minQuality, inGroup = 20, 3, false
+local lootItemIDs = {
+	[248142] = true, -- 地下堡行者的奖赏
+}
 
 local LootMonitor = CreateFrame("Frame", "LootMonitor", UIParent, "BackdropTemplate")
 LootMonitor:SetFrameStrata("HIGH")
@@ -190,7 +193,7 @@ function LootMonitor:CHAT_MSG_LOOT(event, ...)
 	local itemQuality = C_Item.GetItemQualityByID(itemLink)
 	local itemID, _, _, _, _, itemClassID, itemSubClassID = C_Item.GetItemInfoInstant(itemLink)
 
-	if EX.isCollection(itemID, itemClassID, itemSubClassID) or (EX.isEquipment(itemID, itemClassID) and itemQuality >= minQuality) then
+	if lootItemIDs[itemID] or EX.isCollection(itemID, itemClassID, itemSubClassID) or (EX.isEquipment(itemID, itemClassID) and itemQuality >= minQuality) then
 		local lootTime = DB.InfoColor..GameTime_GetGameTime(true).."|r"
 		local lootName = UnitClassColor(string.split("-", lootPlayer))
 

@@ -1,5 +1,8 @@
 # Changelog
 
+## 30
+- Initial Support for 11.2.7 and 12.0.0 changes to Skyriding, in Midnight it will autohide in combat situations due new restrictions from blizzard currently.
+
 ## 29
 - Version update
 

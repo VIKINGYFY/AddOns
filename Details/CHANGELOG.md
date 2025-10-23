@@ -1,6 +1,9 @@
 # Details! Damage Meter
 
-## [Details.20251010.13801.166-1-g84c601e](https://github.com/Tercioo/Details-Damage-Meter/tree/84c601e27457325512348a0e8056a69339a81e70) (2025-10-11)
-[Full Changelog](https://github.com/Tercioo/Details-Damage-Meter/compare/Details.20251010.13801.166...84c601e27457325512348a0e8056a69339a81e70) 
+## [Details.20251021.13809.166-4-g17f239f](https://github.com/Tercioo/Details-Damage-Meter/tree/17f239f8150b12187be4382644a7b9ca296272a8) (2025-10-23)
+[Full Changelog](https://github.com/Tercioo/Details-Damage-Meter/compare/Details.20251021.13809.166...17f239f8150b12187be4382644a7b9ca296272a8) 
 
-- Fix talent info on mists of pandaria  
+- Readd sanguine special unit cause lemix  
+- Ignore path helper  
+- Framework Update  
+- Don't use GetSpecializationRole on classic era cause blizz makes it error  

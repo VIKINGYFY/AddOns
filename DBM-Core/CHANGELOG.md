@@ -1,8 +1,16 @@
 # DBM - Core
 
-## [12.0.1-14-g73b5ab7](https://github.com/DeadlyBossMods/DeadlyBossMods/tree/73b5ab7b60b3e3e093df0238ae97ba135b31ee86) (2025-10-19)
-[Full Changelog](https://github.com/DeadlyBossMods/DeadlyBossMods/compare/12.0.1...73b5ab7b60b3e3e093df0238ae97ba135b31ee86) [Previous Releases](https://github.com/DeadlyBossMods/DeadlyBossMods/releases)
+## [12.0.1-19-gcec0b01](https://github.com/DeadlyBossMods/DeadlyBossMods/tree/cec0b01bf8e99e5af8ca616c4e287795679f88db) (2025-10-23)
+[Full Changelog](https://github.com/DeadlyBossMods/DeadlyBossMods/compare/12.0.1...cec0b01bf8e99e5af8ca616c4e287795679f88db) [Previous Releases](https://github.com/DeadlyBossMods/DeadlyBossMods/releases)
 
+- Small bar tweak  
+- disable SetTexture on secrets for now due to regression in build 4  
+- Add some new midnight strings. Have fun anon  
+- Fix and enable live TL hiding/showing  
+- Interrupt improvements; (#1789)  
+    - This now allows checking multiple interrupts  
+    - Actually checks if spell is known  
+    - Localize some stuff for `IsSpellKnown` so it's more optimized when called frequently.  
 - Re-introduce code that got lost at some point.  
 - Fix my mistake correctly  
 - Validate isPlayerRemix on enter world.  

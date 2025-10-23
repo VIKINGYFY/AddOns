@@ -2,6 +2,8 @@
 local addonName = ... ---@type string "Glider"
 local namespace = select(2,...) ---@class (partial) namespace
 
+local gameVersion = select(4, GetBuildInfo())
+
 local Configuration = {
   updateSpeedRate = 0.02,
   updateVigorRate = 0.01,
@@ -38,6 +40,12 @@ local MutableData = {
   prevPerc = 0,
   prevSpeed = 0,
   lastRandomColorName = "",
+  previousCharges = 6,
+}
+
+local AdvFlying = {
+  Active = false,
+  Enabled = false,
 }
 
 local defaultPosition = {
@@ -289,7 +297,10 @@ LEM:RegisterCallback('enter', function()
 end)
 
 LEM:RegisterCallback('exit', function()
-  if not Glider:IsSkyriding() then
+  if gameVersion >= 110207 and Glider.VigorCharge:IsPaused() then
+    Glider.VigorCharge:Resume()
+  end
+  if not Glider:IsSkyriding() or (GetRestrictedActionStatus and GetRestrictedActionStatus(1)) then
     Glider:SetAlpha(0)
     Glider:Hide()
   end
@@ -544,7 +555,7 @@ function Glider:Update(widget)
     return
   end
 
-  MutableData.lastNumFullFrames = MutableData.lastNumFullFrames > info.numFullFrames and MutableData.lastNumFullFrames or info.numFullFrames
+  MutableData.lastNumFullFrames = MutableData.lastNumFullFrames < info.numFullFrames and MutableData.lastNumFullFrames or info.numFullFrames
 
   local fillValue = info.fillValue
   if (MutableData.lastNumFullFrames + info.fillValue == 1 + MutableData.lastFill) then
@@ -577,7 +588,6 @@ function Glider:Update(widget)
   self.SpeedDisplay:SetScript("OnUpdate", function(_, elapsed) self:RefreshSpeedDisplay(elapsed) end)
 
   MutableData.getRidingAbroadPercent = self:GetRidingAbroadPercent()
-  --VOLATILE_VALUES.isThrill = C_UnitAuras.GetPlayerAuraBySpellID(377234) and true or false
   if info.pulseFillingFrame and not self.pulseAnim:IsPlaying() then
     self.pulseAnim:Play()
   else
@@ -600,10 +610,82 @@ function Glider:Update(widget)
   MutableData.lastNumFullFrames = info.numFullFrames
 end
 
+local spellChargeInfoDefaults = {
+  currentCharges = 0,
+  maxCharges = 0,
+  cooldownStartTime = 0,
+  cooldownDuration = 0,
+  chargeModRate = 0,
+}
+
+local spellChargeInfo = {}
+
+function Glider:UpdateUI()
+  if not self:IsSkyriding() or (GetRestrictedActionStatus and GetRestrictedActionStatus(1)) then
+    -- Always initialize back to 6 on hide, so there is no flashing on showing UI later
+    MutableData.previousCharges = 6
+    self:HideAnim()
+    return
+  end
+
+  spellChargeInfo = C_Spell.GetSpellCharges(372608) or spellChargeInfoDefaults
+  local charges = spellChargeInfo.currentCharges
+  local maxCharges = spellChargeInfo.maxCharges
+  local chargeStart = spellChargeInfo.cooldownStartTime
+  local chargeDuration = spellChargeInfo.cooldownDuration
+  local chargeModRate = spellChargeInfo.chargeModRate
+  local newStartTime = GetTime()
+  local newDuration = 0.0
+  local cooldownEnabled = false
+  if maxCharges > 0 and chargeDuration > 0 then
+      MutableData.isThrill = chargeDuration < 10 and true or false
+      if MutableData.isThrill and not self.pulseAnim:IsPlaying() then
+        self.pulseAnim:Play()
+      else
+        -- Let the animation finish
+        self.pulseAnim:SetLooping("NONE")
+      end
+      if MutableData.previousCharges < charges then
+        -- Add option for this
+        PlaySound(201528, "SFX")
+        self.Flash:SetRotation(Configuration.rotations[charges] --[[@as number]])
+        self.flashAnim:Restart()
+      end
+
+      local now = GetTime()
+      local cooldownElapsed = now - chargeStart
+      local cooldownProgress = cooldownElapsed / chargeDuration
+      newDuration = chargeDuration * maxCharges
+      local totalElapsedChargeTime = (charges + cooldownProgress) * chargeDuration
+      newStartTime = now - totalElapsedChargeTime
+      cooldownEnabled = charges < maxCharges
+      MutableData.previousCharges = charges
+  else
+      cooldownEnabled = false
+  end
+    MutableData.getRidingAbroadPercent = self:GetRidingAbroadPercent()
+    if not (self:IsShown() or self.animShow:IsPlaying()) then
+      self:ShowAnim()
+    end
+
+    self.SpeedDisplay:SetScript("OnUpdate", function(_, elapsed) self:RefreshSpeedDisplay(elapsed) end)
+    if cooldownEnabled then
+      if self.VigorCharge:IsPaused() then
+        self.VigorCharge:Resume()
+      end
+      self.VigorCharge:SetCooldown(newStartTime, newDuration, chargeModRate);
+      self.VigorCharge:SetDrawEdge(true);
+    else
+      CooldownFrame_SetDisplayAsPercentage(self.VigorCharge, 1);
+      self.VigorCharge:SetDrawEdge(false);
+    end
+end
 
 function Glider:OnEvent(e, ...)
   if e == "UPDATE_UI_WIDGET" then
     self:Update(...)
+  elseif e == "PLAYER_ENTERING_WORLD" then
+    --self:UpdateUI()
   elseif e == "UPDATE_ALL_UI_WIDGETS" then
     -- ugly fix: Flying from Khaz Algar to Ringing Deeps and similar world transitions can flash the vigor bar
     -- so just hide the entire container for a short duration, permamently hiding it messes with content that uses the same bar
@@ -613,15 +695,32 @@ function Glider:OnEvent(e, ...)
     end
   elseif e == "UNIT_AURA" and self:IsShown() then
     MutableData.isThrill = C_UnitAuras.GetPlayerAuraBySpellID(377234) and true or false
+  elseif e == "ACTIONBAR_UPDATE_COOLDOWN"
+      or e == "PLAYER_REGEN_ENABLED"
+      or e == "PLAYER_REGEN_DISABLED"
+      or e == "UPDATE_BONUS_ACTIONBAR"
+      or e == "PLAYER_CAN_GLIDE_CHANGED"
+      then
+        self:UpdateUI()
   end
 end
 
 function Glider:OnLoad()
   self:SetupTextures()
   self:SetScript("OnEvent", function(_, ...) self:OnEvent(...) end)
-  self:RegisterEvent("UPDATE_UI_WIDGET")
-  self:RegisterEvent("UPDATE_ALL_UI_WIDGETS")
-  self:RegisterEvent("UNIT_AURA")
+  if gameVersion >= 110207 then
+    self:RegisterEvent("PLAYER_ENTERING_WORLD")
+    self:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN")
+    self:RegisterEvent("ACTIONBAR_UPDATE_STATE")
+    self:RegisterEvent("PLAYER_REGEN_ENABLED")
+    self:RegisterEvent("PLAYER_REGEN_DISABLED")
+    self:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
+    self:RegisterEvent("PLAYER_CAN_GLIDE_CHANGED")
+  else
+    self:RegisterEvent("UPDATE_UI_WIDGET")
+    self:RegisterEvent("UPDATE_ALL_UI_WIDGETS")
+    self:RegisterEvent("UNIT_AURA")
+  end
   self.SpeedDisplay.Speed:SetRotation(-117 * (math.pi/180))
   self.VigorCharge.noCooldownCount = true
   self.SpeedDisplay.Speed.noCooldownCount = true

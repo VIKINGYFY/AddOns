@@ -29,41 +29,11 @@ local utilitiesStatus = select(5, C_AddOns.GetAddOnInfo("WorldQuestTabUtilities"
 
 WQT_PanelID = EnumUtil.MakeEnum("Quests", "Settings");
 
--- Custom number abbreviation to fit inside reward icons in the list.
-local function GetLocalizedAbbreviatedNumber(number)
-	if type(number) ~= "number" then return "NaN" end;
-
-	local intervals = _L["IS_AZIAN_CLIENT"] and _V["NUMBER_ABBREVIATIONS_ASIAN"] or _V["NUMBER_ABBREVIATIONS"];
-	
-	for i = 1, #intervals do
-		local interval = intervals[i];
-		local value = interval.value;
-		local valueDivTen = value / 10;
-		if (number >= value) then
-			if (interval.decimal) then
-				local rest = number - floor(number/value)*value;
-				if (rest < valueDivTen) then
-					return interval.format:format(floor(number/value));
-				else
-					return interval.format:format(floor(number/valueDivTen)/10);
-				end
-			end
-			return interval.format:format(floor(number/valueDivTen));
-		end
-	end
-	
-	return number;
-end
-
 local function slashcmd(msg)
 	if (msg == "debug") then
 		addon.debug = not addon.debug;
 		WQT_ListContainer:UpdateQuestList();
 		print("WQT: debug", addon.debug and "enabled" or "disabled");
-		return;
-	elseif (msg:find("^dump")) then
-		local addition = msg:sub(6)
-		WQT_DebugFrame:DumpDebug(addition);
 		return;
 	end
 end
@@ -330,6 +300,11 @@ local function ConvertOldSettings()
 		-- It's a new user, their settings are perfect
 		-- Unless I change my mind again
 		return;
+
+	elseif (settingVersion < 110206) then
+		-- Changed time label to label dropdown
+		WQT.db.global.pin.label = WQT.db.global.pin.timeLabel and _V["ENUM_PIN_LABEL"].time or _V["ENUM_PIN_LABEL"].none;
+		WQT.db.global.pin.timeLabel = nil;
 	end
 
 	-- changes from when version was saved as a string (pre 11.2.01)
@@ -668,8 +643,6 @@ function WQT:OnInitialize()
 	local tabLib = LibStub("WorldMapTabsLib-1.0");
 	tabLib:AddCustomTab(WQT_QuestMapTab);
 	self.contentFrame = tabLib:CreateContentFrameForTab(WQT_QuestMapTab);
-
-	
 end
 
 function WQT:OnEnable()
@@ -813,73 +786,12 @@ function WQT_RewardDisplayMixin:Reset()
 	for k, reward in ipairs(self.rewardFrames) do
 		reward:Hide();
 	end
-	
+
 	self.numDisplayed = 0;
-	self:SetWidth(0.1);
 end
 
 function WQT_RewardDisplayMixin:SetDesaturated(desaturate)
 	self.desaturate = desaturate;
-end
-
-function WQT_RewardDisplayMixin:UpdateVisuals()
-	for i = 1, self.numDisplayed do
-		local rewardFrame = self.rewardFrames[i];
-
-		rewardFrame:Show();
-		rewardFrame.Icon:SetTexture(rewardFrame.texture);
-		rewardFrame.Icon:SetDesaturated(self.desaturate);
-
-		
-		if (rewardFrame.quality > 1) then
-			rewardFrame.QualityColor:Show()
-
-			local r, g, b = C_Item.GetItemQualityColor(rewardFrame.quality);
-			if (self.desaturate) then
-				rewardFrame.QualityColor:SetVertexColor(1, 1, 1);
-			else
-				rewardFrame.QualityColor:SetVertexColor(r, g, b);
-			end
-		else
-			rewardFrame.QualityColor:Hide()
-		end
-
-		if (rewardFrame.isMinor) then
-			rewardFrame.Amount:Hide();
-			rewardFrame.AmountBG:Hide();
-		else
-			local amount = rewardFrame.amount;
-			if (amount > 1) then
-				rewardFrame.Amount:Show();
-				rewardFrame.AmountBG:Show();
-
-				if (rewardFrame.rewardType == WQT_REWARDTYPE.gold) then
-					amount = floor(amount / 10000);
-				end
-
-				local amountDisplay = GetLocalizedAbbreviatedNumber(amount);
-
-				if (rewardFrame.rewardType == WQT_REWARDTYPE.relic) then
-					amountDisplay = "+" .. amountDisplay;
-				elseif (rewardFrame.canUpgrade) then
-					amountDisplay = amountDisplay .. "+";
-				end
-
-				rewardFrame.Amount:SetText(amountDisplay);
-
-				-- Color reward amount for certain types
-				local r, g, b = 1, 1, 1
-				if (not self.desaturate and WQT.settings.list.amountColors) then
-					r, g, b = rewardFrame.typeColor:GetRGB();
-				end
-
-				rewardFrame.Amount:SetVertexColor(r, g, b);
-			else
-				rewardFrame.Amount:Hide();
-				rewardFrame.AmountBG:Hide();
-			end
-		end
-	end
 end
 
 function WQT_RewardDisplayMixin:AddReward(rewardInfo, warmodeBonus)
@@ -889,45 +801,45 @@ function WQT_RewardDisplayMixin:AddReward(rewardInfo, warmodeBonus)
 			return;
 	end
 
-	local rewardType = rewardInfo.type;
-	local texture = rewardInfo.texture;
-	local quality = rewardInfo.quality;
-	local amount = rewardInfo.amount;
-	local canUpgrade = rewardInfo.canUpgrade;
-
 	self.numDisplayed = self.numDisplayed + 1;
 	local num = self.numDisplayed;
-
-	amount = amount or 1;
-	-- Calculate warmode bonus
-	if (warmodeBonus) then
-		amount = WQT_Utils:CalculateWarmodeAmount(rewardInfo);
-	end
-
 	local rewardFrame = self.rewardFrames[num];
-	rewardFrame.rewardType = rewardType;
-	rewardFrame.texture = texture;
-	rewardFrame.quality = quality;
-	rewardFrame.amount = amount;
-	local _, textColor = WQT_Utils:GetRewardTypeColorIDs(rewardType);
-	rewardFrame.typeColor = textColor;
-	rewardFrame.canUpgrade = canUpgrade;
 
-	self:UpdateVisuals();
+	rewardFrame:Show();
+	rewardFrame.Icon:SetTexture(rewardInfo.texture);
+	rewardFrame.Icon:SetDesaturated(self.desaturate);
 
-	local minWidth = 0.01;
+	if (rewardInfo.quality > 1) then
+		rewardFrame.QualityColor:Show()
 
-	if (self.Reward1:IsShown()) then
-		minWidth = self.Reward1:GetWidth();
-		if (self.Reward3:IsShown()) then
-			minWidth = minWidth + self.Reward2:GetWidth();
-			if (self.Reward4:IsShown()) then
-				minWidth = minWidth + self.Reward4:GetWidth();
-			end
+		local r, g, b = 1, 1, 1;
+		if (not self.desaturate) then
+			r, g, b = C_Item.GetItemQualityColor(rewardInfo.quality);
 		end
+		rewardFrame.QualityColor:SetVertexColor(r, g, b);
+	else
+		rewardFrame.QualityColor:Hide()
 	end
 
-	self:SetWidth(minWidth);
+	local displayAmount, rawAmount = WQT_Utils:GetDisplayRewardAmount(rewardInfo, warmodeBonus)
+	local showAmount = not rewardFrame.hideAmount and rawAmount > 1;
+	rewardFrame.Amount:SetShown(showAmount);
+	rewardFrame.AmountBG:SetShown(showAmount);
+
+	if (showAmount) then
+		rewardFrame.Amount:Show();
+		rewardFrame.AmountBG:Show();
+
+		rewardFrame.Amount:SetText(displayAmount);
+
+		-- Color reward amount for certain types
+		local amountColor = _V["WQT_WHITE_FONT_COLOR"];
+		if (not self.desaturate and WQT.settings.list.amountColors) then
+			amountColor = select(2, WQT_Utils:GetRewardTypeColorIDs(rewardInfo.type));
+		end
+		
+		rewardFrame.Amount:SetVertexColor(amountColor:GetRGB());
+	end
 end
 
 ------------------------------------------
@@ -945,12 +857,45 @@ end
 
 WQT_ListButtonMixin = {}
 
+function WQT_ListButtonMixin:GetTitleFontString()
+	return self.CenterContent.Title;
+end
+
+function WQT_ListButtonMixin:GetTimeFontString()
+	return self.CenterContent.BottomRow.Time;
+end
+
+function WQT_ListButtonMixin:GetBottomRow()
+	return self.CenterContent.BottomRow;
+end
+
+function WQT_ListButtonMixin:GetZoneFontString()
+	return self:GetBottomRow().Extra;
+end
+
+function WQT_ListButtonMixin:GetZoneSeparator()
+	return self:GetBottomRow().ZoneSeparator;
+end
+
+function WQT_ListButtonMixin:GetWarbandIcon()
+	return self.RightContent.WarbandIcon;
+end
+
+function WQT_ListButtonMixin:GetFactionFrame()
+	return self.RightContent.Faction;
+end
+
+function WQT_ListButtonMixin:GetRewardsFrame()
+	return self.RightContent.Rewards;
+end
+
 function WQT_ListButtonMixin:OnLoad()
 	self.TrackedBorder:SetFrameLevel(self:GetFrameLevel() + 2);
 	self.Highlight:SetFrameLevel(self:GetFrameLevel() + 2);
 	self:EnableKeyboard(false);
 	self.UpdateTooltip = function() self:ShowTooltip() end;
 	self.timer = 0;
+	self.updateInterval = 1;
 end
 
 function WQT_ListButtonMixin:OnClick(button)
@@ -962,15 +907,20 @@ function WQT_ListButtonMixin:SetEnabledMixin(value)
 	value = value==nil and true or value;
 	self:SetEnabled(value);
 	self:EnableMouse(value);
-	self.Faction:EnableMouse(value);
+	local factionFrame = self:GetFactionFrame();
+	factionFrame:EnableMouse(value);
 end
 
-function WQT_ListButtonMixin:OnUpdate(elapsed)
+function WQT_ListButtonMixin:OnUpdateMethod(elapsed)
+	if (self.updateInterval <= 0) then return; end
+
 	self.timer = self.timer + elapsed;
 	
-	if (self.timer >= 1) then 
-		self:UpdateTime();
+	if (self.timer >= self.updateInterval) then
 		self.timer = 0;
+		local timeLeft = self:UpdateTime();
+		local showingSecondary = WQT_Utils:GetSetting("list", "fullTime");
+		self.updateInterval = WQT_Utils:TimeLeftToUpdateTime(timeLeft, showingSecondary);
 	end;
 end
 
@@ -979,19 +929,26 @@ function WQT_ListButtonMixin:UpdateTime()
 		return false;
 	end
 
+	local timeFrame = self:GetTimeFontString();
 	local seconds, timeString, color, _, _, category = WQT_Utils:GetQuestTimeString(self.questInfo, WQT.settings.list.fullTime);
-
+	
 	if(seconds == 0) then
-		self.Time:SetText("");
-		return false;
+		timeFrame:SetText("");
+		timeFrame:Hide();
+	else
+		timeFrame:Show();
+
+		if (self.questInfo:IsDisliked() or (not WQT.settings.list.colorTime and category ~= _V["TIME_REMAINING_CATEGORY"].critical)) then
+			color = _V["WQT_WHITE_FONT_COLOR"];
+		end
+		timeFrame:SetTextColor(color.r, color.g, color.b, 1);
+		timeFrame:SetText(timeString);
 	end
 
-	if (self.questInfo:IsDisliked() or (not WQT.settings.list.colorTime and category ~= _V["TIME_REMAINING_CATEGORY"].critical)) then
-		color = _V["WQT_WHITE_FONT_COLOR"];
-	end
-	self.Time:SetTextColor(color.r, color.g, color.b, 1);
-	self.Time:SetText(timeString);
-	return true;
+	-- Updating time changes its size so we need to make sure everything on the bottom row shifts with it
+	self:GetBottomRow():Layout();
+
+	return seconds;
 end
 
 function WQT_ListButtonMixin:OnLeave()
@@ -1005,7 +962,8 @@ function WQT_ListButtonMixin:OnLeave()
 	self:SetAlpha(isDisliked and 0.75 or 1);
 
 	local difficultyColor = GetDifficultyColor(Enum.RelativeContentDifficulty.Fair);
-	self.Title:SetTextColor(difficultyColor.r, difficultyColor.g, difficultyColor.b);
+	local titleFS = self:GetTitleFontString();
+	titleFS:SetTextColor(difficultyColor.r, difficultyColor.g, difficultyColor.b);
 
 	WQT:HideDebugTooltip()
 end
@@ -1017,7 +975,8 @@ function WQT_ListButtonMixin:OnEnter()
 	WQT_WorldQuestFrame:ShowWorldmapHighlight(self.questInfo);
 
 	local difficultyColor = select(2, GetDifficultyColor(Enum.RelativeContentDifficulty.Fair));
-	self.Title:SetTextColor(difficultyColor.r, difficultyColor.g, difficultyColor.b);
+	local titleFS = self:GetTitleFontString();
+	titleFS:SetTextColor(difficultyColor.r, difficultyColor.g, difficultyColor.b);
 
 	self:ShowTooltip();
 end
@@ -1031,14 +990,12 @@ function WQT_ListButtonMixin:ShowTooltip()
 end
 
 function WQT_ListButtonMixin:UpdateQuestType(questInfo)
-
 	local typeFrame = self.Type;
 	local isCriteria = questInfo:IsCriteria(WQT.settings.general.bountySelectedOnly);
 	local tagInfo = questInfo:GetTagInfo();
 	local isElite = tagInfo and tagInfo.isElite;
 	
 	typeFrame:Show();
-	typeFrame:SetWidth(typeFrame:GetHeight());
 	typeFrame.Texture:Show();
 	typeFrame.Elite:SetShown(isElite);
 	
@@ -1067,6 +1024,7 @@ function WQT_ListButtonMixin:Update(questInfo, shouldShowZone)
 	end
 	
 	self:Show();
+	self.updateInterval = 1;
 	self.questInfo = questInfo;
 	self.questID = questInfo.questID;
 	local isDisliked = questInfo:IsDisliked();
@@ -1081,23 +1039,27 @@ function WQT_ListButtonMixin:Update(questInfo, shouldShowZone)
 	elseif (isDisliked) then
 		title = "|cFF999999" .. title;
 	end
+
+	local titleFS = self:GetTitleFontString();
+	titleFS:SetText(title);
 	
-	self.Title:SetText(title);
+	self:UpdateTime();
 	
-	local showedTime = self:UpdateTime();
-	
+	local showingZone = false;
 	local zoneName = "";
 	if (shouldShowZone and WQT.settings.list.showZone) then
 		local mapInfo = WQT_Utils:GetCachedMapInfo(questInfo.mapID)
 		if (mapInfo) then
+			showingZone = true;
 			zoneName = mapInfo.name;
-			if (showedTime) then
-				zoneName = " - " .. zoneName;
-			end
 		end
 	end
 	
-	self.Extra:SetText(zoneName);
+	local extraFrame = self:GetZoneFontString();
+	extraFrame:SetShown(showingZone);
+	extraFrame:SetText(zoneName);
+	local zoneSeparator = self:GetZoneSeparator();
+	zoneSeparator:SetShown(showingZone and self:GetTimeFontString():IsShown());
 	
 	local tagQuality = questInfo:GetTagInfoQuality();
 
@@ -1110,43 +1072,42 @@ function WQT_ListButtonMixin:Update(questInfo, shouldShowZone)
 
 	-- Warband icon
 	local showWarBand = questInfo.hasWarbandBonus and WQT_Utils:GetSetting("list", "warbandIcon");
-	self.WarbandIcon:SetShown(showWarBand);
-	self.WarbandIcon:SetWidth(showWarBand and self.WarbandIcon:GetHeight() or 0.1);
-	self.WarbandIcon:SetDesaturated(isDisliked);
+	local warbandIcon = self:GetWarbandIcon();
+	warbandIcon:SetShown(showWarBand);
+	warbandIcon:SetDesaturated(isDisliked);
 	
+	local factionFrame = self:GetFactionFrame();
 	-- Highlight
-	local showHighLight = self:IsMouseOver() or self.Faction:IsMouseOver() or (WQT_ListContainer.PoIHoverId and WQT_ListContainer.PoIHoverId == questInfo.questID)
+	local showHighLight = self:IsMouseOver() or factionFrame:IsMouseOver() or (WQT_ListContainer.PoIHoverId and WQT_ListContainer.PoIHoverId == questInfo.questID)
 	self.Highlight:SetShown(showHighLight);
 			
 	-- Faction icon
 	if (WQT.settings.list.factionIcon) then
-		self.Faction:Show();
+		factionFrame:Show();
 		local factionData = WQT_Utils:GetFactionDataInternal(questInfo.factionID);
 
-		self.Faction.Icon:SetTexture(factionData.texture);
-		self.Faction:SetWidth(self.Faction.defaultWidth);
+		factionFrame.Icon:SetTexture(factionData.texture);
 	else
-		self.Faction:Hide();
-		self.Faction:SetWidth(0.1);
+		factionFrame:Hide();
 	end
-	self.Faction.Icon:SetDesaturated(isDisliked);
+	factionFrame.Icon:SetDesaturated(isDisliked);
 	
 	-- Type icon
 	if (WQT.settings.list.typeIcon) then
 		self:UpdateQuestType(questInfo)
 	else
 		self.Type:Hide()
-		self.Type:SetWidth(0.1);
 	end
 	self.Type.Bg:SetDesaturated(isDisliked);
 	self.Type.Texture:SetDesaturated(isDisliked);
 	self.Type.Elite:SetDesaturated(isDisliked);
 
 	-- Rewards
-	self.Rewards:Reset();
-	self.Rewards:SetDesaturated(isDisliked);
+	local rewardsFrame = self:GetRewardsFrame();
+	rewardsFrame:Reset();
+	rewardsFrame:SetDesaturated(isDisliked);
 	for k, rewardInfo in questInfo:IterateRewards() do
-		self.Rewards:AddReward(rewardInfo, C_QuestLog.QuestCanHaveWarModeBonus(self.questID));
+		rewardsFrame:AddReward(rewardInfo, C_QuestLog.QuestCanHaveWarModeBonus(self.questID));
 	end
 
 	-- Show border if quest is tracked
@@ -1156,6 +1117,8 @@ function WQT_ListButtonMixin:Update(questInfo, shouldShowZone)
 	else
 		self.TrackedBorder:Hide();
 	end
+
+	self:Layout();
 end
 
 function WQT_ListButtonMixin:FactionOnEnter(frame)
@@ -1347,7 +1310,6 @@ function WQT_ConstrainedChildMixin:OnDragStop()
 end
 
 function WQT_ConstrainedChildMixin:OnUpdate()
-	--
 	if (self.isBeingDragged) then
 		self:ConstrainPosition();
 	end
@@ -1655,12 +1617,6 @@ function WQT_CoreMixin:OnLoad()
 			WQT_ListContainer:UpdateQuestList(true);
 			self.notTracked = nil;
 		end)
-
-	QuestMapFrame.QuestSessionManagement:HookScript("OnShow", function() 
-			if(self:IsShown()) then
-				QuestMapFrame.QuestSessionManagement:Hide();
-			end
-		end);
 end
 
 function WQT_CoreMixin:RegisterEventsForExternal(external)
@@ -1929,7 +1885,7 @@ function WQT_CoreMixin:ChangeAnchorLocation(anchor)
 		WQT_WorldQuestFrame:ClearAllPoints();
 		WQT_WorldQuestFrame:SetParent(WQT.contentFrame);
 		WQT_WorldQuestFrame:SetPoint("TOPLEFT", WQT.contentFrame, 0, -29);
-		WQT_WorldQuestFrame:SetPoint("BOTTOMRIGHT", WQT.contentFrame, -22, 9);
+		WQT_WorldQuestFrame:SetPoint("BOTTOMRIGHT", WQT.contentFrame, -22, 0);
 	elseif (anchor == _V["LIST_ANCHOR_TYPE"].full) then
 		WQT_WorldQuestFrame:ClearAllPoints(); 
 		WQT_WorldQuestFrame:SetParent(WQT_WorldMapContainer);

@@ -250,6 +250,268 @@ function WQT_MiniIconOverlayMixin:UpdatePlacement()
 	end
 end
 
+----------------------------
+-- Layout Frames
+----------------------------
+
+local function IsLayoutFrame(frame)
+	return frame.IsLayoutFrame and frame:IsLayoutFrame();
+end
+
+
+local noTableGetLayoutChildrenMixin = {}
+
+-- Replace GetLayout to not create a table every time
+function noTableGetLayoutChildrenMixin:GetLayoutChildren()
+	if (not self.children) then
+		self.children = {};
+	end
+	wipe(self.children);
+	local children = self.children;
+	self:AddLayoutChildren(children, self:GetChildren());
+	self:AddLayoutChildren(children, self:GetRegions());
+	self:AddLayoutChildren(children, self:GetAdditionalRegions());
+	if not self:IgnoreLayoutIndex() then
+		table.sort(children, LayoutIndexComparator);
+	end
+
+	return children;
+end
+
+WQT_HorizontalLayoutMixin = CreateFromMixins(HorizontalLayoutMixin, noTableGetLayoutChildrenMixin);
+
+
+-- Arranges children right to left bottom to top with 'stride' children per column
+-- A child's strideSize determines how many spaces it will take up per column
+-- This is bare minimum for a for a specific use case
+WQT_GridLayoutMixin = CreateFromMixins(LayoutMixin, noTableGetLayoutChildrenMixin);
+
+function WQT_GridLayoutMixin:GetChildStrideSize(child)
+	return child.strideSize or 1;
+end
+
+function WQT_GridLayoutMixin:GetStride()
+	return self.stride or 1;
+end
+
+function WQT_GridLayoutMixin:LayoutChildren(children, expandToWidth, expandToHeight)
+	local frameLeftPadding, frameRightPadding, frameTopPadding, frameBottomPadding = self:GetPadding();
+	local spacing = self.spacing or 0;
+	local stride = self:GetStride();
+	local childrenWidth, childrenHeight = 0, 0;
+	local hasExpandableChild = false;
+
+	local totalStride = 0;
+	local columnMax = 0;
+	local columCurrent = 0;
+	local rightOffset = 0;
+	local columnHeight = 0;
+	local columnWidth = 0;
+
+	for i, child in ipairs(children) do
+		if (not self.skipChildLayout and IsLayoutFrame(child)) then
+			child:Layout();
+		end
+
+		local leftPadding, rightPadding, topPadding, bottomPadding = self:GetChildPadding(child);
+		local childWidth, childHeight = self:GetChildSize(child);
+		local strideSize = min(self:GetChildStrideSize(child), stride);
+
+		if (totalStride % stride == 0) then
+			childrenWidth = childrenWidth + columnWidth;
+			rightOffset = childrenWidth;
+			columnHeight = 0;
+			columnWidth = 0;
+		end
+
+		columnWidth = max(columnWidth, childWidth + leftPadding + rightPadding);
+
+		child:ClearAllPoints();
+		child:SetPoint("BOTTOMRIGHT", self, -rightOffset - frameRightPadding - rightPadding, columnHeight + bottomPadding);
+
+		columnHeight = columnHeight + childHeight + bottomPadding + topPadding;
+		childrenHeight = max(childrenHeight, columnHeight);
+
+		columnMax = max(columnMax, columCurrent)
+		totalStride = totalStride + strideSize;
+	end
+
+	childrenWidth = childrenWidth + columnWidth;
+
+	return childrenWidth, childrenHeight, hasExpandableChild;
+end
+
+-- Allow children to spread across the space left over in the parent's size
+-- If a parent has size 150, a child with size 30, a child with flexSize 2, and a child with flexSize 3
+-- The children would end up with sizes 30, 48 (2/5*120), 72 (3/5*120)
+local flexLayoutFrame = CreateFromMixins(LayoutMixin, noTableGetLayoutChildrenMixin);
+
+function flexLayoutFrame:GetChildFlexSize(child)
+	return child.flexSize or 0;
+end
+
+WQT_HorizontalFlexLayoutMixin = CreateFromMixins(flexLayoutFrame);
+
+function WQT_HorizontalFlexLayoutMixin:LayoutChildren(children, expandToWidth, expandToHeight)
+	local leftOffset, rightOffset, frameTopPadding, frameBottomPadding = self:GetPadding();
+	local spacing = self.spacing or 0;
+	local hasExpandableChild = false;
+
+	local availableFlexSpace = self:GetWidth() - leftOffset - rightOffset;
+	local totalflexSize = 0;
+
+	for i, child in ipairs(children) do
+		if (not self.skipChildLayout and IsLayoutFrame(child)) then
+			child:Layout();
+		end
+
+		local flexSize = self:GetChildFlexSize(child);
+		if (flexSize > 0) then
+			totalflexSize = totalflexSize + self:GetChildFlexSize(child);
+		else
+			availableFlexSpace = availableFlexSpace - self:GetChildWidth(child);
+		end
+
+		local leftPadding, rightPadding, topPadding, bottomPadding = self:GetChildPadding(child);
+		availableFlexSpace = availableFlexSpace - leftPadding - rightPadding;
+		if (i > 1) then
+			availableFlexSpace = availableFlexSpace - spacing;
+		end
+	end
+
+	local flexSpaceChunk = totalflexSize > 1 and availableFlexSpace / totalflexSize or availableFlexSpace;
+
+	for i, child in ipairs(children) do
+		local leftPadding, rightPadding, topPadding, bottomPadding = self:GetChildPadding(child);
+		local childWidth, childHeight = self:GetChildSize(child);
+
+		if (child.expand) then
+			hasExpandableChild = true;
+
+			if expandToHeight then
+				childHeight = expandToHeight - topPadding - bottomPadding - frameTopPadding - frameBottomPadding;
+				child:SetHeight(childHeight);
+				
+
+				local ignoreRectYes = true;
+				childWidth = self:GetChildWidth(child, ignoreRectYes);
+			end
+		end
+
+		local flexSize = self:GetChildFlexSize(child);
+		if (flexSize > 0) then
+			childWidth = flexSize * flexSpaceChunk;
+			
+			child:SetWidth(childWidth);
+			if (IsLayoutFrame(child)) then
+				child:SetFixedWidth(childWidth);
+				if (not self.skipChildLayout) then
+					child:Layout();
+				end
+			end
+		end
+
+		child:ClearAllPoints();
+
+		leftOffset = leftOffset + leftPadding;
+		if (child.align == "bottom") then
+			local bottomOffset = frameBottomPadding + bottomPadding;
+			child:SetPoint("BOTTOMLEFT", leftOffset, bottomOffset);
+		elseif (child.align == "center") then
+			local topOffset = (frameTopPadding - frameBottomPadding + topPadding - bottomPadding) / 2;
+			child:SetPoint("LEFT", leftOffset, -topOffset);
+		else
+			local topOffset = frameTopPadding + topPadding;
+			child:SetPoint("TOPLEFT", leftOffset, -topOffset);
+		end
+		leftOffset = leftOffset + childWidth + rightPadding + spacing;
+	end
+
+	return self:GetWidth(), self:GetHeight(), hasExpandableChild;
+end
+
+
+
+WQT_VerticalFlexLayoutMixin = CreateFromMixins(flexLayoutFrame);
+
+function WQT_VerticalFlexLayoutMixin:LayoutChildren(children, expandToWidth, expandToHeight)
+	local frameLeftPadding, frameRightPadding, frameTopPadding, frameBottomPadding = self:GetPadding();
+	local spacing = self.spacing or 0;
+	local hasExpandableChild = false;
+	local availableFlexSpace = self:GetHeight() - frameTopPadding - frameBottomPadding;
+	local totalflexSize = 0;
+
+	for i, child in ipairs(children) do
+		if (not self.skipChildLayout and IsLayoutFrame(child)) then
+			child:Layout();
+		end
+
+		local flexSize = self:GetChildFlexSize(child);
+		if (flexSize > 0) then
+			totalflexSize = totalflexSize + self:GetChildFlexSize(child);
+		else
+			availableFlexSpace = availableFlexSpace - self:GetChildHeight(child);
+		end
+
+		local _, _, topPadding, bottomPadding = self:GetChildPadding(child);
+		availableFlexSpace = availableFlexSpace - topPadding - bottomPadding;
+		if (i > 1) then
+			availableFlexSpace = availableFlexSpace - spacing;
+		end
+	end
+
+	local flexSpaceChunk = totalflexSize > 1 and availableFlexSpace / totalflexSize or availableFlexSpace;
+
+	for i, child in ipairs(children) do
+		local leftPadding, rightPadding, topPadding, bottomPadding = self:GetChildPadding(child);
+		local childWidth, childHeight = self:GetChildSize(child);
+
+		if (child.expand) then
+			hasExpandableChild = true;
+
+			if (expandToWidth) then
+				childWidth = expandToWidth - leftPadding - rightPadding - frameLeftPadding - frameRightPadding;
+				child:SetWidth(childWidth);
+
+				local ignoreRectYes = true;
+				childHeight = self:GetChildHeight(child, ignoreRectYes);
+			end
+		end
+
+		local flexSize = self:GetChildFlexSize(child);
+		if (flexSize > 0) then
+			childHeight = flexSize * flexSpaceChunk;
+			
+			child:SetHeight(childHeight);
+			if (IsLayoutFrame(child)) then
+				child:SetFixedHeight(childHeight);
+				if (not self.skipChildLayout) then
+					child:Layout();
+				end
+			end
+		end
+
+		child:ClearAllPoints();
+
+		frameTopPadding = frameTopPadding + topPadding;
+		if (child.align == "right") then
+			local rightOffset = frameRightPadding + rightPadding;
+			child:SetPoint("TOPRIGHT", -rightOffset, -frameTopPadding);
+		elseif (child.align == "center") then
+			local leftOffset = (frameLeftPadding - frameRightPadding + leftPadding - rightPadding) / 2;
+			child:SetPoint("TOP", leftOffset, -frameTopPadding);
+		else
+			local leftOffset = frameLeftPadding + leftPadding;
+			child:SetPoint("TOPLEFT", leftOffset, -frameTopPadding);
+		end
+
+		-- Determine topOffset for next frame
+		frameTopPadding = frameTopPadding + childHeight + bottomPadding + spacing;
+	end
+
+	return self:GetWidth(), self:GetHeight(), hasExpandableChild;
+end
+
 
 ----------------------------
 -- Utilities
@@ -390,7 +652,7 @@ function WQT_Utils:GetQuestTimeString(questInfo, fullString, unabreviated)
 	
 	timeLeftMinutes = C_TaskQuest.GetQuestTimeLeftMinutes(questInfo.questID) or 0;
 	timeLeftSeconds = C_TaskQuest.GetQuestTimeLeftSeconds(questInfo.questID) or 0;
-	if ( timeLeftSeconds  and timeLeftSeconds > 0) then
+	if ( timeLeftSeconds and timeLeftSeconds > 0) then
 		local displayTime = timeLeftSeconds
 		if (displayTime < SECONDS_PER_HOUR  and displayTime >= SECONDS_PER_MIN ) then
 			displayTime = displayTime + SECONDS_PER_MIN ;
@@ -398,10 +660,10 @@ function WQT_Utils:GetQuestTimeString(questInfo, fullString, unabreviated)
 	
 		if ( timeLeftSeconds < WORLD_QUESTS_TIME_CRITICAL_MINUTES * SECONDS_PER_MIN  ) then
 			color = WQT_Utils:GetColor(_V["COLOR_IDS"].timeCritical);--RED_FONT_COLOR;
-			timeString = SecondsToTime(displayTime, displayTime > SECONDS_PER_MIN  and true or false, unabreviated);
+			timeString = SecondsToTime(displayTime, displayTime > SECONDS_PER_MIN and (not fullString) or false, unabreviated);
 			category = _V["TIME_REMAINING_CATEGORY"].critical;
 		elseif displayTime < SECONDS_PER_HOUR   then
-			timeString = SecondsToTime(displayTime, true);
+			timeString = SecondsToTime(displayTime, not fullString, unabreviated);
 			color = WQT_Utils:GetColor(_V["COLOR_IDS"].timeShort);--_V["WQT_ORANGE_FONT_COLOR"];
 			category = _V["TIME_REMAINING_CATEGORY"].short
 		elseif displayTime < SECONDS_PER_DAY   then
@@ -470,6 +732,15 @@ function WQT_Utils:GetPinTime(questInfo)
 		timeLeft = (timeLeft + offset);
 	end
 	return start, total, timeLeft, seconds, color, timeStringShort, category;
+end
+
+function WQT_Utils:TimeLeftToUpdateTime(timeLeft, showingSecondary)
+	if (timeLeft and timeLeft > 0) then
+		local minutesForUpdatePerSecond = showingSecondary and 60 or 2;
+		return timeLeft > SECONDS_PER_MIN * minutesForUpdatePerSecond and SECONDS_PER_MIN or 1;
+	end
+
+	return 0;
 end
 
 function WQT_Utils:ShowQuestTooltip(button, questInfo, style, xOffset, yOffset)
@@ -989,6 +1260,57 @@ function WQT_Utils:IsFilterDisabledByOfficial(key)
 	end
 
 	return false
+end
+
+function WQT_Utils:GetLocalizedAbbreviatedNumber(number)
+	if type(number) ~= "number" then return "NaN" end;
+
+	local intervals = _L["IS_AZIAN_CLIENT"] and _V["NUMBER_ABBREVIATIONS_ASIAN"] or _V["NUMBER_ABBREVIATIONS"];
+	
+	for i = 1, #intervals do
+		local interval = intervals[i];
+		local value = interval.value;
+		local valueDivTen = value / 10;
+		if (number >= value) then
+			if (interval.decimal) then
+				local rest = number - floor(number/value)*value;
+				if (rest < valueDivTen) then
+					return interval.format:format(floor(number/value));
+				else
+					return interval.format:format(floor(number/valueDivTen)/10);
+				end
+			end
+			return interval.format:format(floor(number/valueDivTen));
+		end
+	end
+	
+	return number;
+end
+
+function WQT_Utils:GetDisplayRewardAmount(rewardInfo, warmode)
+	local reward = rewardInfo;
+	local amount = reward and reward.amount or 0;
+	local display = "";
+	if (reward and amount > 0) then
+		if (warmode) then
+			amount = WQT_Utils:CalculateWarmodeAmount(reward);
+		end
+
+		local displayAmount =  amount
+		if (reward.type == WQT_REWARDTYPE.gold) then
+			displayAmount = floor(displayAmount / 10000);
+		end
+
+		display = WQT_Utils:GetLocalizedAbbreviatedNumber(displayAmount);
+
+		if (reward.type == WQT_REWARDTYPE.relic) then
+			display = string.format("+%s", display);
+		elseif (reward.canUpgrade) then
+			display = string.format("%s+", display);
+		end
+	end
+
+	return display, amount;
 end
 
 --------------------------
