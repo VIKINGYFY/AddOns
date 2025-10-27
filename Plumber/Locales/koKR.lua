@@ -80,8 +80,7 @@ L["ModuleDescription GossipFrameMedal Format"] = "기본 아이콘 %s을(를) �
 
 --DruidModelFix (Disabled after 10.2.0)
 L["ModuleName DruidModelFix"] = "드루이드 모델 수정";
-L["ModuleDescription DruidModelFix"] = "별의 문양(Glyph of Stars) 사용 시 발생하는 캐릭터 UI 모델 표시 문제를 수정합니다.\n\n이 버그는 블리자드가 10.2.0 패치에서 수정할 예정이며, 해당 모듈은 이후 제거됩니다.";
-								   
+L["ModuleDescription DruidModelFix"] = "별의 문양(Glyph of Stars) 사용 시 발생하는 캐릭터 UI 모델 표시 문제를 수정합니다.\n\n이 버그는 블리자드가 10.2.0 패치에서 수정할 예정이며, 해당 모듈은 이후 제거됩니다.";								   
 
 --PlayerChoiceFrameToken (PlayerChoiceFrame)
 L["ModuleName PlayerChoiceFrameToken"] = "선택 UI: 아이템 비용";
@@ -365,8 +364,16 @@ L["Infinite Knowledge Bonus Format"] = "현재 보너스: |cffffffff%s|r";
 L["Infinite Knowledge Bonus Next Format"] = "다음 단계: %s";
 
 --ItemUpgradeUI
-L["ModuleName ItemUpgradeUI"] = "아이템 업그레이드: 캐릭터 창 표시"
-L["ModuleDescription ItemUpgradeUI"] = "아이템 업그레이드 NPC와 상호작용 시 캐릭터 창을 자동으로 엽니다."
+L["ModuleName ItemUpgradeUI"] = "아이템 업그레이드: 캐릭터 창 표시";
+L["ModuleDescription ItemUpgradeUI"] = "아이템 업그레이드 NPC와 상호작용 시 캐릭터 창을 자동으로 엽니다.";
+
+--HolidayDungeon
+L["ModuleName HolidayDungeon"] = "이벤트 던전 자동 선택";
+L["ModuleDescription HolidayDungeon"] = "던전 찾기를 처음 열 때 이벤트 및 시간 여행 던전을 자동으로 선택합니다.";
+
+--PlayerPing
+L["ModuleName PlayerPing"] = "지도 핀: 플레이어 위치 강조";
+L["ModuleDescription PlayerPing"] = "다음 상황에서 플레이어의 위치를 시각적으로 강조합니다:\n\n- 월드 지도를 열 때\n- ALT 키를 누를 때\n- 최대화 버튼을 클릭할 때\n\n|cffd4641c기본적으로 WoW는 지도를 전환할 때만 플레이어 위치를 표시합니다.|r";
 
 --Loot UI
 L["ModuleName LootUI"] = HUD_EDIT_MODE_LOOT_FRAME_LABEL or "Loot Window";
@@ -407,6 +414,8 @@ L["LootUI Option Combine Items"] = "유사 아이템 묶어서 표시"
 L["Junk Items"] = "잡동사니 아이템";
 L["LootUI Option Combine Items"] = "유사 아이템 통합 표시";
 L["LootUI Option Combine Items Tooltip"] = "유사한 아이템을 하나의 행에 묶어 표시합니다.\n\n지원되는 분류:\n\n- 잡템\n- 시대의 기념품 (리전 리믹스)"
+L["LootUI Option Low Frame Strata"] = "뒤로 보내기";
+L["LootUI Option Low Frame Strata Tooltip"] = "전리품 알림 모드에서 전리품 창을 다른 UI 뒤로 배치합니다.\n\n이 옵션은 수동 전리품 모드에는 영향을 주지 않습니다.";
 
 --Quick Slot For Third-party Dev
 L["Quickslot Module Info"] = "모듈 정보";
@@ -510,7 +519,8 @@ L["Join Queue"] = WOW_LABS_JOIN_QUEUE or "Join Queue";
 L["In Queue"] = BATTLEFIELD_QUEUE_STATUS or "In Queue";
 L["Click To Switch"] = "전환하려면 클릭 |cffffffff%s|r";
 L["Click To Queue"] = "대기열에 참여하려면 클릭 |cffffffff%s|r";
-L["Click to Open Format"] = "열기 클릭 %s";													   
+L["Click to Open Format"] = "열기 클릭 %s";
+L["List Is Empty"] = "목록이 비어 있습니다.";
 
 --Generic
 L["Total Colon"] = FROM_TOTAL or "Total:";
@@ -556,7 +566,7 @@ L["currency-2916"] = "룬새김";
 L["currency-2917"] = "금빛";
 
 L["Scenario Delves"] = "구렁";
-L["GameObject Door"] = "Door";
+L["GameObject Door"] = "문";
 L["Delve Chest 1 Rare"] = "풍요의 금고";   --We'll use the GameObjectID once it shows up in the database
 
 L["Season Maximum Colon"] = "시즌 상한선:";  --CURRENCY_SEASON_TOTAL_MAXIMUM
@@ -566,6 +576,9 @@ L["Devourer Attack"] = "포식자 습격"
 L["Restored Coffer Key"] = "복원된 보관함 열쇠"
 L["Coffer Key Shard"] = "보관함 열쇠 파편"
 L["Epoch Mementos"] = "시대의 기념품";
+
+L["CONFIRM_PURCHASE_NONREFUNDABLE_ITEM"] = "%s : 정말로 다음 아이템으로 교환하시겠습니까?\n\n|cffff2020아이템은 환불받을 수 없습니다.|r\n %s";
+
 
 --Map Pin Filter Name (name should be plural)
 L["Bountiful Delve"] =  "풍요로운 구렁";
@@ -585,5 +598,4 @@ L["Upgrade Track 2"] = "탐험가";
 L["Upgrade Track 3"] = "노련가";
 L["Upgrade Track 4"] = "챔피언";
 L["Upgrade Track 5"] = "영웅";
-L["Upgrade Track 6"] = "신화";							  
-							  
+L["Upgrade Track 6"] = "신화";

@@ -38,7 +38,6 @@ ns.currentSourceFile = "RetailZoneMiniMapDungeonminimapLocation.lua"
             minimap[76][18729718] = { id = 226, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Ragefire
             minimap[62][33009467] = { id = 227, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Blackfathom Deeps 
             minimap[77][15097658] = { id = 227, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Blackfathom Deeps 
-            minimap[10][40496868] = { id = 240, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Wailing Caverns
             minimap[7][79421794] = { id = 240, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Wailing Caverns
             minimap[199][46952074] = { id = 240, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Wailing Caverns
             minimap[199][40779446] = { id = 234, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Razorfen Kraul
@@ -66,6 +65,10 @@ ns.currentSourceFile = "RetailZoneMiniMapDungeonminimapLocation.lua"
             minimap[1527][76708435] = { id = 68, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- The Vortex Pinnacle
             minimap[69][76453593] = { id = 1276, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dire Maul - Warpwood Quarter - East above Camp Mojache -- only Minimap
             minimap[69][66773483] = { id = 1276, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dire Maul - Warpwood Quarter - East above Camp Mojache -- only Minimap
+          end
+
+          if self.db.profile.showMiniMapDungeons and not self.db.profile.showMiniMapPassage then 
+            minimap[10][40496868] = { id = 240, type = "Dungeon", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Wailing Caverns
           end
 
           -- Kalimdor PetBattleDungeons

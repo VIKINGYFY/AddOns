@@ -82,6 +82,7 @@ local db = ns.Addon.db.profile
         self.db.profile.showMinimapCapitalsSot7S = self.db.profile.showCapitalsSot7S
         self.db.profile.showMinimapCapitalsStormshield = self.db.profile.showCapitalsStormshield
         self.db.profile.showMinimapCapitalsWarspear = self.db.profile.showCapitalsWarspear
+        self.db.profile.showMinimapCapitalsHousing = self.db.profile.showCapitalsHousing
         self.db.profile.showMinimapCapitalsDazarAlor = self.db.profile.showCapitalsDazarAlor
         self.db.profile.showMinimapCapitalsBoralus = self.db.profile.showCapitalsBoralus
         self.db.profile.showMinimapCapitalsOribos = self.db.profile.showCapitalsOribos

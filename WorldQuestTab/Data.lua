@@ -934,7 +934,7 @@ _V["REWARD_TYPE_ATLAS"] = {
 		,[WQT_REWARDTYPE.reputation] = {["texture"] = "QuestRepeatableTurnin", ["scale"] = 1.2} -- Rep
 		,[WQT_REWARDTYPE.xp] = {["texture"] = "poi-door-arrow-up", ["scale"] = .9} -- xp
 		,[WQT_REWARDTYPE.spell] = {["texture"] = "Banker", ["scale"] = 1.1}  -- spell acts like item
-		,[WQT_REWARDTYPE.anima] = {["texture"] =  "Interface/Addons/WorldQuestTab/Images/AnimaIcon", ["scale"] = 1.15, ["l"] = 0, ["r"] = 1, ["t"] = 0, ["b"] = 1, ["color"] = CreateColor(0.8, 0.8, 0.9)} -- Anima
+		,[WQT_REWARDTYPE.anima] = {["texture"] =  "AncientMana", ["scale"] = 1.5} -- Anima
 		,[WQT_REWARDTYPE.conduit] = {
 			[_V["CONDUIT_SUBTYPE"].potency] = {["texture"] =  "soulbinds_tree_conduit_icon_attack", ["scale"] = 1.15};
 			[_V["CONDUIT_SUBTYPE"].endurance] = {["texture"] =  "soulbinds_tree_conduit_icon_protect", ["scale"] = 1.15};
@@ -1513,6 +1513,14 @@ end
 -- fixes			List of bugfixes
 
 local patchNotes = {
+		{["version"] = "11.2.07";
+			["changes"] = {
+				"Made the reward quality in the quest list more clear";
+			};
+			["fixes"] = {
+				"Fixed the right click menu on map pins not showing";
+			};
+		};
 		{["version"] = "11.2.06";
 			["new"] = {
 				"Added an option to Map Pins - Main Icon Type to show the quest's faction icon";
@@ -1522,7 +1530,7 @@ local patchNotes = {
 			["changes"] = {
 				"Moved the map pin Time Label setting into a dropdown together with the new reward amount setting";
 				"Slightly increased the interaction area of map pins";
-				"Some visual changes to pin labels which seems to have also fixes jittery pin visuals";
+				"Some visual changes to pin labels which seems to have also fixed jittery pin visuals";
 				"Reworked how quests info structured. Easier to maintain and seems to have fixed glitchy quest title positioning";
 			};
 			["fixes"] = {

@@ -1,7 +1,7 @@
 ## X-Flavor: retail
 ## X-Expansion: TWW
 ## Interface: 110205
-## Version: 1.7.7
+## Version: 1.7.9
 
 ## Title: Plumber
 
@@ -75,6 +75,7 @@ Modules\ProfessionsBook.lua
 Modules\ExpansionLandingPage\ExpansionLandingPage_TWW.xml
 Modules\BlizzFix_ModelLoading.lua
 Modules\Timerunning\LegionRemix.xml
+Modules\HolidayDungeon.lua
 
 #Modules\MerchantUI\MerchantUI.xml
 

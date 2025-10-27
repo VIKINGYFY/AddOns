@@ -7,7 +7,7 @@ ns.Debug = ns.Debug or {
 }
 
 function ns.IsAchievementCompleted(achievementID)
-    if ns.Addon.db.profile.DeveloperMode then
+    if ns.DevMode() then
         if IsAltKeyDown() then return false end
         if ns.Debug.ForceAchievementsUncompleted then return false end
     end
@@ -17,7 +17,7 @@ end
 
 
 function ns.IsQuestLearned(questIDs)
-    if ns.Addon.db.profile.DeveloperMode then 
+    if ns.DevMode() then 
         if IsAltKeyDown() then return false end
         if ns.Debug.ForceQuestsUnlearned then return false end
     end

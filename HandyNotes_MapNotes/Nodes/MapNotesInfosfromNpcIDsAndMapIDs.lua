@@ -44,7 +44,7 @@ ns.Silvermoon = mapName(110)
 ns.IsleOfQuelDanas = mapName(122)
 ns.Vashjir = mapName(203)
 ns.RuinsofGilneas = mapName(217)
-ns.TolBarad = mapName(224)
+ns.TolBarad = mapName(245)
 ns.TwilightHighlands = mapName(241)
 ns.Deepruntram = mapName(499)
 ns.Deadmines = mapName(835)
@@ -121,6 +121,9 @@ ns.CityOfThreads = mapName(2213)
 ns.Dornogal = mapName(2339)
 ns.SirenIsle = mapName(2369)
 ns.Tazavesh = mapName(2472)
+------------------------------------ Housing
+ns.RazorwindShores = mapName(2351)
+ns.FoundersPoint = mapName(2352)
 
 ------------------------------------ continents
 ns.Kalimdor = mapName(12)
@@ -157,7 +160,7 @@ ns.TheramoreIsle = areaName(15)
 ns.DarkPortal = areaName(72)
 ns.ShadoPanGarison = areaName(6197)
 ------------------------------------ Sub Zones Horde
-ns.Gromgol = areaName(33)
+ns.Gromgol = areaName(117)
 ns.RuinsofLordaeron = areaName(153)
 ns.Volmar = areaName(7523)
 ------------------------------------ Sub Zones Alliance
@@ -275,6 +278,8 @@ ns.WeaponsSupplierM = npcTitleLine1(110434) -- Kristoff
 ns.WeaponsSupplierF = npcTitleLine1(110595) -- Lilith
 ns.InnkeeperM = npcTitleLine1(98106) -- Elliot Theodric
 ns.InnkeeperF = npcTitleLine1(100746) -- Folla Strenghuf
+ns.StablemasterM = npcTitleLine1(44788) -- Lonto
+ns.StablemasterF = npcTitleLine1(53780) -- Lonto
 ns.SkinningM = npcTitleLine1(7088) -- Thuwd
 ns.CookingM = npcTitleLine1(133261) -- Feng Su
 ns.CookingF = npcTitleLine1(46709) -- Arugi

@@ -76,7 +76,7 @@ end
 ---@class DBM
 local DBM = private:GetPrototype("DBM")
 _G.DBM = DBM
-DBM.Revision = parseCurseDate("20251023043114")
+DBM.Revision = parseCurseDate("20251026154947")
 DBM.TaintedByTests = false -- Tests may mess with some internal state, you probably don't want to rely on DBM for an important boss fight after running it in test mode
 
 local fakeBWVersion, fakeBWHash = 398, "3d79f92"--398.5
@@ -889,6 +889,9 @@ function DBM:MidRestrictionsActive(includeAuras)
 	if private.IsEncounterInProgress() or C_ChallengeMode.IsChallengeModeActive() then
 		return true
 	end
+	--if GetActiveMatchState() == 3 then--In active PVP match
+	--	return true
+	--end
 	--Comms and chat messages blocked. might be redundant to above but for good measure
 	if C_ChatInfo.InChatMessagingLockdown() then
 		return true
@@ -9422,7 +9425,7 @@ function bossModPrototype:ReceiveSync(event, sender, revision, ...)
 	end
 end
 
----@param revision number|string Either a number in the format "202101010000" (year, month, day, hour, minute) or string "20251016060107" to be auto set by packager
+---@param revision number|string Either a number in the format "202101010000" (year, month, day, hour, minute) or string "20251026154947" to be auto set by packager
 function bossModPrototype:SetRevision(revision)
 	revision = parseCurseDate(revision or "")
 	if not revision or type(revision) == "string" then

@@ -58,7 +58,9 @@ ns.icons = {
 ["OriginalPvPVendorA"] = iconLink .. "PvPVendorA",
 ["OriginalPvEVendorH"] = iconLink .. "PvEVendorH",
 ["OriginalPvEVendorA"] = iconLink .. "PvEVendorA",
--- Icons if enemy faction is disabled for General zone icons
+["OriginalRenownQuartermasterH"] = iconLink .. "RenownQuartermasterH",
+["OriginalRenownQuartermasterA"] = iconLink .. "RenownQuartermasterA",
+-- Icons if enemy faction is disabled for General minimap icons
 ["MMInnkeeperA"] = iconLink .. "InnkeeperA",
 ["MMInnkeeperH"] = iconLink .. "InnkeeperH",
 ["MMStablemasterH"] = iconLink .. "StablemasterH",
@@ -70,11 +72,23 @@ ns.icons = {
 ["MMPvPVendorA"] = iconLink .. "PvPVendorA",
 ["MMPvEVendorH"] = iconLink .. "PvEVendorH",
 ["MMPvEVendorA"] = iconLink .. "PvEVendorA",
+["MMRenownQuartermasterH"] = iconLink .. "RenownQuartermasterH",
+["MMRenownQuartermasterA"] = iconLink .. "RenownQuartermasterA",
+-- Icons if enemy faction is disabled for General zone icons
 ["ZonePvEVendor"] = iconLink .. "PvEVendor",
 ["ZonePvEVendorH"] = iconLink .. "PvEVendorH",
 ["ZonePvPVendorH"] = iconLink .. "PvPVendorH",
 ["ZonePvEVendorA"] = iconLink .. "PvEVendorA",
 ["ZonePvPVendorA"] = iconLink .. "PvPVendorA",
+["ZoneRenownQuartermasterH"] = iconLink .. "RenownQuartermasterH",
+["ZoneRenownQuartermasterA"] = iconLink .. "RenownQuartermasterA",
+-- Icons if enemy faction is disabled for General continent icons
+["ContinentPvEVendorH"] = iconLink .. "PvEVendorH",
+["ContinentPvEVendorA"] = iconLink .. "PvEVendorA",
+["ContinentPvPVendorH"] = iconLink .. "PvPVendorH",
+["ContinentPvPVendorA"] = iconLink .. "PvPVendorA",
+["ContinentRenownQuartermasterH"] = iconLink .. "RenownQuartermasterH",
+["ContinentRenownQuartermasterA"] = iconLink .. "RenownQuartermasterA",
 --Professions MN New
 ["ProfessionsMixed"] = "interface/minimap/tracking/profession",
 ["ProfessionOrders"] = iconLink .. "CraftingOrders",
@@ -595,6 +609,7 @@ TextIconKT = TextIcon("interface/characterframe/temporaryportrait-Male-KulTiran"
 TextIconSL = TextIcon("interface/icons/achievement_leader_sylvanas")
 TextIconDF = TextIcon("interface/characterframe/temporaryportrait-Male-Dracthyr")
 TextIconKA = TextIcon("interface/lfgframe/lfgicon-khazalgar")
+TextIconHousing = TextIcon(iconLink .. "Housing")
 --race portrait icons
 TextIconMOrcM = TextIcon("interface/characterframe/temporaryportrait-male-magharorc")
 TextIconMOrcF = TextIcon("interface/characterframe/temporaryportrait-female-magharorc")

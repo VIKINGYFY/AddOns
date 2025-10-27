@@ -43,8 +43,6 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local cargBags = ns.cargBags
 
-local GetContainerNumFreeSlots = C_Container.GetContainerNumFreeSlots
-
 local tagPool, tagEvents, object = {}, {}
 local function tagger(tag, ...) return object.tags[tag] and object.tags[tag](object, ...) or "" end
 
@@ -97,26 +95,26 @@ local function GetNumFreeSlots(name)
 	if name == "Bag" then
 		local totalFree, freeSlots, bagFamily = 0
 		for i = 0, 4 do -- reagent bank excluded
-			freeSlots, bagFamily = GetContainerNumFreeSlots(i)
+			freeSlots, bagFamily = C_Container.GetContainerNumFreeSlots(i)
 			if bagFamily == 0 then
 				totalFree = totalFree + freeSlots
 			end
 		end
 		return totalFree
 	elseif name == "Bank" then
-		local numFreeSlots = GetContainerNumFreeSlots(-1)
+		local numFreeSlots = 0
 		for bagID = 6, 11 do
-			numFreeSlots = numFreeSlots + GetContainerNumFreeSlots(bagID)
+			numFreeSlots = numFreeSlots + C_Container.GetContainerNumFreeSlots(bagID)
 		end
 		return numFreeSlots
 	elseif name == "Reagent" then
-		return GetContainerNumFreeSlots(-3)
+		return C_Container.GetContainerNumFreeSlots(-3)
 	elseif name == "BagReagent" then
-		return GetContainerNumFreeSlots(5)
+		return C_Container.GetContainerNumFreeSlots(5)
 	elseif name == "Account" then
 		local numFreeSlots = 0
-		for bagID = 13, 17 do
-			numFreeSlots = numFreeSlots + GetContainerNumFreeSlots(bagID)
+		for bagID = 12, 16 do
+			numFreeSlots = numFreeSlots + C_Container.GetContainerNumFreeSlots(bagID)
 		end
 		return numFreeSlots
 	end

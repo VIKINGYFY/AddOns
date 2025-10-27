@@ -808,6 +808,8 @@ nodes[2322] = { } -- Hall of Awakening
 nodes[2346] = { } -- Undermine
 nodes[2371] = { } -- K'aresh
 nodes[2472] = { } -- Tazavesh
+nodes[2351] = { } -- Razorwind Shores (Housing)
+nodes[2352] = { } -- Founder's Point (Housing)
 -- Dungeon map nodes
 nodes[2315] = { } -- The Rookery - Inside Dungeon Map
 nodes[2335] = { } -- The Cinderbrew Meadery - Inside Dungeon Map

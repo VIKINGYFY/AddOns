@@ -23,88 +23,98 @@ ns.currentSourceFile = "RetailGeneralZoneNodes.lua"
         if self.db.profile.showZoneKalimdor then
 
             if self.db.profile.showZoneZidormi then
-                nodes[62][48862446] = { name = "|cffffffff" .. ns.Zidormi, TransportName = L["Travel through time to another point in the history of"] .. " ".. ns.Darkshore, type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[81][78922197] = { name = "|cffffffff" .. ns.Zidormi, TransportName = L["Travel through time to another point in the history of"] .. " " .. ns.Silithus, type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[249][56013514] = { mnID = 1527, name = "|cffffffff" .. ns.Zidormi, TransportName = L["Travel through time to another point in the history of"] .. " " .. ns.Uldum, type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1527][56013514] = { mnID = 249, name = "|cffffffff" .. ns.Zidormi, TransportName = L["Travel through time to another point in the history of"] .. " " .. ns.Uldum, type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[62][48862446] = { npcID = 141489, name = "", dnID = L["Travel through time to another point in the history of"] .. " ".. ns.Darkshore, type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[81][78922197] = { npcID = 141489, name = "", dnID = L["Travel through time to another point in the history of"] .. " " .. ns.Silithus, type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[249][56013514] = { npcID = 141489, mnID = 1527, name = "", dnID = L["Travel through time to another point in the history of"] .. " " .. ns.Uldum, type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1527][56013514] = { npcID = 141489, mnID = 249, name = "", dnID = L["Travel through time to another point in the history of"] .. " " .. ns.Uldum, type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+            end
+
+            if self.db.profile.showZoneRenownQuartermaster then
+                nodes[249][54053331] = { npcID = 48617, name = "", type = "RenownQuartermaster", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1527][54053331] = { npcID = 48617, name = "", type = "RenownQuartermaster", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZonePvPVendor then
-                nodes[71][51602800] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, type = "PvPVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[71][51552800] = { npcIDs1 = 20278, npcIDs2 = 40216, npcIDs3 = 69323, npcIDs4 = 69322, name = TRANSMOG_SET_PVP .. " " .. MERCHANT, type = "PvPVendor", showInZone = true, showOnContinent = false, showOnMinimap = false }
             
                 if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
-                    nodes[10][40151995] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_HORDE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, type = "ZonePvPVendorH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[10][40151995] = { npcID = 14754, name = TRANSMOG_SET_PVP .. " " .. MERCHANT, type = "ZonePvPVendorH", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
 
                 if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
-                    nodes[63][61488388] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT  .. " " .. FACTION_ALLIANCE ..  "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, type = "ZonePvPVendorA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[63][61488388] = { npcID = 14753, name = TRANSMOG_SET_PVP .. " " .. MERCHANT, type = "ZonePvPVendorA", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
             end
 
             if self.db.profile.showZoneStablemaster then
-                nodes[66][57004960] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[77][44402860] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[83][58605020] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[71][52602740] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                --nodes[81][53203460] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. "\n" .. "\n" .. L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"], type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[198][63202300] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[198][19403620] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[198][41804500] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1527][54603380] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1527][27000760] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[249][54723371] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[249][26970748] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[10][67607420] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[66][57004960] = { npcID = 43877, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[77][44472854] = { npcID = 48216, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[83][58605020] = { npcID = 11119, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[71][52702732] = { npcID = 9985, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[81][53303445] = { npcID = 15722, name = "", dnID = "\n" .. L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"], type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[198][63242314] = { npcID = 43408, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[198][19403623] = { npcID = 53780, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[198][41774522] = { npcID = 50069, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1527][54733371] = { npcID = 164249, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1527][26960745] = { npcID = 163250, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[249][54733371] = { npcID = 48887, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[249][26970748] = { npcID = 49408, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[10][67547429] = { npcID = 10063, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
 
                 if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
-                    nodes[1][52004180] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[10][56403980] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[10][49005760] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[10][62401680] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[7][46985968] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[76][56805000] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[63][73206060] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[63][50206580] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[63][38604240] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[63][12603380] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[65][66206400] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[65][50806300] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[66][24806880] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[69][41401440] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[69][51604800] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[69][74604320] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[207][51205020] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[1][52004180] = { npcID = 9987, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[10][56503993] = { npcID = 43988, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[10][49125748] = { npcID = 9981, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[10][62351688] = { npcID = 43982, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[7][46955976] = { npcID = 10050, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[76][56805000] = { npcID = 43773, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[63][73276068] = { npcID = 15131, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[63][50356601] = { npcID = 43634, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[63][38604240] = { npcID = 43630, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[63][12603380] = { npcID = 43617, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[65][66386398] = { npcID = 41893, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[65][59796322] = { npcID = 10048, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[199][39301986] = { npcID = 44349, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[199][40806962] = { npcID = 44354, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[66][24906867] = { npcID = 11105, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[69][41491565] = { npcID = 44384, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[69][51694796] = { npcID = 44378, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[69][74494327] = { npcID = 9986, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[207][51315023] = { npcID = 45297, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
 
                 if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
-                    nodes[57][56205200] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[97][49004980] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[106][55005980] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[63][36405040] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[65][58605660] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[65][39803220] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[65][31806160] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[66][65600780] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[69][51001800] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[69][46804560] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[70][65235140] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[207][47405160] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[57][56205200] = { npcID = 10051, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[97][48954983] = { npcID = 17485, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[106][55046001] = { npcID = 17666, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[63][36405040] = { npcID = 10052, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[65][58605660] = { npcID = 43021, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[65][39803220] = { npcID = 43017, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[65][31696143] = { npcID = 43019, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[199][65934683] = { npcID = 44348, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[199][48936830] = { npcID = 44347, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[66][65600780] = { npcID = 11104, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[69][51001800] = { npcID = 44382, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[69][46804560] = { npcID = 10059, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[70][65954536] = { npcID = 10047, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[207][47405160] = { npcID = 45298, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
 
             end
 
             if self.db.profile.showZoneAuctioneer then
-                nodes[71][51803040] = { name = "", dnID = MINIMAP_TRACKING_AUCTIONEER .. " - " .. FACTION_NEUTRAL, type = "Auctioneer", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[83][59804920] = { name = "", dnID = MINIMAP_TRACKING_AUCTIONEER .. " - " .. FACTION_NEUTRAL, type = "Auctioneer", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[71][51883053] = { npcID = 8661, name = "", dnID = FACTION_NEUTRAL, type = "Auctioneer", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[83][59974930] = { npcID = 9857, name = "", type = "Auctioneer", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneBank then
-                nodes[71][52202960] = { name = "", dnID = BANK .. " - " .. FACTION_NEUTRAL, type = "Bank", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[83][59804900] = { name = "", dnID = BANK .. " - " .. FACTION_NEUTRAL, type = "Bank", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[10][68407120] = { name = "", dnID = BANK .. " - " .. FACTION_NEUTRAL, type = "Bank", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[71][52272970] = { name = "", dnID = BANK .. "\n" .. GUILD_BANK, type = "Bank", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[83][59974903] = { npcID = 13917, name = "", type = "Bank", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[83][59674910] = { name = "", dnID = GUILD_BANK, type = "Bank", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[10][68367111] = { npcIDs1 = 3496, npcIDs2 = 8119, name = "", type = "Bank", showInZone = true, showOnContinent = false, showOnMinimap = false }
 
                 if self.faction == "Allianz" or db.activate.ZoneEnemyFaction then
-                    nodes[70][67804820] = { name = "", dnID = BANK .. " - " .. FACTION_ALLIANCE, type = "Bank", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[70][67884824] = { npcID = 5083, name = "", dnID = "(" .. FACTION_ALLIANCE .. ")", type = "Bank", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
             end
 
@@ -178,68 +188,67 @@ ns.currentSourceFile = "RetailGeneralZoneNodes.lua"
             end
 
             if self.db.profile.showZoneInnkeeper then
-                nodes[207][49205180] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[70][41807400] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1527][54603280] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1527][26600720] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[66][56805000] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[77][44802900] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[198][63002400] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[198][18603720] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[198][42604560] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[198][18603720] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[64][76607480] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[78][55206220] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[71][52602700] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[71][55606080] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[10][67307466] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[83][59805120] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[249][54673294] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[249][21986447] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[249][26610725] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[81][55523676] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER .. "\n" .. "\n" .. L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"], type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[207][49205180] = { npcID = 45300, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[70][41937419] = { npcID = 23995, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1527][54673293] = { npcID = 162938, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1527][26600720] = { npcID = 163252, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[66][56715002] = { npcID = 43872, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[77][45032934] = { npcID = 48215, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[198][63092409] = { npcID = 40843, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[198][18663727] = { npcID = 53779, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[198][42634573] = { npcID = 50068, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[64][76467480] = { npcID = 40832, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[78][55376225] = { npcID = 38488, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[71][52542701] = { npcID = 7733, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[71][55666099] = { npcID = 38714, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[10][67307466] = { npcID = 6791, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[83][59865119] = { npcID = 11118, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[249][54673294] = { npcID = 48886, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[249][21986447] = { npcID = 49528, name = "", dnID = ns.InnkeeperM, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[249][26610725] = { npcID = 49406, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[81][55523676] = { npcID = 15174, name = "", dnID = L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"], type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
 
                 if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
-                    nodes[65][66406420] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[199][40806920] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[199][39202000] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[70][36803220] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[63][38604220] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[63][50406700] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[63][13003400] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[76][57005040] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[69][41401560] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[69][51804760] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[10][56204000] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[10][62401660] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }    
-                    nodes[63][74006060] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[1][51604160] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[66][24006820] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[69][74804500] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[65][50406380] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[10][49605800] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[7][46806040] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[77][44006193] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[65][66486424] = { npcID = 41892, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[65][50406380] = { npcID = 7731, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[199][40746931] = { npcID = 44276, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[199][39202000] = { npcID = 44270, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[70][36903235] = { npcID = 24208, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[63][38604220] = { npcID = 43624, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[63][50436715] = { npcID = 43633, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[63][13003400] = { npcID = 43606, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[63][73996065] = { npcID = 12196, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[76][57005040] = { npcIDs1 = 43771, npcIDs2 = 49882, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[69][41421577] = { npcID = 40467, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[69][51894743] = { npcID = 44376, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[69][74804518] = { npcID = 7737, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[10][56243998] = { npcID = 43946, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[10][62531658] = { npcID = 43945, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[10][49555789] = { npcID = 3934, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[1][51514165] = { npcID = 6928, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[66][24086821] = { npcID = 11106, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[7][46826046] = { npcID = 6747, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[77][44006193] = { npcID = 48599, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
 
                 if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
-                    nodes[65][59005640] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[65][39403280] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[65][31406060] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[65][71007900] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[199][39001100] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false } 
-                    nodes[199][49006860] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[199][65604660] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[97][48404920] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[106][55605960] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[63][36804940] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[77][61802660] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER .. "\n" .. "\n" .. L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"], type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Phase 12608
-                    nodes[69][46004520] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[69][51001780] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[70][66404540] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[66][66200660] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[57][55405220] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[62][50951853] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER .. "\n" .. "\n" .. L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"], type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Phase 12608
+                    nodes[65][59005640] = { npcID = 40898, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[65][39403280] = { npcID = 41491, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[65][31406060] = { npcID = 44177, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[65][71067908] = { npcID = 41286, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[199][39001100] = { npcID = 44219, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[199][49056855] = { npcID = 44267, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[199][65584656] = { npcID = 44268, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[97][48344914] = { npcID = 16553, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[106][55855980] = { npcID = 17553, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[63][36804940] = { npcID = 6738, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[77][61842677] = { npcID = 47931, name = "", dnID = L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"], type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Phase 12608
+                    nodes[69][46004520] = { npcID = 44391, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[69][51061794] = { npcID = 40968, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[70][66424532] = { npcID = 6272, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[66][66200660] = { npcID = 11103, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[57][55405220] = { npcID = 6736, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[62][50951853] = { npcID = 43420, name = "", dnID = L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"], type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Phase 12608
                 end
 
             end
@@ -255,91 +264,91 @@ ns.currentSourceFile = "RetailGeneralZoneNodes.lua"
 
             if self.db.profile.showZoneRenownQuartermaster then
                 nodes[122][47253072] = { npcID = 25032, name = "", type = "RenownQuartermaster", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[205][49114218] = { npcID = 50324, name = "", type = "RenownQuartermaster", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneZidormi then
-                nodes[18][69456280] = { mnID = 2070, name = "|cffffffff" .. ns.Zidormi, TransportName = L["Travel through time to another point in the history of"] .. " " .. ns.TirisfalGlades, type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[14][38249009] = { name = "|cffffffff" .. ns.Zidormi, TransportName = L["Travel through time to another point in the history of"] .. " " .. ns.ArathiHighlands, type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[17][48160728] = { name = "|cffffffff" .. ns.Zidormi, TransportName = L["Travel through time to another point in the history of"] .. " " .. ns.BlastedLands, type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2070][69456280] = { mnID = 18, name = "|cffffffff" .. ns.Zidormi, TransportName = L["Travel through time to another point in the history of"] .. " " .. ns.TirisfalGlades, type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[18][69456280] = { npcID = 141489, mnID = 2070, name = "", dnID = L["Travel through time to another point in the history of"] .. " " .. ns.TirisfalGlades, type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[14][38249009] = { npcID = 141489, name = "", dnID = L["Travel through time to another point in the history of"] .. " " .. ns.ArathiHighlands, type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[17][48160728] = { npcID = 141489, name = "", dnID = L["Travel through time to another point in the history of"] .. " " .. ns.BlastedLands, type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2070][69456280] = { npcID = 141489, mnID = 18, name = "", dnID = L["Travel through time to another point in the history of"] .. " " .. ns.TirisfalGlades, type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneStablemaster then
-                nodes[210][41407360] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[224][36477993] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, mnID = 210, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[15][65603640] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[32][40606860] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[51][72001480] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[210][41287364] = { npcID = 10060, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[224][36477993] = { npcID = 10060, name = "", mnID = 210, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[15][65603640] = { npcID = 48055, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[32][40716897] = { npcID = 47934, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[51][72001480] = { npcID = 47337, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[122][50313547] = { npcID = 25037, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[205][49404200] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[22][47203180] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER, type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[205][49474192] = { npcID = 41903, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[22][47263188] = { npcID = 47761, name = "", type = "StablemasterN", showInZone = true, showOnContinent = false, showOnMinimap = false }
 
                 if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
-                    nodes[18][61805200] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[14][67993512] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[21][44602080] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[21][46004260] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[25][36206160] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[25][56804680] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[25][59606480] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[94][47604720] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[95][48403120] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[50][38005120] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[210][34802760] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[224][41103221] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, mnID = 50, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }   
-                    nodes[224][33055267] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, mnID = 210, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[14][69003400] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[26][79007960] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[26][32005760] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[22][47806400] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[15][18204220] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[51][47205520] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[241][75605260] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[241][75601680] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[241][53804300] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[241][45207640] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[204][53005920] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[205][51406260] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[2070][59255112] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_HORDE, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[18][61815218] = { npcID = 10055, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[14][67993509] = { npcID = 144140, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[21][44602080] = { npcID = 45498, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[21][46004260] = { npcID = 9979, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[25][36206160] = { npcID = 49395, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[25][56894701] = { npcID = 10057, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[25][59706475] = { npcID = 49431, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[94][47584734] = { npcID = 16185, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[95][48403120] = { npcID = 16665, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[50][37965148] = { npcID = 16094, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[210][34802760] = { npcID = 44191, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[224][41103221] = { npcID = 16094, name = "", mnID = 50, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }   
+                    nodes[224][33055267] = { npcID = 44191, name = "", mnID = 210, type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[26][79167953] = { npcID = 14741, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[26][31885738] = { npcID = 43766, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[22][47926409] = { npcID = 47866, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[15][18364245] = { npcID = 10058, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[51][47325550] = { npcID = 10049, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[241][75645266] = { npcID = 49554, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[241][75481683] = { npcID = 49790, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[241][53804300] = { npcID = 49767, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[241][45207640] = { npcID = 49755, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[204][53005920] = { npcID = 43151, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[205][51466280] = { npcID = 42911, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[2070][59255112] = { npcID = 185946, name = "", type = "StablemasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
 
                 if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
-                    nodes[37][42806580] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[14][39314791] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[52][53005300] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[49][26204300] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[47][74004620] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[27][54005100] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[48][34604800] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[48][84006280] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[56][57604020] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[56][10605960] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[56][26202580] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[14][40004900] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[26][14404520] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[26][66404500] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[15][21005660] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[51][28603360] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[17][46008540] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[241][80607740] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[241][55601480] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[241][48602960] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[241][60205800] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[241][43605740] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[204][56007300] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[205][49005760] = { name = "", dnID = MINIMAP_TRACKING_STABLEMASTER .. " - " .. FACTION_ALLIANCE, type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[37][42866593] = { npcID = 6749, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[14][39314791] = { npcID = 141737, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[52][53005300] = { npcID = 10045, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[49][26204300] = { npcID = 9982, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[47][74004620] = { npcID = 10062, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[27][54125098] = { npcID = 9980, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[48][34644809] = { npcID = 9989, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[48][84006280] = { npcID = 43979, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[56][57734032] = { npcID = 43994, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[56][10465965] = { npcID = 10046, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[56][26112604] = { npcID = 44007, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[26][14404520] = { npcID = 10061, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[26][66444523] = { npcID = 43770, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[15][20945645] = { npcID = 48095, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[51][28563314] = { npcID = 47368, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[17][46008540] = { npcID = 44335, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[241][80617746] = { npcID = 49689, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[241][55541480] = { npcID = 49577, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[241][48662938] = { npcID = 49593, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[241][60205800] = { npcID = 49803, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[241][43715726] = { npcID = 49600, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[204][56007300] = { npcID = 42966, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[205][49005760] = { npcID = 42875, name = "", type = "StablemasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
             end
 
             if self.db.profile.showZoneAuctioneer then
-                nodes[210][40207220] = { name = "", dnID = MINIMAP_TRACKING_AUCTIONEER .. " - " .. FACTION_NEUTRAL, type = "Auctioneer", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[210][43137153] = { name = "", dnID = MINIMAP_TRACKING_AUCTIONEER .. " - " .. FACTION_NEUTRAL, type = "Auctioneer", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[224][37737892] = { name = "", dnID = MINIMAP_TRACKING_AUCTIONEER .. " - " .. FACTION_NEUTRAL, mnID = 210, type = "Auctioneer", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[210][40207220] = { npcID = 15681, name = "", type = "Auctioneer", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[210][43137153] = { npcID = 15677, name = "", type = "Auctioneer", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[224][37737892] = { npcID = 15681, name = "", mnID = 210, type = "Auctioneer", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[224][39397876] = { npcID = 15677, name = "", mnID = 210, type = "Auctioneer", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneBank then
-                nodes[210][40007240] = { name = "", dnID = BANK .. " - " .. FACTION_NEUTRAL, type = "Bank", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[224][36557887] = { name = "", dnID = BANK .. " - " .. FACTION_NEUTRAL, mnID = 210, type = "Bank", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[210][40007240] = { npcIDs1 =  2625, npcIDs2 = 8123, name = "", type = "Bank", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[224][36557887] = { npcIDs1 =  2625, npcIDs2 = 8123, name = "", mnID = 210, type = "Bank", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneMailbox then
@@ -406,76 +415,76 @@ ns.currentSourceFile = "RetailGeneralZoneNodes.lua"
 
             if self.db.profile.showZoneInnkeeper then
                 nodes[122][51193387] = { npcID = 25036, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[217][60219169] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[15][65803560] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[204][57406000] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[32][39606600] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[51][71601380] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[23][75965223] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[210][40807380] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[224][37508015] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, mnID = 210, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[205][49134196] = { npcID = 39878, name = "", dnID = ns.InnkeeperM, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[217][60219169] = { npcID = 210940, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[15][65803560] = { npcID = 48054, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[32][39426625] = { npcID = 47942, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[51][71681384] = { npcID = 47334, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[23][75965223] = { npcID = 16256, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[24][44068948] = { npcID = 16256, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false } -- its on the Paladin Class hall map
+                nodes[210][40887377] = { npcID = 6807, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[224][37508015] = { npcID = 6807, name = "", mnID = 210, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
 
                 if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
-                    nodes[95][48803240] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[25][58004720] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[204][51206060] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[17][40401140] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER .. "\n" .. "\n" .. L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"], type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[25][60206400] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER .. "\n" .. "(" .. ERR_USE_OBJECT_MOVING .. ")", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[25][35806120] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[205][51606260] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[21][44402040] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[21][46434270] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[210][35002720] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[224][34295176] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, mnID = 210, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[224][42503277] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, mnID = 50, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[26][31805800] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[18][83087198] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[241][53204280] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[241][75805260] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[241][75401660] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[241][45087674] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[22][48206380] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[14][69703245] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER .. "\n" .. "\n" .. L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"], type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Phase 11292
-                    nodes[15][18204280] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[94][48004760] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[94][43607120] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[50][37205180] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[51][46955686] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[26][78208120] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[18][60805160] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[2070][60875155] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[95][48803240] = { npcID = 16542, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[25][57964730] = { npcID = 2388, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[25][60206400] = { npcID = 49430, name = "", dnID = "\n" .. "(" .. ERR_USE_OBJECT_MOVING .. ")", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[25][35806120] = { npcID = 49394, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[204][51206060] = { npcID = 43141, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[17][40421133] = { npcID = 44309, name = "", dnID = "\n\n" .. L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"], type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[205][51656260] = { npcID = 42908, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[21][44352031] = { npcID = 45496, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[21][46434270] = { npcID = 6739, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[210][35082717] = { npcID = 44190, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[224][34295176] = { npcID = 44190, name = "", mnID = 210, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[224][42503277] = { npcID = 5814, name = "", mnID = 50, type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[26][31805800] = { npcID = 43739, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[26][78148139] = { npcID = 14731, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[18][83087198] = { npcID = 46271, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[18][60875151] = { npcID = 5688, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[2070][60885151] = { npcID = 186012, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[241][53314288] = { npcID = 49762, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[241][75945274] = { npcID = 49498, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[241][75371651] = { npcID = 49783, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[241][45087674] = { npcID = 49747, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[22][48346381] = { npcID = 47857, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[14][69703245] = { npcID = 144139, name = "", dnID = "\n\n" .. L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"], type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Phase 11292
+                    nodes[15][18314264] = { npcID = 9356, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[94][48164766] = { npcID = 15433, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[94][43677131] = { npcID = 15397, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[50][37375187] = { npcID = 5814, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[51][46955686] = { npcID = 6930, name = "", type = "InnkeeperH", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
 
                 if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
-                    nodes[50][53206680] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[224][52214319] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, mnID = 50, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[52][52805360] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[27][54605080] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[204][54607220] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[15][20605620] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[17][44408760] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[17][60601400] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER  .. "\n" .. "\n" .. L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"], type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[205][49605740] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[51][29003260] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[26][66204440] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[241][79407860] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[241][79007760] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[241][54601800] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[241][49603040] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[241][43605720] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[241][60405800] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }  
-                    nodes[22][43408460] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[56][25602580] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[56][58003920] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[14][40004900] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER .. "\n" .. "\n" .. L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"], type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Phase 11292
-                    nodes[47][74004460] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[37][43806580] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[48][35404840] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[48][81806460] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[26][14004480] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[52][52805360] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[56][10606080] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[49][26384143] = { name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[50][53226693] = { npcID = 44019, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[224][52214319] = { npcID = 44019, name = "", mnID = 50, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[27][54495084] = { npcID = 1247, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[204][54607220] = { npcID = 42963, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[15][20705632] = { npcID = 48093, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[17][44338765] = { npcID = 44334, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[17][60721402] = { npcID = 44325, name = "", dnID = "\n\n" .. L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"], type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[205][49695742] = { npcID = 42873, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[51][29003260] = { npcID = 47367, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[26][66174435] = { npcID = 43699, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[26][14144466] = { npcID = 7744, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[241][78977781] = { npcID = 49686, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[241][79377853] = { npcID = 49688, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[241][54601800] = { npcID = 49574, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[241][49553045] = { npcID = 49591, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[241][43625722] = { npcID = 49599, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[241][60405814] = { npcID = 49795, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }  
+                    nodes[22][43328458] = { npcID = 46269, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[56][25682606] = { npcID = 44006, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[56][58183911] = { npcID = 43993, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[56][10736085] = { npcID = 1464, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[14][40694803] = { npcID = 141732, name = "", dnID = "\n\n" .. L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"], type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Phase 11292
+                    nodes[47][73874440] = { npcID = 6790, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[37][43806580] = { npcID = 295, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[48][35534840] = { npcID = 6734, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[48][81916463] = { npcID = 1156, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[52][52875371] = { npcID = 8931, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[49][26384143] = { npcID = 6727, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
 
             end
@@ -483,14 +492,14 @@ ns.currentSourceFile = "RetailGeneralZoneNodes.lua"
             if self.db.profile.showZonePvPVendor then
 
                 if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
-                    nodes[25][58073359] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_HORDE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, type = "ZonePvPVendorH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[14][68473035] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_HORDE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, type = "ZonePvPVendorH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[25][58073359] = { npcID = 13219, name = TRANSMOG_SET_PVP .. " " .. MERCHANT, type = "ZonePvPVendorH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[14][68473035] = { npcID = 144064, name = TRANSMOG_SET_PVP .. " " .. MERCHANT, type = "ZonePvPVendorH", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
 
                 if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
-                    nodes[25][44624633] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_ALLIANCE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, type = "ZonePvPVendorA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[14][40114653] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_ALLIANCE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, type = "ZonePvPVendorA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                end  
+                    nodes[25][44624633] = { npcID = 13217, name = TRANSMOG_SET_PVP .. " " .. MERCHANT, type = "ZonePvPVendorA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[14][40114653] = { npcID = 15127, name = TRANSMOG_SET_PVP .. " " .. MERCHANT, type = "ZonePvPVendorA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                end
 
             end
 
@@ -508,15 +517,16 @@ ns.currentSourceFile = "RetailGeneralZoneNodes.lua"
                 nodes[105][28075874] = { npcID = 23428, name = "", type = "RenownQuartermaster", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[102][79256366] = { npcID = 17904, name = "", type = "RenownQuartermaster", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[108][64306624] = { npcID = 23367, name = "", type = "RenownQuartermaster", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[108][30541823] = { npcIDs1 = 19321, npcIDs2 = 21432, npcIDs3 = 19331, mnID = 111, name = "", type = "RenownQuartermaster", hideTTmnID = true, showInZone = true, showOnContinent = false, showOnMinimap = false }
 
                 if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
-                    nodes[100][54903780] = { npcID = 17585, name = "", type = "RenownQuartermasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[107][53463702] = { npcID = 20241, name = "", type = "RenownQuartermasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[100][54903780] = { npcID = 17585, name = "", type = "ZoneRenownQuartermasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[107][53463702] = { npcID = 20241, name = "", type = "ZoneRenownQuartermasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
 
                 if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
-                    nodes[100][56706265] = { npcID = 17657, name = "", type = "RenownQuartermasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[107][54537515] = { npcID = 20240, name = "", type = "RenownQuartermasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[100][56706265] = { npcID = 17657, name = "", type = "ZoneRenownQuartermasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[107][54537515] = { npcID = 20240, name = "", type = "ZoneRenownQuartermasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
 
             end
@@ -648,11 +658,11 @@ ns.currentSourceFile = "RetailGeneralZoneNodes.lua"
                 nodes[115][48487565] = { npcID = 32763, name = "", type = "RenownQuartermaster", showInZone = true, showOnContinent = false, showOnMinimap = false }
 
                 if self.faction == "Horde" or db.activate.ZoneEnemyFaction then
-                    nodes[114][41425369] = { npcID = 32565, name = "", type = "RenownQuartermasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[114][41425369] = { npcID = 32565, name = "", type = "ZoneRenownQuartermasterH", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
 
                 if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
-                    nodes[114][57736636] = { npcID = 32564, name = "", type = "RenownQuartermasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[114][57736636] = { npcID = 32564, name = "", type = "ZoneRenownQuartermasterA", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
 
             end
@@ -801,8 +811,8 @@ ns.currentSourceFile = "RetailGeneralZoneNodes.lua"
         if self.db.profile.showZonePandaria then
 
             if self.db.profile.showZoneZidormi then
-                nodes[390][80483196] = { mnID = 1530, name = "|cffffffff" .. ns.Zidormi, TransportName = L["Travel through time to another point in the history of"] .. " " .. ns.ValeOfEternalBlossoms, type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[1530][80972948] = { mnID = 390, name = "|cffffffff" .. ns.Zidormi, TransportName = L["Travel through time to another point in the history of"] .. " " .. ns.ValeOfEternalBlossoms, type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[390][80483196] = { npcID = 141489, mnID = 1530, name = "", dnID = L["Travel through time to another point in the history of"] .. " " .. ns.ValeOfEternalBlossoms, type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[1530][80972948] = { npcID = 141489, mnID = 390, name = "", dnID = L["Travel through time to another point in the history of"] .. " " .. ns.ValeOfEternalBlossoms, type = "Zidormi", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZonePvEVendor then
@@ -1368,7 +1378,7 @@ ns.currentSourceFile = "RetailGeneralZoneNodes.lua"
 
                 if self.faction == "Alliance" or db.activate.ZoneEnemyFaction then
                     nodes[895][35322423] = { npcID = 136465, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[895][70932584] = { npcID = 143560, name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[895][70932584] = { npcID = 143560, name = "", dnID = ns.InnkeeperM, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     nodes[895][75905066] = { npcID = 136468, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     nodes[895][75606460] = { npcID = 136437, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     nodes[895][57946208] = { npcID = 136482, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
@@ -1382,7 +1392,7 @@ ns.currentSourceFile = "RetailGeneralZoneNodes.lua"
                     nodes[942][58647024] = { npcID = 138221, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     nodes[896][37404860] = { npcID = 136480, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
                     nodes[896][55513428] = { npcID = 129992, name = "", type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                    nodes[896][26607240] = { npcID = 131442, name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                    nodes[896][26607240] = { npcID = 131442, name = "", dnID = ns.InnkeeperM, type = "InnkeeperA", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 end
 
             end
@@ -1604,12 +1614,12 @@ ns.currentSourceFile = "RetailGeneralZoneNodes.lua"
                 nodes[2024][46944034] = { npcID = 189147, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2024][65401620] = { npcID = 186744, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2024][62805780] = { npcID = 186851, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2024][37376243] = { npcID = 189460, name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2024][37376243] = { npcID = 189460, name = "", dnID = ns.InnkeeperM, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2025][50224254] = { npcID = 186458, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2025][35117924] = { npcID = 194788, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2025][59848265] = { npcID = 186952, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2025][52466961] = { npcID = 188887, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2025][52138152] = { npcID = 203769, name = "", dnID = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2025][52138152] = { npcID = 203769, name = "", dnID = ns.InnkeeperM, type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2023][81335930] = { npcID = 191391, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2023][28576051] = { npcID = 186502, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2023][85873524] = { npcID = 196161, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
@@ -1691,7 +1701,7 @@ ns.currentSourceFile = "RetailGeneralZoneNodes.lua"
                 nodes[2216][49752192] = { npcID = 228134, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2346][43515168] = { npcID = 231045, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2346][36814750] = { npcID = 234461, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2346][39346861] = { npcID = 234778, name = MINIMAP_TRACKING_INNKEEPER, type = "InnkeeperN", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "My-hole-in-the-wall", wwwLink = "https://www.wowhead.com/quest=86408/my-hole-in-the-wall#", questID = 86408, showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2346][39346861] = { npcID = 234778, name = ns.InnkeeperM, type = "InnkeeperN", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "My-hole-in-the-wall", wwwLink = "https://www.wowhead.com/quest=86408/my-hole-in-the-wall#", questID = 86408, showInZone = true, showOnContinent = false, showOnMinimap = false }
                 nodes[2371][48693845] = { npcID = 236097, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false } -- K'aresh
                 nodes[2371][60722763] = { npcID = 238572, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false } -- K'aresh
                 nodes[2371][76733443] = { npcID = 241507, name = "", type = "InnkeeperN", showInZone = true, showOnContinent = false, showOnMinimap = false } -- K'aresh
@@ -1807,27 +1817,27 @@ ns.currentSourceFile = "RetailGeneralZoneNodes.lua"
 
             if self.db.profile.showZoneMapNotesIcons then
                 --Innkeeper Mailbox Stabelmaster Merchant
-                nodes[2215][42395647] = { name = L["Hallowfall Arathi"], dnID = TextIconPvEVendor:GetIconString() .. " " .. L["Merchant for Renown items"] .. "\n" .. TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. MINIMAP_TRACKING_STABLEMASTER, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2214][43433310] = { name = L["The Assembly of the Deeps"], dnID = TextIconPvEVendor:GetIconString() .. " " .. L["Merchant for Renown items"] .. "\n" .. TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }                     
-                nodes[2255][56773954] = { name = L["The Severed Threads"], dnID = TextIconPvEVendor:GetIconString() .. " " .. L["Merchant for Renown items"] .. "\n" .. TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2256][56773954] = { name = L["The Severed Threads"], dnID = TextIconPvEVendor:GetIconString() .. " " .. L["Merchant for Renown items"] .. "\n" .. TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2215][42395647] = { name = L["Hallowfall Arathi"], dnID = TextIconPvEVendor:GetIconString() .. " " .. L["Merchant for Renown items"] .. "\n" .. TextIconInnkeeperN:GetIconString() .. " " .. ns.InnkeeperM .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. ns.StablemasterM, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2214][43433310] = { name = L["The Assembly of the Deeps"], dnID = TextIconPvEVendor:GetIconString() .. " " .. L["Merchant for Renown items"] .. "\n" .. TextIconInnkeeperN:GetIconString() .. " " .. ns.InnkeeperM .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }                     
+                nodes[2255][56773954] = { name = L["The Severed Threads"], dnID = TextIconPvEVendor:GetIconString() .. " " .. L["Merchant for Renown items"] .. "\n" .. TextIconInnkeeperN:GetIconString() .. " " .. ns.InnkeeperM .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2256][56773954] = { name = L["The Severed Threads"], dnID = TextIconPvEVendor:GetIconString() .. " " .. L["Merchant for Renown items"] .. "\n" .. TextIconInnkeeperN:GetIconString() .. " " .. ns.InnkeeperM .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 --Innkeeper Mailbox Stabelmaster
-                nodes[2248][58742792] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. MINIMAP_TRACKING_STABLEMASTER, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2214][57644641] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. MINIMAP_TRACKING_STABLEMASTER, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2214][54336488] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. MINIMAP_TRACKING_STABLEMASTER, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2215][68974456] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. MINIMAP_TRACKING_STABLEMASTER, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2255][58821886] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. MINIMAP_TRACKING_STABLEMASTER, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2256][58821886] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. MINIMAP_TRACKING_STABLEMASTER, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2255][77866298] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. MINIMAP_TRACKING_STABLEMASTER, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2256][77866298] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. MINIMAP_TRACKING_STABLEMASTER, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2248][58742792] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. ns.InnkeeperM .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. ns.StablemasterM, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2214][57644641] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. ns.InnkeeperM .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. ns.StablemasterM, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2214][54336488] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. ns.InnkeeperM .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. ns.StablemasterM, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2215][68974456] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. ns.InnkeeperM .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. ns.StablemasterM, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2255][58821886] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. ns.InnkeeperM .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. ns.StablemasterM, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2256][58821886] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. ns.InnkeeperM .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. ns.StablemasterM, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2255][77866298] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. ns.InnkeeperM .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. ns.StablemasterM, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2256][77866298] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. ns.InnkeeperM .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. ns.StablemasterM, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
                 --Innkeeper Mailbox
-                nodes[2248][41817377] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2215][49073964] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2255][44796648] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2256][44796648] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2369][71353753] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2369][69014647] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
-                nodes[2214][72018315] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. MINIMAP_TRACKING_INNKEEPER .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. MINIMAP_TRACKING_STABLEMASTER, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2248][41817377] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. ns.InnkeeperM .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2215][49073964] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. ns.InnkeeperM .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2255][44796648] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. ns.InnkeeperM .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2256][44796648] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. ns.InnkeeperM .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2369][71353753] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. ns.InnkeeperM .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2369][69014647] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. ns.InnkeeperM .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
+                nodes[2214][72018315] = { name = "", dnID = TextIconInnkeeperN:GetIconString() .. " " .. ns.InnkeeperM .. "\n" .. TextIconMailbox:GetIconString() .. " " .. MINIMAP_TRACKING_MAILBOX .. "\n" .. TextIconStablemasterN:GetIconString() .. " " .. ns.StablemasterM, type = "MNL", showInZone = true, showOnContinent = false, showOnMinimap = false }
             end
 
             if self.db.profile.showZoneAuctioneer then

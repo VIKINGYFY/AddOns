@@ -57,9 +57,9 @@ end
 
 -- 事件列表
 info.eventList = {
-	"PLAYER_REGEN_DISABLED",   -- 进入战斗
-	"PLAYER_REGEN_ENABLED",    -- 脱离战斗
-	"LOADING_SCREEN_ENABLED",  -- 过图开始
+	"PLAYER_REGEN_DISABLED", -- 进入战斗
+	"PLAYER_REGEN_ENABLED", -- 脱离战斗
+	"LOADING_SCREEN_ENABLED", -- 过图开始
 	"LOADING_SCREEN_DISABLED", -- 过图结束
 }
 

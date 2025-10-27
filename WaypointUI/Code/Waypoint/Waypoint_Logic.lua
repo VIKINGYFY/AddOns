@@ -345,7 +345,7 @@ do -- Color
         elseif trackingType == WaypointEnum.TrackingType.QuestIncomplete then
             color = ColorQuestIncomplete
             recolor = requestRecolor or RecolorQuestIncomplete
-        elseif trackingType == WaypointEnum.TrackingType.Other then
+        else
             color = ColorOther
             recolor = requestRecolor or RecolorOther
         end
@@ -361,10 +361,8 @@ do -- Color
 
         WUIWaypointFrame:Appearance_SetTint(tintColor)
         WUIWaypointFrame:Appearance_SetRecolor(recolor)
-
         WUIPinpointFrame:Appearance_SetTint(tintColor)
         WUIPinpointFrame:Appearance_SetRecolor(recolor)
-
         WUINavigatorFrame:Appearance_SetTint(tintColor)
         WUINavigatorFrame:Appearance_SetRecolor(recolor)
     end

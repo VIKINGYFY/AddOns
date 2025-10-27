@@ -202,7 +202,24 @@ function ns.CreateAndCopyLink()
         end
     end
 
-    hooksecurefunc("ChatFrame_OnHyperlinkShow", URLClicker_OnHyperlinkShow)
+    local hookedAny = false
+    for i = 1, NUM_CHAT_WINDOWS do
+        local chatframe = _G["ChatFrame" .. i]
+        if chatframe and not chatframe._MN_UrlHooked then
+            chatframe._MN_UrlHooked = true
+            if chatframe.SetHyperlinksEnabled then
+                chatframe:SetHyperlinksEnabled(true)
+            end
+            chatframe:HookScript("OnHyperlinkClick", function(self, link, text, button)
+                URLClicker_OnHyperlinkShow(self, link)
+            end)
+            hookedAny = true
+        end
+    end
+
+    if not hookedAny and type(_G.ChatFrame_OnHyperlinkShow) == "function" then
+        hooksecurefunc("ChatFrame_OnHyperlinkShow", URLClicker_OnHyperlinkShow)
+    end
 
     ns.CreateAndCopyLinkEnabled = true
 end

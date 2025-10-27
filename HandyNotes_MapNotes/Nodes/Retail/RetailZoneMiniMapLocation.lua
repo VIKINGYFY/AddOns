@@ -57,9 +57,9 @@ ns.currentSourceFile = "RetailZoneMiniMapLocation.lua"
               minimap[57][26305072] = { mnID = 89, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = ns.Darnassus .. " " .. L["Portal"] .. "\n" .. " ==> " .. ns.Ruttheran } -- Portal To Teldrassil from Darnassus
               minimap[57][54998820] = { mnID = 89, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.Darnassus } -- Portal To Darnassus from Teldrassil
               minimap[78][50560773] = { mnID = 119, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, dnID = L["Portal"] } -- Portal Unguro to Sholazar
-              minimap[71][65984961] = { mnID = "", name = "", type = "PortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portals"] .. "\n" .. "\n" .. FACTION_HORDE .. "\n" .. " ==> " .. ns.Orgrimmar .. "\n" .. "\n" .. FACTION_ALLIANCE .. "\n" .. " ==> " .. ns.Stormwind } -- Portal from Tanaris to Orgrimmar or Stormwind
-              minimap[74][58562668] = { mnID = "", name = "", type = "PortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portals"] .. "\n" .. "\n" .. FACTION_HORDE .. "\n" .. " ==> " .. ns.Orgrimmar .. "\n" .. "\n" .. FACTION_ALLIANCE .. "\n" .. " ==> " .. ns.Stormwind } -- Portal from Tanaris to Orgrimmar or Stormwind
-              minimap[81][41614522] = { mnID = "", name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portals"] .. "\n" .. "\n" .. FACTION_HORDE .. "\n" .. " ==> " .. ns.Zandalar .. "\n" .. "\n" .. FACTION_ALLIANCE .. "\n" .. " ==> " .. ns.Boralus } -- Portal from Silithus to Zandalar or Boralus 
+              minimap[74][58142669] = { mnID = 85, mnID2 = 84, name = "", type = "PortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portals"] .. "\n" .. "\n" .. FACTION_HORDE .. "\n" .. " ==> " .. ns.Orgrimmar .. "\n" .. "\n" .. FACTION_ALLIANCE .. "\n" .. " ==> " .. ns.Stormwind } -- Portal from Tanaris to Orgrimmar or Stormwind
+              minimap[71][65984960] = { mnID = 85, mnID2 = 84, name = "", type = "PortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portals"] .. "\n" .. "\n" .. FACTION_HORDE .. "\n" .. " ==> " .. ns.Orgrimmar .. "\n" .. "\n" .. FACTION_ALLIANCE .. "\n" .. " ==> " .. ns.Stormwind } -- Portal from Tanaris to Orgrimmar or Stormwind
+              minimap[81][41614520] = { mnID = 862, mnID2 = 1161, name = "", dnID = L["Portals"] .. "\n" .. "\n" .. FACTION_HORDE .. "\n" .. " ==> " .. ns.Zandalar .. "\n" .. "\n" .. FACTION_ALLIANCE .. "\n" .. " ==> " .. ns.Boralus .. "\n\n" .. L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"], type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from Silithus to Zandalar or Boralus 
 
               if self.faction == "Horde" or db.activate.MiniMapEnemyFaction then  
                 minimap[62][46243511] = { mnID = 862, name = "", TransportName = L["Portal"] .. " ==> " .. ns.Zuldazar .. "\n" .. "\n" .. L["(its only shown up ingame if your faction\n is currently occupying Bashal'Aran)"], type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal from New Darkshore to Zandalar 
@@ -144,7 +144,7 @@ ns.currentSourceFile = "RetailZoneMiniMapLocation.lua"
             if self.db.profile.showMiniMapPortals then
 
               minimap[244][47135189] = { mnID = 85, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .."\n" .. "\n" .. " ==> " .. ns.Orgrimmar .. "\n" .. " " .. JUST_OR .. "\n" .. " ==> " .. ns.Stormwind } -- Portal Tol Orgrimmar or Stormwind from Baradinhold Tol Barad pvp Area
-              minimap[17][55005419] = { mnID = "", name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = ns.DarkPortal .. "\n" .. "\n" .. FACTION_HORDE .. "\n" .. " ==> " .. ns.Warspear .. "\n" .. "\n" .. FACTION_ALLIANCE .. "\n" .. " ==> " .. ns.Stormshield } -- Portal from Tanaris to Orgrimmar 
+              minimap[17][55005418] = { mnID = 624, mnID2 = 622, name = "", type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = ns.DarkPortal .. "\n" .. "\n" .. FACTION_HORDE .. "\n" .. " ==> " .. ns.Warspear .. "\n" .. "\n" .. FACTION_ALLIANCE .. "\n" .. " ==> " .. ns.Stormshield } -- Portal from Tanaris to Orgrimmar 
 
               if self.faction == "Horde" or db.activate.MiniMapEnemyFaction then
                 minimap[18][62167276] = { mnID = 90, name = "", type = "HIcon", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = ns.Undercity .. " - " .. FACTION_HORDE .. "\n" .. "\n" .. L["Portal"] .. "\n" .. " ==> " .. ns.HellfirePeninsula } -- Portalroom from Dazar'alor
@@ -158,8 +158,8 @@ ns.currentSourceFile = "RetailZoneMiniMapLocation.lua"
                 minimap[2070][60126689] = { mnID = 117, name = "", type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.HowlingFjord } -- Portal to Howling Fjord from Tirisfal
                 minimap[2070][59406743] = { mnID = 110, name = "", type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.Silvermoon } -- Portal to Silvermoon from Tirisfal
                 minimap[50][37545100] = { mnID = 18, name = "", type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.RuinsofLordaeron } -- Portal to Undercity from Grom'gol
-                minimap[94][54552795] = { mnID = 85, name = "", type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.Orgrimmar } -- Portal to Orgrimmar from Silvermoon 
-                minimap[94][51262623] = { mnID = 18, name = "", type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.RuinsofLordaeron } -- Portal to Ruins of Lordaeron from Silvermoon 
+                --minimap[94][54552795] = { mnID = 85, name = "", type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.Orgrimmar } -- Portal to Orgrimmar from Silvermoon 
+                --minimap[94][51262623] = { mnID = 18, name = "", type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.RuinsofLordaeron } -- Portal to Ruins of Lordaeron from Silvermoon 
                 minimap[14][27442938] = { mnID = 862, name = "", type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.Zandalar .. "\n" .. " " .. "(" .. L["This Arathi Highlands portal is only active if your faction is currently occupying Ar'gorok"] .. ")" }
                 minimap[245][56397967] = { mnID = 85, name = "", type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.Orgrimmar } -- Portal Tol Bard to Orgimmar  
                 minimap[241][73595355] = { mnID = 85, name = "", type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.Orgrimmar } -- Portal Tol Orgrimmar from Twilight Highlands  
@@ -755,12 +755,12 @@ ns.currentSourceFile = "RetailZoneMiniMapLocation.lua"
           end
 
         end
-        
+
 
         --#################################
         --##### Continent Khaz Algar ######
         --#################################
-    
+
         if self.db.profile.showMiniMapKhazAlgar then
 
           -- Khaz Algar Transporting 
@@ -895,6 +895,7 @@ ns.currentSourceFile = "RetailZoneMiniMapLocation.lua"
           end
 
         end
+
       end
   end
   

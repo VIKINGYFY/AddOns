@@ -18,6 +18,15 @@ function EX:UpdateMountSource()
 	local unit = TT.GetUnit(self)
 	if not UnitIsPlayer(unit) then return end
 
+	-- 军团remix巅峰
+	if PlayerIsTimerunning() then
+		local auraData = C_UnitAuras.GetUnitAuraBySpellID(unit, 1232454)
+		if auraData and auraData.points then
+			self:AddLine(" ")
+			self:AddLine(L["Paragon"]..": "..auraData.points[5], 0,1,1)
+		end
+	end
+
 	local index = 1
 	while true do
 		local buffData = C_TooltipInfo.GetUnitBuff(unit, index)

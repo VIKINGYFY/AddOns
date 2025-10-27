@@ -37,7 +37,6 @@ ns.currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
             nodes[76][18729718] = { id = 226, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Ragefire
             nodes[62][33009467] = { id = 227, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackfathom Deeps 
             nodes[77][15097658] = { id = 227, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Blackfathom Deeps 
-            nodes[10][40496868] = { id = 240, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Wailing Caverns
             nodes[7][79421794] = { id = 240, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Wailing Caverns
             nodes[199][46952074] = { id = 240, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Wailing Caverns
             nodes[199][40779446] = { id = 234, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Razorfen Kraul
@@ -63,6 +62,10 @@ ns.currentSourceFile = "RetailZoneDungeonNodesLocation.lua"
             nodes[1527][69095283] = { id = 70, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Halls of Origination
             nodes[71][24619233] = { id = 70, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Halls of Origination
             nodes[1527][76708435] = { id = 68, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- The Vortex Pinnacle
+          end
+
+          if self.db.profile.showZoneDungeons and not self.db.profile.showZonePassage then 
+            nodes[10][40496868] = { id = 240, type = "Dungeon", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Wailing Caverns
           end
 
           -- Kalimdor PetBattleDungeons

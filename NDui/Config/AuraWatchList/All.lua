@@ -72,6 +72,7 @@ local list = {
 		{AuraID =  449275, UnitID = "player"}, -- 阿努布伊卡基强能水晶
 		{AuraID =  449947, UnitID = "player", Text =  NPE_JUMP}, -- 奸邪发射机，跳3下
 		{AuraID =  449954, UnitID = "player"}, -- 奸邪发射机
+		{AuraID =  450962, UnitID = "player"}, -- 虚空契约石
 		{AuraID =  451011, UnitID = "player"}, -- 暴虐演说者的喉头
 		{AuraID =  451303, UnitID = "player"}, -- 收割者之诏
 		{AuraID =  451568, UnitID = "player", Value = true}, -- 折转侵攻模组
@@ -91,13 +92,14 @@ local list = {
 		{AuraID = 1218713, UnitID = "player"}, -- 临时制作的爆盐起搏器
 		{AuraID = 1219102, UnitID = "player", Value = true}, -- 共鸣仪式泥浆
 		{AuraID = 1224918, UnitID = "player"}, -- 虚触碎片
+		{AuraID = 1232802, UnitID = "player"}, -- 熔炉
+		{AuraID = 1233556, UnitID = "player"}, -- 棱镜
+		{AuraID = 1239675, UnitID = "player", Combat = true}, -- 棱镜，叠层
 		{AuraID = 1241806, UnitID = "player"}, -- 被诅咒的雕像
 		{AuraID = 1245431, UnitID = "player", Value = true}, -- 共生以太薄纱
-		{AuraID = 1247207, UnitID = "player"}, -- 虚体精华吞噬者
-		{AuraID =  450962, UnitID = "player"}, -- 虚空契约石
 		{AuraID = 1245643, UnitID = "player"}, -- 心智溃解之祸
 		{AuraID = 1246543, UnitID = "player"}, -- 影卫的扭曲收获者
-
+		{AuraID = 1247207, UnitID = "player"}, -- 虚体精华吞噬者
 	},
 	["Raid Buff"] = { -- 团队增益组
 		{AuraID =   54861, UnitID = "player"}, -- 火箭靴，工程

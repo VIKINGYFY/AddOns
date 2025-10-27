@@ -166,8 +166,8 @@ function ns.PrimeNpcNameCache()
                 coord = coord,
                 sourceFile = node.sourceFile or ns.currentSourceFile or "?"
               }
-              if ns.Addon.db.profile.DeveloperMode then
-                print(("%s Missing NPC: %d (mapID: %d, coord: %.2f, file: %s)"):format(ns.COLORED_ADDON_NAME, npcID, mapID, coord, retryQueue[npcID].sourceFile))
+              if ns.DevMode() then
+                print(("%s Missing NPC: %d (mapID: %d, coord: %.2f, file: %s) test 1"):format(ns.COLORED_ADDON_NAME, npcID, mapID, coord, retryQueue[npcID].sourceFile, "test1"))
               end
             end
           end
@@ -184,7 +184,7 @@ function ns.PrimeNpcNameCache()
 
   local cachingTextDone = ns.LOCALE_CACHING_DONE[ns.locale] or ns.LOCALE_CACHING_DONE["enUS"] or "update database"
   local FoundMIssing = ns.LOCALE_FOUND_MISSING[ns.locale] or ns.LOCALE_FOUND_MISSING["enUS"] or "%s %s - %d found, %d missing"
-  if ns.Addon.db.profile.DeveloperMode or ns.manualScanActive then
+  if ns.DevMode() or ns.manualScanActive then
     print((FoundMIssing):format(ns.COLORED_ADDON_NAME, cachingTextDone, ns.npcCacheSuccess, ns.npcCacheFail))
   end
 
@@ -234,13 +234,15 @@ local function withAllCategoriesEnabled(fn)
 
   local snapshot = {}
   local EXCLUDE_TRUE = {
-    ["activate.HideMapNote"] = true,
     ["DeveloperMode"] = true,
+    ["activate.HideMapNote"] = true,
+    ["activate.HideMMB"] = true,
+    ["activate.HideWMB"] = true,
   }
 
   local function override_bools(tbl, path)
     for k, v in pairs(tbl) do
-      local keypath = path and (path .. "." .. k) or k
+      local keypath = (path and path ~= "") and (path .. "." .. k) or k
       if type(v) == "boolean" then
         snapshot[keypath] = v
         if not EXCLUDE_TRUE[keypath] then
@@ -254,7 +256,7 @@ local function withAllCategoriesEnabled(fn)
 
   local function restore_bools(tbl, path)
     for k, v in pairs(tbl) do
-      local keypath = path and (path .. "." .. k) or k
+      local keypath = (path and path ~= "") and (path .. "." .. k) or k
       if snapshot[keypath] ~= nil then
         tbl[k] = snapshot[keypath]
       elseif type(v) == "table" then
@@ -287,7 +289,7 @@ local function withAllCategoriesEnabled(fn)
 
   restore_bools(profile, "")
 
-  if not ok and ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode then
+  if not ok and ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.DevMode() then
     print(ns.COLORED_ADDON_NAME .. " Rebuild error: " .. tostring(err))
   end
 end
@@ -363,7 +365,7 @@ function ns.StartRetryQueue()
           ns.npcCacheFail = ns.npcCacheFail - 1
         end
 
-        if ns.Addon.db.profile.DeveloperMode then
+        if ns.DevMode() then
           print(("%s Cached after retry: %d (mapID: %d, file: %s)"):format(ns.COLORED_ADDON_NAME, npcID, data.mapID or 0, data.sourceFile or "?"))
         end
 
@@ -372,7 +374,7 @@ function ns.StartRetryQueue()
         if data.attempts >= maxRetries then
           retryQueue[npcID] = nil
 
-          if ns.Addon.db.profile.DeveloperMode then
+          if ns.DevMode() then
             print(("%s Failed to cache: %d after %d tries (mapID: %d, coord: %.2f, file: %s)"):format(ns.COLORED_ADDON_NAME, npcID, maxRetries, data.mapID or 0, data.coord or 0, data.sourceFile or "?"))
           end
 
@@ -499,7 +501,7 @@ f:SetScript("OnEvent", function(_, event, addonName)
     for k in pairs(npcNameCache) do npcNameCache[k] = nil end
 
     C_Timer.After(2, function()
-      if ns.Addon and ns.Addon.db and ns.Addon.db.profile.DeveloperMode then
+      if ns.Addon and ns.Addon.db and ns.DevMode() then
         local txt = (ns.LOCALE_CACHING and (ns.LOCALE_CACHING[current] or ns.LOCALE_CACHING.enUS)) or "update npc name database"
         print(ns.COLORED_ADDON_NAME .. " " .. txt .. " ...")
       end
@@ -524,7 +526,7 @@ f:SetScript("OnEvent", function(_, event, addonName)
     if ns.PrimeNpcNameCache then
       local cachingText = ns.LOCALE_CACHING[ns.locale] or ns.LOCALE_CACHING["enUS"]
       C_Timer.After(2, function()
-        if ns.Addon.db.profile.DeveloperMode then
+        if ns.DevMode() then
           print(ns.COLORED_ADDON_NAME .. " " .. cachingText .. " ...")
         end
         ns.RebuildNpcNameCache()
@@ -539,15 +541,16 @@ function ns.CreateTargetButton(npcName, title)
   if InCombatLockdown() then return end
 
   local x, y = GetCursorPosition()
-  local scale = UIParent:GetEffectiveScale()
+  local scale = UIParent:GetEffectiveScale() or 1
   x, y = x/scale, y/scale
 
   if not ns.TargetButton then
-    local btn = CreateFrame("Button", "MapNotesTargetButton", UIParent,"SecureActionButtonTemplate,UIPanelButtonTemplate")
+    local btn = CreateFrame("Button", "MapNotesTargetButton", UIParent, "SecureActionButtonTemplate,UIPanelButtonTemplate")
     btn:SetSize(80, 30)
     btn:SetFrameStrata("FULLSCREEN_DIALOG")
     btn:SetToplevel(true)
-    btn:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+
+    btn:RegisterForClicks("AnyDown", "AnyUp")
 
     btn:SetScript("OnMouseUp", function(self, button)
       if button == "RightButton" then
@@ -555,14 +558,28 @@ function ns.CreateTargetButton(npcName, title)
       end
     end)
 
+    btn:SetScript("PreClick", function(self, button)
+      if button ~= "LeftButton" then return end
+      local npcName = self.npcName
+      if not npcName or npcName == "" then return end
+
+      local macro = string.format("/target %s\n/run if UnitExists('target') and (GetRaidTargetIndex('target') or 0) ~= 7 then SetRaidTarget('target', 7) end", npcName)
+      self:SetAttribute("type", "macro")
+      self:SetAttribute("type1", "macro")
+      self:SetAttribute("macrotext", macro)
+      self:SetAttribute("macrotext1", macro)
+    end)
+
     btn:SetScript("PostClick", function(self)
+      local expectName = self.npcName
+      local expectTitle = self.npcTitle
       C_Timer.After(0.2, function()
-        if not UnitExists("target") or UnitName("target") ~= npcName then
-          local fullName = title and (npcName.." – "..title) or npcName
-          local colored  = "|cffffd700"..fullName.."|r"
-          local CurrentMapID = WorldMapFrame:GetMapID()
+        if not UnitExists("target") or UnitName("target") ~= expectName then
+          local fullName = expectTitle and (expectName .. " – " .. expectTitle) or expectName
+          local colored = "|cffffd700" .. fullName .. "|r"
+          local CurrentMapID = WorldMapFrame and WorldMapFrame:GetMapID()
           if ns.Addon.db.profile.NpcNameTargetingChatText and (CurrentMapID ~= 626 and CurrentMapID ~= 747) then
-            print( ("%s %s (%s)"):format(ns.COLORED_ADDON_NAME, SPELL_FAILED_CUSTOM_ERROR_216, colored))
+            print(("%s %s (%s)"):format(ns.COLORED_ADDON_NAME, SPELL_FAILED_CUSTOM_ERROR_216, colored))
           end
         end
       end)
@@ -582,6 +599,10 @@ function ns.CreateTargetButton(npcName, title)
     btn:SetScript("OnHide", function(self)
       self:ClearAllPoints()
       self:SetAttribute("macrotext", nil)
+      self:SetAttribute("macrotext1", nil)
+      self:SetAttribute("type", nil)
+      self:SetAttribute("type1", nil)
+      self.npcName, self.npcTitle = nil, nil
     end)
 
     ns.TargetButton = btn
@@ -590,13 +611,17 @@ function ns.CreateTargetButton(npcName, title)
   local btn = ns.TargetButton
   btn:ClearAllPoints()
   btn:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x, y)
+
+  btn.npcName  = npcName
+  btn.npcTitle = title
+
   btn:SetText(npcName)
   local w = btn:GetFontString():GetStringWidth() + 20
   btn:SetWidth(math.max(80, w))
 
-  local macro = string.format( "/target %s\n" .. "/run if UnitExists('target') and (GetRaidTargetIndex('target') or 0) ~= 7 then SetRaidTarget('target', 7) end", npcName )
-  btn:SetAttribute("type",      "macro")
-  btn:SetAttribute("macrotext", macro)
+  btn:SetAttribute("type", "macro")
+  btn:SetAttribute("type1", "macro")
+
   btn:Show()
 end
 
@@ -604,32 +629,30 @@ function ns.TryCreateTarget(uiMapId, coord, button)
   if InCombatLockdown() then return false end
   if ns.Addon.db.profile.NpcNameTargeting then
     if button ~= "MiddleButton" or not IsShiftKeyDown() then return false end
-    
+
     local cd = ns.nodes[uiMapId] and ns.nodes[uiMapId][coord]
     local npcID = cd and (cd.npcID or cd.npcIDs1)
     if not npcID then return false end
-    
+
     local npcName, npcTitle = ns.GetNpcInfo(npcID)
     if not npcName then return false end
-    local fullName = npcTitle and (npcName.." – "..npcTitle) or npcName
-    local colored = "|cffffd700"..fullName.."|r"
-    
-    local desiredYards = 102
-    
+
     local nx, ny = HandyNotes:getXY(coord)
     if not (nx and ny) then return false end
-    
+
     -- distanz from GetWorldPosFromMapPos
+    local fullName = npcTitle and (npcName.." – "..npcTitle) or npcName
+    local colored = "|cffffd700"..fullName.."|r"
     local pX, pY, pZ = UnitPosition("player")
     local _, wp = C_Map.GetWorldPosFromMapPos(uiMapId, { x = nx, y = ny })
     if wp then
       local wX, wY, wZ = wp.x, wp.y, wp.z or 0
       local dx, dy = pX - wX, pY - wY
       local distYards = math.sqrt(dx*dx + dy*dy)
-      
+
       --local distMeters = distYards * 0.9144
       --print( ("%s Entfernung: %.1f Y / %.1f m"):format( ns.COLORED_ADDON_NAME, distYards, distMeters ))
-    
+      local desiredYards = 102
       if distYards <= desiredYards then
         ns.CreateTargetButton(npcName, npcTitle)
       else
@@ -638,7 +661,7 @@ function ns.TryCreateTarget(uiMapId, coord, button)
         end
       end
     end
-  
+
     return true
   end
 end

@@ -204,6 +204,12 @@ L["ModuleDescription TooltipDelvesItem"] = "在周常宝箱的鼠标提示上显
 L["You Have Received Weekly Item Format"] = "你本周已获得%s。";
 
 
+--Tooltip ItemQuest
+L["ModuleName TooltipItemQuest"] = "任务起始物品";
+L["ModuleDescription TooltipItemQuest"] = "在任务起始物品的鼠标提示上显示任务详情。\n\n如果你已经接受了相关任务，你可以按住Ctrl并左键点击此物品来在浏览任务日志。";
+L["Instruction Show In Quest Log"] = "<按住Ctrl点击浏览任务日志>";
+
+
 --Plunderstore
 L["ModuleName Plunderstore"] = "霸业风暴：珍宝商店";
 L["ModuleDescription Plunderstore"] = "调整从队伍查找器界面打开的珍宝商店：\n\n- 允许仅显示未收集物品。\n\n- 在类别按钮上显示未收集物品的数量。\n\n- 在武器和护甲的鼠标提示上显示其穿戴位置。\n\n- 允许你在试衣间里显示可穿戴的物品。";
@@ -416,6 +422,21 @@ L["ModuleName ItemUpgradeUI"] = "物品升级：自动打开装备栏";
 L["ModuleDescription ItemUpgradeUI"] = "当你与物品升级NPC交互时自动打开角色面板。";
 
 
+--HolidayDungeon
+L["ModuleName HolidayDungeon"] = "自动选择节日地下城";
+L["ModuleDescription HolidayDungeon"] = "当你第一次打开队伍查找器时自动选择节日或时空漫游地下城。";
+
+
+--PlayerPing
+L["ModuleName PlayerPing"] = "地图标记：玩家高亮";
+L["ModuleDescription PlayerPing"] = "在以下情形时高亮你在世界地图上的位置:\n\n- 打开世界地图\n\n- 按下Alt键\n\n- 点击最大化按钮\n\n|cffd4641c默认情况下游戏只会在你改变地图后高亮你的位置。|r";
+
+
+--StaticPopup_Confirm
+L["ModuleName StaticPopup_Confirm"] = "不可退款物品警告";
+L["ModuleDescription StaticPopup_Confirm"] = "调整购买不可退款物品时出现的确认窗口，给确认键增加一个短暂的倒计时，用红色高亮关键词。\n\n此模块还将“确认职业套装转化”的倒计时减半。";
+
+
 --Loot UI
 L["ModuleName LootUI"] = "拾取窗口";
 L["ModuleDescription LootUI"] = "替换默认的拾取窗口并提供以下功能：\n\n- 快速拾取所有物品\n\n- 修复自动拾取有时失效的问题\n\n- 手动拾取时显示“全部拾取”按钮";
@@ -581,6 +602,8 @@ L["Devourer Attack"] = "吞噬者入侵";
 L["Restored Coffer Key"] = "修复的宝匣钥匙";
 L["Coffer Key Shard"] = "宝匣钥匙碎片";
 L["Epoch Mementos"] = "纪元纪念品";
+
+L["CONFIRM_PURCHASE_NONREFUNDABLE_ITEM"] = "你确定要将%s兑换为下列物品吗？\n\n|cffff2020本次购买将无法退还。|r\n %s";
 
 
 --Map Pin Filter Name (name should be plural)

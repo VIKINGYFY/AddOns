@@ -1,5 +1,5 @@
-local VERSION_TEXT = "v1.7.7";
-local VERSION_DATE = 1760900000;
+local VERSION_TEXT = "v1.7.9";
+local VERSION_DATE = 1761400000;
 
 
 local addonName, addon = ...
@@ -190,6 +190,8 @@ local DefaultValues = {
     AppearanceTab = false,              --Adjust Appearance Tab models to reduce GPU usage spike
         AppearanceTab_ModelCount = 1,
     ItemUpgradeUI = true,
+    HolidayDungeon = true,              --Auto select holiday dungeons once
+    StaticPopup_Confirm = true,         --Add a brief delay to purchase non-refundable items / Reduce item conversion confirm delay
 
 
     --Tooltip
@@ -199,6 +201,7 @@ local DefaultValues = {
     TooltipItemReagents = false,        --For items with "use to combine": show the reagent count
     TooltipProfessionKnowledge = true,  --Show unspent points on GameTooltip
     TooltipDelvesItem = true,           --Show weekly Coffer Key cap on chest tooltip
+    TooltipItemQuest = true,            --Show the quest of quest starting items in bags
 
 
     --Reduction
@@ -239,6 +242,7 @@ local DefaultValues = {
         WorldMapPin_Size = 1,           --1: Default
         WorldMapPin_TWW_Delve = true,   --Show Bountiful Delves on continent map
         WorldMapPin_TWW_Quest = true,   --Show Special Assignment on continent map
+        WorldMapPin_PlayerPing = true,
 
 
     --Modify default interface behavior:

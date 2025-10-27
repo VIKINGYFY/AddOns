@@ -378,6 +378,7 @@ ns.defaults = {
       showContinentPetBattleDungeons = true,
       showContinentFP = true, -- only Classic and Cataclym
       showContinentPvPandPvEVendor = true,
+      showContinentRenownQuartermaster = true,
       showContinentKalimdor = true,
       showContinentEasternKingdom = true,
       showContinentOutland = true,
@@ -459,6 +460,7 @@ ns.defaults = {
       showCapitalsSot7S = true,
       showCapitalsStormshield = true,
       showCapitalsWarspear = true,
+      showCapitalsHousing = true,
       showCapitalsDazarAlor = true,
       showCapitalsBoralus = true,
       showCapitalsOribos = true,
@@ -564,6 +566,7 @@ ns.defaults = {
       showMinimapCapitalsSot7S = true,
       showMinimapCapitalsStormshield = true,
       showMinimapCapitalsWarspear = true,
+      showMinimapCapitalsHousing = true,
       showMinimapCapitalsDazarAlor = true,
       showMinimapCapitalsBoralus = true,
       showMinimapCapitalsOribos = true,
@@ -651,6 +654,9 @@ ns.defaults = {
       showMinimapCapitalsClassHallVendor = true,
       showMinimapCapitalsClassHallUpgrade = true,
       showMinimapCapitalsClassHallStablemaster = true,
+
+    -- DevMode
+      DeveloperMode = false,
 
     --10 ns.Addon.db.profile.activate.
       activate = {

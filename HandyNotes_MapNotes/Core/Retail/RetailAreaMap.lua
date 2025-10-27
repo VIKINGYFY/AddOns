@@ -914,11 +914,11 @@ function ns.EnableAreaMapRightClickUp()
     overlay:SetMouseMotionEnabled(false)
   end
 
-  overlay:EnableMouse(ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode)
+  overlay:EnableMouse(ns.DevMode())
 
   overlay:SetScript("OnClick", function(_, button)
     if button ~= "RightButton" then return end
-    if not (ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode) then
+    if not ns.DevMode() then
       return
     end
 

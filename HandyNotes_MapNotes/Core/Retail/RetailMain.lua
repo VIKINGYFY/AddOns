@@ -25,6 +25,10 @@ function MapNotesMiniButton:OnInitialize() --mmb.lua
   MNMMBIcon:Register("MNMiniMapButton", ns.miniButton, self.db.profile.minimap)
 end
 
+function ns.DevMode()
+  return ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode
+end
+
 ns.alreadyWarned = ns.alreadyWarned or {}
 SLASH_DeveloperMode1 = "/mndevmode";
 function SlashCmdList.DeveloperMode(msg, editbox)
@@ -64,21 +68,22 @@ function ns.RunDeveloperValidation()
 end
 
 ns.CANONICAL_KEYS = {
-  name="name", 
-  id="id", 
-  type="type", 
-  npcid="npcID",
-  showinzone="showInZone", 
-  showoncontinent="showOnContinent",
-  showonminimap="showOnMinimap",
-  mnid="mnID", 
-  transportname="TransportName", 
-  delveid="delveID", dnid="dnID",
-  mnid2="mnID2", 
-  mnid3="mnID3", 
-  taxiid="taxiID", 
-  wwwname="wwwName", 
-  leavedelve="leaveDelve",
+  name = "name",
+  id = "id",
+  type = "type",
+  npcid = "npcID",
+  showinzone = "showInZone",
+  showoncontinent = "showOnContinent",
+  showonminimap = "showOnMinimap",
+  mnid = "mnID",
+  transportname = "TransportName",
+  delveid = "delveID",
+  dnid = "dnID",
+  mnid2 = "mnID2",
+  mnid3 = "mnID3",
+  taxiid = "taxiID",
+  wwwname = "wwwName",
+  leavedelve = "leaveDelve",
 }
 
 function ns.ValidateNodeEntry(value, coord, uiMapID, sourceFile)
@@ -176,14 +181,13 @@ local function LoadAndCheck(loadFunc, self)
   if type(loadFunc) == "function" then loadFunc(self) end
 
   local currentSource = ns.currentSourceFile or prevSource or "?"
-  local doValidate = ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode
   local function mergeAndTag(temp, dest)
     for mapID, mapNodes in pairs(temp) do
       dest[mapID] = dest[mapID] or {}
       for coord, value in pairs(mapNodes) do
         value.sourceFile = currentSource
         dest[mapID][coord] = value
-        if doValidate then
+        if ns.DevMode() then
           ns.ValidateNodeEntry(value, coord, mapID, currentSource)
         end
       end
@@ -228,7 +232,6 @@ local function ExtraToolTip() -- only show tooltips if worldmap is opend and hid
 end
 
 ns.bossNameCache = ns.bossNameCache or {}
-
 local function ShowBossNames(instanceID, tooltip)
   if ns.bossNameCache[instanceID] then
     for _, boss in ipairs(ns.bossNameCache[instanceID]) do
@@ -367,58 +370,75 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
 	    end
 	  else
 	    tooltip:AddLine(v, nil, nil, nil, false)
-      if ns.Addon.db.profile.DeveloperMode then
+      if ns.DevMode() then
+
         if nodeData.dnID then
           tooltip:AddLine("Type:  " .. nodeData.dnID, nil, nil, false)
         end
+
         if nodeData.type then
           tooltip:AddLine("IconName:  " .. nodeData.type, nil, nil, false)
         end
+
         tooltip:AddDoubleLine("uiMapID:  " .. uiMapId, "Coord:  " .. coord, nil, nil, false)
         tooltip:AddDoubleLine("uiMapID:  " .. uiMapId, "==>   " .. C_Map.GetMapInfo(uiMapId).name, nil, nil, false)
+
         local npcID = tonumber(nodeData.npcID)
         if npcID and npcID > 0 then
           tooltip:AddDoubleLine(("npcID:  %d"):format(npcID), "", nil, nil, nil)
         end
+
         if nodeData.npcIDs1 then
           tooltip:AddDoubleLine("npcIDs1:  " .. nodeData.npcIDs1, C_Map.GetMapInfo(nodeData.npcIDs1), nil, nil, false)
         end
+
         if nodeData.npcIDs2 then
           tooltip:AddDoubleLine("npcIDs2:  " .. nodeData.npcIDs2, C_Map.GetMapInfo(nodeData.npcIDs2), nil, nil, false)
         end
+
         if nodeData.npcIDs3 then
           tooltip:AddDoubleLine("npcIDs3:  " .. nodeData.npcIDs3, C_Map.GetMapInfo(nodeData.npcIDs3), nil, nil, false)
         end
+
         if nodeData.npcIDs4 then
           tooltip:AddDoubleLine("npcIDs4:  " .. nodeData.npcIDs4, C_Map.GetMapInfo(nodeData.npcIDs4), nil, nil, false)
         end
+
         if nodeData.npcIDs5 then
           tooltip:AddDoubleLine("npcIDs5:  " .. nodeData.npcIDs5, C_Map.GetMapInfo(nodeData.npcIDs5), nil, nil, false)
         end
+
         if nodeData.npcIDs6 then
           tooltip:AddDoubleLine("npcIDs6:  " .. nodeData.npcIDs6, C_Map.GetMapInfo(nodeData.npcIDs6), nil, nil, false)
         end
+
         if nodeData.npcIDs7 then
           tooltip:AddDoubleLine("npcIDs7:  " .. nodeData.npcIDs7, C_Map.GetMapInfo(nodeData.npcIDs7), nil, nil, false)
         end
+
         if nodeData.npcIDs8 then
           tooltip:AddDoubleLine("npcIDs8:  " .. nodeData.npcIDs8, C_Map.GetMapInfo(nodeData.npcIDs8), nil, nil, false)
         end
+
         if nodeData.npcIDs9 then
           tooltip:AddDoubleLine("npcIDs9:  " .. nodeData.npcIDs9, C_Map.GetMapInfo(nodeData.npcIDs9), nil, nil, false)
         end
         if nodeData.npcIDs10 then
           tooltip:AddDoubleLine("npcIDs10:  " .. nodeData.npcIDs10, C_Map.GetMapInfo(nodeData.npcIDs10), nil, nil, false)
         end
+
         if nodeData.mnID then
           tooltip:AddDoubleLine("mnID:  " .. nodeData.mnID,"==>   " .. C_Map.GetMapInfo(nodeData.mnID).name, nil, nil, false)
         end
+
         if nodeData.mnID2 then
           tooltip:AddDoubleLine("mnID2:  " .. nodeData.mnID2, C_Map.GetMapInfo(nodeData.mnID2).name, nil, nil, false)
         end
+
         if nodeData.mnID3 then
           tooltip:AddDoubleLine("mnID3:  " .. nodeData.mnID3, C_Map.GetMapInfo(nodeData.mnID3).name, nil, nil, false)
         end
+        
         tooltip:AddLine(" ", nil, nil, false)
       end
 	  end
@@ -441,7 +461,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
       tooltip:AddDoubleLine(nodeData.dnID, nil, nil, false)
     end
 
-    if (nodeData.dnID and nodeData.mnID) and not nodeData.mnID2 and not nodeData.mnID3 then -- outputs the Zone or Dungeonmap name and displays it in the tooltip
+    if (nodeData.dnID and nodeData.mnID) and not (nodeData.mnID2 or nodeData.mnID3 or nodeData.hideTTmnID) then -- outputs the Zone or Dungeonmap name and displays it in the tooltip
       local mnIDname = C_Map.GetMapInfo(nodeData.mnID).name
       if mnIDname then
         tooltip:AddDoubleLine("==> " .. mnIDname, nil, nil, false)
@@ -501,7 +521,7 @@ function ns.pluginHandler.OnEnter(self, uiMapId, coord)
       end
     end
 
-    if nodeData.mnID and not (nodeData.dnID or nodeData.id or nodeData.TransportName) then
+    if nodeData.mnID and not (nodeData.dnID or nodeData.id or nodeData.TransportName or nodeData.hideTTmnID) then
       local mnIDname = C_Map.GetMapInfo(nodeData.mnID).name
       if mnIDname then
         tooltip:AddDoubleLine(" ==> " .. mnIDname, nil, nil, false)
@@ -717,8 +737,10 @@ do
                         or value.type == "InnkeeperH" or value.type == "InnkeeperA" or value.type == "MailboxN" or value.type == "MailboxH" or value.type == "MailboxA" or value.type == "PvPVendorH" or value.type == "PvPVendorA" 
                         or value.type == "PvEVendorH" or value.type == "PvEVendorA" or value.type == "MMInnkeeperH" or value.type == "MMInnkeeperA" or value.type == "MMStablemasterH" or value.type == "MMStablemasterA"
                         or value.type == "MMMailboxH" or value.type == "MMMailboxA" or value.type == "MMPvPVendorH" or value.type == "MMPvPVendorA" or value.type == "MMPvEVendorH" or value.type == "MMPvEVendorA" 
+                        or value.type == "ContinentPvPVendorH" or value.type == "ContinentPvPVendorA" or value.type == "ContinentPvEVendorH" or value.type == "ContinentPvEVendorA"
                         or value.type == "ZonePvEVendorH" or value.type == "ZonePvPVendorH" or value.type == "ZonePvEVendorA" or value.type == "ZonePvPVendorA" or value.type == "TradingPost" or value.type == "PassageCaveUp"
-                        or value.type == "PassageCaveDown" or value.type == "MountMerchant" or value.type == "Upgrade" or value.type == "ScoutingMap" or value.type == "RenownQuartermaster" or value.type == "RenownQuartermasterH" or value.type == "RenownQuartermasterA" 
+                        or value.type == "PassageCaveDown" or value.type == "MountMerchant" or value.type == "Upgrade" or value.type == "ScoutingMap" or value.type == "RenownQuartermaster" or value.type == "RenownQuartermasterH" or value.type == "RenownQuartermasterA"
+                        or value.type == "MMRenownQuartermasterH" or value.type == "MMRenownQuartermasterA" or value.type == "ZoneRenownQuartermasterH" or value.type == "ZoneRenownQuartermasterA" or value.type == "ContinentRenownQuartermasterH" or value.type == "ContinentRenownQuartermasterA"
                         or value.type == "PassageElevatorUp" or value.type == "PassageElevatorDown"
 
       ns.classHallIcons = value.type == "CHMountMerchant" or value.type == "CHUpgrade" or value.type == "CHScoutingMap" or value.type == "CHMailbox" or value.type == "RedPathO" or value.type == "RedPathRO" or value.type == "RedPathLO" or value.type == "RedPathU" 
@@ -1048,7 +1070,7 @@ do
           alpha = db.MiniMapAlphaPvEVendor
         end
 
-        if value.type == "RenownQuartermaster" or value.type == "RenownQuartermasterH" or value.type == "RenownQuartermasterA" then
+        if value.type == "RenownQuartermaster" or value.type == "MMRenownQuartermasterH" or value.type == "MMRenownQuartermasterA" then
           scale = db.MiniMapScaleRenownQuartermaster
           alpha = db.MiniMapAlphaRenownQuartermaster
         end
@@ -1315,7 +1337,7 @@ do
           alpha = db.ZoneAlphaPvEVendor
         end
 
-        if value.type == "RenownQuartermaster" or value.type == "RenownQuartermasterH" or value.type == "RenownQuartermasterA" then
+        if value.type == "RenownQuartermaster" or value.type == "ZoneRenownQuartermasterH" or value.type == "ZoneRenownQuartermasterA" then
           scale = db.ZoneScaleRenownQuartermaster
           alpha = db.ZoneAlphaRenownQuartermaster
         end
@@ -2262,8 +2284,7 @@ function Addon:PLAYER_LOGIN() -- OnInitialize()
     else ns.WorldMapButton:Show()
   end
 
-  -- MapNotes DeveloperMode is active print line
-  if ns.Addon and ns.Addon.db and ns.Addon.db.profile and ns.Addon.db.profile.DeveloperMode then
+  if ns.DevMode() then
     print(ns.COLORED_ADDON_NAME .. " DeveloperMode is |cff00ff00active|r")
   end
 

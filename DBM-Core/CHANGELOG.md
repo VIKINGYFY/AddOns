@@ -1,8 +1,17 @@
 # DBM - Core
 
-## [12.0.1-19-gcec0b01](https://github.com/DeadlyBossMods/DeadlyBossMods/tree/cec0b01bf8e99e5af8ca616c4e287795679f88db) (2025-10-23)
-[Full Changelog](https://github.com/DeadlyBossMods/DeadlyBossMods/compare/12.0.1...cec0b01bf8e99e5af8ca616c4e287795679f88db) [Previous Releases](https://github.com/DeadlyBossMods/DeadlyBossMods/releases)
+## [12.0.1-26-gdf1bff1](https://github.com/DeadlyBossMods/DeadlyBossMods/tree/df1bff1c5fca1c4a4830f11507827e29a77ca06c) (2025-10-26)
+[Full Changelog](https://github.com/DeadlyBossMods/DeadlyBossMods/compare/12.0.1...df1bff1c5fca1c4a4830f11507827e29a77ca06c) [Previous Releases](https://github.com/DeadlyBossMods/DeadlyBossMods/releases)
 
+- Remove 11.2 toc  
+- Update localization.es.lua (#1791)  
+- Update localization.fr.lua (#1792)  
+- Update localization.br.lua (#1793)  
+- Update koKR (#1794)  
+    Co-authored-by: Adam <MysticalOS@users.noreply.github.com>  
+    Co-authored-by: Artemis <QartemisT@gmail.com>  
+- Add Russian localization for announcement settings (#1790)  
+- Fix bad audio  
 - Small bar tweak  
 - disable SetTexture on secrets for now due to regression in build 4  
 - Add some new midnight strings. Have fun anon  

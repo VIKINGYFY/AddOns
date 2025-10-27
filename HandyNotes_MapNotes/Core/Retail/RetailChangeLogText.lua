@@ -1,7 +1,7 @@
 local ADDON_NAME, ns = ...
 
-ns.CurrentAddonVersion = "3.1.3"
-ns.PreviousAddonVersion_1 = "3.1.2"
+ns.CurrentAddonVersion = "3.1.4"
+ns.PreviousAddonVersion_1 = "3.1.3"
 
 ns.LOCALE_CHANGELOG_3_1_ = { -- empty backup file
   deDE = [[
@@ -46,6 +46,151 @@ ns.LOCALE_CHANGELOG_3_1_ = { -- empty backup file
 
   koKR = [[
 
+]],
+}
+
+ns.LOCALE_CHANGELOG_3_1_4 = {
+  deDE = [[
+PTR 11.2.7:
+• Chatlink-Fehlerbehebung
+
+• NPC-Targeting-Fehlerbehebung
+
+
+Retail:
+• Für die Kontinente „Kalimdor“ und „Östliche Königreiche“ wurden nun ebenfalls die NPC-Namen hinzugefügt.
+
+• Außerdem wurden Ruhmreiche-Händler-Symbole auf bestimmten Karten hinzugefügt; weitere werden folgen.
+]],
+
+  enUS = [[
+PTR 11.2.7:
+• Fixed Chatlink issue
+
+• Fixed NPC targeting issue
+
+
+Retail:
+• Added NPC names for the continents "Kalimdor" and "Eastern Kingdoms".
+
+• Added Glorious Vendor icons to certain maps; more will follow.
+]],
+
+  frFR = [[
+PTR 11.2.7 :
+• Correction du problème de lien de discussion
+
+• Correction du problème de ciblage des PNJ
+
+
+Version commerciale :
+• Ajout des noms de PNJ pour les continents « Kalimdor » et « Royaumes de l’Est ».
+
+• Ajout d’icônes de marchands glorieux sur certaines cartes ; d’autres suivront.
+]],
+
+  itIT = [[
+PTR 11.2.7:
+• Correzione del problema con i collegamenti in chat
+
+• Correzione del problema con il targeting dei PNG
+
+
+Versione retail:
+• Aggiunti i nomi dei PNG per i continenti "Kalimdor" e "Regni Orientali".
+
+• Aggiunte icone dei Mercanti Gloriosi su alcune mappe; ne seguiranno altre.
+]],
+
+  esES = [[
+PTR 11.2.7:
+• Corrección del error de enlace de chat
+
+• Corrección del error de selección de PNJ
+
+
+Comercial:
+• Se han añadido los nombres de los PNJ en los continentes «Kalimdor» y «Reinos del Este».
+
+• Se han añadido iconos de Vendedores Gloriosos en algunos mapas; se añadirán más.
+]],
+
+  esMX = [[
+PTR 11.2.7:
+• Corrección del error con los enlaces de chat
+
+• Corrección del error al seleccionar PNJ
+
+
+Versión comercial:
+• Se agregaron los nombres de los PNJ en los continentes "Kalimdor" y "Reinos del Este".
+
+• Se agregaron íconos de Vendedores Gloriosos en ciertos mapas; se agregarán más.
+]],
+
+  ptBR = [[
+PTR 11.2.7:
+• Correção do erro de link do chat
+
+• Correção do erro de seleção de PNJ
+
+
+Versão comercial:
+• Nomes de PNJs adicionados para os continentes "Kalimdor" e "Reinos do Leste".
+
+• Ícones de Comerciantes Gloriosos adicionados em certos mapas; mais serão adicionados em breve.
+]],
+
+  ruRU = [[
+PTR 11.2.7:
+• Исправлена ошибка с ссылками в чате
+
+• Исправлена ошибка с выбором целей НИП
+
+
+Розничная версия:
+• Добавлены имена НИП для континентов «Калимдор» и «Восточные королевства».
+
+• Добавлены значки Славных торговцев на некоторых картах; вскоре появятся новые.
+]],
+
+  zhCN = [[
+PTR 11.2.7：
+• 修复聊天链接问题
+
+• 修复NPC目标选择问题
+
+
+正式服：
+• 已为“卡利姆多”和“东部王国”大陆添加NPC名称。
+
+• 在部分地图上新增了荣耀商人图标；后续将添加更多。
+]],
+
+  zhTW = [[
+PTR 11.2.7：
+• 修正聊天連結問題
+
+• 修正NPC選取問題
+
+
+正式服：
+• 已為「卡林多」與「東部王國」大陸新增NPC名稱。
+
+• 在部分地圖上新增榮耀商人圖示；稍後將新增更多。
+]],
+
+  koKR = [[
+PTR 11.2.7:
+• 채팅 링크 오류 수정
+
+• NPC 타겟팅 오류 수정
+
+
+정식 서버:
+• "칼림도어"와 "동부 왕국" 대륙에 NPC 이름이 추가되었습니다.
+
+• 일부 지도에 영광의 상인 아이콘이 추가되었으며, 앞으로 더 추가될 예정입니다.
 ]],
 }
 
@@ -660,10 +805,10 @@ ns.LOCALE_CHANGELOG_3_1_1 = {
 ]],
 }
 
-ns.LOCALE_CHANGELOG_NEW = ns.LOCALE_CHANGELOG_3_1_3
+ns.LOCALE_CHANGELOG_NEW = ns.LOCALE_CHANGELOG_3_1_4
 
 ns.LOCALE_OLDER_CHANGELOGS = {
- -- { version = "3.1.3", table = ns.LOCALE_CHANGELOG_3_1_3 },
+  { version = "3.1.3", table = ns.LOCALE_CHANGELOG_3_1_3 },
   { version = "3.1.2", table = ns.LOCALE_CHANGELOG_3_1_2 },
   { version = "3.1.1", table = ns.LOCALE_CHANGELOG_3_1_1 },
 }

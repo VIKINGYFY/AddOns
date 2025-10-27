@@ -57,7 +57,7 @@ ns.currentSourceFile = "RetailZoneNodesLocation.lua"
             nodes[78][50560773] = { mnID = 119, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, dnID = L["Portal"] } -- Portal Unguro to Sholazar
             nodes[74][58142669] = { mnID = 85, mnID2 = 84, name = "", type = "PortalS", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portals"] .. "\n" .. "\n" .. FACTION_HORDE .. "\n" .. " ==> " .. ns.Orgrimmar .. "\n" .. "\n" .. FACTION_ALLIANCE .. "\n" .. " ==> " .. ns.Stormwind } -- Portal from Tanaris to Orgrimmar or Stormwind
             nodes[71][65984960] = { mnID = 85, mnID2 = 84, name = "", type = "PortalS", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portals"] .. "\n" .. "\n" .. FACTION_HORDE .. "\n" .. " ==> " .. ns.Orgrimmar .. "\n" .. "\n" .. FACTION_ALLIANCE .. "\n" .. " ==> " .. ns.Stormwind } -- Portal from Tanaris to Orgrimmar or Stormwind
-            nodes[81][41614520] = { mnID = 862, mnID2 = 1161, name = "", type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portals"] .. "\n" .. "\n" .. FACTION_HORDE .. "\n" .. " ==> " .. ns.Zandalar .. "\n" .. "\n" .. FACTION_ALLIANCE .. "\n" .. " ==> " .. ns.Boralus } -- Portal from Silithus to Zandalar or Boralus 
+            nodes[81][41614520] = { mnID = 862, mnID2 = 1161, name = "", dnID = L["Portals"] .. "\n" .. "\n" .. FACTION_HORDE .. "\n" .. " ==> " .. ns.Zandalar .. "\n" .. "\n" .. FACTION_ALLIANCE .. "\n" .. " ==> " .. ns.Boralus .. "\n\n" .. L["If you don't see this icon, it's probably in a different phase. \nChange the phase on Zidormi"], type = "Portal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from Silithus to Zandalar or Boralus 
 
             if self.faction == "Horde" or db.activate.ZoneEnemyFaction then  
               nodes[62][46243511] = { mnID = 862, name = "", TransportName = L["Portal"] .. " ==> " .. ns.Zuldazar .. "\n" .. "\n" .. L["(its only shown up ingame if your faction\n is currently occupying Bashal'Aran)"], type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false } -- Portal from New Darkshore to Zandalar 
@@ -154,8 +154,8 @@ ns.currentSourceFile = "RetailZoneNodesLocation.lua"
               nodes[2070][60126689] = { mnID = 117, name = "", type = "HPortalS", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.HowlingFjord } -- Portal to Howling Fjord from Tirisfal
               nodes[2070][59406743] = { mnID = 110, name = "", type = "HPortalS", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.Silvermoon } -- Portal to Silvermoon from Tirisfal
               nodes[50][37545100] = { mnID = 18, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.RuinsofLordaeron } -- Portal to Undercity from Grom'gol
-              nodes[94][54552795] = { mnID = 85, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.Orgrimmar } -- Portal to Orgrimmar from Silvermoon 
-              nodes[94][51262623] = { mnID = 18, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.RuinsofLordaeron } -- Portal to Ruins of Lordaeron from Silvermoon 
+              --nodes[94][54552795] = { mnID = 85, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.Orgrimmar } -- Portal to Orgrimmar from Silvermoon 
+              --nodes[94][51262623] = { mnID = 18, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.RuinsofLordaeron } -- Portal to Ruins of Lordaeron from Silvermoon 
               nodes[14][27442938] = { mnID = 862, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.Zandalar .. "\n" .. " " .. "(" .. L["This Arathi Highlands portal is only active if your faction is currently occupying Ar'gorok"] .. ")" }
               nodes[245][56397967] = { mnID = 85, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.Orgrimmar } -- Portal Tol Bard to Orgimmar  
               nodes[241][73595355] = { mnID = 85, name = "", type = "HPortal", showInZone = true, showOnContinent = false, showOnMinimap = false, TransportName = L["Portal"] .. " ==> " .. ns.Orgrimmar } -- Portal Tol Orgrimmar from Twilight Highlands  
@@ -960,7 +960,7 @@ ns.currentSourceFile = "RetailZoneNodesLocation.lua"
         end
 
       end
-        
+
     end
   end
 

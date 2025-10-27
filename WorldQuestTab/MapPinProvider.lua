@@ -557,16 +557,29 @@ function WQT_PinButtonMixin:OnLoad()
 	self.icons = {};
 end
 
-function WQT_PinButtonMixin:OnEnter(...)
-	self:GetParent():OnEnter(...);
+function WQT_PinButtonMixin:OnEnter()
+	self:GetParent():Focus();
+	if (self.questInfo) then
+		WQT_Utils:ShowQuestTooltip(self, self.questInfo);
+		-- Highlight quest in list
+		if (self.questID ~= WQT_ListContainer.PoIHoverId) then
+			WQT_ListContainer.PoIHoverId = self.questID;
+			WQT_ListContainer:DisplayQuestList();
+		end
+	end
 end
 
-function WQT_PinButtonMixin:OnLeave(...)
-	self:GetParent():OnLeave(...);
+function WQT_PinButtonMixin:OnLeave()
+	self:GetParent():ClearFocus();
+	GameTooltip:Hide();
+	WQT:HideDebugTooltip()
+	-- Stop highlight quest in list
+	WQT_ListContainer.PoIHoverId = nil;
+	WQT_ListContainer:DisplayQuestList();
 end
 
-function WQT_PinButtonMixin:OnClick(...)
-	self:GetParent():OnClick(...);
+function WQT_PinButtonMixin:OnClick(button)
+	WQT_Utils:HandleQuestClick(self, self.questInfo, button);
 end
 
 function WQT_PinButtonMixin:GetIcon()
@@ -889,7 +902,6 @@ end
 WQT_PinMixin = {};
 
 function WQT_PinMixin:OnLoad()
-	self:RegisterForClicks("LeftButtonUp", "RightButtonUp");
 	self.updateTime = 0;
 end
 
@@ -1044,32 +1056,6 @@ function WQT_PinMixin:GetAlphas()
 	end
 	
 	return self.startAlpha, self.endAlpha;
-end
-
-function WQT_PinMixin:OnEnter()
-	self:Focus();
-	if (self.questInfo) then
-		WQT_Utils:ShowQuestTooltip(self:GetButton(), self.questInfo);
-		-- Highlight quest in list
-		if (self.questID ~= WQT_ListContainer.PoIHoverId) then
-			WQT_ListContainer.PoIHoverId = self.questID;
-			WQT_ListContainer:DisplayQuestList();
-		end
-	end
-end
-
-function WQT_PinMixin:OnLeave()
-	self:ClearFocus();
-
-	GameTooltip:Hide();
-	WQT:HideDebugTooltip()
-	-- Stop highlight quest in list
-	WQT_ListContainer.PoIHoverId = nil;
-	WQT_ListContainer:DisplayQuestList();
-end
-
-function WQT_PinMixin:OnClick(button)
-	WQT_Utils:HandleQuestClick(self, self.questInfo, button);
 end
 
 function WQT_PinMixin:ApplyScaledPosition(manualScale)

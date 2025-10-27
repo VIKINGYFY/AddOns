@@ -126,22 +126,23 @@ if not db.activate.HideMapNote then
                         minimap[85][56399252] = { mnID = 74, name = ns.CavernsOfTime, TransportName = L["in the basement"], type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Caverns of Time 
                         minimap[85][55209201] = { mnID = 624, name = ns.Warspear, TransportName = L["in the basement"], type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Warspear - Ashran 
                         minimap[85][57878985] = { mnID = 2339, name = ns.Dornogal, TransportName = L["in the basement"], type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Dornogal
-                        minimap[85][47393928] = { mnID = 245, name = "", type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.TolBarad } --  Portal to Tol Barad
-                        minimap[85][48863851] = { mnID = 1527, name = "", type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.Uldum } -- Portal to Uldum
-                        minimap[85][50243944] = { mnID = 241, name = "", type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.TwilightHighlands } -- Portal to Twilight Highlands
-                        minimap[85][51203832] = { mnID = 198, name = "", type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.Hyjal } -- Portal to Hyjal
-                        minimap[85][50863628] = { mnID = 207, name = "", type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ARTIFACT_SHAMAN_TITLECARD_DEEPHOLM } -- Portal to Deepholm
-                        minimap[85][49203647] = { mnID = 203, name = "", type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. ns.Vashjir } -- Portal to Vashjir
+                        minimap[85][50765561] = { mnID = 18, name = L["Portal"], dnID = " ==> " .. ns.RuinsofLordaeron, type = "HPortal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Ruins of Lordaeron 
+                        minimap[85][47393928] = { mnID = 245, name = L["Portal"], type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true } --  Portal to Tol Barad
+                        minimap[85][48863851] = { mnID = 1527, name = L["Portal"], type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true} -- Portal to Uldum
+                        minimap[85][50243944] = { mnID = 241, name = L["Portal"], type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal to Twilight Highlands
+                        minimap[85][51203832] = { mnID = 198, name = L["Portal"], type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal to Hyjal
+                        minimap[85][50863628] = { mnID = 207, name = L["Portal"], type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal to Deepholm
+                        minimap[85][49203647] = { mnID = 203, name = L["Portal"], type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal to Vashjir
                         minimap[85][48236216] = { npcID = 55382, mnID = 407, name = "", dnID = L["Transport"] .. " ==> " .. CALENDAR_FILTER_DARKMOON .. "\n\n" .. REQUIRES_LABEL .. " " .. CALENDAR_FILTER_DARKMOON .. "\n" .. L["Starting on the first Sunday of each month for one week"], type = "DarkMoon", showInZone = false, showOnContinent = false, showOnMinimap = true }
-                        minimap[85][38607586] = { mnID = 680, name = "", type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. DUNGEON_FLOOR_SURAMARRAID3 } -- Portal to Night Fortress
-                        minimap[85][38167527] = { mnID = 652, name = "", type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Portal"] .. " ==> " .. POSTMASTER_LETTER_THUNDERTOTEM } -- Portal to Night Fortress
+                        minimap[85][38607586] = { mnID = 680, name = L["Portal"], dnID = " ==> " .. DUNGEON_FLOOR_SURAMARRAID3, type = "HPortalS", hideTTmnID = true, showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal to Night Fortress
+                        minimap[85][38167527] = { mnID = 652, name = L["Portal"], dnID = " ==> " .. POSTMASTER_LETTER_THUNDERTOTEM, type = "HPortalS", hideTTmnID = true, showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal to Night Fortress
                         minimap[85][37437619] = { mnID = 2322, name = L["Portal"], dnID = "", type = "HPortalS", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Hall of Awakening
                     end
 
                     if self.db.profile.showMinimapCapitalsZeppelins then
-                        minimap[85][44496228] = { mnID = 114, name = "", type = "HZeppelin", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Zeppelin"] .. " ==> " .. POSTMASTER_LETTER_WARSONGHOLD } -- Zeppelin from OG to Borean Tundra - Northrend
-                        minimap[85][42796534] = { mnID = 88, name = "", type = "HZeppelin", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Zeppelin"] .. " ==> " .. ns.ThunderBluff } -- Zeppelin from OG to Thunder Bluff
-                        minimap[85][52275315] = { mnID = 50, name = "", type = "HZeppelin", showInZone = false, showOnContinent = false, showOnMinimap = true, TransportName = L["Zeppelin"] .. " ==> " .. ns.Gromgol } -- Zeppelin from OG to Stranglethorn
+                        minimap[85][44496228] = { mnID = 114, name = L["Zeppelin"], dnID = " ==> " .. POSTMASTER_LETTER_WARSONGHOLD, type = "HZeppelin", hideTTmnID = true, showInZone = false, showOnContinent = false, showOnMinimap = true } -- Zeppelin from OG to Borean Tundra - Northrend
+                        minimap[85][42796534] = { mnID = 88, name = L["Zeppelin"], type = "HZeppelin", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Zeppelin from OG to Thunder Bluff
+                        minimap[85][52275315] = { mnID = 50, name = L["Zeppelin"], dnID = " ==> " .. ns.Gromgol, type = "HZeppelin", hideTTmnID = true, showInZone = false, showOnContinent = false, showOnMinimap = true } -- Zeppelin from OG to Stranglethorn
                     end
 
                     if self.db.profile.showMinimapCapitalsFP then
@@ -3394,6 +3395,30 @@ if not db.activate.HideMapNote then
 
                 if self.db.profile.showMinimapCapitalsCooking then
                     minimap[2339][44084575] = { npcID = 219104, name = "", type = "Cooking", showInZone = false, showOnContinent = false, showOnMinimap = true }
+                end
+
+            end
+
+        end
+
+
+    --###############
+    --### Housing ###
+    --###############
+        if self.db.profile.showMinimapCapitalsHousing then
+
+        --Transports Dornogal
+            if self.db.profile.activate.MinimapCapitalsTransporting then
+    
+                if self.db.profile.showMinimapCapitalsPortals then
+
+                    if self.faction == "Horde" or db.activate.MinimapCapitalsEnemyFaction then
+                        minimap[2351][54314932] = { mnID = 85, name = L["Portal"], type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal Razorwind Shores to Orgrimmar (Housing map)
+                    end
+
+                    if self.faction == "Alliance" or db.activate.MinimapCapitalsEnemyFaction then
+                        minimap[2352][54314932] = { mnID = 84, name = L["Portal"], type = "Portal", showInZone = false, showOnContinent = false, showOnMinimap = true } -- Portal Founder's Point to Stormwind (Housing map)
+                    end
                 end
 
             end

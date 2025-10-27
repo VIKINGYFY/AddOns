@@ -660,6 +660,7 @@ local CurrentMapID = WorldMapFrame:GetMapID()
         -- Capitals without Sync function
         if not ns.Addon.db.profile.activate.SyncCapitalsAndMinimap and (CurrentMapID == 1454 or CurrentMapID == 1456 -- Cata nodes
             or CurrentMapID == 2266 -- Millenia's Threshold
+            or CurrentMapID == 2351 or CurrentMapID == 2352 -- Housing
             or CurrentMapID == 24 or CurrentMapID == 626 or CurrentMapID == 747 or CurrentMapID == 720 or CurrentMapID == 721 or CurrentMapID == 726 or CurrentMapID == 739 -- Legion Class Halls
             or CurrentMapID == 734 or CurrentMapID == 735 or CurrentMapID == 695 or CurrentMapID == 702 or CurrentMapID == 647 or CurrentMapID == 648 or CurrentMapID == 709 or CurrentMapID == 717 -- Legion Class Halls
             or CurrentMapID == 84 or CurrentMapID == 87 or CurrentMapID == 89 or CurrentMapID == 103 or CurrentMapID == 85
@@ -689,6 +690,7 @@ local CurrentMapID = WorldMapFrame:GetMapID()
         -- Capitals Sync function
         if ns.Addon.db.profile.activate.SyncCapitalsAndMinimap and (CurrentMapID == 1454 or CurrentMapID == 1456 -- Cata nodes
             or CurrentMapID == 2266 -- Millenia's Threshold
+            or CurrentMapID == 2351 or CurrentMapID == 2352 -- Housing
             or CurrentMapID == 24 or CurrentMapID == 626 or CurrentMapID == 747 or CurrentMapID == 720 or CurrentMapID == 721 or CurrentMapID == 726 or CurrentMapID == 739 -- Legion Class Halls
             or CurrentMapID == 734 or CurrentMapID == 735 or CurrentMapID == 695 or CurrentMapID == 702 or CurrentMapID == 647 or CurrentMapID == 648 or CurrentMapID == 709 or CurrentMapID == 717 -- Legion Class Halls
             or CurrentMapID == 84 or CurrentMapID == 87 or CurrentMapID == 89 or CurrentMapID == 103 or CurrentMapID == 85
@@ -988,6 +990,7 @@ local CurrentMapID = WorldMapFrame:GetMapID()
     if not ns.Addon.db.profile.activate.SyncCapitalsAndMinimap and 
             (CurrentMapID == 1454 or CurrentMapID == 1456 -- Cata nodes
             or CurrentMapID == 2266 -- Millenia's Threshold
+            or CurrentMapID == 2351 or CurrentMapID == 2352 -- Housing
             or CurrentMapID == 24 or CurrentMapID == 626 or CurrentMapID == 747 or CurrentMapID == 720 or CurrentMapID == 721 or CurrentMapID == 726 or CurrentMapID == 739 -- Legion Class Halls
             or CurrentMapID == 734 or CurrentMapID == 735 or CurrentMapID == 695 or CurrentMapID == 702 or CurrentMapID == 647 or CurrentMapID == 648 or CurrentMapID == 709 or CurrentMapID == 717 -- Legion Class Halls
             or CurrentMapID == 84 or CurrentMapID == 87 or CurrentMapID == 89 or CurrentMapID == 103 or CurrentMapID == 85
@@ -1008,6 +1011,7 @@ local CurrentMapID = WorldMapFrame:GetMapID()
     if ns.Addon.db.profile.activate.SyncCapitalsAndMinimap and 
             (CurrentMapID == 1454 or CurrentMapID == 1456 -- Cata nodes
             or CurrentMapID == 2266 -- Millenia's Threshold
+            or CurrentMapID == 2351 or CurrentMapID == 2352 -- Housing
             or CurrentMapID == 24 or CurrentMapID == 626 or CurrentMapID == 747 or CurrentMapID == 720 or CurrentMapID == 721 or CurrentMapID == 726 or CurrentMapID == 739 -- Legion Class Halls
             or CurrentMapID == 734 or CurrentMapID == 735 or CurrentMapID == 695 or CurrentMapID == 702 or CurrentMapID == 647 or CurrentMapID == 648 or CurrentMapID == 709 or CurrentMapID == 717 -- Legion Class Halls
             or CurrentMapID == 84 or CurrentMapID == 87 or CurrentMapID == 89 or CurrentMapID == 103 or CurrentMapID == 85

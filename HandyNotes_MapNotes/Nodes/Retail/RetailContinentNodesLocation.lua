@@ -202,14 +202,14 @@ ns.currentSourceFile = "RetailContinentNodesLocation.lua"
 
         -- Kalimdor PvpandPveVendor
           if self.db.profile.showContinentPvPandPvEVendor then
-            nodes[12][56607888] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 71, type = "PvPVendor", showInZone = false, showOnContinent = true, showOnMinimap = false }
+            nodes[12][56607888] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 71, type = "PvPVendor", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
             
             if self.faction == "Horde" or db.activate.ContinentEnemyFaction then
-              nodes[12][52124561] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_HORDE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 10, type = "PvPVendorH", showInZone = false, showOnContinent = true, showOnMinimap = false }
+              nodes[12][52124561] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_HORDE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 10, type = "ContinentPvPVendorH", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
             end
             
             if self.faction == "Alliance" or db.activate.ContinentEnemyFaction then
-              nodes[12][51524394] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_ALLIANCE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 63, type = "PvPVendorA", showInZone = false, showOnContinent = true, showOnMinimap = false }
+              nodes[12][51524394] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_ALLIANCE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 63, type = "ContinentPvPVendorA", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
             end
 
           end
@@ -414,13 +414,13 @@ ns.currentSourceFile = "RetailContinentNodesLocation.lua"
           if self.db.profile.showContinentPvPandPvEVendor then
             
             if self.faction == "Horde" or db.activate.ContinentEnemyFaction then
-              nodes[13][53144389] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_HORDE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 14, type = "PvPVendorH", showInZone = false, showOnContinent = true, showOnMinimap = false }
-              nodes[13][47043956] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_HORDE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 25, type = "PvPVendorH", showInZone = false, showOnContinent = true, showOnMinimap = false }
+              nodes[13][53144389] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_HORDE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 14, type = "ContinentPvPVendorH", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+              nodes[13][47043956] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_HORDE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 25, type = "ContinentPvPVendorH", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
             end
             
             if self.faction == "Alliance" or db.activate.ContinentEnemyFaction then
-              nodes[13][50474530] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_ALLIANCE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 14, type = "PvPVendorA", showInZone = false, showOnContinent = true, showOnMinimap = false }
-              nodes[13][45364099] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_ALLIANCE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 25, type = "PvPVendorA", showInZone = false, showOnContinent = true, showOnMinimap = false }
+              nodes[13][50474530] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_ALLIANCE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 14, type = "ContinentPvPVendorA", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+              nodes[13][45364099] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_ALLIANCE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 25, type = "ContinentPvPVendorA", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
             end
 
           end
@@ -486,20 +486,25 @@ ns.currentSourceFile = "RetailContinentNodesLocation.lua"
 
         -- Outland PvpandPveVendor
           if self.db.profile.showContinentPvPandPvEVendor then
-            nodes[101][53442348] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 109, type = "PvPVendor", showInZone = false, showOnContinent = true, showOnMinimap = false }
-                nodes[101][56751336] = { npcID = 20242, name = "", type = "RenownQuartermaster", showOnContinent = true, showInZone = false, showOnMinimap = false }
-                nodes[101][32582984] = { npcID = 23428, name = "", type = "RenownQuartermaster", showOnContinent = true, showInZone = false, showOnMinimap = false }
-                nodes[101][42785103] = { npcID = 17904, name = "", type = "RenownQuartermaster", showOnContinent = true, showInZone = false, showOnMinimap = false }
-                nodes[101][53617857] = { npcID = 23367, name = "", type = "RenownQuartermaster", showOnContinent = true, showInZone = false, showOnMinimap = false }
-          
+            nodes[101][53442348] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 109, type = "PvPVendor", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+          end
+
+        -- Outland RenownQuartermaster
+          if self.db.profile.showContinentRenownQuartermaster then
+            nodes[101][56751336] = { npcID = 20242, mnID = 109, name = "", type = "RenownQuartermaster", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+            nodes[101][32582984] = { npcID = 23428, mnID = 105, name = "", type = "RenownQuartermaster", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+            nodes[101][42785103] = { npcID = 17904, mnID = 102, name = "", type = "RenownQuartermaster", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+            nodes[101][53617857] = { npcID = 23367, mnID = 108, name = "", type = "RenownQuartermaster", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+            nodes[101][41246456] = { npcIDs1 = 19321, npcIDs2 = 21432, npcIDs3 = 19331, mnID = 111, name = "", type = "RenownQuartermaster", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+
             if self.faction == "Horde" or db.activate.ContinentEnemyFaction then
-              nodes[101][58894830] = { npcID = 17585, name = "", type = "RenownQuartermasterH", showOnContinent = true, showInZone = false, showOnMinimap = false }
-              nodes[101][32116091] = { npcID = 20241, name = "", type = "RenownQuartermasterH", showOnContinent = true, showInZone = false, showOnMinimap = false }
+              nodes[101][58894830] = { npcID = 17585, mnID = 100, name = "", type = "ContinentRenownQuartermasterH", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+              nodes[101][32116091] = { npcID = 20241, mnID = 107, name = "", type = "ContinentRenownQuartermasterH", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
             end
 
             if self.faction == "Alliance" or db.activate.ContinentEnemyFaction then
-              nodes[101][59455568] = { npcID = 17657, name = "", type = "RenownQuartermasterA", showOnContinent = true, showInZone = false, showOnMinimap = false }
-              nodes[101][32707332] = { npcID = 20240, name = "", type = "RenownQuartermasterA", showOnContinent = true, showInZone = false, showOnMinimap = false }
+              nodes[101][59455568] = { npcID = 17657, mnID = 100, name = "", type = "ContinentRenownQuartermasterA", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+              nodes[101][32707332] = { npcID = 20240, mnID = 107, name = "", type = "ContinentRenownQuartermasterA", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
             end
 
           end
@@ -576,24 +581,34 @@ ns.currentSourceFile = "RetailContinentNodesLocation.lua"
 
         -- Northrend PvpandPveVendor
           if self.db.profile.showContinentPvPandPvEVendor then
-            --nodes[113][41133952] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT, mnID = 118, type = "PvEVendor", showInZone = false, showOnContinent = true, showOnMinimap = false }
-            nodes[113][37041885] = { npcID = 32538, name = "", type = "RenownQuartermaster", showInZone = false, showOnContinent = true, showOnMinimap = false }
-            nodes[113][45602042] = { npcIDs1 = 173791, npcIDs2 = 34885, name = "", type = "RenownQuartermaster", showInZone = false, showOnContinent = true, showOnMinimap = false }
-            nodes[113][66953007] = { npcID = 32540, name = "", type = "RenownQuartermaster", showInZone = false, showOnContinent = true, showOnMinimap = false }
-            nodes[113][66298110] = { npcID = 31916, name = "", type = "RenownQuartermaster", showInZone = false, showOnContinent = true, showOnMinimap = false }
-            nodes[113][50335869] = { npcID = 32533, name = "", type = "RenownQuartermaster", showInZone = false, showOnContinent = true, showOnMinimap = false }
-            nodes[113][46096700] = { npcID = 32763, name = "", type = "RenownQuartermaster", showInZone = false, showOnContinent = true, showOnMinimap = false }
-
+            --nodes[113][41133952] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT, mnID = 118, type = "PvEVendor", showOnContinent = true, showInZone = false, showOnMinimap = false }
+            
             if self.faction == "Horde" then
-                nodes[113][49032027] = { npcIDs1 = 35574, npcIDs2 = 35576, npcIDs3 = 35578, npcIDs4 = 35580, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, mnID = 118, type = "PvEVendorH", showInZone = false, showOnContinent = true, showOnMinimap = false }
-                nodes[113][19676549] = { npcID = 32565, name = "", type = "RenownQuartermasterH", showInZone = false, showOnContinent = true, showOnMinimap = false }
+                nodes[113][49032027] = { npcIDs1 = 35574, npcIDs2 = 35576, npcIDs3 = 35578, npcIDs4 = 35580, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, mnID = 118, type = "ContinentPvEVendorH", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+            end
+            
+            if self.faction == "Alliance" then
+                nodes[118][49032027] = { npcIDs1 = 35573, npcIDs2 = 35575, npcIDs3 = 35577, npcIDs4 = 35579, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, mnID = 118, type = "ContinentPvEVendorA", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+            end
+            
+          end
+
+        -- Northrend RenownQuartermaster
+          if self.db.profile.showContinentRenownQuartermaster then
+            nodes[113][37041885] = { npcID = 32538, mnID = 118, name = "", type = "RenownQuartermaster", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+            nodes[113][45602042] = { npcIDs1 = 173791, npcIDs2 = 34885, mnID = 118, name = "", type = "RenownQuartermaster", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+            nodes[113][66953007] = { npcID = 32540, mnID = 120, name = "", type = "RenownQuartermaster", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+            nodes[113][66298110] = { npcID = 31916, mnID = 117, name = "", type = "RenownQuartermaster", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+            nodes[113][50335869] = { npcID = 32533, mnID = 115, name = "", type = "RenownQuartermaster", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+            nodes[113][46096700] = { npcID = 32763, mnID = 115, name = "", type = "RenownQuartermaster", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+            
+            if self.faction == "Horde" or db.activate.ContinentEnemyFaction then
+                nodes[113][19676549] = { npcID = 32565, mnID = 114, name = "", type = "ContinentRenownQuartermasterH", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
             end
 
-            if self.faction == "Alliance" then
-                nodes[118][49032027] = { npcIDs1 = 35573, npcIDs2 = 35575, npcIDs3 = 35577, npcIDs4 = 35579, name = TRANSMOG_SET_PVE .. " " .. MERCHANT, mnID = 118, type = "PvEVendorA", showInZone = false, showOnContinent = true, showOnMinimap = false }
-                nodes[113][23946927] = { npcID = 32564, name = "", type = "RenownQuartermasterA", showInZone = false, showOnContinent = true, showOnMinimap = false }
+            if self.faction == "Alliance" or db.activate.ContinentEnemyFaction then
+                nodes[113][23946927] = { npcID = 32564, mnID = 114, name = "", type = "ContinentRenownQuartermasterA", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
             end
-          
           end
 
         end
@@ -654,14 +669,14 @@ ns.currentSourceFile = "RetailContinentNodesLocation.lua"
 
         -- Pandaria PvpandPveVendor
           if self.db.profile.showContinentPvPandPvEVendor then
-            nodes[424][24574389] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 388, type = "PvEVendor", showInZone = false, showOnContinent = true, showOnMinimap = false }
+            nodes[424][24574389] = { name = "", dnID = TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 388, type = "PvEVendor", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
           
             if self.faction == "Horde" or db.activate.ContinentEnemyFaction then
-              nodes[424][39394352] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_HORDE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 379, type = "PvPVendorH", showInZone = false, showOnContinent = true, showOnMinimap = false }
+              nodes[424][39394352] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_HORDE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 379, type = "ContinentPvPVendorH", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
             end
 
             if self.faction == "Alliance" or db.activate.ContinentEnemyFaction then
-              nodes[424][42126238] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_ALLIANCE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 376, type = "PvPVendorA", showInZone = false, showOnContinent = true, showOnMinimap = false }
+              nodes[424][42126238] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_ALLIANCE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 376, type = "ContinentPvPVendorA", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
             end
           end
 
@@ -780,11 +795,11 @@ ns.currentSourceFile = "RetailContinentNodesLocation.lua"
           if self.db.profile.showContinentPvPandPvEVendor then
 
             if self.faction == "Horde" or db.activate.ContinentEnemyFaction then
-              nodes[572][71454121] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_HORDE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 624, type = "PvPVendorH", showInZone = false, showOnContinent = true, showOnMinimap = false }
+              nodes[572][71454121] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_HORDE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 624, type = "ContinentPvPVendorH", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
             end
 
             if self.faction == "Alliance" or db.activate.ContinentEnemyFaction then
-              nodes[572][71524649] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_ALLIANCE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 622, type = "PvPVendorA", showInZone = false, showOnContinent = true, showOnMinimap = false }
+              nodes[572][71524649] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_ALLIANCE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 622, type = "ContinentPvPVendorA", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
             end
 
           end
@@ -958,7 +973,7 @@ ns.currentSourceFile = "RetailContinentNodesLocation.lua"
           if self.db.profile.showContinentPvPandPvEVendor then
 
             if self.faction == "Horde" or db.activate.ContinentEnemyFaction then 
-              nodes[875][54017034] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_HORDE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 862, type = "PvPVendorH", showInZone = false, showOnContinent = true, showOnMinimap = false }
+              nodes[875][54017034] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_HORDE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 862, type = "ContinentPvPVendorH", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
             end
 
           end
@@ -1069,7 +1084,7 @@ ns.currentSourceFile = "RetailContinentNodesLocation.lua"
           if self.db.profile.showContinentPvPandPvEVendor then
 
             if self.faction == "Alliance" or db.activate.ContinentEnemyFaction then
-              nodes[876][58825106] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_ALLIANCE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 1161, type = "PvPVendorA", showInZone = false, showOnContinent = true, showOnMinimap = false }
+              nodes[876][58825106] = { name = "", dnID = TRANSMOG_SET_PVP .. " " .. MERCHANT .. " " .. FACTION_ALLIANCE .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 1161, type = "ContinentPvPVendorA", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
             end
 
           end
@@ -1121,7 +1136,7 @@ ns.currentSourceFile = "RetailContinentNodesLocation.lua"
 
         -- Shadowlands PvpandPveVendor
           if self.db.profile.showContinentPvPandPvEVendor then
-            nodes[1550][45135011] = { name = "", dnID = TRANSMOG_SET_PVP .. " / " .. TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 1670, type = "PvPVendor", showInZone = false, showOnContinent = true, showOnMinimap = false }
+            nodes[1550][45135011] = { name = "", dnID = TRANSMOG_SET_PVP .. " / " .. TRANSMOG_SET_PVE .. " " .. MERCHANT .. "\n" .. WORLD_QUEST_REWARD_FILTERS_EQUIPMENT .. "\n" .. AUCTION_CATEGORY_WEAPONS, mnID = 1670, type = "PvPVendor", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
           end
           
         end
@@ -1212,7 +1227,7 @@ ns.currentSourceFile = "RetailContinentNodesLocation.lua"
 
           -- missing Blizzard Delves on zone maps  
           if ns.Addon.db.profile.showContinentDelves then
-            nodes[2274][37838637] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "Delves", showInZone = false, showOnContinent = true, showOnMinimap = false } -- Zekvir's Lair
+            nodes[2274][37838637] = { name = "", TransportName = DELVE_LABEL, delveID = 2348, type = "Delves", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Zekvir's Lair
           end
     
         -- Khaz Algar Dungeons
@@ -1240,20 +1255,11 @@ ns.currentSourceFile = "RetailContinentNodesLocation.lua"
         -- Khaz Algar MapNotesIcons
           if self.db.profile.showContinentMapNotes then
             nodes[2274][72311951] = { mnID = 2339, name = "", type = "MNL", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = ns.Dornogal .. " - " .. FACTION_NEUTRAL .. "\n" .. "\n" .. L["Portals"] .. "\n" .. " ==> " .. ns.Orgrimmar .. "\n" .. " ==> " .. ns.Stormwind .. "\n" .. "\n" .. L["The Timeways"] .. " " .. L["Portals"] .. "\n" .. "\n" .. " ==> " .. ns.Tazavesh .. "\n" .. " ==> " .. ns.Revendreth .."\n" .. "\n" .. CALENDAR_TYPE_DUNGEON .. "\n" .. " ==> " .. ns.Rookery } -- Dornogal
-            if self.faction == "Horde" or db.activate.ContinentEnemyFaction then
-            end
-            if self.faction == "Alliance" or db.activate.ContinentEnemyFaction then
-            
-            end
           end
     
         -- Khaz Algar Portals
           if self.db.profile.showContinentPortals then
-            nodes[2274][70881758] = { mnID = 2339, name = "", type = "Portal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Portals"] .. "\n" ..  "\n" .. " ==> " .. ns.Stormwind .. "\n" .. " ==> " .. ns.Orgrimmar } --  Isle of Dorn Portals
-            
-            if self.faction == "Horde" or db.activate.ContinentEnemyFaction then
-
-            end
+            --nodes[2274][70881758] = { mnID = 2339, name = "", type = "Portal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Portals"] .. "\n" ..  "\n" .. " ==> " .. ns.Stormwind .. "\n" .. " ==> " .. ns.Orgrimmar } --  Isle of Dorn Portals
     
             if self.faction == "Alliance" or db.activate.ContinentEnemyFaction then
               --nodes[1978][25006083] = { mnID = "2239",  name = "", type = "APortal", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Portals"] .. "\n" .. " ==> " .. ns.Stormwind .. "\n" .. " ==> " .. ns.Darkshore .. "\n" .. " ==> " .. ns.Hyjal  .. "\n" .. " ==> " .. POSTMASTER_LETTER_LORLATHIL } -- Valdrakken to Stormwind City Portal
@@ -1262,13 +1268,13 @@ ns.currentSourceFile = "RetailContinentNodesLocation.lua"
 
         -- Khaz Algar Transport
           if self.db.profile.showContinentTransport then
-            nodes[2274][52685213] = { mnID = 2369, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showInZone = false, showOnContinent = true, showOnMinimap = false } -- Mole Machine from Deeps to Sirene Isle
-            nodes[2274][64396827] = { mnID = 2346, name = L["Rocket drill"] .. " " .. L["Transport"], dnID = "", type = "RocketDrill", questID = 83151, wwwLink = "wowhead.com/quest=83151", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Down Undermine", showInZone = false, showOnContinent = true, showOnMinimap = false } -- Mole Machine from Deeps to Undermine
+            nodes[2274][52675173] = { mnID = 2369, name = L["Mole Machine"], dnID = "", type = "MoleMachine", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Mole Machine from Deeps to Sirene Isle
+            nodes[2274][64396827] = { mnID = 2346, name = L["Rocket drill"] .. " " .. L["Transport"], dnID = "", type = "RocketDrill", questID = 83151, wwwLink = "wowhead.com/quest=83151", showWWW = true, wwwName = BATTLE_PET_SOURCE_2 .. " " .. REQUIRES_LABEL .. " " .. "Down Undermine", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Mole Machine from Deeps to Undermine
           end
 
         -- Khaz Algar Zeppelin
           if self.db.profile.showContinentZeppelins then
-            nodes[2274][73131599] = { mnID = 2369, name = "", type = "Zeppelin", showInZone = false, showOnContinent = true, showOnMinimap = false, TransportName = L["Zeppelin"] .. " ==> " .. L["Siren Isle"] } -- Zeppelin to Siren Isle from Dornogal
+            nodes[2274][73131599] = { mnID = 2369, name = "", type = "Zeppelin", showOnContinent = true, showInZone = false, showOnMinimap = false, TransportName = L["Zeppelin"] .. " ==> " .. L["Siren Isle"] } -- Zeppelin to Siren Isle from Dornogal
           end
 
         -- Khaz Algar Paths
@@ -1279,6 +1285,21 @@ ns.currentSourceFile = "RetailContinentNodesLocation.lua"
             nodes[2274][65383353] = { mnID = 2214, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19560", achievementID = 19560, type = "PassageCaveDown", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Isle of Dornogal to Ringing Deeps
             nodes[2274][79661540] = { mnID = 2214, name = L["Passage"], dnID = "", showWWW = true, wwwName = LOOT_JOURNAL_LEGENDARIES_SOURCE_ACHIEVEMENT .. " " .. REQUIRES_LABEL, wwwLink = "https://wowhead.com/achievement=19560", achievementID = 19560, type = "PassageCaveDown", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Isle of Dornogal to Ringing Deeps
             nodes[2274][70402160] = { mnID = 2214, name = L["Passage"], dnID = "", type = "PassageCaveDown", showOnContinent = true, showInZone = false, showOnMinimap = false } -- Portal from Isle of Dornogal to Ringing Deeps
+          end
+
+          -- Khaz Algar RenownQuartermaster
+          if self.db.profile.showContinentRenownQuartermaster then
+            nodes[2274][45227346] = { npcID = 223750, mnID = 2255, name = "", type = "RenownQuartermaster", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+            nodes[2274][34165593] = { npcID = 213145, mnID = 2215, name = "", type = "RenownQuartermaster", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+            nodes[2274][53595332] = { npcID = 221390, mnID = 2214, name = "", type = "RenownQuartermaster", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+            nodes[2274][80067008] = { npcID = 231396, mnID = 2346, name = "", type = "RenownQuartermaster", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+            nodes[2274][70881758] = { npcID = 223728, mnID = 2339, name = "", type = "RenownQuartermaster", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+            nodes[2274][11221549] = { npcID = 235252, mnID = 2472, name = "", type = "RenownQuartermaster", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
+          end
+
+          -- Khaz Algar PvpandPveVendor
+          if self.db.profile.showContinentPvPandPvEVendor then
+            nodes[2274][46338419] = { npcIDs1 = 224270, npcIDs2 = 224267, name = TRANSMOG_SET_PVP .. " / " .. TRANSMOG_SET_PVE .. " " .. MERCHANT, mnID = 2213, type = "PvEVendor", hideTTmnID = true, showOnContinent = true, showInZone = false, showOnMinimap = false }
           end
 
         end

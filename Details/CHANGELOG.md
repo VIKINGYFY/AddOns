@@ -1,8 +1,12 @@
 # Details! Damage Meter
 
-## [Details.20251021.13809.166-4-g17f239f](https://github.com/Tercioo/Details-Damage-Meter/tree/17f239f8150b12187be4382644a7b9ca296272a8) (2025-10-23)
-[Full Changelog](https://github.com/Tercioo/Details-Damage-Meter/compare/Details.20251021.13809.166...17f239f8150b12187be4382644a7b9ca296272a8) 
+## [Details.20251023.13811.166](https://github.com/Tercioo/Details-Damage-Meter/tree/Details.20251023.13811.166) (2025-10-23)
+[Full Changelog](https://github.com/Tercioo/Details-Damage-Meter/compare/Details.20251021.13809.166...Details.20251023.13811.166) 
 
+- Fixes for Classic and Remix  
+    Flamanis:  
+    - Fix an issue with role assignment in vanilla wow.  
+    - Fix error in remix mythic plus dungeons where one of the affixes is sanguine.  
 - Readd sanguine special unit cause lemix  
 - Ignore path helper  
 - Framework Update  

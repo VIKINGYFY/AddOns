@@ -35,6 +35,7 @@ OnTooltipShow = function(tooltip)
   if not ns.Addon.db.profile.activate.SyncZoneAndMinimap and (info.mapType == 3 or info.mapType == 4 or info.mapType == 5 or info.mapType == 6)
     and not (PlayerMapID == 1454 or PlayerMapID == 1456 --Cata nodes
     or PlayerMapID == 2266 -- Millenia's Threshold
+    or PlayerMapID == 2351 or PlayerMapID == 2352 -- Housing
     or PlayerMapID == 24 or PlayerMapID == 626 or PlayerMapID == 747 or PlayerMapID == 720 or PlayerMapID == 721 or PlayerMapID == 726 or PlayerMapID == 739 -- Legion Class Halls
     or PlayerMapID == 734 or PlayerMapID == 735 or PlayerMapID == 695 or PlayerMapID == 702 or PlayerMapID == 647 or PlayerMapID == 648 or PlayerMapID == 709 or PlayerMapID == 717 -- Legion Class Halls
     or PlayerMapID == 84 or PlayerMapID == 87 or PlayerMapID == 89 or PlayerMapID == 103 or PlayerMapID == 85
@@ -136,6 +137,7 @@ OnTooltipShow = function(tooltip)
   if ns.Addon.db.profile.activate.SyncZoneAndMinimap and (info.mapType == 3 or info.mapType == 5 or info.mapType == 6)
     and not (PlayerMapID == 1454 or PlayerMapID == 1456 --Cata nodes
     or PlayerMapID == 2266 -- Millenia's Threshold
+    or PlayerMapID == 2351 or PlayerMapID == 2352 -- Housing
     or PlayerMapID == 24 or PlayerMapID == 626 or PlayerMapID == 747 or PlayerMapID == 720 or PlayerMapID == 721 or PlayerMapID == 726 or PlayerMapID == 739 -- Legion Class Halls
     or PlayerMapID == 734 or PlayerMapID == 735 or PlayerMapID == 695 or PlayerMapID == 702 or PlayerMapID == 647 or PlayerMapID == 648 or PlayerMapID == 709 or PlayerMapID == 717 -- Legion Class Halls
     or PlayerMapID == 84 or PlayerMapID == 87 or PlayerMapID == 89 or PlayerMapID == 103 or PlayerMapID == 85
@@ -237,6 +239,7 @@ OnTooltipShow = function(tooltip)
   if not ns.Addon.db.profile.activate.SyncCapitalsAndMinimap 
     and (PlayerMapID == 1454 or PlayerMapID == 1456 --Cata nodes
     or PlayerMapID == 2266 -- Millenia's Threshold
+    or PlayerMapID == 2351 or PlayerMapID == 2352 -- Housing
     or PlayerMapID == 24 or PlayerMapID == 626 or PlayerMapID == 747 or PlayerMapID == 720 or PlayerMapID == 721 or PlayerMapID == 726 or PlayerMapID == 739 -- Legion Class Halls
     or PlayerMapID == 734 or PlayerMapID == 735 or PlayerMapID == 695 or PlayerMapID == 702 or PlayerMapID == 647 or PlayerMapID == 648 or PlayerMapID == 709 or PlayerMapID == 717 -- Legion Class Halls
     or PlayerMapID == 84 or PlayerMapID == 87 or PlayerMapID == 89 or PlayerMapID == 103 or PlayerMapID == 85
@@ -256,6 +259,7 @@ OnTooltipShow = function(tooltip)
   if ns.Addon.db.profile.activate.SyncCapitalsAndMinimap 
     and (PlayerMapID == 1454 or PlayerMapID == 1456 --Cata nodes
     or PlayerMapID == 2266 -- Millenia's Threshold
+    or PlayerMapID == 2351 or PlayerMapID == 2352 -- Housing
     or PlayerMapID == 24 or PlayerMapID == 626 or PlayerMapID == 747 or PlayerMapID == 720 or PlayerMapID == 721 or PlayerMapID == 726 or PlayerMapID == 739 -- Legion Class Halls
     or PlayerMapID == 734 or PlayerMapID == 735 or PlayerMapID == 695 or PlayerMapID == 702 or PlayerMapID == 647 or PlayerMapID == 648 or PlayerMapID == 709 or PlayerMapID == 717 -- Legion Class Halls
     or PlayerMapID == 84 or PlayerMapID == 87 or PlayerMapID == 89 or PlayerMapID == 103 or PlayerMapID == 85
@@ -497,6 +501,7 @@ OnClick = function(self, button)
     if ns.Addon.db.profile.activate.SyncZoneAndMinimap and (info.mapType == 3 or info.mapType == 5 or info.mapType == 6) 
       and not (PlayerMapID == 1454 or PlayerMapID == 1456 --Cata nodes
       or PlayerMapID == 2266 -- Millenia's Threshold
+      or PlayerMapID == 2351 or PlayerMapID == 2352 -- Housing
       or PlayerMapID == 24 or PlayerMapID == 626 or PlayerMapID == 747 or PlayerMapID == 720 or PlayerMapID == 721 or PlayerMapID == 726 or PlayerMapID == 739 -- Legion Class Halls
       or PlayerMapID == 734 or PlayerMapID == 735 or PlayerMapID == 695 or PlayerMapID == 702 or PlayerMapID == 647 or PlayerMapID == 648 or PlayerMapID == 709 or PlayerMapID == 717 -- Legion Class Halls
       or PlayerMapID == 84 or PlayerMapID == 87 or PlayerMapID == 89 or PlayerMapID == 103 or PlayerMapID == 85
@@ -706,6 +711,7 @@ OnClick = function(self, button)
     if not ns.Addon.db.profile.activate.SyncCapitalsAndMinimap
       and (PlayerMapID == 1454 or PlayerMapID == 1456 --Cata nodes
       or PlayerMapID == 2266 -- Millenia's Threshold
+      or PlayerMapID == 2351 or PlayerMapID == 2352 -- Housing
       or PlayerMapID == 24 or PlayerMapID == 626 or PlayerMapID == 747 or PlayerMapID == 720 or PlayerMapID == 721 or PlayerMapID == 726 or PlayerMapID == 739 -- Legion Class Halls
       or PlayerMapID == 734 or PlayerMapID == 735 or PlayerMapID == 695 or PlayerMapID == 702 or PlayerMapID == 647 or PlayerMapID == 648 or PlayerMapID == 709 or PlayerMapID == 717 -- Legion Class Halls
       or PlayerMapID == 84 or PlayerMapID == 87 or PlayerMapID == 89 or PlayerMapID == 103 or PlayerMapID == 85
@@ -734,6 +740,7 @@ OnClick = function(self, button)
     if ns.Addon.db.profile.activate.SyncCapitalsAndMinimap
       and (PlayerMapID == 1454 or PlayerMapID == 1456 --Cata nodes
       or PlayerMapID == 2266 -- Millenia's Threshold
+      or PlayerMapID == 2351 or PlayerMapID == 2352 -- Housing
       or PlayerMapID == 24 or PlayerMapID == 626 or PlayerMapID == 747 or PlayerMapID == 720 or PlayerMapID == 721 or PlayerMapID == 726 or PlayerMapID == 739 -- Legion Class Halls
       or PlayerMapID == 734 or PlayerMapID == 735 or PlayerMapID == 695 or PlayerMapID == 702 or PlayerMapID == 647 or PlayerMapID == 648 or PlayerMapID == 709 or PlayerMapID == 717 -- Legion Class Halls
       or PlayerMapID == 84 or PlayerMapID == 87 or PlayerMapID == 89 or PlayerMapID == 103 or PlayerMapID == 85

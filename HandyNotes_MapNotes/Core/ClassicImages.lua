@@ -93,12 +93,14 @@ function ns.ChangeToClassicImagesRetail()
         ns.icons["StablemasterH"] = ns.icons["StablemasterN"]
         ns.icons["ZonePvPVendorH"] = ns.icons["PvPVendor"]
         ns.icons["ZonePvEVendorH"] = ns.icons["PvEVendor"]
+        ns.icons["ZoneRenownQuartermasterH"] = ns.icons["RenownQuartermaster"]
     elseif UnitFactionGroup("Horde") and (ns.Addon.db.profile.activate.ZoneEnemyFaction) then
         ns.icons["InnkeeperH"] = ns.icons["OriginalInnkeeperH"]
         ns.icons["MailboxH"] = ns.icons["OriginalMailboxH"]
         ns.icons["StablemasterH"] = ns.icons["OriginalStablemasterH"]
         ns.icons["ZonePvPVendorH"] = ns.icons["OriginalPvPVendorH"]
         ns.icons["ZonePvEVendorH"] = ns.icons["OriginalPvEVendorH"]
+        ns.icons["ZoneRenownQuartermasterH"] = ns.icons["OriginalRenownQuartermasterH"]
     end
 
     -- Zonemap Icons Alliance
@@ -108,12 +110,14 @@ function ns.ChangeToClassicImagesRetail()
         ns.icons["StablemasterA"] = ns.icons["StablemasterN"]
         ns.icons["ZonePvPVendorA"] = ns.icons["PvPVendor"]
         ns.icons["ZonePvEVendorA"] = ns.icons["PvEVendor"]
+        ns.icons["ZoneRenownQuartermasterA"] = ns.icons["RenownQuartermaster"]
     elseif UnitFactionGroup("Alliance") and ns.Addon.db.profile.activate.ZoneEnemyFaction then
         ns.icons["InnkeeperA"] = ns.icons["OriginalInnkeeperA"]
         ns.icons["MailboxA"] = ns.icons["OriginalMailboxA"]
         ns.icons["StablemasterA"] = ns.icons["OriginalStablemasterA"]
         ns.icons["ZonePvPVendorA"] = ns.icons["OriginalPvPVendorA"]
         ns.icons["ZonePvEVendorA"] = ns.icons["OriginalPvEVendorA"]
+        ns.icons["ZoneRenownQuartermasterA"] = ns.icons["OriginalRenownQuartermasterA"]
     end
 
     -- MinMap Icons Horde
@@ -123,12 +127,14 @@ function ns.ChangeToClassicImagesRetail()
         ns.icons["MMStablemasterH"] = ns.icons["StablemasterN"]
         ns.icons["MMPvPVendorH"] = ns.icons["PvPVendor"]
         ns.icons["MMPvEVendorH"] = ns.icons["PvEVendor"]
+        ns.icons["MMRenownQuartermasterH"] = ns.icons["RenownQuartermaster"]
     elseif UnitFactionGroup("Horde") and ns.Addon.db.profile.activate.MiniMapEnemyFaction then
         ns.icons["MMInnkeeperH"] = ns.icons["OriginalInnkeeperH"]
         ns.icons["MMMailboxH"] = ns.icons["OriginalMailboxH"]
         ns.icons["MMStablemasterH"] = ns.icons["OriginalStablemasterH"]
         ns.icons["MMPvPVendorH"] = ns.icons["OriginalPvPVendorH"]
         ns.icons["MMPvEVendorH"] = ns.icons["OriginalPvEVendorH"]
+        ns.icons["MMRenownQuartermasterH"] = ns.icons["OriginalRenownQuartermasterH"]
     end
 
     -- MinMap Icons Alliance
@@ -138,12 +144,36 @@ function ns.ChangeToClassicImagesRetail()
         ns.icons["MMStablemasterA"] = ns.icons["StablemasterN"]
         ns.icons["MMPvPVendorA"] = ns.icons["PvPVendor"]
         ns.icons["MMPvEVendorA"] = ns.icons["PvEVendor"]
+        ns.icons["MMRenownQuartermasterA"] = ns.icons["RenownQuartermaster"]
     elseif UnitFactionGroup("Alliance") and ns.Addon.db.profile.activate.MiniMapEnemyFaction then
         ns.icons["MMInnkeeperA"] = ns.icons["OriginalInnkeeperA"]
         ns.icons["MMMailboxA"] = ns.icons["OriginalMailboxA"]
         ns.icons["MMStablemasterA"] = ns.icons["OriginalStablemasterA"]
         ns.icons["MMPvPVendorA"] = ns.icons["OriginalPvPVendorA"]
         ns.icons["MMPvEVendorA"] = ns.icons["OriginalPvEVendorA"]
+        ns.icons["MMRenownQuartermasterA"] = ns.icons["OriginalRenownQuartermasterA"]
+    end
+
+    -- Continent Icons Horde
+    if UnitFactionGroup("Horde") and not (ns.Addon.db.profile.activate.ContinentEnemyFaction) then
+        ns.icons["ContinentPvPVendorH"] = ns.icons["PvPVendor"]
+        ns.icons["ContinentPvEVendorH"] = ns.icons["PvEVendor"]
+        ns.icons["ContinentRenownQuartermasterH"] = ns.icons["RenownQuartermaster"]
+    elseif UnitFactionGroup("Horde") and ns.Addon.db.profile.activate.ContinentEnemyFaction then
+        ns.icons["ContinentPvPVendorH"] = ns.icons["OriginalPvPVendorH"]
+        ns.icons["ContinentPvEVendorH"] = ns.icons["OriginalPvEVendorH"]
+        ns.icons["ContinentRenownQuartermasterH"] = ns.icons["OriginalRenownQuartermasterH"]
+    end
+
+    -- Continent Icons Alliance
+    if UnitFactionGroup("Alliance") and not (ns.Addon.db.profile.activate.ContinentEnemyFaction) then
+        ns.icons["ContinentPvPVendorA"] = ns.icons["PvPVendor"]
+        ns.icons["ContinentPvEVendorA"] = ns.icons["PvEVendor"]
+        ns.icons["ContinentRenownQuartermasterA"] = ns.icons["RenownQuartermaster"]
+    elseif UnitFactionGroup("Alliance") and ns.Addon.db.profile.activate.ContinentEnemyFaction then
+        ns.icons["ContinentPvPVendorA"] = ns.icons["OriginalPvPVendorA"]
+        ns.icons["ContinentPvEVendorA"] = ns.icons["OriginalPvEVendorA"]
+        ns.icons["ContinentRenownQuartermasterA"] = ns.icons["OriginalRenownQuartermasterA"]
     end
 
 end
