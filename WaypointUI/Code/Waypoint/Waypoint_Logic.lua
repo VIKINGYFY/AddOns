@@ -838,29 +838,48 @@ do -- Hide SuperTrackedFrame while Waypoint is active
 end
 
 do -- Right cick WUI frames to untrack
+    local Setting_RightClickToClear = nil
+
+
+    local function updateMouseEvents()
+        local propagate = (not Setting_RightClickToClear)
+        WUIWaypointFrame:SetPropagateMouseClicks(propagate)
+        WUIPinpointFrame:SetPropagateMouseClicks(propagate)
+        WUINavigatorFrame:SetPropagateMouseClicks(propagate)
+    end
+
+    local function updateVariables()
+        Setting_RightClickToClear = Config.DBGlobal:GetVariable("RightClickToClear")
+        updateMouseEvents()
+    end
+    SavedVariables.OnChange("WaypointDB_Global", "RightClickToClear", updateVariables)
+    CallbackRegistry:Add("Preload.DatabaseReady", updateVariables)
+
+
+
     WUIWaypointFrame:SetScript("OnMouseDown", function(_, button)
-        if Config.DBGlobal:GetVariable("RightClickToClear") and button == "RightButton" then
+        if Setting_RightClickToClear and button == "RightButton" then
             MapPin:ClearDestination()
         end
     end)
     WUIPinpointFrame:SetScript("OnMouseDown", function(_, button)
-        if Config.DBGlobal:GetVariable("RightClickToClear") and button == "RightButton" then
+        if Setting_RightClickToClear and button == "RightButton" then
             MapPin:ClearDestination()
         end
     end)
     WUINavigatorFrame:SetScript("OnMouseDown", function(_, button)
-        if Config.DBGlobal:GetVariable("RightClickToClear") and button == "RightButton" then
+        if Setting_RightClickToClear and button == "RightButton" then
             MapPin:ClearDestination()
         end
     end)
 end
 
 do -- Background Preview
-    local BackgroundPreviewEnabled = false
+    local Setting_BackgroundPreview = false
 
 
     local function updateVariables()
-        BackgroundPreviewEnabled = Config.DBGlobal:GetVariable("BackgroundPreview")
+        Setting_BackgroundPreview = Config.DBGlobal:GetVariable("BackgroundPreview")
     end
     SavedVariables.OnChange("WaypointDB_Global", "BackgroundPreview", updateVariables)
     CallbackRegistry:Add("Preload.DatabaseReady", updateVariables)
@@ -868,10 +887,10 @@ do -- Background Preview
 
 
     local function playHoverAnimation(frame)
-        if not BackgroundPreviewEnabled then return end; frame.Animation_Hover:Play(frame, "ENABLED")
+        if not Setting_BackgroundPreview then return end; frame.Animation_Hover:Play(frame, "ENABLED")
     end
     local function stopHoverAnimation(frame)
-        if not BackgroundPreviewEnabled then return end; frame.Animation_Hover:Play(frame, "DISABLED")
+        if not Setting_BackgroundPreview then return end; frame.Animation_Hover:Play(frame, "DISABLED")
     end
 
 
@@ -881,7 +900,7 @@ do -- Background Preview
         local wasOverPlayer = false
 
         local function verifyAndFadeWaypointWhenOverPlayer()
-            if not BackgroundPreviewEnabled then return end
+            if not Setting_BackgroundPreview then return end
 
             if not cachedNavFrame then return end
             local distance = LocalUtil:GetFrameDistanceFromScreenCenter(cachedNavFrame)
@@ -933,7 +952,9 @@ do -- Hide main WUI frame during cinematic or UI parent hidden
     end)
 
     hooksecurefunc("SetUIVisibility", function(visible)
-        if visible then
+        local Setting_AlwaysShow = Config.DBGlobal:GetVariable("AlwaysShow")
+
+        if visible or Setting_AlwaysShow then
             WaypointLogic.ShowMainFrame()
         else
             WaypointLogic.HideMainFrame()

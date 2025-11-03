@@ -13,8 +13,8 @@ local GenericEnum      = env.WPM:Import("wpm_modules/generic-enum")
 env.NAME               = "Waypoint UI"
 env.ICON               = Path.Root .. "/Art/Icon/Icon.png"
 env.ICON_ALT           = Path.Root .. "/Art/Icon/IconAltLight.png"
-env.VERSION_STRING     = "1.0.3"
-env.VERSION_NUMBER     = 010030
+env.VERSION_STRING     = "1.0.4"
+env.VERSION_NUMBER     = 010040
 env.DEBUG_MODE         = false
 
 
@@ -69,6 +69,7 @@ do
         WaypointSystemType                     = 1,
         DistanceThresholdPinpoint              = 325,
         DistanceThresholdHidden                = 25,
+        AlwaysShow                             = false,
         RightClickToClear                      = true,
         BackgroundPreview                      = true,
         PrefFont                               = 1,
@@ -330,7 +331,8 @@ do
         else
             -- Migrate if new version
             SavedVariables.RegisterDatabase(NAME_GLOBAL).defaults(DB_GLOBAL_DEFAULTS).migrationPlan(DB_GLOBAL_MIGRATION)
-            SavedVariables.RegisterDatabase(NAME_GLOBAL_PERSISTENT).defaults(DB_GLOBAL_PERSISTENT_DEFAULTS).migrationPlan(DB_GLOBAL_PERSISTENT_MIGRATION)
+            SavedVariables.RegisterDatabase(NAME_GLOBAL_PERSISTENT).defaults(DB_GLOBAL_PERSISTENT_DEFAULTS)
+                .migrationPlan(DB_GLOBAL_PERSISTENT_MIGRATION)
         end
 
         SavedVariables.RegisterDatabase(NAME_LOCAL).defaults(DB_LOCAL_DEFAULTS)
@@ -365,8 +367,17 @@ do -- Slash Command
         local playerMapID = GetBestMapForUnit("player")
         local playerPosition = playerMapID and GetPlayerMapPosition(playerMapID, "player") or nil
 
-        local message1 = playerMapID and PATH_CHAT_DIVIDER .. " " .. L["SlashCommand - /way - Map ID - Prefix"] .. playerMapID .. L["SlashCommand - /way - Map ID - Suffix"] or ""
-        local message2 = playerPosition and PATH_CHAT_DIVIDER .. " " .. L["SlashCommand - /way - Position - Axis (X) - Prefix"] .. math.ceil(playerPosition.x * 100) .. L["SlashCommand - /way - Position - Axis (X) - Suffix"] .. L["SlashCommand - /way - Position - Axis (Y) - Prefix"] .. math.ceil(playerPosition.y * 100) .. L["SlashCommand - /way - Position - Axis (Y) - Suffix"] or ""
+        local message1 =
+            (playerMapID and
+                PATH_CHAT_DIVIDER .. " " ..
+                L["SlashCommand - /way - Map ID - Prefix"] .. playerMapID .. L["SlashCommand - /way - Map ID - Suffix"])
+            or ""
+        local message2 =
+            (playerPosition and
+                PATH_CHAT_DIVIDER .. " " ..
+                L["SlashCommand - /way - Position - Axis (X) - Prefix"] .. math.ceil(playerPosition.x * 100) .. L["SlashCommand - /way - Position - Axis (X) - Suffix"] ..
+                L["SlashCommand - /way - Position - Axis (Y) - Prefix"] .. math.ceil(playerPosition.y * 100) .. L["SlashCommand - /way - Position - Axis (Y) - Suffix"])
+            or ""
 
         DEFAULT_CHAT_FRAME:AddMessage(message1)
         DEFAULT_CHAT_FRAME:AddMessage(message2)

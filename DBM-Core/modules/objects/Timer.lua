@@ -395,6 +395,7 @@ function timerPrototype:Start(timer, ...)
 		if self.option then
 			countVoice = self.mod.Options[self.option .. "CVoice"]
 			if not self.fade and (type(countVoice) == "string" or countVoice > 0) then--Started without faded and has count voice assigned
+				DBM:Unschedule(playCountSound, id) -- Prevents count sound if timer is started again before timer expires
 				-- minTimer checks for the minimum possible timer in the variance timer string sent from Start method, self.minTimer is from newTimer constructor. Else, use timer value
 				playCountdown(id, minTimer or (hasVariance and self.minTimer) or timer, countVoice, countVoiceMax, self.requiresCombat)--timerId, timer, voice, count
 			end
@@ -1528,7 +1529,7 @@ function DBM:ENCOUNTER_TIMELINE_EVENT_ADDED(eventInfo, barState)
 	--Secrets
 	local spellId = eventInfo.tooltipSpellID
 	local spellName = C_Spell.GetSpellName(spellId)--Must use blizzard fucntion, wrapper taints secret
-	--local iconId = eventInfo.iconFileID
+	local iconId = eventInfo.iconFileID
 --	local effectType = eventInfo.dispelType ("None", "Poison", "Magic", "Curse", "Disease", "Enrage", "Bleed")
 --	local role = eventInfo.role ("None", "Tank", "Healer", "Damager")
 --	local priority = eventInfo.priority ("Normal", "Deadly")
@@ -1539,7 +1540,7 @@ function DBM:ENCOUNTER_TIMELINE_EVENT_ADDED(eventInfo, barState)
 	--end
 	--self:Unschedule(removeEntry, self.startedTimers, eventID)
 	--self:Schedule(duration, removeEntry, self.startedTimers, eventID)
-	DBT:CreateBar(duration, eventID, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, spellName, true, barState == 1)--barState 1 is "paused"
+	DBT:CreateBar(duration, eventID, iconId, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, spellName, true, barState == 1)--barState 1 is "paused"
 end
 
 
@@ -1576,7 +1577,7 @@ function DBM:RecoverBlizzardTimers()
 		for _, v in ipairs(eventList) do
 			local eventId = C_EncounterTimeline.GetEventInfo(v)
 			local eventState = C_EncounterTimeline.GetEventState(v)
-			self:ENCOUNTER_TIMELINE_EVENT_ADDED(eventId, eventState)--Only flaw is we can't get the state of a bar
+			self:ENCOUNTER_TIMELINE_EVENT_ADDED(eventId, eventState)
 		end
 	end
 end

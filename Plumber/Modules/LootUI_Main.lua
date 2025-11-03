@@ -17,6 +17,7 @@ local GetItemCount = C_Item.GetItemCount;
 local GetCursorPosition = GetCursorPosition;
 local IsDressableItemByID = C_Item.IsDressableItemByID or API.Nop;
 local QualityColorGetter = API.GetItemQualityColor;
+local HousingDataProvider = addon.HousingDataProvider;
 
 
 -- User Settings
@@ -165,13 +166,16 @@ end
 local SimilarItemGroups = {};
 local MergedSimilarItemNames = {};
 do  --Merge Similar Items
-    local tinsert = table.insert;
-
     local SimilarItemData = {
         {
             items = {242516, 246937, 242515, 242513, 242508, 242501,242510, 242503, 242505, 242502, 242514, 242512, 242506, 242507, 242504, 242509, 242511},    --Epoch
             name = L["Epoch Mementos"],
-        };
+        },
+
+        {
+            items = {217605, 217606, 217607, 217608, 217730, 217731, 217901, 217928, 217929, 217956},    --Timeless Scroll
+            name = L["Timeless Scrolls"],
+        },
     };
 
     for groupID, v in ipairs(SimilarItemData) do
@@ -837,13 +841,24 @@ do  --UI ItemButton
     end
 
     function ItemFrameMixin:OnClick(button)
-        if button == "LeftButton" then
+        if button == "LeftButton" or button == "EmulateLeftButton" then
             if IsModifiedClick("DRESSUP") and not InCombatLockdown() then
                 local itemID = self.data.slotType == Defination.SLOT_TYPE_ITEM and self.data.id;
-                if itemID and DressUpVisual and IsDressableItemByID(itemID) then
-                    DressUpVisual(self.data.link);
-                    return
+                if itemID then
+                    if DressUpVisual and IsDressableItemByID(itemID) then
+                        DressUpVisual(self.data.link);
+                        return
+                    end
+
+                    if C_Item.IsDecorItem and C_Item.IsDecorItem(itemID) and HousingDataProvider then
+                        if HousingDataProvider:GetDecorModelFileIDByItem(itemID) then
+                            DressUpLink(self.data.link);
+                        end
+                    end
                 end
+            end
+            if button == "EmulateLeftButton" then
+                return
             end
             LootSlot(self.data.slotIndex);
             MainFrame:SetClickedFrameIndex(self.index);
@@ -1823,20 +1838,6 @@ do  --UI Basic
     end
     MainFrame:SetScript("OnShow", MainFrame.OnShow);
 
-    function MainFrame:OnHide()
-        if self.manualMode then
-            CloseLoot();
-        end
-        if self:IsShown() then return end;  --Due to hiding UIParent
-        self:ReleaseAll();
-        self.isFocused = false;
-        self.manualMode = nil;
-        self:StopQueue();
-        self:UnregisterEvent("GLOBAL_MOUSE_UP");
-        self:UnregisterEvent("BAG_UPDATE_DELAYED");
-    end
-    MainFrame:SetScript("OnHide", MainFrame.OnHide);
-
     function MainFrame:OnEvent(event, ...)
         if event == "GLOBAL_MOUSE_UP" then
             if self:IsMouseOver() then
@@ -1847,7 +1848,7 @@ do  --UI Basic
                 elseif (not (self.manualMode or self.inEditMode)) and button == "LeftButton" and not InCombatLockdown() then
                     local itemFrame = self:GetFocusedItemFrame();
                     if itemFrame then
-                        itemFrame:OnClick("LeftButton");
+                        itemFrame:OnClick("EmulateLeftButton");
                     end
                 end
             end

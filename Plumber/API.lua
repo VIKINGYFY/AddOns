@@ -22,6 +22,17 @@ local function Nop(...)
 end
 API.Nop = Nop;
 
+
+--Midnight
+local issecretvalue = issecretvalue or function(_) return false end;
+local canaccessvalue = canaccessvalue or function(_) return true end;
+API.Secret_IsSecret = issecretvalue;
+
+function API.Secret_CanAccess(v)
+    return canaccessvalue(v) and v
+end
+
+
 do  -- Table
     local function Mixin(object, ...)
         for i = 1, select("#", ...) do
@@ -124,7 +135,7 @@ do  -- String
 
     local function GetUnitIDGeneral(unit)
         local guid = UnitGUID(unit);
-        if guid then
+        if API.Secret_CanAccess(guid) then
             local unitType, id = match(guid, "(%a+)%-0%-%d*%-%d*%-%d*%-(%d*)");
             if id and unitType and ValidUnitTypes[unitType] then
                 return tonumber(id)
@@ -165,6 +176,15 @@ do  -- String
             if text ~= "" then
                 return text
             end
+        end
+    end
+
+    local UnitName = UnitName;
+
+    function API.Secret_GetUnitName(unit)
+        local name = UnitName(unit);
+        if canaccessvalue(name) and name and name ~= "" then
+            return name
         end
     end
 end
@@ -4144,6 +4164,7 @@ do  --Delves
         EL:RegisterEvent("PLAYER_ENTERING_WORLD");
 
         function EL:UpdateInDelveStatus()
+            --print("IsInDelves", IsInDelves());
             if IsInDelves() then
                 self:RegisterEvent("PLAYER_MAP_CHANGED");
                 self:RegisterEvent("PLAYER_ENTERING_WORLD");
@@ -4165,8 +4186,13 @@ do  --Delves
         end
 
         function EL:OnUpdate(elapsed)
-            self:SetScript("OnUpdate", nil);
-            self:UpdateInDelveStatus();
+            self.t = self.t + elapsed;
+            if self.t > 0.5 then
+                --Mandatory delay because IsPartyWalkIn still returns true the moment you leave a delve
+                self.t = 0;
+                self:SetScript("OnUpdate", nil);
+                self:UpdateInDelveStatus();
+            end
         end
 
         function EL:OnEvent(event, ...)

@@ -130,6 +130,8 @@ L["EditMode TalkingHead"] = "Plumber: "..L["ModuleName TalkingHead"];
 L["TalkingHead Option InstantText"] = "立即显示文本";   --Should texts immediately, no gradual fading
 L["TalkingHead Option TextOutline"] = "文字描边";
 L["TalkingHead Option Condition Header"] = "隐藏来自以下情形的文字：";
+L["TalkingHead Option Hide Everything"] = "隐藏所有字幕";
+L["TalkingHead Option Hide Everything Tooltip"] = "|cffff4800不再显示字幕。|r\n\n仍然会播放语音，并在聊天窗口内显示文本。";
 L["TalkingHead Option Condition WorldQuest"] = "世界任务";
 L["TalkingHead Option Condition WorldQuest Tooltip"] = "隐藏来自世界任务的文字。\n有时对话会在接受世界任务之前触发，此时我们将无法隐藏这段文字。";
 L["TalkingHead Option Condition Instance"] = "副本";
@@ -602,6 +604,7 @@ L["Devourer Attack"] = "吞噬者入侵";
 L["Restored Coffer Key"] = "修复的宝匣钥匙";
 L["Coffer Key Shard"] = "宝匣钥匙碎片";
 L["Epoch Mementos"] = "纪元纪念品";
+L["Timeless Scrolls"] = "越时卷轴";
 
 L["CONFIRM_PURCHASE_NONREFUNDABLE_ITEM"] = "你确定要将%s兑换为下列物品吗？\n\n|cffff2020本次购买将无法退还。|r\n %s";
 
