@@ -190,7 +190,7 @@ end
 
 function WQT_ContainerButtonMixin:OnEnter()
 	GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-	GameTooltip:SetText(WQT_WORLD_QUEST_TAB, 1, 1, 1, true);
+	GameTooltip:SetText(WQT_WORLD_QUEST_TAB);
 	GameTooltip:Show();
 end
 
@@ -1080,7 +1080,7 @@ local function QuestContextSetup(frame, rootDescription, questInfo)
 	AddInstructionTooltipToDropdownItem(checkbox, _L["SHORTCUT_DISLIKE"]);
 
 	-- Trigger event for externals to add more
-	EventRegistry:TriggerEvent("WQT.QuestContextSetup", rootDescription, questInfo);
+	WQT_CallbackRegistry:TriggerEvent("WQT.QuestContextSetup", rootDescription, questInfo);
 
 	-- Cancel. apparently a function is required for it to close the menu on click
 	rootDescription:CreateButton(CANCEL, function() end);
@@ -1182,7 +1182,7 @@ function WQT_Utils:SetQuestDisliked(questID, isDisliked)
 	
 	WQT.settings.general.dislikedQuests[questID] = isDisliked;
 	
-	EventRegistry:TriggerEvent("WQT.FiltersUpdated");
+	WQT_CallbackRegistry:TriggerEvent("WQT.FiltersUpdated");
 	
 	local soundID;
 	if (isDisliked) then

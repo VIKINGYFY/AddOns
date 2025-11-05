@@ -494,13 +494,14 @@ WQT_DataProvider = {};
 
 function WQT_DataProvider:Init()
 	self.frame = CreateFrame("FRAME");
-	self.frame:SetScript("OnUpdate", function(frame, ...) self:OnUpdate(...); end);
 	self.frame:SetScript("OnEvent", function(frame, ...) self:OnEvent(...); end);
 	self.frame:SetScript("OnLoad", function(frame, ...) self:OnEvent(...); end);
 	self.frame:RegisterEvent("QUEST_LOG_UPDATE");
 	self.frame:RegisterEvent("QUEST_DATA_LOAD_RESULT");
 	self.frame:RegisterEvent("TAXIMAP_OPENED");
 	self.frame:RegisterEvent("CVAR_UPDATE");
+
+	self.updateScriptSet = false;
 	
 	self.pool = CreateObjectPool(WQT_Utils.QuestCreationFunc, QuestResetFunc);
 	self.iterativeList = {};
@@ -519,34 +520,60 @@ function WQT_DataProvider:Init()
 		questsActive = {},
 	};
 	
-	EventRegistry:RegisterCallback("WQT.FiltersUpdated" ,function() self.shouldUpdateFiltedList = true;  end, self);
-	EventRegistry:RegisterCallback("WQT.SortUpdated" ,function() self.shouldUpdateFiltedList = true;  end, self);
+	WQT_CallbackRegistry:RegisterCallback("WQT.FiltersUpdated", function() self:RequestFilterUpdate(); end, self);
+	WQT_CallbackRegistry:RegisterCallback("WQT.SortUpdated", function() self:RequestFilterUpdate(); end, self);
+	WQT_CallbackRegistry:RegisterCallback("WQT.SettingChanged",
+		function(_, _, tag)
+			if (tag == "GENERAL_ZONE_QUESTS") then
+				self:RequestDataUpdate();
+			elseif (tag == "GENERAL_GENERIC_ANIMA") then
+				self:ReloadQuestRewards();
+			end
+		end,
+		self);
 
 	-- Needed to trigger update in full screen map
 	EventRegistry:RegisterCallback(
 		"MapCanvas.MapSet"
 		,function()
-				self.zoneLoading.needsUpdate = true;
+				self:RequestDataUpdate();
 			end
 		, self);
 end
 
 function WQT_DataProvider:OnEvent(event, ...)
 	if (event == "QUEST_LOG_UPDATE") then
-		self.zoneLoading.needsUpdate = true;
+		self:RequestDataUpdate();
 	elseif (event == "QUEST_DATA_LOAD_RESULT") then
-		self.zoneLoading.needsUpdate = true;
+		self:RequestDataUpdate();
 	elseif (event == "TAXIMAP_OPENED") then
-		self.zoneLoading.needsUpdate = true;
+		self:RequestDataUpdate();
 	elseif (event =="CVAR_UPDATE") then
 		local cvar = ...;
 		for _, officalFilters in pairs(_V["WQT_FILTER_TO_OFFICIAL"]) do
 			for _, officialFilter in ipairs(officalFilters) do
 				if(cvar == officialFilter) then
-					self.shouldUpdateFiltedList = true;
+					self:RequestFilterUpdate();
 				end
 			end
 		end
+	end
+end
+
+function WQT_DataProvider:RequestDataUpdate()
+	self.zoneLoading.needsUpdate = true;
+	self:SetUpdateScript();
+end
+
+function WQT_DataProvider:RequestFilterUpdate()
+	self.shouldUpdateFiltedList = true;
+	self:SetUpdateScript();
+end
+
+function WQT_DataProvider:SetUpdateScript()
+	if (not self.updateScriptSet) then
+		self.frame:SetScript("OnUpdate", function(...) self:OnUpdate(...); end);
+		self.updateScriptSet = true;
 	end
 end
 
@@ -575,6 +602,7 @@ function WQT_DataProvider:OnUpdate(elapsed)
 
 		-- Get quests from all the zones in our list
 		-- Only spend a max amount of time on it each frame to prevent extreme stutters when we have a lot of zones
+		local matchQuestZone = WQT_Utils:GetSetting("general", "zoneQuests") == _V["ENUM_ZONE_QUESTS"].zone;
 		for zoneID in pairs(self.zoneLoading.remainingZones) do
 			self.zoneLoading.remainingZones[zoneID] = nil;
 			self.zoneLoading.numRemaining = self.zoneLoading.numRemaining - 1;
@@ -584,7 +612,9 @@ function WQT_DataProvider:OnUpdate(elapsed)
 			local numPoIs = taskPOIs and #taskPOIs or 0;
 			if (numPoIs > 0) then
 				for k, apiInfo in ipairs(taskPOIs) do
-					self.zoneLoading.questsFound[apiInfo.questID] = apiInfo;
+					if (not matchQuestZone or apiInfo.mapID == zoneID) then
+						self.zoneLoading.questsFound[apiInfo.questID] = apiInfo;
+					end
 				end
 			end
 
@@ -664,16 +694,21 @@ function WQT_DataProvider:OnUpdate(elapsed)
 
 			self.zoneLoading.startTimestamp = 0;
 			progress = 0;
-			EventRegistry:TriggerEvent("WQT.DataProvider.QuestsLoaded");
+			WQT_CallbackRegistry:TriggerEvent("WQT.DataProvider.QuestsLoaded");
 			self.shouldUpdateFiltedList = true;
 		end
 
-		EventRegistry:TriggerEvent("WQT.DataProvider.ProgressUpdated", progress);
+		WQT_CallbackRegistry:TriggerEvent("WQT.DataProvider.ProgressUpdated", progress);
 	end
 
 	if (self.shouldUpdateFiltedList) then
 		self.shouldUpdateFiltedList = false;
 		self:FilterAndSortQuestList();
+	end
+
+	if (not self.zoneLoading.needsUpdate and self.zoneLoading.numRemaining == 0 and not self.shouldUpdateFiltedList) then
+		self.frame:SetScript("OnUpdate", nil);
+		self.updateScriptSet = false;
 	end
 end
 
@@ -700,7 +735,7 @@ function WQT_DataProvider:FilterAndSortQuestList()
 	local sortOption =  WQT.settings.general.sortBy;
 	table.sort(list, function (a, b) return SortQuestList(a, b, sortOption); end);
 
-	EventRegistry:TriggerEvent("WQT.DataProvider.FilteredListUpdated");
+	WQT_CallbackRegistry:TriggerEvent("WQT.DataProvider.FilteredListUpdated");
 end
 
 function WQT_DataProvider:ClearData()
@@ -785,11 +820,13 @@ function WQT_DataProvider:LoadQuestsInZone(zoneID)
 	self.latestZoneId = zoneID
 	
 	local currentMapInfo = WQT_Utils:GetCachedMapInfo(zoneID);
-	if not currentMapInfo then return end;
+	if (not currentMapInfo) then return end;
+
+	local zoneQuests = WQT_Utils:GetSetting("general", "zoneQuests");
 	if (currentMapInfo.mapType == Enum.UIMapType.World) then
 		self:AddWorldMapQuests();
 		
-	elseif (WQT.settings.list.alwaysAllQuests or currentMapInfo.mapType == Enum.UIMapType.Continent) then
+	elseif (currentMapInfo.mapType == Enum.UIMapType.Continent or zoneQuests == _V["ENUM_ZONE_QUESTS"].expansion) then
 		local continentZones = _V["WQT_ZONE_MAPCOORDS"][zoneID];
 
 		while (not continentZones and currentMapInfo.mapType > Enum.UIMapType.Continent and currentMapInfo.parentMapID and zoneID ~= currentMapInfo.parentMapID) do
@@ -811,7 +848,11 @@ function WQT_DataProvider:LoadQuestsInZone(zoneID)
 		end
 
 	else
-		self:AddContinentMapQuests(zoneID);
+		if (zoneQuests == _V["ENUM_ZONE_QUESTS"].zone) then
+			self:AddZoneToBuffer(zoneID);
+		else
+			self:AddContinentMapQuests(zoneID);
+		end
 	end
 end
 

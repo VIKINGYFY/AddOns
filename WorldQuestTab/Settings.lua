@@ -43,12 +43,15 @@ function WQT_SettingsBaseMixin:Init(data)
 	self.suggestReload = data.suggestReload;
 	self.valueChangedFunc = data.valueChangedFunc;
 	self.isDisabled = data.isDisabled;
+	self.categoryID = data.categoryID;
+	self.tag = data.tag;
+
 	if (self.Label) then
-		local labelText = data.label;
-		if (data.isNew) then
-			labelText = labelText .. " |TInterface\\OPTIONSFRAME\\UI-OptionsFrame-NewFeatureIcon:12|t";
-		end
-		self.Label:SetText(labelText);
+		self.Label:SetText(data.label);
+	end
+	
+	if (self.NewFeature) then
+		self.NewFeature:SetShown(data.isNew);
 	end
 	
 	if (self.DisabledOverlay) then
@@ -78,6 +81,8 @@ function WQT_SettingsBaseMixin:OnValueChanged(value, userInput, ...)
 			self.valueChangedFunc(value, ...);
 		end
 		self.parentFrame:UpdateList();
+
+		WQT_CallbackRegistry:TriggerEvent("WQT.SettingChanged", self.categoryID, self.tag);
 	end
 end
 

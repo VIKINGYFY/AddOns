@@ -1,7 +1,7 @@
-local mod	= DBM:NewMod(2681, "DBM-Raids-Midnight", 2, 1304)
+local mod	= DBM:NewMod(2681, "DBM-Party-Midnight", 2, 1304)
 --local L		= mod:GetLocalizedStrings()--Nothing to localize for blank mods
 
-mod:SetRevision("20251026154839")
+mod:SetRevision("20251105072904")
 --mod:SetCreatureID()
 mod:SetEncounterID(3103)
 --mod:SetHotfixNoticeRev(20250823000000)

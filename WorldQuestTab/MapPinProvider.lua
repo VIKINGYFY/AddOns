@@ -47,14 +47,14 @@ end
 
 local function OnPinRelease(pool, pin)
 	pin:ClearFocus();
+	pin:ClearTimer();
 	pin.questID = nil;
 	pin.nudgeX = 0;
 	pin.nudgeY = 0;
-	pin.updateTime = 0;
-	pin.updateInterval = 1;
 	pin.isExpired = false;
 	pin.isFaded = false;
 	pin.timeIcon = nil;
+	
 	pin:Hide();
 	pin:ClearAllPoints();
 end
@@ -154,11 +154,20 @@ function WQT_PinDataProvider:Init()
 	self.pingedQuests = {};
 	self.hookedCanvasChanges = {};
 
-	EventRegistry:RegisterCallback(
+	WQT_CallbackRegistry:RegisterCallback(
 		"WQT.DataProvider.FilteredListUpdated",
 		function()
 				self:RefreshAllData();
 			end,
+		self);
+
+	WQT_CallbackRegistry:RegisterCallback("WQT.SettingChanged",
+		function(_, categoryID)
+			if (categoryID == "MAPPINS"
+				or categoryID == "MAPPINS_MINIICONS") then
+				self:RefreshAllData();
+			end
+		end,
 		self);
 
 	-- Remove pins on changing map. Quest info being processed will trigger showing them if they are needed.
@@ -170,7 +179,7 @@ function WQT_PinDataProvider:Init()
 			end,
 		self);
 
-	EventRegistry:RegisterCallback(
+	WQT_CallbackRegistry:RegisterCallback(
 		"WQT.MapButton.HidePins",
 		function(callback, hidePins)
 				if (self.hidePinsByMapButton == hidePins) then return; end
@@ -411,6 +420,7 @@ end
 function WQT_PinDataProvider:UpdateAllVisuals()
 	for pin in self.pinPool:EnumerateActive() do
 		pin:UpdateVisuals();
+		pin:UpdatePinTime();
 	end
 end
 
@@ -901,8 +911,11 @@ end
 
 WQT_PinMixin = {};
 
-function WQT_PinMixin:OnLoad()
-	self.updateTime = 0;
+function WQT_PinMixin:ClearTimer()
+	if (self.timer) then
+		self.timer:Cancel();
+		self.timer = nil;
+	end
 end
 
 function WQT_PinMixin:GetButton()
@@ -973,8 +986,9 @@ function WQT_PinMixin:Setup(questInfo, index, x, y, pinType, parentMapFrame)
 	self.baseFrameLevel = PIN_FRAME_LEVEL_BASE;
 
 	self:UpdateVisuals();
+	self:UpdatePinTime();
 
-	EventRegistry:TriggerEvent("WQT.MapPinProvider.PinInitialized", self);
+	WQT_CallbackRegistry:TriggerEvent("WQT.MapPinProvider.PinInitialized", self);
 end
 
 function WQT_PinMixin:UpdateVisuals()
@@ -997,19 +1011,6 @@ function WQT_PinMixin:UpdateVisuals()
 		bottomOffset = bottomOffset - LABEL_OFFSET;
 		labelFrame:SetPoint("TOP", self.Button, "BOTTOM", 0, -bottomOffset);
 	end
-
-	self:UpdatePinTime();
-end
-
-function WQT_PinMixin:OnUpdate(elapsed)
-	if (self.updateInterval <= 0) then return; end
-
-	self.updateTime = self.updateTime + elapsed;
-	if (self.isExpired or self.updateTime < self.updateInterval) then return; end
-	self.updateTime = 0;
-
-	local timeLeft = self:UpdatePinTime();
-	self.updateInterval = WQT_Utils:TimeLeftToUpdateTime(timeLeft, true);
 end
 
 function WQT_PinMixin:UpdatePinTime()
@@ -1027,8 +1028,13 @@ function WQT_PinMixin:UpdatePinTime()
 		self.isExpired = true;
 		timeLeft = 0;
 	end
-	
-	return timeLeft;
+
+	self:ClearTimer();
+
+	local timerInterval = WQT_Utils:TimeLeftToUpdateTime(timeLeft, true);
+	if (timerInterval > 0) then
+		self.timer = C_Timer.NewTimer(timerInterval, function() self:UpdatePinTime() end);
+	end
 end
 
 function WQT_PinMixin:UpdatePlacement(alpha)

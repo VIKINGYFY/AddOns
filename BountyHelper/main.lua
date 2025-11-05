@@ -23,6 +23,7 @@ local currentScale = 1.0
 local searchText = ""
 local hideDungeons = false
 local hideRaids = false
+local hasShownIgnorePopup = false
 
 bountyHelper.frames = {}
 bountyHelper.contentFrames = {}
@@ -427,6 +428,30 @@ function bountyHelper:createUI()
         bountyHelper:UpdateVisibleFrame()
     end)
     self.frames.HideRaidsCheckbox = hideRaidsCheckbox
+
+    local ignorePopup = createRect(f, {390, 130}, {"CENTER"}, colors.goldRGB)
+    ignorePopup:SetFrameStrata("DIALOG")
+    ignorePopup:SetClipsChildren(true)
+    ignorePopup:EnableMouse(true)
+    ignorePopup:Hide()
+    self.frames.ignorePopup = ignorePopup
+    --
+    local popupFront = createRect(ignorePopup, {386, 126}, {"CENTER"}, colors.blackRGB)
+    --
+    local ignorePopupText = createText(popupFront, "GameFontNormal", {"TOP", 0, -30}, nil, {STANDARD_TEXT_FONT, 14})
+    ignorePopupText:SetJustifyH("CENTER")
+    ignorePopupText:SetJustifyV("TOP")
+    self.frames.ignorePopupText = ignorePopupText
+
+    local ignorePopupButton1 = CreateFrame("Button", nil, popupFront, "UIPanelButtonTemplate")
+    ignorePopupButton1:SetSize(80, 22)
+    ignorePopupButton1:SetScale(1.2)
+    self.frames.ignorePopupButton1 = ignorePopupButton1
+
+    local ignorePopupButton2 = CreateFrame("Button", nil, popupFront, "UIPanelButtonTemplate")
+    ignorePopupButton2:SetSize(80, 22)
+    ignorePopupButton2:SetScale(1.2)
+    self.frames.ignorePopupButton2 = ignorePopupButton2
 end
 
 function bountyHelper:CreateCategoryHeader(parent, difficultyID)
@@ -828,6 +853,46 @@ function bountyHelper:createHeaderRow(mountID, journalMountID, name, chance)
         border:SetBackdropColor(unpack(newColor))
         row.arrow:setColor(newColor)
         self:updateContent()
+
+        if not hasShownIgnorePopup then
+            hasShownIgnorePopup = true
+
+            local popup = self.frames.ignorePopup
+            local text = self.frames.ignorePopupText
+            local button1 = self.frames.ignorePopupButton1
+            local button2 = self.frames.ignorePopupButton2
+
+            if not hideIgnored then
+                text:SetText("Do you want to hide ignored items?\nYou can change this in the settings later.")
+                button1:SetText("Yes")
+                button1:ClearAllPoints()
+                button1:SetPoint("BOTTOMLEFT", 75, 15)
+                button1:SetScript("OnClick", function()
+                    hideIgnored = true
+                    self.frames.HideIgnoredCheckbox:SetChecked(true)
+                    self:UpdateVisibleFrame()
+                    popup:Hide()
+                end)
+
+                button2:SetText("No")
+                button2:ClearAllPoints()
+                button2:SetPoint("BOTTOMRIGHT", -75, 15)
+                button2:SetScript("OnClick", function()
+                    popup:Hide()
+                end)
+                button2:Show()
+            else
+                text:SetText("You can show ignored items again in the settings.")
+                button1:SetText("OK")
+                button1:ClearAllPoints()
+                button1:SetPoint("BOTTOM", 0, 15)
+                button1:SetScript("OnClick", function()
+                    popup:Hide()
+                end)
+                button2:Hide()
+            end
+            popup:Show()
+        end
     end, nil, "Ignore")
     ignore:Hide()
     row.ignore = ignore
