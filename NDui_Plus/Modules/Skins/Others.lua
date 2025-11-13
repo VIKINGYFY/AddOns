@@ -82,7 +82,7 @@ function S:BigWigs()
 		if child and child.GetTitleText and child.Tabs then
 			local text = child:GetTitleText():GetText()
 			if text and text == keystoneTitle then
-				B.ReskinPortraitFrame(child)
+				B.ReskinFrame(child)
 
 				for i, tab in ipairs(child.Tabs) do
 					B.ReskinTab(tab)

@@ -144,7 +144,7 @@ function S:BtWQuests()
 	local frame = _G.BtWQuestsFrame
 	if not frame then return end
 
-	B.ReskinPortraitFrame(frame)
+	B.ReskinFrame(frame)
 	S:Proxy("ReskinInput", frame.SearchBox)
 	P.ReskinDropDown(frame.ExpansionDropDown)
 	P.ReskinTooltip(_G.BtWQuestsTooltip)

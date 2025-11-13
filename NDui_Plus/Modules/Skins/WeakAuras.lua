@@ -101,7 +101,7 @@ end
 
 local function SkinProfilingFrame(frame)
 	if not frame.styled then
-		B.ReskinPortraitFrame(frame)
+		B.ReskinFrame(frame)
 		S:Proxy("ReskinMinMax", frame.MaxMinButtonFrame)
 		S:Proxy("StripTextures", frame.ScrollBox)
 		S:Proxy("ReskinTrimScroll", frame.ScrollBar)
@@ -153,7 +153,7 @@ end
 
 local function SkinProfilingReport(frame)
 	if not frame.styled then
-		B.ReskinPortraitFrame(frame)
+		B.ReskinFrame(frame)
 
 		local scrollBox = frame.ScrollBox
 		if scrollBox then
@@ -231,12 +231,10 @@ local function SkinWeakAurasOptions()
 	local frame = _G.WeakAurasOptions
 	if not frame or frame.styled then return end
 
-	B.ReskinPortraitFrame(frame)
+	B.ReskinFrame(frame)
 	S:Proxy("ReskinInput", frame.filterInput, 18)
 
 	-- Minimize, Close Button
-	B.ReskinClose(frame.CloseButton, frame)
-	frame.CloseButton:SetSize(18, 18)
 	B.ReskinMinMax(frame.MaxMinButtonFrame)
 	frame.MaxMinButtonFrame:ClearAllPoints()
 	frame.MaxMinButtonFrame:SetPoint("RIGHT", frame.CloseButton, "LEFT", 4, 0)
@@ -386,8 +384,8 @@ function S:WeakAuras()
 
 	if C.db["Skins"]["WeakAuras"] then
 		-- disable NDui skin
-		if C.otherSkins["WeakAuras"] then
-			C.otherSkins["WeakAuras"] = nil
+		if C.OtherThemes["WeakAuras"] then
+			C.OtherThemes["WeakAuras"] = nil
 		end
 
 		if WeakAuras.Private then

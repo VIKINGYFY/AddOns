@@ -6,7 +6,7 @@ local _G = getfenv(0)
 local pairs = pairs
 
 function S:WowLua()
-	B.ReskinPortraitFrame(WowLuaFrame)
+	B.ReskinFrame(WowLuaFrame)
 	B.ReskinClose(WowLuaButton_Close)
 	WowLuaFrameTitle:SetPoint("TOP", 15, -5)
 	WowLuaButton_Close:SetPoint("TOPRIGHT", -5 , -5)

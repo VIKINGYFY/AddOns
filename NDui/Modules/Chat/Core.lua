@@ -383,8 +383,6 @@ local function FixLanguageFilterSideEffects()
 	if sideEffectFixed then return end
 	sideEffectFixed = true
 
-	B.CreateFS(HelpFrame, 18, L["LanguageFilterTip"], "system", "TOP", 0, 30)
-
 	local OLD_GetFriendGameAccountInfo = C_BattleNet.GetFriendGameAccountInfo
 	function C_BattleNet.GetFriendGameAccountInfo(...)
 		local gameAccountInfo = OLD_GetFriendGameAccountInfo(...)
@@ -475,7 +473,7 @@ function module:OnLogin()
 	module:ChatCopy()
 	module:UrlCopy()
 	module:WhisperInvite()
-	module:ToggleLanguageFilter()
+	--module:ToggleLanguageFilter()
 
 	-- Lock chatframe
 	if C.db["Chat"]["Lock"] then

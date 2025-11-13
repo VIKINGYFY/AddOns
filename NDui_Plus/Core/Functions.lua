@@ -365,7 +365,7 @@ do
 	end
 
 	do
-		hooksecurefunc(B, "ReskinPortraitFrame", function(self)
+		hooksecurefunc(B, "ReskinFrame", function(self)
 			if self.PortraitContainer then
 				self.PortraitContainer:SetAlpha(0)
 			end

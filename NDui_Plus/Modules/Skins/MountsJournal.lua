@@ -347,7 +347,7 @@ function S:MountsJournal()
 	hooksecurefunc(MountsJournalFrame, "init", function(self)
 		local bgFrame = self.bgFrame
 		if bgFrame then
-			B.ReskinPortraitFrame(bgFrame)
+			B.ReskinFrame(bgFrame)
 			S:Proxy("ReskinClose", bgFrame.closeButton)
 			S:Proxy("StripTextures", bgFrame.leftInset)
 			S:Proxy("StripTextures", bgFrame.rightInset)

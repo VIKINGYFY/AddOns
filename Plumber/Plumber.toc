@@ -1,7 +1,7 @@
 ## X-Flavor: retail
 ## X-Expansion: TWW
 ## Interface: 110205, 110207, 120000
-## Version: 1.7.9
+## Version: 1.7.10
 
 ## Title: Plumber
 
@@ -55,7 +55,7 @@ Modules\BossBanner.lua
 Modules\SoftTargetName.lua
 
 
-Modules\Beta\Beta.xml [AllowLoadGameType Mainline Beta]
+Modules\Beta\Beta.xml
 
 
 #TWW

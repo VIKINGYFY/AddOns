@@ -104,7 +104,7 @@ function S:Journalator()
 
 	hooksecurefunc(_G.JournalatorDisplayMixin, "OnLoad", function()
 		local frame = _G.JNRView
-		B.ReskinPortraitFrame(frame)
+		B.ReskinFrame(frame)
 
 		for _, tab in ipairs(frame.Tabs) do
 			B.ReskinTab(tab)

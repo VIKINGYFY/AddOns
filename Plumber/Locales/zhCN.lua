@@ -212,6 +212,10 @@ L["ModuleDescription TooltipItemQuest"] = "在任务起始物品的鼠标提示�
 L["Instruction Show In Quest Log"] = "<按住Ctrl点击浏览任务日志>";
 
 
+L["ModuleName TooltipTransmogEnsemble"] = "团本外观套装";
+L["ModuleDescription TooltipTransmogEnsemble"] = "军团再临团本外观商人出售的大多数物品可以解锁所有难度的配色。在这些物品的鼠标提示上显示你的收藏进度。";
+
+
 --Tooltip Housing
 L["ModuleName TooltipHousing"] = "房屋";
 L["ModuleDescription TooltipHousing"] = "房屋";
@@ -467,6 +471,9 @@ L["Sample Item 2"] = "不错的优秀物品";
 L["Sample Item 1"] = "一般的普通物品";
 L["EditMode LootUI"] =  "Plumber: 拾取窗口";
 L["Manual Loot Instruction Format"] = "如想暂时取消一次自动拾取，请按住|cffffffff%s|r键直到拾取窗口出现。";
+L["LootUI Option Hide Window"] = "隐藏Plumber拾取窗口";
+L["LootUI Option Hide Window Tooltip"] = "隐藏Plumber拾取物品提示窗口，但仍然在后台执行其他功能例如强制自动拾取。";
+L["LootUI Option Hide Window Tooltip 2"] = "此选项不影响暴雪自带的拾取窗口。";
 L["LootUI Option Force Auto Loot"] = "强制自动拾取";
 L["LootUI Option Force Auto Loot Tooltip"] = "强制使用自动拾取以修复自动拾取有时失效的问题。\n\n如想暂时取消一次自动拾取，请按住%s键直到拾取窗口出现。";
 L["LootUI Option Owned Count"] = "显示已拥有的数量";
@@ -636,3 +643,5 @@ L["Match Pattern Copper"] = "([%d]+) 铜";
 
 L["Match Pattern Rep 1"] = "你的战团在(.+)中的声望值提高了([%d%,]+)点";   --FACTION_STANDING_INCREASED_ACCOUNT_WIDE
 L["Match Pattern Rep 2"] = "你在(.+)中的声望值提高了([%d%,]+)点";   --FACTION_STANDING_INCREASED
+
+L["Match Pattern Transmog Set Partially Known"] = "^包含(%d)";   --TRANSMOG_SET_PARTIALLY_KNOWN_CLASS

@@ -41,6 +41,8 @@ L["Module Category Class"] = "Class";   --Player Class (rogue, paladin...)
 L["Module Category Reduction"] = "Reduction";   --Reduce UI elements
 --- order: -1
 L["Module Category Timerunning"] = "Legion Remix";   --Change this based on timerunning season
+--- order: -2
+L["Module Category Beta"] = "Test Server";
 
 
 L["Module Category Dragonflight"] = EXPANSION_NAME9 or "Dragonflight";  --Merge Expansion Feature (Dreamseeds, AzerothianArchives) Modules into this
@@ -210,6 +212,10 @@ L["You Have Received Weekly Item Format"] = "You have received %s this week.";
 L["ModuleName TooltipItemQuest"] = "Quest Starting Items";
 L["ModuleDescription TooltipItemQuest"] = "If an item in your bag starts a quest, show the quest details.\n\nYou can Ctrl Left Click the item to view it in the quest log if you are already on the quest.";
 L["Instruction Show In Quest Log"] = "<Ctrl Click to View in Quest Log>";
+
+
+L["ModuleName TooltipTransmogEnsemble"] = "Raid Ensembles";
+L["ModuleDescription TooltipTransmogEnsemble"] = "The class ensembles sold by the Legion Remix Raid Apparel vendor unlock all difficulty variants. Show in the tooltip which one has yet to be collected.";
 
 
 --Tooltip Housing
@@ -460,7 +466,7 @@ L["ModuleDescription StaticPopup_Confirm"] = "Adjust the confirmation dialog tha
 L["ModuleName LootUI"] = HUD_EDIT_MODE_LOOT_FRAME_LABEL or "Loot Window";
 L["ModuleDescription LootUI"] = "Replace the default Loot Window and provide some optional features:\n\n- Loot items fast.\n\n- Fix Auto Loot failure bug.\n\n- Show a Take All button when looting manually.";
 L["Take All"] = "Take All";     --Take all items from a loot window
-L["You Received"] = YOU_RECEIVED_LABEL or "You recieved";
+L["You Received"] = YOU_RECEIVED_LABEL or "You received";
 L["Reach Currency Cap"] = "Reached currency caps";
 L["Sample Item 4"] = "Awesome Epic Item";
 L["Sample Item 3"] = "Awesome Rare Item";
@@ -468,6 +474,9 @@ L["Sample Item 2"] = "Awesome Uncommon Item";
 L["Sample Item 1"] = "Common Item";
 L["EditMode LootUI"] =  "Plumber: "..(HUD_EDIT_MODE_LOOT_FRAME_LABEL or "Loot Window");
 L["Manual Loot Instruction Format"] = "To temporarily cancel auto loot on a specific pickup, press and hold |cffffffff%s|r key until the loot window appears.";
+L["LootUI Option Hide Window"] = "Hide Plumber Loot Window";
+L["LootUI Option Hide Window Tooltip"] = "Hide Plumber Loot Notification Window, but still enable any features such as Force Auto Loot in the background.";
+L["LootUI Option Hide Window Tooltip 2"] = "This option does not affect Blizzard Loot Window.";
 L["LootUI Option Force Auto Loot"] = "Force Auto Loot";
 L["LootUI Option Force Auto Loot Tooltip"] = "Always enable Auto Loot to counter the occasional auto loot failure.";
 L["LootUI Option Owned Count"] = "Show Number Of Owned Items";
@@ -688,3 +697,5 @@ L["Upgrade Track 3"] = "Veteran";
 L["Upgrade Track 4"] = "Champion";
 L["Upgrade Track 5"] = "Hero";
 L["Upgrade Track 6"] = "Myth";
+
+L["Match Pattern Transmog Set Partially Known"] = "^Contains (%d+) uncollected";   --TRANSMOG_SET_PARTIALLY_KNOWN_CLASS
