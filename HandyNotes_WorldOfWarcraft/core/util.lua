@@ -96,7 +96,6 @@ local function PrepareLinks(str)
 end
 
 local function RenderLinks(str, nameOnly)
-	if not str then return end
     -- render numeric ids
     local links, _ = str:gsub('{(%l+):(%d+)(%l*)}', function(type, id, suffix)
         id = tonumber(id)
@@ -165,7 +164,6 @@ local function RenderLinks(str, nameOnly)
     end)
     -- render commonly colored text
     local function renderNonNumeric(str, nameOnly)
-		if not str then return end
         local result = str:gsub('{(%l+):([^{}]+)}', function(type, text)
             if nameOnly then return text end
             if type == 'bug' then return ns.color.Red(text) end
@@ -181,6 +179,10 @@ local function RenderLinks(str, nameOnly)
             if type == 'faction' then return ns.color.NPC(text) end
             if type == 'wq' then
                 local icon = ns.GetIconLink('world_quest', 16, 0, -1)
+                return icon .. ns.color.Yellow('[' .. text .. ']')
+            end
+            if type == 'quest' then
+                local icon = ns.GetIconLink('quest_ay', 16, 0, -1)
                 return icon .. ns.color.Yellow('[' .. text .. ']')
             end
             if type == 'dot' then

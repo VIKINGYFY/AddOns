@@ -24,6 +24,15 @@ local Configuration = {
     [5] = 2.0943951,
     [6] = 1.04719755,
   },
+  SecretAuras = 0, --Enum.RestrictedActionType.SecretAuras,
+  SecretCooldowns = 1, --Enum.RestrictedActionType.SecretCooldowns,
+}
+
+local AdvFlying = {
+  Enabled = false,
+  Active = false,
+  ForwardSpeed = 0.0,
+  Charging = false,
 }
 
 local MutableData = {
@@ -41,11 +50,7 @@ local MutableData = {
   prevSpeed = 0,
   lastRandomColorName = "",
   previousCharges = 6,
-}
-
-local AdvFlying = {
-  Active = false,
-  Enabled = false,
+  hideWhenGroundedAndFull = false,
 }
 
 local defaultPosition = {
@@ -87,6 +92,15 @@ Configuration.numOptions = 0
 for _ in pairs(ART) do
   Configuration.numOptions = Configuration.numOptions + 1
 end
+
+local ArtNames = {}
+for colorName in pairs(ART) do
+    if colorName ~= "Random" then
+        table.insert(ArtNames, colorName)
+    end
+end
+
+Configuration.numOptions = #ArtNames
 
 local ART_OPTIONS = {}
 for name in next, ART do
@@ -165,8 +179,6 @@ end
 anchorFrame.editModeName = "Glider"
 local LEM = LibStub('LibEditMode')
 LEM:AddFrame(anchorFrame, onPositionChanged, defaultPosition)
--- LEM.frameSelections[anchorFrame].system = {}
--- LEM.frameSelections[anchorFrame].system.GetSystemName = function() return anchorFrame.editModeName end
 LEM:AddFrameSettings(anchorFrame, {
   {
     name = "Use Global Settings",
@@ -287,6 +299,42 @@ LEM:AddFrameSettings(anchorFrame, {
       end
     end,
   },
+  -- {
+  --   name = "Hide when grounded and fully charged",
+  --   kind = LEM.SettingType.Checkbox,
+  --   default = false,
+  --   get = function(layoutName)
+  --     layoutName = Glider:ShouldUseGlobalSettings() or layoutName
+  --     return GliderAddOnDB.Settings[layoutName].hideWhenGroundedAndFull
+  --   end,
+  --   set = function(layoutName, value)
+  --     layoutName = Glider:ShouldUseGlobalSettings() or layoutName
+  --     GliderAddOnDB.Settings[layoutName].hideWhenGroundedAndFull = value
+  --     MutableData.hideWhenGroundedAndFull = value
+  --   end,
+  -- },
+  {
+    name = "Disable Skyriding game effects",
+    kind = LEM.SettingType.Checkbox,
+    default = false,
+    get = function(layoutName)
+      return not C_CVar.GetCVarBool("AdvFlyingDynamicFOVEnabled") and not C_CVar.GetCVarBool("DriveDynamicFOVEnabled")
+    end,
+    set = function(layoutName, value)
+      SetCVar("AdvFlyingDynamicFOVEnabled", not value)
+      SetCVar("DriveDynamicFOVEnabled", not value)
+
+      local settingEffects = Settings.GetSetting("DisableAdvancedFlyingFullScreenEffects")
+      if settingEffects then
+        settingEffects:ApplyValue(not value)
+      end
+
+      local settingVFX = Settings.GetSetting("DisableAdvancedFlyingVelocityVFX")
+      if settingVFX then
+        settingVFX:ApplyValue(not value)
+      end
+    end,
+  },
 })
 
 LEM:RegisterCallback('enter', function()
@@ -297,10 +345,7 @@ LEM:RegisterCallback('enter', function()
 end)
 
 LEM:RegisterCallback('exit', function()
-  if gameVersion >= 110207 and Glider.VigorCharge:IsPaused() then
-    Glider.VigorCharge:Resume()
-  end
-  if not Glider:IsSkyriding() or (GetRestrictedActionStatus and GetRestrictedActionStatus(1)) then
+  if not Glider:IsSkyriding() or (GetRestrictedActionStatus and GetRestrictedActionStatus(Configuration.SecretCooldowns)) then
     Glider:SetAlpha(0)
     Glider:Hide()
   end
@@ -359,6 +404,10 @@ function Glider:SetupLayout(layoutName)
   if layout.loadDefaultVigor then
     layout.loadDefaultVigor = nil
   end
+
+  if layout.hideWhenGroundedAndFull then
+    MutableData.hideWhenGroundedAndFull = layout.hideWhenGroundedAndFull or false
+  end
   MutableData.noDisplayText = layout.noDisplayText
 end
 
@@ -366,22 +415,22 @@ LEM:RegisterCallback('layout', function(layoutName)
   Glider:SetupLayout(layoutName)
 end)
 
---EventRegistry:RegisterFrameEventAndCallback('EDIT_MODE_LAYOUTS_UPDATED', onEditModeChanged)
 function Glider:SetRandomColor()
     local randomIndex = math.random(1, Configuration.numOptions)
-    local colorName = ART_OPTIONS[randomIndex].text
+    local colorName = ArtNames[randomIndex]
 
-    if (colorName == MutableData.lastRandomColorName or colorName == "Random") and Configuration.numOptions > 1 then
+    if colorName == MutableData.lastRandomColorName and Configuration.numOptions > 1 then
         randomIndex = (randomIndex % Configuration.numOptions) + 1
-        colorName = ART_OPTIONS[randomIndex].text
+        colorName = ArtNames[randomIndex]
     end
-    MutableData.lastRandomColorName = colorName
 
+    MutableData.lastRandomColorName = colorName
     Glider:SetAtlasForSwipe(Glider.VigorCharge, ART[colorName])
     Glider.VigorCharge:SetSwipeColor(1, 1, 1, 1)
+
     if colorName == "Class" then
-      local classColor = PlayerUtil.GetClassColor() ---@diagnostic disable-line
-      Glider.VigorCharge:SetSwipeColor(classColor:GetRGBA()) ---@diagnostic disable-line
+        local classColor = PlayerUtil.GetClassColor() ---@diagnostic disable-line
+        Glider.VigorCharge:SetSwipeColor(classColor:GetRGBA()) ---@diagnostic disable-line
     end
 end
 
@@ -430,12 +479,11 @@ function Glider:RefreshSpeedDisplay(elapsed)
   MutableData.elapsedSpeed = MutableData.elapsedSpeed + elapsed
   if not (MutableData.elapsedSpeed > Configuration.updateSpeedRate) then return end
   MutableData.elapsedSpeed = 0
+  Glider:RefreshGlidingInfo()
+  Glider:UpdateSpeedText(AdvFlying.ForwardSpeed * 14.286)
 
-  local _, _, forwardSpeed = GetGlidingInfo()
-  Glider:UpdateSpeedText(forwardSpeed * 14.286)
-
-  local speed = forwardSpeed and MutableData.getRidingAbroadPercent and forwardSpeed / MutableData.getRidingAbroadPercent or
-      forwardSpeed / 100 --((base/100 * 240) / 360)
+  local speed = AdvFlying.ForwardSpeed and MutableData.getRidingAbroadPercent and AdvFlying.ForwardSpeed / MutableData.getRidingAbroadPercent or
+      AdvFlying.ForwardSpeed / 100 --((base/100 * 240) / 360)
   local prevSpeed = MutableData.prevSpeed or speed
   local newSpeed = FrameDeltaLerp(prevSpeed, speed, 0.2)
   CooldownFrame_SetDisplayAsPercentage(self.SpeedDisplay.Speed, newSpeed)
@@ -484,18 +532,25 @@ local instances = {
 
 function Glider:GetRidingAbroadPercent()
   -- Dragonriding Races, but do not apply to Derby Racing
-  if C_UnitAuras.GetPlayerAuraBySpellID(369968) and not HasOverrideActionBar() then
-    return 100
-  end
+    if not (GetRestrictedActionStatus and GetRestrictedActionStatus(Configuration.SecretAuras)) then
+      if C_UnitAuras.GetPlayerAuraBySpellID(369968) and not HasOverrideActionBar() then
+        return 100
+      end
+    end
 
-  local mapID = C_Map.GetBestMapForUnit('player')
-  if not mapID then return 85 end
-  local mapInfo = C_Map.GetMapInfo(mapID)
-  if mapInfo and (instances[mapID] or mapInfo.parentMapID == 1978) then -- 1978 is Dragon Isles
-    return 100
-  else
+    local mapID = C_Map.GetBestMapForUnit('player')
+    if not mapID then return 85 end
+
+    if instances[mapID] then
+      return 100
+    end
+
+    local mapInfo = C_Map.GetMapInfo(mapID)
+    if mapInfo and mapInfo.parentMapID == 1978 then
+      return 100
+    end
+
     return 85
-  end
 end
 
 function Glider:ProcessWidgets()
@@ -521,93 +576,34 @@ function Glider:SetCooldownPercentage(frame, perc)
   CooldownFrame_SetDisplayAsPercentage(frame, perc);
 end
 
+function Glider:IsDerbyRacing()
+  return UnitPowerBarID("player") == 650
+end
+
 function Glider:IsSkyriding()
+  -- Works for everything that uses the bar, but not 'special' integrations that do not use this bar like Derby racing.
   local hasSkyridingBar = (GetBonusBarIndex() == 11 and GetBonusBarOffset() == 5)
   if hasSkyridingBar then
     return true
   else
     -- 650 is Derby racing
-    local powerBarID = UnitPowerBarID("player") -- Sadly also bugs out, but we use it in this case cause GetGlidingInfo is laggy, bad for responsive UI
-    local canGlide = select(2, GetGlidingInfo())
-    return hasSkyridingBar or (canGlide and powerBarID ~= 0);
+    local powerBarID = UnitPowerBarID("player")
+    return hasSkyridingBar or (AdvFlying.Enabled and powerBarID ~= 0);
   end
 end
 
-function Glider:Update(widget)
-  if not widget or (widget.widgetSetID ~= Configuration.vigorWidgetSetID) then
-    return
-  end
+function Glider:SetFlashAndPlay(chargeValue)
+  self.Flash:SetRotation(Configuration.rotations[chargeValue])
+  self.flashAnim:Restart()
+end
 
-  self:ProcessWidgets()
-
-  if widget.widgetID ~= MutableData.widgetID then
-    return
-  end
-
-  if not self:IsSkyriding() or not MutableData.isWidgetShown then
-    self:HideAnim()
-    return
-  end
-
-  local info = C_UIWidgetManager.GetFillUpFramesWidgetVisualizationInfo(MutableData.widgetID)
-  if not info then
-    self:HideAnim()
-    return
-  end
-
-  MutableData.lastNumFullFrames = MutableData.lastNumFullFrames < info.numFullFrames and MutableData.lastNumFullFrames or info.numFullFrames
-
-  local fillValue = info.fillValue
-  if (MutableData.lastNumFullFrames + info.fillValue == 1 + MutableData.lastFill) then
-      fillValue = 0
-  end
-  MutableData.lastFill = MutableData.lastNumFullFrames + info.fillValue
-
-  local originalPercentage = 0
-  if info.numTotalFrames > 0 then
-    originalPercentage = (MutableData.lastNumFullFrames + fillValue / (info.fillMax + 1e-7)) / (info.numTotalFrames)
-  end
-  MutableData.adjustedPercentage = (Configuration.percentageMulti[info.numTotalFrames] or 0) * originalPercentage
-
-  if not (self:IsShown() or self.animShow:IsPlaying()) and info.numTotalFrames > 0 then
-    self:SetCooldownPercentage(self.VigorCharge, MutableData.adjustedPercentage);
-    self:ShowAnim()
-  end
-
-  if info.numFullFrames == 0 then
-    MutableData.numFullFrames = MutableData.lastNumFullFrames
-  else
-    MutableData.numFullFrames = info.numFullFrames
-  end
-
-  if not MutableData.isRefreshingVigor then
-    MutableData.isRefreshingVigor = true
-    self:SetScript("OnUpdate", self.RefreshVigor)
-  end
-
-  self.SpeedDisplay:SetScript("OnUpdate", function(_, elapsed) self:RefreshSpeedDisplay(elapsed) end)
-
-  MutableData.getRidingAbroadPercent = self:GetRidingAbroadPercent()
-  if info.pulseFillingFrame and not self.pulseAnim:IsPlaying() then
+function Glider:PlayPulseAnimation(shouldPulse)
+  if shouldPulse and not self.pulseAnim:IsPlaying() then
     self.pulseAnim:Play()
   else
     -- Let the animation finish
     self.pulseAnim:SetLooping("NONE")
   end
-
-  -- Widget API is returning garbage data when you first mount up after login for the first few updates
-  -- so it would cause some frame to flash up
-  if MutableData.justShown then
-    MutableData.lastNumFullFrames = info.numFullFrames
-    return
-  end
-
-  if info.numFullFrames > MutableData.lastNumFullFrames then
-    self.Flash:SetRotation(Configuration.rotations[info.numFullFrames] --[[@as number]])
-    self.flashAnim:Restart()
-  end
-
-  MutableData.lastNumFullFrames = info.numFullFrames
 end
 
 local spellChargeInfoDefaults = {
@@ -621,7 +617,11 @@ local spellChargeInfoDefaults = {
 local spellChargeInfo = {}
 
 function Glider:UpdateUI()
-  if not self:IsSkyriding() or (GetRestrictedActionStatus and GetRestrictedActionStatus(1)) then
+  if self:IsDerbyRacing() then return end
+
+  local isNotSkyriding = not self:IsSkyriding()
+  local isRestricted = GetRestrictedActionStatus and GetRestrictedActionStatus(Configuration.SecretCooldowns)
+  if isNotSkyriding or isRestricted then
     -- Always initialize back to 6 on hide, so there is no flashing on showing UI later
     MutableData.previousCharges = 6
     self:HideAnim()
@@ -633,59 +633,122 @@ function Glider:UpdateUI()
   local maxCharges = spellChargeInfo.maxCharges
   local chargeStart = spellChargeInfo.cooldownStartTime
   local chargeDuration = spellChargeInfo.cooldownDuration
-  local chargeModRate = spellChargeInfo.chargeModRate
   local newStartTime = GetTime()
   local newDuration = 0.0
-  local cooldownEnabled = false
+  local isCharging = false
   if maxCharges > 0 and chargeDuration > 0 then
-      MutableData.isThrill = chargeDuration < 10 and true or false
-      if MutableData.isThrill and not self.pulseAnim:IsPlaying() then
-        self.pulseAnim:Play()
-      else
-        -- Let the animation finish
-        self.pulseAnim:SetLooping("NONE")
-      end
-      if MutableData.previousCharges < charges then
-        -- Add option for this
-        PlaySound(201528, "SFX")
-        self.Flash:SetRotation(Configuration.rotations[charges] --[[@as number]])
-        self.flashAnim:Restart()
-      end
+    local shouldPulse = chargeDuration < 10
+    self:PlayPulseAnimation(shouldPulse)
 
-      local now = GetTime()
-      local cooldownElapsed = now - chargeStart
-      local cooldownProgress = cooldownElapsed / chargeDuration
-      newDuration = chargeDuration * maxCharges
-      local totalElapsedChargeTime = (charges + cooldownProgress) * chargeDuration
-      newStartTime = now - totalElapsedChargeTime
-      cooldownEnabled = charges < maxCharges
-      MutableData.previousCharges = charges
+    if MutableData.previousCharges < charges then
+      -- Add option for this
+      PlaySound(201528, "SFX")
+      self:SetFlashAndPlay(charges)
+    end
+
+    local now = GetTime()
+    local cooldownElapsed = now - chargeStart
+    local cooldownProgress = cooldownElapsed / chargeDuration
+    newDuration = chargeDuration * maxCharges
+    local totalElapsedChargeTime = (charges + cooldownProgress) * chargeDuration
+    newStartTime = now - totalElapsedChargeTime
+    isCharging = charges < maxCharges
+    MutableData.previousCharges = charges
   else
-      cooldownEnabled = false
+    isCharging = false
   end
-    MutableData.getRidingAbroadPercent = self:GetRidingAbroadPercent()
-    if not (self:IsShown() or self.animShow:IsPlaying()) then
-      self:ShowAnim()
-    end
+  MutableData.getRidingAbroadPercent = self:GetRidingAbroadPercent()
 
-    self.SpeedDisplay:SetScript("OnUpdate", function(_, elapsed) self:RefreshSpeedDisplay(elapsed) end)
-    if cooldownEnabled then
-      if self.VigorCharge:IsPaused() then
-        self.VigorCharge:Resume()
-      end
-      self.VigorCharge:SetCooldown(newStartTime, newDuration, chargeModRate);
-      self.VigorCharge:SetDrawEdge(true);
-    else
-      CooldownFrame_SetDisplayAsPercentage(self.VigorCharge, 1);
-      self.VigorCharge:SetDrawEdge(false);
+  if isCharging then
+    if self.VigorCharge:IsPaused() then
+      self.VigorCharge:Resume()
     end
+    self.VigorCharge:SetCooldown(newStartTime, newDuration, spellChargeInfo.chargeModRate);
+    self.VigorCharge:SetDrawEdge(true);
+  else
+    CooldownFrame_SetDisplayAsPercentage(self.VigorCharge, 1);
+    self.VigorCharge:SetDrawEdge(false);
+  end
+  self.SpeedDisplay:SetScript("OnUpdate", function(_, elapsed) self:RefreshSpeedDisplay(elapsed) end)
+  local shouldHideFullAndGrounded = (not AdvFlying.Active) and (not isCharging) and MutableData.hideWhenGroundedAndFull
+  if shouldHideFullAndGrounded then
+    self:HideAnim()
+    return
+  end
+  self:ShowAnim()
+end
+
+function Glider:Update(widget)
+  if gameVersion >= 110207 then
+    if not self:IsDerbyRacing() then return end
+  end
+
+  if not widget or (widget.widgetSetID ~= Configuration.vigorWidgetSetID) then
+    return
+  end
+
+  self:ProcessWidgets()
+
+  if widget.widgetID ~= MutableData.widgetID then
+    return
+  end
+
+  if not self:IsSkyriding() or not MutableData.isWidgetShown then
+    MutableData.lastNumFullFrames = 6
+    self:HideAnim()
+    return
+  end
+
+  local info = C_UIWidgetManager.GetFillUpFramesWidgetVisualizationInfo(MutableData.widgetID)
+  if not info then
+    self:HideAnim()
+    return
+  end
+
+  if not (self:IsShown() or self.animShow:IsPlaying()) and info.numTotalFrames > 0 then
+    --MutableData.lastNumFullFrames = info.numFullFrames
+    self:ShowAnim()
+  end
+
+  -- Widget initially returns numFullFrames with old fillValue of previous numFullFrames
+  local fillValue = (info.numFullFrames + info.fillValue == 1 + MutableData.lastFill) and 0 or info.fillValue
+  MutableData.lastFill = info.numFullFrames + info.fillValue
+
+  MutableData.lastNumFullFrames = MutableData.lastNumFullFrames or info.numFullFrames
+  MutableData.numFullFrames = info.numFullFrames
+
+  local originalPercentage = info.numTotalFrames == 0 and 0 or
+      (info.numFullFrames + fillValue / (info.fillMax + 0.0000001)) / info.numTotalFrames
+
+  MutableData.adjustedPercentage = (Configuration.percentageMulti[info.numTotalFrames] or 0) * originalPercentage
+  self.VigorCharge:SetDrawEdge(MutableData.adjustedPercentage ~= 1 and MutableData.adjustedPercentage ~= 0)
+
+  if not MutableData.isRefreshingVigor then
+    MutableData.isRefreshingVigor = true
+    self:SetScript("OnUpdate", self.RefreshVigor)
+  end
+
+  self.SpeedDisplay:SetScript("OnUpdate", function(_, elapsed) self:RefreshSpeedDisplay(elapsed) end)
+
+  MutableData.getRidingAbroadPercent = self:GetRidingAbroadPercent()
+  self:PlayPulseAnimation(info.pulseFillingFrame)
+  -- Widget API is returning garbage data when you first mount up after login for the first few updates
+  -- so it would cause some frame to flash up
+  if MutableData.justShown then
+    MutableData.lastNumFullFrames = info.numFullFrames
+    return
+  end
+
+  if info.numFullFrames > MutableData.lastNumFullFrames then
+    self:SetFlashAndPlay(info.numFullFrames)
+  end
+
+  MutableData.lastNumFullFrames = info.numFullFrames
 end
 
 function Glider:OnEvent(e, ...)
   if e == "UPDATE_UI_WIDGET" then
     self:Update(...)
-  elseif e == "PLAYER_ENTERING_WORLD" then
-    --self:UpdateUI()
   elseif e == "UPDATE_ALL_UI_WIDGETS" then
     -- ugly fix: Flying from Khaz Algar to Ringing Deeps and similar world transitions can flash the vigor bar
     -- so just hide the entire container for a short duration, permamently hiding it messes with content that uses the same bar
@@ -694,28 +757,35 @@ function Glider:OnEvent(e, ...)
       C_Timer.After(5, function() UIWidgetPowerBarContainerFrame:Show() end)
     end
   elseif e == "UNIT_AURA" and self:IsShown() then
-    MutableData.isThrill = C_UnitAuras.GetPlayerAuraBySpellID(377234) and true or false
-  elseif e == "ACTIONBAR_UPDATE_COOLDOWN"
-      or e == "PLAYER_REGEN_ENABLED"
-      or e == "PLAYER_REGEN_DISABLED"
-      or e == "UPDATE_BONUS_ACTIONBAR"
-      or e == "PLAYER_CAN_GLIDE_CHANGED"
-      then
-        self:UpdateUI()
+    if not (GetRestrictedActionStatus and GetRestrictedActionStatus(Configuration.SecretAuras)) then
+      MutableData.isThrill = not not C_UnitAuras.GetPlayerAuraBySpellID(377234)
+    end
+  else
+      self:RefreshGlidingInfo()
+      self:UpdateUI()
   end
+end
+
+function Glider:RefreshGlidingInfo()
+  local isGliding, canGlide, forwardSpeed = GetGlidingInfo()
+  AdvFlying.Enabled = canGlide
+  AdvFlying.Active = isGliding
+  AdvFlying.ForwardSpeed = forwardSpeed
 end
 
 function Glider:OnLoad()
   self:SetupTextures()
   self:SetScript("OnEvent", function(_, ...) self:OnEvent(...) end)
   if gameVersion >= 110207 then
-    self:RegisterEvent("PLAYER_ENTERING_WORLD")
     self:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN")
     self:RegisterEvent("ACTIONBAR_UPDATE_STATE")
-    self:RegisterEvent("PLAYER_REGEN_ENABLED")
-    self:RegisterEvent("PLAYER_REGEN_DISABLED")
+    self:RegisterEvent("PLAYER_IN_COMBAT_CHANGED")
     self:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
     self:RegisterEvent("PLAYER_CAN_GLIDE_CHANGED")
+    self:RegisterEvent("PLAYER_IS_GLIDING_CHANGED")
+    self:RegisterEvent("UPDATE_UI_WIDGET")
+    self:RegisterEvent("UPDATE_ALL_UI_WIDGETS")
+    self:RegisterEvent("UNIT_AURA")
   else
     self:RegisterEvent("UPDATE_UI_WIDGET")
     self:RegisterEvent("UPDATE_ALL_UI_WIDGETS")

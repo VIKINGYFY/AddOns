@@ -1,5 +1,10 @@
 # Changelog
 
+## 31
+- Fix highlight missing
+- Fix Random option sometimes causing an error
+- New Game Effect option, removes the skyriding effects and fov effect with a single option
+
 ## 30
 - Initial Support for 11.2.7 and 12.0.0 changes to Skyriding, in Midnight it will autohide in combat situations due new restrictions from blizzard currently.
 

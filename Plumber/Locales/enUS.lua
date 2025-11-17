@@ -214,8 +214,10 @@ L["ModuleDescription TooltipItemQuest"] = "If an item in your bag starts a quest
 L["Instruction Show In Quest Log"] = "<Ctrl Click to View in Quest Log>";
 
 
-L["ModuleName TooltipTransmogEnsemble"] = "Raid Ensembles";
-L["ModuleDescription TooltipTransmogEnsemble"] = "The class ensembles sold by the Legion Remix Raid Apparel vendor unlock all difficulty variants. Show in the tooltip which one has yet to be collected.";
+L["ModuleName TooltipTransmogEnsemble"] = "Transmog Ensembles";
+L["ModuleDescription TooltipTransmogEnsemble"] = "- Show the number of collectable appearances from an Ensemble.\n\n- Fixed the issue where the tooltip says \"Already known\" but you can still use it to unlock new appearances.";
+L["Collected Appearances"] = "Collected Appearances";
+L["Collected Items"] = "Collected Items";
 
 
 --Tooltip Housing
@@ -568,7 +570,7 @@ L["Bountiful Delves Rep Tooltip"] = "Opening a Bountiful Coffer has a chance to 
 L["Warband Weekly Reward Tooltip"] = "You Warband can only receive this reward once per week.";
 L["Completed"] = CRITERIA_COMPLETED or "Completed";
 L["Filter Hide Completed Format"] = "Hide Completed (%d)";
-L["Weeky Reset Format"] = "Weekly Reset: %s";
+L["Weekly Reset Format"] = "Weekly Reset: %s";
 L["Daily Reset Format"] = "Daily Reset: %s";
 L["Ready To Turn In Tooltip"] = "Ready to turn in.";
 L["Trackers"] = "Trackers";
@@ -613,6 +615,21 @@ L["Click To Switch"] = "Click to switch to |cffffffff%s|r";
 L["Click To Queue"] = "Click to queue for |cffffffff%s|r";
 L["Click to Open Format"] = "Click to open %s";
 L["List Is Empty"] = "The list is empty.";
+
+
+--RaidCheck
+L["ModuleName InstanceDifficulty"] = "Instance Difficulty";
+L["ModuleDescription InstanceDifficulty"] = "- Show a Difficulty Selector when you are at the entrance of a raid or dungeon.\n\n- Show the current difficulty and lockout info at the top of the screen when you enter an instance.";
+L["Cannot Change Difficulty"] = "Instance difficulty cannot be changed at this time.";
+
+
+--TransmogChatCommand
+L["ModuleName TransmogChatCommand"] = "Transmog Chat Command";
+L["ModuleDescription TransmogChatCommand"] = "- When using a transmog chat command, undress your character first so the old items won't be carried over into the new outfit.\n\n- When at the Transmogrifier, using a chat command automatically loads all available items to the Transmog UI.";
+L["Copy To Clipboard"] = "Copy To Clipboard";
+L["Copy Current Outfit Tooltip"] = "Copy the current outfit to share online.";
+L["Missing Appearances Format"] = "%d |4appearance:appearances; missing";
+L["Press Key To Copy Format"] = "Press |cffffd100%s|r to Copy";
 
 
 --Generic

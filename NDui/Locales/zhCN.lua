@@ -10,7 +10,7 @@ local function convertExpansionID()
 	return text
 end
 
-L["AutoConfirm"] = "自动确认出售可交易物品提示"
+L["MerchantConfirm"] = "自动确认出售可交易物品提示"
 L["BR Send"] = "通报战复"
 L["BR Text"] = "战复次数：%s 充能时间：%s"
 L["BoN Item"] = "未绑定物品"

@@ -23,12 +23,13 @@ function EX:OnLogin()
 	self:LFGActivityNotices()
 	self:NewGetMapUIInfo()
 	self:SystemNotices()
+	self:RoleConfirm()
 
 	self:ActionBarGlow()
 	self:MDEnhance()
 	self:MountSource()
 
-	if C.db["Misc"]["AutoConfirm"] then self:AutoConfirm() end
+	if C.db["Misc"]["MerchantConfirm"] then self:MerchantConfirm() end
 	if DB.isDeveloper then self:AutoHideName() end
 end
 
@@ -133,7 +134,7 @@ function EX:InstanceSomething()
 end
 
 -- 自动确认出售可交易物品提示
-function EX.UpdateAutoConfirm()
+function EX.UpdateMerchantConfirm()
 	hooksecurefunc("StaticPopup_Show", function(name, ...)
 		if name == "CONFIRM_MERCHANT_TRADE_TIMER_REMOVAL" then
 			StaticPopup1Button1:Click() -- 自动点击“确定”按钮
@@ -141,8 +142,32 @@ function EX.UpdateAutoConfirm()
 	end)
 end
 
-function EX:AutoConfirm()
-	B:RegisterEvent("MERCHANT_SHOW", EX.UpdateAutoConfirm)
+function EX:MerchantConfirm()
+	B:RegisterEvent("MERCHANT_SHOW", EX.UpdateMerchantConfirm)
+end
+
+-- 自动确认职责
+local RoleConfirmEnabled
+function EX.UpdateRoleConfirm()
+	if RoleConfirmEnabled then
+		if LFDRoleCheckPopup:IsShown() and LFDRoleCheckPopupAcceptButton:IsEnabled() then
+			LFDRoleCheckPopupAcceptButton:Click()
+		end
+	end
+end
+
+function EX:RoleConfirm()
+	local bu = B.CreateCheckBox(LFGListFrame.SearchPanel, true)
+	bu:SetPoint("LEFT", LFGListFrame.SearchPanel.CategoryName, "LEFT", 50, 0)
+	bu:SetSize(26, 26)
+	bu:SetChecked(RoleConfirmEnabled)
+	bu.text = B.CreateFS(bu, 14, "自动确认职责", "system", "LEFT", 25, 0)
+
+	bu:SetScript("OnClick", function(self)
+		RoleConfirmEnabled = self:GetChecked()
+	end)
+
+	LFDRoleCheckPopup:HookScript("OnShow", EX.UpdateRoleConfirm)
 end
 
 -- 打印申请加入的活动

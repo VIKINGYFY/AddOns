@@ -213,7 +213,9 @@ L["Instruction Show In Quest Log"] = "<按住Ctrl点击浏览任务日志>";
 
 
 L["ModuleName TooltipTransmogEnsemble"] = "团本外观套装";
-L["ModuleDescription TooltipTransmogEnsemble"] = "军团再临团本外观商人出售的大多数物品可以解锁所有难度的配色。在这些物品的鼠标提示上显示你的收藏进度。";
+L["ModuleDescription TooltipTransmogEnsemble"] = "- 显示套装内可收集外观的数量。\n\n- 军团再临团本外观商人出售的大多数物品可以解锁所有难度的配色。在这些物品的鼠标提示上显示你的收藏进度。";
+L["Collected Appearances"] = "已收集外观";
+L["Collected Items"] = "已收集物品";
 
 
 --Tooltip Housing
@@ -565,7 +567,7 @@ L["Bountiful Delves Rep Tooltip"] = "打开丰裕宝匣有几率奖励此阵营�
 L["Warband Weekly Reward Tooltip"] = "你的战团每周只能获取一次此奖励。";
 L["Completed"] = "已完成";
 L["Filter Hide Completed Format"] = "隐藏已完成的条目 (%d)";
-L["Weeky Reset Format"] = "周常重置：%s";
+L["Weekly Reset Format"] = "周常重置：%s";
 L["Ready To Turn In Tooltip"] = "可以上交任务。";
 L["Weekly Coffer Key Tooltip"] = "每周获得的前四个周常宝箱里有一把修复的宝匣钥匙。";
 L["Weekly Coffer Key Shards Tooltip"] = "每周获得的前四个周常宝箱里有宝匣钥匙碎片。";
@@ -578,6 +580,21 @@ L["Click To Switch"] = "点击以切换为|cffffffff%s|r";
 L["Click To Queue"] = "点击以加入|cffffffff%s|r";
 L["Click to Open Format"] = "点击以打开%s";
 L["List Is Empty"] = "暂无可显示内容";
+
+
+--RaidCheck
+L["ModuleName InstanceDifficulty"] = "副本难度";
+L["ModuleDescription InstanceDifficulty"] = "- 在副本门口外显示难度选择界面\n\n- 当你进入副本时，在屏幕上方显示当前副本难度和进度。";
+L["Cannot Change Difficulty"] = "你暂时无法更改副本难度。";
+
+
+--TransmogChatCommand
+L["ModuleName TransmogChatCommand"] = "幻化指令";
+L["ModuleDescription TransmogChatCommand"] = "- 当你使用幻化聊天指令时, 移除已装备的外观，避免它们影响新的外观方案。\n\n- 当你与幻化师交互时，使用幻化指令将自动把外观方案所含的物品设为待确认外观。";
+L["Copy To Clipboard"] = "复制到剪贴板";
+L["Copy Current Outfit Tooltip"] = "复制当前外观方案以在网上分享。";
+L["Missing Appearances Format"] = "%d个外观缺失";
+L["Press Key To Copy Format"] = "按|cffffd100%s|r来复制";
 
 
 --Generic

@@ -35,7 +35,7 @@
 ## X-Curse-Project-ID: 314994
 ## X-WoWI-ID: 24904
 ## X-Wago-ID: xZKxZENk
-## Version: r218-1-g29f34e1
+## Version: r219
 
 locale.generated.lua
 

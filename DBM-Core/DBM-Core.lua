@@ -76,16 +76,16 @@ end
 ---@class DBM
 local DBM = private:GetPrototype("DBM")
 _G.DBM = DBM
-DBM.Revision = parseCurseDate("20251113052311")
+DBM.Revision = parseCurseDate("20251116190357")
 DBM.TaintedByTests = false -- Tests may mess with some internal state, you probably don't want to rely on DBM for an important boss fight after running it in test mode
 
-local fakeBWVersion, fakeBWHash = 398, "3d79f92"--398.5
+local fakeBWVersion, fakeBWHash = 401, "34b582e"--401.4
 local PForceDisable
 -- The string that is shown as version
-DBM.DisplayVersion = "12.0.4 alpha"--Core version
+DBM.DisplayVersion = "12.0.6 alpha"--Core version
 DBM.classicSubVersion = 0
 DBM.dungeonSubVersion = 0
-DBM.ReleaseRevision = releaseDate(2025, 11, 1) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+DBM.ReleaseRevision = releaseDate(2025, 11, 16) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 PForceDisable = 19--When this is incremented, trigger force disable regardless of major patch
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -217,6 +217,7 @@ DBM.DefaultOptions = {
 	EnteringCombatAlert = false,
 	LeavingCombatAlert = false,
 	RaidDifficultyChangedAlert = true,
+	RaidDifficultyChangedAlertRaidOnly = true,
 	DungeonDifficultyChangedAlert = false,
 	AutoReplySound = true,
 	HideObjectivesFrame = true,
@@ -1319,6 +1320,13 @@ do
 		UNIT_AURA						= true,
 		UNIT_AURA_UNFILTERED			= true,
 		COMBAT_LOG_EVENT_UNFILTERED		= true,
+		CHAT_MSG_MONSTER_YELL			= true,
+		CHAT_MSG_MONSTER_SAY			= true,
+		CHAT_MSG_MONSTER_EMOTE			= true,
+		CHAT_MSG_RAID_BOSS_EMOTE		= true,
+		CHAT_MSG_RAID_BOSS_WHISPER		= true,
+		RAID_BOSS_EMOTE					= true,
+		RAID_BOSS_WHISPER				= true,
 	}
 
 	-- UNIT_* events are special: they can take 'parameters' like this: "UNIT_HEALTH boss1 boss2" which only trigger the event for the given unit ids
@@ -2009,9 +2017,9 @@ do
 			end
 			if private.isRetail then
 				self:RegisterEvents(
---					"UNIT_HEALTH mouseover target focus player",--Base is Frequent on retail, and _FREQUENT deleted
 					"CHALLENGE_MODE_RESET",
 					"PLAYER_DIFFICULTY_CHANGED",
+					"GROUP_JOINED",
 					"PLAYER_SPECIALIZATION_CHANGED",
 					"SCENARIO_COMPLETED",
 					"GOSSIP_SHOW",
@@ -2658,7 +2666,6 @@ do
 					self:Schedule(2, self.RoleCheck, false, self)
 				end
 				fireEvent("DBM_raidJoin", playerName)
-				C_TimerAfter(2, function() self:PLAYER_DIFFICULTY_CHANGED(true) end)
 			end
 			for i = 1, GetNumGroupMembers() do
 				local name, rank, subgroup, _, _, className, _, isOnline = GetRaidRosterInfo(i)
@@ -2744,7 +2751,6 @@ do
 					self:Schedule(2, self.RoleCheck, false, self)
 				end
 				fireEvent("DBM_partyJoin", playerName)
-				C_TimerAfter(2, function() self:PLAYER_DIFFICULTY_CHANGED(true) end)
 			end
 			for i = 0, GetNumSubgroupMembers() do
 				local id
@@ -3575,18 +3581,28 @@ do
 		local currentDungeonDifficulty = GetDungeonDifficultyID()
 		if (currentRaidDifficulty ~= lastRaidDifficulty) or force then
 			lastRaidDifficulty = currentRaidDifficulty
-			if self.Options.RaidDifficultyChangedAlert and self:AntiSpam(5, "raiddiffchanged", currentRaidDifficulty) then
-				self:AddWarning(L.RAID_DIFFICULTY_CHANGED:format(difficutlyToText[currentRaidDifficulty] or CL.UNKNOWN), nil, nil, true, true)
+			if not self.Options.RaidDifficultyChangedAlertRaidOnly or IsInRaid() then
+				if self.Options.RaidDifficultyChangedAlert and self:AntiSpam(5, "raiddiffchanged", currentRaidDifficulty) then
+					if difficutlyToText[currentRaidDifficulty] then
+						self:AddWarning(L.RAID_DIFFICULTY_CHANGED:format(difficutlyToText[currentRaidDifficulty]), nil, nil, true, true, 5)
+					end
+				end
 			end
 		end
 		if not IsInRaid() then--If we're in raid we definitely don't care about dungeons
 			if (currentDungeonDifficulty ~= lastDungeonDifficulty) or force then
 				lastDungeonDifficulty = currentDungeonDifficulty
 				if self.Options.DungeonDifficultyChangedAlert and self:AntiSpam(5, "dungeondiffchanged", currentDungeonDifficulty) then
-					self:AddWarning(L.DUNGEON_DIFFICULTY_CHANGED:format(difficutlyToText[currentDungeonDifficulty] or CL.UNKNOWN), nil, nil, true, true)
+					if difficutlyToText[currentDungeonDifficulty] then
+						self:AddWarning(L.DUNGEON_DIFFICULTY_CHANGED:format(difficutlyToText[currentDungeonDifficulty]), nil, nil, true, true, 5)
+					end
 				end
 			end
 		end
+	end
+
+	function DBM:GROUP_JOINED()
+		self:PLAYER_DIFFICULTY_CHANGED(true)
 	end
 end
 
@@ -8355,7 +8371,7 @@ do
 	---@param cIdOrGUID number|string
 	---@param onlyHighest boolean?
 	function DBM:GetBossHP(cIdOrGUID, onlyHighest)
-		if self:MidRestrictionsActive() then
+		if self:IsPostMidnight() then
 			bossHealth[cIdOrGUID] = UnitHealthPercent("boss1", nil, true)
 		else
 			local uId = bossHealthuIdCache[cIdOrGUID] or "target"
@@ -8439,7 +8455,7 @@ do
 	end
 
 	function DBM:GetBossHPByUnitID(uId)
-		if self:MidRestrictionsActive() then
+		if self:IsPostMidnight() then
 			local hp = UnitHealthPercent(uId, nil, true)
 			bossHealth[uId] = hp
 			return hp, uId, DBM_COMMON_L.UNKNOWN
@@ -8465,7 +8481,7 @@ do
 	end
 
 	function bossModPrototype:GetHighestBossHealth()
-		if self:MidRestrictionsActive() then
+		if self:IsPostMidnight() then
 			return bossHealth[self.combatInfo.mob or -1]
 		end
 		local hp
@@ -8485,7 +8501,7 @@ do
 	end
 
 	function bossModPrototype:GetLowestBossHealth()
-		if self:MidRestrictionsActive() then
+		if self:IsPostMidnight() then
 			return bossHealth[self.combatInfo.mob or -1]
 		end
 		local hp
@@ -9466,7 +9482,7 @@ function bossModPrototype:ReceiveSync(event, sender, revision, ...)
 	end
 end
 
----@param revision number|string Either a number in the format "202101010000" (year, month, day, hour, minute) or string "20251113052311" to be auto set by packager
+---@param revision number|string Either a number in the format "202101010000" (year, month, day, hour, minute) or string "20251116190357" to be auto set by packager
 function bossModPrototype:SetRevision(revision)
 	revision = parseCurseDate(revision or "")
 	if not revision or type(revision) == "string" then
