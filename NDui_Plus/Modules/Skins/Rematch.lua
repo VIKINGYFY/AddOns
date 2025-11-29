@@ -61,7 +61,7 @@ function S:Rematch()
 
 		local loadButton = miniPanel.Target.LoadButton
 		loadButton:DisableDrawLayer("BACKGROUND")
-		B.Reskin(loadButton)
+		B.ReskinButton(loadButton)
 
 		for _, button in ipairs(miniPanel.Target.Pets) do
 			NS.RematchIcon(button)

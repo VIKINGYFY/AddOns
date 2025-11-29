@@ -30,7 +30,7 @@ local function reskinSwitchDialog(self)
 		for _, button in pairs(buttons) do
 			if not button.__bg then
 				B.StripTextures(button)
-				B.Reskin(button)
+				B.ReskinButton(button)
 			end
 
 			button.__bg:SetBackdropColor(0, 0, 0, 0)
@@ -49,7 +49,7 @@ function S:ImprovedAddonList()
 		B.CreateBG(inputDialog)
 		B.ReskinClose(inputDialog.CloseButton)
 		B.ReskinInput(inputDialog.EditBox)
-		B.Reskin(inputDialog.OkayButton)
+		B.ReskinButton(inputDialog.OkayButton)
 
 		for _, key in pairs({"SaveToGlobal", "ShowStaticPop", "AutoDismiss"}) do
 			local check = inputDialog[key]

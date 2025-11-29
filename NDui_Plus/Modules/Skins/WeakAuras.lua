@@ -73,7 +73,7 @@ local function reskinChildButtons(frame)
 
 	for _, child in pairs {frame:GetChildren()} do
 		if child:GetObjectType() == "Button" and child.Left and child.Middle and child.Right and child.Text then
-			B.Reskin(child)
+			B.ReskinButton(child)
 		end
 	end
 end
@@ -119,7 +119,7 @@ local function SkinProfilingFrame(frame)
 			local start = buttons.start
 			if start then
 				B.StripTextures(start)
-				B.Reskin(start)
+				B.ReskinButton(start)
 				start.Text:SetPoint("CENTER")
 				B.SetupArrow(start.Icon, "right")
 				start.Icon:SetPoint("RIGHT")
@@ -254,7 +254,7 @@ local function SkinWeakAurasOptions()
 					for _, child2 in pairs {child:GetChildren()} do
 						local objType = child2:GetObjectType()
 						if objType == "Button" and child2.Text then
-							B.Reskin(child2)
+							B.ReskinButton(child2)
 						elseif objType == "EditBox" then
 							B.ReskinInput(child2)
 						end
@@ -546,7 +546,7 @@ function S:WeakAurasMultiLineEditBox(widget)
 	local bg = B.CreateBDFrame(widget.scrollBG, .8)
 	bg:SetPoint("TOPLEFT", 0, -2)
 	bg:SetPoint("BOTTOMRIGHT", -2, 1)
-	B.Reskin(widget.button)
+	B.ReskinButton(widget.button)
 	B.ReskinScroll(widget.scrollBar)
 
 	widget.scrollBar:SetPoint("RIGHT", widget.frame, "RIGHT", 0 -4)
@@ -558,7 +558,7 @@ function S:WeakAurasMultiLineEditBox(widget)
 		if widget.extraButtons then
 			for _, button in next, widget.extraButtons do
 				if not button.styled then
-					B.Reskin(button)
+					B.ReskinButton(button)
 					button.styled = true
 				end
 			end
@@ -659,4 +659,5 @@ S:RegisterAceGUIWidget("WeakAurasSpinBox")
 S:RegisterAceGUIWidget("WeakAurasSnippetButton")
 S:RegisterAceGUIWidget("WeakAurasScrollArea")
 S:RegisterAceGUIWidget("WA_LSM30_StatusbarAtlas")
+S:RegisterAceGUIWidget("WeakAurasInputWithIndentation", S.Ace3_EditBox)
 S:RegisterAceGUIContainer("WeakAurasTreeGroup")

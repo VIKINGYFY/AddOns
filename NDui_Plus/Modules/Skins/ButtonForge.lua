@@ -100,7 +100,7 @@ function S:ButtonForge()
 	for _, key in pairs({"BFBindingDialogBinding", "BFBindingDialogUnbind", "BFConfigPageToolbarToggle"}) do
 		local bu = _G[key]
 		if bu then
-			B.Reskin(bu)
+			B.ReskinButton(bu)
 		end
 	end
 

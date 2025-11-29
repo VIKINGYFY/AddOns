@@ -15,7 +15,7 @@ function S:Myslot()
 	for _, child in pairs {frame:GetChildren()} do
 		local objType = child:GetObjectType()
 		if objType == "Button" and child.Text then
-			B.Reskin(child)
+			B.ReskinButton(child)
 		elseif objType == "CheckButton" then
 			B.ReskinCheck(child)
 		elseif objType == "Frame" then

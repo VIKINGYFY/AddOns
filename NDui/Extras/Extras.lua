@@ -147,7 +147,7 @@ function EX:MerchantConfirm()
 end
 
 -- 自动确认职责
-local RoleConfirmEnabled
+local RoleConfirmEnabled = true
 function EX.UpdateRoleConfirm()
 	if RoleConfirmEnabled then
 		if LFDRoleCheckPopup:IsShown() and LFDRoleCheckPopupAcceptButton:IsEnabled() then

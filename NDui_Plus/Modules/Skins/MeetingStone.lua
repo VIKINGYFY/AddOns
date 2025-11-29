@@ -40,7 +40,7 @@ end
 
 local function reskinStretchButton(bu)
 	bu:SetHeight(28)
-	B.Reskin(bu)
+	B.ReskinButton(bu)
 	bu.styled = true
 end
 
@@ -190,7 +190,7 @@ function S:MeetingStone()
 			for _, child in pairs {AdvFilterPanel:GetChildren()} do
 				if child:IsObjectType("Button") then
 					if child.Left and child.Middle and child.Right and child.Text then
-						B.Reskin(child)
+						B.ReskinButton(child)
 					else
 						B.ReskinClose(child)
 					end
@@ -292,7 +292,7 @@ function S:MeetingStone()
 	for _, v in pairs(Buttons) do
 		local button = getValue(v, MSEnv)
 		if button then
-			B.Reskin(button)
+			B.ReskinButton(button)
 		end
 	end
 
@@ -379,12 +379,12 @@ function S:MeetingStone()
 				reskinButtonHL(button)
 
 				if button.Option then
-					B.Reskin(button.Option.InviteButton)
-					B.Reskin(button.Option.DeclineButton)
+					B.ReskinButton(button.Option.InviteButton)
+					B.ReskinButton(button.Option.DeclineButton)
 				end
 
 				if button.Summary then
-					B.Reskin(button.Summary.CancelButton)
+					B.ReskinButton(button.Summary.CancelButton)
 				end
 
 				if button["@"] and button["@"].Check then
@@ -420,7 +420,7 @@ function S:MeetingStone()
 	if MSEnv.ADDON_REGIONSUPPORT then
 		local MallPanel = MS:GetModule("MallPanel", true)
 		if MallPanel then
-			B.Reskin(MallPanel.PurchaseButton)
+			B.ReskinButton(MallPanel.PurchaseButton)
 
 			for _, child in pairs {MallPanel:GetChildren()} do
 				if child:IsObjectType("Button") and child.Icon and child.Text then
@@ -431,7 +431,7 @@ function S:MeetingStone()
 
 		local RewardPanel = MS:GetModule("RewardPanel", true)
 		if RewardPanel then
-			B.Reskin(RewardPanel.ConfirmButton)
+			B.ReskinButton(RewardPanel.ConfirmButton)
 			reskinMSInput(RewardPanel.InputBox)
 		end
 
@@ -487,7 +487,7 @@ function S:MeetingStone()
 					for _, button in pairs({"Refresh", "Join", "Ranking", "RefreshBtn"}) do
 						local bu = Body[button]
 						if bu then
-							B.Reskin(bu)
+							B.ReskinButton(bu)
 						end
 					end
 
@@ -539,7 +539,7 @@ function S:MeetingStone()
 		local origQuestItemCreate = QuestItem.Create
 		QuestItem.Create = function(self, parent, ...)
 			local button = origQuestItemCreate(self, parent, ...)
-			if button.Reward then B.Reskin(button.Reward) end
+			if button.Reward then B.ReskinButton(button.Reward) end
 			if button.Item then reskinItemButton(button.Item) end
 			if button.Items then
 				for index, item in ipairs(button.Items) do
@@ -571,7 +571,7 @@ function S:MeetingStone()
 			if objType == "Frame" then
 				B.StripTextures(child)
 			elseif objType == "Button" and child.Text then
-				B.Reskin(child)
+				B.ReskinButton(child)
 			end
 		end
 
@@ -590,7 +590,7 @@ function S:MeetingStone()
 		Feedback:HookScript("OnShow", function(self)
 			if not self.styled then
 				P.ReskinFrame(self)
-				B.Reskin(self.SendButton)
+				B.ReskinButton(self.SendButton)
 				reskinMSInput(self.Text)
 				B.CreateMF(self)
 
@@ -605,11 +605,11 @@ function S:MeetingStone()
 			if not self.styled then
 				for _, child in pairs {self:GetChildren()} do
 					if child:IsObjectType("Button") and child.Text then
-						B.Reskin(child)
+						B.ReskinButton(child)
 					elseif child.ScrollBar then
 						B.ReskinScroll(child.ScrollBar)
 					elseif child.btnKnow and child.Header then
-						B.Reskin(child.btnKnow)
+						B.ReskinButton(child.btnKnow)
 						select(2, child:GetRegions()):SetTextColor(1, 1, 1)
 					end
 				end
@@ -634,7 +634,7 @@ function S:MeetingStone()
 			for _, child in pairs {ExSearchPanel:GetChildren()} do
 				if child:GetObjectType() == "Button" then
 					if child:GetText() then
-						B.Reskin(child)
+						B.ReskinButton(child)
 					else
 						B.ReskinClose(child)
 					end
@@ -661,7 +661,7 @@ function S:MeetingStone()
 
 		for _, child in pairs {IgnoreListPanel:GetChildren()} do
 			if child:GetObjectType() == "Button" and child.Text then
-				B.Reskin(child)
+				B.ReskinButton(child)
 			end
 		end
 	end

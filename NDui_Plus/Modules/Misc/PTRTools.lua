@@ -42,7 +42,7 @@ do
 		button:SetText(L["Learn All Specialization"])
 		button:SetScript("OnClick", OnClick)
 
-		if C.db["Skins"]["BlizzardSkins"] then B.Reskin(button) end
+		if C.db["Skins"]["BlizzardSkins"] then B.ReskinButton(button) end
 	end
 
 	P:AddCallbackForAddon("Blizzard_Professions", M.ProfessionSpecHelper)

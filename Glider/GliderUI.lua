@@ -1,7 +1,7 @@
 local addonName = ... ---@type string "Glider"
 local namespace = select(2,...) ---@class (partial) namespace
 
----@class GliderUI : Frame
+---@class (partial) Glider : Frame
 local Glider = CreateFrame("Frame", "GliderAddOn", UIParent)
 namespace.GliderUI = Glider
 
@@ -16,6 +16,7 @@ pulseTexture:SetTexture("Interface/AddOns/Glider/Media/Atlas")
 pulseTexture:SetTexelSnappingBias(0) ---@diagnostic disable-line
 pulseTexture:SetSnapToPixelGrid(false)
 pulseTexture:SetAllPoints()
+pulseTexture:SetVertexColor(1, 0.85, 0, 0)
 Glider.Pulse = pulseTexture
 
 local backgroundTexture = Glider:CreateTexture(nil, "BACKGROUND", nil, 2)
@@ -38,6 +39,7 @@ vigorCharge:SetDrawBling(false)
 vigorCharge:SetReverse(true)
 vigorCharge:SetFrameLevel(0)
 vigorCharge:SetUsingParentLevel(true)
+vigorCharge.noCooldownCount = true
 Glider.VigorCharge = vigorCharge
 
 vigorCharge:SetSwipeTexture("Interface/AddOns/Glider/Media/Atlas") ---@diagnostic disable-line
@@ -57,6 +59,8 @@ speedCooldown:SetUsingParentLevel(true)
 speedCooldown:SetSize(64, 64)
 speedCooldown:SetPoint("CENTER", speedDisplay, "CENTER")
 speedCooldown:SetSwipeTexture("Interface/AddOns/Glider/Media/Atlas") ---@diagnostic disable-line
+speedCooldown:SetRotation(-117 * (math.pi/180))
+speedCooldown.noCooldownCount = true
 Glider.SpeedDisplay.Speed = speedCooldown
 
 local textDisplay = CreateFrame("Frame", nil, Glider)

@@ -8,13 +8,13 @@ local function handleRefreshButton(self)
 		return
 	end
 
-	B.Reskin(self)
+	B.ReskinButton(self)
 	self:SetSize(22, 22)
 end
 
 local function filterButton(self)
 	B.StripTextures(self)
-	B.Reskin(self)
+	B.ReskinButton(self)
 	self.__bg:SetPoint("TOPLEFT", -C.mult,  -C.mult)
 	self.__bg:SetPoint("BOTTOMRIGHT", C.mult, -C.mult)
 	B.SetupArrow(self.Icon, "right")
@@ -34,7 +34,7 @@ local function reskinMainFrame(self)
 	for _, child in pairs {self:GetChildren()} do
 		local objType = child:GetObjectType()
 		if objType == "Button" and child.Left and child.Right and child.Middle and child.Text then
-			B.Reskin(child)
+			B.ReskinButton(child)
 		end
 	end
 end

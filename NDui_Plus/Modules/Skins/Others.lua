@@ -60,7 +60,7 @@ function S:MogPartialSets()
 		for _, key in ipairs({"OkButton", "RefreshButton"}) do
 			local bu = filter[key]
 			if bu then
-				B.Reskin(bu)
+				B.ReskinButton(bu)
 			end
 		end
 
@@ -161,10 +161,10 @@ end
 function S:BuyEmAll()
 	B.StripTextures(_G.BuyEmAllFrame)
 	B.CreateBG(_G.BuyEmAllFrame, 10, -10, -10, 10)
-	B.Reskin(_G.BuyEmAllOkayButton)
-	B.Reskin(_G.BuyEmAllCancelButton)
-	B.Reskin(_G.BuyEmAllStackButton)
-	B.Reskin(_G.BuyEmAllMaxButton)
+	B.ReskinButton(_G.BuyEmAllOkayButton)
+	B.ReskinButton(_G.BuyEmAllCancelButton)
+	B.ReskinButton(_G.BuyEmAllStackButton)
+	B.ReskinButton(_G.BuyEmAllMaxButton)
 
 	B.CreateMF(_G.BuyEmAllFrame)
 end

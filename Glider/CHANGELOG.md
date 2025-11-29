@@ -1,5 +1,8 @@
 # Changelog
 
+## 32
+- New Mute Sounds dropdown to get rid of some annoying skyriding sounds.
+
 ## 31
 - Fix highlight missing
 - Fix Random option sometimes causing an error

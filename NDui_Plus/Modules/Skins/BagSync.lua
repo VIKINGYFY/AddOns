@@ -67,7 +67,7 @@ local function SkinBagSyncFrame(name, module)
 	for _, key in ipairs({"PlusButton", "RefreshButton", "HelpButton"}) do
 		local bu = frame[key]
 		if bu then
-			B.Reskin(bu)
+			B.ReskinButton(bu)
 		end
 	end
 

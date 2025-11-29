@@ -113,6 +113,17 @@ L["Config - Audio - Customize - UseCustomAudio - WaypointShow"] = "Показа�
 L["Config - Audio - Customize - UseCustomAudio - PinpointShow"] = "Показать точное местоположение"
 L["Config - Audio - Customize - UseCustomAudio - NewUserNavigation"] = "При начале /way навигации..."
 
+L["Config - ExtraFeature"] = "Extra Features"
+L["Config - ExtraFeature - Title"] = "Extra Features"
+L["Config - ExtraFeature - Title - Subtext"] = "Manage additional features."
+L["Config - ExtraFeature - Pin"] = "Map Pin"
+L["Config - ExtraFeature - Pin - AutoTrackPlacedPin"] = "Auto-Track Pin"
+L["Config - ExtraFeature - Pin - AutoTrackPlacedPin - Description"] = "Automatically track a pin when it's placed on the world map."
+L["Config - ExtraFeature - Pin - AutoTrackChatLinkPin"] = "Auto-Track Pin from Link"
+L["Config - ExtraFeature - Pin - AutoTrackChatLinkPin - Description"] = "Automatically track the pin placed by clicking a map-pin link."
+L["Config - ExtraFeature - Pin - GuidePinAssistant"] = "Track Guide Pin"
+L["Config - ExtraFeature - Pin - GuidePinAssistant - Description"] = "Enable Waypoint UI navigation for city guide pins placed by guard NPCs."
+
 L["Config - About"] = "О нас"
 L["Config - About - Contributors"] = "Участники"
 L["Config - About - Developer"] = "Разработчик"
@@ -150,3 +161,8 @@ L["Contributors - HectorZaGa"] = "HectorZaGa"
 L["Contributors - HectorZaGa - Description"] = "Код — Исправление ошибок"
 L["Contributors - SyverGiswold"] = "SyverGiswold"
 L["Contributors - SyverGiswold - Description"] = "Код - Особенность"
+
+-- Extension
+L["Guide Pin Assistant - ReplacePrompt"] = "Do you want to replace your current waypoint with \"%s\"?"
+L["Guide Pin Assistant - ReplacePrompt - Yes"] = "Accept"
+L["Guide Pin Assistant - ReplacePrompt - No"] = "Cancel"

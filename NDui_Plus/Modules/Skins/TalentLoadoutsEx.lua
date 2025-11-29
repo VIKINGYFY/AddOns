@@ -10,7 +10,7 @@ local function ReskinChildButton(self)
 
 	for _, child in pairs {self:GetChildren()} do
 		if child:GetObjectType() == "Button" and child.Left and child.Middle and child.Right and child.Text then
-			B.Reskin(child)
+			B.ReskinButton(child)
 		end
 	end
 end

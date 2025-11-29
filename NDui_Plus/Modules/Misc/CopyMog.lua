@@ -251,7 +251,7 @@ local function createCopyButton(parent)
 	button:SetText(L["Transmog"])
 	button.Text:SetFont(STANDARD_TEXT_FONT, fontSize, "OUTLINE")
 	button.Text:SetTextColor(DB.r, DB.g, DB.b)
-	B.Reskin(button)
+	B.ReskinButton(button)
 	parent.CopyButton = button
 
 	return button

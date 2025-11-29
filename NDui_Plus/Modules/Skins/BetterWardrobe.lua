@@ -46,7 +46,7 @@ local function HandleSetsDetailsButton(self, index)
 		return
 	end
 
-	B.Reskin(self)
+	B.ReskinButton(self)
 	self:SetSize(21, 21)
 	self:ClearAllPoints()
 	self:SetPoint("TOPRIGHT", 19-24*index, -5)
@@ -221,7 +221,7 @@ end
 local function ReskinCollectionDropdown()
 	local button = _G.BW_CollectionListOptionsButton
 	if button then
-		B.Reskin(button)
+		B.ReskinButton(button)
 		button:SetSize(21, 22)
 	end
 
@@ -233,7 +233,7 @@ local function ReskinTransmogVendorUI()
 	for _, key in ipairs({"BW_LoadQueueButton", "BW_RandomizeButton", "BW_SlotHideButton"}) do
 		local bu = _G[key]
 		if bu then
-			B.Reskin(bu)
+			B.ReskinButton(bu)
 			bu:SetSize(21, 21)
 			bu:ClearAllPoints()
 			if not prev then
@@ -275,7 +275,7 @@ function S:BetterWardrobe()
 		}) do
 			local bu = DressingRoomFrame[key]
 			if bu then
-				B.Reskin(bu)
+				B.ReskinButton(bu)
 				bu:SetSize(25, 25)
 				bu:ClearAllPoints()
 				if not prev then

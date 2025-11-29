@@ -97,7 +97,7 @@ function S:Ace3_RegisterAsContainer(widget)
 end
 
 function S:Ace3_Button(widget)
-	B.Reskin(widget.frame)
+	B.ReskinButton(widget.frame)
 end
 
 function S:Ace3_CheckBox(widget)
@@ -169,7 +169,7 @@ function S:Ace3_Dropdown(widget)
 end
 
 function S:Ace3_EditBox(widget)
-	B.Reskin(widget.button)
+	B.ReskinButton(widget.button)
 	P.ReskinInput(widget.editbox)
 	widget.editbox.bg:SetPoint("TOPLEFT", 0, -2)
 	widget.editbox.bg:SetPoint("BOTTOMRIGHT", 0, 2)
@@ -186,7 +186,7 @@ function S:Ace3_MultiLineEditBox(widget)
 	local bg = B.CreateBDFrame(widget.scrollBG, .5)
 	bg:SetPoint("TOPLEFT", 0, -2)
 	bg:SetPoint("BOTTOMRIGHT", -2, 1)
-	B.Reskin(widget.button)
+	B.ReskinButton(widget.button)
 	B.ReskinScroll(widget.scrollBar)
 
 	widget.scrollBar:SetPoint("RIGHT", widget.frame, "RIGHT", 0 -4)
@@ -206,7 +206,7 @@ function S:Ace3_Keybinding(widget)
 	local button = widget.button
 	local msgframe = widget.msgframe
 
-	B.Reskin(button)
+	B.ReskinButton(button)
 	B.StripTextures(msgframe)
 	B.CreateBG(msgframe)
 	msgframe.msg:ClearAllPoints()
@@ -332,7 +332,7 @@ function S:Ace3_Frame(widget)
 		for i = 1, frame:GetNumChildren() do
 			local child = select(i, frame:GetChildren())
 			if child:GetObjectType() == "Button" and child:GetText() then
-				B.Reskin(child)
+				B.ReskinButton(child)
 			else
 				B.StripTextures(child)
 			end
@@ -441,7 +441,7 @@ function S:Ace3_StylePopup()
 		for _, key in pairs({"accept", "cancel"}) do
 			local bu = self[key]
 			if bu then
-				B.Reskin(bu)
+				B.ReskinButton(bu)
 			end
 		end
 

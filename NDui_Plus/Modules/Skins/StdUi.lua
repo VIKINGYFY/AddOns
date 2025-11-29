@@ -99,7 +99,7 @@ function S:StdUi()
 	StdUi.SquareButton = function(...)
 		local button = origSquareButton(...)
 		DisableBackdrop(button)
-		B.Reskin(button)
+		B.ReskinButton(button)
 
 		return button
 	end

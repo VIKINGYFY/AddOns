@@ -12,6 +12,8 @@ local GetPlayerMap = API.GetPlayerMap;
 local GetPlayerMapCoord = API.GetPlayerMapCoord;
 local GetDungeonEntrancesForMap = C_EncounterJournal.GetDungeonEntrancesForMap;
 local GetMapWorldSize = C_Map.GetMapWorldSize;
+local GetMapGroupID = C_Map.GetMapGroupID;
+local GetMapGroupMembersInfo = C_Map.GetMapGroupMembersInfo;
 
 
 local DEFAULT_RANGE = 31^2;
@@ -22,19 +24,13 @@ RaidCheck.LocationTracker = EL;
 EL.updateDelay = 0.5;   --Increase if the player is far away
 
 
-EL.events = {
-    "PLAYER_ENTERING_WORLD",
-    "PLAYER_MAP_CHANGED",
-    "ZONE_CHANGED",
-    "ZONE_CHANGED_NEW_AREA",
-};
-
-
 EL.mapEvents = {
     PLAYER_ENTERING_WORLD = true,
     PLAYER_MAP_CHANGED = true,
     ZONE_CHANGED = true,
     ZONE_CHANGED_NEW_AREA = true,
+    NEW_WMO_CHUNK = true,   --Flying from Caverns of Time exterior to interior doesn't trigger other events, so we need this to update the best uiMapID
+    ZONE_CHANGED_INDOORS = true,
 };
 
 EL.instancePos = {
@@ -42,7 +38,33 @@ EL.instancePos = {
     --[uiMapID] = {x, y, indoors}
     [786] = {0.44148, 0.59743, true},     --Nighthold
     [726] = {0.41068, 0.61744, true},     --The Arcway
+    [187] = {0.61534, 0.26397},           --Dragon Soul
+    [184] = {0.57381, 0.29142},           --End Time
+    [750] = {0.35528, 0.15325},           --The Battle For Mount Hyjal
+    [251] = {0.26814, 0.35114},           --Old Hillsbrad Foothills
+    [255] = {0.35972, 0.83893},           --The Black Morass
+    [279] = {0.57488, 0.82711},           --The Culling of Stratholme
 };
+
+EL.mapsWithFloors = {
+    --The usual map events may not trigger when BestMap changes. e.g. flying from Searing Gorge to Blackrock Depths
+    [32] = true,
+    [33] = true,
+    [34] = true,
+    [35] = true,
+};
+
+function EL:DoesMapHaveFloors(uiMapID)
+    if self.mapsWithFloors[uiMapID] == nil then
+        local mapGroupID = GetMapGroupID(uiMapID);
+        if mapGroupID and GetMapGroupMembersInfo(mapGroupID) then
+            self.mapsWithFloors[uiMapID] = true;
+        else
+            self.mapsWithFloors[uiMapID] = false;
+        end
+    end
+    return self.mapsWithFloors[uiMapID]
+end
 
 function EL:ListenEvents(state)
     if state then
@@ -61,6 +83,7 @@ end
 function EL:OnEvent(event, ...)
     if self.mapEvents[event] then
         self:RequestUpdateMap();
+        --print(event);
     else
 
     end
@@ -73,15 +96,29 @@ function EL:RequestUpdateMap()
 end
 
 function EL:UpdateMap()
-    self.mapDirty = nil;
+    if self.isMultiFloors then
+        self.mapDirty = true;
+    else
+        self.mapDirty = nil;
+    end
 
     local uiMapID = GetPlayerMap();
+
     if uiMapID ~= self.uiMapID then
         self.uiMapID = uiMapID;
+
+        local isMultiFloors = uiMapID and self:DoesMapHaveFloors(uiMapID);
+        --print(uiMapID, isMultiFloors)
+        if isMultiFloors then
+            self.isMultiFloors = true;
+        else
+            self.isMultiFloors = nil;
+        end
+
         local trackPosition;
 
         if IsInInstance() then
-            
+            self.isMultiFloors = nil;
         else
             if uiMapID then
                 local dungeonEntrances = GetDungeonEntrancesForMap(uiMapID);
@@ -173,8 +210,9 @@ function EL:OnUpdate(elapsed)
                 end
             end
 
+            --print(self.closestDistance, self.closestIndex and self.entranceInfo[self.closestIndex].journalInstanceID, self.x, self.y)
+
             if self.closestIndex and self.closestDistance < self.defaultRange then
-                --print(self.entranceInfo[self.closestIndex].journalInstanceID, self.x, self.y);
                 SelectorUI:ShowInstance(self.entranceInfo[self.closestIndex].journalInstanceID, self.uiMapID);
             else
                 SelectorUI:HideUI();

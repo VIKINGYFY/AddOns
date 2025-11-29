@@ -129,7 +129,7 @@ function S:BtWLoadouts()
 	for _, v in ipairs({"AddButton", "RefreshButton", "ActivateButton", "DeleteButton", "ExportButton"}) do
 		local bu = frame[v]
 		if bu then
-			B.Reskin(bu)
+			B.ReskinButton(bu)
 		end
 	end
 
@@ -138,7 +138,7 @@ function S:BtWLoadouts()
 		B.StripTextures(NPE)
 		local bg = B.CreateBDFrame(NPE, .5)
 		bg:SetOutside(nil, 6, 6)
-		B.Reskin(NPE.AddButton)
+		B.ReskinButton(NPE.AddButton)
 	end
 
 	local SidebarInset = frame.SidebarInset
@@ -306,7 +306,7 @@ function S:BtWLoadouts()
 		B.StripTextures(importFrame)
 		B.CreateBG(importFrame)
 		B.ReskinClose(importFrame.CloseButton)
-		B.Reskin(importFrame.ImportButton)
+		B.ReskinButton(importFrame.ImportButton)
 	end
 
 	local logFrame = _G.BtWLoadoutsLogFrame

@@ -9,7 +9,7 @@ local function reskinButtons(self, buttons)
 	for _, key in ipairs(buttons) do
 		local bu = self[key]
 		if bu then
-			B.Reskin(bu)
+			B.ReskinButton(bu)
 		else
 			P:Debug("Unknown: %s", key)
 		end
@@ -37,7 +37,7 @@ local function reskinRefreshButton(self)
 	for i = 1, self:GetNumChildren() do
 		local child = select(i, self:GetChildren())
 		if child.iconAtlas and child.iconAtlas == "UI-RefreshButton" then
-			B.Reskin(child)
+			B.ReskinButton(child)
 			child:SetSize(22, 22)
 			break
 		end
@@ -157,7 +157,7 @@ local function reskinBagItemButton(self)
 end
 
 local function resetButton(self)
-	B.Reskin(self)
+	B.ReskinButton(self)
 end
 
 local function configMinMax(self)
@@ -210,7 +210,7 @@ local function reskinDialog()
 		for _, key in ipairs({ "acceptButton", "cancelButton", "altButton" }) do
 			local bu = dialog[key]
 			if bu then
-				B.Reskin(bu)
+				B.ReskinButton(bu)
 			end
 		end
 
@@ -370,8 +370,8 @@ function S:Auctionator()
 
 			for _, child in pairs {CancellingFrame:GetChildren()} do
 				if child.StartScanButton and child.CancelNextButton then
-					B.Reskin(child.StartScanButton)
-					B.Reskin(child.CancelNextButton)
+					B.ReskinButton(child.StartScanButton)
+					B.ReskinButton(child.CancelNextButton)
 					break
 				end
 			end

@@ -13,7 +13,6 @@ end
 
 function EX:UpdateMountSource()
 	if self:IsForbidden() or self ~= GameTooltip then return end
-	if InCombatLockdown() then return end
 
 	local unit = TT.GetUnit(self)
 	if not UnitIsPlayer(unit) then return end

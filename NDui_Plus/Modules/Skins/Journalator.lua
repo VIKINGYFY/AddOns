@@ -6,7 +6,7 @@ local function handleFilterButton(self)
 	if not self then P:Debug("Unknown: FilterButton") return end
 
 	B.StripTextures(self)
-	B.Reskin(self)
+	B.ReskinButton(self)
 	B.SetupArrow(self.Icon, "right")
 	self.Icon:SetPoint("RIGHT")
 	self.Icon:SetSize(14, 14)

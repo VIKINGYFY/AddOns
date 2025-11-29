@@ -114,7 +114,7 @@ do
 		bu:SetScript("OnDisable", function()
 			bu.Text:SetTextColor(.5, .5, .5)
 		end)
-		B.Reskin(bu)
+		B.ReskinButton(bu)
 
 		return bu
 	end

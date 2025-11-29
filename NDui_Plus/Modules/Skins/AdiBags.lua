@@ -38,7 +38,7 @@ local function SkinContainer(self)
 end
 
 local function SkinModuleButton(self)
-	B.Reskin(self)
+	B.ReskinButton(self)
 end
 
 local function SkinItemButton(self)

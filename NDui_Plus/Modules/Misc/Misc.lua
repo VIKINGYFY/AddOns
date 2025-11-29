@@ -66,7 +66,7 @@ do
 		end)
 
 		if C.db["Skins"]["BlizzardSkins"] then
-			B.Reskin(button)
+			B.ReskinButton(button)
 		end
 
 		hooksecurefunc("ClassTrainerFrame_Update",function()

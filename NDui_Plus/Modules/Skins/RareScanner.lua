@@ -4,6 +4,14 @@ local S = P:GetModule("Skins")
 
 local _G = getfenv(0)
 
+local function Button_OnEnter(self)
+	self.bg:SetBackdropBorderColor(DB.r, DB.g, DB.b)
+end
+
+local function Button_OnLeave(self)
+	self.bg:SetBackdropBorderColor(0, 0, 0)
+end
+
 function S:RareScanner()
 	if not S.db["RareScanner"] then return end
 
@@ -12,7 +20,9 @@ function S:RareScanner()
 	if not button then return end
 
 	B.StripTextures(button)
-	B.Reskin(button)
+	button.bg = B.CreateBG(button)
+	button:SetScript("OnEnter", Button_OnEnter)
+	button:SetScript("OnLeave", Button_OnLeave)
 
 	local close = button.CloseButton
 	if close then
@@ -23,13 +33,14 @@ function S:RareScanner()
 		close:SetPoint("BOTTOMRIGHT",-5, 5)
 	end
 
-	S:Proxy("ReskinArrow", button.FilterEntityButton, "down")
-	local filterButton = button.FilterEntityButton
-	if filterButton then
-		B.ReskinArrow(filterButton, "down")
-		filterButton:HookScript("OnEnter", function(self)
-			P.ReskinTooltip(self.tooltip)
-		end)
+	for index, key in ipairs({"FilterEntityButton", "UnFilterEntityButton"}) do
+		local filter = button[key]
+		if filter then
+			B.ReskinArrow(filter, index == 1 and "down" or "up")
+			filter:HookScript("OnEnter", function(self)
+				P.ReskinTooltip(self.tooltip)
+			end)
+		end
 	end
 
 	P.ReskinFont(button.Title)

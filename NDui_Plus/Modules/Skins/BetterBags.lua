@@ -218,7 +218,7 @@ function S:BetterBags()
 
 				local bagButton = Themes.SetupBagButton(frame.Owner, decoration)
 				B.StripTextures(bagButton)
-				B.Reskin(bagButton)
+				B.ReskinButton(bagButton)
 				bagButton:SetSize(32, 32)
 				bagButton:ClearAllPoints()
 				bagButton:SetPoint("TOPLEFT", decoration, "TOPLEFT", 6, -6)

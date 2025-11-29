@@ -1,7 +1,18 @@
 local ADDON_NAME, ns = ...
 
-ns.CurrentAddonVersion = "3.1.6"
-ns.PreviousAddonVersion_1 = "3.1.5"
+ns.CurrentAddonVersion = "3.1.8"
+ns.PreviousAddonVersion_1 = "3.1.7"
+
+ns.LOCALE_CHANGELOGS = {
+  { version = "3.1.8", table = ns.LOCALE_CHANGELOG_3_1_8 },
+  { version = "3.1.7", table = ns.LOCALE_CHANGELOG_3_1_7 },
+  { version = "3.1.6", table = ns.LOCALE_CHANGELOG_3_1_6 },
+  { version = "3.1.5", table = ns.LOCALE_CHANGELOG_3_1_5 },
+  { version = "3.1.4", table = ns.LOCALE_CHANGELOG_3_1_4 },
+  { version = "3.1.3", table = ns.LOCALE_CHANGELOG_3_1_3 },
+  { version = "3.1.2", table = ns.LOCALE_CHANGELOG_3_1_2 },
+  { version = "3.1.1", table = ns.LOCALE_CHANGELOG_3_1_1 },
+}
 
 ns.LOCALE_CHANGELOG_3_1_ = { -- empty backup file
   deDE = [[
@@ -46,6 +57,506 @@ ns.LOCALE_CHANGELOG_3_1_ = { -- empty backup file
 
   koKR = [[
 
+]],
+}
+
+ns.LOCALE_CHANGELOG_3_1_8 = { 
+  deDE = [[
+  Hey, ich grüße dich.
+
+    Da jetzt die Weihnachtszeit bevorsteht, 
+    
+    wünsche ich euch allen eine ruhige und erholsame Zeit sowie viel Gesundheit.
+
+    Für alle, die nichts mit Weihnachten zu tun haben oder haben möchten, 
+    
+    wünsche ich natürlich ebenfalls eine erholsame Zeit und viel Gesundheit.
+
+    Vielen Dank für euren Support.
+
+            Liebe Grüße Barny
+]],
+
+  enUS = [[
+  Hey, I greet you.
+
+    As the Christmas season approaches,
+    
+    I wish you all a peaceful and relaxing time, as well as good health.
+
+    For everyone who does not celebrate Christmas or prefers not to,
+    
+    I also wish you a restful time and good health.
+
+    Thank you very much for your support.
+
+            Kind regards, Barny
+]],
+
+  frFR = [[
+  Hey, je te salue.
+
+    À l’approche de la période de Noël,
+    
+    je vous souhaite à tous une période paisible et reposante, ainsi qu’une bonne santé.
+
+    Pour tous ceux qui ne célèbrent pas Noël ou préfèrent ne pas le faire,
+    
+    je souhaite également une période reposante et beaucoup de santé.
+
+    Merci beaucoup pour votre soutien.
+
+            Amitiés, Barny
+]],
+
+  itIT = [[
+  Ehi, ti saluto.
+
+    Con l’arrivo del periodo natalizio,
+    
+    auguro a tutti voi un momento tranquillo e rilassante, insieme a tanta salute.
+
+    A tutti coloro che non festeggiano il Natale o preferiscono non farlo,
+    
+    auguro comunque un periodo sereno e buona salute.
+
+    Grazie mille per il vostro supporto.
+
+            Un caro saluto, Barny
+]],
+
+  esES = [[
+  Hola, te saludo.
+
+    Con la llegada de la época navideña,
+    
+    os deseo a todos un tiempo tranquilo y relajante, así como mucha salud.
+
+    Para quienes no celebran la Navidad o prefieren no hacerlo,
+    
+    también les deseo un tiempo de descanso y buena salud.
+
+    Muchas gracias por vuestro apoyo.
+
+            Saludos, Barny
+]],
+
+  esMX = [[
+  Hola, te saludo.
+
+    Con la llegada de la temporada navideña,
+    
+    les deseo a todos un tiempo tranquilo y relajante, además de mucha salud.
+
+    Para quienes no celebran la Navidad o prefieren no hacerlo,
+    
+    también les deseo un tiempo de descanso y buena salud.
+
+    Muchas gracias por su apoyo.
+
+            Saludos, Barny
+]],
+
+  ptBR = [[
+  Olá, saudações.
+
+    Com a chegada da época de Natal,
+    
+    desejo a todos um período tranquilo e relaxante, além de muita saúde.
+
+    Para todos que não comemoram o Natal ou preferem não fazê-lo,
+    
+    também desejo um tempo de descanso e boa saúde.
+
+    Muito obrigado pelo apoio de vocês.
+
+            Abraços, Barny
+]],
+
+  ruRU = [[
+  Привет, рад тебя приветствовать.
+
+    В преддверии рождественского сезона
+    
+    желаю всем спокойного и приятного отдыха, а также крепкого здоровья.
+
+    Тем, кто не празднует Рождество или предпочитает не отмечать его,
+    
+    также желаю приятного отдыха и здоровья.
+
+    Большое спасибо за вашу поддержку.
+
+            С наилучшими пожеланиями, Барни
+]],
+
+  zhCN = [[
+  嗨，你好。
+
+    随着圣诞季节的到来，
+    
+    祝大家度过一个宁静放松的时光，并拥有健康的身体。
+
+    对于不庆祝圣诞节或不想参与圣诞节的人，
+    
+    我同样祝愿你们度过一段轻松的时光，并保持健康。
+
+    非常感谢你们的支持。
+
+            此致，Barny
+]],
+
+  zhTW = [[
+  嗨，你好。
+
+    隨著聖誕節即將到來，
+    
+    祝大家度過一段平靜又放鬆的時光，並保持健康。
+
+    對於不過聖誕節或不想慶祝的人，
+    
+    我同樣祝你們有個愉快且健康的時光。
+
+    非常感謝你們的支持。
+
+            祝福，Barny
+]],
+
+  koKR = [[
+  안녕하세요, 반갑습니다.
+
+    크리스마스 시즌이 다가오면서,
+    
+    여러분 모두에게 평온하고 편안한 시간, 그리고 건강을 기원합니다.
+
+    크리스마스를 기념하지 않거나 원하지 않는 분들께도
+    
+    편안한 시간과 건강을 함께 기원합니다.
+
+    여러분의 지원에 진심으로 감사드립니다.
+
+            감사합니다, Barny
+]],
+}
+
+ns.LOCALE_CHANGELOG_3_1_7 = {
+  deDE = [[
+PTR:    
+  • Portalsymbole in Orgrimmar und Sturmwind wurden angepasst
+  • Portalsymbole wurde auf den Housingkarten hinzugefügt
+  
+Retail:  
+  • Einige Tooltips werden in nächster Zeit angepasst
+    • Aus „Portal ==> Orgrimmar“ wird zum Beispiel „Orgrimmar (Portal)“
+    • Aus „Zeppelin ==> Orgrimmar“ wird zum Beispiel „Orgrimmar (Zeppelin)“
+    • Aus „Schiff ==> Orgrimmar“ wird zum Beispiel „Orgrimmar (Schiff)“
+      • Damit die Tooltip Anzeige dieser Symbole auf Zonenkarten einzelig sind
+      • Damit sofort ersichtlich ist wohin dich dieses Symbol bringt
+    • Update der FogOfWar und der MistOfTheUnexplored Funktion
+
+  • Es wurde die Funktion zum Löschen des aktuellen MapNote Profils hinzugefügt, womit alle daten der SavedVariables des Profils entfernt wird
+  • Es wurde die Funktion zum Löschen aller MapNotes Profile hinzugefügt, womit ein man die komplette SavedVariables Datei zurücksetzen kann
+  • Es wurde die Funktion zum alles MapNotes Profile hinzugefügt, ausgenommen des Profiles das aktuell genutzt wird
+  • Somit können veraltete Profilreste von gelöschten Charakteren entfernt werden bzw es ist möglich MapNotes komplett zurückzusetzen ohne die Datein löschen zu müßen.
+  • Nachdem einer der 3 Möglichkeiten gemacht wurde, wird das Interface automatisch neu gestartet und die NPC Datenbank aktualisiert sich automatisch wieder auf den neusten stand
+  • Als Backup wird empfohlen einmal den „WTF“ Ordner von Blizzard zu kopieren und woanders abzuspeichern, falls ihr es euch danach anders überlegt habt.
+
+
+Classic + & Mists of Pandaria:
+  • Update der FogOfWar und der MistOfTheUnexplored Funktion
+
+  • Es wurde die Funktion zum Löschen des aktuellen MapNote Profils hinzugefügt, womit alle daten der SavedVariables des Profils entfernt wird
+  • Es wurde die Funktion zum Löschen aller MapNotes Profile hinzugefügt, womit ein man die komplette SavedVariables Datei zurücksetzen kann
+  • Es wurde die Funktion zum alles MapNotes Profile hinzugefügt, ausgenommen des Profiles das aktuell genutzt wird
+  • Somit können veraltete Profilreste von gelöschten Charakteren entfernt werden bzw es ist möglich MapNotes komplett zurückzusetzen ohne die Datein löschen zu müßen.
+  • Als Backup wird empfohlen einmal den „WTF“ Ordner von Blizzard zu kopieren und woanders abzuspeichern, falls ihr es euch danach anders überlegt habt.
+]],
+
+  enUS = [[
+PTR:
+  • Portal icons in Orgrimmar and Stormwind have been adjusted.
+  • Portal icons have been added to the housing maps.
+
+Retail:
+  • Several tooltips will be updated soon.
+    • “Portal ==> Orgrimmar” will become “Orgrimmar (Portal)”.
+    • “Zeppelin ==> Orgrimmar” will become “Orgrimmar (Zeppelin)”.
+    • “Ship ==> Orgrimmar” will become “Orgrimmar (Ship)”.
+      • This ensures that the tooltip display of these symbols is unique on zone maps.
+      • It makes it immediately clear where each symbol takes you.
+    • Update of the FogOfWar and MistOfTheUnexplored functions.
+
+  • Added a function to delete the current MapNotes profile, removing all SavedVariables of that profile.
+  • Added a function to delete all MapNotes profiles, allowing the entire SavedVariables file to be reset.
+  • Added a function to delete all MapNotes profiles except the currently used one.
+  • This makes it possible to remove outdated profile data from deleted characters or to fully reset MapNotes without manually deleting files.
+  • After using one of the three options, the interface reloads automatically and the NPC database updates to the latest state.
+  • As a backup, it is recommended to copy the Blizzard “WTF” folder and store it elsewhere in case you change your mind later.
+
+Classic + & Mists of Pandaria:
+  • Update of the FogOfWar and MistOfTheUnexplored functions.
+
+  • Added a function to delete the current MapNotes profile, removing all SavedVariables of that profile.
+  • Added a function to delete all MapNotes profiles, allowing the entire SavedVariables file to be reset.
+  • Added a function to delete all MapNotes profiles except the currently used one.
+  • This makes it possible to remove outdated profile data from deleted characters or to fully reset MapNotes without manually deleting files.
+  • As a backup, it is recommended to copy the Blizzard “WTF” folder and store it elsewhere in case you change your mind later.
+]],
+
+  frFR = [[
+PTR :
+  • Les icônes de portail à Orgrimmar et Hurlevent ont été ajustées.
+  • Des icônes de portail ont été ajoutées aux cartes de logement.
+
+Retail :
+  • Certains infobulles seront ajustés prochainement.
+    • « Portal ==> Orgrimmar » deviendra « Orgrimmar (Portail) ».
+    • « Zeppelin ==> Orgrimmar » deviendra « Orgrimmar (Zeppelin) ».
+    • « Ship ==> Orgrimmar » deviendra « Orgrimmar (Navire) ».
+      • Cela garantit que les infobulles de ces symboles sont uniques sur les cartes de zone.
+      • Cela rend immédiatement clair où chaque symbole vous conduit.
+    • Mise à jour des fonctions FogOfWar et MistOfTheUnexplored.
+
+  • Ajout d’une fonction pour supprimer le profil MapNotes actuel, supprimant toutes les SavedVariables associées.
+  • Ajout d’une fonction pour supprimer tous les profils MapNotes, permettant de réinitialiser complètement le fichier SavedVariables.
+  • Ajout d’une fonction pour supprimer tous les profils MapNotes sauf celui actuellement utilisé.
+  • Cela permet de supprimer les anciens profils de personnages supprimés ou de réinitialiser complètement MapNotes sans devoir supprimer les fichiers manuellement.
+  • Après l'utilisation de l'une des trois options, l’interface se recharge automatiquement et la base de données des PNJ se met à jour.
+  • Il est recommandé de sauvegarder le dossier « WTF » de Blizzard au cas où vous changeriez d’avis plus tard.
+
+Classic + & Mists :
+  • Mise à jour des fonctions FogOfWar et MistOfTheUnexplored.
+
+  • Ajout d’une fonction pour supprimer le profil MapNotes actuel.
+  • Ajout d’une fonction pour supprimer tous les profils MapNotes.
+  • Ajout d’une fonction pour supprimer tous les profils sauf celui actuellement utilisé.
+  • Permet de supprimer les anciens profils ou de réinitialiser entièrement MapNotes.
+  • Recommandation : sauvegarder le dossier « WTF » de Blizzard.
+]],
+
+  itIT = [[
+PTR:
+  • Le icone dei portali a Orgrimmar e Roccavento sono state aggiornate.
+  • Le icone dei portali sono state aggiunte alle mappe degli alloggi.
+
+Retail:
+  • Diversi tooltip verranno aggiornati a breve.
+    • “Portal ==> Orgrimmar” diventerà “Orgrimmar (Portale)”.
+    • “Zeppelin ==> Orgrimmar” diventerà “Orgrimmar (Dirigibile)”.
+    • “Ship ==> Orgrimmar” diventerà “Orgrimmar (Nave)”.
+      • Questo rende le informazioni dei simboli uniche sulle mappe delle zone.
+      • Rende immediatamente chiaro dove conduce ogni simbolo.
+    • Aggiornamento delle funzioni FogOfWar e MistOfTheUnexplored.
+
+  • Aggiunta una funzione per eliminare il profilo MapNotes corrente.
+  • Aggiunta una funzione per eliminare tutti i profili MapNotes.
+  • Aggiunta una funzione per eliminare tutti i profili tranne quello attivo.
+  • Permette di rimuovere dati obsoleti di personaggi eliminati o resettare MapNotes senza eliminare file.
+  • Dopo l'uso di una delle tre opzioni l’interfaccia si ricarica automaticamente e il database NPC viene aggiornato.
+  • Consigliato fare un backup della cartella “WTF” di Blizzard.
+
+Classic + & Mists:
+  • Aggiornamento delle funzioni FogOfWar e MistOfTheUnexplored.
+
+  • Aggiunta funzione per eliminare il profilo attuale.
+  • Aggiunta funzione per eliminare tutti i profili.
+  • Aggiunta funzione per eliminare tutti tranne il profilo attivo.
+  • Backup consigliato : cartella “WTF”.
+]],
+
+  esES = [[
+PTR:
+  • Se ajustaron los iconos de portal en Orgrimmar y Ventormenta.
+  • Se añadieron iconos de portal a los mapas de vivienda.
+
+Retail:
+  • Algunos tooltips serán actualizados pronto.
+    • “Portal ==> Orgrimmar” será “Orgrimmar (Portal)”.
+    • “Zeppelin ==> Orgrimmar” será “Orgrimmar (Zepelín)”.
+    • “Ship ==> Orgrimmar” será “Orgrimmar (Barco)”.
+      • Esto hace que los tooltips sean únicos en los mapas de zona.
+      • Muestra claramente a dónde te lleva cada símbolo.
+    • Actualización de FogOfWar y MistOfTheUnexplored.
+
+  • Añadida función para eliminar el perfil actual de MapNotes.
+  • Añadida función para eliminar todos los perfiles.
+  • Añadida función para eliminar todos excepto el perfil activo.
+  • Permite eliminar restos de perfiles antiguos o reiniciar MapNotes sin borrar archivos manualmente.
+  • Tras ejecutar cualquiera de las opciones, la interfaz se recarga y la base de datos de PNJ se actualiza.
+  • Se recomienda hacer una copia de seguridad de la carpeta “WTF”.
+
+Classic + & Mists:
+  • Actualización de FogOfWar y MistOfTheUnexplored.
+
+  • Añadidas las mismas funciones de borrado de perfiles.
+  • Recomendación: copia de seguridad de la carpeta “WTF”.
+]],
+
+  esMX = [[
+PTR:
+  • Se ajustaron los íconos de portal en Orgrimmar y Ventormenta.
+  • Se agregaron íconos de portal a los mapas de vivienda.
+
+Retail:
+  • Algunos tooltips serán actualizados pronto.
+    • “Portal ==> Orgrimmar” será “Orgrimmar (Portal)”.
+    • “Zeppelin ==> Orgrimmar” será “Orgrimmar (Zepelín)”.
+    • “Ship ==> Orgrimmar” será “Orgrimmar (Barco)”.
+      • Esto hace que cada tooltip sea único en los mapas de zona.
+      • Muestra claramente a dónde dirige cada símbolo.
+    • Actualización de FogOfWar y MistOfTheUnexplored.
+
+  • Se agregó la función para eliminar el perfil actual de MapNotes.
+  • Se agregó la función para eliminar todos los perfiles.
+  • Se agregó la función para eliminar todos excepto el perfil activo.
+  • Permite eliminar datos antiguos o reiniciar MapNotes sin borrar archivos.
+  • Tras ejecutar cualquiera de las opciones, la interfaz se recarga y la base de datos de PNJ se actualiza.
+  • Se recomienda respaldar la carpeta “WTF”.
+
+Classic + & Mists:
+  • Actualización de FogOfWar y MistOfTheUnexplored.
+
+  • Se añadieron las mismas funciones de borrado de perfiles.
+  • Recomendación: respaldo de la carpeta “WTF”.
+]],
+
+  ptBR = [[
+PTR:
+  • Ícones de portal em Orgrimmar e Ventobravo foram ajustados.
+  • Ícones de portal foram adicionados aos mapas de moradia.
+
+Retail:
+  • Vários tooltips serão atualizados em breve.
+    • “Portal ==> Orgrimmar” se tornará “Orgrimmar (Portal)”.
+    • “Zeppelin ==> Orgrimmar” se tornará “Orgrimmar (Zepelim)”.
+    • “Ship ==> Orgrimmar” se tornará “Orgrimmar (Navio)”.
+      • Isso torna os tooltips únicos nos mapas das zonas.
+      • Facilita identificar para onde cada símbolo o leva.
+    • Atualização das funções FogOfWar e MistOfTheUnexplored.
+
+  • Função adicionada para excluir o perfil atual do MapNotes.
+  • Função adicionada para excluir todos os perfis.
+  • Função adicionada para excluir todos os perfis exceto o ativo.
+  • Permite remover perfis antigos ou reiniciar MapNotes sem apagar arquivos.
+  • Após executar qualquer opção, a interface reinicia e o banco de dados de NPCs é atualizado.
+  • Recomenda-se fazer backup da pasta “WTF”.
+
+Classic + & Mists:
+  • Atualização das funções FogOfWar e MistOfTheUnexplored.
+
+  • Adicionadas as mesmas funções de exclusão de perfis.
+  • Recomenda-se backup da pasta “WTF”.
+]],
+
+  ruRU = [[
+PTR:
+  • Значки порталов в Оргриммаре и Штормграде были обновлены.
+  • Значки порталов добавлены на карты жилищ.
+
+Retail:
+  • Некоторые всплывающие подсказки скоро будут обновлены.
+    • «Portal ==> Orgrimmar» станет «Оргриммар (Портал)».
+    • «Zeppelin ==> Orgrimmar» станет «Оргриммар (Дирижабль)».
+    • «Ship ==> Orgrimmar» станет «Оргриммар (Корабль)».
+      • Это делает подсказки уникальными на картах зон.
+      • Сразу видно, куда ведёт каждый символ.
+    • Обновлены функции FogOfWar и MistOfTheUnexplored.
+
+  • Добавлена функция удаления текущего профиля MapNotes.
+  • Добавлена функция удаления всех профилей MapNotes.
+  • Добавлена функция удаления всех профилей, кроме активного.
+  • Позволяет удалять старые данные персонажей или полностью сбрасывать MapNotes без ручного удаления файлов.
+  • После выполнения любой опции интерфейс перезагрузится, а база NPC обновится.
+  • Рекомендуется сохранить резервную копию папки «WTF».
+
+Classic + & Mists:
+  • Обновлены функции FogOfWar и MistOfTheUnexplored.
+
+  • Добавлены те же функции удаления профилей.
+  • Рекомендация: резервная копия папки «WTF».
+]],
+
+  zhCN = [[
+PTR：
+  • 调整了奥格瑞玛和暴风城的传送门图标。
+  • 已在住房地图中添加传送门图标。
+
+Retail：
+  • 一些提示即将更新。
+    • “Portal ==> Orgrimmar” 将变为 “Orgrimmar（传送门）”。
+    • “Zeppelin ==> Orgrimmar” 将变为 “Orgrimmar（飞艇）”。
+    • “Ship ==> Orgrimmar” 将变为 “Orgrimmar（船只）”。
+      • 这使区域地图上的提示独一无二。
+      • 能立即看出每个符号指向哪里。
+    • 更新迷雾（FogOfWar）和未探索迷雾（MistOfTheUnexplored）功能。
+
+  • 新增删除当前 MapNotes 配置文件的功能。
+  • 新增删除所有 MapNotes 配置文件的功能。
+  • 新增删除除当前使用的配置文件以外的所有配置文件的功能。
+  • 可删除已删除角色的旧数据，或在无需手动删除文件的情况下重置 MapNotes。
+  • 执行任意选项后界面将自动重载，并刷新 NPC 数据库。
+  • 建议备份 Blizzard 的 “WTF” 文件夹。
+
+Classic + & Mists：
+  • 更新迷雾（FogOfWar）和未探索迷雾功能。
+
+  • 新增相同的配置文件删除功能。
+  • 建议备份 “WTF” 文件夹。
+]],
+
+  zhTW = [[
+PTR：
+  • 奧格瑪與暴風城的傳送門圖示已更新。
+  • 住房地圖中新增了傳送門圖示。
+
+Retail：
+  • 部分提示將在近期更新。
+    • “Portal ==> Orgrimmar” 將變為 “Orgrimmar（傳送門）”。
+    • “Zeppelin ==> Orgrimmar” 將變為 “Orgrimmar（飛艇）”。
+    • “Ship ==> Orgrimmar” 將變為 “Orgrimmar（船隻）”。
+      • 使區域地圖中的提示更加唯一。
+      • 能立即看出符號的傳送目的地。
+    • 更新 FogOfWar 與 MistOfTheUnexplored 功能。
+
+  • 新增刪除當前 MapNotes 設定檔的功能。
+  • 新增刪除所有 MapNotes 設定檔的功能。
+  • 新增刪除除目前使用的設定檔以外的所有設定檔的功能。
+  • 可移除刪除角色的舊資料，或完全重置 MapNotes 而不需手動刪檔。
+  • 執行任一選項後介面會自動重新載入，並更新 NPC 資料庫。
+  • 建議備份 Blizzard 的 “WTF” 資料夾。
+
+Classic + & Mists：
+  • 更新 FogOfWar 與 MistOfTheUnexplored 功能。
+
+  • 新增相同的設定檔刪除功能。
+  • 建議備份 “WTF” 資料夾。
+]],
+
+  koKR = [[
+PTR:
+  • 오그리마와 스톰윈드의 포탈 아이콘이 조정되었습니다.
+  • 주거 지역 지도에 포탈 아이콘이 추가되었습니다.
+
+Retail:
+  • 일부 툴팁이 곧 업데이트될 예정입니다.
+    • “Portal ==> Orgrimmar” → “Orgrimmar (포탈)”
+    • “Zeppelin ==> Orgrimmar” → “Orgrimmar (비행선)”
+    • “Ship ==> Orgrimmar” → “Orgrimmar (선박)”
+      • 각 아이콘의 툴팁이 지역 지도에서 고유하게 표시됩니다.
+      • 아이콘이 어디로 이동시키는지 즉시 알 수 있습니다.
+    • FogOfWar 및 MistOfTheUnexplored 기능 업데이트.
+
+  • 현재 MapNotes 프로필 삭제 기능이 추가되었습니다.
+  • 모든 MapNotes 프로필 삭제 기능이 추가되었습니다.
+  • 현재 사용 중인 프로필을 제외한 모든 프로필 삭제 기능이 추가되었습니다.
+  • 삭제된 캐릭터의 오래된 데이터를 제거하거나 파일을 삭제하지 않고 MapNotes를 초기화할 수 있습니다.
+  • 세 가지 옵션 중 하나를 실행하면 UI가 자동으로 재시작되고 NPC 데이터베이스가 최신 상태로 업데이트됩니다.
+  • 백업을 위해 Blizzard “WTF” 폴더를 복사해 보관하는 것이 좋습니다.
+
+Classic + & Mists:
+  • FogOfWar 및 MistOfTheUnexplored 기능 업데이트.
+
+  • 동일한 프로필 삭제 기능이 추가되었습니다.
+  • “WTF” 폴더 백업을 권장합니다.
 ]],
 }
 
@@ -950,13 +1461,4 @@ ns.LOCALE_CHANGELOG_3_1_1 = {
 
   • 변경 사항은 즉시 적용되지만, 블리자드 미니맵 하위 메뉴에서는 재시작(/reload) 전까지 잘못 표시될 수 있음
 ]],
-}
-
-ns.LOCALE_CHANGELOGS = {
-  { version = "3.1.6", table = ns.LOCALE_CHANGELOG_3_1_6 },
-  { version = "3.1.5", table = ns.LOCALE_CHANGELOG_3_1_5 },
-  { version = "3.1.4", table = ns.LOCALE_CHANGELOG_3_1_4 },
-  { version = "3.1.3", table = ns.LOCALE_CHANGELOG_3_1_3 },
-  { version = "3.1.2", table = ns.LOCALE_CHANGELOG_3_1_2 },
-  { version = "3.1.1", table = ns.LOCALE_CHANGELOG_3_1_1 },
 }

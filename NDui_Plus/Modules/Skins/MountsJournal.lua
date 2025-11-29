@@ -466,7 +466,7 @@ function S:MountsJournal()
 
 				local mountDescriptionToggle = info.mountDescriptionToggle
 				if mountDescriptionToggle then
-					B.Reskin(mountDescriptionToggle)
+					B.ReskinButton(mountDescriptionToggle)
 					mountDescriptionToggle.__bg:SetPoint("TOPLEFT", 2, 0)
 					mountDescriptionToggle.__bg:SetPoint("BOTTOMRIGHT", -2, 0)
 				end
@@ -482,7 +482,7 @@ function S:MountsJournal()
 			for _, key in ipairs({"btnToggle", "gridToggleButton"}) do
 				local bu = filtersPanel[key]
 				if bu then
-					B.Reskin(bu)
+					B.ReskinButton(bu)
 					bu.__bg:SetInside()
 				end
 			end
@@ -580,8 +580,8 @@ function S:MountsJournal()
 	local origcreateCancelOk = util.createCancelOk
 	util.createCancelOk = function(...)
 		local cancel, ok = origcreateCancelOk(...)
-		B.Reskin(cancel)
-		B.Reskin(ok)
+		B.ReskinButton(cancel)
+		B.ReskinButton(ok)
 		return cancel, ok
 	end
 
@@ -594,9 +594,9 @@ function S:MountsJournal()
 				local objType = type(child) == "table" and child.GetObjectType and child:GetObjectType()
 				if objType == "Button" then
 					if child.Left and child.Middle and child.Right and child.Text then
-						B.Reskin(child)
+						B.ReskinButton(child)
 					elseif child.index and child.command then
-						B.Reskin(child)
+						B.ReskinButton(child)
 					elseif child.Arrow and child.Icon and child.Mask then
 						handleCombobox(child)
 					end
