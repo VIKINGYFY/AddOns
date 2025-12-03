@@ -2,6 +2,8 @@ local _, ns = ...
 local B, C, L, DB = unpack(ns)
 local Bar = B:GetModule("Actionbar")
 
+local MainMenuBar = MainMenuBar or MainActionBar -- isNewPatch, needs review
+
 local scripts = {
 	"OnShow", "OnHide", "OnEvent", "OnEnter", "OnLeave", "OnUpdate", "OnValueChanged", "OnClick", "OnMouseDown", "OnMouseUp",
 }

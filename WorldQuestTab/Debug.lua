@@ -7,8 +7,21 @@ local WQT_Profiles = addon.WQT_Profiles;
 ------------------------
 -- Debug Tooltip
 ------------------------
-function WQT:debugPrint(...)
-	if (addon.debugPrint) then 
+local debugTimestamp = 0;
+
+function WQT:StartDebugTime()
+	debugTimestamp = GetTimePreciseSec();
+end
+
+function WQT:StopWatchDebugTime()
+	local now = GetTimePreciseSec();
+	local diff = now - debugTimestamp;
+	debugTimestamp = now;
+	return diff;
+end
+
+function WQT:DebugPrint(...)
+	if (addon.debugPrint) then
 		print("WQT", ...);
 	end
 end

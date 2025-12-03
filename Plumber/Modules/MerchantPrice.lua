@@ -708,6 +708,12 @@ do
         categoryID = 1,
         uiOrder = 6,
         moduleAddedTime = 1719566000,
+		categoryKeys = {
+			"Inventory",
+		},
+        searchTags = {
+            "Vendor",
+        },
     };
 
     addon.ControlCenter:AddModule(moduleData);

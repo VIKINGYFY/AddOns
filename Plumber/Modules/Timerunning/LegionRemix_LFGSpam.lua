@@ -96,6 +96,12 @@ do
         uiOrder = 8,
         moduleAddedTime = 1762300000,
         timerunningSeason = 2,
+		categoryKeys = {
+			"Current",
+		},
+        searchTags = {
+            "LegionRemix",
+        },
     };
 
     addon.ControlCenter:AddModule(moduleData);

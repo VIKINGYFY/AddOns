@@ -14,6 +14,8 @@ Processor.shouldChangeTexture = true;
 
 
 function Processor:OnMapChanged(uiMapID, mapScale)
+    if not self.enabled then return end;
+
     local changeTexture = self.shouldChangeTexture;
     if changeTexture then
         self.shouldChangeTexture = nil;
@@ -70,6 +72,7 @@ do
         categoryID = 1,
         uiOrder = 1102,
         moduleAddedTime = 1761240000,
+        categoryKeys = {"Map"},
     };
 
     addon.ControlCenter:AddModule(moduleData);

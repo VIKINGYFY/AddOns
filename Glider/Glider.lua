@@ -1,10 +1,10 @@
-local addonName = ... ---@type string "Glider"
-local namespace = select(2,...) ---@class (partial) namespace
+local addonName = ... ---@type string # Glider
+local ns = select(2,...) ---@class (partial) namespace
 
 local gameVersion = select(4, GetBuildInfo())
 
 ---@class (partial) Glider
-local Glider = namespace.GliderUI
+local Glider = ns.GliderUI
 
 local defaultPosition = {
   point = 'CENTER',
@@ -17,7 +17,7 @@ local anchorFrame = CreateFrame("Frame", nil, UIParent)
 anchorFrame:SetSize(110, 110)
 anchorFrame:SetPoint(defaultPosition.point, defaultPosition.x, defaultPosition.y)
 anchorFrame.editModeName = "Glider"
-namespace.anchorFrame = anchorFrame
+ns.anchorFrame = anchorFrame
 Glider:SetPoint("CENTER", anchorFrame)
 
 ---@class GliderConfiguration
@@ -82,7 +82,7 @@ local MutableData = {
   hideWhenGroundedAndFull = false,
   mutedSounds = false,
 }
-namespace.MutableData = MutableData
+ns.MutableData = MutableData
 
 local function DebugPrint(...)
   if GetCVarBool("DebugLogArc") then
@@ -95,7 +95,7 @@ local FrameDeltaLerp = FrameDeltaLerp
 local GetGlidingInfo = C_PlayerInfo.GetGlidingInfo
 
 function Glider:GetAddOnAtlasInfo(atlasName, returnTable)
-  local data = namespace.AtlasInfo[atlasName]
+  local data = ns.AtlasInfo[atlasName]
   if returnTable then
     return {
       w = data[1],
@@ -187,7 +187,7 @@ function Glider:RefreshSpeedDisplay(elapsed)
 end
 
 function Glider:HideAnim()
-  if not namespace.LEM:IsInEditMode() and self:IsShown() and not self.animHide:IsPlaying() then
+  if not ns.LEM:IsInEditMode() and self:IsShown() and not self.animHide:IsPlaying() then
     self.animShow:Stop()
     self.animHide:Play()
     self:SetScript("OnUpdate", nil)
@@ -262,7 +262,7 @@ end
 ---@param frame table
 ---@param perc number
 function Glider:SetCooldownPercentage(frame, perc)
-  if namespace.LEM:IsInEditMode() then return end
+  if ns.LEM:IsInEditMode() then return end
   CooldownFrame_SetDisplayAsPercentage(frame, perc);
 end
 

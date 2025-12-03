@@ -24,6 +24,48 @@ L["Restriction Combat"] = "Does not work in combat";    --Indicate a feature can
 L["Map Pin Change Size Method"] = "\n\n*You can change the pin size in World Map> Map Filter> Plumber";
 L["Toggle Plumber UI"] = "Toggle Plumber UI";
 L["Toggle Plumber UI Tooltip"] = "Show the following Plumber UI in the Edit Mode:\n%s\n\nThis checkbox only controls their visibility in the Edit Mode. It will not enable or disable these modules.";
+L["Remove New Feature Marker"] = "Remove New Feature Marker";
+L["Remove New Feature Marker Tooltip"] = "New Feature Markers %s disappear after a week. But you can click this button to remove them now.";
+L["Modules"] = "Modules";
+L["Release Notes"] = "Release Notes";
+L["Option AutoShowChangelog"] = "Auto Show Release Notes";
+L["Option AutoShowChangelog Tooltip"] = "Automatically show release notes after an update.";
+L["Category Colon"] = (CATEGORY or "Category")..": ";
+L["Module Wrong Game Version"] = "This module is ineffective for your current game version.";
+L["Changelog Wrong Game Version"] = "The following changes do not apply to your current game version.";
+L["Settings Panel"] = "Settings Panel";
+L["Version"] = "Version";
+L["New Features"] = "New Features";
+L["New Feature Abbr"] = "New";
+L["Format Month Day"] = EVENT_SCHEDULER_DAY_FORMAT or "%s %d";
+
+
+--Settings Category
+L["SC Signature"] = "Signature Features";
+L["SC Current"] = "Current Content";
+L["SC ActionBar"] = "Action Bars";
+L["SC Chat"] = "Chat";
+L["SC Collection"] = "Collections";
+L["SC Instance"] = "Instances";
+L["SC Inventory"] = "Inventory";
+L["SC Loot"] = "Loot";
+L["SC Map"] = "Map";
+L["SC Profession"] = "Professions";
+L["SC Quest"] = "Quests";
+L["SC UnitFrame"] = "Unit Frame";
+L["SC Old"] = "Legacy Content";
+L["SC Uncategorized"] = "Uncategorized";
+
+--Settings Search Keywords, Search Tags
+L["KW Tooltip"] = "Tooltip";
+L["KW Transmog"] = "Transmog";
+L["KW Vendor"] = "Vendor";
+L["KW LegionRemix"] = "Legion Remix";
+L["KW Housing"] = "Player Housing House";
+
+--Filter Sort Method
+L["SortMethod 1"] = "Name";  --Alphabetical Order
+L["SortMethod 2"] = "Date added";  --New on the top
 
 
 --Module Categories
@@ -364,7 +406,7 @@ L["Unspent Knowledge Tooltip Format"] = "You have |cffffffff%s|r unspent Profess
 
 
 --TooltipProfessionKnowledge
-L["ModuleName TooltipProfessionKnowledge"] = L["ModuleName ProfessionsBook"];
+L["ModuleName TooltipProfessionKnowledge"] = "Tooltip: Unspent Knowledge";
 L["ModuleDescription TooltipProfessionKnowledge"] = "Show the number of your unspent Profession Specialization Knowledge.";
 L["Available Knowledge Format"] = "Available Knowledge: |cffffffff%s|r";
 
@@ -632,6 +674,10 @@ L["Missing Appearances Format"] = "%d |4appearance:appearances; missing";
 L["Press Key To Copy Format"] = "Press |cffffd100%s|r to Copy";
 
 
+--DecorModelScaleRef
+L["ModuleName DecorModelScaleRef"] = "Decor Catalog: Banana For Scale"; --See HOUSING_DASHBOARD_CATALOG_TOOLTIP
+L["ModuleDescription DecorModelScaleRef"] = "- Add a size reference (a banana) to the decor preview window, allowing you to gauge the size of the objects.\n\n- Also allow you to change the camera pitch by holding down the Left Button and moving vertically.";
+
 --Generic
 L["Total Colon"] = FROM_TOTAL or "Total:";
 L["Reposition Button Horizontal"] = "Move Horizontally";   --Move the window horizontally
@@ -650,7 +696,7 @@ L["Uncollected Set Counter Format"] = "You have |cffffffff%d|r uncollected trans
 
 --Plumber AddOn Settings
 L["ModuleName EnableNewByDefault"] = "Always Enable New Features";
-L["ModuleDescription EnableNewByDefault"] = "Always enable newly added features.\n\n*You will see a notification in the chat window when a new module is enabled this way.";
+L["ModuleDescription EnableNewByDefault"] = "Always enable newly added features.\n\nYou will see a notification in the chat window when a new module is enabled this way.";
 L["New Feature Auto Enabled Format"] = "New Module %s has been enabled.";
 L["Click To See Details"] = "Click to see details";
 L["Click To Show Settings"] = "Click to toggle settings.";

@@ -1,5 +1,8 @@
 # Changelog
 
+## 33
+- Setting added to hide UI when grounded and fully charged while mounted
+
 ## 32
 - New Mute Sounds dropdown to get rid of some annoying skyriding sounds.
 

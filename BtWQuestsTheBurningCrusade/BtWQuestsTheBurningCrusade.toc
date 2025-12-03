@@ -1,6 +1,6 @@
-## Interface: 110200, 110205
+## Interface: 110205, 110207
 ## Title: BtWQuests: The Burning Crusade
-## Version: v4.19
+## Version: v4.20
 ## Notes: The Burning Crusade quest data for BtWQuests
 ## Author: Breen
 ## Dependencies: BtWQuests

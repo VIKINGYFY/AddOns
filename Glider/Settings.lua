@@ -463,20 +463,20 @@ LEM:AddFrameSettings(anchorFrame, {
       end
     end,
   },
-  -- {
-  --   name = "Hide when grounded and fully charged",
-  --   kind = LEM.SettingType.Checkbox,
-  --   default = false,
-  --   get = function(layoutName)
-  --     layoutName = GliderSettings:ShouldUseGlobalSettings() or layoutName
-  --     return GliderAddOnDB.Settings[layoutName].hideWhenGroundedAndFull
-  --   end,
-  --   set = function(layoutName, value)
-  --     layoutName = GliderSettings:ShouldUseGlobalSettings() or layoutName
-  --     GliderAddOnDB.Settings[layoutName].hideWhenGroundedAndFull = value
-  --     MutableData.hideWhenGroundedAndFull = value
-  --   end,
-  -- },
+  {
+    name = "Hide when grounded and fully charged",
+    kind = LEM.SettingType.Checkbox,
+    default = false,
+    get = function(layoutName)
+      layoutName = GliderSettings:GetCurrentLayoutName(layoutName)
+      return GliderAddOnDB.Settings[layoutName].hideWhenGroundedAndFull
+    end,
+    set = function(layoutName, value)
+      layoutName = GliderSettings:GetCurrentLayoutName(layoutName)
+      GliderAddOnDB.Settings[layoutName].hideWhenGroundedAndFull = value
+      MutableData.hideWhenGroundedAndFull = value
+    end,
+  },
   {
     name = "Disable Skyriding game effects",
     kind = LEM.SettingType.Checkbox,

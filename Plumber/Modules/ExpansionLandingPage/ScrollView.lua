@@ -155,7 +155,7 @@ do
 
     function ScrollBarMixin:OnUpdate_ArrowPushed(elapsed)
         self.t = self.t + elapsed;
-        if self.t > 0.5 then
+        if self.t > 0.3 then
             self.t = 0;
             self:GetScrollView():SteadyScroll(-self.delta);
         end
@@ -319,6 +319,11 @@ do
             Thumb:SharedOnMouseUp(button);
         end);
 
+        Thumb:SetScript("OnHide", function()
+            Thumb:UnlockHighlight();
+            Thumb:SharedOnMouseUp();
+        end);
+
         return f
     end
 end
@@ -326,7 +331,7 @@ end
 
 local ScrollViewMixin = {};
 
-local function CreateScrollView(parent)
+local function CreateScrollView(parent, scrollBar)
     local f = CreateFrame("Frame", nil, parent);
     API.Mixin(f, ScrollViewMixin);
     f:SetClipsChildren(true);
@@ -350,18 +355,29 @@ local function CreateScrollView(parent)
     f:SetScript("OnMouseWheel", f.OnMouseWheel);
     f:SetScript("OnHide", f.OnHide);
 
-    f.ScrollBar = CreateScrollBar(f);
-    f.ScrollBar:SetFrameLevel(f:GetFrameLevel() + 10);
-    f.ScrollBar:UpdateThumbRange();
+    if not (f.ScrollBar or scrollBar) then
+        f.ScrollBar = CreateScrollBar(f);
+        f.ScrollBar:SetFrameLevel(f:GetFrameLevel() + 10);
+        f.ScrollBar:UpdateThumbRange();
+    end
 
-    f.NoContentAlert = f:CreateFontString(nil, "ARTWORK", "PlumberFont_16");
-    f.NoContentAlert:Hide();
-    f.NoContentAlert:SetPoint("LEFT", f, "LEFT", 16, 16);
-    f.NoContentAlert:SetPoint("RIGHT", f, "RIGHT", -16, 16);
-    f.NoContentAlert:SetSpacing(2);
-    f.NoContentAlert:SetJustifyH("CENTER");
-    f.NoContentAlert:SetText(addon.L["List Is Empty"]);
-    f.NoContentAlert:SetTextColor(0.5, 0.5, 0.5);
+    if scrollBar then
+        f.ScrollBar = scrollBar;
+    end
+
+    local NoContentAlert = CreateFrame("Frame", nil, f);
+    f.NoContentAlert = NoContentAlert;
+    NoContentAlert:Hide();
+    NoContentAlert:SetAllPoints(true);
+
+    local fs1 = NoContentAlert:CreateFontString(nil, "ARTWORK", "PlumberFont_16");
+    NoContentAlert.AlertText = fs1;
+    fs1:SetPoint("LEFT", f, "LEFT", 16, 16);
+    fs1:SetPoint("RIGHT", f, "RIGHT", -16, 16);
+    fs1:SetSpacing(4);
+    fs1:SetJustifyH("CENTER");
+    fs1:SetText(addon.L["List Is Empty"]);
+    fs1:SetTextColor(0.5, 0.5, 0.5);
 
     return f
 end
@@ -394,33 +410,38 @@ do  --ScrollView Basic Content Render
         local fromDataIndex;
         local toDataIndex;
 
-        for dataIndex, v in ipairs(self.content) do
-            if not fromDataIndex then
-                if v.top >= top or v.bottom >= top then
-                    fromDataIndex = dataIndex;
-                end
-            end
-
-            if not toDataIndex then
-                if (v.top <= bottom and v.bottom >= bottom) or (v.top >= bottom) then
-                    toDataIndex = dataIndex;
-                    local nextIndex = dataIndex + 1;
-                    v = self.content[nextIndex];
-                    if v then
-                        if v.top <= bottom then
-                            toDataIndex = nextIndex;
-                        end
+        if self.renderAllObjects then
+            fromDataIndex = 1;
+            toDataIndex = self.numContent or 0;
+        else
+            for dataIndex, v in ipairs(self.content) do
+                if not fromDataIndex then
+                    if v.top >= top or v.bottom >= top then
+                        fromDataIndex = dataIndex;
                     end
-                    break
+                end
+
+                if not toDataIndex then
+                    if (v.top <= bottom and v.bottom >= bottom) or (v.top >= bottom) then
+                        toDataIndex = dataIndex;
+                        local nextIndex = dataIndex + 1;
+                        v = self.content[nextIndex];
+                        if v then
+                            if v.top <= bottom then
+                                toDataIndex = nextIndex;
+                            end
+                        end
+                        break
+                    end
                 end
             end
-        end
-        toDataIndex = toDataIndex or #self.content;
+            toDataIndex = toDataIndex or self.numContent;
 
-        for dataIndex, obj in pairs(self.indexedObjects) do
-            if dataIndex < fromDataIndex or dataIndex > toDataIndex then
-                obj:Release();
-                self.indexedObjects[dataIndex] = nil;
+            for dataIndex, obj in pairs(self.indexedObjects) do
+                if dataIndex < fromDataIndex or dataIndex > toDataIndex then
+                    obj:Release();
+                    self.indexedObjects[dataIndex] = nil;
+                end
             end
         end
 
@@ -438,7 +459,7 @@ do  --ScrollView Basic Content Render
                         if contentData.setupFunc then
                             contentData.setupFunc(obj);
                         end
-                        obj:SetPoint(contentData.point or "TOP", self.ScrollRef, "TOP", contentData.offsetX or 0, -contentData.top);
+                        obj:SetPoint(contentData.point or "TOP", self.ScrollRef, contentData.relativePoint or "TOP", contentData.offsetX or 0, -contentData.top);
                         self.indexedObjects[dataIndex] = obj;
                     end
                 end
@@ -449,6 +470,7 @@ do  --ScrollView Basic Content Render
     function ScrollViewMixin:OnSizeChanged(forceUpdate)
         --We call this manually
         self.viewportSize = API.Round(self:GetHeight());
+        self.ScrollRef:SetWidth(API.Round(self:GetWidth()));
         if forceUpdate then
             self.ScrollBar:UpdateThumbRange();
             self:SetContent(self.content);
@@ -493,6 +515,9 @@ do  --ScrollView Basic Content Render
         self.scrollable = scrollable;
         self.ScrollBar:SetScrollable(self.scrollable);
         self.ScrollBar:SetShown(scrollable or self.alwaysShowScrollBar);
+        if scrollable and self.ScrollBar.UpdateVisibleExtentPercentage then
+            self.ScrollBar:UpdateVisibleExtentPercentage();
+        end
 
         if self.useBoundaryGradient then
             if scrollable then
@@ -503,16 +528,21 @@ do  --ScrollView Basic Content Render
         end
     end
 
+    function ScrollViewMixin:GetScrollRange()
+        return self.range or 0
+    end
+
     function ScrollViewMixin:IsScrollable()
         return self.scrollable
     end
 
     function ScrollViewMixin:SetContent(content, retainPosition)
         self.content = content or {};
+        self.numContent = #content;
 
-        if #self.content > 0 then
-            local range = content[#self.content].bottom - self.viewportSize;
-            if range > 0 then
+        if self.numContent > 0 then
+            local range = content[self.numContent].bottom - self.viewportSize;
+            if true or range > 0 then
                 range = range + self.bottomOvershoot;
             end
             self:SetScrollRange(range);
@@ -597,10 +627,17 @@ do  --ScrollView Smooth Scroll
         self.isScrolling = true;
         self.offset = DeltaLerp(self.offset, self.scrollTarget, self.blendSpeed, elapsed);
 
-        if (self.offset - self.scrollTarget) > -0.4 and (self.offset - self.scrollTarget) < 0.4 then
+        self.targetDiff = self.offset - self.scrollTarget;
+        if self.targetDiff < 0 then
+            self.targetDiff = -self.targetDiff;
+        end
+
+        if self.targetDiff < 0.4 then
             self.offset = self.scrollTarget;
             self:SnapToScrollTarget();
             return
+        elseif self.targetDiff < 2 and self.useMouseBlocker then
+            self.MouseBlocker:Hide();
         end
 
         self.recycleTimer = self.recycleTimer + elapsed;
@@ -844,6 +881,26 @@ do  --ScrollView Scroll Behavior
 
     function ScrollViewMixin:SetShowNoContentAlert(showNoContentAlert)
         self.showNoContentAlert = showNoContentAlert;
+    end
+
+    function ScrollViewMixin:SetNoContentAlertText(text)
+        self.NoContentAlert.AlertText:SetText(text);
+    end
+
+    function ScrollViewMixin:SetNoContentAlertTextAlign(align)
+        local fs = self.NoContentAlert.AlertText;
+        local container = self.NoContentAlert;
+        local padding = 16;
+        fs:ClearAllPoints();
+        if align == "TOP" then
+            fs:SetPoint("TOPLEFT", container, "TOPLEFT", padding, -padding);
+            fs:SetPoint("TOPRIGHT", container, "TOPRIGHT", -padding, -padding);
+            fs:SetJustifyH("LEFT");
+        else
+            fs:SetPoint("LEFT", container, "LEFT", padding, padding);
+            fs:SetPoint("RIGHT", container, "RIGHT", -padding, padding);
+            fs:SetJustifyH("CENTER");
+        end
     end
 end
 

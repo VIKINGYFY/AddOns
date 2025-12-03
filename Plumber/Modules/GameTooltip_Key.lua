@@ -207,6 +207,12 @@ do
         categoryID = 3,
         uiOrder = 1110,
         moduleAddedTime = 1718500000,
+		categoryKeys = {
+			"Instance",
+		},
+        searchTags = {
+            "Tooltip",
+        },
     };
 
     addon.ControlCenter:AddModule(moduleData);

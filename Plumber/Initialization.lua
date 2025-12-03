@@ -1,5 +1,5 @@
-local VERSION_TEXT = "v1.8.0";
-local VERSION_DATE = 1763400000;
+local VERSION_TEXT = "v1.8.1";
+local VERSION_DATE = 1764600000;
 
 
 local addonName, addon = ...
@@ -294,11 +294,12 @@ local DefaultValues = {
 
 
     EnableNewByDefault = false,             --Always enable newly added features
+    SettingsPanel_AutoShowChangelog = false,
 
 
     --Test Server
-    Test_ModuleScaleRef = true,
-        Test_ModuleScaleRef_ShowBanana = false,
+    DecorModelScaleRef = true,
+        DecorModelScaleRef_ShowBanana = false,
 
 
     --Declared elsewhere:
@@ -348,6 +349,13 @@ local function LoadDatabase()
         DB.installTime = VERSION_DATE;
     end
 
+    if DB.lastVersionTime then
+        if (VERSION_DATE - 1 > DB.lastVersionTime) and DB.SettingsPanel_AutoShowChangelog then
+            CallbackRegistry:Trigger("ShowChangelog");
+        end
+    end
+    DB.lastVersionTime = VERSION_DATE;
+
     DefaultValues = nil;
 
     CallbackRegistry:Trigger("NewDBKeysAdded", newDBKeys);
@@ -372,6 +380,7 @@ EL:SetScript("OnEvent", function(self, event, ...)
         if seasonID and seasonID > 0 then
             CallbackRegistry:Trigger("TimerunningSeason", seasonID);
         end
+        addon.ControlCenter:InitializeModules();
     end
 end);
 

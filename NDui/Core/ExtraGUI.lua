@@ -1694,7 +1694,7 @@ function G:SetupMicroMenu(parent)
 	local parent, offset = scroll.child, -10
 	createOptionTitle(parent, L["Menubar"], offset)
 	createOptionSlider(parent, L["ButtonSize"], 20, 40, 22, offset-60, "MBSize", Bar.MicroMenu_Setup, "Actionbar")
-	createOptionSlider(parent, L["ButtonsPerRow"], 1, 12, 12, offset-130, "MBPerRow", Bar.MicroMenu_Setup, "Actionbar")
+	createOptionSlider(parent, L["ButtonsPerRow"], 1, 13, 13, offset-130, "MBPerRow", Bar.MicroMenu_Setup, "Actionbar")
 end
 
 function G:SetupStanceBar(parent)

@@ -1,5 +1,4 @@
 local _, addon = ...
-if addon.IS_MIDNIGHT then return end;
 
 
 local L = addon.L;
@@ -294,6 +293,7 @@ do
         categoryID = 1,
         uiOrder = 1205,
         moduleAddedTime = 1763100000,
+        categoryKeys = {"Collection"},
     };
 
     addon.ControlCenter:AddModule(moduleData);

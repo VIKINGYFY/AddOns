@@ -1,6 +1,6 @@
-## Interface: 110200, 110205
+## Interface: 110205, 110207
 ## Title: BtWQuests: Cataclysm
-## Version: v2.17
+## Version: v2.18
 ## Notes: Cataclysm quest data for BtWQuests
 ## Author: Breen
 ## Dependencies: BtWQuests

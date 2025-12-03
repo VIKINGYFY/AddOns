@@ -96,25 +96,12 @@ local function SortQuestList(a, b, sortID)
 	local bDisliked = b:IsDisliked();
 	if (aDisliked ~= bDisliked) then 
 		return not aDisliked;
-	end 
-
-	-- Sort by a list of filters depending on the current filter choice
-	local order = _V["SORT_OPTION_ORDER"][sortID];
-	if (not order) then
-		order = {};
-		WQT:debugPrint("No sort order for", sortID);
-		return a.questID < b.questID;
 	end
-	
-	for k, criteria in ipairs(order) do
-		if(_V["SORT_FUNCTIONS"][criteria]) then
-			local result = _V["SORT_FUNCTIONS"][criteria](a, b);
-			if (result ~= nil) then 
-				return result 
-			end;
-		else
-			WQT:debugPrint("Invalid sort criteria", criteria);
-		end
+
+	-- Sorting based on the dropdown
+	local result = WQT.sortDataContainer:SortQuests(sortID, a, b);
+	if (result ~= nil) then
+		return result;
 	end
 	
 	-- Worst case fallback
@@ -588,14 +575,16 @@ function WQT_DataProvider:OnUpdate(elapsed)
 		self.requestedRewardsUpdate = false;
 
 		local mapIDToLoad = nil;
+		local isFlightMap = false;
 		if(WorldMapFrame:IsShown()) then
 			mapIDToLoad = WorldMapFrame.mapID;
 		elseif(FlightMapFrame and FlightMapFrame:IsShown()) then
 			mapIDToLoad = FlightMapFrame.mapID;
+			isFlightMap = true;
 		end
 
 		if (mapIDToLoad) then
-			self:LoadQuestsInZone(mapIDToLoad);
+			self:LoadQuestsInZone(mapIDToLoad, isFlightMap);
 		end
 	end
 
@@ -607,7 +596,7 @@ function WQT_DataProvider:OnUpdate(elapsed)
 
 		-- Get quests from all the zones in our list
 		-- Only spend a max amount of time on it each frame to prevent extreme stutters when we have a lot of zones
-		local matchQuestZone = WQT_Utils:GetSetting("general", "zoneQuests") == _V["ENUM_ZONE_QUESTS"].zone;
+		local matchQuestZone = not self.zoneLoading.isFlightMap and WQT_Utils:GetSetting("general", "zoneQuests") == _V["ENUM_ZONE_QUESTS"].zone;
 		for zoneID in pairs(self.zoneLoading.remainingZones) do
 			self.zoneLoading.remainingZones[zoneID] = nil;
 			self.zoneLoading.numRemaining = self.zoneLoading.numRemaining - 1;
@@ -670,7 +659,7 @@ function WQT_DataProvider:OnUpdate(elapsed)
 						if (addonInfo.alwaysHide and MapUtil.ShouldShowTask(apiInfo.mapID, apiInfo)) then
 							-- Have only encountered this once and not been able to replicate to test if this even works
 							addonInfo.alwaysHide = false;
-							WQT:debugPrint(string.format("Quest alwaysHide updated (%s)", questID));
+							WQT:DebugPrint(string.format("Quest alwaysHide updated (%s)", questID));
 							updateSuccess = addonInfo:UpdateValidity() or updateSuccess;
 						end
 						if (updateSuccess) then
@@ -695,7 +684,7 @@ function WQT_DataProvider:OnUpdate(elapsed)
 				questInfo:Init(apiInfo.questID, apiInfo);
 			end
 
-			WQT:debugPrint(string.format("Done: %s quests (-%s +%s ~%s)", acceptedCount, removed, added, updated));
+			WQT:DebugPrint(string.format("Done: %s quests (-%s +%s ~%s)", acceptedCount, removed, added, updated));
 
 			self.zoneLoading.startTimestamp = 0;
 			progress = 0;
@@ -728,7 +717,7 @@ end
 
 function WQT_DataProvider:FilterAndSortQuestList()
 	wipe(self.fitleredQuestsList);
-	for k, questInfo in ipairs(self:GetIterativeList()) do
+	for questInfo in self:EnumarateQuests() do
 		questInfo.passedFilter = false;
 		if (questInfo.isValid and not questInfo.alwaysHide and questInfo.hasRewardData and not questInfo:IsExpired()) then
 			local passed = WQT:PassesAllFilters(questInfo);
@@ -807,7 +796,8 @@ function WQT_DataProvider:AddZoneToBuffer(zoneID)
 	end
 end
 
-function WQT_DataProvider:LoadQuestsInZone(zoneID)
+function WQT_DataProvider:LoadQuestsInZone(zoneID, isFlightMap)
+	
 	if (not zoneID) then return end
 	self:ClearData();
 	zoneID = zoneID or self.latestZoneId or C_Map.GetBestMapForUnit("player");
@@ -821,9 +811,10 @@ function WQT_DataProvider:LoadQuestsInZone(zoneID)
 	end
 
 	if(self.zoneLoading.startTimestamp > 0) then 
-		WQT:debugPrint("Interrupt");
+		WQT:DebugPrint("Interrupt");
 	end
 
+	self.zoneLoading.isFlightMap = isFlightMap;
 	self.zoneLoading.startTimestamp = GetTimePreciseSec();
 	self.zoneLoading.numRemaining = 0;
 	self.zoneLoading.numTotal = 0;
@@ -892,4 +883,8 @@ function WQT_DataProvider:ListContainsEmissary()
 		if (questInfo:IsCriteria(WQT.settings.general.bountySelectedOnly)) then return true; end
 	end
 	return false
+end
+
+function WQT_DataProvider:EnumarateQuests()
+	return self.pool:EnumerateActive()
 end

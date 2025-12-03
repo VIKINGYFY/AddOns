@@ -34,7 +34,7 @@ end
 
 C.OnLoadThemes["Blizzard_EncounterJournal"] = function()
 	-- Tabs
-	for i = 1, 5 do
+	for i = 1, 6 do
 		local tab = EncounterJournal.Tabs[i]
 		if tab then
 			B.ReskinTab(tab)
@@ -404,5 +404,13 @@ C.OnLoadThemes["Blizzard_EncounterJournal"] = function()
 		hooksecurefunc(frame.ScrollBox, "Update", function(self)
 			self:ForEachFrame(reskinScrollBox)
 		end)
+	end
+
+	-- Tutorials, isNewPatch
+	local frame = EncounterJournal.TutorialsFrame
+	if frame then
+		frame.Contents.Header:SetTextColor(1, .8, 0)
+		frame.Contents.Description:SetTextColor(1, 1, 1)
+		B.Reskin(frame.Contents.StartButton)
 	end
 end
