@@ -70,6 +70,7 @@ L["Travel to this point and click on the mole machine on site to unlock it"] = t
 L["The icons are only visible if you belong to the corresponding race"] = true
 L["Otherwise, the icons in this category are not visible to you"] = true
 -- Minimap Arrow & coordinates
+L["Activates the information display on the coordinate windows"] = true
 L["Mouse coordinates"] = true
 L["Player coordinates"] = true
 L["Hold down Shift + Left mouse button to move"] = true

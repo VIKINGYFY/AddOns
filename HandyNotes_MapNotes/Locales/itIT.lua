@@ -70,6 +70,7 @@ L["Travel to this point and click on the mole machine on site to unlock it"] = "
 L["The icons are only visible if you belong to the corresponding race"] = "Le icone sono visibili solo se appartieni alla razza corrispondente"
 L["Otherwise, the icons in this category are not visible to you"] = "Altrimenti, le icone in questa categoria non saranno visibili per te"
 -- Minimap Arrow & coordinates
+L["Activates the information display on the coordinate windows"] = "Attiva la visualizzazione delle informazioni sulle finestre delle coordinate"
 L["Mouse coordinates"] = "Coordinate del mouse"
 L["Player coordinates"] = "Coordinate del giocatore"
 L["Hold down Shift + Left mouse button to move"] = "Tieni premuto Maiusc + tasto sinistro del mouse per spostare"

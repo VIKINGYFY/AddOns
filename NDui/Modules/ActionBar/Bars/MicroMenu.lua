@@ -142,39 +142,21 @@ function Bar:MicroMenu()
 	menubar.mover = B.Mover(menubar, L["Menubar"], "Menubar", C.Skins.MMPos)
 
 	-- Generate Buttons
-	local buttonInfo
-	if DB.isNewPatch then
-		buttonInfo = {
-			{"player", "CharacterMicroButton"},
-			{"spellbook", "ProfessionMicroButton"},
-			{"talents", "PlayerSpellsMicroButton"},
-			{"achievements", "AchievementMicroButton"},
-			{"quests", "QuestLogMicroButton"},
-			{"collections", "HousingMicroButton"},
-			{"guild", "GuildMicroButton"},
-			{"LFG", "LFDMicroButton"},
-			{"encounter", "EJMicroButton"},
-			{"collections", "CollectionsMicroButton"},
-			{"store", "StoreMicroButton"},
-			{"help", "MainMenuMicroButton", MicroButtonTooltipText(MAINMENU_BUTTON, "TOGGLEGAMEMENU")},
-			{"bags", function() ToggleAllBags() end, MicroButtonTooltipText(BAGSLOT, "OPENALLBAGS")},
-		}
-	else
-		buttonInfo = {
-			{"player", "CharacterMicroButton"},
-			{"spellbook", "ProfessionMicroButton"},
-			{"talents", "PlayerSpellsMicroButton"},
-			{"achievements", "AchievementMicroButton"},
-			{"quests", "QuestLogMicroButton"},
-			{"guild", "GuildMicroButton"},
-			{"LFG", "LFDMicroButton"},
-			{"encounter", "EJMicroButton"},
-			{"collections", "CollectionsMicroButton"},
-			{"store", "StoreMicroButton"},
-			{"help", "MainMenuMicroButton", MicroButtonTooltipText(MAINMENU_BUTTON, "TOGGLEGAMEMENU")},
-			{"bags", function() ToggleAllBags() end, MicroButtonTooltipText(BAGSLOT, "OPENALLBAGS")},
-		}
-	end
+	local buttonInfo = {
+		{"player", "CharacterMicroButton"},
+		{"spellbook", "ProfessionMicroButton"},
+		{"talents", "PlayerSpellsMicroButton"},
+		{"achievements", "AchievementMicroButton"},
+		{"quests", "QuestLogMicroButton"},
+		{"collections", "HousingMicroButton"},
+		{"guild", "GuildMicroButton"},
+		{"LFG", "LFDMicroButton"},
+		{"encounter", "EJMicroButton"},
+		{"collections", "CollectionsMicroButton"},
+		{"store", "StoreMicroButton"},
+		{"help", "MainMenuMicroButton", MicroButtonTooltipText(MAINMENU_BUTTON, "TOGGLEGAMEMENU")},
+		{"bags", function() ToggleAllBags() end, MicroButtonTooltipText(BAGSLOT, "OPENALLBAGS")},
+	}
 
 	for _, info in pairs(buttonInfo) do
 		Bar:MicroButton_Create(info)

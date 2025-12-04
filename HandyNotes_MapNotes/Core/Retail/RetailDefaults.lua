@@ -799,6 +799,7 @@ ns.defaults = {
       displayCoords = {
         showPlayerCoords = false,
         showMouseCoords = false,
+        showCoordTooltip = false,
         PlayerCoordsSize = 0.7,
         PlayerCoordsAlpha = 1,
         MouseCoordsSize = 0.7,

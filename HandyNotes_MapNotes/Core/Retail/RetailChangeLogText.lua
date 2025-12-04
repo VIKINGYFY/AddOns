@@ -1,9 +1,10 @@
 local ADDON_NAME, ns = ...
 
-ns.CurrentAddonVersion = "3.1.8"
-ns.PreviousAddonVersion_1 = "3.1.7"
+ns.CurrentAddonVersion = "3.1.9"
+ns.PreviousAddonVersion_1 = "3.1.8"
 
 ns.LOCALE_CHANGELOGS = {
+  { version = "3.1.9", table = ns.LOCALE_CHANGELOG_3_1_9 },
   { version = "3.1.8", table = ns.LOCALE_CHANGELOG_3_1_8 },
   { version = "3.1.7", table = ns.LOCALE_CHANGELOG_3_1_7 },
   { version = "3.1.6", table = ns.LOCALE_CHANGELOG_3_1_6 },
@@ -57,6 +58,85 @@ ns.LOCALE_CHANGELOG_3_1_ = { -- empty backup file
 
   koKR = [[
 
+]],
+}
+
+ns.LOCALE_CHANGELOG_3_1_9 = { 
+  deDE = [[
+
+  • Update auf Version 11.2.7
+
+  • Es wurde im Menü für die Koordinaten auch eine Funktion hinzugefügt, womit sich die Anzeige der Informationen zum Bewegen der Koordinatenfenster aktivieren bzw. deaktivieren lässt.
+]],
+
+  enUS = [[
+
+  • Update to version 11.2.7
+
+  • A function has been added to the coordinates menu that allows you to enable or disable the information display for moving the coordinate windows.
+]],
+
+  frFR = [[
+
+  • Mise à jour vers la version 11.2.7
+
+  • Une fonctionnalité a été ajoutée au menu des coordonnées permettant d’activer ou de désactiver l’affichage des informations pour déplacer les fenêtres de coordonnées.
+]],
+
+  itIT = [[
+
+  • Aggiornamento alla versione 11.2.7
+
+  • È stata aggiunta una funzione nel menu delle coordinate che permette di attivare o disattivare la visualizzazione delle informazioni per spostare le finestre delle coordinate.
+]],
+
+  esES = [[
+
+  • Actualización a la versión 11.2.7
+
+  • Se ha añadido una función al menú de coordenadas que permite activar o desactivar la visualización de la información para mover las ventanas de coordenadas.
+]],
+
+  esMX = [[
+
+  • Actualización a la versión 11.2.7
+
+  • Se agregó una función al menú de coordenadas que permite activar o desactivar la visualización de la información para mover las ventanas de coordenadas.
+]],
+
+  ptBR = [[
+
+  • Atualização para a versão 11.2.7
+
+  • Foi adicionada uma função ao menu de coordenadas que permite ativar ou desativar a exibição das informações para mover as janelas de coordenadas.
+]],
+
+  ruRU = [[
+
+  • Обновление до версии 11.2.7
+
+  • В меню координат была добавлена функция, позволяющая включать или отключать отображение информации для перемещения окон координат.
+]],
+
+  zhCN = [[
+
+  • 更新至版本 11.2.7
+
+  • 在坐标菜单中新增了一个功能，可用于启用或禁用移动坐标窗口时的信息显示。
+]],
+
+  zhTW = [[
+
+  • 更新至版本 11.2.7
+
+  • 在座標選單中新增了一項功能，可啟用或停用移動座標視窗時的資訊顯示。
+]],
+
+  koKR = [[
+
+  • 버전 11.2.7로 업데이트됨
+
+  • 좌표 메뉴에 좌표 창을 이동할 때 정보 표시를 활성화하거나 비활성화할 수 있는 기능이 추가되었습니다.
 ]],
 }
 

@@ -454,10 +454,6 @@ function module:OnLogin()
 	end)
 
 	hooksecurefunc("FCFTab_UpdateColors", module.UpdateTabColors)
-	if not DB.isNewPatch then
-		hooksecurefunc("FloatingChatFrame_OnEvent", module.UpdateTabEventColors)
-		hooksecurefunc("ChatFrame_MessageEventHandler", module.PlayWhisperSound)
-	end
 	hooksecurefunc("FCF_MinimizeFrame", module.HandleMinimizedFrame)
 
 	-- Default

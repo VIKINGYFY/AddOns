@@ -868,12 +868,31 @@ ns.options = {
               name = L["Coordinates"],
               order = 1.0,
               },
+            showCoordTooltip = {
+              --disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
+              type = "toggle",
+              name = L["Coordinates"] .. " " .. L["Tooltip"],
+              desc = L["Activates the information display on the coordinate windows"],
+              order = 1.1,
+              width = 1,
+              get = function() return ns.Addon.db.profile.displayCoords.showCoordTooltip end,
+              set = function(info, v) ns.Addon.db.profile.displayCoords.showCoordTooltip = v 
+                  self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "MapNotes")
+                  if ns.Addon.db.profile.CoreChatMassage and not ns.Addon.db.profile.displayCoords.showCoordTooltip then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00",L["Coordinates"], L["Tooltip"], "|cffff0000" .. L["is deactivated"]) else
+                  if ns.Addon.db.profile.CoreChatMassage and ns.Addon.db.profile.displayCoords.showCoordTooltip then print(TextIconMNL4:GetIconString() .. " " .. ns.COLORED_ADDON_NAME .. " " .. TextIconMNL4:GetIconString() .. "|cffffff00", L["Coordinates"], L["Tooltip"], "|cff00ff00" .. L["is activated"]) end end 
+                end,
+              },
+            Coordinatesheader1 = {
+              type = "header",
+              name = "",
+              order = 1.2,
+              },
             showPlayerCoords = {
               --disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
               type = "toggle",
               name = PLAYER,
               desc = L["Creates a window for displaying the coordinates"],
-              order = 1.1,
+              order = 1.5,
               width = 0.50,
               get = function() return ns.Addon.db.profile.displayCoords.showPlayerCoords end,
               set = function(info, v) ns.Addon.db.profile.displayCoords.showPlayerCoords = v 
@@ -891,7 +910,7 @@ ns.options = {
               desc = "",
               min = 0.5, max = 2, step = 0.1,
               width = 0.70,
-              order = 1.2,
+              order = 1.6,
               get = function() local pos = ns.Addon.db.profile.displayCoords.player or {} return pos.scale or ns.Addon.db.profile.displayCoords.PlayerCoordsSize or 1 end,
               set = function(info, v) local dc = ns.Addon.db.profile.displayCoords dc.PlayerCoordsSize = v dc.player = dc.player or {} dc.player.scale = v
                 if PlayerCoordsFrame then PlayerCoordsFrame:SetScale(v) end end,
@@ -903,7 +922,7 @@ ns.options = {
               desc = CINEMATIC_SUBTITLES_BACKGROUND_OPACITY_OPTION_LABEL,
               min = 0.0, max = 1, step = 0.1,
               width = 0.70,
-              order = 1.3,
+              order = 1.7,
               get = function() return ns.Addon.db.profile.displayCoords.PlayerCoordsAlpha or 1 end,
               set = function(info, v) ns.Addon.db.profile.displayCoords.PlayerCoordsAlpha = v
                 if PlayerCoordsFrame then
@@ -921,7 +940,7 @@ ns.options = {
               type = "execute",
               name = RESET_POSITION,
               desc = ADDON_LIST_RESET_TO_DEFAULT,
-              order = 1.4,
+              order = 1.8,
               width = 0.70,
               func = function()
                 ns.DefaultPlayerAlpha()
@@ -931,14 +950,14 @@ ns.options = {
             Coordinatesheader2 = {
               type = "description",
               name = "",
-              order = 1.5,
+              order = 2.0,
               },
             showMouseCoords = {
               --disabled = function() return ns.Addon.db.profile.activate.HideMapNote end,
               type = "toggle",
               name = MOUSE_LABEL,
               desc = L["Two mouse coordinate windows are created on the world map: one on the minimized world map and one on the maximized world map"] .. "\n\n" .. L["The mouse coordinate windows share size and transparency, but can be positioned differently"] .. "\n\n" .. L["Only visible when the world map is open"],
-              order = 1.6,
+              order = 2.1,
               width = 0.50,
               get = function() return ns.Addon.db.profile.displayCoords.showMouseCoords end,
               set = function(info, v) ns.Addon.db.profile.displayCoords.showMouseCoords = v 
@@ -956,7 +975,7 @@ ns.options = {
               desc = "",
               min = 0.5, max = 1.5, step = 0.1,
               width = 0.70,
-              order = 1.7,
+              order = 2.2,
               get = function() local dc = ns.Addon.db.profile.displayCoords local pos = dc.mouse or {} return pos.scale or dc.MouseCoordsSize or 1 end,
               set = function(info, v) local dc = ns.Addon.db.profile.displayCoords dc.MouseCoordsSize = v dc.mouse = dc.mouse or {} dc.mouseMax = dc.mouseMax or {} dc.mouse.scale = v dc.mouseMax.scale = v
                 if MouseCoordsFrame then MouseCoordsFrame:SetScale(v) end end,
@@ -968,7 +987,7 @@ ns.options = {
               desc = CINEMATIC_SUBTITLES_BACKGROUND_OPACITY_OPTION_LABEL,
               min = 0.0, max = 1, step = 0.1,
               width = 0.70,
-              order = 1.8,
+              order = 2.3,
               get = function() return ns.Addon.db.profile.displayCoords.MouseCoordsAlpha or 1 end,
               set = function(info, v) ns.Addon.db.profile.displayCoords.MouseCoordsAlpha = v
                 if MouseCoordsFrame then
@@ -986,7 +1005,7 @@ ns.options = {
               type = "execute",
               name = RESET_POSITION,
               desc = ADDON_LIST_RESET_TO_DEFAULT,
-              order = 1.9,
+              order = 2.4,
               width = 0.70,
               func = function()
                 ns.DefaultMouseAlpha()

@@ -70,6 +70,7 @@ L["Travel to this point and click on the mole machine on site to unlock it"] = "
 L["The icons are only visible if you belong to the corresponding race"] = "只有屬於對應種族時才會顯示圖示"
 L["Otherwise, the icons in this category are not visible to you"] = "否則，此分類中的圖示將不會對你顯示"
 -- Minimap Arrow & coordinates
+L["Activates the information display on the coordinate windows"] = "啟用座標視窗中的資訊顯示"
 L["Mouse coordinates"] = "滑鼠座標"
 L["Player coordinates"] = "玩家座標"
 L["Hold down Shift + Left mouse button to move"] = "按住 Shift + 滑鼠左鍵以移動"

@@ -406,11 +406,9 @@ C.OnLoadThemes["Blizzard_EncounterJournal"] = function()
 		end)
 	end
 
-	-- Tutorials, isNewPatch
+	-- Tutorials
 	local frame = EncounterJournal.TutorialsFrame
-	if frame then
-		frame.Contents.Header:SetTextColor(1, .8, 0)
-		frame.Contents.Description:SetTextColor(1, 1, 1)
-		B.Reskin(frame.Contents.StartButton)
-	end
+	frame.Contents.Header:SetTextColor(1, .8, 0)
+	frame.Contents.Description:SetTextColor(1, 1, 1)
+	B.ReskinButton(frame.Contents.StartButton)
 end

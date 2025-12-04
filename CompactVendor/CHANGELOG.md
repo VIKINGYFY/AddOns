@@ -1,8 +1,10 @@
 # CompactVendor
 
-## [v11.2.0.250916](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.2.0.250916) (2025-09-16)
-[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.2.0.250916) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
+## [v11.2.7.251203](https://github.com/Vladinator/wow-addon-compactvendor/tree/v11.2.7.251203) (2025-12-03)
+[Full Changelog](https://github.com/Vladinator/wow-addon-compactvendor/commits/v11.2.7.251203) [Previous Releases](https://github.com/Vladinator/wow-addon-compactvendor/releases)
 
+- - Added decor to filtering menu.  
+    - TOC bump.  
 - Updated `GetSanitizedHyperlinkForQuery` to support any link offered from merchants, not just items.  
     This should properly fix the issue with merchants selling currency "items" as mentioned in #34 and #35.  
     TOC bump for update.  
@@ -109,5 +111,3 @@
 - Added support for the new color in hyperlinks.  
 - TOC bump.  
 - Transmog API are unstable on Classic so added an override to avoid that situation as a fix for the addon.  
-- Changes to GetMerchantItemInfo had to have a method implemented to migrate between the old style and the new table return value.  
-    Some minor docs changes.  
