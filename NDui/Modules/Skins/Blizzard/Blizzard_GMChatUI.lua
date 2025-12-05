@@ -20,10 +20,10 @@ C.OnLoadThemes["Blizzard_GMChatUI"] = function()
 
 	local bg = B.CreateBG(eb)
 	bg:Hide()
-	hooksecurefunc("ChatEdit_DeactivateChat", function(editBox)
+	hooksecurefunc(ChatFrameUtil, "DeactivateChat", function(editBox)
 		if editBox.isGM then bg:Hide() end
 	end)
-	hooksecurefunc("ChatEdit_ActivateChat", function(editBox)
+	hooksecurefunc(ChatFrameUtil, "ActivateChat", function(editBox)
 		if editBox.isGM then bg:Show() end
 	end)
 

@@ -120,7 +120,7 @@ info.onMouseUp = function(self, btn)
 		local hasUnit = UnitExists("target") and not UnitIsPlayer("target")
 		local unitName = hasUnit and " <"..UnitName("target")..">" or ""
 		local pointInfo = format("%s: %s <%s>%s", L["My Position"], self._fullZone, self._coordText, unitName)
-		ChatFrame_OpenChat(pointInfo)
+		ChatFrameUtil.OpenChat(pointInfo)
 
 		if not IsInInstance() then
 			local pointLink = format(zoneString, self._mapID, self._x * 10000, self._y * 10000, pointInfo)

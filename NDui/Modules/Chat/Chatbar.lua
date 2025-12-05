@@ -47,36 +47,36 @@ function module:Chatbar()
 	local buttonInfo = {
 		{1, 1, 1, SAY.." / "..YELL, function(_, btn)
 			if btn == "RightButton" then
-				ChatFrame_OpenChat("/y ", chatFrame)
+				ChatFrameUtil.OpenChat("/y ", chatFrame)
 			else
-				ChatFrame_OpenChat("/s ", chatFrame)
+				ChatFrameUtil.OpenChat("/s ", chatFrame)
 			end
 		end},
 		{1, .5, 1, WHISPER.." / "..REPLY_MESSAGE, function(_, btn)
 			if btn == "RightButton" then
-				ChatFrame_ReplyTell(chatFrame)
+				ChatFrameUtil.ReplyTell(chatFrame)
 			else
 				if UnitExists("target") and UnitName("target") and UnitIsPlayer("target") and GetDefaultLanguage("player") == GetDefaultLanguage("target") then
 					local name = GetUnitName("target", true)
-					ChatFrame_SendTell(name)
+					ChatFrameUtil.SendTell(name)
 				else
 					UIErrorsFrame:AddMessage(DB.InfoColor..ERR_GENERIC_NO_TARGET)
 				end
 			end
 		end},
-		{.65, .65, 1, PARTY, function() ChatFrame_OpenChat("/p ", chatFrame) end},
+		{.65, .65, 1, PARTY, function() ChatFrameUtil.OpenChat("/p ", chatFrame) end},
 		{1, .5, 0, INSTANCE.." / "..RAID, function()
 			if IsPartyLFG() or C_PartyInfo.IsPartyWalkIn() then
-				ChatFrame_OpenChat("/i ", chatFrame)
+				ChatFrameUtil.OpenChat("/i ", chatFrame)
 			else
-				ChatFrame_OpenChat("/raid ", chatFrame)
+				ChatFrameUtil.OpenChat("/raid ", chatFrame)
 			end
 		end},
 		{.25, 1, .25, GUILD.." / "..OFFICER, function(_, btn)
 			if btn == "RightButton" and C_GuildInfo.IsGuildOfficer() then
-				ChatFrame_OpenChat("/o ", chatFrame)
+				ChatFrameUtil.OpenChat("/o ", chatFrame)
 			else
-				ChatFrame_OpenChat("/g ", chatFrame)
+				ChatFrameUtil.OpenChat("/g ", chatFrame)
 			end
 		end},
 	}
@@ -127,11 +127,11 @@ function module:Chatbar()
 
 					module.InWorldChannel = false
 				elseif module.WorldChannelID then
-					ChatFrame_OpenChat("/"..module.WorldChannelID, chatFrame)
+					ChatFrameUtil.OpenChat("/"..module.WorldChannelID, chatFrame)
 				end
 			else
 				JoinPermanentChannel(channelName, nil, 1)
-				ChatFrame_AddChannel(ChatFrame1, channelName)
+				ChatFrameUtil.AddChannel(ChatFrame1, channelName)
 				print(format("|cff00FF00%s|r |cff00FFFF%s|r", JOIN, L["World Channel"]))
 
 				module.InWorldChannel = true

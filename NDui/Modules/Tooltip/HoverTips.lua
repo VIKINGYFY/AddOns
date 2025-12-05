@@ -92,7 +92,7 @@ function TT:HyperLink_OnLeave(_, ...)
 	if orig2[self] then return orig2[self](self, ...) end
 end
 
-for i = 1, NUM_CHAT_WINDOWS do
+for i = 1, Constants.ChatFrameConstants.MaxChatWindows do
 	local frame = _G["ChatFrame"..i]
 	orig1[frame] = frame:GetScript("OnHyperlinkEnter")
 	frame:SetScript("OnHyperlinkEnter", TT.HyperLink_OnEnter)

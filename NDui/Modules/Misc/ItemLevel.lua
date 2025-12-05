@@ -408,7 +408,7 @@ function M:GuildNewsButtonOnClick(btn)
 			SendMailNameEditBox:SetText(self.playerName)
 			SendMailNameEditBox:HighlightText()
 		else
-			ChatFrame_OpenChat(self.playerName)
+			ChatFrameUtil.OpenChat(self.playerName)
 		end
 	end
 end

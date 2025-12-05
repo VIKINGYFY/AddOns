@@ -2078,6 +2078,27 @@ do
 		end
 	end
 
+	function B:ReskinTabButton()
+		if not self then return end
+
+		self.Icon.isIgnored = true
+		B.StripTextures(self)
+
+		local bg = B.CreateBG(self, 1, -4, -5, 4)
+
+		if self.SelectedTexture then
+			self.SelectedTexture:SetDrawLayer("BACKGROUND")
+			B.ReskinHLTex(self.SelectedTexture, bg, true, true)
+
+			local hl = self:CreateTexture(nil, "HIGHLIGHT")
+			hl:SetColorTexture(1, 1, 1, .25)
+			hl:SetInside(bg)
+		else
+			B.ReskinHLTex(self, bg)
+			B.ReskinCPTex(self, bg)
+		end
+	end
+
 	function B:ReskinSideTab()
 		if not self or not self.GetNormalTexture then return end
 

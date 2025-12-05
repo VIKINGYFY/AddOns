@@ -202,7 +202,7 @@ local cycles = {
 
 function module:SwitchToChannel(chatType)
 	self:SetAttribute("chatType", chatType)
-	ChatEdit_UpdateHeader(self)
+	ChatFrameEditBoxMixin.UpdateHeader(self)
 end
 
 function module:UpdateTabChannelSwitch()
@@ -438,10 +438,10 @@ function module:OnLogin()
 	fontFile = not C.db["Chat"]["SysFont"] and DB.Font[1]
 	fontOutline = C.db["Skins"]["FontOutline"] and "OUTLINE" or ""
 
-	for i = 1, NUM_CHAT_WINDOWS do
+	for i = 1, Constants.ChatFrameConstants.MaxChatWindows do
 		local chatframe = _G["ChatFrame"..i]
 		module.SkinChat(chatframe)
-		ChatFrame_RemoveMessageGroup(chatframe, "CHANNEL")
+		ChatFrameMixin.RemoveMessageGroup(chatframe, "CHANNEL")
 	end
 
 	hooksecurefunc("FCF_OpenTemporaryWindow", function()
@@ -454,6 +454,8 @@ function module:OnLogin()
 	end)
 
 	hooksecurefunc("FCFTab_UpdateColors", module.UpdateTabColors)
+	hooksecurefunc("FloatingChatFrameManager_OnEvent", module.UpdateTabEventColors)
+	hooksecurefunc(ChatFrameUtil, "ProcessMessageEventFilters", module.PlayWhisperSound)
 	hooksecurefunc("FCF_MinimizeFrame", module.HandleMinimizedFrame)
 
 	-- Default

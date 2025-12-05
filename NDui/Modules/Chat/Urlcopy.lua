@@ -82,10 +82,10 @@ function module:HyperlinkShowHook(link, _, button)
 		elseif type == "worldmap" then
 			local waypoint = C_Map.GetUserWaypointHyperlink()
 			if waypoint then
-				if ChatEdit_GetActiveWindow() then
-					ChatEdit_InsertLink(waypoint)
+				if ChatFrameUtil.GetActiveWindow() then
+					ChatFrameUtil.InsertLink(waypoint)
 				else
-					ChatFrame_OpenChat(waypoint)
+					ChatFrameUtil.OpenChat(waypoint)
 				end
 			end
 		end
@@ -99,12 +99,12 @@ function module:HyperlinkShowHook(link, _, button)
 		end
 	end
 
-	if hide then ChatEdit_ClearChat(ChatFrame1.editBox) end
+	if hide then ChatFrameEditBoxMixin.ClearChat(ChatFrame1.editBox) end
 end
 
 function module.SetItemRefHook(link, _, button)
 	if string.sub(link, 1, 6) == "player" and button == "LeftButton" and IsModifiedClick("CHATLINK") then
-		if not StaticPopup_Visible("ADD_IGNORE") and not StaticPopup_Visible("ADD_FRIEND") and not StaticPopup_Visible("ADD_GUILDMEMBER") and not StaticPopup_Visible("ADD_RAIDMEMBER") and not StaticPopup_Visible("CHANNEL_INVITE") and not ChatEdit_GetActiveWindow() then
+		if not StaticPopup_Visible("ADD_IGNORE") and not StaticPopup_Visible("ADD_FRIEND") and not StaticPopup_Visible("ADD_GUILDMEMBER") and not StaticPopup_Visible("ADD_RAIDMEMBER") and not StaticPopup_Visible("CHANNEL_INVITE") and not ChatFrameUtil.GetActiveWindow() then
 			local namelink, fullname
 			if string.sub(link, 7, 8) == "GM" then
 				namelink = string.sub(link, 10)
@@ -123,8 +123,8 @@ function module.SetItemRefHook(link, _, button)
 					MailFrameTab_OnClick(nil, 2)
 					SendMailNameEditBox:SetText(name)
 					SendMailNameEditBox:HighlightText()
-				elseif ChatEdit_GetActiveWindow() then
-					ChatEdit_InsertLink(name)
+				elseif ChatFrameUtil.GetActiveWindow() then
+					ChatFrameUtil.InsertLink(name)
 				end
 			end
 		end
@@ -132,7 +132,7 @@ function module.SetItemRefHook(link, _, button)
 end
 
 function module:UrlCopy()
-	for i = 1, NUM_CHAT_WINDOWS do
+	for i = 1, Constants.ChatFrameConstants.MaxChatWindows do
 		if i ~= 2 then
 			local chatFrame = _G["ChatFrame"..i]
 			chatFrame.am = chatFrame.AddMessage

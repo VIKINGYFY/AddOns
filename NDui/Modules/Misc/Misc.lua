@@ -606,13 +606,13 @@ end
 
 function M:CustomMenu_CopyName(rootDescription, data, name)
 	rootDescription:CreateButton(DB.InfoColor..COPY_NAME, function()
-		ChatFrame_OpenChat(name or data.name)
+		ChatFrameUtil.OpenChat(name or data.name)
 	end)
 end
 
 function M:CustomMenu_Whisper(rootDescription, data)
 	rootDescription:CreateButton(DB.InfoColor..WHISPER, function()
-		ChatFrame_SendTell(data.name)
+		ChatFrameUtil.SendTell(data.name)
 	end)
 end
 

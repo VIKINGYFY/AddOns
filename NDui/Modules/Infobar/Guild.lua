@@ -20,11 +20,11 @@ local function rosterButtonOnClick(self, btn)
 				SendMailNameEditBox:SetText(name)
 				SendMailNameEditBox:HighlightText()
 			else
-				ChatFrame_OpenChat(name)
+				ChatFrameUtil.OpenChat(name)
 			end
 		end
 	else
-		ChatFrame_SendTell(name)
+		ChatFrameUtil.SendTell(name)
 	end
 end
 
@@ -259,7 +259,7 @@ function info:GuildPanel_Refresh()
 				elseif status == 2 then
 					status = "|TInterface\\ChatFrame\\UI-ChatIcon-ArmoryChat-BusyMobile:14:14:0:0:16:16:0:16:0:16|t"
 				else
-					status = ChatFrame_GetMobileEmbeddedTexture(73/255, 177/255, 73/255)
+					status = ChatFrameUtil.GetMobileEmbeddedTexture(73/255, 177/255, 73/255)
 				end
 			else
 				if status == 1 then

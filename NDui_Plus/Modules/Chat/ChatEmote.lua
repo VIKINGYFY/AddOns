@@ -11,74 +11,74 @@ local gsub = string.gsub
 local locale = GetLocale()
 
 local emotes = {
-		--表情
-	{ key = "angel",	zhTW="天使",	  zhCN="天使" },
-	{ key = "angry",	zhTW="生氣",	  zhCN="生气" },
-	{ key = "biglaugh", zhTW="大笑",	  zhCN="大笑" },
-	{ key = "clap",	 zhTW="鼓掌",	  zhCN="鼓掌" },
-	{ key = "cool",	 zhTW="酷",		zhCN="酷" },
-	{ key = "cry",	  zhTW="哭",		zhCN="哭" },
-	{ key = "cutie",	zhTW="可愛",	  zhCN="可爱" },
-	{ key = "despise",  zhTW="鄙視",	  zhCN="鄙视" },
-	{ key = "dreamsmile", zhTW="美夢",	zhCN="美梦" },
-	{ key = "embarrass", zhTW="尷尬",	 zhCN="尴尬" },
-	{ key = "evil",	 zhTW="邪惡",	  zhCN="邪恶" },
-	{ key = "excited",  zhTW="興奮",	  zhCN="兴奋" },
-	{ key = "faint",	zhTW="暈",		zhCN="晕" },
-	{ key = "fight",	zhTW="打架",	  zhCN="打架" },
-	{ key = "flu",	  zhTW="流感",	  zhCN="流感" },
-	{ key = "freeze",   zhTW="呆",		zhCN="呆" },
-	{ key = "frown",	zhTW="皺眉",	  zhCN="皱眉" },
-	{ key = "greet",	zhTW="致敬",	  zhCN="致敬" },
-	{ key = "grimace",  zhTW="鬼臉",	  zhCN="鬼脸" },
-	{ key = "growl",	zhTW="齜牙",	  zhCN="龇牙" },
-	{ key = "happy",	zhTW="開心",	  zhCN="开心" },
-	{ key = "heart",	zhTW="心",		zhCN="心" },
-	{ key = "horror",   zhTW="恐懼",	  zhCN="恐惧" },
-	{ key = "ill",	  zhTW="生病",	  zhCN="生病" },
-	{ key = "innocent", zhTW="無辜",	  zhCN="无辜" },
-	{ key = "kongfu",   zhTW="功夫",	  zhCN="功夫" },
-	{ key = "love",	 zhTW="花痴",	  zhCN="花痴" },
-	{ key = "mail",	 zhTW="郵件",	  zhCN="邮件" },
-	{ key = "makeup",   zhTW="化妝",	  zhCN="化妆" },
-	{ key = "mario",	zhTW="馬里奧",	zhCN="马里奥" },
-	{ key = "meditate", zhTW="沉思",	  zhCN="沉思" },
-	{ key = "miserable", zhTW="可憐",	 zhCN="可怜" },
-	{ key = "okay",	 zhTW="好",		zhCN="好" },
-	{ key = "pretty",   zhTW="漂亮",	  zhCN="漂亮" },
-	{ key = "puke",	 zhTW="吐",		zhCN="吐" },
-	{ key = "shake",	zhTW="握手",	  zhCN="握手" },
-	{ key = "shout",	zhTW="喊",		zhCN="喊" },
-	{ key = "shuuuu",   zhTW="閉嘴",	  zhCN="闭嘴" },
-	{ key = "shy",	  zhTW="害羞",	  zhCN="害羞" },
-	{ key = "sleep",	zhTW="睡覺",	  zhCN="睡觉" },
-	{ key = "smile",	zhTW="微笑",	  zhCN="微笑" },
-	{ key = "suprise",  zhTW="吃驚",	  zhCN="吃惊" },
-	{ key = "surrender", zhTW="失敗",	 zhCN="失败" },
-	{ key = "sweat",	zhTW="流汗",	  zhCN="流汗" },
-	{ key = "tear",	 zhTW="流淚",	  zhCN="流泪" },
-	{ key = "tears",	zhTW="悲劇",	  zhCN="悲剧" },
-	{ key = "think",	zhTW="想",		zhCN="想" },
-	{ key = "titter",   zhTW="偷笑",	  zhCN="偷笑" },
-	{ key = "ugly",	 zhTW="猥瑣",	  zhCN="猥琐" },
-	{ key = "victory",  zhTW="勝利",	  zhCN="胜利" },
-	{ key = "volunteer", zhTW="雷鋒",	 zhCN="雷锋" },
-	{ key = "wronged",  zhTW="委屈",	  zhCN="委屈" },	
-		--指定了texture一般用於BLIZ自帶的素材
-	{ key = "wrong",	zhTW="錯",		zhCN="错",	texture = "Interface\\RaidFrame\\ReadyCheck-NotReady" },
-	{ key = "right",	zhTW="對",		zhCN="对",	texture = "Interface\\RaidFrame\\ReadyCheck-Ready" },
-	{ key = "question", zhTW="疑問",	  zhCN="疑问",  texture = "Interface\\RaidFrame\\ReadyCheck-Waiting" },
-	{ key = "skull",	zhTW="骷髏",	  zhCN="骷髅",  texture = "Interface\\TargetingFrame\\UI-TargetingFrame-Skull" },
-	{ key = "sheep",	zhTW="羊",		zhCN="羊",	texture = "Interface\\TargetingFrame\\UI-TargetingFrame-Sheep" },
-		--原版暴雪提供的8个图标
-	{ key = "rt1",	zhTW="rt1",		zhCN="rt1",	texture = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_1" },
-	{ key = "rt2",	zhTW="rt2",		zhCN="rt2",	texture = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_2" },
-	{ key = "rt3",	zhTW="rt3",		zhCN="rt3",	texture = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_3" },
-	{ key = "rt4",	zhTW="rt4",		zhCN="rt4",	texture = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_4" },
-	{ key = "rt5",	zhTW="rt5",		zhCN="rt5",	texture = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_5" },
-	{ key = "rt6",	zhTW="rt6",		zhCN="rt6",	texture = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_6" },
-	{ key = "rt7",	zhTW="rt7",		zhCN="rt7",	texture = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_7" },
-	{ key = "rt8",	zhTW="rt8",		zhCN="rt8",	texture = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_8" },
+	--表情
+	{ key = "angel", zhTW = "天使", zhCN = "天使" },
+	{ key = "angry", zhTW = "生氣", zhCN = "生气" },
+	{ key = "biglaugh", zhTW = "大笑", zhCN = "大笑" },
+	{ key = "clap", zhTW = "鼓掌", zhCN = "鼓掌" },
+	{ key = "cool", zhTW = "酷", zhCN = "酷" },
+	{ key = "cry", zhTW = "哭", zhCN = "哭" },
+	{ key = "cutie", zhTW = "可愛", zhCN = "可爱" },
+	{ key = "despise", zhTW = "鄙視", zhCN = "鄙视" },
+	{ key = "dreamsmile", zhTW = "美夢", zhCN = "美梦" },
+	{ key = "embarrass", zhTW = "尷尬", zhCN = "尴尬" },
+	{ key = "evil", zhTW = "邪惡", zhCN = "邪恶" },
+	{ key = "excited", zhTW = "興奮", zhCN = "兴奋" },
+	{ key = "faint", zhTW = "暈", zhCN = "晕" },
+	{ key = "fight", zhTW = "打架", zhCN = "打架" },
+	{ key = "flu", zhTW = "流感", zhCN = "流感" },
+	{ key = "freeze", zhTW = "呆", zhCN = "呆" },
+	{ key = "frown", zhTW = "皺眉", zhCN = "皱眉" },
+	{ key = "greet", zhTW = "致敬", zhCN = "致敬" },
+	{ key = "grimace", zhTW = "鬼臉", zhCN = "鬼脸" },
+	{ key = "growl", zhTW = "齜牙", zhCN = "龇牙" },
+	{ key = "happy", zhTW = "開心", zhCN = "开心" },
+	{ key = "heart", zhTW = "心", zhCN = "心" },
+	{ key = "horror", zhTW = "恐懼", zhCN = "恐惧" },
+	{ key = "ill", zhTW = "生病", zhCN = "生病" },
+	{ key = "innocent", zhTW = "無辜", zhCN = "无辜" },
+	{ key = "kongfu", zhTW = "功夫", zhCN = "功夫" },
+	{ key = "love", zhTW = "花痴", zhCN = "花痴" },
+	{ key = "mail", zhTW = "郵件", zhCN = "邮件" },
+	{ key = "makeup", zhTW = "化妝", zhCN = "化妆" },
+	{ key = "mario", zhTW = "馬里奧", zhCN = "马里奥" },
+	{ key = "meditate", zhTW = "沉思", zhCN = "沉思" },
+	{ key = "miserable", zhTW = "可憐", zhCN = "可怜" },
+	{ key = "okay", zhTW = "好", zhCN = "好" },
+	{ key = "pretty", zhTW = "漂亮", zhCN = "漂亮" },
+	{ key = "puke", zhTW = "吐", zhCN = "吐" },
+	{ key = "shake", zhTW = "握手", zhCN = "握手" },
+	{ key = "shout", zhTW = "喊", zhCN = "喊" },
+	{ key = "shuuuu", zhTW = "閉嘴", zhCN = "闭嘴" },
+	{ key = "shy", zhTW = "害羞", zhCN = "害羞" },
+	{ key = "sleep", zhTW = "睡覺", zhCN = "睡觉" },
+	{ key = "smile", zhTW = "微笑", zhCN = "微笑" },
+	{ key = "suprise", zhTW = "吃驚", zhCN = "吃惊" },
+	{ key = "surrender", zhTW = "失敗", zhCN = "失败" },
+	{ key = "sweat", zhTW = "流汗", zhCN = "流汗" },
+	{ key = "tear", zhTW = "流淚", zhCN = "流泪" },
+	{ key = "tears", zhTW = "悲劇", zhCN = "悲剧" },
+	{ key = "think", zhTW = "想", zhCN = "想" },
+	{ key = "titter", zhTW = "偷笑", zhCN = "偷笑" },
+	{ key = "ugly", zhTW = "猥瑣", zhCN = "猥琐" },
+	{ key = "victory", zhTW = "勝利", zhCN = "胜利" },
+	{ key = "volunteer", zhTW = "雷鋒", zhCN = "雷锋" },
+	{ key = "wronged", zhTW = "委屈", zhCN = "委屈" },	
+	--指定了texture一般用於BLIZ自帶的素材
+	{ key = "wrong", zhTW = "錯", zhCN = "错", texture = "Interface\\RaidFrame\\ReadyCheck-NotReady" },
+	{ key = "right", zhTW = "對", zhCN = "对", texture = "Interface\\RaidFrame\\ReadyCheck-Ready" },
+	{ key = "question", zhTW = "疑問", zhCN = "疑问", texture = "Interface\\RaidFrame\\ReadyCheck-Waiting" },
+	{ key = "skull", zhTW = "骷髏", zhCN = "骷髅", texture = "Interface\\TargetingFrame\\UI-TargetingFrame-Skull" },
+	{ key = "sheep", zhTW = "羊", zhCN = "羊", texture = "Interface\\TargetingFrame\\UI-TargetingFrame-Sheep" },
+	--原版暴雪提供的8个图标
+	{ key = "rt1", zhTW = "rt1", zhCN = "rt1", texture = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_1" },
+	{ key = "rt2", zhTW = "rt2", zhCN = "rt2", texture = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_2" },
+	{ key = "rt3", zhTW = "rt3", zhCN = "rt3", texture = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_3" },
+	{ key = "rt4", zhTW = "rt4", zhCN = "rt4", texture = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_4" },
+	{ key = "rt5", zhTW = "rt5", zhCN = "rt5", texture = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_5" },
+	{ key = "rt6", zhTW = "rt6", zhCN = "rt6", texture = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_6" },
+	{ key = "rt7", zhTW = "rt7", zhCN = "rt7", texture = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_7" },
+	{ key = "rt8", zhTW = "rt8", zhCN = "rt8", texture = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_8" },
 }
 
 local function ReplaceEmote(value)
@@ -97,8 +97,8 @@ local function filter(self, event, msg, ...)
 end
 
 local function EmoteButton_OnClick(self, button)
-	local editBox = ChatEdit_ChooseBoxForSend()
-	ChatEdit_ActivateChat(editBox)
+	local editBox = ChatFrameUtil.ChooseBoxForSend()
+	ChatFrameUtil.ActivateChat(editBox)
 	editBox:SetText(editBox:GetText():gsub("{$","") .. self.emote)
 	if (button == "LeftButton") then
 		self:GetParent():Hide()
@@ -117,7 +117,7 @@ function CH:ChatEmote()
 	if not CH.db["Emote"] then return end
 
 	for _, event in pairs(CH.ChatEvents) do
-		ChatFrame_AddMessageEventFilter(event, filter)
+		ChatFrameUtil.AddMessageEventFilter(event, filter)
 	end
 
 	local icon

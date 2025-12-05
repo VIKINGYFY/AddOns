@@ -111,7 +111,7 @@ do
 			local text = self.Text:GetText()
 			local title = text and strmatch(text, titleString)
 			if title then
-				ChatFrame_OpenChat(gsub(title, " %- ", "."), SELECTED_DOCK_FRAME)
+				ChatFrameUtil.OpenChat(gsub(title, " %- ", "."), SELECTED_DOCK_FRAME)
 			end
 		end)
 

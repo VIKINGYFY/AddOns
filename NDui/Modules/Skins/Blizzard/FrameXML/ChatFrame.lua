@@ -66,7 +66,7 @@ C.OnLoginThemes["ChatFrame"] = function()
 	ChatFrameMenuButton:SetNormalTexture(homeTex)
 	ChatFrameMenuButton:SetPushedTexture(homeTex)
 
-	for i = 1, NUM_CHAT_WINDOWS do
+	for i = 1, Constants.ChatFrameConstants.MaxChatWindows do
 		ReskinChatScroll(_G["ChatFrame"..i])
 	end
 

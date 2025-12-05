@@ -13,16 +13,18 @@ end
 
 local function HandleRewardButton(self)
 	for _, reward in ipairs(self.rewardFrames) do
-		reward.AmountBG:SetAlpha(0)
-		reward.BorderMask:Hide()
-		reward.Icon:SetInside()
-		reward.bg = B.ReskinIcon(reward.Icon)
-		B.ReskinBorder(reward.QualityColor)
+		if not reward.bg then
+			reward.AmountBG:SetAlpha(0)
+			reward.BorderMask:Hide()
+			reward.Icon:SetInside()
+			reward.bg = B.ReskinIcon(reward.Icon)
+			B.ReskinBorder(reward.QualityColor)
 
-		local Amount = reward.Amount
-		Amount:SetJustifyH("CENTER")
-		Amount:ClearAllPoints()
-		Amount:SetPoint("BOTTOM", reward, "BOTTOM", 0, 0)
+			local Amount = reward.Amount
+			Amount:SetJustifyH("CENTER")
+			Amount:ClearAllPoints()
+			Amount:SetPoint("BOTTOM", reward, "BOTTOM", 0, 0)
+		end
 	end
 end
 
@@ -92,7 +94,7 @@ function S:WorldQuestTab()
 	end
 
 	P:SecureHook("WQT_ListButtonMixin", "OnLoad", HandleListButton)
-	P:SecureHook("WQT_RewardDisplayMixin", "OnLoad", HandleRewardButton)
+	P:SecureHook("WQT_RewardDisplayMixin", "GetRewardFrame", HandleRewardButton)
 
 	-- WQT_WhatsNewFrame
 	local WhatsNewFrame = frame.WhatsNewFrame
@@ -137,6 +139,12 @@ function S:WorldQuestTab()
 		B.StripTextures(WorldMapContainer)
 		local bg = B.CreateBG(WorldMapContainer, nil, 0, 0, 0, 0)
 		bg:SetFrameLevel(bg:GetFrameLevel() + 1)
+	end
+
+	-- WQT_QuestMapTab
+	local QuestMapTab = _G.WQT_QuestMapTab
+	if QuestMapTab then
+		B.ReskinTabButton(QuestMapTab)
 	end
 end
 

@@ -284,15 +284,15 @@ local function buttonOnClick(self, btn)
 					SendMailNameEditBox:SetText(name)
 					SendMailNameEditBox:HighlightText()
 				else
-					ChatFrame_OpenChat(name)
+					ChatFrameUtil.OpenChat(name)
 				end
 			end
 		end
 	else
 		if self.isBNet then
-			ChatFrame_SendBNetTell(self.data[2])
+			ChatFrameUtil.SendBNetTell(self.data[2])
 		else
-			ChatFrame_SendTell(self.data[1])
+			ChatFrameUtil.SendTell(self.data[1])
 		end
 	end
 end

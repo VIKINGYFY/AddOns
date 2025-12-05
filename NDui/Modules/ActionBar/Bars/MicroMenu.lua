@@ -113,24 +113,26 @@ function Bar:MicroMenu_Setup()
 
 	local size = C.db["Actionbar"]["MBSize"]
 	local perRow = C.db["Actionbar"]["MBPerRow"]
+	local num = #buttonList
+	local margin = DB.margin*2
 
-	for i = 1, #buttonList do
+	for i = 1, num do
 		local button = buttonList[i]
 		button:SetSize(size, size)
 		button:ClearAllPoints()
 		if i == 1 then
 			button:SetPoint("TOPLEFT")
 		elseif (i - 1) % perRow == 0 then
-			button:SetPoint("TOP", buttonList[i-perRow], "BOTTOM", 0, -DB.margin*2)
+			button:SetPoint("TOP", buttonList[i-perRow], "BOTTOM", 0, -margin)
 		else
-			button:SetPoint("LEFT", buttonList[i-1], "RIGHT", DB.margin*2, 0)
+			button:SetPoint("LEFT", buttonList[i-1], "RIGHT", margin, 0)
 		end
 	end
 
-	local column = math.min(12, perRow)
-	local rows = math.ceil(12/perRow)
-	local width = column*size + (column-1)*DB.margin
-	local height = size*rows + (rows-1)*DB.margin
+	local column = math.min(num, perRow)
+	local rows = math.ceil(num/perRow)
+	local width = column*size + (column-1)*margin
+	local height = size*rows + (rows-1)*margin
 	menubar:SetSize(width, height)
 	menubar.mover:SetSize(width, height)
 end
@@ -148,7 +150,7 @@ function Bar:MicroMenu()
 		{"talents", "PlayerSpellsMicroButton"},
 		{"achievements", "AchievementMicroButton"},
 		{"quests", "QuestLogMicroButton"},
-		{"collections", "HousingMicroButton"},
+		{"house", "HousingMicroButton"},
 		{"guild", "GuildMicroButton"},
 		{"LFG", "LFDMicroButton"},
 		{"encounter", "EJMicroButton"},
