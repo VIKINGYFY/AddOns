@@ -1014,7 +1014,7 @@ local function SetUnitFrameSize(self, unit)
 	local width = C.db["UFs"][unit.."Width"]
 	local healthHeight = C.db["UFs"][unit.."Height"]
 	local powerHeight = C.db["UFs"][unit.."PowerHeight"]
-	local height = healthHeight + powerHeight + C.mult
+	local height = healthHeight + powerHeight + (powerHeight == 0 and 0 or C.mult)
 	self:SetSize(width, height)
 	self.Health:SetHeight(healthHeight)
 	if powerHeight == 0 then

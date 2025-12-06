@@ -309,7 +309,7 @@ local anchorIndex = {
 }
 local mover
 function TT:GameTooltip_SetDefaultAnchor(parent)
-	if self:IsForbidden() then return end
+	if not self or self:IsForbidden() then return end
 	if not parent then return end
 
 	local mode = C.db["Tooltip"]["CursorMode"]
@@ -417,43 +417,43 @@ B:RegisterEvent("ADDON_LOADED", addonStyled)
 
 TT:RegisterTooltips("NDui", function()
 	local tooltips = {
-		ChatMenu,
-		EmoteMenu,
-		LanguageMenu,
-		VoiceMacroMenu,
-		GameTooltip,
-		EmbeddedItemTooltip,
-		ItemRefTooltip,
-		ItemRefShoppingTooltip1,
-		ItemRefShoppingTooltip2,
-		ShoppingTooltip1,
-		ShoppingTooltip2,
 		AutoCompleteBox,
-		FriendsTooltip,
-		QuestScrollFrame.StoryTooltip,
-		QuestScrollFrame.CampaignTooltip,
-		GeneralDockManagerOverflowButtonList,
-		ReputationParagonTooltip,
-		NamePlateTooltip,
-		QueueStatusFrame,
-		FloatingGarrisonFollowerTooltip,
+		BattlePetTooltip,
+		ChatMenu,
+		EmbeddedItemTooltip,
+		EmoteMenu,
+		FloatingBattlePetTooltip,
 		FloatingGarrisonFollowerAbilityTooltip,
+		FloatingGarrisonFollowerTooltip,
 		FloatingGarrisonMissionTooltip,
+		FloatingGarrisonShipyardFollowerTooltip,
+		FloatingPetBattleAbilityTooltip,
+		FriendsTooltip,
+		GameSmallHeaderTooltip,
+		GameTooltip,
 		GarrisonFollowerAbilityTooltip,
 		GarrisonFollowerTooltip,
-		FloatingGarrisonShipyardFollowerTooltip,
 		GarrisonShipyardFollowerTooltip,
-		BattlePetTooltip,
+		GeneralDockManagerOverflowButtonList,
+		IMECandidatesFrame,
+		ItemRefShoppingTooltip1,
+		ItemRefShoppingTooltip2,
+		ItemRefTooltip,
+		LanguageMenu,
+		NamePlateTooltip,
 		PetBattlePrimaryAbilityTooltip,
 		PetBattlePrimaryUnitTooltip,
-		FloatingBattlePetTooltip,
-		FloatingPetBattleAbilityTooltip,
-		IMECandidatesFrame,
+		QuestScrollFrame.CampaignTooltip,
+		QuestScrollFrame.StoryTooltip,
+		QueueStatusFrame,
 		QuickKeybindTooltip,
-		GameSmallHeaderTooltip,
+		ReputationParagonTooltip,
+		ShoppingTooltip1,
+		ShoppingTooltip2,
+		VoiceMacroMenu,
 	}
-	for _, f in pairs(tooltips) do
-		f:HookScript("OnShow", B.ReskinTooltip)
+	for _, tt in pairs(tooltips) do
+		tt:HookScript("OnShow", B.ReskinTooltip)
 	end
 
 	if SettingsTooltip then

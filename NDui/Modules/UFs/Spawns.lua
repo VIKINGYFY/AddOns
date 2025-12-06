@@ -11,7 +11,7 @@ local function SetUnitFrameSize(self, unit)
 	local width = C.db["UFs"][unit.."Width"]
 	local healthHeight = C.db["UFs"][unit.."Height"]
 	local powerHeight = C.db["UFs"][unit.."PowerHeight"]
-	local height = healthHeight + powerHeight + C.mult
+	local height = healthHeight + powerHeight + (powerHeight == 0 and 0 or C.mult)
 	self:SetSize(width, height)
 end
 
@@ -445,8 +445,8 @@ function UF:OnLogin()
 			function UF:CreateAndUpdatePartyHeader()
 				local index = C.db["UFs"]["PartyDirec"]
 				local sortData = UF.PartyDirections[index]
-				local partyWidth, partyHeight = C.db["UFs"]["PartyWidth"], C.db["UFs"]["PartyHeight"]
-				local partyFrameHeight = partyHeight + C.db["UFs"]["PartyPowerHeight"] + C.mult
+				local partyWidth, partyHeight, partyPowerHeight = C.db["UFs"]["PartyWidth"], C.db["UFs"]["PartyHeight"], C.db["UFs"]["PartyPowerHeight"]
+				local partyFrameHeight = partyHeight + partyPowerHeight + (partyPowerHeight == 0 and 0 or C.mult)
 				local sortByRole = C.db["UFs"]["SortByRole"]
 				local sortAscending = C.db["UFs"]["SortAscending"]
 
@@ -496,7 +496,7 @@ function UF:OnLogin()
 
 				function UF:UpdatePartyPetHeader()
 					local petWidth, petHeight, petPowerHeight = C.db["UFs"]["PartyPetWidth"], C.db["UFs"]["PartyPetHeight"], C.db["UFs"]["PartyPetPowerHeight"]
-					local petFrameHeight = petHeight + petPowerHeight + C.mult
+					local petFrameHeight = petHeight + petPowerHeight + (petPowerHeight == 0 and 0 or C.mult)
 					local petsPerColumn = C.db["UFs"]["PartyPetPerCol"]
 					local maxColumns = C.db["UFs"]["PartyPetMaxCol"]
 					local index = C.db["UFs"]["PetDirec"]
@@ -670,8 +670,8 @@ function UF:OnLogin()
 				local index = C.db["UFs"]["RaidDirec"]
 				local rows = C.db["UFs"]["RaidRows"]
 				local numGroups = C.db["UFs"]["NumGroups"]
-				local raidWidth, raidHeight = C.db["UFs"]["RaidWidth"], C.db["UFs"]["RaidHeight"]
-				local raidFrameHeight = raidHeight + C.db["UFs"]["RaidPowerHeight"] + C.mult
+				local raidWidth, raidHeight, raidPowerHeight = C.db["UFs"]["RaidWidth"], C.db["UFs"]["RaidHeight"], C.db["UFs"]["RaidPowerHeight"]
+				local raidFrameHeight = raidHeight + raidPowerHeight + (raidPowerHeight == 0 and 0 or C.mult)
 				local indexSpacing = C.db["UFs"]["TeamIndex"] and 20 or 0
 
 				local sortData = UF.RaidDirections[index]

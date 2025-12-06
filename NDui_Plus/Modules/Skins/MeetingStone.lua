@@ -39,13 +39,21 @@ local function MS_StripTextures(self)
 end
 
 local function reskinStretchButton(bu)
+	if not bu then
+		P.Developer_ThrowError("object is nil")
+		return
+	end
+
 	bu:SetHeight(28)
-	B.ReskinButton(bu)
+	B.Reskin(bu)
 	bu.styled = true
 end
 
 local function reskinMSInput(input)
-	if not input then return end
+	if not input then
+		-- P.Developer_ThrowError("object is nil")
+		return
+	end
 
 	input:DisableDrawLayer("BACKGROUND")
 	P.ReskinInput(input)
@@ -53,7 +61,10 @@ local function reskinMSInput(input)
 end
 
 local function reskinMSButton(bu)
-	if not bu then return end
+	if not bu then
+		P.Developer_ThrowError("object is nil")
+		return
+	end
 
 	B.StripTextures(bu, 11)
 	B.ReskinIcon(bu.Icon)
@@ -74,6 +85,11 @@ local function reskinPageButton(scroll)
 end
 
 local function reskinButtonHL(button)
+	if not button then
+		P.Developer_ThrowError("object is nil")
+		return
+	end
+
 	button:SetHighlightTexture(DB.bdTex)
 	local hl = button:GetHighlightTexture()
 	hl:SetVertexColor(cr, cg, cb, .25)
@@ -86,6 +102,11 @@ local function reskinButtonHL(button)
 end
 
 local function reskinGridView(self)
+	if not self then
+		P.Developer_ThrowError("GridView is nil")
+		return
+	end
+
 	for _, button in pairs(self.sortButtons) do
 		B.StripTextures(button, 0)
 		button.Arrow:SetAlpha(1)
@@ -101,10 +122,36 @@ local function reskinGridView(self)
 end
 
 local function reskinItemButton(self)
+	if not self then
+		P.Developer_ThrowError("object is nil")
+		return
+	end
+
 	self:SetSize(34, 34)
 	B.StripTextures(self)
 	self.bg = B.ReskinIcon(self.icon)
 	B.ReskinIconBorder(self.IconBorder)
+end
+
+local function reskinDropDown(dropdown)
+	if not dropdown then
+		P.Developer_ThrowError("dropdown is nil")
+		return
+	end
+
+	B.StripTextures(dropdown)
+	local down = dropdown.MenuButton
+	down:ClearAllPoints()
+	down:SetPoint("RIGHT", -18, 0)
+	B.ReskinArrow(down, "down")
+	down:SetSize(20, 20)
+
+	local bg = B.CreateBDFrame(dropdown, 0)
+	bg:ClearAllPoints()
+	bg:SetPoint("LEFT", 0, 0)
+	bg:SetPoint("TOPRIGHT", down, "TOPRIGHT")
+	bg:SetPoint("BOTTOMRIGHT", down, "BOTTOMRIGHT")
+	B.CreateGradient(bg)
 end
 
 function S:MeetingStone()
@@ -169,7 +216,7 @@ function S:MeetingStone()
 			if frame.CloseButton then B.ReskinClose(frame.CloseButton) end
 
 			MS_StripTextures(frame)
-			B.CreateBG(frame)
+			B.SetBD(frame)
 		end
 	end
 
@@ -190,7 +237,7 @@ function S:MeetingStone()
 			for _, child in pairs {AdvFilterPanel:GetChildren()} do
 				if child:IsObjectType("Button") then
 					if child.Left and child.Middle and child.Right and child.Text then
-						B.ReskinButton(child)
+						B.Reskin(child)
 					else
 						B.ReskinClose(child)
 					end
@@ -292,7 +339,7 @@ function S:MeetingStone()
 	for _, v in pairs(Buttons) do
 		local button = getValue(v, MSEnv)
 		if button then
-			B.ReskinButton(button)
+			B.Reskin(button)
 		end
 	end
 
@@ -305,22 +352,7 @@ function S:MeetingStone()
 
 	-- Dropdown
 	for _, v in pairs(Dropdowns) do
-		local dropdown = getValue(v, MSEnv)
-		if dropdown then
-			B.StripTextures(dropdown)
-			local down = dropdown.MenuButton
-			down:ClearAllPoints()
-			down:SetPoint("RIGHT", -18, 0)
-			B.ReskinArrow(down, "down")
-			down:SetSize(20, 20)
-
-			local bg = B.CreateBDFrame(dropdown, 0)
-			bg:ClearAllPoints()
-			bg:SetPoint("LEFT", 0, 0)
-			bg:SetPoint("TOPRIGHT", down, "TOPRIGHT")
-			bg:SetPoint("BOTTOMRIGHT", down, "BOTTOMRIGHT")
-			B.CreateGradient(bg)
-		end
+		reskinDropDown(getValue(v, MSEnv))
 	end
 
 	-- DropMenu
@@ -379,12 +411,12 @@ function S:MeetingStone()
 				reskinButtonHL(button)
 
 				if button.Option then
-					B.ReskinButton(button.Option.InviteButton)
-					B.ReskinButton(button.Option.DeclineButton)
+					B.Reskin(button.Option.InviteButton)
+					B.Reskin(button.Option.DeclineButton)
 				end
 
 				if button.Summary then
-					B.ReskinButton(button.Summary.CancelButton)
+					B.Reskin(button.Summary.CancelButton)
 				end
 
 				if button["@"] and button["@"].Check then
@@ -413,14 +445,14 @@ function S:MeetingStone()
 	local DataBroker = MSEnv.DataBroker
 	DataBroker.BrokerPanel:SetBackdrop(nil)
 	DataBroker.BrokerPanel:SetSize(174, 30)
-	B.CreateBG(DataBroker.BrokerPanel, nil, 0, 0, 0, 0)
+	B.SetBD(DataBroker.BrokerPanel, nil, 0, 0, 0, 0)
 	DataBroker.BrokerIcon:SetPoint("LEFT", 8, 0)
 
 	-- Misc
 	if MSEnv.ADDON_REGIONSUPPORT then
 		local MallPanel = MS:GetModule("MallPanel", true)
 		if MallPanel then
-			B.ReskinButton(MallPanel.PurchaseButton)
+			B.Reskin(MallPanel.PurchaseButton)
 
 			for _, child in pairs {MallPanel:GetChildren()} do
 				if child:IsObjectType("Button") and child.Icon and child.Text then
@@ -431,7 +463,7 @@ function S:MeetingStone()
 
 		local RewardPanel = MS:GetModule("RewardPanel", true)
 		if RewardPanel then
-			B.ReskinButton(RewardPanel.ConfirmButton)
+			B.Reskin(RewardPanel.ConfirmButton)
 			reskinMSInput(RewardPanel.InputBox)
 		end
 
@@ -487,7 +519,7 @@ function S:MeetingStone()
 					for _, button in pairs({"Refresh", "Join", "Ranking", "RefreshBtn"}) do
 						local bu = Body[button]
 						if bu then
-							B.ReskinButton(bu)
+							B.Reskin(bu)
 						end
 					end
 
@@ -539,7 +571,7 @@ function S:MeetingStone()
 		local origQuestItemCreate = QuestItem.Create
 		QuestItem.Create = function(self, parent, ...)
 			local button = origQuestItemCreate(self, parent, ...)
-			if button.Reward then B.ReskinButton(button.Reward) end
+			if button.Reward then B.Reskin(button.Reward) end
 			if button.Item then reskinItemButton(button.Item) end
 			if button.Items then
 				for index, item in ipairs(button.Items) do
@@ -571,12 +603,12 @@ function S:MeetingStone()
 			if objType == "Frame" then
 				B.StripTextures(child)
 			elseif objType == "Button" and child.Text then
-				B.ReskinButton(child)
+				B.Reskin(child)
 			end
 		end
 
 		B.StripTextures(PlayerInfoDialog)
-		B.CreateBG(PlayerInfoDialog)
+		B.SetBD(PlayerInfoDialog)
 		B.ReskinClose(PlayerInfoDialog.CloseButton)
 
 		for _, input in PlayerInfoDialog:IterateInputBoxes() do
@@ -590,7 +622,7 @@ function S:MeetingStone()
 		Feedback:HookScript("OnShow", function(self)
 			if not self.styled then
 				P.ReskinFrame(self)
-				B.ReskinButton(self.SendButton)
+				B.Reskin(self.SendButton)
 				reskinMSInput(self.Text)
 				B.CreateMF(self)
 
@@ -605,11 +637,11 @@ function S:MeetingStone()
 			if not self.styled then
 				for _, child in pairs {self:GetChildren()} do
 					if child:IsObjectType("Button") and child.Text then
-						B.ReskinButton(child)
+						B.Reskin(child)
 					elseif child.ScrollBar then
 						B.ReskinScroll(child.ScrollBar)
 					elseif child.btnKnow and child.Header then
-						B.ReskinButton(child.btnKnow)
+						B.Reskin(child.btnKnow)
 						select(2, child:GetRegions()):SetTextColor(1, 1, 1)
 					end
 				end
@@ -634,7 +666,7 @@ function S:MeetingStone()
 			for _, child in pairs {ExSearchPanel:GetChildren()} do
 				if child:GetObjectType() == "Button" then
 					if child:GetText() then
-						B.ReskinButton(child)
+						B.Reskin(child)
 					else
 						B.ReskinClose(child)
 					end
@@ -652,6 +684,7 @@ function S:MeetingStone()
 		end
 	end
 
+	-- IgnoreListPanel
 	local IgnoreListPanel = MS:GetModule("IgnoreListPanel", true)
 	if IgnoreListPanel then
 		local IgnoreList = IgnoreListPanel.IgnoreList
@@ -661,8 +694,85 @@ function S:MeetingStone()
 
 		for _, child in pairs {IgnoreListPanel:GetChildren()} do
 			if child:GetObjectType() == "Button" and child.Text then
-				B.ReskinButton(child)
+				B.Reskin(child)
 			end
+		end
+	end
+
+	-- LocomotiveIntroduce
+	local LocomotiveIntroduce = MS:GetModule("LocomotiveIntroduce", true)
+	if LocomotiveIntroduce then
+		for _, child in ipairs({LocomotiveIntroduce:GetChildren()}) do
+			if child:GetObjectType() == "Frame" and child.backdropInfo and child.backdropInfo.bgFile == "Interface\\Tooltips\\UI-Tooltip-Background" then
+				child:HideBackdrop()
+				child.bg = B.CreateBDFrame(child, .25)
+				child.bg:SetInside(nil, 2, 2)
+			end
+		end
+	end
+
+	-- AssociationPanel
+	local AssociationPanel = MS:GetModule("AssociationPanel", true)
+	if AssociationPanel then
+		reskinDropDown(AssociationPanel.ActivityDropdown)
+		S:Proxy("ReskinCheck", AssociationPanel.filtrateCount)
+		reskinStretchButton(AssociationPanel.RefreshButton)
+		reskinGridView(AssociationPanel.IgnoreList)
+		S:Proxy("Reskin", AssociationPanel.RecruitIgnore)
+		S:Proxy("Reskin", AssociationPanel.AddAssociationIgnore)
+		S:Proxy("Reskin", AssociationPanel.nextPageButton)
+		S:Proxy("Reskin", AssociationPanel.firstPageButton)
+		S:Proxy("Reskin", AssociationPanel.AddAssociationProposer)
+
+		for _, child in ipairs({AssociationPanel:GetChildren()}) do
+			if child:GetObjectType() == "EditBox" then
+				B.ReskinInput(child)
+			end
+		end
+
+		local suggestionDropdown = AssociationPanel.suggestionDropdown
+		if suggestionDropdown then
+			B.StripTextures(suggestionDropdown)
+
+			for _, child in ipairs({suggestionDropdown:GetChildren()}) do
+				if child:GetObjectType() == "ScrollFrame" and child.ScrollBar then
+					B.CreateBDFrame(child, .25)
+					B.ReskinScroll(child.ScrollBar)
+					break
+				end
+			end
+		end
+
+		local function reskinChildWidgets(frame)
+			for _, child in ipairs({frame:GetChildren()}) do
+				local objType = child:GetObjectType()
+				if (objType == "Frame" or objType == "Button") and child.Button and child.Icon and child.Text then
+					P.ReskinDropDown(child)
+				elseif objType == "Button" and child.Left and child.Middle and child.Right and child.Text then
+					B.Reskin(child)
+				elseif objType == "EditBox" then
+					B.ReskinInput(child)
+				elseif objType == "CheckButton" then
+					B.ReskinCheck(child)
+				elseif child.ScrollBar then
+					B.ReskinScroll(child.ScrollBar)
+				end
+			end
+		end
+
+		if AssociationPanel.CreateRecruitmentWindow then
+			hooksecurefunc(AssociationPanel, "CreateRecruitmentWindow", function(self)
+				if self.recruitmentFrame and not self.recruitmentFrame.styled then
+					P.ReskinFrame(self.recruitmentFrame)
+					reskinChildWidgets(self.recruitmentFrame)
+
+					if self.recruitmentFrame.settingsFrame then
+						reskinChildWidgets(self.recruitmentFrame.settingsFrame)
+					end
+
+					self.recruitmentFrame.styled = true
+				end
+			end)
 		end
 	end
 end

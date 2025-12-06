@@ -401,8 +401,14 @@ function UF:CreatePowerBar(self)
 	power:SetHeight(powerHeight)
 	power.wasHidden = powerHeight == 0
 
-	B.CreateBDFrame(power, 0, nil, -1)
 	B.SmoothBar(power)
+
+	local color = DB.QualityColors[-1]
+	local line = power:CreateTexture(nil, "BORDER")
+	line:SetColorTexture(color.r, color.g, color.b)
+	line:SetHeight(C.mult)
+	line:SetPoint("BOTTOMLEFT", power, "TOPLEFT", 0, 0)
+	line:SetPoint("BOTTOMRIGHT", power, "TOPRIGHT", 0, 0)
 
 	local bg = power:CreateTexture(nil, "BORDER")
 	bg:SetTexture(DB.normTex)

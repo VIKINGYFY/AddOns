@@ -12,8 +12,8 @@ local function HandleListButton(self)
 end
 
 local function HandleRewardButton(self)
-	for _, reward in ipairs(self.rewardFrames) do
-		if not reward.bg then
+	if not self.styled then
+		for _, reward in ipairs(self.rewardFrames) do
 			reward.AmountBG:SetAlpha(0)
 			reward.BorderMask:Hide()
 			reward.Icon:SetInside()
@@ -25,6 +25,8 @@ local function HandleRewardButton(self)
 			Amount:ClearAllPoints()
 			Amount:SetPoint("BOTTOM", reward, "BOTTOM", 0, 0)
 		end
+
+		self.styled = true
 	end
 end
 
@@ -59,7 +61,9 @@ end
 
 local function HandleSettingsColor(self)
 	S:Proxy("Reskin", self.Picker)
-	self.Picker.Color:SetAllPoints(self.Picker.__bg)
+	local color = self.Picker.Color
+	color:SetTexture(130871)
+	color:SetInside(self.Picker.__bg)
 	S:Proxy("Reskin", self.ResetButton)
 end
 
@@ -94,7 +98,7 @@ function S:WorldQuestTab()
 	end
 
 	P:SecureHook("WQT_ListButtonMixin", "OnLoad", HandleListButton)
-	P:SecureHook("WQT_RewardDisplayMixin", "GetRewardFrame", HandleRewardButton)
+	P:SecureHook("WQT_RewardDisplayMixin", "UpdateRewards", HandleRewardButton)
 
 	-- WQT_WhatsNewFrame
 	local WhatsNewFrame = frame.WhatsNewFrame
@@ -112,19 +116,23 @@ function S:WorldQuestTab()
 		S:Proxy("ReskinTrimScroll", SettingsFrame.ScrollBar)
 	end
 
-	local SettingsPreview = _G.WQT_SettingsQuestListPreview and _G.WQT_SettingsQuestListPreview.Preview
-	if SettingsPreview then
-		HandleRewardButton(SettingsPreview.RightContent.Rewards)
+	local function wrap(func)
+		return function(self, ...)
+			if not self.styled then
+				func(self, ...)
+				self.styled = true
+			end
+		end
 	end
 
-	P:SecureHook("WQT_SettingsCategoryMixin", "Init", HandleSettingsCategory)
-	P:SecureHook("WQT_SettingsCheckboxMixin", "Init", HandleSettingsCheckbox)
-	P:SecureHook("WQT_SettingsSliderMixin", "Init", HandleSettingsSlider)
-	P:SecureHook("WQT_SettingsColorMixin", "Init", HandleSettingsColor)
-	P:SecureHook("WQT_SettingsDropDownMixin", "Init", HandleSettingsDropDown)
-	P:SecureHook("WQT_SettingsButtonMixin", "Init", HandleSettingsButton)
-	P:SecureHook("WQT_SettingsConfirmButtonMixin", "Init", HandleSettingsButton)
-	P:SecureHook("WQT_SettingsTextInputMixin", "Init", HandleSettingsTextInput)
+	P:SecureHook("WQT_SettingsCategoryMixin", "Init", wrap(HandleSettingsCategory))
+	P:SecureHook("WQT_SettingsCheckboxMixin", "Init", wrap(HandleSettingsCheckbox))
+	P:SecureHook("WQT_SettingsSliderMixin", "Init", wrap(HandleSettingsSlider))
+	P:SecureHook("WQT_SettingsColorMixin", "Init", wrap(HandleSettingsColor))
+	P:SecureHook("WQT_SettingsDropDownMixin", "Init", wrap(HandleSettingsDropDown))
+	P:SecureHook("WQT_SettingsButtonMixin", "Init", wrap(HandleSettingsButton))
+	P:SecureHook("WQT_SettingsConfirmButtonMixin", "Init", wrap(HandleSettingsButton))
+	P:SecureHook("WQT_SettingsTextInputMixin", "Init", wrap(HandleSettingsTextInput))
 
 	-- WQT_Container
 	local FlightMapContainer = _G.WQT_FlightMapContainer

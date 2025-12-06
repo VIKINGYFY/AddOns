@@ -25,7 +25,10 @@ function UF:SetupRoleIcons()
 	if not UF.db["RolePos"] then return end
 
 	UF:UpdateRoleIcons()
-	hooksecurefunc(NUF, "CreateIcons", function(_, frame)
-		UF:Configure_RoleIcon(frame)
-	end)
+
+	if NUF.CreateIcons then
+		hooksecurefunc(NUF, "CreateIcons", function(_, frame)
+			UF:Configure_RoleIcon(frame)
+		end)
+	end
 end

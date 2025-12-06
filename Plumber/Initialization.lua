@@ -1,5 +1,5 @@
-local VERSION_TEXT = "v1.8.1";
-local VERSION_DATE = 1764600000;
+local VERSION_TEXT = "1.8.2";
+local VERSION_DATE = 1764900000;
 
 
 local addonName, addon = ...
@@ -95,6 +95,24 @@ do  --CallbackRegistry
                     end
                     cb = callbacks[i];
                 end
+            end
+        end
+    end
+
+    function CallbackRegistry:UnregisterCallbackOwner(event, owner)
+        if not owner then return end;
+
+        if self.events[event] then
+            local callbacks = self.events[event];
+            local i = 1;
+            local cb = callbacks[i];
+            while cb do
+                if cb[3] == owner then
+                    tremove(callbacks, i);
+                else
+                    i = i + 1;
+                end
+                cb = callbacks[i];
             end
         end
     end
@@ -295,11 +313,16 @@ local DefaultValues = {
 
     EnableNewByDefault = false,             --Always enable newly added features
     SettingsPanel_AutoShowChangelog = false,
+    SettingsPanel_ChangelogFontSize = 1,
 
 
-    --Test Server
+    --Housing
     DecorModelScaleRef = true,
         DecorModelScaleRef_ShowBanana = false,
+    Housing_Macro = true,
+    Housing_DecorHover = true,
+        Housing_DecorHover_EnableDupe = true,
+        Housing_DecorHover_DuplicateKey = 2,    --1:Ctrl, 2:Alt
 
 
     --Declared elsewhere:

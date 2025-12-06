@@ -38,6 +38,8 @@ L["Version"] = "Version";
 L["New Features"] = "New Features";
 L["New Feature Abbr"] = "New";
 L["Format Month Day"] = EVENT_SCHEDULER_DAY_FORMAT or "%s %d";
+L["Always On Module"] = "This module is always enabled.";
+L["Return To Module List"] = "Return to List";
 
 
 --Settings Category
@@ -54,6 +56,7 @@ L["SC Profession"] = "Professions";
 L["SC Quest"] = "Quests";
 L["SC UnitFrame"] = "Unit Frame";
 L["SC Old"] = "Legacy Content";
+L["SC Housing"] = AUCTION_CATEGORY_HOUSING or "Housing";
 L["SC Uncategorized"] = "Uncategorized";
 
 --Settings Search Keywords, Search Tags
@@ -62,6 +65,8 @@ L["KW Transmog"] = "Transmog";
 L["KW Vendor"] = "Vendor";
 L["KW LegionRemix"] = "Legion Remix";
 L["KW Housing"] = "Player Housing House";
+L["KW Combat"] = "Combat";
+L["KW ActionBar"] = "Action Bars";
 
 --Filter Sort Method
 L["SortMethod 1"] = "Name";  --Alphabetical Order
@@ -561,6 +566,8 @@ L["QuickSlot Error 3"] = "Quick Slot: A controller with the same key \"%s\" alre
 --Plumber Macro
 L["PlumberMacro Drive"] = "Plumber D.R.I.V.E. Macro";
 L["PlumberMacro Drawer"] = "Plumber Drawer Macro";
+L["PlumberMacro Housing"] = "Plumber Housing Macro";
+L["PlumberMacro Torch"] = "Plumber Torch Macro";
 L["PlumberMacro DrawerFlag Combat"] = "The drawer will be updated after leaving combat.";
 L["PlumberMacro DrawerFlag Stuck"] = "Something went wrong when updating the drawer.";
 L["PlumberMacro Error Combat"] = "Unavailable in combat";
@@ -585,6 +592,8 @@ L["Drawer Option Hide Unusable Tooltip"] = "Hide unowned items and unlearned spe
 L["Drawer Option Hide Unusable Tooltip 2"] = "Consumable items like potions will always be shown."
 L["Drawer Option Update Frequently"] = "Update Frequently";
 L["Drawer Option Update Frequently Tooltip"] = "Attempt to update the button states whenever there is a change in your bags or spellbooks. Enabling this option may slightly increase resource usage.";
+L["ModuleName DrawerMacro"] = "Drawer Macro";
+L["ModuleDescription DrawerMacro"] = "Create a custom flyout menu to manage your items, spells, pets, mounts, toys.\n\nTo make a Drawer Macro, create a new macro first, then enter |cffd7c0a3#plumber:drawer|r in the command editbox.";
 
 
 --New Expansion Landing Page
@@ -677,6 +686,21 @@ L["Press Key To Copy Format"] = "Press |cffffd100%s|r to Copy";
 --DecorModelScaleRef
 L["ModuleName DecorModelScaleRef"] = "Decor Catalog: Banana For Scale"; --See HOUSING_DASHBOARD_CATALOG_TOOLTIP
 L["ModuleDescription DecorModelScaleRef"] = "- Add a size reference (a banana) to the decor preview window, allowing you to gauge the size of the objects.\n\n- Also allow you to change the camera pitch by holding down the Left Button and moving vertically.";
+
+
+--Player Housing
+L["ModuleName Housing_Macro"] = "Housing Macros";
+L["ModuleDescription Housing_Macro"] = "You can create a Teleport Home macro: create a new macro first, then enter |cffd7c0a3#plumber:home|r in the command editbox.";
+L["Teleport Home"] = "Teleport Home";
+L["Instruction Drag To Action Bar"] = "<Click and Drag this to your Action Bars>";
+L["Toggle Torch"] = "Toggle Torch";
+L["ModuleName Housing_DecorHover"] = "Editor: Object Name and Duplicate";
+L["ModuleDescription Housing_DecorHover"] = "In Decorate Mode:\n\n- Hover the cursor over a decor to display its name and its item count in storage.\n\n- Allows you to \"duplicate\" a decor by pressing Alt.\n\nThe new object will not inherit the current angles and scales.";
+L["Duplicate"] = "Duplicate";
+L["Duplicate Decor Key"] = "\"Duplicate\" Key";
+L["Enable Duplicate"] = "Enable \"Duplicate\"";
+L["Enable Duplicate tooltip"] = "While in Decorate Mode, you can hover the cursor over a decor and then press a key to place another instance of this object.";
+
 
 --Generic
 L["Total Colon"] = FROM_TOTAL or "Total:";

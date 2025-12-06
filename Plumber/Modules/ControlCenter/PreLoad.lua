@@ -38,7 +38,7 @@ local CategoryDefinition = {
 
 local PrimaryCategory = {
     "Signature", "Current",
-    "ActionBar", "Chat", "Collection", "Instance", "Inventory", "Loot", "Map", "Profession", "Quest", "UnitFrame", "Old",
+    "ActionBar", "Chat", "Collection", "Housing", "Instance", "Inventory", "Loot", "Map", "Profession", "Quest", "UnitFrame", "Old",
     "Uncategorized",
 };
 
@@ -79,7 +79,17 @@ function ControlCenter:InitializeModules()
                 end
             end
 
-            moduleData.toggleFunc(enabled);
+            if moduleData.toggleFunc then
+                moduleData.toggleFunc(enabled);
+            else
+                moduleData.virtual = true;
+            end
+
+            if moduleData.virtual then
+                if moduleData.description then
+                    moduleData.description = moduleData.description.."\n\n"..L["Always On Module"];
+                end
+            end
 
             if enabled and isForceEnabled then
                 API.PrintMessage(string.format(L["New Feature Auto Enabled Format"], moduleData.name));     --Todo: click link to view detail |cff71d5ff
@@ -157,6 +167,10 @@ function ControlCenter:GetValidModules()
             if (a.categoryID == b.categoryID) and (a ~= b) then
                 --print("Plumber: Duplicated Module uiOrder", a.uiOrder, a.name, b.name);   --debug
             end
+        end
+
+        if a.virtual ~= b.virtual then
+            return not a.virtual
         end
 
         return a.name < b.name
@@ -240,10 +254,18 @@ do  --Settings Panel Revamp
     local SortFunc = {};
 
     function SortFunc.Alphabet(a, b)
+        if a.virtual ~= b.virtual then
+            return not a.virtual
+        end
+
         return a.name < b.name
     end
 
     function SortFunc.Date(a, b)
+        if a.virtual ~= b.virtual then
+            return not a.virtual
+        end
+
         if a.moduleAddedTime and b.moduleAddedTime then
             return a.moduleAddedTime > b.moduleAddedTime
         end

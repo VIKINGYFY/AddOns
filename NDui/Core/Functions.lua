@@ -2034,25 +2034,32 @@ do
 		if self:IsForbidden() then return end
 		self:SetScale(C.db["Tooltip"]["Scale"])
 
+		local sb, ch = self.StatusBar, self.CompareHeader
 		if not self.tipStyled then
 			self:HideBackdrop()
 			self.bg = B.CreateBG(self)
 
-			if self.StatusBar then
-				self.StatusBar:ClearAllPoints()
-				self.StatusBar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", C.mult, DB.margin)
-				self.StatusBar:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -C.mult, DB.margin)
-				self.StatusBar:SetHeight(DB.margin*2)
+			if sb then
+				sb:ClearAllPoints()
+				sb:SetPoint("BOTTOMLEFT", self, "TOPLEFT", C.mult, DB.margin)
+				sb:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -C.mult, DB.margin)
+				sb:SetHeight(DB.margin*2)
 
-				B.ReskinStatusBar(self.StatusBar, true, true)
+				B.ReskinStatusBar(sb, true, true)
+			end
+
+			if ch then
+				B.StripTextures(ch)
+				B.UpdatePoint(ch, "BOTTOM", self, "TOP", 0, DB.margin)
+				B.CreateBG(ch):SetBackdropBorderColor(0, 1, 1)
 			end
 
 			self.tipStyled = true
 		end
 
 		B.SetBorderColor(self.bg)
-		if self.StatusBar and self.StatusBar.bg then
-			B.SetBorderColor(self.StatusBar.bg)
+		if sb and sb.bg then
+			B.SetBorderColor(sb.bg)
 		end
 
 		local data = self.GetTooltipData and self:GetTooltipData()
@@ -2071,8 +2078,8 @@ do
 				local r, g, b = B.UnitColor(unit)
 				self.bg:SetBackdropBorderColor(r, g, b)
 
-				if self.StatusBar and self.StatusBar.bg then
-					self.StatusBar.bg:SetBackdropBorderColor(r, g, b)
+				if sb and sb.bg then
+					sb.bg:SetBackdropBorderColor(r, g, b)
 				end
 			end
 		end
