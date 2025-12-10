@@ -1,6 +1,6 @@
-## Interface: 110205
+## Interface: 110207
 ## Title: HandyNotes: World of Warcraft
-## Version: 127
+## Version: 128
 ## Notes: World of Warcraft Original Zone Notes
 ## OptionalDeps: Ace3
 ## RequiredDeps: HandyNotes

@@ -28,6 +28,10 @@ local defaultTableData = {
   insideCircle = false,
   hideWhenGroundedAndFull = false,
   noDisplayText = false,
+  secondWindMode = 0,
+  whirlingSurgeState = 0,
+  whirlingSurgeMode = 0,
+  mutedSoundsBitfield = 0,
 }
 
 local Configuration = {
@@ -62,6 +66,22 @@ local ART = {
   Random = "Random",
 }
 
+local SECOND_WIND_OPTIONS_LIST = {
+  { id = 0, state = "Disabled" },
+  { id = 1, state = "Integrated" },
+}
+
+local WHIRLING_SURGE_OPTIONS_LIST = {
+  { id = 0, state = "Arc" },
+  { id = 1, state = "Pill" },
+}
+
+local WHIRLING_SURGE_OPTIONS_SHOWNSTATE_LIST = {
+  { id = 0, state = "Disabled" },
+  { id = 1, state = "Show on Cooldown" },
+  { id = 2, state = "Hide on Cooldown" },
+}
+
 local ArtNames = {}
 for colorName in pairs(ART) do
   if colorName ~= "Random" then
@@ -75,15 +95,16 @@ local ART_OPTIONS = {}
 for name in next, ART do
   table.insert(ART_OPTIONS, {
     text = name,
-    isRadio = true,
+    multiple = true,
   })
 end
+
 table.sort(ART_OPTIONS, function(a, b) return a.text < b.text end)
 local TEXTPOSITION_OPTIONS = {}
 for _, name in ipairs({"Top", "Bottom", "Left", "Right"}) do
   table.insert(TEXTPOSITION_OPTIONS, {
     text = name,
-    isRadio = true,
+    multiple = true,
   })
 end
 
@@ -206,11 +227,14 @@ function Glider:SetRandomColor()
 
   MutableData.lastRandomColorName = colorName
   Glider:SetAtlasForSwipe(Glider.VigorCharge, ART[colorName])
+  Glider:SetAtlasForSwipe(Glider.secondWindCharge, ART[colorName])
   Glider.VigorCharge:SetSwipeColor(1, 1, 1, 1)
-
+  Glider.secondWindCharge:SetSwipeColor(1, 1, 1, 0.4)
   if colorName == "Class" then
     local classColor = PlayerUtil.GetClassColor() ---@diagnostic disable-line
-    Glider.VigorCharge:SetSwipeColor(classColor:GetRGBA()) ---@diagnostic disable-line
+    local r, g, b = classColor:GetRGB()
+    Glider.VigorCharge:SetSwipeColor(r, g , b) ---@diagnostic disable-line
+    Glider.secondWindCharge:SetSwipeColor(r, g , b, 0.4)
   end
 end
 
@@ -225,8 +249,8 @@ end
 
 ---@param layoutName string
 ---@return string
-function GliderSettings:GetCurrentLayoutName(layoutName)
-  if GliderAddOnDB.globalSettingsEnabled then
+function GliderSettings:GetCurrentLayoutName(layoutName, forceGlobal)
+  if GliderAddOnDB.globalSettingsEnabled or forceGlobal then
     return "GliderGlobalSettings"
   end
   return layoutName
@@ -239,6 +263,7 @@ function GliderSettings:SetupLayout(layoutName)
   if not GliderAddOnDB.Settings[layoutName] then
     GliderAddOnDB.Settings[layoutName] = CopyTable(defaultTableData)
   end
+  GliderAddOnDB.Settings["GliderGlobalSettings"] = GliderAddOnDB.Settings["GliderGlobalSettings"] or CopyTable(defaultTableData)
   local layout = GliderAddOnDB.Settings[layoutName] ---@type defaultTableData
   anchorFrame:ClearAllPoints()
   anchorFrame:SetPoint(layout.point, Round(layout.x), Round(layout.y))
@@ -247,18 +272,24 @@ function GliderSettings:SetupLayout(layoutName)
     [[Interface\AddOns\Glider\Media\VigorEdge.tga]]) ---@diagnostic disable-line
 
   Glider.VigorCharge:SetSwipeColor(1, 1, 1, 1)
+  Glider.secondWindCharge:SetSwipeColor(1, 1, 1, 0.4)
   if not ART[layout.style] then
     Glider:SetAtlasForSwipe(Glider.VigorCharge, ART["Blue"])
+    Glider:SetAtlasForSwipe(Glider.secondWindCharge, ART["Blue"])
   elseif ART[layout.style] == "Random" then
     MutableData.isRandomColor = true
     Glider:SetRandomColor()
   else
     Glider:SetAtlasForSwipe(Glider.VigorCharge, ART[layout.style])
+    Glider:SetAtlasForSwipe(Glider.secondWindCharge, ART[layout.style])
     if layout.style == "Class" then
       local classColor = PlayerUtil.GetClassColor()
-      Glider.VigorCharge:SetSwipeColor(classColor:GetRGB())
+      local r, g, b = classColor:GetRGB()
+      Glider.VigorCharge:SetSwipeColor(r, g, b)
+      Glider.secondWindCharge:SetSwipeColor(r, g, b, 0.4)
     end
   end
+
   layout.textPosition = layout.textPosition or "Bottom"
   Glider.TextDisplay:ClearAllPoints()
   if layout.textPosition == "Top" then
@@ -281,11 +312,7 @@ function GliderSettings:SetupLayout(layoutName)
     MutableData.hideWhenGroundedAndFull = layout.hideWhenGroundedAndFull
   end
 
-  GliderAddOnDB.Settings["GliderGlobalSettings"] = GliderAddOnDB.Settings["GliderGlobalSettings"] or CopyTable(defaultTableData)
-  GliderAddOnDB.Settings["GliderGlobalSettings"].mutedSoundsBitfield = GliderAddOnDB.Settings["GliderGlobalSettings"].mutedSoundsBitfield or 0
-
   MutableData.noDisplayText = layout.noDisplayText
-
   GliderSettings:ApplyMutedSoundsState()
 end
 
@@ -347,6 +374,7 @@ LEM:AddFrameSettings(anchorFrame, {
       layoutName = GliderSettings:GetCurrentLayoutName(layoutName)
       GliderAddOnDB.Settings[layoutName].style = value
       Glider.VigorCharge:SetSwipeColor(1, 1, 1, 1)
+      Glider.secondWindCharge:SetSwipeColor(1, 1, 1, 0.4)
       MutableData.isRandomColor = false
 
       if value == "Random" then
@@ -354,10 +382,14 @@ LEM:AddFrameSettings(anchorFrame, {
         Glider:SetRandomColor()
       elseif value == "Class" then
         local classColor = PlayerUtil.GetClassColor() ---@diagnostic disable-line
-        Glider.VigorCharge:SetSwipeColor(classColor:GetRGBA())
+        local r, g, b = classColor:GetRGB()
+        Glider.VigorCharge:SetSwipeColor(r, g, b)
+        Glider.secondWindCharge:SetSwipeColor(r, g, b, 0.4)
         Glider:SetAtlasForSwipe(Glider.VigorCharge, ART[value])
+        Glider:SetAtlasForSwipe(Glider.secondWindCharge, ART[value])
       else
         Glider:SetAtlasForSwipe(Glider.VigorCharge, ART[value])
+        Glider:SetAtlasForSwipe(Glider.secondWindCharge, ART[value])
       end
     end,
     values = ART_OPTIONS,
@@ -426,6 +458,75 @@ LEM:AddFrameSettings(anchorFrame, {
             end
           end
         end
+    end,
+  },
+  {
+    name = "Second Wind",
+    kind = LEM.SettingType.Dropdown,
+    default = 0,
+    set = function(layoutName, value)
+      GliderAddOnDB.Settings["GliderGlobalSettings"].secondWindMode = 0
+      CooldownFrame_SetDisplayAsPercentage(Glider.secondWindCharge, 0)
+      GliderSettings.SecondWindDropdown:GenerateMenu()
+    end,
+    generator = function(owner, rootDescription)
+      GliderSettings.SecondWindDropdown = owner
+      owner.ShouldShowTooltip = nop
+      local getFunc = function(value)
+          return GliderAddOnDB.Settings["GliderGlobalSettings"].secondWindMode == value
+      end
+      local setFunc = function(value)
+        GliderAddOnDB.Settings["GliderGlobalSettings"].secondWindMode = value
+        if value ~= 1 then
+          CooldownFrame_SetDisplayAsPercentage(Glider.secondWindCharge, 0)
+        end
+      end
+
+      for _, option in ipairs(SECOND_WIND_OPTIONS_LIST) do
+        if option.state then
+          rootDescription:CreateRadio(option.state, getFunc, setFunc, option.id)
+        end
+      end
+    end,
+  },
+  {
+    name = "Whirling Surge",
+    kind = LEM.SettingType.Dropdown,
+    default = 0,
+    set = function(layoutName, value)
+      GliderAddOnDB.Settings["GliderGlobalSettings"].whirlingSurgeMode = 0
+      GliderAddOnDB.Settings["GliderGlobalSettings"].whirlingSurgeState = 0
+      GliderSettings.SecondWindDropdown:GenerateMenu()
+    end,
+    generator = function(owner, rootDescription)
+      GliderSettings.WhirlingSurgeDropdown = owner
+      owner.ShouldShowTooltip = nop
+      local getFunc = function(value)
+          return GliderAddOnDB.Settings["GliderGlobalSettings"].whirlingSurgeMode == value
+      end
+      local setFunc = function(value)
+        GliderAddOnDB.Settings["GliderGlobalSettings"].whirlingSurgeMode = value
+      end
+
+      local getFuncState = function(value)
+          return GliderAddOnDB.Settings["GliderGlobalSettings"].whirlingSurgeState == value
+      end
+
+      local setFuncState = function(value)
+        GliderAddOnDB.Settings["GliderGlobalSettings"].whirlingSurgeState = value
+      end
+
+      for _, option in ipairs(WHIRLING_SURGE_OPTIONS_SHOWNSTATE_LIST) do
+        if option.state then
+          rootDescription:CreateRadio(option.state, getFuncState, setFuncState, option.id)
+        end
+      end
+      rootDescription:CreateDivider()
+      for _, option in ipairs(WHIRLING_SURGE_OPTIONS_LIST) do
+        if option.state then
+          rootDescription:CreateRadio(option.state, getFunc, setFunc, option.id)
+        end
+      end
     end,
   },
   {
@@ -519,12 +620,12 @@ LEM:RegisterCallback('layout', function(layoutName)
   GliderSettings:SetupLayout(layoutName)
 end)
 
--- LEM:RegisterCallback('rename', function(layoutName, newLayoutName)
---   GliderAddOnDB.Settings[newLayoutName] = CopyTable(GliderAddOnDB.Settings[layoutName])
---   GliderAddOnDB.Settings[layoutName] = nil
---   GliderSettings:SetupLayout(newLayoutName)
--- end)
+LEM:RegisterCallback('rename', function(layoutName, newLayoutName)
+  GliderAddOnDB.Settings[newLayoutName] = CopyTable(GliderAddOnDB.Settings[layoutName])
+  GliderAddOnDB.Settings[layoutName] = nil
+  GliderSettings:SetupLayout(newLayoutName)
+end)
 
--- LEM:RegisterCallback('delete', function(layoutName)
---   GliderAddOnDB.Settings[layoutName] = nil
--- end)
+LEM:RegisterCallback('delete', function(layoutName)
+  GliderAddOnDB.Settings[layoutName] = nil
+end)

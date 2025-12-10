@@ -257,7 +257,7 @@ local function GetButton(parent, index)
 			local name = self.name:GetText()
 			local spec = self.spec:GetText()
 			if ilvl then
-				ChatFrame_OpenChat(ilvl.." "..name.." "..spec)
+				ChatFrameUtil.OpenChat(ilvl.." "..name.." "..spec)
 			end
 		end)
 		parent["button"..index] = button

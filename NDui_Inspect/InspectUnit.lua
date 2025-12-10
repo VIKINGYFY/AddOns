@@ -109,7 +109,7 @@ local function GetInspectItemListFrame(parent)
 			end)
 			itemFrame:SetScript("OnDoubleClick", function(self)
 				if self.link then
-					ChatFrame_OpenChat(self.link)
+					ChatFrameUtil.OpenChat(self.link)
 				end
 			end)
 			frame["item"..i] = itemFrame

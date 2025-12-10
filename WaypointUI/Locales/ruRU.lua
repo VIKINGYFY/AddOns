@@ -52,7 +52,8 @@ L["Config - WaypointSystem - Waypoint"] = "Точка маршрута"
 L["Config - WaypointSystem - Waypoint - Footer - Type"] = "Дополнительная информация"
 L["Config - WaypointSystem - Waypoint - Footer - Type - Both"] = "Все"
 L["Config - WaypointSystem - Waypoint - Footer - Type - Distance"] = "Расстояние"
-L["Config - WaypointSystem - Waypoint - Footer - Type - ETA"] = "Время прибытия"
+L["Config - WaypointSystem - Waypoint - Footer - Type - ArrivalTime"] = "Время прибытия"
+L["Config - WaypointSystem - Waypoint - Footer - Type - DestinationName"] = "Название пункта назначения"
 L["Config - WaypointSystem - Waypoint - Footer - Type - None"] = "Нет"
 L["Config - WaypointSystem - Pinpoint"] = "Точка привязки"
 L["Config - WaypointSystem - Pinpoint - Info"] = "Показать информацию"
@@ -123,6 +124,9 @@ L["Config - ExtraFeature - Pin - AutoTrackChatLinkPin"] = "Автоотслеж�
 L["Config - ExtraFeature - Pin - AutoTrackChatLinkPin - Description"] = "Автоматически начинать отслеживание метки при клике на ссылку с координатами в чате."
 L["Config - ExtraFeature - Pin - GuidePinAssistant"] = "Отслеживание меток городских стражников"
 L["Config - ExtraFeature - Pin - GuidePinAssistant - Description"] = "Включить навигацию через интерфейс путевых точек для меток, которые ставят стражники в городах (гиды)."
+L["Config - ExtraFeature - TomTomSupport"] = "TomTom"
+L["Config - ExtraFeature - TomTomSupport - Enable"] = "Track TomTom Waypoints"
+L["Config - ExtraFeature - TomTomSupport - Enable - Description"] = "Enables support for tracking TomTom waypoints with Waypoint UI. You can track a TomTom waypoint by right-clicking on any TomTom waypoint on the world map, and selecting `Set as waypoint arrow` from the context menu."
 
 L["Config - About"] = "О нас"
 L["Config - About - Contributors"] = "Участники"
@@ -162,7 +166,12 @@ L["Contributors - HectorZaGa - Description"] = "Код — Исправлени�
 L["Contributors - SyverGiswold"] = "SyverGiswold"
 L["Contributors - SyverGiswold - Description"] = "Код - Особенность"
 
--- Extension
+-- Extra Feature
 L["Guide Pin Assistant - ReplacePrompt"] = "Заменить текущую путевую точку на \"%s\"?"
 L["Guide Pin Assistant - ReplacePrompt - Yes"] = "Замена"
 L["Guide Pin Assistant - ReplacePrompt - No"] = "Отмена"
+
+-- Supported Add-ons
+L["TomTom - ReplacePrompt"] = "Хотите ли вы заменить текущую путевую точку на путевую точку TomTom \"%s\"?"
+L["TomTom - ReplacePrompt - Yes"] = "Замена"
+L["TomTom - ReplacePrompt - No"] = "Отмена"

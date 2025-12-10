@@ -48,14 +48,22 @@ local GetTooltipTextureByType = {
 	end,
 }
 
+local tooltips = {
+	[GameTooltip] = true,
+	[ItemRefTooltip] = true,
+	[ShoppingTooltip1] = true,
+	[ShoppingTooltip2] = true,
+}
+
 function TT:ReskinTooltipIcons()
 	-- Add Icons
-	TT.HookTooltipMethod(GameTooltip)
-	TT.HookTooltipMethod(ItemRefTooltip)
+	for tooltip in pairs(tooltips) do
+		TT.HookTooltipMethod(tooltip)
+	end
 
 	for tooltipType, getTex in pairs(GetTooltipTextureByType) do
 		TooltipDataProcessor.AddTooltipPostCall(tooltipType, function(self)
-			if self == GameTooltip or self == ItemRefTooltip then
+			if tooltips[self] then
 				local data = self:GetTooltipData()
 				local id = data and data.id
 				if id then

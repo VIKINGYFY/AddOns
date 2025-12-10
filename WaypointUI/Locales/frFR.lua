@@ -52,7 +52,8 @@ L["Config - WaypointSystem - Waypoint"] = "Point de passage"
 L["Config - WaypointSystem - Waypoint - Footer - Type"] = "Informations complémentaires"
 L["Config - WaypointSystem - Waypoint - Footer - Type - Both"] = "Toutes"
 L["Config - WaypointSystem - Waypoint - Footer - Type - Distance"] = "Distance"
-L["Config - WaypointSystem - Waypoint - Footer - Type - ETA"] = "Heure d'arrivée"
+L["Config - WaypointSystem - Waypoint - Footer - Type - ArrivalTime"] = "Heure d'arrivée"
+L["Config - WaypointSystem - Waypoint - Footer - Type - DestinationName"] = "Destination Name"
 L["Config - WaypointSystem - Waypoint - Footer - Type - None"] = "Aucune"
 L["Config - WaypointSystem - Pinpoint"] = "Point de repère"
 L["Config - WaypointSystem - Pinpoint - Info"] = "Afficher les informations"
@@ -123,6 +124,9 @@ L["Config - ExtraFeature - Pin - AutoTrackChatLinkPin"] = "Suivi automatique d'u
 L["Config - ExtraFeature - Pin - AutoTrackChatLinkPin - Description"] = "Suit automatiquement un repère cartographique lorsqu'il est cliqué d'un lien."
 L["Config - ExtraFeature - Pin - GuidePinAssistant"] = "Suivi des guides"
 L["Config - ExtraFeature - Pin - GuidePinAssistant - Description"] = "Active la navigation pour les repères placés par les gardes PNJs des capitales."
+L["Config - ExtraFeature - TomTomSupport"] = "TomTom"
+L["Config - ExtraFeature - TomTomSupport - Enable"] = "Track TomTom Waypoints"
+L["Config - ExtraFeature - TomTomSupport - Enable - Description"] = "Enables support for tracking TomTom waypoints with Waypoint UI. You can track a TomTom waypoint by right-clicking on any TomTom waypoint on the world map, and selecting `Set as waypoint arrow` from the context menu."
 
 L["Config - About"] = "À propos"
 L["Config - About - Contributors"] = "Contributeurs"
@@ -163,7 +167,12 @@ L["Contributors - HectorZaGa - Description"] = "Code - Bug Fix"
 L["Contributors - SyverGiswold"] = "SyverGiswold"
 L["Contributors - SyverGiswold - Description"] = "Code - Feature"
 
--- Extension
+-- Extra Feature
 L["Guide Pin Assistant - ReplacePrompt"] = "Voulez-vous remplacer votre point de passage actuel par « %s » ?"
 L["Guide Pin Assistant - ReplacePrompt - Yes"] = "Oui"
 L["Guide Pin Assistant - ReplacePrompt - No"] = "Non"
+
+-- Supported Add-ons
+L["TomTom - ReplacePrompt"] = "Do you want to replace your current waypoint with the TomTom waypoint \"%s\"?"
+L["TomTom - ReplacePrompt - Yes"] = "Replace"
+L["TomTom - ReplacePrompt - No"] = "Cancel"

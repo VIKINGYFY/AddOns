@@ -98,7 +98,7 @@ local function CreateIconFrame(frame, index)
 	end)
 	icon:SetScript("OnDoubleClick", function(self)
 		if (self.link or self.name) then
-			ChatFrame_OpenChat(self.link or self.name)
+			ChatFrameUtil.OpenChat(self.link or self.name)
 		end
 	end)
 	icon.bg = icon:CreateTexture(nil, "BACKGROUND")

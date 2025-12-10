@@ -45,7 +45,7 @@ L["OPTIONS_SHOW_CC_CAST_TOOLTIP_PERCENTAGE_DESC"] = "L'infobulle affichera égal
 L["OPTIONS_SHOW_CC_CAST_TOOLTIP_PERCENTAGE_LABEL"] = "Afficher le % de CC lancés"
 L["OPTIONS_SHOW_INTERRUPT_TOOLTIP_PERCENTAGE_DESC"] = "L'infobulle affichera également le pourcentage de chaque section"
 L["OPTIONS_SHOW_INTERRUPT_TOOLTIP_PERCENTAGE_LABEL"] = "Afficher le % des interruptions"
-L["OPTIONS_SHOW_MINIMAP_ICON_DESC"] = "L'icône de la minicarte vous permet d'ouvrir rapidement votre tableau des scores quand vous le souhaitez"
+L["OPTIONS_SHOW_MINIMAP_ICON_DESC"] = "L'icône de la mini-carte vous permet d'ouvrir rapidement votre tableau des scores quand vous le souhaitez"
 L["OPTIONS_SHOW_MINIMAP_ICON_LABEL"] = "Afficher l'icône de la mini-carte"
 L["OPTIONS_SHOW_REMAINING_TIME_DESC"] = "Lorsqu'une clé est chronométrée, une section supplémentaire sera ajoutée indiquant le temps restant"
 L["OPTIONS_SHOW_REMAINING_TIME_LABEL"] = "Afficher le temps restant"
@@ -80,8 +80,7 @@ L["SCOREBOARD_TOOLTIP_INTERRUPT_MISSED_LABEL"] = "Manqué"
 L["SCOREBOARD_TOOLTIP_INTERRUPT_OVERLAP_LABEL"] = "En trop"
 L["SCOREBOARD_TOOLTIP_INTERRUPT_SUCCESS_LABEL"] = "Réussi"
 L["SCOREBOARD_TOOLTIP_INTERRUPTS_HEADER"] = "Total"
---[[Translation missing --]]
-L["SCOREBOARD_TOOLTIP_OPEN_BREAKDOWN"] = "Click to open breakdown"
+L["SCOREBOARD_TOOLTIP_OPEN_BREAKDOWN"] = "Cliquez pour ouvrir le détail"
 L["SCOREBOARD_UNKNOWN_DUNGEON_LABEL"] = "Donjon inconnu"
 
 end

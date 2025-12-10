@@ -115,6 +115,8 @@ function Glider:SetupTextures()
   self.Pulse:SetTexCoord(self:GetAddOnAtlasInfo("Pulse"))   ---@diagnostic disable-line
   self.Flash:SetTexCoord(self:GetAddOnAtlasInfo("Flash"))   ---@diagnostic disable-line
   self.TextDisplay.TextBackground:SetTexCoord(self:GetAddOnAtlasInfo("TextBackground")) ---@diagnostic disable-line
+  self.SurgePill:SetTexCoord(self:GetAddOnAtlasInfo("SurgePill")) ---@diagnostic disable-line
+  self.SurgeArc:SetTexCoord(self:GetAddOnAtlasInfo("SurgeGlow")) ---@diagnostic disable-line
 end
 
 ---@param elapsed number
@@ -308,7 +310,16 @@ local spellChargeInfoDefaults = {
   chargeModRate = 0,
 }
 
-local spellChargeInfo = {}
+local cooldownInfoDefaults = {
+  isEnabled = false,
+  duration = 0,
+  modRate = 1,
+  startTime = 0,
+}
+
+local sharedChargeInfo = {}
+local secondWindChargeInfo = {}
+local surgeCooldownInfo = {}
 
 function Glider:UpdateUI()
   if self:IsDerbyRacing() then return end
@@ -321,12 +332,13 @@ function Glider:UpdateUI()
     self:HideAnim()
     return
   end
-
-  spellChargeInfo = C_Spell.GetSpellCharges(372608) or spellChargeInfoDefaults
-  local charges = spellChargeInfo.currentCharges
-  local maxCharges = spellChargeInfo.maxCharges
-  local chargeStart = spellChargeInfo.cooldownStartTime
-  local chargeDuration = spellChargeInfo.cooldownDuration
+  surgeCooldownInfo = C_Spell.GetSpellCooldown(1227921) or cooldownInfoDefaults
+  secondWindChargeInfo = C_Spell.GetSpellCharges(425782) or spellChargeInfoDefaults
+  sharedChargeInfo = C_Spell.GetSpellCharges(372608) or spellChargeInfoDefaults
+  local charges = sharedChargeInfo.currentCharges
+  local maxCharges = sharedChargeInfo.maxCharges
+  local chargeStart = sharedChargeInfo.cooldownStartTime
+  local chargeDuration = sharedChargeInfo.cooldownDuration
   local newStartTime = GetTime()
   local newDuration = 0.0
   local isCharging = false
@@ -352,16 +364,45 @@ function Glider:UpdateUI()
   end
   MutableData.getRidingAbroadPercent = self:GetRidingAbroadPercent()
 
+  local surgeState = GliderAddOnDB.Settings["GliderGlobalSettings"].whirlingSurgeState
+  local surgeMode = GliderAddOnDB.Settings["GliderGlobalSettings"].whirlingSurgeMode
+  local duration = surgeCooldownInfo.duration
+
+  local shouldShowSurge = false
+
+  if surgeState == 2 then
+    shouldShowSurge = (duration == 0)
+  elseif surgeState ~= 0 then
+    shouldShowSurge = (duration > 0)
+  end
+
+  if shouldShowSurge then
+    if surgeMode == 0 then
+      self.SurgeArc:Show()
+      self.SurgePill:Hide()
+    else
+      self.SurgeArc:Hide()
+      self.SurgePill:Show()
+    end
+  else
+    self.SurgeArc:Hide()
+    self.SurgePill:Hide()
+  end
+
   if isCharging then
     if self.VigorCharge:IsPaused() then
       self.VigorCharge:Resume()
     end
-    self.VigorCharge:SetCooldown(newStartTime, newDuration, spellChargeInfo.chargeModRate);
+    self.VigorCharge:SetCooldown(newStartTime, newDuration, sharedChargeInfo.chargeModRate);
     self.VigorCharge:SetDrawEdge(true);
+    if GliderAddOnDB.Settings["GliderGlobalSettings"].secondWindMode == 1 then
+      CooldownFrame_SetDisplayAsPercentage(self.secondWindCharge, math.min(maxCharges, (charges + secondWindChargeInfo.currentCharges) / maxCharges));
+    end
   else
     CooldownFrame_SetDisplayAsPercentage(self.VigorCharge, 1);
     self.VigorCharge:SetDrawEdge(false);
   end
+
   self.SpeedDisplay:SetScript("OnUpdate", function(_, elapsed) self:RefreshSpeedDisplay(elapsed) end)
   local shouldHideFullAndGrounded = (not AdvFlying.Flying) and (not isCharging) and MutableData.hideWhenGroundedAndFull
   if shouldHideFullAndGrounded then

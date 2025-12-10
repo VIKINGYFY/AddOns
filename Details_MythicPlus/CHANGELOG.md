@@ -1,8 +1,12 @@
 # Details!: Mythic Plus Extension
 
-## [DMP.20250908.014-11-gcbc1e39](https://github.com/Tercioo/Details--Damage-Meter-Mythic-Plus-Extension/tree/cbc1e399793b5e4d89f120de2c630614e4bbe53f) (2025-09-30)
-[Full Changelog](https://github.com/Tercioo/Details--Damage-Meter-Mythic-Plus-Extension/compare/DMP.20250908.014...cbc1e399793b5e4d89f120de2c630614e4bbe53f) 
+## [DMP.20251210.015](https://github.com/Tercioo/Details--Damage-Meter-Mythic-Plus-Extension/tree/DMP.20251210.015) (2025-12-10)
+[Full Changelog](https://github.com/Tercioo/Details--Damage-Meter-Mythic-Plus-Extension/compare/DMP.20250908.014...DMP.20251210.015) 
 
+- ToC Update; Framework Update  
+- Merge pull request #111 from Hollicsh/master  
+    Update RU locale and the .toc file  
+- Update RU locale and the .toc file  
 - definitions update  
 - Merge pull request #108 from linaori/added-item-level  
     Added item level on the character class/portrait  

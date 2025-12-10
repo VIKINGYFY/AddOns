@@ -157,8 +157,8 @@ function EX.UpdateRoleConfirm()
 end
 
 function EX:RoleConfirm()
-	local bu = B.CreateCheckBox(LFGListFrame.SearchPanel, true)
-	bu:SetPoint("LEFT", LFGListFrame.SearchPanel.CategoryName, "LEFT", 50, 0)
+	local bu = B.CreateCheckBox(PVEFrame, true)
+	bu:SetPoint("BOTTOMLEFT", GroupFinderFrameGroupButton1, "TOPLEFT", 0, 5)
 	bu:SetSize(26, 26)
 	bu:SetChecked(RoleConfirmEnabled)
 	bu.text = B.CreateFS(bu, 14, "自动确认职责", "system", "LEFT", 25, 0)

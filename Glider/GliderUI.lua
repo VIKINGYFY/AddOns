@@ -32,6 +32,17 @@ flashTexture:SetSnapToPixelGrid(false)
 flashTexture:SetAllPoints()
 Glider.Flash = flashTexture
 
+local secondWindCharge = CreateFrame("Cooldown", nil, Glider, "CooldownFrameTemplate") ---@diagnostic disable-line
+secondWindCharge:SetHideCountdownNumbers(true)
+secondWindCharge:SetDrawEdge(false)
+secondWindCharge:SetDrawBling(false)
+secondWindCharge:SetReverse(true)
+secondWindCharge:SetFrameLevel(0)
+secondWindCharge:SetUsingParentLevel(true)
+secondWindCharge.noCooldownCount = true
+secondWindCharge:SetSwipeTexture("Interface/AddOns/Glider/Media/Atlas") ---@diagnostic disable-line
+Glider.secondWindCharge = secondWindCharge
+
 local vigorCharge = CreateFrame("Cooldown", nil, Glider, "CooldownFrameTemplate") ---@diagnostic disable-line
 vigorCharge:SetHideCountdownNumbers(true)
 vigorCharge:SetDrawEdge(false)
@@ -58,7 +69,6 @@ speedCooldown:SetReverse(true)
 speedCooldown:SetUsingParentLevel(true)
 speedCooldown:SetSize(64, 64)
 speedCooldown:SetPoint("CENTER", speedDisplay, "CENTER")
-speedCooldown:SetSwipeTexture("Interface/AddOns/Glider/Media/Atlas") ---@diagnostic disable-line
 speedCooldown:SetRotation(-117 * (math.pi/180))
 speedCooldown.noCooldownCount = true
 Glider.SpeedDisplay.Speed = speedCooldown
@@ -85,6 +95,24 @@ textFontString:SetWordWrap(false)
 textFontString:SetPoint("TOPLEFT", textDisplay, "TOPLEFT", -5, 0)
 textFontString:SetPoint("BOTTOMRIGHT", textDisplay, "BOTTOMRIGHT", 5, 0)
 Glider.TextDisplay.Text = textFontString
+
+local surgeArc = Glider:CreateTexture(nil, "OVERLAY", nil, 1)
+surgeArc:SetSize(36, 12)
+surgeArc:SetPoint("CENTER", Glider, "CENTER", 0, -22)
+surgeArc:SetTexture("Interface/AddOns/Glider/Media/Atlas")
+surgeArc:SetTexelSnappingBias(0) ---@diagnostic disable-line
+surgeArc:SetSnapToPixelGrid(false)
+surgeArc:Hide()
+Glider.SurgeArc = surgeArc
+
+local surgePill = Glider:CreateTexture(nil, "OVERLAY", nil, 1)
+surgePill:SetSize(20, 5)
+surgePill:SetPoint("CENTER", Glider, "CENTER", -0, -27)
+surgePill:SetTexture("Interface/AddOns/Glider/Media/Atlas")
+surgePill:SetTexelSnappingBias(0) ---@diagnostic disable-line
+surgePill:SetSnapToPixelGrid(false)
+surgePill:Hide()
+Glider.SurgePill = surgePill
 
 -- Animations
 local function ApplyAnimationProperties(anim, config)

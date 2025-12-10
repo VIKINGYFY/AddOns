@@ -51,11 +51,13 @@ local env            = select(2, ...)
 local Config         = env.Config
 local L              = env.L
 
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+
 local Path           = env.WPM:Import("wpm_modules/path")
 local Sound          = env.WPM:Import("wpm_modules/sound")
 local UIFont         = env.WPM:Import("wpm_modules/ui-font")
 local LocalUtil      = env.WPM:Import("@/LocalUtil")
-local Waypoint_Enum   = env.WPM:Import("@/Waypoint/Enum")
+local Waypoint_Enum  = env.WPM:Import("@/Waypoint/Enum")
 local Setting_Define = env.WPM:Import("@/Setting/Define")
 local Setting_Enum   = env.WPM:Import("@/Setting/Enum")
 local Setting_Shared = env.WPM:Import("@/Setting/Shared")
@@ -222,7 +224,8 @@ Setting_Schema.SCHEMA = {
                         widgetSelectionMenu_data = {
                             L["Config - WaypointSystem - Waypoint - Footer - Type - Both"],
                             L["Config - WaypointSystem - Waypoint - Footer - Type - Distance"],
-                            L["Config - WaypointSystem - Waypoint - Footer - Type - ETA"],
+                            L["Config - WaypointSystem - Waypoint - Footer - Type - ArrivalTime"],
+                            L["Config - WaypointSystem - Waypoint - Footer - Type - DestinationName"],
                             L["Config - WaypointSystem - Waypoint - Footer - Type - None"]
                         },
                         key                      = "WaypointDistanceTextType"
@@ -766,6 +769,20 @@ Setting_Schema.SCHEMA = {
                         widgetDescription = Setting_Define.Descriptor{ description = L["Config - ExtraFeature - Pin - GuidePinAssistant - Description"] },
                         widgetType        = Setting_Enum.WidgetType.CheckButton,
                         key               = "GuidePinAssistantEnabled"
+                    }
+                }
+            },
+            {
+                widgetName = L["Config - ExtraFeature - TomTomSupport"],
+                widgetType = Setting_Enum.WidgetType.Container,
+                showWhen = function() return IsAddOnLoaded("TomTom") end,
+
+                children   = {
+                    {
+                        widgetName        = L["Config - ExtraFeature - TomTomSupport - Enable"],
+                        widgetDescription = Setting_Define.Descriptor{ description = L["Config - ExtraFeature - TomTomSupport - Enable - Description"] },
+                        widgetType        = Setting_Enum.WidgetType.CheckButton,
+                        key               = "TomTomSupportEnabled"
                     }
                 }
             }

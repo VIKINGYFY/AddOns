@@ -25,3 +25,7 @@ C.OnLoadThemes["Blizzard_HousingDashboard"] = function()
 	B.ReskinFilterButton(catalogContent.Filters.FilterDropdown)
 	B.ReskinScroll(catalogContent.OptionsContainer.ScrollBar)
 end
+
+C.OnLoadThemes["Blizzard_HousingModelPreview"] = function()
+	B.ReskinFrame(HousingModelPreviewFrame)
+end

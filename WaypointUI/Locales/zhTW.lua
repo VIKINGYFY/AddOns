@@ -52,7 +52,8 @@ L["Config - WaypointSystem - Waypoint"] = "路徑點"
 L["Config - WaypointSystem - Waypoint - Footer - Type"] = "額外資訊"
 L["Config - WaypointSystem - Waypoint - Footer - Type - Both"] = "全部"
 L["Config - WaypointSystem - Waypoint - Footer - Type - Distance"] = "距離"
-L["Config - WaypointSystem - Waypoint - Footer - Type - ETA"] = "抵達時間"
+L["Config - WaypointSystem - Waypoint - Footer - Type - ArrivalTime"] = "抵達時間"
+L["Config - WaypointSystem - Waypoint - Footer - Type - DestinationName"] = "目的地名稱"
 L["Config - WaypointSystem - Waypoint - Footer - Type - None"] = "無"
 L["Config - WaypointSystem - Pinpoint"] = "標記點"
 L["Config - WaypointSystem - Pinpoint - Info"] = "顯示訊息"
@@ -123,6 +124,9 @@ L["Config - ExtraFeature - Pin - AutoTrackChatLinkPin"] = "自動追蹤來自連
 L["Config - ExtraFeature - Pin - AutoTrackChatLinkPin - Description"] = "當點擊地圖標記連結時自動追蹤。"
 L["Config - ExtraFeature - Pin - GuidePinAssistant"] = "追蹤導引標記"
 L["Config - ExtraFeature - Pin - GuidePinAssistant - Description"] = "當守衛NPC放置一個城市導引時，啟用Waypoint UI的導航。"
+L["Config - ExtraFeature - TomTomSupport"] = "TomTom"
+L["Config - ExtraFeature - TomTomSupport - Enable"] = "Track TomTom Waypoints"
+L["Config - ExtraFeature - TomTomSupport - Enable - Description"] = "Enables support for tracking TomTom waypoints with Waypoint UI. You can track a TomTom waypoint by right-clicking on any TomTom waypoint on the world map, and selecting `Set as waypoint arrow` from the context menu."
 
 L["Config - About"] = "關於"
 L["Config - About - Contributors"] = "貢獻者"
@@ -162,7 +166,12 @@ L["Contributors - HectorZaGa - Description"] = "代碼 — 錯誤修復"
 L["Contributors - SyverGiswold"] = "SyverGiswold"
 L["Contributors - SyverGiswold - Description"] = "代碼 — 功能"
 
--- Extension
-L["Guide Pin Assistant - ReplacePrompt"] = "Do you want to replace your current waypoint with \"%s\"?"
-L["Guide Pin Assistant - ReplacePrompt - Yes"] = "Accept"
-L["Guide Pin Assistant - ReplacePrompt - No"] = "Cancel"
+-- Extra Feature
+L["Guide Pin Assistant - ReplacePrompt"] = "您確定要替換當前的路徑點為 \"%s\"嗎？"
+L["Guide Pin Assistant - ReplacePrompt - Yes"] = "替換"
+L["Guide Pin Assistant - ReplacePrompt - No"] = "取消"
+
+-- Supported Add-ons
+L["TomTom - ReplacePrompt"] = "您確定要替換當前的路徑點為TomTom路徑點 \"%s\"嗎？"
+L["TomTom - ReplacePrompt - Yes"] = "替換"
+L["TomTom - ReplacePrompt - No"] = "取消"

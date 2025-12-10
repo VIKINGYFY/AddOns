@@ -1,5 +1,25 @@
 # Changelog
 
+## 39
+- Swapping to class color did not properly apply the correct alpha for Second Wind.
+
+## 38
+- Fix global settings error
+
+## 37
+- Fixed Atlas element interferrence
+
+## 36
+- Adjusted arc texture for Whirling Surge
+- Minor edit mode fix
+
+## 35
+- Improved contrast on Second Wind charges
+
+## 34
+- Second Wind charges can be enabled, they are integrated into the Charges as prediction style currently
+- Whirling Surge can be enabled to show an indicator and behaviour changed when it should display
+
 ## 33
 - Setting added to hide UI when grounded and fully charged while mounted
 
