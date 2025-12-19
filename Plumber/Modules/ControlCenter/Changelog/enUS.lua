@@ -10,6 +10,361 @@ local L = addon.L;
 local changelogs = addon.ControlCenter.changelogs;
 
 
+changelogs[10804] = {
+    {
+        type = "date",
+        versionText = "1.8.4 b",
+        timestamp = 1766070000,
+    },
+
+    {
+        type = "h1",
+        text = L["ModuleName Housing_ItemAcquiredAlert"],
+        dbKey = "Housing_ItemAcquiredAlert",
+    },
+
+    {
+        type = "Checkbox",
+        dbKey = "Housing_ItemAcquiredAlert",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = L["ModuleDescription Housing_ItemAcquiredAlert"],
+    },
+
+    {
+        type = "img",
+        dbKey = "Housing_ItemAcquiredAlert",
+    },
+
+    {
+        type = "br",
+    },
+
+    {
+        type = "h1",
+        text = MISCELLANEOUS,
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "Chat Channel Options: Fixed an issue where the Leave Channel buttons always appeared disabled.",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "Nameplate: Soft Target: Added options to hide the interact icon and object name when you are in a house.",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "Decor Catalog: Extend Search Results: Shows the number of matches next to the category. Auto-selects the first match.",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "House Editor: Clock: It now tracks your total time spent in the house editor, instead of just the current game session.",
+    },
+
+    {
+        type = "br",
+    },
+    {
+        type = "br",
+    },
+
+
+
+    {
+        type = "date",
+        versionText = "1.8.4",
+        timestamp = 1765900000,
+    },
+
+    {
+        type = "h1",
+        text = "House Editor: Clock",
+        dbKey = "Housing_Clock",
+    },
+
+    {
+        type = "Checkbox",
+        dbKey = "Housing_Clock",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "While using the house editor, show a clock on the top of the screen. You can switch Between analog and digital.",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "Hover the cursor over the clock to show how long you have spent in the house Editor during your current game session.",
+    },
+
+    {
+        type = "img",
+        dbKey = "Housing_Clock",
+    },
+
+    {
+        type = "br",
+    },
+
+    {
+        type = "h1",
+        text = "Interactable Source Info",
+        dbKey = "SourceAchievementLink",
+    },
+
+    {
+        type = "Checkbox",
+        dbKey = "SourceAchievementLink",
+    },
+
+    {
+        type = "p",
+        text = "The Achievement names on the following UI become interactable, allowing you to See their details or track them.",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "Decor Catalog",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "Mount Journal",
+    },
+
+    {
+        type = "img",
+        dbKey = "SourceAchievementLink",
+    },
+
+    {
+        type = "br",
+    },
+
+    {
+        type = "h1",
+        text = "Decor Catalog: Extend Search Results",
+        dbKey = "Housing_CatalogSearch",
+    },
+
+    {
+        type = "Checkbox",
+        dbKey = "Housing_CatalogSearch",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "Enhances the search box on the decor catalog and storage Tab, allowing you to find items by achievement, vendor, zone, or currency.",
+    },
+
+    {
+        type = "img",
+        dbKey = "Housing_CatalogSearch",
+    },
+
+    {
+        type = "br",
+    },
+
+    {
+        type = "h1",
+        text = "Bug Fixes",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "Backpack Item Tracker: Fixed an issue that automatically Re-enabled this module when disabled.",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "Keybindings, Focus On Quest: Fixed An issue where the next/previous quest you set doesn't match its order in the objective tracker.",
+    },
+
+    {
+        type = "br",
+    },
+
+    {
+        type = "h1",
+        text = MISCELLANEOUS,
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "Decor Catalog: Banana For Scale: This module will slightly adjust the default camera pitch angle when Enabled.",
+    },
+};
+
+
+changelogs[10803] = {
+    {
+        type = "date",
+        versionText = "1.8.3",
+        timestamp = 1765550000,
+    },
+
+    {
+        type = "h1",
+        text = "Editor: Customize Mode",
+        dbKey = "Housing_CustomizeMode",
+    },
+
+    {
+        type = "Checkbox",
+        dbKey = "Housing_CustomizeMode",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "This module only functions in Customize Mode.",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "Allows you to copy dyes from one decor to another.\nRight Click on a decor to copy the applied dyes.\nCtrl Left Click on another object to preview the dyes.",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "When a decor is already selected, you can Right Click on another object to copy its dyes.",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "Change the dye slot name from index to the color's name.",
+    },
+
+    {
+        type = "img",
+        dbKey = "Housing_CustomizeMode",
+    },
+
+    {
+        type = "br",
+    },
+
+    {
+        type = "h1",
+        text = "Extend Search Results",
+        dbKey = "CraftSearchExtended",
+    },
+
+    {
+        type = "Checkbox",
+        dbKey = "CraftSearchExtended",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "For Alchemy and Inscription: you can now find housing pigment recipes by searching dye colors.",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "Press Enter to select the first match.",
+    },
+
+    {
+        type = "img",
+        dbKey = "CraftSearchExtended",
+    },
+
+    {
+        type = "br",
+    },
+
+    {
+        type = "h1",
+        text = "Tooltip: Dye Pigment",
+        dbKey = "TooltipDyeDeez",
+    },
+
+    {
+        type = "Checkbox",
+        dbKey = "TooltipDyeDeez",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "Display the dye color names on housing pigment's tooltip.",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "You can press Alt to show or hide this info.",
+    },
+
+    {
+        type = "img",
+        dbKey = "TooltipDyeDeez",
+    },
+
+    {
+        type = "br",
+    },
+
+    {
+        type = "h1",
+        text = "Keybindings: Focus On Quest",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "Allows you to press hotkeys to focus on the next/previous quest in the objective tracker.",
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "Set your hotkeys in Game Settings> Keybindings> Plumber Addon.",
+    },
+
+    {
+        type = "br",
+    },
+
+    {
+        type = "h1",
+        text = MISCELLANEOUS,
+    },
+
+    {
+        type = "p",
+        bullet = true,
+        text = "Editor, Decorate Mode: The hovered decor's placement cost will be displayed next to its name.",
+    },
+};
+
+
 changelogs[10802] = {
     {
         type = "date",
@@ -110,6 +465,7 @@ changelogs[10802] = {
     },
 };
 
+
 changelogs[10801] = {
     {
         type = "date",
@@ -152,7 +508,6 @@ changelogs[10801] = {
 
     {
         type = "h1",
-        isNewFeature = true,
         text = L["ModuleName DecorModelScaleRef"],
         dbKey = "DecorModelScaleRef",
     },
@@ -191,7 +546,6 @@ changelogs[10800] = {
 
     {
         type = "h1",
-        isNewFeature = true,
         text = L["ModuleName InstanceDifficulty"],
         dbKey = "InstanceDifficulty",
     },
@@ -224,7 +578,6 @@ changelogs[10800] = {
 
     {
         type = "h1",
-        isNewFeature = true,
         text = L["ModuleName TooltipTransmogEnsemble"],
         dbKey = "TooltipTransmogEnsemble",
     },
@@ -258,7 +611,6 @@ changelogs[10800] = {
 
     {
         type = "h1",
-        isNewFeature = true,
         text = L["ModuleName TransmogChatCommand"],
         dbKey = "TransmogChatCommand",
     },
@@ -313,7 +665,6 @@ changelogs[10709] = {
 
     {
         type = "h1",
-        isNewFeature = true,
         text = L["ModuleName QueueStatus"],
         dbKey = "QueueStatus",
     },
@@ -346,7 +697,6 @@ changelogs[10709] = {
 
     {
         type = "h1",
-        isNewFeature = true,
         text = L["ModuleName PlayerPing"],
         dbKey = "WorldMapPin_PlayerPing",
     },
@@ -395,7 +745,6 @@ changelogs[10709] = {
 
     {
         type = "h1",
-        isNewFeature = true,
         text = L["ModuleName HolidayDungeon"],
         dbKey = "HolidayDungeon",
     },

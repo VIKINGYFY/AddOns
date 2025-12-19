@@ -216,6 +216,8 @@ Glider.animHide = CreateAnimationGroupFromConfig(Glider, {
     frame.Pulse:SetAlpha(0)
     frame.Pulse:SetScale(1)
     frame.pulseAnim:Stop()
+    frame:SetScript("OnUpdate", nil)
+    frame.SpeedDisplay:SetScript("OnUpdate", nil)
     C_Timer.After(0, function() frame:Hide() end)
   end,
   animations = {

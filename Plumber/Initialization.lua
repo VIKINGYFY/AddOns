@@ -1,5 +1,5 @@
-local VERSION_TEXT = "1.8.2";
-local VERSION_DATE = 1764900000;
+local VERSION_TEXT = "1.8.4 b";
+local VERSION_DATE = 1766000000;
 
 
 local addonName, addon = ...
@@ -205,6 +205,9 @@ local DefaultValues = {
         SoftTarget_IconSize = 2,
         SoftTarget_CastBar = true,
         SoftTarget_Objectives = false,
+        SoftTarget_House_HideIcon = false,
+        SoftTarget_House_HideName = false,
+
     AppearanceTab = false,              --Adjust Appearance Tab models to reduce GPU usage spike
         AppearanceTab_ModelCount = 1,
     ItemUpgradeUI = true,
@@ -215,6 +218,8 @@ local DefaultValues = {
         QueueStatus_TextPosition = 1,   --0:Center, 1-4:Clockwise
     InstanceDifficulty = false,         --Instance Difficulty Selector
     TransmogChatCommand = false,        --Adjust /outfit command behavior
+    CraftSearchExtended = false,        --Show more search result, custom keywords
+    SourceAchievementLink = true,       --Make Achievement name in MountJournal, DecorCatalog interactable
 
 
     --Tooltip
@@ -226,7 +231,6 @@ local DefaultValues = {
     TooltipDelvesItem = true,           --Show weekly Coffer Key cap on chest tooltip
     TooltipItemQuest = true,            --Show the quest of quest starting items in bags
     TooltipTransmogEnsemble = true,     --A Raid Ensemble now unlocks outfits (tints) from 4 difficulties, but the default UI only gives one
-    TooltipHousing = true,              --TEMP Midnight BETA PTR
 
 
     --Reduction
@@ -323,6 +327,12 @@ local DefaultValues = {
     Housing_DecorHover = true,
         Housing_DecorHover_EnableDupe = true,
         Housing_DecorHover_DuplicateKey = 2,    --1:Ctrl, 2:Alt
+    Housing_CustomizeMode = true,
+    Housing_Clock = true,
+        Housing_Clock_AnalogClock = true,
+    TooltipDyeDeez = true,                  --Show dyes on pigment tooltip
+    Housing_CatalogSearch = false,
+    Housing_ItemAcquiredAlert = true,       --Click AlertFrame to view decor model
 
 
     --Declared elsewhere:

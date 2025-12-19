@@ -1,9 +1,10 @@
 local ADDON_NAME, ns = ...
 
-ns.CurrentAddonVersion = "3.1.9"
-ns.PreviousAddonVersion_1 = "3.1.8"
+ns.CurrentAddonVersion = "3.2.0"
+ns.PreviousAddonVersion_1 = "3.1.9"
 
 ns.LOCALE_CHANGELOGS = {
+  { version = "3.2.0", table = ns.LOCALE_CHANGELOG_3_2_0 },
   { version = "3.1.9", table = ns.LOCALE_CHANGELOG_3_1_9 },
   { version = "3.1.8", table = ns.LOCALE_CHANGELOG_3_1_8 },
   { version = "3.1.7", table = ns.LOCALE_CHANGELOG_3_1_7 },
@@ -15,7 +16,7 @@ ns.LOCALE_CHANGELOGS = {
   { version = "3.1.1", table = ns.LOCALE_CHANGELOG_3_1_1 },
 }
 
-ns.LOCALE_CHANGELOG_3_1_ = { -- empty backup file
+ns.LOCALE_CHANGELOG_3_2_ = { -- empty backup file
   deDE = [[
 
 ]],
@@ -58,6 +59,52 @@ ns.LOCALE_CHANGELOG_3_1_ = { -- empty backup file
 
   koKR = [[
 
+]],
+}
+
+ns.LOCALE_CHANGELOG_3_2_0 = {
+  deDE = [[
+• toc update
+]],
+
+  enUS = [[
+• TOC update
+]],
+
+  frFR = [[
+• Mise à jour du TOC
+]],
+
+  itIT = [[
+• Aggiornamento del TOC
+]],
+
+  esES = [[
+• Actualización del TOC
+]],
+
+  esMX = [[
+• Actualización del TOC
+]],
+
+  ptBR = [[
+• Atualização do TOC
+]],
+
+  ruRU = [[
+• Обновление TOC
+]],
+
+  zhCN = [[
+• TOC 更新
+]],
+
+  zhTW = [[
+• TOC 更新
+]],
+
+  koKR = [[
+• TOC 업데이트
 ]],
 }
 

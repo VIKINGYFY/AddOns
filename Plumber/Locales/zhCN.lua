@@ -9,6 +9,8 @@ local L = addon.L;
 --Globals
 BINDING_HEADER_PLUMBER = "Plumber插件";
 BINDING_NAME_TOGGLE_PLUMBER_LANDINGPAGE = "打开/关闭资料片概要";   --Show/hide Expansion Summary UI
+BINDING_NAME_PLUMBER_QUESTWATCH_NEXT = "设下一个任务为焦点";
+BINDING_NAME_PLUMBER_QUESTWATCH_PREVIOUS = "设上一个任务为焦点";
 
 
 --Module Control Panel
@@ -56,6 +58,7 @@ L["SC Profession"] = "专业";
 L["SC Quest"] = "任务";
 L["SC UnitFrame"] = "单位框体";
 L["SC Old"] = "旧内容";
+L["SC Housing"] = AUCTION_CATEGORY_HOUSING or "房屋";
 L["SC Uncategorized"] = "未分类";
 
 --Settings Search Keywords, Search Tags
@@ -66,6 +69,7 @@ L["KW LegionRemix"] = "军团再临";
 L["KW Housing"] = "房屋住宅";
 L["KW Combat"] = "战斗";
 L["KW ActionBar"] = "动作条技能栏";
+L["KW Console"] = "主机手柄";
 
 --Filter Sort Method
 L["SortMethod 1"] = "名称";  --Alphabetical Order
@@ -87,6 +91,8 @@ L["Module Category Class"] = "职业";   --Player Class (rogue, paladin...)
 L["Module Category Reduction"] = "做减法";   --Reduce UI elements
 --- order: -1
 L["Module Category Timerunning"] = "军团再临：幻境新生";    --Change this based on timerunning season
+--- order: -2
+L["Module Category Beta"] = "测试服";
 
 
 L["Module Category Dragonflight"] = "巨龙时代";
@@ -445,6 +451,10 @@ L["SoftTargetName QuestObjective Tooltip"] = "在名字下方显示任务目标�
 L["SoftTargetName QuestObjective Alert"] = "此功能需要你前往游戏选项> 辅助功能> 综合，并勾选|cffffffff动作瞄准提示信息|r。";   --See globals: TARGET_TOOLTIP_OPTION
 L["SoftTargetName ShowNPC"] = "包括NPC";
 L["SoftTargetName ShowNPC Tooltip"] = "若禁用此选项，我们将只显示可互动物体（Game Objects）的名字。";
+L["SoftTargetName HideIcon"] = "隐藏交互图标";
+L["SoftTargetName HideIcon Tooltip"] = "在房屋区域内不显示交互图标和环形施法条。";
+L["SoftTargetName HideName"] = "隐藏物体名字";
+L["SoftTargetName HideName Tooltip"] = "在房屋区域内不显示物体名字。"
 
 
 --LegionRemix
@@ -475,6 +485,7 @@ L["Error Drag Spell In Combat"] = "战斗中不可拖拽技能。";
 L["Error Change Trait In Combat"] = "战斗中不能更改特质。";
 L["Amount Required To Unlock Format"] = "%s 后解锁";   --Earn another x amount to unlock (something)
 L["Soon To Unlock"] = "即将解锁";
+L["You Can Unlock Title"] = "可以解锁";
 L["Artifact Ability Auto Unlock Tooltip"] = "此特质将在你获得足够的永恒能量后自动解锁。";
 L["Require More Bag Slot Alert"] = "你需要腾出一些背包格子才能进行此操作。";
 L["Spell Not Known"] = "未找到法术";
@@ -562,6 +573,8 @@ L["QuickSlot Error 3"] = "快捷按钮：A controller with the same key \"%s\" a
 --Plumber Macro
 L["PlumberMacro Drive"] = "Plumber赛车坐骑宏";
 L["PlumberMacro Drawer"] = "Plumber技能收纳宏";
+L["PlumberMacro Housing"] = "Plumber房屋宏";
+L["PlumberMacro Torch"] = "Plumber火把宏";
 L["PlumberMacro DrawerFlag Combat"] = "技能收纳宏将在你离开战斗后更新。";
 L["PlumberMacro DrawerFlag Stuck"] = "更新技能收纳宏时遇到了错误。";
 L["PlumberMacro Error Combat"] = "战斗中不可用";
@@ -645,9 +658,69 @@ L["Missing Appearances Format"] = "%d个外观缺失";
 L["Press Key To Copy Format"] = "按|cffffd100%s|r来复制";
 
 
+--QuestWatchCycle
+L["ModuleName QuestWatchCycle"] = "快捷键：任务焦点";
+L["ModuleDescription QuestWatchCycle"] = "允许你设置快捷键来设下一个或上一个任务为焦点。\n\n|cffd4641c请前往以下位置设置按键：游戏设置> 快捷键> Plumber 插件.|r";
+
+
+--CraftSearchExtended
+L["ModuleName CraftSearchExtended"] = "搜索结果拓展";
+L["ModuleDescription CraftSearchExtended"] = "在搜索某些词语时显示更多结果。\n\n- 炼金和铭文：可通过搜索染料名字找到所需颜料。";
+
+
 --DecorModelScaleRef
 L["ModuleName DecorModelScaleRef"] = "装饰品: 参照物";
 L["ModuleDescription DecorModelScaleRef"] = "- 为装饰品预览窗口增加一个参照物（一根香蕉），帮助你理解物体的大小。\n\n- 允许你按住鼠标左键并在模型上上下拖动来改变镜头的俯仰角。";
+
+
+--Player Housing
+L["ModuleName Housing_Macro"] = "房屋宏";
+L["ModuleDescription Housing_Macro"] = "要创建一个回家宏：请先创建一个新宏，然后在宏编辑框中输入 |cffd7c0a3#plumber:home|r";
+L["Teleport Home"] = "传送到房屋";
+L["Instruction Drag To Action Bar"] = "<可点击并拖动到技能栏>";
+L["Toggle Torch"] = "勾选火把";
+L["ModuleName Housing_DecorHover"] = "编辑器：1 装饰模式";
+L["ModuleDescription Housing_DecorHover"] = "装饰模式下：\n\n- 将光标悬停在装饰物上，可显示其占用空间、名称以及库存数量。\n\n- 允许你按下Alt键来摆放一个同样的物体。\n\n新物体不会继承当前的选择角度和缩放比例。";
+L["Duplicate"] = "复制";
+L["Duplicate Decor Key"] = "“复制”键";
+L["Enable Duplicate"] = "启用“复制”";
+L["Enable Duplicate tooltip"] = "在装饰模式下，将光标悬停在装饰物上并按下特定按键，即可摆放一个同样的物体。";
+L["ModuleName Housing_CustomizeMode"] = "编辑器：3 自定义模式";
+L["ModuleDescription Housing_CustomizeMode"] = "自定义模式下：\n\n- 允许你将一个装饰物的染料组合复制到另一个物体上。\n\n- 将染料栏的名字从其序号更改为颜色名称。";
+L["Copy Dyes"] = "复制";
+L["Dyes Copied"] = "已复制";
+L["Apply Dyes"] = "应用";
+L["Preview Dyes"] = "预览";
+L["ModuleName TooltipDyeDeez"] = "鼠标提示：染料颜料";
+L["ModuleDescription TooltipDyeDeez"] = "在颜料的鼠标提示上显示其可制作的颜色名称。";
+L["Instruction Show More Info"] = "<按Alt键显示更多信息>";
+L["Instruction Show Less Info"] = "<按Alt键显示更少信息>";
+L["ModuleName Housing_ItemAcquiredAlert"] = "装饰品收集通知";
+L["ModuleDescription Housing_ItemAcquiredAlert"] = "允许你左键点击装饰品收集通知来预览其模型。";
+
+
+--Housing Clock
+L["ModuleName Housing_Clock"] = "编辑器：时钟";
+L["ModuleDescription Housing_Clock"] = "在使用房屋编辑器时，在屏幕上方显示一个时钟。\n\n记录你使用编辑器的时长。";
+L["Time Spent In Editor"] = "已使用编辑器时长";
+L["This Session Colon"] = "本次登录期间：";
+L["Time Spent Total Colon"] = "总计时间：";
+L["Right Click Show Settings"] = "右键单击以打开设置。";
+L["Plumber Clock"] = "Plumber时钟";
+L["Clock Type"] = "时钟类型";
+L["Clock Type Analog"] = "指针式时钟";
+L["Clock Type Digital"] = "数字时钟";
+
+
+--CatalogExtendedSearch
+L["ModuleName Housing_CatalogSearch"] = "装饰品: 搜索结果拓展";
+L["ModuleDescription Housing_CatalogSearch"] = "拓展装饰品搜索结果，允许你通过搜索成就、商人、区域或是所需货币来找到相关装饰品。\n\n在装饰品类别右侧显示搜索结果数量。";
+L["Match Sources"] = "Match Sources";
+
+
+--SourceAchievementLink
+L["ModuleName SourceAchievementLink"] = "可交互的来源信息";
+L["ModuleDescription SourceAchievementLink"] = "将以下界面上的成就名称变为可点击的链接，允许你查看成就详情或追踪它。\n\n- 装饰类别\n\n- 坐骑手册";
 
 
 --Generic
@@ -715,3 +788,14 @@ L["Match Pattern Rep 1"] = "你的战团在(.+)中的声望值提高了([%d%,]+)
 L["Match Pattern Rep 2"] = "你在(.+)中的声望值提高了([%d%,]+)点";   --FACTION_STANDING_INCREASED
 
 L["Match Pattern Transmog Set Partially Known"] = "^包含(%d)";   --TRANSMOG_SET_PARTIALLY_KNOWN_CLASS
+
+L["DyeColorNameAbbr Black"] = "黑色";
+L["DyeColorNameAbbr Blue"] = "蓝色";
+L["DyeColorNameAbbr Brown"] = "棕色";
+L["DyeColorNameAbbr Green"] = "绿色";
+L["DyeColorNameAbbr Orange"] = "橙色";
+L["DyeColorNameAbbr Purple"] = "紫色";
+L["DyeColorNameAbbr Red"] = "红色";
+L["DyeColorNameAbbr Teal"] = "青绿色";
+L["DyeColorNameAbbr White"] = "白色";
+L["DyeColorNameAbbr Yellow"] = "黄色";

@@ -35,8 +35,6 @@ local defaultTableData = {
 }
 
 local Configuration = {
-  SecretAuras = 0, --Enum.RestrictedActionType.SecretAuras,
-  SecretCooldowns = 1, --Enum.RestrictedActionType.SecretCooldowns,
 }
 
 local LEM = LibStub('LibEditMode')
@@ -256,18 +254,37 @@ function GliderSettings:GetCurrentLayoutName(layoutName, forceGlobal)
   return layoutName
 end
 
+local function UpdateTable(target, default)
+  for k, v in pairs(default) do
+    if type(v) == "table" then
+      if type(target[k]) == "table" then
+        UpdateTable(target[k], v)
+      else
+        target[k] = v
+      end
+    elseif target[k] == nil then
+      target[k] = v
+    end
+  end
+end
+
+local function EnsureSettings(targetDB, key, defaultTable)
+  targetDB[key] = targetDB[key] or {}
+  UpdateTable(targetDB[key], defaultTable)
+  return targetDB[key]
+end
+
 function GliderSettings:SetupLayout(layoutName)
   GliderAddOnDB = GliderAddOnDB or {} ---@diagnostic disable-line
   GliderAddOnDB.Settings = GliderAddOnDB.Settings or {} ---@diagnostic disable-line
+  GliderAddOnDB.globalSettingsEnabled = GliderAddOnDB.globalSettingsEnabled or false
   layoutName = self:GetCurrentLayoutName(layoutName)
-  if not GliderAddOnDB.Settings[layoutName] then
-    GliderAddOnDB.Settings[layoutName] = CopyTable(defaultTableData)
-  end
-  GliderAddOnDB.Settings["GliderGlobalSettings"] = GliderAddOnDB.Settings["GliderGlobalSettings"] or CopyTable(defaultTableData)
+  GliderAddOnDB.Settings[layoutName] = EnsureSettings(GliderAddOnDB.Settings, layoutName, defaultTableData)
+  GliderAddOnDB.Settings["GliderGlobalSettings"] = EnsureSettings(GliderAddOnDB.Settings, "GliderGlobalSettings", defaultTableData)
   local layout = GliderAddOnDB.Settings[layoutName] ---@type defaultTableData
   anchorFrame:ClearAllPoints()
   anchorFrame:SetPoint(layout.point, Round(layout.x), Round(layout.y))
-  Glider:SetScale(layout.scale)
+  Glider:SetScale(layout.scale or 1)
   Glider.VigorCharge:SetEdgeTexture(layout.scale > 1 and [[Interface\AddOns\Glider\Media\VigorEdge2x.tga]] or
     [[Interface\AddOns\Glider\Media\VigorEdge.tga]]) ---@diagnostic disable-line
 
@@ -308,10 +325,7 @@ function GliderSettings:SetupLayout(layoutName)
     Glider:SetAtlasForSwipe(Glider.SpeedDisplay.Speed, SPEEDCIRCLE["Outside"])
   end
 
-  if layout.hideWhenGroundedAndFull then
-    MutableData.hideWhenGroundedAndFull = layout.hideWhenGroundedAndFull
-  end
-
+  MutableData.hideWhenGroundedAndFull = layout.hideWhenGroundedAndFull
   MutableData.noDisplayText = layout.noDisplayText
   GliderSettings:ApplyMutedSoundsState()
 end
@@ -332,14 +346,21 @@ LEM:AddFrameSettings(anchorFrame, {
   {
     name = "Use Global Settings",
     kind = LEM.SettingType.Checkbox,
-    default = false,
+    default = "Reset",
     get = function()
       return GliderAddOnDB.globalSettingsEnabled
     end,
     set = function(layoutName, value)
-      GliderAddOnDB.globalSettingsEnabled = value
-      GliderSettings:SetupLayout(layoutName)
-      LEM.internal.dialog:Update(LEM.frameSelections[anchorFrame])
+      if value == "Reset" then
+        layoutName = GliderSettings:GetCurrentLayoutName(layoutName)
+        GliderSettings:SetupLayout(layoutName)
+        LEM.internal.dialog:Update(LEM.frameSelections[anchorFrame])
+      else
+        GliderAddOnDB.globalSettingsEnabled = value
+        layoutName = GliderSettings:GetCurrentLayoutName(layoutName)
+        GliderSettings:SetupLayout(layoutName)
+        LEM.internal.dialog:Update(LEM.frameSelections[anchorFrame])
+      end
     end,
   },
   {
@@ -602,6 +623,29 @@ LEM:AddFrameSettings(anchorFrame, {
   },
 })
 
+local function SetEditModeSelectionState(alpha, isLabelVisible)
+  anchorFrame.Selection.Center:SetAlpha(alpha)
+  if isLabelVisible then
+    anchorFrame.Selection.Label:Show()
+  else
+    anchorFrame.Selection.Label:Hide()
+  end
+end
+
+anchorFrame.Selection:HookScript("OnLeave", function(self)
+  if self.isSelected then
+    SetEditModeSelectionState(0, false)
+  else
+    SetEditModeSelectionState(1, false)
+  end
+end)
+
+LEM.internal.dialog:HookScript("OnHide", function(self)
+  if not anchorFrame.Selection.isSelected then
+    SetEditModeSelectionState(1, false)
+  end
+end)
+
 LEM:RegisterCallback('enter', function()
   CooldownFrame_SetDisplayAsPercentage(Glider.VigorCharge, 1);
   Glider.VigorCharge:SetAlpha(1)
@@ -610,7 +654,7 @@ LEM:RegisterCallback('enter', function()
 end)
 
 LEM:RegisterCallback('exit', function()
-  if not Glider:IsSkyriding() or (GetRestrictedActionStatus and GetRestrictedActionStatus(Configuration.SecretCooldowns)) then
+  if not Glider:IsSkyriding() or (C_Secrets and C_Secrets.ShouldSpellCooldownBeSecret(1227921)) then
     Glider:SetAlpha(0)
     Glider:Hide()
   end

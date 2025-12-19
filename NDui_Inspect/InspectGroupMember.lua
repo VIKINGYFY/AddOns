@@ -174,7 +174,7 @@ LibEvent:attachEvent("GROUP_ROSTER_UPDATE", function(self)
 	end
 end)
 
-LibEvent:attachEvent("VARIABLES_LOADED", function()
+LibEvent:attachEvent("PLAYER_LOGIN", function()
 	LibEvent:event("GROUP_ROSTER_UPDATE")
 end)
 

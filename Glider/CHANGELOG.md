@@ -1,5 +1,17 @@
 # Changelog
 
+## 42
+- Fix scale error
+- Fix Reset Button not resetting global settings
+
+## 41
+- Undo the dialog update for now, was broken^^
+
+## 40
+- Dialog correctly updates on Layout changes now
+- Selection is now transparent to more easily see what you are doing
+- Updated for Midnight restriction API change
+
 ## 39
 - Swapping to class color did not properly apply the correct alpha for Second Wind.
 

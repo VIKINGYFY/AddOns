@@ -390,6 +390,7 @@ do
 		"FilligreeOverlay",
 		"GarrCorners",
 		"IconMask",
+		"IconOverlay",
 		"IconRing",
 		"InnerBorder",
 		"Inset",
@@ -2081,6 +2082,10 @@ do
 				if sb and sb.bg then
 					sb.bg:SetBackdropBorderColor(r, g, b)
 				end
+			end
+
+			if ch then
+				self.bg:SetBackdropBorderColor(0, 1, 1)
 			end
 		end
 	end

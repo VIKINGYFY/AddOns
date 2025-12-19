@@ -9,6 +9,8 @@ local L = addon.L;
 --Globals
 BINDING_HEADER_PLUMBER = "Plumber Addon";
 BINDING_NAME_TOGGLE_PLUMBER_LANDINGPAGE = "Toggle Plumber Expansion Summary";   --Show/hide Expansion Summary UI
+BINDING_NAME_PLUMBER_QUESTWATCH_NEXT = "Focus On Next Quest";
+BINDING_NAME_PLUMBER_QUESTWATCH_PREVIOUS = "Focus On Previous Quest";
 
 
 --Module Control Panel
@@ -67,6 +69,7 @@ L["KW LegionRemix"] = "Legion Remix";
 L["KW Housing"] = "Player Housing House";
 L["KW Combat"] = "Combat";
 L["KW ActionBar"] = "Action Bars";
+L["KW Console"] = "Console Gamepad Controller";
 
 --Filter Sort Method
 L["SortMethod 1"] = "Name";  --Alphabetical Order
@@ -448,6 +451,11 @@ L["SoftTargetName QuestObjective Tooltip"] = "Show quest objectives (if any) bel
 L["SoftTargetName QuestObjective Alert"] = "This feature requires enabling |cffffffffShow Target Tooltip|r in Game Options> Accessibility> General.";   --See globals: TARGET_TOOLTIP_OPTION
 L["SoftTargetName ShowNPC"] = "Include NPC";
 L["SoftTargetName ShowNPC Tooltip"] = "If disabled, the name will only appear on interactable Game Objects";
+L["SoftTargetName HideIcon"] = "Hide Interact Icon";
+L["SoftTargetName HideIcon Tooltip"] = "Hide the interact icon and the radial cast bar when you are in a house.";
+L["SoftTargetName HideName"] = "Hide Object Name";
+L["SoftTargetName HideName Tooltip"] = "Hide the soft target object name when you are in a house."
+
 
 
 --LegionRemix
@@ -683,6 +691,16 @@ L["Missing Appearances Format"] = "%d |4appearance:appearances; missing";
 L["Press Key To Copy Format"] = "Press |cffffd100%s|r to Copy";
 
 
+--QuestWatchCycle
+L["ModuleName QuestWatchCycle"] = "Keybindings: Focus On Quest";
+L["ModuleDescription QuestWatchCycle"] = "Allows you to press hotkeys to focus on the next/previous quest in the objective tracker.\n\n|cffd4641cSet your hotkeys in Keybindings> Plumber Addon.|r";
+
+
+--CraftSearchExtended
+L["ModuleName CraftSearchExtended"] = "Extend Search Results";
+L["ModuleDescription CraftSearchExtended"] = "Shows more results when searching certain words.\n\n- Alchemy and Inscription: Find housing pigment recipes by searching dye colors.";
+
+
 --DecorModelScaleRef
 L["ModuleName DecorModelScaleRef"] = "Decor Catalog: Banana For Scale"; --See HOUSING_DASHBOARD_CATALOG_TOOLTIP
 L["ModuleDescription DecorModelScaleRef"] = "- Add a size reference (a banana) to the decor preview window, allowing you to gauge the size of the objects.\n\n- Also allow you to change the camera pitch by holding down the Left Button and moving vertically.";
@@ -694,12 +712,48 @@ L["ModuleDescription Housing_Macro"] = "You can create a Teleport Home macro: cr
 L["Teleport Home"] = "Teleport Home";
 L["Instruction Drag To Action Bar"] = "<Click and Drag this to your Action Bars>";
 L["Toggle Torch"] = "Toggle Torch";
-L["ModuleName Housing_DecorHover"] = "Editor: Object Name and Duplicate";
-L["ModuleDescription Housing_DecorHover"] = "In Decorate Mode:\n\n- Hover the cursor over a decor to display its name and its item count in storage.\n\n- Allows you to \"duplicate\" a decor by pressing Alt.\n\nThe new object will not inherit the current angles and scales.";
+L["ModuleName Housing_DecorHover"] = "Editor: 1 Decorate Mode";
+L["ModuleDescription Housing_DecorHover"] = "In Decorate Mode:\n\n- Hover the cursor over a decor to display its placement cost, name, and its item count in storage.\n\n- Allows you to \"duplicate\" a decor by pressing Alt.\n\nThe new object will not inherit the current angles and scales.";
 L["Duplicate"] = "Duplicate";
 L["Duplicate Decor Key"] = "\"Duplicate\" Key";
 L["Enable Duplicate"] = "Enable \"Duplicate\"";
 L["Enable Duplicate tooltip"] = "While in Decorate Mode, you can hover the cursor over a decor and then press a key to place another instance of this object.";
+L["ModuleName Housing_CustomizeMode"] = "Editor: 3 Customize Mode";
+L["ModuleDescription Housing_CustomizeMode"] = "In Customize Mode:\n\n- Allows you to copy dyes from one decor to another.\n\n- Change the dye slot name from index to the color's name.";
+L["Copy Dyes"] = "Copy";
+L["Dyes Copied"] = "Dyes Copied";
+L["Apply Dyes"] = "Apply";
+L["Preview Dyes"] = "Preview";
+L["ModuleName TooltipDyeDeez"] = "Tooltip: Dye Pigment";
+L["ModuleDescription TooltipDyeDeez"] = "Display the dye color names on housing pigment's tooltip.";
+L["Instruction Show More Info"] = "<Press Alt to Show More Info>";
+L["Instruction Show Less Info"] = "<Press Alt to Show Less Info>";
+L["ModuleName Housing_ItemAcquiredAlert"] = "Decor Collected Alert";
+L["ModuleDescription Housing_ItemAcquiredAlert"] = "Allows you to left click the Decor Collected Alert to preview its model.";
+
+
+--Housing Clock
+L["ModuleName Housing_Clock"] = "Editor: Clock";
+L["ModuleDescription Housing_Clock"] = "While using the house editor, show a clock on the top of the screen.\n\nIt also tracks the time you spent in house editor.";
+L["Time Spent In Editor"] = "Time Spent In Editor";
+L["This Session Colon"] = "This Session: ";
+L["Time Spent Total Colon"] = "Total: ";
+L["Right Click Show Settings"] = "Right click to show settings.";
+L["Plumber Clock"] = "Plumber Clock";
+L["Clock Type"] = "Clock Type";
+L["Clock Type Analog"] = "Analog";
+L["Clock Type Digital"] = "Digital";
+
+
+--CatalogExtendedSearch
+L["ModuleName Housing_CatalogSearch"] = "Decor Catalog: Extend Search Results";
+L["ModuleDescription Housing_CatalogSearch"] = "Enhances the search box on the Decor Catalog and Storage Tab, allowing you to find items by achievement, vendor, zone, or currency.\n\nShows the number of matches next to the category.";
+L["Match Sources"] = "Match Sources";
+
+
+--SourceAchievementLink
+L["ModuleName SourceAchievementLink"] = "Interactable Source Info";
+L["ModuleDescription SourceAchievementLink"] = "Makes most achievement names on the following UI become clickable, allowing you to see their details or track them.\n\n- Decor Catalog\n\n- Mount Journal";
 
 
 --Generic
@@ -716,6 +770,13 @@ L["Level Maxed"] = "(Maxed)";   --Reached max level
 L["Current Colon"] = ITEM_UPGRADE_CURRENT or "Current:";
 L["Unclaimed Reward Alert"] = WEEKLY_REWARDS_UNCLAIMED_TITLE or "You have unclaimed rewards";
 L["Uncollected Set Counter Format"] = "You have |cffffffff%d|r uncollected transmog |4set:sets;.";
+L["InstructionFormat Left Click"] = "Left Click to %s";
+L["InstructionFormat Right Click"] = "Right Click to %s";
+L["InstructionFormat Ctrl Left Click"] = "Ctrl Left Click to %s";
+L["InstructionFormat Ctrl Right Click"] = "Ctrl Right Click to %s";
+L["InstructionFormat Alt Left Click"] = "Alt Left Click to %s";
+L["InstructionFormat Alt Right Click"] = "Alt Right Click to %s";
+L["Close Frame Format"]= "|cff808080(Close %s)|r";
 
 
 --Plumber AddOn Settings
@@ -786,3 +847,14 @@ L["Upgrade Track 5"] = "Hero";
 L["Upgrade Track 6"] = "Myth";
 
 L["Match Pattern Transmog Set Partially Known"] = "^Contains (%d+) uncollected";   --TRANSMOG_SET_PARTIALLY_KNOWN_CLASS
+
+L["DyeColorNameAbbr Black"] = "Black";
+L["DyeColorNameAbbr Blue"] = "Blue";
+L["DyeColorNameAbbr Brown"] = "Brown";
+L["DyeColorNameAbbr Green"] = "Green";
+L["DyeColorNameAbbr Orange"] = "Orange";
+L["DyeColorNameAbbr Purple"] = "Purple";
+L["DyeColorNameAbbr Red"] = "Red";
+L["DyeColorNameAbbr Teal"] = "Teal";
+L["DyeColorNameAbbr White"] = "White";
+L["DyeColorNameAbbr Yellow"] = "Yellow";
